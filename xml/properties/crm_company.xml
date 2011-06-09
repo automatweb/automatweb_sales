@@ -908,6 +908,24 @@
             <field>aw_balance</field>
       </property>
       <property>
+            <name>owners_toolbar</name>
+            <table>objects</table>
+            <group>owners</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>owners_toolbar</field>
+      </property>
+      <property>
+            <name>owners_table</name>
+            <table>objects</table>
+            <group>owners</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>owners_table</field>
+      </property>
+      <property>
             <name>personal_offers_toolbar</name>
             <table>objects</table>
             <group>personal_offers</group>
@@ -2924,6 +2942,15 @@
             <field>stats_table</field>
       </property>
       <property>
+            <name>stats_annual_reports_tbl</name>
+            <table>objects</table>
+            <group>stats_annual_reports</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>stats_annual_reports_tbl</field>
+      </property>
+      <property>
             <name>stats_s_toolbar</name>
             <table>objects</table>
             <group>stats_s</group>
@@ -3487,6 +3514,10 @@
                   <caption>&amp;amp;Uuml;ldkontaktid</caption>
                   <parent>general</parent>
             </cedit>
+            <owners>
+                  <caption>Omanikud</caption>
+                  <parent>general</parent>
+            </owners>
             <org_sections>
                   <caption>Tegevus</caption>
                   <parent>general</parent>
@@ -3755,6 +3786,12 @@
                   <caption>Aruanded</caption>
                   <save>no</save>
             </stats_stats>
+            <stats_annual_reports>
+                  <parent>stats</parent>
+                  <caption>Majandusaasta aruanded</caption>
+                  <submit>no</submit>
+                  <save>no</save>
+            </stats_annual_reports>
             <stats_s>
                   <parent>stats</parent>
                   <caption>Otsi</caption>

@@ -3680,7 +3680,8 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		$id = $arr["id"];
 		// create a complete copy of the current object to the _versions table
 
-		$table_name = reset(array_keys($arr["tableinfo"]))."_versions";
+		$table_names = array_keys($arr["tableinfo"]);
+		$table_name = reset($table_names)."_versions";
 		$table_dat = reset($arr["tableinfo"]);
 		$properties = $arr["properties"];
 		$tableinfo = $arr["tableinfo"];
@@ -3785,7 +3786,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$seta[$prop["field"]] = $str;
 					}
 
-					if ($prop["datatype"] == "int" && $seta[$prop["field"]] == "")
+					if (isset($prop["datatype"]) and $prop["datatype"] === "int" and empty($seta[$prop["field"]]))
 					{
 						$seta[$prop["field"]] = "0";
 					}

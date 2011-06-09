@@ -1,11 +1,27 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>general_general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>comment</name>
+            <table>objects</table>
+            <group>general_general</group>
+            <type>textbox</type>
+            <field>comment</field>
+            <caption>Kommentaar</caption>
+      </property>
+      <property>
             <name>owner</name>
             <table>objects</table>
+            <group>general_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_OWNER</reltype>
             <clid>CL_CRM_COMPANY</clid>
@@ -14,9 +30,9 @@
       <property>
             <name>calls_folder</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
@@ -27,9 +43,9 @@
       <property>
             <name>presentations_folder</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
@@ -40,9 +56,9 @@
       <property>
             <name>contracts_folder</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
@@ -53,9 +69,9 @@
       <property>
             <name>offers_folder</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
@@ -66,9 +82,9 @@
       <property>
             <name>price_components_folder</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
@@ -79,9 +95,9 @@
       <property>
             <name>price_component_categories_folder</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
@@ -92,9 +108,9 @@
       <property>
             <name>warehouse</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>objpicker</type>
             <clid>CL_SHOP_WAREHOUSE</clid>
             <parent>folders_box</parent>
@@ -103,9 +119,9 @@
       <property>
             <name>avg_call_duration_est</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>300</default>
             <datatype>int</datatype>
@@ -116,9 +132,9 @@
       <property>
             <name>call_result_busy_recall_time</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>300</default>
             <datatype>int</datatype>
@@ -129,9 +145,9 @@
       <property>
             <name>call_result_noanswer_recall_time</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>43200</default>
             <datatype>int</datatype>
@@ -142,9 +158,9 @@
       <property>
             <name>call_result_outofservice_recall_time</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>86400</default>
             <datatype>int</datatype>
@@ -155,9 +171,9 @@
       <property>
             <name>call_result_notinterested_recall_time</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>120</default>
             <datatype>int</datatype>
@@ -168,9 +184,9 @@
       <property>
             <name>call_result_recall_retries</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>5</default>
             <datatype>int</datatype>
@@ -181,9 +197,9 @@
       <property>
             <name>avg_presentation_duration_est</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>7200</default>
             <datatype>int</datatype>
@@ -194,9 +210,9 @@
       <property>
             <name>autocomplete_options_limit</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>20</default>
             <datatype>int</datatype>
@@ -207,9 +223,9 @@
       <property>
             <name>tables_rows_per_page</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>25</default>
             <datatype>int</datatype>
@@ -220,9 +236,9 @@
       <property>
             <name>multientry_rows</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>textbox</type>
             <default>20</default>
             <datatype>int</datatype>
@@ -232,9 +248,9 @@
       <property>
             <name>role_profession_data_entry_clerk</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -245,9 +261,9 @@
       <property>
             <name>role_profession_telemarketing_salesman</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -258,9 +274,9 @@
       <property>
             <name>role_profession_telemarketing_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -271,9 +287,9 @@
       <property>
             <name>role_profession_salesman</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -284,9 +300,9 @@
       <property>
             <name>role_profession_sales_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -297,9 +313,9 @@
       <property>
             <name>role_profession_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -310,9 +326,9 @@
       <property>
             <name>cfgf_main_generic</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -321,9 +337,9 @@
       <property>
             <name>cfgf_main_data_entry_clerk</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -332,9 +348,9 @@
       <property>
             <name>cfgf_main_telemarketing_salesman</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -343,9 +359,9 @@
       <property>
             <name>cfgf_main_telemarketing_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -354,9 +370,9 @@
       <property>
             <name>cfgf_main_salesman</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -365,9 +381,9 @@
       <property>
             <name>cfgf_main_sales_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -376,9 +392,9 @@
       <property>
             <name>cfgf_main_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -387,9 +403,9 @@
       <property>
             <name>cfgf_call_generic</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -398,9 +414,9 @@
       <property>
             <name>cfgf_call_data_entry_clerk</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -409,9 +425,9 @@
       <property>
             <name>cfgf_call_telemarketing_salesman</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -420,9 +436,9 @@
       <property>
             <name>cfgf_call_telemarketing_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -431,9 +447,9 @@
       <property>
             <name>cfgf_call_salesman</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -442,9 +458,9 @@
       <property>
             <name>cfgf_call_sales_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -453,9 +469,9 @@
       <property>
             <name>cfgf_call_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -464,9 +480,9 @@
       <property>
             <name>cfgf_presentation_generic</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -475,9 +491,9 @@
       <property>
             <name>cfgf_presentation_data_entry_clerk</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -486,9 +502,9 @@
       <property>
             <name>cfgf_presentation_telemarketing_salesman</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -497,9 +513,9 @@
       <property>
             <name>cfgf_presentation_telemarketing_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -508,9 +524,9 @@
       <property>
             <name>cfgf_presentation_salesman</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -519,9 +535,9 @@
       <property>
             <name>cfgf_presentation_sales_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -530,9 +546,9 @@
       <property>
             <name>cfgf_presentation_manager</name>
             <table>objects</table>
+            <group>settings_general</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -541,9 +557,9 @@
       <property>
             <name>price_components_toolbar</name>
             <table>objects</table>
+            <group>price_components</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>price_components</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -551,9 +567,9 @@
       <property>
             <name>price_component_categories_tree</name>
             <table>objects</table>
+            <group>price_components</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>price_components</group>
             <type>treeview</type>
             <parent>price_component_categories_tree</parent>
             <store>no</store>
@@ -561,9 +577,9 @@
       <property>
             <name>hide_mandatory_price_components</name>
             <table>objects</table>
+            <group>price_components</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>price_components</group>
             <type>checkbox</type>
             <parent>price_components_settings</parent>
             <no_caption>1</no_caption>
@@ -572,9 +588,9 @@
       <property>
             <name>price_component_categories_table</name>
             <table>objects</table>
+            <group>price_components</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>price_components</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -583,9 +599,9 @@
       <property>
             <name>price_components_table</name>
             <table>objects</table>
+            <group>price_components</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>price_components</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -594,9 +610,9 @@
       <property>
             <name>contacts_toolbar</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -604,9 +620,9 @@
       <property>
             <name>contacts_tree</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -615,9 +631,9 @@
       <property>
             <name>contacts_list</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -626,9 +642,9 @@
       <property>
             <name>cts_name</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>textbox</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -639,9 +655,9 @@
       <property>
             <name>cts_comment</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>textbox</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -652,9 +668,9 @@
       <property>
             <name>cts_address</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>textbox</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -665,9 +681,9 @@
       <property>
             <name>cts_phone</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>textbox</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -678,9 +694,9 @@
       <property>
             <name>cts_lead_source</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>textbox</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -691,9 +707,9 @@
       <property>
             <name>cts_contact</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>textbox</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -704,9 +720,9 @@
       <property>
             <name>cts_salesman</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>select</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -716,9 +732,9 @@
       <property>
             <name>cts_status</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>select</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -728,9 +744,9 @@
       <property>
             <name>cts_cat</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>objpicker</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -743,9 +759,9 @@
       <property>
             <name>cts_calls</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>textbox</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -757,9 +773,9 @@
       <property>
             <name>cts_sort_mode</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>select</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -769,9 +785,9 @@
       <property>
             <name>cts_count</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>checkbox</type>
             <parent>contacts_search_box</parent>
             <store>no</store>
@@ -782,9 +798,9 @@
       <property>
             <name>cts_submit</name>
             <table>objects</table>
+            <group>contacts</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>contacts</group>
             <type>submit</type>
             <value>Otsi</value>
             <parent>contacts_search_box</parent>
@@ -794,9 +810,9 @@
       <property>
             <name>email_templates</name>
             <table>objects</table>
+            <group>emails_settings</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>emails_settings</group>
             <type>releditor</type>
             <mode>manager</mode>
             <store>no</store>
@@ -812,9 +828,9 @@
       <property>
             <name>calls_toolbar</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -822,9 +838,9 @@
       <property>
             <name>calls_tree</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -833,9 +849,9 @@
       <property>
             <name>calls_list</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -844,9 +860,9 @@
       <property>
             <name>cs_name</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>textbox</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -857,9 +873,9 @@
       <property>
             <name>cs_address</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>textbox</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -871,9 +887,9 @@
       <property>
             <name>cs_phone</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>textbox</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -885,9 +901,9 @@
       <property>
             <name>cs_lead_source</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>textbox</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -898,9 +914,9 @@
       <property>
             <name>cs_caller</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>select</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -910,9 +926,9 @@
       <property>
             <name>cs_call_result</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>select</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -922,9 +938,9 @@
       <property>
             <name>cs_call_real_start_from</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>datepicker</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -935,9 +951,9 @@
       <property>
             <name>cs_call_real_start_to</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>datepicker</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -946,9 +962,9 @@
       <property>
             <name>cs_last_caller</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>select</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -959,9 +975,9 @@
       <property>
             <name>cs_last_call_result</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>select</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -972,9 +988,9 @@
       <property>
             <name>cs_salesman</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>select</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -985,9 +1001,9 @@
       <property>
             <name>cs_status</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>select</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -997,9 +1013,9 @@
       <property>
             <name>cs_count</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>checkbox</type>
             <parent>calls_search_box</parent>
             <store>no</store>
@@ -1010,9 +1026,9 @@
       <property>
             <name>cs_submit</name>
             <table>objects</table>
+            <group>calls</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls</group>
             <type>submit</type>
             <value>Otsi</value>
             <parent>calls_search_box</parent>
@@ -1022,9 +1038,9 @@
       <property>
             <name>presentations_toolbar</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1032,9 +1048,9 @@
       <property>
             <name>presentations_tree</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1043,9 +1059,9 @@
       <property>
             <name>presentations_list</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1054,9 +1070,9 @@
       <property>
             <name>ps_name</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>textbox</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1067,9 +1083,9 @@
       <property>
             <name>ps_address</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>textbox</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1080,9 +1096,9 @@
       <property>
             <name>ps_phone</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>textbox</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1093,9 +1109,9 @@
       <property>
             <name>ps_lead_source</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>textbox</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1106,9 +1122,9 @@
       <property>
             <name>ps_salesman</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>select</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1118,9 +1134,9 @@
       <property>
             <name>ps_createdby</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>select</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1130,9 +1146,9 @@
       <property>
             <name>ps_result</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>select</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1142,9 +1158,9 @@
       <property>
             <name>ps_created_from</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>datepicker</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1155,9 +1171,9 @@
       <property>
             <name>ps_created_to</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>datepicker</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1166,9 +1182,9 @@
       <property>
             <name>ps_start_from</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>datepicker</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1179,9 +1195,9 @@
       <property>
             <name>ps_start_to</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>datepicker</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1190,9 +1206,9 @@
       <property>
             <name>ps_real_start_from</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>datepicker</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1203,9 +1219,9 @@
       <property>
             <name>ps_real_start_to</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>datepicker</type>
             <parent>presentations_search_box</parent>
             <store>no</store>
@@ -1214,9 +1230,9 @@
       <property>
             <name>ps_submit</name>
             <table>objects</table>
+            <group>presentations</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations</group>
             <type>submit</type>
             <value>Otsi</value>
             <parent>presentations_search_box</parent>
@@ -1226,9 +1242,9 @@
       <property>
             <name>personal_calendar</name>
             <table>objects</table>
+            <group>personal_calendar</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>personal_calendar</group>
             <type>calendar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1236,9 +1252,9 @@
       <property>
             <name>general_calendar</name>
             <table>objects</table>
+            <group>general_calendar</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>general_calendar</group>
             <type>calendar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1246,9 +1262,9 @@
       <property>
             <name>calls_calendar</name>
             <table>objects</table>
+            <group>calls_calendar</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>calls_calendar</group>
             <type>calendar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1256,9 +1272,9 @@
       <property>
             <name>presentations_calendar</name>
             <table>objects</table>
+            <group>presentations_calendar</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>presentations_calendar</group>
             <type>calendar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1266,13 +1282,13 @@
       <property>
             <name>contact_entry_toolbar</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
                   <num_2>data_entry_contact_employee</num_2>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1280,9 +1296,9 @@
       <property>
             <name>contact_entry_co</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>releditor</type>
             <reltype>RELTYPE_TMP2</reltype>
             <store>no</store>
@@ -1299,9 +1315,9 @@
       <property>
             <name>contact_entry_contacts_title</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>text</type>
             <store>no</store>
             <parent>contact_entry_form_right</parent>
@@ -1310,9 +1326,9 @@
       <property>
             <name>contact_entry_contacts_subtitle_1</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>text</type>
             <store>no</store>
             <parent>contact_entry_form_right</parent>
@@ -1321,9 +1337,9 @@
       <property>
             <name>contact_entry_co_contact_1</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>releditor</type>
             <reltype>RELTYPE_TMP3</reltype>
             <store>no</store>
@@ -1339,9 +1355,9 @@
       <property>
             <name>contact_entry_co_contact_1_profession</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>textbox</type>
             <store>no</store>
             <parent>contact_entry_form_right</parent>
@@ -1350,9 +1366,9 @@
       <property>
             <name>contact_entry_contacts_subtitle_2</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>text</type>
             <store>no</store>
             <parent>contact_entry_form_right</parent>
@@ -1361,9 +1377,9 @@
       <property>
             <name>contact_entry_co_contact_2</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>releditor</type>
             <reltype>RELTYPE_TMP3</reltype>
             <store>no</store>
@@ -1379,9 +1395,9 @@
       <property>
             <name>contact_entry_co_contact_2_profession</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>textbox</type>
             <store>no</store>
             <parent>contact_entry_form_right</parent>
@@ -1390,9 +1406,9 @@
       <property>
             <name>contact_entry_contacts_subtitle_3</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>text</type>
             <store>no</store>
             <parent>contact_entry_form_right</parent>
@@ -1401,9 +1417,9 @@
       <property>
             <name>contact_entry_co_contact_3</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>releditor</type>
             <reltype>RELTYPE_TMP3</reltype>
             <store>no</store>
@@ -1419,9 +1435,9 @@
       <property>
             <name>contact_entry_co_contact_3_profession</name>
             <table>objects</table>
+            <group>data_entry_contact_co</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_co</group>
             <type>textbox</type>
             <store>no</store>
             <parent>contact_entry_form_right</parent>
@@ -1430,9 +1446,9 @@
       <property>
             <name>contact_entry_empoyee</name>
             <table>objects</table>
+            <group>data_entry_contact_employee</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_employee</group>
             <type>releditor</type>
             <reltype>RELTYPE_TMP3</reltype>
             <store>no</store>
@@ -1449,9 +1465,9 @@
       <property>
             <name>contact_entry_organization</name>
             <table>objects</table>
+            <group>data_entry_contact_employee</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_employee</group>
             <type>objpicker</type>
             <store>no</store>
             <parent>contact_entry_form</parent>
@@ -1462,9 +1478,9 @@
       <property>
             <name>contact_entry_profession</name>
             <table>objects</table>
+            <group>data_entry_contact_employee</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_employee</group>
             <type>objpicker</type>
             <store>no</store>
             <parent>contact_entry_form</parent>
@@ -1475,9 +1491,9 @@
       <property>
             <name>contact_entry_comment</name>
             <table>objects</table>
+            <group>data_entry_contact_employee</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_employee</group>
             <type>textarea</type>
             <store>no</store>
             <rows>5</rows>
@@ -1488,9 +1504,9 @@
       <property>
             <name>contact_entry_person</name>
             <table>objects</table>
+            <group>data_entry_contact_person</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_contact_person</group>
             <type>releditor</type>
             <reltype>RELTYPE_TMP3</reltype>
             <store>no</store>
@@ -1507,12 +1523,12 @@
       <property>
             <name>contact_entry_add_comment</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>textarea</type>
             <store>no</store>
             <rows>5</rows>
@@ -1524,12 +1540,12 @@
       <property>
             <name>contact_entry_address_title</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <parent>contact_entry_form</parent>
@@ -1538,12 +1554,12 @@
       <property>
             <name>contact_entry_address</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>releditor</type>
             <store>no</store>
             <props>
@@ -1569,12 +1585,12 @@
       <property>
             <name>contact_entry_separator1</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <parent>contact_entry_form</parent>
@@ -1583,12 +1599,12 @@
       <property>
             <name>contact_entry_salesman</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>select</type>
             <store>no</store>
             <parent>contact_entry_form</parent>
@@ -1597,12 +1613,12 @@
       <property>
             <name>contact_entry_lead_source</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>textbox</type>
             <store>no</store>
             <parent>contact_entry_form</parent>
@@ -1611,12 +1627,12 @@
       <property>
             <name>contact_entry_category</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>relpicker</type>
             <size>5</size>
             <multiple>1</multiple>
@@ -1628,9 +1644,9 @@
       <property>
             <name>multientry_toolbar</name>
             <table>objects</table>
+            <group>data_entry_multiple</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_multiple</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1638,9 +1654,9 @@
       <property>
             <name>multientry_input_table</name>
             <table>objects</table>
+            <group>data_entry_multiple</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_multiple</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1648,9 +1664,9 @@
       <property>
             <name>multientry_last_entries_table</name>
             <table>objects</table>
+            <group>data_entry_multiple</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_multiple</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1659,9 +1675,9 @@
       <property>
             <name>import_toolbar</name>
             <table>objects</table>
+            <group>data_entry_import</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_import</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1669,9 +1685,9 @@
       <property>
             <name>import_objects</name>
             <table>objects</table>
+            <group>data_entry_import</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>data_entry_import</group>
             <type>table</type>
             <store>no</store>
             <caption>Seadistatud impordid</caption>
@@ -1679,12 +1695,12 @@
       <property>
             <name>contact_entry_space</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <parent>contact_entry_buttons</parent>
@@ -1693,13 +1709,13 @@
       <property>
             <name>contact_entry_submit</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
                   <num_2>data_entry_contact_employee</num_2>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>submit</type>
             <store>no</store>
             <parent>contact_entry_buttons</parent>
@@ -1708,13 +1724,13 @@
       <property>
             <name>contact_entry_reset</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
                   <num_2>data_entry_contact_employee</num_2>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <parent>contact_entry_buttons</parent>
@@ -1723,13 +1739,13 @@
       <property>
             <name>last_entries_list</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
                   <num_2>data_entry_contact_employee</num_2>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1738,21 +1754,21 @@
       <property>
             <name>contact_entry_lead_source_oid</name>
             <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>hidden</type>
             <store>no</store>
       </property>
       <property>
             <name>offers_toolbar</name>
             <table>objects</table>
+            <group>offers_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers_offers</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1760,9 +1776,9 @@
       <property>
             <name>offers_tree_state</name>
             <table>objects</table>
+            <group>offers_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1771,9 +1787,9 @@
       <property>
             <name>offers_tree_timespan</name>
             <table>objects</table>
+            <group>offers_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1782,9 +1798,9 @@
       <property>
             <name>offers_tree_customer_category</name>
             <table>objects</table>
+            <group>offers_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1793,9 +1809,9 @@
       <property>
             <name>os_customer_name</name>
             <table>objects</table>
+            <group>offers_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers_offers</group>
             <type>textbox</type>
             <view_element>1</view_element>
             <parent>offers_search_box</parent>
@@ -1807,9 +1823,9 @@
       <property>
             <name>os_submit</name>
             <table>objects</table>
+            <group>offers_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers_offers</group>
             <type>submit</type>
             <value>Otsi</value>
             <view_element>1</view_element>
@@ -1820,20 +1836,41 @@
       <property>
             <name>offers_list</name>
             <table>objects</table>
+            <group>offers_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers_offers</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <parent>offers_vsplitbox</parent>
       </property>
       <property>
-            <name>tmstat_display_table</name>
+            <name>offer_templates_toolbar</name>
             <table>objects</table>
+            <group>offers_templates</group>
             <field>meta</field>
             <method>serialize</method>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>offer_templates_list</name>
+            <table>objects</table>
+            <group>offers_templates</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>offer_templates_vsplitbox</parent>
+      </property>
+      <property>
+            <name>tmstat_display_table</name>
+            <table>objects</table>
             <group>statistics_telemarketing</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1841,9 +1878,9 @@
       <property>
             <name>tmstat_m</name>
             <table>objects</table>
+            <group>statistics_telemarketing</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>statistics_telemarketing</group>
             <type>select</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1852,9 +1889,9 @@
       <property>
             <name>tmstat_y</name>
             <table>objects</table>
+            <group>statistics_telemarketing</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>statistics_telemarketing</group>
             <type>select</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1863,9 +1900,9 @@
       <property>
             <name>tmstat_s</name>
             <table>objects</table>
+            <group>statistics_telemarketing</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>statistics_telemarketing</group>
             <type>submit</type>
             <value>Vaata</value>
             <parent>tmstat_control_container</parent>
@@ -1875,9 +1912,9 @@
       <property>
             <name>statistics_offers_tree_state</name>
             <table>objects</table>
+            <group>statistics_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>statistics_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1886,9 +1923,9 @@
       <property>
             <name>statistics_offers_tree_timespan</name>
             <table>objects</table>
+            <group>statistics_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>statistics_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1897,9 +1934,9 @@
       <property>
             <name>statistics_offers_tree_customer_category</name>
             <table>objects</table>
+            <group>statistics_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>statistics_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1908,9 +1945,9 @@
       <property>
             <name>statistics_offers_list</name>
             <table>objects</table>
+            <group>statistics_offers</group>
             <field>meta</field>
             <method>serialize</method>
-            <group>statistics_offers</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1922,15 +1959,16 @@
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
-            <settings>
-                  <caption>Seaded</caption>
-            </settings>
-            <settings_general>
+            <general_general>
                   <caption>&amp;amp;Uuml;ldine</caption>
-                  <parent>settings</parent>
+                  <parent>general</parent>
+            </general_general>
+            <settings_general>
+                  <caption>Seaded</caption>
+                  <parent>general</parent>
             </settings_general>
             <contacts>
-                  <caption>Kontaktid</caption>
+                  <caption>Kliendid</caption>
                   <submit_method>get</submit_method>
             </contacts>
             <emails>
@@ -1948,30 +1986,6 @@
                   <caption>Esitlused</caption>
                   <submit_method>get</submit_method>
             </presentations>
-            <calendar>
-                  <caption>Kalender</caption>
-                  <submit>no</submit>
-            </calendar>
-            <personal_calendar>
-                  <caption>Minu kalender</caption>
-                  <submit>no</submit>
-                  <parent>calendar</parent>
-            </personal_calendar>
-            <general_calendar>
-                  <caption>&amp;amp;Uuml;ldkalender</caption>
-                  <submit>no</submit>
-                  <parent>calendar</parent>
-            </general_calendar>
-            <calls_calendar>
-                  <caption>K&amp;amp;otilde;nede kalender</caption>
-                  <submit>no</submit>
-                  <parent>calendar</parent>
-            </calls_calendar>
-            <presentations_calendar>
-                  <caption>Esitluste kalender</caption>
-                  <submit>no</submit>
-                  <parent>calendar</parent>
-            </presentations_calendar>
             <data_entry>
                   <caption>Sisestamine</caption>
             </data_entry>
@@ -2007,24 +2021,54 @@
                   <submit>no</submit>
                   <submit_method>get</submit_method>
             </offers_offers>
+            <offers_templates>
+                  <caption>&amp;amp;Scaron;abloonid</caption>
+                  <parent>offers</parent>
+                  <submit>no</submit>
+                  <submit_method>get</submit_method>
+            </offers_templates>
             <price_components>
                   <caption>Hinnakomponendid</caption>
                   <parent>offers</parent>
             </price_components>
+            <statistics_offers>
+                  <caption>Tulemused</caption>
+                  <parent>offers</parent>
+                  <submit>no</submit>
+                  <submit_method>get</submit_method>
+            </statistics_offers>
             <statistics>
-                  <caption>&amp;amp;Uuml;levaated</caption>
+                  <caption>Tulemused</caption>
             </statistics>
             <statistics_telemarketing>
                   <caption>Telemarketing</caption>
                   <parent>statistics</parent>
                   <submit_method>get</submit_method>
             </statistics_telemarketing>
-            <statistics_offers>
-                  <caption>Pakkumused</caption>
-                  <parent>statistics</parent>
+            <calendar>
+                  <caption>Kalender</caption>
                   <submit>no</submit>
-                  <submit_method>get</submit_method>
-            </statistics_offers>
+            </calendar>
+            <personal_calendar>
+                  <caption>Minu kalender</caption>
+                  <submit>no</submit>
+                  <parent>calendar</parent>
+            </personal_calendar>
+            <general_calendar>
+                  <caption>&amp;amp;Uuml;ldkalender</caption>
+                  <submit>no</submit>
+                  <parent>calendar</parent>
+            </general_calendar>
+            <calls_calendar>
+                  <caption>K&amp;amp;otilde;nede kalender</caption>
+                  <submit>no</submit>
+                  <parent>calendar</parent>
+            </calls_calendar>
+            <presentations_calendar>
+                  <caption>Esitluste kalender</caption>
+                  <submit>no</submit>
+                  <parent>calendar</parent>
+            </presentations_calendar>
       </groupinfo>
       <reltypes>
             <OWNER>
@@ -2359,6 +2403,18 @@
                   <parent>offers_box</parent>
                   <group>offers_offers</group>
             </offers_search_box>
+            <offer_templates_vsplitbox>
+                  <type>hbox</type>
+                  <width>25%:75%</width>
+                  <group>offers_templates</group>
+                  <area_caption></area_caption>
+            </offer_templates_vsplitbox>
+            <offer_templates_box>
+                  <type>vbox</type>
+                  <parent>offer_templates_vsplitbox</parent>
+                  <group>offers_templates</group>
+                  <area_caption></area_caption>
+            </offer_templates_box>
             <tmstat_control_container>
                   <type>hbox</type>
                   <width>50:50</width>

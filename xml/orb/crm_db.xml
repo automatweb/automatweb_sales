@@ -29,5 +29,19 @@
 			</function>
 		</action>
 
+		<action name="create_customer_data" all_args="1">
+			<function name="create_customer_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_org_tree_nodes" all_args="1">
+			<function name="get_org_tree_nodes">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

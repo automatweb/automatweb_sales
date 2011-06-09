@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>company</name>
+            <table>aw_crm_company_ownership</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_COMPANY</clid>
+            <field>aw_company</field>
+            <caption>Organisatsioon</caption>
+      </property>
+      <property>
+            <name>owner</name>
+            <table>aw_crm_company_ownership</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>
+                  <num_0>CL_CRM_PERSON</num_0>
+                  <num_1>CL_CRM_COMPANY</num_1>
+            </clid>
+            <field>aw_owner</field>
+            <caption>Omanik</caption>
+      </property>
+      <property>
+            <name>share_percentage</name>
+            <table>aw_crm_company_ownership</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_share_percentage</field>
+            <caption>Osalusprotsent</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_crm_company_ownership>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_crm_company_ownership>
+      </tableinfo>
+</properties>
+
