@@ -21,6 +21,7 @@ class aw_template extends core
 	public $v2_name_map;
 
 	private $debug_mode;
+	private $templates = array();
 
 	/** whether to use eval() or preg_replace to render templates **/
 	private $use_eval;
@@ -225,7 +226,7 @@ class aw_template extends core
 	**/
 	function tpl_reset()
 	{
-		unset($this->templates);
+		$this->templates = array();
 		$this->v2_templates = array();
 		$this->v2_name_map = array();
 		$this->v2_parent_map = array();

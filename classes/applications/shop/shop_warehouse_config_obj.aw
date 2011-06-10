@@ -2,6 +2,8 @@
 
 class shop_warehouse_config_obj extends _int_object
 {
+	const CLID = 296;
+
 	public function awobj_get_prod_tree_clids()
 	{
 		$v = parent::prop("prod_tree_clids");

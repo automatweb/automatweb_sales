@@ -2,6 +2,8 @@
 
 class personnel_management_job_wanted_obj extends _int_object
 {
+	const CLID = 351;
+
 	function set_prop($k, $v)
 	{
 		$html_allowed = array();

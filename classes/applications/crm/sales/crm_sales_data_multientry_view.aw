@@ -125,6 +125,10 @@ class crm_sales_data_multientry_view
 
 				// save changes
 				$contact_ceo->save();
+
+				// add contact person to customer relation
+				$customer_relation->set_prop("buyer_contact_person", $contact_ceo->id());
+				$customer_relation->connect(array("to" => $contact_ceo, "type" => "RELTYPE_CONTACT_PERSON"));
 			}
 
 			if (!empty($data["contact_person_other_name"]))
@@ -174,12 +178,11 @@ class crm_sales_data_multientry_view
 
 				// save changes
 				$contact_other->save();
-			}
 
-			// add entered contact persons to customer relation
-			$customer_relation->set_prop("buyer_contact_person", $contact_ceo->id());
-			$customer_relation->set_prop("buyer_contact_person2", $contact_other->id());
-			$customer_relation->connect(array("to" => array($contact_ceo, $contact_other), "type" => "RELTYPE_CONTACT_PERSON"));
+				// add contact person to customer relation
+				$customer_relation->set_prop("buyer_contact_person2", $contact_other->id());
+				$customer_relation->connect(array("to" => $contact_other, "type" => "RELTYPE_CONTACT_PERSON"));
+			}
 
 			// save changes to customer company and customer relateion objects
 			$customer_relation->save();

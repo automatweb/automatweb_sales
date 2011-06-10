@@ -2,6 +2,8 @@
 
 class spa_bookings_overview_obj extends _int_object
 {
+	const CLID = 1187;
+
 	public function get_category_names()
 	{
 		$ol = new object_list(array(

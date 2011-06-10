@@ -2331,14 +2331,14 @@ class menu extends class_base implements main_subtemplate_handler
 		return aw_ini_get("baseurl");
 	}
 
-	function do_db_upgrade($t, $f)
+	function do_db_upgrade($table, $field, $query, $error)
 	{
-		switch($f)
+		switch($field)
 		{
 			case "set_doc_content_type":
 			case "tpl_view_no_inherit":
 			case "tpl_lead_no_inherit":
-				$this->db_query("ALTER TABLE menu add $f int");
+				$this->db_query("ALTER TABLE menu add {$field} int");
 				return true;
 				break;
 		}

@@ -3,6 +3,7 @@
 class _int_obj_ds_mysql extends _int_obj_ds_base
 {
 	private $last_search_query_string = "";
+	private $last_object_table_alias = "";
 
 	function _int_obj_ds_mysql()
 	{
@@ -576,7 +577,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$joins = "";
 				foreach($tables as $table)
 				{
-					$joins .= " LEFT JOIN $table ON objects.brother_of = ".$table.".`".$tableinfo[$table]["index"]."` ";
+					$joins .= " LEFT JOIN {$table} ON objects.brother_of = {$table}.`{$tableinfo[$table]["index"]}` ";
 				}
 				$q .= ",".join(",", $fields)." FROM objects $joins  WHERE ";
 				$q .= " objects.oid ";
@@ -594,7 +595,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			$o_t = $table;
 			while($table = each($tables))
 			{
-				$from .= " LEFT JOIN $table ON ".$o_t.".`".$tableinfo[$o_t]["index"]."` = ".$table.".`".$tableinfo[$table]["index"]."` ";
+				$from .= " LEFT JOIN {$table} ON {$o_t}.`{$tableinfo[$o_t]["index"]}` = {$table}.`{$tableinfo[$table]["index"]}` ";
 			}
 			$q = "SELECT ".join(",", $fields)." $from WHERE `".$tableinfo[$table]["index"]."`";
 		}
@@ -1450,7 +1451,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 		if (!$this->stat)
 		{
-			$where .= ($where != "" ? " AND " : "")." objects.status > 0 ";
+			$where .= ($where != "" ? " AND\n " : "")." objects.status > 0 ";
 		}
 
 /*  //!!! kuni vajaduse tekkimiseni ilma site ja lang id-ta et v2hendada koormust
@@ -1795,7 +1796,6 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$this->has_lang_id = true;
 			}
 
-
 			$tbl = "objects";
 			$fld = $key;
 
@@ -1817,6 +1817,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					$is_done = true;
 				}
+
 				$this->_add_s($tbl);
 				// replace unknown columns in fetch sql
 				$this->current_fetch_sql = str_replace("%%REPLACE($_okey)%%", $tbl.".`".$key."`", $this->current_fetch_sql);
@@ -1863,6 +1864,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					$idx = $this->tableinfo[$tbl]["index"];
 				}
+
 				$this->alias_joins[$key] = array(
 					"name" => "aliases_".$key,
 					"on" => $tbl.".".$idx." = "."aliases_".$key.".source AND aliases_".$key.".reltype=".$GLOBALS["relinfo"][$this->class_id][$this->properties[$key]["reltype"]]["value"]
@@ -2120,13 +2122,11 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$tbl_fld2 = $this->_get_tablefield_from_prop($val->data[1]);
 						$sql[] = " (NOT ($tbl_fld1 >= '".$val->data2[1]."' OR $tbl_fld2 <= '".$val->data2[0]."')) ";
 					}
-					else
-					if ($val->comparator == obj_predicate_compare::NULL)
+					elseif ($val->comparator == obj_predicate_compare::NULL)
 					{
-						$sql[] = $tf." IS NULL ";
+						$sql[] = "{$tf} IS NULL ";
 					}
-					else
-					if (is_array($v_data))
+					elseif (is_array($v_data))
 					{
 						$tmp = array();
 						foreach($v_data as $d_k)
@@ -2148,8 +2148,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$sql[] = "{$tf} {$comparator} {$ent}{$v_data}{$ent} ";
 					}
 				}
-				else
-				if ($class_name === "obj_predicate_prop")
+				elseif ($class_name === "obj_predicate_prop")
 				{
 					if ($val->prop === "id")
 					{
@@ -2161,6 +2160,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$tbl2 = $this->properties[$val->prop]["table"];
 						$fld2 = $this->properties[$val->prop]["field"];
 					}
+
 					switch($val->compare)
 					{
 						case obj_predicate_compare::LESS:
@@ -2638,9 +2638,11 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					$str .= " AND {$cur_al_name}.reltype = {$join["reltype"]}";
 				}
+
 				$this->_add_join($str);
 
 				$tmp_cur_obj_name = "objects_{$tmp_prev["reltype"]}_{$join["from_class"]}_{$join["to_class"]}_{$join["reltype"]}";
+				$this->last_object_table_alias = $tmp_cur_obj_name;
 
 				$str  = " LEFT JOIN objects {$tmp_cur_obj_name}  ON {$cur_al_name}.{$rel_to_field} = ";
 				$str .= " {$tmp_cur_obj_name}.oid ";
@@ -2661,7 +2663,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$tbl .= "_".$join["from_class"]."_".(isset($join["field"]) ? $join["field"] : "");
 						if (!isset($done_ot_js[$tbl_r]))
 						{
-							$str = " LEFT JOIN ".$tbl_r." $tbl ON ".$tbl.".".$field." = ".$objt_name.".brother_of";
+							$str = " LEFT JOIN {$tbl_r} {$tbl} ON {$tbl}.{$field} = {$objt_name}.brother_of";
 							$this->_add_s($objt_name);
 							$this->_add_join($str);
 							$done_ot_js[$tbl_r] = 1;
@@ -2676,7 +2678,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$o_tbl = "objects_".$join["to_class"];
 						if (!isset($done_ot_js[$o_tbl]))
 						{
-							$str = " LEFT JOIN objects $o_tbl ON ".$o_tbl.".".$o_field." = ".$tbl.".".$field;
+							$str = " LEFT JOIN objects {$o_tbl} ON {$o_tbl}.{$o_field} = {$tbl}.{$field}";
 							$this->_add_s($tbl);
 							$this->_add_join($str);
 						}
@@ -2729,7 +2731,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					{
 						$tmp_fld = "target";
 					}
-					$str = " LEFT JOIN ".$tbl_r." $tbl ON ".$tbl.".".$field." = ".$prev_t.".".$tmp_fld." $and_buster ";
+					$str = " LEFT JOIN {$tbl_r} {$tbl} ON {$tbl}.{$field} = {$prev_t}.{$tmp_fld} {$and_buster} ";
 					$this->_add_s($prev_t);
 					$this->_add_join($str);
 //					$this->joins[] = $str;
@@ -2779,7 +2781,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$objt_name = "objects_".$join["from_class"]."_".$join["field"];
 				if (!isset($done_ot_js[$objt_name]))
 				{
-					$this->_add_join(" LEFT JOIN objects $objt_name ON ".$objt_name.".oid = $prev_t.".$join["field"]." ");
+					$this->_add_join(" LEFT JOIN objects {$objt_name} ON {$objt_name}.oid = {$prev_t}.{$join["field"]} ");
 					$this->_add_s($prev_t);
 					$done_ot_js[$objt_name] = 1;
 				}
@@ -2873,7 +2875,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				));
 
 				// calc new class id
-				$new_clid = isset($GLOBALS["relinfo"][$cur_clid][$pp]["clid"][0]) ? $GLOBALS["relinfo"][$cur_clid][$pp]["clid"][0] : null;//!!! kui rel dfn-s clid m22ramata -- seos yksk6ik mis tyypi objektiga -- siis siin pole clid.
+				$new_clid = isset($GLOBALS["relinfo"][$cur_clid][$pp]["clid"][0]) ? $GLOBALS["relinfo"][$cur_clid][$pp]["clid"][0] : null;//XXX: kui rel dfn-s clid m22ramata -- seos yksk6ik mis tyypi objektiga -- siis siin pole clid.
 
 				$this->join_data[] = array(
 					"via" => "rel",
@@ -4029,7 +4031,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 			if ($joined_table !== null)
 			{
-				if (isset($this->search_tables_used[trim($joined_table)]) || $joined_table == "documents")
+				if (isset($this->search_tables_used[trim($joined_table)]) || $joined_table === "documents")
 				{
 					$rs .= $join_line." ";
 				}

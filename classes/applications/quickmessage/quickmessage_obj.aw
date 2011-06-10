@@ -6,6 +6,8 @@
 
 class quickmessage_obj extends _int_object
 {
+	const CLID = 335;
+
 	const TYPE_GENERIC = 1;
 	const TYPE_SYS = 2;
 

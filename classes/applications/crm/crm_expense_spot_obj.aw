@@ -2,6 +2,8 @@
 
 class crm_expense_spot_obj extends _int_object
 {
+	const CLID = 1539;
+
 	/** Returns expense spot rows
 		@attrib api=1
 		@returns object list

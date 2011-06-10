@@ -213,19 +213,16 @@ class popup_menu extends aw_template
 	**/
 	function get_menu($param = NULL)
 	{
-		if (!isset($param["icon"]))
-		{
-			$icon = $this->cfg["baseurl"]."/automatweb/images/blue/obj_settings.gif";
-		}
-		else
-		if (substr($param["icon"], 0, 4) == "http")
+		if (isset($param["icon"]) and substr($param["icon"], 0, 4) === "http")
 		{
 			$icon = $param["icon"];
 		}
 		else
 		{
-			$icon = $this->cfg["baseurl"]."/automatweb/images/icons/".$param["icon"];
+			$icon_name = empty($param["icon"]) ? "cog" : $param["icon"];
+			$icon = icons::get_std_icon_url($icon_name);
 		}
+
 
 		$is = "";
 		foreach($this->menus as $parent => $menudata)

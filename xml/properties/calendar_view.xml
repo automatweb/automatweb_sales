@@ -295,7 +295,6 @@
             <syslog_type>ST_CALENDAR_VIEW</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <style>

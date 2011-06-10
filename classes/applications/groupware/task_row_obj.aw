@@ -2,6 +2,8 @@
 
 class task_row_obj extends _int_object
 {
+	const CLID = 1050;
+
 	private $in_save = false;
 
 	function prop($pn)

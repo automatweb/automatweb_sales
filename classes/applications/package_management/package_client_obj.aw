@@ -2,6 +2,8 @@
 
 class package_client_obj extends _int_object
 {
+	const CLID = 1450;
+
 	/** Returns server package list
 		@attrib api=1 params=name
 		@param filter optional type=array

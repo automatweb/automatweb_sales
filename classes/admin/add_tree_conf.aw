@@ -17,6 +17,9 @@
 
 class add_tree_conf extends class_base
 {
+	private $visible = false;
+	private $usable = false;
+	private $conf_exists = false;
 	private static $system_classes = array(
 		"sys",
 		"popup_search",

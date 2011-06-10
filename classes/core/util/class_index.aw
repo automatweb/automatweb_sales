@@ -394,31 +394,8 @@ class class_index
 			return false;
 		}
 
-		$class_dfn_file = AW_DIR . self::INDEX_DIR . $name . "." . aw_ini_get("ext");
-
-		if (!is_readable($class_dfn_file))
-		{
-			self::update();
-
-			if (!is_readable($class_dfn_file))
-			{
-				$e = new awex_clidx_filesys("Class definition not found or not readable.");
-				$e->clidx_cl_name = $name;
-				$e->clidx_file = $class_dfn_file;
-				$e->clidx_op = "is_readable";
-				throw $e;
-			}
-		}
-
-		$class_dfn = unserialize(file_get_contents($class_dfn_file));
-
-		if ($class_dfn["clidx_version"] < 5) // clidx_version must be >=5, earlier formats don't have 'extends' parameter or ancestor info.
-		{
-			self::update();
-			$class_dfn = unserialize(file_get_contents($class_dfn_file));
-		}
-
-		return (bool) in_array($parent, $class_dfn["ancestors"]);
+		$crm_company_reflection = new ReflectionClass("crm_company");
+		return $crm_company_reflection->isSubclassOf($parent);
 	}
 
 	private static function clean_up($classes)

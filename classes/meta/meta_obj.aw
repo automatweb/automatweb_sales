@@ -2,6 +2,8 @@
 
 class meta_obj extends _int_object
 {
+	const CLID = 277;
+
 	function meta($var = false)
 	{
 		if($var === "translations")

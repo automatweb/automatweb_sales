@@ -2,6 +2,8 @@
 
 class work_load_manager_obj extends _int_object
 {
+	const CLID = 1774;
+
 	public function get_entries()
 	{
 		$parents = $ol = new object_list(array(

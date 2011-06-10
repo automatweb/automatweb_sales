@@ -1,10 +1,9 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
 
 class country_obj extends _int_object
 {
+	const CLID = 949;
+
 	/** Returns currently active administrative structure for this country
 	@attrib api=1 params=pos
 	@errors
@@ -42,5 +41,3 @@ class awex_as_country extends awex_as {}
 /** Country administrative error **/
 class awex_as_country_admin_structure extends awex_as_country {}
 
-
-?>

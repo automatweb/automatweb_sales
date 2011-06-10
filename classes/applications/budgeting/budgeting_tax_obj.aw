@@ -6,6 +6,8 @@
 */
 class budgeting_tax_obj extends _int_object
 {
+	const CLID = 1206;
+
 	function get_terms($from)
 	{
 		$filter = array(

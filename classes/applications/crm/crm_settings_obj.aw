@@ -2,6 +2,8 @@
 
 class crm_settings_obj extends _int_object
 {
+	const CLID = 1036;
+
 	const DEFAULT_BILL_OVERDUE_INTEREST = "0.15";
 	const DEFAULT_BILL_DUE_DAYS = "14";
 

@@ -2,6 +2,8 @@
 
 class add_tree_conf_obj extends _int_object
 {
+	const CLID = 118;
+
 	const BEHAVIOUR_RESTRICTIVE = 1;
 	const BEHAVIOUR_PERMISSIVE = 2;
 

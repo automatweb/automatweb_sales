@@ -2,6 +2,8 @@
 
 class mrp_order_center_obj extends _int_object
 {
+	const CLID = 1518;
+
 	/** lists all customer side contact persons for all orders
 		@attrib api=1
 	**/

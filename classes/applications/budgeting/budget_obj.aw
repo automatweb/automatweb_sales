@@ -6,6 +6,8 @@
 */
 class budget_obj extends _int_object
 {
+	const CLID = 1213;
+
 	function get_budget_sum()
 	{
 		$project = $this->prop("project");

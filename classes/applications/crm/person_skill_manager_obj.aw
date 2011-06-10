@@ -2,6 +2,8 @@
 
 class person_skill_manager_obj extends _int_object
 {
+	const CLID = 1448;
+
 
 	function get_all_skills($parent = 0)
 	{

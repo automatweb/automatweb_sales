@@ -2067,11 +2067,41 @@
       <property>
             <name>bills_mon_tb</name>
             <table>objects</table>
-            <group>bills_monthly</group>
+            <group>invoice_templates</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
             <field>bills_mon_tb</field>
+      </property>
+      <property>
+            <name>invoice_template_folders</name>
+            <table>objects</table>
+            <group>invoice_templates</group>
+            <type>treeview</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <parent>template_folders</parent>
+            <field>invoice_template_folders</field>
+      </property>
+      <property>
+            <name>invoice_folders_list</name>
+            <table>objects</table>
+            <group>invoice_templates</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>folders_list_box</parent>
+            <field>invoice_folders_list</field>
+      </property>
+      <property>
+            <name>invoice_templates_list</name>
+            <table>objects</table>
+            <group>invoice_templates</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>templates_list_box</parent>
+            <field>invoice_templates_list</field>
       </property>
       <property>
             <name>bs_tb</name>
@@ -2361,10 +2391,7 @@
       <property>
             <name>bills_list</name>
             <table>objects</table>
-            <group>
-                  <num_0>bills_list</num_0>
-                  <num_1>bills_monthly</num_1>
-            </group>
+            <group>bills_list</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -3747,12 +3774,12 @@
                   <submit>no</submit>
                   <save>no</save>
             </bills_list>
-            <bills_monthly>
+            <invoice_templates>
                   <parent>bills</parent>
-                  <caption>Kuuarved</caption>
+                  <caption>Arvep&amp;amp;otilde;hjad</caption>
                   <submit>no</submit>
                   <save>no</save>
-            </bills_monthly>
+            </invoice_templates>
             <bills_search>
                   <parent>bills</parent>
                   <caption>Otsi toimetusi</caption>
@@ -4753,6 +4780,36 @@
                   <group>bills_create</group>
                   <area_caption></area_caption>
             </billable_table>
+            <templates_container>
+                  <type>hbox</type>
+                  <width>20%:80%</width>
+                  <group>invoice_templates</group>
+                  <area_caption></area_caption>
+            </templates_container>
+            <template_folders>
+                  <type>vbox</type>
+                  <parent>templates_container</parent>
+                  <closeable>0</closeable>
+                  <area_caption>Arvep&amp;amp;otilde;hjade&amp;amp;nbsp;kaustad</area_caption>
+                  <group>invoice_templates</group>
+            </template_folders>
+            <templates_list_box>
+                  <type>vbox</type>
+                  <parent>templates_container</parent>
+                  <closeable>0</closeable>
+                  <no_padding>1</no_padding>
+                  <group>invoice_templates</group>
+                  <area_caption></area_caption>
+            </templates_list_box>
+            <folders_list_box>
+                  <type>vbox</type>
+                  <parent>templates_list_box</parent>
+                  <closeable>1</closeable>
+                  <no_padding>1</no_padding>
+                  <default_state>closed</default_state>
+                  <area_caption>Arvep&amp;amp;otilde;hjade&amp;amp;nbsp;kaustad</area_caption>
+                  <group>invoice_templates</group>
+            </folders_list_box>
             <bills_payments_box>
                   <type>hbox</type>
                   <width>20%:80%</width>

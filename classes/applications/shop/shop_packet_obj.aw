@@ -2,6 +2,8 @@
 
 class shop_packet_obj extends _int_object
 {
+	const CLID = 297;
+
 
 	function delete($full_delete = false)
 	{

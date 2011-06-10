@@ -2,6 +2,8 @@
 
 class rss_reader_obj extends _int_object
 {
+	const CLID = 1531;
+
 	/**
 		@attrib api=1
 	**/

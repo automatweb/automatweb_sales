@@ -147,7 +147,7 @@ class aw_session
 		@returns void
 		@errors
 	**/
-	public static function unset($name)
+	public static function del($name)
 	{
 		aw_session_del($name);
 	}

@@ -99,6 +99,14 @@ if(isset($pdf))
 </tr>
 </table>
 
+<table class="bill_text" width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td>
+		<div class="bill_text_div">{VAR:bill_text}</div>
+	</td>
+</tr>
+</table>
+
 <table class="data" width="100%" cellspacing="0" cellpadding="5">
 <tr>
 	<td width="40%" class="heading"><strong>Selgitus</strong></td>
@@ -133,14 +141,6 @@ if(isset($pdf))
 <tr>
 	<td colspan="4" class="heading" align="right"><strong>Summa sõnadega:</strong></td>
 	<td colspan="2">{VAR:total_text}</td>
-</tr>
-</table>
-
-<table class="bill_text" width="100%" cellspacing="0" cellpadding="0" border="0">
-<tr>
-	<td>
-		<div class="bill_text_div">{VAR:bill_text}</div>
-	</td>
 </tr>
 </table>
 

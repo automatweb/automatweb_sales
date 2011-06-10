@@ -2,6 +2,8 @@
 
 class crm_county_obj extends _int_object
 {
+	const CLID = 140;
+
 	/** Returns object list of personnel_management_job_offer objects that are connected to the county.
 
 		@attrib name=get_job_offers params=name api=1

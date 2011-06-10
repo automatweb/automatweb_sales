@@ -3472,8 +3472,6 @@ class personnel_management extends class_base
 		$odl = new object_data_list(
 			array(
 				"class_id" => CL_META,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"CL_META.RELTYPE_FIELD(CL_PERSONNEL_MANAGEMENT_JOB_OFFER).parent" => array_merge(array($this->offers_fld), $obx->ids()),
 				"CL_META.RELTYPE_FIELD(CL_PERSONNEL_MANAGEMENT_JOB_OFFER).archive" => $arr["request"]["group"] != "offers_archive" ? new obj_predicate_not(1) : 1,
 			),

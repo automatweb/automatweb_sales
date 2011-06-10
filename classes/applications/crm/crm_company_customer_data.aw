@@ -626,7 +626,7 @@ Aadress: %s
 			$bill_data = array(
 				"bill_no" => html::get_change_url($bill->id(), array("return_url" => get_ru()), parse_obj_name($bill->prop("bill_no"))),
 				"create_new" => html::href(array(
-					"url" => $this->mk_my_orb("create_new_monthly_bill", array(
+					"url" => $this->mk_my_orb("create_new_invoice_template", array(
 						"id" => $bill->id(),
 						"co" => $arr["obj_inst"]->id(),
 						"post_ru" => get_ru()

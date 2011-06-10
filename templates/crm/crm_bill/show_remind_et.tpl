@@ -36,7 +36,6 @@
 
 		#bill tr td.bill_text {
 			border-top: 1px solid #cccccc;
-			font-family: Courier New;
 			height: 100%;
 			padding: 1em;
 			vertical-align: top;
@@ -132,6 +131,11 @@
 		</td>
 	</tr>
 	<tr>
+		<td colspan="2" class="bill_text">
+			{VAR:bill_text}
+		</td>
+	</tr>
+	<tr>
 		<td colspan="2" class="main">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
@@ -168,11 +172,6 @@
 					<td colspan="6" class="words"><strong>Summa sõnadega:</strong> {VAR:total_text}</td>
 				</tr>
 			</table>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" class="bill_text">
-			{VAR:bill_text}
 		</td>
 	</tr>
 	<tr>

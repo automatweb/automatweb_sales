@@ -65,6 +65,9 @@ class class_base extends aw_template
 	// notify the user and DO NOT display the form/save the object
 	const PROP_FATAL_ERROR = 4;
 
+	const DS_SCOPE_RESOLUTION_TOKEN = "::";
+
+	private $awcb_data_sources = array();
 
 	var $id; // loaded storage object id
 	var $clid; // loaded storage object class id
@@ -108,11 +111,14 @@ class class_base extends aw_template
 	public $form_only = false;
 	public $no_form = false;
 
+	public $layoutinfo = array();
+
 	protected $_cfg_props;
 	protected $classconfig;
 	protected $name_prefix = "";
 	protected $stop_processing = false;
 
+	private $cfgform;
 	private $cfgform_obj;
 	private $cfg_debug = false;
 	private static $msgs_closed = false;
@@ -167,6 +173,7 @@ class class_base extends aw_template
 		{
 			$ca = isset($arr["constructor_args"]) ? $arr["constructor_args"] : array();
 			$this->obj_inst = obj(null, $ca, $clid);
+			$this->awcb_data_sources["id"] = $this->obj_inst;
 		}
 
 		$this->use_mode = "new";
@@ -188,16 +195,25 @@ class class_base extends aw_template
 
 			// try to load object with $id
 			$this->obj_inst = new object($id);
+			$this->awcb_data_sources["id"] = $this->obj_inst;
 
 			if (isset($arr["class"]))
 			{
 				$class = $arr["class"];
-				if (!aw_ini_isset("class_lut.".$class))
+				if (!aw_ini_isset("class_lut.{$class}"))
 				{
 					throw new aw_exception("Invalid class '$class'");
 				}
 
-				$clid = aw_ini_get("class_lut.".$class);
+				$clid = aw_ini_get("class_lut.{$class}");
+
+				// try object override
+				if (aw_ini_isset("classes.{$clid}.object_override"))
+				{
+					$obj_class_name = basename(aw_ini_get("classes.{$clid}.object_override"));
+					// $clid = $obj_class_name::CLID; //XXX: start using when migrating to php >=5.3
+					$clid = constant($obj_class_name."::CLID");//XXX: compatibility w php <5.3
+				}
 
 				if ($this->obj_inst->class_id() != $clid)
 				{
@@ -216,6 +232,28 @@ class class_base extends aw_template
 		}
 	}
 
+	protected function _awcb_getds_id($arr)
+	{
+		return $this->obj_inst;
+	}
+
+	private function awcb_get_property_ds($property)
+	{
+		if (empty($property["ds"]))
+		{
+			$ds_obj = "awcb_ds_id";
+			$ds_obj = $this->$ds_obj;
+			$nm = isset($property["name"]) ? $property["name"] : "";
+		}
+		else
+		{
+			$ds_obj = "awcb_ds_" . strtok($property["ds"], self::DS_SCOPE_RESOLUTION_TOKEN);
+			$ds_obj = $this->$ds_obj;
+			$nm = strtok(self::DS_SCOPE_RESOLUTION_TOKEN);
+		}
+
+		return array($ds_obj, $nm);
+	}
 
 	/** Generate a form for adding or changing an object
 
@@ -727,7 +765,7 @@ class class_base extends aw_template
 				};
 			}
 
-			$cli->set_layout($tmp);
+			$this->layoutinfo = $tmp;
 		}
 
 		// cb_parts is again used by fixed_toolbar mode
@@ -753,6 +791,8 @@ class class_base extends aw_template
 			"properties" => &$properties,
 			"obj_inst" => $this->obj_inst
 		));
+
+		$cli->set_layout($this->layoutinfo);
 
 		// what exactly is going on with that subgroup stuff?
 		if (isset($resprops["subgroup"]))
@@ -1835,7 +1875,7 @@ class class_base extends aw_template
 		if (is_object($this->obj_inst))
 		{
 			$name = $this->obj_inst->name();
-		};
+		}
 		$return_url = !empty($this->request["return_url"]) ? $this->request["return_url"] : "";
 		$is_container = in_array($this->clid,get_container_classes());
 		// XXX: pathi peaks htmlclient tegema
@@ -2798,21 +2838,22 @@ class class_base extends aw_template
 			return;
 		}
 
-		$nm = isset($property["name"]) ? $property["name"] : "";
+		// get property data source and property name in that
+		list($ds_obj, $nm) = $this->awcb_get_property_ds($property);
 
 		try
 		{
-			$property_value_from_obj = $this->obj_inst->prop($nm);
+			$property_value_from_obj = $ds_obj->prop($nm);
 		}
 		catch (Exception $e)
 		{
 			$property_value_from_obj = null;
 			$property["error"] = t("Viga v&auml;&auml;rtuse lugemisel");
-			trigger_error("Caught exception " . get_class($e) . " while reading property '{$nm}' from '" . $this->obj_inst->id() . "'. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
+			trigger_error("Caught exception " . get_class($e) . " while reading property '{$nm}' from datasource {$ds_id} '" . $this->awcb_data_sources[$ds_id]->id() . "'. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
 		}
 
 		// if this is a new object and the property has a default value, use it
-		if (empty($this->id) && isset($property["default"]))
+		if (empty($this->id) && isset($property["default"]))//XXX: v6ibolla vaja muuta kui kaob kohustuslik 'main object' datasource
 		{
 			$property["value"] = $property["default"];
 		}
@@ -2844,7 +2885,7 @@ class class_base extends aw_template
 			// gives the correct result .. all connections of that type
 			if ($this->view && empty($property["view_element"]))
 			{
-				$property["value"] = create_email_links($this->obj_inst->prop_str($property["name"]));
+				$property["value"] = create_email_links($ds_obj->prop_str($nm));
 				if (strpos($property["value"], "\n") !== false && strpos($property["value"], "<br") === false)
 				{
 					$property["value"] = nl2br($property["value"]);
@@ -3042,7 +3083,7 @@ class class_base extends aw_template
 			{
 				// and this as well
 				continue;
-			};
+			}
 
 			// eventually all VCL components will have to implement their
 			// own init_vcl_property method
@@ -3995,7 +4036,7 @@ class class_base extends aw_template
 		}
 
 		if (isset($args["_object_type"]) and $this->can("view", $args["_object_type"]))
-		{
+		{//XXX: kahtlane! cfgform salvestati ka metasse, pole hea
 			$ot_obj = new object($args["_object_type"]);
 			$this->obj_inst->set_meta("object_type",$args["_object_type"]);
 		}
@@ -4037,7 +4078,8 @@ class class_base extends aw_template
 			{
 				if (!empty($val["default"]))
 				{
-					$this->obj_inst->set_prop($key,$val["default"]);
+					list($ds_obj, $property_name) = $this->awcb_get_property_ds($val);
+					$ds_obj->set_prop($property_name, $val["default"]);
 				}
 			}
 		}
@@ -4113,7 +4155,8 @@ class class_base extends aw_template
 
 			if (isset($property["method"]) && $property["method"] === "bitmask" && empty($pvalues[$name]))
 			{
-				$pvalues[$name] = $this->obj_inst->prop($name);
+				list($ds_obj, $name) = $this->awcb_get_property_ds($property);
+				$pvalues[$name] = $ds_obj->prop($name);
 			}
 
 			$property["value"] = $xval;
@@ -4370,11 +4413,13 @@ class class_base extends aw_template
 				}
 			}
 
+			list($ds_obj, $ds_prop_name) = $this->awcb_get_property_ds($property);
+
 			if ($this->is_rel)
 			{
-				if ($name === "name")
+				if ($ds_prop_name === "name")
 				{
-					$this->obj_inst->set_name($property["value"]);
+					$ds_obj->set_name($property["value"]);
 				}
 				else
 				{
@@ -4386,14 +4431,14 @@ class class_base extends aw_template
 				if (isset($property["method"]) && $property["method"] === "bitmask")
 				{
 					$val = ($property["ch_value"] == $property["value"]) ? $property["ch_value"] : 0;
-					if ($this->obj_inst->is_property($name))
+					if ($ds_obj->is_property($ds_prop_name))
 					{
-						$this->obj_inst->set_prop($name,$val);
+						$ds_obj->set_prop($ds_prop_name, $val);
 					}
 				}
-				elseif ($type !== "releditor" && $this->obj_inst->is_property($name))	// cause it submits CRAP
+				elseif ($type !== "releditor" && $ds_obj->is_property($ds_prop_name))	// cause it submits CRAP
 				{
-					$this->obj_inst->set_prop($name,$property["value"]);
+					$ds_obj->set_prop($ds_prop_name, $property["value"]);
 				}
 			}
 		}
@@ -4406,7 +4451,7 @@ class class_base extends aw_template
 		}
 
 		if ($this->is_rel && is_array($values) && sizeof($values) > 0)
-		{
+		{//XXX: mis siin?
 			$def = $this->_ct[$this->clid]["def"];
 			$_tmp = new object($this->id);
 			$old = $_tmp->meta("values");
@@ -4464,7 +4509,12 @@ class class_base extends aw_template
 			$this->obj_inst->set_status(STAT_ACTIVE);
 		}
 
-		$this->obj_inst->save();
+
+		foreach ($this->awcb_data_sources as $ds_id => $ds_obj)
+		{
+			$ds_obj->save();
+		}
+
 		$this->id = $this->obj_inst->id();
 
 		if ($this->new)
@@ -5050,12 +5100,12 @@ class class_base extends aw_template
 			if (!isset($all_properties[$key]) && !isset($val["force_display"]))
 			{
 				continue;
-			};
+			}
 
 			if (isset($val["display"]) && $val["display"] === "none")
 			{
 				continue;
-			};
+			}
 
 			if (empty($val["group"]))
 			{
@@ -5217,8 +5267,8 @@ class class_base extends aw_template
 			if (in_array($val["type"],$type_filter))
 			{
 				$rv[$key] = $val;
-			};
-		};
+			}
+		}
 
 		return $rv;
 
@@ -5597,6 +5647,7 @@ class class_base extends aw_template
 
 	/////////////////////////////////////////////
 	// sorta-automatic translation helpers
+	//TODO: ds_obj siia ka teha
 	function trans_save($arr, $props, $props_if = array())
 	{
 		$o = $arr["obj_inst"];
@@ -5743,6 +5794,7 @@ class class_base extends aw_template
 		$arr["obj_inst"]->set_meta("translations", $all_vals);
 	}
 
+//TODO: ds_obj siia ka teha
 	function trans_callback($arr, $props, $props_if_filled = null)
 	{
 		aw_global_set("output_charset","UTF-8");
@@ -6310,7 +6362,7 @@ class class_base extends aw_template
 		foreach(safe_array($_SESSION["tb_cuts"][$arr["tb_cut_var"]]) as $oid)
 		{
 			$o = obj($oid);
-			$o->set_parent($arr["tb_paste_var"]);
+			$o->set_parent($arr[$arr["tb_paste_var"]]);
 			$o->save();
 		}
 		$_SESSION["tb_cuts"][$arr["tb_cut_var"]] = null;
@@ -6873,11 +6925,46 @@ ENDSCRIPT;
 		$cfgu = new cfgutils();//!!!
 		$properties = $cfgu->load_class_properties(array("clid" => $this_clid));
 	}
+
+	public function __get($name)
+	{
+		$r = null;
+
+		if ("awcb_ds_" === substr($name, 0, 8))
+		{
+			if (!isset($this->awcb_data_sources[$name]))
+			{
+				$method = "_awcb_getds_" . substr($name, 8);
+				if (!method_exists($this, $method))
+				{
+					throw new awex_cb_data_source("No data source constructor found");
+				}
+
+				if (!$this->obj_inst)
+				{
+					throw new awex_cb("Data sources cannot be loaded without main object");
+				}
+
+				$this->awcb_data_sources[$name] = $this->$method(array("obj_inst" => $this->obj_inst));
+			}
+
+			$r = $this->awcb_data_sources[$name];
+		}
+		else
+		{
+			throw new aw_exception("AW parse error: invalid class_base member '{$name}' overload");
+		}
+
+		return $r;
+	}
 }
 
 class awex_cb extends aw_exception {}
 
 /** class related errors **/
 class awex_cb_class extends awex_cb {}
+
+/** data source related errors **/
+class awex_cb_data_source extends awex_cb {}
 
 

@@ -2,6 +2,8 @@
 
 class shop_product_packaging_obj extends shop_product_obj
 {
+	const CLID = 327;
+
 
 	function prop($k)
 	{

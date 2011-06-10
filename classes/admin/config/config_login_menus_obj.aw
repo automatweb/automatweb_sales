@@ -6,6 +6,8 @@
 
 class config_login_menus_obj extends _int_object
 {
+	const CLID = 251;
+
 	function delete($full_delete = false)
 	{
 		// if this is the active object then delete from config table as well

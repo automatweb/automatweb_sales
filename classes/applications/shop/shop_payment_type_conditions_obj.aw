@@ -2,6 +2,8 @@
 
 class shop_payment_type_conditions_obj extends _int_object
 {
+	const CLID = 1559;
+
 	/**
 		Returns array of all possible rent periods
 	**/

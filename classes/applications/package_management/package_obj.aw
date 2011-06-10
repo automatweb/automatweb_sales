@@ -6,6 +6,8 @@
 */
 class package_obj extends _int_object
 {
+	const CLID = 1371;
+
 	function get_dependencies()
 	{
 		$ol = new object_list();

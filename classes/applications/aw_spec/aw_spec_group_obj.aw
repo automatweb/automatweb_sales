@@ -2,6 +2,8 @@
 
 class aw_spec_group_obj extends _int_object
 {
+	const CLID = 1426;
+
 	/**
 		@attrib api=1
 		@returns

@@ -2,6 +2,8 @@
 
 class shop_product_category_obj extends _int_object
 {
+	const CLID = 1435;
+
 	/** return categories
 		@attrib api=1
 		@returns

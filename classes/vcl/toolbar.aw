@@ -16,12 +16,7 @@ class toolbar extends aw_template
 	{
 		$this->init("toolbar");
 
-		extract($args);
-		if (empty($imgbase))
-		{
-			$imgbase = "/automatweb/images/icons";
-		}
-
+		$imgbase = empty($args["imgbase"]) ? "/automatweb/images/icons" : $args["imgbase"];
 		$this->imgbase = aw_ini_get("baseurl") . $imgbase;
 		$this->vars(array(
 			"imgbase" => aw_ini_get("baseurl") . $imgbase,
@@ -44,6 +39,8 @@ class toolbar extends aw_template
 			Name for the button
 		@param img optional type=string
 			An image location for the button
+		@param icon optional type=string
+			Button icon name
 		@param tooltip optional type=string
 			A text which is displayed while hovering over the button
 		@param side optional type=bool
@@ -68,7 +65,7 @@ class toolbar extends aw_template
 		$arr["class"] = "menuButton";
 		$arr["url"] = "";
 		$arr["type"] = "button";
-		if (empty($arr["img"]))
+		if (empty($arr["img"]) and empty($arr["icon"]))
 		{
 			if(!empty($arr["text"]))
 			{
@@ -79,6 +76,7 @@ class toolbar extends aw_template
 				$arr["img"] = "new.gif";
 			}
 		}
+
 		$arr["ismenu"] = 1;
 		$arr["id"] = $name;
 		$this->matrix[$arr["name"]] = $arr;
@@ -265,6 +263,8 @@ class toolbar extends aw_template
 			Text for button without icon, = tooltip, if not set
 		@param img optional type=string
 			Icon url to display.
+		@param icon optional type=string
+			Button icon name
 		@param action optional type=string
 			A action name which item shold trigger.
 		@param url optional type=string
@@ -297,7 +297,7 @@ class toolbar extends aw_template
 
 		$args["type"] = "button";
 
-		if (empty($args["img"]))
+		if (empty($args["img"]) and empty($args["icon"]))
 		{
 			$args["type"] = "text_button";
 		}
@@ -454,6 +454,10 @@ class toolbar extends aw_template
 					if (!empty($val["img"]))
 					{
 						$val["img_url"] = substr($val["img"], 0, 4) === "http" ? $val["img"] : $this->imgbase."/".$val["img"];
+					}
+					elseif (!empty($val["icon"]))
+					{
+						$val["img_url"] = icons::get_std_icon_url($val["icon"]);
 					}
 
 					if (!empty($val["load_on_demand_url"]))
@@ -848,7 +852,7 @@ class toolbar extends aw_template
 	{
 		$this->add_button(array(
 			"name" => "cut",
-			"img" => "cut.gif",
+			"icon" => "cut",
 			"action" => "generic_cut",
 			"tooltip" => t("L&otilde;ika")
 		));
@@ -866,11 +870,11 @@ class toolbar extends aw_template
 	**/
 	public function add_paste_button($ar)
 	{
-		if (is_array($_SESSION["tb_cuts"][$ar["var"]]) && count($_SESSION["tb_cuts"][$ar["var"]]))
+		if (isset($_SESSION["tb_cuts"][$ar["var"]]) && is_array($_SESSION["tb_cuts"][$ar["var"]]) && count($_SESSION["tb_cuts"][$ar["var"]]))
 		{
 			$this->add_button(array(
 				"name" => "paste",
-				"img" => "paste.gif",
+				"icon" => "paste",
 				"action" => "generic_paste",
 				"tooltip" => t("Kleebi")
 			));
@@ -878,7 +882,7 @@ class toolbar extends aw_template
 		}
 	}
 
-	public function callback_mod_reforb($arr)
+	public function callback_mod_reforb(&$arr)
 	{
 		if (!empty($GLOBALS["tb"]["_add_var"]))
 		{
