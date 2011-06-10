@@ -1641,7 +1641,10 @@ class crm_offer extends class_base
 	{
 		$js = "";
 
-		$js .= 'var offer_template_name_html = "'.t("Palun sisesta &scaron;ablooni nimi:<br /><input type='text' id='offer_template_name' name='offer_template_name' size='40' />\";");
+		if ("general" === $this->use_group)
+		{
+			$js .= 'var offer_template_name_html = "'.t("Palun sisesta &scaron;ablooni nimi:<br /><input type='text' id='offer_template_name' name='offer_template_name' size='40' />\";");
+		}
 
 		if("content" === $this->use_group)
 		{
