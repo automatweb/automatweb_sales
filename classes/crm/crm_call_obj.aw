@@ -259,6 +259,38 @@ class crm_call_obj extends task_object implements crm_sales_price_component_inte
 			{
 				$job->start();
 			}
+			catch (awex_mrp_resource_unavailable $e)
+			{
+				$list = new object_list(array(
+					"class_id" => array(CL_CRM_CALL, CL_CRM_PRESENTATION, CL_TASK, CL_CRM_MEETING),//!!! task classes. teha korralikult
+					"hr_schedule_job" => $e->processed_jobs
+				));
+
+				if($list->count())
+				{
+					$task = $list->begin();
+
+					do
+					{
+						if ($task->has_ended())
+						{
+							try
+							{
+								// force end an unfinished job for an ended task
+								$task_job = new object($task->prop("hr_schedule_job"));
+								$task_job->done();//XXX: TODO: ei tohiks nii teha, otsida tegelikke p6hjusi miks ressurss kinni j22b!
+							}
+							catch (Exception $e)
+							{
+								throw $e;//FIXME: mida siin?
+							}
+						}
+					}
+					while ($task = $list->next());
+				}
+
+				$job->start();
+			}
 			catch (awex_mrp_case_state $e)
 			{
 				// !!! v6ibolla 'unscheduled call' siis peaks midagi muud m6tlema sest see on normaalse wf osa ja exceptioni kaudu liiga kulukas
@@ -524,5 +556,3 @@ class awex_crm_call_cr extends awex_crm_call {}
 
 /** Call job error **/
 class awex_crm_call_job extends awex_crm_call {}
-
-?>
