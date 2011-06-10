@@ -407,7 +407,7 @@ class crm_db extends class_base
 			$companies->slice($p * $perpage, $perpage);
 		}
 
-		$company_data = $this->get_companies_tbl_data($arr["obj_inst"], $companies);
+		$company_data = $this->get_companies_tbl_data($arr["obj_inst"], $companies->ids());
 
 		foreach($company_data as $company)
 		{
@@ -483,8 +483,18 @@ class crm_db extends class_base
 		}
 	}
 
-	protected function get_companies_tbl_data($db, $companies)
+	protected function get_companies_tbl_data($db, $ids)
 	{
+		$companies = count($ids) > 0 ? new object_data_list(
+			array(
+				"class_id" => crm_company_obj::CLID,
+				"oid" => $ids,
+			),
+			array(
+				crm_company_obj::CLID => $this->get_org_tbl_odl_props($db),
+			)
+		) : new object_data_list();
+
 		$data = $companies->arr();
 		$load_emails_for = $load_adresses_for = $load_urls_for = $load_phones_for = array();
 
@@ -998,7 +1008,7 @@ SCRIPT;
 				$oo = $arr["obj_inst"]->owner_org;
 				if(!$this->can("view", $oo))
 				{
-					return array(new object_data_list(), array());
+					return array(new object_list(), array());
 				}
 				$cd_odl = new object_data_list(
 					array(
@@ -1016,7 +1026,7 @@ SCRIPT;
 				$customer_data = array_reverse($vars["oid"]);
 				if(count($vars["oid"]) === 0)
 				{
-					return array(new object_data_list(), array());
+					return array(new object_list(), array());
 				}
 
 				if(strlen(automatweb::$request->arg("os_sector")) > 0)
@@ -1125,7 +1135,7 @@ SCRIPT;
 			}
 			else
 			{
-				return array(new object_data_list(), array());
+				return array(new object_list(), array());
 			}
 		}
 
@@ -1152,15 +1162,13 @@ SCRIPT;
 			}
 			else
 			{
-				return array(new object_data_list(), array());
+				return array(new object_list(), array());
 			}
 		}
 
 
 
-		$companies = new object_data_list($vars, array(
-			crm_company_obj::CLID => $this->get_org_tbl_odl_props($arr["obj_inst"]),
-		));
+		$companies = new object_list($vars);
 		return array($companies, $customer_data);
 	}
 
