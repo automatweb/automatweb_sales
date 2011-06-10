@@ -472,6 +472,7 @@ _bsn.AutoSuggest.prototype.createList = function(arr)
 	div.style.left 		= pos.x + "px";
 	div.style.top 		= ( pos.y + this.fld.offsetHeight + this.oP.offsety ) + "px";
 	div.style.width 	= ((this.oP.width > 0) ? this.oP.width : this.fld.offsetWidth) + "px";
+	div.style.zIndex	= 2147483647;	// Make sure it's on top of everything!
 
 
 
