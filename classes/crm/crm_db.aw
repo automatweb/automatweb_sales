@@ -261,7 +261,7 @@ class crm_db extends class_base
 		{
 			case "display_mode":
 				$prop["options"] = array(
-					self::ORGS_BY_CUSTOMER_RELATIONS => t("Kuva ainult organisatsioone, millel on omanikorganisatsioonida kliendisuhe"),
+					self::ORGS_BY_CUSTOMER_RELATIONS => t("Kuva ainult organisatsioone, millel on omanikorganisatsiooniga kliendisuhe"),
 					self::ORGS_BY_SECTORS => t("Kuva organisatsioone, mis on tegevusalade all"),
 				);
 				$prop["value"] = isset($prop["value"]) ? $prop["value"] : 0;
@@ -368,7 +368,7 @@ class crm_db extends class_base
 		list($companies, $customer_data) = $this->get_orgs($arr);
 
 		// Get the order!
-		if(isset($_GET["branch_id"]) && $this->can("view", $_GET["branch_id"]))
+		if($arr["obj_inst"]->prop("display_mode") == self::ORGS_BY_CUSTOMER_RELATIONS and automatweb::$request->arg("os_sector"))
 		{
 			foreach($companies->ids() as $id)
 			{
@@ -378,9 +378,7 @@ class crm_db extends class_base
 				array(
 					"class_id" => CL_CRM_COMPANY_SECTOR_MEMBERSHIP,
 					"CL_CRM_COMPANY_SECTOR_MEMBERSHIP.RELTYPE_COMPANY" => $companies->ids(),
-					"CL_CRM_COMPANY_SECTOR_MEMBERSHIP.RELTYPE_SECTOR" => isset($_GET["branch_id"]) ? $_GET["branch_id"] : array(),
-					"lang_id" => array(),
-					"site_id" => array(),
+					"CL_CRM_COMPANY_SECTOR_MEMBERSHIP.RELTYPE_SECTOR" => automatweb::$request->arg("os_sector"),
 				),
 				array(
 					CL_CRM_COMPANY_SECTOR_MEMBERSHIP => array("company", "jrk"),
@@ -390,12 +388,8 @@ class crm_db extends class_base
 			{
 				$jrks[$jrk_od["company"]] = $jrk_od["jrk"];
 			}
+			asort($jrks, SORT_NUMERIC);
 		}
-		else
-		{
-			$jrks = $companies->ords();
-		}
-		asort($jrks, SORT_NUMERIC);
 
 		if($companies->count() > $perpage)
 		{
@@ -406,13 +400,10 @@ class crm_db extends class_base
 				"no_recount" => true,
 			));
 			$p = isset($_GET["ft_page"]) ? (int)$_GET["ft_page"] : 0;
-
-			$ids = $companies->ids();
-			$ids_to_cut = array_diff($ids, array_keys(array_slice($jrks, $p * $perpage, $perpage, true)));
-			$companies->remove($ids_to_cut);
+			$companies->slice($p * $perpage, $perpage);
 		}
-		$coms = $companies->arr();
-		foreach($coms as $com)
+		$com = $companies->begin();
+		do
 		{
 			$ol = $com->prop("firmajuht");
 			$org_leader = "";
@@ -537,8 +528,8 @@ class crm_db extends class_base
 				"created" => date("Y.m.d H:i" , $com->created()),
 			));
 		}
-		$t->set_numeric_field("jrk_int");
-		$t->set_default_sortby("jrk_int");
+		while ($com = $companies->next());
+		$t->set_default_sortby("name");
 	}
 
 	function _get_org_tlb(&$arr)
