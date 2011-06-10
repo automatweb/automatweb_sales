@@ -244,5 +244,3 @@ class ml_member_obj extends _int_object
 		return parent::save();
 	}
 }
-
-?>
