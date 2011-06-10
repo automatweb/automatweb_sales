@@ -702,7 +702,8 @@ class crm_offer extends class_base
 
 	public function _get_contracts(&$arr)
 	{
-		$arr["prop"]["options"] = automatweb::$request->get_application()->get_contract_list()->names();
+		$application = automatweb::$request->get_application();
+		$arr["prop"]["options"] = $application->is_a(crm_sales_obj::CLID) ? $application->get_contract_list()->names() : array();
 
 		//	For some reason chooser requires the key and value to be equal.
 		$contracts = array();
