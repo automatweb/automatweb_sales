@@ -192,6 +192,24 @@
             <caption>Tabeli v&amp;amp;auml;ljad</caption>
       </property>
       <property>
+            <name>create_customer_data_client_manager</name>
+            <table>objects</table>
+            <group>org</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>hidden</type>
+            <store>no</store>
+      </property>
+      <property>
+            <name>create_customer_data_categories</name>
+            <table>objects</table>
+            <group>org</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>hidden</type>
+            <store>no</store>
+      </property>
+      <property>
             <name>org_tlb</name>
             <table>objects</table>
             <group>org</group>

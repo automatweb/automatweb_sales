@@ -73,6 +73,9 @@
 @groupinfo org caption=Kataloog submit=no
 @default group=org
 
+	@property create_customer_data_client_manager type=hidden store=no
+	@property create_customer_data_categories type=hidden store=no
+
 	@property org_tlb type=toolbar no_caption=1 store=no
 
 	@layout o_main type=hbox width=20%:80%
@@ -613,10 +616,32 @@ class crm_db extends class_base
 
 		$current_org = obj(user::get_current_company(), array(), crm_company_obj::CLID);
 		$tb->add_separator();
+
+		$customer_data_html_url = $this->mk_my_orb("get_customer_data_prompt", array());
+		$onclick = <<<SCRIPT
+$.please_wait_window.show();
+$.ajax({
+	url: '{$customer_data_html_url}',
+	success: function(html){
+		$.please_wait_window.hide();
+		$.prompt(html, {
+			callback: function(v,m){
+				if(v == true){
+					$('input[type=hidden][name=create_customer_data_client_manager]').val(m.find('#client_manager').val());
+					$('input[type=hidden][name=create_customer_data_categories]').val(m.find('#categories').val());
+					submit_changeform('create_customer_data');
+				}
+			},
+			buttons: { 'Salvesta': true, 'Katkesta': false }
+		});
+	}
+});
+SCRIPT;
 		$tb->add_button(array(
 			"name" => "create_customer_data",
 			"tooltip" => t(sprintf("Loo kliendisuhe organisatsiooniga '%s'", $current_org->name())),
-			"action" => "create_customer_data",
+			"url" => "javascript:void(0)",
+			"onclick" => $onclick,
 		));
 
 		$conns = $arr["obj_inst"]->connections_from(array(
@@ -832,6 +857,9 @@ class crm_db extends class_base
 	/**
 		@attrib name=create_customer_data params=name
 		@param sel optional type=array
+		@param create_customer_data_client_manager type=int
+		@param create_customer_data_categories type=string
+			Comma separated category OIDs
 	**/
 	public function create_customer_data($arr)
 	{
@@ -840,7 +868,19 @@ class crm_db extends class_base
 			foreach($arr["sel"] as $company_id)
 			{
 				$company = obj($company_id, array(), crm_company_obj::CLID);
-				$company->find_customer_relation(null, true);
+				$customer_relation = $company->find_customer_relation(null, true);
+
+				if(!empty($arr["create_customer_data_client_manager"]) and is_oid($arr["create_customer_data_client_manager"]))
+				{
+					$customer_relation->set_prop("client_manager", $arr["create_customer_data_client_manager"]);
+				}
+
+				if(!empty($arr["create_customer_data_categories"]))
+				{
+					$customer_relation->set_prop("categories", explode(",", $arr["create_customer_data_categories"]));
+				}
+
+				$customer_relation->save();
 			}
 		}
 		return $arr["post_ru"];
@@ -1129,10 +1169,47 @@ class crm_db extends class_base
 		die(json_encode($data));
 	}
 
+	/**
+		@attrib name=get_customer_data_prompt all_args=1
+	**/
+	public function get_customer_data_prompt($arr)
+	{		
+		$company = obj(user::get_current_company(), array(), crm_company_obj::CLID);
+
+		$client_manager_caption = t("Kliendihaldur");
+		$categories_caption = t("Kliendikategooria(d)");
+		$client_manager_input = objpicker::create(array(
+			"name" => "client_manager",
+			"object" => obj(null, array(), crm_company_customer_data_obj::CLID),
+			"clid" => crm_person_obj::CLID,
+			"value" => user::get_current_person(),
+		));
+
+		$categories = $company->get_customer_categories(null, array(crm_category_obj::TYPE_GENERIC, crm_category_obj::TYPE_BUYER));
+		$categories_input = html::select(array(
+			"name" => "categories",
+			"multiple" => true,
+			"options" => $categories->names(),
+		));
+
+		$html = html::div(array(
+			"id" => "customer_data_prompt",
+			"content" => "{$client_manager_caption}:<br />
+{$client_manager_input}<br />
+{$categories_caption}:<br />
+{$categories_input}"
+		));
+
+		die($html);
+	}
+
 	public function callback_generate_scripts($arr)
 	{
 		if("org" === $this->use_group)
 		{
+			//	For the customer relation creation layer.
+			load_javascript("bsnAutosuggest.js");
+
 			load_javascript("jquery/plugins/jsTree/jquery.jstree.js");
 			load_javascript("reload_properties_layouts.js");
 

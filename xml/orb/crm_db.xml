@@ -43,5 +43,12 @@
 			</function>
 		</action>
 
+		<action name="get_customer_data_prompt" all_args="1">
+			<function name="get_customer_data_prompt">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>
