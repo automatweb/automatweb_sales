@@ -187,6 +187,7 @@ class crm_db extends class_base
 {
 	const ORGS_BY_CUSTOMER_RELATIONS = 0;
 	const ORGS_BY_SECTORS = 1;
+	protected $fields_in_use = array();
 
 	function crm_db()
 	{
@@ -196,15 +197,13 @@ class crm_db extends class_base
 		$this->org_tbl_fields = array(
 			"jrk" => t("Jrk"),
 			"org" => t("Organisatsioon"),
-			"field" => t("P&otilde;hitegevus"),
 			"ettevotlusvorm" => t("Ettev&otilde;lusvorm"),
 			"address" => t("Aadress"),
 			"e_mail" => t("E-post"),
 			"url" => t("WWW"),
 			"phone" => t("Telefon"),
 			"org_leader" => t("Juht"),
-			"cr_manager" => t("Kliendihaldur"),
-			"changed" => t("Muudetud"),
+			"modified" => t("Muudetud"),
 			"created" => t("Loodud"),
 		);
 		$this->org_tbl_fields_add_args = array(
@@ -338,6 +337,11 @@ class crm_db extends class_base
 		$fields = is_array($arr["obj_inst"]->org_tbl_fields) ? $arr["obj_inst"]->org_tbl_fields : array_keys($this->org_tbl_fields);
 		foreach($fields as $field)
 		{
+			if (!isset($this->org_tbl_fields[$field]))
+			{
+				continue;
+			}
+
 			$args = array(
 				"name" => $field,
 				"caption" => $this->org_tbl_fields[$field],
@@ -402,134 +406,204 @@ class crm_db extends class_base
 			$p = isset($_GET["ft_page"]) ? (int)$_GET["ft_page"] : 0;
 			$companies->slice($p * $perpage, $perpage);
 		}
-		$com = $companies->begin();
-		do
+
+		$company_data = $this->get_companies_tbl_data($arr["obj_inst"], $companies);
+
+		foreach($company_data as $company)
 		{
-			$ol = $com->prop("firmajuht");
-			$org_leader = "";
-			if(is_oid($ol))
-			{
-				$ol_obj = obj($ol, array(), crm_person_obj::CLID);
-				$org_leader = html::get_change_url($ol, array("return_url" => get_ru()), $ol_obj->name());
-			}
-			$cr_manager = "";
-			$crm = $com->prop("client_manager.name");
-			if(strlen($crm) > 0)
-			{
-				$cr_manager = html::get_change_url($com->prop("client_manager"), array("return_url" => get_ru()), $com->prop("client_manager.name"));
-			}
+			$row = array("id" => $company["oid"]);
 
-			if (!$arr["obj_inst"]->prop("all_ct_data") && $this->can("view", $com->prop("email_id")))
+			if (in_array("org", $this->fields_in_use))
 			{
-				$eml = $com->prop("email_id.mail");
-			}
-			else
-			{
-				$phc = $com->connections_from(array("type" => "RELTYPE_EMAIL"));
-				$pha = array();
-				foreach($phc as $ph_con)
-				{
-					$ph_o = $ph_con->to();
-					$pha[] = $ph_o->prop("mail");
-				}
-				$eml = join(", ", $pha);
-			}
+				$pm = $this->get_org_popupmenu(array("oid" => $company["oid"], "cd_oid" => null)); //$cd !== null ? $cd->id : null));
+				$row["org"] = $pm->get_menu(array(
+					"text" => parse_obj_name(!empty($company["ettevotlusvorm.shortname"]) ? "{$company["name"]} {$company["ettevotlusvorm.shortname"]}" : $company["name"]),
+				));
+				$row["name"] = $company["name"];
 
-			if (!$arr["obj_inst"]->prop("all_ct_data") && $this->can("view", $com->prop("phone_id")))
-			{
-				$phs = $com->prop("phone_id.name");
+				$t->set_default_sortby("name");
 			}
-			else
+			if (in_array("jrk", $this->fields_in_use))
 			{
-				$phc = $com->connections_from(array("type" => "RELTYPE_PHONE"));
-				$pha = array();
-				foreach($phc as $ph_con)
-				{
-					$pha[] = $ph_con->prop("to.name");
-				}
-				$phs = join(", ", $pha);
-			}
+				$sector = automatweb::$request->arg("os_sector") ? html::hidden(array(
+					"name" => "org_tbl[{$company["oid"]}][sector]",
+					"value" => automatweb::$request->arg("os_sector"),
+				)) : "";
 
-			if (!$arr["obj_inst"]->prop("all_ct_data") && $this->can("view", $com->prop("url_id")))
-			{
-				$url = $com->prop("url_id.url");
-				$url = substr($url, strpos($url, "http://"));
-				if(strlen($url) > 0)
-				{
-					$url = html::href(array("url" => "http://".$url, "caption" => $url, "target" => "_blank"));
-				}
-			}
-			else
-			{
-				$phc = $com->connections_from(array("type" => "RELTYPE_URL"));
-				$pha = array();
-				foreach($phc as $ph_con)
-				{
-					$tu = $ph_con->prop("to.name");
-					$tu = substr($tu, strpos($tu, "http://"), strlen($tu)+1);
-					if(strlen($tu) > 0)
-					{
-						$tu = html::href(array("url" => $tu, "caption" => $tu, "target" => "_blank"));
-					}
-					$pha[] = $tu;
-				}
-				$url = join(", ", $pha);
-			}
-
-			if (!$arr["obj_inst"]->prop("all_ct_data") && $this->can("view", $com->prop("contact")))
-			{
-				$cts = $com->prop("contact.name");
-			}
-			else
-			{
-				$phc = $com->connections_from(array("type" => "RELTYPE_ADDRESS"));
-				$pha = array();
-				foreach($phc as $ph_con)
-				{
-					$pha[] = $ph_con->prop("to.name");
-				}
-				$cts = join(", ", $pha);
-			}
-
-			try
-			{
-				$cd = $com->find_customer_relation(null);
-			}
-			catch (awex_crm $e)
-			{
-				$cd = null;
-			}
-			$pm = $this->get_org_popupmenu(array("oid" => $com->id(), "cd_oid" => $cd !== null ? $cd->id : null));
-			$jrk = isset($_GET["branch_id"]) && $this->can("view", $_GET["branch_id"]) ? (isset($jrks[$com->id()]) ? (int)$jrks[$com->id()] : 0) : (int)$com->ord();
-			$sector = isset($_GET["branch_id"]) && $this->can("view", $_GET["branch_id"]) ? html::hidden(array(
-				"name" => "org_tbl[".$com->id()."][sector]",
-				"value" => $_GET["branch_id"],
-			)) : "";
-			$t->define_data(array(
-				"jrk" => html::textbox(array(
-					"name" => "org_tbl[".$com->id()."][jrk]",
+				$row["jrk"] = html::textbox(array(
+					"name" => "org_tbl[{$company["oid"]}][jrk]",
 					"size" => 2,
-					"value" => $jrk,
-				)).$sector,
-				"jrk_int" => $jrk,
-				"id" => $com->id(),
-				"org" => $pm->get_menu(array(
-					"text" => parse_obj_name($com->get_title()),
-				)),
-				"field" => $com->prop_str("pohitegevus"),
-				"ettevotlusvorm" => $com->prop_str("ettevotlusvorm"),
-				"address" => $cts,
-				"e_mail" => $eml,
-				"url" => $url,
-				"phone" => $phs,
-				"org_leader" => $org_leader,
-				"cr_manager" => $cr_manager,
-				"changed" => date("Y.m.d H:i" , $com->modified()),
-				"created" => date("Y.m.d H:i" , $com->created()),
-			));
+					"value" => $company["jrk"],
+				)).$sector;
+				$row["jrk_int"] = $company["jrk"];
+
+				$t->set_numeric_field("jrk_int");
+				$t->set_default_sortby("jrk_int");
+			}
+			if (in_array("ettevotlusvorm", $this->fields_in_use) and !empty($company["ettevotlusvorm"]))
+			{
+				$row["ettevotlusvorm"] = $company["ettevotlusvorm.shortname"];
+			}
+			if (in_array("org_leader", $this->fields_in_use) and !empty($company["firmajuht"]))
+			{
+				$row["org_leader"] = $this->change_link($company["firmajuht"], $company["firmajuht.name"]);
+			}
+			if (in_array("e_mail", $this->fields_in_use))
+			{
+				$row["e_mail"] = implode(", ", $company["e_mail"]);
+			}
+			if (in_array("phone", $this->fields_in_use))
+			{
+				$row["phone"] = implode(", ", $company["phone"]);
+			}
+			if (in_array("url", $this->fields_in_use))
+			{
+				$urls = array();
+				foreach($company["url"] as $url)
+				{
+					$url = substr($url, strpos($url, "http://"));
+					$urls[] = strlen($url) > 0 ? $url = html::href(array("url" => "http://".$url, "caption" => $url, "target" => "_blank")) : "";
+				}
+				$row["url"] = implode(",", $urls);
+			}
+			if (in_array("address", $this->fields_in_use))
+			{
+				$row["address"] = implode(", ", $company["address"]);
+			}
+			if (in_array("modified", $this->fields_in_use))
+			{
+				$row["modified"] = date("Y.m.d H:i" , $company["modified"]);
+			}
+			if (in_array("created", $this->fields_in_use))
+			{
+				$row["created"] = date("Y.m.d H:i" , $company["created"]);
+			}
+
+			$t->define_data($row);
 		}
-		while ($com = $companies->next());
-		$t->set_default_sortby("name");
+	}
+
+	protected function get_companies_tbl_data($db, $companies)
+	{
+		$data = $companies->arr();
+		$load_emails_for = $load_adresses_for = $load_urls_for = $load_phones_for = array();
+
+		foreach($data as $oid => $v)
+		{
+			if (in_array("phone", $this->fields_in_use) and (in_array("url", $this->fields_in_use) or empty($v["phone_id"])))
+			{
+				$load_phones_for[] = $oid;
+				$data[$oid]["phone"] = array();
+			}
+			else
+			{
+				$data[$oid]["phone"] = (array)$v["phone_id(CL_CRM_PHONE).name"];
+			}
+
+			if (in_array("url", $this->fields_in_use) and ($db->prop("all_ct_data") or empty($v["url_id"])))
+			{
+				$load_urls_for[] = $oid;
+				$data[$oid]["url"] = array();
+			}
+			else
+			{
+				$data[$oid]["url"] = (array)$v["url_id(CL_EXTLINK).url"];
+			}
+
+			if (in_array("e_mail", $this->fields_in_use) and ($db->prop("all_ct_data") or empty($v["email_id"])))
+			{
+				$load_emails_for[] = $oid;
+				$data[$oid]["e_mail"] = array();
+			}
+			else
+			{
+				$data[$oid]["e_mail"] = (array)$v["email_id(CL_ML_MEMBER).mail"];
+			}
+
+			if (in_array("address", $this->fields_in_use) and ($db->prop("all_ct_data") or empty($v["contact"])))
+			{
+				$load_adresses_for[] = $oid;
+				$data[$oid]["address"] = array();
+			}
+			else
+			{
+				$data[$oid]["address"] = (array)$v["contact(CL_CRM_ADDRESS).name"];
+			}
+		}
+
+		if (count($load_phones_for) > 0)
+		{
+			$odl = new object_data_list(
+				array(
+					"class_id" => crm_phone_obj::CLID,
+					"RELTYPE_PHONE(CL_CRM_COMPANY).id" => $load_phones_for,
+				),
+				array(
+					crm_phone_obj::CLID => array("name", "RELTYPE_PHONE(CL_CRM_COMPANY).oid"),
+				)
+			);
+
+			foreach($odl->arr() as $od)
+			{
+				$data[$od["RELTYPE_PHONE(CL_CRM_COMPANY).oid"]]["phone"][] = $od["name"];
+			}
+		}
+		
+		if (count($load_emails_for) > 0)
+		{
+			$odl = new object_data_list(
+				array(
+					"class_id" => ml_member_obj::CLID,
+					"RELTYPE_EMAIL(CL_CRM_COMPANY).id" => $load_emails_for,
+				),
+				array(
+					ml_member_obj::CLID => array("mail", "RELTYPE_EMAIL(CL_CRM_COMPANY).oid"),
+				)
+			);
+
+			foreach($odl->arr() as $od)
+			{
+				$data[$od["RELTYPE_EMAIL(CL_CRM_COMPANY).oid"]]["e_mail"][] = $od["mail"];
+			}
+		}
+		
+		if (count($load_adresses_for) > 0)
+		{
+			$odl = new object_data_list(
+				array(
+					"class_id" => crm_address_obj::CLID,
+					"RELTYPE_ADDRESS(CL_CRM_COMPANY).id" => $load_adresses_for,
+				),
+				array(
+					crm_address_obj::CLID => array("name", "RELTYPE_ADDRESS(CL_CRM_COMPANY).oid"),
+				)
+			);
+
+			foreach($odl->arr() as $od)
+			{
+				$data[$od["RELTYPE_ADDRESS(CL_CRM_COMPANY).oid"]]["address"][] = $od["name"];
+			}
+		}
+		
+		if (count($load_urls_for) > 0)
+		{
+			$odl = new object_data_list(
+				array(
+					"class_id" => link_fix::CLID,
+					"RELTYPE_URL(CL_CRM_COMPANY).id" => $load_urls_for,
+				),
+				array(
+					link_fix::CLID => array("url", "RELTYPE_URL(CL_CRM_COMPANY).oid"),
+				)
+			);
+
+			foreach($odl->arr() as $od)
+			{
+				$data[$od["RELTYPE_URL(CL_CRM_COMPANY).oid"]]["url"][] = $od["url"];
+			}
+		}
+
+		return $data;
 	}
 
 	function _get_org_tlb(&$arr)
@@ -924,7 +998,7 @@ SCRIPT;
 				$oo = $arr["obj_inst"]->owner_org;
 				if(!$this->can("view", $oo))
 				{
-					return array(new object_list(), array());
+					return array(new object_data_list(), array());
 				}
 				$cd_odl = new object_data_list(
 					array(
@@ -942,7 +1016,7 @@ SCRIPT;
 				$customer_data = array_reverse($vars["oid"]);
 				if(count($vars["oid"]) === 0)
 				{
-					return array(new object_list(), array());
+					return array(new object_data_list(), array());
 				}
 
 				if(strlen(automatweb::$request->arg("os_sector")) > 0)
@@ -1051,7 +1125,7 @@ SCRIPT;
 			}
 			else
 			{
-				return array(new object_list(), array());
+				return array(new object_data_list(), array());
 			}
 		}
 
@@ -1078,12 +1152,70 @@ SCRIPT;
 			}
 			else
 			{
-				return array(new object_list(), array());
+				return array(new object_data_list(), array());
 			}
 		}
 
-		$companies = new object_list($vars);
+
+
+		$companies = new object_data_list($vars, array(
+			crm_company_obj::CLID => $this->get_org_tbl_odl_props($arr["obj_inst"]),
+		));
 		return array($companies, $customer_data);
+	}
+
+	protected function get_org_tbl_odl_props($db)
+	{
+		$props = array("oid");
+		if (in_array("jrk", $this->fields_in_use))
+		{
+			$props[] = "jrk";
+		}
+		if (in_array("org", $this->fields_in_use))
+		{
+			$props[] = "name";
+			$props[] = "ettevotlusvorm.shortname";
+		}
+		if (in_array("ettevotlusvorm", $this->fields_in_use))
+		{
+			$props[] = "ettevotlusvorm";
+			$props[] = "ettevotlusvorm.shortname";
+		}
+		if (in_array("org_leader", $this->fields_in_use))
+		{
+			$props[] = "firmajuht";
+			$props[] = "firmajuht.name";
+		}
+		if (in_array("e_mail", $this->fields_in_use) and !$db->prop("all_ct_data"))
+		{
+			$props[] = "email_id";
+			$props[] = "email_id(CL_ML_MEMBER).mail";
+		}
+		if (in_array("phone", $this->fields_in_use) and !$db->prop("all_ct_data"))
+		{
+			$props[] = "phone_id";
+			$props[] = "phone_id(CL_CRM_PHONE).name";
+		}
+		if (in_array("url", $this->fields_in_use) and !$db->prop("all_ct_data"))
+		{
+			$props[] = "url_id";
+			$props[] = "url_id(CL_EXTLINK).url";
+		}
+		if (in_array("address", $this->fields_in_use) and !$db->prop("all_ct_data"))
+		{
+			$props[] = "contact";
+			$props[] = "contact(CL_CRM_ADDRESS).name";
+		}
+		if (in_array("modified", $this->fields_in_use))
+		{
+			$props[] = "modified";
+		}
+		if (in_array("created", $this->fields_in_use))
+		{
+			$props[] = "created";
+		}
+
+		return $props;
 	}
 
 	private function set_org_tbl_caption($arr)
@@ -1120,14 +1252,14 @@ SCRIPT;
 
 		$pm->add_item(array(
 			"text" => t("Muuda organisatsiooni"),
-			"link" => html::get_change_url($arr["oid"], array("return_url" => get_ru()))
+			"link" => $this->mk_my_orb("gt_change", array("id" => $arr["oid"], "return_url" => get_ru()))
 		));
 
 		if (!empty($arr["cd_oid"]))
 		{
 			$pm->add_item(array(
 				"text" => t("Muuda kliendisuhet"),
-				"link" => html::get_change_url($arr["cd_oid"], array("return_url" => get_ru()))
+			"link" => $this->mk_my_orb("gt_change", array("id" => $arr["cd_oid"], "return_url" => get_ru()))
 			));
 		}
 
@@ -1192,6 +1324,11 @@ SCRIPT;
 		));
 
 		die($html);
+	}
+
+	public function callback_pre_edit($arr)
+	{
+		$this->fields_in_use = is_array($arr["obj_inst"]->org_tbl_fields) ? $arr["obj_inst"]->org_tbl_fields : array_keys($this->org_tbl_fields);
 	}
 
 	public function callback_generate_scripts($arr)
