@@ -2,6 +2,8 @@
 
 class cfgcontroller_obj extends _int_object
 {
+	const CLID = 810;
+
 	/** Processes $data according to formula
 	@attrib api=1 params=pos
 	@param data type=array default=array()

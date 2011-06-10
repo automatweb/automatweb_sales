@@ -2,6 +2,8 @@
 
 class crm_person_education_obj extends _int_object
 {
+	const CLID = 487;
+
 	function set_name($v)
 	{
 		$v = htmlspecialchars($v);

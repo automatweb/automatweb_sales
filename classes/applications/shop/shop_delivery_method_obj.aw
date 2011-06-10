@@ -2,6 +2,8 @@
 
 class shop_delivery_method_obj extends shop_matrix_obj
 {
+	const CLID = 1558;
+
 	public function prop($k)
 	{
 		switch($k)

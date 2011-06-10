@@ -2,6 +2,8 @@
 
 class site_copy_site_obj extends _int_object
 {
+	const CLID = 1489;
+
 	function delete($full_delete = false)
 	{
 		if($this->meta("delete"))

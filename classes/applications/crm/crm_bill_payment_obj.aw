@@ -2,6 +2,8 @@
 
 class crm_bill_payment_obj extends _int_object
 {
+	const CLID = 1383;
+
 	function set_prop($name,$value)
 	{
 /*		if($name == "sum")
@@ -275,4 +277,3 @@ class crm_bill_payment_obj extends _int_object
 
 }
 
-?>

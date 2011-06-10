@@ -2,6 +2,8 @@
 
 class link_fix extends _int_object
 {
+	const CLID = 21;
+
 	private $si;
 	private $url = "";
 

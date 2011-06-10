@@ -370,7 +370,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 @property balance type=hidden table=aw_account_balances field=aw_balance
 
 @default group=owners
-	
+
 	@property owners_toolbar type=toolbar store=no no_caption=1
 
 	@property owners_table type=table store=no no_caption=1
@@ -734,9 +734,20 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 		@property bill_proj_list type=table store=no no_caption=1 parent=billable_table
 		@property bill_task_list type=table store=no no_caption=1 parent=billable_table
 
-@default group=bills_monthly
+
+@default group=invoice_templates
 
 	@property bills_mon_tb type=toolbar no_caption=1 store=no
+
+	@layout templates_container type=hbox width=20%:80%
+		@layout template_folders type=vbox parent=templates_container closeable=0 area_caption=Arvep&otilde;hjade&nbsp;kaustad
+		@layout templates_list_box type=vbox parent=templates_container closeable=0 no_padding=1
+		@layout folders_list_box type=vbox parent=templates_list_box closeable=1 no_padding=1 default_state=closed area_caption=Arvep&otilde;hjade&nbsp;kaustad
+			@property invoice_template_folders type=treeview no_caption=1 store=no parent=template_folders
+			@property invoice_folders_list type=table store=no no_caption=1 parent=folders_list_box
+			@property invoice_templates_list type=table store=no no_caption=1 parent=templates_list_box
+
+
 
 @default group=bills_search
 
@@ -815,7 +826,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 			@property bill_s_bill_no type=textbox size=15 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Arve nr alates
-'
+
 			@property bill_s_bill_to type=textbox size=15 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Arve nr kuni
 
@@ -843,7 +854,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property bill_s_search type=submit store=no parent=bills_list_s captionside=top no_caption=1 group=bills_list
 			@caption Otsi
 
-		@property bills_list type=table store=no no_caption=1 parent=bills_list_box group=bills_list,bills_monthly
+		@property bills_list type=table store=no no_caption=1 parent=bills_list_box group=bills_list
 
 @default group=bills_quality
 
@@ -1260,7 +1271,7 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 @groupinfo bills caption="Arved" submit=no save=no
 
 	@groupinfo bills_list parent=bills caption="Nimekiri" submit=no save=no
-	@groupinfo bills_monthly parent=bills caption="Kuuarved" submit=no save=no
+	@groupinfo invoice_templates parent=bills caption="Arvep&otilde;hjad" submit=no save=no
 	@groupinfo bills_search parent=bills caption="Otsi toimetusi" submit=no save=no
 	@groupinfo bills_create parent=bills caption="Maksmata t&ouml;&ouml;d" submit=no save=no
 	@groupinfo bill_payments parent=bills caption="Laekumised" submit=no save=no
@@ -2356,6 +2367,7 @@ class crm_company extends class_base
 				if (!$cust_impl)
 				{
 					$cust_impl = new crm_company_cust_impl();
+					$cust_impl->layoutinfo = &$this->layoutinfo;
 					$cust_impl->use_group = $this->use_group;
 				}
 				$fn = "_get_".$data["name"];
@@ -2822,6 +2834,9 @@ class crm_company extends class_base
 			case 'bills_time_tree':
 			case 'bills_tb':
 			case 'bills_mon_tb':
+			case 'invoice_template_folders':
+			case 'invoice_templates_list':
+			case 'invoice_folders_list':
 			case "bill_s_client_mgr":
 			case "bill_s_status":
 			case "bill_s_with_tax":
@@ -2835,6 +2850,8 @@ class crm_company extends class_base
 				if (!$bills_impl)
 				{
 					$bills_impl = new crm_company_bills_impl();
+					$bills_impl->layoutinfo = &$this->layoutinfo;
+					$bills_impl->use_group = $this->use_group;
 				}
 				$fn = "_get_".$data["name"];
 				return $bills_impl->$fn($arr);
@@ -3263,17 +3280,48 @@ class crm_company extends class_base
 	**/
 	function delete_selected_objects($arr)
 	{
-		foreach ($arr["select"] as $deleted_obj_id)
+		$selected_objects = $errors = array();
+		if (!empty($arr["select"]))
 		{
-			$deleted_obj = obj($deleted_obj_id);
-			$deleted_obj->delete();
+			$selected_objects += $arr["select"] ;
 		}
-		return $this->mk_my_orb("change", array(
+
+		if (!empty($arr["cust_check"]))
+		{
+			$selected_objects += $arr["cust_check"] ;
+		}
+
+		if (!empty($arr["cat_check"]))
+		{
+			$selected_objects += $arr["cat_check"] ;
+		}
+
+		foreach ($selected_objects as $delete_obj_id)
+		{
+			if (object_loader::can("delete", $delete_obj_id))
+			{
+				$deleted_obj = obj($delete_obj_id);
+				$deleted_obj->delete();
+			}
+			else
+			{
+				$errors[] = $delete_obj_id;
+			}
+		}
+
+		if (count($errors))
+		{
+			$this->show_error_text(sprintf(t("Objekte %s ei saanud kustutada."), implode(", ", $errors)));
+		}
+
+		// return url
+		$r = empty($arr["post_ru"]) ? $this->mk_my_orb("change", array(
 			"id" => $arr["id"],
 			"group" => $arr["group"],
 			"org_id" => isset($arr["offers_current_org_id"]) ? $arr["offers_current_org_id"] : 0),
 			$arr["class"]
-		);
+		) : $arr["post_ru"];
+		return $r;
 	}
 
 	/**
@@ -3478,12 +3526,12 @@ class crm_company extends class_base
 	/** Delete customer relations and customer objects completely
 		@attrib name=remove_delete_cust
 		@param id required type=oid
-		@param check required type=array
+		@param cust_check required type=array
 		@param post_ru optional type=string
 	**/
 	function remove_delete_cust($arr)
 	{
-		if (is_array($arr["check"]) and count($arr["check"]))
+		if (is_array($arr["cust_check"]) and count($arr["cust_check"]))
 		{
 			try
 			{
@@ -3495,7 +3543,7 @@ class crm_company extends class_base
 				return $arr["post_ru"];
 			}
 
-			foreach($arr["check"] as $customer_relation_oid)
+			foreach($arr["cust_check"] as $customer_relation_oid)
 			{
 				try
 				{
@@ -3522,13 +3570,14 @@ class crm_company extends class_base
 	**/
 	function remove_from_category($arr)
 	{
-		if (is_array($arr["check"]) and count($arr["check"]) and is_oid($arr[self::REQVAR_CATEGORY]))
+		if (is_array($arr["cust_check"]) and count($arr["cust_check"]) and is_oid($arr[self::REQVAR_CATEGORY]))
 		{
+			$errors = array();
 			try
 			{
 				$category = obj($arr[self::REQVAR_CATEGORY]);
 
-				foreach($arr['check'] as $customer_relation_oid)
+				foreach($arr['cust_check'] as $customer_relation_oid)
 				{
 					try
 					{
@@ -3559,7 +3608,7 @@ class crm_company extends class_base
 	**/
 	function remove_cust_relations($arr)
 	{
-		if (is_array($arr["check"]) and count($arr["check"]))
+		if (is_array($arr["cust_check"]) and count($arr["cust_check"]))
 		{
 			try
 			{
@@ -3571,7 +3620,8 @@ class crm_company extends class_base
 				return $arr["post_ru"];
 			}
 
-			foreach($arr["check"] as $customer_relation_oid)
+			$errors = array();
+			foreach($arr["cust_check"] as $customer_relation_oid)
 			{
 				try
 				{
@@ -3667,9 +3717,9 @@ class crm_company extends class_base
 	**/
 	function submit_delete_my_customers_relations($arr)
 	{
-		if (is_array($arr["check"]) && count($arr["check"]))
+		if (is_array($arr["cust_check"]) && count($arr["cust_check"]))
 		{
-			$ol = new object_list(array("oid" => $arr["check"]));
+			$ol = new object_list(array("oid" => $arr["cust_check"]));
 			$ol->delete();
 		}
 
@@ -3684,7 +3734,7 @@ class crm_company extends class_base
 	**/
 	function submit_delete_customer_relations($arr)
 	{
-		if(!is_array($arr['check']))
+		if(!is_array($arr['cust_check']))
 		{
 			return $arr["post_ru"];
 		}
@@ -3695,7 +3745,7 @@ class crm_company extends class_base
 			$main_obj = new object($arr[self::REQVAR_CATEGORY]);
 		}
 
-		foreach($arr['check'] as $key=>$value)
+		foreach($arr['cust_check'] as $key=>$value)
 		{
 			$vo = obj($value);
 			if ($vo->class_id() == CL_CRM_SECTION)
@@ -3773,6 +3823,12 @@ class crm_company extends class_base
 		if(isset($request['set_buyer_status']) && $request['action'] === 'new')
 		{
 			$arr["set_buyer_status"] = $request['set_buyer_status'];
+		}
+
+		if($this->use_group === "invoice_templates" and !empty($request[crm_company_bills_impl::INVOICE_TEMPLATE_FOLDERS_VAR]))
+		{
+			$arr["invoice_folder_parent"] = $request[crm_company_bills_impl::INVOICE_TEMPLATE_FOLDERS_VAR];
+			$arr[crm_company_bills_impl::INVOICE_TEMPLATE_FOLDERS_VAR] = $request[crm_company_bills_impl::INVOICE_TEMPLATE_FOLDERS_VAR];
 		}
 
 		if($this->use_group === "stats_stats" || $this->use_group === "stats")
@@ -4614,35 +4670,87 @@ class crm_company extends class_base
 
 	/**
 		@attrib name=customer_view_cut
-		@param check required type=array
+		@param cust_check optional type=array
+		@param cat_check optional type=array
 		@param cs_c required type=string
 		@param post_ru required type=string
 	**/
 	function customer_view_cut($arr)
 	{
-		aw_session_set("awcb_customer_selection_clipboard", $arr["check"]);
-		aw_session_set("awcb_category_old_parent", (isset($arr["cs_c"]) ? $arr["cs_c"] : ""));
+		$check = array();
+
+		if (isset($arr["cust_check"]))
+		{
+			$check += $arr["cust_check"];
+		}
+
+		if (isset($arr["cat_check"]))
+		{
+			$check += $arr["cat_check"];
+		}
+
+		aw_session::set("awcb_clipboard_action", "cut");
+		aw_session::set("awcb_customer_selection_clipboard", $check);
+		aw_session::set("awcb_category_old_parent", (isset($arr["cs_c"]) ? $arr["cs_c"] : ""));
+		return $arr["post_ru"];
+	}
+
+	/**
+		@attrib name=customer_view_copy
+		@param cust_check optional type=array
+		@param cat_check optional type=array
+		@param cs_c required type=string
+		@param post_ru required type=string
+	**/
+	function customer_view_copy($arr)
+	{
+		$check = array();
+
+		if (isset($arr["cust_check"]))
+		{
+			$check = array_merge($check, $arr["cust_check"]);
+		}
+
+		if (isset($arr["cat_check"]))
+		{
+			$check = array_merge($check, $arr["cat_check"]);
+		}
+
+		aw_session::set("awcb_clipboard_action", "copy");
+		aw_session::set("awcb_customer_selection_clipboard", $check);
+		aw_session::set("awcb_category_old_parent", (isset($arr["cs_c"]) ? $arr["cs_c"] : ""));
 		return $arr["post_ru"];
 	}
 
 	/**
 		@attrib name=customer_view_paste
+		@param id required type=oid acl=view
+			This object id
 		@param cs_c required type=string
 		@param post_ru required type=string
 	**/
 	function customer_view_paste($arr)
 	{
 		$errors = array();
+		$action = aw_session::get("awcb_clipboard_action");
+		$this_object = obj($arr["id"], array(), crm_company_obj::CLID);
 
-		if (aw_global_get("awcb_customer_selection_clipboard"))
+		if (aw_session::get("awcb_customer_selection_clipboard"))
 		{
 			try
 			{
 				// get old parent
-				if (is_oid(aw_global_get("awcb_category_old_parent")))
+				if (is_oid(aw_session::get("awcb_category_old_parent")))
 				{
-					$old_parent = aw_global_get("awcb_category_old_parent");
-					$old_parent = obj($old_parent, array(), crm_category_obj::CLID);
+					$old_parent = aw_session::get("awcb_category_old_parent");
+					try
+					{
+						$old_parent = obj($old_parent, array(), crm_category_obj::CLID);
+					}
+					catch (awex_obj_class $e)
+					{
+						$old_parent = null;
+					}
 				}
 				else
 				{
@@ -4660,7 +4768,6 @@ class crm_company extends class_base
 					}
 					catch (awex_obj_class $e)
 					{
-						$new_parent = obj($new_parent, array(), crm_company_obj::CLID);
 						$new_parent = $new_parent_oid = null;
 					}
 				}
@@ -4670,8 +4777,8 @@ class crm_company extends class_base
 					return $arr["post_ru"];
 				}
 
-				// move objects
-				$selected_objects = aw_global_get("awcb_customer_selection_clipboard");
+				// perform action on objects
+				$selected_objects = aw_session::get("awcb_customer_selection_clipboard");
 				foreach ($selected_objects as $oid)
 				{
 					if ($oid)
@@ -4680,9 +4787,9 @@ class crm_company extends class_base
 						{
 							$o = new object($oid);
 							if ($o->is_a(crm_company_customer_data_obj::CLID))
-							{ // move customer to new category
-								if ($old_parent)
-								{
+							{ // move or copy customer to new category
+								if ("cut" === $action  and $old_parent)
+								{ // remove old category since cut
 									$o->remove_category($old_parent);
 								}
 
@@ -4693,6 +4800,13 @@ class crm_company extends class_base
 							}
 							elseif ($o->is_a(crm_category_obj::CLID))
 							{ // replace category parent category
+								if ("copy" === $action)
+								{
+									$category_copy = $this_object->add_customer_category($new_parent, (int) $o->prop("category_type"));
+									$category_copy->set_name($o->name());
+									$o = $category_copy;
+								}
+
 								$o->set_prop("parent_category", $new_parent_oid);
 								$o->save();
 							}
@@ -4703,19 +4817,22 @@ class crm_company extends class_base
 						}
 						catch (Exception $e)
 						{
+							trigger_error("Caught exception " . get_class($e) . ". Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 							$errors[] = $oid;
 						}
 					}
 				}
-
-				aw_session_del("awcb_customer_selection_clipboard");
-				aw_session_del("awcb_category_old_parent");
 			}
 			catch (Exception $e)
 			{
 				$this->show_error_text(t("Kleepimiskoht defineerimata"));
+				trigger_error("Caught exception " . get_class($e) . ". Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 			}
 		}
+
+		aw_session::del("awcb_clipboard_action");
+		aw_session::del("awcb_customer_selection_clipboard");
+		aw_session::del("awcb_category_old_parent");
 
 		if (count($errors))
 		{
@@ -6474,12 +6591,47 @@ class crm_company extends class_base
 	}
 
 	/**
-		@attrib name=create_new_monthly_bill
+		@attrib name=create_new_invoice_folder
+		@param invoice_folder_parent required type=int acl=view
+		@param id optional type=int acl=view
+		@param post_ru required type=string
+	**/
+	function create_new_invoice_folder($arr)
+	{
+		$invoice_folder = obj(null, array(), crm_invoice_folder_obj::CLID);
+		$parent = empty($arr["invoice_folder_parent"]) ? $arr["id"] : $arr["invoice_folder_parent"];
+		$invoice_folder->set_parent($parent);
+		$invoice_folder->save();
+		return $this->mk_my_orb("change", array(
+			"id" => $invoice_folder->id(),
+			"return_url" => $arr["post_ru"]
+		), "crm_invoice_folder");
+	}
+
+	/**
+		@attrib name=create_new_invoice_template
+		@param id required type=int acl=view
+		@param post_ru required type=string
+	**/
+	function create_new_invoice_template($arr)
+	{
+		$invoice_template = obj(null, array(), crm_bill_obj::CLID);
+		$invoice_template->set_parent($arr["id"]);
+		$invoice_template->set_prop("is_invoice_template", 1);
+		$invoice_template->save();
+		return $this->mk_my_orb("change", array(
+			"id" => $invoice_template->id(),
+			"return_url" => $arr["post_ru"]
+		), "crm_bill");
+	}
+
+	/**
+		@attrib name=create_invoice_from_template
 		@param id required type=int acl=view
 		@param co required type=int acl=view
 		@param post_ru optional
 	**/
-	function create_new_monthly_bill($arr)
+	function create_invoice_from_template($arr)
 	{
 		if (!empty($arr["id"]) && empty($arr["sel"]))
 		{
@@ -6491,8 +6643,7 @@ class crm_company extends class_base
 			$b = obj($bill_id);
 
 			/// copy
-			$n = obj();
-			$n->set_class_id(CL_CRM_BILL);
+			$n = obj(null, array(), crm_bill_obj::CLID);
 			$n->set_parent($b->parent());
 			$n->save();
 			$ser = get_instance(CL_CRM_NUMBER_SERIES);
@@ -6521,7 +6672,7 @@ class crm_company extends class_base
 					$br = $con->to();
 					$nbr = new object();
 					$nbr->set_name($br->name());
-					$nbr->set_class_id(CL_CRM_BILL_ROW);
+					$nbr->set_class_id(crm_bill_row_obj::CLID);
 					$nbr->set_parent($n->id());
 					foreach($br->properties() as $prop => $val)
 					{
@@ -6574,9 +6725,7 @@ class crm_company extends class_base
 		{
 			$i = $o->instance();
 			$i->_gen_company_code($o);
-			aw_disable_acl();
 			$o->save();
-			aw_restore_acl();
 		}
 	}
 

@@ -2,6 +2,8 @@
 
 class event_webview_obj extends _int_object
 {
+	const CLID = 1475;
+
 	function prop($k)
 	{
 		if($k == "date_end" && !is_admin())

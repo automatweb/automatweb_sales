@@ -56,20 +56,20 @@ class crm_sales_contacts_search
 	const PARAM_COMMENT = 15;
 	const PARAM_CONTACT_NAME = 16;
 
-	private $p_seller;
-	private $p_buyer;
-	private $p_category;
-	private $p_reg_nr;
-	private $p_name;
-	private $p_salesman;
-	private $p_lead_source;
-	private $p_calls;
-	private $p_status;
-	private $p_address;
-	private $p_phone;
-	private $p_createdby;
-	private $p_comment;
-	private $p_contact_name;
+	private $p_seller = false;
+	private $p_buyer = false;
+	private $p_category = false;
+	private $p_reg_nr = false;
+	private $p_name = false;
+	private $p_salesman = false;
+	private $p_lead_source = false;
+	private $p_calls = false;
+	private $p_status = false;
+	private $p_address = false;
+	private $p_phone = false;
+	private $p_createdby = false;
+	private $p_comment = false;
+	private $p_contact_name = false;
 
 	private $sort_order;
 	private $additional_joins = "";
@@ -189,14 +189,20 @@ class crm_sales_contacts_search
 		$this->p_buyer = $buyer->id();
 	}
 
-	private function _set_category(object $category)
+	private function _set_category(object $category = null)
 	{
-		if (!$category->is_a(CL_CRM_CATEGORY))
+		if (null === $category)
+		{
+			$this->p_category = new obj_predicate_compare(obj_predicate_compare::NULL);
+		}
+		elseif (!$category->is_a(CL_CRM_CATEGORY))
 		{
 			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($category, true) . "' for category parameter", self::PARAM_CATEGORY);
 		}
-
-		$this->p_category = $category->id();
+		else
+		{
+			$this->p_category = $category->id();
+		}
 	}
 
 	private function _set_reg_nr($nr)
@@ -402,7 +408,7 @@ class crm_sales_contacts_search
 		}
 
 		// category constraint
-		if ($this->p_category)
+		if (false !== $this->p_category)
 		{
 			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $this->p_category;
 		}

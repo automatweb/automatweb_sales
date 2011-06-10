@@ -94,9 +94,19 @@
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <parent>settings_col1</parent>
-            <no_caption>1</no_caption>
             <field>is_order</field>
             <caption>Arendustellimus</caption>
+      </property>
+      <property>
+            <name>project</name>
+            <group>general</group>
+            <table>aw_bugs</table>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PROJECT</reltype>
+            <parent>settings_col2</parent>
+            <captionside>top</captionside>
+            <field>project</field>
+            <caption>Projekt</caption>
       </property>
       <property>
             <name>bug_type</name>
@@ -435,17 +445,6 @@
             <caption>Spetsifikatsioon</caption>
       </property>
       <property>
-            <name>project</name>
-            <group>general</group>
-            <table>aw_bugs</table>
-            <type>relpicker</type>
-            <reltype>RELTYPE_PROJECT</reltype>
-            <parent>data_r_bot_left</parent>
-            <captionside>top</captionside>
-            <field>project</field>
-            <caption>Projekt</caption>
-      </property>
-      <property>
             <name>bug_component</name>
             <group>general</group>
             <table>aw_bugs</table>
@@ -679,6 +678,7 @@
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <r2>yes</r2>
+            <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
             <cust>

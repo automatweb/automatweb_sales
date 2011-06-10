@@ -2,6 +2,8 @@
 
 class shop_sell_order_obj extends _int_object
 {
+	const CLID = 1431;
+
 	static $gcr_cache;
 
 	public static function get_purchaser_data_by_ids($ids, $properties = array())

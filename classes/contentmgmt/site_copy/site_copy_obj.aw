@@ -2,6 +2,8 @@
 
 class site_copy_obj extends _int_object
 {
+	const CLID = 1487;
+
 	const SITE_DOESNT_EXIST = 1;
 	const SITE_INPROGRESS = 2;
 	const SITE_EXISTS = 3;

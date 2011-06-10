@@ -2,6 +2,8 @@
 
 class euro_patent_et_desc_obj extends intellectual_property_obj
 {
+	const CLID = 1453;
+
 	public function awobj_set_epat_date($value)
 	{
 		if ($value > 0 and $value < mktime(0, 0, 0, 7, 1, 2002))

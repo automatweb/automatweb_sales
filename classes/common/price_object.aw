@@ -5,6 +5,8 @@
 
 class price_object extends _int_object
 {
+	const CLID = 1366;
+
 	function name()
 	{
 		return parent::name();

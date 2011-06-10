@@ -2,6 +2,8 @@
 
 class orders_form_obj extends _int_object
 {
+	const CLID = 841;
+
 
 	public function send_confirm_mail($order)
 	{

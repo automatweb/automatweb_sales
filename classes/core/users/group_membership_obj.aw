@@ -2,6 +2,8 @@
 
 class group_membership_obj extends _int_object
 {
+	const CLID = 1481;
+
 	function set_status($s)
 	{
 		if($s == object::STAT_ACTIVE)

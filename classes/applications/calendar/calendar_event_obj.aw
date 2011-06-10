@@ -2,6 +2,8 @@
 
 class calendar_event_obj extends _int_object
 {
+	const CLID = 819;
+
 	function add_event_time($id)
 	{
 		$time = obj($id);

@@ -889,7 +889,7 @@ class sys extends aw_template
 
 			if (count($failed))
 			{
-				$e = new awex_sys_mkprop_cl("Couldn't make properties for '" . explode("','", $failed) . "'");
+				$e = new awex_sys_mkprop_cl("Couldn't make properties for '" . implode("','", $failed) . "'");
 				$e->failed_classes = $failed;
 				throw $e;
 			}

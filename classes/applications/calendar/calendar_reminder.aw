@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/calendar/calendar_reminder.aw,v 1.5 2007/12/06 14:32:55 kristo Exp $
-// calendar_reminder.aw - Kalendri meeldetuletus 
+// calendar_reminder.aw - Kalendri meeldetuletus
 /*
 
-@classinfo syslog_type=ST_CALENDAR_REMINDER relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_CALENDAR_REMINDER relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -21,7 +20,7 @@
 @property reminder_rule_id type=textbox datatype=int
 @caption Meeldetuletuse reegli id
 
-@property remind_at type=datetime_select 
+@property remind_at type=datetime_select
 @caption Meeldetuletuse aeg
 
 @property reminder_sent type=checkbox ch_value=1 default=0 datatype=int
@@ -71,13 +70,13 @@ class calendar_reminder extends class_base
 			"user_id" => $arr["user_id"],
 		));
 
-		// by current design something is very wrong if we get multiple reminder objects .. 
+		// by current design something is very wrong if we get multiple reminder objects ..
 		// lets ignore that scenario for now
 		return $ol->count() > 0 ? $ol->begin() : false;
 	}
 
 	/** the thing that will be invoked from scheduler and will send out any pending reminders
-		
+
 		@attrib name=process_pending_reminders nologin=1
 	**/
 	function process_pending_reminders($arr)
@@ -127,48 +126,14 @@ class calendar_reminder extends class_base
 	}
 
 
-	/*
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		};
-		return $retval;
-	}
-	*/
-
-	/*
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		}
-		return $retval;
-	}	
-	*/
-
-	////////////////////////////////////
-	// the next functions are optional - delete them if not needed
-	////////////////////////////////////
-
-	////
-	// !this will be called if the object is put in a document by an alias and the document is being shown
-	// parameters
-	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
 
 	////
 	// !this shows the object. not strictly necessary, but you'll probably need it, it is used by parse_alias
-	function show($arr)
+	function show($arr = array())
 	{
 		$ob = new object($arr["id"]);
 		$this->read_template("show.tpl");
@@ -178,4 +143,3 @@ class calendar_reminder extends class_base
 		return $this->parse();
 	}
 }
-?>

@@ -2,6 +2,8 @@
 
 class content_package_price_conditions_obj extends _int_object
 {
+	const CLID = 1543;
+
 	function save($exclusive = false, $previous_state = null)
 	{
 		if(is_oid($this->id()))

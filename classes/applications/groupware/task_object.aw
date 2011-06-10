@@ -1,8 +1,9 @@
 <?php
 
-// maintainer=markop
 class task_object extends _int_object
 {
+	const CLID = 244;
+
 	protected $_no_display;
 
 	function get_prop($pn)
@@ -888,4 +889,3 @@ class task_object extends _int_object
 		return $person->is_connected_to(array("to" => $this->id(), "reltype" => "RELTYPE_PERSON_TASK"));
 	}
 }
-?>

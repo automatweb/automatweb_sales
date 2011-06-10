@@ -2,6 +2,8 @@
 
 class aw_class_property_obj extends _int_object
 {
+	const CLID = 1506;
+
 	function prop($k)
 	{
 		if ($k[0] == "p" && $k[1] == "_")

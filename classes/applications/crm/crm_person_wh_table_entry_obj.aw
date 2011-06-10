@@ -2,6 +2,8 @@
 
 class crm_person_wh_table_entry_obj extends _int_object
 {
+	const CLID = 1510;
+
 	public function get_entry_data()
 	{
 		$ol = new object_list(array(

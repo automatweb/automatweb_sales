@@ -1,28 +1,27 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/calendar/calendar_registration.aw,v 1.10 2007/12/06 14:32:55 kristo Exp $
-// calendar_registration.aw - Kalendri sündmusele registreerumine 
+// calendar_registration.aw - Kalendri sündmusele registreerumine
 /*
 
-@classinfo syslog_type=ST_CALENDAR_REGISTRATION relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_CALENDAR_REGISTRATION relationmgr=yes no_comment=1 no_status=1
 
 @default table=objects
 @default group=general
 @default field=meta
 @default method=serialize
 
-@property event_comment type=textbox 
+@property event_comment type=textbox
 @caption S&uuml;ndmuse kommentaari
 
 @groupinfo emails caption="Meilid"
 @default group=emails
 
-@property mail_from_addr type=textbox 
+@property mail_from_addr type=textbox
 @caption Maili From aadress
 
-@property mail_from_name type=textbox 
+@property mail_from_name type=textbox
 @caption Maili From nimi
 
-@property mail_subj type=textbox 
+@property mail_subj type=textbox
 @caption Maili subjekt
 
 @property mail_legend type=text store=no
@@ -71,18 +70,7 @@ class calendar_registration extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		}
-		return $retval;
-	}	
-
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
@@ -178,9 +166,9 @@ class calendar_registration extends class_base
 		@param id required type=int acl=view
 		@param cal required type=int acl=view
 		@param event required type=int acl=view;edit;delete
-		@param section optional 
-		@param fail_fld optional 
-		@param vals optional 
+		@param section optional
+		@param fail_fld optional
+		@param vals optional
 
 	**/
 	function register_to_event($arr)
@@ -233,8 +221,8 @@ class calendar_registration extends class_base
 		$pass = true;
 		$req = array("first_name", "last_name", "code", "email", "phone");
 		$dat = array(
-			"first_name" => t("Eesnimi:\n"), 
-			"last_name" => t("Perekonnanimi:\n"), 
+			"first_name" => t("Eesnimi:\n"),
+			"last_name" => t("Perekonnanimi:\n"),
 			"email" => t("E-mai:\n"),
 			"phone" => t("Telefon:\n"),
 			"code" => t("Isikukood:\n"),
@@ -284,7 +272,7 @@ class calendar_registration extends class_base
 		));
 		$o = obj($new_id);
 		// put entered data in description.
-		
+
 		$desc = "";
 		foreach($dat as $fld => $f_desc)
 		{
@@ -325,14 +313,14 @@ class calendar_registration extends class_base
 		@param id required type=int acl=view
 		@param cal required type=int acl=view
 		@param event required type=int acl=view;edit;delete
-		@param section optional 
+		@param section optional
 	**/
 	function register_confirm($arr)
 	{
 		$this->read_template("reg_confirm.tpl");
-		
+
 		$person = get_instance(CL_CRM_PERSON);
-		
+
 		$cal = obj($arr["cal"]);
 		$event = obj($arr["event"]);
 
@@ -349,13 +337,13 @@ class calendar_registration extends class_base
 			"time_to" => date("H:i", $event->prop("end")),
 			"content" => nl2br($event->prop("content"))
 		));
-		
+
 		return $this->parse();
 	}
 
 	/** sends confirmation e-mail if the registration object is so configured
 
-		@param id required 
+		@param id required
 	**/
 	function do_send_confirm_mail($arr, $event, $mail_to)
 	{
@@ -468,4 +456,3 @@ class calendar_registration extends class_base
 		));
 	}
 }
-?>

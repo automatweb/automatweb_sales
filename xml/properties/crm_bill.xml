@@ -43,6 +43,15 @@
             <no_caption>1</no_caption>
       </property>
       <property>
+            <name>comment</name>
+            <table>objects</table>
+            <group>general_data</group>
+            <type>textbox</type>
+            <field>comment</field>
+            <parent>top_left</parent>
+            <caption>Arve nimi</caption>
+      </property>
+      <property>
             <name>bill_no</name>
             <table>aw_crm_bill</table>
             <group>general_data</group>
@@ -105,8 +114,7 @@
             <name>bill_due_date</name>
             <table>aw_crm_bill</table>
             <group>general_data</group>
-            <type>datepicker</type>
-            <time>0</time>
+            <type>text</type>
             <field>aw_due_date</field>
             <parent>top_left</parent>
             <caption>Tasumise kuup&amp;amp;auml;ev</caption>
@@ -394,6 +402,28 @@
             <field>dn_confirm_tbl</field>
       </property>
       <property>
+            <name>bill_text</name>
+            <table>objects</table>
+            <group>other_data</group>
+            <type>textarea</type>
+            <rows>15</rows>
+            <cols>50</cols>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Arve sissejuhatus</caption>
+      </property>
+      <property>
+            <name>bill_appendix_comment</name>
+            <table>objects</table>
+            <group>other_data</group>
+            <type>textarea</type>
+            <rows>15</rows>
+            <cols>50</cols>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kommentaar lisale</caption>
+      </property>
+      <property>
             <name>rows_different_pages</name>
             <table>objects</table>
             <group>other_data</group>
@@ -401,16 +431,6 @@
             <field>meta</field>
             <method>serialize</method>
             <caption>Read erinevatel lehek&amp;amp;uuml;lgedel</caption>
-      </property>
-      <property>
-            <name>comment</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>textarea</type>
-            <rows>15</rows>
-            <cols>50</cols>
-            <field>comment</field>
-            <caption>Kommentaar lisale</caption>
       </property>
       <property>
             <name>time_spent_desc</name>
@@ -429,13 +449,13 @@
             <caption>Arve meeldetuletuse juurde minev tekst</caption>
       </property>
       <property>
-            <name>monthly_bill</name>
+            <name>is_invoice_template</name>
             <table>aw_crm_bill</table>
             <group>other_data</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <field>aw_monthly_bill</field>
-            <caption>Kuuarve</caption>
+            <field>aw_is_invoice_template</field>
+            <caption>Salvesta arve arvep&amp;amp;otilde;hjana</caption>
       </property>
       <property>
             <name>udef1</name>
@@ -508,15 +528,6 @@
             <caption>Projekt</caption>
       </property>
       <property>
-            <name>bill_text</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>textarea</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Arve tekst</caption>
-      </property>
-      <property>
             <name>comments</name>
             <table>objects</table>
             <group>other_data</group>
@@ -530,9 +541,11 @@
             <table>objects</table>
             <group>other_data</group>
             <type>textarea</type>
+            <rows>15</rows>
+            <cols>50</cols>
             <store>no</store>
             <field>comments_add</field>
-            <caption>Lisa</caption>
+            <caption>Lisa kommentaar</caption>
       </property>
       <property>
             <name>mail_receiver</name>
