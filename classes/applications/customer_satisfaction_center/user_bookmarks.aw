@@ -881,7 +881,7 @@ class user_bookmarks extends class_base
 		if (!($cd = cache::file_get_ts("bms".$bm->id(), time() - $time)))
 		{
 			$parents = array();
-			$list = array();
+			$list = new object_list();
 			$this->get_user_bms($bm, $list, $parents);
 			$listids = array();
 			$i = 0;
@@ -1114,7 +1114,7 @@ class user_bookmarks extends class_base
 			"sort_by" => "objects.jrk"
 		));
 		$mt = $bm->meta("grp_sets");
-		$ol = array();
+		$ol = new object_list();
 		$parents = array();
 		$this->get_user_bms($bm, $ol, $parents);
 		$this->_req_show($bm, $ol, $parents, null);
