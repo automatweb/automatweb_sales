@@ -363,51 +363,20 @@ class crm_db extends class_base
 		$this->_init_company_table($arr);
 		$this->set_org_tbl_caption($arr);
 
-		$perpage = 20;
-		if ($arr["obj_inst"]->prop("flimit") != "")
-		{
-			$perpage = $arr["obj_inst"]->prop("flimit");
-		};
+		list($company_count, $filter) = $this->get_org_count($arr);
+		$limit = max(30, $arr["obj_inst"]->prop("flimit"));
 
-		list($companies, $customer_data) = $this->get_orgs($arr);
-
-		// Get the order!
-		if($arr["obj_inst"]->prop("display_mode") == self::ORGS_BY_CUSTOMER_RELATIONS and automatweb::$request->arg("os_sector"))
-		{
-			foreach($companies->ids() as $id)
-			{
-				$jrks[$id] = 0;
-			}
-			$jrk_odl = new object_data_list(
-				array(
-					"class_id" => CL_CRM_COMPANY_SECTOR_MEMBERSHIP,
-					"CL_CRM_COMPANY_SECTOR_MEMBERSHIP.RELTYPE_COMPANY" => $companies->ids(),
-					"CL_CRM_COMPANY_SECTOR_MEMBERSHIP.RELTYPE_SECTOR" => automatweb::$request->arg("os_sector"),
-				),
-				array(
-					CL_CRM_COMPANY_SECTOR_MEMBERSHIP => array("company", "jrk"),
-				)
-			);
-			foreach($jrk_odl->arr() as $jrk_od)
-			{
-				$jrks[$jrk_od["company"]] = $jrk_od["jrk"];
-			}
-			asort($jrks, SORT_NUMERIC);
-		}
-
-		if($companies->count() > $perpage)
+		if($company_count > $limit)
 		{
 			$t->define_pageselector(array(
 				"type" => "lbtxt",
-				"records_per_page" => $perpage,
-				"d_row_cnt" => $companies->count(),
+				"records_per_page" => $limit,
+				"d_row_cnt" => $company_count,
 				"no_recount" => true,
 			));
-			$p = isset($_GET["ft_page"]) ? (int)$_GET["ft_page"] : 0;
-			$companies->slice($p * $perpage, $perpage);
 		}
 
-		$company_data = $this->get_companies_tbl_data($arr["obj_inst"], $companies->ids());
+		$company_data = $company_count > 0 ? $this->get_companies_tbl_data($arr["obj_inst"], $filter) : array();
 
 		foreach($company_data as $company)
 		{
@@ -415,6 +384,7 @@ class crm_db extends class_base
 
 			if (in_array("org", $this->fields_in_use))
 			{
+				//	TODO: Fix customer_relation links! Those should be fetched in $this->get_companies_tbl_data().
 				$pm = $this->get_org_popupmenu(array("oid" => $company["oid"], "cd_oid" => null)); //$cd !== null ? $cd->id : null));
 				$row["org"] = $pm->get_menu(array(
 					"text" => parse_obj_name(!empty($company["ettevotlusvorm.shortname"]) ? "{$company["name"]} {$company["ettevotlusvorm.shortname"]}" : $company["name"]),
@@ -483,17 +453,19 @@ class crm_db extends class_base
 		}
 	}
 
-	protected function get_companies_tbl_data($db, $ids)
+	protected function get_companies_tbl_data($db, $filter = array())
 	{
-		$companies = count($ids) > 0 ? new object_data_list(
-			array(
-				"class_id" => crm_company_obj::CLID,
-				"oid" => $ids,
-			),
+		$limit = max(30, $db->prop("flimit"));
+		$offset = (int)automatweb::$request->arg("ft_page")*$limit;
+
+		$companies = new object_data_list(
+			array_merge($filter, array(
+				new obj_predicate_limit($limit, $offset)
+			)),
 			array(
 				crm_company_obj::CLID => $this->get_org_tbl_odl_props($db),
 			)
-		) : new object_data_list();
+		);
 
 		$data = $companies->arr();
 		$load_emails_for = $load_adresses_for = $load_urls_for = $load_phones_for = array();
@@ -961,7 +933,7 @@ SCRIPT;
 		return $arr["post_ru"];
 	}
 
-	private function get_orgs($arr, $all_orgs = false)
+	private function get_org_count($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 
@@ -1008,7 +980,7 @@ SCRIPT;
 				$oo = $arr["obj_inst"]->owner_org;
 				if(!$this->can("view", $oo))
 				{
-					return array(new object_list(), array());
+					return array(0, array());
 				}
 				$cd_odl = new object_data_list(
 					array(
@@ -1026,7 +998,7 @@ SCRIPT;
 				$customer_data = array_reverse($vars["oid"]);
 				if(count($vars["oid"]) === 0)
 				{
-					return array(new object_list(), array());
+					return array(0, array());
 				}
 
 				if(strlen(automatweb::$request->arg("os_sector")) > 0)
@@ -1046,59 +1018,56 @@ SCRIPT;
 				break;
 		}
 
-		if (!$all_orgs)
+		if (strlen(automatweb::$request->arg("os_name")) > 0)
 		{
-			if (strlen(automatweb::$request->arg("os_name")) > 0)
+			$vars["name"] = "%".$_GET["os_name"]."%";
+		}
+		if (strlen(automatweb::$request->arg("os_regnr")) > 0)
+		{
+			$vars["reg_nr"] = "%".$_GET["os_regnr"]."%";
+		}
+		if (strlen(automatweb::$request->arg("os_legal_form")) > 0)
+		{
+			$vars["ettevotlusvorm"] = $_GET["os_legal_form"];
+		}
+		if (strlen(automatweb::$request->arg("os_director")) > 0)
+		{
+			$vars["firmajuht.name"] = "%".$_GET["os_director"]."%";
+		}
+		$adr_vars = array();
+		if (strlen(automatweb::$request->arg("os_address")) > 0)
+		{
+			$adr_vars["aadress"] = "%".$_GET["os_address"]."%";
+		}
+		if(strlen(automatweb::$request->arg("os_city")) > 0)
+		{
+			$cities = array();
+			foreach(explode(",", automatweb::$request->arg("os_city")) as $city)
 			{
-				$vars["name"] = "%".$_GET["os_name"]."%";
+				$cities[] = "%".trim($city)."%";
 			}
-			if (strlen(automatweb::$request->arg("os_regnr")) > 0)
+			$adr_vars["linn(CL_CRM_CITY).name"] = $cities;
+		}
+		if(strlen(automatweb::$request->arg("os_county")) > 0)
+		{
+			$counties = array();
+			foreach(explode(",", automatweb::$request->arg("os_county")) as $county)
 			{
-				$vars["reg_nr"] = "%".$_GET["os_regnr"]."%";
+				$counties[] = "%".trim($county)."%";
 			}
-			if (strlen(automatweb::$request->arg("os_legal_form")) > 0)
+			$adr_vars["maakond(CL_CRM_COUNTY).name"] = $counties;
+		}
+		if(count($adr_vars) > 0)
+		{
+			foreach($adr_vars as $k => $v)
 			{
-				$vars["ettevotlusvorm"] = $_GET["os_legal_form"];
+				unset($adr_vars[$k]);
+				$adr_vars["CL_CRM_COMPANY.RELTYPE_ADDRESS.".$k] = $v;
 			}
-			if (strlen(automatweb::$request->arg("os_director")) > 0)
-			{
-				$vars["firmajuht.name"] = "%".$_GET["os_director"]."%";
-			}
-			$adr_vars = array();
-			if (strlen(automatweb::$request->arg("os_address")) > 0)
-			{
-				$adr_vars["aadress"] = "%".$_GET["os_address"]."%";
-			}
-			if(strlen(automatweb::$request->arg("os_city")) > 0)
-			{
-				$cities = array();
-				foreach(explode(",", automatweb::$request->arg("os_city")) as $city)
-				{
-					$cities[] = "%".trim($city)."%";
-				}
-				$adr_vars["linn(CL_CRM_CITY).name"] = $cities;
-			}
-			if(strlen(automatweb::$request->arg("os_county")) > 0)
-			{
-				$counties = array();
-				foreach(explode(",", automatweb::$request->arg("os_county")) as $county)
-				{
-					$counties[] = "%".trim($county)."%";
-				}
-				$adr_vars["maakond(CL_CRM_COUNTY).name"] = $counties;
-			}
-			if(count($adr_vars) > 0)
-			{
-				foreach($adr_vars as $k => $v)
-				{
-					unset($adr_vars[$k]);
-					$adr_vars["CL_CRM_COMPANY.RELTYPE_ADDRESS.".$k] = $v;
-				}
-				$vars[] = new object_list_filter(array(
-					"logic" => "AND",
-					"conditions" => $adr_vars,
-				));
-			}
+			$vars[] = new object_list_filter(array(
+				"logic" => "AND",
+				"conditions" => $adr_vars,
+			));
 		}
 
 		$annual_report_filter = array(
@@ -1135,7 +1104,7 @@ SCRIPT;
 			}
 			else
 			{
-				return array(new object_list(), array());
+				return array(0, array());
 			}
 		}
 
@@ -1162,14 +1131,18 @@ SCRIPT;
 			}
 			else
 			{
-				return array(new object_list(), array());
+				return array(0, array());
 			}
 		}
 
 
 
-		$companies = new object_list($vars);
-		return array($companies, $customer_data);
+		$companies = new object_data_list($vars,
+		array(
+			crm_company_obj::CLID => array(new obj_sql_func(obj_sql_func::COUNT, "count" , "*"))
+		));
+		$company_count = $companies->arr();
+		return array($company_count[0]["count"], $vars);
 	}
 
 	protected function get_org_tbl_odl_props($db)
