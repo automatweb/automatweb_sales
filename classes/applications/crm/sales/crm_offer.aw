@@ -96,15 +96,25 @@
 
 		@property send_toolbar type=toolbar store=no no_caption=1
 		@layout send_settings type=hbox closeable=1 area_caption=Kirja&nbsp;seaded width=50%:50%
-		@layout send_sender type=vbox closeable=0 area_caption=Saatja parent=send_settings
-			@property mail_from type=textbox store=no parent=send_sender
-			@caption E-posti aadress
 
-			@property mail_from_name type=textbox store=no parent=send_sender
-			@caption Nimi
+			@layout send_settings_left type=vbox parent=send_settings
 
-		@layout send_attachments type=vbox closeable=0 area_caption=Lisatavad&nbsp;dokumendid parent=send_settings
-			@property mail_attachments type=chooser multiple=1 store=no parent=send_attachments orient=vertical no_caption=1
+			@layout send_sender type=vbox closeable=0 area_caption=Saatja parent=send_settings_left
+				@property mail_from type=textbox store=no parent=send_sender
+				@caption E-posti aadress
+
+				@property mail_from_name type=textbox store=no parent=send_sender
+				@caption Nimi
+
+			@layout send_reply type=vbox closeable=0 area_caption=Vastamise&nbsp;viis&nbsp;ja&nbsp;aeg parent=send_settings_left
+				@property mail_reply_method type=select store=no parent=send_reply
+				@caption Vastamise viis
+				
+				@property mail_reply_time type=datepicker store=no parent=send_reply
+				@caption Vastamise aeg
+
+			@layout send_attachments type=vbox closeable=0 area_caption=Lisatavad&nbsp;dokumendid parent=send_settings
+				@property mail_attachments type=chooser multiple=1 store=no parent=send_attachments orient=vertical no_caption=1
 
 		@layout send_recipients type=vbox closeable=1 area_caption=Kirja&nbsp;saajad
 			@property mail_recipients type=table store=no parent=send_recipients no_caption=1
@@ -168,6 +178,14 @@ class crm_offer extends class_base
 	public function _set_template($arr)
 	{
 		return PROP_IGNORE;
+	}
+
+	public function _get_mail_reply_method($arr)
+	{
+		$arr["prop"]["options"] = array("" => "") + crm_offer_obj::reply_names();
+		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_prop("mail_reply_method");
+
+		return PROP_OK;
 	}
 
 	public function _get_general_toolbar(&$arr)
@@ -363,7 +381,7 @@ class crm_offer extends class_base
 		$r = PROP_OK;
 		$prop = &$arr["prop"];
 
-		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content")))
+		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content", "mail_reply_time")))
 		{
 			$prop["value"] = $arr["obj_inst"]->get_mail_prop($prop["name"]);
 		}
@@ -380,9 +398,13 @@ class crm_offer extends class_base
 		$r = PROP_OK;
 		$prop = &$arr["prop"];
 
-		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content")))
+		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content", "mail_reply_method")))
 		{
 			$arr["obj_inst"]->set_mail_prop($prop["name"], $prop["value"]);
+		}
+		elseif ("mail_reply_time" === $prop["name"])
+		{
+			$arr["obj_inst"]->set_mail_prop($prop["name"], datepicker::get_timestamp(automatweb::$request->arg("mail_reply_time")));
 		}
 
 		return $r;
@@ -1578,7 +1600,12 @@ class crm_offer extends class_base
 		try
 		{
 			$this_o->send($to, $subject, $body, $cc, $bcc, $from, $from_name);
-			$this->show_completed_text(t("Pakkumus saadetud."));
+			//	It will only execute set_reply() on successful execution of send(), so all is well. :)
+			$this_o->set_reply($arr["mail_reply_method"], $arr["mail_reply_time"]);
+
+			// remove temporary changes
+			$this_o->clear_mail_data();
+			$this->show_completed_text(t("Pakkumus edukalt saadetud!"));
 		}
 		catch (awex_crm_offer_email $e)
 		{
@@ -1604,10 +1631,8 @@ class crm_offer extends class_base
 			trigger_error("Caught exception " . get_class($e) . " while sending offer. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 			$this->show_error_text(t("Esines vigu. Pakkumust ei saadetud."));
 		}
+			$this_o->set_reply($arr["mail_reply_method"], datepicker::get_timestamp(automatweb::$request->arg("mail_reply_time")));
 
-		// remove temporary changes
-		$this_o->clear_mail_data();
-		$this->show_completed_text(t("Pakkumus edukalt saadetud!"));
 		return $r;
 	}
 
