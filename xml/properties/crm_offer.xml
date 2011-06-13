@@ -247,6 +247,26 @@
             <caption>Nimi</caption>
       </property>
       <property>
+            <name>mail_reply_method</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>select</type>
+            <store>no</store>
+            <parent>send_reply</parent>
+            <field>mail_reply_method</field>
+            <caption>Vastamise viis</caption>
+      </property>
+      <property>
+            <name>mail_reply_time</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>datepicker</type>
+            <store>no</store>
+            <parent>send_reply</parent>
+            <field>mail_reply_time</field>
+            <caption>Vastamise aeg</caption>
+      </property>
+      <property>
             <name>mail_attachments</name>
             <table>aw_crm_offer</table>
             <group>send</group>
@@ -431,13 +451,26 @@
                   <width>50%:50%</width>
                   <group>send</group>
             </send_settings>
+            <send_settings_left>
+                  <type>vbox</type>
+                  <parent>send_settings</parent>
+                  <group>send</group>
+                  <area_caption></area_caption>
+            </send_settings_left>
             <send_sender>
                   <type>vbox</type>
                   <closeable>0</closeable>
                   <area_caption>Saatja</area_caption>
-                  <parent>send_settings</parent>
+                  <parent>send_settings_left</parent>
                   <group>send</group>
             </send_sender>
+            <send_reply>
+                  <type>vbox</type>
+                  <closeable>0</closeable>
+                  <area_caption>Vastamise&amp;amp;nbsp;viis&amp;amp;nbsp;ja&amp;amp;nbsp;aeg</area_caption>
+                  <parent>send_settings_left</parent>
+                  <group>send</group>
+            </send_reply>
             <send_attachments>
                   <type>vbox</type>
                   <closeable>0</closeable>

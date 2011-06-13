@@ -14,6 +14,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	protected $mail_data = null;
 	protected static $state_names;
 	protected static $result_names;
+	protected static $reply_names;
 
 	const STATE_NEW = 0;
 	const STATE_SENT = 1;
@@ -25,6 +26,9 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	const RESULT_CALL = 2;
 	const RESULT_PRESENTATION = 3;
 	const RESULT_NEW_OFFER = 4;
+
+	const REPLY_BY_CALL = 1;
+	const REPLY_BY_MAIL = 2;
 
 	public static function state_names($state = null)
 	{
@@ -84,6 +88,34 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		else
 		{
 			return self::$result_names;
+		}
+	}
+
+	public static function reply_names($reply = null)
+	{
+		if (0 === count(self::$reply_names))
+		{
+			self::$reply_names = array(
+				self::REPLY_BY_CALL => t("K&otilde;ne"),
+				self::REPLY_BY_MAIL => t("E-kiri"),
+			);
+		}
+
+		if (isset($reply))
+		{
+			if (isset(self::$reply_names[$reply]))
+			{
+				$reply_names = array($reply => self::$reply_names[$reply]);
+			}
+			else
+			{
+				$reply_names = array();
+			}
+			return $reply_names;
+		}
+		else
+		{
+			return self::$reply_names;
 		}
 	}
 
@@ -817,6 +849,32 @@ Parimat,
 		$this->save();
 	}
 
+	/**
+		@attrib api=1
+	**/
+	public function set_reply($method, $time = 0)
+	{
+		$application = automatweb::$request->get_application();
+		if ($application->is_a(crm_sales_obj::CLID))
+		{
+			switch ($method)
+			{
+				case self::REPLY_BY_CALL:
+					if (!is_oid($this->prop("customer_relation")))
+					{
+						throw new awex_crm_offer_customer("Reply call cannot be created - no customer relation for this offer!");
+					}
+					$customer_relation = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
+					$application->create_call($customer_relation, $time, null, false, array("offer" => $this->id()));
+					break;
+
+				case self::REPLY_BY_MAIL:
+					//	TODO: E-mails cannot yet be scheduled, can they?
+					break;
+			}
+		}
+	}
+
 	public function make_pdf()
 	{
 		$pdf = null;
@@ -1539,7 +1597,7 @@ Parimat,
 							throw new awex_crm_offer_customer("Result object cannot be created - no customer relation for this offer!");
 						}
 						$customer_relation = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
-						$result_object = $application->create_call($customer_relation);
+						$result_object = $application->create_call($customer_relation, 0, null, false, array("offer" => $this->id()));
 						$this->set_prop("result_object", $result_object->id());
 					}
 				}
@@ -1553,7 +1611,7 @@ Parimat,
 							throw new awex_crm_offer_customer("Result object cannot be created - no customer relation for this offer!");
 						}
 						$customer_relation = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
-						$result_object = $application->create_presentation($customer_relation);
+						$result_object = $application->create_presentation($customer_relation, 0, null, false, array("offer" => $this->id()));
 						$this->set_prop("result_object", $result_object->id());
 					}
 				}
