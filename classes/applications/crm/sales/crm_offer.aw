@@ -1601,7 +1601,7 @@ class crm_offer extends class_base
 		{
 			$this_o->send($to, $subject, $body, $cc, $bcc, $from, $from_name);
 			//	It will only execute set_reply() on successful execution of send(), so all is well. :)
-			$this_o->set_reply($arr["mail_reply_method"], $arr["mail_reply_time"]);
+			$this_o->set_reply($arr["mail_reply_method"], datepicker::get_timestamp(automatweb::$request->arg("mail_reply_time")));
 
 			// remove temporary changes
 			$this_o->clear_mail_data();
@@ -1631,7 +1631,6 @@ class crm_offer extends class_base
 			trigger_error("Caught exception " . get_class($e) . " while sending offer. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 			$this->show_error_text(t("Esines vigu. Pakkumust ei saadetud."));
 		}
-			$this_o->set_reply($arr["mail_reply_method"], datepicker::get_timestamp(automatweb::$request->arg("mail_reply_time")));
 
 		return $r;
 	}
