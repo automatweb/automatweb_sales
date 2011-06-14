@@ -109,7 +109,7 @@ class crm_sales_price_component extends class_base
 
 	public function _get_category($arr)
 	{
-		if(is_object($this->application))
+		if(is_object($this->application) and crm_sales_price_component_obj::TYPE_NET_VALUE !== (int) $arr["obj_inst"]->prop("type"))
 		{
 			$options = array(t("--Vali--"));
 			$price_components = $this->application->get_price_component_category_list();
@@ -319,6 +319,11 @@ class crm_sales_price_component extends class_base
 
 	public function _get_prerequisites($arr)
 	{
+		if (crm_sales_price_component_obj::TYPE_NET_VALUE === (int) $arr["obj_inst"]->prop("type"))
+		{
+			return PROP_IGNORE;
+		}
+
 		$options = array(
 			"net_value" => t("Juurhind"),
 		);
@@ -364,7 +369,14 @@ class crm_sales_price_component extends class_base
 
 	public function _get_type($arr)
 	{
-		$arr["prop"]["options"] = $this->type_options;
+		if (crm_sales_price_component_obj::TYPE_NET_VALUE === (int) $arr["obj_inst"]->prop("type"))
+		{
+			$arr["prop"]["options"] = array(crm_sales_price_component_obj::TYPE_NET_VALUE => t("Juurhind"));
+		}
+		else
+		{
+			$arr["prop"]["options"] = $this->type_options;
+		}
 	}
 
 	protected function define_applicables_table_header($arr)
