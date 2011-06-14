@@ -98,6 +98,24 @@
             <caption>Summa</caption>
       </property>
       <property>
+            <name>template</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_template</field>
+            <parent>general_info</parent>
+            <caption>&amp;amp;Scaron;abloon, millest pakkumus genereeriti</caption>
+      </property>
+      <property>
+            <name>template_name</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>hidden</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <field>template_name</field>
+      </property>
+      <property>
             <name>salesman</name>
             <table>aw_crm_offer</table>
             <group>general</group>
