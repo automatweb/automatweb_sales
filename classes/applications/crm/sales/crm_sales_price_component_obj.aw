@@ -17,6 +17,64 @@ class crm_sales_price_component_obj extends _int_object
 
 	protected $all_prerequisites;
 
+	/**	Creates and returns price component object, or modifies an existing one if a price component with given application, object and currency already exists.
+		@attrib api=1 params=pos
+
+		@param application required type=object
+		@param object required type=object
+			Object for which the price component is created for
+		@param value required type=real
+		@param currency optional type=CL_CURRENCY
+
+		@returns CL_CRM_SALES_PRICE_COMPONENT
+		@errors
+	**/
+	public static function create_net_value_price_component(object $application, object $object, $value, object $currency = null)
+	{
+		if ($currency !== null and !$currency->is_a(currency_obj::CLID))
+		{
+			throw new awex_crm_sales_price_component_class("Cannot create net value price component, invalid currency object given. Expected CL_CURRENCY, " . $currency->class_id() . " given.");
+		}
+
+		$ol = new object_list(array(
+			"class_id" => crm_sales_price_component_obj::CLID,
+			"type" => self::TYPE_NET_VALUE,
+			"application" => $application->id(),
+			"applicables" => $object->id(),
+		));
+
+		if ($ol->count() > 0)
+		{
+			$potential_price_component = $ol->begin();
+			do
+			{
+				if ($currency === null or $potential_price_component->is_applicable($currency->id()))
+				{
+					$price_component = $potential_price_component;
+					break;
+				}
+			}
+			while($potential_price_component = $ol->next());
+		}
+
+		if (!isset($price_component))
+		{
+			$name = $currency !== null ? sprintf(t("Rakenduse '%s' juurhind objektile '%s' valuutas '%s'"), $application->name(), $object->name(), $currency->prop("name")) : sprintf(t("Rakenduse '%s' juurhind objektile '%s' ilma valuutata"), $application->name(), $object->name());
+
+			$price_component = obj(null, array(), crm_sales_price_component_obj::CLID);
+			$price_component->set_parent($object->id());
+			$price_component->set_name($name);
+			$price_component->set_prop("type", self::TYPE_NET_VALUE);
+			$price_component->set_prop("application", $application->id());
+			$price_component->set_prop("applicables", array($object->id(), $currency->id()));
+		}
+		
+		$price_component->set_prop("value", $value);
+		$price_component->save();
+
+		return $price_component;
+	}
+
 	public function prop_str($k, $is_oid = NULL)
 	{
 		switch($k)
@@ -405,5 +463,8 @@ class crm_sales_price_component_obj extends _int_object
 
 /** Generic crm sales price component error **/
 class awex_crm_sales_price_component extends awex_crm_sales {}
+
+/** Invalid class **/
+class awex_crm_sales_price_component_class extends awex_crm_sales {}
 
 ?>
