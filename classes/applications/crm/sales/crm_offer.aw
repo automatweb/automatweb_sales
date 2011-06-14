@@ -38,6 +38,11 @@
 				@property sum_view type=text store=no parent=general_info
 				@caption Summa
 
+				@property template type=text field=aw_template parent=general_info
+				@caption &Scaron;abloon, millest pakkumus genereeriti
+
+				@property template_name type=hidden store=no editonly=1
+
 		@layout general_right type=vbox parent=general_split
 
 			@layout general_sales type=vbox closeable=1 area_caption=M&uuml;&uuml;gi&nbsp;andmed parent=general_right

@@ -11,6 +11,120 @@
             <field>general_toolbar</field>
       </property>
       <property>
+            <name>number</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_number</field>
+      </property>
+      <property>
+            <name>number_view</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>general_info</parent>
+            <field>number_view</field>
+            <caption>Number</caption>
+      </property>
+      <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <parent>general_info</parent>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>state</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_state</field>
+            <parent>general_info</parent>
+            <caption>Staatus</caption>
+      </property>
+      <property>
+            <name>result</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_result</field>
+            <parent>general_info</parent>
+            <caption>Tulemus</caption>
+      </property>
+      <property>
+            <name>result_object</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_result_object</field>
+            <parent>general_info</parent>
+            <caption>Tulemustegevus</caption>
+      </property>
+      <property>
+            <name>currency</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CURRENCY</clid>
+            <field>aw_currency</field>
+            <parent>general_info</parent>
+            <caption>Valuuta</caption>
+      </property>
+      <property>
+            <name>price_object</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_price_object</field>
+      </property>
+      <property>
+            <name>sum</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_sum</field>
+      </property>
+      <property>
+            <name>sum_view</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>general_info</parent>
+            <field>sum_view</field>
+            <caption>Summa</caption>
+      </property>
+      <property>
+            <name>template</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_template</field>
+            <parent>general_info</parent>
+            <caption>&amp;amp;Scaron;abloon, millest pakkumus genereeriti</caption>
+      </property>
+      <property>
+            <name>template_name</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>salesman</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_PERSON</clid>
+            <field>aw_salesman</field>
+            <parent>general_sales</parent>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja nimi</caption>
+      </property>
+      <property>
             <name>customer_relation</name>
             <table>aw_crm_offer</table>
             <group>general</group>
@@ -29,33 +143,8 @@
                   <num_1>CL_CRM_PERSON</num_1>
             </clid>
             <field>aw_customer</field>
+            <parent>general_client</parent>
             <caption>Kliendi nimi</caption>
-      </property>
-      <property>
-            <name>salesman</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>objpicker</type>
-            <clid>CL_CRM_PERSON</clid>
-            <field>aw_salesman</field>
-            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja nimi</caption>
-      </property>
-      <property>
-            <name>currency</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>objpicker</type>
-            <clid>CL_CURRENCY</clid>
-            <field>aw_currency</field>
-            <caption>Valuuta</caption>
-      </property>
-      <property>
-            <name>state</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>select</type>
-            <field>aw_state</field>
-            <caption>Staatus</caption>
       </property>
       <property>
             <name>contracts</name>
@@ -65,40 +154,9 @@
             <multiple>1</multiple>
             <orient>vertical</orient>
             <store>no</store>
+            <parent>general_contracts</parent>
             <field>contracts</field>
             <caption>Lepingud</caption>
-      </property>
-      <property>
-            <name>template</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>text</type>
-            <field>aw_template</field>
-            <caption>&amp;amp;Scaron;abloon, millest pakkumus genereeriti</caption>
-      </property>
-      <property>
-            <name>template_name</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>textbox</type>
-            <field>name</field>
-            <caption>Nimi</caption>
-      </property>
-      <property>
-            <name>sum</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>hidden</type>
-            <field>aw_sum</field>
-            <caption>Summa</caption>
-      </property>
-      <property>
-            <name>date</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>hidden</type>
-            <field>aw_date</field>
-            <caption>Kuup&amp;amp;auml;ev</caption>
       </property>
       <property>
             <name>submit_button</name>
@@ -230,6 +288,26 @@
             <caption>Nimi</caption>
       </property>
       <property>
+            <name>mail_reply_method</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>select</type>
+            <store>no</store>
+            <parent>send_reply</parent>
+            <field>mail_reply_method</field>
+            <caption>Vastamise viis</caption>
+      </property>
+      <property>
+            <name>mail_reply_time</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>datepicker</type>
+            <store>no</store>
+            <parent>send_reply</parent>
+            <field>mail_reply_time</field>
+            <caption>Vastamise aeg</caption>
+      </property>
+      <property>
             <name>mail_attachments</name>
             <table>aw_crm_offer</table>
             <group>send</group>
@@ -341,7 +419,6 @@
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
-            <no_name>1</no_name>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
@@ -393,6 +470,52 @@
             </CONTRACT>
       </reltypes>
       <layout>
+            <general_split>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </general_split>
+            <general_left>
+                  <type>vbox</type>
+                  <parent>general_split</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </general_left>
+            <general_info>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>&amp;amp;Uuml;ldandmed</area_caption>
+                  <parent>general_left</parent>
+                  <group>general</group>
+            </general_info>
+            <general_right>
+                  <type>vbox</type>
+                  <parent>general_split</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </general_right>
+            <general_sales>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>M&amp;amp;uuml;&amp;amp;uuml;gi&amp;amp;nbsp;andmed</area_caption>
+                  <parent>general_right</parent>
+                  <group>general</group>
+            </general_sales>
+            <general_client>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kliendi&amp;amp;nbsp;andmed</area_caption>
+                  <parent>general_right</parent>
+                  <group>general</group>
+            </general_client>
+            <general_contracts>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Lepingud</area_caption>
+                  <parent>general_right</parent>
+                  <group>general</group>
+            </general_contracts>
             <buttons>
                   <type>hbox</type>
                   <group>general</group>
@@ -429,13 +552,26 @@
                   <width>50%:50%</width>
                   <group>send</group>
             </send_settings>
+            <send_settings_left>
+                  <type>vbox</type>
+                  <parent>send_settings</parent>
+                  <group>send</group>
+                  <area_caption></area_caption>
+            </send_settings_left>
             <send_sender>
                   <type>vbox</type>
                   <closeable>0</closeable>
                   <area_caption>Saatja</area_caption>
-                  <parent>send_settings</parent>
+                  <parent>send_settings_left</parent>
                   <group>send</group>
             </send_sender>
+            <send_reply>
+                  <type>vbox</type>
+                  <closeable>0</closeable>
+                  <area_caption>Vastamise&amp;amp;nbsp;viis&amp;amp;nbsp;ja&amp;amp;nbsp;aeg</area_caption>
+                  <parent>send_settings_left</parent>
+                  <group>send</group>
+            </send_reply>
             <send_attachments>
                   <type>vbox</type>
                   <closeable>0</closeable>
