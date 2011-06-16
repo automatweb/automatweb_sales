@@ -1748,7 +1748,7 @@ class webform extends class_base
 		));
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		$id = $arr["alias"]["target"];
 		if(is_oid($id) && $this->can("view", $id))
@@ -1759,7 +1759,6 @@ class webform extends class_base
 
 	function show($arr)
 	{
-		enter_function("webform::show");
 		$this->read_template("show_form.tpl");
 		$obj_inst = obj($arr["id"]);
 		$ftype = $obj_inst->prop("form_type");
@@ -1767,16 +1766,16 @@ class webform extends class_base
 			"obj_inst" => $obj_inst,
 			"prop" => "style",
 		));
-		if ($_SERVER["HTTPS"] != "")
+		if (!empty($_SERVER["HTTPS"]))
 		{
 			$this->vars(array(
-				"url_spec" => str_replace("http:", "https:", aw_ini_get("baseurl"))."/"
+				"url_spec" => str_replace("http:", "https:", aw_ini_get("baseurl"))
 			));
 		}
 		else
 		{
 			$this->vars(array(
-				"url_spec" => aw_ini_get("baseurl")."/"
+				"url_spec" => aw_ini_get("baseurl")
 			));
 		}
 		$object_type = $obj_inst->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE");
@@ -1790,13 +1789,16 @@ class webform extends class_base
 		}
 		else
 		{
-			$section = aw_ini_get("baseurl").$_SERVER["REQUEST_URI"];
+			$section = aw_ini_get("baseurl").substr($_SERVER["REQUEST_URI"], 0, -1);
 		}
-		if ($_SERVER["HTTPS"] != "")
+
+		if (!empty($_SERVER["HTTPS"]))
 		{
 			$section = str_replace("http:", "https:", $section);
 		}
+
 		$vrs = array();
+
 		if($ftype == CL_CALENDAR_REGISTRATION_FORM)
 		{
 			if(!empty($arr["ef"]))
@@ -1831,12 +1833,12 @@ class webform extends class_base
 			}
 		}
 
-		if ($_GET['confirm'] == 1)
+		if (!empty($_GET['confirm']))
 		{
 			return $this->draw_confirm_page($arr);
 		}
 
-		if ($arr["link"] == 1 && $_GET["show"] != 1 && is_oid($ef_id))
+		if (isset($arr["link"]) && $arr["link"] == 1 && (!isset($_GET["show"]) || $_GET["show"] != 1) && is_oid($ef_id))
 		{
 			$this->vars(array(
 				"form" => html::href(array(
@@ -1852,7 +1854,7 @@ class webform extends class_base
 				"ot" => $object_type->id(),
 				"reforb" => array(
 					"class" => $ftype != CL_CALENDAR_REGISTRATION_FORM ? "webform" : "calendar_registration_form_conf",
-					"return_url" => $section.($_GET["show"] == 1 ? "?show=1" : ""),
+					"return_url" => $section.((isset($_GET["show"]) and $_GET["show"] == 1) ? "?show=1" : ""),
 					"id" => $ftype != CL_CALENDAR_REGISTRATION_FORM  ? $arr["id"] : $ef_id,
 					"doc_id" => is_object($arr["doc_id"]) ? $arr["doc_id"]->id() : $arr["doc_id"],
 					"subaction" => "",
@@ -1863,10 +1865,9 @@ class webform extends class_base
 				"obj_inst" => $obj_inst,
 				"action" => $ftype != CL_CALENDAR_REGISTRATION_FORM ? "save_form_data" : "submit_register",
 			));
-			aw_session_del("wf_errors");
-			aw_session_del("wf_data");
+			aw_session::del("wf_errors");
+			aw_session::del("wf_data");
 		}
-		exit_function("webform::show");
 		return $rval;
 	}
 
@@ -1922,13 +1923,16 @@ class webform extends class_base
 			{
 				continue;
 			}
+
 			if($pd["invisible"]) continue;
 			if($pd["invisible_name"]) $pd["caption"] = null;
-			if($pd["type"] == "releditor")
+
+			if($pd["type"] === "releditor")
 			{
 				$nms[$pn] = $pd["caption"];
 			}
-			if(($pd["type"] == "textbox" || $pd["type"] == "textarea"))
+
+			if(($pd["type"] === "textbox" || $pd["type"] === "textarea"))
 			{
 				if(!empty($all_props[$pn]["width"]))
 				{
@@ -1947,30 +1951,33 @@ class webform extends class_base
 				}
 			}
 
-			if ($pd["type"] != "text")
+			if ($pd["type"] !== "text")
 			{
-				$pd["value"] = $values[$pn];
+				$pd["value"] = isset($values[$pn]) ? $values[$pn] : null;
 			}
-			if($pd["type"] == "submit")
+
+			if($pd["type"] === "submit")
 			{
 				$sbz[$pn] = $pd;
 				$no_sbt = false;
 				continue;
 			}
-			elseif($pd["type"] == "reset" || $pd["type"] == "button")
+			elseif($pd["type"] === "reset" || $pd["type"] === "button")
 			{
 				$sbz[$pn] = $pd;
 				continue;
 			}
-			if($pd["type"] == "classificator" && $all_props[$pn]["sort_by"])
+
+			if($pd["type"] === "classificator" && $all_props[$pn]["sort_by"])
 			{
 				$pd["sort_by"] = $all_props[$pn]["sort_by"];
 			}
-			if($pd["type"] == "date_select")
+
+			if($pd["type"] === "date_select")
 			{
 				foreach($chk_prps as $ke => $vad)
 				{
-					if($pd["value"] && $vad == "defaultx")
+					if($pd["value"] && $vad === "defaultx")
 					{
 						continue;
 					}
@@ -1980,6 +1987,7 @@ class webform extends class_base
 					}
 				}
 			}
+
 			$num = 0;
 			if (isset($errs[$pn]))
 			{
@@ -2123,7 +2131,7 @@ class webform extends class_base
 					$els[$key]["style"]["prop"] = $sel_styles[$key]["prop"];
 				}
 			}
-			if($val["type"] == "hidden")
+			if($val["type"] === "hidden")
 			{
 				$arr["reforb"][$key] = "";
 			}
@@ -2137,27 +2145,29 @@ class webform extends class_base
 				$tmpx[$key] = $val;
 				unset($els[$key]);
 			}
-			if(in_array($clf_type[$key], $this->n_props))
+
+			if(isset($clf_type[$key]) and in_array($clf_type[$key], $this->n_props))
 			{
 				$els[$key]["orient"] = $all_props[$key]["orient"];
 			}
-			if($all_props[$key]["type"] == "reset" || $all_props[$key]["type"] == "submit")
+
+			if($all_props[$key]["type"] === "reset" || $all_props[$key]["type"] === "submit")
 			{
-				$val["class"] = $val["style"]["prop"];
-				if($all_props[$key]["type"] == "submit")
+				$val["class"] = isset($val["style"]["prop"]) ? $val["style"]["prop"] : null;
+				if($all_props[$key]["type"] === "submit")
 				{
 					$val["parent"] = "submitx";
 					$tmpx[$key] = $val;
 				//	unset($els[$key]);
 				}
-				elseif($all_props[$key]["type"] == "reset")
+				elseif($all_props[$key]["type"] === "reset")
 				{
 					$val["parent"] = "submitx";
 					$tmpx[$key] = $val;
 				//	unset($els[$key]);
 				}
 			}
-			if($val["type"] == "select")
+			if($val["type"] === "select")
 			{
 				foreach(safe_array($val["options"]) as $k => $v)
 				{
@@ -2176,7 +2186,7 @@ class webform extends class_base
 					}
 				}
 			}
-			if($val["type"] == "chooser")
+			if($val["type"] === "chooser")
 			{
 				foreach(safe_array($val["options"]) as $k => $v)
 				{
@@ -2199,7 +2209,7 @@ class webform extends class_base
 					}
 				}
 			}
-			if ($val['type'] == 'date_select')
+			if ($val['type'] === 'date_select')
 			{
 				if ($val['default_value_today'] == 1)
 				{
@@ -2238,7 +2248,7 @@ class webform extends class_base
 			$last = $v;
 		}
 		$els = (array)$els + (array)$tmpx;
-		classload("cfg/htmlclient");
+
 		$htmlc = new htmlclient(array(
 			"template" => "real_webform.tpl",
 			"styles" => safe_array($arr["obj_inst"]->meta("m_styles")),
@@ -2248,7 +2258,7 @@ class webform extends class_base
 		foreach($els as $pn => $pd)
 		{
 			$pd["capt_ord"] = $pd["wf_capt_ord"];
-			if ($pd["capt_ord"] == "in" && empty($arr['value']))
+			if ($pd["capt_ord"] === "in" && empty($arr['value']))
 			{
 				switch ($pd['type'])
 				{
@@ -2362,7 +2372,7 @@ class webform extends class_base
 		$subaction = $arr["subaction"];
 		$obj_inst = obj($arr["id"]);
 		$redirect = $obj_inst->trans_get_val("redirect");
-		$rval = (strpos(strtolower($redirect), "http://") !== false || strpos(strtolower($redirect), "https://") !== false ? $redirect : (substr($redirect, 0, 1) == "/" ?  aw_ini_get("baseurl").$redirect : aw_ini_get("baseurl")."/".$redirect));
+		$rval = (strpos(strtolower($redirect), "http://") !== false || strpos(strtolower($redirect), "https://") !== false ? $redirect : (substr($redirect, 0, 1) == "/" ?  aw_ini_get("baseurl").substr($redirect, 0, -1) : aw_ini_get("baseurl").$redirect));
 
 		$object_type = $obj_inst->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE");
 		$cfgform = $obj_inst->get_first_obj_by_reltype("RELTYPE_CFGFORM");
@@ -2710,7 +2720,7 @@ class webform extends class_base
 		$vars['reforb'] = $this->mk_reforb('save_form_data', array(
 			'id' => $arr['id'],
 			"section" => aw_global_get("section"),
-			'return_url' => aw_ini_get('baseurl').'/'.(is_object($arr['doc_id']) ? $arr["doc_id"]->id() : $arr["doc_id"]),
+			'return_url' => aw_ini_get('baseurl').(is_object($arr['doc_id']) ? $arr["doc_id"]->id() : $arr["doc_id"]),
 		), 'webform');
 
 		$vars['confirmed_button'] = html::submit(array(
@@ -3005,8 +3015,6 @@ class webform extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_ML_MEMBER,
 			"CL_ML_MEMBER.name" => $arr["search_mail_name"]."%",
-			"lang_id" => array(),
-			"site_id" => array(),
 			"limit" => 200
 		));
 		$res = array();

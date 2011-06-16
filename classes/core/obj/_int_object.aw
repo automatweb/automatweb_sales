@@ -1527,7 +1527,7 @@ class _int_object
 		}
 
 		$cl = basename(aw_ini_get("classes." . $clid . ".file"));
-		return new $cl;
+		return new $cl();
 	}
 
 	function create_brother($parent)

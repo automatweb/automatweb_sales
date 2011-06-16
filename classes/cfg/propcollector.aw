@@ -595,14 +595,14 @@ class propcollector extends aw_template
 			if (!$field)
 			{
 				continue;
-			};
+			}
 			list($fname,$fvalue) = explode("=",$field);
 			$fname = trim($fname);
 			$fvalue = trim($fvalue);
 			if (strlen($fname) && strlen($fvalue))
 			{
 				// try to split fvalue
-				if(substr($fvalue, 0, 1) == "\"" && substr($fvalue, -1, 1) == "\"")
+				if(substr($fvalue, 0, 1) === "\"" && substr($fvalue, -1, 1) === "\"")
 				{
 					$fvalue = substr($fvalue, 1, strlen($fvalue) - 2);
 				}

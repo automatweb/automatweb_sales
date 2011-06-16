@@ -1595,18 +1595,7 @@ class register_data extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["set_register_id"] = $this->set_register_id;
 	}
@@ -1725,10 +1714,9 @@ class register_data extends class_base
 				send_mail($mail_addresses_to, $mail_subj, $url, $headers);
 			}
 		}
-
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		// if there is some address set in register obj. where the user should be redirected, then
 		// lets do it
@@ -1742,7 +1730,8 @@ class register_data extends class_base
 			}
 		}
 	}
-	function parse_alias($arr)
+
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
@@ -1833,7 +1822,7 @@ class register_data extends class_base
 		@attrib name=view nologin=1 all_args=1
 
 	**/
-	function view($arr)
+	function view($arr = array())
 	{
 		return parent::view($arr);
 	}

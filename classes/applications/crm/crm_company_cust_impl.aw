@@ -6,6 +6,8 @@ class crm_company_cust_impl extends class_base
 
 	public $use_group = "";
 
+	private $_sect_l = 0;
+
 	function crm_company_cust_impl()
 	{
 		$this->init();
@@ -269,7 +271,7 @@ class crm_company_cust_impl extends class_base
 			"to_project" => $project_obj->id()
 		));
 
-		if (is_oid($cpi = $project_obj->prop("contact_person_implementor")) && $this->can("view", $cpi))
+		if (is_oid($cpi = $project_obj->prop("contact_person_implementor")) && object_loader::can("view", $cpi))
 		{
 			$impl = html::get_change_url($cpi, array("return_url" => get_ru()), parse_obj_name($project_obj->prop_str("contact_person_implementor")));
 		}
@@ -611,9 +613,9 @@ class crm_company_cust_impl extends class_base
 			{
 			}
 		}
-		$roles = join("<br>", $roles);
+		$roles = join(html::linebreak(), $roles);
 
-		$roles .= ($roles != "" ? "<br>" : "" ).html::popup(array(
+		$roles .= ($roles != "" ? html::linebreak() : "" ).html::popup(array(
 			"url" => $role_url,
 			'caption' => t('Rollid'),
 			"width" => 800,
@@ -883,6 +885,7 @@ class crm_company_cust_impl extends class_base
 			$url->set_arg(crm_company::REQVAR_CATEGORY, $category_id);
 			$tree_inst->add_item ($parent, array (
 				"name" => $category->name(),
+				"iconurl" => icons::get_std_icon_url("folder"),
 				"id" => $category_id,
 				"parent" => $parent,
 				"url" => $url->get()
@@ -1183,7 +1186,7 @@ class crm_company_cust_impl extends class_base
 						continue;
 					}
 					$org = obj($offer->prop("orderer"));
-					if($this->can("view", $offer->prop("salesman")))
+					if(object_loader::can("view", $offer->prop("salesman")))
 					{
 						$salesman = obj($offer->prop("salesman"));
 						$salesmanlink = html::get_change_url($salesman->id(), array(), $salesman->name());
@@ -2003,7 +2006,7 @@ class crm_company_cust_impl extends class_base
 
 		$ret["sort_by"] = "name";
 		$ret["limit"] = (100*$_GET["ft_page"]).", 100";
-		$ret["sort_by"].= " ".( $_GET["sort_order"] == "desc" ? "DESC" : "ASC");
+		$ret["sort_by"].= " ".( $_GET["sort_order"] === "desc" ? "DESC" : "ASC");
 
 		return $ret;
 	}

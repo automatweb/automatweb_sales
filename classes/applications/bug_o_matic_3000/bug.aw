@@ -362,6 +362,7 @@ class bug extends class_base
 	private $new_bug;
 	private $notify_monitors;
 	private $parent_data = array();
+	private $parent_options = array();
 
 	function bug()
 	{

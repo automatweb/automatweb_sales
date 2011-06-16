@@ -21,7 +21,7 @@ if (!empty($vars["action"]))
 	$action = $vars["action"];
 }
 
-include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/site_header.".aw_ini_get("ext"));
+include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."site_header".AW_FILE_EXT);
 
 $orb = new orb();
 $orb->process_request(array(
@@ -56,7 +56,7 @@ if (substr($content,0,5) === "http:" || !empty($vars["reforb"]) || substr($conte
 }
 elseif (is_oid($content))
 {
-	$url = aw_ini_get("baseurl") . "/{$content}";
+	$url = aw_ini_get("baseurl") . "{$content}";
 	if (headers_sent())
 	{
 		print html::href(array(

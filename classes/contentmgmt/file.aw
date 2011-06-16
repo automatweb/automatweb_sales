@@ -623,7 +623,7 @@ class file extends class_base
 			));
 
 			die("
-				<script type=\"text/javascript\" src=\"".aw_ini_get("baseurl")."/automatweb/js/jquery/jquery-1.2.3.min.js\"></script>
+				<script type=\"text/javascript\" src=\"".aw_ini_get("baseurl")."automatweb/js/jquery/jquery-1.2.3.min.js\"></script>
 				<script language='javascript'>
 
 				function SetAttribute( element, attName, attValue )
@@ -753,7 +753,7 @@ class file extends class_base
 
 			if ($fi["meta"]["show_framed"])
 			{
-				$url = aw_ini_get("baseurl")."/section=".aw_global_get("section")."/oid=$alias[target]";
+				$url = aw_ini_get("baseurl")."section=".aw_global_get("section")."/oid=$alias[target]";
 			}
 			else
 			{
@@ -1196,13 +1196,13 @@ class file extends class_base
 			// get the last folder
 			$slash1 = strrpos($f1, "/");
 			$f2 = substr($f1, $slash1+1);
-			$fn = aw_ini_get("baseurl").aw_ini_get("image.imgbaseurl")."/".$f2."/".substr($fname, $slash+1);
+			$fn = aw_ini_get("baseurl").aw_ini_get("image.imgbaseurl").$f2."/".substr($fname, $slash+1);
 			$pi = pathinfo($fn);
 			$mimeregistry = get_instance("core/aw_mime_types");
 			$tmp = $mimeregistry->type_for_ext($pi["extension"]);
 			if ($tmp != "")
 			{
-				header("Location: ".aw_ini_get("baseurl").aw_ini_get("image.imgbaseurl")."/".$f2."/".substr($fname, $slash+1));
+				header("Location: ".aw_ini_get("baseurl").aw_ini_get("image.imgbaseurl").$f2."/".substr($fname, $slash+1));
 				die();
 			}
 		}
