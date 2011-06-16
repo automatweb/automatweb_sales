@@ -1,5 +1,4 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/period.aw,v 1.7 2009/05/28 09:53:12 instrumental Exp $
 // period.aw - periods
 /*
 
@@ -52,7 +51,7 @@
 	@caption Aktiivsus
 
 	@tableinfo periods index=obj_id master_table=objects master_index=oid
-	@classinfo relationmgr=yes syslog_type=ST_PERIOD maintainer=kristo
+	@classinfo relationmgr=yes
 	@groupinfo activity caption=Aktiivsus
 
 	@reltype IMAGE value=1 clid=CL_IMAGE
@@ -67,6 +66,8 @@
 
 class period extends class_base implements request_startup
 {
+	private $period_cache = array();
+
 	function period($oid = 0)
 	{
 		$this->init(array(
@@ -645,5 +646,4 @@ class period extends class_base implements request_startup
 
 		return $this->parse();
 	}
-};
-?>
+}

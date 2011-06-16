@@ -1,6 +1,6 @@
 <?php
 
-include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/site_header.".aw_ini_get("ext"));
+include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."site_header".AW_FILE_EXT);
 
 if (($port = aw_ini_get("auth.display_over_ssl_port")) > 0)
 {
@@ -65,11 +65,11 @@ $content = $m->show(array(
 aw_session_set("text_for_login", "");
 aw_session_set("uid_for_login", "");
 
-if (file_exists(aw_ini_get("site_basedir")."/public/site_footer.aw"))
+if (file_exists(aw_ini_get("site_basedir")."public/site_footer.aw"))
 {
-	include(aw_ini_get("site_basedir")."/public/site_footer.aw");
+	include(aw_ini_get("site_basedir")."public/site_footer.aw");
 }
 else
 {
-	include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/site_footer.".aw_ini_get("ext"));
+	include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."site_footer".AW_FILE_EXT);
 }

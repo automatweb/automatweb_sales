@@ -304,7 +304,7 @@ function lc_init()
 	// translate class names if it is so said
 	if (isset($GLOBALS["cfg"]["user_interface"]["default_language"]) && ($adm_ui_lc = $GLOBALS["cfg"]["user_interface"]["default_language"]) != "")
 	{
-		$trans_fn = $GLOBALS["cfg"]["basedir"]."/lang/trans/$adm_ui_lc/aw/aw.ini.aw";
+		$trans_fn = $GLOBALS["cfg"]["basedir"]."lang/trans/$adm_ui_lc/aw/aw.ini.aw";
 		if (is_readable($trans_fn))
 		{
 			require_once($trans_fn);
@@ -390,7 +390,7 @@ function lc_site_load($file, $obj)
 		$LC = "et";
 	}
 
-	$fname_site = aw_ini_get("site_basedir")."/lang/{$LC}/{$file}" . AW_FILE_EXT;
+	$fname_site = aw_ini_get("site_basedir")."lang/{$LC}/{$file}" . AW_FILE_EXT;
 	$fname_default = AW_DIR . "lang/{$LC}/{$file}" . AW_FILE_EXT;
 	if (is_readable($fname_site))
 	{
@@ -419,7 +419,7 @@ function aw_classload($args)
 	{
 		// let's not allow including ../../../etc/passwd :)
 		$lib = str_replace(".","", $lib);
-		$lib = $GLOBALS["cfg"]["classdir"]."/".$lib.".".$GLOBALS["cfg"]["ext"];
+		$lib = $GLOBALS["cfg"]["classdir"].$lib.".".$GLOBALS["cfg"]["ext"];
 		if (is_readable($lib))
 		{
 			include_once($lib);
@@ -460,27 +460,27 @@ function classload($args)
 
 		if (isset($cl_id) and isset($GLOBALS["cfg"]["classes"][$cl_id]["site_class"]) and $GLOBALS["cfg"]["classes"][$cl_id]["site_class"] == 1)
 		{
-			$lib = $GLOBALS["cfg"]["site_basedir"]."/classes/".basename($lib).".".$GLOBALS["cfg"]["ext"];
+			$lib = $GLOBALS["cfg"]["site_basedir"]."classes/".basename($lib).".".$GLOBALS["cfg"]["ext"];
 		}
 		elseif (substr($lib,0,13) === "designedclass")
 		{
 			$lib = basename($lib);
-			$lib = $GLOBALS["cfg"]["site_basedir"]."/files/classes/".$lib.".".$GLOBALS["cfg"]["ext"];
+			$lib = $GLOBALS["cfg"]["site_basedir"]."files/classes/".$lib.".".$GLOBALS["cfg"]["ext"];
 		}
 		else
 		{
-			$lib = $GLOBALS["cfg"]["classdir"]."/".$lib.".".$GLOBALS["cfg"]["ext"];
+			$lib = $GLOBALS["cfg"]["classdir"].$lib.".".$GLOBALS["cfg"]["ext"];
 
 			if (isset($GLOBALS['cfg']['user_interface']["default_language"]) && ($adm_ui_lc = $GLOBALS["cfg"]["user_interface"]["default_language"]) != "")
 			{
-				$trans_fn = $GLOBALS["cfg"]["basedir"]."/lang/trans/$adm_ui_lc/aw/".basename($lib);
+				$trans_fn = $GLOBALS["cfg"]["basedir"]."lang/trans/$adm_ui_lc/aw/".basename($lib);
 				if (is_readable($trans_fn))
 				{
 					require_once($trans_fn);
 				}
 				else
 				{
-					$trans_fn = $GLOBALS["cfg"]["basedir"]."/lang/trans/$adm_ui_lc/aw/".basename($default_lib);
+					$trans_fn = $GLOBALS["cfg"]["basedir"]."lang/trans/$adm_ui_lc/aw/".basename($default_lib);
 					if (is_readable($trans_fn))
 					{
 						require_once($trans_fn);
@@ -560,7 +560,7 @@ function get_instance($class, $args = array(), $errors = true)
 	{
 		if ($rs != $GLOBALS["cfg"]["baseurl"])
 		{
-			$proxy_file = $GLOBALS["cfg"]["basedir"]."/classes/core/proxy_classes/".$lib.".aw";
+			$proxy_file = $GLOBALS["cfg"]["basedir"]."classes/core/proxy_classes/".$lib.".aw";
 			$proxy_class = "__aw_proxy_".$lib;
 			include_once($proxy_file);
 			return new $proxy_class($rs);
@@ -569,11 +569,11 @@ function get_instance($class, $args = array(), $errors = true)
 
 	if ($site)
 	{
-		$classdir = aw_ini_get("site_basedir")."/classes";
+		$classdir = aw_ini_get("site_basedir")."classes/";
 	}
 	else if ($designed)
 	{
-		$classdir = aw_ini_get("site_basedir")."/files/classes";
+		$classdir = aw_ini_get("site_basedir")."files/classes/";
 		$class = basename($class);
 		$lib = $GLOBALS["gen_class_name"];
 	}
@@ -585,7 +585,7 @@ function get_instance($class, $args = array(), $errors = true)
 	$replaced = str_replace(".","", $class);
 	//klassile pakihalduse teemalise versiooni
 
-	if (!file_exists($classdir."/".$replaced.AW_FILE_EXT))
+	if (!file_exists($classdir.$replaced.AW_FILE_EXT))
 	{
 		__autoload(basename($class));
 	}
@@ -595,7 +595,7 @@ function get_instance($class, $args = array(), $errors = true)
 		$replaced = get_class_version($replaced);
 	}
 
-	$_fn = $classdir."/".$replaced.AW_FILE_EXT;
+	$_fn = $classdir.$replaced.AW_FILE_EXT;
 
 	if (is_readable($_fn) && !class_exists($lib))
 	{
@@ -605,7 +605,7 @@ function get_instance($class, $args = array(), $errors = true)
 	// also load translations
 	if (isset($GLOBALS["cfg"]["user_interface"]["default_language"]) && ($adm_ui_lc = $GLOBALS["cfg"]["user_interface"]["default_language"]) != "")
 	{
-		$trans_fn = $GLOBALS["cfg"]["basedir"]."/lang/trans/$adm_ui_lc/aw/".basename($class).AW_FILE_EXT;
+		$trans_fn = $GLOBALS["cfg"]["basedir"]."lang/trans/$adm_ui_lc/aw/".basename($class).AW_FILE_EXT;
 
 		if (is_readable($trans_fn))
 		{
@@ -720,8 +720,8 @@ function aw_startup()
 
 	$LC = $GLOBALS["cfg"]["user_interface"]["full_content_trans"] ? aw_global_get("ct_lang_lc") : aw_global_get("LC");
 
-	@include($GLOBALS["cfg"]["basedir"]."/lang/" . $LC . "/errors.".$GLOBALS["cfg"]["ext"]);
-	@include($GLOBALS["cfg"]["basedir"]."/lang/" . $LC . "/common.".$GLOBALS["cfg"]["ext"]);
+	include($GLOBALS["cfg"]["basedir"]."lang/" . $LC . "/errors.".$GLOBALS["cfg"]["ext"]);
+	include($GLOBALS["cfg"]["basedir"]."lang/" . $LC . "/common.".$GLOBALS["cfg"]["ext"]);
 	$p = new period();
 	$p->request_startup();
 
@@ -754,14 +754,14 @@ function __get_site_instance()
 	static $__site_instance;
 	if (!is_object($__site_instance))
 	{
-		$fname = aw_ini_get("site_basedir")."/public/site".AW_FILE_EXT;
+		$fname = aw_ini_get("site_basedir")."public/site".AW_FILE_EXT;
 		if (is_readable($fname))
 		{
 			include_once($fname);
 		}
 		else
 		{
-			$fname = aw_ini_get("site_basedir")."/htdocs/site".AW_FILE_EXT;
+			$fname = aw_ini_get("site_basedir")."htdocs/site".AW_FILE_EXT;
 			if (is_readable($fname))
 			{
 				include_once($fname);
@@ -1037,7 +1037,7 @@ function check_pagecache_folders()
 		$fq = $pg."/".$f;
 		if (!is_dir($fq))
 		{
-			@mkdir($fq, 0777);
+			mkdir($fq, 0777);
 			chmod($fq, 0777);
 			for($i = 0; $i < 16; $i++)
 			{

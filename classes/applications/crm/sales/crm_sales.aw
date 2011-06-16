@@ -55,7 +55,7 @@ PROPERTY DECLARATIONS
 
 	@property comment type=textbox
 	@caption Kommentaar
-	
+
 @default field=meta
 @default method=serialize
 
@@ -589,7 +589,7 @@ PROPERTY DECLARATIONS
 			@caption Otsi
 
 		@property offers_list type=table store=no no_caption=1 parent=offers_vsplitbox
-		
+
 @default group=offers_templates
 
 	@property offer_templates_toolbar type=toolbar store=no no_caption=1
@@ -2157,7 +2157,7 @@ SCRIPT;
 
 			if ($params_defined)
 			{
-				$contacts_oid_data = $search->get_oids();
+				$contacts_oid_data = $search->get_customer_relation_oids();
 
 				if (isset($contacts_oid_data[0]))
 				{

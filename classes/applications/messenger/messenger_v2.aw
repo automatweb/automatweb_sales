@@ -204,6 +204,8 @@ caption Identiteet
 
 class messenger_v2 extends class_base
 {
+	private $drv_inst;
+
 	function messenger_v2()
 	{
 		$this->init(array(
@@ -225,7 +227,7 @@ class messenger_v2 extends class_base
 		if (empty($msgr_id))
 		{
 			return t("kulla mees, sa pole omale default messengeri ju valinud?");
-		};
+		}
 		$arr["id"] = $msgr_id;
 		$arr["group"] = "main_view";
 		$arr["action"] = "change";
@@ -306,7 +308,7 @@ class messenger_v2 extends class_base
 					2 => 2,
 					3 => 3,
 					4 => 4,
-					5 => 5,
+					5 => 5
 				);
 				break;
 
@@ -590,7 +592,7 @@ class messenger_v2 extends class_base
 		if($arg["request"]["msgid"] && $arg["request"]["mailbox"])
 		{
 			$inst = get_instance(CL_MESSAGE);
-			$inst->msgr = &$this;
+			$inst->msgr = $this;
 			$ret = $inst->formatted_message(array(
 				"msgid" => $arg["request"]["msgid"],
 				"msgrid" => $arg["request"]["id"],
@@ -814,14 +816,13 @@ class messenger_v2 extends class_base
 
 	function _connect_server($arr)
 	{
-
 		if (!$this->connected || $arr["force_reconnect"])
 		{
 			if (!extension_loaded("imap"))
 			{
 				$this->connect_errors = t("IMAP extension not available");
 				return false;
-			};
+			}
 			$this->msgobj = new object($arr["msgr_id"]);
 			$conns = $this->msgobj->connections_from(array("type" => "RELTYPE_MAIL_SOURCE"));
 
@@ -833,12 +834,12 @@ class messenger_v2 extends class_base
 			{
 				$this->connect_errors = t("IMAP sissep&auml;&auml;s on konfigureerimata");
 				return false;
-			};
+			}
 			$sdat = new object($_sdat->to());
 
 			$this->_name = $sdat->prop("name");
 
-			$this->drv_inst = get_instance("protocols/mail/imap");
+			$this->drv_inst = new imap();
 			$this->drv_inst->set_opt("use_mailbox",$this->use_mailbox);
 			$this->drv_inst->set_opt("outbox",$this->outbox);
 			$errors = $this->drv_inst->connect_server(array(
@@ -850,6 +851,7 @@ class messenger_v2 extends class_base
 				$this->connect_errors = $errors;
 				return false;
 			}
+
 			$this->drv_inst->set_opt("messenger_id",$arr["msgr_id"]);
 
 			$this->mbox = $this->drv_inst->get_opt("mbox");
@@ -878,8 +880,7 @@ class messenger_v2 extends class_base
 	**/
 	function _msg_move($arg)
 	{
-		$cache = get_instance("cache");
-		$enum = aw_unserialize($cache->file_get($this->drv_inst->mbox_msg_list_cache_id));
+		$enum = aw_unserialize(cache::file_get($this->drv_inst->mbox_msg_list_cache_id));
 		$key = array_search($arg["request"]["msgid"], $enum);
 		if($key !== false)
 		{
@@ -898,7 +899,7 @@ class messenger_v2 extends class_base
 
 	/** defines fields for main_view table (gen_message_list uses it)
 	**/
-	function _mk_mb_table(&$t, $obj)
+	function _mk_mb_table($t, $obj)
 	{
 		$t->define_field(array(
 			"name" => "answered",
@@ -1024,7 +1025,7 @@ class messenger_v2 extends class_base
 				$ps[] = html::href(array(
 					"caption" => ($ft_page == $i)?sprintf("<b>%s</b>", ($i + 1)): ($i + 1) ,
 					"url" => "#",
-					"onClick" => "javascript:msgr_show_folder(\"".$this->use_mailbox."\", ".$i.");",
+					"onclick" => "javascript:msgr_show_folder(\"".$this->use_mailbox."\", ".$i.");",
 				));
 			}
 			if($ft_page != key($count) - 1  && key($count) > 1)
@@ -1271,7 +1272,7 @@ class messenger_v2 extends class_base
 			$tree->add_item($parent,array(
 				"name" => $name . " (".key($count)." / ".current($count).")",
 				"id" => $i,
-				"onClick" => "javascript:msgr_show_folder('".$val["name"]."');",
+				"onclick" => "javascript:msgr_show_folder('".$val["name"]."');",
 				"url" => "#"
 			));
 
@@ -1305,7 +1306,7 @@ class messenger_v2 extends class_base
 			"name" => "newmessage",
 			"tooltip" => t("Uus kiri"),
 			"url" => "#",
-			"onClick" => "msgr_load('middle_pane_outer', '".$url."');",
+			"onclick" => "msgr_load('middle_pane_outer', '".$url."');",
 			"img" => "new.gif"
 
 		));
@@ -1315,7 +1316,7 @@ class messenger_v2 extends class_base
 			"name" => "removemessage",
 			"tooltip" => t("Kustuta valitud kirjad"),
 			"url" => "#",
-			"onClick" => "aw_post_url_contents('".$delurl."', '&mailbox='+active_folder+'&id=".$arr["obj_inst"]->id()."'+msgr_collect_checkboxes(document.changeform.elements));msgr_show_folder(active_folder);",
+			"onclick" => "aw_post_url_contents('".$delurl."', '&mailbox='+active_folder+'&id=".$arr["obj_inst"]->id()."'+msgr_collect_checkboxes(document.changeform.elements));msgr_show_folder(active_folder);",
 			"img" => "delete.gif"
 
 		));
@@ -1812,7 +1813,6 @@ class messenger_v2 extends class_base
 		$msgobj = new object($arr["id"]);
 		$conns = $msgobj->connections_from(array("type" => "RELTYPE_MAIL_SOURCE"));
 
-
 		// right now it only deals with a single server.
 		list(,$_sdat) = each($conns);
 		if (empty($_sdat))
@@ -1833,7 +1833,6 @@ class messenger_v2 extends class_base
 		$server = sprintf($mask,$server,$port);
 		include("imap.php");
 		die();
-
 	}
 
 	/**
@@ -1849,9 +1848,9 @@ class messenger_v2 extends class_base
 		header("Content-Type:".$attach["content_type"]);
 		header("Expires:".gmdate("D, d M Y H:i:s")." GMT");
 		header('Content-Disposition:attachment; filename="'.$attach["filename"].'"');
-		Header("Content-Disposition-type: attachment");
-		Header("Content-Transfer-Encoding: binary");
-		Header("Content-Length: ".$attach["size"]);
+		header("Content-Disposition-type: attachment");
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: ".$attach["size"]);
 		echo $attach["body"];
 		die();
 	}

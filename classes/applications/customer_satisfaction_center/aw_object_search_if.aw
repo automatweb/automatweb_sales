@@ -562,7 +562,7 @@ class aw_object_search_if extends class_base
 			$lo = new aw_login();
 			$serv = $lo->get_server($arr["request"]["login"]);
 			$old_bu = $this->cfg["baseurl"];
-			$this->cfg["baseurl"] = "http://".$serv;
+			$this->cfg["baseurl"] = "http://{$serv}/";
 			$is_remote = true;
 			aw_ini_set("baseurl" , $this->cfg["baseurl"]);
 		}
@@ -583,7 +583,7 @@ class aw_object_search_if extends class_base
 			$t->define_data(array(
 				"oid" => $id,
 				"icon" => html::img(array(
-					"url" => icons::get_icon_url($d["class_id"]),
+					"url" => icons::get_icon_url($d["class_id"], $d["name"]),
 					"alt" => sprintf(t("Objekti id on %s"), $id),
 					"title" => sprintf(t("Objekti id on %s"), $id),
 					"border" => 0

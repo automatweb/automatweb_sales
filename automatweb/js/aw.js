@@ -13,16 +13,16 @@ function js_error_dbg(msg, url, line)
 
 function f(msg)
 {
-	
+
 	return aw_get_url_contents('http://tarvo.dev.struktuur.ee/automatweb/orb.aw?class=file&action=handle_remote_dbg&type=JS-DEBUG&dbg=' + msg);
 }
 */
 
 function _aw_popup(file,name,toolbar,location,status,menubar,scrollbars,resizable,width,height)
 {
-	 var wprops = 	"toolbar=" + toolbar + "," + 
+	 var wprops = 	"toolbar=" + toolbar + "," +
 	 		"location= " + location + "," +
-			"directories=0," + 
+			"directories=0," +
 			"status=" + status + "," +
 	        	"menubar=" + menubar + "," +
 			"scrollbars=" + scrollbars + "," +
@@ -63,7 +63,7 @@ function aw_get_el(name,form)
 		}
 	}
 	// here's a fix for IE because in search (class) names are removed from select boxes
-	if ($.gup("class")=="aw_object_search")
+	if ($.gup("class")=="aw_object_search_if")
 	{
 	    	return $("select", form).each(function(){
 			if (this.name_tmp == name)
@@ -82,20 +82,20 @@ function list_preset(el,oid)
 	while(it = document.getElementById(elem))
 	{
 		it.style.color='blue';
-	
+
 		i+=1;
 		elem = el + '_' + i;
 	}
 	document.getElementById(el).value=oid;
 }
 
-// set/changes cookie 
+// set/changes cookie
 function set_cookie( name, value, expires, path, domain, secure )
 {
 	// set time, it's in milliseconds
 	var today = new Date();
 	today.setTime( today.getTime() );
-	
+
 	/*
 	if the expires variable is set, make the correct
 	expires time, the current script below will set
@@ -107,7 +107,7 @@ function set_cookie( name, value, expires, path, domain, secure )
 	expires = expires * 1000 * 60 * 60 * 24;
 	}
 	var expires_date = new Date( today.getTime() + (expires) );
-	
+
 	document.cookie = name + "=" +escape( value ) +
 	( ( expires ) ? ";expires=" + expires_date.toGMTString() : "" ) +
 	( ( path ) ? ";path=" + path : "" ) +
@@ -119,7 +119,7 @@ function set_cookie( name, value, expires, path, domain, secure )
 // this fixes an issue with the old method, ambiguous values
 // with this test document.cookie.indexOf( name + "=" );
 function get_cookie ( check_name )
-{	
+{
 	// first we'll split this cookie up into name/value pairs
 	// note: document.cookie only returns name=value, not the other components
 	var a_all_cookies = document.cookie.split( ';' );
@@ -185,7 +185,7 @@ function awlib_addevent(o,e,f)
 
 	else if(o.attachEvent)
 		o.attachEvent("on"+e,f);
-	
+
 	else
 		eval("o.on"+e+"="+f)
 };
@@ -244,7 +244,7 @@ function aw_date_edit_clear(name)
 			}
 		}
 	}
-} 
+}
 
 var cur_cal_el = null;
 
@@ -295,20 +295,20 @@ function aw_date_edit_show_cal(elname)
 		var d = d_obj.options[d_obj.selectedIndex].value;
 	}
 
-	if (d=="") 
-	{ 
-		d=1; 
+	if (d=="")
+	{
+		d=1;
 	}
-	if (y=="---" || m=="---" || y == undefined || m == undefined || y == "" || m == "") 
-	{ 
-		dt = null; 
+	if (y=="---" || m=="---" || y == undefined || m == undefined || y == "" || m == "")
+	{
+		dt = null;
 	}
 	else
 	{
 		dt = y+'-'+m+'-'+d;
 	}
 	cal16.setReturnFunction("aw_date_edit_set_val");
-	cal16.showCalendar(elname,dt); 
+	cal16.showCalendar(elname,dt);
 }
 
 function aw_set_lb_val(el, val)
@@ -345,17 +345,17 @@ function aw_date_edit_set_val(y,m,d)
 function aw_get_url_contents(url)
 {
 	var req;
-	if (window.XMLHttpRequest) 
+	if (window.XMLHttpRequest)
 	{
 		req = new XMLHttpRequest();
 		req.open('GET', url, false);
 		req.send(null);
-	} 
-	else 
-	if (window.ActiveXObject) 
+	}
+	else
+	if (window.ActiveXObject)
 	{
 		req = new ActiveXObject('Microsoft.XMLHTTP');
-		if (req) 
+		if (req)
 		{
 			req.open('GET', url, false);
 			req.send();
@@ -401,7 +401,7 @@ function aw_handle_xml_data()
 	if (req.readyState == 4)
 	{
 		// only if "OK"
-		if (req.status == 200 && aw_xmlhttpr_cb) 
+		if (req.status == 200 && aw_xmlhttpr_cb)
 		{
 			aw_xmlhttpr_cb();
 		}
@@ -411,18 +411,18 @@ function aw_handle_xml_data()
 function aw_do_xmlhttprequest(url, finish_callb)
 {
 	aw_xmlhttpr_cb = finish_callb;
-	if (window.XMLHttpRequest) 
+	if (window.XMLHttpRequest)
 	{
         req = new XMLHttpRequest();
         req.onreadystatechange = aw_handle_xml_data;
         req.open("GET", url, true);
         req.send(null);
-	} 
-	else 
-	if (window.ActiveXObject) 
+	}
+	else
+	if (window.ActiveXObject)
 	{
 		req = new ActiveXObject("Microsoft.XMLHTTP");
-		if (req) 
+		if (req)
 		{
             req.onreadystatechange = aw_handle_xml_data;
 			req.open("GET", url, true);

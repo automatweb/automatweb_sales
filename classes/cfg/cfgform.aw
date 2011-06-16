@@ -1470,7 +1470,7 @@ class cfgform extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
@@ -1754,7 +1754,7 @@ class cfgform extends class_base
 
 	private function _tables_tbl(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_caption(t("V&auml;ljad"));
 
 	//$arr["obj_inst"]->set_meta("tbl_config", null);$arr["obj_inst"]->save();
@@ -1936,7 +1936,7 @@ class cfgform extends class_base
 		$arr["obj_inst"]->save();
 	}
 
-	private function _init_tables_tbl(&$t)
+	private function _init_tables_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "caption",
@@ -1975,7 +1975,7 @@ class cfgform extends class_base
 		));
 	}
 
-	private function _init_layout_tbl(&$t)
+	private function _init_layout_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "ord",
@@ -2030,7 +2030,7 @@ class cfgform extends class_base
 
 	function _layout_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_layout_tbl($t);
 		$this_o = $arr["obj_inst"];
 
@@ -2146,7 +2146,7 @@ class cfgform extends class_base
 
 	function _layout_tb($arr)
 	{
-		$toolbar =& $arr["prop"]["toolbar"];
+		$toolbar = $arr["prop"]["toolbar"];
 		$toolbar->add_button(array(
 			"name" => "new",
 			"tooltip" => t("Lisa uus layout"),
@@ -2954,7 +2954,7 @@ class cfgform extends class_base
 	function gen_avail_props($arr = array())
 	{
 		// init table
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "name",
@@ -3048,7 +3048,7 @@ class cfgform extends class_base
 	{
 		// which links do I need on the toolbar?
 		// 1- lisa tab
-		$toolbar = &$arr["prop"]["toolbar"];
+		$toolbar = $arr["prop"]["toolbar"];
 
 		$toolbar->add_button(array(
 			"name" => "save",
@@ -3159,7 +3159,7 @@ class cfgform extends class_base
 	function gen_availtoolbar($arr)
 	{
 		$this_o = $arr["obj_inst"];
-		$toolbar =& $arr["prop"]["vcl_inst"];
+		$toolbar = $arr["prop"]["vcl_inst"];
 		$this_oid = $this_o->id();
 		$return_url = get_ru();
 
@@ -3773,7 +3773,7 @@ class cfgform extends class_base
 		$ot = obj($arr["ot"]);
 		$class_id = $ot->prop("type");
 
-		$cfgx = get_instance("cfg/cfgutils");
+		$cfgx = new cfgutils();
 		$els = $cfgx->load_properties(array(
 			"clid" => $class_id,
 		));
@@ -3794,13 +3794,12 @@ class cfgform extends class_base
 				{
 					$tmp[$pn][$k] = $v;
 				}
-				$tmp[$pn]["controllers"] = $ctr[$pn];
-				$tmp[$pn]["view_controllers"] = $v_ctr[$pn];
+				$tmp[$pn]["controllers"] = isset($ctr[$pn]) ? $ctr[$pn] : null;
+				$tmp[$pn]["view_controllers"] = isset($v_ctr[$pn]) ? $v_ctr[$pn] : null;
 			}
 			$els = $tmp;
 
 			uasort($els, create_function('$a, $b','if ($a["ord"] == $b["ord"]) { return 0;} else {return $a["ord"] > $b["ord"] ? 1 : -1;}'));
-
 
 			$trans = $cff->meta("translations");
 
@@ -3827,7 +3826,7 @@ class cfgform extends class_base
 				{
 					if ($tc[$pn] != "")
 					{
-						if ($pd["type"] == "text")
+						if ($pd["type"] === "text")
 						{
 							$els[$pn]["value"] = $tc[$pn];
 						}
@@ -3842,7 +3841,7 @@ class cfgform extends class_base
 		$tmp = array();
 		foreach($els as $pn => $pd)
 		{
-			if ($pn == "is_translated" || $pn == "needs_translation")
+			if ($pn === "is_translated" || $pn === "needs_translation")
 			{
 				continue;
 			}
@@ -3851,7 +3850,7 @@ class cfgform extends class_base
 			{
 				$pd["value"] = $arr["values"][$pn];
 			}
-			if ($pd["type"] == "classificator")
+			if ($pd["type"] === "classificator")
 			{
 				$pd["object_type_id"] = $arr["ot"];
 				if ($arr["for_show"] && is_oid($pd["value"]) && $this->can("view", $pd["value"]))
@@ -3860,7 +3859,7 @@ class cfgform extends class_base
 					$pd["value"] = $tmpo->name();
 				}
 			}
-			if ($pd["type"] == "textarea" && $arr["for_show"])
+			if ($pd["type"] === "textarea" && $arr["for_show"])
 			{
 				$pd["value"] = nl2br($pd["value"]);
 			}
@@ -3949,7 +3948,7 @@ class cfgform extends class_base
 		// now that's the tricky part ... this thingsbum overrides
 		// all the settings in the document config form
 		$this->_init_properties($clid);
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 		if ($clid == CL_DOCUMENT)
 		{
@@ -4091,7 +4090,7 @@ class cfgform extends class_base
 			{
 				if ($tc[$pn] != "")
 				{
-					if ($pd["type"] == "text")
+					if ($pd["type"] === "text")
 					{
 						$ret[$pn]["value"] = $tc[$pn];
 					}
@@ -5434,13 +5433,13 @@ class cfgform extends class_base
 		{
 			$cf->show_group($arr["group"]);
 			$cf->save();
-			die(aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_green.png");
+			die(aw_ini_get("icons.server")."cfg_edit_green.png");
 		}
 		else
 		{
 			$cf->hide_group($arr["group"]);
 			$cf->save();
-			die(aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_red.png");
+			die(aw_ini_get("icons.server")."cfg_edit_red.png");
 		}
 	}
 }

@@ -16,10 +16,10 @@ class toolbar extends aw_template
 	{
 		$this->init("toolbar");
 
-		$imgbase = empty($args["imgbase"]) ? "/automatweb/images/icons" : $args["imgbase"];
+		$imgbase = empty($args["imgbase"]) ? "automatweb/images/icons" : $args["imgbase"];
 		$this->imgbase = aw_ini_get("baseurl") . $imgbase;
 		$this->vars(array(
-			"imgbase" => aw_ini_get("baseurl") . $imgbase,
+			"imgbase" => $this->imgbase
 		));
 	}
 
@@ -520,8 +520,8 @@ class toolbar extends aw_template
 						$right_side_content .= $this->parse("cdata");
 					};
 					break;
-			};
-		};
+			}
+		}
 
 		$result .= $this->parse("end");
 		if (count($this->end_sep) > 0)
@@ -560,12 +560,12 @@ class toolbar extends aw_template
 			$clp = array();
 			foreach((array)$arr["property"]["quicksearch"] as $cldef)
 			{
-				$clid = @constant($cldef);
+				$clid = constant($cldef);
 				$clp[$clid] = $clss[$clid]["name"];
 			}
 			$clss = $this->picker("", $clp);
 
-			$url = $this->mk_my_orb("redir_search", array("url" => get_ru(), "MAX_FILE_SIZE" => 100000), "aw_object_search");
+			$url = $this->mk_my_orb("redir_search", array("url" => get_ru(), "MAX_FILE_SIZE" => 100000), "aw_object_search_if");
 			$sb = "<input type=text size=10 name=tb_quicksearch> <select name=tb_qs_clid>".$clss."</select> <input type=button onclick='changed=0;window.location=\"".$url."&s_name=\"+document.changeform.tb_quicksearch.value+\"&s_clid=\"+document.changeform.tb_qs_clid.options[document.changeform.tb_qs_clid.selectedIndex].value' value='".t("Otsi")."'>";
 
 			$sb = '<div nowrap class="tb_but" onMouseOver="this.className=\'tb_but_ov\'" onMouseOut="this.className=\'tb_but\'" onMouseDown="this.className=\'tb_but_ov\'" onMouseUp="this.className=\'tb_but\'">'.$sb.'</div>';

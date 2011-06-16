@@ -31,30 +31,30 @@ else
 $a_plugins = array();
 if ( aw_ini_get("plugin.jquery") )
 {
-	$a_plugins["/automatweb/js/jquery_latest.aw"] = array("type" => "js");
+	$a_plugins["automatweb/js/jquery_latest.aw"] = array("type" => "js");
 }
 
 if ( aw_ini_get("plugin.thickbox") )
 {
-	$a_plugins["/automatweb/js/jquery_latest.aw"] = array("type" => "js");
-	$a_plugins["/automatweb/css/thickbox.css"] = array("type" => "css");
-	$a_plugins["/automatweb/js/jquery/plugins/thickbox.js"] = array("type" => "js");
+	$a_plugins["automatweb/js/jquery_latest.aw"] = array("type" => "js");
+	$a_plugins["automatweb/css/thickbox.css"] = array("type" => "css");
+	$a_plugins["automatweb/js/jquery/plugins/thickbox.js"] = array("type" => "js");
 }
 
 if ( aw_ini_get("plugin.protect_emails") )
 {
-	$a_plugins["/automatweb/js/jquery_latest.aw"] = array("type" => "js");
-	$a_plugins["/automatweb/js/jquery/plugins/jquery_protect_email.js"] = array("type" => "js");
+	$a_plugins["automatweb/js/jquery_latest.aw"] = array("type" => "js");
+	$a_plugins["automatweb/js/jquery/plugins/jquery_protect_email.js"] = array("type" => "js");
 }
 
 if (aw_ini_get("menuedit.protect_emails") == 1 || aw_ini_get("plugin.protect_emails"))
 {
-	$i = get_instance("contentmgmt/mail_protector");
+	$i = new mail_protector();
 	$str = $i->protect($sf->parse());
 	if ( aw_ini_get("plugin.protect_emails") )
 	{
-		$a_plugins["/automatweb/js/jquery_latest.aw"] = array("type" => "js");
-		$a_plugins["/automatweb/js/jquery/plugins/jquery_protect_email.js"] = array("type" => "js");
+		$a_plugins["automatweb/js/jquery_latest.aw"] = array("type" => "js");
+		$a_plugins["automatweb/js/jquery/plugins/jquery_protect_email.js"] = array("type" => "js");
 	}
 }
 else
@@ -73,7 +73,7 @@ else if (aw_ini_get("content.doctype") === "xhtml" )
 
 // include the javascripts
 $s_plugins = "";
-foreach( $a_plugins as $key => $var )
+foreach ($a_plugins as $key => $var )
 {
 	if ( $var["type"] === "js" )
 	{
@@ -115,7 +115,7 @@ if ( aw_ini_get("menuedit.protect_emails") || aw_ini_get("plugin.protect_emails"
 // search for swfobject from html
 if (strpos($str, "var aw_flash_"))
 {
-	$s_swfobject = '<script type="text/javascript" src="'.aw_ini_get("baseurl").'/automatweb/js/swfobject.js"></script>';
+	$s_swfobject = '<script type="text/javascript" src="'.aw_ini_get("baseurl").'automatweb/js/swfobject.js"></script>';
 	$str = str_replace ( "</head>" , $s_swfobject."\n</head>", $str);
 }
 
@@ -184,9 +184,9 @@ aw_shutdown();
 // do a cache clean every hour
 if (filectime(aw_ini_get("cache.page_cache")."/temp/lmod") < (time() - 3600))
 {
-	$m = get_instance("core/maitenance");
+	$m = new maitenance();
 	$m->cache_update(array());
 
-	$m = get_instance("scheduler");
+	$m = new scheduler();
 	$m->static_sched(array());
 }
