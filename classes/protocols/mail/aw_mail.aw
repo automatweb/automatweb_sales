@@ -3,23 +3,18 @@
 // Thanks to Kartic Krishnamurthy <kaygee@netset.com> for ideas and sample code
 // mail.aw - Sending and parsing mail. MIME compatible
 
-// I am not too happy with the structure of this class. Parts of need to be redesigned and rewritten
-// badly
-// Minu unistus ( :) ) on selline, et kohe peale parsimist, voiks sellesama klassi abil
-// teate kohe ka v2lja saata
-
 // ideaalis peaks see edaspidi toetama ka teisi mailisaatmismeetodeid
 // peale PHP mail funktsiooni
 
 define('X_MAILER',"AW Mail 2.0");
-define('WARNING','This is a MIME encoded message');
-define('OCTET','application/octet-stream');
-define('TEXT','text/plain');
-define('HTML','text/html');
-define('INLINE','inline');
-define('ATTACH','attachment');
-define('CRLF',"\n");
-define('BASE64','base64');
+define('WARNING', 'This is a MIME encoded message');
+define('OCTET', 'application/octet-stream');
+define('TEXT', 'text/plain');
+define('HTML', 'text/html');
+define('INLINE', 'inline');
+define('ATTACH', 'attachment');
+define('CRLF', "\n");
+define('BASE64', 'base64');
 
 class aw_mail
 {
@@ -33,21 +28,23 @@ class aw_mail
 	const CRLF = "\n";
 	const BASE64 = "base64";
 
-	var $bounce;
 	var $boundary;
-	var $body_replacements;
 
 	var $message; // siin hoiame teate erinevaid osasid
-	var $mimeparts; // siin hoiame teate MIME osasid
 	var $headers; // headerid
 
+	private $mimeparts = array(); // siin hoiame teate MIME osasid
+	private $is_multipart_html = false;
+	private $body_replacements;
 	private $charset = "";
+	private $method = "phpmail"; // phpmail | mimemessage
+	private $mimemessage; // mimemessage class email object
 
 	////
 	// !Konstruktor
 	// argumendid
 	// method(string) - mis meetodi abil meili saadame?
-	function aw_mail($args = array())
+	public function aw_mail($args = array())
 	{
 		$ll = new languages();
 		$this->charset = $ll->get_charset();
@@ -62,14 +59,48 @@ class aw_mail
 	@comment
 		Resets the mail object
 	**/
-	function clean($args = array())
+	public function clean($args = array())
 	{
 		$this->message = array();
 		$this->headers = array();
 		$this->mimeparts = array();
 		$this->mimeparts[] = "";
 		// by default php mail funktsioon
-		$this->method = empty($args["method"]) ? "sendmail" : $args["method"];
+		$this->set_send_method(empty($args["method"]) ? "phpmail" : $args["method"]);
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param method_name type=string
+			phpmail|mimemessage|mimemessage_smtp
+		@comment
+		@returns
+		@errors
+			throws awex_awmail_method if method not supported
+	**/
+	public function set_send_method($method_name)
+	{
+		if ("phpmail" === $method_name)
+		{
+		}
+		elseif ("mimemessage" === $method_name)
+		{
+			require(AW_DIR . "addons/email/mimemessage/email_message.php");
+			$this->mimemessage = new email_message_class();
+		}
+		elseif ("mimemessage_smtp" === $method_name)
+		{
+			require(AW_DIR . "addons/email/mimemessage/email_message.php");
+			require(AW_DIR . "addons/email/mimemessage/smtp_message.php");
+			require(AW_DIR . "addons/email/smtpclass/smtp.php");
+			$this->mimemessage = new email_message_class();
+		}
+		else
+		{
+			throw new awex_awmail_method("Send method '{$method_name}' not supported");
+		}
+
+		$this->method = $method_name;
 	}
 
 	/**
@@ -82,7 +113,7 @@ class aw_mail
 	{
 		extract($args);
 		$block = array();
-		if ($part == "body")
+		if ($part === "body")
 		{
 			$block["headers"] = $this->headers;
 			$block["body"] = $this->body;
@@ -93,9 +124,9 @@ class aw_mail
 			if (!is_array($this->mimeparts[$part]))
 			{
 				return false;
-			};
+			}
 			$block = $this->mimeparts[$part];
-		};
+		}
 
 		switch($block["headers"]["Content-Transfer-Encoding"])
 		{
@@ -109,7 +140,8 @@ class aw_mail
 
 			default:
 				$content = $block["body"];
-		};
+		}
+
 		$block["body"] = $content;
 		return $block;
 	}
@@ -171,7 +203,7 @@ class aw_mail
 				{
 					$this->mimeparts[] = $block;
 				}
-			};
+			}
 			$this->nparts = $count - 3;
 		}
 		else
@@ -188,7 +220,7 @@ class aw_mail
 	// !Mime parser for internal use
 	// @param data type=string
 	//	body of the message
-	function _parse_block($args = array())
+	private function _parse_block($args = array())
 	{
 		extract($args);
 		$in_headers = true;
@@ -215,12 +247,11 @@ class aw_mail
 
 		foreach($lines as $num => $line)
 		{
-			#print "#";
 			// If we find an empty line, then we have all the headers and can continue with
 			if ((preg_match("/^$/",$line)) && ($in_headers))
 			{
 				$in_headers = false;
-			};
+			}
 
 			if ($in_headers)
 			{
@@ -235,15 +266,15 @@ class aw_mail
 				else
 				{
 					array_push($_headers,$line);
-				};
+				}
 			}
 			// when we get here, then this means that we have reached the body of the message.
 			// no further actions, we just fill the $body variable.
 			else
 			{
 				$body .= $line . "\r\n";
-			};
-		}; // foreach
+			}
+		}
 
 		// Now we will fetch all other more or less useful data out of the headers and store it in separate
 		// variables
@@ -282,8 +313,8 @@ class aw_mail
 			{
 				preg_match("/^(.+?): (.*)$/",$line,$matches);
 				$headers[$matches[1]] = $matches[2];
-			};
-		};
+			}
+		}
 
 		$result = array(
 			"headers" => $headers,
@@ -295,64 +326,120 @@ class aw_mail
 
 	/**
 	@attrib api=1 params=name
-	@param froma optional type=string
+	@param froma type=string default=""
 		sender's address
-	@param fromn optional type=string
+	@param fromn type=string default=""
 		sender's name
-	@param to required type=string
+	@param to type=string
 		mail to (adresses)
-	@param cc optional type=string
+	@param cc type=string default=""
 		mail to (adresses)
-	@param bcc optional type=string
+	@param bcc type=string default=""
 		mail to (adresses)
-	@param subject optional type=string
+	@param subject type=string default=""
 		mail subject
-	@param headers required type=array
+	@param headers type=array default=array()
 		additional headers
-	@param body optional type=string
+	@param body type=string default=""
 		mail body
-	@param X-Mailer optional type=string default="AW Mail 2.0"
+	@param X-Mailer type=string default=self::X_MAILER
 		mail version
 	@example ${gen_mail}
 	@comments
 		Creates a new message
 	**/
-	function create_message($args = array())
+	function create_message($args)
 	{
-		if (is_array($args))
+		if (empty($args["to"]))
 		{
-			if (!empty($args["body"]))
-			{
-				$this->body = $args["body"];
-				unset($args["body"]);
-			}
+			throw new awex_awmail_param("Recipient address must be specified.");
+		}
 
-			if (empty($args["X-Mailer"]))
-			{
-				$args["X-Mailer"] = self::X_MAILER;
-			}
+		$defaults = array(
+			"froma" => "",
+			"fromn" => "",
+			"cc" => "",
+			"bcc" => "",
+			"subject" => "",
+			"headers" => array(),
+			"body" => "",
+			"X-Mailer" => self::X_MAILER
+		);
+		$args = $args + $defaults;
 
-			$this->from = $args["froma"];
-			$this->subject = $args["subject"];
+		if (!empty($args["body"]))
+		{
+			$this->body = $args["body"];
+		}
 
-			if (!empty($args["fromn"]))
-			{
-				$from = sprintf("%s <%s>",$args["fromn"],$args["froma"]);
-				unset($args["fromn"]);
-				unset($args["froma"]);
-			}
-			else
-			{
-				$from = $args["froma"];
-				unset($args["froma"]);
-			}
-			$args["from"] = $from;
+		$this->subject = $args["subject"];
 
-			foreach($args as $name => $value)
+		// get from address
+		$this->from = empty($args["froma"]) ? $this->get_default_from_address() : $args["froma"];
+		if (!empty($args["fromn"]))
+		{
+			$from = sprintf("%s <%s>", $args["fromn"], $this->from);
+		}
+		else
+		{
+			$from = $this->from;
+		}
+		$args["from"] = $from;
+
+		//
+		if ("mimemessage" === $this->method)
+		{
+			// create mimemessage object
+			$this->_mimemessage_create($args);
+		}
+		else
+		{
+			// parse headers
+			$this->headers["From"] = $from;
+			$this->headers["To"] = $args["to"];
+			$this->headers["Cc"] = $args["cc"];
+			$this->headers["Bcc"] = $args["bcc"];
+			$this->headers["Subject"] = $args["subject"];
+			$this->headers["X-Mailer"] = $args["X-Mailer"];
+		}
+	}
+
+	private function _mimemessage_create($args)
+	{
+		// $this->mimemessage->default_charset = aw_global_get("charset");
+		$this->mimemessage->mailer = $args["X-Mailer"];
+		$this->mimemessage->SetHeader("To", $args["to"]);
+
+		if ($args["cc"])
+		{
+			$this->mimemessage->SetHeader("Cc", $args["cc"]);
+		}
+
+		if ($args["bcc"])
+		{
+			$this->mimemessage->SetHeader("Bcc", $args["bcc"]);
+		}
+
+		if ($args["from"])
+		{
+			$this->mimemessage->SetHeader("From", $args["from"]);
+		}
+
+		$this->mimemessage->SetEncodedHeader("Subject", $args["subject"]);
+
+		foreach ($args["headers"] as $name => $value)
+		{
+			$this->mimemessage->SetHeader($name, $value);
+		}
+
+		if (aw_ini_get("mail.return_path"))
+		{
+			$return_path = aw_ini_get("mail.return_path");
+			if(defined("PHP_OS") and strcmp(substr(PHP_OS, 0, 3), "WIN"))
 			{
-				$uname = ucfirst($name);
-				$this->headers[$uname] = $value;
+				$this->mimemessage->SetHeader("Return-Path", $return_path);
 			}
+			$this->mimemessage->SetHeader("Errors-To", $return_path);
 		}
 	}
 
@@ -371,7 +458,7 @@ class aw_mail
 	@return false, if $data is empty
 		else number of mimeparts
 	**/
-	function attach($args = array())
+	public function attach($args = array())
 	{
 		extract($args);
 		if (empty($data))
@@ -416,7 +503,7 @@ class aw_mail
 
 			if ($disp)
 			{
-				$this->headers["Content-Disposition"] = $disp;
+				// $this->headers["Content-Disposition"] = $disp;
 			}
 
 			$pref = "Content-Type: text/plain; charset=ISO-8859-1" . self::CRLF;
@@ -436,17 +523,12 @@ class aw_mail
 						(($disp) ? "Content-Disposition: $disp".self::CRLF:""),
 						self::CRLF.$emsg.self::CRLF);
 			$this->mimeparts[] = $msg;
-		};
+		}
 
 		return sizeof($this->mimeparts);
 	}
 
-	// lauri muudetud 01.09.2001 -->
-	/**Generates html stuff around html body
-	@param body optional type=string
-	@return string/html
-	**/
-	function gen_htmlbody($body, $heads = "")
+	private function gen_htmlbody($body, $heads = "")
 	{
 		return ((substr($body,0,6)=="<html>") || (strpos($body, "<!DOCTYPE") !== false))?$body:
 			"<html><head><title></title>".$heads."</head><body>$body</body></html>";
@@ -454,43 +536,71 @@ class aw_mail
 
 	/**
 	@attrib api=1 params=name
-	@param data required type=string
+	@param data type=string
 		html data
-	@param heads optional type=string
+	@param heads type=string default=""
 		stuff inside html <head> tag
 	@example ${gen_mail}
 	@comments
-		Defines an alternative html body
+		Defines a html body part
+	@errors
+		throws awex_awmail_param if data parameter empty
 	**/
-	function htmlbodyattach($args=array())
+	public function htmlbodyattach($args)
 	{
-		extract($args);
+		if (empty($args["data"]))
+		{
+			throw new awex_awmail_param("Empty html data parameter");
+		}
 
-		$heads = isset($args["heads"]) ? $args["heads"] : "";
+		$args = $args + array("data" => "", "heads" => "");
+		$data = $args["data"];
+		$html = $this->gen_htmlbody($data, $args["heads"]);
 
-		// nii, kuidas seda siis teha?
-		// tuleb teha juurde yx mime part, mille Content-Type: multipart/alternative;
-		// sinna sisse paneme vana message body ja eraldatult uue html body.
-		$boundary='AW'.chr(rand(65,91)).'--'.md5(uniqid(rand()));
-		$atc="Content-Type: multipart/alternative;".self::CRLF." boundary=\"$boundary\"".self::CRLF.self::CRLF;
+		if ("mimemessage" === $this->method)
+		{
+			// add html part
+			$html_part = 0;
+			$this->mimemessage->CreateQuotedPrintableHTMLPart($html, "", $html_part);
 
-		$plain = strtr($this->body,array("<br />"=>"\r\n","<br />"=>"\r\n","</p>"=>"\r\n","</p>"=>"\r\n"));
-		$plain = $this->strip_html($plain);
+			// add alternative text part
+			$text_part = 0;
+			$this->mimemessage->CreateQuotedPrintableTextPart($this->mimemessage->WrapText($this->body), "", $text_part);
 
-		$atc.= "--".$boundary. self::CRLF;
-		$atc.="Content-Type: text/plain; charset=" . $this->charset . self::CRLF;
-		$atc.="Content-Transfer-Encoding: 8bit".self::CRLF.self::CRLF.$plain.self::CRLF.self::CRLF;
-		$atc.="--".$boundary.self::CRLF;
+			// set both parts as a multipart mail message
+			// the text part should appear first in the parts array because the e-mail programs that support displaying more sophisticated message parts will pick the last part in the message that is supported
+			$parts = array($text_part, $html_part);
+			$this->mimemessage->AddAlternativeMultipart($parts);
 
-		$data = str_replace("\\\"","\"",$data);
-		$atc.="Content-Type: text/html; charset=" . $this->charset . self::CRLF;
-		$atc.="Content-Transfer-Encoding: 8bit".self::CRLF.self::CRLF.$this->gen_htmlbody($data, $heads).self::CRLF.self::CRLF;
+			// set to 1, indicate that plain text body is not to be added again
+			$this->is_multipart_html = true;
+		}
+		else
+		{
+			// nii, kuidas seda siis teha?
+			// tuleb teha juurde yx mime part, mille Content-Type: multipart/alternative;
+			// sinna sisse paneme vana message body ja eraldatult uue html body.
+			$boundary='AW'.chr(rand(65,91)).'--'.md5(uniqid(rand()));
+			$atc="Content-Type: multipart/alternative;".self::CRLF." boundary=\"$boundary\"".self::CRLF.self::CRLF;
 
-		$atc .= "--".$boundary."--".self::CRLF;
+			$plain = strtr($this->body, array("<br />"=>"\r\n","<br />"=>"\r\n","</p>"=>"\r\n","</p>"=>"\r\n"));
+			$plain = $this->strip_html($plain);
 
-		// see peab kindlalt olema esimene 2tt2ts.
-		$this->mimeparts=array_merge(array($atc),$this->mimeparts);
-		unset($this->body);
+			$atc.= "--".$boundary. self::CRLF;
+			$atc.="Content-Type: text/plain; charset=" . $this->charset . self::CRLF;
+			$atc.="Content-Transfer-Encoding: 8bit".self::CRLF.self::CRLF.$plain.self::CRLF.self::CRLF;
+			$atc.="--".$boundary.self::CRLF;
+
+			$data = str_replace("\\\"","\"", $data);
+			$atc.="Content-Type: text/html; charset=" . $this->charset . self::CRLF;
+			$atc.="Content-Transfer-Encoding: 8bit".self::CRLF.self::CRLF.$html.self::CRLF.self::CRLF;
+
+			$atc .= "--".$boundary."--".self::CRLF;
+
+			// see peab kindlalt olema esimene 2tt2ts.
+			$this->mimeparts=array_merge(array($atc), $this->mimeparts);
+			unset($this->body);
+		}
 	}
 
 	/**
@@ -546,46 +656,57 @@ class aw_mail
 
 	/**
 	@attrib api=1 params=name
-	@param path required type=string
+	@param path type=string
 		path to file
-	@param content optional type=string
+	@param content type=string default=""
 		if set, path is ignored
-	@param description optional type=string
+	@param description type=string default=""
 		Content-Description
-	@param contenttype optional type=string default="application/octet-stream"
+	@param contenttype type=string default=self::OCTET
 		file content type
-	@param encoding optional type=string default="base64"
+	@param encoding type=string default=self::BASE64
 		file encoding
-	@param disp optional type=string
+	@param disp type=string default=""
 		content-disposition
-	@param name optional type=string
-		string, used as file name, if content is set, this must be set too
+	@param name type=string default=""
+		Used as file name, if content is set, this must be set too
 	@example ${gen_mail}
 	@return int/number of mimeparts
 	@comment
 		Attaches a file to the message
+	@errors
+		throws awex_awmail_param if path and content parameters empty
+		throws awex_awmail_attach if file attaching fails and mimemessage send method used
 	**/
 	function fattach($args = array())
 	{
-		extract($args);
-
-		$contenttype = isset($args["contenttype"]) ? $args["contenttype"] : self::OCTET;
-		$encoding = isset($args["encoding"]) ? $args["encoding"] : self::BASE64;
-		$description = isset($args["description"]) ? $args["description"] : "";
-		$disp = isset($args["disp"]) ? $args["disp"] : "";
-
-		if (substr($contenttype,0,4) === "text")
+		if (empty($args["path"]) and empty($args["content"]))
 		{
-			$encoding = "8bit";
+			throw new awex_awmail_param("Both path and content parameters missing");
 		}
 
-		if (!isset($content) or strlen($content) === 0)
+		$args = $args + array(
+			"path" => "",
+			"content" => "",
+			"description" => "",
+			"contenttype" => self::OCTET,
+			"encoding" => self::BASE64,
+			"disp" => "attachment",
+			"name" => ""
+		);
+
+		$path = $args["path"];
+		$description = $args["description"];
+		$contenttype = $args["contenttype"];
+		$encoding = (substr($contenttype,0,4) === "text") ? "8bit" : $args["encoding"];
+		$name = $args["name"];
+
+		if (strlen($args["content"]) === 0)
 		{
 			// read the fscking file
-			$fp = fopen($path,"rb");
+			$fp = fopen($path, "rb");
 			if (!$fp)
 			{
-				//print "attach failed<br />";
 				return false; // fail
 			}
 
@@ -598,28 +719,59 @@ class aw_mail
 		}
 		else
 		{
-			$data = $content;
+			$data = $args["content"];
+
+			if (!$name)
+			{
+				static $i = 1;
+				$name = "attached_file_{$i}";
+				$i++;
+			}
 		}
 
-		$contenttype .= ";" . self::CRLF . " name=\"".$name . "\"";
-		return $this->attach(array(
-			"data" => $data,
-			"description" => $description,
-			"contenttype" => $contenttype,
-			"encoding" => $encoding,
-			"disp" => $disp,
-		));
+		if ("mimemessage" === $this->method)
+		{
+			$params = array(
+				"Data" => $data,
+				"Name" => $name,
+				"Content-Type" => $contenttype,
+				"Disposition" => $args["disp"]
+			);
+			$error = $this->mimemessage->AddFilePart($params);
+
+			if ($error)
+			{
+				throw new awex_awmail_attach($error);
+			}
+			else
+			{
+				$this->mimeparts[] = "";
+				$part_count = count($this->mimeparts);
+			}
+		}
+		else
+		{
+			$contenttype .= ";" . self::CRLF . " name=\"".$name . "\"";
+			$part_count = $this->attach(array(
+				"data" => $data,
+				"description" => $description,
+				"contenttype" => $contenttype,
+				"encoding" => $encoding,
+				"disp" => $args["disp"]
+			));
+		}
+
+		return $part_count;
 	}
 
-
 	//// Genereerib message_id headeri
-	function gen_message_id()
+	private function gen_message_id()
 	{
 		$id = '<AW' . chr(rand(65,91)) . chr(rand(65,91)) . md5(uniqid(rand())) . "@automatweb>";
 		return $id;
 	}
 
-	function build_message($args = array())
+	private function build_message($args = array())
 	{
 		$msg = "";
 		if ($this->boundary)
@@ -636,9 +788,7 @@ class aw_mail
 		// we have more than one attach
 		if (is_array($this->mimeparts) && ($nparts > 1))
 		{
-			//$c_ver = "MIME-Version: 1.0".self::CRLF;
 			$this->headers["MIME-Version"] = "1.0";
-			//$this->headers["Content-Type"] = "multipart/mixed;" . self::CRLF . " boundary=\"$boundary\"";
 			$this->headers["Content-Type"] = "multipart/mixed;" . self::CRLF . " boundary=\"$boundary\"";
 			$this->headers["Content-Transfer-Encoding"] = "8bit";
 			if (!empty($c_desc))
@@ -655,7 +805,7 @@ class aw_mail
 					"data" => $this->body,
 					"body" => 1,
 					"contenttype" => self::TEXT,
-					"encoding" => "8bit",
+					"encoding" => "8bit"
 				));
 			}
 
@@ -665,8 +815,8 @@ class aw_mail
 				if (!empty($this->mimeparts[$i]))
 				{
 					$msg .= self::CRLF."--".$boundary.self::CRLF.$this->mimeparts[$i].self::CRLF;
-				};
-			};
+				}
+			}
 
 			$msg .= "--".$boundary."--".self::CRLF;
 			$msg = $warning.$msg;
@@ -676,8 +826,9 @@ class aw_mail
 			if (!empty($this->body))
 			{
 				$msg = $this->body;
-			};
-		};
+			}
+		}
+
 		return $msg;
 	}
 
@@ -690,20 +841,67 @@ class aw_mail
 	@comment
 		Sets a header
 	**/
-	function set_header($name,$value)
+	public function set_header($name,$value)
 	{
 		$this->headers[$name] = $value;
+
+		if ("mimemessage" === $this->method)
+		{
+			$this->mimemessage->SetHeader($name, $value);
+		}
 	}
 
+	/** Sends this mail message
+		@attrib api=1 params=pos
+		@comment
+		@returns
+		@errors
+			throws awex_awmail_send if message sending fails
+	**/
+	public function send()
+	{
+		if ("phpmail" === $this->method)
+		{
+			$success = $this->gen_mail();
+			if (!$success)
+			{
+				throw new awex_awmail_send("gen_mail() failed. ");
+			}
+		}
+		elseif ("mimemessage" === $this->method)
+		{
+			$this->_mimemessage_send();
+		}
+	}
+
+	private function _mimemessage_send()
+	{
+		if (!$this->is_multipart_html)
+		{
+			// add e-mail body text
+			$this->mimemessage->AddQuotedPrintableTextPart($this->mimemessage->WrapText($this->body));
+		}
+
+		// Since the sender is AutomatWeb application server, sender header field must be specified separately
+		// Sender address domain must have rDNS record pointing to sending server. To get through spam filters
+		$this->mimemessage->SetHeader("Sender", $this->get_default_from_address());
+
+		$error = $this->mimemessage->Send();
+		if ($error)
+		{
+			throw new awex_awmail_send("Mail sending with mimemessage method failed: {$error}");
+		}
+	}
+
+	//public use is DEPRECATED
 	/**
 	@attrib api=1
 	@example
-		$awm = get_instance("protocols/mail/aw_mail");
+		$awm = new aw_mail();
 		$awm->create_message(array(
 			"froma" => $msg["mailfrom"],
 			"subject" => $msg["subject"],
 			"To" => $msg["target"],
-			//"Sender"=>"bounces@struktuur.ee",
 			"body" => $message,
 		if ($is_html)
 		{
@@ -723,17 +921,13 @@ class aw_mail
 		Builds and sends mail message
 		$this->headers["To"] must be set
 	**/
+	// public use is DEPRECATED
 	function gen_mail()
 	{
-		$email = "";
 		$headers = "";
 		$arguments = "";
-		if($this->bounce)
-		{
-			$arguments = "-f".$this->bounce;
-		}
 
-		$email .= $this->build_message();
+		$email = $this->build_message();
 		$to = $this->headers["To"];
 		$subject = $this->headers["Subject"];
 
@@ -743,11 +937,30 @@ class aw_mail
 			$this->set_header("Content-Type","text/plain; charset=\"". $this->charset ."\"");
 		}
 
-		unset($this->headers["To"]);
+		unset($this->headers["To"]);//XXX: milleks?
 		// why is this here? it will screw up sending to mailinglists - only the first mail will get the subject
-		unset($this->headers["Subject"]);
-		$this->set_header("Message-Id",$this->gen_message_id());
-		//$this->set_header("Sender",$this->headers["From"]);
+		unset($this->headers["Subject"]);//XXX: milleks?
+
+		// unique message id
+		$this->set_header("Message-Id", $this->gen_message_id());
+
+		// Since the sender is AutomatWeb application server, sender header field must be specified separately
+		// Sender address domain must have rDNS record pointing to sending server. To get through spam filters
+		$this->set_header("Sender", $this->get_default_from_address());
+
+		// add reply-to
+		if (empty($this->headers["Reply-To"]))
+		{
+			$this->set_header("Reply-To", $this->from);
+		}
+
+		// add date as required by RFC 5322
+		if (empty($this->headers["Date"]))
+		{
+			$this->set_header("Date", date("D, j M Y H:i:s O"));
+		}
+
+		// add user specified headers
 		foreach($this->headers as $name => $value)
 		{
 			if ($value)
@@ -764,6 +977,50 @@ class aw_mail
 			}
 		}
 		$this->bodytext = $email;
-		return send_mail($to,$subject,$email,$headers,$arguments);
+
+		return send_mail($to, $subject, $email, $headers, $arguments);
+	}
+
+	private function get_default_from_address()
+	{
+		// get server fqdn
+		if (empty($_SERVER["SERVER_ADDR"]))
+		{
+			$base_url = new aw_uri(aw_ini_get("baseurl"));
+			$host = $base_url->get_host();
+		}
+		else
+		{
+			$host = gethostbyaddr($_SERVER["SERVER_ADDR"]);
+		}
+
+		// get user name
+		if (!empty($_ENV["APACHE_RUN_USER"]))
+		{
+			$user = $_ENV["APACHE_RUN_USER"];
+		}
+		else
+		{
+			$user = get_current_user();
+		}
+
+		$user = $user ? $user : "automatweb";
+		$from_address = "{$user}@{$host}";
+		return $from_address;
 	}
 }
+
+/** Generic aw_mail exception **/
+class awex_awmail extends aw_exception {}
+
+/** Send method error **/
+class awex_awmail_method extends awex_awmail {}
+
+/** Parameter error **/
+class awex_awmail_param extends awex_awmail {}
+
+/** Attachment error **/
+class awex_awmail_attach extends awex_awmail {}
+
+/** Sending failed **/
+class awex_awmail_send extends awex_awmail {}
