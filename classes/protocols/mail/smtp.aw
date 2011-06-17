@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class smtp extends aw_template
 {
 	function smtp()
@@ -46,7 +44,7 @@ class smtp extends aw_template
 		{
 			$this->raise_error(ERR_SMTP_DATA,sprintf(t("smtp: error '%s' after DATA"), $err), false);
 		}
-		
+
 		$larr = explode("\n", $msg);
 		reset($larr);
 		while (list(,$v) = each($larr))
@@ -88,8 +86,6 @@ class smtp extends aw_template
 	function read_response()
 	{
 		$line = fgets($this->fp, 512);
-/*echo "read <pre>$line</pre> <br>\n";
-flush();*/
 		return $line;
 	}
 
@@ -106,9 +102,6 @@ flush();*/
 
 	function send_command($cmdstr)
 	{
-/*echo "send <pre>$cmdstr</pre> <br>\n";
-flush();*/
 		fputs($this->fp, $cmdstr."\n");
 	}
-};
-?>
+}
