@@ -2312,7 +2312,7 @@ class object
 
 	public function __toString()
 	{
-		return "AutomatWeb " . aw_ini_get("classes.".$this->class_id().".def") . " object '".(string)$this->oid . "'";
+		return "AutomatWeb " . ($this->class_id() ? aw_ini_get("classes.".$this->class_id().".def") : "new") . " object '".(string)$this->oid . "'";
 	}
 
 	public function __get($prop)

@@ -80,15 +80,15 @@
 		@property operations_overview_toolbar type=toolbar store=no no_caption=1
 
 		@layout operations_overview_split type=hbox width=20%:80%
-			
+
 			@layout operations_overview_left type=vbox parent=operations_overview_split
-				
+
 				@layout operations_overview_type_tree type=vbox parent=operations_overview_left area_caption=Tegevuse&nbsp;t&uuml;&uuml;bid
 
 					@property operations_overview_type_tree type=treeview parent=operations_overview_type_tree store=no no_caption=1
-			
+
 			@layout operations_overview_right type=vbox parent=operations_overview_split
-				
+
 				@property operations_overview_table type=table parent=operations_overview_right store=no no_caption=1
 
 	@groupinfo send caption="Pakkumuse saatmine" parent=operations confirm_save_data=0
@@ -267,7 +267,7 @@ class crm_offer extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 		$this->define_operations_overview_table_header($t);
 
-		
+
 		$operations = $arr["obj_inst"]->get_related_operations(automatweb::$request->arg_isset("operationTypeId") ? array((int)substr(automatweb::$request->arg("operationTypeId"), 3)) : array());
 
 		if ($operations->count() > 0)
@@ -702,7 +702,10 @@ class crm_offer extends class_base
 
 	public function _get_contracts(&$arr)
 	{
-		$arr["prop"]["options"] = automatweb::$request->get_application()->get_contract_list()->names();
+		if (automatweb::$request->get_application()->is_a(crm_company_obj::CLID))
+		{
+			$arr["prop"]["options"] = automatweb::$request->get_application()->get_contract_list()->names();
+		}
 
 		//	For some reason chooser requires the key and value to be equal.
 		$contracts = array();
@@ -1287,7 +1290,7 @@ class crm_offer extends class_base
 		$this->vars(array(
 			"BANK_ACCOUNT" => $BANK_ACCOUNT
 		));
-		
+
 		try
 		{
 			$this->vars($o->get_customer_data());

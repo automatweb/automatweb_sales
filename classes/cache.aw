@@ -309,9 +309,10 @@ class cache extends core
 	**/
 	public static function file_invalidate($key)
 	{
-		if (aw_ini_isset("cache.page_cache"))
+		$file = self::get_fqfn($key);
+		if (aw_ini_isset("cache.page_cache") and file_exists($file))
 		{
-			unlink(self::get_fqfn($key));
+			unlink($file);
 		}
 	}
 
