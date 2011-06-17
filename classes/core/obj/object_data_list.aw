@@ -245,6 +245,24 @@ class object_data_list
 		return count($this->list_data);
 	}
 
+	/** Works almost the same as array_slice(), except it doesn't return anything, but modifies the object_data_list it is applied to.
+		@attrib api=1 name=slice params=pos
+
+		@param offset required type=int
+
+		@param length optional type=int
+
+		@errors
+			none
+
+		@returns
+			nothing
+	**/
+	public function slice($start, $length = null)
+	{
+		$this->list_data = array_slice($this->list_data, $start, $length, true);
+	}
+
 	function get_element_from_all($col)
 	{
 		$ret = array();

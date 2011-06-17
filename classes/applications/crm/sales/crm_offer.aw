@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo relationmgr=yes no_name=1 no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_crm_offer master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_crm_offer
@@ -8,40 +8,60 @@
 
 	@property general_toolbar type=toolbar editonly=1 no_caption=1 store=no
 
-	@property customer_relation type=hidden datatype=int field=aw_customer_relation
-	@caption Kliendisuhe
+	@layout general_split type=hbox width=50%:50%
 
-	@property customer type=objpicker clid=CL_CRM_COMPANY,CL_CRM_PERSON field=aw_customer
-	@caption Kliendi nimi
+		@layout general_left type=vbox parent=general_split
 
-	@property salesman type=objpicker clid=CL_CRM_PERSON field=aw_salesman
-	@caption M&uuml;&uuml;giesindaja nimi
+			@layout general_info type=vbox closeable=1 area_caption=&Uuml;ldandmed parent=general_left
 
-	@property currency type=objpicker clid=CL_CURRENCY field=aw_currency
-	@caption Valuuta
+				@property number type=hidden field=aw_number
+				@property number_view type=text store=no parent=general_info
+				@caption Number
 
-	@property state type=select field=aw_state
-	@caption Staatus
+				@property name type=textbox table=objects field=name parent=general_info
+				@caption Nimi
 
-	@property result type=select field=aw_result
-	@caption Tulemus
+				@property state type=select field=aw_state parent=general_info
+				@caption Staatus
 
-	@property result_object type=text field=aw_result_object
-	@caption Tulemustegevus
+				@property result type=select field=aw_result parent=general_info
+				@caption Tulemus
 
-	@property contracts type=chooser multiple=1 orient=vertical store=no
-	@caption Lepingud
+				@property result_object type=text field=aw_result_object parent=general_info
+				@caption Tulemustegevus
 
-	@property template type=text field=aw_template
-	@caption &Scaron;abloon, millest pakkumus genereeriti
+				@property currency type=objpicker clid=CL_CURRENCY field=aw_currency parent=general_info
+				@caption Valuuta
 
-	@property template_name type=hidden store=no editonly=1
+				@property price_object type=hidden field=aw_price_object
+				@property sum type=hidden field=aw_sum
+				@property sum_view type=text store=no parent=general_info
+				@caption Summa
 
-	@property sum type=hidden field=aw_sum
-	@caption Summa
+				@property template type=text field=aw_template parent=general_info
+				@caption &Scaron;abloon, millest pakkumus genereeriti
 
-	@property date type=hidden field=aw_date
-	@caption Kuup&auml;ev
+				@property template_name type=hidden store=no editonly=1
+
+		@layout general_right type=vbox parent=general_split
+
+			@layout general_sales type=vbox closeable=1 area_caption=M&uuml;&uuml;gi&nbsp;andmed parent=general_right
+
+				@property salesman type=objpicker clid=CL_CRM_PERSON field=aw_salesman parent=general_sales
+				@caption M&uuml;&uuml;giesindaja nimi
+
+			@layout general_client type=vbox closeable=1 area_caption=Kliendi&nbsp;andmed parent=general_right
+
+				@property customer_relation type=hidden datatype=int field=aw_customer_relation
+				@caption Kliendisuhe
+
+				@property customer type=objpicker clid=CL_CRM_COMPANY,CL_CRM_PERSON field=aw_customer parent=general_client
+				@caption Kliendi nimi
+
+			@layout general_contracts type=vbox closeable=1 area_caption=Lepingud parent=general_right
+
+				@property contracts type=chooser multiple=1 orient=vertical store=no parent=general_contracts
+				@caption Lepingud
 
 	@layout buttons type=hbox
 
@@ -96,15 +116,25 @@
 
 		@property send_toolbar type=toolbar store=no no_caption=1
 		@layout send_settings type=hbox closeable=1 area_caption=Kirja&nbsp;seaded width=50%:50%
-		@layout send_sender type=vbox closeable=0 area_caption=Saatja parent=send_settings
-			@property mail_from type=textbox store=no parent=send_sender
-			@caption E-posti aadress
 
-			@property mail_from_name type=textbox store=no parent=send_sender
-			@caption Nimi
+			@layout send_settings_left type=vbox parent=send_settings
 
-		@layout send_attachments type=vbox closeable=0 area_caption=Lisatavad&nbsp;dokumendid parent=send_settings
-			@property mail_attachments type=chooser multiple=1 store=no parent=send_attachments orient=vertical no_caption=1
+			@layout send_sender type=vbox closeable=0 area_caption=Saatja parent=send_settings_left
+				@property mail_from type=textbox store=no parent=send_sender
+				@caption E-posti aadress
+
+				@property mail_from_name type=textbox store=no parent=send_sender
+				@caption Nimi
+
+			@layout send_reply type=vbox closeable=0 area_caption=Vastamise&nbsp;viis&nbsp;ja&nbsp;aeg parent=send_settings_left
+				@property mail_reply_method type=select store=no parent=send_reply
+				@caption Vastamise viis
+				
+				@property mail_reply_time type=datepicker store=no parent=send_reply
+				@caption Vastamise aeg
+
+			@layout send_attachments type=vbox closeable=0 area_caption=Lisatavad&nbsp;dokumendid parent=send_settings
+				@property mail_attachments type=chooser multiple=1 store=no parent=send_attachments orient=vertical no_caption=1
 
 		@layout send_recipients type=vbox closeable=1 area_caption=Kirja&nbsp;saajad
 			@property mail_recipients type=table store=no parent=send_recipients no_caption=1
@@ -153,6 +183,16 @@ class crm_offer extends class_base
 		));
 	}
 
+	public function _get_sum_view($arr)
+	{
+		$arr["prop"]["value"] = $arr["obj_inst"]->sum_with_currency();
+	}
+
+	public function _get_number_view($arr)
+	{
+		$arr["prop"]["value"] = $arr["obj_inst"]->prop("number");
+	}
+
 	public function _get_template($arr)
 	{
 		if (!is_oid($template_oid = $arr["obj_inst"]->prop("template")))
@@ -168,6 +208,14 @@ class crm_offer extends class_base
 	public function _set_template($arr)
 	{
 		return PROP_IGNORE;
+	}
+
+	public function _get_mail_reply_method($arr)
+	{
+		$arr["prop"]["options"] = array("" => "") + crm_offer_obj::reply_names();
+		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_prop("mail_reply_method");
+
+		return PROP_OK;
 	}
 
 	public function _get_general_toolbar(&$arr)
@@ -363,7 +411,7 @@ class crm_offer extends class_base
 		$r = PROP_OK;
 		$prop = &$arr["prop"];
 
-		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content")))
+		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content", "mail_reply_time")))
 		{
 			$prop["value"] = $arr["obj_inst"]->get_mail_prop($prop["name"]);
 		}
@@ -380,9 +428,13 @@ class crm_offer extends class_base
 		$r = PROP_OK;
 		$prop = &$arr["prop"];
 
-		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content")))
+		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content", "mail_reply_method")))
 		{
 			$arr["obj_inst"]->set_mail_prop($prop["name"], $prop["value"]);
+		}
+		elseif ("mail_reply_time" === $prop["name"])
+		{
+			$arr["obj_inst"]->set_mail_prop($prop["name"], datepicker::get_timestamp(automatweb::$request->arg("mail_reply_time")));
 		}
 
 		return $r;
@@ -702,10 +754,8 @@ class crm_offer extends class_base
 
 	public function _get_contracts(&$arr)
 	{
-		if (automatweb::$request->get_application()->is_a(crm_company_obj::CLID))
-		{
-			$arr["prop"]["options"] = automatweb::$request->get_application()->get_contract_list()->names();
-		}
+		$application = automatweb::$request->get_application();
+		$arr["prop"]["options"] = $application->is_a(crm_sales_obj::CLID) ? $application->get_contract_list()->names() : array();
 
 		//	For some reason chooser requires the key and value to be equal.
 		$contracts = array();
@@ -1043,10 +1093,10 @@ class crm_offer extends class_base
 				if (is_oid($row_id))
 				{
 					$row = obj($row_id);
-					$row->set_prop("name", $row_data["name"]);
-					$row->set_prop("comment", $row_data["comment"]);
+					$row->set_prop("name", isset($row_data["name"]) ? $row_data["name"] : "");
+					$row->set_prop("comment", isset($row_data["comment"]) ? $row_data["comment"] : "");
 					$row->set_prop("unit", isset($row_data["unit"]) ? $row_data["unit"] : null);
-					$row->set_prop("amount", $row_data["amount"]);
+					$row->set_prop("amount", isset($row_data["amount"]) ? $row_data["amount"] : 0);
 
 					foreach($row_data["price_component"] as $price_component_id => $price_component_data)
 					{
@@ -1580,7 +1630,12 @@ class crm_offer extends class_base
 		try
 		{
 			$this_o->send($to, $subject, $body, $cc, $bcc, $from, $from_name);
-			$this->show_completed_text(t("Pakkumus saadetud."));
+			//	It will only execute set_reply() on successful execution of send(), so all is well. :)
+			$this_o->set_reply($arr["mail_reply_method"], datepicker::get_timestamp(automatweb::$request->arg("mail_reply_time")));
+
+			// remove temporary changes
+			$this_o->clear_mail_data();
+			$this->show_completed_text(t("Pakkumus edukalt saadetud!"));
 		}
 		catch (awex_crm_offer_email $e)
 		{
@@ -1607,9 +1662,6 @@ class crm_offer extends class_base
 			$this->show_error_text(t("Esines vigu. Pakkumust ei saadetud."));
 		}
 
-		// remove temporary changes
-		$this_o->clear_mail_data();
-		$this->show_completed_text(t("Pakkumus edukalt saadetud!"));
 		return $r;
 	}
 
@@ -1644,7 +1696,10 @@ class crm_offer extends class_base
 	{
 		$js = "";
 
-		$js .= 'var offer_template_name_html = "'.t("Palun sisesta &scaron;ablooni nimi:<br /><input type='text' id='offer_template_name' name='offer_template_name' size='40' />\";");
+		if ("general" === $this->use_group)
+		{
+			$js .= 'var offer_template_name_html = "'.t("Palun sisesta &scaron;ablooni nimi:<br /><input type='text' id='offer_template_name' name='offer_template_name' size='40' />\";");
+		}
 
 		if("content" === $this->use_group)
 		{
@@ -1808,6 +1863,8 @@ ENDSCRIPT;
 			case "aw_date":
 			case "aw_template":
 			case "aw_result_object":
+			case "aw_number":
+			case "aw_price_object":
 
 			case "aw_offer":
 				$this->db_add_col($t, array(

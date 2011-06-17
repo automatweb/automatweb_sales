@@ -1009,7 +1009,7 @@ class user_bookmarks extends class_base
 		)));
 	}
 
-	function get_user_bms($bm, $list, &$parents)
+	function get_user_bms($bm, &$list, &$parents)
 	{
 		// now, add items from the bum
 		$ot = new object_tree(array(
