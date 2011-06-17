@@ -1,6 +1,6 @@
 <?php
 
-class crm_offer_obj extends crm_offer_price_component_handler
+class crm_offer_obj extends crm_offer_price_component_handler implements crm_offer_row_interface
 {
 	const CLID = 1703;
 
@@ -14,6 +14,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	protected $mail_data = null;
 	protected static $state_names;
 	protected static $result_names;
+	protected static $reply_names;
 
 	const STATE_NEW = 0;
 	const STATE_SENT = 1;
@@ -25,6 +26,14 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	const RESULT_CALL = 2;
 	const RESULT_PRESENTATION = 3;
 	const RESULT_NEW_OFFER = 4;
+
+	const REPLY_BY_CALL = 1;
+	const REPLY_BY_MAIL = 2;
+
+	public function get_units()
+	{
+		return new object_list();
+	}
 
 	public static function state_names($state = null)
 	{
@@ -87,17 +96,45 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		}
 	}
 
+	public static function reply_names($reply = null)
+	{
+		if (0 === count(self::$reply_names))
+		{
+			self::$reply_names = array(
+				self::REPLY_BY_CALL => t("K&otilde;ne"),
+				self::REPLY_BY_MAIL => t("E-kiri"),
+			);
+		}
+
+		if (isset($reply))
+		{
+			if (isset(self::$reply_names[$reply]))
+			{
+				$reply_names = array($reply => self::$reply_names[$reply]);
+			}
+			else
+			{
+				$reply_names = array();
+			}
+			return $reply_names;
+		}
+		else
+		{
+			return self::$reply_names;
+		}
+	}
+
 	/**	Creates crm_offer_template object enabling user to use this crm_offer as a template when creating new ones
 		@attrib api=1 params=pos
 		@param name required type=string
 		@returns void
-		@errors Throws awex_crm_offer if this offer is not saved
+		@errors Throws awex_crm_offer_new if this offer is not saved
 	**/
 	public function create_template($name)
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_offer("Offer must be saved before it can be saved as a template!");
+			throw new awex_crm_offer_new("Offer must be saved before it can be saved as a template!");
 		}
 
 		$o = $this->duplicate(null, crm_offer_template_obj::CLID);
@@ -129,7 +166,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		$new_object->set_parent($parent);
 		foreach($this->get_property_list() as $pn => $pd)
 		{
-			if($new_object->is_property($pn) and !in_array($pn, array("state", "result", "result_object")))
+			if($new_object->is_property($pn) and !in_array($pn, array("state", "result", "result_object", "price_object")))
 			{
 				$new_object->set_prop($pn, $this->prop($pn));
 			}
@@ -157,12 +194,14 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		@attrib api=1 params=pos
 		@param clids type=array default=array()
 			Array of class_id's of operations to be returned. If empty array given, all operations will be returned.
+		@errors Throws awex_crm_offer_new if this offer is not saved
+			
 	**/
 	public function get_related_operations($clids = array())
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_offer("Offer must be saved before related operations can be queried!");
+			throw new awex_crm_offer_new("Offer must be saved before related operations can be queried!");
 		}
 
 		$ol_args = array(
@@ -199,13 +238,13 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	/**	Returns temporary (or default value if temporary is not set) value of a given mail property
 		@attrib api=1
 		@errors
-			Throws awex_crm_offer if this offer is not saved.
+			Throws awex_crm_offer_new if this offer is not saved.
 	**/
 	public function get_mail_prop($k)
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_offer("Offer must be saved before mail data can be accessed!");
+			throw new awex_crm_offer_new("Offer must be saved before mail data can be accessed!");
 		}
 
 		if($this->mail_data === null)
@@ -250,7 +289,7 @@ Parimat,
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_offer("Offer must be saved before mail data can be stored!");
+			throw new awex_crm_offer_new("Offer must be saved before mail data can be stored!");
 		}
 
 		if($this->mail_data === null)
@@ -655,7 +694,7 @@ Parimat,
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_offer("Offer must be saved before 'sent to's can be queried!");
+			throw new awex_crm_offer_new("Offer must be saved before 'sent to's can be queried!");
 		}
 
 		$ol = new object_list(array(
@@ -817,6 +856,32 @@ Parimat,
 		$this->save();
 	}
 
+	/**
+		@attrib api=1
+	**/
+	public function set_reply($method, $time = 0)
+	{
+		$application = automatweb::$request->get_application();
+		if ($application->is_a(crm_sales_obj::CLID))
+		{
+			switch ($method)
+			{
+				case self::REPLY_BY_CALL:
+					if (!is_oid($this->prop("customer_relation")))
+					{
+						throw new awex_crm_offer_customer("Reply call cannot be created - no customer relation for this offer!");
+					}
+					$customer_relation = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
+					$application->create_call($customer_relation, $time, null, false, array("offer" => $this->id()));
+					break;
+
+				case self::REPLY_BY_MAIL:
+					//	TODO: E-mails cannot yet be scheduled, can they?
+					break;
+			}
+		}
+	}
+
 	public function make_pdf()
 	{
 		$pdf = null;
@@ -902,21 +967,9 @@ Parimat,
 		return $data;
 	}
 
-	public function awobj_get_name()
+	public function awobj_get_number()
 	{
 		return $this->id();
-	}
-
-	public function name()
-	{
-		return $this->awobj_get_name();
-	}
-
-	/**	Returns name of the object. Used to bypass name overriding by crm_offer_obj::awobj_get_name(). This is to be used by subclasses only!
-	**/
-	protected function __name()
-	{
-		return parent::name();
 	}
 
 	public function awobj_get_sum()
@@ -985,11 +1038,26 @@ Parimat,
 		{
 			try
 			{
-				$this->set_customer_relation();
+				$this->__set_customer_relation();
 			}
 			catch (awex_crm_offer_customer $e)
 			{
 			}
+		}
+
+		if(strlen(trim($this->prop("name"))) === 0)
+		{
+			$this->__set_name();
+		}
+
+		try
+		{
+			$this->__set_price_object();
+		}
+		catch (awex_crm_offer_new $e)
+		{
+			parent::save($exclusive, $previous_state);
+			$this->__set_price_object();
 		}
 
 		try
@@ -1015,7 +1083,7 @@ Parimat,
 		@param object type=object
 			The object to be added to the offer
 		@returns boolean
-		@errors Throws awex_crm_offer if this offer is not saved
+		@errors Throws awex_crm_offer_new if this offer is not saved
 	**/
 	public function contains_object(object $o)
 	{
@@ -1025,7 +1093,7 @@ Parimat,
 			{
 				$this->load_rows();
 			}
-			catch (awex_crm_offer $e)
+			catch (awex_crm_offer_new $e)
 			{
 				throw $e;
 			}
@@ -1048,27 +1116,28 @@ Parimat,
 			The object to be added to the offer
 		@returns void
 		@error
-			Throws awex_crm_offer if this offer is not saved.
+			Throws awex_crm_offer_new if this offer is not saved.
 			TODO: Throws awex_crm_offer if the object to be added doesn't implement crm_sales_price_component_interface.
 	**/
 	public function add_object(object $o)
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_offer("Offer must be saved before rows can be added!");
+			throw new awex_crm_offer_new("Offer must be saved before rows can be added!");
 		}
 
 		$row = obj(null, array(), crm_offer_row_obj::CLID);
 		$row->set_parent($this->id());
 		$row->set_prop("offer", $this->id());
 		$row->set_prop("object", $o->id());
+		$row->set_prop("amount", 1);
 		$row->save();
 	}
 
 	/**	Returns array of
 		@attrib api=1
 		@returs crm_offer_row_obj[]
-		@error Throws awex_crm_offer if this offer is not saved
+		@error Throws awex_crm_offer_new if this offer is not saved
 	**/
 	public function get_rows()
 	{
@@ -1078,7 +1147,7 @@ Parimat,
 			{
 				$this->load_rows();
 			}
-			catch (awex_crm_offer $e)
+			catch (awex_crm_offer_new $e)
 			{
 				throw $e;
 			}
@@ -1090,7 +1159,7 @@ Parimat,
 	/**
 		@attrib api=1
 		@returns object_list
-		@errors Throws awex_crm_offer if this offer is not saved
+		@errors Throws awex_crm_offer_new if this offer is not saved
 	**/
 	public function get_price_components_for_row(object $row)
 	{
@@ -1100,7 +1169,7 @@ Parimat,
 			{
 				$this->load_price_components();
 			}
-			catch (awex_crm_offer $e)
+			catch (awex_crm_offer_new $e)
 			{
 				throw $e;
 			}
@@ -1112,7 +1181,7 @@ Parimat,
 			{
 				$this->load_price_components_for_row($row);
 			}
-			catch (awex_crm_offer $e)
+			catch (awex_crm_offer_new $e)
 			{
 				throw $e;
 			}
@@ -1124,7 +1193,7 @@ Parimat,
 	/**
 		@attrib api=1
 		@returns object_list
-		@errors Throws awex_crm_offer if this offer is not saved
+		@errors Throws awex_crm_offer_new if this offer is not saved
 	**/
 	public function get_price_components_for_total()
 	{
@@ -1134,7 +1203,7 @@ Parimat,
 			{
 				$this->load_price_components();
 			}
-			catch (awex_crm_offer $e)
+			catch (awex_crm_offer_new $e)
 			{
 				throw $e;
 			}
@@ -1165,6 +1234,10 @@ Parimat,
 				$this->load_offer_data_for_price_component();
 			}
 			catch(awex_crm_offer $e)
+			{
+				throw $e;
+			}
+			catch(awex_crm_offer_new $e)
 			{
 				throw $e;
 			}
@@ -1211,6 +1284,10 @@ Parimat,
 				$this->load_offer_data_for_price_component();
 			}
 			catch(awex_crm_offer $e)
+			{
+				throw $e;
+			}
+			catch(awex_crm_offer_new $e)
 			{
 				throw $e;
 			}
@@ -1278,7 +1355,7 @@ Parimat,
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_offer("Offer must be saved before rows can be loaded!");
+			throw new awex_crm_offer_new("Offer must be saved before rows can be loaded!");
 		}
 
 		//	Offer must always have a salesman!
@@ -1467,7 +1544,7 @@ Parimat,
 	{
 		try
 		{
-			return is_oid($this->prop("customer_relation")) ? new object($this->prop("customer_relation")) : $this->set_customer_relation();
+			return is_oid($this->prop("customer_relation")) ? new object($this->prop("customer_relation")) : $this->__set_customer_relation();
 		}
 		catch (awex_crm_offer_customer $e)
 		{
@@ -1479,7 +1556,7 @@ Parimat,
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_offer("Offer must be saved before rows can be loaded!");
+			throw new awex_crm_offer_new("Offer must be saved before rows can be loaded!");
 		}
 
 		$ol = new object_list(array(
@@ -1489,7 +1566,7 @@ Parimat,
 		$this->rows = $ol->arr();
 	}
 
-	protected function set_customer_relation()
+	protected function __set_customer_relation()
 	{
 		if (!is_oid($this->prop("customer")))
 		{
@@ -1511,6 +1588,29 @@ Parimat,
 			}
 		}
 		return false;
+	}
+
+	protected function __set_name()
+	{
+		$this->set_name(sprintf(t("Pakkumus nr %u kliendile '%s'"), $this->prop("number"), $this->prop("customer.name")));
+	}
+
+	protected function __set_price_object()
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer_new("Offer must be saved before a price_component can be created for it!");
+		}
+
+		$application = automatweb::$request->get_application();
+		if ($application->is_a(crm_sales_obj::CLID))
+		{
+			$offer = obj($this->id(), array(), $this->class_id());
+			$currency = is_oid($this->prop("currency")) ? obj($this->prop("currency"), array(), currency_obj::CLID) : null;
+			$price_component = crm_sales_price_component_obj::create_net_value_price_component($application, $offer, $this->prop("sum"), $currency);
+
+			$this->set_prop("price_object", $price_component->id());
+		}
 	}
 
 	protected function handle_result()
@@ -1539,7 +1639,7 @@ Parimat,
 							throw new awex_crm_offer_customer("Result object cannot be created - no customer relation for this offer!");
 						}
 						$customer_relation = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
-						$result_object = $application->create_call($customer_relation);
+						$result_object = $application->create_call($customer_relation, 0, null, false, array("offer" => $this->id()));
 						$this->set_prop("result_object", $result_object->id());
 					}
 				}
@@ -1553,7 +1653,7 @@ Parimat,
 							throw new awex_crm_offer_customer("Result object cannot be created - no customer relation for this offer!");
 						}
 						$customer_relation = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
-						$result_object = $application->create_presentation($customer_relation);
+						$result_object = $application->create_presentation($customer_relation, 0, null, false, array("offer" => $this->id()));
 						$this->set_prop("result_object", $result_object->id());
 					}
 				}
@@ -1572,6 +1672,9 @@ Parimat,
 
 /** Generic crm_offer exception **/
 class awex_crm_offer extends awex_crm {}
+
+/** Offer-not-saved error **/
+class awex_crm_offer_new extends awex_crm {}
 
 /** Duplication crm_offer errors **/
 class awex_crm_offer_duplication extends awex_crm {}

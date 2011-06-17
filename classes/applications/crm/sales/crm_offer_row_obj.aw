@@ -63,7 +63,7 @@ class crm_offer_row_obj extends crm_offer_price_component_handler
 			}
 		}
 
-		return $possible_clids;
+		return array_unique($possible_clids);
 	}
 
 	public function offer()

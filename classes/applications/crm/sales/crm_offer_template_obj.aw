@@ -24,11 +24,6 @@ class crm_offer_template_obj extends crm_offer_obj
 
 		return $offer;
 	}
-
-	public function awobj_get_name()
-	{
-		return parent::__name();
-	}
 }
 
 

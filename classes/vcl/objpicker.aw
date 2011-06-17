@@ -17,39 +17,39 @@ class objpicker extends core implements vcl_interface
 		@param mode optional type=string default=text
 			Values: "text", "select"
 
-		@param can_add optional type=bool default=false
-			Whether user can add new objects (by add button in select mode or by object name in text mode)
+		@param disabled optional type=boolean default=false
 
-		@param can_edit optional type=bool default=false
-			Whether user can edit selected object in select mode (not applicable in text mode)
+		@param view optional type=boolean default=false
 
-		@param can_delete optional type=bool default=false
-			Whether user can delete selected object in select mode (not applicable in text mode)
+		@param size optional type=int
+			Textbox size
+
+		@param value optional type=int
+
+		@param options_callback optional
 
 		@returns string
 			The HTML of the object picker.
+
+		@errors
+			Throws awex_vcl_objpicker_arg if provided options callback specification is invalid.
 	**/
 	public static function create($args)
 	{
-	}
-
-	public function init_vcl_property($args)
-	{
-		$prop = $args["property"];
-		$name = $prop["name"];
-		$mode = (isset($prop["mode"]) and "select" === $prop["mode"]) ? "select" : "text";
+		$name = $args["name"];
+		$mode = (isset($args["mode"]) and "select" === $args["mode"]) ? "select" : "text";
 
 		if ("text" === $mode)
 		{
-			if (is_oid($args["obj_inst"]->prop($name)))
+			if (is_oid($args["object"]->prop($name)))
 			{
-				$o = new object($args["obj_inst"]->prop($name));
+				$o = new object($args["object"]->prop($name));
 				$value = $o->prop_xml("name");
 				$data_element = html::hidden(array("name" => $name, "value" => $o->id()));
 			}
-			elseif (isset($prop["value"]) and is_oid($prop["value"]))
+			elseif (isset($args["value"]) and is_oid($args["value"]))
 			{
-				$o = new object($prop["value"]);
+				$o = new object($args["value"]);
 				$value = $o->prop_xml("name");
 				$data_element = html::hidden(array("name" => $name, "value" => $o->id()));
 			}
@@ -59,7 +59,7 @@ class objpicker extends core implements vcl_interface
 				$data_element = html::hidden(array("name" => $name, "value" => ""));
 			}
 
-			if (empty($args["view"]) and empty($prop["disabled"]))
+			if (empty($args["view"]) and empty($args["disabled"]))
 			{
 				$size = isset($args["size"]) ? $args["size"] : "";
 				$input_element = html::textbox(array("name" => "{$name}__autocompleteTextbox", "value" => $value, "size" => $size));
@@ -67,9 +67,9 @@ class objpicker extends core implements vcl_interface
 
 				load_javascript("bsnAutosuggest.js");
 
-				if (!empty($prop["options_callback"]))
+				if (!empty($args["options_callback"]))
 				{
-					preg_match("/([a-z0-9_]+)::([a-z0-9_]+)(\((([a-z0-9_]+),?)+\))?/i", $prop["options_callback"], $matches);
+					preg_match("/([a-z0-9_]+)::([a-z0-9_]+)(\((([a-z0-9_]+),?)+\))?/i", $args["options_callback"], $matches);
 
 					if (empty($matches[1]) or empty($matches[2]))
 					{
@@ -94,7 +94,9 @@ class objpicker extends core implements vcl_interface
 					$method = "get_options";
 				}
 
-				$name_options_url = $this->mk_my_orb($method, array("clids" => $clids, "id" => $args["id"]), $class);
+				//	TODO: There really should be a way to call this statically!
+				$inst = new objpicker();
+				$name_options_url = $inst->mk_my_orb($method, array("clids" => $clids, "id" => $args["object"]->id()), $class);
 				$autocomplete_js = <<<SCRIPT
 <script type="text/javascript">
 // OBJPICKER {$name} ELEMENT AUTOCOMPLETE
@@ -123,18 +125,18 @@ SCRIPT;
 				$visible_element = $value;
 			}
 
-			$prop["value"] = $visible_element . $data_element;
+			$html = $visible_element . $data_element;
 		}
 		elseif ("select" === $mode)
 		{
-			if (is_oid($args["obj_inst"]->prop($name)))
+			if (is_oid($args["object"]->prop($name)))
 			{
-				$o = new object($args["obj_inst"]->prop($name));
+				$o = new object($args["object"]->prop($name));
 				$value = $o->prop_xml("name");
 			}
-			elseif (isset($prop["value"]) and is_oid($prop["value"]))
+			elseif (isset($args["value"]) and is_oid($args["value"]))
 			{
-				$o = new object($prop["value"]);
+				$o = new object($args["value"]);
 				$value = $o->prop_xml("name");
 			}
 			else
@@ -142,9 +144,9 @@ SCRIPT;
 				$value = "";
 			}
 
-			if (empty($args["view"]) and empty($prop["disabled"]))
+			if (empty($args["view"]) and empty($args["disabled"]))
 			{
-				$clids = is_array($prop["clid"]) ? implode(",", $prop["clid"]) : $prop["clid"];
+				$clids = is_array($args["clid"]) ? implode(",", $args["clid"]) : $args["clid"];
 				$list = new object_list(array(
 					"class_id" => $clids,
 					"site_id" => array(),
@@ -161,11 +163,21 @@ SCRIPT;
 			{
 				$element = $value;
 			}
-
-			$prop["value"] = $element;
+			$html = $element;
 		}
+		return $html;
+	}
 
-		return array($name => $prop);
+	public function init_vcl_property($args)
+	{
+		$prop = $args["property"];
+
+		$prop["value"] = self::create($prop + array(
+			"object" => $args["obj_inst"],
+			"view" => !empty($args["view"]),
+		));
+
+		return array($prop["name"] => $prop);
 	}
 
 	public function process_vcl_property(&$args)
@@ -187,13 +199,17 @@ SCRIPT;
 		$classes_valid = true;
 		foreach ($clids as $key => $clid)
 		{
-			if (!defined($clid))
+			if (is_class_id($clid))
 			{
-				$classes_valid = false;
+				$clids[$key] = $clid;
+			}
+			elseif (defined($clid))
+			{
+				$clids[$key] = constant($clid);
 			}
 			else
 			{
-				$clids[$key] = constant($clid);
+				$classes_valid = false;
 			}
 		}
 
