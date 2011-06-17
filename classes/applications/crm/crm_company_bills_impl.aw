@@ -159,7 +159,23 @@ class crm_company_bills_impl extends class_base
 
 	public function _get_invoice_templates_list(&$arr)
 	{
-		return $this->_get_bills_list($arr);
+		// common table call
+		$r = $this->_get_bills_list($arr);
+
+		// set captions
+		$table = $arr["prop"]["vcl_inst"];
+
+		$parent_o = empty($arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]) ? null : obj((int) $arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]);
+		if ($parent_o and $parent_o->is_a(crm_invoice_folder_obj::CLID))
+		{
+			$table->set_caption(sprintf(t("Arvep&otilde;hjad kaustas '%s'"), $parent_o->name()));
+		}
+		else
+		{
+			$table->set_caption(t("Arvep&otilde;hjad"));
+		}
+
+		return $r;
 	}
 
 	public function _get_invoice_template_folders(&$arr)
