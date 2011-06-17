@@ -2459,6 +2459,15 @@ class document extends aw_template
 		extract($arr);
 		$this->read_template("doc_mail.tpl");
 		lc_site_load("document", $this);
+
+		$from_name = isset($arr["from_name"]) ? $arr["from_name"] : "";
+		$to_name = isset($arr["to_name"]) ? $arr["to_name"] : "";
+		$from = isset($arr["from"]) ? $arr["from"] : "";
+		$to = isset($arr["to"]) ? $arr["to"] : "";
+		$bcc = isset($arr["bcc"]) ? $arr["bcc"] : "";
+		$section = isset($arr["section"]) ? $arr["section"] : "";
+		$comment = isset($arr["comment"]) ? $arr["comment"] : "";
+
 		$this->vars(array(
 			"from_name" => $from_name,
 			"from" => $from,
@@ -2466,7 +2475,7 @@ class document extends aw_template
 			"comment" => $comment
 		));
 
-		if ($copy != "")
+		if (!empty($copy))
 		{
 			$bcc = "\nCc: $copy ";
 		}
@@ -2485,8 +2494,9 @@ class document extends aw_template
 			send_mail($_to,str_replace("\n","",str_replace("\r","",$this->parse("title"))),$this->parse("mail"),"Content-Type: text/plain; charset=\"ISO-8859-1\"\nFrom: \"$from_name\" <".$from.">\nSender: \"$from_name\" <".$from.">\nReturn-path: \"$from_name\" <".$from.">".$bcc."\n\n");
 		}
 
-		$name = $this->db_fetch_field("SELECT name FROM objects WHERE oid = $section ","name");
-		$this->_log(ST_DOCUMENT, SA_SEND, "$from_name  $from saatis dokumendi <a href='".aw_ini_get("baseurl")."?section=".$section."'>$name</a> $to_name $to  'le",$section);
+		$this->quote($section);
+		$name = $this->db_fetch_field("SELECT name FROM objects WHERE oid = '{$section}'", "name");
+		$this->_log("ST_DOCUMENT", "SA_SEND", "$from_name  $from saatis dokumendi <a href='".aw_ini_get("baseurl")."?section=".$section."'>$name</a> $to_name $to  'le",$section);
 
 		$si = __get_site_instance();
 		if (method_exists($si, "handle_send_to_friend_redirect"))
@@ -2513,7 +2523,9 @@ class document extends aw_template
 	function feedback($arr)
 	{
 		extract($arr);
-		$feedback = get_instance("contentmgmt/feedback");
+		$e = isset($arr["e"]) ? $arr["e"] : null;
+
+		$feedback = new feedback();
 		$inf = obj($section);
 		$this->read_template("feedback.tpl");
 		if ($e == 1)
@@ -2530,7 +2542,7 @@ class document extends aw_template
 		foreach($a->get() as $k => $v)
 		{
 			$tekst .= "<tr><td align='right'><input type='radio' name='tekst' value='$k'></td><td align=\"left\" class=\"text2\">$v</td></tr>";
-		};
+		}
 
 		$kujundus = "";
 		$a = new aw_array($feedback->kujundus);
@@ -2550,13 +2562,13 @@ class document extends aw_template
 		foreach($a->get() as $k => $v)
 		{
 			$ala .= "<tr><td align='right'><input type='radio' name='ala' value='$k'></td><td align=\"left\" class=\"text2\">$v</td></tr>";
-		};
+		}
 
 		$a = new aw_array($feedback->tehnika);
 		foreach($a->get() as $k => $v)
 		{
 			$tehnika .= "<tr><td align='right'><input type='checkbox' name='tehnika[]'  value='$k'></td><td align=\"left\" class=\"text2\">$v</td></tr>";
-		};
+		}
 
 	   	$this->vars(array(
 			"docid" => $section,
@@ -2566,30 +2578,22 @@ class document extends aw_template
 			"ala" => $ala,
 			"tehnika" => $tehnika,
 			"title" => $inf->title,
-			"reforb" => $this->mk_reforb("submit_feedback", array("docid" => $section, "print" => $print ? $print : null))
+			"reforb" => $this->mk_reforb("submit_feedback", array("docid" => $section, "print" => empty($print) ? null : $print))
 		));
 		return $this->parse();
 	}
 
 	/**
-
 		@attrib name=submit_feedback params=name nologin="1" default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function submit_feedback($arr)
 	{
 		extract($arr);
 		$inf = obj($docid);
-		$feedback = get_instance("contentmgmt/feedback");
+		$feedback = new feedback();
 		$arr["title"] = $inf->title;
 		$feedback->add_feedback($arr);
-		$this->_log(ST_DOCUMENT, SA_SEND, "$eesnimi $perenimi , email:$mail saatis feedbacki", $docid);
+		$this->_log("ST_DOCUMENT", "SA_SEND", "$eesnimi $perenimi , email:$mail saatis feedbacki", $docid);
 		$params = array("section" => $docid,"eesnimi" => $eesnimi);
 		if($print)
 		{
@@ -2599,16 +2603,8 @@ class document extends aw_template
 	}
 
 	/**
-
 		@attrib name=thanks params=name nologin="1" default="0"
-
 		@param eesnimi optional
-
-		@returns
-
-
-		@comment
-
 	**/
 	function thanks($arr)
 	{
@@ -2621,16 +2617,8 @@ class document extends aw_template
 	}
 
 	/**
-
 		@attrib name=print params=name nologin="1" default="0"
-
 		@param section required
-
-		@returns
-
-
-		@comment
-
 	**/
 	function do_print($arr)
 	{
@@ -2647,17 +2635,18 @@ class document extends aw_template
 
 		if (aw_ini_get("document.printview_expand_links") == 1 )
 		{
-			preg_match_all("/\<a.*href=\"{1}(.*)\"{1}.*>(.*)\<\/a>/imsU", $str, $a_link_matches);
+			// find href links in html
+			preg_match_all("/\<a.*href=[\"'](.*)[\"'].*>(.*)\<\/a>/imsU", $str, $a_link_matches);
 			foreach ($a_link_matches[0] as $key => $var)
 			{
 				if (	strpos($a_link_matches[1][$key], "mailto") === false &&
 						strpos($a_link_matches[1][$key], "http") === false &&
 						 strpos($a_link_matches[1][$key], "https") === false
 						 )
-				{
+				{ // relative urls
 					$a_print_link_find = array(
-						"/href\s*=\s*[\"']{1}(\/.*)[\"']{1}(.*)>(.*)</U",
-						"/href\s*=\s*[\"']{1}([^h][^t][^t][^p][^:].*)[\"']{1}(.*)>(.*)<|href\s*=\s*[\"']{1}([^h][^t][^t][^p][^s][^:].*)[\"']{1}(.*)>(.*)</U",
+						"/href\s*=\s*[\"'](\/.*)[\"'](.*)>(.*)</U",
+						"/href\s*=\s*[\"']([^h][^t][^t][^p][^:].*)[\"'](.*)>(.*)<|href\s*=\s*[\"']([^h][^t][^t][^p][^s][^:].*)[\"'](.*)>(.*)</U",
 					);
 
 					$a_print_link_replace = array(
@@ -2668,11 +2657,12 @@ class document extends aw_template
 					$str = str_replace($a_link_matches[0][$key], $tmp, $str);
 				}
 				else if (strpos($a_link_matches[1][$key], "mailto") === false)
-				{
+				{ //
 					$a_print_link_find = array(
-						"/href\s*=\s*[\"']{1}(http.*)[\"']{1}(.*)>(.*)</U",
+						"/href\s*=\s*[\"'](http.*)[\"'](.*)>(.*)</U",
 					);
 
+					// add baseurl only to relative urls. rest should have http scheme, dependency to prior processing of this string to be printed
 					if (strpos($a_link_matches[1][$key], "http") === false)
 					{
 						$a_print_link_replace = array(
@@ -2844,9 +2834,7 @@ class document extends aw_template
 	// failide ikoonid kui on template olemas, namely www.stat.ee jaox
 	function _subtpl_file($doc_o)
 	{
-		classload("file");
-		$mime_registry = get_instance("core/aw_mime_types");
-
+		$mime_registry = new aw_mime_types();
 		$aliases = $doc_o->connections_from(array(
 			"type" => CL_FILE
 		));
@@ -3113,7 +3101,7 @@ class document extends aw_template
 
 		foreach ($values as $element)
 		{
-			if ($element["tag"] == "TAG")
+			if ($element["tag"] === "TAG")
 			{
 				$id = $element["attributes"]["ID"];
 				$this->tags[$id] = $element["value"];
@@ -3416,8 +3404,8 @@ class document extends aw_template
 		{
 			if(array_key_exists($crow["board_id"] , $docs))
 			{
-			$cnt++;
-			$result[date("Y" , $crow["time"])][date("m" , $crow["time"])]++;
+				$cnt++;
+				$result[date("Y" , $crow["time"])][date("m" , $crow["time"])]++;
 			}
 		}
 		return $result;
