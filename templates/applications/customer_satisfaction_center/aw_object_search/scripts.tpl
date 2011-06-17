@@ -41,15 +41,15 @@ if ($.browser.msie)
 	$("form select").each(function(){
 		if( !$(this).attr("selectedIndex") )
 		{
-			$(this).attr( "name_tmp", $(this).attr("name") ); 
+			$(this).attr( "name_tmp", $(this).attr("name") );
 			$(this).attr( "name", "");
 		}
-		
+
 	})
-	
+
 	$("form select").change(function(){
 		new_name = $(this).attr( "name_tmp")
-		$(this).attr( "name", new_name); 
+		$(this).attr( "name", new_name);
 	})
 }
 
@@ -66,7 +66,7 @@ function select_reltypes(el)
 
 		$.ajax({
 			type: "POST",
-			url: "orb.aw?class=aw_object_search&action=get_relation_types",
+			url: "orb.aw?class=aw_object_search_if&action=get_relation_types",
 			data: "s_clid="+clid,
 			success: function(msg){
 				$("#s_rel_type1").html(msg);
