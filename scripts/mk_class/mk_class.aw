@@ -265,6 +265,8 @@ $fc = str_replace("__classname", $class['file'], _file_get_contents(($args_from_
 _file_put_contents(($args_from_caller ? AW_DIR : "") . "xml/orb/".$class['file'].".xml",str_replace("__classfolder", $folder, $fc));
 echo "created xml/orb/".$class['file'].".xml...\n";
 
+$success = copy(AW_DIR . "automatweb/images/icons/classes/class_default.gif", AW_DIR . "automatweb/images/icons/classes/class_{$new_clid}.gif");
+echo $success ? "created class icon" : "ERROR: couldn't create class icon!";
 
 echo "\n\nmaking properties...\n\n";
 if ($args_from_caller)

@@ -2,7 +2,37 @@
 
 class icons
 {
-	private static $icon_other_classes = array("promo_box","brother","conf_icon_other","conf_icon_programs","conf_icon_classes","conf_icon_ftypes","conf_icons","conf_jf","conf_users","conf_icon_import","conf_icon_db","homefolder","hf_groups"); //XXX: determine what these are for exactly
+	//classes that have special icon
+	private static $icon_other_classes = array("promo_box","brother","conf_icon_other","conf_icon_programs","conf_icon_classes","conf_icon_ftypes","conf_icons","conf_jf","conf_users","conf_icon_import","conf_icon_db","homefolder","hf_groups");
+
+	// file type extensions that have special icons. extension => icon
+	private static $file_type_extensions = array(
+		"ddoc" => "ddoc",
+		"doc" => "doc",
+		"dwf" => "dwf",
+		"dwg" => "dwg",
+		"gif" => "gif",
+		"htm" => "htm",
+		"html" => "html",
+		"jpg" => "jpg",
+		"jpeg" => "jpg",
+		"jpe" => "jpg",
+		"mht" => "mht",
+		"pdf" => "pdf",
+		"ppt" => "ppt",
+		"rtf" => "rtf",
+		"sxi" => "sxi",
+		"sxw" => "sxw",
+		"xls" => "xls",
+		"flv" => "video",
+		"mpg" => "video",
+		"mpeg" => "video",
+		"avi" => "video",
+		"wmv" => "video",
+		"mpe" => "video",
+		"mp4" => "video",
+		"mkv" => "video"
+	);
 
 	public static function get_std_icon_url($name)
 	{
@@ -37,23 +67,20 @@ class icons
 			}
 
 			$pi = pathinfo($name);
-			if (!isset($pi["extension"]))
-			{
-				$pi["extension"] = null;
-			}
-			$icon_url = aw_ini_get("icons.server")."ftype_".strtolower($pi["extension"]).".gif";
-			return $icon_url;
-			// return aw_ini_get("icons.server")."/ftype_".strtolower($pi["extension"]).".gif";
+			$extension = empty($pi["extension"]) ? "" : strtolower($pi["extension"]);
+			$icon_file_url = isset(self::$file_type_extensions[$extension]) ? "ftype_" . self::$file_type_extensions[$extension] . ".gif" : "classes/class_{$clid}.gif";
 		}
 		elseif (in_array($clid, self::$icon_other_classes))
 		{
-			return aw_ini_get("icons.server")."iother_".$clid.".gif";
+			$icon_file_url = "iother_{$clid}.gif";
 		}
 		else
 		{
-			$sufix = !empty($done) ? "_done" : "";
-			return aw_ini_get("icons.server")."class_".$clid.$sufix.".gif";
+			$sufix = $done ? "_done" : "";
+			$icon_file_url = "classes/class_{$clid}{$sufix}.gif";
 		}
+
+		return aw_ini_get("icons.server") . $icon_file_url;
 	}
 
 	/**
