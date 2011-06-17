@@ -1,8 +1,10 @@
 <?php
 
-class users extends users_user implements request_startup
+class users extends users_user implements request_startup, orb_public_interface
 {
 	public $hfid = 0;
+
+	protected $req;
 
 	function users()
 	{
@@ -11,6 +13,16 @@ class users extends users_user implements request_startup
 		{
 			lc_site_load("users", $this);
 		}
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	/** generates the form for changing the current users password

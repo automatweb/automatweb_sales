@@ -27,7 +27,7 @@ class orb extends aw_template
 	//  why the hell did I put all the functionality into the constructor?
 	// now I can't put other useful functions into this class and used them
 	// without calling the instructor
-	function process_request($args = array())
+	public function process_request($args = array())
 	{
 		// peavad olema v2hemalt
 		// a) class
@@ -44,8 +44,16 @@ class orb extends aw_template
 		}
 
 		// laeme selle klassi siis
-		$this->orb_class = new $class();
 		$orb_defs = $this->try_load_class($class);
+		$this->orb_class = new $class();
+		$class_reflection = new ReflectionClass($class);
+
+		if (!$class_reflection->implementsInterface("orb_public_interface"))
+		{
+			throw new awex_orb_class("Requested class {$class} doesn't implement ORB interface");
+		}
+
+		$this->orb_class->set_request(automatweb::$request);
 		$this->orb_defs = $orb_defs;
 
 		// action defineeritud?
@@ -539,11 +547,12 @@ class orb extends aw_template
 		}
 	}
 
-	function try_load_class($class)
+	// loads orb definitions for class
+	private function try_load_class($class)
 	{
 		if (!is_readable(AW_DIR."xml/orb/{$class}.xml") && !is_readable(aw_ini_get("site_basedir")."xml/orb/{$class}.xml"))
 		{
-			throw new awex_orb_class("Class '$class' ORB definition not found");
+			throw new awex_orb_class("Class '{$class}' ORB definition not found");
 		}
 
 		$ret = $this->load_xml_orb_def($class);
@@ -623,8 +632,6 @@ class orb extends aw_template
 	//              if this is set, then server will be ignored
 	function do_method_call($arr)
 	{
-//		$arr['server'] = isset($arr['server']) ? str_replace('http://','',$arr['server']) : NULL;
-
 		extract($arr);
 		$params = isset($arr["params"]) ? $arr["params"] : array();
 
@@ -634,7 +641,7 @@ class orb extends aw_template
 		if (!isset($class))
 		{
 			$this->raise_error("ERR_ORB_NOCLASS",E_ORB_CLASS_UNDEF,true,$this->silent);
-		};
+		}
 
 		if (!isset($action))
 		{
@@ -1055,20 +1062,23 @@ class orb extends aw_template
 
 	static function check_class_access($class)
 	{
-		$atc = new add_tree_conf();
-		$conf = $atc->get_current_conf();
-		if (!$conf)
+		$conf = add_tree_conf_obj::get_active_configuration();
+		$access = true;
+
+		if (!$conf and "restrictive" === aw_ini_get("acl.policy"))
 		{
 			// by default you can add all types of objects
-			return true;
+			$access = false;
+		}
+		elseif (aw_ini_get("acl.check_prog"))
+		{
+			error::raise_if(!add_tree_conf::can_access_class($conf, $class),array(
+				"id" => "ERR_ACL",
+				"msg" => sprintf(t("orb::check_class_access(%s): no permissions to access the class! (denied by %s)"), $class, $conf)
+			));
 		}
 
-		error::raise_if(!$atc->can_access_class(obj($conf), $class),array(
-			"id" => "ERR_ACL",
-			"msg" => sprintf(t("orb::check_class_access(%s): no permissions to access the class! (denied by %s)"), $class, $conf)
-		));
-
-		return true;
+		return $access;
 	}
 
 	/** Creates orb links
@@ -1147,7 +1157,7 @@ class orb extends aw_template
 			$res .= "orb.aw";
 		}
 
-		$res .= ($sep == "/") ? "/" : "?";
+		$res .= ($sep === "/") ? "/" : "?";
 		foreach($this->orb_values as $name => $value)
 		{
 			// lets skip the parameter only when it is empty string --dragut
@@ -1212,6 +1222,11 @@ class orb extends aw_template
 
 		return $args;
 	}
+}
+
+interface orb_public_interface
+{
+	public function set_request(aw_request $request);
 }
 
 /** Generic ORB exception **/

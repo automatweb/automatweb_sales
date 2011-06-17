@@ -129,6 +129,7 @@
 		<action name="delete_objects">
 			<function name="delete_objects">
 				<arguments>
+					<optional name="awcb_object_selection" type="array" />
 					<optional name="sel" type="array" />
 					<optional name="check" type="array" />
 					<required name="post_ru" type="string" />
