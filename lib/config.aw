@@ -10,7 +10,6 @@
 **/
 function aw_ini_get($var)
 {
-//	enter_function("__global::aw_ini_get",array());
 	$path = explode(".", $var);
 
 	if ("" === $path[0])
@@ -38,7 +37,6 @@ function aw_ini_get($var)
 		}
 	}
 
-//	exit_function("__global::aw_ini_get");
 	return $val;
 }
 
@@ -133,7 +131,7 @@ function parse_config($file, $return = false)
 	foreach($fd as $linenum => $line)
 	{
 		// parse line
-		if (strlen(trim($line)) and $line{0} != "#") // exclude comments and empty lines
+		if (strlen(trim($line)) and $line{0} !== "#") // exclude comments and empty lines
 		{
 			// config option format is variable = value. variable is class1. ... .classN.
 			$data = explode("=", $line, 2);
@@ -377,6 +375,20 @@ function load_config ($files = array(), $cache_file = null)
 			{
 				throw new aw_exception("Failed to write configuration file cache.");
 			}
+		}
+
+		// apply configuration settings
+
+		// write lock type to lock class file
+		// (for that copy locker class file contents to cache, replacing what it extends)
+		$locker_reflection = new ReflectionClass("aw_locker");
+		$set_locker_type = aw_ini_get("config.locker.type");
+		if ("aw_locker_{$set_locker_type}" !== $locker_reflection->getExtensionName())
+		{
+			$locker_contents = file_get_contents($locker_reflection->getFileName());
+			$locker_contents = str_replace("class aw_locker extends aw_locker_none\n{", "class aw_locker extends aw_locker_none\n{", $locker_contents);
+			$locker_contents = preg_replace("/class aw_locker extends aw_locker_[A-z_]+(\n|\r|\r\n){/imU", "class aw_locker extends aw_locker_{$set_locker_type}\n{", $locker_contents);
+			class_index::overwrite_class("aw_locker", $locker_contents);
 		}
 	}
 
