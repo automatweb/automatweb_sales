@@ -643,7 +643,7 @@ class crm_bill extends class_base
 					$reload_button = " " . html::href(array(
 						"url" => "javascript:;",
 						"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
-						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "automatweb/images/icons/refresh.gif"))
+						"caption" => html::img(array("url" => aw_ini_get("icons.server") . "refresh.gif"))
 					));
 				}
 				else
@@ -1284,7 +1284,7 @@ class crm_bill extends class_base
 			$file_data = $invoice_pdf_o->get_file();
 			$invoice_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 					"border" => 0
 				)) . $invoice_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $invoice_pdf_o->get_url(),
@@ -1296,7 +1296,7 @@ class crm_bill extends class_base
 			$file_data = $reminder_pdf_o->get_file();
 			$reminder_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 					"border" => 0
 				)) . $reminder_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $reminder_pdf_o->get_url(),
@@ -1309,7 +1309,7 @@ class crm_bill extends class_base
 			$file_data = $appendix_pdf_o->get_file();
 			$appendix_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 					"border" => 0
 				)) . $appendix_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $appendix_pdf_o->get_url(),
@@ -2246,6 +2246,24 @@ class crm_bill extends class_base
 
 		$o->save();
 
+		// update invoices having this row
+		$list = new object_list(array(
+			"class_id" => crm_bill_obj::CLID,
+			"CL_CRM_BILL.RELTYPE_ROW" => $o->id()
+		));
+
+		if($list->count())
+		{
+			$invoice = $list->begin();
+
+			do
+			{
+				$invoice->save();
+			}
+			while ($invoice = $list->next());
+		}
+
+		//
 		if($o->meta("dno"))
 		{
 			$conn = $o->connections_to(array(
@@ -2630,7 +2648,7 @@ class crm_bill extends class_base
 						$m->add_item(array(
 							"parent" => "move_rows_to_dn_".$id,
 							"url" => "javascript:void(0)",
-							"onClick" => "$.get('".$this->mk_my_orb("move_rows_to_dn", array(
+							"onclick" => "$.get('".$this->mk_my_orb("move_rows_to_dn", array(
 								"sel_rows[0]" => $id,
 								"dno" => $c->prop("to"),
 								"id" => $bill->id(),
@@ -2641,7 +2659,7 @@ class crm_bill extends class_base
 					$m->add_item(array(
 						"parent" => "move_rows_to_dn_".$id,
 						"url" => "javascript:void(0)",
-						"onClick" => "$.get('".$this->mk_my_orb("move_rows_to_dn", array(
+						"onclick" => "$.get('".$this->mk_my_orb("move_rows_to_dn", array(
 							"sel_rows[0]" => $id,
 							"dno" => "new",
 							"id" => $bill->id(),
@@ -5414,7 +5432,7 @@ ENDSCRIPT;
 					$file_data = $o->get_file();
 					$data["attachments"].= html::linebreak().html::href(array(
 						"caption" => html::img(array(
-							"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
+							"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 							"border" => 0,
 						)).$o->name()." (".filesize($file_data["properties"]["file"])." B)",
 						"url" => $o->get_url(),
