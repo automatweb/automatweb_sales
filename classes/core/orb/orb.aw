@@ -1070,7 +1070,7 @@ class orb extends aw_template
 			// by default you can add all types of objects
 			$access = false;
 		}
-		elseif (aw_ini_get("acl.check_prog"))
+		elseif ($conf and aw_ini_get("acl.check_prog"))
 		{
 			error::raise_if(!add_tree_conf::can_access_class($conf, $class),array(
 				"id" => "ERR_ACL",
