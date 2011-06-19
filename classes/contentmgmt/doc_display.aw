@@ -4,6 +4,7 @@ class doc_display extends aw_template
 {
 	var $no_left_pane;
 	var $no_right_pane;
+	var $templates; //TODO: m22rata skoop
 
 	function doc_display()
 	{
@@ -32,7 +33,6 @@ class doc_display extends aw_template
 	**/
 	function gen_preview($arr)
 	{
-		enter_function("doc_display::gen_preview::".$arr["docid"]);
 		$arr["leadonly"] = isset($arr["leadonly"]) ? $arr["leadonly"] : null;
 		$doc = obj($arr["docid"]);
 		if (aw_ini_get("config.object_versioning") == 1 && $_GET["docversion"] != "")
@@ -216,6 +216,7 @@ class doc_display extends aw_template
 			"modified_by" => $mb_person->name(),
 			"date_est" => aw_locale::get_lc_date($_date, LC_DATE_FORMAT_LONG),
 			"date_est_fullyear" => aw_locale::get_lc_date($_date, LC_DATE_FORMAT_LONG_FULLYEAR),
+			"date_est_fullyear_short" => aw_locale::get_lc_date($_date, LC_DATE_FORMAT_SHORT_FULLYEAR),
 			"print_date_est" => aw_locale::get_lc_date(time(), LC_DATE_FORMAT_LONG),
 			"modified" => date("d.m.Y", $doc->modified()),
 			"created_tm" => $doc->created(),
@@ -333,7 +334,7 @@ class doc_display extends aw_template
 			$cs = aw_global_get("charset");
 			if (aw_ini_get("user_interface.full_content_trans"))
 			{
-				$l = get_instance("languages");
+				$l = new languages();
 				$ld = $l->fetch(aw_global_get("ct_lang_id"));
 				$cs = $ld["charset"];
 			}
@@ -341,7 +342,6 @@ class doc_display extends aw_template
 		}
 		$str = $this->parse();
 		$this->vars(array("image_inplace" => ""));
-		exit_function("doc_display::gen_preview::".$arr["docid"]);
 		return $str;
 	}
 
@@ -415,7 +415,7 @@ class doc_display extends aw_template
 		{
 			if ($doc->prop("showlead") || $arr["showlead"])
 			{
-				if (trim(strtolower($lead)) == "<br>")
+				if (trim(strtolower($lead)) === "<br>")
 				{
 					$lead = "";
 				}

@@ -71,7 +71,7 @@ class site_show extends aw_template
 	function site_show()
 	{
 		$this->init("automatweb/menuedit");
-		$this->image = get_instance(CL_IMAGE);
+		$this->image = new image();
 		$this->doc = get_instance(CL_DOCUMENT);
 	}
 

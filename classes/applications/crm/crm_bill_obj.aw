@@ -2706,7 +2706,7 @@ class crm_bill_obj extends _int_object
 			));
 			$att_comment .= html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 					"border" => 0,
 				)) . $appendix_pdf->name(),
 				"url" => $appendix_pdf->get_url(),
@@ -2822,7 +2822,7 @@ class crm_bill_obj extends _int_object
 		));
 		$att_comment.= html::href(array(
 			"caption" => html::img(array(
-				"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
+				"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 				"border" => 0,
 			)).$to_o->name(),
 			"url" => $to_o->get_url(),
@@ -2842,7 +2842,7 @@ class crm_bill_obj extends _int_object
 			));
 			$att_comment.= html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 					"border" => 0,
 				)).$to_o->name(),
 				"url" => $to_o->get_url(),

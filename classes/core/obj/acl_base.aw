@@ -8,7 +8,7 @@ lc_load("definition");
 
 class acl_base extends db_connector
 {
-	private $acl_ids;
+	private $acl_ids = array();
 	private $__aw_acl_cache = array();
 
 	function sql_unpack_string()
@@ -26,7 +26,7 @@ class acl_base extends db_connector
 			reset($this->acl_ids);
 			while (list($bitpos, $name) = each($this->acl_ids))
 			{
-				$qstr[] = " ( cast ( (acl / ".pow(2,$bitpos).") as int ) & 3) AS $name";
+				$qstr[] = " ( cast ( (acl / ".pow(2,$bitpos).") as int ) & 3) AS {$name}";
 			}
 		}
 		else
@@ -34,7 +34,7 @@ class acl_base extends db_connector
 			reset($this->acl_ids);
 			while (list($bitpos, $name) = each($this->acl_ids))
 			{
-				$qstr[] = " ((acl >> $bitpos) & 3) AS $name";
+				$qstr[] = " ((acl >> {$bitpos}) & 3) AS {$name}";
 			}
 		}
 		$s =  join(",",$qstr);
@@ -99,9 +99,8 @@ class acl_base extends db_connector
 		if ($invd)
 		{
 			aw_session_set("__acl_cache", array());
-			$c = get_instance("cache");
-			$c->file_clear_pt("acl");
-			$c->file_clear_pt_oid_fn("storage_object_data", $oid, "objdata-".$oid);
+			cache::file_clear_pt("acl");
+			cache::file_clear_pt_oid_fn("storage_object_data", $oid, "objdata-".$oid);
 		}
 	}
 
@@ -162,9 +161,8 @@ class acl_base extends db_connector
 		}
 
 		aw_session_set("__acl_cache", array());
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
-		$c->file_clear_pt_oid_fn("storage_object_data", $oid, "objdata-".$oid);
+		cache::file_clear_pt("acl");
+		cache::file_clear_pt_oid_fn("storage_object_data", $oid, "objdata-".$oid);
 	}
 
 	function save_acl($oid,$gid,$aclarr, $invd = true)
@@ -202,9 +200,8 @@ class acl_base extends db_connector
 		if ($invd)
 		{
 			aw_session_set("__acl_cache", array());
-			$c = get_instance("cache");
-			$c->file_clear_pt("acl");
-			$c->file_clear_pt_oid_fn("storage_object_data", $oid, "objdata-".$oid);
+			cache::file_clear_pt("acl");
+			cache::file_clear_pt_oid_fn("storage_object_data", $oid, "objdata-".$oid);
 		}
 	}
 

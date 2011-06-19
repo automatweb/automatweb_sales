@@ -55,7 +55,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Korduse t&amp;uuml;&amp;uuml;p</caption>
+            <caption>Korduse t&amp;amp;uuml;&amp;amp;uuml;p</caption>
       </property>
       <property>
             <name>interval_minutely</name>
@@ -70,7 +70,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Iga X minuti j&amp;auml;rel</caption>
+            <caption>Iga X minuti j&amp;amp;auml;rel</caption>
       </property>
       <property>
             <name>interval_hourly</name>
@@ -85,7 +85,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Iga X tunni j&amp;auml;rel</caption>
+            <caption>Iga X tunni j&amp;amp;auml;rel</caption>
       </property>
       <property>
             <name>interval_daily</name>
@@ -100,7 +100,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Iga X p&amp;auml;eva j&amp;auml;rel</caption>
+            <caption>Iga X p&amp;amp;auml;eva j&amp;amp;auml;rel</caption>
       </property>
       <property>
             <name>interval_weekly</name>
@@ -115,7 +115,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Iga X n&amp;auml;dala j&amp;auml;rel</caption>
+            <caption>Iga X n&amp;amp;auml;dala j&amp;amp;auml;rel</caption>
       </property>
       <property>
             <name>interval_monthly</name>
@@ -130,7 +130,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Iga X kuu j&amp;auml;rel</caption>
+            <caption>Iga X kuu j&amp;amp;auml;rel</caption>
       </property>
       <property>
             <name>interval_yearly</name>
@@ -145,7 +145,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Iga X aasta j&amp;auml;rel</caption>
+            <caption>Iga X aasta j&amp;amp;auml;rel</caption>
       </property>
       <property>
             <name>weekdays</name>
@@ -160,7 +160,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Nendel p&amp;auml;evadel</caption>
+            <caption>Nendel p&amp;amp;auml;evadel</caption>
       </property>
       <property>
             <name>month_days</name>
@@ -174,7 +174,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Kindlatel p&amp;auml;evadel</caption>
+            <caption>Kindlatel p&amp;amp;auml;evadel</caption>
       </property>
       <property>
             <name>month_rel_weekdays</name>
@@ -189,7 +189,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Valitud n&amp;auml;dalap&amp;auml;evadel</caption>
+            <caption>Valitud n&amp;amp;auml;dalap&amp;amp;auml;evadel</caption>
       </property>
       <property>
             <name>month_weekdays</name>
@@ -204,7 +204,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>N&amp;auml;dalap&amp;auml;evad</caption>
+            <caption>N&amp;amp;auml;dalap&amp;amp;auml;evad</caption>
       </property>
       <property>
             <name>end</name>
@@ -223,13 +223,7 @@
             <syslog_type>ST_RECURRENCE</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
-            <maintainer>kristo</maintainer>
       </classinfo>
-      <groupinfo>
-            <test>
-                  <caption>Test</caption>
-            </test>
-      </groupinfo>
       <tableinfo>
             <calendar2recurrence>
                   <index>obj_id</index>
