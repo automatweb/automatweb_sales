@@ -798,7 +798,11 @@ class file extends class_base
 						"alt" => t("faili ikoon"),
 					));
 				}
-				$replacement .= " <a $ss class=\"sisutekst\" href='".$url."'>$comment</a>";
+				else
+				{
+					$replacement = "";
+				}
+				$replacement .= " <a {$ss} class=\"sisutekst\" href='{$url}'>{$comment}</a>";
 			}
 		}
 		return $replacement;

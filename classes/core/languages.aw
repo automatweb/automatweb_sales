@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class languages extends aw_template implements request_startup
 {
@@ -10,7 +7,6 @@ class languages extends aw_template implements request_startup
 		$this->init("languages");
 		lc_load("definition");
 		$this->lc_load("languages","lc_languages");
-		$this->file_cache = get_instance("cache");
 		// the name of the cache file
 		$this->cf_name = "languages-cache-site_id-".$this->cfg["site_id"];
 		$this->init_cache();
@@ -161,7 +157,7 @@ class languages extends aw_template implements request_startup
 		else
 		{
 			return $lar->get();
-		};
+		}
 	}
 
 	function set_status($id,$status)
@@ -232,7 +228,7 @@ class languages extends aw_template implements request_startup
 		if (!empty($uid))
 		{
 			$this->db_query("UPDATE users SET lang_id = '$id' WHERE uid = '$uid'");
-		};
+		}
 		aw_session_set("lang_id", $id);
 
 		// milleks see cookie vajalik oli?
@@ -342,7 +338,7 @@ class languages extends aw_template implements request_startup
 			NULL if no language for the code is defined in the system, language id (not language object id)
 
 	**/
-	function get_langid_for_code($code)
+	public function get_langid_for_code($code)
 	{
 		$list = $this->get_list(array("all_data" => true));
 		foreach($list as $id => $dat)
@@ -365,7 +361,7 @@ class languages extends aw_template implements request_startup
 			// this doesn't exactly take much time anyway, but still, can't be bad, can it?
 
 			// if the file cache exists and this is not an update, then read from that
-			if (!$force_read && ($cc = $this->file_cache->file_get($this->cf_name)))
+			if (!$force_read && ($cc = cache::file_get($this->cf_name)))
 			{
 				aw_cache_set_array("languages", aw_unserialize($cc));
 			}
@@ -386,7 +382,7 @@ class languages extends aw_template implements request_startup
 						aw_cache_set("languages", $row["id"],$row);
 					}
 				}
-				$this->file_cache->file_set($this->cf_name,aw_serialize(aw_cache_get_array("languages")));
+				cache::file_set($this->cf_name,aw_serialize(aw_cache_get_array("languages")));
 			}
 			aw_global_set("lang_cache_init",1);
 		}
@@ -429,13 +425,14 @@ class languages extends aw_template implements request_startup
 				// set lang from url
 				$lang_id =  $this->get_langid_for_code($lang);
 				$_SESSION["ct_lang_id"] = $lang_id;
-        	                $_SESSION["ct_lang_lc"] = $lang;
-                	        aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
-                        	aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
-                	        setcookie("ct_lang_id", $lang_id, time() + 3600, "/");
-                        	setcookie("ct_lang_lc", $_SESSION["ct_lang_lc"], time() + 3600, "/");
+				$_SESSION["ct_lang_lc"] = $lang;
+				aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
+				aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
+				setcookie("ct_lang_id", $lang_id, time() + 3600, "/");
+				setcookie("ct_lang_lc", $_SESSION["ct_lang_lc"], time() + 3600, "/");
 			}
 		}
+
 		if (!aw_global_get("ct_lang_id") && aw_ini_get("user_interface.full_content_trans") && ($ct_lc = aw_ini_get("user_interface.default_language")))
 		{
 			if (!empty($_COOKIE["ct_lang_id"]))
@@ -452,6 +449,7 @@ class languages extends aw_template implements request_startup
 			aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
 			aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
 		}
+
 		if (!$lang_id && aw_ini_get("languages.default"))
 		{
 			$lang_id = aw_ini_get("languages.default");
@@ -485,33 +483,27 @@ class languages extends aw_template implements request_startup
 		}
 
 		// assign the correct language so we can find translations
-		$LC=$la["acceptlang"];
-		if (!empty($_GET["LC_DBG"]))
-		{
-			echo dbg::dump($la);
-		}
+		$LC = $la["acceptlang"];
 		if ($LC == "")
 		{
 			$LC = "et";
 		}
+
 		aw_global_set("LC", $LC);
 
-                // if parallel trans is on, then read charset from trans lang
+           // if parallel trans is on, then read charset from trans lang
 		if (aw_ini_get("user_interface.full_content_trans") && aw_global_get("ct_lang_id") != $lang_id)
 		{
 			$t_la = $this->fetch(aw_global_get("ct_lang_id"));
-			aw_global_set("charset",$t_la["charset"]);
+			aw_global_set("charset", $t_la["charset"]);
 		}
 		else
 		{
-			aw_global_set("charset",$la["charset"]);
+			aw_global_set("charset", $la["charset"]);
 		}
 
 		// oh yeah, we should only overwrite admin_lang_lc if it is not set already!
-		if (true || aw_global_get("admin_lang_lc") == "")
-		{
-			aw_global_set("admin_lang_lc",$LC);
-		}
+		aw_global_set("admin_lang_lc", $LC);
 
 		aw_global_set("lang_oid", $la["oid"]);
 		// and we should be all done. if after this, lang_id will still be not set I won't be able to write the
@@ -535,7 +527,6 @@ class languages extends aw_template implements request_startup
 				$GLOBALS["cfg"]["user_interface"]["default_language"] = $_tmp;
 			}
 		}
-		classload("vcl/date_edit");
 	}
 
 	function on_site_init($dbi, $site, &$ini_opts, &$log)
@@ -569,4 +560,3 @@ class languages extends aw_template implements request_startup
 		die($_SESSION["user_adm_ui_lc"] != "" ? $_SESSION["user_adm_ui_lc"] : "et");
 	}
 }
-?>

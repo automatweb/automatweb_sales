@@ -491,9 +491,9 @@ class image extends class_base
 				"bi_link" => $bi_link,
 				"author" => $idata["meta"]["author"],
 				"docid" => isset($args["oid"]) ? (is_object($args["oid"]) ? $args["oid"]->id() : $args["oid"]) : null,
-				"doc_link" => $d->get_doc_link(obj($args["oid"])),
+				"doc_link" => empty($args["oid"]) ? "" : $d->get_doc_link(obj($args["oid"])),
 				"image_id" => $idata["oid"],
-				"document_link" => $d->get_doc_link(obj($f["source"])),
+				"document_link" => empty($f["source"]) ? "" : $d->get_doc_link(obj($f["source"])),
 				"comments" => $num_comments,
 				"longdesc" => $this->mk_my_orb("disp_longdesc", array("id" => $idata["oid"]))
 			);
@@ -563,13 +563,13 @@ class image extends class_base
 			}
 			else
 			{
-				if (!empty($tpls["image_inplace_".$args["data"]["prop"]."_loop"]) /*&& $this->image_inplace_used*/)
+				if (isset($args["data"]["prop"]) && !empty($tpls["image_inplace_{$args["data"]["prop"]}_loop"]) /*&& $this->image_inplace_used*/)
 				{
 					$tpl = "image_inplace_".$args["data"]["prop"]."_loop";
 					$inplace = $tpl;
 					//$this->image_inplace_used = true;
 				}
-				elseif (!empty($tpls["image_inplace_".$args["data"]["prop"]]) /*&& $this->image_inplace_used*/)
+				elseif (isset($args["data"]["prop"]) && !empty($tpls["image_inplace_{$args["data"]["prop"]}"]) /*&& $this->image_inplace_used*/)
 				{
 					$tpl = "image_inplace_".$args["data"]["prop"];
 					$inplace = $tpl;
