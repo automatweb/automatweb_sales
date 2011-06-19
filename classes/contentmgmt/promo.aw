@@ -415,7 +415,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$obj = $arr["obj_inst"];
 		$section_no_include_submenus = $obj->meta("section_no_include_submenus");
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "id",
 			"caption" => t("ID"),
@@ -461,7 +461,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function get_doc_sources($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "id",
@@ -597,7 +597,7 @@ class promo extends class_base implements main_subtemplate_handler
 	function parse_alias($args = array())
 	{
 		$alias = $args["alias"];
-		$ob =& obj($alias["target"]);
+		$ob = obj($alias["target"]);
 		if ($ob->prop("ndocs") == -1)
 		{
 			return "";
