@@ -148,7 +148,7 @@ class aw_http_request extends aw_request
 		}
 		catch (Exception $e)
 		{
-			if (is_a($e, "awex_uri_type"))
+			if ($e instanceof awex_uri_type))
 			{
 				if (awex_uri_type::RESERVED_CHR === $e->getCode())
 				{
@@ -158,6 +158,10 @@ class aw_http_request extends aw_request
 				{
 					throw new awex_request_na("This request contains argument values that can't be converted to URI arguments.");
 				}
+			}
+			elseif ($e instanceof awex_uri_arg))
+			{
+				//	$this->args is prolly an empty array, take no action
 			}
 			else
 			{
