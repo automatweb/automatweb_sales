@@ -572,7 +572,7 @@ class crm_bill extends class_base
 					)).
 					" ".html::href(array(
 						"url" => "javascript:aw_popup_scroll('".$url."','Otsing', 550, 500)",
-						"caption" => "<img src='".aw_ini_get("baseurl")."automatweb/images/icons/search.gif' border=0>",
+						"caption" => "<img src='".icons::get_std_icon_url("magnifier")."' border='0'>",
 						"title" => t("Otsi")
 					)) . html::linebreak();
 				}
@@ -638,7 +638,7 @@ class crm_bill extends class_base
 				{
 					$edit_button = " " . html::href(array(
 						"url" => html::get_change_url($arr["obj_inst"]->prop("customer"), array("return_url" => get_ru())),
-						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "automatweb/images/icons/edit.gif"))
+						"caption" => html::img(array("url" => icons::get_std_icon_url("pencil")))
 					));
 					$reload_button = " " . html::href(array(
 						"url" => "javascript:;",
@@ -787,6 +787,8 @@ class crm_bill extends class_base
 				break;
 
 			case "warehouse_info":
+				return PROP_IGNORE;
+				/*
 				$cos = $arr["obj_inst"]->prop("warehouse.conf.manager_cos");
 				if(!is_array($cos))
 				{
@@ -794,13 +796,14 @@ class crm_bill extends class_base
 				}
 				if(in_array($arr["obj_inst"]->prop("customer"), $cos))
 				{
-					$arr["prop"]["value"] = "<span style='color:red;'>".t("Tegu on ostuarvega")."</span>";
+					$arr["prop"]["value"] = t("Tegu on ostuarvega");
 				}
 				else
 				{
 					return PROP_IGNORE;
 				}
 				break;
+				*/
 		}
 		return $retval;
 	}
@@ -1585,7 +1588,7 @@ class crm_bill extends class_base
 		$save_btn = " " . html::href(array(
 			"url" => "javascript:submit_changeform('submit')",
 			"title" => t("Lisa sisestatud e-posti aadress"),
-			"caption" => html::img(array("url" => icons::get_std_icon_url("save")))
+			"caption" => html::img(array("url" => icons::get_std_icon_url("disk")))
 		)) . " ";
 		$arr["prop"]["post_append_text"] = $save_btn . $ps->get_search_button();
 		return $r;
@@ -2313,13 +2316,13 @@ class crm_bill extends class_base
 		$row_group = obj($row_group_oid, array(), crm_bill_row_group_obj::CLID);
 		$edit_button = html::button(array(
 			"name" => "change_row_group",
-			"image" => icons::get_std_icon_url("edit"),
+			"image" => icons::get_std_icon_url("pencil"),
 			"value" => t("Muuda blokki"),
 			"onclick" => "crm_bill_edit_row_group('".$row_group->id()."'); return false;",
 		));
 		$delete_button = html::button(array(
 			"name" => "delete_row_group",
-			"image" => icons::get_std_icon_url("delete"),
+			"image" => icons::get_std_icon_url("cross_red"),
 			"value" => t("Kustuta blokk"),
 			"onclick" => "crm_bill_delete_row_group('".$row_group->id()."'); return false;",
 		));
@@ -2362,7 +2365,7 @@ class crm_bill extends class_base
 		$edit_view =
 			html::button(array(
 				"name" => "change_row_group",
-				"image" => icons::get_std_icon_url("save"),
+				"image" => icons::get_std_icon_url("disk"),
 				"value" => t("Salvesta"),
 				"onclick" => "
 					$.post('/automatweb/orb.aw?class=crm_bill&action=post_row_group', {
@@ -2378,7 +2381,7 @@ class crm_bill extends class_base
 			html::space() .
 			html::button(array(
 				"name" => "cancel_row_group",
-				"image" => icons::get_std_icon_url("close"),
+				"image" => icons::get_std_icon_url("cross_grey"),
 				"value" => t("Katkesta"),
 				"onclick" => "reload_layout('bill_rows_container');return false;"
 			)) .
@@ -2425,7 +2428,7 @@ class crm_bill extends class_base
 			case "change":
 				$ret.= html::button(array(
 					"name" => "change_row",
-					"image" => icons::get_std_icon_url("save"),
+					"image" => icons::get_std_icon_url("disk"),
 					"value" => t("Salvesta"),
 					"onclick" => "
 						var a=document.getElementById('rows_".$id."__person_'); var result=[];
@@ -2485,7 +2488,7 @@ class crm_bill extends class_base
 				html::linebreak(2).
 				html::button(array(
 					"name" => "cancel_row_group",
-					"image" => icons::get_std_icon_url("close"),
+					"image" => icons::get_std_icon_url("cross_grey"),
 					"value" => t("Katkesta"),
 					"onclick" => "reload_layout('bill_rows_container');return false;"
 				));
@@ -2658,7 +2661,7 @@ class crm_bill extends class_base
 				$url = "javascript:aw_popup_scroll('".$url."','".t("Otsi")."',600,500)";
 				$s = html::href(array(
 					"caption" => html::img(array(
-						"url" => "images/icons/search.gif",
+						"url" => icons::get_std_icon_url("magnifier"),
 						"border" => 0
 					)),
 					"url" => $url
@@ -2784,7 +2787,7 @@ class crm_bill extends class_base
 			case "change":
 				$ret.=html::button(array(
 					"name" => "change_row",
-					"image" => icons::get_std_icon_url("edit"),
+					"image" => icons::get_std_icon_url("pencil"),
 					"value" => t("Muuda"),
 					"onclick" => "crm_bill_edit_row('".$id."'); return false;",
 				));
@@ -4054,6 +4057,7 @@ class crm_bill extends class_base
 			// go over ordering helper array and find row groups data from $grouped_rows and $grouped_rows_comments by $capt
 			foreach ($grouped_rows_order as $capt => $idx)
 			{
+				$crows = $grouped_rows[$capt];
 				$rs = $this->parse_preview_add_rows($crows);
 				$this->vars(array(
 					"uniter" => $capt,
@@ -5227,8 +5231,12 @@ ENDSCRIPT;
 		}
 		catch (Exception $e)
 		{
-			trigger_error("Caught exception " . get_class($e) . " while sending bill. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 			$this->show_error_text(t("Esines vigu. Arvet ei saadetud."));
+		}
+
+		if (isset($e))
+		{
+			trigger_error("Caught exception " . get_class($e) . " while sending bill. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 		}
 
 		// remove temporary changes

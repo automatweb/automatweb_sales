@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class config extends aw_template
 {
 	function config()
@@ -181,15 +179,7 @@ class config extends aw_template
 	}
 
 	/**
-
 		@attrib name=favicon params=name nologin="1" default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function show_favicon($arr)
 	{
@@ -198,15 +188,7 @@ class config extends aw_template
 	}
 
 	/**
-
 		@attrib name=config params=name default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function gen_config()
 	{
@@ -290,15 +272,7 @@ class config extends aw_template
 	}
 
 	/**
-
 		@attrib name=submit_loginaddr params=name default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function submit_loaginaddr($arr)
 	{
@@ -340,15 +314,7 @@ class config extends aw_template
 	}
 
 	/**
-
 		@attrib name=join_mail params=name default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function join_mail($arr)
 	{
@@ -381,15 +347,7 @@ class config extends aw_template
 	}
 
 	/**
-
 		@attrib name=submit_join_mail params=name default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function submit_join_mail($arr)
 	{
@@ -411,4 +369,3 @@ class config extends aw_template
 		return $this->mk_orb("join_mail", array());
 	}
 }
-?>

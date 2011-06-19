@@ -1,8 +1,8 @@
 <?php
 /*
-@classinfo syslog_type=ST_CSS relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_CSS relationmgr=yes
 
-@default group=general 
+@default group=general
 @default table=objects
 @default field=meta
 @default method=serialize
@@ -16,12 +16,12 @@
 @property ffamily3 type=select
 @caption Font 3
 
-@property ffamily type=hidden 
+@property ffamily type=hidden
 
-@property italic type=checkbox ch_value=1 
+@property italic type=checkbox ch_value=1
 @caption <i>Italic</i>
 
-@property bold type=checkbox ch_value=1 
+@property bold type=checkbox ch_value=1
 @caption <b>Bold</b>
 
 @property underline type=checkbox ch_value=1
@@ -33,22 +33,22 @@
 @property fgcolor type=colorpicker
 @caption Teksti v&auml;rv
 
-@property bgcolor type=colorpicker 
+@property bgcolor type=colorpicker
 @caption Tausta v&auml;rv
 
 @property lineheight type=textbox size=5
-@caption Joone k&otilde;rgus 
+@caption Joone k&otilde;rgus
 
 @property border type=textbox size=5
 @caption &Auml;&auml;rejoone j&auml;medus
 
-@property bordercolor type=colorpicker 
+@property bordercolor type=colorpicker
 @caption &Auml;&auml;rejoone v&auml;rv
 
-@property align type=select 
+@property align type=select
 @caption Align
 
-@property valign type=select 
+@property valign type=select
 @caption Valign
 
 @property width type=textbox size=5
@@ -57,13 +57,13 @@
 @property height type=textbox size=5
 @caption K&otilde;rgus
 
-@property nowrap type=checkbox ch_value=1 
+@property nowrap type=checkbox ch_value=1
 @caption Nowrap
 
-@property padding type=textbox size=5 
+@property padding type=textbox size=5
 @caption Elementide vahe (cellspacing) (px)
 
-@property margin type=textbox size=5 
+@property margin type=textbox size=5
 @caption Sisu kaugus joontest (cellspadding) (px)
 
 @property a_style type=relpicker reltype=RELTYPE_CSS
@@ -78,10 +78,10 @@
 @property a_active_style type=relpicker reltype=RELTYPE_CSS
 @caption Lingi stiil (active)
 
-@property user_css type=textarea width=30 height=5 
+@property user_css type=textarea width=30 height=5
 @caption Kasutaja css
 
-@property site_css type=textbox 
+@property site_css type=textbox
 @caption Saidi css failis defineeritud stiil
 
 @groupinfo table caption="Tabel"
@@ -135,6 +135,7 @@ class css extends class_base
 {
 	private $font_families;
 	private $ff;
+	private $in_gen = false;
 
 	function css ($args = array())
 	{
@@ -169,7 +170,7 @@ class css extends class_base
 		if (method_exists($this,"db_init"))
 		{
 			$this->db_init();
-		};
+		}
 		if (method_exists($this,"tpl_init"))
 		{
 			$this->tpl_init("automatweb");
@@ -182,8 +183,8 @@ class css extends class_base
 		@attrib api=1 params=pos
 
 		@param id required type=oid
-			The oid of the css style object to generate the style from 
-		
+			The oid of the css style object to generate the style from
+
 		@returns
 			css style definition
 	**/
@@ -210,7 +211,10 @@ class css extends class_base
 		if (!(is_array($data)))
 		{
 			return false;
-		};
+		}
+
+		$has_border = false;
+
 		foreach($data as $key => $val)
 		{
 			$mask = "";
@@ -290,15 +294,15 @@ class css extends class_base
 					//$mask = "border-width: %spx;\n";
 					$mask = "border-collapse: collapse;\n";
 					break;
-				
+
 				case "valign":
 					$mask = "vertical-align: %s;\n";
 					break;
-				
+
 				case "align":
 					$mask = "text-align: %s;\n";
 					break;
-				
+
 				case "width":
 					if (substr($val, -1) == "%")
 					{
@@ -332,16 +336,17 @@ class css extends class_base
 				case "size":
 					$mask = "font-size: %spx;\n";
 					break;
-	
+
 				default:
 					$ign = true;
 					break;
-			};
+			}
 
 			if ($mask == "")
 			{
 				continue;
 			}
+
 			if (!$ign)
 			{
 				$retval .= sprintf("\t" . $mask,$val);
@@ -360,11 +365,10 @@ class css extends class_base
 					}
 					$retval .= ";\n";
 				}
-			};
+			}
 		}
 
 		$retval .= $data["user_css"];
-
 		$retval .= "}\n";
 
 		if ($has_border || trim($data["padding"]) != "" || trim($data["margin"]) != "" || trim($data["fgcolor"]) != "")
@@ -499,7 +503,6 @@ class css extends class_base
 				$this->vars(array(
 					"clname" => $st->get_style_name($arr["obj_inst"]->id())
 				));
-				classload("layout/active_page_data");
 				active_page_data::add_site_css_style($arr["obj_inst"]->id());
 				$prop['value'] = $this->parse();
 				break;
@@ -550,4 +553,4 @@ class css extends class_base
 		unset($cssmeta["css"]);
 		$arr["obj_inst"]->set_meta("css",$cssmeta);
 	}
-};
+}

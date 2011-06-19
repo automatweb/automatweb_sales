@@ -116,7 +116,7 @@ class mysql_pdo
 					);
 					return false;
 				}
-				$eri = new class_base;
+				$eri = new core();
 				$eri->init();
 				$eri->raise_error("ERR_DB_QUERY",LC_MYSQL_ERROR_QUERY."\n".$qtext."\n".$err_code."\n".$err_str,true,false);
 			}

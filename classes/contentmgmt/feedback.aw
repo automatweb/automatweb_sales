@@ -1,10 +1,8 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
-class db_feedback extends aw_template 
+
+class db_feedback extends aw_template
 {
-	function db_feedback() 
+	function db_feedback()
 	{
 		$this->init("");
 		$this->tekst[0] = "Nii nagu vaja, lihtne ja arusaadav.";
@@ -30,74 +28,91 @@ class db_feedback extends aw_template
 		$this->ala[2] = "Müük ja turundus";
 		$this->ala[3] = "Muu";
 	}
-	
-	function add_feedback($data) 
+
+	function add_feedback($data)
 	{
-		$this->quote(&$data);
+		$this->quote($data);
 		extract($data);
 		$ip = $_SERVER["REMOTE_ADDR"];
 		$host = gethostbyaddr($ip);
-		if ($more == "")
+		$baseurl = aw_ini_get("baseurl");
+
+		if (!empty($more))
 		{
-			header("Location: ".aw_ini_get("baseurl")."/?class=document&action=feedback&section=$docid&e=1".($print ? "&print=".$print : ""));
+			header("Location: {$baseurl}?class=document&action=feedback&section=$docid&e=1".($print ? "&print=".$print : ""));
 			die();
 		}
-		$msg = "
-Dokument: ".aw_ini_get("baseurl")."/?section=$docid\n
-Pealkirjaga: $title\n
-\n
-Arvamust avaldas:\n
-Nimi: $eesnimi $perenimi
-$gender
-E-post: $mail
-IP: $ip/$host";
-		if ($homepage)
+
+		$docid = isset($arr["docid"]) ? $arr["docid"] : "";
+		$title = isset($arr["title"]) ? $arr["title"] : "";
+		$eesnimi = isset($arr["eesnimi"]) ? $arr["eesnimi"] : "";
+		$perenimi = isset($arr["perenimi"]) ? $arr["perenimi"] : "";
+		$gender = isset($arr["gender"]) ? $arr["gender"] : "";
+		$mail = isset($arr["mail"]) ? $arr["mail"] : "";
+
+		$msg = <<<ENDMSG
+Dokument: {$baseurl}?section={$docid}
+Pealkirjaga: {$title}
+
+Arvamust avaldas:
+Nimi: {$eesnimi} {$perenimi}
+{$gender}
+E-post: {$mail}
+IP: {$ip}/{$host}
+ENDMSG;
+
+		if (!empty($homepage))
 		{
-			$msg .= "Koduleht: $homepage\n";
+			$msg .= "Koduleht: {$homepage}\n";
 		}
-		if ($ala)
+
+		if (!empty($ala))
 		{
 			$msg .= "Tegevusala: " . $this->ala[$ala] . "\n";
 		}
 
-		if ($tekst)
+		if (!empty($tekst))
 		{
 			$msg .= "Tekst: " . $this->tekst[$tekst] . "\n";
 		}
 
-		if ($kujundus)
+		if (!empty($kujundus))
 		{
 			$msg .= "Kujundus: " . $this->kujundus[$kujundus] . "\n";
 		}
-		if ($struktuur)
+
+		if (!empty($struktuur))
 		{
 			$msg .= "Struktuur: " . $this->struktuur[$struktuur] . "\n";
 		}
 
 		$tsum = 0;
-		if (is_array($tehnika)) 
+		if (is_array($tehnika))
 		{
 			$msg .= "Tehnika: \n";
-			while(list($k,$v) = each($tehnika)) 
+			while(list($k,$v) = each($tehnika))
 			{
 				$msg .= $this->tehnika[$v] . "\n";
 				$tsum = $tsum + $v;
-			};
-		};
+			}
+		}
 
 		$msg .= "\nTäpsustav tekst:\n" . $more . "\n";
-		if ($wantsnews1) 
+		if (!empty($wantsnews1))
 		{
 			$msg .= "\nSoovib dokumendi teemaga seonduvat e-uudiskirja\n";
-		};
-		if ($wantsnews2) 
+		}
+
+		if (!empty($wantsnews2))
 		{
 			$msg .= "\nSoovib teadet e-postile, kui toimuvad suuremad muudatused Struktuur Meedia kodulehel.\n";
-		};
-		if ($wantsfeedback) 
+		}
+
+		if (!empty($wantsfeedback))
 		{
 			$msg .= "\nSoovin oma arvamusele/ettepanekule personaalset tagasisidet\n";
-		};
+		}
+
 		$headers = "From: $eesnimi $perenimi <$mail>";
 		$t = time();
 		$q = "INSERT INTO feedback (docid,time,tekst,kujundus,
@@ -124,7 +139,7 @@ IP: $ip/$host";
 			}
 		}
 	}
-};
+}
 
 class feedback extends db_feedback
 {
@@ -133,4 +148,3 @@ class feedback extends db_feedback
 		$this->db_feedback();
 	}
 }
-?>

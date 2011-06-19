@@ -245,7 +245,7 @@ class relpicker extends  core
 					));
 				}
 				$r .= " ".$pm->get_menu(array(
-					"icon" => "new.gif",
+					"icon" => "add",
 					"alt" => t("Lisa")
 				));
 			}
@@ -265,7 +265,7 @@ class relpicker extends  core
 								"return_url" => get_ru()
 							)
 						),
-						"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/new.gif' border=0>",
+						"caption" => "<img src='".aw_ini_get("icons.server")."new.gif' border=0>",
 						"title" => sprintf(t("Lisa uus %s"), $clss[$_clid]["name"]),
 					));
 				}
@@ -591,7 +591,7 @@ class relpicker extends  core
 					));
 				}
 				$val["post_append_text"] .= " ".$pm->get_menu(array(
-					"icon" => "new.gif",
+					"icon" => "add",
 					"alt" => t("Lisa")
 				));
 			}
@@ -611,7 +611,7 @@ class relpicker extends  core
 								"return_url" => get_ru()
 							)
 						),
-						"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/new.gif' border=0>",
+						"caption" => "<img src='".aw_ini_get("icons.server")."new.gif' border=0>",
 						"title" => sprintf(t("Lisa uus %s"), $clss[$_clid]["name"]),
 					));
 				}

@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
 
 class http implements protocol_interface
 {
@@ -35,7 +32,7 @@ class http implements protocol_interface
 		$max_len = 0;
 		$data = parse_url($url);
 
-		$host = !empty($data["host"]) ? $data["host"] : aw_ini_get("baseurl");
+		$host = !empty($data["host"]) ? $data["host"] : substr(aw_ini_get("baseurl"), 0, -1);
 		$host = str_replace("http://", "", $host);
 		$host = str_replace("https://", "", $host);
 
@@ -58,7 +55,7 @@ class http implements protocol_interface
 		$req .= "\r\n\r\n";
 		$socket = new socket(array(
 			"host" => $host,
-			"port" => $port,
+			"port" => $port
 		));
 		$socket->write($req);
 		$ipd = "";
@@ -580,4 +577,3 @@ class http implements protocol_interface
 		return $str;
 	}
 }
-?>

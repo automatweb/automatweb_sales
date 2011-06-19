@@ -14,7 +14,7 @@ class image_obj extends _int_object
 	}
 
 	/** Creates HTML image tag
-	@attrib name=view nologin="1" 
+	@attrib name=view nologin="1"
 	@returns
 		HTML image tag
 	**/
@@ -31,10 +31,10 @@ class image_obj extends _int_object
 	}
 
 	/** Get image url
-		@attrib api=1 
-		@errors 
+		@attrib api=1
+		@errors
 			none
-		@returns 
+		@returns
 			empty value if the image object has no view access, url to the image othervise
 	**/
 	public function get_url()
@@ -47,14 +47,14 @@ class image_obj extends _int_object
 		@attrib name=get_url api=1 params=pos
 		@param url required type=string
 			url to be fixed
-		@errors 
+		@errors
 			none
-		@returns 
+		@returns
 			If url parameter evaluates false (ie. '', 0) then returns empty value.
-		@comment 
+		@comment
 			none
 	**/
-	private function fix_url($url) 
+	private function fix_url($url)
 	{
 		if ($url)
 		{
@@ -64,11 +64,11 @@ class image_obj extends _int_object
 				$first = substr(basename($url),0,1);
 				if (substr($imgbaseurl, 0, 4) == "http")
 				{
-					$url = $imgbaseurl . "/" . $first . "/" . basename($url);
+					$url = $imgbaseurl . $first . "/" . basename($url);
 				}
 				else
 				{
-					$url = aw_ini_get("baseurl") . $imgbaseurl . "/" . $first . "/" . basename($url);
+					$url = aw_ini_get("baseurl") . $imgbaseurl . $first . "/" . basename($url);
 				}
 			}
 			else
@@ -88,7 +88,7 @@ class image_obj extends _int_object
 
 
 	/** Creates big image HTML image tag
-	@attrib name=view nologin="1" 
+	@attrib name=view nologin="1"
 	@returns
 		HTML image tag
 	**/
@@ -105,7 +105,7 @@ class image_obj extends _int_object
 	}
 
 	/** returns image size
-	@attrib name=view nologin="1" 
+	@attrib name=view nologin="1"
 	@returns
 		array
 	**/
@@ -118,19 +118,19 @@ class image_obj extends _int_object
 		return $size;
 	}
 
-	/** 
+	/**
 
 		@attrib name=get_image_by_id api=1
 
-		@errors 
+		@errors
 			none
 
-		@returns 
+		@returns
 			- array with image data
 			- false if the id parameter is array
 			- false if the id parameter is not numeric
 
-		@comment 
+		@comment
 			none
 
 		@examples
@@ -155,7 +155,7 @@ class image_obj extends _int_object
 
 			if ($row)
 			{
-				array_walk($row ,create_function('&$arr','$arr=trim($arr);')); 
+				array_walk($row ,create_function('&$arr','$arr=trim($arr);'));
 				$row["url"] = $this->get_url();
 
 				// if the image is from another site, then make the url point to that
@@ -199,10 +199,10 @@ class image_obj extends _int_object
 
 
 	/** Get big image url
-		@attrib api=1 
-		@errors 
+		@attrib api=1
+		@errors
 			none
-		@returns 
+		@returns
 			empty value if the image object has no view access, url to the image othervise
 	**/
 	public function get_big_url()
@@ -213,9 +213,9 @@ class image_obj extends _int_object
 	}
 
 	/** Rewrites the image's url to the correct value
-		
-		@attrib name=view params=name nologin="1" 
-		
+
+		@attrib name=view params=name nologin="1"
+
 		@param url required type=string
 			URL to be rewritten
 		@returns
@@ -241,13 +241,13 @@ class image_obj extends _int_object
 		if (substr($url,0,4) == "/img")
 		{
 			$fname = substr($url,13);
-			$url = aw_ini_get("baseurl")."/orb.".aw_ini_get("ext")."/class=image/action=show/fastcall=1/file=".$fname;
+			$url = aw_ini_get("baseurl")."orb.".aw_ini_get("ext")."/class=image/action=show/fastcall=1/file=".$fname;
 		}
 		else
 		{
 			if ($url == "")
 			{
-				$url = "/automatweb/images/trans.gif";
+				$url = "automatweb/images/trans.gif";
 			}
 			$url = aw_ini_get("baseurl").$url;
 		}
@@ -263,9 +263,8 @@ class image_obj extends _int_object
 				if (substr($url,-11) == "/aw_img.jpg")
 				{
 					$url = str_replace("/aw_img.jpg","",$url);
-				};
-
-			};
+				}
+			}
 		}
 		return $url;
 	}
@@ -274,7 +273,7 @@ class image_obj extends _int_object
 		@attrib api=1 params=pos
 		@param file required type=string
 			file location
-		@errors 
+		@errors
 			none
 	**/
 	public function add_image_big($file)
@@ -291,13 +290,13 @@ class image_obj extends _int_object
 	}
 
 	/** Composes javascript onClick code to open big image in popup window
-		@attrib name=get_on_click_js params=pos api=1 
-		@errors 
+		@attrib name=get_on_click_js params=pos api=1
+		@errors
 			none
-		@returns 
+		@returns
 			Empty value when big image is not set
 			javascript onclick code to open big image in popup window
-		@comment 
+		@comment
 			none
 		@examples
 			none
@@ -309,7 +308,7 @@ class image_obj extends _int_object
 			return "";
 		}
 		$size = @getimagesize($this->_get_fs_path($this->prop("file2")));
-		$bi_show_link = aw_ini_get("baseurl")."/orb.aw?class=image&action=show_big&id=".$this->id();
+		$bi_show_link = aw_ini_get("baseurl")."orb.aw?class=image&action=show_big&id=".$this->id();
 		return "window.open(\"$bi_show_link\",\"popup\",\"width=".($size[0]).",height=".($size[1])."\");";
 	}
 
@@ -333,4 +332,3 @@ class image_obj extends _int_object
 
 }
 
-?>

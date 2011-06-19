@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class protocol_finder
 {
 	/**
@@ -19,14 +17,15 @@ class protocol_finder
 	function inst($url)
 	{
 		$data = parse_url($url);
-		switch($data["scheme"])
+		$scheme = empty($data["scheme"]) ? "" : $data["scheme"];
+		switch($scheme)
 		{
 			case "":
 			case "http":
-				return get_instance("protocols/file/http");
+				return new http();
 
 			case "ftp":
-				return get_instance("protocols/file/ftp");
+				return new ftp();
 		}
 		error::raise(array(
 			"id" => ERR_NO_PROTOCOL,
@@ -40,5 +39,3 @@ interface protocol_interface
 	// protocol name string
 	function name();
 }
-
-?>

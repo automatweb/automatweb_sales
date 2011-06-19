@@ -203,7 +203,7 @@ class site_search_content_grp extends class_base
 				$ot = new object_tree(array(
 					"class_id" => array(CL_MENU, CL_PROMO, CL_CRM_SECTOR),
 					"parent" => $m,
-					"status" => ($notact[$m] ? array(STAT_ACTIVE,STAT_NOTACTIVE) : STAT_ACTIVE),
+					"status" => (!empty($notact[$m]) ? array(object::STAT_ACTIVE, object::STAT_NOTACTIVE) : object::STAT_ACTIVE),
 					"sort_by" => "objects.parent",
 					new object_list_filter(array(
 						"logic" => "OR",
@@ -231,9 +231,7 @@ class site_search_content_grp extends class_base
 		{
 			$ol = new object_list(array(
 				"class_id" => array(CL_PROMO),
-				"oid" => $ret,
-				"site_id" => array(),
-				"lang_id"  => array()
+				"oid" => $ret
 			));
 			foreach($ol->arr() as $o)
 			{
@@ -267,9 +265,7 @@ class site_search_content_grp extends class_base
 		{
 			$ol = new object_list(array(
 				"class_id" => array(CL_MENU, CL_PROMO, CL_CRM_SECTOR),
-				"oid" => $ret,
-				"site_id" => array(),
-				"lang_id"  => array()
+				"oid" => $ret
 			));
 			$ret = array();
 			foreach($ol->arr() as $o)
@@ -280,7 +276,6 @@ class site_search_content_grp extends class_base
 				}
 			}
 		}
-		exit_function("site_search_content_grp::get_menus");
 		return $ret;
 	}
 
@@ -294,9 +289,7 @@ class site_search_content_grp extends class_base
 		$oid = $o->id();
 
 		$grps = new object_list(array(
-			"class_id" => CL_SITE_SEARCH_CONTENT_GRP,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_SITE_SEARCH_CONTENT_GRP
 		));
 
 		foreach($grps->arr() as $grp)

@@ -551,25 +551,33 @@ class core extends acl_base
 		{
 			// kui viga tuli bugi replikeerimisel, siis 2rme satu l6pmatusse tsyklisse
 			$socket = new socket();
-			$socket->open(array(
-				"host" => aw_ini_get("config.error_log_site"),
-				"port" => 80,
-			));
 
-			$req = "class=bugtrack&action=add_error";
-			$req.= "&site_url=".urlencode(aw_ini_get("baseurl"));
-			$req.= "&err_type=".$err_type;
-			$req.= "&err_msg=".urlencode($msg);
-			$req.= "&err_uid=".aw_global_get("uid");
-			$req.= "&err_content=".urlencode($content);
+			try
+			{
+				$socket->open(array(
+					"host" => aw_ini_get("config.error_log_site"),
+					"port" => 80,
+				));
 
-			$op = "POST http://".aw_ini_get("config.error_log_site")."/reforb".AW_FILE_EXT." HTTP/1.0\r\n";
-			$op .= "Host: ".aw_ini_get("config.error_log_site")."\r\n";
-			$op .= "Content-type: application/x-www-form-urlencoded\r\n";
-			$op .= "Content-Length: " . strlen($req) . "\r\n\r\n";
-			$socket->write($op);
-			$socket->write($req);
-			$socket->close();
+				$req = "class=bugtrack&action=add_error";
+				$req.= "&site_url=".urlencode(aw_ini_get("baseurl"));
+				$req.= "&err_type=".$err_type;
+				$req.= "&err_msg=".urlencode($msg);
+				$req.= "&err_uid=".aw_global_get("uid");
+				$req.= "&err_content=".urlencode($content);
+
+				$op = "POST http://".aw_ini_get("config.error_log_site")."/reforb".AW_FILE_EXT." HTTP/1.0\r\n";
+				$op .= "Host: ".aw_ini_get("config.error_log_site")."\r\n";
+				$op .= "Content-type: application/x-www-form-urlencoded\r\n";
+				$op .= "Content-Length: " . strlen($req) . "\r\n\r\n";
+				$socket->write($op);
+				$socket->write($req);
+				$socket->close();
+			}
+			catch (awex_socket $e)
+			{
+				trigger_error("No response from configured error logging site " . aw_ini_get("config.error_log_site"), E_USER_WARNING);
+			}
 		}
 
 		if ($silent)
@@ -743,7 +751,7 @@ class core extends acl_base
 		@comment
 			This function is documented in the orb specification.
 	**/
-	function mk_reforb($fun,$arr = array(),$cl_name = "")
+	function mk_reforb($fun, $arr = array(), $cl_name = "")
 	{
 		$cl_name = ("" == $cl_name) ? get_class($this) : basename($cl_name);
 
@@ -765,7 +773,7 @@ class core extends acl_base
 		foreach($this->orb_values as $name => $value)
 		{
 			$value = str_replace("\"","&amp;",$value);
-			$res .= "<input type='hidden' name='$name' value='$value' />\n";
+			$res .= "<input type='hidden' name='{$name}' value='{$value}' />\n";
 		}
 		return $res;
 	}

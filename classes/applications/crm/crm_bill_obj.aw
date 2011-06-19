@@ -2665,31 +2665,33 @@ class crm_bill_obj extends _int_object
 		$att_comment = "";
 
 		$awm = new aw_mail();
+		$awm->set_send_method("mimemessage");
 		$awm->create_message(array(
 			"froma" => $from,
 			"fromn" => $from_name,
 			"subject" => $subject,
-			"body" => $body,
+			"body" => strip_tags($body),
 			"to" => $to,
 			"cc" => $cc,
 			"bcc" => $bcc
 		));
+		$awm->set_header("Reply-To", $from);
 
 		/// add attachments
-		$success = $awm->fattach(array(
+		$part_count = $awm->fattach(array(
 			"path" => $invoice_pdf->prop("file"),
 			"contenttype"=> aw_mime_types::type_for_file($invoice_pdf->name()),
-			"name" => $invoice_pdf->name(),
+			"name" => $invoice_pdf->name()
 		));
 		$att_comment .= html::href(array(
 			"caption" => html::img(array(
-				"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
-				"border" => 0,
+				"url" => aw_ini_get("icons.server")."pdf_upload.gif",
+				"border" => 0
 			)).$invoice_pdf->name(),
-			"url" => $invoice_pdf->get_url(),
+			"url" => $invoice_pdf->get_url()
 		));
 
-		if (!$success)
+		if (!$part_count)
 		{
 			throw new awex_crm_bill_file("Attaching main invoice file (id: " . $invoice_pdf->id() . ") failed. Bill id " . $this->id());
 		}
@@ -2697,7 +2699,7 @@ class crm_bill_obj extends _int_object
 
 		if($appendix)
 		{
-			$success = $awm->fattach(array(
+			$part_count = $awm->fattach(array(
 				"path" => $appendix_pdf->prop("file"),
 				"contenttype"=> aw_mime_types::type_for_file($appendix_pdf->name()),
 				"name" => $appendix_pdf->name(),
@@ -2710,7 +2712,7 @@ class crm_bill_obj extends _int_object
 				"url" => $appendix_pdf->get_url(),
 			));
 
-			if (!$success)
+			if (!$part_count)
 			{
 				throw new awex_crm_bill_file("Attaching  invoice appendix file (id: " . $appendix_pdf->id() . ") failed. Bill id " . $this->id());
 			}
@@ -2722,11 +2724,13 @@ class crm_bill_obj extends _int_object
 
 
 		// send mail
-		$mail_sent = $awm->gen_mail();
-
-		if (!$mail_sent)
+		try
 		{
-			throw new awex_crm_bill_send ("Sending '".$this->id()."' failed");
+			$awm->send();
+		}
+		catch (awex_awmail_send $e)
+		{
+			throw new awex_crm_bill_send ("Sending '".$this->id()."' failed. Mailer error: " . $e->getMessage());
 		}
 
 		// write log

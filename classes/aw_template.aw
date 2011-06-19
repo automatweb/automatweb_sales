@@ -93,10 +93,10 @@ class aw_template extends core
 				}
 				else
 				{
-					$this->template_dir = $this->_find_site_template_dir() . "/{$basedir}";
+					$this->template_dir = $this->_find_site_template_dir() . "{$basedir}";
 				}
 				$this->adm_template_dir = AW_DIR . "templates/{$basedir}";
-				$this->site_template_dir = $this->_find_site_template_dir()."/{$basedir}";
+				$this->site_template_dir = $this->_find_site_template_dir()."{$basedir}";
 			}
 		}
 		else
@@ -143,7 +143,7 @@ class aw_template extends core
 		{
 			if ($path_item->prop("tpl_dir_applies_to_all") && $path_item->prop("tpl_dir"))
 			{
-				$rv = aw_ini_get("site_basedir").$path_item->prop("tpl_dir");
+				$rv = aw_ini_get("site_basedir").$path_item->prop("tpl_dir")."/";
 			}
 		}
 		return $dir = $rv;

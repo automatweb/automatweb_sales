@@ -239,65 +239,9 @@ class add_tree_conf extends class_base
 		$this->level--;
 	}
 
-	/** returns the active add_tree_conf oid for the current user, false if none
-		@attrib api=1
-
-		@returns
-			false if acl.check_prog = 0 in ini file
-			the configured add_tree_conf object oid if found
-			add_tree_conf.default from ini file if none configured
-			0 if none found
-	**/
-	function get_current_conf()
-	{
-		if (!aw_ini_get("acl.check_prog"))
-		{
-			return 0;
-		}
-
-		$ret = false;
-
-		// go over groups and for each check if it has the conf
-		$cur_max = 0;
-		$gidlist_oid = aw_global_get("gidlist_oid");
-		if (is_array($gidlist_oid))
-		{
-			foreach($gidlist_oid as $g_oid)
-			{
-				try
-				{
-					$o = obj($g_oid, array(), CL_GROUP);
-				}
-				catch (Exception $e)
-				{
-					continue;
-				}
-
-				$c = $o->connections_from(array(
-					"type" => "RELTYPE_ADD_TREE" /* from core/users/group */
-				));
-
-				if (count($c) > 0 && $o->prop("priority") > $cur_max)
-				{
-					$cur_max = $o->prop("priority");
-					$fc = reset($c);
-					$ret = $fc->prop("to");
-				}
-			}
-		}
-
-		if (!$ret)
-		{
-			$ret = aw_ini_get("add_tree_conf.default");
-		}
-
-		if (!$this->can("view", $ret))
-		{
-			$ret = 0;
-		}
-
-		return $ret;
-	}
+	// returns the active add_tree_conf oid for the current user, false if none
+	//DEPRECATED. use add_tree_conf_obj::get_active_configuration()
+	function get_current_conf() { $cfg = add_tree_conf_obj::get_active_configuration(); return $cfg ? $cfg->id() : 0; }
 
 	/** returns the list of usable classes for tree conf $id
 		@attrib api=1 params=pos
@@ -409,7 +353,7 @@ class add_tree_conf extends class_base
 		@returns
 			true if class can be accessed, false if not
 	**/
-	function can_access_class($atc, $class)
+	public static function can_access_class($atc, $class)
 	{
 		$grps = $atc->meta("folder_structure");
 		$behaviour = $atc->prop("behaviour");

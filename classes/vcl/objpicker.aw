@@ -63,7 +63,7 @@ class objpicker extends core implements vcl_interface
 			{
 				$size = isset($args["size"]) ? $args["size"] : "";
 				$input_element = html::textbox(array("name" => "{$name}__autocompleteTextbox", "value" => $value, "size" => $size));
-				$clids = is_array($args["clid"]) ? implode(",", $args["clid"]) : $args["clid"];
+				$clids = isset($prop["clid"]) ? (is_array($prop["clid"]) ? implode(",", $prop["clid"]) : $prop["clid"]) : "";
 
 				load_javascript("bsnAutosuggest.js");
 
