@@ -40,6 +40,12 @@
 */
 class menu_tree extends class_base
 {
+	private $rec_level = 0;
+	private $_sfo_level = 0;
+	private $sfo_ids = array();
+	private $object_list;
+	private $strip_tags;
+
 	function menu_tree()
 	{
 		$this->init(array(
@@ -156,9 +162,7 @@ class menu_tree extends class_base
 			"caption" => t("Objekt"),
 		));
 		$ol = new object_list(array(
-			"class_id" => $this->clid,
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => $this->clid
 		));
 		$active = $this->get_sysdefault();
 		foreach($ol->arr() as $oid=>$o)
@@ -179,7 +183,7 @@ class menu_tree extends class_base
 	{
 		$ol = new object_list(array(
 			"class_id" => $this->clid,
-			"lang_id" => array(),
+			"site_id" => aw_ini_get("site_id")
 		));
 		foreach ($ol->arr() as $item)
 		{
@@ -201,7 +205,7 @@ class menu_tree extends class_base
 		$ol = new object_list(array(
 			"class_id" => $this->clid,
 			"status" => STAT_ACTIVE,
-			"lang_id" => array(),
+			"site_id" => aw_ini_get("site_id")
 		));
 		if (sizeof($ol->ids()) > 0)
 		{
@@ -257,6 +261,7 @@ class menu_tree extends class_base
 				new object_list_filter(array(
 					"logic" => "OR",
 					"conditions" => array(
+						"site_id" => aw_ini_get("site_id"),
 						"lang_id" => aw_global_get("lang_id"),
 						"type" => MN_CLIENT
 					)
@@ -313,7 +318,7 @@ class menu_tree extends class_base
 				// name of the subtemplate - "content"
 				$this->layout_mode = 1;
 				$this->single_tpl = 1;
-			};
+			}
 
 			foreach($menus as $val)
 			{
@@ -321,8 +326,8 @@ class menu_tree extends class_base
 						"start_from" => $val,
 				)));
 				$this->level = 0;
-			};
-		};
+			}
+		}
 		//$fl = str_replace("&", "&amp;", join("",$folder_list));
 		$fl = str_replace(chr(150), "-", join("",$folder_list));
 		return $fl;
@@ -371,8 +376,8 @@ class menu_tree extends class_base
 			else
 			{
 				$retval = $this->res;
-			};
-		};
+			}
+		}
 		return $retval;
 	}
 
@@ -408,8 +413,7 @@ class menu_tree extends class_base
 					"type" => MN_CLIENT
 				)
 			)),
-			"sort_by" => "objects.jrk",
-			"site_id" => array()
+			"sort_by" => "objects.jrk"
 		);
 
 		if ($this->mt_obj->prop("no_unclickable") == 1)
@@ -456,17 +460,19 @@ class menu_tree extends class_base
 					$this->_req_sfo($o, $sfo, $sfo_i);
 				}
 			}
-		};
+		}
+
 		if (sizeof($_parents) > 0)
 		{
 			$this->_gen_rec_list($_parents);
-		};
+		}
+
 		$this->restore_handle();
 	}
 
 	function _get_menu_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "name",
@@ -494,7 +500,7 @@ class menu_tree extends class_base
 
 	function _get_menu_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$url = $this->mk_my_orb("do_search", array(
 			"pn" => "root_menu",
 			"id" => $arr["obj_inst"]->id(),
@@ -648,7 +654,7 @@ class menu_tree extends class_base
 				{
 					$id = join("/",$this->alias_stack);
 					$id .= ($id == "" ? "" : "/") . $v->alias();
-				};
+				}
 				$id = aw_ini_get("baseurl").$id;
 			}
 			else
@@ -753,7 +759,7 @@ class menu_tree extends class_base
 				if ($v->alias())
 				{
 						array_pop($this->alias_stack);
-				};
+				}
 			}
 
 			if ($item && $this->is_template("ITEM_END"))

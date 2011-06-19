@@ -76,7 +76,7 @@ class menuedit extends aw_template implements request_startup
 			if ($lc != "" && $section_a != "")
 			{
 				// switch to lang
-				$l = get_instance("languages");
+				$l = new languages();
 				if (aw_ini_get("user_interface.full_content_trans"))
 				{
 					$set_ct_lang_id = $l->get_langid_for_code($lc);
@@ -96,13 +96,13 @@ class menuedit extends aw_template implements request_startup
 			if ($_obj->class_id() == CL_MENU && $_obj->prop("link") != "" && $_obj->id() != aw_ini_get("frontpage"))
 			{
 				if (strpos($_obj->trans_get_val("link"), $_obj->id()) === false &&
-					!($realsect == aw_ini_get("frontpage") 	&& $_obj->trans_get_val("link") == "/")
-					&& !$_GET["class"]
+					!($realsect == aw_ini_get("frontpage") 	&& $_obj->trans_get_val("link") === "/")
+					&& empty($_GET["class"])
 					&& $_obj->trans_get_val("link") != $_obj->alias()
 				)
 				{
 					$ls = $_obj->trans_get_val("link");
-					if ($ls[0] == "/")
+					if ($ls[0] === "/")
 					{
 						$ls = aw_ini_get("baseurl").$ls;
 					}

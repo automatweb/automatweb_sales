@@ -2,7 +2,7 @@
 // mini_gallery.aw - Minigalerii
 /*
 
-@classinfo syslog_type=ST_MINI_GALLERY relationmgr=yes no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_MINI_GALLERY relationmgr=yes no_status=1
 
 @default table=objects
 
@@ -136,7 +136,7 @@ class mini_gallery extends class_base
 		return $retval;
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		$res = $this->show(array("id" => $arr["alias"]["target"]));
 		if (isset($arr["tpls"]["mini_gallery_inplace"]))
@@ -229,8 +229,6 @@ class mini_gallery extends class_base
 			"class_id" => CL_IMAGE,
 			"parent" => $ob->prop("folder"),
 			"sort_by" => "objects.parent,".$sby,
-			"lang_id" => array(),
-			"site_id" => array(),
 			new object_list_filter(array(
 				"non_filter_classes" => CL_IMAGE
 			))
@@ -243,13 +241,13 @@ class mini_gallery extends class_base
 		$ob = $this->ob = new object($arr["id"]);
 		$this->read_template("show.tpl");
 
-		lc_site_load("mini_gallery", &$this);
+		lc_site_load("mini_gallery", $this);
 
 		$s_id = $ob->prop("style");
 		$use_style = null;
 		if(is_oid($s_id) && $this->can("view", $s_id))
 		{
-			$style_i = get_instance(CL_STYLE);
+			$style_i = new style();
 			active_page_data::add_site_css_style($s_id);
 			$use_style = $style_i->get_style_name($s_id);
 		}
@@ -261,7 +259,7 @@ class mini_gallery extends class_base
 		}
 
 		$this->fld_orders = $ob->meta("fld_order");
-		$images->sort_by_cb(array(&$this, "__sort_imgs"));
+		$images->sort_by_cb(array($this, "__sort_imgs"));
 
 		$img_c = $images->count();
 		if ($ob->prop("cols") == 0)
@@ -334,7 +332,7 @@ class mini_gallery extends class_base
 			$str .= $this->parse("FOLDER_CHANGE");
 		}
 		$cur_folder = $img->parent();
-		$ii = get_instance(CL_IMAGE);
+		$ii = new image();
 
 		$imgc = 0;
 		for ($r = 0; $r < $rows; $r++)
@@ -490,6 +488,8 @@ class mini_gallery extends class_base
 					"class_id" => CL_IMAGE,
 					"name" => $file,
 					"parent" => $fld,
+					"lang_id" => aw_global_get("lang_id"),
+					"site_id" => aw_ini_get("site_id")
 				));
 				if ($ol->count())
 				{
@@ -599,7 +599,7 @@ class mini_gallery extends class_base
 
 	function _mg_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$pt = $arr["obj_inst"]->prop("folder");
 		if (is_array($pt))
 		{
@@ -627,7 +627,7 @@ class mini_gallery extends class_base
 		));
 	}
 
-	function _init_mg_table(&$t)
+	function _init_mg_table($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -664,15 +664,13 @@ class mini_gallery extends class_base
 
 	function _mg_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_mg_table($t);
 
 		$images = new object_list(array(
 			"class_id" => CL_IMAGE,
 			"parent" => $arr["obj_inst"]->prop("folder"),
-			"sort_by" => "objects.jrk",
-			"lang_id" => array(),
-			"site_id" => array()
+			"sort_by" => "objects.jrk"
 		));
 		foreach($images->arr() as $im)
 		{
@@ -701,9 +699,7 @@ class mini_gallery extends class_base
 		$images = new object_list(array(
 			"class_id" => CL_IMAGE,
 			"parent" => $o->prop("folder"),
-			"sort_by" => "objects.jrk",
-			"lang_id" => array(),
-			"site_id" => array()
+			"sort_by" => "objects.jrk"
 		));
 		foreach($images->arr() as $im)
 		{
@@ -730,7 +726,7 @@ class mini_gallery extends class_base
 		$arr["post_ru"] = post_ru();
 	}
 
-	function _init_mg_flt_t(&$t)
+	function _init_mg_flt_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -746,7 +742,7 @@ class mini_gallery extends class_base
 
 	function _get_mg_fld_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_mg_flt_t($t);
 
 		$d = $arr["obj_inst"]->meta("fld_order");
@@ -768,4 +764,3 @@ class mini_gallery extends class_base
 		$arr["obj_inst"]->set_meta("fld_order", $arr["request"]["f"]);
 	}
 }
-?>

@@ -96,6 +96,31 @@ class video extends class_base
 		return $retval;
 	}
 
+	function parse_alias($arr = array())
+	{
+		return $this->show(array("id" => $arr["alias"]["target"], "alias_token" => $arr["alias"]["val"][0]));
+	}
+
+	function get_url($o)
+	{
+		$file = $o->prop("video_file");
+		if ($file)
+		{
+			$url = str_replace("/automatweb/", "/", $this->mk_my_orb("show", array("fastcall" => 1, "file" => basename($file)), "video", false, true, "/"));
+		}
+		else
+		{
+			$url = "";
+		}
+
+		return $url;
+	}
+
+	function _set_video_file($arr)
+	{
+		return PROP_IGNORE;
+	}
+	/* TODO: korralik suurte failide yleslaadija teha
 	function _set_video_file(&$arr)
 	{
 		$retval = PROP_IGNORE;
@@ -127,26 +152,7 @@ class video extends class_base
 
 		return $retval;
 	}
-
-	function parse_alias($arr = array())
-	{
-		return $this->show(array("id" => $arr["alias"]["target"]));
-	}
-
-	function get_url($o)
-	{
-		$file = $o->prop("file");
-		if ($file)
-		{
-			$url = str_replace("/automatweb/", "/", $this->mk_my_orb("show", array("fastcall" => 1, "file" => basename($file)), "video", false, true, "/"));
-		}
-		else
-		{
-			$url = "";
-		}
-
-		return $url;
-	}
+	*/
 
 	function show($arr)
 	{
@@ -162,24 +168,44 @@ class video extends class_base
 
 		$ob = new object($arr["id"]);
 
-		if ($ob->prop("file"))
+		if ($ob->prop("video_file"))
 		{
 			$im = new image();
 			$poster_image_url = "";
-			$imc = reset($ob->connections_from(array("type" => "RELTYPE_IMAGE")));
+			$imc = $ob->connections_from(array("type" => "RELTYPE_IMAGE"));
+			$imc = reset($imc);
 			if ($imc)
 			{
 				$imid = $imc->prop("to");
-				$poster_image_url = $im->get_url_by_id($imid);
+				$poster_image_url = urlencode($im->get_url_by_id($imid));
 			}
 
 			$video_file_url = $this->get_url($ob);
+			$player_width = $ob->prop("width") ? (int) $ob->prop("width") : 600;
+			$player_height = $ob->prop("height") ? $ob->prop("height") : 338;
+
+			$align = "center";
+			$alignment_codes = array(
+				"p" => "right",
+				"v" => "left"
+			);
+			if (!empty($arr["alias_token"]))
+			{
+				$alignment_identifier = substr($arr["alias_token"], -2, 1);
+				if (isset($alignment_codes[$alignment_identifier]))
+				{
+					$align = $alignment_codes[$alignment_identifier];
+				}
+			}
 
 			$this->read_template("strobeplayer.tpl");
 			$this->vars(array(
-				"video_file_url" => $video_file_url,
-				"skin_file_url" => "js/strobeplayer.xml",
-				"poster" => $poster_image_url ? "&poster={$poster_image_url}" : ""
+				"align" => $align,
+				"video_file_url" => urlencode($video_file_url),
+				"player_width" => $player_width,
+				"player_height" => $player_height,
+				"skin_file_url" => urlencode(aw_ini_get("baseurl") . "/js/strobeplayer.xml"),
+				"poster" => $poster_image_url ? "&amp;poster={$poster_image_url}" : ""
 			));
 			return $this->parse();
 		}

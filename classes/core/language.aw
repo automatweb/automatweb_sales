@@ -2,7 +2,7 @@
 // language.aw - Keel
 /*
 
-@classinfo syslog_type=ST_LANGUAGE relationmgr=yes no_status=1 no_comment=1  maintainer=kristo
+@classinfo syslog_type=ST_LANGUAGE relationmgr=yes no_status=1 no_comment=1
 
 @default table=objects
 @default group=general
@@ -136,9 +136,7 @@ class language extends class_base
 
 			case "lang_sel_lang":
 				$ol = new object_list(array(
-					"class_id" => CL_LANGUAGE,
-					"site_id" => array(),
-					"lang_id" => array()
+					"class_id" => CL_LANGUAGE
 				));
 				$ll = array();
 				for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
@@ -190,9 +188,7 @@ class language extends class_base
 			case "langs":
 				$ol = new object_list(array(
 					"class_id" => CL_LANGUAGE,
-					"status" => array(STAT_ACTIVE, STAT_NOTACTIVE),
-					"lang_id" => array(),
-					"site_id" => array()
+					"status" => array(STAT_ACTIVE, STAT_NOTACTIVE)
 				));
 				for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 				{
@@ -286,9 +282,7 @@ class language extends class_base
 
 		$ol = new object_list(array(
 			"class_id" => CL_LANGUAGE,
-			"status" => array(STAT_ACTIVE, STAT_NOTACTIVE),
-			"lang_id" => array(),
-			"site_id" => array()
+			"status" => array(STAT_ACTIVE, STAT_NOTACTIVE)
 		));
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
@@ -423,7 +417,7 @@ class language extends class_base
 	**/
 	function lang_pop($arr)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("lang_pop");
 		$l = get_instance("languages");
 		$ll = $l->get_list();
@@ -440,7 +434,7 @@ class language extends class_base
 			{
 				$pm->add_item(array(
 					"text" => $ld,
-					"link" => aw_ini_get("baseurl")."/automatweb/index.aw?set_lang_id=".$lid,
+					"link" => aw_ini_get("baseurl")."automatweb/index.aw?set_lang_id=".$lid,
 				));
 			}
 		}
@@ -470,4 +464,3 @@ class language extends class_base
 		}
 	}
 }
-?>

@@ -2079,7 +2079,7 @@ class webform extends class_base
 
 		foreach($tmp as $key => $val)
 		{
-			if($val["type"] == "fileupload")
+			if($val["type"] === "fileupload")
 			{
 				foreach($nms as $iv => $nm)
 				{
@@ -2096,7 +2096,7 @@ class webform extends class_base
 				continue;
 			}
 			$aliasmgr->parse_oo_aliases($id, &$els[$key]["caption"]);
-			if($val["type"] == "text")
+			if($val["type"] === "text")
 			{
 				if(!empty($all_props[$key]["value"]) && empty($els[$key]["value"]))
 				{
@@ -2112,7 +2112,7 @@ class webform extends class_base
 			//$els[$key]["caption"] = $all_props[$key]["caption"];
 			$els[$key]["capt_ord"] = $all_props[$key]["wf_capt_ord"];
 			// treat all text properties as an ordinary text property
-			if($all_props[$key]["type"] == "text" && empty($all_props[$key]["value"]))
+			if($all_props[$key]["type"] === "text" && empty($all_props[$key]["value"]))
 			{
 				$els[$key]["subtitle"] = 1;
 			}
@@ -2120,7 +2120,8 @@ class webform extends class_base
 			{
 				unset($els[$key]["subtitle"]);
 			}
-			if(is_array($sel_styles[$key]))
+
+			if(isset($sel_styles[$key]) and is_array($sel_styles[$key]))
 			{
 				if(!empty($sel_styles[$key]["caption"]))
 				{
@@ -2131,13 +2132,15 @@ class webform extends class_base
 					$els[$key]["style"]["prop"] = $sel_styles[$key]["prop"];
 				}
 			}
+
 			if($val["type"] === "hidden")
 			{
 				$arr["reforb"][$key] = "";
 			}
+
 			// we do this because no one uses a simple button in a form anyway, and this is the easiest
 			// way to do it without messing up htmlclient
-			if($val["type"] == "button")
+			if($val["type"] === "button")
 			{
 				$val["onclick"] = "document.changeform.subaction.value='print';submit_changeform();";
 				$val["class"] = "sbtbutton";
@@ -2167,6 +2170,7 @@ class webform extends class_base
 				//	unset($els[$key]);
 				}
 			}
+
 			if($val["type"] === "select")
 			{
 				foreach(safe_array($val["options"]) as $k => $v)
@@ -2186,6 +2190,7 @@ class webform extends class_base
 					}
 				}
 			}
+
 			if($val["type"] === "chooser")
 			{
 				foreach(safe_array($val["options"]) as $k => $v)
@@ -2209,6 +2214,7 @@ class webform extends class_base
 					}
 				}
 			}
+
 			if ($val['type'] === 'date_select')
 			{
 				if ($val['default_value_today'] == 1)

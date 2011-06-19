@@ -60,7 +60,7 @@ class site_search_content_grp extends class_base
 			case "menus":
 				$this->do_submenus($arr);
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -89,7 +89,7 @@ class site_search_content_grp extends class_base
 		$section_include_submenus = $obj->meta("section_include_submenus");
 		$notact = $obj->meta("notact");
 		// now I have to go through the process of setting up a generic table once again
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "class",
 			"caption" => t("Klass"),
@@ -100,19 +100,19 @@ class site_search_content_grp extends class_base
 			"talign" => "center",
 			"align" => "center",
 			"nowrap" => "1",
-			"width" => "30",
+			"width" => "30"
 		));
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
-			"talign" => "center",
+			"talign" => "center"
 		));
 		$t->define_field(array(
 			"name" => "check",
 			"caption" => t("k.a. alammen&uuml;&uuml;d"),
 			"talign" => "center",
 			"width" => 80,
-			"align" => "center",
+			"align" => "center"
 		));
 
 		$t->define_field(array(
@@ -120,13 +120,13 @@ class site_search_content_grp extends class_base
 			"caption" => t("mitteaktiivsed"),
 			"talign" => "center",
 			"width" => 80,
-			"align" => "center",
+			"align" => "center"
 		));
 
 		$clinf = aw_ini_get("classes");
 
 		$conns = $obj->connections_from(array(
-			"type" => "RELTYPE_SEARCH_LOCATION",
+			"type" => "RELTYPE_SEARCH_LOCATION"
 		));
 
 
@@ -141,16 +141,16 @@ class site_search_content_grp extends class_base
 				"name" => $c_o->path_str(array(
 					"max_len" => 3
 				)),
-				"class" => $clinf[$clid]["name"],
+				"class" => aw_ini_get("classes.{$clid}.name"),
 				"check" => html::checkbox(array(
-					"name" => "include_submenus[".$cid."]",
+					"name" => "include_submenus[{$cid}]",
 					"value" => $cid,
-					"checked" => $section_include_submenus[$cid],
+					"checked" => isset($section_include_submenus[$cid]) ? $section_include_submenus[$cid] : ""
 				)),
 				"check_na" => html::checkbox(array(
-					"name" => "notact[".$cid."]",
+					"name" => "notact[{$cid}]",
 					"value" => $cid,
-					"checked" => $notact[$cid],
+					"checked" => isset($notact[$cid]) ? $notact[$cid] : ""
 				)),
 			);
 			$t->define_data($el_arr);
@@ -328,9 +328,7 @@ class site_search_content_grp extends class_base
 				$mt = safe_array($grp->meta("grp_menus"));
 				$mt[$oid] = $oid;
 				$grp->set_meta("grp_menus", $mt);
-				aw_disable_acl();
 				$grp->save();
-				aw_restore_acl();
 			}
 			else
 			{
@@ -339,9 +337,7 @@ class site_search_content_grp extends class_base
 				{
 					unset($mt[$oid]);
 					$grp->set_meta("grp_menus", $mt);
-					aw_disable_acl();
 					$grp->save();
-					aw_restore_acl();
 				}
 			}
 		}
@@ -381,9 +377,7 @@ class site_search_content_grp extends class_base
 	{
 		$grp->set_meta("grp_menus", $this->_get_menus(array("id" => $grp->id())));
 		$grp->set_meta("version", 2);
-		aw_disable_acl();
 		$grp->save();
-		aw_restore_acl();
 	}
 
 	function on_save_grp($arr)
@@ -397,9 +391,7 @@ class site_search_content_grp extends class_base
 		$o = obj($arr["oid"]);
 
 		$grps = new object_list(array(
-			"class_id" => CL_SITE_SEARCH_CONTENT_GRP,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_SITE_SEARCH_CONTENT_GRP
 		));
 		foreach($grps->arr() as $grp)
 		{

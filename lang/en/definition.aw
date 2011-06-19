@@ -1,8 +1,5 @@
 <?php
-if (defined("LC_OBJECTS_ALL"))
-{
-	return;
-}
+
 // used in search
 define("LC_OBJECTS_ALL","all");
 define("LC_NO_DEFAULT_GROUP","Default group is missing, inform about this error to info@struktuur.ee");
@@ -506,4 +503,3 @@ define("LC_VARS_ADD_CAT","Added mail variable category %S");
 
 define("LC_LOGIN_NAME","Username:");
 define("LC_LOGIN_PASS","Password:");
-?>
