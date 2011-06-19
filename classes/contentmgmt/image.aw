@@ -280,11 +280,11 @@ class image extends class_base
 				$first = substr(basename($url),0,1);
 				if (substr($imgbaseurl, 0, 4) === "http")
 				{
-					$url = $imgbaseurl . "/" . $first . "/" . basename($url);
+					$url = $imgbaseurl . $first . "/" . basename($url);
 				}
 				else
 				{
-					$url = aw_ini_get("baseurl") . $imgbaseurl . "/" . $first . "/" . basename($url);
+					$url = aw_ini_get("baseurl") . $imgbaseurl . $first . "/" . basename($url);
 				}
 			}
 			else
@@ -1081,13 +1081,13 @@ class image extends class_base
 		if (substr($url,0,4) == "/img")
 		{
 			$fname = substr($url,13);
-			$url = aw_ini_get("baseurl")."/orb.".aw_ini_get("ext")."/class=image/action=show/fastcall=1/file=".$fname;
+			$url = aw_ini_get("baseurl")."orb.".aw_ini_get("ext")."/class=image/action=show/fastcall=1/file=".$fname;
 		}
 		else
 		{
 			if ($url == "")
 			{
-				$url = "/automatweb/images/trans.gif";
+				$url = "automatweb/images/trans.gif";
 			}
 			$url = aw_ini_get("baseurl").$url;
 		}
@@ -1099,13 +1099,12 @@ class image extends class_base
 			{
 				$fname = $m[1];
 				$first = substr($fname,0,1);
-				$url = aw_ini_get("baseurl") . $imgbaseurl . "/" . $first . "/" . $fname;
+				$url = aw_ini_get("baseurl") . $imgbaseurl . $first . "/" . $fname;
 				if (substr($url,-11) == "/aw_img.jpg")
 				{
 					$url = str_replace("/aw_img.jpg","",$url);
-				};
-
-			};
+				}
+			}
 		}
 		return $url;
 	}
@@ -1150,7 +1149,7 @@ class image extends class_base
 		$title = !isset($arr["show_title"]) || !empty($arr["show_title"]) ? " title=\"$alt\"" : "";
 		if ($url == "")
 		{
-			return "<img src=\"".aw_ini_get("baseurl")."/automatweb/images/trans.gif\" alt=\"$alt\"{$title}".$tag." />";
+			return "<img src=\"".aw_ini_get("baseurl")."automatweb/images/trans.gif\" alt=\"$alt\"{$title}".$tag." />";
 		}
 		else
 		{
@@ -1691,7 +1690,7 @@ class image extends class_base
 				"no_die" => 1
 			));
 			die("
-				<script type=\"text/javascript\" src=\"".aw_ini_get("baseurl")."/automatweb/js/jquery/jquery-1.2.3.min.js\"></script>
+				<script type=\"text/javascript\" src=\"".aw_ini_get("baseurl")."automatweb/js/jquery/jquery-1.2.3.min.js\"></script>
 				<script language='javascript'>
 
 				FCK=window.parent.opener.FCK;

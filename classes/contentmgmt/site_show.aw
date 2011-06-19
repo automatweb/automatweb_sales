@@ -2993,7 +2993,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		$fn = cache::get_fqfn("compiled_menu_template-".$str_part."-".aw_global_get("lang_id"));
 
 		if ($tpl{0} !== "/")
-		{
+		{//FIXME: windowsis teisiti v6ib path alata
 			$tpl = aw_ini_get("site_basedir").$tpl;
 		}
 

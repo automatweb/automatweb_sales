@@ -51,12 +51,21 @@ class crm_company_bills_impl extends class_base
 	public function _get_invoice_folders_list(&$arr)
 	{
 		$r = class_base::PROP_OK;
-		$invoice_folders_table = $arr["prop"]["vcl_inst"];
-		$this->define_invoice_folders_list($invoice_folders_table);
 		try
 		{
-			$parent_o = empty($arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]) ? $arr["obj_inst"] : obj((int) $arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR], array(), crm_invoice_folder_obj::CLID);
+			// get parent object
+			$parent_o = empty($arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]) ? $arr["obj_inst"] : obj((int) $arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]);
 			$parent = $parent_o->id();
+
+			if (!$parent_o->is_a(crm_invoice_folder_obj::CLID) and !$parent_o->is_a(crm_company_obj::CLID))
+			{
+				throw new aw_exception("Invalid parameter");
+			}
+
+			///
+			$invoice_folders_table = $arr["prop"]["vcl_inst"];
+			$this->define_invoice_folders_list($invoice_folders_table);
+
 			$folders = new object_list(array(
 				"class_id" => crm_invoice_folder_obj::CLID,
 				"parent" => $parent
@@ -150,7 +159,23 @@ class crm_company_bills_impl extends class_base
 
 	public function _get_invoice_templates_list(&$arr)
 	{
-		return $this->_get_bills_list($arr);
+		// common table call
+		$r = $this->_get_bills_list($arr);
+
+		// set captions
+		$table = $arr["prop"]["vcl_inst"];
+
+		$parent_o = empty($arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]) ? null : obj((int) $arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]);
+		if ($parent_o and $parent_o->is_a(crm_invoice_folder_obj::CLID))
+		{
+			$table->set_caption(sprintf(t("Arvep&otilde;hjad kaustas '%s'"), $parent_o->name()));
+		}
+		else
+		{
+			$table->set_caption(t("Arvep&otilde;hjad"));
+		}
+
+		return $r;
 	}
 
 	public function _get_invoice_template_folders(&$arr)

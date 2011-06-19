@@ -885,11 +885,18 @@ class user_bookmarks extends class_base
 			$this->get_user_bms($bm, $list, $parents);
 			$listids = array();
 			$i = 0;
-			foreach($list->arr() as $li)
+			if($list->count())
 			{
-				$listids[$i] = $li->id();
-				$i++;
+				$o = $list->begin();
+
+				do
+				{
+					$listids[$i] = $o->id();
+					$i++;
+				}
+				while ($o = $list->next());
 			}
+
 			$cd = array(
 				"listids" => $listids,
 				"parents" => $parents,
@@ -1009,13 +1016,13 @@ class user_bookmarks extends class_base
 			"parent" => $bm->id(),
 			"sort_by" => "objects.jrk"
 		));
-		$list = $ot->to_list();
-		$ol = array();
+		$list->add($ot->to_list());
+		$ol = new object_list();
 		$this->fetch_shared_bms($bm, $ol, $parents);
 		$list->add($ol);
 		$list->sort_by(array(
 			"prop" => "ord",
-			"order" => "asc",
+			"order" => "asc"
 		));
 	}
 
@@ -1062,7 +1069,7 @@ class user_bookmarks extends class_base
 		$this->clear_cache($bm);
 		if(substr($arr["url"], 0, 1) === "?")
 		{
-			$arr["url"] = $_SERVER["SCRIPT_URI"].$arr["url"];
+			$arr["url"] = isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"] . $arr["url"];
 		}
 		return $arr["url"];
 	}
@@ -1087,7 +1094,7 @@ class user_bookmarks extends class_base
 		$this->clear_cache($bm);
 		if(substr($arr["url"], 0, 1) === "?")
 		{
-			$arr["url"] = $_SERVER["SCRIPT_URI"].$arr["url"];
+			$arr["url"] = isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"] . $arr["url"];
 		}
 		return $arr["url"];
 	}
@@ -1344,6 +1351,7 @@ class user_bookmarks extends class_base
 					}
 				}
 			}
+
 			if($ol)
 			{
 				$ol->add($ol2);

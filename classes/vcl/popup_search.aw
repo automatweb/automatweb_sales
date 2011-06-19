@@ -396,7 +396,7 @@ class popup_search extends aw_template
 		$_GET["in_popup"] = 1;
 		$form_html = $this->_get_form($arr);
 		$res_html = $this->_get_results($arr);
-		return $form_html."<br />".$res_html;
+		return $form_html.html::linebreak().$res_html;
 	}
 
 	/**
@@ -633,7 +633,7 @@ class popup_search extends aw_template
 		{
 			$t->define_field(array(
 				"name" => "sel",
-				"caption" => "<a href='javascript:void(0)' onClick='aw_sel_chb(document.cf,\"sel\")'>".t("Vali")."</a>"
+				"caption" => "<a href='javascript:void(0)' onclick='aw_sel_chb(document.cf,\"sel\")'>".t("Vali")."</a>"
 			));
 		}
 
@@ -691,7 +691,7 @@ class popup_search extends aw_template
 					"select_this" => html::href(array(
 						"url" => "javascript:void(0)",
 						"caption" => t("Vali see"),
-						"onClick" => "el=aw_get_el(\"{$elname}\",window.opener.document.changeform);if (!el) { el=aw_get_el(\"{$elname_n}\", window.opener.document.changeform);} if (!el) { el=aw_get_el(\"{$elname_l}\", window.opener.document.changeform);} if (el.options) {sz= el.options.length;el.options.length=sz+1;el.options[sz].value=".$o->id()."; el.options[sz].selected = 1;} else {el.value = ".$o->id().";} ".(!empty($arr["no_submit"])?"":"window.opener.document.changeform.submit();")."window.close()"
+						"onclick" => "el=aw_get_el(\"{$elname}\",window.opener.document.changeform);if (!el) { el=aw_get_el(\"{$elname_n}\", window.opener.document.changeform);} if (!el) { el=aw_get_el(\"{$elname_l}\", window.opener.document.changeform);} if (el.options) {sz= el.options.length;el.options.length=sz+1;el.options[sz].value=".$o->id()."; el.options[sz].selected = 1;} else {el.value = ".$o->id().";} ".(!empty($arr["no_submit"])?"":"window.opener.document.changeform.submit();")."window.close()"
 					)),
 					"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
 				);

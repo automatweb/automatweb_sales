@@ -903,6 +903,7 @@ class task extends class_base
 	{
 		$type = array(
 			CL_TASK => t("Toimetusele"),
+			CL_CRM_PRESENTATION => t("Esitlusele"),
 			CL_CRM_MEETING => t("Kohtumisele"),
 			CL_CRM_CALL => t("K&otilde;nele")
 		);
@@ -1511,7 +1512,7 @@ class task extends class_base
 
 			case "customer":
 				return PROP_IGNORE;
-				$i = get_instance(CL_CRM_COMPANY);
+				$i = new crm_company();
 				$cst = $i->get_my_customers();
 // 				if($this->$co)
 // 				{
@@ -1557,7 +1558,7 @@ class task extends class_base
 				asort($data["options"]);
 				if (is_object($arr["obj_inst"]) && $arr["obj_inst"]->class_id() == CL_TASK)
 				{
-					$arr["obj_inst"]->set_prop("customer", $data["value"]);
+					$arr["obj_inst"]->set_prop("customer", (isset($data["value"]) ? $data["value"] : 0));
 				}
 				$data["onchange"] = "upd_proj_list()";
 				break;

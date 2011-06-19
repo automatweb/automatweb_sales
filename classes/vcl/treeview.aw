@@ -67,6 +67,7 @@ class treeview extends class_base
 	var $selected_item;
 	var $rootnode;
 	protected $first_level_menu_is_last;
+	protected $untitled_text = "[untitled]";
 
 	////////////// m22rata skoop
 	var $auto_open_tmp;
@@ -85,6 +86,7 @@ class treeview extends class_base
 			"tpldir" => "treeview",
 			"clid" => CL_TREEVIEW,
 		));
+		$this->untitled_text = t("[nimetu]");
 	}
 
 	function get_property($args)
@@ -151,9 +153,6 @@ class treeview extends class_base
 
 		// listib koik menyyd ja paigutab need arraysse
 
-		$this->ic = get_instance("core/icons");
-
-
 		// objektipuu
 		$this->rec_tree($root);
 
@@ -169,7 +168,7 @@ class treeview extends class_base
 			"shownode" => isset($args["shownode"]) ? $args["shownode"] : "",
 			"rootname" => $rootobj->meta("rootcaption"),
 			"rooturl" => $this->do_item_link($rootobj),
-			"icon_root" => !empty($icon_root)? $this->mk_my_orb("show",array("id" => $icon_root),"icons") : "/automatweb/images/aw_ikoon.gif",
+			"icon_root" => !empty($icon_root) ? $this->mk_my_orb("show",array("id" => $icon_root),"icons") : "/automatweb/images/aw_ikoon.gif",
 		));
 
 		$retval = $this->parse();
@@ -218,7 +217,7 @@ class treeview extends class_base
 		if (!is_array($this->arr[$parent]))
 		{
 			return;
-		};
+		}
 		$baseurl = $this->cfg["baseurl"];
 		$ext = $this->cfg["ext"];
 
@@ -238,8 +237,9 @@ class treeview extends class_base
 			else
 			{
 				$sub = "";
-			};
-			$icon_url = ($row["class_id"] == CL_MENU) ? "" : $this->ic->get_icon_url($row["class_id"],"");
+			}
+
+			$icon_url = ($row["class_id"] == CL_MENU) ? "" : icons::get_icon_url($row["class_id"],"");
 			$url = $this->do_item_link($row);
 			$this->vars(array(
 				"name" => $row["name"],
@@ -451,7 +451,7 @@ class treeview extends class_base
 		// that node directly.
 		if($this->item_name_length)
 		{
-			$item["name"]= substr($item["name"], 0, $this->item_name_length).(strlen($item["name"]) > $this->item_name_length ? "..." : "");
+			$item["name"]= substr($item["name"], 0, $this->item_name_length).(strlen($item["name"]) > 20 ? "..." : "");
 		}
 
 		if (!isset($item["id"]) )
@@ -591,7 +591,7 @@ class treeview extends class_base
 			"rootname" => $this->tree_dat["root_name"],
 			"linktarget" => $this->tree_dat["url_target"],
 			"rooturl" => $this->tree_dat["root_url"],
-			"icon_root" => ($this->tree_dat["root_icon"] != "" ) ? $this->tree_dat["root_icon"] : "/automatweb/images/aw_ikoon.gif",
+			"icon_root" => ($this->tree_dat["root_icon"] != "" ) ? $this->tree_dat["root_icon"] : aw_ini_get("icons.server") . "aw_ikoon.gif",
 		));
 		return $this->parse ();
 	}
@@ -610,12 +610,12 @@ class treeview extends class_base
 			if (!empty($row["iconurl"]))
 			{
 				$row["icon"] = $row["iconurl"];
-			};
+			}
 			$this->vars(array(
-				'name' => $row['name'],
+				'name' => strlen($row['name']) ? $row['name'] : $this->untitled_text,
 				'id' => $row['id'],
 				'parent' => $parent,
-				'iconurl' => $row['icon'] == '' ? $this->cfg['baseurl'].'/automatweb/images/aw_ikoon.gif' : $row['icon'],
+				'iconurl' => empty($row['icon']) ? aw_ini_get("icons.server").'aw_ikoon.gif' : $row['icon'],
 				'url' => $row['url'],
 				'targetframe' => $row['target'],
 			));
@@ -664,11 +664,13 @@ class treeview extends class_base
 				$r_path = array_merge($r_path,$rp);
 			};
 			$this->r_path = array_unique($r_path);
-		};
+		}
+
 		if (sizeof($this->open_nodes) > 0)
 		{
 			$this->r_path = $this->r_path + $this->open_nodes;
-		};
+		}
+
 		$t = get_instance("core/languages");
 
 		$level = (!empty($_REQUEST["called_by_js"]) and isset($_COOKIE[$this->tree_id."_level"])) ? $_COOKIE[$this->tree_id."_level"] : 1;
@@ -730,7 +732,7 @@ class treeview extends class_base
 			};
 
 			$root .= $this->parse("HAS_ROOT");
-		};
+		}
 
 		// so, by default all items below the second level are hidden, but I should be able to
 		// make them visible based on my selected item. .. oh god, this is SO going to be not
@@ -954,11 +956,11 @@ class treeview extends class_base
 			elseif ($in_path)
 			{
 				// XXX: make it possible to set open/closed icons from the code
-				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/open_folder.gif";
+				$iconurl = aw_ini_get("baseurl") . "/automatweb/images/open_folder.gif";
 			}
 			else
 			{
-				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/closed_folder.gif";
+				$iconurl = aw_ini_get("baseurl") . "/automatweb/images/closed_folder.gif";
 			}
 
 			if(!isset($item['url']) && isset($item['reload']))
@@ -967,7 +969,7 @@ class treeview extends class_base
 				$item["url"] = "javascript:void(0)";
 			}
 
-			$name = isset($item["name"]) ? $item["name"] : "";
+			$name = empty($item["name"]) ? $this->untitled_text : $item["name"];
 			if ($item["id"] === $this->selected_item)
 			{
 				// XXX: Might want to move this into the template
@@ -1074,7 +1076,7 @@ class treeview extends class_base
 				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/closed_folder.gif";
 			};
 
-			$name = $item["name"];
+			$name = empty($item["name"]) ? $this->untitled_text : $item["name"];
 			if ($item["id"] == $this->selected_item)
 			{
 				$name = "<strong>$name</strong>";
@@ -1190,7 +1192,7 @@ class treeview extends class_base
 				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/closed_folder.gif";
 			};
 
-			$name = $item["name"];
+			$name = empty($item["name"]) ? $this->untitled_text : $item["name"];
 			if ($item["id"] === $this->selected_item)
 			{
 				$name = "<strong>$name</strong>";
@@ -1509,7 +1511,6 @@ class treeview extends class_base
 			$tv->add_item(0, $item);
 		}
 
-		$ic = get_instance("core/icons");
 		$ol = $ot->to_list();
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
@@ -1590,7 +1591,7 @@ class treeview extends class_base
 			}
 			if (!ifset($arr, "icon"))
 			{
-				$icon = (($class_id == CL_MENU) ? NULL : $ic->get_icon_url($class_id,""));
+				$icon = (($class_id == CL_MENU) ? NULL : icons::get_icon_url($class_id,""));
 			}
 			else
 			{

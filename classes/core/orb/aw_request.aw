@@ -392,6 +392,59 @@ class aw_request
 			$this->$unsetter_name();
 		}
 	}
+
+	private function get_client_ip()
+	{
+// more headers to check: HTTP_PRAGMA, HTTP_XONNECTION, HTTP_CACHE_INFO, HTTP_XPROXY, HTTP_PROXY, HTTP_PROXY_CONNECTION, HTTP_CLIENT_IP, HTTP_VIA, HTTP_X_COMING_FROM, HTTP_X_FORWARDED_FOR, HTTP_X_FORWARDED, HTTP_COMING_FROM, HTTP_FORWARDED_FOR, HTTP_FORWARDED, ZHTTP_CACHE_CONTROL
+
+/*
+function getRealIP($fakeip=false)
+{
+	$ip = (!empty($_SERVER["HTTP_CLIENT_IP"])) ? (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) ? $_SERVER["HTTP_CLIENT_IP"] : preg_replace(‘/(?:,.*)/’, ", $_SERVER["HTTP_X_FORWARDED_FOR"]):$_SERVER["REMOTE_ADDR"];
+	$ip = (!$fakeip) ? $ip:$fakeip;
+
+	// local check class b and c
+	$patterns = array(
+		"/(192).(168).(\d+).(\d+)/i",
+		"/(10).(\d+).(\d+).(\d+)/i"
+	);
+	foreach($patterns as $pattern)
+	{
+		if(preg_match($pattern,$ip))
+		{
+			return "VPN";
+		}
+	}
+
+	// local check class a
+	$parts = explode(".",$ip);
+	if($parts[0]==172 && ($parts[1]>15 || $parts[1]<32))
+	{
+		return "VPN";
+	}
+
+	return trim($ip);
+}
+*/
+
+		if (!empty($_SERVER["HTTP_CLIENT_IP"]))
+		{
+			$ip = $_SERVER["HTTP_CLIENT_IP"];
+		}
+		elseif (!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
+		{
+			$ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+		}
+		elseif (!empty($_SERVER["REMOTE_ADDR"]))
+		{
+			$ip = $_SERVER["REMOTE_ADDR"];
+		}
+		else
+		{
+			$ip = "";
+		}
+		return $ip;
+	}
 }
 
 /** Generic aw_request class unexpected condition indicator **/

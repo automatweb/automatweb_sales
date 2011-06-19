@@ -46,7 +46,7 @@ define('PROP_OK',1); define('PROP_IGNORE',2); define('PROP_ERROR',3); define('PR
 define('RELTYPE_TRANSLATION',102);
 define('RELTYPE_ORIGINAL',103);
 
-class class_base extends aw_template
+class class_base extends aw_template implements orb_public_interface
 {
 	// possible return values for set_property
 	// ------------------------------------------
@@ -66,6 +66,10 @@ class class_base extends aw_template
 	const PROP_FATAL_ERROR = 4;
 
 	const DS_SCOPE_RESOLUTION_TOKEN = "::";
+
+	// default colours for common features
+	const COLOUR_CUTCOPIED = "silver";
+
 
 	private $awcb_data_sources = array();
 
@@ -118,6 +122,12 @@ class class_base extends aw_template
 	protected $name_prefix = "";
 	protected $stop_processing = false;
 
+	/** Main request object, this is what interface is built according to. type=aw_request **/
+	protected $req;
+
+	/** Main object instance **/
+	protected $obj_inst;
+
 	private $cfgform;
 	private $cfgform_obj;
 	private $cfg_debug = false;
@@ -147,6 +157,16 @@ class class_base extends aw_template
 			$this->clid = $arg["clid"];
 		}
 		parent::init($arg);
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	function init_storage_object($arr)
@@ -183,53 +203,54 @@ class class_base extends aw_template
 		$this->reltype = isset($arr["reltype"]) ? $arr["reltype"] : "";
 	}
 
-	function load_storage_object($arr)
+	private function load_storage_object($arr)
 	{
-		if (isset($arr["id"]))
+		if (empty($arr["id"]))
 		{
-			$id = (int) $arr["id"];
-			if (!$id)
+			throw new awex_cb_param("No object id parameter given, can't load object");
+		}
+
+		$id = (int) $arr["id"];
+		if (!is_oid($id) or $arr["id"] !== (string) $id)
+		{
+			throw new awex_cb_param("Invalid id parameter ({$arr["id"]}) given, can't load object");
+		}
+
+		// get object class
+		if (isset($arr["class"]))
+		{
+			if (is_numeric($arr["class"]))
 			{
-				throw new aw_exception("Invalid object id");
+				$clid = (int) $arr["class"];
 			}
-
-			// try to load object with $id
-			$this->obj_inst = new object($id);
-			$this->awcb_data_sources["id"] = $this->obj_inst;
-
-			if (isset($arr["class"]))
+			else
 			{
 				$class = $arr["class"];
 				if (!aw_ini_isset("class_lut.{$class}"))
 				{
-					throw new aw_exception("Invalid class '$class'");
+					throw new awex_cb_class("Invalid class '$class'");
 				}
-
 				$clid = aw_ini_get("class_lut.{$class}");
-
-				// try object override
-				if (aw_ini_isset("classes.{$clid}.object_override"))
-				{
-					$obj_class_name = basename(aw_ini_get("classes.{$clid}.object_override"));
-					// $clid = $obj_class_name::CLID; //XXX: start using when migrating to php >=5.3
-					$clid = constant($obj_class_name."::CLID");//XXX: compatibility w php <5.3
-				}
-
-				if ($this->obj_inst->class_id() != $clid)
-				{
-					throw new aw_exception("Invalid class '$class'");
-				}
 			}
 
-			$this->parent = "";
-			$this->use_mode = "edit";
-			$this->subgroup = isset($args["subgroup"]) ? $args["subgroup"] : "";
-			$this->id = $id;
+			// try object override
+			if (aw_ini_isset("classes.{$clid}.object_override"))
+			{
+				$obj_class_name = basename(aw_ini_get("classes.{$clid}.object_override"));
+				// $clid = $obj_class_name::CLID; //XXX: start using when migrating to php >=5.3
+				$clid = constant($obj_class_name."::CLID");//XXX: compatibility w php <5.3
+			}
 		}
-		else
-		{
-			$this->init_storage_object($arr);
-		}
+
+		// try to load object with $id
+		$this->obj_inst = obj($id, array(), $clid);
+		$this->awcb_data_sources["id"] = $this->obj_inst;
+
+		// TODO: peaved need just siin olema?
+		$this->parent = "";
+		$this->use_mode = "edit";
+		$this->subgroup = isset($args["subgroup"]) ? $args["subgroup"] : "";
+		$this->id = $id;
 	}
 
 	protected function _awcb_getds_id($arr)
@@ -2849,7 +2870,7 @@ class class_base extends aw_template
 		{
 			$property_value_from_obj = null;
 			$property["error"] = t("Viga v&auml;&auml;rtuse lugemisel");
-			trigger_error("Caught exception " . get_class($e) . " while reading property '{$nm}' from datasource {$ds_id} '" . $this->awcb_data_sources[$ds_id]->id() . "'. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
+			trigger_error("Caught exception " . get_class($e) . " while reading property '{$nm}' from datasource '" . $ds_obj->id() . "'. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
 		}
 
 		// if this is a new object and the property has a default value, use it
@@ -6262,24 +6283,59 @@ class class_base extends aw_template
 
 	/**
 	@attrib name=delete_objects
+	@param awcb_object_selection optional type=array
+		Array or array of arrays of selected object id-s to be deleted
 	@param sel optional type=array
 	@param check optional type=array
 	@param post_ru required type=string
 	**/
 	function delete_objects($arr)
 	{
-		if (!is_array($arr["sel"]) && is_array($arr["check"]))
-		{
-			$arr["sel"] = $arr["check"];
+		$errors = array();
+		if ($object_selection = $this->req->arg("awcb_object_selection"))
+		{ // process awcb_selected_oids
+			foreach ($object_selection as $oid_set)
+			{
+				foreach ($oid_set as $oids)
+				{
+					$errors += $this->delete_objects_in_array(safe_array($oids));
+				}
+			}
+		}
+		else
+		{ // process sel and check
+			if (!is_array($arr["sel"]) && is_array($arr["check"]))
+			{
+				$arr["sel"] = $arr["check"];
+			}
+
+			$errors = $this->delete_objects_in_array(safe_array($arr["sel"]));
 		}
 
-		foreach (safe_array($arr["sel"]) as $del_obj)
+		if ($errors)
 		{
-			$obj = obj($del_obj);
-			$obj->delete();
+			$this->show_error_text(sprintf(t("Osa objekte ei saanud kustutada. (%s)"), implode(", ", $errors)));
 		}
 
 		return $arr["post_ru"];
+	}
+
+	// returns array of oids that couldn't be deleted
+	private function delete_objects_in_array($object_ids = array())
+	{
+		$errors = array();
+		foreach ($object_ids as $oid)
+		{
+			if (object_loader::can("delete", $oid))
+			{
+				$o = new object($oid);
+				$o->delete();
+			}
+			else
+			{
+				$errors[] = $oid;
+			}
+		}
 	}
 
 	/**
@@ -6966,5 +7022,8 @@ class awex_cb_class extends awex_cb {}
 
 /** data source related errors **/
 class awex_cb_data_source extends awex_cb {}
+
+/** method parameter errors **/
+class awex_cb_param extends awex_cb {}
 
 

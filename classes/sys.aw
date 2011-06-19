@@ -1,12 +1,22 @@
 <?php
 
 /** various system management methods **/
-class sys extends aw_template
+class sys extends aw_template implements orb_public_interface
 {
 	function sys($args = array())
 	{
 		$this->init("automatweb");
 		$this->lc_load("syslog","lc_syslog");
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	/** Generates xml database structure

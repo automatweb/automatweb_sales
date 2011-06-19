@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo  maintainer=voldemar
-*/
-
 require_once "mrp_header.aw";
 
 /* A manufacturing resource is a processing unit that converts 'input products' to 'output products' */
@@ -1560,5 +1556,3 @@ class awex_mrp_resource_job extends awex_mrp_resource {}
 
 /** Workspace error **/
 class awex_mrp_resource_workspace extends awex_mrp_resource {}
-
-?>

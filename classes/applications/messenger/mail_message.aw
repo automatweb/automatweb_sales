@@ -1704,7 +1704,6 @@ arr($row);*/
 
 		$arr["id"] = $msgobj->id();
 		return $this->_gen_edit_url($arr);
-
 	}
 
 	/** Prepares a message for forwarding
@@ -1738,7 +1737,7 @@ arr($row);*/
 	}
 
 	////
-	// !fetches a message by it's ID
+	// !fetches a message by its ID
 	// arguments:
 	// id(int) - message id
 	function msg_get($args = array())
@@ -1821,9 +1820,7 @@ arr($row);*/
 		{
 			$odl = new object_data_list(
 				array(
-					"oid" => $ids,
-					"lang_id" => array(),
-					"site_id" => array(),
+					"oid" => $ids
 				),
 				array(
 					CL_CRM_COMPANY => array("class_id"),
@@ -1831,6 +1828,7 @@ arr($row);*/
 					CL_ML_MEMBER => array("class_id"),
 				)
 			);
+
 			foreach($odl->arr() as $oid => $o)
 			{
 				switch($o["class_id"])
@@ -1848,6 +1846,7 @@ arr($row);*/
 						break;
 				}
 			}
+
 			if(count($orgs) > 0)
 			{
 				$mls = array_merge($mls, get_instance("crm_company_obj")->get_mails(array(

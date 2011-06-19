@@ -1714,7 +1714,7 @@ class crm_company_overview_impl extends class_base
 		$tree = 1;
 		foreach($search_vars as $search_var)
 		{
-			if($arr["request"][$search_var])
+			if(!empty($arr["request"][$search_var]))
 			{
 				$tree = 0;
 				break;

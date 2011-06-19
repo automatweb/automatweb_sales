@@ -259,7 +259,7 @@ if (!empty($site_title))	// weird, but lots of places rely on the yah line being
 	$li = $l->get_list();
 	foreach($li as $lid => $ln)
 	{
-		$url = $baseurl."/automatweb/index.aw?set_lang_id=".$lid;
+		$url = $baseurl."automatweb/index.aw?set_lang_id=".$lid;
 		$target = "_top";
 		$tmp[] = html::href(array(
 			"url" => $url,
@@ -456,7 +456,7 @@ if (isset($_SESSION["user_history_count"]) and $_SESSION["user_history_count"] >
 				if (empty($_bits["class"])) $_bits["class"] = "";
 				if (empty($_bits["action"])) $_bits["action"] = "";
 				if (empty($_bits["group"])) $_bits["group"] = "";
-				
+
 				if (empty($bits["group"])) $bits["group"] = "";
 
 				if ($_bits["class"] == $bits["class"] && $_bits["id"] == $bits["id"] && $_bits["group"] == $bits["group"])

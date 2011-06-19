@@ -9,6 +9,8 @@ class class_index
 	const UPDATE_EXEC_TIMELIMIT = 300;
 	const CL_NAME_MAXLEN = 1024;  // max string length of class names
 
+	const CLASS_CACHE_KEY_PREFIX = "__aw_locker_cache";
+
 	// update collects implemented interfaces in this, so we can update the interface definitions with the list of classes that implement that interface
 	private static $implements_interface = array();
 
@@ -376,6 +378,87 @@ class class_index
 		}
 
 		return $class_file;
+	}
+
+	public static function overwrite_class($class_name, $contents)
+	{
+	}
+
+	public static function load_class($class_name)
+	{
+		$orig_class_name = $class_name;
+
+		try
+		{
+			$class_file = self::get_file_by_name($class_name);
+			require_once $class_file;
+		}
+		catch (awex_clidx_double_dfn $e)
+		{
+			exit ("Class '" . $e->clidx_cl_name . "' redeclared. Fix error in '" . $e->clidx_path1 . "' or '" . $e->clidx_path2 . "'.");//!!! tmp
+
+			//!!! take action -- delete/rename one of the classes or load both or ...
+			// $class_file = self::get_file_by_name($class_name);
+		}
+		catch (awex_clidx $e)
+		{
+			try
+			{
+				self::update(true);
+			}
+			catch (awex_clidx $e)
+			{
+			}
+
+			try
+			{
+				$class_file = self::get_file_by_name($class_name);
+				require_once $class_file;
+			}
+			catch (awex_clidx $e)
+			{
+				if (basename($class_name) !== $class_name)
+				{
+					try
+					{
+						$tmp = $class_name;
+						$class_name = basename($class_name);
+						$class_file = self::get_file_by_name($class_name);
+						echo "Invalid class name: '" . $tmp . "'. ";
+						require_once $class_file;
+					}
+					catch (awex_clidx $e)
+					{
+						//!!! take action
+					}
+				}
+				//!!! take action
+			}
+		}
+		$class_name = $orig_class_name;
+		if (!class_exists($class_name, false) and !interface_exists($class_name, false))
+		{ // class may be moved to another file, force update and try again
+			try
+			{
+				self::update(true);
+			}
+			catch (awex_clidx $e)
+			{
+				exit("Fatal update error. " . $e->getMessage() . " Tried to load '" . $class_name . "'");//!!! tmp
+				//!!! take action
+			}
+
+			try
+			{
+				$class_file = self::get_file_by_name($class_name);
+				require_once $class_file;
+			}
+			catch (awex_clidx $e)
+			{
+				debug_print_backtrace();
+				exit("Fatal classload error. " . $e->getMessage() . " Tried to load '" . $class_name . "'");//!!! tmp
+			}
+		}
 	}
 
 	/**

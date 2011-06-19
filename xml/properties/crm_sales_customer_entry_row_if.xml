@@ -3,25 +3,237 @@
       <property>
             <name>name</name>
             <group>general</group>
+            <captionside>top</captionside>
+            <parent>general_data_first_row</parent>
             <type>textbox</type>
-            <size>20</size>
+            <size>12</size>
             <ds>customer::name</ds>
             <field>name</field>
-            <caption>Nimi</caption>
+            <caption>Ettev&amp;amp;otilde;tte nimi</caption>
+      </property>
+      <property>
+            <name>form</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>general_data_first_row</parent>
+            <type>select</type>
+            <ds>customer::ettevotlusvorm</ds>
+            <field>form</field>
+            <caption>Vorm</caption>
+      </property>
+      <property>
+            <name>email</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>general_data_first_row</parent>
+            <type>textbox</type>
+            <size>20</size>
+            <ds>customer::fake_email</ds>
+            <field>email</field>
+            <caption>E-post</caption>
+      </property>
+      <property>
+            <name>comment</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>general_data_first_row</parent>
+            <type>textbox</type>
+            <size>20</size>
+            <ds>id::comment</ds>
+            <field>comment</field>
+            <caption>Kommentaar</caption>
+      </property>
+      <property>
+            <name>contact_ceo_firstname</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_first_row</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <ds>contact_ceo::name</ds>
+            <field>contact_ceo_firstname</field>
+            <caption>Kontakt 1 - Eesnimi</caption>
+      </property>
+      <property>
+            <name>contact_ceo_lastname</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_first_row</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <ds>contact_ceo::name</ds>
+            <field>contact_ceo_lastname</field>
+            <caption>Perenimi</caption>
+      </property>
+      <property>
+            <name>contact_ceo_profession</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_first_row</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <ds>contact_ceo::name</ds>
+            <field>contact_ceo_profession</field>
+            <caption>Amet</caption>
+      </property>
+      <property>
+            <name>contact_ceo_email</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_first_row</parent>
+            <type>textbox</type>
+            <size>16</size>
+            <ds>contact_ceo::name</ds>
+            <field>contact_ceo_email</field>
+            <caption>E-post</caption>
+      </property>
+      <property>
+            <name>contact_ceo_phone</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_first_row</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <ds>contact_ceo::name</ds>
+            <field>contact_ceo_phone</field>
+            <caption>Telefon</caption>
+      </property>
+      <property>
+            <name>reg_nr</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>general_data_second_row</parent>
+            <type>textbox</type>
+            <size>12</size>
+            <ds>customer::reg_nr</ds>
+            <field>reg_nr</field>
+            <caption>Reg. nr.</caption>
       </property>
       <property>
             <name>phone</name>
             <group>general</group>
+            <captionside>top</captionside>
+            <parent>general_data_second_row</parent>
+            <type>textbox</type>
+            <size>12</size>
+            <ds>customer::fake_phone</ds>
+            <field>phone</field>
+            <caption>Telefon</caption>
+      </property>
+      <property>
+            <name>salesperson</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>general_data_second_row</parent>
             <type>textbox</type>
             <size>12</size>
             <ds>customer::phone_id</ds>
-            <field>phone</field>
+            <field>salesperson</field>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja</caption>
+      </property>
+      <property>
+            <name>contact_other_firstname</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_second_row</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <ds>contact_other::name</ds>
+            <field>contact_other_firstname</field>
+            <caption>Kontakt 2 - Eesnimi</caption>
+      </property>
+      <property>
+            <name>contact_other_lastname</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_second_row</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <ds>contact_other::name</ds>
+            <field>contact_other_lastname</field>
+            <caption>Perenimi</caption>
+      </property>
+      <property>
+            <name>contact_other_profession</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_second_row</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <ds>contact_other::name</ds>
+            <field>contact_other_profession</field>
+            <caption>Amet</caption>
+      </property>
+      <property>
+            <name>contact_other_email</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_second_row</parent>
+            <type>textbox</type>
+            <size>16</size>
+            <ds>contact_other::name</ds>
+            <field>contact_other_email</field>
+            <caption>E-post</caption>
+      </property>
+      <property>
+            <name>contact_other_phone</name>
+            <group>general</group>
+            <captionside>top</captionside>
+            <parent>contact_data_second_row</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <ds>contact_other::name</ds>
+            <field>contact_other_phone</field>
+            <caption>Telefon</caption>
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
-            <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
       </classinfo>
+      <layout>
+            <main_container>
+                  <type>hbox</type>
+                  <border>1</border>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </main_container>
+            <general_data>
+                  <type>vbox</type>
+                  <parent>main_container</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </general_data>
+            <general_data_first_row>
+                  <type>hbox</type>
+                  <parent>general_data</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </general_data_first_row>
+            <general_data_second_row>
+                  <type>hbox</type>
+                  <parent>general_data</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </general_data_second_row>
+            <contact_data>
+                  <type>vbox</type>
+                  <parent>main_container</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </contact_data>
+            <contact_data_first_row>
+                  <type>hbox</type>
+                  <parent>contact_data</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </contact_data_first_row>
+            <contact_data_second_row>
+                  <type>hbox</type>
+                  <parent>contact_data</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </contact_data_second_row>
+      </layout>
 </properties>
 

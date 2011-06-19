@@ -144,11 +144,14 @@ class aw_http_request extends aw_request
 
 		try
 		{
-			$this->_uri->set_arg($this->args);
+			if ($this->args)
+			{
+				$this->_uri->set_arg($this->args);
+			}
 		}
 		catch (Exception $e)
 		{
-			if ($e instanceof awex_uri_type))
+			if ($e instanceof awex_uri_type)
 			{
 				if (awex_uri_type::RESERVED_CHR === $e->getCode())
 				{

@@ -507,11 +507,11 @@ class htmlclient extends aw_template
 			));
 		}
 
-		$green = " <a href='javascript:void(0)' onClick='cfEditClick(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_green.png' id='cfgEditProp".$arr["name"]."'/></a>";
-		$red = " <a href='javascript:void(0)' onClick='cfEditClick(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_red.png' id='cfgEditProp".$arr["name"]."'/></a>";
+		$green = " <a href='javascript:void(0)' onclick='cfEditClick(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("icons.server")."cfg_edit_green.png' id='cfgEditProp".$arr["name"]."'/></a>";
+		$red = " <a href='javascript:void(0)' onclick='cfEditClick(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("icons.server")."cfg_edit_red.png' id='cfgEditProp".$arr["name"]."'/></a>";
 
-		$time_active_icon = " <a href='javascript:void(0)' onClick='cfEditClickTime(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_timer_active.png' id='cfgEditPropTime".$arr["name"]."'/></a>";
-		$time_inactive_icon = " <a href='javascript:void(0)' onClick='cfEditClickTime(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_timer_inactive.png' id='cfgEditPropTime".$arr["name"]."'/></a>";
+		$time_active_icon = " <a href='javascript:void(0)' onclick='cfEditClickTime(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("icons.server")."cfg_timer_active.png' id='cfgEditPropTime".$arr["name"]."'/></a>";
+		$time_inactive_icon = " <a href='javascript:void(0)' onclick='cfEditClickTime(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("icons.server")."cfg_timer_inactive.png' id='cfgEditPropTime".$arr["name"]."'/></a>";
 
 		// get default cfgform for this object and get property status from that
 		$cf = $cur_cfgform;
@@ -611,15 +611,11 @@ class htmlclient extends aw_template
 	{
 		extract($arr);
 		$sbt = $res = "";
+		$data = (isset($arr["data"]) and is_array($arr["data"])) ? $arr["data"] : array();
+		$action = isset($arr["action"]) ? $arr["action"] : "";
 
-		if (!is_array($data))
-		{
-			$data = array();
-		}
-
-		$orb_class = ($data["orb_class"]) ? $data["orb_class"] : "cfgmanager";
+		$orb_class = empty($data["orb_class"]) ? "cfgmanager" : $data["orb_class"];
 		unset($data["orb_class"]);
-
 		$data = $data + $this->orb_vars;
 
 		$vars = array();
@@ -633,7 +629,7 @@ class htmlclient extends aw_template
 			$this->layout_by_parent[$lparent][$key] = $val;
 			$this->lp_chain[$key] = $lparent;
 			// mul on iga layoudi kohta vaja teada tema k&otilde;ige esimest layouti
-		};
+		}
 
 		$this->properties_by_parent = array();
 
@@ -758,8 +754,6 @@ class htmlclient extends aw_template
 
 				// would be nice if I could update the textareas right when the iframe loses focus ..
 				// I'm almost sure I can do that.
-				$baseurl = aw_ini_get("baseurl");
-
 				foreach($this->rtes as $rte)
 				{
 					$txt .= "if (document.getElementById('${rte}_edit'))\n";
@@ -768,7 +762,7 @@ class htmlclient extends aw_template
 					$txt .= "document.changeform.elements['${rte}'].value=document.getElementById('${rte}_edit').contentWindow.document.body.innerHTML;\n";
 					$txt .= "}\n";
 					$data["cb_nobreaks[${rte}]"] = 1;
-				};
+				}
 				$submit_handler = $txt;
 			}
 		}
@@ -787,7 +781,6 @@ class htmlclient extends aw_template
 
 		$fn = basename($_SERVER["SCRIPT_FILENAME"],".aw");
 		$data["ret_to_orb"] = $fn === "orb" ? 1 : 0;
-
 		$data["charset"] = aw_global_get("charset");
 
 		// let's hope that nobody uses that vbox and hbox spagetti with grouptemplates -- ahz
@@ -829,7 +822,7 @@ class htmlclient extends aw_template
 				$ds[] = "<input type='hidden' name='$k' value='$v'>";
 			}
 			$this->vars_safe(array(
-				"reforb" => join("\n", $ds)
+				"reforb" => implode("\n", $ds)
 			));
 		}
 	}
@@ -984,10 +977,10 @@ class htmlclient extends aw_template
 				)) : "",
 				"qa_pop" => $this->prog_acl("view", "can_quick_add") ? $bmq->get_menu(array(
 					"load_on_demand_url" => $this->mk_my_orb("qa_lod", array("url" => get_ru()), "obj_quick_add"),
-					"text" => '<img alt="" title="" border="0" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_lisa.gif" id="mb_user_qa" border="0" class="ikoon" />'.t("Lisa kiiresti")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" /></a>'
+					"text" => '<img alt="" title="" border="0" src="'.aw_ini_get("baseurl").'automatweb/images/aw06/ikoon_lisa.gif" id="mb_user_qa" border="0" class="ikoon" />'.t("Lisa kiiresti")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" /></a>'
 				)) : "",
 				"settings_pop" => $bmb->get_menu(array("load_on_demand_url" => $this->mk_my_orb("settings_lod", array("url" => get_ru()), "user"))),
-				"srch_link" => $this->mk_my_orb("redir_search", array("url" => $this->my_get_ru("aw_object_search")), "aw_object_search")
+				"srch_link" => $this->mk_my_orb("redir_search", array("url" => $this->my_get_ru("aw_object_search_if")), "aw_object_search_if")
 			));
 
 			if ($this->prog_acl("view", "can_search"))
@@ -1467,7 +1460,7 @@ class htmlclient extends aw_template
 				$cell_width = isset($cell_widths[$cell_nr]) ? " width='" . $cell_widths[$cell_nr] . "'" : "";
 				$this->vars_safe(array(
 					"item" => $layout_item,
-					"item_width" => $cell_width,
+					"item_width" => $cell_width
 				));
 				$content .= $this->parse("GRID_HBOX_ITEM");
 			}
