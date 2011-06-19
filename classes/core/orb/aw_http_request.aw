@@ -162,7 +162,7 @@ class aw_http_request extends aw_request
 					throw new awex_request_na("This request contains argument values that can't be converted to URI arguments.");
 				}
 			}
-			elseif ($e instanceof awex_uri_arg))
+			elseif ($e instanceof awex_uri_arg)
 			{
 				//	$this->args is prolly an empty array, take no action
 			}
