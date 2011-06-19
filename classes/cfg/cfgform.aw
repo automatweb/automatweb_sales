@@ -1532,7 +1532,7 @@ class cfgform extends class_base
 		$grps = array();
 		foreach($this->grplist as $key => $item)
 		{
-			$order[$key] = $item["ord"];
+			$order[$key] = isset($item["ord"]) ? $item["ord"] : 0;
 		}
 		asort($order);
 		foreach($order as $key => $val)
@@ -3850,6 +3850,7 @@ class cfgform extends class_base
 			{
 				$pd["value"] = $arr["values"][$pn];
 			}
+
 			if ($pd["type"] === "classificator")
 			{
 				$pd["object_type_id"] = $arr["ot"];
@@ -3859,7 +3860,8 @@ class cfgform extends class_base
 					$pd["value"] = $tmpo->name();
 				}
 			}
-			if ($pd["type"] === "textarea" && $arr["for_show"])
+
+			if ($pd["type"] === "textarea" && !empty($arr["for_show"]))
 			{
 				$pd["value"] = nl2br($pd["value"]);
 			}

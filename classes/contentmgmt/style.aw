@@ -1,8 +1,4 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/style.aw,v 1.1 2008/02/21 22:05:21 kristo Exp $
-/*
-@classinfo  maintainer=kristo
-*/
 
 define("ST_TABLE",0);
 define("ST_CELL",1);
@@ -23,7 +19,7 @@ class style extends aw_template
 	}
 
 	function db_listall($parent,$type = -1)
-	{	
+	{
 		if ($type != -1)
 		{
 			$ss = " AND styles.type = $type ";
@@ -78,17 +74,9 @@ class style extends aw_template
 	}
 
 	// parent
-	/**  
-		
+	/**
 		@attrib name=list params=name default="0"
-		
 		@param parent required
-		
-		@returns
-		
-		
-		@comment
-
 	**/
 	function glist($arr)
 	{
@@ -102,8 +90,8 @@ class style extends aw_template
 		while ($row = $this->db_next())
 		{
 			$this->vars(array(
-				"name" => $row["name"], 
-				"type" => $this->type_names[$row["type"]], 
+				"name" => $row["name"],
+				"type" => $this->type_names[$row["type"]],
 				"style_id" => $row["id"],
 				"change"	=> $this->mk_orb("change",array("parent" => $parent, "id" => $row["id"])),
 				"delete"	=> $this->mk_orb("delete",array("parent" => $parent, "id" => $row["id"]))
@@ -114,29 +102,13 @@ class style extends aw_template
 	}
 
 	// parent
-	/**  
-		
+	/**
 		@attrib name=add params=name default="0"
-		
 		@param parent required acl="add"
-		
-		@returns
-		
-		
-		@comment
-
 	**/
-	/**  
-		
+	/**
 		@attrib name=new params=name default="0"
-		
 		@param parent required acl="add"
-		
-		@returns
-		
-		
-		@comment
-
 	**/
 	function add($arr)
 	{
@@ -150,17 +122,9 @@ class style extends aw_template
 	}
 
 	// parent, id
-	/**  
-		
+	/**
 		@attrib name=change params=name default="0"
-		
 		@param id required acl="view;edit"
-		
-		@returns
-		
-		
-		@comment
-
 	**/
 	function change($arr)
 	{
@@ -192,8 +156,8 @@ class style extends aw_template
 		$sel_css = $this->get_select(0,ST_CELL, false, true);
 
 		$this->vars(array(
-			"name" => $this->style["name"], 
-			"comment" => $this->style["comment"], 
+			"name" => $this->style["name"],
+			"comment" => $this->style["comment"],
 			"bgcolor"	=> $style["bgcolor"],
 			"cellpadding"	=> $style["cellpadding"],
 			"cellspacing"	=> $style["cellspacing"],
@@ -219,7 +183,7 @@ class style extends aw_template
 	function change_cell($arr)
 	{
 		extract($arr);
-		
+
 		$fonts = array("" => "", "arial" => "Arial","times" => "Times", "verdana" => "Verdana","tahoma" => "Tahoma", "geneva"  => "Geneva", "helvetica" => "Helvetica", "Trebuchet MS" => "Trebuchet MS");
 
 		$fontsizez = array("" => "","-1" => -1, "0" => 0, "1" => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5);
@@ -230,8 +194,8 @@ class style extends aw_template
 
 		$this->read_template("change_cell.tpl");
 		$this->vars(array(
-			"name" => $this->style["name"], 
-			"comment" => $this->style["comment"], 
+			"name" => $this->style["name"],
+			"comment" => $this->style["comment"],
 			"font1"		=> $this->option_list($style["font1"], $fonts),
 			"font2"		=> $this->option_list($style["font2"], $fonts),
 			"font3"		=> $this->option_list($style["font3"], $fonts),
@@ -256,16 +220,8 @@ class style extends aw_template
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
 		@attrib name=submit_sel params=name default="0"
-		
-		
-		@returns
-		
-		
-		@comment
-
 	**/
 	function submit_sel($arr)
 	{
@@ -281,16 +237,8 @@ class style extends aw_template
 		return $this->mk_orb("change", array("parent" => $arr["parent"], "id" => $id));
 	}
 
-	/**  
-		
+	/**
 		@attrib name=submit params=name default="0"
-		
-		
-		@returns
-		
-		
-		@comment
-
 	**/
 	function submit($arr)
 	{
@@ -310,18 +258,10 @@ class style extends aw_template
 		return $this->mk_orb("change",array("parent" => $parent, "id" => $id));
 	}
 
-	/**  
-		
+	/**
 		@attrib name=delete params=name default="0"
-		
 		@param parent required
 		@param id required acl="delete"
-		
-		@returns
-		
-		
-		@comment
-
 	**/
 	function delete($arr)
 	{
@@ -794,11 +734,11 @@ class style extends aw_template
 	function _get_css($st)
 	{
 		$fstr = array();
-		if ($st["font1"] != "")		
+		if ($st["font1"] != "")
 		{
 			$fstr[] = $st["font1"];
 		}
-		if ($st["font2"] != "")		
+		if ($st["font2"] != "")
 		{
 			$fstr[] = $st["font2"];
 		}
@@ -876,7 +816,7 @@ class style extends aw_template
 	function get_css($id,$a_id = 0)
 	{
 		$st = $this->mk_cache($id);
-		
+
 		$fsstr = $this->_get_css($st);
 		if ($fsstr != "")
 		{
@@ -886,7 +826,7 @@ class style extends aw_template
 		if ($a_id)
 		{
 			$sta = $this->mk_cache($a_id);
-			
+
 			$fsstr = $this->_get_css($sta);
 			if ($fsstr != "")
 			{
@@ -923,7 +863,7 @@ class style extends aw_template
 		extract($arr);
 
 		$row = unserialize($str);
-		// basically, we create a new object and insert the stuff in the array right back in it. 
+		// basically, we create a new object and insert the stuff in the array right back in it.
 		$o = obj();
 		$o->set_parent($parent);
 		$o->set_name($row["name"]);
@@ -934,7 +874,7 @@ class style extends aw_template
 		$o->set_alias($row["alias"]);
 		$oid = $o->save();
 
-		// same with the style. 
+		// same with the style.
 		$this->quote(&$row);
 		$this->db_query("INSERT INTO	styles(id,style,type) values($oid,'".$row["style"]."','".$row["type"]."')");
 
@@ -943,7 +883,7 @@ class style extends aw_template
 
 	////////////////////////////////////
 	// new sty le management methods
-	
+
 	function get_table_style_picker()
 	{
 		$aret = $this->get_select(0, ST_TABLE, true);
@@ -957,14 +897,14 @@ class style extends aw_template
 		{
 			$aret[$id] = "CSS: ".$nm;
 		}
-		
+
 		$ol = new object_list(array(
 			"oid" => array_keys($aret),
 			"sort_by" => "objects.site_id,objects.class_id",
 			"lang_id" => array(),
 			"site_id" => array()
 		));
-		
+
 		$ret = array("" => "");
 		$sl = get_instance("install/site_list");
 		foreach($ol->arr() as $o)
@@ -1038,4 +978,3 @@ class style extends aw_template
 		return "st".$id;
 	}
 }
-?>

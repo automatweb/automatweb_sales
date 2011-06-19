@@ -491,7 +491,7 @@ class newsfeed extends class_base
 				}
 				else
 				{
-					$doc_link = $baseurl . "/" . $oid;
+					$doc_link = $baseurl . $oid;
 				}
 
 				$items[] = array(
@@ -505,7 +505,7 @@ class newsfeed extends class_base
 					// "source" => $source,
     					// "art_lead" => $art_lead,
 					"description" => str_replace("& " , "&amp; " , str_replace("&&" , "&amp;&amp;" , $description)),
-					"guid" => $baseurl . "/" . $oid,
+					"guid" => $baseurl . $oid,
 					"pubDate" => str_replace("  ", " ", date("r",$mod_date)),
 				);
 			}
