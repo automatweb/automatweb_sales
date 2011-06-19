@@ -15,8 +15,8 @@ define("LC_DOCUMENT_KEYWORD","Votmesonad");
 define("LC_DOCUMENT_SHOW_LEAD","Näita leadi");
 define("LC_DOCUMENT_FRONTPAGE","Esilehel");
 define("LC_DOCUMENT_FORUM","Foorum");
-//- hm, nendega tuleb midagi kavalat v2lja m6elda, nii ei saa seda igaljuhul teha, 
-// samas need peax olema erinevates keeltes. dumdudum. ei teagi kohe mis teha. 
+//- hm, nendega tuleb midagi kavalat v2lja m6elda, nii ei saa seda igaljuhul teha,
+// samas need peax olema erinevates keeltes. dumdudum. ei teagi kohe mis teha.
 define("LC_DOCUMENT_CURRENT_TIME","#current_time#");
 
 //document.aw
@@ -139,4 +139,3 @@ define("LC_USERS_PASSW_NOT_SAME","Paroolid peavad olema samad!");
 //vars.aw
 define("LC_LOGIN_NAME","Nimi:");
 define("LC_LOGIN_PASS","Parool:");
-?>
