@@ -269,7 +269,7 @@ class config_login_menus extends class_base
 	function get_login_menus($args = array())
 	{
 		$_data = $this->_get_login_menus();
-		$data = $_data[aw_global_get("lang_id")];
+		$data = isset($_data[aw_global_get("lang_id")]) ? $_data[aw_global_get("lang_id")] : null;
 		if (!is_array($data))
 		{
 			if (is_array($_data))
@@ -343,7 +343,7 @@ class config_login_menus extends class_base
 	public function show_login_menu()
 	{
 		$_data = $this->_get_login_menus();
-		$data = $_data[aw_global_get("lang_id")];
+		$data = isset($_data[aw_global_get("lang_id")]) ? $_data[aw_global_get("lang_id")] : null;
 		if (!is_array($data))
 		{
 			if (is_array($_data))
