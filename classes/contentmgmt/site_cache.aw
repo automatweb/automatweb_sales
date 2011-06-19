@@ -7,7 +7,7 @@ class site_cache extends aw_template
 		$this->init("automatweb/menuedit");
 	}
 
-	function show($arr = array())
+	function show($arr)
 	{
 		if (empty($arr["template"]))
 		{
