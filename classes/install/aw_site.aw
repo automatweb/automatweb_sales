@@ -66,6 +66,10 @@ caption Kas templated linkida, mitte kopeerida
 
 class aw_site extends class_base
 {
+	protected $ch_warnings;
+	protected $warning_str;
+	protected $server_site_list;
+
 	function aw_site()
 	{
 		$this->init(array(
