@@ -14,6 +14,8 @@ class core extends acl_base
 
 	private $use_empty = false;
 
+	private static $lc_load_loaded_files_list = array(); // loaded language file names kept here to avoid reloading
+
 	/** every class that derives from core, should call this initialization method
 		@attrib api=1 params=name
 
@@ -1153,23 +1155,23 @@ class core extends acl_base
 			$admin_lang_lc = $lang_id;
 		}
 
-		if (!$admin_lang_lc)
+		if ($admin_lang_lc and empty(self::$lc_load_loaded_files_list["{$admin_lang_lc}/{$file}"]))
 		{
-			$admin_lang_lc = "et"; //!!! kust saab defaulti
-		}
+			// for better debugging
+			$fullpath = AW_DIR."lang/{$admin_lang_lc}/{$file}".AW_FILE_EXT;
+			if (!is_readable($fullpath))
+			{
+				throw new aw_exception("Locale file '{$fullpath}' not readable.");
+			}
 
-		// for better debugging
-		$fullpath = AW_DIR."lang/{$admin_lang_lc}/{$file}".AW_FILE_EXT;
-		if (!is_readable($fullpath))
-		{
-			throw new aw_exception("Locale file '{$fullpath}' not readable.");
-		}
+			require_once($fullpath);
 
-		require_once($fullpath);
+			if (is_array($GLOBALS[$arr_name]))
+			{
+				$this->vars($GLOBALS[$arr_name]);
+			}
 
-		if (is_array($GLOBALS[$arr_name]))
-		{
-			$this->vars($GLOBALS[$arr_name]);
+			self::$lc_load_loaded_files_list["{$admin_lang_lc}/{$file}"] = true;
 		}
 	}
 
