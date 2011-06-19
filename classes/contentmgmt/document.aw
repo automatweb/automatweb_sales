@@ -1,6 +1,6 @@
 <?php
 
-class document extends aw_template
+class document extends aw_template implements orb_public_interface
 {
 	var $blocks;
 	var $title;
@@ -17,7 +17,7 @@ class document extends aw_template
 		lc_load("definition");
 
 		// this takes less than 0.1 seconds btw
-		$xml_def = $this->get_file(array("file" => $this->cfg["basedir"]."/xml/documents/defaults.xml"));
+		$xml_def = $this->get_file(array("file" => aw_ini_get("basedir")."xml/documents/defaults.xml"));
 		if ($xml_def)
 		{
 			$this->define_styles($xml_def);
@@ -48,6 +48,16 @@ class document extends aw_template
 		}
 
 		$this->subtpl_handlers["FILE"] = "_subtpl_file";
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	/** Fetches a document from the database
@@ -241,14 +251,12 @@ class document extends aw_template
 			{
 				return "";
 			}
-		};
+		}
 		//$doc["content"] = "<style>.styl1 {color: green; font-family: Verdana; font-weight: bold;} .styl2 {color: blue; font-size: 20px;} .styl3 {color: red; border: 1px solid blue;}</style>" . $doc["content"];
 		$params["vars"] = $doc["vars"];
 		$tpl = $doc["tpl"];
 
-		$trimmed_lead = trim($doc["lead"]);
-
-		if ($trimmed_lead == "<br>" || $trimmed_lead == "<br />"  || empty($trimmed_lead))
+		if (empty(strip_tags(trim($doc["lead"]))))
 		{
 			$doc["lead"] = "";
 		}
@@ -258,12 +266,9 @@ class document extends aw_template
 		if (!empty($meta["show_last_changed"]))
 		{
 			$doc["content"] .= "<p><font size=1><i>".t("Viimati muudetud:")."&nbsp;&nbsp;</i>" . $this->time2date($doc["modified"],4) . "</font>";
-		};
-
+		}
 
 		$this->tpl_reset();
-
-
 		$this->tpl_init("automatweb/documents");
 
 		// see on sellex et kui on laiem doku, siis menyyeditor tshekib
@@ -284,15 +289,14 @@ class document extends aw_template
 		{
 			$this->templates["MAIN"] = $tpls;
 		}
-		else
-		if (isset($tplsf) && strlen($tplsf) > 0)
+		elseif (isset($tplsf) && strlen($tplsf) > 0)
 		{
 			$this->read_any_template($tplsf);
 		}
 		else
 		{
 			$this->read_any_template($tpl);
-		};
+		}
 
 		// if show in iframe is set, just return the iframe
 		if ($doc_o->prop("show_in_iframe") && !$_REQUEST["only_document_content"])
@@ -379,16 +383,15 @@ class document extends aw_template
 				#aw_global_set("no_menus",1);
 				$_tmp = $this->parse("PRINTANDSEND");
 				$this->vars(array("PRINTANDSEND" => $_tmp));
-			};
-		};
-
+			}
+		}
 
 
 		$this->vars(array("imurl" => "/images/trans.gif"));
 		// import charset for print
 		if ($this->template_has_var("charset"))
 		{
-			$_langs = get_instance("languages");
+			$_langs = new languages();
 			$_ld = $_langs->fetch($lang_id);
 			$this->vars(array(
 				"charset" => $_ld["charset"]
@@ -396,7 +399,7 @@ class document extends aw_template
 		};
 
 		// load localization settings and put them in the template
-		lc_site_load("document",$this);
+		lc_site_load("document", $this);
 		if (isset($GLOBALS["lc_doc"]) && is_array($GLOBALS["lc_doc"]))
 		{
 			$this->vars($GLOBALS["lc_doc"]);
@@ -467,7 +470,7 @@ class document extends aw_template
 				}
 				else
 				{
-					$def = t("<br /><B>Edasi loe ajakirjast!</b></font>");
+					$def = t("<br /><B>Edasi loe ajakirjast!</b></font>");//XXX: midagi vana, kaotada, muuta...
 				};
 				$doc["content"] = substr($doc["content"],0,$pp).$def;
 			}
