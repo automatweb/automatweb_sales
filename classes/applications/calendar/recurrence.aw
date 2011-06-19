@@ -1,15 +1,14 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/calendar/recurrence.aw,v 1.15 2009/05/29 06:41:01 dragut Exp $
 // recurrence.aw - Kordus
 /*
 
-@classinfo syslog_type=ST_RECURRENCE relationmgr=yes no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_RECURRENCE relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
 
-form=+emb syntax means, that this thing should be in all the default forms +
-the emb form. The latter I can then use for embedding cases
+// form=+emb syntax means, that this thing should be in all the default forms +
+// the emb form. The latter I can then use for embedding cases
 @property start type=date_select table=calendar2recurrence form=+emb
 @caption Alates
 
@@ -20,46 +19,42 @@ the emb form. The latter I can then use for embedding cases
 @caption Pikkus (h)
 
 @property recur_type type=select field=meta method=serialize form=+emb
-@caption Korduse tüüp
+@caption Korduse t&uuml;&uuml;p
 
 @property interval_minutely type=textbox size=2 field=meta method=serialize form=+emb
-@caption Iga X minuti järel
+@caption Iga X minuti j&auml;rel
 
 @property interval_hourly type=textbox size=2 field=meta method=serialize form=+emb
-@caption Iga X tunni järel
+@caption Iga X tunni j&auml;rel
 
 @property interval_daily type=textbox size=2 field=meta method=serialize form=+emb
-@caption Iga X päeva järel
+@caption Iga X p&auml;eva j&auml;rel
 
 @property interval_weekly type=textbox size=2 field=meta method=serialize form=+emb
-@caption Iga X nädala järel
+@caption Iga X n&auml;dala j&auml;rel
 
 @property interval_monthly type=textbox size=2 field=meta method=serialize form=+emb
-@caption Iga X kuu järel
+@caption Iga X kuu j&auml;rel
 
 @property interval_yearly type=textbox size=2 field=meta method=serialize form=+emb
-@caption Iga X aasta järel
+@caption Iga X aasta j&auml;rel
 
 @property weekdays type=chooser multiple=1 field=meta method=serialize form=+emb
-@caption Nendel päevadel
+@caption Nendel p&auml;evadel
 
 @property month_days type=textbox field=meta method=serialize form=+emb
-@caption Kindlatel päevadel
+@caption Kindlatel p&auml;evadel
 
 @property month_rel_weekdays type=chooser multiple=1 field=meta method=serialize form=+emb
-@caption Valitud nädalapäevadel
+@caption Valitud n&auml;dalap&auml;evadel
 
 @property month_weekdays type=chooser multiple=1 field=meta method=serialize form=+emb
-@caption Nädalapäevad
+@caption N&auml;dalap&auml;evad
 
-// lõppu per-se ei ole. Kuigi selle võib määrata. Igal juhul on see optional
+// l6ppu per-se ei ole. Kuigi selle v6ib m22rata. Igal juhul on see optional
 @property end type=date_select table=calendar2recurrence form=+emb
 @caption Kuni
 
-property test type=text store=no group=test
-caption Test
-
-@groupinfo test caption=Test
 
 @tableinfo calendar2recurrence index=obj_id master_table=objects master_index=brother_of
 
@@ -94,7 +89,7 @@ class recurrence extends class_base
 	function get_property($arr)
 	{
 		$data = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		$filtered = array("interval_hourly","interval_minutely","interval_daily","weekdays","interval_weekly","interval_monthly","interval_yearly","month_weekdays","month_rel_weekdays", "month_days");
 		$prop_filter = array(
 			RECUR_MINUTELY => array("interval_minutely"),
@@ -116,8 +111,8 @@ class recurrence extends class_base
 		$cur_filter = $prop_filter[$type];
 		if (in_array($data["name"],$filtered) && !in_array($data["name"],$cur_filter))
 		{
-			return PROP_IGNORE;
-		};
+			return class_base::PROP_IGNORE;
+		}
 
 		switch($data["name"])
 		{
@@ -131,7 +126,7 @@ class recurrence extends class_base
 					"4" => "N",
 					"5" => "R",
 					"6" => "L",
-					"0" => "P",
+					"0" => "P"
 				);
 				break;
 
@@ -145,7 +140,7 @@ class recurrence extends class_base
 					"4" => "N",
 					"5" => "R",
 					"6" => "L",
-					"0" => "P",
+					"0" => "P"
 				);
 				break;
 
@@ -155,15 +150,14 @@ class recurrence extends class_base
 					"2" => t("teisel"),
 					"3" => t("kolmandal"),
 					"4" => t("neljandal"),
-					"-1" => t("viimasel"),
-
+					"-1" => t("viimasel")
 				);
 				break;
 
 			case "recur_type":
 				$data["options"] = array(
-					RECUR_DAILY => t("päev"),
-					RECUR_WEEKLY => t("nädal"),
+					RECUR_DAILY => t("p&auml;ev"),
+					RECUR_WEEKLY => t("n&auml;dal"),
 					RECUR_MONTHLY => t("kuu"),
 					RECUR_YEARLY => t("aasta"),
 					RECUR_MINUTELY => t("minut"),
@@ -172,23 +166,10 @@ class recurrence extends class_base
 				break;
 
 			case "length":
-				$data["value"] = abs ($this->safe_settype_float ($data["value"]));
+				$data["value"] = isset($data["value"]) ? abs (aw_math_calc::string2float($data["value"])) : 0;
 				break;
+		}
 
-			case "test":
-				$start = $arr["obj_inst"]->prop("start");
-				$end = $arr["obj_inst"]->prop("end");
-				// now I need to build a cycle from start to the end and have matches at each day
-				$rv = $this->calc_range2(array(
-					"start" => $start,
-					"end" => $end,
-					"weekdays" => $arr["obj_inst"]->prop("weekdays"),
-				));
-				$rv .= "<pre>" . print_r($arr["obj_inst"]->properties(),true) . "</pre>";
-				$data["value"] = $rv;
-				break;
-
-		};
 		return $retval;
 	}
 
@@ -331,8 +312,8 @@ class recurrence extends class_base
 			//print date("d.m.Y H:i",$i);
 			//print "<br>";
 			$rv[$i] = $i;
+		}
 
-		};
 		return $rv;
 	}
 
@@ -367,17 +348,6 @@ class recurrence extends class_base
 		};
 
 		return $rv;
-	}
-
-	function set_property($arr = array())
-	{
-		$data = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($data["name"])
-		{
-
-		}
-		return $retval;
 	}
 
 	////
@@ -589,26 +559,13 @@ class recurrence extends class_base
 		return $ret;
 	}
 
-	/* Now that I have to basic functionality working pretty much fine, I need to figure out a
-	  a way to create that "clone" button.
+// /* Now that I have to basic functionality working pretty much fine, I need to figure out a
+// a way to create that "clone" button.
 
-	  1 - create a connections to the original? Or create a connection from the original to the
-	  recurring event?
-	*/
-
-	/*
-		If I'm viewing an event then I can display the prev/next links
-
-
-	*/
-
-	function safe_settype_float ($value)
-	{
-		$parts1 = explode (",", $value, 2);
-		$parts2 = explode (".", $value, 2);
-		$parts = (count ($parts2) == 1) ? $parts1 : $parts2;
-		$value = (float) ((isset ($parts[0]) ? ((int) $parts[0]) : 0) . "." . (isset ($parts[1]) ? ((int) $parts[1]) : 0));
-		return $value;
-	}
+// 1 - create a connections to the original? Or create a connection from the original to the
+// recurring event?
+// */
+// /*
+// If I'm viewing an event then I can display the prev/next links
+// */
 }
-?>
