@@ -375,6 +375,24 @@
 
 class shop_order_center extends class_base
 {
+	protected $_oinst;
+	protected $tblayouts;
+	protected $tblayout_items;
+	protected $itemlayouts;
+	protected $itemlayouts_long;
+	protected $itemlayouts_long_2;
+	protected $itemlayout_items;
+	protected $folder_obj;
+	protected $web_discount;
+	protected $last_menu;
+	protected $xi;
+	protected $__is;
+	protected $filter_sel;
+	protected $selected_filters;
+	protected $imgbase;
+	protected $cfg;
+	protected $shop;
+
 	function shop_order_center()
 	{
 		$this->init(array(
@@ -2740,6 +2758,7 @@ class shop_order_center extends class_base
 	{
 		$this->shop = obj($arr["id"]);
 		$this->shop->make_new_struct();
+		//	FIXME: ???
 		die("MINGE MUNNI!!!!");
 	}
 
