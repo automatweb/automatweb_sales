@@ -12663,10 +12663,10 @@ die();
 			$types = $o->get_gategory_types()->names();
 			foreach($types as $id => $name)
 			{
-				$types[$id].= html::href(array(
+				$types[$id] .= " ".html::href(array(
 					"url" => "javascript:rem_type_from_cat('".$o->id()."' , '".$id."');",
 					"caption" => html::img(array(
-						"url" => "automatweb/images/icons/delete.gif",
+						"url" => icons::get_std_icon_url("delete"),
 					)),
 				));
 			}

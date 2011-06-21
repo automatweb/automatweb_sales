@@ -306,7 +306,10 @@ class shop_warehouse_config extends class_base
 
 	function callback_mod_retval($arr)
 	{
-		$arr["args"]["pgtf"] = $arr["request"]["pgtf"];
+		if (isset($arr["request"]["pgtf"]))
+		{
+			$arr["args"]["pgtf"] = $arr["request"]["pgtf"];
+		}
 	}
 
 	function do_db_upgrade($t, $f)
