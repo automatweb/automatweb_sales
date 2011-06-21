@@ -36,6 +36,8 @@
 
 class crm_skill_level extends class_base
 {
+	protected $level = 0;
+
 	function crm_skill_level()
 	{
 		$this->init(array(
