@@ -256,7 +256,7 @@ class document extends aw_template implements orb_public_interface
 		$params["vars"] = $doc["vars"];
 		$tpl = $doc["tpl"];
 
-		if (empty(strip_tags(trim($doc["lead"]))))
+		if (!trim(strip_tags($doc["lead"])))
 		{
 			$doc["lead"] = "";
 		}
