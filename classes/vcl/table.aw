@@ -2698,7 +2698,7 @@ END;
 		$ret = 0;
 		foreach($this->rowdefs as $rd)
 		{
-			if (isset($rd["parent"]) and $rd["parent"] == $parent)
+			if (!$parent or isset($rd["parent"]) and $rd["parent"] == $parent)
 			{
 				$tmp = $this->_get_sh_count_by_parent($rd["name"]);
 				if ($tmp == 0)
@@ -2723,7 +2723,7 @@ END;
 		}
 		foreach($this->rowdefs as $rd)
 		{
-			if (isset($rd["parent"]) and $rd["parent"] == $parent)
+			if (!$parent or isset($rd["parent"]) and $rd["parent"] == $parent)
 			{
 				$this->_get_max_level_cnt($rd["name"]);
 			}
