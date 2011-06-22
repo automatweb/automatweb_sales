@@ -3,6 +3,8 @@
 /** various system management methods **/
 class sys extends aw_template implements orb_public_interface
 {
+	private $req;
+
 	function sys($args = array())
 	{
 		$this->init("automatweb");

@@ -1,9 +1,9 @@
 <?php
 
 // tegeleb ORB requestide handlimisega
-lc_load("automatweb");
+lc_load("automatweb");//TODO: milleks keelt orb-is? orb ei peaks ju l6ppkasutajale midagi ise n2itama
 
-class orb extends aw_template
+class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 {
 	private $data = "";
 	private $info = array();
@@ -66,7 +66,7 @@ class orb extends aw_template
 
 		$vars = $args["vars"];
 
-		lc_load("definition");
+		lc_load("definition");//TODO: kas vaja?
 
 		// main authentication call
 		$this->check_login($class, $action);
@@ -1224,8 +1224,20 @@ class orb extends aw_template
 	}
 }
 
+
+/**
+Defines required interface for classes ready to serve requests mediated by
+AutomatWeb ORB module.
+**/
 interface orb_public_interface
 {
+	/**
+		Sets request to be carried out/executed
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+		@errors none
+	**/
 	public function set_request(aw_request $request);
 }
 
@@ -1234,4 +1246,7 @@ class awex_orb extends aw_exception {}
 
 /** ORB class related exception **/
 class awex_orb_class extends awex_orb {}
+
+/** ORB method related exception **/
+class awex_orb_method extends awex_orb {}
 
