@@ -2,10 +2,12 @@
 
 class document extends aw_template implements orb_public_interface
 {
-	var $blocks;
-	var $title;
-	var $no_left_pane;
-	var $no_right_pane;
+	var $blocks;//TODO: scope?
+	var $title;//TODO: scope?
+	var $no_left_pane;//TODO: scope?
+	var $no_right_pane;//TODO: scope?
+
+	private $req;
 
 	function document($period = 0)
 	{
@@ -256,7 +258,7 @@ class document extends aw_template implements orb_public_interface
 		$params["vars"] = $doc["vars"];
 		$tpl = $doc["tpl"];
 
-		if (empty(strip_tags(trim($doc["lead"]))))
+		if (!trim(strip_tags($doc["lead"])))
 		{
 			$doc["lead"] = "";
 		}
