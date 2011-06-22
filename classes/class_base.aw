@@ -126,7 +126,8 @@ class class_base extends aw_template implements orb_public_interface
 	protected $req;
 
 	/** Main object instance **/
-	protected $obj_inst;
+	// protected $obj_inst;
+	var $obj_inst; //XXX: PUBLIC, peaks olema protected arvatavasti
 
 	private $cfgform;
 	private $cfgform_obj;
