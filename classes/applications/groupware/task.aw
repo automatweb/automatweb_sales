@@ -400,7 +400,7 @@ class task extends class_base
 				break;
 			case "part":
 				$l = new object_list(array(
-					"class_id" => CL_CRM_PERSON,
+					"class_id" => CL_CRM_PERSON
 				));
 				foreach($l->arr() as $obj)
 				{
@@ -427,7 +427,7 @@ class task extends class_base
 				else
 				{
 					$l = new object_list(array(
-						"class_id" => CL_PROJECT,
+						"class_id" => CL_PROJECT
 					));
 					foreach($l->arr() as $obj)
 					{
@@ -1456,9 +1456,7 @@ class task extends class_base
 				{
 					$ol = new object_list(array(
 						"class_id" => CL_PROJECT,
-						"CL_PROJECT.RELTYPE_ORDERER" => $arr["request"]["alias_to_org"],
-						"lang_id" => array(),
-						"site_id" => array()
+						"CL_PROJECT.RELTYPE_ORDERER" => $arr["request"]["alias_to_org"]
 					));
 				}
 				else
@@ -1466,9 +1464,7 @@ class task extends class_base
 				{
 					$filt = array(
 						"class_id" => CL_PROJECT,
-						"CL_PROJECT.RELTYPE_ORDERER" => $arr["obj_inst"]->prop("customer"),
-						"lang_id" => array(),
-						"site_id" => array()
+						"CL_PROJECT.RELTYPE_ORDERER" => $arr["obj_inst"]->prop("customer")
 					);
 					$ol = new object_list($filt);
 				}
@@ -2213,12 +2209,12 @@ class task extends class_base
 	{
 		$data = array();
 		$curr_object_list = new object_list(array(
-                      "class_id" => CL_CURRENCY,
-                ));
-                foreach($curr_object_list->arr() as $curr)
-                {
-                	 $data[$curr->id()] = $curr->name();
-                }
+			"class_id" => CL_CURRENCY
+		));
+		foreach($curr_object_list->arr() as $curr)
+		{
+			$data[$curr->id()] = $curr->name();
+		}
 		return $data;
 	}
 
@@ -3477,7 +3473,7 @@ class task extends class_base
 	**/
 	function change_stop_type($arr)
 	{
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$u = obj($ui->get_current_user());
 		$stos = $this->get_stos($u);
 		$stos[$arr["ident"]]["type"] = $arr["type"];
@@ -3492,6 +3488,7 @@ class task extends class_base
 	{
 		// lets store stoppers data
 		$ac_postfix = "_awAutoCompleteTextbox";
+
 		foreach($arr as $k => $v)
 		{
 			// god-mother-fukin-damn .. uhh. well, i have to ignore those double elements from ac
@@ -3500,9 +3497,9 @@ class task extends class_base
 				continue;
 			}
 
-			$spl = split("_", $k);
+			$spl = explode("_", $k);
 			// well, here we filter out the stoppers data
-			if($spl[0] == "stopdata")
+			if($spl[0] === "stopdata")
 			{
 				// here we find such elements which use autocomplete.. hopefully
 				if(array_key_exists($k.$ac_postfix, $arr))
@@ -3552,8 +3549,7 @@ class task extends class_base
 			$stos[$arr["ident"]]["base"] += $elapsed;
 			$stos[$arr["ident"]]["state"] = STOPPER_PAUSED;
 		}
-		else
-		if ($arr["s_action"] === "stop")
+		elseif ($arr["s_action"] === "stop")
 		{
 			// stop timer and write row to task
 			$stopper = $stos[$arr["ident"]];
@@ -3580,8 +3576,7 @@ class task extends class_base
 				// do something !!
 			}
 		}
-		else
-		if ($arr["s_action"] === "start")
+		elseif ($arr["s_action"] === "start")
 		{
 			// pause all running timers
 			foreach((array)$stos as $k => $stopper)
@@ -3681,7 +3676,7 @@ class task extends class_base
 	**/
 	function save_participant_search_results($arr)
 	{
-		$p = get_instance(CL_PLANNER);
+		$p = new planner();
 		return $p->save_participant_search_results($arr);
 	}
 
@@ -3988,7 +3983,7 @@ class task extends class_base
 		{
 			$filt = array(
 				"class_id" => CL_PROJECT,
-				"CL_PROJECT.RELTYPE_PARTICIPANT" => $arr["cust"],
+				"CL_PROJECT.RELTYPE_PARTICIPANT" => $arr["cust"]
 			);
 			$ol = new object_list($filt);
 		}
@@ -4125,7 +4120,7 @@ class task extends class_base
 	function _hrs_table($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		$cff = get_instance(CL_CFGFORM);
+		$cff = new cfgform();
 		$cfgform_id = $this->get_cfgform_for_object(array(
 			"obj_inst" => $this->obj_inst,
 			"args" => $arr["request"],
@@ -4348,9 +4343,7 @@ class task extends class_base
 			}*/
 
 		$curr_object_list = new object_list(array(
-			"class_id" => CL_CURRENCY,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_CURRENCY
 		));
 		$curs = array();
 		foreach($curr_object_list->arr() as $curr)
@@ -5735,9 +5728,7 @@ class task extends class_base
 			{
 				$ol = new object_list(array(
 					"class_id" => array(CL_FILE,CL_CRM_MEMO,CL_CRM_DOCUMENT,CL_CRM_DEAL,CL_CRM_OFFER),
-					"parent" => $c->prop("to"),
-					"lang_id" => array(),
-					"site_id" => array()
+					"parent" => $c->prop("to")
 				));
 				foreach($ol->arr() as $o)
 				{

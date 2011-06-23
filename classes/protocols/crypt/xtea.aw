@@ -22,10 +22,6 @@
 //
 //
 
-/*
-@classinfo  maintainer=kristo
-*/
-
 /**
  *  Class that implements the xTEA encryption algorithm.
  *  Class that implements the xTEA encryption algorithm.<br />
@@ -187,9 +183,9 @@ class xtea
     /**
      *  Encrypt a string using a specific key.
 	@attrib api=1 params=pos
-     *  @param $data required type=string 
+     *  @param $data required type=string
      		Data to encrypt.
-     *  @param $key required type=string 
+     *  @param $key required type=string
      		Key to encrypt data with (binary string).
      *
      *  @return string          Binary encrypted character string.
@@ -205,7 +201,7 @@ class xtea
 			"uid" => aw_global_get("uid"),
 		);
 		$key = $this->do_orb_method_call(array(
-			"server" => "http://register.automatweb.com",
+			"server" => "http://register.automatweb.com/",
 			"params" => array(
 				"site_id" => aw_ini_get("site_id")
 			),
@@ -214,7 +210,7 @@ class xtea
 		$data = aw_serialize($data, SERIALIZE_XML);
 		$this->set_cval("site_list_xtea_session_key".aw_ini_get("site_id"), $key);
 		$i = get_instance("protocols/crypt/xtea");
-		return $i->encrypt($data, $key); 
+		return $i->encrypt($data, $key);
 	**/
     function encrypt($data, $key)
     {
@@ -276,7 +272,7 @@ class xtea
 	@attrib api=1 params=pos
      *  @param $data type=string
      	     Encrypted data to decrypt.
-     *  @param $key type=string 
+     *  @param $key type=string
      	     Key to decrypt encrypted data with (binary string).
      *
      *  @return string          Binary decrypted character string.
@@ -284,7 +280,7 @@ class xtea
      *  @access public
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            _encipherLong(), encrypt(), _resize(), _str2long()
-     @example 
+     @example
      	$i = get_instance("protocols/crypt/xtea");
 	return $i->decrypt(base64_decode($arr["data"]), $row["session_key"]);
      **/
@@ -323,7 +319,7 @@ class xtea
             $j = ($j + 4) % $n_key_long;
 
             $this->_decipherLong($enc_data_long[$i], $enc_data_long[$i + 1], $w, $k);
- 
+
             // append the deciphered longs to the result data (remove padding)
             if (0 == $i) {
                 $len = $w[0];
@@ -522,7 +518,7 @@ class xtea
 
     // }}}
     // {{{ _rshift()
-    
+
     /**
      *  Handle proper unsigned right shift, dealing with PHP's signed shift.
      *
@@ -558,7 +554,7 @@ class xtea
 
     // }}}
     // {{{ _add()
-    
+
     /**
      *  Handle proper unsigned add, dealing with PHP's signed add.
      *
@@ -596,5 +592,3 @@ class xtea
 
     // }}}
 }
-
-?>

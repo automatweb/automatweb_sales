@@ -252,7 +252,7 @@ class add_tree_conf extends class_base
 		@returns
 			array { clid => clid } for all clids that the add tree conf allows to be used
 	**/
-	function get_usable_filter($id)
+	public function get_usable_filter($id)
 	{
 		$o = obj($id);
 		$r = $o->meta("usable");

@@ -4768,7 +4768,8 @@ class crm_company extends class_base
 					}
 					catch (awex_obj_class $e)
 					{
-						$new_parent = $new_parent_oid = null;
+						$new_parent = null;
+						$new_parent_oid = 0;
 					}
 				}
 				else
@@ -4786,22 +4787,25 @@ class crm_company extends class_base
 						try
 						{
 							$o = new object($oid);
-							if ($o->is_a(crm_company_customer_data_obj::CLID))
-							{ // move or copy customer to new category
+							if ($o->is_a(crm_company_customer_data_obj::CLID)) // process cut/copied customer objects
+							{ // move or copy customer to new category. if new category not given, just remove from old.
 								if ("cut" === $action  and $old_parent)
-								{ // remove old category since cut
+								{ // cut action requested -- remove old category
 									$o->remove_category($old_parent);
 								}
 
 								if ($new_parent)
-								{
+								{ // if new parent given, add that category to customer's categories
 									$o->add_category($new_parent);
 								}
 							}
-							elseif ($o->is_a(crm_category_obj::CLID))
+							elseif ($o->is_a(crm_category_obj::CLID)) // process cut/copied categories
 							{ // replace category parent category
-								if ("copy" === $action)
-								{
+								if (
+									"copy" === $action and
+									$o->prop("parent_category") != $new_parent // avoid paste (making a copy with same name) to where copied category originally is
+								)
+								{ // add a new category by same name
 									$category_copy = $this_object->add_customer_category($new_parent, (int) $o->prop("category_type"));
 									$category_copy->set_name($o->name());
 									$o = $category_copy;

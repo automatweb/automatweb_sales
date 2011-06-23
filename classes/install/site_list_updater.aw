@@ -44,7 +44,7 @@ class site_list_updater extends aw_template
 	}
 
 	/**
-		@attrib name=ping nologin="1"
+		@attrib name=ping nologin=1
 	**/
 	function ping($arr)
 	{
@@ -52,7 +52,7 @@ class site_list_updater extends aw_template
 	}
 
 	/**
-		@attrib name=bg_do_update nologin="1"
+		@attrib name=bg_do_update nologin=1
 		@param uid optional
 	**/
 	function bg_do_update($arr)
@@ -150,7 +150,7 @@ class site_list_updater extends aw_template
 
 	function _encrypt($data, $key)
 	{
-		$i = get_instance("protocols/crypt/xtea");
+		$i = new xtea();
 		return $i->encrypt($data, $key);
 	}
 
@@ -160,7 +160,7 @@ class site_list_updater extends aw_template
 			"class" => "site_list",
 			"action" => "do_auto_update",
 			"method" => "xmlrpc",
-			"server" => "http://register.automatweb.com",
+			"server" => "http://register.automatweb.com/",
 			"params" => array(
 				"site_id" => aw_ini_get("site_id"),
 				"data" => base64_encode($data)

@@ -9,11 +9,11 @@ define("STAT_ACTIVE", 2);
 
 class core extends acl_base
 {
-	var $errmsg;
+	var $errmsg;//TODO: scope?
+
 	public $raise_error_exception;
 
 	private $use_empty = false;
-
 	private static $lc_load_loaded_files_list = array(); // loaded language file names kept here to avoid reloading
 
 	/** every class that derives from core, should call this initialization method
@@ -60,6 +60,7 @@ class core extends acl_base
 
 	////
 	// !Setter for object
+	//XXX: public?
 	function set_opt($key,$val)
 	{
 		$this->$key = $val;
@@ -67,6 +68,7 @@ class core extends acl_base
 
 	////
 	// !Getter for object
+	//XXX: public?
 	function get_opt($key)
 	{
 		return isset($this->$key) ? $this->$key : NULL;
@@ -169,7 +171,7 @@ class core extends acl_base
 					"Syslog katki ".aw_ini_get("baseurl"),
 					"q = $q / ".$this->db_last_error["error_string"]." \n".dbg::process_backtrace(debug_backtrace())
 				);
-			};
+			}
 		}
 	}
 
@@ -813,10 +815,8 @@ class core extends acl_base
 	}
 
 	/** deprecated - no not use **/
-	function mk_orb($fun,$arr, $cl_name = "",$user = "")
-	{
-		return $this->mk_my_orb($fun,$arr,$cl_name);
-	}
+	function mk_orb($fun,$arr, $cl_name = "",$user = "") { return $this->mk_my_orb($fun,$arr,$cl_name);  }
+
 
 	/** Creates a link from the $args array and returns it.
 
@@ -833,19 +833,27 @@ class core extends acl_base
 		{
 			if ($val)
 			{
-				$retval[] = "$key=$val";
+				$retval[] = "{$key}={$val}";
 			}
 			elseif (!$skip_empty)
 			{
 				$retval[] = $key;
-			};
-		};
-		return join("/",$retval);
+			}
+		}
+		return implode("/",$retval);
 	}
 
-	////
-	// !creates a list of menus above $parent and appends $text and assigns it to the correct variable
-	function mk_path($oid,$text = "",$period = 0)
+	/** creates a list of menus above $parent and appends $text and assigns it to the correct variable
+		@attrib api=1 params=pos
+		@param oid type=oid
+			Object id to create path to
+		@param text type=string default=""
+		@param period type=oid default=0
+		@returns string
+		@errors
+			throws awex_obj_acl if object with $oid denied
+	**/
+	public function mk_path($oid, $text = "", $period = 0)
 	{
 		$path = "";
 		$nt = true;
@@ -859,7 +867,7 @@ class core extends acl_base
 			{
 				$text = html::href(array(
 					"url" => $return_url,
-					"caption" => t("Tagasi"),
+					"caption" => t("Tagasi")
 				));
 			}
 			else
@@ -905,13 +913,13 @@ class core extends acl_base
 			}
 		}
 
-		if((aw_global_get("output_charset") != null) && (aw_global_get("charset") != aw_global_get("output_charset")))
+		if((aw_global_get("output_charset")) && (aw_global_get("charset") !== aw_global_get("output_charset")))
 		{
 			$path = iconv(aw_global_get("charset"), aw_global_get("output_charset"), $path);
 			$text = iconv(aw_global_get("charset"), aw_global_get("output_charset"), $text);
 		}
 
-		$GLOBALS["site_title"] = $path.$text;
+		$GLOBALS["site_title"] = $path.$text;//XXX: milleks see on? iga kord kui mingi obj pathi kysitakse siis pannakse see saidi pealkirjaks?
 
 		return $path;
 	}
@@ -1041,7 +1049,7 @@ class core extends acl_base
 		return true;
 	}
 
-	/** Retrieves a list of files in a directory
+	/** Retrieves a list of files in a directory in the server's local file system
 		@attrib api=1
 
 		@param dir required type=string
@@ -1144,6 +1152,7 @@ class core extends acl_base
 
 	////
 	// !loads localization constans and imports them to the current class, vars are assumed to be in array $arr_name
+	//XXX: lib/defs.aw-s on ka selline funktsioon, erinev?
 	function lc_load($file, $arr_name, $lang_id = "")
 	{
 		if (empty($lang_id))

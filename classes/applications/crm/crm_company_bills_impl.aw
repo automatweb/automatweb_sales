@@ -1457,9 +1457,7 @@ $x++;
 
 			$t->define_field(array(
 				"name" => "create_new",
-				"caption" => t("Loo uus"),
-				"sortable" => 1,
-				"numeric" => 1,
+				"caption" => t("Uus"),
 				"chgbgcolor" => "color"
 			));
 		}
@@ -1488,16 +1486,18 @@ $x++;
 		{
 			$t->define_field(array(
 				"name" => "bill_due_date",
-				"caption" => t("Makset&auml;htaeg"),
+				"caption" => t("T&auml;htaeg"),
 				"type" => "time",
 				"format" => "d.m.Y",
 				"numeric" => 1,
 				"sortable" => 1,
 				"chgbgcolor" => "color"
 			));
+
 			$t->define_field(array(
 				"name" => "payment_over_date",
-				"caption" => t("<a href='javascript:void(0)' alt='Maksega hilinenud p&auml;evade arv' title='Maksega hilinenud p&auml;evade arv'>MHPA</a>"),
+				"caption" => t("&Uuml;le"),
+				"tooltip" => t("Maksega hilinenud p&auml;evade arv"),
 				"align" => "center",
 				"chgbgcolor" => "color"
 			));
@@ -1539,16 +1539,16 @@ $x++;
 			"sortable" => 1,
 			"numeric" => 1,
 			"align" => "right",
-			"chgbgcolor" => "color",
+			"chgbgcolor" => "color"
 		));
 
 		$t->define_field(array(
 			"name" => "tax",
-			"caption" => t("K&auml;ibemaks"),
-			"sortable" => 1,
+			"caption" => t("KM"),
+			"tooltip" => t("K&auml;ibemaks"),
 			"numeric" => 1,
 			"align" => "right",
-			"chgbgcolor" => "color",
+			"chgbgcolor" => "color"
 		));
 
 		if($this->show_bill_balance)
@@ -1591,9 +1591,7 @@ $x++;
 		}
 		$t->define_field(array(
 			"name" => "print",
-			"caption" => t("Prindi"),
-			"sortable" => 1,
-			"chgbgcolor" => "color",
+			"chgbgcolor" => "color"
 		));
 		$t->define_chooser(array(
 			"field" => "oid",
@@ -1913,7 +1911,7 @@ $x++;
 				$partial = '<br>'.t("osaliselt");
 			}
 			$bill_data = array(
-				"bill_name" => html::get_change_url($bill->id(), array("return_url" => get_ru()), ($bill->comment() ? $bill->comment() : $bill->prop("bill_no"))),
+				"bill_name" => html::get_change_url($bill->id(), array("return_url" => get_ru()), ($bill->comment() ? $bill->comment() : t("[nimetu]"))),
 				"bill_no" => html::get_change_url($bill->id(), array("return_url" => get_ru()), parse_obj_name($bill->prop("bill_no"))),
 				"create_new" => html::href(array(
 					"url" => $this->mk_my_orb("create_invoice_from_template", array(
@@ -1921,7 +1919,7 @@ $x++;
 						"co" => $arr["obj_inst"]->id(),
 						"post_ru" => get_ru()
 						), CL_CRM_COMPANY),
-					"caption" => t("Loo uus arve")
+					"caption" => html::img(array("url" => icons::get_std_icon_url("add"), "alt" => t("Loo uus arve")))
 				)),
 				"bill_date" => $bill->prop("bill_date"),
 				"bill_due_date" => $bill->prop("bill_due_date"),
@@ -2197,7 +2195,7 @@ $x++;
 		$tb->add_menu_button(array(
 			'name' => 'create',
 			'icon' => 'add',
-			'tooltip' => t('Loo uus')
+			'tooltip' => t('Uus')
 		));
 		$tb->add_menu_item(array(
 			'name' => 'create_template',
