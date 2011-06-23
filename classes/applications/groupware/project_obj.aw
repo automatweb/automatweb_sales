@@ -835,12 +835,12 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 	public function add_bill()
 	{
 		$bill = obj();
-		$bill->set_class_id(CL_CRM_BILL);
+		$bill->set_class_id(crm_bill_obj::CLID);
 		$bill->set_parent($this->id());
 		$bill->save();
 
-		$ser = get_instance(CL_CRM_NUMBER_SERIES);
-		$bno = $ser->find_series_and_get_next(CL_CRM_BILL,0,time());
+		$ser = new crm_number_series();
+		$bno = $ser->find_series_and_get_next(crm_bill_obj::CLID, 0, time());
 		if (!$bno)
 		{
 			$bno = $bill->id();
@@ -863,9 +863,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 // 			$bill->set_prop("impl", $impl);
 // 		}
 		$bill->set_impl();
-		$bill->set_prop("bill_date", time());
-		$bill->set_due_date();
-
 		$bill->save();
 		return $bill;
 	}

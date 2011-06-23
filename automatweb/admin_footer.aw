@@ -20,9 +20,8 @@ if ($ta != "")
 // so this code checks whether aw_styles subtemplate exists and if so, replaces
 // it with the style definition .. otherwise it will add them at the bottom of the page
 // as before
-$apd = new active_page_data();
 $txt = "";
-$styles = $apd->on_shutdown_get_styles($txt);
+$styles = active_page_data::on_shutdown_get_styles($txt);
 $styles_done = false;
 
 // check the url for classes and if any of those are in a product family, then set that
@@ -311,7 +310,7 @@ $sf->vars(array(
 	"charset" => $charset,
 	"title_action" => $ta,
 	"html_title" => $html_title,
-	"MINIFY_JS_AND_CSS" => aw_ini_get("site_id") != 477 ? (minify_js_and_css::parse_admin_header($sf->parse("MINIFY_JS_AND_CSS"))) : $sf->parse("MINIFY_JS_AND_CSS"),
+	"MINIFY_JS_AND_CSS" => minify_js_and_css::parse_admin_header($sf->parse("MINIFY_JS_AND_CSS")),
 	"POPUP_MENUS" => cache::file_get("aw_toolbars_".aw_global_get("uid")),
 ));
 cache::file_set("aw_toolbars_".aw_global_get("uid"), "");
@@ -323,8 +322,8 @@ if ($sf->is_template("aw_styles"))
 }
 
 // include javascript files which are loaded from code:
-$sf->vars(array("javascript" => $apd->get_javascript()));
-$sf->vars(array("javascript_bottom" => $apd->get_javascript("bottom")));
+$sf->vars(array("javascript" => active_page_data::get_javascript("head")));
+$sf->vars(array("javascript_bottom" => active_page_data::get_javascript("bottom")));
 $str= $sf->parse();
 
 if (!$styles_done)

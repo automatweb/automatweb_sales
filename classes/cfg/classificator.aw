@@ -468,39 +468,39 @@ class classificator extends class_base
 		if (empty($arr["name"]))
 		{
 			return false;
-		};
+		}
 
 		if (empty($arr["clid"]))
 		{
 			return false;
-		};
+		}
 
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 		$props = $cfgu->load_properties(array(
 			"clid" => $arr["clid"],
 			"filter" => array("name" => $arr["name"]),
 		));
 
-		if (is_oid($arr["object_type"]))
+		if (isset($arr["object_type"]) and is_oid($arr["object_type"]))
 		{
 			$active_object_id = $arr["object_type"];
 		}
 		else
 		{
-			$ot = get_instance(CL_OBJECT_TYPE);
+			$ot = new object_type();
 			$active_object_id = $ot->get_obj_for_class(array(
 				"clid" => $arr["clid"],
 			));
 
-			if (is_object($arr["obj_inst"]) && is_oid($arr["obj_inst"]->id()))
+			if (isset($arr["obj_inst"]) && is_object($arr["obj_inst"]) && $arr["obj_inst"]->is_saved())
 			{
 				$custom_ff = $arr["obj_inst"]->meta("object_type");
 				if (is_oid($custom_ff))
 				{
 					$active_object_id = $custom_ff;
-				};
-			};
+				}
+			}
 		}
 
 		$c_obj = new object($active_object_id);
@@ -509,11 +509,8 @@ class classificator extends class_base
 		$items = new object_list(array(
 			"parent" => $clinf[$arr["name"]],
 			"class_id" => CL_META,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"sort_by" => "objects.jrk"
 		));
 		return $items->names();
 	}
 }
-?>

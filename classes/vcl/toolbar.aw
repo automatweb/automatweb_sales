@@ -16,8 +16,8 @@ class toolbar extends aw_template
 	{
 		$this->init("toolbar");
 
-		$imgbase = empty($args["imgbase"]) ? "automatweb/images/icons" : $args["imgbase"];
-		$this->imgbase = aw_ini_get("baseurl") . $imgbase;
+		$imgbase = empty($args["imgbase"]) ? aw_ini_get("icons.server") : aw_ini_get("baseurl") . $args["imgbase"];
+		$this->imgbase = $imgbase;
 		$this->vars(array(
 			"imgbase" => $this->imgbase
 		));
@@ -755,7 +755,7 @@ class toolbar extends aw_template
 	{
 		$this->add_button(array(
 			"name" => "save",
-			"img" => "save.gif",
+			"icon" => "disk",
 			"action" => "",
 			"tooltip" => t("Salvesta")
 		));

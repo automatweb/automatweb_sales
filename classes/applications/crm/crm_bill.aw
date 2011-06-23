@@ -1,12 +1,14 @@
 <?php
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
+
 @tableinfo aw_crm_bill index=aw_oid master_index=brother_of master_table=objects
 @classinfo relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
+
 @default table=objects
 
-
 @property customer type=hidden table=aw_crm_bill field=aw_customer
+@property customer_relation type=hidden table=aw_crm_bill field=aw_customer_relation
 
 //deprecated
 @property bill_mail_to type=hidden field=meta method=serialize
@@ -453,25 +455,6 @@ class crm_bill extends class_base
 		$arr["dno"] = "";
 	}
 
-	function get_bill_cust_data_object($bill)
-	{
-		if(!is_object($bill))
-		{
-			return "";
-		}
-		if($this->cust_data_object)
-		{
-			return $this->cust_data_object;
-		}
-		$cust_rel_list = new object_list(array(
-			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-			"buyer" => $bill->prop("customer"),
-			"seller" => $bill->prop("impl")
-		));
-		$this->cust_data_object = reset($cust_rel_list->arr());
-		return $this->cust_data_object;
-	}
-
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
@@ -628,32 +611,41 @@ class crm_bill extends class_base
 
 			case "customer_name":
 				$ps = new popup_search();
-				$ps->set_class_id(array(CL_CRM_PERSON, CL_CRM_COMPANY));
+				$ps->set_class_id(array(crm_company_customer_data_obj::CLID));
 				$ps->set_id($arr["obj_inst"]->id());
 				$ps->set_reload_layout("top_right");
-				$ps->set_property("customer");
+				$ps->set_property("customer_relation");
 				$search_button = $ps->get_search_button();
 				$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
 				if($arr["obj_inst"]->prop("customer"))
 				{
+					$text = t("Muuda kliendi andmeid");
 					$edit_button = " " . html::href(array(
 						"url" => html::get_change_url($arr["obj_inst"]->prop("customer"), array("return_url" => get_ru())),
-						"caption" => html::img(array("url" => icons::get_std_icon_url("pencil")))
+						"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"), "alt" => $text, "title" => $text))
 					));
+
+					$text = t("Muuda kliendisuhet");
+					$edit_cro_button = " " . html::href(array(
+						"url" => html::get_change_url($arr["obj_inst"]->prop("customer_relation"), array("return_url" => get_ru())),
+						"caption" => html::img(array("url" => icons::get_std_icon_url("link_edit"), "alt" => $text, "title" => $text))
+					));
+
+					$text = t("Lae kliendi andmed uuesti");
 					$reload_button = " " . html::href(array(
 						"url" => "javascript:;",
 						"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
-						"caption" => html::img(array("url" => aw_ini_get("icons.server") . "refresh.gif"))
+						"caption" => html::img(array("url" => aw_ini_get("icons.server") . "refresh.gif", "alt" => $text, "title" => $text))
 					));
 				}
 				else
 				{
 					$prop["caption"] = t("Klient");
 					$prop["disabled"] = "1";
-					$reload_button = $edit_button = "";
+					$reload_button = $edit_button = $edit_cro_button = "";
 				}
 
-				$prop["post_append_text"] = " {$search_button}{$edit_button}{$reload_button}";
+				$prop["post_append_text"] = " {$search_button}{$edit_button}{$edit_cro_button}{$reload_button}";
 				break;
 
 			case "ctp_text":
@@ -4998,53 +4990,77 @@ ENDSCRIPT;
 
 	function do_db_upgrade($table, $field, $q, $err)
 	{
-		switch($field)
+		if ("aw_crm_bill" === $table)
 		{
-			case "aw_customer_name":
-			case "aw_customer_address":
-			case "aw_customer_code":
-			case "aw_time_spent_desc":
-			case "aw_reminder_text":
-				$this->db_add_col($table, array(
-					"name" => $field,
-					"type" => "varchar(255)"
-				));
-				return true;
+			switch($field)
+			{
+				case "aw_customer_name":
+				case "aw_customer_address":
+				case "aw_customer_code":
+				case "aw_time_spent_desc":
+				case "aw_reminder_text":
+					$this->db_add_col($table, array(
+						"name" => $field,
+						"type" => "varchar(255)"
+					));
+					return true;
 
-			case "aw_trans_date":
-			case "aw_payment_mode":
-			case "aw_on_demand":
-			case "aw_warehouse":
-			case "aw_price_list":
-			case "aw_transfer_method":
-			case "aw_transfer_condition":
-			case "aw_selling_order":
-			case "aw_transfer_address":
-			case "aw_approved":
-			case "aw_currency":
-			case "aw_bill_accounting_date":
-			case "aw_is_overdue_bill":
-			case "aw_assembler":
-				$this->db_add_col($table, array(
-					"name" => $field,
-					"type" => "int"
-				));
-				return true;
+				case "aw_trans_date":
+				case "aw_payment_mode":
+				case "aw_on_demand":
+				case "aw_warehouse":
+				case "aw_price_list":
+				case "aw_transfer_method":
+				case "aw_transfer_condition":
+				case "aw_selling_order":
+				case "aw_transfer_address":
+				case "aw_approved":
+				case "aw_currency":
+				case "aw_bill_accounting_date":
+				case "aw_is_overdue_bill":
+				case "aw_assembler":
+					$this->db_add_col($table, array(
+						"name" => $field,
+						"type" => "int"
+					));
+					return true;
 
-			case "aw_is_invoice_template":
-				$this->db_add_col($table, array(
-					"name" => "aw_is_invoice_template",
-					"type" => "bool"
-				));
-				$this->db_query("UPDATE aw_crm_bill SET aw_is_invoice_template = aw_monthly_bill");
-				return true;
+				case "aw_customer_relation":
+					$this->db_add_col("aw_crm_bill", array(
+						"name" => $field,
+						"type" => "INT(11) UNSIGNED NOT NULL DEFAULT '0'"
+					));
+					// update existing invoice objects
+					$update_query = "
+						UPDATE objects bill_o
+						JOIN aw_crm_bill bill ON bill_o.oid = bill.aw_oid
+						JOIN aw_crm_customer_data cro ON
+							bill.aw_customer = cro.aw_buyer AND
+							bill.aw_impl = cro.aw_seller
+						SET bill.aw_customer_relation = cro.aw_oid
+					";
+					$this->db_query($update_query);
+					// clear object cache
+					//TODO: see pole korralik. kasutada mingit 6iget storage vahendit (mida veel ilmselt pole)
+					cache::file_clear_pt("storage_search");
+					cache::file_clear_pt("storage_object_data");
+					return true;
 
-			case "aw_overdue_charge":
-				$this->db_add_col($table, array(
-					"name" => $field,
-					"type" => "double"
-				));
-				return true;
+				case "aw_is_invoice_template":
+					$this->db_add_col($table, array(
+						"name" => "aw_is_invoice_template",
+						"type" => "bool"
+					));
+					$this->db_query("UPDATE aw_crm_bill SET aw_is_invoice_template = aw_monthly_bill");
+					return true;
+
+				case "aw_overdue_charge":
+					$this->db_add_col($table, array(
+						"name" => $field,
+						"type" => "double"
+					));
+					return true;
+			}
 		}
 	}
 
