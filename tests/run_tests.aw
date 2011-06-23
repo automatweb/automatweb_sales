@@ -1,8 +1,7 @@
 <?php
 if ($argc < 2)
 {
-	die(
-		"Usage:\n\tphp ${argv[0]} /path/to/site/aw.ini [folder folder folder to run tests in]\n\n");
+	exit("Usage:\n\tphp ${argv[0]} /path/to/site/aw.ini [folder folder folder to run tests in]\n\n");
 }
 
 $nl = "<br>\n";
@@ -15,19 +14,20 @@ if(!$autotest)
 $site_dir = str_replace("/aw.ini", "", $argv[1]);
 $aw_dir = getcwd();//"/www/dev/autotest/automatweb_dev";
 $basedir =$aw_dir;// realpath("..")."/automatweb_dev";
+$cache_file = $site_dir . "/pagecache/ini.cache";
+$cfg_files = array($site_dir . "/aw.ini");
 
-include("$basedir/init.aw");
-//init_config(array("ini_files" => array("$basedir/aw.ini", $argv[1])));
-init_config(array(
-	"cache_file" => $site_dir."/pagecache/ini.cache",
- 	"ini_files" => array($aw_dir."/aw.ini",$site_dir."/aw.ini")
- ));
+automatweb::start();
+automatweb::$instance->bc();
+automatweb::$instance->load_config_files($cfg_files, $cache_file);
+$request = aw_request::autoload();
+automatweb::$instance->set_request($request);
+automatweb::$instance->exec();
+automatweb::$result->send();
+automatweb::shutdown();
+
 chdir("classes");
-//echo getcwd() . "\n<br>";
-classload("defs");
-classload("aw_template","core/util/timer");
-classload("core/obj/object", "core/error");
- 
+
 if($do_test || !$autotest)
 {
 	if($autotest) //automaatse testi puhul peaks inimesi sp2mmima hakkama
@@ -39,9 +39,9 @@ if($do_test || !$autotest)
 	require_once('simpletest/reporter.php');
 
 	$awt = new aw_timer;
-	
+
 	//ob_start();
-	
+
 	if ($argc < 3)
 	{
 		$argc = 3;
@@ -50,9 +50,9 @@ if($do_test || !$autotest)
 	for($i = 2; $i < $argc; $i++)
 	{
 		$path = $aw_dir."/tests/".$argv[$i];//"/www/dev/autotest/automatweb_dev/tests/".$argv[$i];
-	
+
 		echo "running tests in ".$argv[$i]."... \n\n<br><br>";
-	
+
 		if (is_file($path))
 		{
 			$files[] = $path;
@@ -65,7 +65,7 @@ if($do_test || !$autotest)
 			$p->_get_class_list($files, $path);
 		}
 		$suite = &new GroupTest("All tests");
-		
+
 		foreach($files as $filename)
 		{
 		//	if(substr_count($filename, "init.aw") > 0) continue;
@@ -91,7 +91,7 @@ elseif($_GET["test"])
 			{
 				$autotest_content.= "Tested : ".date("d.m.Y H:i" , $val["time"]);
 				$autotest_content.= "<br>result : <br>";
-				
+
 					classload("vcl/table");
 				//	get_instance("vcl/table");
 				$t = new vcl_table(array(
@@ -128,10 +128,8 @@ else
 		$asd *= 2;
 	}
 	$autotest_content.= join (", " , $asds);
-
 	$autotest_content.=  " results" ;
-	classload("vcl/table");
-//	get_instance("vcl/table");
+
 	$t = new vcl_table(array(
 		"layout" => "generic",
 	));
@@ -166,8 +164,8 @@ else
 		"name" => "exc",
 		"caption" => t("Exceptions"),
 	));
+
 	$log_array = _get_log($site_dir);
-	//arr($log_array);
 	$log_data = array();
 	$done = array();
 	$count = sizeof($log_array);
@@ -176,6 +174,7 @@ else
 	{
 		$show = $_GET["show"];
 	}
+
 	foreach($log_array as $log)
 	{
 		if(is_array(unserialize($log)) && $show >= $count-1)
@@ -194,11 +193,10 @@ else
 				"time" => "<a href='?test=".$val["time"]."'><font color=".$color.">".date("d.m.Y H:i" , $val["time"])."</br></a>",
 			));
 		}
-		$show++;	
+		$show++;
 	}
+
 	$autotest_content.= $t->draw().'<br>';
-
-
 
 	$myFile = "/www/dev/autotest/test_list.txt";
 	if(!filesize($myFile))
@@ -213,7 +211,7 @@ else
 		$log_array = explode("\n" , $theData);
 		if(is_array($log_array) && sizeof($log_array))
 		{
-		
+
 			$t = new vcl_table(array(
 				"layout" => "generic",
 			));
@@ -222,17 +220,17 @@ else
 				"name" => "time",
 				"caption" => t("Time"),
 			));
-		
+
 			$t->define_field(array(
 				"name" => "file",
 				"caption" => t("Files"),
 			));
-		
+
 			$t->define_field(array(
 				"name" => "email",
 				"caption" => t("e-mail"),
 			));
-		
+
 			$files = array();
 			foreach($log_array as $id => $log)
 			{
@@ -249,7 +247,6 @@ else
 			}
 		}
 		$autotest_content.= $t->draw();
-//	print $t->draw();
 	}
 }
 
@@ -268,4 +265,3 @@ function __is_err()
 	}
 	return false;
 }
-?>

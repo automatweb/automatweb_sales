@@ -934,7 +934,7 @@ class core extends acl_base
 			none
 
 		@examples
-			echo $this->get_file(array("file" => aw_ini_get("basedir")."/init.aw"));
+			echo $this->get_file(array("file" => aw_ini_get("basedir")."automatweb.aw"));
 	**/
 	public static function get_file($arr)
 	{

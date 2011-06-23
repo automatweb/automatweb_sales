@@ -497,9 +497,6 @@ function load_config ($files = array(), $cache_file = null)
 // those variables instead of messing with our own objects. Empty it
 // first and then put variables we need into it.
 
-// oh, dammit. Shouldn't the aw_globals also be initalized and accesed
-// through the aw_dir/init.aw - ?
-
 // well. our own stuff kinda.. I dunno, feels better. but yeah, it also feels a lot slower.
 // and yeah. we shouldn't need these before aw_startup() and we could init it in there.. - terryf
 
