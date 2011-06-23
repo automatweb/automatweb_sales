@@ -789,8 +789,7 @@ class mysql_pdo
 
 			return $upgrade_result;
 		}
-
-		if (strpos($errstr, "doesn't exist") !== false)
+		elseif (strpos($errstr, "doesn't exist") !== false)
 		{
 			preg_match("/Table '(.*)\.(.*)' doesn't exist/imsU" , $errstr, $mt);
 

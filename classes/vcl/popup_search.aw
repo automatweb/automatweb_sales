@@ -7,7 +7,7 @@ so that clients can perform actions based on the change
 EMIT_MESSAGE(MSG_POPUP_SEARCH_CHANGE)
 
 */
-class popup_search extends aw_template
+class popup_search extends aw_template implements vcl_interface, orb_public_interface
 {
 	const PS_WIDTH = 800;
 	const PS_HEIGHT = 500;
@@ -90,12 +90,11 @@ class popup_search extends aw_template
 		$tmp["type"] = "text";
 		if (!$tmp["clid"] && $tmp["reltype"])
 		{
-			$clss = aw_ini_get("classes");
 			$clid = new aw_array($arr["relinfo"][$reltype]["clid"]);
 			$tmp["clid"] = array();
 			foreach($clid->get() as $clid)
 			{
-				$tmp["clid"][] = $clss[$clid]["def"];
+				$tmp["clid"][] = aw_ini_get("classes.{$clid}.def");
 			}
 		}
 
@@ -180,7 +179,7 @@ class popup_search extends aw_template
 		{
 			$tmp["value"] .= html::href(array(
 				"url" => "javascript:aw_popup_scroll('$url','Otsing',".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
-				"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
+				"caption" => html::img(array("url" => icons::get_std_icon_url("magnifier"))),
 				"title" => t("Otsi")
 			));
 
@@ -189,7 +188,7 @@ class popup_search extends aw_template
 				$tmp["value"] .= " ";
 				$tmp["value"] .= html::href(array(
 					"url" => html::get_change_url($_id, array("return_url" => get_ru())),
-					"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/edit.gif' border=0>",
+					"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"))),
 					"title" => t("Muuda")
 				));
 
@@ -200,7 +199,6 @@ class popup_search extends aw_template
 			if (!empty($pl[$arr["property"]["name"]]["reltype"]) )
 			{
 				$rt = $pl[$arr["property"]["name"]]["reltype"];
-				$clss = aw_ini_get("classes");
 				$clid = new aw_array($arr["relinfo"][$rt]["clid"]);
 				$rel_val = $arr["relinfo"][$rt]["value"];
 				if ($clid->count() > 1)
@@ -210,7 +208,7 @@ class popup_search extends aw_template
 					foreach($clid->get() as $_clid)
 					{
 						$pm->add_item(array(
-							"text" => $clss[$_clid]["name"],
+							"text" => aw_ini_get("classes.{$_clid}.name"),
 							"link" => html::get_new_url(
 								$_clid,
 								$arr["obj_inst"]->id(),
@@ -241,8 +239,8 @@ class popup_search extends aw_template
 									"return_url" => get_ru()
 								)
 							),
-							"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/new.gif' border=0>",
-							"title" => sprintf(t("Lisa uus %s"), $clss[$cl]["name"])
+							"caption" => html::img(array("url" => icons::get_std_icon_url("add"))),
+							"title" => sprintf(t("Lisa uus %s"), aw_ini_get("classes.{$cl}.name"))
 						));
 					}
 				}
@@ -257,7 +255,7 @@ class popup_search extends aw_template
 				));
 				$tmp["value"] .= " ".html::href(array(
 					"url" => "javascript:aw_popup_scroll(\"$url2\",\"Eemalda\",".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
-					"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif' border=0>",
+					"caption" => html::img(array("url" => icons::get_std_icon_url("delete"))),
 					"title" => t("Eemalda")
 				));
 			}
@@ -268,7 +266,7 @@ class popup_search extends aw_template
 		);
 	}
 
-	function process_vcl_property($arr)
+	function process_vcl_property(&$arr)
 	{
 		if ($arr["obj_inst"]->is_property($arr["prop"]["name"]))
 		{
@@ -938,7 +936,7 @@ function aw_get_el(name,form)
 	**/
 	function get_popup_search_link($arr)
 	{
-		$c = !empty($arr["confirm"])?" onClick=\"if(!confirm('$arr[confirm]')) {return false;}\"":"";
+		$c = !empty($arr["confirm"])?" onclick=\"if(!confirm('$arr[confirm]')) {return false;}\"":"";
 		unset($arr["confirm"]);
 		$url = $this->mk_my_orb("do_search", $arr);
 		$s = t("Otsi");
@@ -1039,8 +1037,8 @@ function aw_get_el(name,form)
 	{
 		$ret = 	html::href(array(
 			"url" => "javascript:;",
-			"onclick" => 'win = window.open("'.$this->get_popup_url().'" ,"categoty_search","width=720,height=600,statusbar=yes, scrollbars=yes");',
-			"caption" => html::img(array("url" =>  aw_ini_get("baseurl") . "/automatweb/images/icons/search.gif")),
+			"onclick" => 'win = window.open("'.$this->get_popup_url().'" ,"awVclPopupSearch","width=720,height=600,statusbar=yes, scrollbars=yes");',
+			"caption" => html::img(array("url" => icons::get_std_icon_url("magnifier")))
 		));
 
 		return $ret;
@@ -1061,7 +1059,6 @@ function aw_get_el(name,form)
 	}
 
 	/**
-
 		@attrib name=do_ajax_search
 		@param id optional
 		@param multiple optional
@@ -1078,12 +1075,11 @@ function aw_get_el(name,form)
 	**/
 	function do_ajax_search($arr)
 	{
-		$_GET["in_popup"] = 1;
 		$form_html = $this->_get_search_form($arr);
 		$arr["return"] = 1;
 		$res_html = html::div(array("id" => "result" , "content" => $this->get_search_results($arr)));
 
-		return $form_html."<br>".$res_html;
+		return $form_html . html::linebreak() . $res_html;
 	}
 
 	/**
@@ -1123,7 +1119,7 @@ function aw_get_el(name,form)
 		}
 	}
 
-	function _get_search_form($arr)
+	private function _get_search_form($arr)
 	{
 		$htmlc = new htmlclient();
 		$htmlc->start_output();
@@ -1148,32 +1144,38 @@ function aw_get_el(name,form)
 
 		$htmlc->add_property(array(
 			"name" => "s[submit]",
-			"type" => "button",
+			"type" => "submit",
 			"value" => t("Otsi"),
-			"caption" => t("Otsi"),
-			"onclick" => "
-			var div = $('#result');
+			"caption" => t("Otsi")
+		));
+
+		// attach loading function to button click and form submit event handlers
+		active_page_data::add_javascript("
+			$('#s_name_').focus();
+			$('#changeform').submit(function(event) {
+				var div = $('#result');
 				$.please_wait_window.show({
 					'target': div
 				});
-			var oids = document.getElementById('s_oid_');
-			var names = document.getElementById('s_name_');
-			javascript:$.get('/automatweb/orb.aw', {class: 'popup_search',
-				action: 'get_search_results',
-				id: '".(isset($arr["id"]) ? $arr["id"] : "0")."',
-				oid: oids.value,
-				name: names.value,
-				clid: '".$arr["clid"]."',
-				".$reload_property."
-				".$reload_layout."
-				property: '".$arr["property"]."'
-			}, function (html) {
-				x=document.getElementById('result');
-				x.innerHTML=html;
-				$.please_wait_window.hide();
+				var oids = document.getElementById('s_oid_');
+				var names = document.getElementById('s_name_');
+				javascript:$.get('/automatweb/orb.aw', {class: 'popup_search',
+					action: 'get_search_results',
+					id: '".(isset($arr["id"]) ? $arr["id"] : "0")."',
+					oid: oids.value,
+					name: names.value,
+					clid: '{$arr["clid"]}',
+					{$reload_property}
+					{$reload_layout}
+					property: '{$arr["property"]}'
+				}, function (html) {
+					x=document.getElementById('result');
+					x.innerHTML=html;
+					$.please_wait_window.hide();
+				});
+				return false;
 			});
-			",
-		));
+		", "bottom");
 
 		$data = array(
 			"id" => isset($arr["id"]) ? $arr["id"] : 0,
@@ -1239,8 +1241,7 @@ function aw_get_el(name,form)
 
 		$t->define_field(array(
 			"name" => "oid",
-			"caption" => t("OID"),
-			"sortable" => 1,
+			"caption" => t("OID")
 		));
 
 		$t->define_field(array(

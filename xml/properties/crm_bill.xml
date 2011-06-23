@@ -7,6 +7,12 @@
             <field>aw_customer</field>
       </property>
       <property>
+            <name>customer_relation</name>
+            <table>aw_crm_bill</table>
+            <type>hidden</type>
+            <field>aw_customer_relation</field>
+      </property>
+      <property>
             <name>bill_mail_to</name>
             <table>objects</table>
             <type>hidden</type>

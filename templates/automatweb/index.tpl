@@ -3,18 +3,18 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
 	<title>{VAR:html_title} {VAR:title_action}</title>
-	<link rel="shortcut icon" href="{VAR:baseurl}/automatweb/images/aw06/favicon.ico" />
-	<link href="{VAR:baseurl}/automatweb/css/style-min.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="{VAR:baseurl}/automatweb/js/js-min.js"></script>
+	<link rel="shortcut icon" href="{VAR:baseurl}automatweb/images/aw06/favicon.ico" />
+	<link href="{VAR:baseurl}automatweb/css/style-min.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/js-min.js"></script>
 	{VAR:javascript}
 	<script type="text/javascript">
 	xchanged = 0;
 	</script>
 	<!--[if lt IE 7]>
-	<link rel="stylesheet" type="text/css" href="{VAR:baseurl}/automatweb/css/iefix.css" />
+	<link rel="stylesheet" type="text/css" href="{VAR:baseurl}automatweb/css/iefix.css" />
 	<![endif]-->
 </head>
-<body onLoad="check_generic_loader();">
+<body onload="check_generic_loader();">
 
 <script type="text/javascript">
 
@@ -45,7 +45,7 @@ function aw_keyhandler_init(event)
 		<div id="aw_object_quickadd_results" style="display: none;" ></div>';
 	$("body").append(html);
 
-	$.get("{VAR:baseurl}/automatweb/orb.aw?class=shortcut_manager&action=parse_shortcuts_from_xml", {}, function (d)
+	$.get("{VAR:baseurl}automatweb/orb.aw?class=shortcut_manager&action=parse_shortcuts_from_xml", {}, function (d)
 		{
 			eval(d);
 			// fetch items on demand
@@ -108,7 +108,7 @@ function cfEditClickGroup(group, oid)
 <div id="awMainHeaderContainer">
 	<div class="logo">
 		<span>{VAR:prod_family}</span>
-		<a href="{VAR:prod_family_href}" title="AutomatWeb"><img src="{VAR:baseurl}/automatweb/images/aw06/aw_logo.gif" alt="AutomatWeb.com" width="183" height="34" border="0" /></a>
+		<a href="{VAR:prod_family_href}" title="AutomatWeb"><img src="{VAR:baseurl}automatweb/images/aw06/aw_logo.gif" alt="AutomatWeb.com" width="183" height="34" border="0" /></a>
 	</div>
 	<div class="top-left-menyy">
 		<!-- SUB: SHOW_CUR_CLASS -->
@@ -146,7 +146,7 @@ function cfEditClickGroup(group, oid)
 			({VAR:cur_co_name})
 			<!-- END SUB: SHOW_CUR_CO_TEXT -->
 			</div>
-			<a href="{VAR:baseurl}/automatweb/orb.aw?class=users&action=logout" title="{VAR:logout_text}"><img src="{VAR:baseurl}/automatweb/images/aw06/ikoon_logout.gif" width="26" height="14" border="0" alt="{VAR:logout_text}"></a>
+			<a href="{VAR:baseurl}automatweb/orb.aw?class=users&action=logout" title="{VAR:logout_text}"><img src="{VAR:baseurl}automatweb/images/aw06/ikoon_logout.gif" width="26" height="14" border="0" alt="{VAR:logout_text}"></a>
 		</div>
 	</div>
 
@@ -169,7 +169,7 @@ function cfEditClickGroup(group, oid)
 <!-- SUB: YAH2 -->
 	<div id="jalus">
 		{VAR:footer_l1} <br />
-		{VAR:footer_l2} <a href="http://www.struktuur.ee">Struktuur Varahaldus</a>, <a href="http://www.automatweb.com">AutomatWeb</a>.
+		{VAR:footer_l2} <a href="http://www.struktuur.ee">Struktuur Varahaldus</a>, <a href="http://www.automatweb.com/">AutomatWeb</a>.
 	</div>
 <!-- END SUB: YAH2 -->
 <!--//jalus -->

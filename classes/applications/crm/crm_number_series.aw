@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_number_series.aw,v 1.13 2008/07/28 11:28:41 markop Exp $
-// crm_number_series.aw - CRM Numbriseeria 
+
+// crm_number_series.aw - CRM Numbriseeria
 /*
 
-@classinfo syslog_type=ST_CRM_NUMBER_SERIES relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo syslog_type=ST_CRM_NUMBER_SERIES relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 
@@ -21,10 +21,9 @@ class crm_number_series extends class_base
 			"clid" => CL_CRM_NUMBER_SERIES
 		));
 
-		$clss = aw_ini_get("classes");
 		$this->classes = array(
-			CL_CRM_BILL => $clss[CL_CRM_BILL]["name"],
-			CL_PATENT => $clss[CL_PATENT]["name"]
+			crm_bill_obj::CLID => aw_ini_get("classes." . crm_bill_obj::CLID . ".name"),
+			CL_PATENT => aw_ini_get("classes." . CL_PATENT . ".name")
 		);
 	}
 
@@ -52,14 +51,14 @@ class crm_number_series extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
 
-	function _init_series_t(&$t)
+	function _init_series_t($t)
 	{
 		$t->define_field(array(
 			"name" => "class",
@@ -94,7 +93,7 @@ class crm_number_series extends class_base
 
 	function _series($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_series_t($t);
 
 		$ser = safe_array($arr["obj_inst"]->meta("series"));
@@ -161,7 +160,7 @@ class crm_number_series extends class_base
 
 	/** returns the next number in the given series for the given class
 
-		@param series - series object 
+		@param series - series object
 		@param class - class to return number for
 		@param time - time for series
 	**/
@@ -191,11 +190,8 @@ class crm_number_series extends class_base
 				}
 
 				// actually, just list all bills and get max number+1 for bills
-				$filter = array(					
-					"class_id" => $class,					
-					"lang_id" => array(),					
-					"site_id" => array(),					
-					//"limit" => 1,
+				$filter = array(
+					"class_id" => $class
 				);
 				if($class == CL_CRM_BILL)
 				{
@@ -207,7 +203,7 @@ class crm_number_series extends class_base
 					else
 					{
 						$filter["bill_no"] = new obj_predicate_compare(OBJ_COMP_GREATER, 0);
-					}//arr($filter);
+					}
 				}
 
 
@@ -224,18 +220,16 @@ class crm_number_series extends class_base
 					{
 						$num = $row["start"];//ma ei tea mis sest kogu eelnevast systeemist kasu on... niikuinii on vaja algusest alustada ju kui ei ole neid
 					}
-	
+
 					//siia teeb nyyd eriti r2ige kirvemeetodi
 					//kui mingil x p6hjusel peaks tahtma olemasolevat numbrit anda, siis tsykkel k2ib v6i maailmal6puni... v6i v2hemalt niikaua kuni leiab numbri mis pole kasutuses v6i tuleb miski muu piirang peale ja on niisama p...
-					//see on siin v2ga halb, kuid t666tab... niiet 
+					//see on siin v2ga halb, kuid t666tab... niiet
 					while(true)//eisteks kontrollib seda numbrit mille sai, et ega see olemas ole
 					{
 						$ol2 = new object_list(array(
 							"class_id" => $class,
-							"bill_no" => $num,
-							"lang_id" => array(),
-							"site_id" => array(),
-						));//if(aw_global_get("uid") == "Teddi.Rull") {arr($nums[$idx]);arr($ser);}
+							"bill_no" => $num
+						));
 						if (!$ol2->count())
 						{
 							break;
@@ -275,8 +269,6 @@ class crm_number_series extends class_base
 			// actually, just list all bills and get max number+1 for bills
 			$ol = new object_list(array(
 				"class_id" => $class,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "CAST(aw_crm_bill.aw_bill_no as signed) DESC",
 				"limit" => 1,
 				"bill_no" => new obj_predicate_compare(OBJ_COMP_GREATER, 0)
@@ -286,17 +278,15 @@ class crm_number_series extends class_base
 				$o = $ol->begin();
 				$num = $o->prop("bill_no") + 1;
 			}
-				
+
 			//siia teeb nyyd eriti r2ige kirvemeetodi
 			//kui mingil x p6hjusel peaks tahtma olemasolevat numbrit anda, siis tsykkel k2ib v6i maailmal6puni... v6i v2hemalt niikaua kuni leiab numbri mis pole kasutuses v6i tuleb miski muu piirang peale ja on niisama p...
 			while(true)
 			{
 				$ol2 = new object_list(array(
 					"class_id" => $class,
-					"bill_no" => $num,
-					"lang_id" => array(),
-					"site_id" => array(),
-				));//if(aw_global_get("uid") == "Teddi.Rull") {arr($nums[$idx]);arr($ser);}
+					"bill_no" => $num
+				));
 				if (!$ol2->count())
 				{
 					return $num;
@@ -309,7 +299,7 @@ class crm_number_series extends class_base
 
 	/** finds the current company and from that the series	and returns next number in series**/
 	function find_series_and_get_next($class, $n, $time)
-	{
+	{//TODO: get_current_company ei sobi!
 		if(is_oid($n) && $this->can("view" , $n))
 		{
 			$ser = obj($n);
@@ -357,4 +347,3 @@ class crm_number_series extends class_base
 		return false;
 	}
 }
-?>

@@ -127,7 +127,9 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			));
 	**/
 	function get_ru()
-	{
+	{//TODO: REQUEST_URI topeltslash minema, kasutada automatweb::$request->get_uri()
+		$request_uri = aw_global_get("REQUEST_URI");
+
 		$query = parse_url(aw_global_get("REQUEST_URI"));
 		if(isset($query["query"]))
 		{
@@ -145,14 +147,17 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 				$retval = $return_url;
 			}
 		}
+
 		if(!isset($retval))
 		{
-			$retval = aw_ini_get("baseurl").aw_global_get("REQUEST_URI");
+			$retval = aw_ini_get("baseurl").$request_uri;
 		}
+
 		if(!empty($result["view_layout"]) || !empty($result["view_property"]))
 		{
 			$retval = aw_url_change_var(array("view_layout" => NULL, "view_property" => NULL), false, $retval);
 		}
+
 		return $retval;
 	}
 
@@ -231,7 +236,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	**/
 	function obj_link($oid)
 	{
-		return aw_ini_get("baseurl")."/".$oid;
+		return aw_ini_get("baseurl").$oid;
 	}
 
 	/** creates links from e-mail addresses in the given text
@@ -1707,7 +1712,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 				 "employer" => $data["employer"]["name"],
 				"nr" => ++$count,
 				"expires" => $data["expires"],
-				"url" => aw_ini_get("baseurl")."/".$job_doc."?job_id=".$jobId,
+				"url" => aw_ini_get("baseurl").$job_doc."?job_id=".$jobId,
 				"class" => (($count % 2) == 0)?"even":"odd",
 			));
 			$rows .= $tpl->parse("ROW");
@@ -2074,31 +2079,8 @@ function eval_buffer($res)
 	return $res;
 }
 
-	/** Loads javascript file
-		@attrib api=1 params=pos
-
-		@param file required type=string
-			Javascript filename/path to include. The root directory for the files is "$automatweb_code/automatweb/js/".
-
-		@param position optional type=string default="head"
-			Specifies the position, where the javascript file will be linked in page. Possible values are "head" (default) and "bottom". If the position is "head", then the file will be linked in bbetween page head tags. If it is set to "bottom", the it will be linked in at the bottom of the page.
-
-		@comment
-			The function allows you to load javascript file from code. It will be linked in between head tags, or at the bottom of the page, as specified
-		@examples
-			load_javascript("my/dir/my_javascriptfile.js"); // the file will be included between head tags
-			load_javascript("my_custom_javascript_file.js", "bottom"); // the file will be included at the bottom of the page
-	**/
-	function load_javascript($file, $pos = 'head')
-	{
-		$js = aw_global_get("__aw_javascript");
-		if (!isset($js[$pos][$file])) // assuming that some scripts may be needed to be included both at head and bottom
-		{
-			$file_path = aw_ini_get("baseurl")."/automatweb/js/".$file;
-			$js[$pos][$file] = $file_path;
-			aw_global_set("__aw_javascript", $js);
-		}
-	}
+	//DEPRECATED. use active_page_data::load_javascript();
+	function load_javascript($file, $pos = 'head') { active_page_data::load_javascript($file, $pos);}
 
 	function get_name($id)
 	{

@@ -7,6 +7,8 @@ define("BILL_SUM_TAX", 3);
 define("BILL_AMT", 4);
 ////// END DEPRECATED
 
+//TODO: vastata kysimusele, kas customer property v6ib olla t2idetud ilma customer_relation-ita
+
 class crm_bill_obj extends _int_object
 {
 	const CLID = 1009;
@@ -150,6 +152,26 @@ class crm_bill_obj extends _int_object
 		parent::set_prop($name,$value);
 	}
 
+	public function awobj_set_customer_relation($cr_oid)
+	{
+		if (is_oid($cr_oid))
+		{
+			$cro = obj($cr_oid, array(), crm_company_customer_data_obj::CLID);
+			$this->set_prop("customer", $cro->prop("buyer"));
+
+			// get defaults from customer relation if it changed
+			if ((!is_oid($this->prop("customer_relation")) or $cr_oid != $this->prop("customer_relation")))
+			{
+				if(!$this->prop("bill_due_date_days"))
+				{
+					$this->set_prop("bill_due_date_days", $this->prop("customer_relation.bill_due_date_days"));
+//TODO: teha nii, et teaks kas kasutaja on muutnud, kui on, siis j2tta samaks, kui mitte, tuua kliendisuhtest default
+				}
+			}
+		}
+		$this->set_prop("customer_relation", $cr_oid);
+	}
+
 	/** Sets if file cache for mail attachments is to be cleared or not on save()
 		@attrib api=1 params=pos
 		@param value type=bool
@@ -160,19 +182,19 @@ class crm_bill_obj extends _int_object
 		$this->reset_pdf_files_cache = (bool) $value;
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($exclusive = false, $previous_state = null)
 	{
 		if(!$this->is_saved())
-		{
+		{ // set defaults
 			// set bill dates to current if not specified
 			$time = time();
 			if(!$this->prop("bill_date"))
 			{
 				$this->set_prop("bill_date" , $time);
-				}
+			}
 
 			if(!$this->prop("bill_accounting_date"))
-				{
+			{
 				$this->set_prop("bill_accounting_date" , $time);
 			}
 
@@ -550,7 +572,7 @@ class crm_bill_obj extends _int_object
 		$data = array();
 		foreach($bugcomments as $comment)
 		{
-			if(!$GLOBALS["object_loader"]->cache->can("view" , $comment))
+			if(!object_loader::can("view" , $comment))
 			{
 				continue;
 			}
@@ -591,7 +613,7 @@ class crm_bill_obj extends _int_object
 		$data = array();
 		foreach($bugcomments as $comment)
 		{
-			if(!$GLOBALS["object_loader"]->cache->can("view" , $comment))
+			if(!object_loader::can("view" , $comment))
 			{
 				continue;
 			}
@@ -806,7 +828,7 @@ class crm_bill_obj extends _int_object
 	**/
 	public function set_customer($arr)
 	{
-		if ($GLOBALS["object_loader"]->cache->can("view" , $arr["cust"]))
+		if (object_loader::can("view" , $arr["cust"]))
 		{
 			$cust = obj();
 			$this->set_prop("customer", $arr["cust"]);
@@ -840,12 +862,12 @@ class crm_bill_obj extends _int_object
 		}
 
 		//kui eelmiseid ei olnud v6i nad ei m6junud
-		if((!(is_array($arr["tasks"]) || $GLOBALS["object_loader"]->cache->can("view" , $arr["cust"])) || (!$GLOBALS["object_loader"]->cache->can("view" , $this->prop("customer")))) && is_array($arr["bugs"]) && sizeof($arr["bugs"]))
+		if((!(is_array($arr["tasks"]) || object_loader::can("view" , $arr["cust"])) || (!object_loader::can("view" , $this->prop("customer")))) && is_array($arr["bugs"]) && sizeof($arr["bugs"]))
 		{
 			foreach($arr["bugs"] as $bugc)
 			{
 				$c = obj($bugc);
-				if(($c->class_id() == CL_BUG_COMMENT || $c->class_id() == CL_TASK_ROW)&& $GLOBALS["object_loader"]->cache->can("view" , $c->prop("parent.customer")))
+				if(($c->class_id() == CL_BUG_COMMENT || $c->class_id() == CL_TASK_ROW)&& object_loader::can("view" , $c->prop("parent.customer")))
 				{
 					$this->set_prop("customer" , $c->prop("parent.customer"));
 					break;
@@ -989,7 +1011,7 @@ class crm_bill_obj extends _int_object
 						$prod = "";
 						if ($sts)
 						{
-							if(is_oid($sts->prop("bill_def_prod")) && $GLOBALS["object_loader"]->cache->can("view",$sts->prop("bill_def_prod")))
+							if(is_oid($sts->prop("bill_def_prod")) && object_loader::can("view",$sts->prop("bill_def_prod")))
 							{
 								$prod_obj = obj($sts->prop("bill_def_prod"));
 								$prod = $sts->prop("bill_def_prod");
@@ -1209,37 +1231,6 @@ class crm_bill_obj extends _int_object
 			return $price;
 		}
 		return $sum;
-	}
-
-	/** if the bill has an impl and customer, then check if they have a customer relation and if so, then get the due days from that
-		@attrib api=1
-	**/
-	public function set_due_date()
-	{
-		if (is_oid($this->prop("customer")) && is_oid($this->prop("impl")))
-		{
-			$cust_rel_list = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"buyer" => $this->prop("customer"),
-				"seller" => $this->prop("impl")
-			));
-			if ($cust_rel_list->count())
-			{
-				$cust_rel = $cust_rel_list->begin();
-				$this->set_prop("bill_due_date_days", $cust_rel->prop("bill_due_date_days"));
-			}
-//TODO: bill_default_due_days from crm_settings. voldemar 8 nov 2010
-			if(!$this->prop("bill_due_date_days"))
-			{
-				$this->set_prop("bill_due_date_days", $this->prop("customer.bill_due_days"));
-			}
-
-			$bt = time();
-			$this->set_prop("bill_due_date",
-				mktime(3,3,3, date("m", $bt), date("d", $bt) + $this->prop("bill_due_date_days"), date("Y", $bt))
-			);
-			$this->save();
-		}
 	}
 
 	/** returns bill sum
@@ -1465,7 +1456,7 @@ class crm_bill_obj extends _int_object
 				$set = false;
 				// get tax from prod
 				$prod = obj($row["prod"]);
-				if ($GLOBALS["object_loader"]->cache->can("view", $prod->prop("tax_rate")))
+				if (object_loader::can("view", $prod->prop("tax_rate")))
 				{
 					$tr = obj($prod->prop("tax_rate"));
 
@@ -1550,10 +1541,10 @@ class crm_bill_obj extends _int_object
 		foreach($this->get_bill_rows()->arr() as $row)
 		{
 			$kmk = "";
-			if ($GLOBALS["object_loader"]->cache->can("view", $row->prop("prod")))
+			if (object_loader::can("view", $row->prop("prod")))
 			{
 				$prod = obj($row->prop("prod"));
-				if ($GLOBALS["object_loader"]->cache->can("view", $prod->prop("tax_rate")))
+				if (object_loader::can("view", $prod->prop("tax_rate")))
 				{
 					$tr = obj($prod->prop("tax_rate"));
 					$kmk = $tr->prop("code");
@@ -1563,7 +1554,7 @@ class crm_bill_obj extends _int_object
 			$ppl = array();
 			foreach((array)$row->prop("people") as $p_id)
 			{
-				if ($GLOBALS["object_loader"]->cache->can("view", $p_id))
+				if (object_loader::can("view", $p_id))
 				{
 					$ppl[$p_id] = $p_id;
 				}
@@ -1981,9 +1972,9 @@ class crm_bill_obj extends _int_object
 				$recipients[$this->prop("bill_mail_to")] = array(0, "");
 			}
 
-			$cro = $this->get_bill_cust_data_object();
+			$cro = new object($this->prop("customer_relation"));
 
-			if ($cro)
+			if ($cro->is_saved())
 			{
 				$bill_person_ol = new object_list($cro->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
 				if($bill_person_ol->count())
@@ -3037,10 +3028,10 @@ class crm_bill_obj extends _int_object
 				continue;
 			}
 			$kmk = "";
-			if ($GLOBALS["object_loader"]->cache->can("view", $row->prop("prod")))
+			if (object_loader::can("view", $row->prop("prod")))
 			{
 				$prod = obj($row->prop("prod"));
-				if ($GLOBALS["object_loader"]->cache->can("view", $prod->prop("tax_rate")))
+				if (object_loader::can("view", $prod->prop("tax_rate")))
 				{
 					$tr = obj($prod->prop("tax_rate"));
 					$kmk = $tr->prop("code");
@@ -3050,7 +3041,7 @@ class crm_bill_obj extends _int_object
 			$ppl = array();
 			foreach((array)$row->prop("people") as $p_id)
 			{
-				if ($GLOBALS["object_loader"]->cache->can("view", $p_id))
+				if (object_loader::can("view", $p_id))
 				{
 					$ppl[$p_id] = $p_id;
 				}
@@ -3119,7 +3110,7 @@ class crm_bill_obj extends _int_object
 		if($this->implementor_object)
 		{
 			$cust_rel_list = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"class_id" => crm_company_customer_data::CLID,
 				"buyer" => $this->prop("customer"),
 				"seller" => $this->implementor_object->id()
 			));
@@ -3139,12 +3130,12 @@ class crm_bill_obj extends _int_object
 	public function get_customer_phone()
 	{
 		$phone = $this->get_customer_data("phone");
-		if($GLOBALS["object_loader"]->cache->can("view" , ($phone)))
+		if(object_loader::can("view" , ($phone)))
 		{
 			return get_name($phone);
 
 		}
-		if($GLOBALS["object_loader"]->cache->can("view" , $this->prop("customer")))
+		if(object_loader::can("view" , $this->prop("customer")))
 		{
 			$customer_object = obj($this->prop("customer"));
 			return implode(", ", $customer_object->get_phones());
@@ -3448,7 +3439,7 @@ class crm_bill_obj extends _int_object
 				"type" => "RELTYPE_BILL",
 			));
 		}
-		elseif($GLOBALS["object_loader"]->cache->can("view", $arr["dno"]))
+		elseif(object_loader::can("view", $arr["dno"]))
 		{
 			$dno = obj($arr["dno"]);
 			foreach($rows as $prod => $row)
@@ -3474,7 +3465,7 @@ class crm_bill_obj extends _int_object
 			return $set;
 		}
 		$impl = $this->prop("impl");
-		if(is_oid($this->id()) && ($GLOBALS["object_loader"]->cache->can("view", $impl)))
+		if(is_oid($this->id()) && (object_loader::can("view", $impl)))
 		{
 			$conn = obj($impl)->connections_to(array(
 				"from.class_id" => CL_SHOP_WAREHOUSE_CONFIG,
@@ -3495,24 +3486,6 @@ class crm_bill_obj extends _int_object
 			}
 		}
 		return null;
-	}
-
-	public function get_bill_cust_data_object()
-	{
-		if(!empty($this->cust_data_object))
-		{
-			return $this->cust_data_object;
-		}
-		$cust_rel_list = new object_list(array(
-			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-			"buyer" => $this->prop("customer"),
-			"seller" => $this->prop("impl")
-		));
-		if ($cust_rel_list->count())
-		{
-			$this->cust_data_object = $cust_rel_list->begin();
-		}
-		return $this->cust_data_object;
 	}
 
 	public function get_bill_recieved_money($payment=0)
@@ -3699,7 +3672,7 @@ class crm_bill_obj extends _int_object
 	public static function get_bill_id($arr)
 	{
 		$bills = new object_list(array(
-			"class_id" => CL_CRM_BILL,
+			"class_id" => self::CLID,
 			"bill_no" => $arr["no"]
 		));
 		$id = $bills->count() ? (int) $bills->begin()->id() : 0;
@@ -3716,7 +3689,7 @@ class crm_bill_obj extends _int_object
 		$bpct = $this->prop("overdue_charge");
 		if (!$bpct)
 		{
-			$cust_data = $this->get_bill_cust_data_object();
+			$cust_data = $this->prop("");
 			if(is_object($cust_data) && $cust_data->prop("bill_penalty_pct"))
 			{
 				return $cust_data->prop("bill_penalty_pct");
@@ -3960,78 +3933,64 @@ class crm_bill_obj extends _int_object
 			throw new awex_crm_bill_customer("Customer not defined");
 		}
 
-		if (!$this->prop("impl"))
+		try
 		{
-			throw new awex_crm_bill_implementor("Implementor not defined");
-		}
+			$customer_o = obj($this->prop("customer"));
+			$customer_relation_o = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
 
-		$implementor_o = obj($this->prop("impl"));
-		$customer_o = obj($this->prop("customer"));
+			// load/reload customer data bill properties
+			if ($this->set_crm_settings())
+			{
+				$this->set_prop("bill_due_date_days", $this->crm_settings->prop("bill_default_due_days"));
+				$this->set_prop("overdue_charge", $this->crm_settings->prop("bill_default_overdue_interest"));
+			}
+			else
+			{
+				$this->set_prop("bill_due_date_days", crm_settings_obj::DEFAULT_BILL_DUE_DAYS);
+				$this->set_prop("overdue_charge", crm_settings_obj::DEFAULT_BILL_OVERDUE_INTEREST);
+			}
 
-		$ol = new object_list(array(
-			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-			"buyer" => $customer_o->id(),
-			"seller" => $implementor_o->id()
-		));
+			if (strlen($customer_relation_o->prop("bill_due_date_days")))
+			{
+				$this->set_prop("bill_due_date_days", $customer_relation_o->prop("bill_due_date_days"));
+			}
 
-		if ($ol->count())
-		{
-			$customer_relation_o = $ol->begin();
-		}
-		else
-		{
-			$customer_relation_o = $implementor_o->create_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, $customer_o);
-		}
+			if (strlen($customer_relation_o->prop("overdue_charge")))
+			{
+				$this->set_prop("overdue_charge", $customer_relation_o->prop("bill_penalty_pct"));
+			}
 
-		// load/reload customer data bill properties
-		if ($this->set_crm_settings())
-		{
-			$this->set_prop("bill_due_date_days", $this->crm_settings->prop("bill_default_due_days"));
-			$this->set_prop("overdue_charge", $this->crm_settings->prop("bill_default_overdue_interest"));
+			// load/reload customer address
+			$this->set_prop("customer_name", (string) $customer_o->name());
+			$this->set_prop("customer_code", (string) $customer_o->prop("code"));
+			$customer_addr = array();
+			if ($customer_o->class_id() == CL_CRM_COMPANY)
+			{
+				$this->set_prop("customer_address", (string) $customer_o->prop("contact.name"));
+				$orderer_contact_person = $this->get_contact_person();
+				$orderer_contact_person_name = $orderer_contact_person ? $orderer_contact_person->name() : "";
+				$this->set_prop("ctp_text", (string) $orderer_contact_person_name);
+				$this->set_customer_address("street", (string) $customer_o->prop("contact.aadress"));
+				$this->set_customer_address("city", (string) $customer_o->prop("contact.linn.name"));
+				$this->set_customer_address("county", (string) $customer_o->prop("contact.maakond.name"));
+				$this->set_customer_address("country", (string) $customer_o->prop("contact.riik.name"));
+				$this->set_customer_address("country_en", (string) $customer_o->prop("contact.riik.name_en"));
+				$this->set_customer_address("index", (string) $customer_o->prop("contact.postiindeks"));
+			}
+			else
+			{
+				$this->set_prop("customer_address", (string) $customer_o->prop("address.name"));
+				$this->set_prop("ctp_text", (string) $customer_o->name());
+				$this->set_customer_address("street", (string) $customer_o->prop("address.aadress"));
+				$this->set_customer_address("city", (string) $customer_o->prop("address.linn.name"));
+				$this->set_customer_address("county", (string) $customer_o->prop("address.maakond.name"));
+				$this->set_customer_address("country", (string) $customer_o->prop("address.riik.name"));
+				$this->set_customer_address("country_en", (string) $customer_o->prop("address.riik.name_en"));
+				$this->set_customer_address("index", (string) $customer_o->prop("address.postiindeks"));
+			}
 		}
-		else
+		catch (Exception $e)
 		{
-			$this->set_prop("bill_due_date_days", crm_settings_obj::DEFAULT_BILL_DUE_DAYS);
-			$this->set_prop("overdue_charge", crm_settings_obj::DEFAULT_BILL_OVERDUE_INTEREST);
-		}
-
-		if (strlen($customer_relation_o->prop("bill_due_date_days")))
-		{
-			$this->set_prop("bill_due_date_days", $customer_relation_o->prop("bill_due_date_days"));
-		}
-
-		if (strlen($customer_relation_o->prop("overdue_charge")))
-		{
-			$this->set_prop("overdue_charge", $customer_relation_o->prop("bill_penalty_pct"));
-		}
-
-		// load/reload customer address
-		$this->set_prop("customer_name", (string) $customer_o->name());
-		$this->set_prop("customer_code", (string) $customer_o->prop("code"));
-		$customer_addr = array();
-		if ($customer_o->class_id() == CL_CRM_COMPANY)
-		{
-			$this->set_prop("customer_address", (string) $customer_o->prop("contact.name"));
-			$orderer_contact_person = $this->get_contact_person();
-			$orderer_contact_person_name = $orderer_contact_person ? $orderer_contact_person->name() : "";
-			$this->set_prop("ctp_text", (string) $orderer_contact_person_name);
-			$this->set_customer_address("street", (string) $customer_o->prop("contact.aadress"));
-			$this->set_customer_address("city", (string) $customer_o->prop("contact.linn.name"));
-			$this->set_customer_address("county", (string) $customer_o->prop("contact.maakond.name"));
-			$this->set_customer_address("country", (string) $customer_o->prop("contact.riik.name"));
-			$this->set_customer_address("country_en", (string) $customer_o->prop("contact.riik.name_en"));
-			$this->set_customer_address("index", (string) $customer_o->prop("contact.postiindeks"));
-		}
-		else
-		{
-			$this->set_prop("customer_address", (string) $customer_o->prop("address.name"));
-			$this->set_prop("ctp_text", (string) $customer_o->name());
-			$this->set_customer_address("street", (string) $customer_o->prop("address.aadress"));
-			$this->set_customer_address("city", (string) $customer_o->prop("address.linn.name"));
-			$this->set_customer_address("county", (string) $customer_o->prop("address.maakond.name"));
-			$this->set_customer_address("country", (string) $customer_o->prop("address.riik.name"));
-			$this->set_customer_address("country_en", (string) $customer_o->prop("address.riik.name_en"));
-			$this->set_customer_address("index", (string) $customer_o->prop("address.postiindeks"));
 		}
 	}
 

@@ -77,8 +77,10 @@ class _int_object_loader extends core
 	var $ds; 					// data source
 	var $object_member_funcs;	// names of all object class member functions
 	var $cfgu;					// cfgutilities instance
-	var $cache;					// cache class instance
 	var $__aw_acl_cache;		// acl memory cache
+
+
+	var $cache;//DEPRECATED!!!
 
 	private static $tmp_id_count = 0;
 	private $registered = false;
@@ -121,9 +123,10 @@ class _int_object_loader extends core
 
 		$this->object_member_funcs = get_class_methods("object");
 		$this->cfgu = new cfgutils();
-		$this->cache = new cache();
 
-		$fn = aw_ini_get("site_basedir")."/files/obj_inherit_props.conf";
+		$this->cache = new cache();//DEPRECATED
+
+		$fn = aw_ini_get("site_basedir")."files/obj_inherit_props.conf";
 		if (file_exists($fn) && is_readable($fn))
 		{
 			$f = fopen($fn, "r");
@@ -545,6 +548,7 @@ class _int_object_loader extends core
 		return $GLOBALS["relinfo"][$class_id][$type]["value"];
 	}
 
+	//TODO: dokumenteerida
 	function handle_cache_update($oid, $site_id, $type)
 	{
 		if (!$this->registered)
@@ -574,7 +578,7 @@ class _int_object_loader extends core
 	{
 		// go over all the registered cache updates and if they are for another site, then propagate them to that one
 		$sl = new site_list();
-		$f = fopen(aw_ini_get("site_basedir")."/files/updlog.txt", "a");
+		$f = fopen(aw_ini_get("site_basedir")."files/updlog.txt", "a");
 
 		try // shutdown functions can't throw exceptions
 		{

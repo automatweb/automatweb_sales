@@ -7,6 +7,14 @@ class active_page_data implements orb_public_interface
 	const LAYER_CLOSED = 2;
 
 	private $req;
+	private static $load_javascript_files = array(
+		"head" => array(),
+		"bottom" => array()
+	);
+	private static $additional_javascript_code = array(
+		"head" => "",
+		"bottom" => ""
+	);
 
 	/** Sets orb request to be processed by this object
 		@attrib api=1 params=pos
@@ -97,7 +105,7 @@ class active_page_data implements orb_public_interface
 		foreach($serialized_styles->get() as $styletext)
 		{
 			$ret .= $styletext;
-		};
+		}
 
 		if ($ret != "")
 		{
@@ -114,18 +122,66 @@ class active_page_data implements orb_public_interface
 		return $text;
 	}
 
-	public static function get_javascript($pos = "")
+	/** Returns page javascript part as defined by executed applications
+		@attrib api=1 params=pos
+		@param pos type=string default="head" set="bottom"|"head"
+		@returns string
+		@errors none
+	**/
+	public static function get_javascript($pos = "head")
 	{
-		$js = (array) aw_global_get("__aw_javascript");
-
 		$text = "";
-		$files = safe_array(($pos === 'bottom') ? (isset($js['bottom']) ? $js['bottom'] : array()) : (isset($js['head']) ? $js['head'] : array()));
-		foreach ($files as $file)
+
+		if ("head" === $pos or "bottom" === $pos)
 		{
-			$text .= "<script type=\"text/javascript\" src=\"".$file."\"></script>\n";
+			// add loaded files
+			$baseurl = aw_ini_get("baseurl");
+			foreach (self::$load_javascript_files[$pos] as $file => $tmp)
+			{
+				$text .= "<script type=\"text/javascript\" src=\"{$baseurl}automatweb/js/{$file}\"></script>\n";
+			}
+
+			// add separate code
+			$text .= "<script type=\"text/javascript\">\n" . self::$additional_javascript_code[$pos] . "</script>\n";
 		}
 
 		return $text;
+	}
+
+	/** Returns page javascript part as defined by executed applications
+		@attrib api=1 params=pos
+		@param js type=string
+			Javascript code to be added after separate loaded javascript files
+		@param pos type=string default="head" set="bottom"|"head"
+		@returns string
+		@errors none
+	**/
+	public static function add_javascript($code, $pos = "head")
+	{
+		self::$additional_javascript_code[$pos] .= ($code . "\n\n");
+	}
+
+	/** Loads javascript file
+		@attrib api=1 params=pos
+
+		@param file type=string
+			Javascript filename/path to include. The root directory for the files is "$automatweb_site/automatweb/js/".
+
+		@param position type=string default="head" set="bottom"|"head"
+			Specifies the position, where the javascript file will be linked in page. Possible values are "head" (default) and "bottom". If the position is "head", then the file will be linked in bbetween page head tags. If it is set to "bottom", the it will be linked in at the bottom of the page.
+
+		@comment
+			The function allows you to load javascript file from code. It will be linked in between head tags, or at the bottom of the page, as specified
+		@examples
+			active_page_data::load_javascript("my/dir/my_javascriptfile.js"); // the file will be included between head tags
+			active_page_data::load_javascript("my_custom_javascript_file.js", "bottom"); // the file will be included at the bottom of the page
+	**/
+	public static function load_javascript($file, $pos = "head")
+	{
+		if (!isset(self::$load_javascript_files[$pos][$file])) // assuming that some scripts may be needed to be included both at head and bottom
+		{
+			self::$load_javascript_files[$pos][$file] = null;
+		}
 	}
 
 	/** returns the state of the layer

@@ -297,7 +297,7 @@ class crm_company_customer_data extends class_base
 					$i = get_instance(CL_CRM_COMPANY);
 					$arr["prop"]["options"] = $i->get_employee_picker($buyer, true);
 
-					if (isset($prop["options"]) && !isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
+					if (!empty($prop["value"]) && isset($prop["options"]) && !isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
 					{
 						$tmp = obj($prop["value"]);
 						$prop["options"][$prop["value"]] = $tmp->name();
@@ -566,7 +566,7 @@ Aadress: %s
 		}
 
 		$sum_in_curr = $bal_in_curr = array();
-		$balance = 0;
+		$balance = $sum = 0;
 		foreach($bills->arr() as $bill)
 		{
 			$cust = "";
@@ -581,7 +581,7 @@ Aadress: %s
 			$state = $bill_i->states[$bill->prop("state")];
 
 
-			$cursum = $own_currency_sum = $bill->get_bill_sum();//$bill_i->get_bill_sum($bill,$tax_add);
+			$cursum = $own_currency_sum = $bill->get_bill_sum();
 			$curid = $bill->get_bill_currency_id();
 			$cur_name = $bill->get_bill_currency_name();
 			if($company_curr && $curid && ($company_curr != $curid))
@@ -595,7 +595,7 @@ Aadress: %s
 			if($cg)//kliendi valuutas
 			{
 				$sum_str = number_format($cursum, 2)." ".$cur_name;
-				$sum_in_curr[$cur_name] += $cursum;
+				isset($sum_in_curr[$cur_name]) ? ($sum_in_curr[$cur_name] += $cursum) : ($sum_in_curr[$cur_name] = $cursum);
 			}
 			else//oma organisatsiooni valuutas
 			{
@@ -646,7 +646,7 @@ Aadress: %s
 			if($bill->prop("state") == 1)
 			{
 				$bill_data["payment_over_date"] = $bill->get_payment_over_date();
-				$tolerance = $arr["obj_inst"]->get_customer_prop($bill->prop("customer"), "bill_tolerance");//FIXME: no method get_customer_prop in cro object. what does this do?
+				$tolerance = $arr["obj_inst"]->prop("bill_tolerance");
 				if($bill_data["payment_over_date"] > $tolerance)
 				{
 					$bill_data["color"] = "#FF9999";
@@ -667,7 +667,7 @@ Aadress: %s
 				$bill_data["project_leader"] = join("<br>" , $pl_array);
 			}
 
-			if($arr["request"]["show_bill_balance"])
+			if(!empty($arr["request"]["show_bill_balance"]))
 			{
 				$curr_balance = $bill->get_bill_needs_payment();
 				if($company_curr && $curid && ($company_curr != $curid))
@@ -712,7 +712,7 @@ Aadress: %s
 			$t->define_data($bill_data);
 
 			// number_format here to round the number the same way in the add, so the sum is correct
-			$sum+= number_format($own_currency_sum,2,".", "");
+			$sum += number_format($own_currency_sum,2,".", "");
 		}
 
 		$t->set_default_sorder("desc");
@@ -721,36 +721,39 @@ Aadress: %s
 		$t->set_sortable(false);
 
 		$final_dat = array(
-			"bill_no" => t("<b>Summa</b>")
+			"bill_no" => html::bold(t("Summa")),
+			"sum" => ""
 		);
 		if($cg)
 		{
 			foreach($sum_in_curr as $cur_name => $amount)
 			{
-				$final_dat["sum"] .= "<b>".number_format($amount, 2)." ".$cur_name."</b><br>";
-				if($arr["request"]["show_bill_balance"])
+				$final_dat["sum"] .= html::bold(number_format($amount, 2)." ".$cur_name) . html::linebreak();
+				if(!empty($arr["request"]["show_bill_balance"]))
 				{
-					$final_dat["balance"] .= "<b>".number_format($bal_in_curr[$cur_name], 2)." ".$cur_name."</b><br>";
+					$final_dat["balance"] .= html::bold(number_format($bal_in_curr[$cur_name], 2)." ".$cur_name) . html::linebreak();
 				}
 			}
+
 			$co_currency_name = "";
 			if($this->can("view" , $company_curr))
 			{
 				$company_curr_obj = obj($company_curr);
 				$co_currency_name = $company_curr_obj->name();
 			}
-			$final_dat["sum"] .= "<b>Kokku: ".number_format($sum, 2).$co_currency_name."</b><br>";
-			if($arr["request"]["show_bill_balance"])
+
+			$final_dat["sum"] .= html::bold("Kokku: ".number_format($sum, 2) . " " . $co_currency_name) . html::linebreak();
+			if(!empty($arr["request"]["show_bill_balance"]))
 			{
-				$final_dat["balance"] .= "<b>Kokku: ".number_format($balance, 2).$co_currency_name."</b><br>";
+				$final_dat["balance"] .= html::bold("Kokku: ".number_format($balance, 2) . " " . $co_currency_name) . html::linebreak();
 			}
 		}
 		else
 		{
-			$final_dat["sum"] = "<b>".number_format($sum, 2)."</b>";
-			if($arr["request"]["show_bill_balance"])
+			$final_dat["sum"] = html::bold(number_format($sum, 2));
+			if (!empty($arr["request"]["show_bill_balance"]))
 			{
-				$final_dat["balance"] .= "<b>".number_format($balance, 2)."</b><br>";
+				$final_dat["balance"] .= html::bold(number_format($balance, 2)) . html::linebreak();
 			}
 		}
 		$t->define_data($final_dat);
@@ -794,7 +797,7 @@ Aadress: %s
 			"sortable" => 1,
 			"align" => "cright",
 			"chgbgcolor" => "color",
-			"colspan" => "colspan",
+			"colspan" => "colspan"
 		));
 		$sum = 0;
 		$delivery_notes = $arr["obj_inst"]->get_delivery_notes();
@@ -802,7 +805,7 @@ Aadress: %s
 		{
 			$sum+= $delivery_note -> get_sum();
 			$t->define_data(array(
-				"no" => html::obj_change_url($delivery_note,$delivery_note -> prop("number")),
+				"no" => html::obj_change_url($delivery_note, $delivery_note -> prop("number")),
 				"sum" => $delivery_note -> get_sum(),
 				"date" => date("d.m.Y" , $delivery_note -> prop("enter_date")),
 				"currency" => get_name($delivery_note->prop("currency")),

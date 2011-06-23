@@ -28,6 +28,7 @@ class htmlclient extends aw_template
 		{
 			$this->no_form = true;
 		}
+
 		$tpldir = empty($arr["tpldir"]) ? "htmlclient" : $arr["tpldir"];
 		$this->init(array("tpldir" => $tpldir));
 		$this->res = "";
@@ -142,7 +143,7 @@ class htmlclient extends aw_template
 
 	////
 	// !Starts the output
-	function start_output($args = array())
+	public function start_output($args = array())
 	{
 		$this->set_parse_method("eval");
 		$tpl = "default.tpl";
@@ -195,7 +196,7 @@ class htmlclient extends aw_template
 		));
 	}
 
-	function add_property($args = array())
+	public function add_property($args = array())
 	{
 		$args["name"] = isset($args["name"]) ? $args["name"] : "";
 		$args["type"] = isset($args["type"]) ? $args["type"] : "";
@@ -361,7 +362,7 @@ class htmlclient extends aw_template
 			$args["options"] = array(
 				3 => t("K&otilde;ik"),
 				STAT_ACTIVE => t("Aktiivne"),
-				STAT_NOTACTIVE => t("Deaktiivne"),
+				STAT_NOTACTIVE => t("Mitteaktiivne"),
 			);
 		}
 
@@ -393,13 +394,13 @@ class htmlclient extends aw_template
 						"};\n".
 						"</script>";
 				$colorpicker_script_done = 1;
-			};
+			}
 
 			$tx = "<a href=\"javascript:colorpicker('$args[name]')\">".t("Vali")."</a>";
 
 			$val .= html::text(array("value" => $script . $tx));
 			$args["value"] = $val;
-		};
+		}
 
 		if ($args["type"] === "submit")
 		{
@@ -413,7 +414,7 @@ class htmlclient extends aw_template
 		if ($args["type"] === "container")
 		{
 			$args["type"] = "text";
-		};
+		}
 	}
 
 	////
@@ -1009,7 +1010,8 @@ class htmlclient extends aw_template
 				$tp->vars(array(
 					"SHOW_HELP" => $tp->parse("SHOW_HELP"),
 				));
-			};
+			}
+
 			if (isset($this->config["add_txt"]) && $this->config["add_txt"] != "")
 			{
 				$tp->vars(array(
@@ -1019,7 +1021,8 @@ class htmlclient extends aw_template
 					"ADDITIONAL_TEXT" => $tp->parse("ADDITIONAL_TEXT")
 				));
 			}
-			if ($this->form_layout != "boxed")
+
+			if ($this->form_layout !== "boxed")
 			{
 				// perhaps, just perhaps I should create a separate property type
 				// out of the tabpanel
@@ -1029,7 +1032,7 @@ class htmlclient extends aw_template
 					$rv = $tp->get_tabpanel(array(
 						"content" => $rv,
 					));
-				};
+				}
 			}
 			else
 			{
@@ -1037,6 +1040,7 @@ class htmlclient extends aw_template
 					"content" => $rv,
 					"panels_only" => true,
 				));
+
 				if (is_array($tabs))
 				{
 					foreach($tabs as $key => $item)
@@ -1045,16 +1049,16 @@ class htmlclient extends aw_template
 						{
 							$loc = "top";
 						}
-						elseif ($key == "navi")
+						elseif ($key === "navi")
 						{
 							$loc = "left";
 						}
 						else
 						{
 							$loc = $key;
-						};
+						}
 						$this->additional_content[$loc] .= join("",$item);
-					};
+					}
 				}
 				else
 				{
@@ -1269,7 +1273,7 @@ class htmlclient extends aw_template
 			default:
 				$retval = html::text($arr);
 				break;
-		};
+		}
 
 		// do cfg edit mode check
 		/*
@@ -1291,7 +1295,7 @@ class htmlclient extends aw_template
 		else
 		{
 			return $this->tp->add_tab($arr);
-		};
+		}
 	}
 
 	function create_element($item)
@@ -1304,7 +1308,7 @@ class htmlclient extends aw_template
 			$src = $item["src"];
 			$item["html"] = "<iframe id='contentarea' name='contentarea' src='${src}' style='width: 100%; height: 95%; border-top: 1px solid black;' frameborder='no' scrolling='yes'></iframe>";
 		}
-		else if ($this->layout_mode == "fixed_toolbar")
+		elseif ($this->layout_mode === "fixed_toolbar")
 		{
 			$item["html"] = $value;
 		}
@@ -1632,7 +1636,7 @@ class htmlclient extends aw_template
 					"item" => $layout_item,
 				));
 				$content .= $this->parse("GRID_VBOX_SUB_ITEM");
-			};
+			}
 
 			$this->vars_safe(array(
 				"GRID_VBOX_SUB_ITEM" => $content,
