@@ -41,7 +41,6 @@ class class_index
 
 		// update
 		$found_classes = self::_update("", "", $full_update);
-		self::update_one_file(AW_DIR."init.aw", $found_classes, $full_update, "../");
 
 		if ($full_update)
 		{
