@@ -509,7 +509,7 @@ class menu extends class_base implements main_subtemplate_handler
 				break;
 
 			case "stats_disp":
-				$m = get_instance("applications/stats/stats_model");
+				$m = new stats_model();
 				$from = ($f = $arr["obj_inst"]->prop("stats_from")) ? $f : -1;
 				$to = ($t = $arr["obj_inst"]->prop("stats_to")) ? $t : -1;
 				$data["value"] = $m->get_simple_count_for_obj($arr["obj_inst"]->id(), $from, $to);
@@ -641,12 +641,12 @@ class menu extends class_base implements main_subtemplate_handler
 				break;
 
 			case "tpl_lead":
-				$tplmgr = get_instance("templatemgr");
+				$tplmgr = new templatemgr();
 				$data["options"] = $tplmgr->get_template_list(array("type" => 1, "menu" => $ob->id()));
 				break;
 
 			case "tpl_view":
-				$tplmgr = get_instance("templatemgr");
+				$tplmgr = new templatemgr();
 				$data["options"] = $tplmgr->get_template_list(array("type" => 2, "menu" => $ob->id()));
 				break;
 
@@ -668,7 +668,7 @@ class menu extends class_base implements main_subtemplate_handler
 				break;
 
 			case "grkeywords":
-				$kwds = get_instance(CL_KEYWORD);
+				$kwds = new keyword();
 				$data["options"] = $kwds->get_keyword_picker();
 				$data["selected"] = $this->get_menu_keywords($ob->id());
 				break;
@@ -677,7 +677,7 @@ class menu extends class_base implements main_subtemplate_handler
 				$ext = $this->cfg['ext'];
 				if (is_oid($ob->meta("sel_icon")) && $this->can("view", $ob->meta("sel_icon")))
 				{
-					$fi = get_instance(CL_IMAGE);
+					$fi = new image();
 					$icon = html::img(array(
 						"url" => $fi->get_url_by_id($ob->meta("sel_icon"))
 					));
@@ -954,7 +954,7 @@ class menu extends class_base implements main_subtemplate_handler
 		{
 			// image preview
 			$url = "";
-			$imi = get_instance(CL_IMAGE);
+			$imi = new image();
 			if (true || $imdata[$i]["image_id"])
 			{
 				$url = $imi->get_url_by_id($imdata[$i]["image_id"]);
@@ -1208,7 +1208,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 			if ($key>0)
 			{
-				$imi = get_instance(CL_IMAGE);
+				$imi = new image();
 				$url = $imi -> get_url_by_id ($key);
 
 				$output .= '
@@ -1559,7 +1559,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function get_object_groups($class_name)
 	{
-		$cfg = get_instance("cfg/cfgutils");
+		$cfg = new cfgutils();
 		$cfg->load_class_properties(array("clid" => $class_name));
 		$groups = $cfg->get_groupinfo();
 		//arr($groups);
@@ -1591,7 +1591,7 @@ class menu extends class_base implements main_subtemplate_handler
 			if (substr($name, 0, 4) == "mimg" && is_uploaded_file($upf["tmp_name"]))
 			{
 				$nm = substr($name, 5);
-				$im = get_instance(CL_IMAGE);
+				$im = new image();
 				$imd = $im->add_upload_image($name, $args["obj_inst"]->id(), $imgar[$nm]["image_id"]);
 				$args["obj_inst"]->connect(array(
 					"to" => $imd["id"],
@@ -1601,7 +1601,7 @@ class menu extends class_base implements main_subtemplate_handler
 			}
 		}
 		$num_menu_images = $this->cfg["num_menu_images"];
-		$t = get_instance(CL_IMAGE);
+		$t = new image();
 
 		for ($i=0; $i < $num_menu_images; $i++)
 		{
@@ -1681,7 +1681,7 @@ class menu extends class_base implements main_subtemplate_handler
 		$request = &$arr["request"];
 		if ("import_export" === $this->use_group)
 		{
-			$menu_export = get_instance("export/menu_export");
+			$menu_export = new menu_export();
 			$menu_export->export_menus(array(
 				"id" => $arr["obj_inst"]->id(),
 				"ex_menus" => $request["ex_menus"],
@@ -1796,7 +1796,7 @@ class menu extends class_base implements main_subtemplate_handler
 	// sest kui neid meetodeid saab olema palju, siis on neid sitt selectist valida
 	private function get_pmethod_sel()
 	{
-		$orb = get_instance("core/orb/orb");
+		$orb = new orb();
 		return array("0" => t("--vali--")) + $orb->get_classes_by_interface(array("interface" => "public"));
 	}
 
@@ -2210,7 +2210,7 @@ class menu extends class_base implements main_subtemplate_handler
 				{
 					$d_tpl = $this->cfg["seealso_doc_tpl_names"][$tpl];
 				}
-				$d = get_instance(CL_DOCUMENT);
+				$d = new document();
 				$iv = aw_ini_get("document.lead_splitter");
 				aw_ini_set("document.lead_splitter", "");
 				$ttt = $d->gen_preview(array(
@@ -2359,7 +2359,7 @@ class menu extends class_base implements main_subtemplate_handler
 		));
 		$ol = $ot->to_list();
 */
-		$mt = get_instance(CL_MENU_TREE);
+		$mt = new menu_tree();
 		if($this->can("view", $_id = $mt->get_sysdefault()))
 		{
 			$mt_obj = obj($_id);
@@ -2370,11 +2370,11 @@ class menu extends class_base implements main_subtemplate_handler
 			$ol = new object_list();
 		}
 
-		$si = get_instance("contentmgmt/site_show");
+		$si = new site_show();
 		$arr = array();
 		$si->_init_path_vars($arr);
 		$si->sel_section_obj = obj($this->sel_section);
-		$l = get_instance("languages");
+		$l = new languages();
 		$l_list = $l->get_list(array("all_data" => true));
 		foreach($ol->arr() as $item)
 		{
@@ -2452,7 +2452,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function _get_linker(&$p, $o)
 	{
-		$ps = get_instance("contentmgmt/ct_linked_obj_search");
+		$ps = new ct_linked_obj_search();
 		if ($this->can("view", $o->meta("linked_obj")))
 		{
 			$p["post_append_text"] = sprintf(t("Valitud objekt: %s /"), html::obj_change_url($o->meta("linked_obj")));
@@ -2461,9 +2461,10 @@ class menu extends class_base implements main_subtemplate_handler
 				"caption" => html::img(array("url" => aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif", "border" => 0))
 			))." / ";
 		}
+		$p["post_append_text"] = isset($p["post_append_text"]) ? $p["post_append_text"] : "";
 		$p["post_append_text"] .= t(" Otsi uus objekt: ").$ps->get_popup_search_link(array(
 			"pn" => "link_pops",
-			"clid" => array(CL_DOCUMENT,CL_LINK)
+			"clid" => array(doc_obj::CLID,link_fix::CLID)
 		));
 	}
 
@@ -2503,7 +2504,7 @@ class menu extends class_base implements main_subtemplate_handler
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_stats_table($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 
 		$this->db_query("SELECT tm,uid FROM syslog WHERE oid = ".$arr["obj_inst"]->id()." AND act_id = " .
 		 19 /* SA_PAGEVIEW */ . " ORDER BY id DESC LIMIT 50 ");
@@ -2525,7 +2526,7 @@ class menu extends class_base implements main_subtemplate_handler
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_stats_table($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 
 		$this->db_query("SELECT tm,uid FROM syslog WHERE oid = ".$arr["obj_inst"]->id()." AND act_id = " . 1 /* SA_CHANGE */ . " ORDER BY id DESC LIMIT 50 ");
 		while ($row = $this->db_next())
@@ -2547,7 +2548,7 @@ class menu extends class_base implements main_subtemplate_handler
 	public function write_trans_aliases($arr)
 	{
 		$o = $arr["obj_inst"];
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("all_data" => true, "set_for_user" => true));
 		foreach($ll as $lid => $lang)
 		{
@@ -2571,10 +2572,10 @@ class menu extends class_base implements main_subtemplate_handler
 	private function _seealso_docs_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		$tb->add_new_button(array(CL_DOCUMENT), $arr["obj_inst"]->id(), 18 /* RELTYPE_SEEALSO_DOCUMENT */);
+		$tb->add_new_button(array(doc_obj::CLID), $arr["obj_inst"]->id(), 18 /* RELTYPE_SEEALSO_DOCUMENT */);
 		$tb->add_search_button(array(
 			"pn" => "sad_s",
-			"clid" => CL_DOCUMENT
+			"clid" => doc_obj::CLID
 		));
 		$tb->add_delete_rels_button();
 	}
