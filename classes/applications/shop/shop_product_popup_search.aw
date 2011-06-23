@@ -5,12 +5,12 @@
 classload("vcl/popup_search");
 class shop_product_popup_search extends popup_search
 {
-	function shop_product_popup_search()
+	function __construct()
 	{
-		$this->popup_search();
+		parent::__construct();
 	}
 
-	function _insert_form_props(&$htmlc, $arr)
+	function _insert_form_props($htmlc, $arr)
 	{
 		parent::_insert_form_props($htmlc, $arr);
 		$htmlc->add_property(array(

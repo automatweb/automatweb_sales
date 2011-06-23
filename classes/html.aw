@@ -1561,7 +1561,7 @@ class html
 		}
 
 		$class = (!empty($class) ? ' class="' . $class . '"' : "");
-		$id = ($id ? " id=\"{$id}\"" : "");
+		$id = !empty($id) ? " id=\"{$id}\"" : "";
 		$content = isset($content) ? $content : "";
 		return "<div{$class}{$style}{$id}>{$content}</div>";
 	}
