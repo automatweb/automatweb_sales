@@ -12,10 +12,22 @@ class popup_search extends aw_template
 	const PS_WIDTH = 800;
 	const PS_HEIGHT = 500;
 
+	private $req;
+
 	public function __construct()
 	{
 		load_javascript("reload_properties_layouts.js");
 		$this->init("popup_search");
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	function init_vcl_property($arr)

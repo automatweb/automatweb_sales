@@ -670,7 +670,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	function generate_password($arr = array())
 	{
 		extract($arr);
-		if (!$length)
+		if (empty($length))
 		{
 			$length = 8;
 		}

@@ -1,9 +1,22 @@
 <?php
 
-class active_page_data
+//TODO: kommenteerida ja dokumenteerida, milleks see klass on
+class active_page_data implements orb_public_interface
 {
 	const LAYER_OPEN = 1;
 	const LAYER_CLOSED = 2;
+
+	private $req;
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
+	}
 
 	public static function get_active_path()
 	{

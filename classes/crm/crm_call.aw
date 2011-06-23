@@ -702,6 +702,7 @@ class crm_call extends task
 			$arr["prop"]["rows"] = "5";
 			$arr["prop"]["cols"] = "40";
 			$arr["prop"]["caption"] = t("Lisa kommentaar");
+			$arr["prop"]["comment"] = t("Kommentaar lisatakse kommentaaridele kliendiinfos.");
 		}
 		return PROP_OK;
 	}
@@ -1269,7 +1270,7 @@ EOS;
 			if ($application->is_a(CL_CRM_SALES))
 			{
 				$result = (int) $this_o->prop("result");
-				if (crm_call_obj::RESULT_PRESENTATION === $result)
+				if (crm_call_obj::RESULT_PRESENTATION === $result and !$this_o->prop("result_task.user_reviewed"))
 				{
 					try
 					{

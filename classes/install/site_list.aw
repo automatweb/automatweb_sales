@@ -1,8 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
-class site_list extends class_base
+
+class site_list extends aw_template
 {
 	function site_list()
 	{
@@ -10,7 +8,7 @@ class site_list extends class_base
 	}
 
 	/**
-		@attrib name=site_list params=name default="1"
+		@attrib name=site_list params=name default=1
 		@param actonly optional type=int
 		@returns
 		@comment
@@ -21,7 +19,7 @@ class site_list extends class_base
 		$this->mk_path(0,t("AW Saitide list"));
 
 		$t = new aw_table(array('prefix' => 'site_list'));
-		$t->parse_xml_def($this->cfg['basedir'] . '/xml/generic_table.xml');
+		$t->parse_xml_def(AW_DIR . 'xml/generic_table.xml');
 
 		$t->define_field(array(
 			'name' => 'id',
@@ -151,7 +149,7 @@ class site_list extends class_base
 	function _get_server_stats()
 	{
 		$t = new aw_table(array('prefix' => 'site_list_bs'));
-		$t->parse_xml_def($this->cfg['basedir'] . '/xml/generic_table.xml');
+		$t->parse_xml_def(AW_DIR . 'xml/generic_table.xml');
 
 		$t->define_field(array(
 			'name' => 'name',
@@ -180,7 +178,7 @@ class site_list extends class_base
 	function _get_cver_stats()
 	{
 		$t = new aw_table(array('prefix' => 'site_list_cv'));
-		$t->parse_xml_def($this->cfg['basedir'] . '/xml/generic_table.xml');
+		$t->parse_xml_def(AW_DIR . 'xml/generic_table.xml');
 
 		$t->define_field(array(
 			'name' => 'name',
@@ -216,7 +214,7 @@ class site_list extends class_base
 		$this->mk_path(0,t("AW Serverite list"));
 
 		$t = new aw_table(array('prefix' => 'server_list'));
-		$t->parse_xml_def($this->cfg['basedir'] . '/xml/generic_table.xml');
+		$t->parse_xml_def(AW_DIR . 'xml/generic_table.xml');
 
 		$t->define_field(array(
 			'name' => 'id',
@@ -353,7 +351,7 @@ class site_list extends class_base
 				unset($arr['id']);
 				$sets = join(",", map2("%s = '%s'", $arr));
 				$q = "UPDATE aw_server_list SET $sets WHERE id = '$id'";
-$f = fopen("/www/register.automatweb.com/files/sl_update_log.txt", "a");
+$f = fopen("/www/register.automatweb.com/files/sl_update_log.txt", "a");//TODO: ilmselt v6iks muuta normaalsemaks
 fwrite($f, date("d.m.Y H:i:s").": orb update server q = $q\n\n");
 fclose($f);
 
@@ -365,7 +363,7 @@ fclose($f);
 				$keys = join(",",array_keys($arr));
 				$vals = join(",", map("'%s'",array_values($arr)));
 				$q = "INSERT INTO aw_server_list($keys) VALUES($vals)";
-$f = fopen("/www/register.automatweb.com/files/sl_update_log.txt", "a");
+$f = fopen("/www/register.automatweb.com/files/sl_update_log.txt", "a");//TODO: ilmselt v6iks muuta normaalsemaks
 fwrite($f, date("d.m.Y H:i:s").": orb update server insert q = $q\n\n");
 fclose($f);
 //				echo "insert q = $q <br />";
@@ -394,7 +392,7 @@ fclose($f);
 
 	/** returns a list of sites matching filter
 
-		@attrib name=get_site_list params=name default="0"
+		@attrib name=get_site_list params=name default=0
 
 		@param server_id optional
 
@@ -628,7 +626,6 @@ fclose($f);
 	}
 
 	/**
-
 		@attrib name=submit_change_site params=name default="0"
 	**/
 	function submit_change_site($arr)
@@ -802,8 +799,8 @@ fclose($f);
 		}
 
 		// resolve url to ip
-		$ip = @gethostbyname($url);
-		$server_url = @gethostbyaddr($ip);
+		$ip = gethostbyname($url);
+		$server_url = gethostbyaddr($ip);
 
 $f = fopen("/www/register.automatweb.com/files/sl_update_log.txt", "a");
 fwrite($f, date("d.m.Y H:i:s").": got update from $data[id] url = $url / ip = $ip / server_url = $server_url / data = ".dbg::dump($data)."\n");
@@ -960,7 +957,7 @@ fclose($f);
 				basedir - the folder the site is running in in it's server
 
 		@examples
-			$sl = get_instance("install/site_list");
+			$sl = new site_list();
 			foreach($sl->get_local_list() as $site)
 			{
 				echo "site with id $site[id] is running at $site[url] <br>";
@@ -989,4 +986,3 @@ fclose($f);
 		return $ret;
 	}
 }
-?>
