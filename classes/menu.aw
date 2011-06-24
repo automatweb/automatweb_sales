@@ -469,6 +469,8 @@ define("IP_DENIED", 2);
 
 class menu extends class_base implements main_subtemplate_handler
 {
+	var $sel_section = 0; //TODO:scope?
+
 	function menu($args = array())
 	{
 		$this->init(array(
@@ -538,7 +540,7 @@ class menu extends class_base implements main_subtemplate_handler
 				$data["options"] = $arr;
 				break;
 			case "set_doc_content_type":
-				$ol = new object_list(array("class_id" => CL_DOCUMENT_CONTENT_TYPE, "lang_id" => array(), "site_id" => array()));
+				$ol = new object_list(array("class_id" => CL_DOCUMENT_CONTENT_TYPE));
 				$data["options"] = array("" => t("Vali t&uuml;hjaks")) + $ol->names();
 				break;
 
@@ -905,9 +907,7 @@ class menu extends class_base implements main_subtemplate_handler
 				// gather contexts from submenus
 				$ol = new object_list(array(
 					"class_id" => CL_MENU,
-					"parent" => $arr["obj_inst"]->id(),
-					"lang_id" => array(),
-					"site_id" => array()
+					"parent" => $arr["obj_inst"]->id()
 				));
 				$opts = array("" => "");
 				foreach($ol->arr() as $o)
@@ -937,7 +937,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function _get_images_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_get_images_table_cols($t);
 
 		$cnt = aw_ini_get("menu.num_menu_images");
@@ -1576,6 +1576,8 @@ class menu extends class_base implements main_subtemplate_handler
 		$objects = new object_list(array(
 			"class_id" => $class_id,
 			"limit" => 100,
+			"site_id" => aw_ini_get("site_id"),
+			"lang_id" => aw_global_get("lang_id")
 		));
 		return array(0 => t("-- vali --")) + $objects->names();
 	}
@@ -1815,7 +1817,9 @@ class menu extends class_base implements main_subtemplate_handler
 		$ot = new object_tree(array(
 			"class_id" => CL_MENU,
 			"parent" => $id,
-			"status" => STAT_ACTIVE
+			"status" => STAT_ACTIVE,
+			"site_id" => aw_ini_get("site_id"),
+			"lang_id" => aw_global_get("lang_id")
 		));
 		$ids = $ot->ids();
 		$ids[] = $id;
@@ -1953,6 +1957,8 @@ class menu extends class_base implements main_subtemplate_handler
 		));*/
 
 		$ol = new object_list(array(
+			"site_id" => aw_ini_get("site_id"),
+			"lang_id" => aw_global_get("lang_id"),
 			"brother_of" => $obj->id()
 		));
 
@@ -2388,16 +2394,17 @@ class menu extends class_base implements main_subtemplate_handler
 					$cpri = $path_item->prop("change_pri") != "" ? $path_item->prop("change_pri") : $cpri;
 				}
 			}
+
 			foreach($l_list as $lid => $ldat)
 			{
 				$tmp = str_replace("&", "&amp;", $si->make_menu_link($item, $ldat["acceptlang"]))."</loc><lastmod>".date("Y-m-d", $item->created())."</lastmod>";
-				if ($tmp[0] == "/")
+				if ($tmp{0} == "/")
 				{
-					$tmp = aw_ini_get("baseurl").$tmp;
+					$tmp = aw_ini_get("baseurl").substr($tmp, 1);
 				}
 				if (strpos($tmp, "://") === false)
 				{
-					$tmp = aw_ini_get("baseurl")."/".$tmp;
+					$tmp = aw_ini_get("baseurl").$tmp;
 				}
 				$xml .= "<url><loc>".$tmp."</loc><lastmod>".date("Y-m-d", $item->created())."</lastmod>";
 				$xml .= "<changefreq>".$ct."</changefreq><priority>".((double)$cpri)."</priority></url>\n";
@@ -2501,7 +2508,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function _get_acl_views($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_stats_table($t);
 
 		$u = new user();
@@ -2523,7 +2530,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function _get_acl_edits($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_stats_table($t);
 
 		$u = new user();
@@ -2571,7 +2578,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function _seealso_docs_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(array(doc_obj::CLID), $arr["obj_inst"]->id(), 18 /* RELTYPE_SEEALSO_DOCUMENT */);
 		$tb->add_search_button(array(
 			"pn" => "sad_s",
@@ -2629,7 +2636,7 @@ class menu extends class_base implements main_subtemplate_handler
 			$filt = array(
 				"class_id" => CL_MENU,
 				"alias" => $arr["prop"]["value"],
-				"lang_id" => array()
+				"site_id" => aw_ini_get("site_id")
 			);
 			if (is_oid($arr["obj_inst"]->id()))
 			{
