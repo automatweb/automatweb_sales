@@ -469,6 +469,8 @@ define("IP_DENIED", 2);
 
 class menu extends class_base implements main_subtemplate_handler
 {
+	protected $menu_images_done;
+
 	function menu($args = array())
 	{
 		$this->init(array(
