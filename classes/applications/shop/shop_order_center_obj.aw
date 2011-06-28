@@ -600,6 +600,7 @@ class shop_order_center_obj extends _int_object
 			}
 		}
 		
+		$menu_images = array();
 		if (is_array($images))
 		{
 			foreach($images as $image)
@@ -608,8 +609,15 @@ class shop_order_center_obj extends _int_object
 					"to" => $image,
 					"type" => "RELTYPE_IMAGE",
 				));
+				$menu_images[] = array(
+					"image_id" => $image
+				);
 			}
 		}
+
+		//	TODO: The whole menu_images bit should be rewritten (or at least thoroughly reviewed)!
+		$menu->set_meta("menu_images", $menu_images);
+		$menu->save();
 	}
 
 	private function  __orderer_vars_sorter($a, $b)
