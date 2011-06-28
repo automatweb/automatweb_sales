@@ -572,7 +572,7 @@ class shop_order_center_obj extends _int_object
 			$menu->set_prop("status", object::STAT_ACTIVE);
 			$menu->save();
 
-			$this->
+			$this->__copy_category_images_to_menu($cat, $menu);
 
 			$o = $this->get_product_show_obj($menu->id(), true);
 			$o->add_category($cat->get_all_categories());
