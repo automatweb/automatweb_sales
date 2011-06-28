@@ -4580,7 +4580,7 @@ class personnel_management extends class_base
 
 	function get_lang_conf($arr = array())
 	{
-		if(!is_oid($arr["id"]))
+		if(!isset($arr["id"]) or !is_oid($arr["id"]))
 		{
 			$arr["id"] = $this->get_sysdefault();
 		}
@@ -4590,7 +4590,7 @@ class personnel_management extends class_base
 
 	function get_rec_lang_conf($arr = array())
 	{
-		if(!is_oid($arr["id"]))
+		if(!isset($arr["id"]) or !is_oid($arr["id"]))
 		{
 			$arr["id"] = $this->get_sysdefault();
 		}

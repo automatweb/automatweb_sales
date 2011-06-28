@@ -55,21 +55,24 @@ class crm_skill_level extends class_base
 		{
 			case "skill":
 				$by_parent = array();
-				foreach($prop["options"] as $opt_id => $opt_capt)
+				if (isset($prop["options"]) and is_array($prop["options"]))
 				{
-					if (!is_oid($opt_id))
+					foreach($prop["options"] as $opt_id => $opt_capt)
 					{
-						continue;
-					}
-					$val = $this->_get_level_in_opts($opt_id, $prop["options"]);
-					if ($val == 0)
-					{
-						$by_parent[0][] = $opt_id;
-					}
-					else
-					{
-						$tmp = obj($opt_id);
-						$by_parent[$tmp->parent()][] = $opt_id;
+						if (!is_oid($opt_id))
+						{
+							continue;
+						}
+						$val = $this->_get_level_in_opts($opt_id, $prop["options"]);
+						if ($val == 0)
+						{
+							$by_parent[0][] = $opt_id;
+						}
+						else
+						{
+							$tmp = obj($opt_id);
+							$by_parent[$tmp->parent()][] = $opt_id;
+						}
 					}
 				}
 				$this->ord_skills($by_parent);
@@ -80,7 +83,7 @@ class crm_skill_level extends class_base
 				$prop["disabled_options"] = array();
 				$this->_format_opts($prop["options"], 0, $by_parent, $prop["disabled_options"]);
 
-				if (preg_match("/skills_releditor(\d)/imsU", $arr["name_prefix"], $mt))
+				if (isset($arr["name_prefix"]) and preg_match("/skills_releditor(\d)/imsU", $arr["name_prefix"], $mt))
 				{
 					// list only items under top-level items with jrk no 1
 					$this->_filter_opts_by_level_jrk($prop["options"], $mt[1]);
@@ -205,7 +208,7 @@ class crm_skill_level extends class_base
 	{
 		$this->level++;
 		$cnt = 0;
-		if (is_array($by_parent[$parent]))
+		if (isset($by_parent[$parent]) and is_array($by_parent[$parent]))
 		{
 			foreach($by_parent[$parent] as $opt_id)
 			{
