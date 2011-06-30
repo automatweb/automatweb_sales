@@ -302,6 +302,16 @@ class crm_employee_search extends aw_object_search
 			}
 		}
 
+		// check employees access because odl checks only workrels
+		foreach ($oids as $oid => $data)
+		{
+			if (!object_loader::can("view", $oid))
+			{
+				$oids[$oid] = null;
+				unset($oids[$oid]);
+			}
+		}
+
 		return $oids;
 	}
 
