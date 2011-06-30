@@ -1,8 +1,13 @@
 <?php
 
-/*
-@classinfo  maintainer=kristo
-*/
+/**
+Sets sort mode and direction
+
+Example:
+
+$sort_order = new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC));
+
+**/
 
 class obj_predicate_sort
 {
@@ -25,7 +30,7 @@ class obj_predicate_sort
 		"obj_predicate_compare"
 	);
 
-	function obj_predicate_sort($data)
+	public function obj_predicate_sort($data)
 	{
 		if (!is_array($data))
 		{
@@ -60,12 +65,12 @@ class obj_predicate_sort
 		}
 	}
 
-	function get_sorter_list()
+	public function get_sorter_list()
 	{
 		return $this->data;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$s ="";
 		foreach(safe_array($this->arr) as $prop => $direction)
@@ -75,5 +80,3 @@ class obj_predicate_sort
 		return $s;
 	}
 }
-
-?>

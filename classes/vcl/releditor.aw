@@ -6,7 +6,7 @@
 	multiple connections
 */
 
-class releditor extends core
+class releditor extends core implements orb_public_interface
 {
 	var $auto_fields;
 	private $loaded_from_cfgform = false;
@@ -17,9 +17,18 @@ class releditor extends core
 		$this->init();
 	}
 
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
+	}
+
 	private function init_new_rel_table($arr)
 	{
-		classload("vcl/table");
 		$awt = new vcl_table(array(
 			"layout" => "generic",
 		));

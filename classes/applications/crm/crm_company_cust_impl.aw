@@ -1985,14 +1985,14 @@ class crm_company_cust_impl extends class_base
 
 			$options = $co->get_employees();
 			$persons = new object_list(array(
-				"class_id" => CL_CRM_PERSON,
+				"class_id" => crm_person_obj::CLID,
 				"name" => "%".$r["customer_rel_creator"]."%",
 				"oid" => $options->ids(),
 			));
 
 			$cos = array();
 			$crel = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"class_id" => crm_company_customer_data_obj::CLID,
 				"cust_contract_creator" => $persons->ids(),
 				"seller" => $co->id(),
 			));
