@@ -182,7 +182,7 @@ class relpicker extends  core
 
 			$r .= " ".html::href(array(
 				"url" => "javascript:aw_popup_scroll(\"$url\",\"Otsing\",".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
-				"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
+				"caption" => html::img(array("url" => icons::get_std_icon_url("magnifier"), "border" => "0")),
 				"title" => t("Otsi"),
 			));
 		}
@@ -197,7 +197,7 @@ class relpicker extends  core
 					"save_autoreturn" => !empty($add_edit_autoreturn),
 					"return_url" => get_ru()
 				), $selected_clid),
-				"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/edit.gif' border=0>",
+				"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"), "border" => "0")),
 				"title" => t("Muuda")
 			));
 		}
@@ -216,7 +216,7 @@ class relpicker extends  core
 				}
 			}
 			$r .= " ".$pm->get_menu(array(
-				"icon" => "edit.gif",
+				"icon" => "pencil"
 			));
 		}
 
@@ -265,7 +265,7 @@ class relpicker extends  core
 								"return_url" => get_ru()
 							)
 						),
-						"caption" => "<img src='".aw_ini_get("icons.server")."new.gif' border=0>",
+						"caption" => html::img(array("url" => icons::get_std_icon_url("add"), "border" => "0")),
 						"title" => sprintf(t("Lisa uus %s"), $clss[$_clid]["name"]),
 					));
 				}
@@ -396,7 +396,7 @@ class relpicker extends  core
 
 					$val["post_append_text"] .= " ".html::href(array(
 						"url" => "javascript:aw_popup_scroll('$url','Otsing',".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
-						"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
+						"caption" => html::img(array("url" => icons::get_std_icon_url("magnifier"), "border" => "0")),
 						"title" => t("Otsi"),
 					));
 				}
@@ -435,7 +435,7 @@ class relpicker extends  core
 				));
 				$val["post_append_text"] .= " ".html::href(array(
 					"url" => $change_url,
-					"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/edit.gif' border=0>",
+					"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"), "pencil" => "0")),
 					"title" => t("Muuda")
 				));
 			}
@@ -464,7 +464,7 @@ class relpicker extends  core
 				}
 			}
 			$val["post_append_text"] .= " ".$pm->get_menu(array(
-				"icon" => "edit.gif"
+				"icon" => "pencil"
 			));
 		}
 
@@ -525,7 +525,7 @@ class relpicker extends  core
 				$val["post_append_text"] .= " ".html::href(array(
 					"url" => aw_url_change_var($awucv),
 					//"url" => "javascript:submit_change_form('delete_objects')",
-					"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif' border=0>",
+					"caption" => html::img(array("url" => icons::get_std_icon_url("delete"), "border" => "0")),
 					"title" => t("Kustuta valitud objektid"),
 					"onclick" => "if(!alert('".t("Oled kindel, et soovid valitud objektid kustutada?")."')) { return false; };",
 				));
@@ -542,7 +542,7 @@ class relpicker extends  core
 				$val["post_append_text"] .= " ".html::href(array(
 					"url" => aw_url_change_var($awucv),
 					//"url" => "javascript:submit_change_form('delete_rels')",
-					"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif' border=0>",
+					"caption" => html::img(array("url" => icons::get_std_icon_url("delete"), "border" => "0")),
 					"title" => t("Kustuta valitud seosed"),
 					"onclick" => "if(!alert('".t("Oled kindel, et soovid valitud seosed kustutada?")."')) { return false; };",
 				));
@@ -611,7 +611,7 @@ class relpicker extends  core
 								"return_url" => get_ru()
 							)
 						),
-						"caption" => "<img src='".aw_ini_get("icons.server")."new.gif' border=0>",
+						"caption" => html::img(array("url" => icons::get_std_icon_url("add"), "border" => "0")),
 						"title" => sprintf(t("Lisa uus %s"), $clss[$_clid]["name"]),
 					));
 				}
