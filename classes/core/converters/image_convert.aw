@@ -18,7 +18,7 @@ class image_convert extends class_base
 		if ($driver != "")
 		{
 			$this->driver = new $driver;
-			$this->dirver->ref =& $this;
+			$this->driver->ref =& $this;
 		}
 	}
 

@@ -1840,7 +1840,7 @@ class crm_person extends class_base
 
 			case "drivers_license":
 				$data["options"] = $this->drivers_licence_categories();
-				$data["value"] = explode(",", $data["value"]);
+				$data["value"] = isset($data["value"]) ? explode(",", $data["value"]) : array();
 				break;
 
 			case "jobs_wanted_tb":

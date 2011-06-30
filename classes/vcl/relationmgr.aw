@@ -5,7 +5,7 @@
 
 class relationmgr extends aw_template implements orb_public_interface
 {
-	function relationmgr()
+	function __construct()
 	{
 		$this->init("relationmgr");
 	}

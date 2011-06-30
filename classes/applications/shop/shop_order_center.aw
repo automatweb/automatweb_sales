@@ -390,7 +390,6 @@ class shop_order_center extends class_base
 	protected $filter_sel;
 	protected $selected_filters;
 	protected $imgbase;
-	protected $cfg;
 	protected $shop;
 
 	function shop_order_center()

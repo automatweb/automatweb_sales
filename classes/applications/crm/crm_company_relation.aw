@@ -55,7 +55,7 @@ class crm_company_relation extends class_base
 
 			case "org":
 				$prop["option_is_tuple"] = true;
-				if(is_oid($prop["value"]) && $this->can("view", $prop["value"]))
+				if(isset($prop["value"]) and is_oid($prop["value"]) and $this->can("view", $prop["value"]))
 				{
 					$prop["content"] = obj($prop["value"])->name();
 				}
