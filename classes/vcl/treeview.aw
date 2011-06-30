@@ -31,27 +31,36 @@
 	@reltype ICON value=2 clid=CL_ICON
 	@caption ikoon
 */
-
-define("TREE_HTML", 1);
-define("TREE_DHTML", 3);
-define("TREE_DHTML_WITH_CHECKBOXES", 4);
-define("TREE_DHTML_WITH_BUTTONS", 5);
-
-// does this tree type support loading branches on-demand?
-define("LOAD_ON_DEMAND",1);
-
-// does this tree type support persist state (using cookies)
-define("PERSIST_STATE",2);
-
-// for load on demand, to show that subelemenets are loaded and no load-on-demand is used anymore
-define("DATA_IN_PLACE",3);
+//DEPRECATED constants
+define("TREE_HTML", 1); define("TREE_DHTML", 3); define("TREE_DHTML_WITH_CHECKBOXES", 4); define("TREE_DHTML_WITH_BUTTONS", 5); define("LOAD_ON_DEMAND",1); define("PERSIST_STATE",2); define("DATA_IN_PLACE",3);
 
 class treeview extends class_base
 {
+/*
+vars
+$config
+$clidlist
+$arr
+$cfg
+$r_path = array();
+$level = 0;
+has_root = false;
+tree_dat = array()
+auto_open = false
+items = array()
+tree_type = TREE_DHTML
+item_name_length
+tree_id
+get_branch_func
+branch
+features = array()
+*/
+
 	const TYPE_HTML = 1;
 	const TYPE_DHTML = 3;
 	const TYPE_DHTML_WITH_CHECKBOXES = 4;
 	const TYPE_DHTML_WITH_BUTTONS = 5;
+	const TYPE_JS = 6;
 
 	// does this tree type support loading branches on-demand?
 	const LOAD_ON_DEMAND = 1;
@@ -65,11 +74,13 @@ class treeview extends class_base
 	var $only_one_level_opened = 0;
 	var $level;
 	var $selected_item;
-	var $rootnode;
-	protected $first_level_menu_is_last;
-	protected $untitled_text = "[untitled]";
+	private $rootnode = 0;
+	private $first_level_menu_is_last;
+	private $untitled_text = "[untitled]";
 
-	////////////// m22rata skoop
+	private $js_tree_data_source_url; //aw_uri object
+
+	//////////////TODO: m22rata skoop
 	var $auto_open_tmp;
 	var $clidlist;
 	var $ic;
@@ -84,7 +95,7 @@ class treeview extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "treeview",
-			"clid" => CL_TREEVIEW,
+			"clid" => CL_TREEVIEW
 		));
 		$this->untitled_text = t("[nimetu]");
 	}
@@ -104,11 +115,11 @@ class treeview extends class_base
 	{
 		$pr = $arr["property"];
 		$this->start_tree(array(
-                        "type" => TREE_DHTML,
-                        "tree_id" => $pr["name"], // what if there are multiple trees
-                        "persist_state" => 1,
-			"item_name_length" => isset($pr["item_name_length"]) ? $pr["item_name_length"] : null,
-                ));
+			"type" => self::TYPE_DHTML,
+			"tree_id" => $pr["name"], // what if there are multiple trees
+			"persist_state" => 1,
+			"item_name_length" => isset($pr["item_name_length"]) ? $pr["item_name_length"] : null
+		));
 		$pr["vcl_inst"] = $this;
 		return array($pr["name"] => $pr);
 	}
@@ -119,6 +130,29 @@ class treeview extends class_base
 		return $rv;
 	}
 
+	/**
+		@attrib api=1 params=pos
+		@param type type=int
+			One of treeview::TYPE_... constants
+		@returns void
+		@errors
+			throws awex_param_type if type parameter value is incorrect
+	**/
+	public function set_type($type)
+	{
+		if (
+			self::TYPE_DHTML !== $type and
+			self::TYPE_DHTML_WITH_BUTTONS !== $type and
+			self::TYPE_DHTML_WITH_CHECKBOXES !== $type and
+			self::TYPE_HTML !== $type and
+			self::TYPE_JS !== $type
+		)
+		{
+			throw new awex_param_type("Invalid tree type '{$type}'");
+		}
+
+		$this->tree_type = $type;
+	}
 
 	////
 	// !Generates a tree. Should be used from _inside_ the code, because
@@ -176,15 +210,8 @@ class treeview extends class_base
 	}
 
 	/** Public/ORB interface
-
-		@attrib name=show params=name default="0"
-
+		@attrib name=show params=name default=0
 		@param id required type=int
-
-		@returns
-
-		@comment
-
 	**/
 	function show($args)
 	{
@@ -218,8 +245,6 @@ class treeview extends class_base
 		{
 			return;
 		}
-		$baseurl = $this->cfg["baseurl"];
-		$ext = $this->cfg["ext"];
 
 		$ret = "";
 		reset($this->arr[$parent]);
@@ -269,28 +294,40 @@ class treeview extends class_base
 		}
 		else
 		{
-			$url = $this->cfg["baseurl"] . "/" . $row["oid"];
+			$url = aw_ini_get("baseurl") . $row["oid"];
 		};
 		return $url;
 	}
 
-	function set_root_name($name)
+	public function set_root_name($name)
 	{
 		$this->has_root = true;
 		$this->tree_dat["root_name"] = $name;
 	}
 
-	function set_root_icon($name)
+	public function set_root_icon($name)
 	{
 		$this->has_root = true;
 		$this->tree_dat["root_icon"] = $name;
 	}
 
-	function set_root_url($name)
+	public function set_root_url($name)
 	{
 		$this->has_root = true;
 		$this->tree_dat["root_url"] = $name;
 	}
+
+	/**
+		@attrib api=1 params=pos
+		@param uri type=aw_uri
+		@returns void
+		@errors none
+	**/
+	public function set_data_source_url(aw_uri $uri)
+	{
+		$this->js_tree_data_source_url = $uri;
+	}
+
 
 	/** Initializes tree
 
@@ -367,7 +404,7 @@ class treeview extends class_base
 	{
 		$this->auto_open = ( isset($arr["open_path"]) && is_array( $arr["open_path"] ) && count( $arr["open_path"] ) ) ? $arr["open_path"] : false;
 		$this->items = array();
-		$this->tree_type = empty($arr["type"]) ? TREE_DHTML : $arr["type"];
+		$this->tree_type = empty($arr["type"]) ? self::TYPE_DHTML : $arr["type"];
 		$this->tree_dat = $arr;
 		$this->item_name_length = empty($arr["item_name_length"]) ? false : $arr["item_name_length"];
 		$this->has_root = empty($arr["has_root"]) ? false : $arr["has_root"];
@@ -375,28 +412,32 @@ class treeview extends class_base
 		$this->get_branch_func = empty($arr["get_branch_func"]) ? false : $arr["get_branch_func"];
 		$this->branch = empty($arr["branch"]) ? false : true;
 		$this->root_id = isset($arr["root_id"]) ? trim($arr["root_id"]) : null;
-		if(($this->tree_type == TREE_DHTML) && !empty($this->get_branch_func) && !empty($arr["data_in_place"]))
+
+		if(($this->tree_type == self::TYPE_DHTML) && !empty($this->get_branch_func) && !empty($arr["data_in_place"]))
 		{
-			$this->set_feature(DATA_IN_PLACE);
-		}
-		if (($this->tree_type == TREE_DHTML or $this->tree_type == TREE_DHTML_WITH_CHECKBOXES or $this->tree_type == TREE_DHTML_WITH_BUTTONS) && !empty($this->get_branch_func))
-		{
-			$this->features[LOAD_ON_DEMAND] = 1;
+			$this->set_feature(self::DATA_IN_PLACE);
 		}
 
-		if (($this->tree_type == TREE_DHTML or $this->tree_type == TREE_DHTML_WITH_CHECKBOXES or $this->tree_type == TREE_DHTML_WITH_BUTTONS) && !empty($this->tree_id) && !empty($arr["persist_state"]))
+		if ($this->tree_type == self::TYPE_DHTML or $this->tree_type == self::TYPE_DHTML_WITH_CHECKBOXES or $this->tree_type == self::TYPE_DHTML_WITH_BUTTONS)
 		{
-			$this->features[PERSIST_STATE] = 1;
+			if (!empty($this->get_branch_func))
+			{
+				$this->features[self::LOAD_ON_DEMAND] = 1;
+			}
+
+			if (!empty($this->tree_id) && !empty($arr["persist_state"]))
+			{
+				$this->features[self::PERSIST_STATE] = 1;
+			}
 		}
 
-		if ($this->tree_type == TREE_DHTML_WITH_CHECKBOXES)
+		if ($this->tree_type == self::TYPE_DHTML_WITH_CHECKBOXES)
 		{
 			$this->separator = empty($arr["separator"]) ? "," : $arr["separator"];
 			$this->checked_nodes = isset($arr["checked_nodes"]) ? $arr["checked_nodes"] : array();
 			$this->checkbox_data_var = empty ($arr["checkbox_data_var"]) ? $arr["tree_id"] : $arr["checkbox_data_var"];
 		}
-
-		if ($this->tree_type == TREE_DHTML_WITH_BUTTONS)
+		elseif ($this->tree_type == self::TYPE_DHTML_WITH_BUTTONS)
 		{
 			$this->separator = empty($arr["separator"]) ? "," : $arr["separator"];
 			$this->checkbox_data_var = empty ($arr["checkbox_data_var"]) ? $arr["tree_id"] : $arr["checkbox_data_var"];
@@ -405,12 +446,12 @@ class treeview extends class_base
 		$this->open_nodes = array();
 	}
 
-	function set_branch_func($fc)
+	public function set_branch_func($fc)
 	{
 		$this->get_branch_func = $fc;
 		if (($this->tree_type == TREE_DHTML or $this->tree_type == TREE_DHTML_WITH_CHECKBOXES or $this->tree_type == TREE_DHTML_WITH_BUTTONS) && !empty($this->get_branch_func))
 		{
-			$this->features[LOAD_ON_DEMAND] = 1;
+			$this->features[self::LOAD_ON_DEMAND] = 1;
 		}
 	}
 
@@ -518,18 +559,17 @@ class treeview extends class_base
 	}
 
 	/** Sets the selcted element in the tree
-		@attrib name=selected_item params=pos api=1
-		@param id required type=string
+		@attrib params=pos api=1
+		@param id type=string
 			The key (id) of an item
 	**/
-	function set_selected_item($id)
+	public function set_selected_item($id)
 	{
 		$this->selected_item = $id;
 	}
 
-
 	/** Checks if a node have children or not
-		@attrib name=node_has_children params=pos api=1
+		@attrib params=pos api=1
 		@param id required type=string
 			The key (id) of an item
 		@returns
@@ -537,7 +577,7 @@ class treeview extends class_base
 			Boolean false if item doesn't exists
 
 	**/
-	function node_has_children($id)
+	public function node_has_children($id)
 	{
 		return is_array($this->items[$id]) && sizeof($this->items[$id]) > 0;
 	}
@@ -547,11 +587,11 @@ class treeview extends class_base
 	// rootnode - from which node should drawing start (defaults to 0)
 
 	/** Draws the tree
-		@attrib name=finalize_tree params=name api=1
-		@param rootnode optional type=string default=0
+		@attrib params=name api=1
+		@param rootnode type=string default=0
 			From which node should drawing start (defaults to 0)
 
-		@returns
+		@returns string
 			Parsed tree
 		@examples
 			#start_tree
@@ -559,79 +599,36 @@ class treeview extends class_base
 	**/
 	function finalize_tree($arr = array())
 	{
-		$this->rootnode = empty($arr["rootnode"]) ? (int)$this->rootnode : $arr["rootnode"];
-
-		if ($this->tree_type == TREE_HTML)
+		if (!empty($arr["rootnode"]))
 		{
-			return $this->html_finalize_tree();
+			$this->rootnode = $arr["rootnode"];
 		}
 
-		if ($this->tree_type == TREE_DHTML)
+		if ($this->tree_type == self::TYPE_HTML)
 		{
-			return $this->dhtml_finalize_tree();
+			$rendered_tree = $this->html_finalize_tree();
+		}
+		elseif (self::TYPE_JS === $this->tree_type)
+		{
+			$rendered_tree = $this->js_finalize_tree();
+		}
+		elseif ($this->tree_type == TREE_DHTML)
+		{
+			$rendered_tree = $this->dhtml_finalize_tree();
+		}
+		elseif ($this->tree_type == TREE_DHTML_WITH_CHECKBOXES)
+		{
+			$rendered_tree = $this->dhtml_checkboxes_finalize_tree ();
+		}
+		elseif ($this->tree_type == TREE_DHTML_WITH_BUTTONS)
+		{
+			$rendered_tree = $this->dhtml_buttons_finalize_tree ();
 		}
 
-		if ($this->tree_type == TREE_DHTML_WITH_CHECKBOXES)
-		{
-			return $this->dhtml_checkboxes_finalize_tree ();
-		}
-
-		if ($this->tree_type == TREE_DHTML_WITH_BUTTONS)
-		{
-			return $this->dhtml_buttons_finalize_tree ();
-		}
-
-		$this->read_template("ftiens.tpl");
-		// objektipuu
-		$tr = $this->req_finalize_tree ($this->rootnode);
-		$this->vars(array(
-			"TREE" => $tr,
-			"DOC" => "",
-			"root" => $this->rootnode,
-			"rootname" => $this->tree_dat["root_name"],
-			"linktarget" => $this->tree_dat["url_target"],
-			"rooturl" => $this->tree_dat["root_url"],
-			"icon_root" => ($this->tree_dat["root_icon"] != "" ) ? $this->tree_dat["root_icon"] : aw_ini_get("icons.server") . "aw_ikoon.gif",
-		));
-		return $this->parse ();
+		return $rendered_tree;
 	}
 
-	function req_finalize_tree($parent)
-	{
-		if (!isset($this->items[$parent]) || !is_array($this->items[$parent]))
-		{
-			return '';
-		}
-
-		$ret = '';
-		foreach($this->items[$parent] as $row)
-		{
-			$sub = $this->req_finalize_tree($row['id']);
-			if (!empty($row["iconurl"]))
-			{
-				$row["icon"] = $row["iconurl"];
-			}
-			$this->vars(array(
-				'name' => strlen($row['name']) ? $row['name'] : $this->untitled_text,
-				'id' => $row['id'],
-				'parent' => $parent,
-				'iconurl' => empty($row['icon']) ? aw_ini_get("icons.server").'aw_ikoon.gif' : $row['icon'],
-				'url' => $row['url'],
-				'targetframe' => $row['target'],
-			));
-			if ($sub == "")
-			{
-				$ret.=$this->parse('DOC');
-			}
-			else
-			{
-				$ret.=$this->parse('TREE').$sub;
-			}
-		}
-		return $ret;
-	}
-
-	function html_finalize_tree ()
+	private function html_finalize_tree()
 	{
 		$this->read_template("html_tree.tpl");
 		$ml = array();
@@ -640,10 +637,23 @@ class treeview extends class_base
 		$this->vars(array(
 			"colspan" => 10
 		));
-		return $this->parse("TREE_BEGIN").join("\n", $ml).$this->parse("TREE_END");
+		return $this->parse("TREE_BEGIN").implode("\n", $ml).$this->parse("TREE_END");
 	}
 
-	function dhtml_finalize_tree ()
+	private function js_finalize_tree()
+	{
+		active_page_data::load_javascript("jquery/plugins/jquery.cookie.js");
+		active_page_data::load_javascript("jquery/plugins/jsTree/jquery.jstree.js");
+		$this->read_template("js_tree.tpl");
+		$this->vars(array(
+			"selected_item" => str_replace("'", "\\'", $this->selected_item),
+			"tree_id" => $this->tree_id,
+			"data_source_url" => $this->js_tree_data_source_url->get(),
+		));
+		return $this->parse();
+	}
+
+	private function dhtml_finalize_tree()
 	{
 		$level = 0;
 		$this->rv = "";
@@ -671,7 +681,7 @@ class treeview extends class_base
 			$this->r_path = $this->r_path + $this->open_nodes;
 		}
 
-		$t = get_instance("core/languages");
+		$t = new languages();
 
 		$level = (!empty($_REQUEST["called_by_js"]) and isset($_COOKIE[$this->tree_id."_level"])) ? $_COOKIE[$this->tree_id."_level"] : 1;
 		if(!strlen($this->auto_open))
@@ -752,23 +762,7 @@ class treeview extends class_base
 		return $this->parse();
 	}
 
-	function _req_add_loaded_flag($items, $arr = array())
-	{
-		foreach($items as $parent => $item)
-		{
-			if(strlen($item["name"]) && strlen($item["id"]))
-			{
-				$arr[] = $item["id"];
-			}
-			else
-			{
-				$arr = $this->_req_add_loaded_flag($item, $arr);
-			}
-		}
-		return $arr;
-	}
-
-	function dhtml_checkboxes_finalize_tree ()
+	private function dhtml_checkboxes_finalize_tree()
 	{
 		$level = 0;
 		$this->rv = "";
@@ -840,7 +834,7 @@ class treeview extends class_base
 		return $this->parse();
 	}
 
-	function dhtml_buttons_finalize_tree ()
+	private function dhtml_buttons_finalize_tree()
 	{
 		$level = 0;
 		$this->rv = "";
@@ -869,7 +863,7 @@ class treeview extends class_base
 			$opened_nodes = array();
 		}
 
-		$t = get_instance("languages");
+		$t = new languages();
 		$this->vars (array(
 			"target" => empty($this->tree_dat["url_target"]) ? "" : $this->tree_dat["url_target"],
 			"open_nodes" => count($opened_nodes) ? join(",",map("'%s'",$opened_nodes)) : "",
@@ -909,7 +903,7 @@ class treeview extends class_base
 	}
 
 	// figures out the path from an item to the root of the tree
-	function _get_r_path($id)
+	private function _get_r_path($id)
 	{
 		$rpath = array();
 		if (!isset($this->itemdata[$id]))
@@ -929,7 +923,7 @@ class treeview extends class_base
 		return $rpath;
 	}
 
-	function draw_dhtml_tree ($parent)
+	private function draw_dhtml_tree ($parent)
 	{
 		$data = isset($this->items[$parent]) ? $this->items[$parent] : null;
 
@@ -956,11 +950,11 @@ class treeview extends class_base
 			elseif ($in_path)
 			{
 				// XXX: make it possible to set open/closed icons from the code
-				$iconurl = aw_ini_get("baseurl") . "/automatweb/images/open_folder.gif";
+				$iconurl = aw_ini_get("baseurl") . "automatweb/images/open_folder.gif";
 			}
 			else
 			{
-				$iconurl = aw_ini_get("baseurl") . "/automatweb/images/closed_folder.gif";
+				$iconurl = aw_ini_get("baseurl") . "automatweb/images/closed_folder.gif";
 			}
 
 			if(!isset($item['url']) && isset($item['reload']))
@@ -1028,7 +1022,7 @@ class treeview extends class_base
 					"SINGLE_NODE" => $subres,
 					"display" => $in_path ? "block" : "none",
 					"data_loaded" => $in_path ? "true" : "false",
-					"node_image" => $in_path ? $this->cfg["baseurl"] . "/automatweb/images/minusnode.gif" : $this->cfg["baseurl"] . "/automatweb/images/plusnode.gif",
+					"node_image" => $in_path ? aw_ini_get("baseurl") . "automatweb/images/minusnode.gif" : aw_ini_get("baseurl") . "automatweb/images/plusnode.gif",
 					"menu_level" => $this->level,
 				));
 				$tmp = $this->parse("SUB_NODES");
@@ -1047,7 +1041,7 @@ class treeview extends class_base
 
 	}
 
-	function draw_dhtml_tree_with_checkboxes ($parent)
+	private function draw_dhtml_tree_with_checkboxes ($parent)
 	{
 		$data = isset($this->items[$parent]) ? $this->items[$parent] : null;
 
@@ -1069,11 +1063,11 @@ class treeview extends class_base
 			}
 			elseif (in_array($item["id"],$this->r_path))
 			{
-				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/open_folder.gif";
+				$iconurl = aw_ini_get("baseurl") . "automatweb/images/open_folder.gif";
 			}
 			else
 			{
-				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/closed_folder.gif";
+				$iconurl = aw_ini_get("baseurl") . "automatweb/images/closed_folder.gif";
 			};
 
 			$name = empty($item["name"]) ? $this->untitled_text : $item["name"];
@@ -1134,7 +1128,7 @@ class treeview extends class_base
 					"SUB_NODES" => "",
 				));
 
-				if ($checkbox_status == "undefined")
+				if ($checkbox_status === "undefined")
 				{
 					$tpl = "SINGLE_NODE";
 				}
@@ -1149,7 +1143,7 @@ class treeview extends class_base
 					"SINGLE_NODE" => $subres,
 					"display" => in_array($item["id"],$this->r_path) ? "block" : "none",
 					"data_loaded" => in_array($item["id"],$this->r_path) ? "true" : "false",
-					"node_image" => in_array($item["id"],$this->r_path) ? $this->cfg["baseurl"] . "/automatweb/images/minusnode.gif" : $this->cfg["baseurl"] . "/automatweb/images/plusnode.gif",
+					"node_image" => in_array($item["id"],$this->r_path) ? aw_ini_get("baseurl") . "automatweb/images/minusnode.gif" : aw_ini_get("baseurl") . "automatweb/images/plusnode.gif",
 					'menu_level' => $this->level,
 				));
 				$tmp = $this->parse("SUB_NODES");
@@ -1168,7 +1162,7 @@ class treeview extends class_base
 
 	}
 
-	function draw_dhtml_tree_with_buttons ($parent = 0)
+	private function draw_dhtml_tree_with_buttons ($parent = 0)
 	{
 		$data = isset($this->items[$parent]) ? $this->items[$parent] : array();
 
@@ -1185,12 +1179,12 @@ class treeview extends class_base
 			}
 			elseif (in_array($item["id"],$this->r_path))
 			{
-				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/open_folder.gif";
+				$iconurl = aw_ini_get("baseurl") . "automatweb/images/open_folder.gif";
 			}
 			else
 			{
-				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/closed_folder.gif";
-			};
+				$iconurl = aw_ini_get("baseurl") . "automatweb/images/closed_folder.gif";
+			}
 
 			$name = empty($item["name"]) ? $this->untitled_text : $item["name"];
 			if ($item["id"] === $this->selected_item)
@@ -1240,7 +1234,7 @@ class treeview extends class_base
 					"SINGLE_NODE" => $subres,
 					"display" => in_array($item["id"],$this->r_path) ? "block" : "none",
 					"data_loaded" => in_array($item["id"],$this->r_path) ? "true" : "false",
-					"node_image" => in_array($item["id"],$this->r_path) ? $this->cfg["baseurl"] . "/automatweb/images/minusnode.gif" : $this->cfg["baseurl"] . "/automatweb/images/plusnode.gif",
+					"node_image" => in_array($item["id"],$this->r_path) ? aw_ini_get("baseurl") . "automatweb/images/minusnode.gif" : aw_ini_get("baseurl") . "automatweb/images/plusnode.gif",
 					'menu_level' => $this->level,
 				));
 				$tmp = $this->parse("SUB_NODES");
@@ -1258,7 +1252,7 @@ class treeview extends class_base
 		return $result;
 	}
 
-	function draw_html_tree($parent, &$ml)
+	private function draw_html_tree($parent, &$ml)
 	{
 		$this->level++;
 		$data = array();
@@ -1618,19 +1612,19 @@ class treeview extends class_base
 	}
 
 	/** Sets that only one tree depth is opened at a time
-		@attrib name=set_only_one_level_opened param=pos api=1
+		@attrib params=pos api=1
 		@param value required type=int
 			If set to 1, then only one tree depth is opened at a time
 	**/
-	function set_only_one_level_opened($value)
+	public function set_only_one_level_opened($value)
 	{
 		$this->only_one_level_opened = $value;
 	}
 
 	/** Sets the rootnode for the tree
-		@attrib api=1
+		@attrib api=1 params=pos
 	**/
-	function set_rootnode($rn)
+	public function set_rootnode($rn)
 	{
 		$this->rootnode = $rn;
 	}
