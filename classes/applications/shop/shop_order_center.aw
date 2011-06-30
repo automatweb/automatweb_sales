@@ -5,7 +5,7 @@
 
 @tableinfo aw_shop_order_center index=aw_id master_table=objects master_index=brother_of
 
-@classinfo syslog_type=ST_SHOP_ORDER_CENTER relationmgr=yes maintainer=kristo no_comment=1 no_status=1 prop_cb=1
+@classinfo syslog_type=ST_SHOP_ORDER_CENTER relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default group=general_
 @default table=aw_shop_order_center
@@ -246,7 +246,7 @@
 	@property filter_sel_for_folders type=table store=no no_caption=1
 
 @default group=settings
-	
+
 	@property cart_type type=chooser
 	@caption Ostukorvi t&uuml;&uuml;p
 
@@ -409,7 +409,7 @@ class shop_order_center extends class_base
 		}
 	}
 
- 
+
 	function callback_mod_layout(&$arr)
 	{
 		if($arr["name"] == "appearance_r")
@@ -429,13 +429,13 @@ class shop_order_center extends class_base
 		switch($prop["name"])
 		{
 			case "product_type":
-				$products_show = get_instance(CL_PRODUCTS_SHOW);
+				$products_show = new products_show();
 				$prop["options"] = $products_show->types;
 				break;
 			case "bank_id":
 			case "orderer_mail":
 			case "bank_lang":
-				$cx = get_instance("cfg/cfgutils");
+				$cx = new cfgutils();
 				$props = $cx->load_class_properties(array(
 					"clid" => CL_REGISTER_DATA,
 				));
@@ -454,13 +454,13 @@ class shop_order_center extends class_base
 			case "chart_show_template":
 			case "chart_final_template":
 
-				$tm = get_instance("templatemgr");
+				$tm = new templatemgr();
 				$prop["options"] = $tm->template_picker(array(
 					"folder" => "applications/shop/shop_order_cart/"
 				));
 				break;
 			case "mail_template":
-				$tm = get_instance("templatemgr");
+				$tm = new templatemgr();
 				$prop["options"] = $tm->template_picker(array(
 					"folder" => "applications/shop/shop_sell_order/"
 				));
@@ -660,7 +660,7 @@ class shop_order_center extends class_base
 		}
 
 		$this->_define_bonus_table_header($arr);
-		
+
 		$t = $arr["prop"]["vcl_inst"];
 
 		$bonuscodes = $arr["obj_inst"]->get_bonus_codes();
@@ -774,7 +774,7 @@ class shop_order_center extends class_base
 		$arr["obj_inst"]->set_meta("itemsorts", $res);
 	}
 
-	function _init_layoutbl(&$t)
+	function _init_layoutbl($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -810,7 +810,7 @@ class shop_order_center extends class_base
 
 	function do_layoutbl(&$arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_layoutbl($t);
 
 		$wh = get_instance(CL_SHOP_WAREHOUSE);
@@ -857,8 +857,8 @@ class shop_order_center extends class_base
 		));
 
 		$ot->foreach_cb(array(
-			"func" => array(&$this, "layoutbl_ot_cb"),
-			"param" => &$t,
+			"func" => array($this, "layoutbl_ot_cb"),
+			"param" => $t,
 			"save" => false
 		));
 
@@ -2187,7 +2187,7 @@ class shop_order_center extends class_base
 		foreach($roots as $root)
 		{
 			$root_object = obj($root);
-		
+
 			$tv->add_item(0,array(
 				"name" => $root_object->name(),//t("K&otilde;ik tooted"),
 				"id" => $root,
@@ -2241,12 +2241,12 @@ class shop_order_center extends class_base
 		$tv = get_instance("vcl/treeview");
 		$parent = trim($arr["parent"]);
 		$tv->start_tree(array (
-			"type" => TREE_DHTML,
+			"type" => treeview::TYPE_DHTML,
 			"branch" => 1,
 			"tree_id" => "appearance_tree_".$arr["parent"],
 			"persist_state" => 1,
 		));
-		$tv -> rootnode = $parent;
+		$tv ->set_rootnode($parent);
 		$groups = new object_list(array(
 			"class_id" => array(CL_MENU),
 			"parent" => $parent,
@@ -2284,7 +2284,7 @@ class shop_order_center extends class_base
 //		$tv->set_selected_item(trim(automatweb::$request->arg("menu")));
 
 		die($tv->finalize_tree());
-		
+
 	}
 
 	function _get_appearance_list($arr)
@@ -2411,10 +2411,10 @@ class shop_order_center extends class_base
 							"caption" => $menu->name(),
 						));
 					}
-					
+
 					$data["categories"] = join(",\n<br>" , $cats);
 					$ps->set_id($o->id());
-					$data["cat_search"] = $ps->get_search_button();	
+					$data["cat_search"] = $ps->get_search_button();
 				}
 
 /*				$data["cat_search"] = html::href(array(
@@ -2874,4 +2874,3 @@ interface shop_order_center_integrator
 	**/
 	public function apply_filter_to_product_list(&$pl, $filter_prod);
 }
-?>

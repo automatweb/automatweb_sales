@@ -8,7 +8,7 @@
 <!-- END SUB: ERROR -->
 <tr>
 <td class="caption {VAR:style_form_text}">Pealkiri:</td>
-<td class="text {VAR:style_form_text}"><input type="text" name="name" value="{VAR:title}" class="text {VAR:style_form_element}" /></td>
+<td class="text {VAR:style_form_text}"><input type="text" name="name" value="{VAR:title}" size="70" class="text {VAR:style_form_element}" /></td>
 </tr>
 <tr>
 	<td class="caption {VAR:style_form_text}">Autori nimi:</td>
@@ -45,7 +45,7 @@
 </tr>
 <!-- END SUB: IMAGE_VERIFICATION -->
 <tr>
-	<td class="text {VAR:style_form_text}" colspan="2"><textarea name="commtext" class="{VAR:style_form_element}">{VAR:commtext}</textarea></td>
+	<td class="text {VAR:style_form_text}" colspan="2"><textarea name="commtext" class="{VAR:style_form_element}" rows="10" cols="70">{VAR:commtext}</textarea></td>
 </tr>
 <tr>
 	<td class="text {VAR:style_form_text}" colspan="2"><input type="submit" value="Lisa kommentaar" class="button" /></td>

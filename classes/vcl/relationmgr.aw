@@ -3,11 +3,21 @@
  // that class_base will one day be powerful enough to replace these with properties without
  // a headache -- ahz
 
-class relationmgr extends aw_template
+class relationmgr extends aw_template implements orb_public_interface
 {
 	function relationmgr()
 	{
 		$this->init("relationmgr");
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	function init_vcl_property($arr)

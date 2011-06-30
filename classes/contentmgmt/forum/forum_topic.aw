@@ -1,8 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/forum/forum_topic.aw,v 1.30 2009/02/02 12:02:55 dragut Exp $
+
 // forum_comment.aw - foorumi kommentaar
 /*
-@classinfo relationmgr=yes syslog_type=ST_FORUM_TOPIC no_status=1 maintainer=dragut
+@classinfo relationmgr=yes syslog_type=ST_FORUM_TOPIC no_status=1
 
 @tableinfo forum_topics index=aw_oid master_index=brother_of master_table=objects
 
@@ -224,14 +224,13 @@ class forum_topic extends class_base
 		{
 			$target_obj = $target->to();
 			send_mail($target_obj->prop("mail"),$subject,$message,$from);
-		};
-
+		}
 	}
 
 	function do_db_upgrade($tbl, $field, $q, $err)
 	{
-		
-		if($tbl == "forum_topics")
+
+		if($tbl === "forum_topics")
 		{
 			if($field=="")
 			{
@@ -244,7 +243,7 @@ class forum_topic extends class_base
 					$this->db_query("INSERT INTO forum_topics(`aw_oid`,`active`, `locked`, `answers_to_mail`, `image`, `author_name`, `author_email`) VALUES('".$o->id()."','".$o->meta("active")."','".$o->meta("locked")."','".$o->meta("answers_to_mail")."','".$o->meta("image")."','".$o->meta("author_name")."','".$o->meta("author_email")."')");
 				}
 				return true;
-						
+
 			}
 			switch($field)
 			{
@@ -265,11 +264,10 @@ class forum_topic extends class_base
 					$this->db_add_col($tbl, array(
 						"name" => $field,
 						"type" => "varchar(200)"
-					));	
+					));
 					return true;
 					break;
 			}
 		}
 	}
 }
-?>

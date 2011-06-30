@@ -74,7 +74,7 @@ class object_data_list
 				{
 					foreach($dat as $k => $v)
 					{
-						if (!is_numeric($k) && ($k == "oid" || $k == "parent" || $k == "name" || $k == "brother_of" || $k == "status" || $k == "class_id") && $v != $k)
+						if (!is_numeric($k) && ($k === "oid" || $k === "parent" || $k === "name" || $k === "brother_of" || $k === "status" || $k === "class_id") && $v != $k)
 						{
 							error::raise(array(
 								"id" => "ERR_INVALID_RENAME",
@@ -227,7 +227,7 @@ class object_data_list
 		{
 			foreach($oids as $oid => $oname)
 			{
-				if ($GLOBALS["object_loader"]->ds->can("view", $oid))
+				if (object_loader::can("view", $oid))
 				{
 					$this->list_data[$oid] = $data[$oid];
 				}
