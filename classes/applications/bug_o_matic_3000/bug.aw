@@ -3558,7 +3558,7 @@ return; //TODO: sort out maintainers business first
 			{
 				$customer = obj($cust, array(), CL_CRM_COMPANY);
 				$section = obj($unit, array(), CL_CRM_SECTION);
-				$work_ol = $customer->get_employees(true, null, $section);
+				$work_ol = $customer->get_employees("active", null, $section);
 				$arr["prop"]["options"] = html::get_empty_option() + $work_ol->names();
 			}
 			catch (awex_obj $e)

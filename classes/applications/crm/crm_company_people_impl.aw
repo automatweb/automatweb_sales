@@ -315,7 +315,7 @@ class crm_company_people_impl extends class_base
 			$sections[] = $arr['request']['unit'];
 			if(0 === $cat) //kui miski amet v6i nii, siis leiab isikud hiljem
 			{
-				$worker_ol = $arr["obj_inst"]->get_employees(false, null, $tmp_obj);
+				$worker_ol = $arr["obj_inst"]->get_employees("all", null, $tmp_obj);
 				$persons = $worker_ol->ids();
 			}
 		}
@@ -324,7 +324,7 @@ class crm_company_people_impl extends class_base
 		if($cat !== crm_company::REQVAL_ALL_SELECTION)
 		{
 			$tmp_obj = obj($cat, array(), CL_CRM_PROFESSION);
-			$worker_ol = $arr["obj_inst"]->get_employees(false, $tmp_obj);
+			$worker_ol = $arr["obj_inst"]->get_employees("all", $tmp_obj);
 			$persons = $worker_ol->ids();
 			$professions = array($cat);
 		}
@@ -346,7 +346,7 @@ class crm_company_people_impl extends class_base
 		// kas siis kui tahetud k6iki v6i siis kui ei saanud yhtgi tulemust ja on m22ratud et sellisel juhul l2hevad k6ik
 		if ($cat === crm_company::REQVAL_ALL_SELECTION || (isset($arr["request"]["all_if_empty"]) && $arr["request"]["all_if_empty"] && !($worker_ol && $worker_ol->count())))
 		{
-			$worker_ol = $arr["obj_inst"]->get_employees(false);
+			$worker_ol = $arr["obj_inst"]->get_employees("all");
 			$persons = $worker_ol->ids();
 			$section_ol = $arr["obj_inst"]->get_sections();
 			$sections = $section_ol->ids();
