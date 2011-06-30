@@ -100,7 +100,7 @@ class crm_recommendation extends class_base
 				break;
 
 			case "person":
-				if(!$prop["value"])
+				if(empty($prop["value"]))
 				{
 					$prop["post_append_text"] = "";
 					$prop["type"] = "textbox";

@@ -470,9 +470,10 @@ define("IP_DENIED", 2);
 class menu extends class_base implements main_subtemplate_handler
 {
 	var $sel_section = 0; //TODO:scope?
+	
+	protected $menu_images_done;
 
-	function menu($args = array())
-	{
+	function menu($args = array())	{
 		$this->init(array(
 			"tpldir" => "automatweb/menu",
 			"clid" => CL_MENU,

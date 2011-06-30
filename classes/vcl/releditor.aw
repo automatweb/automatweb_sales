@@ -149,24 +149,22 @@ class releditor extends core implements orb_public_interface
 					{
 						$prop["value"] = $prop["options"][$prop["value"]];
 					}
-					if ($_pd["type"] === "date_select")
+					elseif ($_pd["type"] === "date_select")
 					{
 						$prop["value"] = date("d.m.Y", $prop["value"]);
 					}
-					else
-					if ($_pd["type"] === "datetime_select")
+					elseif ($_pd["type"] === "datetime_select")
 					{
 						$prop["value"] = date("d.m.Y", $prop["value"]);
 					}
-					if (($_pd["type"] === "relpicker" || $_pd["type"] === "classificator") && $this->can("view", $prop["value"]))
+					elseif (($_pd["type"] === "relpicker" || $_pd["type"] === "classificator") && $this->can("view", $prop["value"]))
 					{
 						$_tmp = obj($prop["value"]);
 						$prop["value"] = parse_obj_name($_tmp->name());
 					}
-					else
-					if ($_pd["type"] === "select" && is_array($prop["options"]))
+					elseif ($_pd["type"] === "select" and isset($prop["options"]) and is_array($prop["options"]))
 					{
-						$prop["value"] = $prop["options"][$prop["value"]];
+						$prop["value"] = isset($prop["options"][$prop["value"]]) ? $prop["options"][$prop["value"]] : null;
 					};
 					if(isset($prop["filt_edit_fields"]) && $prop["filt_edit_fields"] == 1)
 					{

@@ -806,7 +806,7 @@ class relpicker extends  core
 			$ri = $GLOBALS["relinfo"][$arr["clid"]];
 		}
 
-		$clids = $ri[$arr["prop"]["reltype"]]["clid"];
+		$clids = isset($ri[$arr["prop"]["reltype"]]["clid"]) ? $ri[$arr["prop"]["reltype"]]["clid"] : null;
 
 		if ($this->can("view", $arr["obj_inst"]->prop($arr["prop"]["name"])))
 		{

@@ -547,35 +547,36 @@ class shop_order_center_obj extends _int_object
 	private function _make_new_struct_leaf($cats , $root)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_MENU,
-			"site_id" => array(),
-			"lang_id" => array(),
-			"parent" => $root));
+			"class_id" => menu_obj::CLID,
+			"parent" => $root,
+		));
 
 		foreach($cats->arr() as $cat)
 		{
-			$menu_found = 0;
-			foreach($ol->arr() as $menu)
+			$menu_found = false;
+			foreach($ol->names() as $menu_oid => $menu_name)
 			{
-				if($menu->name() == $cat->name())
+				if($menu_name === $cat->name())
 				{
-					$menu_found = 1;
+					$menu_found = true;
+					$menu = obj($menu_oid, array(), menu_obj::CLID);
 					break;
 				}
 			}
 			if(!$menu_found)
 			{
-				$menu = new object();
-				$menu->set_class_id(CL_MENU);
+				$menu = obj(null, array(), menu_obj::CLID);
 				$menu->set_parent($root);
 				$menu->set_name($cat->name());
-				$menu->save();
 			}
-			$menu->set_prop("status" , 2);
+			$menu->set_prop("status", object::STAT_ACTIVE);
 			$menu->save();
+
+			$this->__copy_category_images_to_menu($cat, $menu);
+
 			$o = $this->get_product_show_obj($menu->id(), true);
 			$o->add_category($cat->get_all_categories());
-			$o->set_prop("type" , $this->prop("product_type"));
+			$o->set_prop("type", $this->prop("product_type"));
 			$o->save();
 
 			$categories = $cat->get_categories();
@@ -584,6 +585,39 @@ class shop_order_center_obj extends _int_object
 				$this->_make_new_struct_leaf($categories , $menu->id());
 			}
 		}
+	}
+
+	private function __copy_category_images_to_menu($category, $menu)
+	{
+		$images = $category->prop("images");
+		
+		// Delete old image_connections
+		foreach($menu->connections_from(array("type" => "RELTYPE_IMAGE")) as $image_connection)
+		{
+			if (!is_array($images) or !in_array($image_connection->prop("to"), $images))
+			{
+				$image_connection->delete();
+			}
+		}
+		
+		$menu_images = array();
+		if (is_array($images))
+		{
+			foreach($images as $image)
+			{
+				$menu->connect(array(
+					"to" => $image,
+					"type" => "RELTYPE_IMAGE",
+				));
+				$menu_images[] = array(
+					"image_id" => $image
+				);
+			}
+		}
+
+		//	TODO: The whole menu_images bit should be rewritten (or at least thoroughly reviewed)!
+		$menu->set_meta("menu_images", $menu_images);
+		$menu->save();
 	}
 
 	private function  __orderer_vars_sorter($a, $b)
