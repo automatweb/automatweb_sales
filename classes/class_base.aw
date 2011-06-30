@@ -136,6 +136,7 @@ class class_base extends aw_template implements orb_public_interface
 
 	private $data_processing_result_status = PROP_OK;
 	private $vcl_has_getter = array();
+	private $_request_property_store = array();
 
 	function class_base($args = array())
 	{
@@ -1420,7 +1421,7 @@ class class_base extends aw_template implements orb_public_interface
 			"alias_to" => isset($request["alias_to"]) ? $request["alias_to"] : null,
 			"alias_to_prop" => isset($request["alias_to_prop"]) ? $request["alias_to_prop"] : null,
 			"return_url" => isset($request["return_url"]) ? $request["return_url"] : "",
-		) + ((isset($extraids) && is_array($extraids)) ? $extraids : array());
+		) + ((isset($extraids) && is_array($extraids)) ? $extraids : array()) + $this->_request_property_store;
 
 		if (!$save_ok)
 		{
@@ -1571,7 +1572,7 @@ class class_base extends aw_template implements orb_public_interface
 					$args["cfgform"] = $_POST["cfgform"];
 				}
 
-				$retval = $this->mk_my_orb($action,$args,$orb_class,false, (!empty($request["ret_to_orb"]) ? true : false), "&", false);
+				$retval = $this->mk_my_orb($action, $args, $orb_class, false, (!empty($request["ret_to_orb"]) ? true : false), "&", false);
 
 				if (is_numeric($class))
 				{
@@ -2862,17 +2863,43 @@ class class_base extends aw_template implements orb_public_interface
 
 		// get property data source and property name in that
 		list($ds_obj, $nm) = $this->awcb_get_property_ds($property);
+		$property_value_from_store = null;
 
-		try
+		// get property value from defined store
+		if (isset($property["store"]) and !empty($property["field"]))
 		{
-			$property_value_from_obj = $ds_obj->prop($nm);
+			if ("request" === $property["store"])
+			{
+				$property_value_from_store = $this->req->get_uri()->arg($property["field"]);
+			}
+			elseif ("session" === $property["store"])
+			{
+				$key = $this->_get_property_store_key($ds_obj->id(), $property["field"]);
+				$property_value_from_store = aw_session::get($key);
+			}
+	/* TODO: v6iks teha:
+			elseif ("user_cache" === $property["store"])
+			{
+			}
+			elseif ("public_cache" === $property["store"])
+			{
+			}*/
 		}
-		catch (Exception $e)
+		else
 		{
-			$property_value_from_obj = null;
-			$property["error"] = t("Viga v&auml;&auml;rtuse lugemisel");
-			trigger_error("Caught exception " . get_class($e) . " while reading property '{$nm}' from datasource '" . $ds_obj->id() . "'. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
+			// get property value from storage object
+			try
+			{
+				$property_value_from_store = $ds_obj->prop($nm);
+			}
+			catch (Exception $e)
+			{
+				$property_value_from_store = null;
+				$property["error"] = t("Viga v&auml;&auml;rtuse lugemisel");
+				trigger_error("Caught exception " . get_class($e) . " while reading property '{$nm}' from datasource '" . $ds_obj->id() . "'. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
+			}
 		}
+
 
 		// if this is a new object and the property has a default value, use it
 		if (empty($this->id) && isset($property["default"]))//XXX: v6ibolla vaja muuta kui kaob kohustuslik 'main object' datasource
@@ -2899,9 +2926,9 @@ class class_base extends aw_template implements orb_public_interface
 		elseif (
 			empty($property["emb"]) &&
 			is_object($this->obj_inst) &&
-			(!isset($property["store"]) || $property["store"] != "no") &&
+			(!isset($property["store"]) || $property["store"] !== "no") &&
 			empty($property["value"]) &&
-			$property_value_from_obj != NULL )
+			$property_value_from_store != NULL )
 		{
 			// I need to implement this in storage .. so that $obj->prop('blag')
 			// gives the correct result .. all connections of that type
@@ -2915,7 +2942,7 @@ class class_base extends aw_template implements orb_public_interface
 			}
 			else
 			{
-				$property["value"] = $property_value_from_obj;
+				$property["value"] = $property_value_from_store;
 			}
 		}
 
@@ -3994,7 +4021,7 @@ class class_base extends aw_template implements orb_public_interface
 
 	////
 	// !Processes and saves form data
-	function process_data($args = array())
+	function process_data(&$args = array())
 	{
 		$processing_status = $status = PROP_OK;
 		$this->init_class_base();
@@ -4361,9 +4388,25 @@ class class_base extends aw_template implements orb_public_interface
 				}
 			}
 
-			if (isset($property["store"]) && $property["store"] === "no")
+			if (isset($property["store"]))
 			{
-				continue;
+				if ("no" === $property["store"])
+				{
+					continue;
+				}
+				elseif ("request" === $property["store"])
+				{
+					// set property value in return url (like mod_retval)
+					$this->_request_property_store[$property["field"]] = $property["value"];
+					continue;
+				}
+				elseif ("session" === $property["store"])
+				{
+					// store property value in session
+					$key = $this->_get_property_store_key($oid, $property["field"]);
+					aw_session::set($key, $property["value"]);
+					continue;
+				}
 			}
 
 			// XXX: create a VCL component out of this
@@ -6305,7 +6348,7 @@ class class_base extends aw_template implements orb_public_interface
 		}
 		else
 		{ // process sel and check
-			if (!is_array($arr["sel"]) && is_array($arr["check"]))
+			if ((!isset($arr["sel"]) or !is_array($arr["sel"])) && is_array($arr["check"]))
 			{
 				$arr["sel"] = $arr["check"];
 			}
@@ -7013,6 +7056,12 @@ ENDSCRIPT;
 		}
 
 		return $r;
+	}
+
+	private function _get_property_store_key($object_id, $property_field)
+	{
+		$class = get_class($this);
+		$key = "__awcb_session_property_store_{$class}::{$this->use_group}::{$object_id}::{$property_field}";
 	}
 }
 
