@@ -1570,11 +1570,11 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		if(is_oid($company))
 		{
 			$co = obj($company);
-			$persons = $co->get_workers();
-			$p2 = $co->get_employees();
-			$persons->add($p2);
+			$persons = $co->get_employees("all");
 			$ps = $persons->ids();
 		}
+
+		//FIXME: kahtlane tegevus siin, loetakse k6ik t88tajad ...
 		foreach($this->connections_from(array("type" => "RELTYPE_IMPORTANT_PERSON")) as $c)
 		{
 			if(is_array($ps) && !in_array($c->prop("to"), $ps))
