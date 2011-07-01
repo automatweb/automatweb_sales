@@ -3521,9 +3521,8 @@ class crm_bill extends class_base
 			"bill_due" => date("d.m.Y", $this->bill->prop("bill_due_date")),
 			"orderer_contact" => $orderer_contact_person_name,
 			"orderer_contact_profession" => $orderer_contact_person_profession,
-			"comment" => $this->bill->comment(),
 			"overdue" => $this->bill->get_overdue_charge(),
-			"bill_text" => nl2br($this->bill->get_bill_text()),
+			"bill_text" => nl2br($this->bill->get_bill_text())
 		));
 
 		if($ord_country)
@@ -4125,7 +4124,7 @@ class crm_bill extends class_base
 			"total" => number_format($this->sum, 2,".", " "),
 			"total_text" => aw_locale::get_lc_money_text($this->sum, $cur, $lc),
 			"tot_amt" => $this->stats->hours_format($this->tot_amt),
-			"comment" => nl2br($this->bill->comment()),
+			"comment" => nl2br($this->bill->prop("bill_appendix_comment")),
 			"page_no" => $page_no
 		));
 
