@@ -54,7 +54,7 @@ class object_data_list
 				)
 			);
 	**/
-	function object_data_list($param = NULL, $props = NULL)
+	public function object_data_list($param = NULL, $props = NULL)
 	{
 		if (!is_array($param))
 		{
@@ -136,7 +136,7 @@ class object_data_list
 				[123125] => Yahoo
 			)
 	**/
-	function arr()
+	public function arr()
 	{
 		return $this->list_data;
 	}
@@ -144,7 +144,7 @@ class object_data_list
 	/** Returns an array of all the object IDs in the list.
 		@attrib api=1
 	**/
-	function ids()
+	public function ids()
 	{
 		return array_keys($this->list_data);
 	}
@@ -183,7 +183,7 @@ class object_data_list
 		{
 			foreach($oids as $oid => $oname)
 			{
-				if ($GLOBALS["object_loader"]->ds->can("view", $oid))
+				if (object_loader::can("view", $oid))
 				{
 					$add = true;
 					$_o = new object($oid);
