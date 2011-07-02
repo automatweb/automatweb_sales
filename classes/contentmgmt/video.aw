@@ -204,7 +204,7 @@ class video extends class_base
 				"video_file_url" => urlencode($video_file_url),
 				"player_width" => $player_width,
 				"player_height" => $player_height,
-				"skin_file_url" => urlencode(aw_ini_get("baseurl") . "/js/strobeplayer.xml"),
+				"skin_file_url" => urlencode(aw_ini_get("baseurl") . "js/strobeplayer.xml"),
 				"poster" => $poster_image_url ? "&amp;poster={$poster_image_url}" : ""
 			));
 			return $this->parse();

@@ -434,8 +434,8 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 	/** returns people employed by this company
 		@attrib api=1
-		@param only_active optional type=bool default=true
-			if set, returns only active workers
+		@param state optional type=string default="active" set="active"|"former"|"prospective"|"all"
+			if set, returns employees matching criterion
 		@param profession optional type=CL_CRM_PROFESSION
 			return only people on that profession
 		@param section optional type=CL_CRM_SECTION
@@ -445,7 +445,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			throws awex_obj_class when a parameter object class id is not what expected (profession)
 		@qc date=20101026 standard=aw3
 	**/
-	public function get_employees($only_active = true, object $profession = null, object $section = null)
+	public function get_employees($state = "active", object $profession = null, object $section = null)
 	{
 		if (!$this->is_saved())
 		{
@@ -457,32 +457,38 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			"employer" => $this->id()
 		);
 
-		if ($only_active)
-		{
+		if ("active" === $state)
+		{ // set filter to get work relations with this moment's time falling between start and end property values
+			// work relation end after this moment's time
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
 					new object_list_filter(array(
+						"logic" => "AND",
 						"conditions" => array(
 							"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
 						)
 					)),
 					new object_list_filter(array(
+						"logic" => "AND",
 						"conditions" => array(
 							"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
 						)
 					))
 				)
 			));
+			// work relation start before this moment's time
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
 					new object_list_filter(array(
+						"logic" => "AND",
 						"conditions" => array(
 							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
 						)
 					)),
 					new object_list_filter(array(
+						"logic" => "AND",
 						"conditions" => array(
 							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time())
 						)
@@ -490,10 +496,27 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 				)
 			));
 		}
+		elseif ("former" === $state)
+		{
+			// work relation end is set and before this moment's time
+			$filter["end"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, 1, time());
+		}
+		elseif ("prospective" === $state)
+		{
+			// work relation start is set and after this moment's time
+			$filter["start"] = new obj_predicate_compare(obj_predicate_compare::GREATER, time());
+		}
+		elseif ("all" === $state)
+		{
+		}
+		elseif (!empty($state))
+		{
+			throw new awex_param_type("Invalid state value '{$state}'");
+		}
 
 		if($profession)
 		{
-			if (!$profession->is_a(CL_CRM_PROFESSION))
+			if (!$profession->is_a(crm_profession_obj::CLID))
 			{
 				throw new awex_obj_class("Wrong profession object class " . $profession->class_id());
 			}
@@ -502,7 +525,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		if($section)
 		{
-			if (!$section->is_a(CL_CRM_SECTION))
+			if (!$section->is_a(crm_section_obj::CLID))
 			{
 				throw new awex_obj_class("Wrong section object class " . $section->class_id());
 			}
@@ -615,7 +638,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	public function get_workers($arr = array())
 	{
 		$pl = $this->get_employees(
-			isset($arr["active"]) ? (bool) $arr["active"] : false,
+			isset($arr["active"]) ? "active" : "all",
 			empty($arr["profession"]) ? null : obj($arr["profession"]),
 			empty($arr["section"]) ? null : obj($arr["section"])
 		);
@@ -924,7 +947,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			}
 		}
 		else
-		{			
+		{
 			$ownership = obj(null, array(), crm_company_ownership_obj::CLID);
 			$ownership->set_parent($this->id());
 			$ownership->set_name(sprintf("%s omab %f%% organisatsioonist '%s'", $owner->name(), $share_percentage, $this->name()));
@@ -975,7 +998,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			throw new awex_obj_state_new();
 		}
 
-		if ($profession and !$profession->is_a(CL_CRM_PROFESSION))
+		if ($profession and !$profession->is_a(crm_profession_obj::CLID))
 		{
 			throw new awex_obj_type("Given profession (".$profession->id().") of wrong type (".$profession->class_id().") while adding an employee to " . $this->id());
 		}
@@ -1029,7 +1052,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			{
 				// set section if found
 				$section_oid = new aw_oid($profession->prop("parent_section"));
-				$section = obj($section_oid, array(), CL_CRM_SECTION);
+				$section = obj($section_oid, array(), crm_section_obj::CLID);
 				$work_relation->set_prop("company_section", $section->id());
 			}
 			catch (Exception $e)
@@ -1057,7 +1080,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 	/** Returns list of sections in this company
 		@attrib api=1 params=pos
-		@param parent type=CL_CRM_SECTION/CL_CRM_COMPANY default=NULL
+		@param parent type=CL_CRM_SECTION|CL_CRM_COMPANY default=NULL
 			If not set, all sections will be returned. If section object given, then sections from under that section.
 			If company object given, only sections in top level
 		@comment
@@ -1068,19 +1091,20 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	**/
 	function get_sections(object $parent = null)
 	{
-		if ($parent and !$parent->is_a(CL_CRM_SECTION) and !$parent->is_a(CL_CRM_COMPANY))
+		if ($parent and !$parent->is_a(crm_section_obj::CLID) and !$parent->is_a(CL_CRM_COMPANY))
 		{
 			throw new awex_obj_type("Invalid parent (id ".$parent->id().") parameter of class " .$parent->class_id());
 		}
 
 		$params = array(
-			"class_id" => CL_CRM_SECTION,
+			"class_id" => crm_section_obj::CLID,
 			"organization" => $this->id(),
+			new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC))
 		);
 
 		if ($parent)
 		{
-			if ($parent->is_a(CL_CRM_SECTION))
+			if ($parent->is_a(crm_section_obj::CLID))
 			{
 				$params["parent_section"] = $parent->id();
 			}
@@ -1106,19 +1130,20 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	**/
 	function get_professions(object $parent = null)
 	{
-		if ($parent and !$parent->is_a(CL_CRM_SECTION) and !$parent->is_a(CL_CRM_COMPANY))
+		if ($parent and !$parent->is_a(crm_section_obj::CLID) and !$parent->is_a(CL_CRM_COMPANY))
 		{
 			throw new awex_obj_type("Invalid parent (id ".$parent->id().") parameter of class " .$parent->class_id());
 		}
 
 		$params = array(
-			"class_id" => CL_CRM_PROFESSION,
+			"class_id" => crm_profession_obj::CLID,
 			"organization" => $this->id(),
+			new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC))
 		);
 
 		if ($parent)
 		{
-			if ($parent->is_a(CL_CRM_SECTION))
+			if ($parent->is_a(crm_section_obj::CLID))
 			{
 				$params["parent_section"] = $parent->id();
 			}
@@ -1375,8 +1400,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_SECTOR;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 		if($arr["id"])
 		{
 			$filter["oid"] = $arr["id"];
@@ -1434,7 +1457,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			throw new awex_obj_state_new();
 		}
 
-		$profession = obj(null, array(), CL_CRM_PROFESSION);
+		$profession = obj(null, array(), crm_profession_obj::CLID);
 		$profession->set_parent($this->id());
 		$profession->set_prop("organization", $this->id());
 
@@ -1445,7 +1468,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		if ($section)
 		{
-			if (!$section->is_a(CL_CRM_SECTION))
+			if (!$section->is_a(crm_section_obj::CLID))
 			{
 				throw new awex_obj_type("Given section " . $section->id() . " is not a section object (clid is " . $section->class_id() . ")");
 			}
@@ -1476,7 +1499,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			throw new awex_obj_state_new();
 		}
 
-		$section = obj(null, array(), CL_CRM_SECTION);
+		$section = obj(null, array(), crm_section_obj::CLID);
 		$section->set_parent($this->id());
 		$section->set_prop("organization", $this->id());
 
@@ -1487,7 +1510,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		if ($parent_section)
 		{
-			if (!$parent_section->is_a(CL_CRM_SECTION))
+			if (!$parent_section->is_a(crm_section_obj::CLID))
 			{
 				throw new awex_obj_type("Given parent section " . $parent_section->id() . " is not a section object (clid is " . $parent_section->class_id() . ")");
 			}
@@ -1752,11 +1775,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		{
 			$ids = $r->count() > 0 ? $r->ids() : -1;
 			$arr["props"] = isset($arr["props"]) && is_array($arr["props"]) ? $arr["props"] : array(
-				CL_CRM_SECTION => array("oid", "name")
+				crm_section_obj::CLID => array("oid", "name")
 			);
 			$r = new object_data_list(
 				array(
-					"class_id" => CL_CRM_SECTION,
+					"class_id" => crm_section_obj::CLID,
 					"oid" => $ids,
 					"site_id" => array(),
 					"lang_id" => array(),

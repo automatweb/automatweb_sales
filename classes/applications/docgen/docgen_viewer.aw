@@ -985,7 +985,9 @@ class docgen_viewer extends class_base
 			{
 				case "aw_exception":
 				case "awex_redundant_instruction":
-					$clf = "/../lib/errorhandling.aw";
+				case "awex_param":
+				case "awex_param_type":
+					$clf = "/../lib/exceptions.aw";
 					break;
 
 				case "Exception":
@@ -999,7 +1001,7 @@ class docgen_viewer extends class_base
 					}
 					catch (awex_clidx_filesys $e)
 					{
-						die("'throws' for class $impl ".$e->getMessage());
+						die("'throws' for class $impl: ".$e->getMessage());
 					}
 			}
 

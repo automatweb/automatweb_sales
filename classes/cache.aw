@@ -21,19 +21,12 @@ class cache extends core
 		@param real_section optional type=oid default=NULL
 			[xxx] If this is set, then oid parameter will be overwritten by this parameter. Seems that oid parameters value may not always be valid object id, so it is possible to supply correct object id via real_section parameter.
 
-		@errors
-			none
-
-		@returns
-			none
-
+		@errors none
+		@returns void
 		@comment
 			Writes data into cache.
-
-		@examples
-			none
 	**/
-	public static function set($oid,$arr,$content,$xxx = true, $real_section = NULL)
+	public static function set($oid, $arr, $content, $xxx = true, $real_section = NULL)
 	{
 		if (
 			aw_ini_get("cache.use_page_cache") &&
@@ -73,14 +66,12 @@ class cache extends core
 		@param real_oid optional type=oid default=NULL
 			[xxx] If this is set, then oid parameter will be overwritten by this parameter. Seems that oid parameters value may not always be valid object id, so it is possible to supply correct object id via real_oid parameter.
 
-		@errors
-			none
-
-		@returns
+		@errors none
+		@returns string|bool
 			If the cache for the given parameters exists and is valid, then returns cache content, else false
 
 	**/
-	public static function get($oid,$arr, $real_oid = NULL)
+	public static function get($oid, $arr, $real_oid = NULL)
 	{
 		if (
 			aw_ini_get("cache.use_page_cache") &&

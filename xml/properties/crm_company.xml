@@ -681,34 +681,111 @@
             <caption>Organisatsiooni dokumentide asukohad</caption>
       </property>
       <property>
-            <name>cedit_tb</name>
+            <name>add_existing_employee_oid</name>
             <table>objects</table>
-            <group>contacts_edit</group>
+            <group>employees_management</group>
+            <type>hidden</type>
+            <datatype>int</datatype>
+            <store>no</store>
+            <field>add_existing_employee_oid</field>
+      </property>
+      <property>
+            <name>es_c</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>hidden</type>
+            <store>request</store>
+            <field>es_c</field>
+      </property>
+      <property>
+            <name>hrm_toolbar</name>
+            <table>objects</table>
+            <group>employees_management</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <quicksearch>CL_CRM_PERSON</quicksearch>
-            <field>cedit_tb</field>
+            <field>hrm_toolbar</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;tajatehalduse tegevused</caption>
       </property>
       <property>
-            <name>cedit_tree</name>
+            <name>organization_structure_tree</name>
             <table>objects</table>
-            <group>contacts_edit</group>
+            <group>employees_management</group>
             <type>treeview</type>
             <store>no</store>
-            <parent>contacts_edit_tree</parent>
+            <parent>hrm_tree_container</parent>
             <no_caption>1</no_caption>
-            <field>cedit_tree</field>
+            <field>organization_structure_tree</field>
+            <caption>Organisatsiooni struktuur</caption>
       </property>
       <property>
-            <name>cedit_table</name>
+            <name>es_n</name>
             <table>objects</table>
-            <group>contacts_edit</group>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <field>es_n</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>es_s</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <no_caption>1</no_caption>
+            <field>es_s</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;suhte staatus</caption>
+      </property>
+      <property>
+            <name>es_sbt</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>submit</type>
+            <size>15</size>
+            <store>no</store>
+            <parent>search_submit_container</parent>
+            <no_caption>1</no_caption>
+            <field>es_sbt</field>
+            <caption>Otsi</caption>
+      </property>
+      <property>
+            <name>organizational_units_table</name>
+            <table>objects</table>
+            <group>employees_management</group>
             <type>table</type>
             <store>no</store>
-            <parent>contacts_edit_table</parent>
             <no_caption>1</no_caption>
-            <field>cedit_table</field>
+            <parent>unit_list_container</parent>
+            <field>organizational_units_table</field>
+            <caption>&amp;amp;Uuml;ksused</caption>
+      </property>
+      <property>
+            <name>professions_table</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>profession_list_container</parent>
+            <field>professions_table</field>
+            <caption>Ametid</caption>
+      </property>
+      <property>
+            <name>employees_table</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>table</type>
+            <store>no</store>
+            <parent>employees_list_container</parent>
+            <no_caption>1</no_caption>
+            <field>employees_table</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;tajad</caption>
       </property>
       <property>
             <name>cedit_toolbar</name>
@@ -831,6 +908,7 @@
             <field>aw_currency</field>
             <parent>ce_other_bot</parent>
             <captionside>top</captionside>
+            <no_edit>1</no_edit>
             <caption>Valuuta</caption>
       </property>
       <property>
@@ -852,6 +930,7 @@
             <reltype>RELTYPE_LANGUAGE</reltype>
             <parent>ce_other_bot</parent>
             <captionside>top</captionside>
+            <no_edit>1</no_edit>
             <field>language</field>
             <caption>Vaikimisi keel</caption>
       </property>
@@ -3567,24 +3646,22 @@
                   <caption>Kommentaarid</caption>
                   <parent>general</parent>
             </comments>
-            <people>
+            <employees>
                   <caption>T&amp;amp;ouml;&amp;amp;ouml;tajad</caption>
-                  <save>no</save>
-            </people>
-            <contacts_edit>
-                  <caption>Toimeta isikuid</caption>
-                  <parent>people</parent>
-                  <submit>no</submit>
-            </contacts_edit>
+            </employees>
+            <employees_management>
+                  <caption>T&amp;amp;ouml;&amp;amp;ouml;tajad</caption>
+                  <parent>employees</parent>
+            </employees_management>
             <personal_offers>
                   <caption>T&amp;amp;ouml;&amp;amp;ouml;pakkumised</caption>
-                  <parent>people</parent>
+                  <parent>employees</parent>
                   <submit>no</submit>
                   <save>no</save>
             </personal_offers>
             <personal_candits>
                   <caption>Kandideerijad</caption>
-                  <parent>people</parent>
+                  <parent>employees</parent>
                   <submit>no</submit>
                   <save>no</save>
             </personal_candits>
@@ -3592,8 +3669,21 @@
                   <caption>Ressursid</caption>
                   <submit>no</submit>
                   <save>no</save>
-                  <parent>people</parent>
+                  <parent>employees</parent>
             </resources>
+            <documents_forum>
+                  <caption>Foorum</caption>
+                  <submit>no</submit>
+                  <parent>employees</parent>
+            </documents_forum>
+            <open_hrs>
+                  <caption>Avamisajad</caption>
+                  <parent>employees</parent>
+            </open_hrs>
+            <user_settings>
+                  <caption>Seaded</caption>
+                  <parent>employees</parent>
+            </user_settings>
             <contacts>
                   <caption>Kontaktid</caption>
             </contacts>
@@ -3739,11 +3829,6 @@
                   <submit_method>get</submit_method>
                   <save>no</save>
             </documents_news>
-            <documents_forum>
-                  <caption>Foorum</caption>
-                  <submit>no</submit>
-                  <parent>people</parent>
-            </documents_forum>
             <documents_lmod>
                   <caption>Viimati muudetud</caption>
                   <submit>no</submit>
@@ -3857,14 +3942,6 @@
                   <save>no</save>
                   <parent>stats</parent>
             </versions>
-            <open_hrs>
-                  <caption>Avamisajad</caption>
-                  <parent>people</parent>
-            </open_hrs>
-            <user_settings>
-                  <caption>Seaded</caption>
-                  <parent>people</parent>
-            </user_settings>
             <keywords>
                   <caption>V&amp;amp;otilde;tmes&amp;amp;otilde;nad</caption>
                   <parent>documents_all</parent>
@@ -4355,24 +4432,76 @@
                   <group>statuses</group>
                   <area_caption></area_caption>
             </statuses_tbl_box>
-            <contacts_edit>
+            <hrm_main_container>
                   <type>hbox</type>
-                  <group>contacts_edit</group>
+                  <width>20%:80%</width>
+                  <group>employees_management</group>
                   <area_caption></area_caption>
-            </contacts_edit>
-            <contacts_edit_tree>
-                  <type>hbox</type>
-                  <parent>contacts_edit</parent>
+            </hrm_main_container>
+            <hrm_query_container>
+                  <type>vbox</type>
+                  <parent>hrm_main_container</parent>
+                  <group>employees_management</group>
+                  <area_caption></area_caption>
+            </hrm_query_container>
+            <hrm_tree_container>
+                  <type>vbox</type>
+                  <parent>hrm_query_container</parent>
                   <closeable>1</closeable>
-                  <area_caption>Struktuur</area_caption>
-                  <group>contacts_edit</group>
-            </contacts_edit_tree>
-            <contacts_edit_table>
-                  <type>hbox</type>
-                  <parent>contacts_edit</parent>
-                  <group>contacts_edit</group>
+                  <area_caption>Organisatsiooni&amp;amp;nbsp;struktuur</area_caption>
+                  <group>employees_management</group>
+            </hrm_tree_container>
+            <hrm_search_container>
+                  <type>vbox</type>
+                  <parent>hrm_query_container</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Otsing</area_caption>
+                  <group>employees_management</group>
+            </hrm_search_container>
+            <search_params_container>
+                  <type>vbox</type>
+                  <parent>hrm_search_container</parent>
+                  <group>employees_management</group>
                   <area_caption></area_caption>
-            </contacts_edit_table>
+            </search_params_container>
+            <search_submit_container>
+                  <type>hbox</type>
+                  <parent>hrm_search_container</parent>
+                  <group>employees_management</group>
+                  <area_caption></area_caption>
+            </search_submit_container>
+            <hrm_information_container>
+                  <type>vbox</type>
+                  <parent>hrm_main_container</parent>
+                  <group>employees_management</group>
+                  <area_caption></area_caption>
+            </hrm_information_container>
+            <unit_list_container>
+                  <type>vbox</type>
+                  <parent>hrm_information_container</parent>
+                  <closeable>1</closeable>
+                  <area_caption>&amp;amp;Uuml;ksused</area_caption>
+                  <no_padding>1</no_padding>
+                  <default_state>closed</default_state>
+                  <group>employees_management</group>
+            </unit_list_container>
+            <profession_list_container>
+                  <type>vbox</type>
+                  <parent>hrm_information_container</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Ametid</area_caption>
+                  <no_padding>1</no_padding>
+                  <default_state>closed</default_state>
+                  <group>employees_management</group>
+            </profession_list_container>
+            <employees_list_container>
+                  <type>vbox</type>
+                  <parent>hrm_information_container</parent>
+                  <area_caption>T&amp;amp;ouml;&amp;amp;ouml;tajad</area_caption>
+                  <closeable>1</closeable>
+                  <no_padding>1</no_padding>
+                  <group>employees_management</group>
+            </employees_list_container>
             <ceditphf>
                   <type>hbox</type>
                   <width>50%:50%</width>

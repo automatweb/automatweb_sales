@@ -797,8 +797,7 @@ class crm_company_cust_impl extends class_base
 			"name"=>"copy",
 			"tooltip"=> t("Kopeeri"),
 			"action" => "customer_view_copy",
-			// "icon" => "copy"
-			"img" => "copy.gif"
+			"icon" => "copy"
 		));
 
 		if (aw_global_get("awcb_customer_selection_clipboard"))
@@ -816,7 +815,7 @@ class crm_company_cust_impl extends class_base
 		$tb->add_menu_button(array(
 			"name"=>"delete_customers",
 			"tooltip"=> t("Eemalda valitud kliendid"),
-			"icon" => "group_delete"
+			"icon" => "link_delete"
 		));
 
 		$tb->add_menu_item(array(
@@ -1986,14 +1985,14 @@ class crm_company_cust_impl extends class_base
 
 			$options = $co->get_employees();
 			$persons = new object_list(array(
-				"class_id" => CL_CRM_PERSON,
+				"class_id" => crm_person_obj::CLID,
 				"name" => "%".$r["customer_rel_creator"]."%",
 				"oid" => $options->ids(),
 			));
 
 			$cos = array();
 			$crel = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"class_id" => crm_company_customer_data_obj::CLID,
 				"cust_contract_creator" => $persons->ids(),
 				"seller" => $co->id(),
 			));

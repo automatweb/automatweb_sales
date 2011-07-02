@@ -138,11 +138,11 @@ class active_page_data implements orb_public_interface
 			$baseurl = aw_ini_get("baseurl");
 			foreach (self::$load_javascript_files[$pos] as $file => $tmp)
 			{
-				$text .= "<script type=\"text/javascript\" src=\"{$baseurl}automatweb/js/{$file}\"></script>\n";
+				$text .= "<script language=\"Javascript\" type=\"text/javascript\" src=\"{$baseurl}automatweb/js/{$file}\"></script>\n";
 			}
 
 			// add separate code
-			$text .= "<script type=\"text/javascript\">\n" . self::$additional_javascript_code[$pos] . "</script>\n";
+			$text .= "<script language=\"Javascript\" type=\"text/javascript\">\n" . self::$additional_javascript_code[$pos] . "</script>\n";
 		}
 
 		return $text;

@@ -1010,6 +1010,7 @@ class crm_sales extends class_base
 		$cache = new cache();
 		settype($arr["prop"]["options"], "array");
 		$relationship = $only_active ? "active" : "all";
+		$state = $only_active ? "active" : "all";
 
 		if (is_object($profession))
 		{
@@ -1018,7 +1019,7 @@ class crm_sales extends class_base
 
 			if (false === $employees_options)
 			{
-				$employees = $owner->get_employees($only_active, $profession);
+				$employees = $owner->get_employees($state, $profession);
 				$employees_options = array("" => "") + $employees->names();
 				$cache->file_set($key, serialize($employees_options));
 			}

@@ -628,7 +628,6 @@ class admin_if extends class_base
 
 		$t->define_field(array(
 			"name" => "java",
-			"caption" => t("Tegevus"),
 			"width" => 30,
 			"align" => "center",
 			"talign" => "center",

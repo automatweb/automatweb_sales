@@ -35,6 +35,16 @@ class core extends acl_base
 		}
 	}
 
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
+	}
+
 	/** deprecated - use config::get_simple_config instead **/
 	function get_cval($ckey)
 	{
