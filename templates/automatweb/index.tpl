@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="{VAR:baseurl}automatweb/css/iefix.css" />
 	<![endif]-->
 </head>
-<body onload="check_generic_loader();">
+<body onload="check_generic_loader();" class=" nihilo ">
 
 <script type="text/javascript">
 

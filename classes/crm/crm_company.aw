@@ -209,6 +209,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 			@property statuses_set_tbl parent=statuses_tbl_box type=table store=no no_caption=1
 
 			@property statuses_tbl parent=statuses_tbl_box type=table store=no no_caption=1
+
+
 ------ Yldine - kasutajate seaded grupp
 @default group=user_settings
 
@@ -230,69 +232,55 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 	@property document_source_list type=table store=no
 	@caption Organisatsiooni dokumentide asukohad
 
+
 --------------------------------------
-// @default group=contacts2
-
-	// @layout hbox_toolbar type=hbox
-
-		// @property contact_toolbar type=toolbar no_caption=1 store=no parent=hbox_toolbar
-		// @caption "The Green Button"
-
-	// @layout hbox_others type=hbox width=20%:80%
-
-		// @layout vbox_contacts_left type=vbox parent=hbox_others closeable=1 area_caption=Organisatsiooni&nbsp;struktuur
-
-			// @property unit_listing_tree type=treeview no_caption=1 store=no parent=vbox_contacts_left
-			// @caption Puu
-
-			///////////// contact search
-			// @property contact_search_name type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			// @caption Nimi
-
-			// @property contact_search_firstname type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			// @caption Eesnimi
-
-			// @property contact_search_lastname type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			// @caption Perenimi
-
-			// @property contact_search_code type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			// @caption Isikukood
-
-			// @property contact_search_ext_id_alphanum type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			// @caption Siduss&uuml;steemi ID
-
-			// @property contact_search_ext_id type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			// @caption Numbriline siduss&uuml;steemi ID
-
-			// @property contact_search type=hidden store=no no_caption=1 parent=vbox_contacts_left value=1 captionside=top
-			// @caption contact_search
-
-			// @property contact_search_submit type=submit store=no parent=vbox_contacts_left no_caption=1 captionside=top
-			// @caption Otsi
+// employees view
 
 
-		// @layout vbox_contacts_right type=vbox parent=hbox_others
+@default group=employees_management
+	@property add_existing_employee_oid type=hidden datatype=int store=no
+	@property es_c type=hidden store=request
 
-			// @property human_resources type=table store=no no_caption=1 parent=vbox_contacts_right
-			// @caption Inimesed
+	@property hrm_toolbar type=toolbar no_caption=1 store=no
+	@caption T&ouml;&ouml;tajatehalduse tegevused
 
-			// @property contacts_search_results type=table store=no no_caption=1 parent=vbox_contacts_right
-			// @caption Otsingutulemused
+	@layout hrm_main_container type=hbox width=20%:80%
+		@layout hrm_query_container type=vbox parent=hrm_main_container
+
+			@layout hrm_tree_container type=vbox parent=hrm_query_container closeable=1 area_caption=Organisatsiooni&nbsp;struktuur
+				@property organization_structure_tree type=treeview store=no parent=hrm_tree_container no_caption=1
+				@caption Organisatsiooni struktuur
+
+			@layout hrm_search_container type=vbox parent=hrm_query_container closeable=1 area_caption=Otsing
+				@layout search_params_container type=vbox parent=hrm_search_container
+
+					@property es_n type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption Nimi
+
+					@property es_s type=chooser orient=vertical store=request parent=search_params_container no_caption=1
+					@caption T&ouml;&ouml;suhte staatus
+
+				@layout search_submit_container type=hbox parent=hrm_search_container
+
+					@property es_sbt type=submit size=15 store=no parent=search_submit_container no_caption=1
+					@caption Otsi
+
+		@layout hrm_information_container type=vbox parent=hrm_main_container
+			@layout unit_list_container type=vbox parent=hrm_information_container closeable=1 area_caption=&Uuml;ksused no_padding=1 default_state=closed
+				@property organizational_units_table type=table store=no no_caption=1 parent=unit_list_container
+				@caption &Uuml;ksused
+
+			@layout profession_list_container type=vbox parent=hrm_information_container closeable=1 area_caption=Ametid no_padding=1 default_state=closed
+				@property professions_table type=table store=no no_caption=1 parent=profession_list_container
+				@caption Ametid
+
+			@layout employees_list_container type=vbox parent=hrm_information_container area_caption=T&ouml;&ouml;tajad closeable=1 no_padding=1
+				@property employees_table type=table store=no parent=employees_list_container no_caption=1
+				@caption T&ouml;&ouml;tajad
 
 
-@default group=contacts_edit
 
-	@property cedit_tb type=toolbar no_caption=1 store=no quicksearch=CL_CRM_PERSON
-
-	@layout contacts_edit type=hbox
-
-		@layout contacts_edit_tree type=hbox parent=contacts_edit closeable=1 area_caption=Struktuur
-
-			@property cedit_tree type=treeview store=no parent=contacts_edit_tree no_caption=1
-
-		@layout contacts_edit_table type=hbox parent=contacts_edit
-			@property cedit_table type=table store=no parent=contacts_edit_table no_caption=1
-
+-----------------------------------------
 
 @default group=cedit
 	@property cedit_toolbar type=toolbar store=no no_caption=1
@@ -301,38 +289,29 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 		@layout ceditphf type=hbox width=50%:50%
 
 			@layout cedit_phone type=vbox parent=ceditphf closeable=1 area_caption=Telefonid
-
 				@property cedit_phone_tbl type=table no_caption=1 parent=cedit_phone
 
 			@layout cedit_fax type=vbox parent=ceditphf closeable=1 area_caption=Faksid
-
 				@property cedit_telefax_tbl type=table no_caption=1 parent=cedit_fax
 
 
 
 
 		@layout ceditemlurl type=hbox width=50%:50%
-
 			@layout cedit_email type=vbox parent=ceditemlurl closeable=1 area_caption=E-mail
-
 				@property cedit_email_tbl type=table store=no no_caption=1 parent=cedit_email
 
 			@layout cedit_url type=vbox parent=ceditemlurl closeable=1 area_caption=URL
-
 				@property cedit_url_tbl type=table store=no no_caption=1 parent=cedit_url
 
 		@layout ceditbank type=vbox closeable=1 area_caption=Pangaarved
-
 			@property cedit_bank_account_tbl type=table store=no no_caption=1 parent=ceditbank
 
 		@layout ceditadr type=vbox closeable=1 area_caption=Aadressid
-
 			@property cedit_adr_tbl type=table store=no no_caption=1 parent=ceditadr
 
 	@layout cedit_layout_other type=vbox area_caption=Andmed closeable=1
-
 		@layout ce_oth_split type=hbox parent=cedit_layout_other
-
 			@layout ce_other_top type=vbox parent=ce_oth_split
 
 				@property contact type=relpicker reltype=RELTYPE_ADDRESS table=kliendibaas_firma parent=ce_other_top captionside=top
@@ -346,13 +325,13 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 
 			@layout ce_other_bot type=vbox parent=ce_oth_split
 
-				@property currency type=relpicker reltype=RELTYPE_CURRENCY table=kliendibaas_firma field=aw_currency parent=ce_other_bot captionside=top
+				@property currency type=relpicker reltype=RELTYPE_CURRENCY table=kliendibaas_firma field=aw_currency parent=ce_other_bot captionside=top no_edit=1
 				@caption Valuuta
 
 				@property round type=textbox method=serialize field=meta parent=ce_other_bot captionside=top
 				@caption &Uuml;marda
 
-				@property language type=relpicker reltype=RELTYPE_LANGUAGE table=kliendibaas_firma parent=ce_other_bot captionside=top
+				@property language type=relpicker reltype=RELTYPE_LANGUAGE table=kliendibaas_firma parent=ce_other_bot captionside=top no_edit=1
 				@caption Vaikimisi keel
 
 - T88tajad vaatesse
@@ -361,11 +340,11 @@ V6imalus m22rata, kes on volitatud isikud ja volituse alus. T88taja nime j2rele 
 - Kontaktandmetesse seos: Keel
 Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. Vaikimisi v22rtus Arve-saatelehel
 
-	@property phone_id type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
-	@property telefax_id type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
-	@property url_id type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
-	@property email_id type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
-	@property aw_bank_account type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
+@property phone_id type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
+@property telefax_id type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
+@property url_id type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
+@property email_id type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
+@property aw_bank_account type=hidden table=kliendibaas_firma parent=cedit_layout_other no_caption=1
 
 @property balance type=hidden table=aw_account_balances field=aw_balance
 
@@ -404,14 +383,13 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 ---------------------------------------------------
 
-/////start of my_customers
+// Customers view
 @default group=relorg_s,relorg_b
 
 	@property my_customers_toolbar type=toolbar no_caption=1 store=no
 	@caption Kliendivaate tegevused
 
 	@layout my_cust_bot type=hbox width=20%:80%
-
 		@layout tree_search_split type=vbox parent=my_cust_bot
 
 			@property tree_search_split_dummy type=hidden no_caption=1 parent=tree_search_split
@@ -459,9 +437,6 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 					@property customer_search_cust_grp type=select store=no parent=vbox_customers_left_top captionside=top
 					@caption Kliendigrupp
 
-					// @property customer_search_classif1 type=classificator store=no parent=vbox_customers_left_top captionside=top
-					// @caption Asutuse omadused
-
 					@property customer_search_insurance_exp type=select store=no parent=vbox_customers_left_top captionside=top
 					@caption Kindlustus aegund
 
@@ -483,7 +458,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 				@caption Kliendid
 
 
-/////end of my_customers
+/// end of customers
 
 
 ---------- ERIPAKKUMISED ---------
@@ -1208,14 +1183,17 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 @groupinfo special_offers caption="Eripakkumised" submit=no parent=general
 @groupinfo comments caption="Kommentaarid" parent=general
 
-@groupinfo people caption="T&ouml;&ouml;tajad" save=no
 
-	// @groupinfo contacts2 caption="Inimesed puuvaates" parent=people submit=no save=no
-	@groupinfo contacts_edit caption="Toimeta isikuid" parent=people submit=no
-	@groupinfo personal_offers caption="T&ouml;&ouml;pakkumised" parent=people submit=no save=no
-	@groupinfo personal_candits caption="Kandideerijad" parent=people submit=no save=no
+@groupinfo employees caption="T&ouml;&ouml;tajad"
+	@groupinfo employees_management caption="T&ouml;&ouml;tajad" parent=employees
+	@groupinfo personal_offers caption="T&ouml;&ouml;pakkumised" parent=employees submit=no save=no
+	@groupinfo personal_candits caption="Kandideerijad" parent=employees submit=no save=no
+	@groupinfo resources caption="Ressursid"  submit=no save=no parent=employees
+	@groupinfo documents_forum caption="Foorum" submit=no parent=employees
+	@groupinfo open_hrs caption="Avamisajad" parent=employees
+	@groupinfo user_settings caption="Seaded" parent=employees
 
-@groupinfo resources caption="Ressursid"  submit=no save=no parent=people
+
 @groupinfo contacts caption="Kontaktid"
 @groupinfo overview caption="Tegevused" save=no
 
@@ -1262,7 +1240,6 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all submit=no save=no
 
 	@groupinfo documents_news caption="Siseuudised" submit=no parent=general submit_method=get save=no
-	@groupinfo documents_forum caption="Foorum" submit=no parent=people
 	@groupinfo documents_lmod caption="Viimati muudetud" submit=no parent=general	save=no
 	@groupinfo ext_sys caption="Siduss&uuml;steemid" parent=general
 	@groupinfo documents_polls caption="Kiirk&uuml;sitlused" submit=no parent=general
@@ -1292,8 +1269,6 @@ groupinfo qv caption="Vaata"  submit=no save=no
 
 @groupinfo transl caption=T&otilde;lgi
 @groupinfo versions caption=Versioonid submit=no save=no parent=stats
-@groupinfo open_hrs caption="Avamisajad" parent=people
-@groupinfo user_settings caption="Seaded" parent=people
 @groupinfo keywords caption="V&otilde;tmes&otilde;nad" parent=documents_all
 
 @reltype ETTEVOTLUSVORM value=1 clid=CL_CRM_CORPFORM
@@ -1950,11 +1925,27 @@ class crm_company extends class_base
 		}
 	}
 
-	function get_property($arr)
+	function get_property(&$arr)
 	{
 		$retval = PROP_OK;
 		$data = &$arr['prop'];
 		$arr["use_group"] = $this->use_group;
+
+		if ("employees_management" === $this->use_group)
+		{
+			static $employees_view;
+			if (!$employees_view)
+			{
+				$employees_view = new crm_company_employees_view();
+				$employees_view->set_request($this->req);
+			}
+
+			$fn = "_get_{$data["name"]}";
+			if (method_exists($employees_view, $fn))
+			{
+				return $employees_view->$fn($arr);
+			}
+		}
 
 		switch($data['name'])
 		{
@@ -3075,6 +3066,22 @@ class crm_company extends class_base
 	{
 		$data = &$arr['prop'];
 
+		if ("employees_management" === $this->use_group)
+		{
+			static $employees_view;
+			if (!$employees_view)
+			{
+				$employees_view = new crm_company_employees_view();
+				$employees_view->set_request($this->req);
+			}
+
+			$fn = "_set_{$data["name"]}";
+			if (method_exists($employees_view, $fn))
+			{
+				return $employees_view->$fn($arr);
+			}
+		}
+
 		// Security!
 		$no_html = array(
 			"fake_email",
@@ -3844,10 +3851,7 @@ class crm_company extends class_base
 			$arr["sbt_data_add_seller"] = 0;
 			$arr["sbt_data_add_buyer"] = 0;
 		}
-		elseif ("people" === $this->use_group or "contacts_edit" === $this->use_group)
-		{
-			$arr["sbt_data_add_employee"] = 0;
-		}
+
 		$arr["sbt_data"] = 0;
 		$arr["sbt_data2"] = 0;
 	}
@@ -4641,10 +4645,18 @@ class crm_company extends class_base
 	**/
 	function cut($arr)
 	{
-		$_SESSION["crm_cut"] = $arr["select"];
-		return $this->mk_my_orb("change", array(
-			"id" => $arr["id"],
-			"group" => $arr["group"]), CL_CRM_COMPANY);
+		if (isset($arr["group"]) and ("employees_management" === $arr["group"] or "employees" === $arr["group"]))
+		{
+			$r = crm_company_employees_view::cut($arr);
+		}
+		else
+		{
+			$_SESSION["crm_cut"] = $arr["select"];
+			$r = $this->mk_my_orb("change", array(
+				"id" => $arr["id"],
+				"group" => $arr["group"]), CL_CRM_COMPANY);
+		}
+		return $r;
 	}
 
 	/**
@@ -4652,20 +4664,28 @@ class crm_company extends class_base
 	**/
 	function paste($arr)
 	{
-		foreach ($_SESSION["crm_cut"] as $oid)
+		if (isset($arr["group"]) and ("employees_management" === $arr["group"] or "employees" === $arr["group"]))
 		{
-			$obj = obj($oid);
-			$obj->set_parent($arr["parent"]);
-			$obj->save();
+			$r = crm_company_employees_view::paste($arr);
 		}
-		unset($_SESSION["crm_cut"]);
-		return $this->mk_my_orb("change", array(
-				"id" => $arr["id"],
-				"group" => $arr["group"],
-				"parent" => $arr["parent"],
-			),
-			CL_CRM_COMPANY
-		);
+		else
+		{
+			foreach ($_SESSION["crm_cut"] as $oid)
+			{
+				$obj = obj($oid);
+				$obj->set_parent($arr["parent"]);
+				$obj->save();
+			}
+			unset($_SESSION["crm_cut"]);
+			$r = $this->mk_my_orb("change", array(
+					"id" => $arr["id"],
+					"group" => $arr["group"],
+					"parent" => $arr["parent"],
+				),
+				CL_CRM_COMPANY
+			);
+		}
+		return $r;
 	}
 
 	/**
@@ -7699,7 +7719,7 @@ class crm_company extends class_base
 		return html::get_change_url($o->id(), array("return_url" => $arr["post_ru"]));
 	}
 
-	/**
+	/**deprecated
 		@attrib name=p_view_switch
 	**/
 	function p_view_switch($arr)
@@ -8025,17 +8045,10 @@ class crm_company extends class_base
 		return $this->parse();
 	}
 
+	//DEPRECATED
 	function display_persons_table($person_list, $t)
-	{
-		$arr = array(
-			"prop" => array(
-				"vcl_inst" => $t
-			),
-			"disp_persons" => $person_list,
-			"obj_inst" => get_current_company()
-		);
-		$i = get_instance("applications/crm/crm_company_people_impl");
-		$i->_get_human_resources($arr);
+	{  $arr = array( "prop" => array( "vcl_inst" => $t ), "disp_persons" => $person_list, "obj_inst" => get_current_company() ); $i = get_instance(
+		"applications/crm/crm_company_people_impl"); $i->_get_human_resources($arr);
 	}
 
 	/**

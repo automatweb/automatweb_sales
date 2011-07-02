@@ -751,12 +751,12 @@ class toolbar extends aw_template
 	/** Adds the save button to the toolbar
 		@attrib api=1
 	**/
-	public function add_save_button($arr = array())
+	public function add_save_button()
 	{
 		$this->add_button(array(
 			"name" => "save",
 			"icon" => "disk",
-			"action" => "",
+			"action" => "submit",
 			"tooltip" => t("Salvesta")
 		));
 	}

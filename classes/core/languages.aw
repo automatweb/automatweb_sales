@@ -2,13 +2,15 @@
 
 class languages extends aw_template implements request_startup
 {
+	var $cf_name = ""; // internal cache file name/key
+
 	function languages()
 	{
 		$this->init("languages");
 		lc_load("definition");
 		$this->lc_load("languages","lc_languages");
 		// the name of the cache file
-		$this->cf_name = "languages-cache-site_id-".$this->cfg["site_id"];
+		$this->cf_name = "languages-cache-site_id-".aw_ini_get("site_id");
 		$this->init_cache();
 	}
 
@@ -236,12 +238,13 @@ class languages extends aw_template implements request_startup
 		if (!headers_sent())
 		{
 			setcookie("lang_id",$id,time()+aw_ini_get("languages.cookie_lifetime"),"/");
-		};
+		}
+
 		aw_global_set("lang_id", $id);
 		if (!is_admin())
 		{
 			// read the language from active lang
-			if (!empty($GLOBALS["cfg"]["user_interface"]["use_site_lang"]))
+			if (aw_ini_get("user_interface.use_site_lang"))
 			{
 				if (aw_ini_get("user_interface.full_content_trans"))
 				{
@@ -251,7 +254,9 @@ class languages extends aw_template implements request_startup
 				{
 					$_tmp = aw_global_get("LC");
 				}
-				$GLOBALS["cfg"]["user_interface"]["default_language"] = $_tmp;
+
+
+				aw_ini_set("user_interface.default_language", $_tmp);
 			}
 		}
 		return $id;
@@ -293,11 +298,13 @@ class languages extends aw_template implements request_startup
 				return $langs[$la];
 			}
 		}
+
 		// if there were no matches then just pick the first one
 		if ($def)
 		{
 			return $def;
 		}
+
 		// if no languages are active, then get the first one.
 		if (is_array($la))
 		{
@@ -307,7 +314,8 @@ class languages extends aw_template implements request_startup
 			{
 				return $row["id"];
 			}
-		};
+		}
+
 		// if there are no languages defined in the site, we are fucked anyway, so just return a reasonable number
 		return 1;
 	}
@@ -390,7 +398,7 @@ class languages extends aw_template implements request_startup
 
 	////
 	// !this will get called once in the beginning of the page, so that the class can initialize itself nicely
-	function request_startup()
+	public function request_startup()
 	{
 		static $init_done;
 		if ($init_done > 1)
@@ -524,7 +532,8 @@ class languages extends aw_template implements request_startup
 				{
 					$_tmp = aw_global_get("LC");
 				}
-				$GLOBALS["cfg"]["user_interface"]["default_language"] = $_tmp;
+
+				aw_ini_set("user_interface.default_language", $_tmp);
 			}
 		}
 	}
@@ -534,7 +543,7 @@ class languages extends aw_template implements request_startup
 		// no need to add languages if we are to use an existing database
 		if (!$site['site_obj']['use_existing_database'])
 		{
-			foreach($this->cfg["list"] as $lid => $ldat)
+			foreach(aw_ini_get("languages.list") as $lid => $ldat)
 			{
 				$status = 1;
 				if ($lid == 1)

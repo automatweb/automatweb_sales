@@ -925,7 +925,9 @@ class object_list extends _int_obj_container_base
 	{
 		$this->filter = $filter;
 		$this->_int_init_empty();
+
 		$tmp = $GLOBALS["object_loader"]->ds->search($filter);
+		//TODO: 'greedy loading'. et tehtaks korraga suurem p2ring kui vaja. load_param kaudu peaks seda n6uda saama
 
 		if (method_exists($GLOBALS["object_loader"]->ds, "last_search_query_string"))
 		{

@@ -1,7 +1,7 @@
 <div class="foorum forum-folder">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
 <tr>
-<td colspan="2" height="20" class="{VAR:style_new_topic_row}" colspan="2"><a href="{VAR:add_topic_url}"><img src="{VAR:baseurl}/automatweb/images/forum/forum_add_new.gif" align="absmiddle" border="0" alt="Lisa uus teema"></a> <a href="{VAR:add_topic_url}">Lisa uus teema</a>
+<td colspan="2" height="20" class="{VAR:style_new_topic_row}" colspan="2"><a href="{VAR:add_topic_url}"><img src="{VAR:baseurl}automatweb/images/forum/forum_add_new.gif" align="absmiddle" border="0" alt="Lisa uus teema"></a> <a href="{VAR:add_topic_url}">Lisa uus teema</a>
 </td>
 </tr>
 <tr>
@@ -16,7 +16,7 @@
 [{VAR:num}]
 <!-- END SUB: active_page -->
 <!-- SUB: page -->
- <a href="{VAR:url}">{VAR:num}</a> 
+ <a href="{VAR:url}">{VAR:num}</a>
 <!-- END SUB: page -->
 <!-- END SUB: PAGER -->
 </td>
@@ -32,7 +32,7 @@
 
 <!-- SUB: SUBTOPIC -->
 <tr class="">
-	<td class="{VAR:style_topic_caption} column"><center><img src="{VAR:baseurl}/automatweb/images/forum_arrow_sm.gif"></center></td>
+	<td class="{VAR:style_topic_caption} column"><center><img src="{VAR:baseurl}automatweb/images/forum_arrow_sm.gif"></center></td>
 	<td class="{VAR:style_topic_caption} column">
 	<!-- SUB: ADMIN_BLOCK -->
 	<input type="checkbox" name="sel_topic[{VAR:topic_id}]" value="1" /><a href="{VAR:add_faq_url}">[ lisa KKK ]</a>

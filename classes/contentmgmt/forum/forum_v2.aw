@@ -3,8 +3,7 @@
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_FORUM_V2, on_connect_menu)
 
-	@classinfo syslog_type=ST_FORUM
-	@classinfo relationmgr=yes maintainer=dragut
+	@classinfo syslog_type=ST_FORUM relationmgr=yes
 
 @default table=objects
 
@@ -82,8 +81,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_FORUM_V2, on_connect_me
 		@property post_name type=chooser
 		@caption Postituste autori nimi
 
-@groupinfo look caption="V&auml;limus"
 
+@groupinfo look caption="V&auml;limus"
 	@groupinfo styles caption="Stiilid" parent=look
 	@default group=styles
 
@@ -167,12 +166,12 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_FORUM_V2, on_connect_me
 
 	@groupinfo jrks caption=J&auml;rjekorrad parent=look
 	@default group=jrks
-		
+
 		@property jrks type=callback callback=callback_gen_jrks no_caption=1
 
 	@groupinfo topic_form_fields caption="Teema vormi v&auml;ljad" parent=look
 	@default group=topic_form_fields
-		
+
 		@property topic_form_fields type=chooser multiple=1 orient=vertical
 		@caption Teema lisamise vormi v&auml;ljad
 
@@ -190,7 +189,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_FORUM_V2, on_connect_me
 		@property activation type=checkbox ch_value=1
 		@caption Teemade aktiveerimine
 
-		
+
 
 		@property comments_on_page type=textbox
 		@caption Kommentaare lehel
@@ -321,14 +320,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_FORUM_V2, on_connect_me
 
 */
 
-define('TOPICS_SORT_ORDER_NEWEST_TOPICS_FIRST', 1);
-define('TOPICS_SORT_ORDER_ALPHABET', 2);
-define('TOPICS_SORT_ORDER_NEWEST_COMMENTS_FIRST', 3);
-define('TOPICS_SORT_ORDER_MOST_COMMENTED_FIRST', 4);
-define('TOPICS_SORT_ORDER_OBJ_ORD', 5);
 
-define('TOPICS_LAST_REPLY_AUTHOR', 1);
-define('TOPICS_LAST_TOPIC_AUTHOR', 2);
+//DEPRECATED constants
+define('TOPICS_SORT_ORDER_NEWEST_TOPICS_FIRST', 1);  define('TOPICS_SORT_ORDER_ALPHABET', 2); define('TOPICS_SORT_ORDER_NEWEST_COMMENTS_FIRST', 3); define('TOPICS_SORT_ORDER_MOST_COMMENTED_FIRST', 4); define('TOPICS_SORT_ORDER_OBJ_ORD', 5); define('TOPICS_LAST_REPLY_AUTHOR', 1); define('TOPICS_LAST_TOPIC_AUTHOR', 2);
 
 
 // forum data structure:
@@ -338,7 +332,19 @@ define('TOPICS_LAST_TOPIC_AUTHOR', 2);
 
 class forum_v2 extends class_base implements site_search_content_group_interface
 {
+	const TOPICS_SORT_ORDER_NEWEST_TOPICS_FIRST = 1;
+	const TOPICS_SORT_ORDER_ALPHABET = 2;
+	const TOPICS_SORT_ORDER_NEWEST_COMMENTS_FIRST = 3;
+	const TOPICS_SORT_ORDER_MOST_COMMENTED_FIRST = 4;
+	const TOPICS_SORT_ORDER_OBJ_ORD = 5;
+
+	const TOPICS_LAST_REPLY_AUTHOR = 1;
+	const TOPICS_LAST_TOPIC_AUTHOR = 2;
+
 	var $topics_sort_order = array();
+
+	private $topic_id = 0;
+	private $style_donor_obj;
 
 	function forum_v2()
 	{
@@ -348,21 +354,21 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		));
 
 		$this->topics_sort_order = array(
-			TOPICS_SORT_ORDER_NEWEST_TOPICS_FIRST => t('Uuemad teemad eespool'),
-			TOPICS_SORT_ORDER_ALPHABET => t('T&auml;hestikulises j&auml;rjekorras (A-Z)'),
-			TOPICS_SORT_ORDER_NEWEST_COMMENTS_FIRST => t('Viimati kommenteeritud eespool'),
-			TOPICS_SORT_ORDER_MOST_COMMENTED_FIRST => t('Enim kommenteeritud eespool'),
-			TOPICS_SORT_ORDER_OBJ_ORD => t('Objektide jrk. nr. j&auml;rgi')
+			self::TOPICS_SORT_ORDER_NEWEST_TOPICS_FIRST => t('Uuemad teemad eespool'),
+			self::TOPICS_SORT_ORDER_ALPHABET => t('T&auml;hestikulises j&auml;rjekorras (A-Z)'),
+			self::TOPICS_SORT_ORDER_NEWEST_COMMENTS_FIRST => t('Viimati kommenteeritud eespool'),
+			self::TOPICS_SORT_ORDER_MOST_COMMENTED_FIRST => t('Enim kommenteeritud eespool'),
+			self::TOPICS_SORT_ORDER_OBJ_ORD => t('Objektide jrk. nr. j&auml;rgi')
 		);
 
 		$this->topic_last_author = array(
-			TOPICS_LAST_REPLY_AUTHOR => t("vastus"),
-			TOPICS_LAST_TOPIC_AUTHOR => t("teema")
+			self::TOPICS_LAST_REPLY_AUTHOR => t("vastus"),
+			self::TOPICS_LAST_TOPIC_AUTHOR => t("teema")
 		);
 
 		$this->link_def_max_len = 50;
 
-		lc_site_load("forum",&$this);
+		lc_site_load("forum", $this);
 
 		$this->comment_fields = array(
 			"name" => t("Pealkiri"),
@@ -576,10 +582,10 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 					$topic_obj = new object($topic_id);
 					$topic_obj->set_prop("locked",!$topic_obj->prop("locked"));
 					$topic_obj->save();
-				};
-			};
-		};
-		return PROP_OK;
+				}
+			}
+		}
+		return class_base::PROP_OK;
 	}
 
 	function create_forum_from_comments($forumdata,$topicdata,$commentdata)
@@ -798,7 +804,6 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 	function callback_gen_contents($arr)
 	{
-		classload("layout/active_page_data");
 		$this->style_data = array();
 		$this->obj_inst = $arr["obj_inst"];
 		$style_donor = $this->obj_inst->prop("style_donor");
@@ -833,7 +838,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				"value" => $this->draw_all_folders($arr),
 				"no_caption" => 1,
 			);
-		};
+		}
 
 		//$prop = $arr["prop"];
 		//$prop["value"] = $retval;
@@ -1045,7 +1050,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				"parents" => $topic_list[$sub_folder_obj->id()],
 			));
 			$last = (TOPICS_LAST_REPLY_AUTHOR == $topic_last_author) ? $this->get_last_comments(array('parents' => $topic_list[$sub_folder_obj->id()])) :  $this->get_last_topic($sub_folder_obj->id());
-			
+
 
 			$mdate = $last["created"];
 			$datestr = empty($date) ? "" : $this->time2date($mdate,2);
@@ -1189,7 +1194,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 			}
 			$path[] = $name;
-		};
+		}
 
 		$this->_add_style("style_topic_caption");
 		$this->_add_style("style_topic_replies");
@@ -1234,14 +1239,14 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			// if the topics sort order is not set at all, then by default we sort it by creation time:
 			$topics_list_params['sort_by'] = 'objects.created DESC';
 		}
-		
+
 		$topics_ol = new object_list($topics_list_params);
 		if (!$is_sorted)
 		{
 			$topics_ol->sort_by(array(
 				"prop" => "jrk",
 				"order" => "asc"
-			));	
+			));
 		}
 		$topics_list_ids = $topics_ol->ids();
 
@@ -1426,7 +1431,6 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		};
 
 
-
 		$this->vars(array(
 			"SUBTOPIC" => $c,
 			"name" => $topic_obj->name(),
@@ -1437,6 +1441,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				"section" => aw_global_get("section"),
 				"folder" => $args["request"]["folder"],
 				"_alias" => get_class($this),
+				"in_popup" => "1"
 			)),
 			"search_url" => $this->mk_my_orb("search",array(
 				"id" => $args["obj_inst"]->id(),
@@ -1788,7 +1793,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				$change_link = $this->parse("CHANGE_LINK");
 			}
 		}
-		
+
 		$pdata = $this->get_user_data($topic_obj->createdby());
 		if($pdata)
 		{
@@ -2186,7 +2191,6 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 	function _add_style($name)
 	{
-		classload("layout/active_page_data");
 		// this right now takes data from the currently loaded object
 		if (is_object($this->style_donor_obj))
 		{
@@ -2195,12 +2199,13 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		else
 		{
 			$st_data = $this->obj_inst->prop($name);
-		};
+		}
+
 		if ($st_data)
 		{
 			active_page_data::add_site_css_style($st_data);
 			$this->style_data[$name] = "st" . $st_data;
-		};
+		}
 	}
 
 	function get_topic_selector($arr)
@@ -2410,14 +2415,14 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				}
 
 				$htmlc->start_output();
-		
+
 				$htmlc->add_property(array(
 					"name" => "caption",
 					"caption" => ($topic->class_id()==CL_MSGBOARD_TOPIC)?t("Teema muutmine"):t("Kommentaari muutmine"),
 					"type" => "text",
 					"subtitle" => 1,
 				));
-		
+
 				$cfgu = get_instance("cfg/cfgutils");
 				$props = $cfgu->load_class_properties(array(
 					"clid" => ($topic->class_id()==CL_MSGBOARD_TOPIC)?CL_MSGBOARD_TOPIC:CL_COMMENT,
@@ -2438,11 +2443,11 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 					$use_props[] = "comment";
 					$use_props[] = "answers_to_mail";
 					$props['author_email']['value'] = $topic->prop("author_email");
-		
+
 					$props['author_name']['value'] = $topic->prop("author_name");
 					$props['author_name']['type'] = "text";
 					$props['author_email']['type'] = "text";
-		
+
 					$props["name"]["value"] = $topic->name();
 					$props["answers_to_mail"]["value"] = $topic->prop("answers_to_mail");
 					$props["comment"]["value"] = $topic->comment();
@@ -2465,7 +2470,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				}
 				$cb_values = aw_global_get("cb_values");
 				aw_session_del("cb_values");
-		
+
 				foreach($use_props as $key)
 				{
 					$propdata = $props[$key];
@@ -2479,7 +2484,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 					};
 					$htmlc->add_property($propdata);
 				};
-		
+
 				if ($this->obj_inst->prop("show_image_upload_in_add_topic_form"))
 				{
 					$htmlc->add_property(array(
@@ -2489,13 +2494,13 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 					));
 				}
 				aw_session_set('no_cache', 1);
-		
+
 				$htmlc->add_property(array(
 					"name" => "sbt",
 					"caption" => t("Muuda"),
 					"type" => "submit",
 				));
-		
+
 				$class = aw_global_get("class");
 				// XXX: are we embedded? I know, this sucks :(
 				$form_handler = "";
@@ -2503,7 +2508,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				{
 					$form_handler = aw_ini_get("baseurl") . "/" . aw_global_get("section");
 				};
-		
+
 				$htmlc->finish_output(array("data" => array(
 						"class" => get_class($this),
 						"section" => aw_global_get("section"),
@@ -2514,11 +2519,11 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 					),
 					"form_handler" => $form_handler,
 				));
-		
+
 				$html = $htmlc->get_result(array(
 					"form_only" => 1
 				));
-		
+
 				return $html;
 			}
 		}
@@ -2534,7 +2539,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			$arr["obj_inst"] = obj($arr["id"]);
 			$htmlc = get_instance("cfg/htmlclient",array("template" => "webform.tpl"));
 			$htmlc->start_output();
-	
+
 			$props = $this->get_search_form($arr);
 			foreach($props as $prop)
 			{
@@ -2552,7 +2557,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				"method" => "GET",
 				"form_handler" => "index.aw",
 			));
-	
+
 			$html = $htmlc->get_result(array(
 				"form_only" => 1
 			));
@@ -2571,7 +2576,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		$t = new vcl_table;
 
 		$t->define_field(array(
-			"name" => "name",	
+			"name" => "name",
 			"caption" => t("Pealkiri"),
 			"sortable" => 1
 		));
@@ -2607,7 +2612,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		}
 		elseif($topcom == "comms")
 		{
-			$params["class_id"] = array(CL_COMMENT); 
+			$params["class_id"] = array(CL_COMMENT);
 		}
 		else
 		{
@@ -2731,7 +2736,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 	function get_search_form($arr)
 	{
 		$props["word"] = array(
-			"type" => "textbox",	
+			"type" => "textbox",
 			"name" => "word",
 			"caption" => t("Otsingus&otilde;na"),
 			"store" => "no",
@@ -2822,7 +2827,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		}
 		$nflevel = $flevel+1;
 		$this->search_folders[$fo->id()] = $slashes.$fo->name();
-		
+
 		$folder_list = new object_list(array(
 			"parent" => $f,
 			"class_id" => CL_MENU,
@@ -2836,15 +2841,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 	}
 
 	/**
-
-		@attrib name=add_topic params=name all_args="1" nologin="1"
-
-
-		@returns
-
-
-		@comment
-
+		@attrib name=add_topic params=name all_args=1 nologin=1
 	**/
 	function add_topic($arr)
 	{
@@ -2873,7 +2870,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			"subtitle" => 1,
 		));
 
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$props = $cfgu->load_class_properties(array(
 			"clid" => CL_MSGBOARD_TOPIC,
 		));
@@ -3080,7 +3077,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			$image_inst = get_instance(CL_IMAGE);
 			// figure out the images parent:
 			$images_folder_id = $obj_inst->prop("images_folder");
-	
+
 			if (!empty($images_folder_id))
 			{
 				// if there is images_folder set, then put images there:
@@ -3091,10 +3088,10 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				// else lets put it under the object where the image is added:
 				$image_parent = $topic->id();
 			}
-	
+
 			// if there is image uploaded:
 			$upload_image = $image_inst->add_upload_image("uimage", $image_parent);
-	
+
 			if ($upload_image !== false && is_oid($topic->id()))
 			{
 				$con = $topic->connections_from(array("type" => "RELTYPE_FORUM_IMAGE"));
@@ -3115,14 +3112,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 
 	/**
-
-		@attrib name=submit_topic params=name all_args="1" nologin="1"
-
-		@returns
-
-
-		@comment
-
+		@attrib name=submit_topic params=name all_args=1 nologin=1
 	**/
 	function submit_topic($arr)
 	{
@@ -3904,4 +3894,3 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		return $path;
 	}
 }
-?>

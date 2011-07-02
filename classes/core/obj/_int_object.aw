@@ -1244,6 +1244,7 @@ class _int_object
 			$type = "oid";
 		}
 
+		$str_untitled = t("[Nimetu]");
 		$val = $this->prop($param);
 		switch($type)
 		{
@@ -1282,7 +1283,7 @@ class _int_object
 					{
 						foreach ($_tmp as $key => $value)
 						{
-							$_tmp[$key] = strlen($value) ? $value : t("[Nimetu]");
+							$_tmp[$key] = strlen($value) ? $value : $str_untitled;
 						}
 						$val = join(", ", $_tmp);
 					}
@@ -1318,7 +1319,7 @@ class _int_object
 							{
 								$tmp = new object($k);
 								$tmp = $tmp->name();
-								$vals[] = strlen($tmp) ? $tmp : t("[Nimetu]");
+								$vals[] = strlen($tmp) ? $tmp : $str_untitled;
 							}
 							else
 							{
@@ -1337,7 +1338,14 @@ class _int_object
 
 		if (empty($val))
 		{
-			$val = "";
+			if ("name" === $param)
+			{
+				$val = $str_untitled;
+			}
+			else
+			{
+				$val = "";
+			}
 		}
 
 		return $val;

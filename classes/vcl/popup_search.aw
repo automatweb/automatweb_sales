@@ -30,7 +30,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 		$this->req = $request;
 	}
 
-	function init_vcl_property($arr)
+	public function init_vcl_property($arr)
 	{
 		if (isset($arr["property"]["style"]) && $arr["property"]["style"] === "relpicker")
 		{
@@ -1302,7 +1302,7 @@ function aw_get_el(name,form)
 				"select_this" => html::href(array(
 					"url" => "javascript:void(0)",
 					"caption" => t("Vali see"),
-					"onClick" => "set_prop(\"".$o->id()."\")",
+					"onclick" => "set_prop(\"".$o->id()."\")"
 				)),
 				"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
 			);

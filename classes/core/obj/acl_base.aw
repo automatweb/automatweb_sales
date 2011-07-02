@@ -332,11 +332,12 @@ class acl_base extends db_connector
 				$max_priority = $tacl["priority"];
 				$max_acl = $tacl;
 			}
+
 			if (++$cnt > 100)
 			{
 				error::raise(array(
 					"id" => ERR_ACL_EHIER,
-					"msg" => sprintf(t("acl_base->can(%s, %s): error in object hierarchy, count exceeded!"), $access,$oid)
+					"msg" => sprintf(t("acl_base->can(%s, %s): error in object hierarchy, count exceeded!"), $access, $oid)
 				));
 			}
 
@@ -545,9 +546,9 @@ class acl_base extends db_connector
 				}
 			}
 
-			if (++$cnt > 100)//TODO: move this limit setting to config? mis count see on yldse
+			if (++$cnt > 100)//TODO: move this limit setting to config?
 			{
-				throw new awex_obj_data_integrity(sprintf("Error in object hierarchy, count exceeded (%s, %s)", $access, $oid));
+				throw new awex_obj_data_integrity(sprintf("Error in object hierarchy, count exceeded (%s, %s)", $cur_oid, $oid));
 			}
 
 			// go to parent
