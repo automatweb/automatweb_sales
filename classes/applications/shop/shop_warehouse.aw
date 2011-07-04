@@ -1442,8 +1442,6 @@ class shop_warehouse extends class_base
 				}
 				$prop["options"] = array(t("K&otilde;ik"), t("Mitteaktiivsed") , t("Aktiivsed"));
 				break;
-			case "product_management_category_tree":
-				die();
 			case "packets_cat_tree":
 			case "product_managementcat_tree":
 				$prop["value"] = $this->_get_managementcat_tree($arr);
@@ -7353,6 +7351,8 @@ $tb->add_delete_button();
 						}
 					";
 
+					$js .= $this->__callback_generate_scripts_for_product_management_category_tree($arr);
+
 					break;
 				case "sales":
 				case "sell_orders":
@@ -7474,6 +7474,7 @@ $tb->add_delete_button();
 					$.get('/automatweb/orb.aw', {'class': 'shop_warehouse', 'action': 'create_new_category_type',
 						'id': '".$arr["obj_inst"]->id()."', 'name': my_string}, function (html) {
 							reload_layout(['product_managementtree_lay2']);
+							$('#product_management_category_tree').jstree('refresh');
 						}
 					);
 				}
@@ -7532,11 +7533,40 @@ $('#product_management_tree').jstree({
 });
 SCRIPT;
 
+					$js .= $this->__callback_generate_scripts_for_product_management_category_tree($arr);
+
 					break;
 			}
 
 		}
 		return $js;
+	}
+
+	protected function __callback_generate_scripts_for_product_management_category_tree($arr)
+	{
+		load_javascript("jquery/plugins/jsTree/jquery.jstree.js");
+		$ajax_url = $this->mk_my_orb("get_product_management_category_tree_nodes", array("id" => $arr["obj_inst"]->id()));
+
+		return <<<SCRIPT
+$('#product_management_category_tree').jstree({
+	'json_data' : {
+		'ajax': {
+			'type': 'GET',
+			'url': '{$ajax_url}',
+			'async': true,
+			'data': function(n) {
+				return { 'node': n.attr ? n.attr('id') : -1 }; 
+			}
+		}
+	},
+	'themes': { 'theme': 'default', 'url': '/automatweb/js/jquery/plugins/jsTree/themes/default/style.css' },
+	'checkbox': { 'override_ui': true },
+	'plugins' : ['json_data','themes','ui']
+})
+.bind("select_node.jstree", function (event, data) {
+	reload_layout(["product_managementright", "packets_right"], {"cat": data.rslt.obj.attr("id")});
+});
+SCRIPT;
 	}
 
 
@@ -13129,7 +13159,6 @@ die();
 		return PROP_OK;
 	}
 
-
 	/**
 		@attrib name=get_product_management_tree_nodes params=pos
 		@param id required
@@ -13170,32 +13199,51 @@ die();
 		die(json_encode($data));
 	}
 
-	function add_prod_management_leaf($tv , $parent)
+	public function _get_product_management_category_tree($arr)
 	{
-		if(!is_oid($parent))
-		{
-			return;
-		}
-		$o = obj($parent);
-		$cats = $o->get_categories();
+		$arr["prop"]["value"] = html::div(array(
+			"id" => "product_management_category_tree",
+		));
 
-		foreach($cats->names() as $id => $name)
-		{
-			$tv->add_item($parent,array(
-				"name" => $name,
-				"id" => (string) $id,
-				"iconurl" => icons::get_icon_url(CL_SHOP_PRODUCT_CATEGORY),
-				"reload" => array(
-					"layouts" => array("product_managementright"),
-				        "params" => array("cat" => $id)
-				)
-			));
-			$this->add_prod_management_leaf($tv , $id);
-		}
+		return PROP_OK;
 	}
 
-	function _get_product_management_category_tree($arr)
+	/**
+		@attrib name=get_product_management_category_tree_nodes params=pos
+		@param id required
+			The OID of the crm_db object
+		@param node optional default=-1
+			The id of the parent node for which the children will be returned.
+	**/
+	public function get_product_management_category_tree_nodes($arr)
 	{
+		$o = obj($arr["id"], array(), shop_warehouse_obj::CLID);
+
+		if (isset($arr["node"]) and $arr["node"] > 0)
+		{
+			$parent_category_type = obj($arr["node"], array(), shop_product_category_type_obj::CLID);
+			$category_types = $parent_category_type->get_categories();
+		}
+		else
+		{
+			$category_types = $o->get_product_category_types();
+		}
+
+		$data = array();
+		foreach($category_types->names() as $oid => $name)
+		{
+			$data[] = array(
+				"data" => iconv(aw_global_get("charset"), "utf-8", strlen($name) > 30 ? substr($name, 0, 30)."..." : $name),
+				"attr" => array("id" => $oid),
+				"state" => "closed"
+			);
+		}
+		die(json_encode($data));
+	}
+
+	function remove_this_shit()
+	{
+
 		if (!isset($this->config) or !is_object($this->config))
 		{
 			$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
