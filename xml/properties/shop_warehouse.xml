@@ -135,6 +135,16 @@
             <field>product_management_toolbar</field>
       </property>
       <property>
+            <name>product_management_tree</name>
+            <table>objects</table>
+            <group>product_management</group>
+            <type>text</type>
+            <parent>product_managementtree_layout</parent>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>product_management_tree</field>
+      </property>
+      <property>
             <name>product_management_category_tree</name>
             <table>objects</table>
             <group>product_management</group>
@@ -3053,9 +3063,7 @@
             <caption>Statistika tabel</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_SHOP_WAREHOUSE</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>kristo</maintainer>
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
@@ -3329,10 +3337,17 @@
                   <group>product_management</group>
                   <area_caption></area_caption>
             </product_managementleft>
+            <product_managementtree_layout>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Artiklikategooriad</area_caption>
+                  <parent>product_managementleft</parent>
+                  <group>product_management</group>
+            </product_managementtree_layout>
             <product_management_tree_layout2>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Kategooriad</area_caption>
+                  <area_caption>Artiklikategooriate&amp;amp;nbsp;t&amp;amp;uuml;&amp;amp;uuml;bid</area_caption>
                   <parent>product_managementleft</parent>
                   <group>product_management</group>
             </product_management_tree_layout2>
@@ -3457,7 +3472,7 @@
             <channel_list>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>M&amp;amp;uuml;&amp;amp;uuml;gikanalite</area_caption>
+                  <area_caption>M&amp;amp;uuml;&amp;amp;uuml;gikanalite&amp;amp;nbsp;nimekiri</area_caption>
                   <group>channels</group>
             </channel_list>
             <arrival_prod_split>
