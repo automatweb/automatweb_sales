@@ -69,10 +69,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 
 		@layout product_managementleft type=vbox parent=product_managementsplit
 
-#			@layout product_managementtree_layout type=vbox closeable=1 area_caption=Tooted parent=product_managementleft
-#				@property product_managementtree type=treeview parent=product_managementtree_layout store=no no_caption=1
+			@layout product_managementtree_layout type=vbox closeable=1 area_caption=Artiklikategooriad parent=product_managementleft
+				@property product_management_tree type=text parent=product_managementtree_layout store=no no_caption=1
 
-			@layout product_management_tree_layout2 type=vbox closeable=1 area_caption=Kategooriad parent=product_managementleft
+			@layout product_management_tree_layout2 type=vbox closeable=1 area_caption=Artiklikategooriate&nbsp;t&uuml;&uuml;bid parent=product_managementleft
 				@property product_management_category_tree type=text parent=product_management_tree_layout2 store=no no_caption=1
 
 			@layout product_managementleft_search type=vbox parent=product_managementleft area_caption=Otsing closeable=1
@@ -262,7 +262,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 	@layout channel_toolbar type=vbox
 		@property channel_toolbar type=toolbar no_caption=1 store=no parent=channel_toolbar
 		@caption M&uuml;&uuml;gikanalite toolbar
-	@layout channel_list type=vbox closeable=1 area_caption=M&uuml;&uuml;gikanalite nimekiri
+	@layout channel_list type=vbox closeable=1 area_caption=M&uuml;&uuml;gikanalite&nbsp;nimekiri
 		@property channel_list type=table store=no no_caption=1 channel=brand_list
 		@caption M&uuml;&uuml;gikanalite nimekiri
 
@@ -7320,7 +7320,7 @@ $tb->add_delete_button();
 		$js = "";
 		if(!empty($arr['request']['group']))
 		{
-			switch($arr["request"]["group"])
+			switch($this->use_group)
 			{
 				case "packets":
 
@@ -7463,7 +7463,7 @@ $tb->add_delete_button();
 					$.get('/automatweb/orb.aw', {'class': 'shop_warehouse', 'action': 'create_new_category',
 						'id': '".$arr["obj_inst"]->id()."', 'name': my_string, 'cat': cat}, function (html) {
 							reload_property('category_list');
-							reload_layout(['product_managementtree_lay']);
+							$('#product_management_tree').jstree('refresh');
 						}
 					);
 				}
@@ -7506,6 +7506,32 @@ $tb->add_delete_button();
 
 
 				";
+				
+					load_javascript("jquery/plugins/jsTree/jquery.jstree.js");
+
+					$ajax_url = $this->mk_my_orb("get_product_management_tree_nodes", array("id" => $arr["obj_inst"]->id()));
+
+					$js .= <<<SCRIPT
+$('#product_management_tree').jstree({
+	'json_data' : {
+		'ajax': {
+			'type': 'GET',
+			'url': '{$ajax_url}',
+			'async': true,
+			'data': function(n) {
+				return { 'node': n.attr ? n.attr('id') : -1 }; 
+			}
+		}
+	},
+	'themes': { 'theme': 'default', 'url': '/automatweb/js/jquery/plugins/jsTree/themes/default/style.css' },
+	'checkbox': { 'override_ui': true },
+	'plugins' : ['json_data','themes','ui']
+})
+.bind("select_node.jstree", function (event, data) {
+	reload_layout(["product_managementright"], {"cat": data.rslt.obj.attr("id")});
+});
+SCRIPT;
+
 					break;
 			}
 
@@ -13094,47 +13120,54 @@ die();
 
 	}
 
-	function _get_product_managementtree($arr)
+	function _get_product_management_tree(&$arr)
 	{
-		$tv = $arr["prop"]["vcl_inst"];
-		$var = "cat";
-
-		$prod_folder = $this->config->prop("prod_cat_fld");
-
-		$tv->set_selected_item(isset($arr["request"][$var]) ? $arr["request"][$var] : $prod_folder);
-
-		$tv->start_tree(array(
-			"type" => TREE_DHTML,
-			"persist_state" => true,
-			"tree_id" => "product_management_cat_tree",
+		$arr["prop"]["value"] = html::div(array(
+			"id" => "product_management_tree",
 		));
 
-		$tv->add_item(0,array(
-			"name" => t("Tootet&uuml;&uuml;bid"),
-			"id" => $prod_folder,
-			"reload" => array(
-				"layouts" => array("product_managementright"),
-			        "params" => array("cat" => null)
-			)
-		));//print "folder:" ; arr($prod_folder);
-		$cats = new object_list(array(
-			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
-			"parent" => $prod_folder,
-		));
+		return PROP_OK;
+	}
 
-		foreach($cats->arr() as $id => $cat)
+
+	/**
+		@attrib name=get_product_management_tree_nodes params=pos
+		@param id required
+			The OID of the crm_db object
+		@param node optional default=-1
+			The id of the parent node for which the children will be returned.
+	**/
+	public function get_product_management_tree_nodes($arr)
+	{
+		if (!isset($this->config))
 		{
-			$tv->add_item($prod_folder,array(
-				"name" => $cat->name(),
-				"id" => $id."",
-				"iconurl" => icons::get_icon_url(CL_SHOP_PRODUCT),
-				"reload" => array(
-					"layouts" => array("product_managementright"),
-				        "params" => array("cat" => $id)
-				)
-			));
-			$this->add_prod_management_leaf($tv , $id);
+			$o = obj($arr["id"], array(), shop_warehouse_obj::CLID);
+			$this->config = $this->config = obj($o->prop("conf"), array(), shop_warehouse_config_obj::CLID);
 		}
+
+		if (isset($arr["node"]) and $arr["node"] > 0)
+		{
+			$parent_category = obj($arr["node"], array(), shop_product_category_obj::CLID);
+			$categories = $parent_category->get_categories();
+		}
+		else
+		{
+			$categories = new object_list(array(
+				"class_id" => shop_product_category_obj::CLID,
+				"parent" => $this->config->prop("prod_cat_fld"),
+			));
+		}
+
+		$data = array();
+		foreach($categories->names() as $oid => $name)
+		{
+			$data[] = array(
+				"data" => iconv(aw_global_get("charset"), "utf-8", strlen($name) > 30 ? substr($name, 0, 30)."..." : $name),
+				"attr" => array("id" => $oid),
+				"state" => "closed"
+			);
+		}
+		die(json_encode($data));
 	}
 
 	function add_prod_management_leaf($tv , $parent)
@@ -13150,10 +13183,10 @@ die();
 		{
 			$tv->add_item($parent,array(
 				"name" => $name,
-				"id" => $id."",
-				"iconurl" => icons::get_icon_url(CL_SHOP_PRODUCT),
+				"id" => (string) $id,
+				"iconurl" => icons::get_icon_url(CL_SHOP_PRODUCT_CATEGORY),
 				"reload" => array(
-					"props" => array("product_management_list"),
+					"layouts" => array("product_managementright"),
 				        "params" => array("cat" => $id)
 				)
 			));
