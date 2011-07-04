@@ -2,6 +2,8 @@
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_alias)
 @classinfo syslog_type=ST_SHOP_PRODUCT relationmgr=yes prop_cb=1 maintainer=kristo
+@extends common/product/aw_product
+
 @tableinfo aw_shop_products index=aw_oid master_table=objects master_index=brother_of
 @tableinfo aw_account_balances master_index=oid master_table=objects index=aw_oid
 
@@ -593,7 +595,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 @caption Kogusepiirang
 */
 
-class shop_product extends class_base
+class shop_product extends aw_product
 {
 	function shop_product()
 	{
