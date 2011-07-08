@@ -4647,7 +4647,9 @@ class crm_company extends class_base
 	{
 		if (isset($arr["group"]) and ("employees_management" === $arr["group"] or "employees" === $arr["group"]))
 		{
-			$r = crm_company_employees_view::cut($arr);
+			$employees_view = new crm_company_employees_view();
+			$employees_view->set_request($this->req);
+			$r = $employees_view->cut($arr);
 		}
 		else
 		{
@@ -4666,7 +4668,9 @@ class crm_company extends class_base
 	{
 		if (isset($arr["group"]) and ("employees_management" === $arr["group"] or "employees" === $arr["group"]))
 		{
-			$r = crm_company_employees_view::paste($arr);
+			$employees_view = new crm_company_employees_view();
+			$employees_view->set_request($this->req);
+			$r = $employees_view->paste($arr);
 		}
 		else
 		{
