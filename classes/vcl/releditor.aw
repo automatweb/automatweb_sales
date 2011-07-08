@@ -1407,7 +1407,7 @@ class releditor extends core implements orb_public_interface
 				}
 			}
 
-			if($arr["request"]["cfgform"])
+			if(!empty($arr["request"]["cfgform"]))
 			{
 				$cfgform = new cfgform();
 				$cfgproplist = $cfgform->get_cfg_proplist($arr["request"]["cfgform"]);
@@ -1611,7 +1611,7 @@ class releditor extends core implements orb_public_interface
 				$obj_parent = $prop["obj_parent"];
 			}
 
-			if ($prop["override_parent"] === "this")
+			if (isset($prop["override_parent"]) and $prop["override_parent"] === "this")
 			{
 				$obj_parent = $obj->id();
 			}

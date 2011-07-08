@@ -727,7 +727,7 @@ class document extends aw_template implements orb_public_interface
 		// damned if I know , v6tax ta 2kki 2ra siis? - terryf
 		$al = get_instance("alias_parser");
 
-		if (!isset($text) || $text != "undef")
+		if (!isset($text) || $text !== "undef")
 		{
 			if (strpos($doc["content"],"#") !== false)
 			{
@@ -756,12 +756,12 @@ class document extends aw_template implements orb_public_interface
 		// where do I put that shit? that break conversion thingie?
 		if ($doc["nobreaks"] || $doc["meta"]["cb_nobreaks"]["content"])	// kui wysiwyg editori on kasutatud, siis see on 1 ja pole vaja breike lisada
 		{
-			if (aw_ini_get("content.doctype") == "xhtml")
+			if (aw_ini_get("content.doctype") === "xhtml")
 			{
 				$doc["lead"] = str_replace("<br>", "<br />", $doc["lead"]);
 				$doc["content"] = str_replace("<br>" ,"<br />",$doc["content"]);
 			}
-			else if (aw_ini_get("content.doctype") == "html")
+			else if (aw_ini_get("content.doctype") === "html")
 			{
 				$doc["lead"] = str_replace("<br />", "<br>", $doc["lead"]);
 				$doc["content"] = str_replace("<br />", "<br>",$doc["content"]);
@@ -783,7 +783,7 @@ class document extends aw_template implements orb_public_interface
 			{
 				$doc["content"] = str_replace("\r\n", "<br>",$doc["content"]);
 			}
-		};
+		}
 
 		$al = get_instance("alias_parser");
 		$al->parse_oo_aliases($doc["docid"], $doc["content"], array("templates" => &$this->templates, "meta" => &$meta));
@@ -1619,17 +1619,11 @@ class document extends aw_template implements orb_public_interface
 		@param period optional
 		@param return_url optional
 
-		@returns
-
-
-		@comment
-
+		@returns string
 	**/
 	function change($arr)
 	{
-		extract($arr);
-
-		$oob = obj($id);
+		$oob = obj($arr["id"]);
 		$oob = $oob->fetch();
 
 		if ($oob["class_id"] == CL_BROTHER_DOCUMENT && $oob["brother_of"])
@@ -1637,14 +1631,14 @@ class document extends aw_template implements orb_public_interface
 			$id = $oob["brother_of"];
 		}
 
-		$url = $this->mk_my_orb("change",array(
+		$url = $this->mk_my_orb("change", array(
 			"id" => $oob["oid"],
-			"section" => $_GET["section"],
-			"period" => $arr["period"],
-			"is_sa" => $_GET["is_sa"],
-			"edit_version" => $_GET["edit_version"],
-			"return_url" => $_GET["return_url"]
-		),"doc");
+			"section" => $this->req->arg("section"),
+			"period" => isset($arr["period"]) ? $arr["period"] : "",
+			"is_sa" => $this->req->arg("is_sa"),
+			"edit_version" => $this->req->arg("edit_version"),
+			"return_url" => $this->req->arg("return_url")
+		), "doc");
 		return $url;
 	}
 
@@ -1678,7 +1672,7 @@ class document extends aw_template implements orb_public_interface
 		}
 
 		$parent = (int)$parent;
-		if (!$parent  || $parent == "default")
+		if (!$parent  || $parent === "default")
 		{
 			$parent = $this->get_cval("search::default_group");
 		}
@@ -1804,7 +1798,7 @@ class document extends aw_template implements orb_public_interface
 			$ml.= " AND objects.oid IN ($ml2) ";
 		}*/
 
-		if ($sortby == "time")
+		if ($sortby === "time")
 		{
 			$ml.=" ORDER BY objects.modified DESC";
 		}
@@ -1887,7 +1881,7 @@ class document extends aw_template implements orb_public_interface
 		};
 
 		$plist = join(",",$parent_list);
-		if ($ostr[0] == "\"")
+		if ($ostr[0] === "\"")
 		{
 			$str = substr($str, 2,strlen($str)-4);
 			// search concrete quoted string
@@ -2226,7 +2220,7 @@ class document extends aw_template implements orb_public_interface
 	**/
 	function lookup($args = array())
 	{
-		$SITE_ID = $this->cfg["site_id"];
+		$SITE_ID = aw_ini_get("site_id");
 		extract($args);
 		$id = (int)$id;
 		$q = "SELECT documents.author as author, objects.oid as oid, objects.name as name, documents.modified as modified FROM objects LEFT JOIN keywordrelations ON (keywordrelations.id = objects.oid) LEFT JOIN documents ON (documents.docid = objects.oid) WHERE status = 2 AND class_id IN (" . CL_DOCUMENT . "," . CL_PERIODIC_SECTION . ") AND site_id = '$SITE_ID' AND keywordrelations.keyword_id = '$id' ORDER BY documents.modified DESC";
@@ -2288,7 +2282,8 @@ class document extends aw_template implements orb_public_interface
 				{
 					$authors[] = $k;
 				}
-			}; // while
+			}
+
 			$author = join(", ",$authors);
 			$this->restore_handle();
 
@@ -2383,12 +2378,12 @@ class document extends aw_template implements orb_public_interface
 		while (preg_match("/(#)(\d+?)(#)(.*)(#)(\d+?)(#)/imsU",$text,$matches))
 		{
 			$text = str_replace($matches[0],"<a href='#" . $matches[2] . "'>$matches[4]</a>",$text);
-		};
+		}
 
 		while(preg_match("/(#)(s)(\d+?)(#)/",$text,$matches))
 		{
 			$text = str_replace($matches[0],"<a name='" . $matches[3] . "'> </a>",$text);
-		};
+		}
 	}
 
 	////
@@ -2937,7 +2932,7 @@ class document extends aw_template implements orb_public_interface
 			$this->parsers = new stdClass;
 			// siia paneme erinevad regulaaravaldised
 			$this->parsers->reglist = array();
-		};
+		}
 
 		extract($args);
 
@@ -3178,7 +3173,7 @@ class document extends aw_template implements orb_public_interface
 			$find = "#${tag}#(.*)#\\/${tag}#";
 			$val = trim($val);
 			$text = preg_replace("/" . $find . "/ismU",$val,$text);
-		};
+		}
 		return $text;
 	}
 
@@ -3199,9 +3194,7 @@ class document extends aw_template implements orb_public_interface
 			foreach($ol->arr() as $o)
 			{
 				$o->set_prop("deadline", $o->meta("deadline"));
-				aw_disable_acl();
 				$o->save();
-				aw_restore_acl();
 			}
 		}
 

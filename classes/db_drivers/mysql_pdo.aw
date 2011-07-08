@@ -238,6 +238,7 @@ class mysql_pdo
 				else
 				{
 					$arr[$k] = addslashes($arr[$k]);
+					//TODO: kasutada mysql_real_escape_string()?
 				}
 			}
 			reset($arr);

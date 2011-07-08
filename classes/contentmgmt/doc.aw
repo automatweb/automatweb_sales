@@ -365,6 +365,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
 class doc extends class_base
 {
+	var $force_new_version = false; //TODO: scope?
+
 	protected $_save_versions;
 	protected $_preview;
 	protected $_modified;
@@ -497,7 +499,7 @@ class doc extends class_base
 			case "comments_tbl":
 				$this->_comments_tbl($arr);
 				break;
-		};
+		}
 
 		if(in_array($data["name"], array("content", "lead")) && !empty($data["richtext"]))
 		{
@@ -514,12 +516,12 @@ class doc extends class_base
 	function set_property($args = array())
 	{
 		$data = &$args["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		$data["value"] = html_entity_decode($data["value"], ENT_COMPAT, aw_global_get("charset"));
 		switch($data["name"])
 		{
 			case "transl":
-				$i = get_instance(CL_MENU);
+				$i = new menu();
 				$i->write_trans_aliases($args);
 				$this->trans_save($args, $this->trans_props, array("user1", "user3", "user5", "userta2", "userta4","userta3", "userta5", "userta6"));
 				$this->funnel_ct_content($args);
@@ -536,7 +538,7 @@ class doc extends class_base
 			case "link_keywords":
 				if (is_oid($args["obj_inst"]->id()))
 				{
-					$kw = get_instance(CL_KEYWORD);
+					$kw = new keyword();
 					if (isset($args["request"]["keywords"]))
 					{
 						$kw->update_keywords(array(
@@ -675,7 +677,7 @@ class doc extends class_base
 						if (($vir = $this->_do_virus_scan($file)))
 						{
 							$data["error"] = "Uploaditud failis on viirus $vir!";
-							return PROP_FATAL_ERROR;
+							return class_base::PROP_FATAL_ERROR;
 						}
 					}
 
@@ -690,7 +692,7 @@ class doc extends class_base
 
 					$content = file_get_contents($file);
 
-					$cl_file = get_instance(CL_FILE);
+					$cl_file = new file();
 					$file_oid = $cl_file->save_file(array(
 						"type" => $file_type,
 						"content" => $content,
@@ -704,7 +706,7 @@ class doc extends class_base
 				}
 				else
 				{
-					$retval = PROP_IGNORE;
+					$retval = class_base::PROP_IGNORE;
 				}
 				break;
 		}
@@ -714,7 +716,7 @@ class doc extends class_base
 	function callback_pre_save($args = array())
 	{
 		// map title to name
-		$obj_inst = &$args["obj_inst"];
+		$obj_inst = $args["obj_inst"];
 		$obj_inst->set_name($obj_inst->prop("title"));
 
 		if (isset($this->_preview))
@@ -730,12 +732,12 @@ class doc extends class_base
 				}
 			}
 			$obj_inst->set_prop("dcache_content", $res);
-		};
+		}
 
 		if (isset($this->_modified))
 		{
 			$obj_inst->set_prop("doc_modified",$this->_modified);
-		};
+		}
 
 		// RTE also has a button to clear styles
 		if ($this->clear_styles)
@@ -743,7 +745,8 @@ class doc extends class_base
 			$obj_inst->set_prop("content",$this->_doc_strip_tags($obj_inst->prop("content")));
 			$obj_inst->set_prop("lead",$this->_doc_strip_tags($obj_inst->prop("lead")));
 			$obj_inst->set_prop("moreinfo",$this->_doc_strip_tags($obj_inst->prop("moreinfo")));
-		};
+		}
+
 		if ($this->can("view", $args["request"]["cfgform"]))
 		{
 			$cff = obj($args["request"]["cfgform"]);
@@ -763,7 +766,7 @@ class doc extends class_base
 		if (empty($old_tm) && !empty($args["request"]["tm"]))
 		{
 			$obj_inst->set_prop("tm",date("d.m.y",$obj_inst->prop("modified")));
-		};
+		}
 
 		$modby = $obj_inst->modifiedby();
 		if ($args["request"]["edit_version"])
@@ -840,7 +843,7 @@ class doc extends class_base
 			$props = $this->get_property_group($args);
 			foreach($props as $prop)
 			{
-				if($prop["type"] == "textarea" && $prop["richtext"])
+				if($prop["type"] === "textarea" && $prop["richtext"])
 				{
 					$val = $args["obj_inst"]->prop($prop["name"]);
 					$setval = false;
@@ -901,7 +904,7 @@ class doc extends class_base
 
 	private function gen_navtoolbar($arr)
 	{
-		$toolbar = &$arr["prop"]["toolbar"];
+		$toolbar = $arr["prop"]["toolbar"];
 		$toolbar->add_button(array(
 			"name" => "save",
 			"tooltip" => t("Salvesta"),
@@ -987,21 +990,22 @@ class doc extends class_base
 		return $retval;
 	}
 
-	function callback_mod_retval($args = array())
+	function callback_mod_retval($args = array()) //TODO:FIXME: siin on midagi valesti.
 	{
 		$request = &$args["request"];
 		$new = $args["new"];
-		$args = &$args["args"];
+		$args = &$args["args"]; //FIXME: ...
 		// if this is a new object, then the form is posted with the _top target
 		// this ensures that the top toolbar will be updated as well
 		if (!$new && $request["cb_part"])
 		{
 			$args["cb_part"] = $request["cb_part"];
-		};
+		}
+
 		if (!empty($request["no_rte"]))
 		{
 			$args["no_rte"] = 1;
-		};
+		}
 
 		if (aw_ini_get("config.object_versioning") == 1)
 		{
@@ -1017,7 +1021,7 @@ class doc extends class_base
 					parse_str($request["edit_version"], $out);
 					$args["edit_version"] = $out["edit_version"];
 				}
-			};
+			}
 
 			if ($request["create_new_version"] == 1 || $this->force_new_version)
 			{
@@ -1030,16 +1034,16 @@ class doc extends class_base
 		$args["period"] = $_POST["period"];
 	}
 
-	function callback_mod_reforb($args = array())
+	function callback_mod_reforb(&$args, $request)
 	{
 		if (!empty($_REQUEST["cb_part"]))
 		{
 			$args["cb_part"] = $_REQUEST["cb_part"];
-		};
+		}
 		$args["post_ru"] = post_ru();
-		if (!empty($_GET["edit_version"]))
+		if (!empty($request["edit_version"]))
 		{
-			$args["edit_version"] = $_GET["edit_version"];
+			$args["edit_version"] = $request["edit_version"];
 		}
 		$args["temp_var1"] = " 0 ";
 	}
@@ -1207,7 +1211,7 @@ class doc extends class_base
 
 	private function _versions($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_versions_t($t);
 
 		$u = get_instance(CL_USER);
@@ -1384,7 +1388,7 @@ class doc extends class_base
 
 	private function kw_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$ol = new object_list(array(
 			"class_id" => CL_KEYWORD
@@ -1500,7 +1504,7 @@ class doc extends class_base
 
 	private function _trans_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "preview",
 			"tooltip" => t("Eelvaade"),
@@ -1527,7 +1531,7 @@ class doc extends class_base
 
 	private function _comments_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "delete_comment",
 			"action" => "delete_comments",
@@ -1539,7 +1543,7 @@ class doc extends class_base
 
 	private function _comments_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
