@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/expp/expp_site_content.aw,v 1.10 2008/02/17 21:13:01 kristo Exp $
-// expp_site_content.aw - expp_site_content (nimi) 
+
+// expp_site_content.aw - expp_site_content (nimi)
 /*
 
-@classinfo syslog_type=ST_EXPP_SITE_CONTENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
+@classinfo syslog_type=ST_EXPP_SITE_CONTENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -27,7 +27,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 	var $connections_to_images = array();
 	var $connections_to_files = array();
 	var $connections_to_groups = array();
-	
+
 	var $poll_object = "";
 	var $webform_object = "";
 	var $forum_object = "";
@@ -37,7 +37,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 
 	function expp_site_content()
 	{
-		// change this to the folder under the templates folder, where this classes templates will be, 
+		// change this to the folder under the templates folder, where this classes templates will be,
 		// if they exist at all. Or delete it, if this class does not use templates
 		$this->init(array(
 			"tpldir" => "automatweb/menuedit",
@@ -58,7 +58,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				$o = $ol->begin();
 
 				$this->expp_journal_management_id = $o->id();
-				
+
 				$image_obj = $o->get_first_obj_by_reltype("RELTYPE_COVER_IMAGE");
 
 				if (!empty($image_obj))
@@ -69,11 +69,11 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 
 				// kas kasutaja tahab ise lehte kujundada:
 				$choose_design = $o->prop("choose_design");
-				
+
 				if ($choose_design == "custom_design")
 				{
 					// okei, tahab, vaatab kas ta doku ka pand on:
-					
+
 					$custom_design_document_id = $o->prop("custom_design_document");
 
 					if ($this->can("view", $custom_design_document_id))
@@ -90,12 +90,12 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 					{
 						// organisatsiooni juurde ei saa praegu logo panna, sest vastav v2li on maha keeratud
 					}
-			
+
 					$this->connections_to_links = $o->connections_from(array(
 						"type" => "RELTYPE_GENERAL_LINK",
 						'to.status' => STAT_ACTIVE
 					));
-					
+
 					$this->connections_to_documents = $o->connections_from(array(
 						"type" => "RELTYPE_GENERAL_DOCUMENT",
 						'to.status' => STAT_ACTIVE,
@@ -115,19 +115,19 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 						"sort_by_num" => "to.jrk",
 						"sort_dir" => "asc",
 					));
-	
+
 					// get the connections to active polls
 					$connections_to_polls = $o->connections_from(array(
 						"type" => "RELTYPE_GENERAL_POLL",
 						"to.status" => STAT_ACTIVE,
 					));
-					// i assume, that there is only one active poll 
+					// i assume, that there is only one active poll
 					$connection_to_active_poll = reset($connections_to_polls);
 					if ($connection_to_active_poll)
 					{
 						$this->poll_object = $connection_to_active_poll->to();
 					}
-	
+
 					// get the connection to active webform
 					$connections_to_webforms = $o->connections_from(array(
 						"type" => "RELTYPE_GENERAL_WEBFORM",
@@ -138,7 +138,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 					{
 						$this->webform_object = $connection_to_active_webform->to();
 					}
-				
+
 					// get the forum obj
 					$this->forum_object = $o->get_first_obj_by_reltype("RELTYPE_GENERAL_FORUM");
 
@@ -147,7 +147,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 					{
 						$this->publication_homepage_link_object = new object($publications_homepage_oid);
 					}
-					
+
 					// i need the publications group:
 					// i think i can take all permissions type connections from the management
 					// object ...
@@ -155,7 +155,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 						"type" => RELTYPE_ACL,
 						"to.class_id" => CL_GROUP,
 					));
-	
+
 					$this->main_color = $o->prop("main_color");
 					$this->text_color = $o->prop("text_color");
 					$this->frame_color = $o->prop("frame_color");
@@ -165,7 +165,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 					$this->ordering_terms_document_id = $ordering_terms[aw_global_get('lang_id')];
 				}
 			}
-			
+
 		}
 //		return $retHTML;
 	}
@@ -201,7 +201,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 			$this->vars(array(
 				"content" => $document_content
 			));
-			
+
 			$this->vars(array(
 				"CUSTOM_DESIGN" => $this->parse("CUSTOM_DESIGN"),
 			));
@@ -210,7 +210,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 		else
 		{
 			/* DOKUMENTIDE PARSIMINE */
-	
+
 			$dokumendid = "";
 			$dokumendid_lingina = "";
 			foreach ($this->connections_to_documents as $connection_to_document)
@@ -222,13 +222,13 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 			//	$document_content = $document_object->prop("content");
 				$document_content = $this->trans_get_val($document_object, 'content');
 
-				
+
 				$this->vars(array(
 					"DOCUMENT_ID" => $document_id,
 					"DOCUMENT_TITLE" => $document_title,
 					"DOCUMENT_CONTENT" => "",
 				));
-	
+
 				// kui on määratud, et dokumenti peaks kuvama lingina:
 				if ($document_object->prop("ucheck1") == 1)
 				{
@@ -236,7 +236,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 						"DOCUMENT_LINK" => $this->parse("DOCUMENT_LINK"),
 					));
 					$dokumendid_lingina .= $this->parse("GENERAL_DOCUMENTS_AS_LINKS");
-					
+
 				}
 				else
 				{
@@ -250,15 +250,15 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 					$this->vars(array(
 						"DOCUMENT_CONTENT" => $document_content,
 					));
-				
+
 					$this->vars(array(
 						"DOCUMENT_CONTENT" => $this->parse("DOCUMENT_CONTENT"),
 					));
 					$dokumendid .= $this->parse("GENERAL_DOCUMENTS");
 				}
-				
+
 			}
-	
+
 			/* PILTIDE PARSIMINE */
 			$pildid = "";
 			foreach ($this->connections_to_images as $connection_to_image)
@@ -269,15 +269,15 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 					"GENERAL_IMAGE_TAG" => $image_inst->make_img_tag_wl($image_object->id()),
 					'GENERAL_IMAGE_COMMENT' => $this->trans_get_val($image_object, 'comment'),
 				));
-	
+
 				$pildid .= $this->parse("GENERAL_IMAGES");
-	
+
 			}
 
 			/* ORGANISATSIOONI PILT (LOGO) */
 
-			
-	
+
+
 			/* LINKIDE PARSIMINE */
 			$lingid = "";
 			foreach ($this->connections_to_links as $connection_to_link)
@@ -306,7 +306,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 					"GENERAL_LINK_TARGET" => $target,
 					"GENERAL_LINK_ALT_TEXT" => $link_alt_txt
 				));
-	
+
 				$lingid .= $this->parse("GENERAL_LINK");
 			}
 			if (!empty($lingid))
@@ -317,7 +317,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				$lingid = $this->parse("GENERAL_LINKS");
 				$show_links_table = true;
 			}
-	
+
 			/* FAILIDE PARSIMINE */
 			$failid = "";
 			foreach ($this->connections_to_files as $connection_to_file)
@@ -333,16 +333,16 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				{
 					$target = "target=\"_blank\"";
 				}
-				
+
 				$this->vars(array(
 					"GENERAL_FILE_URL" => $file_inst->get_url($file_id, $file_name),
 					"GENERAL_FILE_NAME" => $filename,
 					'GENERAL_FILE_COMMENT' => $file_comment,
 					'GENERAL_FILE_TARGET' => $target
 				));
-	
+
 				$failid .= $this->parse("GENERAL_FILE");
-	
+
 			}
 			if (!empty($failid))
 			{
@@ -351,9 +351,9 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				));
 				$failid = $this->parse("GENERAL_FILES");
 			}
-	
+
 			/* KIIRKÜSITLUS */
-			
+
 			if (!empty($this->poll_object))
 			{
 				$poll_inst = get_instance(CL_POLL);
@@ -368,10 +368,10 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 			/* peab olema nähtav ainult adminnidele ja vastava haldusobjekti toimetajate grupile */
 			$link_to_management = "";
 			$show_link_to_management = false;
-			
+
 			// logged in users group ids:
 			$group_ids = aw_global_get("gidlist_oid");
-			if (in_array(aw_ini_get('admin_group_id'), $group_ids))
+			if (in_array(aw_ini_get('expp.admin_group_id'), $group_ids))
 			{
 				$show_link_to_management = true;
 			}
@@ -397,7 +397,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				));
 				$link_to_management = $this->parse("LINK_TO_MANAGEMENT");
 			}
-	
+
 			/* LINK FOORUMILE */
 			if (!empty($this->forum_object))
 			{
@@ -409,7 +409,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				$link_to_forum = $this->parse("LINK_TO_FORUM");
 				$show_links_table = true;
 			}
-			
+
 			/* LINK VEEBIVORMILE */
 			if (!empty($this->webform_object))
 			{
@@ -430,7 +430,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				{
 					$target = "_blank";
 				}
-				
+
 				$this->vars(array(
 					"LINK_TO_PUBLICATION_HOMEPAGE_NAME" => $this->publication_homepage_link_object->name(),
 					"LINK_TO_PUBLICATION_HOMEPAGE_URL" => $this->publication_homepage_link_object->prop("url"),
@@ -438,7 +438,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				));
 				$link_to_publication_homepage = $this->parse("LINK_TO_PUBLICATION_HOMEPAGE");
 			}
-			
+
 			/* show links table (look the comment near $show_links_table first declaration */
 			if ($show_links_table === true)
 			{
@@ -450,7 +450,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 				));
 				$links_table = $this->parse("LINKS_TABLE");
 			}
-			
+
 			$this->vars(array(
 				"DOC_IMAGE" => $this->image_tag,
 				"GENERAL_DOCUMENTS" => $dokumendid,
@@ -493,9 +493,8 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 			"DOC_ORDERING_TERMS_LINK" => $doc_ordering_terms_link,
 		));
 	}
-	
+
 	function register( $in ) {
 		$GLOBALS['expp_site'] = $in;
 	}
 }
-?>

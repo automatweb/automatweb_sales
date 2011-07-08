@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class keyword_selector extends class_base
 {
 	function keyword_selector()
@@ -13,7 +11,7 @@ class keyword_selector extends class_base
 	{
 		$tp = $arr["prop"];
 		$tp["type"] = "text";
-		
+
 		$content = isset($arr["prop"]["hide_selected"]) && $arr["prop"]["hide_selected"] ? "" : $this->_draw_existing_kws($arr)."<br><br><br>";
 		$content .= $this->_draw_alphabet($arr);
 
@@ -134,10 +132,10 @@ class keyword_selector extends class_base
 		{
 			if (!isset($prev_parent))
 			{
-				$prev_parent = $kw->parent();	
+				$prev_parent = $kw->parent();
 				$po = obj($kw->parent());
 				$cur_row = array(
-					"parent" => "<b>".parse_obj_name($po->name())."</b>"
+					"parent" => html::bold(parse_obj_name($po->name()))
 				);
 			}
 
@@ -145,14 +143,14 @@ class keyword_selector extends class_base
 			{
 				$num = 15;
 			}
-		
+
 			$num++;
 			if ($num > $n)
 			{
 				$po = obj($kw->parent());
 				$t->define_data($cur_row);
 				$cur_row = array(
-					"parent" => "<b>".parse_obj_name($po->name())."</b>",
+					"parent" => html::bold(parse_obj_name($po->name())),
 					"row_num" => ++$rn
 				);
 				$num = 1;
@@ -168,7 +166,7 @@ class keyword_selector extends class_base
 		$po = obj($prev_parent);
 		$t->define_data($cur_row);
 		$cur_row = array(
-			"parent" => "<b>".parse_obj_name($po->name())."</b>"
+			"parent" => html::bold(parse_obj_name($po->name()))
 		);
 
 		if(!isset($arr["prop"]["no_header"]) || !$arr["prop"]["no_header"])
@@ -216,10 +214,10 @@ class keyword_selector extends class_base
 		{
 			$list[] = html::href(array(
 				"caption" => t("K&otilde;ik"),
-				"url" => aw_url_change_var("kw_sel_filt", "_all")	
+				"url" => aw_url_change_var("kw_sel_filt", "_all")
 			));
 		}
-	
+
 		$rv = join(" ", $list);
 		$rv .= " / ".html::get_new_url(CL_KEYWORD, $_GET["id"], array("return_url" => get_ru()), t("Lisa uus"));
 		return $rv;
@@ -235,4 +233,3 @@ class keyword_selector extends class_base
 		return t("Valitud:")." ".html::obj_change_url($kws->arr());
 	}
 }
-?>
