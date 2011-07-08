@@ -1,8 +1,8 @@
 <!-- SUB: minimal -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<meta http-equiv="content-type" content="text/html; charset={VAR:charset}" />
 		<meta http-equiv="page-enter" content="blendtrans(duration=1.0)" />
 		<meta http-equiv="page-exit" content="blendtrans(duration=1.0)" />
 		<title></title>
@@ -20,7 +20,7 @@
 					var ih1 = h;
 					window.resizeTo(iw1,ih1);
 				}
-				
+
 				var hd = 0;
 				var wd = 0;
 				if (window.outerHeight)
@@ -28,7 +28,7 @@
 					var oh = window.outerHeight;
 					var wih = window.innerHeight;
 					hd = oh - wih;
-					
+
 				}
 				else
 				{
@@ -40,7 +40,7 @@
 			}
 			-->
 		</script>
-		<style type="text/css"> 
+		<style type="text/css">
 			.button { background: #f0f0f0; float: right;  padding: 3px; border: 1px solid #000}
 			.button a { color: #000; text-decoration: none; font-family: verdana,arial,tahoma,times,serif; font-size: 10px;}
 		</style>
