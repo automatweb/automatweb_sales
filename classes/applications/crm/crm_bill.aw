@@ -3257,7 +3257,11 @@ class crm_bill extends class_base
 				$new_line = 1;
 				foreach($new_rows as $n_key => $new_row)
 				{
-					if($new_row["price"] == $row["price"] && ($new_row["comment"] == $row["comment"] || !$row["comment"])&& ($key == $new_row["key"]))
+					if(
+						// $new_row["price"] == $row["price"] && // combine only if same price
+						($new_row["comment"] == $row["comment"] || !$row["comment"]) && // combine only if same comment?
+						($key == $new_row["key"]) //?
+					)
 					{
 						$new_rows[$n_key]["sum_wo_tax"] = $new_rows[$n_key]["sum_wo_tax"] + $row["sum_wo_tax"];
 						$new_rows[$n_key]["tax"] = $new_rows[$n_key]["tax"] + $row["tax"];
@@ -4140,12 +4144,12 @@ class crm_bill extends class_base
 		}
 		$res =  $this->parse();
 
-		if (!empty($_GET["openprintdialog"]))
+		if ($this->req and $this->req->arg("openprintdialog"))
 		{
 			$res .= "<script language='javascript'>setTimeout('window.close()',10000);window.print();window.close();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.close(); }</script>";
 		}
 
-		if (!empty($_GET["openprintdialog_b"]))
+		if ($this->req and $this->req->arg("openprintdialog_b"))
 		{
 			$url = aw_url_change_var("group", "preview", aw_url_change_var("openprintdialog", 1));
 			$res .= "<script language='javascript'>setTimeout('window.location.href=\"$url\"',10000);window.print();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.location.href='$url'; }</script>";
