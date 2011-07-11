@@ -2390,7 +2390,7 @@ class image extends class_base
 		}
 		if ($arr["id"] === "resize" || $arr["id"] === "resize_big")
 		{
-			$cv = get_instance("core/converters/image_convert");
+			$cv = new image_convert();
 			$ret = $cv->can_convert();
 			if ($ret)
 			{
