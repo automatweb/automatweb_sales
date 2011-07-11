@@ -5,7 +5,7 @@
 
 EMIT_MESSAGE(MSG_USER_JOINED)
 
-@classinfo syslog_type=ST_JOIN_SITE relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_JOIN_SITE relationmgr=yes no_comment=1 no_status=1
 
 @groupinfo general_sub parent=general caption="&Uuml;ldine"
 @groupinfo general_ctrl parent=general caption="Kontrollerid"
@@ -195,11 +195,15 @@ EMIT_MESSAGE(MSG_USER_JOINED)
 
 class join_site extends class_base
 {
+	private $prop_types;
+	private $join_done;
+	private $__sort_tp;
+
 	function join_site()
 	{
 		$this->init(array(
 			"tpldir" => "contentmgmt/join/join_site",
-			"clid" => CL_JOIN_SITE
+			"clid" => join_site_obj::CLID
 		));
 
 		$this->prop_types = array(
@@ -343,8 +347,7 @@ class join_site extends class_base
 		if ($arr["prop"]["value"])
 		{
 			// save rule
-			$o = new object();
-			$o->set_class_id(CL_JOIN_SITE_RULE);
+			$o = obj(null, array(), join_site_rule_obj::CLID);
 			$o->set_parent($arr['obj_inst']->parent());
 			$o->set_name($arr["request"]["rule_name"]);
 			$o->set_meta("rule_data",$ruled);
@@ -538,7 +541,7 @@ class join_site extends class_base
 			$cln = basename($clss[$clid]["file"]);
 
 			// get properties for clid
-			$cfgu = get_instance("cfg/cfgutils");
+			$cfgu = new cfgutils();
 			$props = $cfgu->load_properties(array(
 				"file" => $cln,
 				"clid" => $clid
@@ -562,7 +565,7 @@ class join_site extends class_base
 					"value" => 1,
 					"checked" => isset($required[$clid][$nprop["name"]]) && $required[$clid][$nprop["name"]] == 1
 				));
-				if ($clid == CL_USER)
+				if ($clid == user_obj::CLID)
 				{
 					if ($nprop["name"] == "uid_entry" || $nprop["name"] == "passwd" || $nprop["name"] == "passwd_again")
 					{
@@ -627,7 +630,7 @@ class join_site extends class_base
 			$cln = basename($clss[$clid]["file"]);
 
 			// get properties for clid
-			$cfgu = get_instance("cfg/cfgutils");
+			$cfgu = new cfgutils();
 			$props = $cfgu->load_properties(array(
 				"file" => $cln,
 				"clid" => $clid
@@ -732,7 +735,7 @@ class join_site extends class_base
 		$arr["obj_inst"]->set_meta("join_seps", $dat);
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
@@ -745,13 +748,13 @@ class join_site extends class_base
 	{
 		extract($arr);
 
-		$ob = new object($arr["id"]);
+		$ob = obj($arr["id"], null, join_site_obj::CLID);
 
 		$visible = $ob->meta("visible");
 		$required = $ob->meta("required");
 		$propn = $ob->meta("propn");
 		$el_types = $ob->meta("types");
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 		$prop_langs = $ob->meta("lang_props");
 		$langid = aw_ini_get("user_interface.full_content_trans") ? aw_global_get("ct_lang_id") : aw_global_get("lang_id");
@@ -782,7 +785,7 @@ class join_site extends class_base
 
 		list($ue_class, $ue_el) = explode("_", $ob->prop("username_element"), 2);
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 		$klomp = array();
 		// for each cfgform related
@@ -810,6 +813,7 @@ class join_site extends class_base
 			$tp = array();
 			foreach($props as $pid => $prop)
 			{
+				$prop["ds"] = $this->__get_datasource_for_clid($clid);
 				if ($visible[$clid][$prop["name"]])
 				{
 					if (isset($cf_sd[$prop["name"]]))
@@ -820,10 +824,10 @@ class join_site extends class_base
 					if ($tp[$pid]["type"] != "password")
 					{
 						// handle person address separately
-						if ($clid == CL_CRM_PERSON && $pid == "address")
+						if ($clid == crm_person_obj::CLID && $pid == "address")
 						{
 							// address has: * Street address: * City: * Zip code: * Country:
-							$adr_inst = get_instance(CL_CRM_ADDRESS);
+							$adr_inst = new crm_address();
 							$tp["p_adr_ctry"] = array(
 								"name" => "p_adr_ctry",
 								"caption" => t("Maa"),
@@ -859,8 +863,7 @@ class join_site extends class_base
 							if ($tp[$pid]["type"] == "chooser")
 							{
 								// load options before messing with things
-								$tmp_do = obj();
-								$tmp_do->set_class_id($clid);
+								$tmp_do = obj(null, array(), $clid);
 								$tmp_param = array(
 									"obj_inst" => &$tmp_do,
 									"prop" => &$tp[$pid],
@@ -872,7 +875,7 @@ class join_site extends class_base
 							else
 							if ($tp[$pid]["type"] == "classificator")
 							{
-								$clf_inst = get_instance(CL_CLASSIFICATOR);
+								$clf_inst = new classificator();
 								/*$tp[$pid]["options"] = $clf_inst->get_options_for(array(
 									"name" => $pid,
 									"clid" => $clid
@@ -896,8 +899,8 @@ class join_site extends class_base
 
 			$wn = "typo_".$clid;
 
-			$i = get_instance($clid);
-			$xp = $i->parse_properties(array(
+			$xp = $this->parse_properties(array(
+				"obj_inst" => $this->_awcb_getds_user(),
 				"properties" => $tp,
 				"name_prefix" => $wn
 			));
@@ -926,7 +929,7 @@ class join_site extends class_base
 			{
 				$oldn = str_replace($wn."[", "", str_replace("]", "", $xprop["name"]));
 
-				if ($clid == CL_USER && ($oldn == "uid_entry" || $oldn == $ue_el) && $je["gen"] != "")
+				if ($clid == user_obj::CLID && ($oldn == "uid_entry" || $oldn == $ue_el) && $je["gen"] != "")
 				{
 					$ermsg = "<font color='#FF0000'>".$je["gen"]."</font>";
 					if ($this->is_template("ERROR_MESSAGE"))
@@ -983,7 +986,7 @@ class join_site extends class_base
 					}
 				}
 
-				if ($oldn == "comment" && $clid == CL_USER)
+				if ($oldn == "comment" && $clid == user_obj::CLID)
 				{
 					$xprop["type"] = "textarea";
 					$xprop["comment"] = "";
@@ -1061,7 +1064,7 @@ class join_site extends class_base
 			"err_return_url" => post_ru()
 		));
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 		foreach($props as $xprop)
 		{
@@ -1221,7 +1224,7 @@ class join_site extends class_base
 		{
 			unset($req[user_obj::CLID]["passwd"]);
 			unset($req[user_obj::CLID]["passwd_again"]);
-			$sessd["typo_".user_obj::CLID]["passwd"] = $sessd["typo_".user_obj::CLID]["passwd_again"] = get_instance("user_obj")->generate_password();
+			$sessd["typo_".user_obj::CLID]["passwd"] = $sessd["typo_".user_obj::CLID]["passwd_again"] = user_obj::generate_password();
 		}
 
 		$filled = true;
@@ -1245,7 +1248,7 @@ class join_site extends class_base
 		if ($this->can("view", $obj->prop("check_sbt_controller")))
 		{
 			// if controller returns array, then all props in the array must be filled
-			$ctr_i = get_instance(CL_FORM_CONTROLLER);
+			$ctr_i = new form_controller();
 			$rv = $ctr_i->eval_controller($obj->prop("check_sbt_controller"), $arr, $obj, $obj);
 			if (is_array($rv))
 			{
@@ -1266,23 +1269,27 @@ class join_site extends class_base
 
 			// get the uid and password
 			// they are from the user object
-			$n_uid = $sessd["typo_".CL_USER]["uid_entry"];
-			$n_pass = $sessd["typo_".CL_USER]["passwd"];
-			$n_email = $sessd["typo_".CL_USER]["email"];
-			$n_pass2 = $sessd["typo_".CL_USER]["passwd_again"];
+			$n_uid = $sessd["typo_".user_obj::CLID]["uid_entry"];
+			$n_pass = $sessd["typo_".user_obj::CLID]["passwd"];
+			$n_email = $sessd["typo_".user_obj::CLID]["email"];
+			$n_pass2 = $sessd["typo_".user_obj::CLID]["passwd_again"];
 
-			$us = get_instance("users");
+			$us = new users();
 			if ($this->can_add(array("a_uid" => $n_uid, "pass" => $n_pass, "pass2" => $n_pass2, "sj" => $obj)))
 			{
+				$first_name = isset($sessd["typo_".crm_person_obj::CLID]["firstname"]) ? $sessd["typo_".crm_person_obj::CLID]["firstname"] : null;
+				$last_name = isset($sessd["typo_".crm_person_obj::CLID]["lastname"]) ? $sessd["typo_".crm_person_obj::CLID]["lastname"] : null;
+				$real_name = "{$first_name} {$last_name}";
+
 				$join_done = true;
 				// add the user
-				$cu = get_instance(CL_USER);
+				$cu = new user();
 				$u_oid = $cu->add_user(array(
 					"uid" => $n_uid,
 					"email" => $n_email,
 					"password" => $n_pass,
 					"join_grp" => $obj->id(),
-					"real_name" => $sessd["typo_".CL_CRM_PERSON]["firstname"]." ".$sessd["typo_".CL_CRM_PERSON]["lastname"]
+					"real_name" => $real_name
 				));
 
 				// also, create all the objects and do the relations and crap
@@ -1511,7 +1518,8 @@ class join_site extends class_base
 
 		if(is_oid($obj->prop("obj_folder")) && $this->can("add", $obj->prop("obj_folder")))
 		{
-			$p_id = get_instance(CL_USER)->get_person_for_user($u_o);
+			$user = new user();
+			$p_id = $user->get_person_for_user($u_o);
 			if(is_oid($p_id) && $this->can("change", $p_id))
 			{
 				$person = obj($p_id);
@@ -1520,10 +1528,13 @@ class join_site extends class_base
 			}
 			else
 			{
-				$person = obj();
-				$person->set_class_id(CL_CRM_PERSON);
+				$first_name = isset($sessd["typo_".crm_person_obj::CLID]["firstname"]) ? $sessd["typo_".crm_person_obj::CLID]["firstname"] : null;
+				$last_name = isset($sessd["typo_".crm_person_obj::CLID]["lastname"]) ? $sessd["typo_".crm_person_obj::CLID]["lastname"] : null;
+				$real_name = "{$first_name} {$last_name}";
+
+				$person = obj(null, array(), crm_person_obj::CLID);
 				$person->set_parent($obj->prop("obj_folder"));
-				$person->set_name($sessd["typo_".CL_CRM_PERSON]["firstname"]." ".$sessd["typo_".CL_CRM_PERSON]["lastname"]);
+				$person->set_name($real_name);
 				$p_id = $person->save();
 
 				$u_o->connect(array(
@@ -1534,10 +1545,9 @@ class join_site extends class_base
 		}
 
 
-		$com = obj();
-		$com->set_class_id(CL_CRM_COMPANY);
+		$com = obj(null, array(), crm_company_obj::CLID);
 		$com->set_parent($obj->prop("obj_folder"));
-		$com->set_name($sessd["typo_".CL_CRM_COMPANY]["name"]);
+		$com->set_name(isset($sessd["typo_".crm_company_obj::CLID]["name"]) ? $sessd["typo_".crm_company_obj::CLID]["name"] : null);
 		$c_id = $com->save();
 		$com->acl_set(
 			obj($u_o->get_default_group()),
@@ -1549,13 +1559,12 @@ class join_site extends class_base
 		$a_objs = array();
 		foreach($this->_get_clids($obj) as $clid)
 		{
-			if ($clid == CL_CRM_PERSON || $clid == CL_USER || $clid == CL_CRM_COMPANY)
+			if ($clid == crm_person_obj::CLID || $clid == user_obj::CLID || $clid == crm_company_obj::CLID)
 			{
 				continue;
 			}
 
-			$o = new object();
-			$o->set_class_id($clid);
+			$o = obj(null, array(), $clid);
 			$o->set_parent($obj->prop("obj_folder"));
 			$o_id = $o->save();
 			$this->create_obj_access($o_id, $u_o->prop("uid"));
@@ -1579,7 +1588,7 @@ class join_site extends class_base
 
 	function _get_clids($ob)
 	{
-		$ret = array(CL_USER,CL_CRM_PERSON, CL_CRM_COMPANY);
+		$ret = array(user_obj::CLID, crm_person_obj::CLID, crm_company_obj::CLID);
 		foreach($ob->connections_from(array("type" => "RELTYPE_JOIN_CLASS")) as $c)
 		{
 			$cfgf = $c->to();
@@ -1614,7 +1623,7 @@ class join_site extends class_base
 	{
 		aw_disable_acl();
 		$ret = array();
-		foreach($o->connections_from(array("to.class_id" => CL_JOIN_SITE_RULE /* RELTYPE_JOIN_RULE */)) as $c)
+		foreach($o->connections_from(array("to.class_id" => join_site_rule_obj::CLID /* RELTYPE_JOIN_RULE */)) as $c)
 		{
 			$ret[$c->prop("to")] = $c->prop("to");
 		}
@@ -1626,8 +1635,8 @@ class join_site extends class_base
 	{
 		$user = obj($u_oid);
 
-		$ri = get_instance(CL_JOIN_SITE_RULE);
-		$gi = get_instance(CL_GROUP);
+		$ri = new join_site_rule();
+		$gi = new group();
 
 		foreach($rules as $rule_oid)
 		{
@@ -1656,7 +1665,7 @@ class join_site extends class_base
 		$prop_langs = $ob->meta("lang_props");
 		$langid = aw_ini_get("user_interface.full_content_trans") ? aw_global_get("ct_lang_id") : aw_global_get("lang_id");
 
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 		$user = isset($params["uid"]) ? $params["uid"] : aw_global_get("uid");
 		$lang_errs = $ob->meta("lang_errs");
@@ -1678,9 +1687,9 @@ class join_site extends class_base
 
 		if ($user != "")
 		{
-			$us = get_instance("users");
+			$us = new users();
 			$u_o = obj($us->get_oid_for_uid($user));
-			$visible[CL_USER]["uid_entry"] = false;
+			$visible[user_obj::CLID]["uid_entry"] = false;
 		}
 
 		$sessd = aw_global_get("site_join_status");
@@ -1691,7 +1700,7 @@ class join_site extends class_base
 		$breaks = $ob->meta("el_breaks");
 		$tp = array();
 		// for each cfgform related
-		$ipl = get_instance("core/util/ip_locator/ip_locator");
+		$ipl = new ip_locator();
 		$v = $ipl->search(get_ip());
 		foreach($this->_get_clids($ob) as $clid)
 		{
@@ -1702,17 +1711,16 @@ class join_site extends class_base
 			));
 			$relinfo = $cfgu->relinfo;
 
-			$data_o = obj();
-			$data_o->set_class_id($clid);
+			$data_o = obj(null, array(), $clid);
 			// get data object if user is logged
 			if ($u_o)
 			{
-				if ($clid == CL_USER)
+				if ($clid == user_obj::CLID)
 				{
 					$data_o = $u_o;
 				}
 				else
-				if ($clid == CL_CRM_PERSON)
+				if ($clid == crm_person_obj::CLID)
 				{
 					$c = reset($u_o->connections_from(array("type" => "RELTYPE_PERSON")));
 					if ($c)
@@ -1721,7 +1729,7 @@ class join_site extends class_base
 					}
 				}
 				else
-				if ($clid == CL_CRM_COMPANY)
+				if ($clid == crm_company_obj::CLID)
 				{
 					$c = reset($u_o->connections_from(array("type" => "RELTYPE_PERSON")));
 					if ($c)
@@ -1768,10 +1776,10 @@ class join_site extends class_base
 				if ($visible[$clid][$cpn])
 				{
 					$oldn = str_replace($wn."[", "", str_replace("]", "", $prop["name"]));
-					if ($clid == CL_CRM_PERSON && $pid == "address")
+					if ($clid == crm_person_obj::CLID && $pid == "address")
 					{
 						// address has: * Street address: * City: * Zip code: * Country:
-						$adr_inst = get_instance(CL_CRM_ADDRESS);
+						$adr_inst = new crm_address();
 						$opts = $adr_inst->get_country_list();
 						$cntr = array_search($data_o->prop("address.riik.name"), $opts);
 						$tp["p_adr_ctry"] = array(
@@ -1808,7 +1816,7 @@ class join_site extends class_base
 						unset($ttp[$pid]);
 						continue;
 					}
-					if ($clid == CL_USER && $oldn == "uid_entry")
+					if ($clid == user_obj::CLID && $oldn == "uid_entry")
 					{
 						if ($je["gen"] != "")
 						{
@@ -1973,7 +1981,7 @@ class join_site extends class_base
 						}
 					}
 					$prop["comment"] = "";
-					if ($oldn == "comment" && $clid == CL_USER)
+					if ($oldn == "comment" && $clid == user_obj::CLID)
 					{
 						$prop["type"] = "textarea";
 						$prop["rows"] = 5;
@@ -2049,13 +2057,13 @@ class join_site extends class_base
 	{
 		$obj = obj($arr["id"]);
 
-		$us = get_instance("users");
+		$us = new users();
 
 		$nf = array();
 		if ($this->can("view", $obj->prop("check_sbt_controller")))
 		{
 			// if controller returns array, then all props in the array must be filled
-			$ctr_i = get_instance(CL_FORM_CONTROLLER);
+			$ctr_i = new form_controller();
 			$rv = $ctr_i->eval_controller($obj->prop("check_sbt_controller"), $arr, $obj, $obj);
 			if (is_array($rv))
 			{
@@ -2092,7 +2100,7 @@ class join_site extends class_base
 	function _do_update_data_objects($ob, $u_o, $data, $a_objs = array())
 	{
 		$visible = $ob->meta("visible");
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 		$clss = aw_ini_get("classes");
 
@@ -2113,19 +2121,18 @@ class join_site extends class_base
 			$data_o = false;
 
 			// if it's user, then we gots it
-			if ($clid == CL_USER)
+			if ($clid == user_obj::CLID)
 			{
 				$data_o = $u_o;
 			}
-			elseif ($clid == CL_CRM_PERSON)
+			elseif ($clid == crm_person_obj::CLID)
 			{
 				$c = reset($u_o->connections_from(array("type" => "RELTYPE_PERSON")));
 				if (!$c)
 				{
 					// create person
-					$data_o = obj();
+					$data_o = obj(null, array(), crm_person_obj::CLID);
 					$data_o->set_parent($u_o->id());
-					$data_o->set_class_id(CL_CRM_PERSON);
 					$data_o->save();
 					$u_o->connect(array(
 						"to" => $data_o->id(),
@@ -2137,15 +2144,14 @@ class join_site extends class_base
 					$data_o = $c->to();
 				}
 			}
-			elseif ($clid == CL_CRM_COMPANY)
+			elseif ($clid == crm_company_obj::CLID)
 			{
 				$c = reset($u_o->connections_from(array("type" => "RELTYPE_PERSON")));
 				if (!$c)
 				{
 					// create person
-					$tmp = obj();
+					$tmp = obj(null, array(), crm_person_obj::CLID);
 					$tmp->set_parent($u_o->id());
-					$tmp->set_class_id(CL_CRM_PERSON);
 					$tmp->save();
 					$u_o->connect(array(
 						"to" => $tmp->id(),
@@ -2160,10 +2166,9 @@ class join_site extends class_base
 				$c = $tmp->company_id();//reset($tmp->connections_from(array("type" => "RELTYPE_WORK" /* from crm_person */)));
 				if (!$c)
 				{
-					// create person
-					$data_o = obj();
+					// create company
+					$data_o = obj(null, array(), crm_company_obj::CLID);
 					$data_o->set_parent($u_o->id());
-					$data_o->set_class_id(CL_CRM_COMPANY);
 					$data_o->save();
 
 					$tmp->add_work_relation(array("org" => $data_o->id()));
@@ -2202,7 +2207,7 @@ class join_site extends class_base
 		);
 
 		// get relinfo for class
-		$cu = get_instance("cfg/cfgutils");
+		$cu = new cfgutils();
 		$_ps = $cu->load_properties(array(
 			"clid" => $data_o->class_id()
 		));
@@ -2214,7 +2219,7 @@ class join_site extends class_base
 				$oldn = str_replace($wn."[", "", str_replace("]", "", $prop["name"]));
 				$wn = "typo_".$clid;
 				$cf_sd = $data[$wn];
-				if ($clid == CL_USER)
+				if ($clid == user_obj::CLID)
 				{
 					$data_o->set_prop($pid, $cf_sd[$oldn]);
 				}
@@ -2242,9 +2247,8 @@ class join_site extends class_base
 					}
 					else
 					{
-						$p_obj = obj();
+						$p_obj = obj(null, array(), $oldn == "email" ? ml_member_obj::CLID :$reli[$prop["reltype"]]["clid"][0]);
 						$p_obj->set_parent($data_o->id());
-						$p_obj->set_class_id($oldn == "email" ? CL_ML_MEMBER :$reli[$prop["reltype"]]["clid"][0]);
 						$p_obj->set_name($cf_sd[$oldn]);
 						if ($oldn == "email")
 						{
@@ -2262,7 +2266,7 @@ class join_site extends class_base
 						if ($prop["name"] == "picture" && is_uploaded_file($_FILES["typo_145"]["tmp_name"]["picture"]["file"]))
 						{
 							// manual image upload here
-							$image = get_instance(CL_IMAGE);
+							$image = new image();
 							$imdata = $image->add_image(array(
 								"from" => "file",
 								"file" => $_FILES["typo_145"]["tmp_name"]["picture"]["file"],
@@ -2292,7 +2296,7 @@ class join_site extends class_base
 				}
 			}
 		}
-		if ($clid == CL_USER)
+		if ($clid == user_obj::CLID)
 		{
 			$data_o->save();
 			$data_o_inst = $data_o->instance();
@@ -2326,7 +2330,7 @@ class join_site extends class_base
 			{
 				$a_mt = array();
 				$a_mt[2] = $a["name"];
-				$a_mt[1] = CL_CRM_PERSON;
+				$a_mt[1] = crm_person_obj::CLID;
 			}
 		}
 		if (!preg_match("/typo_(.*)\[(.*)\]/U", $b["name"], $b_mt))
@@ -2335,7 +2339,7 @@ class join_site extends class_base
 			{
 				$b_mt = array();
 				$b_mt[2] = $b["name"];
-				$b_mt[1] = CL_CRM_PERSON;
+				$b_mt[1] = crm_person_obj::CLID;
 			}
 		}
 		$a_clid = $a_mt[1];
@@ -2443,7 +2447,7 @@ class join_site extends class_base
 	{
 		$ret = array();
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$ll = $la->listall();
 
 		$jmt = $arr["obj_inst"]->meta("jm_texts");
@@ -2512,7 +2516,7 @@ class join_site extends class_base
 		$subj = $jms[$lid]["subj"];
 		$text = $jms[$lid]["text"];
 
-		$us = get_instance("users");
+		$us = new users();
 		$cp = $us->get_change_pwd_hash_link($arr["u_obj"]->id());
 
 		$text = str_replace("#parool#", $arr["pass"], $text);
@@ -2555,7 +2559,7 @@ class join_site extends class_base
 
 		$this->db_query("DELETE FROM user_confirm_hashes WHERE hash = '$arr[h]'");
 
-		$u = get_instance("users");
+		$u = new users();
 		$oid = $u->get_oid_for_uid($row["uid"]);
 		$o = obj($oid);
 		$o->set_prop("blocked", 0);
@@ -2614,8 +2618,7 @@ class join_site extends class_base
 		);
 		foreach($arr["obj_inst"]->meta("visible") as $clid => $items)
 		{
-			$tmp = obj();
-			$tmp->set_class_id($clid);
+			$tmp = obj(null, array(), $clid);
 			$property_list = $tmp->get_property_list();
 
 			$t->define_data(array(
@@ -2684,8 +2687,7 @@ class join_site extends class_base
 		}
 		else
 		{
-			$fo = obj();
-			$fo->set_class_id($clid);
+			$fo = obj(null, array(), $clid);
 			$fo->set_parent($o->id());
 			$fo->set_name($val);
 			$fo->save();
@@ -2701,7 +2703,7 @@ class join_site extends class_base
 			"align" => "center"
 		));
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list();
 		foreach($ll as $lid => $lang)
 		{
@@ -2727,7 +2729,7 @@ class join_site extends class_base
 
 		$visible = $arr["obj_inst"]->meta("visible");
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("all_data" => true));
 
 		$propn = $arr["obj_inst"]->meta("propn");
@@ -2844,7 +2846,7 @@ class join_site extends class_base
 
 	function _set_trans_tb($arr)
 	{
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("all_data" => true));
 
 		foreach($arr["request"]["d"] as $clid => $d2)
@@ -2866,8 +2868,7 @@ class join_site extends class_base
 		$clss = aw_ini_get("classes");
 		foreach($arr["obj_inst"]->meta("visible") as $clid => $items)
 		{
-			$tmp = obj();
-			$tmp->set_class_id($clid);
+			$tmp = obj(null, array(), $clid);
 			$property_list = $tmp->get_property_list();
 
 			$opts[$clid] = $clss[$clid]["name"];
@@ -2888,7 +2889,7 @@ class join_site extends class_base
                         "align" => "center"
                 ));
 
-                $l = get_instance("languages");
+                $l = new languages();
                 $ll = $l->get_list();
                 foreach($ll as $lid => $lang)
                 {
@@ -2905,7 +2906,7 @@ class join_site extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_trans_err_t($t, $arr["obj_inst"]);
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("all_data" => true));
 
 		$ermsgs = array(
@@ -2944,7 +2945,7 @@ class join_site extends class_base
 			"align" => "center"
 		));
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list();
 		foreach($ll as $lid => $lang)
 		{
@@ -2967,7 +2968,7 @@ class join_site extends class_base
 
                 $lang_seps = $arr["obj_inst"]->meta("lang_seps");
 
-                $l = get_instance("languages");
+                $l = new languages();
                 $ll = $l->get_list(array("all_data" => true));
 
 		$seps = $arr["obj_inst"]->meta("join_seps");
@@ -3010,7 +3011,7 @@ class join_site extends class_base
 				{
 					$img_id = $i[$a]->prop("to");
 				}
-				$ii = get_instance(CL_IMAGE);
+				$ii = new image();
 				$rv = $ii->add_upload_image("c_img_".$a, $data_o->id(), $img_id);
 				$data_o->connect(array("to" => $rv["id"], "type" => "RELTYPE_IMAGE"));
 			}
@@ -3108,5 +3109,63 @@ class join_site extends class_base
 		$_SESSION["add_state"]["error"] = "";
 		return true;
 	}
+
+	protected function __get_datasource_for_clid($clid)
+	{
+		switch ($clid)
+		{
+			case user_obj::CLID:
+				return "user";
+
+			case crm_person_obj::CLID:
+				return "person";
+
+			case crm_company_obj::CLID:
+				return "company";
+
+			default:
+				return "default";
+		}
+	}
+
+	public function _awcb_getds_user()
+	{
+		static $data_source;
+
+		if (!isset($data_source))
+		{
+			$data_source = obj(aw_global_get("uid") ? user::get_current_user() : null, array(), user_obj::CLID);
+		}
+
+		return $data_source;
+	}
+
+	public function _awcb_getds_person()
+	{
+		static $data_source;
+
+		if (!isset($data_source))
+		{
+			$data_source = obj(aw_global_get("uid") ? user::get_current_person() : null, array(), user_obj::CLID);
+		}
+
+		return $data_source;
+	}
+
+	public function _awcb_getds_company()
+	{
+		static $data_source;
+
+		if (!isset($data_source))
+		{
+			$data_source = obj(aw_global_get("uid") ? user::get_current_company() : null, array(), user_obj::CLID);
+		}
+
+		return $data_source;
+	}
+
+	public function _awcb_getds_default()
+	{
+		return obj();
+	}
 }
-?>
