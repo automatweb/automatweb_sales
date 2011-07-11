@@ -50,7 +50,7 @@ class cb_translate extends class_base
 			"tpldir" => "applications/cb_translate",
 			"clid" => CL_CB_TRANSLATE,
 		));
-		if($_GET["class"] == "cb_translate")
+		if(isset($_GET["class"]) and $_GET["class"] === "cb_translate")
 		{
 			aw_global_set("output_charset", "utf-8");
 		}
@@ -2580,4 +2580,3 @@ class cb_translate extends class_base
 	}
 
 };
-?>
