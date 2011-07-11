@@ -658,6 +658,7 @@ class shop_product_obj extends aw_product_obj implements crm_sales_price_compone
 		$data["image"] = $this->get_product_image();
 		$data["image_url"] = $this->get_product_image_url();
 		$data["purveyance"] = $this->get_purveyance();
+		$data["min_price"] = $this->get_min_price();
 		if($this->class_id() == CL_SHOP_PRODUCT_PACKAGING)
 		{
 			$product = $this->get_product();
@@ -679,9 +680,31 @@ class shop_product_obj extends aw_product_obj implements crm_sales_price_compone
 		{
 			$data["packet_name"] = $packet->name();
 			$data["brand_name"] = $packet->get_brand();
-//			$packet_data = $packet-> get_data();
 		}
 		return $data;
+	}
+
+	private function get_min_price()
+	{
+		$min = $this->prop("price");
+		$t = new object_data_list(
+			array(
+				"class_id" => CL_SHOP_PRODUCT_PACKAGING,
+				"site_id" => array(),
+				"lang_id" => array(),
+				"CL_SHOP_PRODUCT_PACKAGING.RELTYPE_PACKAGING(CL_SHOP_PRODUCT)" => $this->id(),
+				"CL_SHOP_PRODUCT_PACKAGING.price" =>  new obj_predicate_compare(OBJ_COMP_GREATER, 0),
+			),
+			array(
+				CL_SHOP_PRODUCT_PACKAGING =>  array(new obj_sql_func(OBJ_SQL_MIN, "price","aw_shop_packaging.aw_price"))
+			)
+		);
+		$prices = $t->get_element_from_all("price");
+		if(is_array($prices) && sizeof($prices))
+		{
+			return reset($prices);
+		}
+		return $min;
 	}
 
 	private function get_purveyance()
