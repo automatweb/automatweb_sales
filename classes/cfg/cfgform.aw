@@ -386,11 +386,12 @@ class cfgform extends class_base
 		"groups" => array("groups"),
 		"layouts" => array("layouts"),
 	);
+	private $default_values;
 
 	function cfgform($arr = array())
 	{
 		$this->init(array(
-			"clid" => CL_CFGFORM,
+			"clid" => cfgform_obj::CLID,
 			"tpldir" => "cfgform",
 		));
 		$this->trans_props = array(
@@ -505,7 +506,7 @@ class cfgform extends class_base
 				break;
 
 			case "subclass":
-				$cx = get_instance("cfg/cfgutils");
+				$cx = new cfgutils();
 				$class_list = new aw_array($cx->get_classes_with_properties());
 				$cp = get_class_picker(array("field" => "def"));
 
@@ -668,7 +669,7 @@ class cfgform extends class_base
 	{
 		if(!$arr["request"]["meta"]) $arr["request"]["meta"] = $arr["obj_inst"]->meta("group_to_show");
 
-		$tree = &$arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 		$obj = $arr["obj_inst"];
 		$grps = new aw_array($arr["obj_inst"]->meta("cfg_groups"));
 
@@ -703,7 +704,7 @@ class cfgform extends class_base
 			else
 			{ // backward compatibility
 				$groups_list = new object_list(array(
-					"class_id" => array(CL_GROUP),
+					"class_id" => array(group_obj::CLID),
 					"lang_id" => "%",
 				));
 			}
@@ -715,7 +716,7 @@ class cfgform extends class_base
 		$arr["prop"]["captionside"] = "top";
 
 		// table layout
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -777,7 +778,6 @@ class cfgform extends class_base
 
 		// bc for when all groups were always shown instead of only those selected by connection
 		$show_to_groups = $arr["obj_inst"]->meta("show_to_groups");
-		$html = get_instance("html");
 
 		if(!$arr["request"]["meta"]) $arr["request"]["meta"] = $arr["obj_inst"]->meta("group_to_show");
 
@@ -810,7 +810,7 @@ class cfgform extends class_base
 					}
 				}
 
-				$row[$gid] = $html->hidden(array("name" => "show_to_groups_chk[".$prop_name."][".$gid."]", "value" => 1)) . $html->checkbox(array(
+				$row[$gid] = html::hidden(array("name" => "show_to_groups_chk[".$prop_name."][".$gid."]", "value" => 1)) . html::checkbox(array(
 					"name" => "show_to_groups[".$prop_name."][".$gid."]",
 					"value" => 1,
 					"checked" => $checked,
@@ -828,7 +828,7 @@ class cfgform extends class_base
 
 	function _init_trans_tbl(&$t, $o, $req, $str = "Omadus")
 	{
-		$l = get_instance("languages");
+		$l = new languages();
 		$orig_ld = $l->fetch($o->lang_id(), false);
 
 		$lid = substr($req["group"], 5);
@@ -880,7 +880,7 @@ class cfgform extends class_base
 	function _trans_tbl($arr)
 	{
 		aw_global_set("output_charset", "utf-8");
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"]);
 		$lid = $ld["acceptlang"];
 
@@ -919,7 +919,7 @@ class cfgform extends class_base
 
 	function _trans_tbl_grps($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"], "Tab");
 		$lid = $ld["acceptlang"];
 
@@ -949,7 +949,7 @@ class cfgform extends class_base
 
 	function _trans_tbl_lays($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"], "Layout");
 		$lid = $ld["acceptlang"];
 
@@ -980,7 +980,7 @@ class cfgform extends class_base
 
 	function _trans_tbl_table_capts($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"], t("Tabelite pealkirjad"));
 		$lid = $ld["acceptlang"];
 
@@ -1011,7 +1011,7 @@ class cfgform extends class_base
 
 	function gen_default_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Omadus"),
@@ -1342,7 +1342,7 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl":
-				$l = get_instance("languages");
+				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
@@ -1357,7 +1357,7 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_grps":
-				$l = get_instance("languages");
+				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("grp_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
@@ -1372,7 +1372,7 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_lays":
-				$l = get_instance("languages");
+				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("layout_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
@@ -1387,7 +1387,7 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_table_capts":
-				$l = get_instance("languages");
+				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("tbl_capt_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
@@ -1440,7 +1440,7 @@ class cfgform extends class_base
 		// right now I can load whatever I want, but I really should validate that stuff
 		// first .. and keep in mind that I want to have as many relation pickers
 		// as I want to.
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		list($proplist,$grplist) = $cfgu->parse_cfgform(array("xml_definition" => $contents));
 		$this->cfg_proplist = $proplist;
 		$this->cfg_groups = $grplist;
@@ -1476,7 +1476,7 @@ class cfgform extends class_base
 		}
 		if (!isset($this->lang_inf))
 		{
-			$l = get_instance("languages");
+			$l = new languages();
 			$tmp = $l->get_list(array("ignore_status" => 1));
 			unset($tmp[$arr["obj_inst"]->lang_id()]);
 			$this->lang_inf = array(
@@ -1697,7 +1697,7 @@ class cfgform extends class_base
 
 	private function _tables_tb(&$arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tables = $this->get_tbl_list();
 		if(count($tables))
 		{
@@ -3624,14 +3624,14 @@ class cfgform extends class_base
 		}
 
 		$cf = obj($arr["id"]);
-		$cfgx = get_instance("cfg/cfgutils");
+		$cfgx = new cfgutils();
 		$ret = $cfgx->load_properties(array(
 			"clid" => $cf->prop("subclass"),
 		));
 
 		$subclass = $cf->prop("subclass");
 		// XXX: can be removed once doc and document are merged
-		$inst_name = ($subclass == CL_DOCUMENT) ? "doc" : $subclass;
+		$inst_name = ($subclass == document_obj::CLID) ? "doc" : $subclass;
 		$class_i = get_instance($inst_name);
 		$tmp = $class_i->load_from_storage(array(
 			"id" => $cf->id()
@@ -3714,13 +3714,13 @@ class cfgform extends class_base
 			"type" => "submit",
 			"value" => t("Salvesta")
 		);
-		$rd = get_instance(CL_REGISTER_DATA);
+		$rd = new register_data();
 		$els = $rd->parse_properties(array(
 			"properties" => $els,
 			"name_prefix" => ""
 		));
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 		foreach($els as $pn => $pd)
 		{
@@ -3914,7 +3914,7 @@ class cfgform extends class_base
 			)
 		);
 
-		$this->cff_init_from_class($form, CL_DOCUMENT);
+		$this->cff_init_from_class($form, document_obj::CLID);
 
 		$this->cff_remove_all_props($form);
 
@@ -3952,7 +3952,7 @@ class cfgform extends class_base
 		$this->_init_properties($clid);
 		$cfgu = new cfgutils();
 
-		if ($clid == CL_DOCUMENT)
+		if ($clid == document_obj::CLID)
 		{
 			$def = join("",file(aw_ini_get("basedir") . "/xml/documents/def_cfgform.xml"));
 			list($proplist,$grplist, $layout) = $cfgu->parse_cfgform(array("xml_definition" => $def), true);
@@ -4325,7 +4325,7 @@ class cfgform extends class_base
 		// doing the table
 		$active = false;
 		$ol = new object_list(array(
-			"class_id" => CL_CFGFORM,
+			"class_id" => cfgform_obj::CLID,
 			"subclass" => $arr["clid"],
 			"lang_id" => array(),
 			"flags" => array(
@@ -4575,7 +4575,7 @@ class cfgform extends class_base
 	function _edit_groups_tb($arr)
 	{
 		$this_o = $arr["obj_inst"];
-		$toolbar =& $arr["prop"]["vcl_inst"];
+		$toolbar = $arr["prop"]["vcl_inst"];
 
 		// add groups
 		$toolbar->add_button(array(
@@ -4676,7 +4676,7 @@ class cfgform extends class_base
 	function _edit_groups_tbl($arr)
 	{
 		$this_o = $arr["obj_inst"];
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_edit_groups_tbl($t);
 		$grps = $this->grplist;
 
@@ -4801,7 +4801,7 @@ class cfgform extends class_base
 
 	function _group_movement($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_group_movement_t($t);
 
 		// list groups and let the user select groups that you go forward/back
@@ -4844,7 +4844,7 @@ class cfgform extends class_base
 		}
 		if(!empty($this->cfgclassview_alias_parsed))
 		{
-			$inst = get_instance("cfgform");
+			$inst = new cfgform();
 			$inst->embedded = 1;
 		}
 		else
@@ -4864,12 +4864,10 @@ class cfgform extends class_base
 	// embed cfgform as alias and display configured class interface
 	function get_class_cfgview($args)
 	{
-		enter_function("cfg_form::get_class_cfgview");
-
 		// request vars
 		if (empty($this->cfgview_vars))
 		{
-			$this->cfgview_vars = (array) $_GET + (array) $_POST + (array) $AW_GET_VARS;
+			$this->cfgview_vars = (array) $_GET + (array) $_POST + (isset($AW_GET_VARS) ? ((array) $AW_GET_VARS) : array());
 		}
 
 		if (!empty($args["submit_vars"]))
@@ -4918,13 +4916,11 @@ class cfgform extends class_base
 			$this->cfgview_vars["awcb_cfgform"] = $args["id"];
 			$this->cfgview_vars["awcb_display_mode"] = $args["display_mode"];
 
-			// make request
-			classload("core/orb/orb");
 			$orb = new orb();
 			$orb->process_request(array(
 				"class" => $class,
 				"action" => $action,
-				"reforb" => $this->cfgview_vars["reforb"],
+				"reforb" => !empty($this->cfgview_vars["reforb"]),
 				"user"	=> 1,//!!! whats that for?
 				"vars" => $this->cfgview_vars,
 				"silent" => false,
@@ -4932,7 +4928,6 @@ class cfgform extends class_base
 			$content = $orb->get_data();
 		}
 
-		exit_function("cfg_form::get_class_cfgview");
 		return $content;
 	}
 
@@ -4971,7 +4966,7 @@ class cfgform extends class_base
 	{
 		$prop_name_indic = "cfgview_params_" . $action . "_loaded";
 
-		if (!$this->$prop_name_indic)
+		if (empty($this->$prop_name_indic))
 		{
 			if($this->can("view", $this_o->prop("cfgview_" . $action . "_params_from_controller")))
 			{
@@ -5074,7 +5069,7 @@ class cfgform extends class_base
 
 	function _get_orb_settings($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "action",
@@ -5088,8 +5083,8 @@ class cfgform extends class_base
 		if (!$groups_list->count())
 		{
 			$groups_list = new object_list(array(
-				"class_id" => array(CL_GROUP),
-				"type" => new obj_predicate_compare(OBJ_COMP_LESS, 1),
+				"class_id" => array(group_obj::CLID),
+				"type" => new obj_predicate_compare(obj_predicate_compare::LESS, 1),
 				"lang_id" => "%",
 			));
 		}
@@ -5106,7 +5101,7 @@ class cfgform extends class_base
 			));
 		}
 
-		$orb = get_instance("core/orb/orb");
+		$orb = new orb();
 		$clss = aw_ini_get("classes");
 		$methods = $orb->get_class_actions(array(
 			"class" => basename($clss[$arr["obj_inst"]->subclass()]["file"])
@@ -5314,7 +5309,7 @@ class cfgform extends class_base
 	public function get_default_proplist($arr)
 	{
 		$o = isset($arr["o"]) && is_object($arr["o"]) && $this->can("view", $arr["o"]->id()) ? $arr["o"] : (isset($arr["oid"]) && is_oid($arr["oid"]) ? obj($arr["oid"]) : obj());
-		$clid = $this->can("view", $o->id()) ? $o->class_id() : (isset($arr["clid"]) && is_class_id($arr["clid"]) ? $arr["clid"] : CL_CRM_PERSON);
+		$clid = $this->can("view", $o->id()) ? $o->class_id() : (isset($arr["clid"]) && is_class_id($arr["clid"]) ? $arr["clid"] : crm_person_obj::CLID);
 
 		if(!$this->can("view", $o->id()))
 		{
@@ -5322,7 +5317,7 @@ class cfgform extends class_base
 			$o->set_class_id($clid);
 		}
 
-		$cffi = get_instance(CL_CFGFORM);
+		$cffi = new cfgform();
 		$cff = $cffi->get_sysdefault(array("clid" => $clid));
 		return $this->can("view", $cff) ? $cffi->get_cfg_proplist($cff) : $o->get_property_list();
 	}
@@ -5359,9 +5354,8 @@ class cfgform extends class_base
 
 			// create system default cf for this class
 
-			$cf = obj();
+			$cf = obj(null, array(), );
 			$cf->set_parent($o->parent());
-			$cf->set_class_id(CL_CFGFORM);
 			$cf->set_name(sprintf(t("Seadete vorm klassile %s"), $clss[$o->class_id()]["name"]));
 			$cf->set_flag(OBJ_FLAG_IS_SELECTED, 1);
 			$cf->set_subclass($o->class_id());
@@ -5415,9 +5409,8 @@ class cfgform extends class_base
 
 			// create system default cf for this class
 
-			$cf = obj();
+			$cf = obj(null, array(), cfgform_obj::CLID);
 			$cf->set_parent($o->parent());
-			$cf->set_class_id(CL_CFGFORM);
 			$cf->set_name(sprintf(t("Seadete vorm klassile %s"), $clss[$o->class_id()]["name"]));
 			$cf->set_flag(OBJ_FLAG_IS_SELECTED, 1);
 			$cf->set_subclass($o->class_id());
