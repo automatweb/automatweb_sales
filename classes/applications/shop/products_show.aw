@@ -216,25 +216,21 @@ class products_show extends class_base
 
 	function show($arr)
 	{
-
 		$cache_dir = aw_ini_get("cache.page_cache")."/product_show";
 		$master_cache = $cache_dir.$_SERVER["REQUEST_URI"].".tpl";
 
 		if(file_exists($master_cache))
 		{
 			$cache = file($master_cache);
-			exit_function("products_show::show");
 			return join ("" , $cache);
 		}
 
-		enter_function("products_show::show");
 		$ob = new object($arr["id"]);
 		if(!empty($_GET["product"]) && $this->can("view" , $_GET["product"]))
 		{
 			$show_product = obj($_GET["product"]);
 			$instance = get_instance($show_product->class_id());
 			$instance->template = $ob->prop("product_template");
-			exit_function("products_show::show");
 			$ret =  $instance->show(array(
 				"id" => (int)$_GET["product"],
 				"oc" => (int)$_GET["oc"],
@@ -242,7 +238,6 @@ class products_show extends class_base
 			$this->set_cache($ret);
 			return $ret;
 		}
-		enter_function("products_show::start");
 		$oc = $ob->get_oc();
 		$this->read_template($ob->get_template());
 		$this->vars(array(
@@ -267,8 +262,6 @@ class products_show extends class_base
 		}
 
 		$count = $count_all = 0;
-		exit_function("products_show::start");
-		enter_function("products_show::loop");
 		//teeb sorteerimise enne ära
 //		$products->sort_by(array(
 //			"prop" => "changed",
@@ -306,8 +299,8 @@ class products_show extends class_base
 				));
 				$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
 			}
-$product_data['min_special_price_without_zeroes'] = $this->woz($product_data['min_special_price']); 
-$product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price']); 
+			$product_data['min_special_price_without_zeroes'] = $this->woz($product_data['min_special_price']);
+			$product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price']); 
 			$product_data["checkbox"] = html::checkbox(array(
 				"name" => "add_to_cart[".$product_data["product_id"]."]",
 				"value" => 1,
@@ -319,32 +312,32 @@ $product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price'
 
 			$product_data["menu"] = $ob->get_category_menu($category);
 			$product_data["menu_name"] = get_name($product_data["menu"]);
-			$this->vars($product_data);//arr($product_data);
+			$this->vars($product_data);
 
 			if($count >= $max && $this->is_template("ROW"))//viimane tulp yksk6ik mis reas
 			{
 				$count = 0;
 				if($this->is_template("PRODUCT_END"))
 				{
-					$prod.= $this->parse("PRODUCT_END");
+					$prod .= $this->parse("PRODUCT_END");
 				}
 				else
 				{
-					$prod.= $this->parse("PRODUCT");
+					$prod .= $this->parse("PRODUCT");
 				}
 				$this->vars(array("PRODUCT" => $prod));
-				$rows.= $this->parse("ROW");
+				$rows .= $this->parse("ROW");
 				$prod = "";
 			}
 			elseif($count_all >= $products->count() && $this->is_template("ROW"))//viimane rida
 			{
-				$prod.= $this->parse("PRODUCT");
+				$prod .= $this->parse("PRODUCT");
 				$this->vars(array("PRODUCT" => $prod));
-				$rows.= $this->parse("ROW");
+				$rows .= $this->parse("ROW");
 			}
 			else
 			{
-				$prod.= $this->parse("PRODUCT");
+				$prod .= ($count_all === 1 and $this->is_template("PRODUCT_BEGIN")) ? $this->parse("PRODUCT_BEGIN") : $this->parse("PRODUCT");
 			}
 
 			if($count_all >= $per_page * ($page + 1))
@@ -352,9 +345,10 @@ $product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price'
 				break;
 			}
 		}
-		exit_function("products_show::loop");
-		exit_function("products_show::enter");
 		$this->vars(array(
+			"PRODUCT_BEGIN" => "",
+			"PRODUCT_END" => "",
+			"PRODUCT" => $prod,
 			"ROW" => $rows
 		));
 
@@ -436,8 +430,6 @@ $product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price'
 		));
 		$data["section"] = aw_global_get("section");
 		$this->vars($data);
-		exit_function("products_show::end");
-		exit_function("products_show::show");
 		$result = $this->parse();
 
 //cachemine
@@ -446,6 +438,7 @@ $product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price'
 		return $result;
 	}
 
+	// FIXME: DOCUMENT THIS! Prolly should use aw_math_calc::string2float().
 	public function woz($number)
 	{
 		$number = str_replace("," , "" , $number);
@@ -458,5 +451,3 @@ $product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price'
 	}
 
 }
-
-?>
