@@ -5354,7 +5354,7 @@ class cfgform extends class_base
 
 			// create system default cf for this class
 
-			$cf = obj(null, array(), );
+			$cf = obj(null, array(), cfgform_obj::CLID);
 			$cf->set_parent($o->parent());
 			$cf->set_name(sprintf(t("Seadete vorm klassile %s"), $clss[$o->class_id()]["name"]));
 			$cf->set_flag(OBJ_FLAG_IS_SELECTED, 1);
