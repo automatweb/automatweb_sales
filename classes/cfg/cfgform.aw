@@ -378,13 +378,14 @@ class cfgform extends class_base
 	)
 	*/
 
+	private $default_values = array();
 	private $cfgview_actions = array();
 	private $default_new_layout_name = "new_layout_temporary_name";
 	private $cfg_load_scope_index = array (
 		"all" => array("properties", "groups", "layouts"),
 		"properties" => array("properties"),
 		"groups" => array("groups"),
-		"layouts" => array("layouts"),
+		"layouts" => array("layouts")
 	);
 
 	function cfgform($arr = array())
@@ -558,7 +559,7 @@ class cfgform extends class_base
 				break;
 
 			case "tables_controller":
-				if($tbl = $arr["request"]["chtbl"])
+				if(isset($arr["request"]["chtbl"]) and ($tbl = $arr["request"]["chtbl"]))
 				{
 					$conf = $arr["obj_inst"]->meta("tbl_config");
 					$tbl_conf = $conf[$tbl];
@@ -666,9 +667,9 @@ class cfgform extends class_base
 
 	function do_meta_tree($arr)
 	{
-		if(!$arr["request"]["meta"]) $arr["request"]["meta"] = $arr["obj_inst"]->meta("group_to_show");
+		if(empty($arr["request"]["meta"])) $arr["request"]["meta"] = $arr["obj_inst"]->meta("group_to_show");
 
-		$tree = &$arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 		$obj = $arr["obj_inst"];
 		$grps = new aw_array($arr["obj_inst"]->meta("cfg_groups"));
 
@@ -715,7 +716,7 @@ class cfgform extends class_base
 		$arr["prop"]["captionside"] = "top";
 
 		// table layout
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -777,7 +778,6 @@ class cfgform extends class_base
 
 		// bc for when all groups were always shown instead of only those selected by connection
 		$show_to_groups = $arr["obj_inst"]->meta("show_to_groups");
-		$html = get_instance("html");
 
 		if(!$arr["request"]["meta"]) $arr["request"]["meta"] = $arr["obj_inst"]->meta("group_to_show");
 
@@ -810,7 +810,7 @@ class cfgform extends class_base
 					}
 				}
 
-				$row[$gid] = $html->hidden(array("name" => "show_to_groups_chk[".$prop_name."][".$gid."]", "value" => 1)) . $html->checkbox(array(
+				$row[$gid] = html::hidden(array("name" => "show_to_groups_chk[".$prop_name."][".$gid."]", "value" => 1)) . html::checkbox(array(
 					"name" => "show_to_groups[".$prop_name."][".$gid."]",
 					"value" => 1,
 					"checked" => $checked,
@@ -826,9 +826,9 @@ class cfgform extends class_base
 	}
 
 
-	function _init_trans_tbl(&$t, $o, $req, $str = "Omadus")
+	function _init_trans_tbl($t, $o, $req, $str = "Omadus")
 	{
-		$l = get_instance("languages");
+		$l = new languages();
 		$orig_ld = $l->fetch($o->lang_id(), false);
 
 		$lid = substr($req["group"], 5);
@@ -880,26 +880,28 @@ class cfgform extends class_base
 	function _trans_tbl($arr)
 	{
 		aw_global_set("output_charset", "utf-8");
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"]);
 		$lid = $ld["acceptlang"];
 
 		$trans = $arr["obj_inst"]->meta("translations");
 
 		$ps = $arr["obj_inst"]->meta("cfg_proplist");
-		uasort($ps, create_function('$a, $b','return $a["ord"] - $b["ord"];'));
+		uasort($ps, create_function('$a, $b','return (isset($a["ord"]) ? $a["ord"] : 0) - (isset($b["ord"]) ? $b["ord"] : 0);'));
 		foreach($ps as $pn => $pd)
 		{
-			$capt = $pd["type"] == "text" ? $pd["value"] : $pd["caption"];
+			$capt = $pd["type"] === "text" ? (isset($pd["value"]) ? $pd["value"] : "") : $pd["caption"];
 			$capt = iconv($ld["charset"], "utf-8", $capt);
-			$comm = iconv($ld["charset"], "utf-8", $pd["comment"]);
+			$comm = iconv($ld["charset"], "utf-8", isset($pd["comment"]) ? $pd["comment"] : "");
 			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn]);
+			$v2 = "";
 
-			if (trim($v) == "")
+			if (trim($v) === "" and isset($trans[$lid][$pn]))
 			{
 				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn]);
 				$v2 = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn."_comment"]);
 			}
+
 			$t->define_data(array(
 				"property" => $pn,
 				"orig_str" => $capt,
@@ -919,7 +921,7 @@ class cfgform extends class_base
 
 	function _trans_tbl_grps($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"], "Tab");
 		$lid = $ld["acceptlang"];
 
@@ -949,7 +951,7 @@ class cfgform extends class_base
 
 	function _trans_tbl_lays($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"], "Layout");
 		$lid = $ld["acceptlang"];
 
@@ -980,7 +982,7 @@ class cfgform extends class_base
 
 	function _trans_tbl_table_capts($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"], t("Tabelite pealkirjad"));
 		$lid = $ld["acceptlang"];
 
@@ -989,7 +991,7 @@ class cfgform extends class_base
 		$ps = $arr["obj_inst"]->meta("cfg_proplist");
 		foreach($ps as $pn => $pd)
 		{
-			$capt = iconv($ld["charset"], "utf-8", $pd["emb_tbl_caption"]);
+			$capt = iconv($ld["charset"], "utf-8", isset($pd["emb_tbl_caption"]) ? $pd["emb_tbl_caption"] : "");
 			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn."_tbl_capt"]);
 
 			if (trim($v) == "")
@@ -1011,7 +1013,7 @@ class cfgform extends class_base
 
 	function gen_default_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Omadus"),
@@ -1032,7 +1034,7 @@ class cfgform extends class_base
 
 		foreach($props as $prop)
 		{
-			if ($prop["type"] == "checkbox")
+			if ($prop["type"] === "checkbox")
 			{
 				$prx = $this->prplist[$prop["name"]];
 				// so, how do I determine whether this property has a default or not?
@@ -1050,8 +1052,8 @@ class cfgform extends class_base
 						"checked" => !empty($this->prplist[$prop["name"]]["default"]),
 					)),
 				));
-			};
-		};
+			}
+		}
 	}
 
 	function gen_controller_props($arr)
@@ -1697,7 +1699,7 @@ class cfgform extends class_base
 
 	private function _tables_tb(&$arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tables = $this->get_tbl_list();
 		if(count($tables))
 		{
@@ -1759,10 +1761,10 @@ class cfgform extends class_base
 
 	//$arr["obj_inst"]->set_meta("tbl_config", null);$arr["obj_inst"]->save();
 
-		if($tbl = $arr["request"]["chtbl"])
+		if(isset($arr["request"]["chtbl"]) and ($tbl = $arr["request"]["chtbl"]))
 		{
 			$property = $this->cfg_proplist[$tbl];
-			if(!$property["type"] == "table" || !$property["configurable"])
+			if($property["type"] !== "table" || !$property["configurable"])
 			{
 				return;
 			}
@@ -2985,12 +2987,12 @@ class cfgform extends class_base
 			"name" => "in_use",
 			"sortable" => true,
 			"caption" => t("K"),
-			"tooltip" => t("Kasutusel"),
+			"tooltip" => t("Kasutusel")
 		));
 
 		$t->define_chooser(array(
 			"name" => "mark",
-			"field" => "name",
+			"field" => "name"
 		));
 
 		if (empty($arr["request"]["sortby"]))
@@ -3021,22 +3023,25 @@ class cfgform extends class_base
 
 		foreach($this->all_props as $property)
 		{
+			$default_group = $groups = "";
+
 			if (isset($used_props[$property["name"]]) and count($used_props[$property["name"]]))
 			{
 				$groups = implode(", ", $used_props[$property["name"]]);
 			}
-			else
+
+			if (isset($property["group"]))
 			{
-				$groups = "";
+				$default_group = is_array($property["group"]) ? implode(", ", $property["group"]) : $property["group"];
 			}
 
 			$t->define_data(array(
 				"caption" => empty($property["caption"]) ? "" : $property["caption"],
 				"type" => $property["type"],
 				"name" => $property["name"],
-				"default_grp" => empty($property["group"]) ? "" : $property["group"],
+				"default_grp" => $default_group,
 				"in_use" => $groups ? html::img(array(
-					"url" => aw_ini_get("icons.server")."/check.gif",
+					"url" => aw_ini_get("icons.server")."check.gif",
 					"alt" => $groups,
 					"title" => $groups
 				)) : ""
@@ -4575,7 +4580,7 @@ class cfgform extends class_base
 	function _edit_groups_tb($arr)
 	{
 		$this_o = $arr["obj_inst"];
-		$toolbar =& $arr["prop"]["vcl_inst"];
+		$toolbar = $arr["prop"]["vcl_inst"];
 
 		// add groups
 		$toolbar->add_button(array(
@@ -4721,56 +4726,56 @@ class cfgform extends class_base
 			$t->define_data(array(
 				"grp" => $gn . " <small>(" . $gd["caption"] . ")</small>",
 				"caption" => html::textbox(array(
-					"name" => "grpcaption[".$gn."]",
+					"name" => "grpcaption[{$gn}]",
 					"size" => 25,
-					"value" => $gd["caption"],
+					"value" => isset($gd["caption"]) ? $gd["caption"] : ""
 				)),
 				"ord" => html::textbox(array(
-					"name" => "grpord[".$gn."]",
+					"name" => "grpord[{$gn}]",
 					"size" => 2,
-					"value" => $gd["ord"],
+					"value" => isset($gd["ord"]) ? $gd["ord"] : ""
 				)),
 				"submit_btn_text" => html::textbox(array(
-					"name" => "grpsubmit_btn_text[".$gn."]",
+					"name" => "grpsubmit_btn_text[{$gn}]",
 					"size" => 5,
-					"value" => $gd["submit_btn_text"]
+					"value" => isset($gd["submit_btn_text"]) ? $gd["submit_btn_text"] : ""
 				)),
 				"style" => html::select(array(
 					"name" => "grpstyle[$gn]",
 					"options" => $tps,
-					"selected" => $gd["grpstyle"],
+					"selected" => isset($gd["grpstyle"]) ? $gd["grpstyle"] : ""
 				)),
 				"focus" => html::select(array(
 					"name" => "grpfocus[$gn]",
-					"options" => array("" => "") + (array) $props_by_grp[$gn],
-					"selected" => $gd["focus"],
+					"options" => array("" => "") + (isset($props_by_grp[$gn]) ? (array) $props_by_grp[$gn] : array()),
+					"selected" => isset($gd["focus"]) ? $gd["focus"] : ""
 				)),
 				"ctrl" => html::select(array(
 					"name" => "grpctl[$gn]",
-					"value" => $gd["grpctl"],
-					"options" => array("" => t("--vali--")) + $ctr_list->names(),
+					"value" => isset($gd["grpctl"]) ? $gd["grpctl"] : "",
+					"options" => html::get_empty_option() + $ctr_list->names(),
 				)),
 				"view_ctrl" => html::select(array(
-					"name" => "grp_d_ctl[$gn]",
-					"value" => $gd["grp_d_ctl"],
-					"options" => array("" => t("--vali--")) + $ctr_list->names()
+					"name" => "grp_d_ctl[{$gn}]",
+					"value" => isset($gd["grp_d_ctl"]) ? $gd["grp_d_ctl"] : "",
+					"options" => html::get_empty_option() + $ctr_list->names()
 				)),
 				"opt_view" => html::checkbox(array(
-					"name" => "grpview[$gn]",
+					"name" => "grpview[{$gn}]",
 					"value" => 1,
-					"checked" => $gd["grpview"],
+					"checked" => isset($gd["grpview"]) ? $gd["grpview"] : ""
 				)),
 				"opt_show" => html::checkbox(array(
-					"name" => "grphide[$gn]",
+					"name" => "grphide[{$gn}]",
 					"value" => 1,
-					"checked" => (int) !$gd["grphide"],
+					"checked" => isset($gd["grphide"]) ? (int) !$gd["grphide"] : 0
 				)),
 				"opt_submit" => html::checkbox(array(
-					"name" => "grpsubmit[$gn]",
+					"name" => "grpsubmit[{$gn}]",
 					"value" => 1,
-					"checked" => (int) ($gd["submit"] !== "no"),
+					"checked" => isset($gd["submit"]) ? (int) ($gd["submit"] !== "no") : 1
 				)),
-				"bg_colour" => $bg_colour,
+				"bg_colour" => $bg_colour
 			));
 		}
 
@@ -4801,7 +4806,7 @@ class cfgform extends class_base
 
 	function _group_movement($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_group_movement_t($t);
 
 		// list groups and let the user select groups that you go forward/back
@@ -4818,7 +4823,7 @@ class cfgform extends class_base
 		{
 			$bg_colour = empty($gd["parent"]) ? "silver" : false;
 			$t->define_data(array(
-				"grp" => ($gd["parent"] != "" ? "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : "").$gd["caption"],
+				"grp" => (!empty($gd["parent"]) ? html::space(5) : "").$gd["caption"],
 				"back_button" => html::select(array(
 					"name" => "bts[$gn][back]",
 					"options" => $sel,
