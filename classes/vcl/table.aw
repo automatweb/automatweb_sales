@@ -323,6 +323,7 @@ class aw_table extends aw_template
 	function define_data($row)
 	{
 		$this->check_userfields($row);
+		$row_id = null;
 
 		### apply filter
 		$add_data = true;
@@ -1675,7 +1676,7 @@ END;
 		if (!(strpos($d,$sep)===false) || $new != $d || strpos($d, "\n") !== false)
 		{
 			$new='"'.$new.'"';
-		};
+		}
 		return strip_tags($new);
 	}
 
