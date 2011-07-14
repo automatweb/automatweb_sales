@@ -433,7 +433,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 
 	/** returns people employed by this company
-		@attrib api=1
+		@attrib api=1 params=pos
 		@param state optional type=string default="active" set="active"|"former"|"prospective"|"all"
 			if set, returns employees matching criterion
 		@param profession optional type=CL_CRM_PROFESSION
