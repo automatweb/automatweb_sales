@@ -127,7 +127,7 @@
             <parent>general_data_second_row</parent>
             <type>textbox</type>
             <size>12</size>
-            <ds>customer::phone_id</ds>
+            <ds>id::salesman</ds>
             <field>salesperson</field>
             <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja</caption>
       </property>
@@ -194,7 +194,6 @@
       <layout>
             <main_container>
                   <type>hbox</type>
-                  <border>1</border>
                   <group>general</group>
                   <area_caption></area_caption>
             </main_container>

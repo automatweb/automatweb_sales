@@ -7,7 +7,6 @@ class languages extends aw_template implements request_startup
 	function languages()
 	{
 		$this->init("languages");
-		lc_load("definition");
 		$this->lc_load("languages","lc_languages");
 		// the name of the cache file
 		$this->cf_name = "languages-cache-site_id-".aw_ini_get("site_id");

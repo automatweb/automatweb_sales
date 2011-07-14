@@ -75,7 +75,6 @@ class objpicker extends core implements vcl_interface, orb_public_interface
 			{
 				$size = isset($args["size"]) ? $args["size"] : "";
 				$input_element = html::textbox(array("name" => "{$name}__autocompleteTextbox", "value" => $value, "size" => $size));
-				$clids = isset($prop["clid"]) ? (is_array($prop["clid"]) ? implode(",", $prop["clid"]) : $prop["clid"]) : "";
 
 				load_javascript("bsnAutosuggest.js");
 
@@ -102,13 +101,21 @@ class objpicker extends core implements vcl_interface, orb_public_interface
 				}
 				else
 				{
+					$clids = isset($args["clid"]) ? (is_array($args["clid"]) ? implode(",", $args["clid"]) : $args["clid"]) : "";
+
+					if (empty($clids))
+					{
+						throw new awex_vcl_objpicker_arg("Required parameter 'clid' missing.");
+					}
+
 					$class = "objpicker";
 					$method = "get_options";
+					$params = array("clids" => $clids, "id" => $args["object"]->id());
 				}
 
 				//	TODO: There really should be a way to call this statically!
 				$inst = new objpicker();
-				$name_options_url = $inst->mk_my_orb($method, array("clids" => $clids, "id" => $args["object"]->id()), $class);
+				$name_options_url = $inst->mk_my_orb($method, $params, $class);
 				$autocomplete_js = <<<SCRIPT
 <script type="text/javascript">
 // OBJPICKER {$name} ELEMENT AUTOCOMPLETE
@@ -183,7 +190,6 @@ SCRIPT;
 	public function init_vcl_property($args)
 	{
 		$prop = $args["property"];
-
 		$prop["value"] = self::create($prop + array(
 			"object" => $args["obj_inst"],
 			"view" => !empty($args["view"]),
@@ -231,7 +237,7 @@ SCRIPT;
 			$limit = 20;
 			$list = new object_list(array(
 				"class_id" => $clids,
-				"name" => "{$typed_text}%",
+				// "name" => "{$typed_text}%",
 				new obj_predicate_limit($limit)
 			));
 

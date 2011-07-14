@@ -470,7 +470,7 @@ define("IP_DENIED", 2);
 class menu extends class_base implements main_subtemplate_handler
 {
 	var $sel_section = 0; //TODO:scope?
-	
+
 	protected $menu_images_done;
 
 	function menu($args = array())	{
@@ -688,7 +688,6 @@ class menu extends class_base implements main_subtemplate_handler
 				else
 				if ($ob->prop("admin_feature"))
 				{
-					classload("core/icons");
 					$icon = html::img(array(
 						"url" => icons::get_feature_icon_url($ob->prop("admin_feature")),
 					));
@@ -1125,7 +1124,6 @@ class menu extends class_base implements main_subtemplate_handler
 	**/
 	function ajax_menu_images_new_row ($arr)
 	{
-		classload("vcl/table");
 		$t =  new aw_table();
 		$this -> _get_images_table_cols ($t);
 
@@ -1147,12 +1145,11 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function menu_images_get_cnt ($arr)
 	{
-		classload("vcl/table");
 		$t =  new aw_table();
 		$this -> _get_images_table_cols ($t);
 
 		$menu_obj = obj($arr["id"]);
-		$imdata = $menu_obj->meta("menu_images");
+		$imdata = safe_array($menu_obj->meta("menu_images"));
 
 		$i = 0;
 		foreach ($imdata as $img)
@@ -1166,7 +1163,6 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function menu_images_get_imgrels ($arr)
 	{
-		classload("vcl/table");
 		$t =  new aw_table();
 		$this -> _get_images_table_cols ($t);
 
@@ -1190,7 +1186,6 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function menu_images_get ($arr)
 	{
-		classload("vcl/table");
 		$t =  new aw_table();
 		$this -> _get_images_table_cols ($t);
 

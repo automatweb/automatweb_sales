@@ -12,6 +12,8 @@ class crm_company_employees_view extends class_base
 	const REQVAR_EMPLOYMENT_STATUS = "es_s"; // request parameter name for status
 
 	const CLIPBOARD_DATA_VAR = "awcb_organization_structure_selection_clipboard";
+	const CLIPBOARD_FROM_CAT_VAR = "awcb_organization_structure_old_parent_clipboard";
+	const CLIPBOARD_ACTION_VAR = "awcb_organization_structure_clipboard_action";
 	const CUTCOPIED_COLOUR = "silver";
 
 	// these hold items selected in org structure tree
@@ -105,26 +107,10 @@ class crm_company_employees_view extends class_base
 			));
 		}
 
-		// profession add, no specific item selection in tree required
-		$tb->add_menu_item(array(
-			"parent" => "add_item",
-			"text"=> t("Ametikoht"),
-			"link" => $this->mk_my_orb("add_profession", array(
-					"id" => $arr["obj_inst"]->id(),
-					"return_url" => get_ru(),
-					"section" => $parent
-				),
-				"crm_company"
-			)
-		));
-
-		$tb->add_save_button();
-
-/* //TODO: teostus korda teha
 		//  search and add employee from existing persons in database, only when a profession is selected
 		if ($this->selected_object and $this->selected_object->is_a(crm_profession_obj::CLID))
 		{
-			$url = $this->mk_my_orb("do_ajax_search", array(
+			$url = $this->mk_my_orb("do_search", array(
 				"clid" => crm_person_obj::CLID,
 				"pn" => "add_existing_employee_oid"
 			), "popup_search");
@@ -146,7 +132,21 @@ class crm_company_employees_view extends class_base
 				))
 			));
 		}
-*/
+
+		// profession add, no specific item selection in tree required
+		$tb->add_menu_item(array(
+			"parent" => "add_item",
+			"text"=> t("Ametikoht"),
+			"link" => $this->mk_my_orb("add_profession", array(
+					"id" => $arr["obj_inst"]->id(),
+					"return_url" => get_ru(),
+					"section" => $parent
+				),
+				"crm_company"
+			)
+		));
+
+		$tb->add_save_button();
 
 		$tb->add_separator();
 
@@ -575,6 +575,46 @@ class crm_company_employees_view extends class_base
 	}
 
 
+	public function _set_add_existing_employee_oid($arr)
+	{
+		$r = class_base::PROP_IGNORE;
+
+		if (empty($arr["prop"]["value"]) or empty($arr["request"][self::REQVAR_NODE]))
+		{
+			// nothing requested
+			return $r;
+		}
+
+		// load person and profession objects
+		try
+		{
+			$employee = obj($arr["prop"]["value"], array(), crm_person_obj::CLID);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("T&ouml;&ouml;taja pole loetav"));
+			return $r;
+		}
+
+		try
+		{
+			$profession = obj($arr["request"][self::REQVAR_NODE], array(), crm_profession_obj::CLID);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Amet pole loetav"));
+			return $r;
+		}
+
+		// popup search found id, parent is set
+		$employer = $arr["obj_inst"];
+
+		// add employee to this company
+		$employer->add_employee($profession, $employee);
+
+		return $r;
+	}
+
 	public function _set_organizational_units_table(&$arr)
 	{
 		$r = class_base::PROP_OK;
@@ -777,27 +817,53 @@ class crm_company_employees_view extends class_base
 	/**
 		@attrib name=cut
 		@param check required type=array
+		@param es_c required type=oid acl=view
 		@param post_ru required type=string
 	**/
-	public static function cut($arr)
+	public function cut($arr)
 	{
 		aw_session::set(self::CLIPBOARD_DATA_VAR, $arr["check"]);
+		aw_session::set(self::CLIPBOARD_FROM_CAT_VAR, $arr["es_c"]);
+		aw_session::set(self::CLIPBOARD_ACTION_VAR, "cut");
 		return $arr["post_ru"];
 	}
 
 	/**
 		@attrib name=paste
 		@param id required type=oid acl=view
+		@param es_c required type=oid acl=view
 		@param post_ru required type=string
 	**/
-	public static function paste($arr)
+	public function paste($arr)
 	{
-		$clipboard = aw_session::get(self::CLIPBOARD_DATA_VAR);
+		$r = $arr["post_ru"];
+
+		try
+		{
+			$employer = obj($arr["id"], array(), crm_company_obj::CLID); // id parameter is pre-checked by orb
+		}
+		catch (awex_obj $e)
+		{
+			$this->show_error_text(t("Viga organisatsiooniobjekti laadimisel."));
+			return $r;
+		}
 
 		// find old and new parent objects (from where and to where to paste)
-
+		try
+		{
+			$old_parent = new object(aw_session::get(self::CLIPBOARD_FROM_CAT_VAR));
+			$new_parent = new object($arr["es_c"]);
+		}
+		catch (awex_obj $e)
+		{
+			$this->show_error_text(t("Viga kleepimiskoha objekti laadimisel."));
+			return $r;
+		}
 
 		// process cut/copied objects
+		$clipboard = aw_session::get(self::CLIPBOARD_DATA_VAR);
+		$errors = $paste_errors = $load_errors = array();
+
 		foreach ($clipboard as $oid)
 		{
 			try
@@ -806,19 +872,98 @@ class crm_company_employees_view extends class_base
 
 				if ($o->is_a(crm_person_obj::CLID))
 				{
+					if (!$old_parent->is_a(crm_profession_obj::CLID))
+					{ // unknown error source
+						$errors[t("T&ouml;&ouml;taja varasem amet pole loetav")] = "";
+					}
+					elseif (!$new_parent->is_a(crm_profession_obj::CLID))
+					{ // trying to paste not under a profession
+						$errors[t("T&ouml;&ouml;tajat saab kleepida vaid ameti valiku all")] = "";
+					}
+					else
+					{ // all parameters correct
+						// end active work rel(s). in profession where cut action requested
+						$old_rels = crm_person_work_relation_obj::find($o, $old_parent, $employer);
+						if($old_rels->count())
+						{
+							$old_work_relation = $old_rels->begin();
+
+							do
+							{
+								$employer->finish_work_relation($old_work_relation);
+							}
+							while ($old_work_relation = $old_rels->next());
+						}
+
+						// create new work rel.
+						$employer->add_employee($new_parent, $o);
+					}
 				}
 				elseif ($o->is_a(crm_section_obj::CLID))
 				{
+					// check parent -- is org or section
+					if (!$new_parent->is_a(crm_section_obj::CLID) and !$new_parent->is_a(crm_company_obj::CLID))
+					{ // trying to paste under a profession
+						$errors[t("&Uuml;ksust saab kleepida vaid teise &uuml;ksuse v&otilde;i organisatsiooni alla")] = "";
+					}
+					else
+					{
+						// set new parent
+						$new_parent_oid = $new_parent->is_a(crm_company_obj::CLID) ? 0 : $new_parent->id();
+						$o->set_prop("parent_section", $new_parent_oid);
+						$o->save();
+					}
 				}
 				elseif ($o->is_a(crm_profession_obj::CLID))
 				{
+					// check parent -- is org or section
+					if (!$new_parent->is_a(crm_section_obj::CLID) and !$new_parent->is_a(crm_company_obj::CLID))
+					{ // trying to paste under a profession
+						$errors[t("Ametit saab kleepida vaid &uuml;ksuse v&otilde;i organisatsiooni alla")] = "";
+					}
+					else
+					{
+						// set new parent
+						$new_parent_oid = $new_parent->is_a(crm_company_obj::CLID) ? 0 : $new_parent->id();
+						$o->set_prop("parent_section", $new_parent_oid);
+						$o->save();
+					}
 				}
+			}
+			catch (awex_obj $e)
+			{
+				$load_errors[] = $oid;
 			}
 			catch (Exception $e)
 			{
+				$paste_errors[] = $oid;
 			}
 		}
-		arr($arr);exit;
-		return $arr["post_ru"];
+
+		if ($load_errors)
+		{
+			$this->show_error_text(sprintf(t("Viga kleebitava(te) objekti(de) (%s) laadimisel"), implode(", ", $load_errors)));
+		}
+
+		if ($paste_errors)
+		{
+			$this->show_error_text(sprintf(t("Viga objekti(de) (%s) kleepimisel"), implode(", ", $paste_errors)));
+		}
+
+		if ($errors)
+		{
+			foreach ($errors as $message => $null)
+			{
+				$this->show_error_text($message);
+			}
+		}
+
+		// clear clipboard
+		aw_session::del(self::CLIPBOARD_DATA_VAR);
+		aw_session::del(self::CLIPBOARD_FROM_CAT_VAR);
+		aw_session::del(self::CLIPBOARD_ACTION_VAR);
+
+		// exit
+		return $r;
 	}
 }

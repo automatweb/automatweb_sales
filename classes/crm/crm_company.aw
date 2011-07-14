@@ -4647,7 +4647,9 @@ class crm_company extends class_base
 	{
 		if (isset($arr["group"]) and ("employees_management" === $arr["group"] or "employees" === $arr["group"]))
 		{
-			$r = crm_company_employees_view::cut($arr);
+			$employees_view = new crm_company_employees_view();
+			$employees_view->set_request($this->req);
+			$r = $employees_view->cut($arr);
 		}
 		else
 		{
@@ -4666,7 +4668,9 @@ class crm_company extends class_base
 	{
 		if (isset($arr["group"]) and ("employees_management" === $arr["group"] or "employees" === $arr["group"]))
 		{
-			$r = crm_company_employees_view::paste($arr);
+			$employees_view = new crm_company_employees_view();
+			$employees_view->set_request($this->req);
+			$r = $employees_view->paste($arr);
 		}
 		else
 		{
@@ -9702,7 +9706,10 @@ Bank accounts: yksteise all
 
 		try
 		{
-			$customer_relation = $this_o->create_customer_relation($type, $customer);
+			if (!($customer_relation = $this_o->get_customer_relation($type, $customer)))
+			{
+				$customer_relation = $this_o->create_customer_relation($type, $customer);
+			}
 
 			// set category if specified
 			if (!empty($arr["s"]))

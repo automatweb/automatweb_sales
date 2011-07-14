@@ -394,7 +394,7 @@ class crm_bill extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "crm/crm_bill",
-			"clid" => CL_CRM_BILL
+			"clid" => crm_bill_obj::CLID
 		));
 
 		$this->states = crm_bill_obj::status_names();
@@ -809,7 +809,7 @@ class crm_bill extends class_base
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"tooltip" => t("Uus"),
-			"img" => "new.gif"
+			"icon" => "add"
 		));
 		$tb->add_menu_item(array(
 			"parent" => "new",
@@ -849,7 +849,7 @@ class crm_bill extends class_base
 */
 		$tb->add_button(array(
 			"name" => "delete",
-			"img" => "delete.gif",
+			"icon" => "delete",
 			"tooltip" => t("Kustuta read"),
 			"confirm" => t("Oled kindel et soovid read kustutada?"),
 			"action" => "delete_rows"
@@ -873,7 +873,7 @@ class crm_bill extends class_base
 
 		$tb->add_button(array(
 			"name" => "form_new_bill",
-			"img" => "cut.gif",
+			"icon" => "cut",
 			"tooltip" => t("Loo valitud ridadest uus arve"),
 			"confirm" => t("Oled kindel et kanda valitud read uuele arvele?"),
 			"action" => "form_new_bill"
@@ -881,8 +881,8 @@ class crm_bill extends class_base
 
 		$tb->add_menu_button(array(
 			"name" => "bill_dno",
-			"img" => "copy.gif",
-			"tooltip" => t("Kanna arve read saatelehele"),
+			"icon" => "copy",
+			"tooltip" => t("Kanna arve read saatelehele")
 		));
 
 		foreach($arr["obj_inst"]->connections_from(array(
@@ -991,7 +991,7 @@ class crm_bill extends class_base
 
 		$t->add_button(array(
 			"name" => "save",
-			"img" => "save.gif",
+			"icon" => "disk",
 			"tooltip" => t("Salvesta muudatused ajutiselt"),
 			"action" => "submit"
 		));
@@ -1710,6 +1710,7 @@ class crm_bill extends class_base
 		{
 			$b = obj($b);
 		}
+
 		if($b->prop("customer_name"))
 		{
 			return $b->prop("customer_name");
@@ -1812,7 +1813,7 @@ class crm_bill extends class_base
 		return str_replace(",", ".", $a);
 	}
 
-	function _get_writeoffs(&$arr)
+	function _get_writeoffs($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_bill_rows_t($t);
@@ -1904,7 +1905,7 @@ class crm_bill extends class_base
 		return $phone;
 	}
 
-	function _get_dn_tbl(&$arr)
+	function _get_dn_tbl($arr)
 	{
 		if($arr["new"])
 		{
@@ -3256,7 +3257,11 @@ class crm_bill extends class_base
 				$new_line = 1;
 				foreach($new_rows as $n_key => $new_row)
 				{
-					if($new_row["price"] == $row["price"] && ($new_row["comment"] == $row["comment"] || !$row["comment"])&& ($key == $new_row["key"]))
+					if(
+						// $new_row["price"] == $row["price"] && // combine only if same price
+						($new_row["comment"] == $row["comment"] || !$row["comment"]) && // combine only if same comment?
+						($key == $new_row["key"]) //?
+					)
 					{
 						$new_rows[$n_key]["sum_wo_tax"] = $new_rows[$n_key]["sum_wo_tax"] + $row["sum_wo_tax"];
 						$new_rows[$n_key]["tax"] = $new_rows[$n_key]["tax"] + $row["tax"];
@@ -3388,7 +3393,7 @@ class crm_bill extends class_base
 	function show($arr)//kui igav hakkab, siis selle funktsiooni peaks nullist kirjutama
 	{
 		$this->bill = obj($arr["id"]);
-		$stats = get_instance("applications/crm/crm_company_stats_impl");
+		$stats = new crm_company_stats_impl();
 		$currency = $this->bill->get_bill_currency_id();
 		$tpl_suffix = $this->bill->prop("state") == crm_bill_obj::STATUS_OFFER ? "_offer" : "";
 
@@ -3693,7 +3698,7 @@ class crm_bill extends class_base
 //				}
 				$this->vars(array(
 					"unit" => $this->bill->get_unit_name($grp_row["unit"]),
-					"amt" => $stats->hours_format($grp_row["tot_amt"]),
+					"amt" => $stats->hours_format($grp_row["tot_amt"]),//TODO: miks sealt kysitakse?
 					"price" => number_format($grp_row["tot_amt"] ? ($grp_row["tot_cur_sum"] / $grp_row["tot_amt"]) : 0,2,".", " "),
 					"sum" => number_format($grp_row["tot_cur_sum"], 2, ".", " "),
 					"row_tax" => number_format($grp_row["tax"], 2, ".", " "),
@@ -3702,7 +3707,6 @@ class crm_bill extends class_base
 					"row_orderer" => $grp_row["orderer"]
 				));
 				$rs[] = array("str" => $this->parse("ROW"), "date" => $grp_row["date"] , "jrk" => $grp_row["jrk"] , "id" => $grp_row["id"],);
-
 			}
 		}
 
@@ -4131,6 +4135,8 @@ class crm_bill extends class_base
  	//k6ikidele muutujatele HAS_ sub
 		foreach($this->vars as $var => $value)
 		{
+			if ("bill_appendix_comment" === $var) $var = "comment";
+
 			if(!empty($value) && $this->is_template("HAS_".strtoupper($var)))
 			{
 				$this->vars(array("HAS_".strtoupper($var) => $this->parse("HAS_".strtoupper($var))));
@@ -4138,12 +4144,12 @@ class crm_bill extends class_base
 		}
 		$res =  $this->parse();
 
-		if (!empty($_GET["openprintdialog"]))
+		if ($this->req and $this->req->arg("openprintdialog"))
 		{
 			$res .= "<script language='javascript'>setTimeout('window.close()',10000);window.print();window.close();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.close(); }</script>";
 		}
 
-		if (!empty($_GET["openprintdialog_b"]))
+		if ($this->req and $this->req->arg("openprintdialog_b"))
 		{
 			$url = aw_url_change_var("group", "preview", aw_url_change_var("openprintdialog", 1));
 			$res .= "<script language='javascript'>setTimeout('window.location.href=\"$url\"',10000);window.print();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.location.href='$url'; }</script>";

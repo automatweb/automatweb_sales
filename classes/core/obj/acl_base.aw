@@ -4,8 +4,6 @@
 HANDLE_MESSAGE(MSG_USER_LOGIN, on_user_login)
 */
 
-lc_load("definition");
-
 class acl_base extends db_connector
 {
 	private $acl_ids = array();

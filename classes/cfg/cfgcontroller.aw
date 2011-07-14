@@ -45,19 +45,7 @@ class cfgcontroller extends class_base
 		);
 	}
 
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
+	function set_property($arr)
 	{
 		$data = &$arr["prop"];
 		$retval = PROP_OK;
@@ -74,7 +62,7 @@ class cfgcontroller extends class_base
 	{
 		$trc = aw_ini_get("user_interface.trans_classes");
 
-		if ($arr["id"] == "transl" && (aw_ini_get("user_interface.content_trans") != 1 && !$trc[$this->clid]))
+		if ($arr["id"] === "transl" && (aw_ini_get("user_interface.content_trans") != 1 && empty($trc[$this->clid])))
 		{
 			return false;
 		}
@@ -129,7 +117,7 @@ class cfgcontroller extends class_base
 		{
 			return;
 		}
-		$controller_inst = &obj($controller_oid);
+		$controller_inst = obj($controller_oid);
 		eval($controller_inst->trans_get_val("formula"));
 		return $retval;
 	}

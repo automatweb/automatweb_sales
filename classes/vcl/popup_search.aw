@@ -1074,6 +1074,7 @@ function aw_get_el(name,form)
 	**/
 	function do_ajax_search($arr)
 	{
+		$_GET["in_popup"] = 1;
 		$form_html = $this->_get_search_form($arr);
 		$arr["return"] = 1;
 		$res_html = html::div(array("id" => "result" , "content" => $this->get_search_results($arr)));

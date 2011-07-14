@@ -1363,7 +1363,7 @@ class _int_object
 		// if this is a relpicker property, create the relation as well
 		$propi = $GLOBALS["properties"][$this->obj["class_id"]][$key];
 		if (($propi["type"] === "relpicker" ) ||
-			($propi["type"] === "releditor" && ($propi["store"] === "connect" || $propi["choose_default"] == 1)) ||
+			($propi["type"] === "releditor" && ($propi["store"] === "connect" || isset($propi["choose_default"]) && $propi["choose_default"] == 1)) ||
 			 $propi["type"] === "relmanager" ||
 			($propi["type"] === "classificator" && $propi["store"] === "connect") ||
 			($propi["type"] === "popup_search" && $propi["reltype"] != "") ||

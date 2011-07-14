@@ -2443,6 +2443,9 @@ class awex_obj_na extends awex_obj
 /** Generic property exception **/
 class awex_obj_prop extends awex_obj {}
 
+/** Generic object method parameter exception **/
+class awex_obj_param extends awex_obj {}
+
 /** Parent-not-set exception **/
 class awex_obj_parent extends awex_obj {}
 
