@@ -70,6 +70,18 @@
 
 class shop_order_cart extends class_base
 {
+	public $orderer_vars;
+	protected $oc;
+	protected $cart;
+	protected $cart_sum;
+	protected $products;
+	protected $categories;
+	protected $confirm_carts;
+	protected $product_count;
+	protected $delivery_sum;
+	protected $total_sum;
+	protected $orderer_vars_meta;
+
 	function shop_order_cart()
 	{
 		$this->init(array(

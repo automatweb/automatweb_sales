@@ -293,7 +293,7 @@ class user_obj extends _int_object
 		Use also non alphanumeric characters
 
 	**/
-	function generate_password($lenght = 8, $use_symbols = false)
+	public static function generate_password($lenght = 8, $use_symbols = false)
 	{
 		$chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxy";
 

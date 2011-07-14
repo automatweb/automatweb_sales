@@ -501,7 +501,7 @@ class doc_display extends aw_template
 			$lead = preg_replace("/#p(\d+?)(v|k|p|)#/i","",$lead);
 		}
 
-		if ($sps["lead"])
+		if (!empty($sps["lead"]))
 		{
 			$lead = $sps["lead"];
 		}
