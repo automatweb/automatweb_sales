@@ -9706,7 +9706,10 @@ Bank accounts: yksteise all
 
 		try
 		{
-			$customer_relation = $this_o->create_customer_relation($type, $customer);
+			if (!($customer_relation = $this_o->get_customer_relation($type, $customer)))
+			{
+				$customer_relation = $this_o->create_customer_relation($type, $customer);
+			}
 
 			// set category if specified
 			if (!empty($arr["s"]))
