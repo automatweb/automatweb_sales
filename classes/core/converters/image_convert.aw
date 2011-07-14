@@ -461,6 +461,7 @@ class _int_image_convert_driver_gd extends aw_template
 	var $image;
 	var $ref;
 	var $error;
+	var $is_error = false;
 
 	function _int_image_convert_driver_gd()
 	{

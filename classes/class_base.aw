@@ -195,8 +195,9 @@ class class_base extends aw_template implements orb_public_interface
 		{
 			$ca = isset($arr["constructor_args"]) ? $arr["constructor_args"] : array();
 			$this->obj_inst = obj(null, $ca, $clid);
-			$this->awcb_data_sources["id"] = $this->obj_inst;
 		}
+
+		$this->awcb_data_sources["id"] = $this->obj_inst;
 
 		$this->use_mode = "new";
 		$this->parent = $arr["parent"];
@@ -2753,7 +2754,7 @@ class class_base extends aw_template implements orb_public_interface
 			unset($val);
 		}
 		// XXX: move get_html calls out of here, they really do not belong
-		elseif (($val["type"] === "toolbar") && is_object($val["vcl_inst"]))
+		elseif (($val["type"] === "toolbar") && isset($val["vcl_inst"]) && is_object($val["vcl_inst"]))
 		{
 			$val["value"] = $val["vcl_inst"]->get_toolbar();
 		}
@@ -3124,10 +3125,11 @@ class class_base extends aw_template implements orb_public_interface
 			{
 				continue;
 			}
+
 			if (!empty($val["editonly"]) && empty($this->id))
 			{
 				continue;
-			};
+			}
 
 			if ( isset($val["newonly"]) && !empty($this->id))
 			{
@@ -3238,6 +3240,7 @@ class class_base extends aw_template implements orb_public_interface
 				$has_rte = true;
 			};
 		}
+
 		if ($this->classinfo(array("name" => "allow_rte")) < 1)
 		{
 			$has_rte = false;
@@ -3395,11 +3398,6 @@ class class_base extends aw_template implements orb_public_interface
 
 			$val["_parsed"] = 1;
 
-			if ($this->cfg_debug && $status != PROP_OK)
-			{
-				print "status is " . $status . " for " . $val["name"] . "<br>";
-			}
-
 			if ($status === PROP_IGNORE)
 			{
 				// do nothing
@@ -3451,9 +3449,9 @@ class class_base extends aw_template implements orb_public_interface
 
 								$resprops[$rkey]["capt_ord"] = isset($val["capt_ord"]) ? $val["capt_ord"] : 0;
 								$resprops[$rkey]["wf_capt_ord"] = isset($val["wf_capt_ord"]) ? $val["wf_capt_ord"] : 0;
-							};
-						};
-					};
+							}
+						}
+					}
 					continue;
 				}
 
@@ -3549,7 +3547,7 @@ class class_base extends aw_template implements orb_public_interface
 						{
 							// disable all other buttons besides the general when
 							// adding a new object
-							if ($this->use_mode == "new" && $grp_id != $this->active_group)
+							if ($this->use_mode === "new" && $grp_id !== $this->active_group)
 							{
 								continue;
 							};
@@ -3594,17 +3592,17 @@ class class_base extends aw_template implements orb_public_interface
 					{
 						if($this->classinfo(array("name" => "allow_rte")) == 2)
 						{
-							$rte = get_instance("vcl/fck_editor");
+							$rte = new fck_editor();
 							$rte->get_rte_toolbar(array(
-								"toolbar" => &$val["vcl_inst"],
+								"toolbar" => $val["vcl_inst"],
 								"no_rte" => $this->no_rte,
 							));
 						}
 						else
 						{
-							$rte = get_instance("vcl/rte");
+							$rte = new rte();
 							$rte->get_rte_toolbar(array(
-								"toolbar" => &$val["vcl_inst"],
+								"toolbar" => $val["vcl_inst"],
 								"target" => $this->layout_mode === "fixed_toolbar" ? "contentarea" : "",
 								"no_rte" => $this->no_rte,
 							));
@@ -3620,9 +3618,9 @@ class class_base extends aw_template implements orb_public_interface
 					{
 						$this->convert_element($item);
 						$tmp[] = $item;
-					};
+					}
 					$val["items"] = $tmp;
-				};
+				}
 
 				$this->convert_element($val);
 
@@ -3672,8 +3670,8 @@ class class_base extends aw_template implements orb_public_interface
 					if (!empty($el["parent"]))
 					{
 						$el["parent"] = $args["name_prefix"] . "_" . $el["parent"];
-					};
-				};
+					}
+				}
 				$newname_index[$el["name"]] = $newname;
 				$el["name"] = $newname;
 				// just to get an hopefully unique name ..
@@ -4065,7 +4063,7 @@ class class_base extends aw_template implements orb_public_interface
 
 			if (isset($args["rawdata"]["lang_id"]))
 			{
-				$lg = get_instance("languages");
+				$lg = new languages();
 				$o->set_lang($lg->get_langid($args["rawdata"]["lang_id"]));
 			}
 
@@ -4076,6 +4074,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		// the question is .. should I call set_property for those too?
 		// and how do I load the stuff with defaults?
+///////FIXME: kasutada load_storage_object() ja init_storage_object() !!!
 		if (!$new)
 		{
 			$this->obj_inst = new object($this->id);
@@ -4084,6 +4083,8 @@ class class_base extends aw_template implements orb_public_interface
 		{
 			$this->obj_inst = $o;
 		}
+
+		$this->awcb_data_sources["id"] = $this->obj_inst;
 
 		if (isset($args["_object_type"]) and $this->can("view", $args["_object_type"]))
 		{//XXX: kahtlane! cfgform salvestati ka metasse, pole hea
@@ -4574,7 +4575,6 @@ class class_base extends aw_template implements orb_public_interface
 		{
 			$this->obj_inst->set_status(STAT_ACTIVE);
 		}
-
 
 		foreach ($this->awcb_data_sources as $ds_id => $ds_obj)
 		{

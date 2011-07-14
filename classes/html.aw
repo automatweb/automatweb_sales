@@ -477,7 +477,7 @@ class html
 		{
 			if($rte_type == 2)
 			{
-				$retval .= "<textarea id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$textsize}{$onkeyup}{$onchange}>{$value}</textarea>\n";
+				$retval = "<textarea id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$textsize}{$onkeyup}{$onchange}>{$value}</textarea>\n";
 			}
 			elseif($rte_type == 3)
 			{

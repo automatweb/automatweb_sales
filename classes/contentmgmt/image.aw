@@ -153,7 +153,7 @@ class image extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "automatweb/images",
-			"clid" => CL_IMAGE,
+			"clid" => CL_IMAGE
 		));
 
 		$this->trans_props = array(
@@ -877,7 +877,7 @@ class image extends class_base
 		extract($arr);
 		$rootdir = aw_ini_get("site_basedir");
 		$f1 = substr($file,0,1);
-		$fname = $rootdir . "/img/$f1/" . $file;
+		$fname = $rootdir . "img/$f1/" . $file;
 		if ($file)
 		{
 			if (strpos("/",$file) !== false)
@@ -1863,7 +1863,8 @@ class image extends class_base
 				'comments'=> $out,
 			));
 		}
-		if ($this->is_template("NEXT_LINK") && $this->can("view", $arr["minigal"]))
+
+		if ($this->is_template("NEXT_LINK") && !empty($arr["minigal"]) && $this->can("view", $arr["minigal"]))
 		{
 			$set_next = null;
 			$mg = get_instance(CL_MINI_GALLERY);
@@ -2527,7 +2528,7 @@ class image extends class_base
 			$sufix = "\n";
 		}
 		$out = "";
-		$alp = get_instance("alias_parser");
+		$alp = new alias_parser();
 		$alias_list = $alp->get_alias_list_for_obj_as_aliasnames($arr["doc_id"]);
 		$out = 'connection_details_for_doc = new Array();'.$sufix;
 		foreach($alias_list as $obj_id => $alias_string)
