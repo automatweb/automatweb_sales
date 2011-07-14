@@ -1518,7 +1518,7 @@ EOF;
 		@returns
 		Current user object id
 	**/
-	function get_current_user()
+	public static function get_current_user()
 	{
 		return aw_global_get("uid_oid");
 	}
@@ -2490,4 +2490,3 @@ EOF;
 		return get_instance("user_obj")->is_group_member($user, $group);
 	}
 }
-

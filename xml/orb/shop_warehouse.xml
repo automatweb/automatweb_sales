@@ -230,5 +230,23 @@
 			</function>
 		</action>
 
+		<action name="get_product_management_tree_nodes" params="pos">
+			<function name="get_product_management_tree_nodes">
+				<arguments>
+					<required name="id" />
+					<optional name="node" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_product_management_category_tree_nodes" params="pos">
+			<function name="get_product_management_category_tree_nodes">
+				<arguments>
+					<required name="id" />
+					<optional name="node" />
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>
