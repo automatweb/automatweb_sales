@@ -16,7 +16,7 @@ class crm_sales_telemarketing_statistics_view
 	public static function _get_tmstat_display_table(&$arr)
 	{
 		// initialize settings and helpers
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 		$this_o = $arr["obj_inst"];
 		$table = $arr["prop"]["vcl_inst"];
 		$table->set_layout("compact");
@@ -30,12 +30,27 @@ class crm_sales_telemarketing_statistics_view
 		self::set_view_parameters_and_defaults($arr);
 		self::define_tmstat_display_table_layout($arr);
 
-		// get telemarketing employees
-		$profession = new object($crm_sales_application->prop("role_profession_telemarketing_salesman"));
-		$employees = $profession->get_workers(null, false);
 
-		$profession = new object($crm_sales_application->prop("role_profession_telemarketing_manager"));
-		$employees->add($profession->get_workers(null, false));
+		// get telemarketing employees
+		$employees = new object_list();
+		try
+		{
+			$profession = obj($crm_sales_application->prop("role_profession_telemarketing_salesman"), array(), crm_profession_obj::CLID);
+			if ($profession->is_saved())
+			{
+				$employees = $owner->get_employees("active", $profession);
+			}
+
+			$profession = obj($crm_sales_application->prop("role_profession_telemarketing_manager"), array(), crm_profession_obj::CLID);
+			if ($profession->is_saved())
+			{
+				$employees->add($owner->get_employees("active", $profession));
+			}
+		}
+		catch (awex_obj_na $e)
+		{
+			class_base::show_error_text(t("Rollile valitud ametit ei eksisteeri."));
+		}
 
 		// a summary row block for each employee
 		if($employees->count())
@@ -47,6 +62,10 @@ class crm_sales_telemarketing_statistics_view
 				self::build_employee_month_stats($arr, $tm_employee);
 			}
 			while ($tm_employee = $employees->next());
+		}
+		else
+		{
+			class_base::show_msg_text(t("Telemarketingi rollides t&ouml;&ouml;tajaid pole."));
 		}
 
 		// a totals row block
@@ -402,7 +421,7 @@ class crm_sales_telemarketing_statistics_view
 
 	public static function _get_tmstat_y(&$arr)
 	{
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 		$this_o = $arr["obj_inst"];
 		$arr["prop"]["value"] = empty($arr["request"]["tmstat_y"]) ? date("Y") : $arr["request"]["tmstat_y"];
 		$range = range(2009, date("Y"));
@@ -412,7 +431,7 @@ class crm_sales_telemarketing_statistics_view
 
 	public static function _get_tmstat_m(&$arr)
 	{
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 		$this_o = $arr["obj_inst"];
 		$arr["prop"]["value"] = empty($arr["request"]["tmstat_m"]) ? date("n") : $arr["request"]["tmstat_m"];
 		$range = range(1, 12);
