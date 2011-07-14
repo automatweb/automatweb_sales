@@ -61,7 +61,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		$action = ($action) ? $action : $orb_defs[$class]["default"];
 		if (!isset($action))
 		{
-			$this->raise_error("ERR_ORB_AUNDEF", E_ORB_ACTION_UNDEF, true, false);
+			throw new awex_orb_action("Action not defined");
 		}
 
 		$vars = $args["vars"];
@@ -137,7 +137,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		// still not found?
 		if (!$found)
 		{
-			$this->raise_error("ERR_ORB_CAUNDEF",sprintf(E_ORB_CLASS_ACTION_UNDEF,$action,$class), true, false);
+			throw new awex_orb_action("Class '{$class}' action '{$action}' not defined");
 		}
 
 		// check acl
@@ -150,7 +150,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			$fname = $fun["function"];
 			if (!method_exists($t,$fname))
 			{
-				$this->raise_error("ERR_ORB_MNOTFOUND",sprintf(E_ORB_METHOD_NOT_FOUND,$action,$class),true, false);
+				throw new awex_orb_method("RefORB method '{$fname}' for action '{$action}' in class '{$class}' not found.");
 			}
 
 			if (isset($orb_defs[$class][$action]["xmlrpc"]) and $orb_defs[$class][$action]["xmlrpc"] == 1)
@@ -187,7 +187,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			{
 				if (!isset($_params[$key]))
 				{
-					$this->raise_error("ERR_ORB_CPARM",sprintf(E_ORB_CLASS_PARM,$key,$action,$class),true, false);
+					throw new awex_orb_param("Required parameter '{$key}' for action '{$action}' in class '{$class}' not specified.");
 				}
 			}
 
@@ -216,8 +216,8 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			{
 				if (!isset($vars[$key]))
 				{
-					$this->raise_error("ERR_ORB_CPARM",sprintf(E_ORB_CLASS_PARM,$key,$action,$class),true, false);
-				};
+					throw new awex_orb_param("Required parameter '{$key}' for action '{$action}' in class '{$class}' not given.");
+				}
 
 				$this->validate_value(array(
 					"type" => isset($orb_defs[$class][$action]["types"][$key]) ? $orb_defs[$class][$action]["types"][$key] : null,
@@ -295,7 +295,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 			if (!method_exists($t,$fname))
 			{
-				$this->raise_error("ERR_ORB_MNOTFOUND",sprintf(E_ORB_METHOD_NOT_FOUND,$action,$class), true, false);
+				throw new awex_orb_method("Method '{$fname}' for action '{$action}' in class '{$class}' not found.");
 			}
 			// this is perhaps the single most important place in the code ;)
 			$content = $t->$fname($params);
@@ -329,7 +329,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 			if (!is_numeric($args["value"]))
 			{
-				$this->raise_error("ERR_ORB_NINT",sprintf(E_ORB_NOT_INTEGER,$args["name"]),true,$this->silent);
+				throw new awex_orb_param("Parameter '{$args["name"]}' value of wrong type.");
 			}
 		}
 	}
@@ -640,13 +640,13 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 		if (!isset($class))
 		{
-			$this->raise_error("ERR_ORB_NOCLASS",E_ORB_CLASS_UNDEF,true,$this->silent);
+			throw new awex_orb_class("No class specified");
 		}
 
 		if (!isset($action))
 		{
 			$this->raise_error("ERR_ORB_AUNDEF",E_ORB_ACTION_UNDEF,true,$this->silent);
-		};
+		}
 
 		// get orb defs for the class
 
@@ -707,7 +707,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 					if (!isset($params[$key]))
 					{
 						$this->raise_error("ERR_ORB_CPARM",sprintf(E_ORB_CLASS_PARM,$key,$action,$class),true,$this->silent);
-					};
+					}
 
 					$vartype = $orb_defs[$class][$action]["types"][$key];
 					if ($vartype == "int")
@@ -732,7 +732,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 						if ( ($vartype == "int") && ($params[$key] != sprintf("%d",$vars[$key])) )
 						{
 							$this->raise_error("ERR_ORB_NINT",sprintf(E_ORB_NOT_INTEGER,$key),true,$this->silent);
-						};
+						}
 						$ret[$key] = $params[$key];
 					}
 					else
@@ -923,7 +923,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 	function get_methods_by_flag($args = array())
 	{
 		extract($args);
-		$orbclass = get_instance("core/orb/orb");
+		$orbclass = get_instance("core/orb/orb");//XXX: milleks iseenda instance?
 		$orb_defs = $orbclass->load_xml_orb_def($id);
 		$methods = array();
 		foreach(safe_array($orb_defs[$id]) as $key => $val)
@@ -933,7 +933,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 				$caption = isset($val["caption"]) ? $val["caption"] : $val["function"];
 				$methods[(($no_id) ? "" : ($id . "/")) . $key] = $name . " / " . $caption;
 			}
-		};
+		}
 
 		return $methods;
 	}
@@ -952,16 +952,20 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		do
 		{
 			$orb_defs = $this->load_xml_orb_def($cur_class);
-			foreach(safe_array($orb_defs[$cur_class]) as $key => $val)
+
+			if (isset($orb_defs[$cur_class]))
 			{
-				if ($key === "_extends" || $key === "___folder")
+				foreach(safe_array($orb_defs[$cur_class]) as $key => $val)
 				{
-					continue;
+					if ($key === "_extends" || $key === "___folder")
+					{
+						continue;
+					}
+					$methods[$key] = $val["function"];
 				}
-				$methods[$key] = $val["function"];
-			};
+			}
 		}
-		while(($cur_class = $orb_defs[$cur_class]["_extends"][0]) != "");
+		while(isset($orb_defs[$cur_class]["_extends"][0]) and ($cur_class = $orb_defs[$cur_class]["_extends"][0]));
 
 		return $methods;
 	}
@@ -1249,4 +1253,10 @@ class awex_orb_class extends awex_orb {}
 
 /** ORB method related exception **/
 class awex_orb_method extends awex_orb {}
+
+/** ORB action related exception **/
+class awex_orb_action extends awex_orb {}
+
+/** ORB parameter related exception **/
+class awex_orb_param extends awex_orb {}
 
