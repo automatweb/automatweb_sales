@@ -50,10 +50,10 @@ PROPERTY DECLARATIONS
 
 @default group=general_general
 
-	@property name type=textbox
+	@property name type=textbox editonly=1
 	@caption Nimi
 
-	@property comment type=textbox
+	@property comment type=textbox editonly=1
 	@caption Kommentaar
 
 @default field=meta
@@ -521,7 +521,7 @@ PROPERTY DECLARATIONS
 	@property contact_entry_lead_source type=textbox store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form
 	@caption Soovitaja
 
-	@property contact_entry_category type=relpicker size=5 multiple=1 store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form reltype=RELTYPE_TMP4
+	@property contact_entry_category type=relpicker size=5 multiple=1 store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form reltype=RELTYPE_TMP4 no_edit=1 no_search=1
 	@caption Kliendigrupp
 
 
@@ -529,7 +529,9 @@ PROPERTY DECLARATIONS
 @default group=data_entry_multiple
 	@layout multientry_container type=vbox
 		@property multientry_toolbar type=toolbar store=no no_caption=1
-		@property multientry_input_table type=table store=no no_caption=1
+		// @property multientry_input_table type=table store=no no_caption=1
+		@layout multientry_rows_container type=vbox parent=multientry_container  area_caption=Klientide&nbsp;andmed
+			@embed multientry_input clid=CL_CRM_SALES_CUSTOMER_ENTRY_ROW_IF group=general no_caption=1 parent=multientry_rows_container
 
 		@layout multientry_last_entries_container type=vbox parent=multientry_container closeable=1 area_caption=Viimati&nbsp;sisestatud default_state=closed
 			@property multientry_last_entries_table type=table store=no no_caption=1 parent=multientry_last_entries_container
@@ -1777,7 +1779,7 @@ SCRIPT;
 		}
 
 		ob_start("ob_gzhandler");
-		header("Content-Type: application/json");
+		// header("Content-Type: application/json");
 		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
 		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
@@ -1878,36 +1880,36 @@ SCRIPT;
 	{
 		$types_data = array(
 			"co_name" => array(
-				"prop" => "buyer(CL_CRM_COMPANY).name",
-				"info_prop1" => "buyer.name",
-				"info_prop2" => "buyer.RELTYPE_ADDRESS.name"
+				"class_id" => crm_company_obj::CLID,
+				"prop" => "name",
+				"info_prop1" => "name",
+				"info_prop2" => "RELTYPE_ADDRESS.name"
 			),
 			"p_name" => array(
-				"prop" => "buyer(CL_CRM_PERSON).lastname",
-				"info_prop1" => "buyer.name",
-				"info_prop2" => "buyer.RELTYPE_ADDRESS.name"
+				"class_id" => crm_person_obj::CLID,
+				"prop" => "lastname",
+				"info_prop1" => "name",
+				"info_prop2" => "RELTYPE_ADDRESS.name"
 			)
 		);
 
 		$owner = $this_o->prop("owner");
-		$prop = $types_data[$type]["prop"];
 		$limit = $this_o->prop("autocomplete_options_limit") ? $this_o->prop("autocomplete_options_limit") : 20;
 		$results = array();
 
+		// search people and companies
 		$list = new object_list(array(
-			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-			$prop => "{$typed_text}%",
-			"seller" => $owner->id(),
+			"class_id" => $types_data[$type]["class_id"],
+			$types_data[$type]["prop"] => "{$typed_text}%",
 			new obj_predicate_limit($limit),
-			new obj_predicate_sort(array($prop => obj_predicate_sort::ASC))// shorter names in front
+			new obj_predicate_sort(array($types_data[$type]["prop"] => obj_predicate_sort::ASC))// shorter names in front
 		));
 
 		if ($list->count() > 0)
 		{
-			$o = $list->begin();
+			$customer = $list->begin();
 			do
 			{
-				$customer = new object($o->prop("buyer"));
 				$phones = new object_list($customer->connections_from(array("type" => "RELTYPE_PHONE")));
 				$phones = $phones->names();
 				$phone = "";
@@ -1930,10 +1932,10 @@ SCRIPT;
 
 				$customer_name = strpos($type, "co_") !== false ? $customer->name() : ($customer->lastname . ", " . $customer->firstname);
 				$value = strpos($type, "phone") !== false ? $phone : $customer_name;
-				$info = $info1 . " | " . $o->prop($types_data[$type]["info_prop2"]);
-				$results[] = array("id" => $o->prop("buyer"), "value" => iconv("iso-8859-4", "UTF-8", $value), "info" => $info);
+				$info = $info1 . " | " . $customer->prop($types_data[$type]["info_prop2"]);
+				$results[] = array("id" => $customer->id(), "value" => iconv(aw_global_get("charset"), "UTF-8", $value), "info" => $info);
 			}
-			while ($o = $list->next());
+			while ($customer = $list->next());
 		}
 
 		return $results;
