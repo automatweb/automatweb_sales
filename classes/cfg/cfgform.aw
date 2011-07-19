@@ -387,7 +387,6 @@ class cfgform extends class_base
 		"groups" => array("groups"),
 		"layouts" => array("layouts")
 	);
-	private $default_values;
 
 	function cfgform($arr = array())
 	{
@@ -1755,7 +1754,7 @@ class cfgform extends class_base
 		return $tables;
 	}
 
-	private function _tables_tbl(&$arr)
+	private function _tables_tbl($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$t->set_caption(t("V&auml;ljad"));
@@ -1890,11 +1889,11 @@ class cfgform extends class_base
 		{
 			foreach($data["fields"] as $name => $field)
 			{
-				if($name == "add")
+				if($name === "add")
 				{
 					foreach($field as $var => $val)
 					{
-						if($val && $var != "newname")
+						if($val && $var !== "newname")
 						{
 							$new = 1;
 						}

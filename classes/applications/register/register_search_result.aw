@@ -1,16 +1,16 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/register/register_search_result.aw,v 1.3 2007/12/06 14:34:00 kristo Exp $
-// register_search_result.aw - Registri otsingu tulemused 
+
+// register_search_result.aw - Registri otsingu tulemused
 /*
 
-@classinfo syslog_type=ST_REGISTER_SEARCH_RESULT relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
+@classinfo syslog_type=ST_REGISTER_SEARCH_RESULT relationmgr=yes no_status=1 no_comment=1
 
 @default table=objects
 @default group=general
-@default field=meta 
+@default field=meta
 @default method=serialize
 
-@property search type=relpicker reltype=RELTYPE_SEARCH 
+@property search type=relpicker reltype=RELTYPE_SEARCH
 @caption Registri otsing
 
 @groupinfo search caption="Otsing"
@@ -27,7 +27,6 @@
 @caption registri otsing
 
 */
-
 class register_search_result extends class_base
 {
 	function register_search_result()
@@ -64,7 +63,7 @@ class register_search_result extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function parse_alias($arr)
 	{
@@ -85,8 +84,7 @@ class register_search_result extends class_base
 		$r = get_instance(CL_REGISTER_SEARCH);
 		$ro = obj($ob->prop("search"));
 		$props =  $r->get_sform_properties($ro, $request);
-		
-		classload("vcl/table");
+
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -110,7 +108,7 @@ class register_search_result extends class_base
 		{
 			$table .= "<br>".date("d.m.Y H:i:s");
 		}
-		
+
 		return $table;
 	}
 
@@ -125,4 +123,3 @@ class register_search_result extends class_base
 		$arr["obj_inst"]->set_meta("rsf", $arr["request"]["rsf"]);
 	}
 }
-?>
