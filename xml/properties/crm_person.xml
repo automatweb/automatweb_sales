@@ -546,36 +546,6 @@
             <field>cedit_adr_tbl</field>
       </property>
       <property>
-            <name>address_edit</name>
-            <table>kliendibaas_isik</table>
-            <group>contact</group>
-            <type>releditor</type>
-            <mode>manager2</mode>
-            <store>no</store>
-            <props>
-                  <num_0>name</num_0>
-                  <num_1>aadress</num_1>
-                  <num_2>postiindex</num_2>
-                  <num_3>linn</num_3>
-                  <num_4>maakond</num_4>
-                  <num_5>piirkond</num_5>
-                  <num_6>riik</num_6>
-                  <num_7>comment</num_7>
-            </props>
-            <table_fields>
-                  <num_0>name</num_0>
-                  <num_1>aadress</num_1>
-                  <num_2>postiindex</num_2>
-                  <num_3>linn</num_3>
-                  <num_4>maakond</num_4>
-                  <num_5>piirkond</num_5>
-                  <num_6>riik</num_6>
-                  <num_7>comment</num_7>
-            </table_fields>
-            <reltype>RELTYPE_ADDRESS</reltype>
-            <field>address_edit</field>
-      </property>
-      <property>
             <name>messenger</name>
             <table>kliendibaas_isik</table>
             <group>contact</group>
