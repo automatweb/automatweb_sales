@@ -335,7 +335,17 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					foreach($data as $_k => $_v)
 					{
-						$data[$_k] = stripslashes($_v);
+						if (is_array($_v))
+						{
+							foreach($_v as $_k2 => $_v2)
+							{
+								$data[$_k][$_k2] = stripslashes($_v2);
+							}
+						}
+						else
+						{
+							$data[$_k] = stripslashes($_v);
+						}
 					}
 					$ret += $data;
 				}
@@ -3132,11 +3142,11 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					foreach ($this->properties as $property_name => $property_data)
 					{
-						if (isset($property_data['type']) and $property_data['type'] == 'range')
+						if (isset($property_data['type']) and $property_data['type'] === 'range')
 						{
 							$row[$property_name] = array(
-								"from" => $row[$property_name."_from"],
-								"to" => $row[$property_name."_to"],
+								"from" => isset($row[$property_name."_from"]) ? $row[$property_name."_from"] : null,
+								"to" => isset($row[$property_name."_to"]) ? $row[$property_name."_to"] : null,
 							);
 							unset($row[$property_name."_from"], $row[$property_name."_to"]);
 						}
