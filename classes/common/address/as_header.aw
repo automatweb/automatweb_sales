@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
 
 ### address system settings
 define ("ADDRESS_SYSTEM", 1);
@@ -15,5 +12,3 @@ class awex_as extends awex_obj {}
 
 /** Administrative structure related error **/
 class awex_as_admin_structure extends awex_as {}
-
-?>

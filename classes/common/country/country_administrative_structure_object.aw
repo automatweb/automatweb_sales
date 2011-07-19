@@ -1,6 +1,6 @@
 <?php
 
-require_once(aw_ini_get("basedir") . "/classes/common/address/as_header.aw");
+require_once(AW_DIR . "classes/common/address/as_header.aw");
 
 class country_administrative_structure_object extends _int_object
 {
