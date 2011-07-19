@@ -1,5 +1,8 @@
 <?php
 
+// DEPRECATED CLASS.
+// do not use.
+
 // crm_address.aw - It's not really a physical address but a collection of data required to
 // contact a person.
 /*
@@ -123,7 +126,7 @@ class crm_address extends class_base
 					$data["options"] = array(0 => t("--vali--")) + safe_array($pm_inst->get_locations($clid[$data["name"]]));
 				}
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -141,18 +144,19 @@ class crm_address extends class_base
 				if (!empty($form["aadress"]))
 				{
 					$name[] = $form['aadress'];
-				};
+				}
 
 				if (!empty($form["linn"]))
 				{
 					$city_obj = new object($form["linn"]);
 					$name[] = $city_obj->name();
-				};
+				}
+
 				if (!empty($form["maakond"]))
 				{
 					$county_obj = new object($form["maakond"]);
 					$name[] = $county_obj->name();
-				};
+				}
 
 				if (count($name) < 1)
 				{
@@ -167,17 +171,16 @@ class crm_address extends class_base
 					if (!empty($form["telefon"]))
 					{
 						$name[] = t('tel:').$form["telefon"];
-					};
+					}
 				}
 
 				if (sizeof($name) > 0)
 				{
 					$arr["obj_inst"]->set_name(join(", ",$name));
-				};
+				}
 				$retval = PROP_IGNORE;
 				break;
-
-		};
+		}
 		return $retval;
 	}
 
@@ -204,13 +207,13 @@ class crm_address extends class_base
 		{
 			$obj = new object($id);
 			$rv = $obj->name();
-		};
+		}
 		return $rv;
 	}
 
 	function callback_on_load($arr)
 	{
-		if ($arr["request"]["action"] == "new")
+		if ($arr["request"]["action"] === "new")
 		{
 			$o = obj();
 			$o->set_parent($arr["request"]["parent"]);

@@ -365,8 +365,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
 class doc extends class_base
 {
-	var $force_new_version = false; //TODO: scope?
-
 	protected $_save_versions;
 	protected $_preview;
 	protected $_modified;

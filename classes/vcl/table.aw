@@ -2235,8 +2235,11 @@ END;
 
 	function remove_field($name)
 	{
-		unset ($this->filters[$name]);
-		unset($this->rowdefs[$this->rowdefs_key_index[$name]]);
+		unset($this->filters[$name]);
+		if (isset($this->rowdefs_key_index[$name]) and isset($this->rowdefs[$this->rowdefs_key_index[$name]]))
+		{
+			unset($this->rowdefs[$this->rowdefs_key_index[$name]]);
+		}
 		$this->rowdefs_ordered = false;
 
 		foreach ($this->rowdefs as $def)

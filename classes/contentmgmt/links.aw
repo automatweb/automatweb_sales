@@ -523,17 +523,17 @@ class links extends class_base
 
 	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["ldocid"] = $request["ldocid"];
+		if (isset($request["ldocid"])) $arr["ldocid"] = $request["ldocid"];
 		$arr["link_pops"] = "0";
 	}
 
 	function callback_mod_tab(&$arr)
 	{
-		if ($_REQUEST["docid"])
+		if (!empty($_REQUEST["docid"]))
 		{
 			$arr["link"] = aw_url_change_var("docid", $_REQUEST["docid"], $arr["link"]);
 		}
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}

@@ -1,18 +1,18 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/register/register_search.aw,v 1.56 2009/08/24 11:56:38 instrumental Exp $
-// register_search.aw - Registri otsing 
+
+// register_search.aw - Registri otsing
 /*
 
-@classinfo syslog_type=ST_REGISTER_SEARCH relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
+@classinfo syslog_type=ST_REGISTER_SEARCH relationmgr=yes no_status=1 no_comment=1
 
 @default table=objects
-@default field=meta 
+@default field=meta
 @default method=serialize
 
 
 @default group=general
 
-	@property register type=relpicker reltype=RELTYPE_REGISTER 
+	@property register type=relpicker reltype=RELTYPE_REGISTER
 	@caption Register, millest otsida
 
 	@property per_page type=textbox size=5
@@ -41,13 +41,13 @@
 
 	@property sform_frm type=table store=no no_caption=1
 
-	@property butt_text type=textbox 
+	@property butt_text type=textbox
 	@caption Otsi nupu tekst
 
 
 @default group=mktbl
 
-	@property sform_tbl type=table store=no no_caption=1 
+	@property sform_tbl type=table store=no no_caption=1
 
 
 @default group=search
@@ -132,9 +132,9 @@ class register_search extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
-	function _init_sform_frm_tbl(&$t)
+	function _init_sform_frm_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "jrk",
@@ -183,7 +183,7 @@ class register_search extends class_base
 
 	function do_sform_frm_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_sform_frm_tbl($t);
 
 		$fdata = $arr["obj_inst"]->meta("fdata");
@@ -250,7 +250,7 @@ class register_search extends class_base
 	}
 
 
-	function _init_sform_tbl_tbl(&$t)
+	function _init_sform_tbl_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "jrk",
@@ -305,7 +305,7 @@ class register_search extends class_base
 
 	function do_sform_tbl_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_sform_tbl_tbl($t);
 
 		$tdata = $arr["obj_inst"]->meta("tdata");
@@ -374,7 +374,7 @@ class register_search extends class_base
 		$t->sort_by();
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
@@ -385,17 +385,18 @@ class register_search extends class_base
 	{
 		aw_global_set("no_cache", 1);
 		$ob = new object($arr["id"]);
-		$request = array("rsf" => $_REQUEST["rsf"]);
-		if ($_REQUEST["search_butt"])
+		$request = array("rsf" => isset($_REQUEST["rsf"]) ? $_REQUEST["rsf"] : null);
+		if (!empty($_REQUEST["search_butt"]))
 		{
 			$request["search_butt"] = $_REQUEST["search_butt"];
 		}
 
-		if (!$request["search_butt"] && is_array($request["rsf"]) && count($request["rsf"]))
+		if (empty($request["search_butt"]) && is_array($request["rsf"]) && count($request["rsf"]))
 		{
 			$request["search_butt"] = 1;
 		}
-		if ($_REQUEST["ft_page"])
+
+		if (!empty($_REQUEST["ft_page"]))
 		{
 			$request["ft_page"] = $_REQUEST["ft_page"];
 		}
@@ -405,26 +406,22 @@ class register_search extends class_base
 			$request["search_butt"] = "vimbledon";
 		}
 
-		enter_function("register_search::show::form");
 
-		enter_function("register_search::show::form::gsp");
 		$props =  $this->get_sform_properties($ob, $request);
-		exit_function("register_search::show::form::gsp");
-
 		$fdata = $ob->meta("fdata");
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 		foreach($props as $pn => $pd)
 		{
-			if (substr($pn, 0, 11) == "rsf_uservar")
+			if (substr($pn, 0, 11) === "rsf_uservar")
 			{
 				$pd["type"] = "select";
 				$pd["multiple"] = 1;
 			}
 
 			preg_match("/rsf\[(.*)\]/imsU", $pd["name"], $mt);
-			$nn = $mt[1];
+			$nn = isset($mt[1]) ? $mt[1] : "";
 			if (!empty($fdata[$nn]["el_type"]))
 			{
 				switch($fdata[$nn]["el_type"])
@@ -458,29 +455,24 @@ class register_search extends class_base
 		$html = $htmlc->get_result(array(
 			"raw_output" => 1
 		));
-		exit_function("register_search::show::form");
 
-		classload("vcl/table");
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
-		enter_function("register_search::show::dsrt");
 		$this->do_search_res_tbl(array(
 			"prop" => array(
-				"vcl_inst" => &$t
+				"vcl_inst" => $t
 			),
-			"obj_inst" => &$ob,
+			"obj_inst" => $ob,
 			"request" => $request,
 		));
-		exit_function("register_search::show::dsrt");
 
-		enter_function("register_search::show::final");
-		if (count($t->data) < 1 && $request["search_butt"] != "" && $ob->prop("notfound_text") != "")
+		if (count($t->data) < 1 && !empty($request["search_butt"]) && $ob->prop("notfound_text"))
 		{
 			$table = nl2br(sprintf($ob->prop("notfound_text"), $request["rsf"][$this->fts_name]));
 		}
 		else
-		if ($request["search_butt"] != "")
+		if (!empty($request["search_butt"]))
 		{
 			$table = $t->draw();
 		}
@@ -489,14 +481,14 @@ class register_search extends class_base
 			$table = "";
 		}
 
-		if ($ob->prop("show_date") && $request["search_butt"] != "")
+		if ($ob->prop("show_date") && !empty($request["search_butt"]))
 		{
-			$table .= "<br>".date("d.m.Y H:i:s");
+			$table .= html::linebreak().date("d.m.Y H:i:s");
 		}
-		
-		if ($arr["no_form"])
+
+		if (!empty($arr["no_form"]))
 		{
-			return $html."<br>".$table;
+			return $html.html::linebreak().$table;
 		}
 
 		$this->read_template("show.tpl");
@@ -505,7 +497,6 @@ class register_search extends class_base
 			"section" => aw_global_get("section"),
 			"table" => $table
 		));
-		exit_function("register_search::show::final");
 		return $this->parse();
 	}
 
@@ -522,7 +513,7 @@ class register_search extends class_base
 			$cff = obj($cfid);
 			$class_id = $cff->prop("ctype");
 
-			$cfgu = get_instance("cfg/cfgutils");
+			$cfgu = new cfgutils();
 			$f_props = $cfgu->load_properties(array(
 				"clid" => $class_id
 			));
@@ -534,7 +525,7 @@ class register_search extends class_base
 
 			foreach(safe_array($tmp) as $k => $v)
 			{
-				if ($v["name"] != "needs_translation" && $v["name"] != "is_translated")
+				if ($v["name"] !== "needs_translation" && $v["name"] !== "is_translated")
 				{
 					$properties[$k] = $v;
 					$properties[$k]["type"] = $f_props[$k]["type"];
@@ -550,7 +541,7 @@ class register_search extends class_base
 		$properties["createdby"] = array(
 			"caption" => t("Looja"),
 			"type" => "textbox",
-			"name" => "createdby" 
+			"name" => "createdby"
 		);
 		$properties["modified"] = array(
 			"caption" => t("Muudetud"),
@@ -579,7 +570,7 @@ class register_search extends class_base
 			return $class_id;
 		}
 	}
-	
+
 	function get_ot_from_reg($reg)
 	{
 		$awa = new aw_array($reg->prop("data_cfgform"));
@@ -590,10 +581,13 @@ class register_search extends class_base
 				continue;
 			}
 			$cff = obj($cfid);
-			if($ot = reset($cff->connections_to(array(
+
+			$ot = $cff->connections_to(array(
 				"from.class_id" => CL_OBJECT_TYPE,
-				"type" => 1,
-			))))
+				"type" => 1
+			));
+			$ot = reset($ot);
+			if($ot)
 			{
 				return $ot->prop("from");
 			}
@@ -615,7 +609,7 @@ class register_search extends class_base
 		$ot = $this->get_ot_from_reg($reg);
 
 		// load props for entire class, cause from cfgform we don't get all dat
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$f_props = $cfgu->load_properties(array(
 			"clid" => $clid
 		));
@@ -628,10 +622,10 @@ class register_search extends class_base
 				continue;
 			}
 
-			if ($pd["type"] == "date_select" || $pd["type"] == "datetime_select")
+			if ($pd["type"] === "date_select" || $pd["type"] === "datetime_select")
 			{
 				$de = new date_edit();
-				if ($pd["type"] == "datetime_select")
+				if ($pd["type"] === "datetime_select")
 				{
 					$de->configure(array(
 						"day" => 1,
@@ -642,7 +636,7 @@ class register_search extends class_base
 					));
 				}
 				else
-				{			
+				{
 					$de->configure(array(
 						"day" => 1,
 						"month" => 1,
@@ -669,7 +663,7 @@ class register_search extends class_base
 				}
 				$content = 	$de->gen_edit_form("rsf[".$pn."_from]", $ts_from, $pd["year_from"], $pd["year_to"], true)." - ".
 							$de->gen_edit_form("rsf[".$pn."_to]", $ts_to, $pd["year_from"], $pd["year_to"], true);
-				
+
 				$tmp[$pn] = array(
 					"name" => $pn,
 					"type" => "text",
@@ -699,7 +693,7 @@ class register_search extends class_base
 				"caption" => $fdata[$this->fts_name]["caption"],
 				"value" => $request["rsf"][$this->fts_name]
 			);
-			
+
 			if (aw_ini_get("site_id") == 125)
 			{
 				$tmp[$this->fts_name]["zee_shaa_helper"] = 1;
@@ -739,20 +733,20 @@ class register_search extends class_base
 		return $a["jrk"] > $b["jrk"];
 	}
 
-	function _init_search_res_tbl(&$t, $o)
+	function _init_search_res_tbl($t, $o)
 	{
 		$tdata = $o->meta("tdata");
 
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$f_props = $cfgu->load_properties(array(
 			"clid" => CL_REGISTER_DATA
-		));	
+		));
 
 		// get register
 		$reg = obj($o->prop("register"));
 		$props = $this->get_props_from_reg($reg);
 		$this->__tdata = $tdata;
-		uksort($props, array(&$this, "__proptbl_srt"));
+		uksort($props, array($this, "__proptbl_srt"));
 
 		$np = 0;
 		foreach($props as $pn => $pd)
@@ -773,7 +767,7 @@ class register_search extends class_base
 					"sortable" => $tdata[$pn]["sortable"],
 					"width" => ((int)(100 / $np))."%"
 				);
-				if ($f_props[$pn]["type"] == "date_select" || $pd["type"] == "datetime_select")
+				if ($f_props[$pn]["type"] === "date_select" || $pd["type"] === "datetime_select")
 				{
 					$fd["type"] = "time";
 					$fd["format"] = "Y-m-d";
@@ -806,7 +800,6 @@ class register_search extends class_base
 			return array(new object_list(), new object_list());
 		}
 
-		enter_function("register_search::show::dsrt::gsr::init");
 		$reg = obj($o->prop("register"));
 		$reg_i = $reg->instance();
 
@@ -834,7 +827,7 @@ class register_search extends class_base
 		if (!$ign)
 		{
 			$filter[] = new object_list_filter(array(
-				"logic" => "OR", 
+				"logic" => "OR",
 				"conditions" => array(
 					"register_id" => $reg->id(),
 					"parent" => $reg_flds
@@ -846,16 +839,14 @@ class register_search extends class_base
 		{
 			$filter["lang_id"] = array();
 		}
-		exit_function("register_search::show::dsrt::gsr::init");
 
 		$tmp = obj();
 		$tmp->set_class_id(CL_REGISTER_DATA);
 		$real_props = $tmp->get_property_list();
-//arr($real_props);arr($fdata);
-		enter_function("register_search::show::dsrt::gsr::loop");
+
 		foreach($props as $pn => $pd)
 		{
-			if (($pd["type"] == "datetime_select" || $pd["type"] == "date_select") && (isset($request["rsf"][$pn."_from"]) || isset($request["rsf"][$pn."_to"])))
+			if (($pd["type"] === "datetime_select" || $pd["type"] === "date_select") && (isset($request["rsf"][$pn."_from"]) || isset($request["rsf"][$pn."_to"])))
 			{
 				$ts_f = date_edit::get_timestamp($request["rsf"][$pn."_from"]);
 				$ts_t = date_edit::get_timestamp($request["rsf"][$pn."_to"]);
@@ -875,7 +866,7 @@ class register_search extends class_base
 				}
 			}
 			else
-			if ($request["rsf"][$pn] != "")
+			if (!empty($request["rsf"][$pn]))
 			{
 				if ($fdata[$pn]["is_chooser"])
 				{
@@ -894,7 +885,7 @@ class register_search extends class_base
 					list($from, $to) = explode("-", trim($request["rsf"][$pn]));
 					if (!$from && !$to)
 					{
-						continue;	
+						continue;
 					}
 					else
 					if ($from && !$to)
@@ -907,7 +898,7 @@ class register_search extends class_base
 					}
 				}
 				else
-				if ($pd["type"] == "classificator")
+				if ($pd["type"] === "classificator")
 				{
 					$filter[$pn] = $request["rsf"][$pn];
 				}
@@ -922,10 +913,10 @@ class register_search extends class_base
 				}
 			}
 		}
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$f_props = $cfgu->load_properties(array(
 			"clid" => CL_REGISTER_DATA
-		));	
+		));
 
 		// if fulltext search
 		if ($request["rsf"][$this->fts_name] != "")
@@ -933,13 +924,13 @@ class register_search extends class_base
 			$tmp = array();
 			foreach($f_props as $pn => $pd)
 			{
-				if ($pn == "status" || $pn == "register_id" || $f_props[$pn]["store"] == "no" || $f_props[$pn]["field"] == "meta"
-|| $f_props[$pn]["type"] == "submit" || !isset($f_props[$pn]) || $f_props[$pn]["type"] == "date_select")
+				if ($pn === "status" || $pn === "register_id" || $f_props[$pn]["store"] === "no" || $f_props[$pn]["field"] === "meta"
+|| $f_props[$pn]["type"] === "submit" || !isset($f_props[$pn]) || $f_props[$pn]["type"] === "date_select")
 				{
 					continue;
 				}
 
-				if ($f_props[$pn]["type"] == "classificator")
+				if ($f_props[$pn]["type"] === "classificator")
 				{
 				//	$tmp["CL_REGISTER_DATA.".$f_props[$pn]["reltype"].".name"] = "%".$request["rsf"][$this->fts_name]."%";
 				}
@@ -954,8 +945,6 @@ class register_search extends class_base
 			));
 		}
 		$filter[] = new object_list_filter(array("non_filter_classes" => CL_REGISTER_DATA));
-		exit_function("register_search::show::dsrt::gsr::loop");
-		enter_function("register_search::show::dsrt::gsr::finit");
 		$tdata = $o->meta("tdata");
 
 		if ($_REQUEST["sortby"] != "")
@@ -963,7 +952,7 @@ class register_search extends class_base
 			$sp = $f_props[$_REQUEST["sortby"]];
 			if ($sp)
 			{
-				$this->quote(&$_REQUEST["sort_order"]);
+				$this->quote($_REQUEST["sort_order"]);
 				$filter["sort_by"] = $sp["table"].".".$sp["field"]." ".$_REQUEST["sort_order"];
 			}
 		}
@@ -986,10 +975,7 @@ class register_search extends class_base
 		{
 			$si->refine_register_search_filter($o, $filter);
 		}
-if ($_GET["RD"] == 1)
-{
-die(dbg::dump($filter));
-}
+
 		if ((!empty($request["search_butt"]) || !empty($request["MAX_FILE_SIZE"])) || $o->prop("show_all_right_away") == 1)
 		{
 			$ol_cnt = new object_list($filter);
@@ -1017,13 +1003,12 @@ die(dbg::dump($filter));
 			}
 		}
 
-		exit_function("register_search::show::dsrt::gsr::finit");
 		return array($ret, $ol_cnt);
 	}
 
 	function do_search_res_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_search_res_tbl($t, $arr["obj_inst"]);
 
 		$tdata = $arr["obj_inst"]->meta("tdata");
@@ -1034,9 +1019,7 @@ die(dbg::dump($filter));
 		$can_change = false;
 		$can_delete = false;
 
-		enter_function("register_search::show::dsrt::gsr");
 		list($ol, $ol_cnt) = $this->get_search_results($arr["obj_inst"], $arr["request"]);
-		exit_function("register_search::show::dsrt::gsr");
 
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
@@ -1124,7 +1107,7 @@ die(dbg::dump($filter));
 						$can_change = true;
 					}
 				}
-			}			
+			}
 			$t->define_data($data);
 		}
 
@@ -1140,7 +1123,7 @@ die(dbg::dump($filter));
 
 		if ($tdata["__defaultsort"] != "")
 		{
-			$t->set_default_sortby($tdata["__defaultsort"]);	
+			$t->set_default_sortby($tdata["__defaultsort"]);
 			$t->set_default_sorder("asc");
 		}
 		else
@@ -1160,7 +1143,6 @@ die(dbg::dump($filter));
 
 	function mod_chooser_prop(&$props, $pn, $reg )
 	{
-		enter_function("register_search::show::form::mod_chooser_p");
 		// since storage can't do this yet, we gots to do sql here :(
 		$p =& $props[$pn];
 		$opts = array("" => "");
@@ -1171,10 +1153,9 @@ die(dbg::dump($filter));
 			$flds = $reg_i->_get_reg_folders($reg);
 
 			// this is an expensive query, so cache the results
-			$c = get_instance("cache");
 			$cfn = "register_".$reg->id()."_search_mod_chooser_p_".$pn;
 
-			if (true || !($res = $c->file_get_ts($cfn, $c->get_objlastmod())))
+			if (true || !($res = cache::file_get_ts($cfn, cache::get_objlastmod())))
 			{
 				if ($p["store"] == "connect")
 				{
@@ -1185,7 +1166,7 @@ die(dbg::dump($filter));
 				}
 				else
 				{
-					$q = "SELECT distinct($p[field]) as val FROM $p[table] 
+					$q = "SELECT distinct($p[field]) as val FROM $p[table]
 						LEFT JOIN objects ON objects.oid = ".$p["table"].".aw_id WHERE objects.parent IN(".join(",",$flds).") AND objects.status > 0";
 				}
 
@@ -1194,7 +1175,7 @@ die(dbg::dump($filter));
 				{
 					$opts[$row["val"]] = $row["val"];
 				}
-				$c->file_set($cfn, aw_serialize($opts));
+				cache::file_set($cfn, aw_serialize($opts));
 			}
 			else
 			{
@@ -1204,7 +1185,6 @@ die(dbg::dump($filter));
 
 		$p["type"] = "select";
 		$p["options"] = $opts;
-		exit_function("register_search::show::form::mod_chooser_p");
 	}
 
 	/**
@@ -1224,4 +1204,3 @@ die(dbg::dump($filter));
 	}
 
 }
-?>

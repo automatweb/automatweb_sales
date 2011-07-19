@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/register/register.aw,v 1.26 2008/06/06 08:07:11 kristo Exp $
-// register.aw - Register 
+
+// register.aw - Register
 /*
- 
-@classinfo syslog_type=ST_REGISTER relationmgr=yes no_status=1  maintainer=kristo
+
+@classinfo syslog_type=ST_REGISTER relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -161,7 +161,7 @@ class register extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function do_data_toolbar($arr)
 	{
@@ -245,7 +245,7 @@ class register extends class_base
 
 	function do_data_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_data_tbl($t);
 		$t->set_sortable(false);
 		$filt = array(
@@ -253,17 +253,18 @@ class register extends class_base
 			"register_id" => $arr["obj_inst"]->id(),
 		);
 
-		if (!$arr["request"]["sortby"])
+		if (empty($arr["request"]["sortby"]))
 		{
 			$arr["request"]["sortby"] = "objects.created";
 		}
-		if (!$arr["request"]["sort_order"])
+
+		if (empty($arr["request"]["sort_order"]))
 		{
 			$arr["request"]["sort_order"] = "desc";
 		}
 
-		$this->quote(&$arr["request"]["sortby"]);
-		$this->quote(&$arr["request"]["sort_order"]);
+		$this->quote($arr["request"]["sortby"]);
+		$this->quote($arr["request"]["sort_order"]);
 		$filt["sort_by"] = $arr["request"]["sortby"]." ".$arr["request"]["sort_order"];
 
 		if (($dtf = $arr["obj_inst"]->prop("data_tree_field")))
@@ -278,7 +279,8 @@ class register extends class_base
 
 				if (($ppg = $arr["obj_inst"]->prop("per_page")))
 				{
-					$filt["limit"] = ($arr["request"]["ft_page"] * $ppg).",".$ppg;
+					$page = isset($arr["request"]["ft_page"]) ? (int) $arr["request"]["ft_page"] : 0;
+					$filt["limit"] = ($page * $ppg).",".$ppg;
 				}
 				$ol = new object_list($filt);
 			}
@@ -295,7 +297,8 @@ class register extends class_base
 				$ol_cnt = new object_list($filt);
 				if (($ppg = $arr["obj_inst"]->prop("per_page")))
 				{
-					$filt["limit"] = ($arr["request"]["ft_page"] * $ppg).",".$ppg;
+					$page = isset($arr["request"]["ft_page"]) ? (int) $arr["request"]["ft_page"] : 0;
+					$filt["limit"] = ($page * $ppg).",".$ppg;
 				}
 				$ol = new object_list($filt);
 			}
@@ -317,7 +320,7 @@ class register extends class_base
 				"modified" => $o->modified(),
 				"change" => html::href(array(
 					"url" => $this->mk_my_orb("change", array(
-						"section" => aw_global_get("section"), 
+						"section" => aw_global_get("section"),
 						"id" => $o->id(),
 						"return_url" => html::get_change_url($arr["request"]["id"], array(
 							"group" => $arr["request"]["group"],
@@ -339,7 +342,7 @@ class register extends class_base
 		}
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
@@ -357,10 +360,10 @@ class register extends class_base
 		$html = "";
 		if ($this->can("add", $o->prop("data_rootmenu")))
 		{
-			$tb = get_instance("vcl/toolbar");
+			$tb = new toolbar();
 			$this->do_data_toolbar(array(
 				"prop" => array(
-					"toolbar" => &$tb
+					"toolbar" => $tb
 				),
 				"obj_inst" => $o
 			));
@@ -370,21 +373,20 @@ class register extends class_base
 
 		if ($o->prop("show_all"))
 		{
-			classload("vcl/table");
 			$t = new aw_table(array(
 				"layout" => "generic"
 			));
-		
+
 			$this->do_data_tbl(array(
 				"prop" => array(
-					"vcl_inst" => &$t
+					"vcl_inst" => $t
 				),
 				"obj_inst" => $o,
 				"request" => $GLOBALS
 			));
 			$html .=  $t->draw();
 		}
-	
+
 		return $html ;
 	}
 
@@ -403,7 +405,7 @@ class register extends class_base
 		$ret = array("" => "");
 		foreach($ps as $pn => $pd)
 		{
-			if ($f_props[$pn]["type"] == "classificator")
+			if (isset($f_props[$pn]["type"]) and $f_props[$pn]["type"] === "classificator")
 			{
 				$ret[$pn] = $pd["caption"];
 			}
@@ -414,7 +416,7 @@ class register extends class_base
 
 	function get_data_tree($o)
 	{
-		$t = get_instance("vcl/treeview");
+		$t = new treeview();
 		$t->start_tree(array(
 			"root_name" => "K&otilde;ik",
 			"root_url" => aw_url_change_var("treefilter", "__all__"),
@@ -430,7 +432,7 @@ class register extends class_base
 			"name" => $o->prop("data_tree_field"),
 			"clid" => CL_REGISTER_DATA
 		));
-		
+
 		// insert into tree
 		foreach($vals as $v_id => $v_name)
 		{
@@ -456,4 +458,3 @@ class register extends class_base
 		return $tmp;
 	}
 }
-?>
