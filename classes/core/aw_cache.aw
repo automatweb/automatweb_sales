@@ -37,7 +37,8 @@ class aw_cache implements aw_data_cache_provider
 	**/
 	public static function is_set($class_id, $key)
 	{
-		return call_user_func_array(array(self::$data_cache_provider, "isset_data"), func_get_args());
+		$args = func_get_args();
+		return call_user_func_array(array(self::$data_cache_provider, "isset_data"), $args);
 	}
 
 	/**
@@ -45,7 +46,8 @@ class aw_cache implements aw_data_cache_provider
 	**/
 	public function isset_data($class_id, $key)
 	{
-		$args = implode("][", func_get_args());
+		$args = func_get_args();
+		$args = implode("][", $args);
 		return eval("return isset(self::\$data_cache[{$args}]);");
 	}
 
@@ -60,7 +62,8 @@ class aw_cache implements aw_data_cache_provider
 	**/
 	public static function get($class_id, $key)
 	{
-		return call_user_func_array(array(self::$data_cache_provider, "get_data"), func_get_args());
+		$args = func_get_args();
+		return call_user_func_array(array(self::$data_cache_provider, "get_data"), $args);
 	}
 
 	/**
@@ -68,7 +71,8 @@ class aw_cache implements aw_data_cache_provider
 	**/
 	public function get_data($class_id, $key)
 	{
-		$args = implode("][", func_get_args());
+		$args = func_get_args();
+		$args = implode("][", $args);
 		return eval("return isset(self::\$data_cache[{$args}]) ? self::\$data_cache[{$args}] : null;");
 	}
 
@@ -85,7 +89,8 @@ class aw_cache implements aw_data_cache_provider
 	**/
 	public static function set($data, $class_id, $key)
 	{
-		call_user_func_array(array(self::$data_cache_provider, "set_data"), func_get_args());
+		$args = func_get_args();
+		call_user_func_array(array(self::$data_cache_provider, "set_data"), $args);
 	}
 
 	/**
