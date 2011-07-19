@@ -2,7 +2,7 @@
 // watercraft_management.aw - Vees6idukite haldus
 /*
 
-@classinfo syslog_type=ST_WATERCRAFT_MANAGEMENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
+@classinfo syslog_type=ST_WATERCRAFT_MANAGEMENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo watercraft_management index=oid master_table=objects master_index=oid
 
 @default table=objects
@@ -148,11 +148,11 @@
 
 */
 
-define('SELLER_TYPE_PERSON', 145);
-define('SELLER_TYPE_COMPANY', 129);
-
 class watercraft_management extends class_base
 {
+	const SELLER_TYPE_PERSON = 145;
+	const SELLER_TYPE_COMPANY = 129;
+
 	var $watercraft_inst;
 	var $watercraft_search_inst;
 	var $search_obj;
@@ -168,8 +168,8 @@ class watercraft_management extends class_base
 		$this->watercraft_inst = get_instance(CL_WATERCRAFT);
 		$this->watercraft_search_inst = get_instance(CL_WATERCRAFT_SEARCH);
 		$this->seller_type = array(
-			SELLER_TYPE_PERSON => t('Eraisik'),
-			SELLER_TYPE_COMPANY => t('Firma')
+			self::SELLER_TYPE_PERSON => t('Eraisik'),
+			self::SELLER_TYPE_COMPANY => t('Firma')
 		);
 
 	}
@@ -249,36 +249,24 @@ class watercraft_management extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- set_property --//
-		}
-		return $retval;
-	}
-
-
         function _get_activity($arr)
         {
-                // this is supposed to return a list of all active polls
-                // to let the user choose the active one
-                $table = &$arr["prop"]["vcl_inst"];
-                $table->parse_xml_def("activity_list");
+			// this is supposed to return a list of all active polls
+			// to let the user choose the active one
+			$table = $arr["prop"]["vcl_inst"];
+			$table->parse_xml_def("activity_list");
 
-                $pl = new object_list(array(
-                        "class_id" => $this->clid
-                ));
-                for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
-                {
-                        $actcheck = checked($o->flag(OBJ_FLAG_IS_SELECTED));
-                        $act_html = "<input type='radio' name='active' $actcheck value='".$o->id()."'>";
-                        $row = $o->arr();
-                        $row["active"] = $act_html;
-                        $table->define_data($row);
-                };
+			$pl = new object_list(array(
+					"class_id" => $this->clid
+			));
+			for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
+			{
+					$actcheck = checked($o->flag(OBJ_FLAG_IS_SELECTED));
+					$act_html = "<input type='radio' name='active' $actcheck value='".$o->id()."'>";
+					$row = $o->arr();
+					$row["active"] = $act_html;
+					$table->define_data($row);
+			};
         }
 
         function _set_activity($arr)
@@ -306,7 +294,7 @@ class watercraft_management extends class_base
 
 	function _get_watercrafts_toolbar($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 
 		$t->add_button(array(
 			'name' => 'new',
@@ -362,7 +350,7 @@ class watercraft_management extends class_base
 
 	function _get_watercrafts_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_chooser(array(
@@ -417,7 +405,7 @@ class watercraft_management extends class_base
 		));
 
 
-		if ( $arr['request']['group'] == 'search' )
+		if ( $arr['request']['group'] === 'search' )
 		{
 			$watercrafts = $this->watercraft_search_inst->search($arr);
 		}
@@ -425,9 +413,12 @@ class watercraft_management extends class_base
 		{
 			$filter = array(
 				'class_id' => CL_WATERCRAFT,
-				'parent' => $arr['obj_inst']->prop('data'),
-				'watercraft_type' => constant('WATERCRAFT_TYPE_'.strtoupper($arr['request']['group']))
+				'parent' => $arr['obj_inst']->prop('data')
 			);
+			if (defined('WATERCRAFT_TYPE_'.strtoupper($this->use_group)))
+			{
+				$filter["watercraft_type"] = constant('WATERCRAFT_TYPE_'.strtoupper($this->use_group));
+			}
 			$watercrafts = new object_list($filter);
 		}
 
@@ -497,7 +488,7 @@ class watercraft_management extends class_base
 
 	function _get_manufacturers_management_toolbar($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 
 		$t->add_button(array(
 			'name' => 'new',
@@ -563,7 +554,7 @@ class watercraft_management extends class_base
 
 	function _get_locations_management_toolbar($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 
 		$t->add_button(array(
 			'name' => 'new',
@@ -588,7 +579,7 @@ class watercraft_management extends class_base
 
 	function _get_locations_management_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -627,14 +618,9 @@ class watercraft_management extends class_base
 		return PROP_OK;
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function callback_mod_tab($arr)
 	{
-		if ($arr['id'] == 'manufacturers_management')
+		if ($arr['id'] === 'manufacturers_management')
 		{
 			$manufacturers = $arr['obj_inst']->prop('manufacturers');
 			if ( empty($manufacturers) )
@@ -643,7 +629,7 @@ class watercraft_management extends class_base
 			}
 		}
 
-		if ($arr['id'] == 'locations_management')
+		if ($arr['id'] === 'locations_management')
 		{
 			$locations = $arr['obj_inst']->prop('locations');
 			if ( empty($locations) )
@@ -653,9 +639,8 @@ class watercraft_management extends class_base
 		}
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
-	//	arr($arr);
 		$arr['args']['watercraft_type'] = (int)$arr['request']['watercraft_type'];
 		$arr['args']['condition'] = (int)$arr['request']['condition'];
 		$arr['args']['body_material'] = (int)$arr['request']['body_material'];
@@ -796,4 +781,3 @@ class watercraft_management extends class_base
 		return false;
 	}
 }
-?>

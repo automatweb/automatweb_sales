@@ -1,16 +1,16 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/watercraft_management/watercraft_add.aw,v 1.22 2009/02/13 12:29:51 dragut Exp $
-// watercraft_add.aw - Vees&otilde;iduki lisamine 
+
+// watercraft_add.aw - Vees&otilde;iduki lisamine
 /*
 
-@classinfo syslog_type=ST_WATERCRAFT_ADD relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
+@classinfo syslog_type=ST_WATERCRAFT_ADD relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo watercraft_add index=oid master_table=objects master_index=oid
 
 @default table=objects
 @default group=general
 
 	@property watercraft_type type=select table=watercraft_add
-	@caption Aluse t&uuml;&uuml;p 
+	@caption Aluse t&uuml;&uuml;p
 
 	@property watercraft_management type=relpicker reltype=RELTYPE_WATERCRAFT_MANAGEMENT table=watercraft_add
 	@caption Vees&otilde;idukite haldus
@@ -58,25 +58,14 @@ class watercraft_add extends class_base
 			case 'watercraft_type':
 				$prop['options'] = $this->watercraft_inst->watercraft_type;
 				break;
-				
+
 		};
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- set_property --//
-		}
-		return $retval;
-	}	
-
 	function _get_required_fields_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_caption($arr['prop']['caption']);
 		$t->set_sortable(false);
 
@@ -153,7 +142,7 @@ class watercraft_add extends class_base
 
 	function _get_pages_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_caption($arr['prop']['caption']);
 		$t->set_sortable(false);
 		$t->define_field(array(
@@ -237,7 +226,7 @@ class watercraft_add extends class_base
 	// the next functions are optional - delete them if not needed
 	////////////////////////////////////
 	/** Change the realestate object info.
-			
+
 		@attrib name=parse_alias is_public="1" caption="Change"
 
 	**/
@@ -252,22 +241,19 @@ class watercraft_add extends class_base
 	/** this will get called whenever this object needs to get shown in the website, via alias in document **/
 	function show($arr)
 	{
-
-		enter_function('watercraft_add::show');
-
 		/*
 			so this is how it works ...
 			i'll create  a new object when user passes the first page
 			i'll save the properties everytime form is submitted and passed (no errors)
 			while showing already submitted forms, i'll ask the object the properties
-			images are saved under watercraft object, no connections at the moment 
+			images are saved under watercraft object, no connections at the moment
 		*/
 
 		// watercraft_add object
 		$o = new object($arr["id"]);
 
 		// ask the type from watercraft_add object
-		$type = $o->prop('watercraft_type'); 
+		$type = $o->prop('watercraft_type');
 
 		// lets get the property elements:
 		$elements = $this->get_watercraft_properties(array(
@@ -280,7 +266,7 @@ class watercraft_add extends class_base
 		$vars = array();
 
 
-		// if the watercraft id is set in the url, then we should load that watercraft obj. 
+		// if the watercraft id is set in the url, then we should load that watercraft obj.
 		if ($this->can('view', $_SESSION['watercraft_input_data']['watercraft_id']))
 		{
 			$watercraft_obj = new object($_SESSION['watercraft_input_data']['watercraft_id']);
@@ -325,7 +311,7 @@ class watercraft_add extends class_base
 		}
 
 
-		// draw pages: 
+		// draw pages:
 		$vars['pages'] = $this->draw_pages(array(
 			'saved_pages' => $saved_pages,
 			'pages' => $pages,
@@ -341,7 +327,7 @@ class watercraft_add extends class_base
 		{
 			if (empty($page))
 			{
-				$page_data = reset($pages); 
+				$page_data = reset($pages);
 			}
 			else
 			{
@@ -365,7 +351,7 @@ class watercraft_add extends class_base
 				{
 					$vars[$key.'_error'] .= $this->parse('NUMERIC_ERROR');
 				}
-				
+
 			}
 		}
 
@@ -454,7 +440,7 @@ class watercraft_add extends class_base
 				foreach ($images->arr() as $image_oid => $image_obj)
 				{
 					$d = $image_inst->get_image_by_id($image_oid);
-					
+
 					$fl = $image_obj->prop("file");
 					if(!empty($fl))
 					{
@@ -465,7 +451,7 @@ class watercraft_add extends class_base
 						$sm_w = $sz[0];
 						$sm_h = $sz[1];
 					}
-					
+
 					$fl = $image_obj->prop("file2");
 					if(!empty($fl))
 					{
@@ -476,7 +462,7 @@ class watercraft_add extends class_base
 						$bg_w = $sz[0];
 						$bg_h = $sz[1];
 					}
-						
+
 					$this->vars(array(
 						'image_url' => $d["url"],
 						'image_name' => $image_obj->name(),
@@ -508,15 +494,13 @@ class watercraft_add extends class_base
 		));
 
 		$this->vars($vars);
-
-		exit_function('watercraft_add::show');
 		return $this->parse();
 	}
 
         /** submit_data
-                @attrib name=submit_data 
+                @attrib name=submit_data
                 @param id required type=int acl=view
-                @param rel_id required type=int 
+                @param rel_id required type=int
 		@param redir_to optional type=string
 		@param keep_obj_on_cancel type=bool default=false
         **/
@@ -576,7 +560,7 @@ class watercraft_add extends class_base
 			}
 		}
 
-		// if we got any errors (required field is not filled) then redirect the user 
+		// if we got any errors (required field is not filled) then redirect the user
 		// back to the page where errors occurred
 		if (!empty($_SESSION['watercraft_input_data']['errors']))
 		{
@@ -601,7 +585,7 @@ class watercraft_add extends class_base
 		{
 			$page = $arr['page'] - 1;
 		}
-		
+
 
 		$return_url = aw_url_change_var('page', $page, $return_url);
 		$return_url = aw_url_change_var('watercraft_id', NULL, $return_url);
@@ -779,8 +763,8 @@ class watercraft_add extends class_base
 		}
 		return $elements;
 	}
-	/** Generate a list of watercraft objects added by user 
-		
+	/** Generate a list of watercraft objects added by user
+
 		@attrib name=my_watercraft_list is_public="1" caption="Minu vees&otilde;idukid"
 
 	**/
@@ -803,14 +787,14 @@ class watercraft_add extends class_base
 				'change_url' => aw_ini_get('baseurl').'/'.$o->meta('added_from_section').'?watercraft_id='.$o->id()
 			));
 
-			$result .= $this->parse('ITEM'); 
+			$result .= $this->parse('ITEM');
 		}
 
 		$this->vars(array(
 			'ITEM' => $result
 		));
 		*/
-		
+
 		//$inst = get_instance(CL_WATERCRAFT_SEARCH);
 		//$arr["prepared_list"] = $ol;
 		//return $inst->show($arr);
@@ -866,7 +850,7 @@ class watercraft_add extends class_base
 			{
 				$image_str .= $this->parse('WATERCRAFT_NO_IMAGE');
 			}
-			
+
 
 			$this->vars(array(
 				/*
@@ -883,7 +867,7 @@ class watercraft_add extends class_base
 				'WATERCRAFT_IMAGE' => $image_str
 				) + $properties
 			);
-			
+
 			$items_str .= $this->parse('SEARCH_RESULT_ITEM');
 		}
 
@@ -909,7 +893,7 @@ class watercraft_add extends class_base
 			// db table doesn't exist, so lets create it:
 			$this->db_query('CREATE TABLE '.$table.' (
 				oid INT PRIMARY KEY NOT NULL,
-				
+
 				watercraft_type int,
 				watercraft_management int
 			)');
@@ -936,4 +920,3 @@ class watercraft_add extends class_base
 		return false;
 	}
 }
-?>
