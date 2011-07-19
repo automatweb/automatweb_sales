@@ -1841,21 +1841,22 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	**/
 	function get_active($clid)
 	{
+		$active = false;
 		$pl = new object_list(array(
 			"class_id" => $clid,
 		));
-		if(!$pl->count())
+		if($pl->count())
 		{
-			return false;
-		}
-		for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
-		{
-			if($o->flag(OBJ_FLAG_IS_SELECTED))
+			for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
 			{
-				break;
+				if($o->flag(OBJ_FLAG_IS_SELECTED))
+				{
+					$active = $o;
+					break;
+				}
 			}
 		}
-		return $o;
+		return $active;
 	}
 
 	/** all network functions go in here, all must be static **/
