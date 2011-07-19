@@ -237,7 +237,7 @@ SCRIPT;
 			$limit = 20;
 			$list = new object_list(array(
 				"class_id" => $clids,
-				// "name" => "{$typed_text}%",
+				"name" => "{$typed_text}%",
 				new obj_predicate_limit($limit)
 			));
 
