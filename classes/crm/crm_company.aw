@@ -4622,18 +4622,26 @@ class crm_company extends class_base
 		try
 		{
 			$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
-			$parent_category = empty($arr["c"]) ? null : obj($arr["c"], array(), CL_CRM_CATEGORY);
+
+			if (empty($arr["c"]) or $arr["c"] === $arr["id"])
+			{
+				$parent_category = null;
+			}
+			else
+			{
+				$parent_category = obj($arr["c"], array(), CL_CRM_CATEGORY);
+			}
+
 			$type = empty($arr["t"]) ? crm_category_obj::TYPE_GENERIC : (int) $arr["t"];
 			$category = $this_o->add_customer_category($parent_category, $type);
 
 			$params = array();
 			if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
-			if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
 			$r = html::get_change_url($category->id(), $params);
 		}
 		catch (Exception $e)
 		{//TODO: distinguish different exceptions
-			$this->show_error_text(t("Viga. Kategooriat ei lisatud"));
+			$this->show_error_text(t("Viga. Kategooriat ei lisatud"), $e);
 			$r = $arr["return_url"];
 		}
 
