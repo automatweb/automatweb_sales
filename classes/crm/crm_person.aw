@@ -180,9 +180,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 @property ct_rel_tb type=toolbar no_caption=1 store=no
 
 	@layout ct_super type=vbox  closeable=1 area_caption=Kontaktid
-
 		@layout contact_l type=hbox parent=ct_super width=30%:30%:30%
-
 			@property contact_desc_text type=text store=no parent=contact_l captionside=top
 			@caption Kontaktandmed
 
@@ -191,12 +189,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 
 	@layout work_super type=vbox  closeable=1 area_caption=T&ouml;&ouml;kohad
-
 		@property work_tbl type=table parent=work_super store=no no_caption=1
 
 #		@layout work type=hbox parent=work_super width=30%:30%:30%
-
-
 #			@property work_contact type=relpicker reltype=RELTYPE_WORK parent=work captionside=top
 #			@caption Organisatsioon
 
@@ -210,50 +205,35 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 #			@caption Kontakt
 
 #		@layout work_down type=hbox parent=work_super width=20%:80%
-
 #			@property work_contact_start parent=work_down captionside=top type=releditor reltype=RELTYPE_CURRENT_JOB rel_id=first props=start store=no
 #			@caption T&ouml;&ouml;le asumise aeg
 
 
 		@layout ceditphf type=hbox width=50%:50%
-
 			@layout cedit_phone type=vbox parent=ceditphf closeable=1 area_caption=Telefonid
-
 				@property cedit_phone_tbl type=table no_caption=1 parent=cedit_phone store=no
 
 			@layout cedit_fax type=vbox parent=ceditphf closeable=1 area_caption=Faksid
-
 				@property cedit_telefax_tbl type=table no_caption=1 parent=cedit_fax store=no
 
 
-
-
 		@layout ceditemlurl type=hbox width=50%:50%
-
 			@layout cedit_email type=vbox parent=ceditemlurl closeable=1 area_caption=E-mail
-
 				@property cedit_email_tbl type=table store=no no_caption=1 parent=cedit_email store=no
 
 			@layout cedit_url type=vbox parent=ceditemlurl closeable=1 area_caption=URL
-
 				@property cedit_url_tbl type=table store=no no_caption=1 parent=cedit_url store=no
 
 		@layout ceditbank type=vbox closeable=1 area_caption=Pangaarved
-
 			@property cedit_bank_account_tbl type=table store=no no_caption=1 parent=ceditbank
 
 		@layout ceditprof type=vbox closeable=1 area_caption=Eelnev&nbsp;t&ouml;&ouml;kogemus
-
 			@property cedit_profession_tbl type=table store=no no_caption=1 parent=ceditprof store=no
 
 		@layout ceditadr type=vbox closeable=1 area_caption=Aadressid
-
 			@property cedit_adr_tbl type=table store=no no_caption=1 parent=ceditadr
 
-			@property address_edit type=releditor mode=manager2 store=no props=name,aadress,postiindex,linn,maakond,piirkond,riik,comment table_fields=name,aadress,postiindex,linn,maakond,piirkond,riik,comment reltype=RELTYPE_ADDRESS
-
 		@layout ceditmsn type=vbox closeable=1 area_caption=Msn/yahoo/aol/icq
-
 			@property messenger type=textbox size=30 maxlength=200 parent=ceditmsn no_caption=1
 
 
@@ -2815,54 +2795,6 @@ class crm_person extends class_base
 		if($query["class"] === "crm_company" && $this->can("view", $query["id"]))
 		{
 			$org_fixed = $query["id"];
-		}
-
-		$org_arr = new object_data_list(
-			array(
-				"class_id" => CL_CRM_COMPANY,
-				"parent" => array()
-			),
-			array
-			(
-				CL_CRM_COMPANY => array("oid" => "oid", "name" => "name")
-			)
-		);
-		$orgs = array(0 => t("--vali--"));
-		foreach($org_arr->arr() as $lde)
-		{
-			$orgs[$lde["oid"]] = $lde["name"];
-		}
-
-		$sec_arr = new object_data_list(
-			array(
-				"class_id" => CL_CRM_SECTION,
-				"parent" => array()
-			),
-			array
-			(
-				CL_CRM_SECTION => array("oid" => "oid", "name" => "name")
-			)
-		);
-		$secs = array(0 => t("--vali--"));
-		foreach($sec_arr->arr() as $lde)
-		{
-			$secs[$lde["oid"]] = $lde["name"];
-		}
-
-		$pro_arr = new object_data_list(
-			array(
-				"class_id" => CL_CRM_PROFESSION,
-				"parent" => array()
-			),
-			array
-			(
-				CL_CRM_PROFESSION => array("oid" => "oid", "name" => "name")
-			)
-		);
-		$pros = array(0 => t("--vali--"));
-		foreach($pro_arr->arr() as $lde)
-		{
-			$pros[$lde["oid"]] = $lde["name"];
 		}
 
 		$t = $arr["prop"]["vcl_inst"];
