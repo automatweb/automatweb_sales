@@ -1938,14 +1938,17 @@ class _int_object
 		$is = false;
 		if (is_class_id($class_id))
 		{
-			$cl = basename(aw_ini_get("classes.{$class_id}.object_override"));
 			if ($class_id == $this->class_id())
 			{ // object is of queried class
 				$is = true;
 			}
-			elseif (aw_ini_isset("classes.{$class_id}.object_override") and $this instanceof $cl)
+			elseif (aw_ini_isset("classes.{$class_id}.object_override"))
 			{ // object extends queried class
-				$is = true;
+				$cl = basename(aw_ini_get("classes.{$class_id}.object_override"));
+				if ($this instanceof $cl)
+				{
+					$is = true;
+				}
 			}
 		}
 		return $is;
