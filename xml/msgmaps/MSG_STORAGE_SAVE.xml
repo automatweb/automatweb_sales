@@ -50,4 +50,9 @@
       <func>init_scheduler</func>
       <param>CL_TIMING</param>
 </num_19>
+<num_20>
+      <class>/applications/customer_satisfaction_center/user_bookmarks</class>
+      <func>handle_update</func>
+      <param>CL_EXTLINK</param>
+</num_20>
 </xml>

@@ -49,6 +49,8 @@
 
 class user_bookmarks extends class_base
 {
+	const CACHE_KEY_PREFIX_HTML = "aw_bookmarks_menuhtml_";
+
 	function user_bookmarks()
 	{
 		$this->init(array(
@@ -113,9 +115,9 @@ class user_bookmarks extends class_base
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["objs"] = 0;
-		$arr["tf"] = $request["tf"];
-		$arr["user"] = $request["user"];
-		if($arr["group"] === "bms")
+		$arr["tf"] = isset($request["tf"]) ? $request["tf"] : "";
+		$arr["user"] = isset($request["user"]) ? $request["user"] : "";
+		if($this->use_group === "bms")
 		{
 			$pt = isset($request["tf"]) ? $request["tf"] : $arr["id"];
 			$ol = new object_list(array(
@@ -131,7 +133,7 @@ class user_bookmarks extends class_base
 
 	function callback_mod_retval(&$arr)
 	{
-		$arr["args"]["tf"] = $arr["request"]["tf"];
+		if (isset($arr["request"]["tf"])) $arr["args"]["tf"] = $arr["request"]["tf"];
 	}
 
 	function init_bm()
@@ -507,6 +509,7 @@ class user_bookmarks extends class_base
 				"to"=>$o->id(),
 				"from.class_id" => CL_GROUP,
 			));
+
 			if(count($conn))
 			{
 				$popup_menu = new popup_menu();
@@ -527,6 +530,7 @@ class user_bookmarks extends class_base
 					"icon" => "delete.gif",
 				));
 			}
+
 			$t->define_data(array(
 				"icon" => html::img(array(
 					'url' => icons::get_icon_url($o->class_id())
@@ -874,12 +878,12 @@ class user_bookmarks extends class_base
 	function pm_lod($arr)
 	{
 		$bm = $this->init_bm();
+		$bookmarks_menu = cache::file_get(self::CACHE_KEY_PREFIX_HTML . $bm->id());
 
-		$pm = new popup_menu();
-		$pm->begin_menu("user_bookmarks");
-		$time = 5*24*60*60;
-		if (!($cd = cache::file_get_ts("bms".$bm->id(), time() - $time)))
+		if (!$bookmarks_menu)
 		{
+			$pm = new popup_menu();
+			$pm->begin_menu("user_bookmarks");
 			$parents = array();
 			$list = new object_list();
 			$this->get_user_bms($bm, $list, $parents);
@@ -899,117 +903,144 @@ class user_bookmarks extends class_base
 
 			$cd = array(
 				"listids" => $listids,
-				"parents" => $parents,
+				"parents" => $parents
 			);
-			cache::file_set("bms".$bm->id(), aw_serialize($cd));
-		}
 
-		if($cd && !is_array($cd))
-		{
-			$cd = aw_unserialize($cd);
-		}
-
-		if($cd)
-		{
 			$oids = $cd["listids"];
 			$parents = $cd["parents"];
-		}
-
-		$params["oid"] = -1;
-		if(count($oids))
-		{
-			$params["oid"] = $oids;
-		}
-
-		$params["sort_by"] = "objects.jrk ASC";
-		$list = new object_list($params);
-		$mt = $bm->meta("grp_sets");
-
-		foreach($list->arr() as $li)
-		{
-			$pt = null;
-			if(!empty($parents[$li->id()]))
+			$params["oid"] = -1;
+			if(count($oids))
 			{
-				$pa = $parents[$li->id()];
-				$pt = "mn".$pa;
+				$params["oid"] = $oids;
 			}
-			elseif ($li->parent() != $bm->id() && $li->class_id() != CL_USER_BOOKMARKS && array_search($li->parent(), $oids)!==false)
+
+			$params["sort_by"] = "objects.jrk ASC";
+			$list = new object_list($params);
+			$mt = $bm->meta("grp_sets");
+
+			foreach($list->arr() as $li)
 			{
-				$pt = "mn".$li->parent();
-			}
-			//arr($li->id().". ".$li->name()." ".$pt);
-			if ($li->class_id() == CL_MENU || $li->class_id() == CL_USER_BOOKMARKS)
-			{
-				if($li->class_id() == CL_MENU)
+				$pt = null;
+				if(!empty($parents[$li->id()]))
 				{
-					$text = $li->meta("user_text") != "" ? $li->meta("user_text") : $li->name();
+					$pa = $parents[$li->id()];
+					$pt = "mn".$pa;
+				}
+				elseif ($li->parent() != $bm->id() && $li->class_id() != CL_USER_BOOKMARKS && array_search($li->parent(), $oids)!==false)
+				{
+					$pt = "mn".$li->parent();
+				}
+
+				if ($li->class_id() == CL_MENU || $li->class_id() == CL_USER_BOOKMARKS)
+				{
+					if($li->class_id() == CL_MENU)
+					{
+						$text = $li->meta("user_text") != "" ? $li->meta("user_text") : $li->name();
+					}
+					else
+					{
+						$text = $li->createdby().t(" j&auml;rjehoidja");
+					}
+					$params = array(
+						"name" => "mn".$li->id(),
+						"text" => $text
+					);
+					if($pt)
+					{
+						$params["parent"] = $pt;
+					}
+					$pm->add_sub_menu($params);
+				}
+				elseif ($li->class_id() == CL_EXTLINK)
+				{
+					$pm->add_item(array(
+						"text" => strlen(trim($li->meta("user_text"))) ? $li->meta("user_text") : $li->name(),
+						"link" => $li->prop("url"),
+						"parent" => $pt
+					));
 				}
 				else
 				{
-					$text = $li->createdby().t(" j&auml;rjehoidja");
+					$grp = $mt[$li->id()];
+					$ga = "";
+					if ($grp != "")
+					{
+						$gl = $li->get_group_list();
+						$ga = " - ".$gl[$grp]["caption"];
+					}
+					$pm->add_item(array(
+						"text" => strlen(trim($li->meta("user_text"))) ? $li->meta("user_text") : $li->name().$ga,
+						"link" => html::get_change_url($li->id(), array("return_url" => $arr["url"], "group" => $grp)),
+						"parent" => $pt
+					));
 				}
-				$params = array(
-					"name" => "mn".$li->id(),
-					"text" => $text
-				);
-				if($pt)
-				{
-					$params["parent"] = $pt;
-				}
-				$pm->add_sub_menu($params);
 			}
-			elseif ($li->class_id() == CL_EXTLINK)
-			{
-				$pm->add_item(array(
-					"text" => $li->meta("user_text") != "" ? $li->meta("user_text") : $li->name(),
-					"link" => $li->prop("url"),
-					"parent" => $pt
-				));
-			}
-			else
-			{
-				$grp = $mt[$li->id()];
-				$ga = "";
-				if ($grp != "")
-				{
-					$gl = $li->get_group_list();
-					$ga = " - ".$gl[$grp]["caption"];
-				}
-				$pm->add_item(array(
-					"text" => $li->meta("user_text") != "" ? $li->meta("user_text") : $li->name().$ga,
-					"link" => html::get_change_url($li->id(), array("return_url" => $arr["url"], "group" => $grp)),
-					"parent" => $pt
-				));
-			}
+
+			$uri = new aw_uri($arr["url"]);
+			$arr["url"] = $uri->get_query();
+
+			$pm->add_separator();
+			$pm->add_item(array(
+				"emphasized" => true,
+				"text" => t("Pane j&auml;rjehoidjasse"),
+				"link" => $this->mk_my_orb("add_to_bm", array("url" => $arr["url"]))
+			));
+			$pm->add_item(array(
+				"emphasized" => true,
+				"text" => t("Eemalda j&auml;rjehoidjast"),
+				"link" => $this->mk_my_orb("remove_from_bm", array("url" => $arr["url"]))
+			));
+			$pm->add_item(array(
+				"emphasized" => true,
+				"text" => t("Toimeta j&auml;rjehoidjat"),
+				"link" => html::get_change_url($bm->id(), array("return_url" => $arr["url"], "group" => "bms"))
+			));
+
+			$bookmarks_menu = $pm->get_menu(array(
+				"text" => html::img(array(
+					"url" => "/automatweb/images/aw06/ikoon_jarjehoidja.gif",
+					"width" => "16" ,
+					"height" => "14",
+					"border" => "0",
+					"class" => "ikoon"
+				)) . t("J&auml;rjehoidja")
+			));
+			cache::file_set(self::CACHE_KEY_PREFIX_HTML . $bm->id(), $bookmarks_menu);
 		}
 
-		$uri = new aw_uri($arr["url"]);
-		$arr["url"] = $uri->get_query();
-
-		$pm->add_separator();
-		$pm->add_item(array(
-			"emphasized" => true,
-			"text" => t("Pane j&auml;rjehoidjasse"),
-			"link" => $this->mk_my_orb("add_to_bm", array("url" => $arr["url"]))
-		));
-		$pm->add_item(array(
-			"emphasized" => true,
-			"text" => t("Eemalda j&auml;rjehoidjast"),
-			"link" => $this->mk_my_orb("remove_from_bm", array("url" => $arr["url"]))
-		));
-		$pm->add_item(array(
-			"emphasized" => true,
-			"text" => t("Toimeta j&auml;rjehoidjat"),
-			"link" => html::get_change_url($bm->id(), array("return_url" => $arr["url"], "group" => "bms"))
-		));
-
 		header("Content-type: text/html; charset=".aw_global_get("charset"));
-		die($pm->get_menu(array(
-					"text" => '<img src="/automatweb/images/aw06/ikoon_jarjehoidja.gif" alt="" width="16" height="14" border="0" class="ikoon" />'.t("J&auml;rjehoidja")
-		)));
+		exit($bookmarks_menu);
 	}
 
-	function get_user_bms($bm, &$list, &$parents)
+	function handle_update($arr)
+	{
+		$object = new object($arr["oid"]);
+
+		if (true or $object->meta("is_bookmark")) // handle only bookmark menu links //TODO:!!! et ei toimuks see iga lingi salvestamisel
+		{
+			$count = 100;
+			while (!$object->is_a(CL_USER_BOOKMARKS) and $count)
+			{
+				if (object_loader::can("view", $object->parent()))
+				{
+					$object = new object($object->parent());
+				}
+				else
+				{
+					$count = 1;
+				}
+
+				--$count;
+			}
+
+			if ($object->is_a(CL_USER_BOOKMARKS))
+			{
+				cache::file_invalidate(self::CACHE_KEY_PREFIX_HTML . $object->id());
+			}
+		}
+	}
+
+	function get_user_bms($bm, $list, &$parents)
 	{
 		// now, add items from the bum
 		$ot = new object_tree(array(
@@ -1040,39 +1071,54 @@ class user_bookmarks extends class_base
 
 	/**
 		@attrib name=add_to_bm
-		@param url optional
+		@param url required type=string
 	**/
 	function add_to_bm($arr)
 	{
+		try
+		{
+			$url = new aw_uri($arr["url"]);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text("Vigane aadress antud, ei saa lisada j&auml;rjehoidjasse.");
+		}
+
 		$bm = $this->init_bm();
 		$lo = obj();
 		$lo->set_class_id(CL_EXTLINK);
 		$lo->set_parent($bm->id());
 
-		// parse id from url and get object and stuff
-		$bits = parse_url($arr["url"]);
-		$q = $bits["query"];
-		parse_str($q, $td);
-		if ($this->can("view", $td["id"]))
+		if ($this->can("view", $url->arg("id")))
 		{
-			$t = obj($td["id"]);
+			$t = obj($url->arg("id"));
 			$nm = $t->name();
-			if ($td["group"] != "")
+			if ($url->arg("group"))
 			{
 				$gl = $t->get_group_list();
-				$nm .= " - ".$gl[$td["group"]]["caption"];
+				$nm .= " - ".$gl[$url->arg("group")]["caption"];
 			}
 			$lo->set_name($nm);
 		}
-		$lo->set_prop("url", $arr["url"]);
+		$lo->set_prop("url", $url->get());
 		$lo->save();
 		$this->clear_cache($bm);
-		if(substr($arr["url"], 0, 1) === "?")
+
+		$return_url = $url->get();
+		if ($return_url{0} === "?")
 		{
-			$arr["url"] = isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"] . $arr["url"];
+			$return_url = (isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"]) . $return_url;
 		}
-		return $arr["url"];
+
+		if (false === strpos($return_url, aw_ini_get("baseurl")))
+		{
+			$return_url = aw_ini_get("baseurl") . $return_url;
+		}
+
+		$this->show_success_text("Aadress lisatud j&auml;rjehoidjasse.");
+		return $return_url;
 	}
+
 	/**
 		@attrib name=remove_from_bm
 		@param url optional
@@ -1094,7 +1140,7 @@ class user_bookmarks extends class_base
 		$this->clear_cache($bm);
 		if(substr($arr["url"], 0, 1) === "?")
 		{
-			$arr["url"] = isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"] . $arr["url"];
+			$arr["url"] = (isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"]) . $arr["url"];
 		}
 		return $arr["url"];
 	}
@@ -1243,7 +1289,7 @@ class user_bookmarks extends class_base
 	{
 		$paths = array();
 		$conn = $bm->connections_from(array(
-			"type" => "RELTYPE_SHOW_SHARED",
+			"type" => "RELTYPE_SHOW_SHARED"
 		));
 		if(count($conn))
 		{
