@@ -81,6 +81,7 @@ class class_base extends aw_template implements orb_public_interface
 	var $cfgform_id;
 	var $groupinfo;
 	var $classinfo;
+	var $relinfo;
 	var $cfgmanager;
 	var $embedded;
 	var $changeform_target;
@@ -1192,9 +1193,15 @@ class class_base extends aw_template implements orb_public_interface
 	/** Shows message text to user indicating that an error occurred
 	@attrib api=1 params=pos
 	@param text type=string
+	@param exception type=Exception default=NULL
+		For situations where error is caused by an uncaught exception. This will be converted to a php user warning
 	**/
-	public static function show_error_text($text)
+	public static function show_error_text($text, Exception $exception = null)
 	{
+		if ($exception)
+		{
+			trigger_error("Caught " . get_class($exception) . ". Thrown in '" . $exception->getFile() . "' on line " . $exception->getLine() . ": '" . $exception->getMessage() . "'", E_USER_WARNING);
+		}
 		self::push_msg($text, "ERROR");
 	}
 
