@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_ADDRESS relationmgr=yes no_comment=1 no_status=1 maintainer=voldemar prop_cb=1
+@classinfo syslog_type=ST_ADDRESS relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo aw_address index=aw_oid master_index=brother_of master_table=objects
 
@@ -35,7 +35,7 @@
 
 */
 
-require_once(aw_ini_get("basedir") . "/classes/common/address/as_header.aw");
+require_once(AW_DIR . "classes/common/address/as_header.aw");
 
 class address extends class_base
 {
@@ -161,11 +161,6 @@ EOS;
 		return PROP_OK;
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function callback_pre_save ($arr)
 	{
 		if (!empty($arr["request"]["location_data"]))
@@ -278,5 +273,3 @@ EOS;
 		return $return_val;
 	}
 }
-
-?>

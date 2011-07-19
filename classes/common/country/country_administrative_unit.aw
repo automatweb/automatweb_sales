@@ -1,7 +1,7 @@
 <?php
 /*
 
-@classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_UNIT relationmgr=yes no_comment=1 no_status=1 maintainer=voldemar
+@classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_UNIT relationmgr=yes no_comment=1 no_status=1
 
 @tableinfo aw_administrative_unit index=aw_oid master_index=brother_of master_table=objects
 
@@ -103,11 +103,6 @@ class country_administrative_unit extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function do_db_upgrade($table, $field, $query, $error)
 	{
 		$return_val = false;
@@ -130,5 +125,3 @@ class country_administrative_unit extends class_base
 		return $return_val;
 	}
 }
-
-?>

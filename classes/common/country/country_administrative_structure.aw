@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_STRUCTURE relationmgr=yes no_comment=1 no_status=1 maintainer=voldemar prop_cb=1
+@classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_STRUCTURE relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @groupinfo grp_administrative_structure caption="Haldusjaotuse struktuur"
 
@@ -40,7 +40,7 @@
 
 */
 
-require_once(aw_ini_get("basedir") . "/classes/common/address/as_header.aw");
+require_once(AW_DIR . "classes/common/address/as_header.aw");
 
 class country_administrative_structure extends class_base
 {
@@ -112,27 +112,9 @@ class country_administrative_structure extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		$this_object =& $arr["obj_inst"];
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function callback_post_save ($arr)
 	{
-		$this_object =& $arr["obj_inst"];
+		$this_object = $arr["obj_inst"];
 		$divisions = array ();
 
 		foreach ($this_object->connections_from (array ("type" => "RELTYPE_ADMINISTRATIVE_DIVISION")) as $connection)
@@ -175,5 +157,3 @@ class country_administrative_structure extends class_base
 		return $result;
 	}
 }
-
-?>

@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_STRUCTURE_ENCODING relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=voldemar
+@classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_STRUCTURE_ENCODING relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @groupinfo grp_encodings caption="Vasted"
 
@@ -27,7 +27,7 @@
 
 */
 
-require_once(aw_ini_get("basedir") . "/classes/common/address/as_header.aw");
+require_once(AW_DIR . "classes/common/address/as_header.aw");
 
 class country_administrative_structure_encoding extends class_base
 {
@@ -138,8 +138,8 @@ class country_administrative_structure_encoding extends class_base
 			}
 		}
 
-		$this_object =& $arr["obj_inst"];
-		$table =& $arr["prop"]["vcl_inst"];
+		$this_object = $arr["obj_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 		$table->name = "encodings_list";
 		$this->_init_encodings_list ($arr);
 		$list = new object_list (array (
@@ -165,7 +165,7 @@ class country_administrative_structure_encoding extends class_base
 
 	private function _init_encodings_list ($arr)
 	{
-		$table =& $arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 		$table->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -181,7 +181,7 @@ class country_administrative_structure_encoding extends class_base
 
 	private function _save_encodings ($arr)
 	{
-		$this_object =& $arr["obj_inst"];
+		$this_object = $arr["obj_inst"];
 
 		foreach ($arr["request"] as $name => $value)
 		{
@@ -199,4 +199,3 @@ class country_administrative_structure_encoding extends class_base
 		}
 	}
 }
-?>

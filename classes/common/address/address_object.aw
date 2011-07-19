@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
 
 require_once(AW_DIR . "classes/common/address/as_header.aw");
 
@@ -266,6 +263,3 @@ class awex_as_address extends awex_as {}
 /** Country related error **/
 class awex_as_address_country extends awex_as_address {}
 
-
-
-?>
