@@ -1,10 +1,20 @@
 <?php
 
-class relpicker extends  core
+class relpicker extends core implements orb_public_interface
 {
 	function relpicker()
 	{
 		$this->init("");
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	/**
@@ -167,15 +177,17 @@ class relpicker extends  core
 
 		if($buttonspos === "bottom")
 		{
-			$r .= "<br>";
+			$r .= html::linebreak();
 		}
 
+		// add search button
 		if (!$no_search)
 		{
 			$url = $this->mk_my_orb("do_search", array(
 				"id" => $oid,
 				"pn" => $name,
 				"in_popup" => "1",
+				"start_empty" => "1",
 				"clid" => $clids,
 				"multiple" => $multiple
 			), "popup_search", false, true);
@@ -187,6 +199,7 @@ class relpicker extends  core
 			));
 		}
 
+		// add edit button
 		if(!is_array($selected) && $this->can("edit", $selected) && !$no_edit)
 		{
 			$selected_obj = new object($selected);
@@ -220,6 +233,7 @@ class relpicker extends  core
 			));
 		}
 
+		// add create button
 		if(!$no_edit)
 		{
 			$clss = aw_ini_get("classes");
@@ -272,6 +286,9 @@ class relpicker extends  core
 			}
 		}
 
+		//TODO: show control and buttons on same line
+		// $r = html::span(array("content" => $r, "nowrap" => true));
+
 		return $r;
 	}
 
@@ -284,21 +301,20 @@ class relpicker extends  core
 			return $this->init_autocomplete_relpicker($arr);
 		}
 
-		$val = &$arr["property"];
-		$val["post_append_text"] = isset($val["post_append_text"]) ? $val["post_append_text"] : "";
+		$prop["post_append_text"] = isset($prop["post_append_text"]) ? $prop["post_append_text"] : "";
 		if(isset($prop["no_sel"]) && $prop["no_sel"] == 1)
 		{
 			$options = array();
 		}
 		else
 		{
-			$options = array("0" => t("--vali--"));
+			$options = html::get_empty_option();
 		}
 		$reltype = isset($prop["reltype"]) ? $prop["reltype"] : null;
 		// generate option list
 		if (isset($prop["options"]) && is_array($prop["options"]))
 		{
-			$val["type"] = "select";
+			$prop["type"] = "select";
 		}
 		else
 		{
@@ -306,18 +322,16 @@ class relpicker extends  core
 			if (isset($prop["automatic"]))
 			{
 				$clid = $arr["relinfo"][$reltype]["clid"];
-				$val["type"] = "select";
+				$prop["type"] = "select";
 				if (!empty($clid))
 				{
 					$olist = new object_list(array(
 						"class_id" => $clid,
-						"site_id" => array(),
-						"lang_id" => array(),
 						"brother_of" => new obj_predicate_prop("id")
 					));
 					$names = $olist->names();
 					asort($names);
-					$val["options"] = $options + $names;
+					$prop["options"] = $options + $names;
 					/*if ($arr["id"])
 					{
 						$o = obj($arr["id"]);
@@ -329,7 +343,7 @@ class relpicker extends  core
 						{
 							$sel[$c->prop("to")] = $c->prop("to");
 						}
-						$val["value"] = $sel;
+						$prop["value"] = $sel;
 					};*/
 					// since when do automatic relpickers get all relations selected?!?!
 				}
@@ -341,9 +355,9 @@ class relpicker extends  core
 					$o = obj($arr["id"]);
 					$conn = array();
 
-					if (!empty($val["clid"]))
+					if (!empty($prop["clid"]))
 					{
-						$clids = (array) $val["clid"];
+						$clids = (array) $prop["clid"];
 						$error = false;
 
 						foreach ($clids as $key => $clid)
@@ -371,69 +385,76 @@ class relpicker extends  core
 					{
 						$options[$c->prop("to")] = $c->prop("to.name");
 					}
-					$val["options"] = $options;
+					$prop["options"] = $options;
 				}
 			}
 		}
 
-		$val["type"] = (isset($val["display"]) && $val["display"] === "radio") ? "chooser" : "select";
+		$prop["type"] = (isset($prop["display"]) && $prop["display"] === "radio") ? "chooser" : "select";
 
-		if ($val["type"] === "select" /*&& is_object($this->obj)*/)
+		$buttons = "";
+
+		// search button
+		if ($prop["type"] === "select" /*&& is_object($this->obj)*/)
 		{
 			$clid = isset($arr["relinfo"][$reltype]["clid"]) ? (array)$arr["relinfo"][$reltype]["clid"] : array();
-			if(!is_object($arr["obj_inst"]) || empty($val["parent"]))
+
+			// search button
+			if(!is_object($arr["obj_inst"]) || empty($prop["parent"]))
 			{
 				// I only want the search button. No edit or new buttons!
-				if (empty($val["no_search"]))
+				if (empty($prop["no_search"]))
 				{
 					$url = $this->mk_my_orb("do_search", array(
 						"id" => is_object($arr["obj_inst"]) ? $arr["obj_inst"]->id() : null,
 						"pn" => $arr["property"]["name"],
 						"in_popup" => "1",
+						"start_empty" => "1",
 						"clid" => $clid,
 						"multiple" => isset($arr["property"]["multiple"]) && $arr["property"]["multiple"] ? $arr["property"]["multiple"] : NULL
 					), "popup_search", false, true);
 
-					$val["post_append_text"] .= " ".html::href(array(
+					$buttons .= " ".html::href(array(
 						"url" => "javascript:aw_popup_scroll('$url','Otsing',".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
 						"caption" => html::img(array("url" => icons::get_std_icon_url("magnifier"), "border" => "0")),
 						"title" => t("Otsi"),
 					));
 				}
 			}//selle paneks peaaegu alati t88le kui suudaks loadida relpickereid
-			elseif(empty($val["no_search"]))
+			elseif(empty($prop["no_search"]))
 			{
 				$ps = new popup_search();
 				$ps->set_class_id($clid);
 				$ps->set_id($arr["obj_inst"]->id());
-				$ps->set_reload_property($val["name"]);
+				$ps->set_reload_property($prop["name"]);
 				$ps->set_property($arr["property"]["name"]);
-				if(!empty($val["parent"]))
+				if(!empty($prop["parent"]))
 				{
-					$ps->set_reload_layout($val["parent"]);
+					$ps->set_reload_layout($prop["parent"]);
 				}
 				else
 				{
-					$ps->set_reload_property($val["name"]);
+					$ps->set_reload_property($prop["name"]);
 				}
-				$prop["post_append_text"] = $ps->get_search_button();
+				$buttons = $ps->get_search_button();
 			}
 		}
 
+		// edit button
 		if (
-			isset($val["type"]) && $val["type"] === "select" &&
-			is_object($this->obj) && ((isset($val["value"]) && is_oid($val["value"]) && $this->can("edit", $val["value"])) ||
-			(is_object($this->obj) && is_oid($this->obj->id()) && $this->obj->is_property($val["name"]) && is_oid($this->obj->prop($val["name"])) && $this->can("edit", $this->obj->prop($val["name"]))) ) &&
-			empty($val["no_edit"])
+			isset($prop["type"]) && $prop["type"] === "select" &&
+			is_object($this->obj) && ((isset($prop["value"]) && is_oid($prop["value"]) && $this->can("edit", $prop["value"])) ||
+			(is_object($this->obj) && is_oid($this->obj->id()) && $this->obj->is_property($prop["name"]) && is_oid($this->obj->prop($prop["name"])) && $this->can("edit", $this->obj->prop($prop["name"]))) ) &&
+			empty($prop["no_edit"])
 		)
 		{
 			try
 			{
-				$change_url = html::get_change_url($this->obj->prop($val["name"]), array(
-					"save_autoreturn" => !empty($val["add_edit_autoreturn"]),
+				$change_url = html::get_change_url($this->obj->prop($prop["name"]), array(
+					"save_autoreturn" => !empty($prop["add_edit_autoreturn"]),
 					"return_url" => get_ru()
 				));
-				$val["post_append_text"] .= " ".html::href(array(
+				$buttons .= " ".html::href(array(
 					"url" => $change_url,
 					"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"), "pencil" => "0")),
 					"title" => t("Muuda")
@@ -441,19 +462,19 @@ class relpicker extends  core
 			}
 			catch (Exception $e)
 			{
-				$val["post_append_text"] .= " " . t("Objekt on kustutatud");
+				$prop["post_append_text"] .= " " . t("Objekt on kustutatud");
 			}
 		}
 		elseif (
-			isset($val["type"]) && $val["type"] === "select" &&
-			is_object($this->obj) && ((isset($val["value"]) && is_array($val["value"]) && $this->can("edit", $val["value"])) ||
-			(is_object($this->obj) && is_oid($this->obj->id()) && $this->obj->is_property($val["name"]) && is_array($this->obj->prop($val["name"])))) &&
-			empty($val["no_edit"])
+			isset($prop["type"]) && $prop["type"] === "select" &&
+			is_object($this->obj) && ((isset($prop["value"]) && is_array($prop["value"]) && $this->can("edit", $prop["value"])) ||
+			(is_object($this->obj) && is_oid($this->obj->id()) && $this->obj->is_property($prop["name"]) && is_array($this->obj->prop($prop["name"])))) &&
+			empty($prop["no_edit"])
 		)
 		{
 			$pm = new popup_menu();
-			$pm->begin_menu(str_replace(array("[", "]"), "", $val["name"])."_rp_editbtn");
-			foreach($this->obj->prop($val["name"]) as $id)
+			$pm->begin_menu(str_replace(array("[", "]"), "", $prop["name"])."_rp_editbtn");
+			foreach($this->obj->prop($prop["name"]) as $id)
 			{
 				if($this->can("edit", $id))
 				{
@@ -463,39 +484,40 @@ class relpicker extends  core
 					));
 				}
 			}
-			$val["post_append_text"] .= " ".$pm->get_menu(array(
+			$buttons .= " ".$pm->get_menu(array(
 				"icon" => "pencil"
 			));
 		}
 
+		// delete button
 		$allow_delete = false;
 		if(
-			isset($val["delete_button"]) && $val["delete_button"] ||
-			isset($val["delete_rels_button"]) && $val["delete_rels_button"] ||
-			isset($val["delete_rels_popup_button"]) && $val["delete_rels_popup_button"]
+			isset($prop["delete_button"]) && $prop["delete_button"] ||
+			isset($prop["delete_rels_button"]) && $prop["delete_rels_button"] ||
+			isset($prop["delete_rels_popup_button"]) && $prop["delete_rels_popup_button"]
 		)
 		{
 			$oids = array();
 			$allow_delete = true;
 
-			if(isset($val["value"]) && is_oid($val["value"]))
+			if(isset($prop["value"]) && is_oid($prop["value"]))
 			{
-				$oids[] = $val["value"];
+				$oids[] = $prop["value"];
 			}
 			else
-			if(isset($val["value"]) && is_array($val["value"]))
+			if(isset($prop["value"]) && is_array($prop["value"]))
 			{
-				$oids = $val["value"];
+				$oids = $prop["value"];
 			}
 			else
-			if(is_object($this->obj) && is_oid($this->obj->id()) && $this->obj->is_property($val["name"]) && $this->can("edit", $this->obj->prop($val["name"])))
+			if(is_object($this->obj) && is_oid($this->obj->id()) && $this->obj->is_property($prop["name"]) && $this->can("edit", $this->obj->prop($prop["name"])))
 			{
-				$oids[] = $this->obj->prop($val["name"]);
+				$oids[] = $this->obj->prop($prop["name"]);
 			}
 			else
-			if(is_object($this->obj) && is_oid($this->obj->id()) && $this->obj->is_property($val["name"]) && is_array($this->obj->prop($val["name"])))
+			if(is_object($this->obj) && is_oid($this->obj->id()) && $this->obj->is_property($prop["name"]) && is_array($this->obj->prop($prop["name"])))
 			{
-				$oids = $this->obj->prop($val["name"]);
+				$oids = $this->obj->prop($prop["name"]);
 			}
 			else
 			{
@@ -512,9 +534,9 @@ class relpicker extends  core
 			}
 		}
 
-		if($val["type"] === "select" && is_object($this->obj) && $allow_delete)
+		if($prop["type"] === "select" && is_object($this->obj) && $allow_delete)
 		{
-			if(!empty($val["delete_button"]))
+			if(!empty($prop["delete_button"]))
 			{
 				foreach($oids as $i => $oid)
 				{
@@ -522,7 +544,7 @@ class relpicker extends  core
 				}
 				$awucv["action"] = "delete_objects";
 				$awucv["post_ru"] = post_ru();
-				$val["post_append_text"] .= " ".html::href(array(
+				$buttons .= " ".html::href(array(
 					"url" => aw_url_change_var($awucv),
 					//"url" => "javascript:submit_change_form('delete_objects')",
 					"caption" => html::img(array("url" => icons::get_std_icon_url("delete"), "border" => "0")),
@@ -531,7 +553,7 @@ class relpicker extends  core
 				));
 			}
 
-			if(!empty($val["delete_rels_button"]))
+			if(!empty($prop["delete_rels_button"]))
 			{
 				foreach($oids as $i => $oid)
 				{
@@ -539,7 +561,7 @@ class relpicker extends  core
 				}
 				$awucv["action"] = "delete_rels";
 				$awucv["post_ru"] = post_ru();
-				$val["post_append_text"] .= " ".html::href(array(
+				$buttons .= " ".html::href(array(
 					"url" => aw_url_change_var($awucv),
 					//"url" => "javascript:submit_change_form('delete_rels')",
 					"caption" => html::img(array("url" => icons::get_std_icon_url("delete"), "border" => "0")),
@@ -548,7 +570,7 @@ class relpicker extends  core
 				));
 			}
 
-			if(!empty($val["delete_rels_popup_button"]))
+			if(!empty($prop["delete_rels_popup_button"]))
 			{
 				$url = $this->mk_my_orb("rels_del_popup", array(
 					"id" => $arr["id"],
@@ -559,11 +581,12 @@ class relpicker extends  core
 				$button = '<a title="Eemalda" alt="Eemalda" href="javascript:void();"
 					onclick="window.open(\''.$url.'\',\'\', \'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800\');">
 					<img src="'.aw_ini_get("baseurl").'/automatweb/images/icons/delete.gif" border=0></a>';
-				$val["post_append_text"] .= $button;
+				$buttons .= $button;
 			}
 		}
 
-		if ($val["type"] === "select" && is_object($this->obj) && is_oid($this->obj->id()) && empty($val["no_edit"]))
+		// create button
+		if ($prop["type"] === "select" && is_object($this->obj) && is_oid($this->obj->id()) && empty($prop["no_edit"]))
 		{
 			$clid = isset($arr["relinfo"][$reltype]["clid"]) ? (array)$arr["relinfo"][$reltype]["clid"] : array();
 			$rel_val = isset($arr["relinfo"][$reltype]["value"]) ? $arr["relinfo"][$reltype]["value"] : null;
@@ -571,7 +594,7 @@ class relpicker extends  core
 			$clss = aw_ini_get("classes");
 			if (count($clid) > 1)
 			{
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu($arr["property"]["name"]."_relp_pop");
 				foreach($clid as $_clid)
 				{
@@ -584,13 +607,13 @@ class relpicker extends  core
 								"alias_to" => $this->obj->id(),
 								"alias_to_prop" => $arr["property"]["name"],
 								"reltype" => $rel_val,
-								"save_autoreturn" => !empty($val["add_edit_autoreturn"]),
+								"save_autoreturn" => !empty($prop["add_edit_autoreturn"]),
 								"return_url" => get_ru()
 							)
 						)
 					));
 				}
-				$val["post_append_text"] .= " ".$pm->get_menu(array(
+				$buttons .= " ".$pm->get_menu(array(
 					"icon" => "add",
 					"alt" => t("Lisa")
 				));
@@ -599,7 +622,7 @@ class relpicker extends  core
 			{
 				foreach($clid as $_clid)
 				{
-					$val["post_append_text"] .= " ".html::href(array(
+					$buttons .= " ".html::href(array(
 						"url" => html::get_new_url(
 							$_clid,
 							(!empty($arr["prop"]["parent"]) && $arr["prop"]["parent"] === "this.parent") ? $this->obj->parent() : $this->obj->id(),
@@ -607,7 +630,7 @@ class relpicker extends  core
 								"alias_to_prop" => ifset($arr, "prop", "name"),
 								"alias_to" => $this->obj->id(),
 								"reltype" => $rel_val,
-								"save_autoreturn" => !empty($val["add_edit_autoreturn"]),
+								"save_autoreturn" => !empty($prop["add_edit_autoreturn"]),
 								"return_url" => get_ru()
 							)
 						),
@@ -617,7 +640,13 @@ class relpicker extends  core
 				}
 			}
 		}
-		return array($val["name"] => $val);
+
+		// show buttons on same line
+		//TODO: buttons and control both on same line
+		// $buttons = html::span(array("content" => $buttons, "nowrap" => true));
+		$prop["post_append_text"] .= $buttons;
+
+		return array($prop["name"] => $prop);
 	}
 
 
@@ -821,24 +850,23 @@ class relpicker extends  core
 	}
 
 	/**
-		@attrib name=get_relp_opts all_args="1"
+		@attrib name=get_relp_opts all_args=1
 	**/
 	function get_relp_opts($arr)
 	{
-		if (is_admin())
+		if (isset($arr[$arr["requester"]]) and strlen($arr[$arr["requester"]]) > 1)
 		{
 			$ol = new object_list(array(
 				"class_id" => $arr["clids"],
-				"lang_id" => array(),
-				"site_id" => array(),
-				"name" => $arr[$arr["requester"]]."%"
+				"name" => $arr[$arr["requester"]]."%",
+				new obj_predicate_sort(array("name" => obj_predicate_sort::ASC)),
+				new obj_predicate_limit(50) //TODO: konfitavaks
 			));
 		}
 		else
 		{
 			$ol = new object_list();
 		}
-		$cl_json = get_instance("protocols/data/json");
 
 		$errorstring = "";
 		$error = false;
@@ -852,13 +880,19 @@ class relpicker extends  core
 		);
 
 
-		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
 		$autocomplete_options = $ol->names();
 		foreach($autocomplete_options as $key=>$val)
 		{
 			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
 		}
-		exit ($cl_json->encode($option_data));
+
+		ob_start("ob_gzhandler");
+		header("Content-Type: application/json");
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header("Pragma: no-cache"); // HTTP/1.0
+		exit (json_encode($option_data));
 	}
 
 	function process_autocomplete_relpicker($arr)
@@ -871,8 +905,6 @@ class relpicker extends  core
 
 			$ol = new object_list(array(
 				"class_id" => $clids,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"name" => $arr["prop"]["value"]
 			));
 
