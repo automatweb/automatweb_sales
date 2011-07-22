@@ -64,7 +64,7 @@ class htmlclient extends aw_template
 			else
 			{
 				$this->use_template = $arr["template"] . ".tpl";
-			};
+			}
 		}
 
 		$this->group_style = "";
@@ -334,7 +334,7 @@ class htmlclient extends aw_template
 				STAT_ACTIVE => t("Jah"),
 				STAT_NOTACTIVE => t("Ei"),
 			);
-		};
+		}
 
 		if (empty($args["value"]) && isset($args["vcl_inst"]) && is_callable(array($args["vcl_inst"], "get_html")))
 		{
@@ -556,6 +556,7 @@ class htmlclient extends aw_template
 	function put_subitem($args)
 	{
 		$tpl_vars = array(
+			"err_msg" => isset($args["error"]) ? $args["error"] : "",
 			"caption" => isset($args["caption"]) ? $args["caption"] : "",
 			"element" => $this->draw_element($args),
 			"space" => isset($args["space"]) ? $args["space"] : 0,
@@ -701,7 +702,7 @@ class htmlclient extends aw_template
 				if (isset($item["__ignore"]))
 				{
 					continue;
-				};
+				}
 
 				$item["html"] = $this->create_element($item);
 				if (!empty($item["error"]))
@@ -1415,8 +1416,7 @@ class htmlclient extends aw_template
 						unset($sub_layouts[$gx]);
 					}
 					// this deals with lp_chain thingie .. I need to fix that too
-					else
-					if (!empty($sub_layouts[$pval["parent"]]))
+					elseif (!empty($sub_layouts[$pval["parent"]]))
 					{
 						$gx = $pval["parent"];
 						$this->proplist[$pkey]["value"] = $sub_layouts[$gx];
