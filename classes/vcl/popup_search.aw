@@ -110,6 +110,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 				"id" => $arr["obj_inst"]->id(),
 				"pn" => $tmp["name"],
 				"clid" => $clid,
+				"start_empty" => true,
 				"multiple" => !empty($arr["property"]["multiple"]) ? 1 : null
 			));
 		}
@@ -1048,6 +1049,7 @@ function aw_get_el(name,form)
 		$url = $this->mk_my_orb("do_ajax_search", array(
 			"id" => $this->oid,
 			"in_popup" => "1",
+			"start_empty" => "1",
 			"reload_layout" => isset($this->reload_layouts) ? $this->reload_layouts :"",
 			"reload_property" => isset($this->reload_property) ? $this->reload_property :"",
 			"clid" => $this->clid,
@@ -1230,6 +1232,7 @@ function aw_get_el(name,form)
 				$clid = $arr["clid"];
 			}
 		}
+
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -1276,39 +1279,51 @@ function aw_get_el(name,form)
 		$t->set_default_sortby("name");
 
 		$filter = array(
-			"limit" => 100,
+			"limit" => 100 //TODO: seadistatavaks
 		);
+
 		if(!empty($arr["name"]))
 		{
 			$filter["name"] = "%".iconv("UTF-8",aw_global_get("charset"),  $arr["name"])."%";
 		}
+
 		if(!empty($arr["oid"]))
 		{
 			$filter["oid"] = $arr["oid"]."%";
 		}
 
-		if($arr["clid"])
+		if (count($filter) > 1 or empty($arr["start_empty"])) // don't show default search results if start_empty parameter true
 		{
-			$filter["class_id"] = $clid;
-		}
-		$ol = new object_list($filter);
-		foreach($ol->arr() as $o)
-		{
-			$dat = array(
-				"oid" => $o->id(),
-				"name" => html::obj_change_url($o),
-				"parent" => $o->path_str(array("max_len" => 3)),
-				"modifiedby" => $o->modifiedby(),
-				"modified" => $o->modified(),
-				"select_this" => html::href(array(
-					"url" => "javascript:void(0)",
-					"caption" => t("Vali see"),
-					"onclick" => "set_prop(\"".$o->id()."\")"
-				)),
-				"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
-			);
+			if(!empty($arr["clid"]))
+			{
+				$filter["class_id"] = $clid;
+			}
 
-			$t->define_data($dat);
+			$ol = new object_list($filter);
+			if($ol->count())
+			{
+				$o = $ol->begin();
+
+				do
+				{
+					$dat = array(
+						"oid" => $o->id(),
+						"name" => html::obj_change_url($o),
+						"parent" => $o->path_str(array("max_len" => 3)),
+						"modifiedby" => $o->modifiedby(),
+						"modified" => $o->modified(),
+						"select_this" => html::href(array(
+							"url" => "javascript:void(0)",
+							"caption" => t("Vali see"),
+							"onclick" => "set_prop(\"".$o->id()."\")"
+						)),
+						"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
+					);
+
+					$t->define_data($dat);
+				}
+				while ($o = $ol->next());
+			}
 		}
 
 
