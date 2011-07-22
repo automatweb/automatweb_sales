@@ -1946,8 +1946,14 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 									$v_data = $val->data2;
 									break;
 
-								case obj_predicate_compare::NULL:
+								case obj_predicate_compare::NULL: //DEPRECATED
+								case obj_predicate_compare::IS_NULL:
 									$comparator = " IS NULL ";
+									$v_data = "";
+									break;
+
+								case obj_predicate_compare::IS_EMPTY:
+									$comparator = " IS NULL OR "; arr(3);exit;
 									$v_data = "";
 									break;
 
@@ -2111,8 +2117,15 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							$v_data = $val->data2;
 							break;
 
-						case obj_predicate_compare::NULL:
+						case obj_predicate_compare::NULL: //DEPRECATED
+						case obj_predicate_compare::IS_NULL:
 							$comparator = " IS NULL ";
+							$v_data = "";
+							break;
+
+						case obj_predicate_compare::IS_EMPTY:
+							$comparator = " IS NULL OR CAST({$tf} AS UNSIGNED) = 0";
+							$val->type = "int";
 							$v_data = "";
 							break;
 
@@ -2141,7 +2154,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$tmp = array();
 						foreach($v_data as $d_k)
 						{
-							$tmp[] = $tf." $comparator '$d_k' ";
+							$tmp[] = "{$tf} {$comparator} '{$d_k}' ";
 						}
 						$sql[] = "(".join(" OR ", $tmp).")";
 					}
@@ -2155,7 +2168,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						{
 							$ent = "'";
 						}
-						$sql[] = "{$tf} {$comparator} {$ent}{$v_data}{$ent} ";
+						$sql[] = " ({$tf} {$comparator} {$ent}{$v_data}{$ent}) ";
 					}
 				}
 				elseif ($class_name === "obj_predicate_prop")
@@ -2275,8 +2288,13 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 										$comparator = "{$fld} = {$predicate->data}";
 										break;
 
-									case obj_predicate_compare::NULL:
+									case obj_predicate_compare::NULL://DEPRECATED
+									case obj_predicate_compare::IS_NULL:
 										$comparator = "ISNULL({$fld})";
+										break;
+
+									case obj_predicate_compare::IS_EMPTY:
+										$comparator = "ISNULL({$fld})"; arr(1);exit;
 										break;
 
 									default:
