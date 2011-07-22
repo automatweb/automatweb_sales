@@ -196,8 +196,8 @@ class crm_company_employees_view extends class_base
 		$organization_o = $arr["obj_inst"];
 		$organization_structure_tree->set_type(treeview::TYPE_JS);
 
-		$item_url_base = $this->req->get_uri();
-		$this->clear_search_args($item_url_base);
+		$item_url_base = $this->req->get_uri(); // url in which the tree node variable will be changed on iteration over items
+		$this->clear_search_args($item_url_base); // when clicking on a tree node, all other search parameters are cleared
 
 		$data_url = new aw_uri($this->mk_my_orb("get_organization_tree_nodes", array("id" => $organization_o->id(), "url" => $item_url_base->get())));
 		$organization_structure_tree->set_data_source_url($data_url);
@@ -219,6 +219,7 @@ class crm_company_employees_view extends class_base
 		$organization_o = obj($arr["id"], array(), crm_company_obj::CLID);
 		$parent = (isset($arr["node"]) and $this->can("view", $arr["node"])) ? new object($arr["node"]) : $organization_o;
 		$url = new aw_uri($arr["url"]);
+		$data = array(); // tree items' data that will eventually be encoded to json and sent to the browser
 
 		// add sections
 		$sections = $organization_o->get_sections($parent);
