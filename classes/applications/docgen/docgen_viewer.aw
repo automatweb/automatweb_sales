@@ -625,9 +625,12 @@ class docgen_viewer extends class_base
 			$f_data['doc_comment']['params'] = isset($f_data['doc_comment']['params']) ? safe_array($f_data['doc_comment']['params']) : array();
 			foreach ($f_data['doc_comment']['params'] as $param_name => $param_data)
 			{
+				// orb methods are described by required|optional keywords, api method parameter mandatory status is determined by whether default value is defined
+				$required = empty($f_data["doc_comment"]["attribs"]["api"]) ? $param_data['req'] : (isset($param_data['default']) && strlen($param_data['default']) ? "no" : "yes");
 				$this->vars(array(
 					'param_name' => $param_name,
-					'param_required' => $param_data['req'],
+					'param_required' => $required,
+					'param_default' => isset($param_data['default']) ? $param_data['default'] : "",
 					'param_type' => isset($param_data['type']) ? $param_data['type'] : NULL,
 					'param_comment' => nl2br(trim($param_data['comment']))
 				));
