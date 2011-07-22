@@ -60,13 +60,13 @@ class weekdays extends core implements vcl_interface
 		return $html;
 	}
 
-	public static function init_vcl_property($arr)
+	public function init_vcl_property($arr)
 	{
 		$prop = $arr["property"];
 		$name = $prop["name"];
 		$prop["value"] = (isset($prop["value"]) and is_int($prop["value"])) ? $prop["value"] : $arr["obj_inst"]->prop($name);
 
-		$prop["value"] = self::create($prop);
+		$prop["value"] = $this->create($prop);
 		return array($name => $prop);
 	}
 
