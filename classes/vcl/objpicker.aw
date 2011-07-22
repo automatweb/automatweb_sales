@@ -49,6 +49,7 @@ class objpicker extends core implements vcl_interface, orb_public_interface
 	public static function create($args)
 	{
 		$name = $args["name"];
+		$autocomplete_textbox_name = preg_replace("/[^A-Za-z0-9_]/", "_", $name)."__autocompleteTextbox";
 		$mode = (isset($args["mode"]) and "select" === $args["mode"]) ? "select" : "text";
 
 		if ("text" === $mode)
@@ -74,7 +75,7 @@ class objpicker extends core implements vcl_interface, orb_public_interface
 			if (empty($args["view"]) and empty($args["disabled"]))
 			{
 				$size = isset($args["size"]) ? $args["size"] : "";
-				$input_element = html::textbox(array("name" => "{$name}__autocompleteTextbox", "value" => $value, "size" => $size));
+				$input_element = html::textbox(array("name" => $autocomplete_textbox_name, "value" => $value, "size" => $size));
 
 				load_javascript("bsnAutosuggest.js");
 
@@ -131,7 +132,7 @@ var options1 = {
 	shownoresults: false,
 	callback: function(obj){ $("input[name='{$name}']").attr("value", obj.id) }
 };
-var nameAS = new AutoSuggest('{$name}__autocompleteTextbox', options1);
+var nameAS = new AutoSuggest('{$autocomplete_textbox_name}', options1);
 })()
 // END AUTOCOMPLETE
 </script>
