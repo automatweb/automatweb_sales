@@ -1,8 +1,6 @@
 <?php
 
 /*
-@classinfo  maintainer=voldemar
-
 Class for working with personal identification numbers (PID-s). Loading and common usage:
 
 	$pid = new pid_et("45503034582");
@@ -242,5 +240,3 @@ class awex_pid_checksum extends awex_pid_invalid
 {
 	protected $message = "Checksum incorrect";
 }
-
-?>

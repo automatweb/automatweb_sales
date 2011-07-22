@@ -1635,9 +1635,9 @@ class bug extends class_base
 				break;
 
 			case "monitors":
-				if (empty($arr["new"]) && $arr["request"]["who"])
+				if (empty($arr["new"]) && !empty($arr["request"]["who"]))
 				{
-					$mon = $arr["request"]["monitors"];
+					$mon = isset($arr["request"]["monitors"]) && is_array($arr["request"]["monitors"]) ? $arr["request"]["monitors"] : array();
 					if(empty($mon[$arr["request"]["who"]]))
 					{
 						$mon[$arr["request"]["who"]] = $arr["request"]["who"];
@@ -3692,13 +3692,21 @@ return; //TODO: sort out maintainers business first
 
 		if ($this->can("view", $cust) && $this->can("view", $unit))
 		{
-			// get all ppl for the section
-			$sect = get_instance(CL_CRM_SECTION);
-			$work_ol = $sect->get_section_workers($unit, true);
 			$arr["prop"]["options"] = html::get_empty_option();
-			foreach($work_ol->arr() as $oid => $o)
+
+			// get all ppl for the section
+			$customer_o = obj($cust, array(), crm_company_obj::CLID);
+			$section_o = obj($unit, array(), crm_section_obj::CLID);
+			$work_ol = $customer_o->get_employees("all", null, $section_o);
+			if($work_ol->count())
 			{
-				$arr["prop"]["options"][$oid] =  $o->name();
+				$o = $work_ol->begin();
+
+				do
+				{
+					$arr["prop"]["options"][$o->id()] =  $o->name();
+				}
+				while ($o = $work_ol->next());
 			}
 		}
 		elseif ($this->can("view", $cust))

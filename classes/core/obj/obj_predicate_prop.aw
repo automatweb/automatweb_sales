@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class obj_predicate_prop
 {
@@ -50,4 +47,3 @@ class obj_predicate_prop
 		return "obj_predicate_prop(".$this->prop.",".$this->compare.")";
 	}
 }
-?>

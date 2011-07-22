@@ -36,6 +36,7 @@ class gantt_chart extends class_base
 	protected $pixel_length = 1;
 	protected $cell_length = 0;
 	protected $cell_width = 0;
+	protected $row_id_counter = 0;
 
 	function gantt_chart ()
 	{

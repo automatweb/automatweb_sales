@@ -731,12 +731,11 @@ class image extends class_base
 	function add_upload_multifile($name,$parent)
 	{
 		$output = Array();
-		$_fi = get_instance(CL_FILE);
+		$_fi = new file();
 		foreach ($_FILES[$name]["error"] as $key => $error)
 		{
 			if ($error == UPLOAD_ERR_OK)
 			{
-
 				$img_obj = new object();
 				$img_obj->set_parent($parent);
 				$img_obj->set_class_id(CL_IMAGE);
@@ -755,7 +754,8 @@ class image extends class_base
 				}
 				$img_obj->save();
 				$img_id = $img_obj->id();
-				$output[] = array("id" => $img_id,"url" => $this->get_url($img_id,$_FILES[$name]["name"][$key]), "orig_name" => $fname);
+				$fname = ""; //TODO: oli 'undefined', kust v6tta v22rtus?
+				$output[] = array("id" => $img_id,"url" => $this->get_url($img_id, $_FILES[$name]["name"][$key]), "orig_name" => $fname);
 			}
 		}
 		return $output;

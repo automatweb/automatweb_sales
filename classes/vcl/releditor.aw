@@ -1545,7 +1545,7 @@ class releditor extends core implements orb_public_interface
 					{
 						// ot, aga miks need 2 caset siin on?
 						$name = $item["name"];
-						$_fileinf = $_FILES[$elname];
+						$_fileinf = isset($_FILES[$elname]) ? $_FILES[$elname] : array();
 						if (!empty($_fileinf["tmp_name"][$name]))
 						{
 							$filename = $_fileinf["name"][$name];
