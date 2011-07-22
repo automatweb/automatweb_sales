@@ -2233,12 +2233,18 @@ class crm_company_cust_impl extends class_base
 				# email
 				if ($default_cfg or in_array("email", $visible_fields))
 				{
-					$mail_obj = new object($o->prop("email_id"));
-					$mail = $mail_obj->prop("mail");
-					$mail = empty($mail) ? "" : html::href(array(
-						"url" => "mailto:" . $mail,
-						"caption" => $mail
-					));
+					try
+					{
+						$mail_obj = new object($o->prop("email_id"));
+						$mail = $mail_obj->prop("mail");
+						$mail = empty($mail) ? "" : html::href(array(
+							"url" => "mailto:" . $mail,
+							"caption" => $mail
+						));
+					}
+					catch (awex_obj $e)
+					{
+					}
 				}
 
 				# url
@@ -2246,15 +2252,31 @@ class crm_company_cust_impl extends class_base
 				{
 					$url_o = obj($o->prop("url_id"));
 					$url_str = $url_o->name();
-					if (strpos($url_str, "http:") !== false && substr($url_str, 0, 3) === "www")
+					if ($url_str)
 					{
-						$url_str = "http://".$url_str;
+						if (strpos($url_str, "http:") === false && substr($url_str, 0, 3) === "www")
+						{
+							$url_str = "http://{$url_str}";
+						}
+
+						$url = html::href(array(
+							"url" => $url_str,
+							"caption" => $url_str,
+							"target" => "_blank"
+						));
 					}
-					$url = html::href(array(
-						"url" => $url_str,
-						"caption" => $url_str,
-						"target" => "_blank"
-					));
+				}
+
+				# phone
+				if (($default_cfg or in_array("phone", $visible_fields)))
+				{
+					$phones = $o->get_phones();
+					$count = count($phones);
+					$i = 0;
+					foreach ($phones as $phone_nr)
+					{
+						$phone .= html::span(array("content" => $phone_nr . (++$i === $count ? "" : ", "), "nowrap" => true));
+					}
 				}
 			}
 			elseif ($o->is_a(crm_person_obj::CLID))
@@ -2299,13 +2321,6 @@ class crm_company_cust_impl extends class_base
 				catch (awex_obj $e)
 				{
 				}
-			}
-
-			# phone
-			if (($default_cfg or in_array("phone", $visible_fields)) and object_loader::can("view", $o->prop("phone_id")))
-			{
-				$phone = obj($o->prop("phone_id"));
-				$phone = $phone->name();
 			}
 
 			# fax
