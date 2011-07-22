@@ -21,8 +21,10 @@ class obj_predicate_compare
 	const BETWEEN = 16;
 	const EQUAL = 32;
 	const BETWEEN_INCLUDING = 64;
-	const NULL = 128;
+	const NULL = 128; //DEPRECATED
+	const IS_NULL = 128;
 	const IN_TIMESPAN = 256;
+	const IS_EMPTY = 512;
 
 	public $comparator;
 	public $data;
@@ -43,8 +45,9 @@ class obj_predicate_compare
 		obj_predicate_compare::BETWEEN (16) - values between $data and $data2
 		obj_predicate_compare::EQUAL (32) - values equal to $data
 		obj_predicate_compare::BETWEEN_INCLUDING (64) - values between and $data and $data2, including $data & $data2 themselves
-		obj_predicate_compare::NULL (128) - value NULL
+		obj_predicate_compare::IS_NULL (128) - value NULL
 		obj_predicate_compare::IN_TIMESPAN (256) - takes two arrays as parameters, first has two entries containing the properties defining the timespan, second is an array containing two elements, defining the searchable timespan
+		obj_predicate_compare::IS_EMPTY (512) - attempts to imitate php empty() construct (NULL, 0, "0", "" are considered empty)
 
 		@param data optional type=string
 		data to compare
