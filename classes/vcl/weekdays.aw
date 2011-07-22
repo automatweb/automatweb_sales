@@ -70,6 +70,13 @@ class weekdays extends core implements vcl_interface
 		return array($name => $prop);
 	}
 
+	public function process_vcl_property(&$arr)
+	{
+		$prop =& $arr["prop"];
+
+		$arr["obj_inst"]->set_prop($prop["name"], self::days2int($prop["value"]));
+	}
+
 	/**	Decodes the integer and returns an array of booleans, true for each weekday selected.
 		@attrib api=1 params=pos
 		@param value required type=int
