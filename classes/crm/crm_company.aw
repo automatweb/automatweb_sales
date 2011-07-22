@@ -7552,9 +7552,6 @@ class crm_company extends class_base
 	**/
 	function name_autocomplete_source($arr)
 	{
-		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
-		$cl_json = new json();
-
 		$errorstring = "";
 		$error = false;
 		$autocomplete_options = array();
@@ -7566,20 +7563,41 @@ class crm_company extends class_base
 			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
 		);
 
-		if (!$arr["name"] && $arr["stats_s_cust"])
+		if (!empty($arr["name"]))
 		{
-			$arr["name"] = $arr["stats_s_cust"];
+			$name_part_to_complete = $arr["name"];
 		}
-		$ol = new object_list(array(
-			"class_id" => array(CL_CRM_COMPANY, crm_person_obj::CLID),
-			"name" => $arr["name"]."%"
-		));
-		$autocomplete_options = $ol->names();
-		foreach($autocomplete_options as $key=>$val)
+		elseif (!empty($arr["stats_s_cust"]))
 		{
-			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
+			$name_part_to_complete = $arr["stats_s_cust"];
 		}
-		exit ($cl_json->encode($option_data));
+		else
+		{
+			$name_part_to_complete = "";
+		}
+
+		if (strlen($name_part_to_complete) > 1)
+		{
+			$ol = new object_list(array(
+				"class_id" => array(crm_company_obj::CLID, crm_person_obj::CLID),
+				"name" => $arr["name"]."%",
+				new obj_predicate_sort(array("name" => obj_predicate_sort::ASC)),
+				new obj_predicate_limit(50)//TODO: konfitavaks
+			));
+			$autocomplete_options = $ol->names();
+			foreach($autocomplete_options as $key=>$val)
+			{
+				$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
+			}
+		}
+
+		ob_start("ob_gzhandler");
+		header("Content-Type: application/json");
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header("Pragma: no-cache"); // HTTP/1.0
+		exit (json_encode($option_data));
 	}
 
 	/**
