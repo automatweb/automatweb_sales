@@ -419,7 +419,8 @@ if (!empty($arr["request"]["cs_count"]))
 							do
 							{
 								$phone_nr = trim($phone->name());
-								if (strlen($phone_nr) > 1)
+								$type = $phone->prop("type");
+								if (strlen($phone_nr) > 1 and (!$type or $type === "work" or $type === "home" or $type === "mobile"))
 								{
 									if ($call->prop("real_start") < 2)
 									{ // a normal unstarted call

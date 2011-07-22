@@ -356,7 +356,8 @@ class crm_sales_contacts_view
 					do
 					{
 						$number = trim($phone->name());
-						if (strlen($number) > 1)
+						$type = $phone->prop("type");
+						if (strlen($number) > 1 and (!$type or $type === "work" or $type === "home" or $type === "mobile"))
 						{
 							$request = (array) $arr["request"];
 							$request["return_url"] = get_ru();
