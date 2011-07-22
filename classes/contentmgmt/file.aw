@@ -937,12 +937,12 @@ class file extends class_base
 	{
 		extract($arr);
 
-		if ($content != "")
+		if (!empty($arr["content"]))
 		{
 			// stick the file in the filesystem
 			$fs = $this->_put_fs(array(
-				"type" => $type,
-				"content" => $content,
+				"type" => $arr["type"],
+				"content" => $arr["content"],
 				"fs_folder_to_save_to" => $arr["fs_folder_to_save_to"],
 				"name" => $arr["name"]
 			));
@@ -955,14 +955,14 @@ class file extends class_base
 			$o->set_parent($parent);
 			$o->set_class_id(CL_FILE);
 			$o->set_name($name);
-			$o->set_comment($comment);
-			$o->set_meta("show_framed", $show_framed);
 			$o->set_prop("file", $fs);
-			$o->set_prop("showal", $showal);
-			$o->set_prop("type", $type);
-			$o->set_prop("newwindow", $newwindow);
+			if (isset($arr["comment"])) $o->set_comment($arr["comment"]);
+			if (isset($arr["show_framed"])) $o->set_meta("show_framed", $arr["show_framed"]);
+			if (isset($arr["showal"])) $o->set_prop("showal", $arr["showal"]);
+			if (isset($arr["type"])) $o->set_prop("type", $arr["type"]);
+			if (isset($arr["newwindow"])) $o->set_prop("newwindow", $arr["newwindow"]);
 
-			if ($arr["fs_folder_to_save_to"] != "")
+			if (!empty($arr["fs_folder_to_save_to"]))
 			{
 				$o->set_meta("force_path", $arr["fs_folder_to_save_to"]);
 			}
@@ -987,14 +987,14 @@ class file extends class_base
 			}
 			$o->set_meta("show_framed",$show_framed);
 
-			if ($fs != "")
+			if ($fs)
 			{
 				$o->set_name($name);
 				$o->set_prop("file",$fs);
-				$o->set_prop("type",$type);
+				if (isset($arr["type"])) $o->set_prop("type", $arr["type"]);
 			}
 
-			if ($arr["fs_folder_to_save_to"] != "")
+			if (!empty($arr["fs_folder_to_save_to"]))
 			{
 				$o->set_meta("force_path", $arr["fs_folder_to_save_to"]);
 			}
@@ -1002,8 +1002,10 @@ class file extends class_base
 			{
 				$o->set_meta("force_path", "");
 			}
-			$o->set_prop("showal", $showal);
-			$o->set_prop("newwindow", $newwindow);
+
+			if (isset($arr["showal"])) $o->set_prop("showal", $arr["showal"]);
+			if (isset($arr["newwindow"])) $o->set_prop("newwindow", $arr["newwindow"]);
+
 			$o->save();
 		}
 
