@@ -19,6 +19,9 @@ class weekdays extends core implements vcl_interface
 		@param multiple optional type=bool default=false
 			If true, multiple weekdays can be selected
 
+		@param start_from_monday optional type=bool default=true
+			If true, monday will be displayed first (0 still refers to Sunday)
+
 		@returns string
 			The HTML of the date picker.
 
@@ -35,24 +38,27 @@ class weekdays extends core implements vcl_interface
 
 		$html = "";
 
-		for ($i = 0; $i < 7; $i++)
+		$start_from_monday = !isset($arr["start_from_monday"]) or $arr["start_from_monday"] ? 1 : 0
+
+		for ($i = 0 + $start_from_monday; $i < 7 + $start_from_monday; $i++)
 		{
-			$label = aw_locale::get_lc_weekday($i, true, true);
+			$d = $i % 7;
+			$label = aw_locale::get_lc_weekday($d, true, true);
 			if (!empty($arr["multiple"]))
 			{
 				$html .= html::checkbox(array(
-					"name" => "{$name}[$i]",
+					"name" => "{$name}[$d]",
 					"label" => $label,
-					"checked" => !empty($days[$i])
+					"checked" => !empty($days[$d])
 				));
 			}
 			else
 			{
 				$html .= html::radiobutton(array(
 					"name" => "{$name}",
-					"value" => pow(2, $i),
+					"value" => pow(2, $d),
 					"label" => $label,
-					"checked" => !empty($days[$i])
+					"checked" => !empty($days[$d])
 				));
 			}
 		}
