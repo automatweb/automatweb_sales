@@ -2386,7 +2386,7 @@ $x++;
 				$cust = obj($b->prop("customer"));
 
 				$custr[] = str_replace("\n", "", str_replace("\r", "", trim($cust->comment())));	// kliendi kood hansaraamas
-				$custr[] = str_replace("\n", "", str_replace("\r", "", trim($i->get_customer_name($b->id()))))." ".str_replace("\n", "", str_replace("\r", "", trim($cust->prop("ettevotlusvorm.shortname"))));	// kliendi kood hansaraamas
+				$custr[] = str_replace("\n", "", str_replace("\r", "", trim($b->get_customer_name())))." ".str_replace("\n", "", str_replace("\r", "", trim($cust->prop("ettevotlusvorm.shortname"))));	// kliendi kood hansaraamas
 
 				/*
 				if($cust->class_id() == CL_CRM_PERSON)
@@ -2400,10 +2400,10 @@ $x++;
 					$custr[] = $cust->prop("contact.postiindeks")." ".$cust->prop("contact.riik.name");
 				}
 				*/
-				$custr[] = $i->get_customer_address($b->id());
-				$custr[] = $i->get_customer_address($b->id() , "index")." ".$i->get_customer_address($b->id() , "country");
+				$custr[] = $b->get_customer_address();
+				$custr[] = $b->get_customer_address("index") . " " . $b->get_customer_address("country");
 
-				$cust_code = str_replace("\n", "", str_replace("\r", "", trim($i->get_customer_code($b->id()))));
+				$cust_code = str_replace("\n", "", str_replace("\r", "", trim($b->get_customer_code())));
 				list($cm) = explode(" ", $cust->prop_str("client_manager"));
 				$cm = mb_strtoupper($cm);
 			}

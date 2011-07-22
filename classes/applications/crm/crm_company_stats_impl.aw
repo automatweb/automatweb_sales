@@ -3447,7 +3447,7 @@ ini_set("memory_limit", "1500M");
 			if (is_oid($bill->prop("customer")) && $this->can("view", $bill->prop("customer")))
 			{
 				$tmp = obj($bill->prop("customer"));
-				$cust = html::get_change_url($tmp->id(), array("return_url" => get_ru()), $bill_i->get_customer_name($bill->id()));
+				$cust = html::get_change_url($tmp->id(), array("return_url" => get_ru()), $bill->get_customer_name());
 				$cm = html::obj_change_url($tmp->prop("client_manager"));
 			}
 

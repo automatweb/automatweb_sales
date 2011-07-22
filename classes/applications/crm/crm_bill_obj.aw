@@ -1344,11 +1344,18 @@ class crm_bill_obj extends _int_object
 
 	private function get_bill_rows_filter()
 	{
-		$filter = array();
-		$filter["class_id"] = crm_bill_row_obj::CLID;
-		$filter["CL_CRM_BILL_ROW.RELTYPE_ROW(CL_CRM_BILL)"] = $this->id();
-		$filter["writeoff"] = new obj_predicate_not(1);
-		$filter[] = new obj_predicate_sort(array("jrk" => "asc"));
+		if ($this->is_saved())
+		{
+			$filter = array();
+			$filter["class_id"] = crm_bill_row_obj::CLID;
+			$filter["CL_CRM_BILL_ROW.RELTYPE_ROW(CL_CRM_BILL)"] = $this->id();
+			$filter["writeoff"] = new obj_predicate_not(1);
+			$filter[] = new obj_predicate_sort(array("jrk" => "asc"));
+		}
+		else
+		{
+			$filter = null;
+		}
 		return $filter;
 	}
 
@@ -2593,7 +2600,7 @@ class crm_bill_obj extends _int_object
 
 		if (!is_object($invoice_pdf))
 		{
-			throw new awex_crm_bill_file("Main invoice file lost or not created. Bill id " . $this->id());
+			throw new awex_crm_bill_file("Main invoice file lost or not created. Invoice id " . $this->id());
 		}
 
 		/// appendix
@@ -2607,7 +2614,7 @@ class crm_bill_obj extends _int_object
 		{
 			if (!is_email($email_address))
 			{
-				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending bill " . $this->id());
+				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending invoice " . $this->id());
 				$e->email = $email_address;
 				throw $e;
 			}
@@ -2620,7 +2627,7 @@ class crm_bill_obj extends _int_object
 		{
 			if (!is_email($email_address))
 			{
-				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending bill " . $this->id());
+				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending invoice " . $this->id());
 				$e->email = $email_address;
 				throw $e;
 			}
@@ -2633,7 +2640,7 @@ class crm_bill_obj extends _int_object
 		{
 			if (!is_email($email_address))
 			{
-				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending bill " . $this->id());
+				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending invoice " . $this->id());
 				$e->email = $email_address;
 				throw $e;
 			}
@@ -2669,6 +2676,7 @@ class crm_bill_obj extends _int_object
 		$awm->set_header("Reply-To", $from);
 
 		/// add attachments
+		// add main invoice pdf
 		$part_count = $awm->fattach(array(
 			"path" => $invoice_pdf->prop("file"),
 			"contenttype"=> aw_mime_types::type_for_file($invoice_pdf->name()),
@@ -2684,10 +2692,10 @@ class crm_bill_obj extends _int_object
 
 		if (!$part_count)
 		{
-			throw new awex_crm_bill_file("Attaching main invoice file (id: " . $invoice_pdf->id() . ") failed. Bill id " . $this->id());
+			throw new awex_crm_bill_file("Attaching main invoice file (id: " . $invoice_pdf->id() . ") failed. Invoice id " . $this->id());
 		}
 
-
+		// add appendix pdf
 		if($appendix)
 		{
 			$part_count = $awm->fattach(array(
@@ -2705,10 +2713,42 @@ class crm_bill_obj extends _int_object
 
 			if (!$part_count)
 			{
-				throw new awex_crm_bill_file("Attaching  invoice appendix file (id: " . $appendix_pdf->id() . ") failed. Bill id " . $this->id());
+				throw new awex_crm_bill_file("Attaching  invoice appendix file (id: " . $appendix_pdf->id() . ") failed. Invoice id " . $this->id());
 			}
 		}
 
+		// add attachments from additional invoice attachment files (RELTYPE_ATTACHED_FILE)
+		$attachments_list = new object_list(array(
+			"class_id" => CL_FILE,
+			"CL_FILE.RELTYPE_ATTACHED_FILE(CL_CRM_BILL)" => $this->id()
+		));
+		if($attachments_list->count())
+		{
+			$file_o = $attachments_list->begin();
+
+			do
+			{
+				$part_count = $awm->fattach(array(
+					"path" => $file_o->prop("file"),
+					"contenttype"=> aw_mime_types::type_for_file($file_o->name()),
+					"name" => $file_o->name()
+				));
+				$att_comment .= html::href(array(
+					"caption" => $file_o->name(),
+					"url" => $file_o->get_url()
+				));
+
+				if (!$part_count)
+				{
+					throw new awex_crm_bill_file("Attaching  invoice appendix file (id: " . $file_o->id() . ") failed. Invoice id " . $this->id());
+				}
+			}
+			while ($o = $attachments_list->next());
+		}
+
+
+
+		// add mail html body
 		$awm->htmlbodyattach(array(
 			"data" => $body
 		));
@@ -3625,12 +3665,12 @@ class crm_bill_obj extends _int_object
 	/** Add bill e-mail receiver
 		@attrib api=1 params=pos
 		@param email type=CL_ML_MEMBER/string
-		@param person type=CL_CRM_PERSON
+		@param person type=CL_CRM_PERSON default=NULL
 		@returns void
 		@errors
 			throws awex_obj_type if a parameter is invalid
 	**/
-	public function add_receiver($email, object $person = null)
+	public function add_recipient($email, object $person = null)
 	{
 		if($email instanceof object and !$email->is_a(CL_ML_MEMBER) or !is_email($email))
 		{

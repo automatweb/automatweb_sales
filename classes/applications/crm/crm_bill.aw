@@ -23,22 +23,16 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 	@layout main_split type=vbox
 		@layout top_split parent=main_split type=hbox
-
 			@layout left_split type=vbox parent=top_split
-
 				@layout top_left type=vbox parent=left_split closeable=1 area_caption=&Uuml;ldandmed
-
 				@layout bottom_left type=vbox parent=left_split closeable=1 area_caption=Lisainfo
 
 			@layout right_split type=vbox parent=top_split
-
 				@layout top_right type=vbox parent=right_split closeable=1 area_caption=Kliendi&nbsp;andmed
-
-				@layout bottom_right type=hbox parent=right_split closeable=1 area_caption=Ladu width=50%:50%
-
-					@layout bottom_right_left type=vbox parent=bottom_right
-
-					@layout bottom_right_right type=vbox parent=bottom_right
+				@layout bottom_right type=hbox parent=right_split closeable=1 area_caption=Kauba&nbsp;info width=50%:50% no_padding=1
+					@layout bottom_right_left type=vbox parent=bottom_right area_caption=Ladu
+					@layout bottom_right_right type=vbox parent=bottom_right area_caption=Saatelehed no_padding=1
+				@layout attachments_container type=vbox parent=right_split closeable=1 area_caption=Manused
 
 
 	// top left lyt
@@ -116,7 +110,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property signature_type type=select table=objects field=meta method=serialize parent=bottom_left
 	@caption Allkirja t&uuml;&uuml;p
 
-	// top right lyt
+	@property is_invoice_template type=checkbox ch_value=1 table=aw_crm_bill field=aw_is_invoice_template parent=bottom_left
+	@caption Salvesta arve arvep&otilde;hjana
+
+
+// Customer info. top right lyt
 	@property customer_name type=textbox table=aw_crm_bill field=aw_customer_name parent=top_right
 	@caption Kliendi nimi
 
@@ -132,7 +130,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property customer_add_meta_cb type=callback callback=customer_add_meta_cb store=no parent=top_right
 
 
-	// bottom right lyt
+// Warehouse info. right side bottom layout (bottom_right_left)
 
 	@property warehouse_info type=text table=aw_crm_bill store=no parent=bottom_right_left
 	@caption Info
@@ -158,26 +156,37 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property dn_confirm_tbl type=table no_caption=1 parent=bottom_right_right
 
 
+// attachments_container layout properties
 
+	@property attached_files type=multifile_upload reltype=RELTYPE_ATTACHED_FILE store=no parent=attachments_container max_files=99
+	@comment Siin lisatud failid saadetakse arve e-posti manustena
+	@caption Manused
+
+
+
+
+@default group=text_comments
+			@property bill_text type=textarea rows=15 cols=50 field=meta method=serialize
+			@caption Arve sissejuhatus
+
+			@property bill_appendix_comment type=textarea rows=15 cols=50 table=objects field=meta method=serialize
+			@caption Kommentaar lisale
+
+			@property reminder_text type=textarea rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text
+			@caption Kommentaar meeldetuletusele
 
 @default group=other_data
-	@property bill_text type=textarea rows=15 cols=50 field=meta method=serialize
-	@caption Arve sissejuhatus
+	@layout other_data_main type=hbox
+		@layout texts_container type=vbox parent=other_data_main closeable=1 area_caption=Kommentaaritekstid
+		@layout other_data_container type=vbox parent=other_data_main closeable=1 area_caption=Muud&nbsp;andmed
 
-	@property bill_appendix_comment type=textarea rows=15 cols=50 table=objects field=meta method=serialize
-	@caption Kommentaar lisale
+	@layout misc type=vbox
 
 	@property rows_different_pages type=text field=meta method=serialize
 	@caption Read erinevatel lehek&uuml;lgedel
 
 	@property time_spent_desc type=textbox table=aw_crm_bill field=aw_time_spent_desc
 	@caption Kulunud aeg tekstina
-
-	@property reminder_text type=textbox table=aw_crm_bill field=aw_reminder_text
-	@caption Arve meeldetuletuse juurde minev tekst
-
-	@property is_invoice_template type=checkbox ch_value=1 table=aw_crm_bill field=aw_is_invoice_template
-	@caption Salvesta arve arvep&otilde;hjana
 
 	@property udef1 type=checkbox ch_value=1 field=meta method=serialize
 	@caption Kasutajadefineeritud muutuja 1
@@ -205,9 +214,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 	@property comments_add type=textarea rows=15 cols=50 store=no
 	@caption Lisa kommentaar
-
-	@property mail_receiver type=relpicker store=connect multiple=1 reltype=RELTYPE_RECEIVER
-	@caption Arve e-kirja saaja
 
 
 
@@ -304,6 +310,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 //=========== GROUP DEFINITIONS ==============
 
 @groupinfo general_data caption="P&otilde;hiandmed" parent=general
+@groupinfo text_comments caption="Kommentaartekstid" parent=general
 @groupinfo other_data caption="Muud andmed" parent=general
 @groupinfo rows caption="Read"
 @groupinfo mails caption="Kirjad"
@@ -375,6 +382,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 @reltype ROW_GROUP value=20 clid=CL_CRM_BILL_ROW_GROUP
 @caption Reablokk
+
+@reltype ATTACHED_FILE value=21 clid=CL_FILE
+@caption Manusfail
 
 */
 
@@ -607,45 +617,6 @@ class crm_bill extends class_base
 
 			case "state":
 				$prop["options"] = crm_bill_obj::status_names();
-				break;
-
-			case "customer_name":
-				$ps = new popup_search();
-				$ps->set_class_id(array(crm_company_customer_data_obj::CLID));
-				$ps->set_id($arr["obj_inst"]->id());
-				$ps->set_reload_layout("top_right");
-				$ps->set_property("customer_relation");
-				$search_button = $ps->get_search_button();
-				$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
-				if($arr["obj_inst"]->prop("customer"))
-				{
-					$text = t("Muuda kliendi andmeid");
-					$edit_button = " " . html::href(array(
-						"url" => html::get_change_url($arr["obj_inst"]->prop("customer"), array("return_url" => get_ru())),
-						"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"), "alt" => $text, "title" => $text))
-					));
-
-					$text = t("Muuda kliendisuhet");
-					$edit_cro_button = " " . html::href(array(
-						"url" => html::get_change_url($arr["obj_inst"]->prop("customer_relation"), array("return_url" => get_ru())),
-						"caption" => html::img(array("url" => icons::get_std_icon_url("link_edit"), "alt" => $text, "title" => $text))
-					));
-
-					$text = t("Lae kliendi andmed uuesti");
-					$reload_button = " " . html::href(array(
-						"url" => "javascript:;",
-						"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
-						"caption" => html::img(array("url" => aw_ini_get("icons.server") . "refresh.gif", "alt" => $text, "title" => $text))
-					));
-				}
-				else
-				{
-					$prop["caption"] = t("Klient");
-					$prop["disabled"] = "1";
-					$reload_button = $edit_button = $edit_cro_button = "";
-				}
-
-				$prop["post_append_text"] = " {$search_button}{$edit_button}{$edit_cro_button}{$reload_button}";
 				break;
 
 			case "ctp_text":
@@ -1421,7 +1392,7 @@ class crm_bill extends class_base
 
 	function _get_sendmail_body_view(&$arr)
 	{
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 		$arr["prop"]["value"] = html::span(array(
 			"content" => nl2br($arr["obj_inst"]->get_mail_body(true)),
 			"id" => "sendmail_body_text_element"
@@ -1432,7 +1403,7 @@ class crm_bill extends class_base
 	function set_property($arr = array())
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($prop["name"])
 		{
 			case "comments_add":
@@ -1476,7 +1447,7 @@ class crm_bill extends class_base
 				if(!empty($error))
 				{
 					$prop["error"] = $error;
-					return PROP_ERROR;
+					return class_base::PROP_ERROR;
 				}
 				break;
 
@@ -1492,7 +1463,7 @@ class crm_bill extends class_base
 					if ($ol->count())
 					{
 						$prop["error"] = t("Selle numbriga arve on juba olemas");
-						return PROP_ERROR;
+						return class_base::PROP_ERROR;
 					}
 
 					$ser = get_instance(CL_CRM_NUMBER_SERIES);
@@ -1546,7 +1517,7 @@ class crm_bill extends class_base
 					if (!object_loader::can("view", $prop["value"]))
 					{
 						$prop["error"] = sprintf(t("Klient pole loetav (id %s)"), $customer_o->id());
-						return PROP_ERROR;
+						return class_base::PROP_ERROR;
 					}
 
 					$customer_o = new object($prop["value"]);
@@ -1554,14 +1525,14 @@ class crm_bill extends class_base
 					if (!$customer_o->is_a(CL_CRM_PERSON) and !$customer_o->is_a(CL_CRM_COMPANY))
 					{
 						$prop["error"] = sprintf(t("Sobimatu kliendi id (%s)"), $customer_o->id());
-						return PROP_ERROR;
+						return class_base::PROP_ERROR;
 					}
 
 					$this->customer_object = $customer_o;
 				}
 				else
 				{
-					$retval = PROP_IGNORE;
+					$retval = class_base::PROP_IGNORE;
 				}
 				break;
 		}
@@ -1570,13 +1541,13 @@ class crm_bill extends class_base
 
 	function _get_bill_rec_name(&$arr)
 	{
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 		$arr["prop"]["value"] = "";
 		$ps = new popup_search();
-		$ps->set_class_id(array(CL_CRM_PERSON));
+		$ps->set_class_id(array(CL_ML_MEMBER));
 		$ps->set_id($arr["obj_inst"]->id());
 		$ps->set_reload_layout("sendmail_settings_l");
-		$ps->set_property("mail_receiver");
+		$ps->set_property("bill_rec_name");
 		$save_btn = " " . html::href(array(
 			"url" => "javascript:submit_changeform('submit')",
 			"title" => t("Lisa sisestatud e-posti aadress"),
@@ -1588,16 +1559,16 @@ class crm_bill extends class_base
 
 	function _set_bill_rec_name(&$arr)
 	{
-		$r = PROP_IGNORE;
+		$r = class_base::PROP_IGNORE;
 		if (!empty($arr["prop"]["value"]))
 		{
 			try
 			{
-				$arr["obj_inst"]->add_receiver($arr["prop"]["value"]);
+				$arr["obj_inst"]->add_recipient($arr["prop"]["value"]);
 			}
 			catch (Exception $e)
 			{
-				$r = PROP_ERROR;
+				$r = class_base::PROP_ERROR;
 				$arr["prop"]["error"] = t("Vigane e-posti aadress");
 			}
 		}
@@ -1608,11 +1579,11 @@ class crm_bill extends class_base
 	{
 		if (!$arr["obj_inst"]->prop("customer"))
 		{
-			$r = PROP_IGNORE;
+			$r = class_base::PROP_IGNORE;
 		}
 		else
 		{
-			$r = PROP_OK;
+			$r = class_base::PROP_OK;
 		}
 		return $r;
 	}
@@ -1621,7 +1592,7 @@ class crm_bill extends class_base
 	{
 		if($arr["new"])
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 
 		$tb = $arr["prop"]["vcl_inst"];
@@ -1632,14 +1603,14 @@ class crm_bill extends class_base
 			"multiple" => 1,
 		));
 		$tb->add_delete_rels_button();
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function customer_add_meta_cb($arr)
 	{
 		if(!$arr["obj_inst"]->prop("customer"))
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 
 		$dt = crm_bill_obj::$customer_address_properties;
@@ -1704,108 +1675,69 @@ class crm_bill extends class_base
 		return $this->mk_my_orb("change", array("id" => $p->id(), "return_url" => $ru), CL_CRM_BILL_PAYMENT);
 	}
 
-	function get_customer_name($b)
+	function _get_customer_name(&$arr)
 	{
-		if(is_oid($b))
-		{
-			$b = obj($b);
-		}
+		$r = class_base::PROP_OK;
+		$b = $arr["obj_inst"];
+		$prop = &$arr["prop"];
+		$prop["value"] = $b->get_customer_name();
 
-		if($b->prop("customer_name"))
+		// add customer and customer relation edit, find and reload buttons
+		$ps = new popup_search();
+		$ps->set_class_id(array(crm_company_customer_data_obj::CLID));
+		$ps->set_id($b->id());
+		$ps->set_reload_layout("top_right");
+		$ps->set_property("customer_relation");
+		$search_button = $ps->get_search_button();
+		$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
+		if($b->prop("customer"))
 		{
-			return $b->prop("customer_name");
+			$text = t("Muuda kliendi andmeid");
+			$edit_button = " " . html::href(array(
+				"url" => html::get_change_url($b->prop("customer"), array("return_url" => get_ru())),
+				"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"), "alt" => $text, "title" => $text))
+			));
+
+			$text = t("Muuda kliendisuhet");
+			$edit_cro_button = " " . html::href(array(
+				"url" => html::get_change_url($b->prop("customer_relation"), array("return_url" => get_ru())),
+				"caption" => html::img(array("url" => icons::get_std_icon_url("link_edit"), "alt" => $text, "title" => $text))
+			));
+
+			$text = t("Lae kliendi andmed uuesti");
+			$reload_button = " " . html::href(array(
+				"url" => "javascript:;",
+				"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
+				"caption" => html::img(array("url" => aw_ini_get("icons.server") . "refresh.gif", "alt" => $text, "title" => $text))
+			));
 		}
 		else
 		{
-			return $b->prop("customer.name");
+			$prop["caption"] = t("Klient");
+			$prop["disabled"] = "1";
+			$reload_button = $edit_button = $edit_cro_button = "";
 		}
+
+		$prop["post_append_text"] = " {$search_button}{$edit_button}{$edit_cro_button}{$reload_button}";
+
+		// ...
+		return $r;
 	}
 
-	function get_customer_address($b, $prop = "")
+	function _get_customer_address(&$arr)
 	{
-		if(is_oid($b))
-		{
-			$b = obj($b);
-		}
-		if(!$b->prop("customer_name") || !$b->prop("customer_address"))
-		{
-			if($this->can("view" , $b->prop("customer")))
-			{
-				$cust_obj = obj($b->prop("customer"));
-				if($cust_obj->class_id() == CL_CRM_COMPANY)
-				{
-					$a = "contact";
-				}
-				else
-				{
-					$a = "address";
-				}
-			}
-			else
-			{
-				return "";
-			}
-		}
-
-		if(!$prop)
-		{
-			if($b->prop("customer_name"))
-			{
-				return $b->prop("customer_address");
-			}
-			else
-			{
-				return $cust_obj->prop($a.".name");
-			}
-		}
-
-		if($b->prop("customer_name"))
-		{
-			$cust_addr = $b->meta("customer_addr");
-			return $cust_addr[$prop];
-		}
-		else
-		{
-			switch($prop)
-			{
-				case "street":
-					return $cust_obj->prop($a.".aadress");
-				break;
-				case "index":
-					return $cust_obj->prop($a.".postiindeks");
-				break;
-				case "country":
-					return $cust_obj->prop($a.".riik.name");
-				break;
-				case "county":
-					return $cust_obj->prop($a.".maakond.name");
-				break;
-				case "city":
-					return $cust_obj->prop($a.".linn.name");
-				break;
-				case "country_en":
-					if($cust_obj->prop($a.".riik.name_en")) return $cust_obj->prop($a.".riik.name_en");
-					else return $cust_obj->prop($a.".riik.name");
-				break;
-				return "";
-			}
-		}
+		$r = class_base::PROP_OK;
+		$b = $arr["obj_inst"];
+		$arr["prop"]["value"] = $b->get_customer_address();
+		return $r;
 	}
 
-	function get_customer_code($b)
+	function _get_customer_code(&$arr)
 	{
-		if(is_oid($b))
-		{
-			$b = obj($b);
-		}
-		if($b->prop("customer_name"))
-		{
-			return $b->prop("customer_code");
-		}
-		else
-		{
-			return $b->prop("customer.code");
-		}
+		$r = class_base::PROP_OK;
+		$b = $arr["obj_inst"];
+		$arr["prop"]["value"] = $b->get_customer_code();
+		return $r;
 	}
 
 	function num($a)
@@ -5472,10 +5404,9 @@ ENDSCRIPT;
 		{
 			return PROP_IGNORE;
 		}
-		$t = $arr["prop"]["vcl_inst"];
 
-		$t->set_titlebar_display(false);
-		$t->set_caption(t("Saatelehed"));
+		// configure table
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Saateleht"),
@@ -5486,9 +5417,12 @@ ENDSCRIPT;
 			"caption" => t("Tegevus"),
 			"align" => "center",
 		));
-		foreach($arr["obj_inst"]->connections_from(array(
+
+		// populate
+		$delivery_notes = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_DELIVERY_NOTE",
-		)) as $c)
+		));
+		foreach($delivery_notes as $c)
 		{
 			$t->define_data(array(
 				"name" => html::obj_change_url($c->to()),

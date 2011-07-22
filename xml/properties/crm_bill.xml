@@ -281,6 +281,16 @@
             <caption>Allkirja t&amp;amp;uuml;&amp;amp;uuml;p</caption>
       </property>
       <property>
+            <name>is_invoice_template</name>
+            <table>aw_crm_bill</table>
+            <group>general_data</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>aw_is_invoice_template</field>
+            <parent>bottom_left</parent>
+            <caption>Salvesta arve arvep&amp;amp;otilde;hjana</caption>
+      </property>
+      <property>
             <name>customer_name</name>
             <table>aw_crm_bill</table>
             <group>general_data</group>
@@ -408,9 +418,20 @@
             <field>dn_confirm_tbl</field>
       </property>
       <property>
+            <name>attached_files</name>
+            <table>objects</table>
+            <group>general_data</group>
+            <type>multifile_upload</type>
+            <reltype>RELTYPE_ATTACHED_FILE</reltype>
+            <store>no</store>
+            <parent>attachments_container</parent>
+            <field>attached_files</field>
+            <caption>Manused</caption>
+      </property>
+      <property>
             <name>bill_text</name>
             <table>objects</table>
-            <group>other_data</group>
+            <group>text_comments</group>
             <type>textarea</type>
             <rows>15</rows>
             <cols>50</cols>
@@ -421,13 +442,23 @@
       <property>
             <name>bill_appendix_comment</name>
             <table>objects</table>
-            <group>other_data</group>
+            <group>text_comments</group>
             <type>textarea</type>
             <rows>15</rows>
             <cols>50</cols>
             <field>meta</field>
             <method>serialize</method>
             <caption>Kommentaar lisale</caption>
+      </property>
+      <property>
+            <name>reminder_text</name>
+            <table>aw_crm_bill</table>
+            <group>text_comments</group>
+            <type>textarea</type>
+            <rows>15</rows>
+            <cols>50</cols>
+            <field>aw_reminder_text</field>
+            <caption>Kommentaar meeldetuletusele</caption>
       </property>
       <property>
             <name>rows_different_pages</name>
@@ -445,23 +476,6 @@
             <type>textbox</type>
             <field>aw_time_spent_desc</field>
             <caption>Kulunud aeg tekstina</caption>
-      </property>
-      <property>
-            <name>reminder_text</name>
-            <table>aw_crm_bill</table>
-            <group>other_data</group>
-            <type>textbox</type>
-            <field>aw_reminder_text</field>
-            <caption>Arve meeldetuletuse juurde minev tekst</caption>
-      </property>
-      <property>
-            <name>is_invoice_template</name>
-            <table>aw_crm_bill</table>
-            <group>other_data</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>aw_is_invoice_template</field>
-            <caption>Salvesta arve arvep&amp;amp;otilde;hjana</caption>
       </property>
       <property>
             <name>udef1</name>
@@ -552,17 +566,6 @@
             <store>no</store>
             <field>comments_add</field>
             <caption>Lisa kommentaar</caption>
-      </property>
-      <property>
-            <name>mail_receiver</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>relpicker</type>
-            <store>connect</store>
-            <multiple>1</multiple>
-            <reltype>RELTYPE_RECEIVER</reltype>
-            <field>mail_receiver</field>
-            <caption>Arve e-kirja saaja</caption>
       </property>
       <property>
             <name>rows_toolbar</name>
@@ -811,6 +814,10 @@
                   <caption>P&amp;amp;otilde;hiandmed</caption>
                   <parent>general</parent>
             </general_data>
+            <text_comments>
+                  <caption>Kommentaartekstid</caption>
+                  <parent>general</parent>
+            </text_comments>
             <other_data>
                   <caption>Muud andmed</caption>
                   <parent>general</parent>
@@ -959,6 +966,11 @@
                   <clid>CL_CRM_BILL_ROW_GROUP</clid>
                   <caption>Reablokk</caption>
             </ROW_GROUP>
+            <ATTACHED_FILE>
+                  <value>21</value>
+                  <clid>CL_FILE</clid>
+                  <caption>Manusfail</caption>
+            </ATTACHED_FILE>
       </reltypes>
       <layout>
             <main_split>
@@ -1009,22 +1021,55 @@
                   <type>hbox</type>
                   <parent>right_split</parent>
                   <closeable>1</closeable>
-                  <area_caption>Ladu</area_caption>
+                  <area_caption>Kauba&amp;amp;nbsp;info</area_caption>
                   <width>50%:50%</width>
+                  <no_padding>1</no_padding>
                   <group>general_data</group>
             </bottom_right>
             <bottom_right_left>
                   <type>vbox</type>
                   <parent>bottom_right</parent>
+                  <area_caption>Ladu</area_caption>
                   <group>general_data</group>
-                  <area_caption></area_caption>
             </bottom_right_left>
             <bottom_right_right>
                   <type>vbox</type>
                   <parent>bottom_right</parent>
+                  <area_caption>Saatelehed</area_caption>
+                  <no_padding>1</no_padding>
                   <group>general_data</group>
-                  <area_caption></area_caption>
             </bottom_right_right>
+            <attachments_container>
+                  <type>vbox</type>
+                  <parent>right_split</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Manused</area_caption>
+                  <group>general_data</group>
+            </attachments_container>
+            <other_data_main>
+                  <type>hbox</type>
+                  <group>other_data</group>
+                  <area_caption></area_caption>
+            </other_data_main>
+            <texts_container>
+                  <type>vbox</type>
+                  <parent>other_data_main</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Kommentaaritekstid</area_caption>
+                  <group>other_data</group>
+            </texts_container>
+            <other_data_container>
+                  <type>vbox</type>
+                  <parent>other_data_main</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Muud&amp;amp;nbsp;andmed</area_caption>
+                  <group>other_data</group>
+            </other_data_container>
+            <misc>
+                  <type>vbox</type>
+                  <group>other_data</group>
+                  <area_caption></area_caption>
+            </misc>
             <bill_rows_container>
                   <type>vbox</type>
                   <group>rows</group>
