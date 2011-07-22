@@ -11,6 +11,9 @@ and acquisition contracts are represented in separate customer relation objects
 @default table=objects
 @default group=general
 
+	@property name type=text table=objects field=name store=no
+	@caption Nimi
+
 	@property buyer type=relpicker reltype=RELTYPE_BUYER table=aw_crm_customer_data field=aw_buyer
 	@caption Ostja
 

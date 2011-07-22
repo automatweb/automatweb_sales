@@ -275,6 +275,8 @@ class crm_company_customer_data_obj extends _int_object
 			}
 		}
 
+		$this->set_name($this->prop_str("seller.name") . " => " . $this->prop_str("buyer.name"));
+
 		$r = parent::save($exclusive, $previous_state);
 	}
 }
