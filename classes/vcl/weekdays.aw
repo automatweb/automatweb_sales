@@ -37,7 +37,7 @@ class weekdays extends core implements vcl_interface
 
 		for ($i = 0; $i < 7; $i++)
 		{
-			$label = locale::get_lc_weekday($i, true, true);
+			$label = aw_locale::get_lc_weekday($i, true, true);
 			if (!empty($arr["multiple"]))
 			{
 				$html .= html::checkbox(array(
