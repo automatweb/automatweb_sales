@@ -39,8 +39,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 @property nickname type=textbox size=10 maxlength=20
 @caption H&uuml;&uuml;dnimi
 
-@property personal_id type=textbox size=13 maxlength=11
+@property personal_id_container type=text store=no
 @caption Isikukood
+@property personal_id type=textbox size=15 parent=personal_id_container no_caption=1
+@property personal_id_country type=select parent=personal_id_container no_caption=1 store=no
 
 @property external_id type=hidden field=aw_external_id
 @caption Siduss&uuml;steemi id
@@ -1220,6 +1222,31 @@ class crm_person extends class_base
 				}
 			}
 		}
+	}
+
+	function _get_personal_id_country(&$arr)
+	{
+		$r = class_base::PROP_OK;
+		$arr["prop"]["options"] = array(
+			country_data::NUM_ESTONIA => t("Eesti"),
+			0 => t("Muu")
+		);
+		return $r;
+	}
+
+	function _set_personal_id($arr)
+	{
+		$r = class_base::PROP_OK;
+		if (!empty($arr["prop"]["value"]) and isset($arr["request"]["personal_id_country"]) and country_data::NUM_ESTONIA == $arr["request"]["personal_id_country"])
+		{
+			$pid = new pid_et("45503034582");
+			if (!$pid->is_valid())
+			{
+				$arr["prop"]["error"] = t("V&auml;&auml;rtus ei vasta Eesti isikukoodi standardile");
+				$r = class_base::PROP_ERROR;
+			}
+		}
+		return $r;
 	}
 
 	function _get_sms_tbl($arr)

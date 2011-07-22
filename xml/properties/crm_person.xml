@@ -64,14 +64,33 @@
             <caption>H&amp;amp;uuml;&amp;amp;uuml;dnimi</caption>
       </property>
       <property>
+            <name>personal_id_container</name>
+            <table>kliendibaas_isik</table>
+            <group>general2</group>
+            <type>text</type>
+            <store>no</store>
+            <field>personal_id_container</field>
+            <caption>Isikukood</caption>
+      </property>
+      <property>
             <name>personal_id</name>
             <table>kliendibaas_isik</table>
             <group>general2</group>
             <type>textbox</type>
-            <size>13</size>
-            <maxlength>11</maxlength>
+            <size>15</size>
+            <parent>personal_id_container</parent>
+            <no_caption>1</no_caption>
             <field>personal_id</field>
-            <caption>Isikukood</caption>
+      </property>
+      <property>
+            <name>personal_id_country</name>
+            <table>kliendibaas_isik</table>
+            <group>general2</group>
+            <type>select</type>
+            <parent>personal_id_container</parent>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>personal_id_country</field>
       </property>
       <property>
             <name>external_id</name>
