@@ -1669,13 +1669,28 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	**/
 	function get_faxes()
 	{
-		$ret = array();
-		$conns = $this->connections_from(array("type" => "RELTYPE_TELEFAX"));
-		foreach($conns as $conn)
-		{
-			$ret[]= $conn->prop("to.name");
-		}
-		return $ret;
+		$list = new object_list(array(
+			"class_id" => CL_CRM_PHONE,
+			new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"CL_CRM_PHONE.RELTYPE_PHONE(CL_CRM_COMPANY)" => $this->id(),
+							"type" => array("fax")
+						)
+					)),
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"CL_CRM_PHONE.RELTYPE_TELEFAX(CL_CRM_COMPANY)" => $this->id()
+						)
+					))
+				)
+			))
+		));
+		return $list->names();
 	}
 
 	/** Returns customer's all phone numbers as array
@@ -1683,13 +1698,28 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	**/
 	function get_phones()
 	{
-		$ret = array();
-		$conns = $this->connections_from(array("type" => "RELTYPE_PHONE"));
-		foreach($conns as $conn)
-		{
-			$ret[]= $conn->prop("to.name");
-		}
-		return $ret;
+		$list = new object_list(array(
+			"class_id" => CL_CRM_PHONE,
+			"CL_CRM_PHONE.RELTYPE_PHONE(CL_CRM_COMPANY)" => $this->id(),
+			new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"type" => array("work", "home", "mobile")
+						)
+					)),
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"type" => new obj_predicate_compare(obj_predicate_compare::IS_EMPTY)
+						)
+					))
+				)
+			))
+		));
+		return $list->names();
 	}
 
 	/** returns customer relation creator
