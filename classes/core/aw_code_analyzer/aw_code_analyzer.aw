@@ -480,7 +480,7 @@ class aw_code_analyzer extends core
 			// possibilities here are: T_STRING as type hint, T_VARIABLE or string "&", then T_VARIABLE
 			if (is_array($tok))
 			{
-				if ($tok[0] == T_STRING)
+				if ($tok[0] == T_STRING or $tok[0] == T_ARRAY)
 				{
 					$var_typehint = isset($t[1]) ? $t[1] : NULL;
 					$tok = $this->get();
