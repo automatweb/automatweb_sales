@@ -51,7 +51,7 @@ class weekdays extends core implements vcl_interface
 				$html .= html::radiobutton(array(
 					"name" => "{$name}",
 					"value" => pow(2, $i),
-					"label" => $label
+					"label" => $label,
 					"checked" => !empty($days[$i])
 				));
 			}
