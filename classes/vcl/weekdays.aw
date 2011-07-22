@@ -38,7 +38,7 @@ class weekdays extends core implements vcl_interface
 
 		$html = "";
 
-		$start_from_monday = !isset($arr["start_from_monday"]) or $arr["start_from_monday"] ? 1 : 0
+		$start_from_monday = !isset($arr["start_from_monday"]) or $arr["start_from_monday"] ? 1 : 0;
 
 		for ($i = 0 + $start_from_monday; $i < 7 + $start_from_monday; $i++)
 		{
