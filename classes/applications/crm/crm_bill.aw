@@ -166,14 +166,16 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=text_comments
-			@property bill_text type=textarea rows=15 cols=50 field=meta method=serialize
+			@property bill_text type=textarea rte_type=4 rows=15 cols=50 field=meta method=serialize
 			@caption Arve sissejuhatus
 
-			@property bill_appendix_comment type=textarea rows=15 cols=50 table=objects field=meta method=serialize
+			@property bill_appendix_comment type=textarea rte_type=4 rows=15 cols=50 table=objects field=meta method=serialize
 			@caption Kommentaar lisale
 
-			@property reminder_text type=textarea rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text
+			@property reminder_text type=textarea rte_type=4 rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text
 			@caption Kommentaar meeldetuletusele
+
+
 
 @default group=other_data
 	@layout other_data_main type=hbox
@@ -209,7 +211,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property project type=relpicker store=connect reltype=RELTYPE_PROJECT multiple=1
 	@caption Projekt
 
+
+
+@default group=action_comments
 	@property comments type=text store=no
+	@comment Tegevuste ajalugu ja lisakommentaarid
 	@caption Kommentaarid
 
 	@property comments_add type=textarea rows=15 cols=50 store=no
@@ -311,6 +317,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 @groupinfo general_data caption="P&otilde;hiandmed" parent=general
 @groupinfo text_comments caption="Kommentaartekstid" parent=general
+@groupinfo action_comments caption="Tegevuste ajalugu" parent=general
 @groupinfo other_data caption="Muud andmed" parent=general
 @groupinfo rows caption="Read"
 @groupinfo mails caption="Kirjad"
@@ -2015,6 +2022,13 @@ class crm_bill extends class_base
 
 	function _get_bill_rows(&$arr)
 	{
+		// dummy rte textarea to load required scripts and styles.
+		html::textarea(array(
+			"name" => "tmp",
+			"value" => "",
+			"rte_type" => 4
+		));
+
 		if($arr["new"])
 		{
 			return PROP_IGNORE;
@@ -2438,7 +2452,7 @@ class crm_bill extends class_base
 				break;
 
 			case "name":
-				$ret.="<table><tr><td width=\"400\"> " . t("Jrk.") . " " .
+				$element = "<table><tr><td width=\"400\"> " . t("Jrk.") . " " .
 				html::textbox(array(
 					"name" => "rows[".$row->id()."][jrk]",
 					"value" => $row->ord(),
@@ -2457,6 +2471,8 @@ class crm_bill extends class_base
 					"size" => 70
 				)) .
 				html::linebreak() .
+				t("Kirjeldus").
+				html::linebreak() .
 				html::textarea(array(
 					"name" => "rows[".$row->id()."][name]",
 					"value" => $row->prop("desc"),
@@ -2469,10 +2485,11 @@ class crm_bill extends class_base
 				html::textarea(array(
 					"name" => "rows[".$row->id()."][name_group_comment]",
 					"value" => $row->prop("name_group_comment"),
-					"rows" => 1,
+					"rows" => 2,
 					"cols" => 52
 				))
 				."</td></tr></table>";
+				$ret .= $element;
 				break;
 
 			case "code":
@@ -2748,8 +2765,8 @@ class crm_bill extends class_base
 					($row->ord() ? sprintf(t("# %s"), $row->ord()) . html::linebreak() : "").
 					($row->prop("date") ? $row->prop("date") . html::linebreak() : "").
 					($row->prop("comment") ? html::bold($row->prop("comment")) . html::linebreak() : "").
-					($row->prop("desc") ? wordwrap(nl2br(htmlspecialchars(($row->prop("desc")))), 100, html::linebreak(), true) . html::linebreak() : "").
-					($row->prop("name_group_comment") ? html::italic(wordwrap(nl2br(htmlspecialchars(($row->prop("name_group_comment")))), 100, html::linebreak(), true)) : "").
+					($row->prop("desc") ? wordwrap($row->prop("desc"), 100, html::linebreak(), true) . html::linebreak() : "").
+					($row->prop("name_group_comment") ? html::hr().html::italic(wordwrap($row->prop("name_group_comment"), 100, html::linebreak(), true)) : "").
 					"</div>";
 				break;
 
@@ -4497,6 +4514,7 @@ ENDSCRIPT;
 		}
 		elseif ("rows" === $this->use_group)
 		{
+			$lang = aw_global_get("LC");
 			$row_group_delete_confirm = t("Kustutada see reablokk?");
 			$merge_rows_prompt= html::quote_js(t("Valitud ridade hinnad on erinevad, sisesta palun koondatud rea hind"));
 			$scripts .= <<<ENDSCRIPT
@@ -4556,7 +4574,24 @@ function crm_bill_set_group(row_id, group_id){
 function crm_bill_edit_row(id) {
 	$.get("/automatweb/orb.aw", {class: "crm_bill", action: "get_row_change_fields", id: id, field: "name"}, function (html) {
 		x=document.getElementById("row_"+id+"_name");
-		x.innerHTML=html;});
+		x.innerHTML=html;
+		$('#rows_'+id+'__name_').wysiwyg({
+			autoGrow: true,
+			maxHeight: 600,
+			plugins: {
+				i18n: { lang: "{$lang}" },
+				rmFormat: { rmMsWordMarkup: true }
+			}
+		});
+		$('#rows_'+id+'__name_group_comment_').wysiwyg({
+			autoGrow: true,
+			maxHeight: 600,
+			plugins: {
+				i18n: { lang: "{$lang}" },
+				rmFormat: { rmMsWordMarkup: true }
+			}
+		});
+	});
 	$.get("/automatweb/orb.aw", {class: "crm_bill", action: "get_row_change_fields", id: id, field: "unit"}, function (html) {
 		x=document.getElementById("row_"+id+"_unit");
 		x.innerHTML=html;});
@@ -4598,23 +4633,23 @@ ENDSCRIPT;
 		$url = $this->mk_my_orb("get_comment_for_prod");
 		$scripts .= <<<ENDSCRIPT
 
-var date_day_el = aw_get_el("bill_date[day]")
-var date_month_el = aw_get_el("bill_date[month]")
-var date_year_el = aw_get_el("bill_date[year]")
-var date_day = date_day_el.value
-var date_month = date_month_el.value
-var date_year = date_year_el.value
-var date_trans_day_el = aw_get_el("bill_trans_date[day]")
-var date_trans_month_el = aw_get_el("bill_trans_date[month]")
-var date_trans_year_el = aw_get_el("bill_trans_date[year]")
+var date_day_el = aw_get_el("bill_date[day]");
+var date_month_el = aw_get_el("bill_date[month]");
+var date_year_el = aw_get_el("bill_date[year]");
+var date_day = date_day_el.value;
+var date_month = date_month_el.value;
+var date_year = date_year_el.value;
+var date_trans_day_el = aw_get_el("bill_trans_date[day]");
+var date_trans_month_el = aw_get_el("bill_trans_date[month]");
+var date_trans_year_el = aw_get_el("bill_trans_date[year]");
 $.timer(200, function (timer) {
 	if(date_day_el.value != date_day || date_month_el.value != date_month || date_year_el.value != date_year) {
-		date_day = date_day_el.value
-		date_month = date_month_el.value
-		date_year = date_year_el.value
-		date_trans_day_el.value = date_day
-		date_trans_month_el.value = date_month
-		date_trans_year_el.value = date_year
+		date_day = date_day_el.value;
+		date_month = date_month_el.value;
+		date_year = date_year_el.value;
+		date_trans_day_el.value = date_day;
+		date_trans_month_el.value = date_month;
+		date_trans_year_el.value = date_year;
 	}
 });
 

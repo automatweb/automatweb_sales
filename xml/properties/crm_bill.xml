@@ -425,7 +425,9 @@
             <reltype>RELTYPE_ATTACHED_FILE</reltype>
             <store>no</store>
             <parent>attachments_container</parent>
+            <max_files>99</max_files>
             <field>attached_files</field>
+            <comment>Siin lisatud failid saadetakse arve e-posti manustena</comment>
             <caption>Manused</caption>
       </property>
       <property>
@@ -433,6 +435,7 @@
             <table>objects</table>
             <group>text_comments</group>
             <type>textarea</type>
+            <rte_type>4</rte_type>
             <rows>15</rows>
             <cols>50</cols>
             <field>meta</field>
@@ -444,6 +447,7 @@
             <table>objects</table>
             <group>text_comments</group>
             <type>textarea</type>
+            <rte_type>4</rte_type>
             <rows>15</rows>
             <cols>50</cols>
             <field>meta</field>
@@ -455,6 +459,7 @@
             <table>aw_crm_bill</table>
             <group>text_comments</group>
             <type>textarea</type>
+            <rte_type>4</rte_type>
             <rows>15</rows>
             <cols>50</cols>
             <field>aw_reminder_text</field>
@@ -550,16 +555,17 @@
       <property>
             <name>comments</name>
             <table>objects</table>
-            <group>other_data</group>
+            <group>action_comments</group>
             <type>text</type>
             <store>no</store>
             <field>comments</field>
+            <comment>Tegevuste ajalugu ja lisakommentaarid</comment>
             <caption>Kommentaarid</caption>
       </property>
       <property>
             <name>comments_add</name>
             <table>objects</table>
-            <group>other_data</group>
+            <group>action_comments</group>
             <type>textarea</type>
             <rows>15</rows>
             <cols>50</cols>
@@ -818,6 +824,10 @@
                   <caption>Kommentaartekstid</caption>
                   <parent>general</parent>
             </text_comments>
+            <action_comments>
+                  <caption>Tegevuste ajalugu</caption>
+                  <parent>general</parent>
+            </action_comments>
             <other_data>
                   <caption>Muud andmed</caption>
                   <parent>general</parent>
