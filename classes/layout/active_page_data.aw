@@ -16,6 +16,9 @@ class active_page_data implements orb_public_interface
 		"bottom" => ""
 	);
 
+	private static $style_sheet_files = array();
+	private static $additional_css = "";
+
 	/** Sets orb request to be processed by this object
 		@attrib api=1 params=pos
 		@param request type=aw_request
@@ -107,10 +110,11 @@ class active_page_data implements orb_public_interface
 			$ret .= $styletext;
 		}
 
-		if ($ret != "")
+		if ($ret)
 		{
 			$ret = "<style type=\"text/css\">".$ret."</style>";
 		}
+
 		if (stristr($text, "</head>") !== false)
 		{
 			$text = str_ireplace("</head>", $ret."</head>", $text);
@@ -136,7 +140,7 @@ class active_page_data implements orb_public_interface
 		{
 			// add loaded files
 			$baseurl = aw_ini_get("baseurl");
-			foreach (self::$load_javascript_files[$pos] as $file => $tmp)
+			foreach (self::$load_javascript_files[$pos] as $file => $loader)
 			{
 				$text .= "<script language=\"Javascript\" type=\"text/javascript\" src=\"{$baseurl}automatweb/js/{$file}\"></script>\n";
 			}
@@ -158,7 +162,8 @@ class active_page_data implements orb_public_interface
 	**/
 	public static function add_javascript($code, $pos = "head")
 	{
-		self::$additional_javascript_code[$pos] .= ($code . "\n\n");
+		$loader = self::get_loader();
+		self::$additional_javascript_code[$pos] .= "/* Javascript code loaded by {$loader} */\n{$code}\n\n";
 	}
 
 	/** Loads javascript file
@@ -180,8 +185,69 @@ class active_page_data implements orb_public_interface
 	{
 		if (!isset(self::$load_javascript_files[$pos][$file])) // assuming that some scripts may be needed to be included both at head and bottom
 		{
-			self::$load_javascript_files[$pos][$file] = null;
+			self::$load_javascript_files[$pos][$file] = self::get_loader();
 		}
+	}
+
+	/** Loads css stylesheet file
+		@attrib api=1 params=pos
+
+		@param file type=string
+			CSS filename/path to include. The root directory for the files is "$automatweb_site/automatweb/".
+
+		@comment
+			The function allows you to load a css file. It will be linked in between head tags
+		@examples
+			active_page_data::load_stylesheet("my/dir/my_stylefile.css");
+	**/
+	public static function load_stylesheet($file)
+	{
+		if (!isset(self::$style_sheet_files[$file])) // don't load more than once
+		{
+			self::$style_sheet_files[$file] = self::get_loader();
+		}
+	}
+
+	/** Loads CSS style markup
+		@attrib api=1 params=pos
+
+		@param css type=string
+			CSS code to include.
+
+		@comment
+			The function allows you to load additional css markup. It will be added in page head element in style section
+		@examples
+			active_page_data::add_style("#myElementId { background-color: white; }");
+	**/
+	public static function add_style($css)
+	{
+		$loader = self::get_loader();
+		self::$additional_css .= "/* CSS loaded by {$loader} */\n{$css}\n\n";
+	}
+
+	/** Returns page style part as defined by executed applications
+		@attrib api=1 params=pos
+		@returns string
+		@errors none
+	**/
+	public static function get_styles()
+	{
+		$text = "";
+
+		// add loaded files
+		$baseurl = aw_ini_get("baseurl");
+		foreach (self::$style_sheet_files as $file => $loader)
+		{
+			$text .= "<link href=\"{$baseurl}automatweb/{$file}\" rel=\"stylesheet\" type=\"text/css\" />\n";
+		}
+
+		// add separate CSS
+		if (self::$additional_css)
+		{
+			$text .= "<style type=\"text/css\">\n" . self::$additional_css . "</style>\n";
+		}
+
+		return $text;
 	}
 
 	/** returns the state of the layer
@@ -286,5 +352,15 @@ class active_page_data implements orb_public_interface
 		}
 
 		exit;
+	}
+
+	private static function get_loader()
+	{
+		$trace = debug_backtrace();
+		$class = empty($trace[2]["class"]) ? "" : $trace[2]["class"] . "::";
+		$method = empty($trace[2]["function"]) ? "()" : $trace[2]["function"];
+		$line = empty($trace[2]["line"]) ? "n/a" : $trace[2]["line"];
+		$loader = "{$class}{$method} on line {$line}";
+		return $loader;
 	}
 }

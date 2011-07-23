@@ -4,7 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
 	<title>{VAR:html_title} {VAR:title_action}</title>
 	<link rel="shortcut icon" href="{VAR:baseurl}automatweb/images/aw06/favicon.ico" />
+
 	<link href="{VAR:baseurl}automatweb/css/style-min.css" rel="stylesheet" type="text/css" />
+	{VAR:css_styles_head}
+
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/js-min.js"></script>
 	{VAR:javascript}
 	<script type="text/javascript">

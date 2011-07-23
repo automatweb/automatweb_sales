@@ -321,7 +321,10 @@ if ($sf->is_template("aw_styles"))
 	$styles_done = true;
 }
 
-// include javascript files which are loaded from code:
+// include css loaded from code:
+$sf->vars(array("css_styles_head" => active_page_data::get_styles()));
+
+// include javascript loaded from code:
 $sf->vars(array("javascript" => active_page_data::get_javascript("head")));
 $sf->vars(array("javascript_bottom" => active_page_data::get_javascript("bottom")));
 $str= $sf->parse();

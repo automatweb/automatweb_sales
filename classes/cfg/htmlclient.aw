@@ -753,7 +753,6 @@ class htmlclient extends aw_template
 			else
 			{
 				// make a list of of all RTE-s
-
 				// would be nice if I could update the textareas right when the iframe loses focus ..
 				// I'm almost sure I can do that.
 				foreach($this->rtes as $rte)
@@ -1149,7 +1148,7 @@ class htmlclient extends aw_template
 
 					if (isset($arr["orient"]) and $arr["orient"] === "vertical")
 					{
-						$retval .= "<br />";
+						$retval .= html::linebreak();
 					}
 				}
 				break;
