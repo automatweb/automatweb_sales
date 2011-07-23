@@ -1,6 +1,6 @@
 <?php
 
-class aw_locker extends aw_locker_file
+class aw_locker extends aw_locker_none
 {
 	// boundary constant values are in order of scope width
 	const BOUNDARY_PROCESS = 1;	// locks only apply to the current process. any other processes or servers will not see them. this is the quickest.
