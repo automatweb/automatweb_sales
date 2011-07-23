@@ -1449,13 +1449,6 @@ $x++;
 		if ($r["group"] === "invoice_templates")
 		{
 			$t->define_field(array(
-				"name" => "bill_name",
-				"caption" => t("Nimetus"),
-				"sortable" => 1,
-				"chgbgcolor" => "color"
-			));
-
-			$t->define_field(array(
 				"name" => "create_new",
 				"caption" => t("Uus"),
 				"chgbgcolor" => "color"
@@ -1471,6 +1464,13 @@ $x++;
 				"chgbgcolor" => "color"
 			));
 		}
+
+		$t->define_field(array(
+			"name" => "bill_name",
+			"caption" => t("Nimetus"),
+			"sortable" => 1,
+			"chgbgcolor" => "color"
+		));
 
 		$t->define_field(array(
 			"name" => "bill_date",
@@ -1908,10 +1908,10 @@ $x++;
 			$partial = "";
 			if($bill->prop("state") == 3 && $bill->prop("partial_recieved") && $bill->prop("partial_recieved") < $cursum)
 			{
-				$partial = '<br>'.t("osaliselt");
+				$partial = html::linebreak().t("osaliselt");
 			}
 			$bill_data = array(
-				"bill_name" => html::get_change_url($bill->id(), array("return_url" => get_ru()), ($bill->comment() ? $bill->comment() : t("[nimetu]"))),
+				"bill_name" => html::get_change_url($bill->id(), array("return_url" => get_ru()), parse_obj_name($bill->comment())),
 				"bill_no" => html::get_change_url($bill->id(), array("return_url" => get_ru()), parse_obj_name($bill->prop("bill_no"))),
 				"create_new" => html::href(array(
 					"url" => $this->mk_my_orb("create_invoice_from_template", array(
@@ -1972,7 +1972,7 @@ $x++;
 						"url" => html::obj_change_url($pl , array())
 					));
 				}
-				$bill_data["project_leader"] = join("<br>" , $pl_array);
+				$bill_data["project_leader"] = join(html::linebreak() , $pl_array);
 			}
 
 			if(!empty($arr["request"]["show_bill_balance"]))
@@ -2030,21 +2030,21 @@ $x++;
 		$t->set_sortable(false);
 
 		$final_dat = array(
-			"bill_no" => t("<b>Summa</b>")
+			"bill_no" => html::bold(t("Summa"))
 		);
 		if($cg)
 		{
 			foreach($sum_in_curr as $cur_name => $amount)
 			{
-				$final_dat["sum"] .= "<b>".number_format($amount, 2)." ".$cur_name."</b><br>";
+				$final_dat["sum"] .= html::bold(number_format($amount, 2)." ".$cur_name) . html::linebreak();
 				if($arr["request"]["show_bill_balance"])
 				{
-					$final_dat["balance"] .= "<b>".number_format($bal_in_curr[$cur_name], 2)." ".$cur_name."</b><br>";
+					$final_dat["balance"] .= html::bold(number_format($bal_in_curr[$cur_name], 2)." ".$cur_name) . html::linebreak();
 				}
 			}
 			foreach($tax_in_curr as $cur_name => $amount)
 			{
-				$final_dat["tax"] .= "<b>".number_format($amount, 2)." ".$cur_name."</b><br>";
+				$final_dat["tax"] .= html::bold(number_format($amount, 2)." ".$cur_name) . html::linebreak();
 			}
 			$co_currency_name = "";
 			if($this->can("view" , $company_curr))
@@ -2052,20 +2052,20 @@ $x++;
 				$company_curr_obj = obj($company_curr);
 				$co_currency_name = $company_curr_obj->name();
 			}
-			$final_dat["sum"] .= "<b>Kokku: ".number_format($sum, 2).$co_currency_name."</b><br>";
-			$final_dat["tax"] .= "<b>Kokku: ".number_format($tax, 2).$co_currency_name."</b><br>";
+			$final_dat["sum"] .= html::bold("Kokku: ".number_format($sum, 2).$co_currency_name) . html::linebreak();
+			$final_dat["tax"] .= html::bold("Kokku: ".number_format($tax, 2).$co_currency_name) . html::linebreak();
 			if($arr["request"]["show_bill_balance"])
 			{
-				$final_dat["balance"] .= "<b>Kokku: ".number_format($balance, 2).$co_currency_name."</b><br>";
+				$final_dat["balance"] .= html::bold("Kokku: ".number_format($balance, 2).$co_currency_name) . html::linebreak();
 			}
 		}
 		else
 		{
-			$final_dat["tax"] = "<b>".number_format($tax, 2)."</b>";
-			$final_dat["sum"] = "<b>".number_format($sum, 2)."</b>";
+			$final_dat["tax"] = html::bold(number_format($tax, 2));
+			$final_dat["sum"] = html::bold(number_format($sum, 2));
 			if(!empty($arr["request"]["show_bill_balance"]))
 			{
-				$final_dat["balance"] .= "<b>".number_format($balance, 2)."</b><br>";
+				$final_dat["balance"] .= html::bold(number_format($balance, 2)) . html::linebreak();
 			}
 		}
 		$t->define_data($final_dat);
@@ -2097,7 +2097,7 @@ $x++;
 			"name" => "bill_s_client_mgr",
 			"value" => $v,
 			"size" => 25
-		))."<a href='javascript:void(0)' onClick='document.changeform.bill_s_client_mgr.value=\"\"' title=\"$tt\" alt=\"$tt\"><img title=\"$tt\" alt=\"$tt\" src='".aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif' border=0></a>";
+		))."<a href='javascript:void(0)' onClick='document.changeform.bill_s_client_mgr.value=\"\"' title=\"$tt\" alt=\"$tt\"><img title=\"$tt\" alt=\"$tt\" src='".aw_ini_get("baseurl")."automatweb/images/icons/delete.gif' border=0></a>";
 		return PROP_OK;
 	}
 
@@ -2163,14 +2163,14 @@ $x++;
 			'parent'=>'export',
 			'text' => t("Hansa raama (ridadega)"),
 			'link' => "#",
-			"onClick" => "v=prompt('" . t("Sisesta arve number?") . "','$last_bno'); if (v != null) { window.location='".aw_url_change_var("export_hr", 1)."&exp_bno='+v;} else { return false; }"
+			"onclick" => "v=prompt('" . t("Sisesta arve number?") . "','$last_bno'); if (v != null) { window.location='".aw_url_change_var("export_hr", 1)."&exp_bno='+v;} else { return false; }"
 		));
 
 		$tb->add_menu_item(array(
 			"parent" => "export",
 			"text" => t("Hansa raama (koondatud)"),
 			'link' => "#",
-			"onClick" => "v=prompt('" . t("Sisesta arve number?") . "','$last_bno'); if (v != null) { window.location='".aw_url_change_var("export_hr", 2)."&exp_bno='+v;} else { return false; }"
+			"onclick" => "v=prompt('" . t("Sisesta arve number?") . "','$last_bno'); if (v != null) { window.location='".aw_url_change_var("export_hr", 2)."&exp_bno='+v;} else { return false; }"
 		));
 
 		$tb->add_button(array(
