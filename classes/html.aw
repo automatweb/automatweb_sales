@@ -188,8 +188,8 @@ class html
 
 	@param onkeypress optional type=string
 		If set, then onkeypress=$onkeypress. Not allowed if autocomplete used.
-	@param onFocus optional type=string
-		If set, then onFocus=$onFocus.
+	@param onfocus optional type=string
+		If set, then onfocus=$onfocus.
 	@param onblur optional type=string
 		If set, then onblur=$onblur.
 
@@ -269,7 +269,7 @@ class html
 		settype ($option_is_tuple, "boolean");
 		$onkeypress = isset($onkeypress) ? " onkeypress=\"{$onkeypress}\"" : "";
 		$onload = isset($onload) ? " onload=\"{$onload}\"" : '';
-		$onFocus = isset($onFocus) ? " onfocus=\"{$onFocus}\"" : '';
+		$onfocus = isset($onfocus) ? " onfocus=\"{$onfocus}\"" : '';
 		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : '';
 		$ti = isset($tabindex) ? " tabindex=\"{$tabindex}\"" : '';
 		$autocomplete = "";
@@ -305,8 +305,8 @@ class html
 			{
 				/*$baseurl = aw_ini_get("baseurl") . "/automatweb/js/";
 				$autocomplete = '<script type="text/javascript" src="' . $baseurl . 'autocomplete_lib.js"></script><script type="text/javascript" src="' . $baseurl . 'autocomplete.js"></script>';*/
-				load_javascript("autocomplete.js");
-				load_javascript("autocomplete_lib.js");
+				active_page_data::load_javascript("autocomplete.js");
+				active_page_data::load_javascript("autocomplete_lib.js");
 				define("AW_AUTOCOMPLETE_INITIALIZED", 1);
 			}
 
@@ -411,35 +411,41 @@ class html
 			$value = isset($content) ? $content : "";
 		}
 
-		return "<input type=\"text\" id=\"{$id}\" name=\"{$name}\" size=\"{$size}\" value=\"{$value}\"{$maxlength}{$style}{$onkeypress}{$onkeyup}{$onload}{$onFocus}{$onblur}{$disabled}{$textsize}{$ti}{$ac_off}{$onchange}{$class} />{$post_append_text}\n{$value_elem}{$autocomplete}";
+		return "<input type=\"text\" id=\"{$id}\" name=\"{$name}\" size=\"{$size}\" value=\"{$value}\"{$maxlength}{$style}{$onkeypress}{$onkeyup}{$onload}{$onfocus}{$onblur}{$disabled}{$textsize}{$ti}{$ac_off}{$onchange}{$class} />{$post_append_text}\n{$value_elem}{$autocomplete}";
 	}
 
 	/**
 	@attrib api=1 params=name
 
-	@param name optional type=string
+	@param name type=string
 		textarea name
-	@param value optional type=string
+	@param value type=string default=""
 		textarea value
 	@param cols optional type=int default=60
 		number of columns
 	@param rows optional type=int default=40
 		number of rows
-	@param disabled optional type=bool
+	@param rte_type type=int default=0
+		Whether to render as rich text editor and which type to use.
+			0 - don't use RTE
+			1 - rte vcl component
+			2 - N/A
+			3 - codepress component
+	@param disabled type=bool default=FALSE
 		if true, textarea is disabled
-	@param textsize optional type=string
+	@param textsize type=string default=""
 		font size . examples: "10px", "0.7em", "smaller"
-	@param maxlength optional type=int
+	@param maxlength type=int default=NULL
 		maximum lenght
-	@param style optional type=string
+	@param style type=string default=""
 		textarea style
-	@param onFocus optional type=string
-		if set, onFocus=$onFocus.
-	@param onblur optional type=string
+	@param onfocus type=string default=""
+		if set, onfocus=$onfocus.
+	@param onblur type=string default=""
 		if set, onblur=$onblur.
-	@param onkeyup optional type=string
+	@param onkeyup type=string default=""
 		if set, onkeyup=$onkeyup.
-	@param onchange optional type=string
+	@param onchange type=string default=""
 		if set, onchange=$onchange.
 
 	@returns string / html textarea
@@ -449,8 +455,9 @@ class html
 	public static function textarea($args = array())
 	{
 		extract($args);
+		$richtext = !empty($args["rte_type"]);
 
-		if(empty($richtext) && isset($maxlength) && is_numeric($maxlength) && $maxlength > 0)
+		if(!$richtext && isset($maxlength) && is_numeric($maxlength) && $maxlength > 0)
 		{
 			$onkeyup = isset($onkeyup) ? " ".$onkeyup : "";
 			$onkeyup = "if(this.value.length>{$maxlength}){this.value=this.value.substr(0,{$maxlength});}".$onkeyup;
@@ -459,7 +466,7 @@ class html
 		$cols = !empty($cols) ? $cols : 60;
 		$rows = !empty($rows) ? $rows : 40;
 		$value = isset($value) ? $value : "";
-		$onFocus = isset($onFocus) ? " onfocus=\"{$onFocus}\"" : "";
+		$onfocus = isset($onfocus) ? " onfocus=\"{$onfocus}\"" : "";
 		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : "";
 		$onkeyup = isset($onkeyup) ? " onkeyup=\"{$onkeyup}\"" : "";
 		$onchange = !empty($onchange) ? " onchange=\"{$onchange}\"" : "";
@@ -473,11 +480,45 @@ class html
 		$id = str_replace(array("[", "]"), "_", $name);
 		// now, the browser detection is best done in javascript
 
-		if (!empty($richtext))
+		if ($richtext)
 		{
+			$rte_type = $args["rte_type"];
 			if($rte_type == 2)
 			{
 				$retval = "<textarea id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$textsize}{$onkeyup}{$onchange}>{$value}</textarea>\n";
+			}
+			elseif($rte_type == 4)
+			{
+				$lang = aw_global_get("LC");
+				active_page_data::load_stylesheet("js/jquery/plugins/jwysiwyg/jquery.wysiwyg.aw.css");
+				active_page_data::load_stylesheet("js/jquery/plugins/jwysiwyg/jquery.wysiwyg.modal.css");
+				active_page_data::load_stylesheet("js/jquery/plugins/ui/jquery.ui.all.css");
+				active_page_data::load_javascript("jquery/plugins/jwysiwyg/jquery.wysiwyg.js");
+				active_page_data::load_javascript("jquery/plugins/ui/jquery.ui.core.js");
+				active_page_data::load_javascript("jquery/plugins/ui/jquery.ui.widget.js");
+				active_page_data::load_javascript("jquery/plugins/ui/jquery.ui.position.js");
+				active_page_data::load_javascript("jquery/plugins/ui/jquery.ui.dialog.js");
+				active_page_data::load_javascript("jquery/plugins/jwysiwyg/plugins/wysiwyg.i18n.js");
+				active_page_data::load_javascript("jquery/plugins/jwysiwyg/i18n/lang.{$lang}.js");
+				active_page_data::load_javascript("jquery/plugins/jwysiwyg/controls/wysiwyg.link.js");
+				active_page_data::load_javascript("jquery/plugins/jwysiwyg/controls/wysiwyg.table.js");
+				active_page_data::add_javascript(<<<ENDJAVASCRIPT
+// rte control for textarea element '{$name}'
+(function ($) {
+	$(document).ready(function () {
+		$('#{$id}').wysiwyg({
+			autoGrow: true,
+			maxHeight: 600,
+			plugins: {
+				i18n: { lang: "{$lang}" },
+				rmFormat: { rmMsWordMarkup: true }
+			}
+		});
+	});
+})(jQuery);
+ENDJAVASCRIPT
+				);
+				$retval = "<textarea id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$textsize}{$onchange}>{$value}</textarea>\n";
 			}
 			elseif($rte_type == 3)
 			{
@@ -488,7 +529,7 @@ class html
 				}
 				$retval = "<textarea class=\"codepress php\" id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\" wrap=\"off\" >{$value}</textarea>
 				<br />
-				<input type=\"checkbox\" onClick=\"{$name}.toggleAutoComplete();\" checked /> AutoComplete\n";
+				<input type=\"checkbox\" onclick=\"{$name}.toggleAutoComplete();\" checked /> AutoComplete\n";
 			}
 			else
 			{
@@ -496,14 +537,14 @@ class html
 				$args["width"] = $cols;
 				$args["height"] = $rows;
 				$args["value"] = str_replace("\"" , "&quot;",$args["value"]); //"
-				$rte = get_instance("vcl/rte");
+				$rte = new rte();
 				$retval = $rte->draw_editor($args);
 			}
 		}
 		else
 		{
 			$disabled = (empty($disabled) ? "" : ' disabled="disabled"');
-			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onFocus}{$onblur}{$onchange}>{$value}</textarea>\n";
+			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onfocus}{$onblur}{$onchange}>{$value}</textarea>\n";
 		}
 
 		return $retval;
@@ -1566,6 +1607,18 @@ class html
 		return "<div{$class}{$style}{$id}>{$content}</div>";
 	}
 
+	/** Creates a horizontal rule element
+		@attrib api=1 params=pos
+		@param line_width type=int default=1
+			Line width in pixels.
+		@returns string/html
+	**/
+	public static function hr($line_width = 1)
+	{
+		settype($line_width, "int");
+		return "<hr style=\"height: {$line_width}px;\" />\n";
+	}
+
 	/**	HTML of line break(s)
 		@attrib api=1 params=pos
 		@param n optional type=int default=1
@@ -1830,7 +1883,7 @@ class html
 	**/
 	public static function handle_reload($arr)
 	{
-		load_javascript("reload_properties_layouts.js");
+		active_page_data::load_javascript("reload_properties_layouts.js");
 		$onclick = "";
 
 		$reload_params = array();

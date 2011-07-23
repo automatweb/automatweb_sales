@@ -339,6 +339,7 @@
 			<richtext />
 			<user />
 			<allow_rte />
+			<rte_type />
 			<width />
 			<height />
 			<maxlength />
