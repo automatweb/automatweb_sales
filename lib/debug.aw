@@ -188,7 +188,7 @@ class dbg
 	/** formats a given backtrace to a human-readable format
 		@attrib api=1 params=pos
 
-		@param bt required type=array
+		@param bt type=array
 			The backtrace data to process
 
 		@param skip type=int default=-1
@@ -286,13 +286,31 @@ class dbg
 		return $msg;
 	}
 
+	/** Prints html formatted detailed debug backtrace to client
+		@attrib api=1 params=pos
+		@returns void
+	**/
+	public static function bt()
+	{
+		echo self::process_backtrace(debug_backtrace(), -1, true);
+	}
+
+	/** Prints html formatted detailed debug backtrace to client and terminates whole request (php exit)
+		@attrib api=1 params=pos
+		@returns void
+	**/
+	public static function btx()
+	{
+		exit (self::process_backtrace(debug_backtrace(), -1, true));
+	}
+
 	/** formats a one-line user-readable string from the current backtrace
 		@attrib api=1
 
 		@returns
 			One-line string with a human-readable backtrace
 	**/
-	static function short_backtrace()
+	public static function short_backtrace()
 	{
 		$msg = "";
 		if (function_exists("debug_backtrace"))
