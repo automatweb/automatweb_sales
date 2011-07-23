@@ -7931,7 +7931,7 @@ arr($stats_by_ppl);
 				"name" => "d[".$o->id."][hrs_cust]",
 				"value" => $o->add_wh_cust,
 				"size" => 5,
-				"onFocus" => "el = getElementById('d[".$o->id."][send_bill]'); el.checked=true;"
+				"onfocus" => "el = getElementById('d[".$o->id."][send_bill]'); el.checked=true;"
 			))
 		);
 		foreach($this->act_stats_types as $type_id => $type_name)

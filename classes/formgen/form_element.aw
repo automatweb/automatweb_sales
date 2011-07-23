@@ -1,9 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/formgen/form_element.aw,v 1.88 2008/03/12 21:24:10 kristo Exp $
+
 // form_element.aw - vormi element.
-/*
-@classinfo  maintainer=kristo
-*/
+
 class form_element extends aw_template
 {
 		// FIXME: need stringid lokaliseerida
@@ -14,8 +12,8 @@ class form_element extends aw_template
 				"period" => "Perioodiühik",
 				"int" => "Arv",
 				"activity" => "Aktiivsuse pikendamine",
-				"email" => "E-mail", 
-				"surname" => "Eesnimi", 
+				"email" => "E-mail",
+				"surname" => "Eesnimi",
 				"lastname" => "Perekonnanimi",
 				"password" => "Parool"
 			),
@@ -55,7 +53,7 @@ class form_element extends aw_template
 				"delete" => "Kustuta",
 				"url" => "URL",
 				"preview" => "Eelvaade",
-				"confirm" => 
+				"confirm" =>
 					"Kinnita",
 				"order" => "Tellimine",
 				"close" => "Sulge aken"
@@ -124,7 +122,7 @@ class form_element extends aw_template
 	function load(&$arr,&$form,$col,$row, $idx = 0)
 	{
 		$this->form =& $form;
-		$this->arr = $arr; 
+		$this->arr = $arr;
 		$this->id = $arr["id"];
 		$this->fid = $form->get_id();
 		$this->col = $col;
@@ -993,7 +991,7 @@ class form_element extends aw_template
 
 			$var = $base."_lb_data_from_el";
 			$this->arr["lb_data_from_el"] = $$var;
-			
+
 			$var = $base."_lb_data_from_el_sby";
 			$this->arr["lb_data_from_el_sby"] = $$var;
 		}
@@ -1124,7 +1122,7 @@ class form_element extends aw_template
 			$this->arr["lb_item_controllers"] = $this->make_keys($$var);
 
 			$this->arr["multiple_items"] = array();
-			$cnt=$this->arr["multiple_count"]+1;	
+			$cnt=$this->arr["multiple_count"]+1;
 			for ($b=0,$num=0; $b < $cnt; $b++)
 			{
 				if (!($dwat == "del" && $ar[$b] == 1))
@@ -1216,7 +1214,7 @@ class form_element extends aw_template
 
 			$var=$base."_alias_type";
 			$this->arr["alias_type"] = $$var;
-			
+
 		}
 
 		if ($this->arr["type"] == "textbox" || $this->arr["type"] == "textarea" || $this->arr["type"] == "checkbox" || $this->arr["type"] == "radiobutton")
@@ -1297,7 +1295,7 @@ class form_element extends aw_template
 			$this->arr["fshow"] = $$var;
 			$var=$base."_file_new_win";
 			$this->arr["file_new_win"] = $$var;
-			
+
 			$var = $base."_button_css_class";
 			$this->arr["button_css_class"] = $$var;
 
@@ -1456,15 +1454,15 @@ class form_element extends aw_template
 			$this->arr["ord"] = $$var;
 			$o = obj($this->id);
 			$o->set_ord($$var);
-			$o->save(); 
+			$o->save();
 		}
 
 		$var = $base."_subtype";
 		$this->arr["subtype"] = $$var;
-			
+
 		$var = $base."_srow_grp";
 		$this->arr["srow_grp"] = $$var;
-		
+
 		return true;
 	}
 
@@ -1484,7 +1482,7 @@ class form_element extends aw_template
 		}
 
 		$mue = str_replace("\"","\\\"",$mue);
-		
+
 		if ($this->form->lang_id == $lang_id)
 		{
 			$cle = isset($this->arr["check_length_error"]) ? $this->arr["check_length_error"] : false;
@@ -1552,8 +1550,8 @@ class form_element extends aw_template
 		};
 	}
 
-	function get_lang_text($lid = -1)		
-	{	
+	function get_lang_text($lid = -1)
+	{
 		if ($lid == -1)
 		{
 			$lid = aw_global_get("lang_id");
@@ -1568,84 +1566,84 @@ class form_element extends aw_template
 		}
 	}
 
-	function get_text()		
-	{	
-		return $this->arr["text"]; 
-	}
-
-	function get_ch_grp() 
-	{ 
-		return $this->arr["ch_grp"]; 
-	}
-
-	function get_ch_value() 
+	function get_text()
 	{
-		return $this->arr["ch_value"]; 
+		return $this->arr["text"];
 	}
 
-	function get_el_name()		
-	{	
-		return $this->arr["name"]; 
-	}
-
-	function get_style()	
-	{	
-		return $this->arr["style"]; 
-	}
-
-	function get_type()		
+	function get_ch_grp()
 	{
-		return $this->arr["type"]; 
+		return $this->arr["ch_grp"];
 	}
 
-	function get_subtype()		
-	{	
-		return isset($this->arr["subtype"]) ? $this->arr["subtype"] : ""; 
-	}
-
-	function get_srow_grp()		
-	{	
-		return isset($this->arr["srow_grp"]) ? $this->arr["srow_grp"] : ""; 
-	}
-
-	function get_id()			
-	{ 
-		return $this->id;	
-	}
-
-	function get_order()	
-	{ 
-		return $this->arr["ord"]; 
-	}
-
-	function get_props()  
-	{ 
-		return $this->arr; 
-	}
-
-	function get_row()		
-	{ 
-		return $this->row; 
-	}
-
-	function get_col()		
-	{ 
-		return $this->col; 
-	}
-
-	function get_el_group()		
+	function get_ch_value()
 	{
-		return $this->arr["group"]; 
+		return $this->arr["ch_value"];
 	}
 
-	function get_related_form() 
-	{ 
-		return $this->arr["rel_form"]; 
+	function get_el_name()
+	{
+		return $this->arr["name"];
 	}
 
-	function get_related_element() 
-	{ 
-		return $this->arr["rel_element"]; 
+	function get_style()
+	{
+		return $this->arr["style"];
+	}
+
+	function get_type()
+	{
+		return $this->arr["type"];
+	}
+
+	function get_subtype()
+	{
+		return isset($this->arr["subtype"]) ? $this->arr["subtype"] : "";
+	}
+
+	function get_srow_grp()
+	{
+		return isset($this->arr["srow_grp"]) ? $this->arr["srow_grp"] : "";
+	}
+
+	function get_id()
+	{
+		return $this->id;
+	}
+
+	function get_order()
+	{
+		return $this->arr["ord"];
+	}
+
+	function get_props()
+	{
+		return $this->arr;
+	}
+
+	function get_row()
+	{
+		return $this->row;
+	}
+
+	function get_col()
+	{
+		return $this->col;
+	}
+
+	function get_el_group()
+	{
+		return $this->arr["group"];
+	}
+
+	function get_related_form()
+	{
+		return $this->arr["rel_form"];
+	}
+
+	function get_related_element()
+	{
+		return $this->arr["rel_element"];
 	}
 
 	function is_translatable()
@@ -1653,7 +1651,7 @@ class form_element extends aw_template
 		return $this->arr["is_translatable"];
 	}
 
-	function get_el_lb_items()	
+	function get_el_lb_items()
 	{
 		// XYZ
 		if ($this->arr["subtype"] == "relation" && $this->arr["rel_element"] && $this->arr["rel_form"])
@@ -1682,11 +1680,11 @@ class form_element extends aw_template
 
 		$retval = is_array($this->arr["listbox_items"]) ? $this->arr["listbox_items"] : array();
 		return $retval;
-	} 
+	}
 
-	function get_thousands_sep() 
-	{ 
-		return $this->arr["thousands_sep"]; 
+	function get_thousands_sep()
+	{
+		return $this->arr["thousands_sep"];
 	}
 
 	// generic wrapper
@@ -1695,8 +1693,8 @@ class form_element extends aw_template
 		return $this->arr[$key];
 	}
 
-	function get_show_controllers() 
-	{ 
+	function get_show_controllers()
+	{
 		if (isset($this->arr["show_controllers"]) && is_array($this->arr["show_controllers"]))
 		{
 			return $this->arr["show_controllers"];
@@ -1704,8 +1702,8 @@ class form_element extends aw_template
 		return array();
 	}
 
-	function get_entry_controllers() 
-	{ 
+	function get_entry_controllers()
+	{
 		if (is_array($this->arr["entry_controllers"]))
 		{
 			return $this->arr["entry_controllers"];
@@ -1713,8 +1711,8 @@ class form_element extends aw_template
 		return array();
 	}
 
-	function get_lb_controllers() 
-	{ 
+	function get_lb_controllers()
+	{
 		if (is_array($this->arr["lb_item_controllers"]))
 		{
 			return $this->arr["lb_item_controllers"];
@@ -1834,8 +1832,8 @@ class form_element extends aw_template
 		}
 		$o = obj($id);
 		$o->set_name($name);
-		$o->save(); 
-		// ok now here we must fuckin load all the forms that contain this element and fuckin change all elements names in those. 
+		$o->save();
+		// ok now here we must fuckin load all the forms that contain this element and fuckin change all elements names in those.
 		// shit I hate this but I suppose it's gotta be done
 		$this->save_handle();
 		$this->db_query("SELECT * FROM element2form WHERE el_id = ".$id);
@@ -1868,7 +1866,7 @@ class form_element extends aw_template
 	{
 		$this->db_query("UPDATE form_elements SET type_name = '$name' WHERE id = ".$this->id);
 
-		// ok now here we must fuckin load all the forms that contain this element and fuckin change all elements typenames in those. 
+		// ok now here we must fuckin load all the forms that contain this element and fuckin change all elements typenames in those.
 		// shit I hate this but I suppose it's gotta be done
 		$this->save_handle();
 		$this->db_query("SELECT * FROM element2form WHERE el_id = ".$this->id);
@@ -1977,8 +1975,8 @@ class form_element extends aw_template
 			for ($col = 0; $col < $f->arr["cols"]; $col++)
 			{
 				$this->vars(array(
-					"row" => $row, 
-					"col" => $col, 
+					"row" => $row,
+					"col" => $col,
 					"checked" => checked($this->col == $col && $this->row == $row),
 					"cnt" => $cnt++,
 					"drow" => $row+1
@@ -2035,8 +2033,8 @@ class form_element extends aw_template
 		}
 
 		$html="";
-		if (isset($this->form->controller_errors[$this->id]) && 
-			is_array($this->form->controller_errors[$this->id]) && 
+		if (isset($this->form->controller_errors[$this->id]) &&
+			is_array($this->form->controller_errors[$this->id]) &&
 			count($this->form->controller_errors[$this->id]) > 0)
 		{
 			$html.=join("", $this->form->controller_errors[$this->id]);
@@ -2046,12 +2044,12 @@ class form_element extends aw_template
 		if ($this->form->lang_id == $lang_id)
 		{
 			$text = isset($this->arr["text"]) ? $this->arr["text"] : false;
-			$info = isset($this->arr["info"]) ? $this->arr["info"] : false; 
+			$info = isset($this->arr["info"]) ? $this->arr["info"] : false;
 		}
 		else
 		{
 			$text = isset($this->arr["lang_text"][$lang_id]) ? $this->arr["lang_text"][$lang_id] : false;
-			$info = isset($this->arr["lang_info"][$lang_id]) ? $this->arr["lang_info"][$lang_id] : false; 
+			$info = isset($this->arr["lang_info"][$lang_id]) ? $this->arr["lang_info"][$lang_id] : false;
 		}
 
 		$ext = false;
@@ -2110,7 +2108,7 @@ class form_element extends aw_template
 				if (($this->arr["wysiwyg"] == 1) && ($this->is_ie))
 				{
 					$html.="<input type=\"hidden\" name=\"_el_".$element_name."\" value=\"".htmlspecialchars($this->get_val($elvalues))."\" />";
-					$html.="<iframe name=\"_ifr_".$element_name."\" onFocus=\"sel_el='_el_".$element_name."'\" frameborder=\"1\" width=\"".($this->arr["ta_cols"]*10)."\" height=\"".($this->arr["ta_rows"]*10)."\"></iframe>\n";
+					$html.="<iframe name=\"_ifr_".$element_name."\" onfocus=\"sel_el='_el_".$element_name."'\" frameborder=\"1\" width=\"".($this->arr["ta_cols"]*10)."\" height=\"".($this->arr["ta_rows"]*10)."\"></iframe>\n";
 					$html.="<script for=window event=onload>\n";
 					$html.="_ifr_".$element_name.".document.designMode='On';\n";
 					$html.="_ifr_".$element_name.".document.write(\"<body style='font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;background-color: #FFFFFF; border: #CCCCCC solid; border-width: 1px 1px 1px 1px; margin-left: 0px;padding-left: 3px;	padding-top: 0px;	padding-right: 3px; padding-bottom: 0px;'>\");\n";
@@ -2167,7 +2165,7 @@ class form_element extends aw_template
 							$sos = "onChange=\"fm_".$this->form->id.".submit()\"";
 						}
 					}
-			
+
 					$html .="<select $css $disabled $sos $stat_check name='".$element_name."'";
 					if ($this->arr["lb_size"] > 1)
 					{
@@ -2405,7 +2403,7 @@ class form_element extends aw_template
 				$js_flopper = "";
 				if ($this->arr["js_flopper"])
 				{
-					$js_flopper = "onFocus=\"if(this.value=='".$this->arr["js_flopper_value"]."') this.value = ''\" onblur=\"if(this.value=='') this.value='".$this->arr["js_flopper_value"]."';\"";
+					$js_flopper = "onfocus=\"if(this.value=='".$this->arr["js_flopper_value"]."') this.value = ''\" onblur=\"if(this.value=='') this.value='".$this->arr["js_flopper_value"]."';\"";
 				}
 
 				$aft = "";
@@ -2882,7 +2880,7 @@ class form_element extends aw_template
 		$lang_id = aw_global_get("lang_id");
 
 		// if value controiller is set, always use that
-		if ($this->arr["value_controller"] && (!$this->form->arr["sql_writer_writer"] || $do_val_ctrl)) 
+		if ($this->arr["value_controller"] && (!$this->form->arr["sql_writer_writer"] || $do_val_ctrl))
 		{
 //			echo "entry = $this->entry <br />";
 			$val = $this->form->controller_instance->eval_controller($this->arr["value_controller"], $this->entry, &$this->form, &$this);
@@ -3068,7 +3066,7 @@ class form_element extends aw_template
 				{
 					$v["year"] = date("Y");
 				}
-			
+
 				if ($v["year"] > 0 || (!$this->arr["has_year"]))
 				{
 					$tm = mktime($v["hour"],$v["minute"],0,$v["month"],$v["day"],$v["year"]);
@@ -3112,9 +3110,9 @@ class form_element extends aw_template
 			$var = $this->form->post_vars[$prefix.$this->id];
 		}
 
-		
+
 		// if value controiller is set, always use that
-		if ($this->arr["value_controller"] && !$this->form->arr["sql_writer_writer"]) 	
+		if ($this->arr["value_controller"] && !$this->form->arr["sql_writer_writer"])
 		{
 			//$var = $this->form->controller_instance->eval_controller($this->arr["value_controller"], $var, &$this->form, $this);
 			$this->form->value_controller_queue[] = array(
@@ -3154,7 +3152,7 @@ class form_element extends aw_template
 						$this->make_relation_listbox_content();
 					}
 				}
-                                                                                                                            
+
 				$sp = split("_", $this->entry, 10);
 				$html = $sp[3];
 				break;
@@ -3284,7 +3282,7 @@ class form_element extends aw_template
 						"no_load_form" => true,
 						"no_load_entry" => true,
 						"no_process_entry" => true
-					));	
+					));
 					$this->entry = false;
 				}
 
@@ -3543,7 +3541,7 @@ class form_element extends aw_template
 				{
 					$formcache[$row["oid"]] = $row["name"];
 				}
-			
+
 				global $tbl_num;
 				$el_num = (int)$tbl_num;
 				$this->db_query("SELECT objects.name as el_name, element2form.el_id as el_id,element2form.form_id as form_id FROM element2form LEFT JOIN objects ON objects.oid = element2form.el_id WHERE element2form.form_id IN ($tarstr)");
@@ -3655,7 +3653,7 @@ class form_element extends aw_template
 	}
 
 	////
-	// !this returns the value for ane element that will be used in controllers 
+	// !this returns the value for ane element that will be used in controllers
 	// it picks the best version based on the element type
 	function get_controller_value()
 	{
@@ -3668,8 +3666,8 @@ class form_element extends aw_template
 		{
 			// for radio elements in the same radio group,
 			// we should return the value of the selected radiobutton
-	
-			// the entry for radio button is the id of the button in the group that is selected. 
+
+			// the entry for radio button is the id of the button in the group that is selected.
 			// so we can easily find the correct element
 			$sel_id = $this->entry;
 			if ($sel_id)
@@ -3704,8 +3702,8 @@ class form_element extends aw_template
 			foreach($this->arr["entry_controllers"] as $ctrlid)
 			{
 				$this->form->controller_queue[] = array(
-					"ctrlid" => $ctrlid, 
-					"val" => $this->get_controller_value(), 
+					"ctrlid" => $ctrlid,
+					"val" => $this->get_controller_value(),
 					"el_id" => $this->id,
 				);
 			}
@@ -3804,7 +3802,7 @@ class form_element extends aw_template
 	}
 
 	////
-	// !sets the element's value to $val 
+	// !sets the element's value to $val
 	// if $user_val == true, then $val is human-readable - it tries to find the best match with the real values
 	// else $val is assumed to be fg internal value
 	function set_value($val, $user_val = true)
@@ -3951,11 +3949,10 @@ class form_element extends aw_template
 
 	function upd_value()
 	{
-		if ($this->arr["value_controller"] && (!$this->form->arr["sql_writer_writer"])) 
+		if ($this->arr["value_controller"] && (!$this->form->arr["sql_writer_writer"]))
 		{
 			$this->entry = $this->form->controller_instance->eval_controller($this->arr["value_controller"], $this->entry, &$this->form, $this);
 			$this->form_ref->entry[$this->id] = $this->entry;
 		}
 	}
 }
-?>
