@@ -59,7 +59,7 @@ class aw_locale
 		$weekday = "";
 		if (is_readable(AW_DIR . "classes/core/locale/date/date_{$lc}" . AW_FILE_EXT))
 		{
-			$weekday = call_user_func($method, $num, $short = false, $ucfirst = false);
+			$weekday = call_user_func($method, $num, $short, $ucfirst);
 		}
 		return $weekday;
 	}
@@ -330,5 +330,3 @@ interface awlc_cases
 {
 	public static function get_genitive_for_name($name);
 }
-
-?>
