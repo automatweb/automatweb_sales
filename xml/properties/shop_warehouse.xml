@@ -277,6 +277,17 @@
             <caption>Kategooriate nimekiri</caption>
       </property>
       <property>
+            <name>packets_list</name>
+            <table>objects</table>
+            <group>product_management</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>product_managementright</parent>
+            <field>packets_list</field>
+            <caption>Pakettide nimekiri</caption>
+      </property>
+      <property>
             <name>product_management_list</name>
             <table>objects</table>
             <group>product_management</group>
@@ -609,7 +620,7 @@
             <caption>Otsi</caption>
       </property>
       <property>
-            <name>packets_list</name>
+            <name>packets_list_old</name>
             <table>objects</table>
             <group>packets</group>
             <type>table</type>
@@ -4231,4 +4242,3 @@
             </stats_inventory_repair_right>
       </layout>
 </properties>
-

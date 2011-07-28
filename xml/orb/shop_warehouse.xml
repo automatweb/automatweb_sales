@@ -198,6 +198,13 @@
 			</function>
 		</action>
 
+		<action name="create_new_packet" all_args="1">
+			<function name="create_new_packet">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="add_type_to_categories" all_args="1">
 			<function name="add_type_to_categories">
 				<arguments>
@@ -214,6 +221,20 @@
 
 		<action name="save_categories" all_args="1">
 			<function name="save_categories">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="activate_warehouse_items" all_args="1">
+			<function name="activate_warehouse_items">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="deactivate_warehouse_items" all_args="1">
+			<function name="deactivate_warehouse_items">
 				<arguments>
 				</arguments>
 			</function>
