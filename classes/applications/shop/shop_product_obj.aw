@@ -1,6 +1,6 @@
 <?php
 
-class shop_product_obj extends aw_product_obj implements crm_sales_price_component_interface, crm_offer_row_interface
+class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_price_component_interface, crm_offer_row_interface
 {
 	const CLID = 295;
 
@@ -372,8 +372,6 @@ class shop_product_obj extends aw_product_obj implements crm_sales_price_compone
 		$params = array(
 			"class_id" => CL_SHOP_PRODUCT_PACKAGING,
 			"CL_SHOP_PRODUCT_PACKAGING.RELTYPE_PACKAGING(CL_SHOP_PRODUCT)" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
 			new obj_predicate_sort(array("jrk" => "ASC")),
 		);
 
@@ -551,7 +549,7 @@ class shop_product_obj extends aw_product_obj implements crm_sales_price_compone
 		return $ol->ids();
 	}
 
-	public function get_first_caregory_id()
+	public function get_first_category_id()
 	{
 		$ids = $this->get_categories();
 		if(is_array($ids))
@@ -650,14 +648,18 @@ class shop_product_obj extends aw_product_obj implements crm_sales_price_compone
 		return number_format($sum,2,".","");
 	}
 
-	public function get_data()
+	/**
+		@attrib api=1
+		@param prefix optional type=string
+	**/
+	public function get_data($args = array())
 	{
 		$data = $this->properties();
-		$data["size"] = str_replace('"' , '' ,$data["size"]);
+		$data["size"] = isset($data["size"]) ? str_replace('"' , '' , $data["size"]) : null;
 		$data["id"] = $this->id();
 		$data["image"] = $this->get_product_image();
 		$data["image_url"] = $this->get_product_image_url();
-		$data["purveyance"] = $this->get_purveyance();
+		$data["purveyance"] = $this->get_purveyance_comment();
 		$data["min_price"] = $this->get_min_price();
 		if($this->class_id() == CL_SHOP_PRODUCT_PACKAGING)
 		{
@@ -681,6 +683,16 @@ class shop_product_obj extends aw_product_obj implements crm_sales_price_compone
 			$data["packet_name"] = $packet->name();
 			$data["brand_name"] = $packet->get_brand();
 		}
+
+		if(isset($args["prefix"]))
+		{
+			foreach($data as $k => $v)
+			{
+				$data["{$args["prefix"]}.{$k}"] = $v;
+				unset($data[$k]);
+			}
+		}
+
 		return $data;
 	}
 
@@ -707,8 +719,11 @@ class shop_product_obj extends aw_product_obj implements crm_sales_price_compone
 		return $min;
 	}
 
-	private function get_purveyance()
+	private function get_purveyance_comment()
 	{
+		return t("Tarneinfo puudub");
+
+		// FIXME: this is broken after making purveyance universal - e.g. no reltype, only one objpicker.
 		$ret = array();
 		$conns = connection::find(array(
 			"to" => $this->id(),
@@ -722,7 +737,6 @@ class shop_product_obj extends aw_product_obj implements crm_sales_price_compone
 		}				
 
 		return t("Tarneinfo puudub");
-
 	}
 
 	public function get_packet_name()
