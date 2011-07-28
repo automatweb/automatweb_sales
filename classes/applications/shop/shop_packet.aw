@@ -1,13 +1,14 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_packet.aw,v 1.38 2010/01/15 12:12:34 dragut Exp $
-// shop_packet.aw - Pakett 
 /*
-
-@classinfo syslog_type=ST_SHOP_PACKET relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_SHOP_PACKET relationmgr=yes prop_cb=1
 @tableinfo aw_shop_packets index=aw_oid master_table=objects master_index=brother_of
+@extends applications/shop/shop_warehouse_item
 
 @default table=objects
 @default group=general
+
+@property status_edit type=chooser table=objects field=status
+@caption Staatus
 
 @property description type=textarea cols=40 rows=5 table=aw_shop_packets 
 @caption Kirjeldus
@@ -21,6 +22,13 @@
 
 @property price type=textbox table=aw_shop_packets field=aw_price
 @caption Hind
+
+@property special_price type=textbox table=aw_shop_packets field=aw_special_price
+@caption Erihind
+
+@property actual_price type=text store=no
+@caption Tegelik hind
+@comment Paketis olevate toodete ja pakendite minimaalne maksumus
 
 @property max_usage_in_time type=textbox size=5 table=objects field=meta method=serialize
 @caption Maksimaalne toodete kasutamise arv
@@ -83,8 +91,8 @@
 
 @groupinfo img caption="Pildid"
 
-@property images type=releditor reltype=RELTYPE_IMAGE field=meta method=serialize mode=manager props=name,ord,status,file,file2,new_w,new_h group=img table_fields=name,ord table_edit_fields=ord
-@caption Pildid
+	@property images type=releditor reltype=RELTYPE_IMAGE field=meta method=serialize mode=manager props=name,ord,status,file,file2,new_w,new_h group=img table_fields=name,ord table_edit_fields=ord
+	@caption Pildid
 
 @groupinfo acl caption=&Otilde;igused
 @default group=acl
@@ -110,9 +118,13 @@
 @reltype BRAND value=4 clid=CL_SHOP_BRAND
 @caption Kaubam&auml;rk
 
+#	Inherited from shop_warehouse_item
+#reltype WAREHOUSE value=25 clid=CL_SHOP_WAREHOUSE
+#caption Ladu
+
 */
 
-class shop_packet extends class_base
+class shop_packet extends shop_warehouse_item
 {
 	function shop_packet()
 	{
@@ -166,7 +178,16 @@ class shop_packet extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
+
+	public function _get_actual_price(&$arr)
+	{
+		$actual_price = 0;
+
+
+
+		$arr["prop"]["value"] = $actual_price;
+	}
 
 	function _init_packet_table(&$t)
 	{
@@ -637,7 +658,7 @@ class shop_packet extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["set_prods"] = "0";
 		$arr["post_ru"] = post_ru();
@@ -645,8 +666,11 @@ class shop_packet extends class_base
 
 	function callback_pre_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
-		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["set_prods"], "RELTYPE_PRODUCT");
+		if (!empty($arr["request"]["set_prods"]))
+		{
+			$ps = get_instance("vcl/popup_search");
+			$ps->do_create_rels($arr["obj_inst"], $arr["request"]["set_prods"], "RELTYPE_PRODUCT");
+		}
 	}
 
 	/**
@@ -682,7 +706,7 @@ class shop_packet extends class_base
 	}
 
 	// DB upgrade
-	function do_db_upgrade($t, $f)
+	function do_db_upgrade($t, $f, $query, $error)
 	{
 		if (empty($f))
 		{
@@ -693,13 +717,19 @@ class shop_packet extends class_base
 
 		switch($f)
 		{
+			case "aw_special_price":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "double"
+				));
+				return true;
+
 			case "description":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "text"
 				));
 				return true;
-				break;
 		}
 
 	}
@@ -903,6 +933,7 @@ class shop_packet extends class_base
 
 	private function get_purveyances($packagings)
 	{
+		// FIXME: this is broken after making purveyance universal - e.g. no reltype, only one objpicker.
 		$ret = array();
 		foreach($packagings as $products => $packaging_array)
 		{
@@ -933,6 +964,7 @@ class shop_packet extends class_base
 
 	private function add_purveyances($packagings)
 	{
+		// FIXME: this is broken after making purveyance universal - e.g. no reltype, only one objpicker.
 		$ret = array();
 		$show = 0;
 		foreach($packagings as $products => $packaging_array)
@@ -1019,4 +1051,3 @@ class shop_packet extends class_base
 	}
 
 }
-?>

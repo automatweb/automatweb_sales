@@ -1,9 +1,23 @@
 <?php
 
-class shop_packet_obj extends _int_object
+class shop_packet_obj extends shop_warehouse_item_obj
 {
 	const CLID = 297;
 
+	/** Adds packet to category
+		@attrib api=1 params=pos
+		@param category optional type=oid
+	**/
+	public function add_category($category)
+	{
+		if(is_oid($category))
+		{
+			$this->connect(array(
+				"to" => $category,
+				"reltype" => "RELTYPE_CATEGORY",
+			));
+		}
+	}
 
 	function delete($full_delete = false)
 	{
@@ -67,18 +81,16 @@ class shop_packet_obj extends _int_object
 
 	public function get_products()
 	{
-		enter_function("packet_obj::get_products");
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT,
 			"lang_id" => array(),
 			"site_id" => array(),
 			"CL_SHOP_PRODUCT.RELTYPE_PRODUCT(CL_SHOP_PACKET)" => $this->id()
 		));
-		exit_function("packet_obj::get_products");
 		return $ol;
 	}
 
-	public function get_first_caregory_id()
+	public function get_first_category_id()
 	{
 		foreach($this->connections_from(array(
 			"type" => "RELTYPE_CATEGORY",
@@ -92,7 +104,6 @@ class shop_packet_obj extends _int_object
 	
 	public function get_categories()
 	{
-		enter_function("packet_obj::get_cat");
 /*		$ol = new object_list();
 		foreach($this->connections_from(array(
 			"type" => "RELTYPE_CATEGORY",
@@ -108,7 +119,6 @@ class shop_packet_obj extends _int_object
 			"site_id" => array(),
 			"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY(CL_SHOP_PACKET)" => $this->id(),
 		));
-		exit_function("packet_obj::get_cat");
 		return $ol;
 	}
 	
@@ -135,7 +145,6 @@ class shop_packet_obj extends _int_object
 
 	public function get_data($params = array())
 	{
-		enter_function("packet_obj::get_data");
 		$data = $this->properties();
 		$data["id"] = $this->id();
 
@@ -181,13 +190,11 @@ class shop_packet_obj extends _int_object
 			$data["image_height"] = $data["image_size"][1];
 			//$data["image_height"] = $this->get_image_width();
 		}
-		exit_function("packet_obj::get_data");
 		return $data;
 	}
 
 	public function get_brand_image($original = null)
 	{
-		enter_function("packet_obj::get_brand_image");
 		$ret = "";
 /*		if(!$original)
 		{
@@ -210,7 +217,7 @@ class shop_packet_obj extends _int_object
 				));
 
 				if($ret)
-				{exit_function("packet_obj::get_brand_image");
+				{
 					return $ret;
 				}
 
@@ -223,7 +230,6 @@ class shop_packet_obj extends _int_object
 		{
 			$ret = $brand->get_logo_html();
 		}
-exit_function("packet_obj::get_brand_image");
 		return $ret;
 	}
 
@@ -274,8 +280,7 @@ exit_function("packet_obj::get_brand_image");
 
 	//makes var product_objects usable for everyone
 	private function _set_products()
-	{ 
-		enter_function("packet_obj::_set_products");
+	{
 		if(empty($this->product_objects))
 		{
 			$this->product_objects = new object_list();
@@ -288,7 +293,6 @@ exit_function("packet_obj::get_brand_image");
 				$this->product_objects->add($c->prop("to"));
 			}
 		}
-		exit_function("packet_obj::_set_products");
 	}
 
 	private function get_image_urls()
@@ -410,14 +414,12 @@ exit_function("packet_obj::get_brand_image");
 
 	private function get_prices($shop = null, $currency = null)
 	{
-		enter_function("packet_obj::get_prices");
 		$ret = array();
 		$this->_set_packagings();
 		foreach($this->packaging_objects->arr() as $packaging)
 		{
 			$ret[$packaging->id()] = number_format($packaging->get_shop_price($shop, $currency) , 2, '.', '');
 		}
-		exit_function("packet_obj::get_prices");
 		return $ret;
 	}
 
@@ -425,14 +427,12 @@ exit_function("packet_obj::get_brand_image");
 	{
 //		if (aw_global_get("uid") != "markop") return array();
 
-		enter_function("packet_obj::get_special_prices");
 		$ret = array();
 		$this->_set_packagings();
 		foreach($this->packaging_objects->arr() as $packaging)
 		{
 			$ret[$packaging->id()] = $packaging->get_shop_special_price($shop, $currency);
 		}
-		exit_function("packet_obj::get_special_prices");
 		return $ret;
 	}
 
@@ -449,9 +449,9 @@ exit_function("packet_obj::get_brand_image");
 
 	private function get_min_price()
 	{
-		enter_function("packet_obj::get_min_price");
 		$min = "";
-		//$this->_set_products();
+
+		/*	This is broken because of all this extending stuff :-(
 		$t = new object_data_list(
 			array(
 				"class_id" => CL_SHOP_PRODUCT_PACKAGING,
@@ -462,15 +462,40 @@ exit_function("packet_obj::get_brand_image");
 				"CL_SHOP_PRODUCT_PACKAGING.price" =>  new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 			),
 			array(
-				CL_SHOP_PRODUCT_PACKAGING =>  array(new obj_sql_func(OBJ_SQL_MIN, "price","aw_shop_packaging.aw_price"))
+				CL_SHOP_PRODUCT_PACKAGING =>  array(new obj_sql_func(OBJ_SQL_MIN, "price", "aw_shop_packaging.aw_price"))
 			)
 		);
 		$prices = $t->get_element_from_all("price");
-		exit_function("packet_obj::get_min_price");
 		if(is_array($prices) && sizeof($prices))
 		{
 			return reset($prices);
 		}
+		*/
+
+		//	Temporary fix:
+		
+		$id = $this->id();
+		$sql = "
+SELECT
+	MIN(aw_shop_packaging.aw_price) AS `price`
+FROM
+	objects
+	LEFT JOIN aw_shop_packaging ON aw_shop_packaging.id = objects.brother_of 
+	LEFT JOIN aliases aliases___295_2 ON aliases___295_2.target = objects.oid AND aliases___295_2.reltype = 2 
+	LEFT JOIN objects objects__327_295_2 ON aliases___295_2.source = objects__327_295_2.oid 
+	LEFT JOIN aliases aliases_327_2_297_1 ON aliases_327_2_297_1.target = objects__327_295_2.oid AND aliases_327_2_297_1.reltype = 1 
+WHERE 
+	objects.`class_id` = '327' 
+	AND aliases_327_2_297_1.`source` = '{$id}' 
+	AND aw_shop_packaging.`aw_price` > '0' 
+	AND objects.status > 0
+";
+		$result = $this->instance()->db_fetch_row($sql);
+		if (!empty($result))
+		{
+			return $result["price"];
+		}
+
 		return $min;
 	}
 
@@ -479,8 +504,7 @@ exit_function("packet_obj::get_brand_image");
 	*/
 	private function get_min_special_price()
 	{
-	//	if(aw_global_get("uid") != "struktuur.markop") return 0;
-		enter_function("packet_obj::get_min_special_price");
+		return 0;
 		$min = "";
 //tyra, miks see ei toimi
 /*		$t = new object_data_list(
@@ -505,9 +529,10 @@ exit_function("packet_obj::get_brand_image");
 	"CL_SHOP_PRODUCT_PACKAGING.RELTYPE_PACKAGING(CL_SHOP_PRODUCT).RELTYPE_PRODUCT(CL_SHOP_PACKET)" => $this->id(),
 		));//var_dump($packets->count());
 		if(!$packets->count())
-		{exit_function("packet_obj::get_min_special_price");
+		{
 			return 0;
 		}
+		/*
 		$t = new object_data_list(
 			array(
 				"class_id" => CL_SHOP_ITEM_PRICE,
@@ -523,8 +548,33 @@ exit_function("packet_obj::get_brand_image");
 			)
 		);
 		$prices = $t->get_element_from_all("sum");
+		*/
 		
-		exit_function("packet_obj::get_min_special_price");//var_dump($prices);
+
+		//	Temporary fix:
+		
+		$id = $this->id();
+		$sql = "
+SELECT
+	MIN(aw_shop_packaging.aw_price) AS `price`
+FROM
+	objects
+	LEFT JOIN aw_shop_packaging ON aw_shop_packaging.id = objects.brother_of 
+	LEFT JOIN aliases aliases___295_2 ON aliases___295_2.target = objects.oid AND aliases___295_2.reltype = 2 
+	LEFT JOIN objects objects__327_295_2 ON aliases___295_2.source = objects__327_295_2.oid 
+	LEFT JOIN aliases aliases_327_2_297_1 ON aliases_327_2_297_1.target = objects__327_295_2.oid AND aliases_327_2_297_1.reltype = 1 
+WHERE 
+	objects.`class_id` = '327' 
+	AND aliases_327_2_297_1.`source` = '{$id}' 
+	AND aw_shop_packaging.`aw_price` > '0' 
+	AND objects.status > 0
+";
+		$result = $this->instance()->db_fetch_row($sql);
+		if (!empty($result))
+		{
+			return number_format($result["price"], 2);
+		}
+		
 		return number_format($prices[0],2);
 	}
 
@@ -590,5 +640,3 @@ exit_function("packet_obj::get_brand_image");
 	}
 
 }
-
-?>
