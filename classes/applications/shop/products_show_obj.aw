@@ -4,6 +4,16 @@ class products_show_obj extends _int_object
 {
 	const CLID = 1576;
 
+	public function awobj_get_type()
+	{
+		return explode(",", parent::prop("type"));
+	}
+
+	public function awobj_set_type($types)
+	{
+		return parent::set_prop("type", implode(",", $types));
+	}
+
 	/** returns template name
 		@attrib api=1
 		@returns string
@@ -40,8 +50,6 @@ class products_show_obj extends _int_object
 	**/
 	public function get_web_items()
 	{
-enter_function("products_show::get_web_items");
-
 		$categories = $this->get_categories();
 
 		if(!$categories->count() && (!is_array($this->prop("packets")) || !sizeof($this->prop("packets"))))
@@ -52,36 +60,35 @@ enter_function("products_show::get_web_items");
 		$ol = new object_list();
 		if($categories->count())
 		{
-			switch($this->prop("type"))
+			$types = $this->awobj_get_type();
+
+			if (in_array(shop_product_obj::CLID, $types))
 			{
-				case CL_SHOP_PRODUCT://toode
-					foreach($categories->arr() as $c)
-					{
-						$products = $c->get_products();
-						$ol->add($products);
-					}
-					break;
-				case CL_SHOP_PRODUCT_PACKAGING://pakend
-					foreach($categories->arr() as $c)
-					{
-						$products = $c->get_packagings();
-						$ol->add($products);
-					}
-					break;
-				case CL_SHOP_PACKET:
-				default:
-					$filter = array(
-						"class_id" => CL_SHOP_PACKET,
-						"lang_id" => array(),
-						"site_id" => array(),
-						"CL_SHOP_PACKET.RELTYPE_CATEGORY" => $categories->ids(),
-						"status" => array(2),//ainult aktiivseks märgitud
-						"sort_by" => "objects.modified desc",
-					);
-					aw_disable_acl();//kui keegi miskite x 6igustega tooteid tekitama hakkab, on p*****, kuid siia listi kuna tuleb tuhandeid tooteid, siis sitaks aega v6idab
-					$ol = new object_list($filter);
-					aw_restore_acl();
-					break;
+				foreach($categories->arr() as $c)
+				{
+					$products = $c->get_products();
+					$ol->add($products);
+				}
+			}
+
+			if (in_array(shop_product_packaging_obj::CLID, $types))
+			{
+				foreach($categories->arr() as $c)
+				{
+					$products = $c->get_products();
+					$ol->add($products);
+				}
+			}
+
+			if (in_array(shop_packet_obj::CLID, $types) or empty($types))
+			{
+				$filter = array(
+					"class_id" => shop_packet_obj::CLID,
+					"CL_SHOP_PACKET.RELTYPE_CATEGORY" => $categories->ids(),
+					"status" => array(object::STAT_ACTIVE),
+					"sort_by" => "objects.modified desc",
+				);
+				$ol->add(new object_list($filter));
 			}
 		}
 
@@ -92,8 +99,39 @@ enter_function("products_show::get_web_items");
 				$ol->add($packet);
 			}
 		}
-exit_function("products_show::get_web_items");
+
+		$ol->sort_by_cb(array($this, "__sort_web_items"));
+
 		return $ol;
+	}
+
+	public function __sort_web_items($a, $b)
+	{
+		if ($a->is_a(shop_packet_obj::CLID) and $b->is_a(shop_packet_obj::CLID))
+		{
+			return $a->ord() - $b->ord();
+		}
+		elseif ($a->is_a(shop_packet_obj::CLID))
+		{
+			return -1;
+		}
+		elseif ($b->is_a(shop_packet_obj::CLID))
+		{
+			return 1;
+		}
+		elseif ($a->is_a(shop_product_obj::CLID) and $b->is_a(shop_product_obj::CLID))
+		{
+			return $a->ord() - $b->ord();
+		}
+		elseif ($a->is_a(shop_product_obj::CLID))
+		{
+			return -1;
+		}
+		elseif ($b->is_a(shop_product_obj::CLID))
+		{
+			return 1;
+		}
+		return 0;
 	}
 
 	/** returns order center object
@@ -138,7 +176,6 @@ aw_restore_acl();
 
 	private function all_lower_categories()
 	{
-enter_function("pll_lower_categories::get_web_items1");
 		$ol = new object_list();
 		$menu = $this->parent();
 		$ot = new object_tree(array(
@@ -161,7 +198,6 @@ enter_function("pll_lower_categories::get_web_items1");
 		{
 			$categories = new object_list();
 		}
-exit_function("pll_lower_categories::get_web_items1");
 		return $categories;
 	}
 
@@ -240,5 +276,3 @@ exit_function("pll_lower_categories::get_web_items1");
 		return null;
 	}
 }
-
-?>

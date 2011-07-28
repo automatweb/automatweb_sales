@@ -53,7 +53,8 @@
             <table>aw_products_show</table>
             <group>general</group>
             <type>select</type>
-            <field>type</field>
+            <multiple>1</multiple>
+            <field>aw_type</field>
             <caption>N&amp;amp;auml;idatavad klassi t&amp;amp;uuml;&amp;amp;uuml;bid</caption>
       </property>
       <property>
@@ -99,4 +100,3 @@
             </OC>
       </reltypes>
 </properties>
-
