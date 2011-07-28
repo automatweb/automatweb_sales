@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CONFIG_LOGIN_MENUS relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_CONFIG_LOGIN_MENUS relationmgr=yes
 @classinfo no_status=1
 
 @default table=objects
@@ -59,7 +59,7 @@ class config_login_menus extends class_base
 				}
 				foreach(safe_array($arr["request"]["lm"]) as $d)
 				{
-					if ($this->can("view", $d["menu"]))
+					if (!empty($d["menu"]) and $this->can("view", $d["menu"]))
 					{
 						$arr["obj_inst"]->connect(array(
 							"type" => "RELTYPE_FOLDER",
@@ -160,7 +160,7 @@ class config_login_menus extends class_base
 				"caption" => t("Men&uuml;&uuml;"),
 				"type" => "relpicker",
 				"name" => "lm[$gid][menu]",
-				"value" => $lm[$gid]["menu"],
+				"value" => isset($lm[$gid]["menu"]) ? $lm[$gid]["menu"] : null,
 				"reltype" => "RELTYPE_FOLDER"
 			);
 		}
@@ -383,4 +383,3 @@ class config_login_menus extends class_base
 		return $show;
 	}
 }
-?>
