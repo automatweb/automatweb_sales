@@ -339,7 +339,6 @@
 			<richtext />
 			<user />
 			<allow_rte />
-			<rte_type />
 			<width />
 			<height />
 			<maxlength />
@@ -569,7 +568,16 @@
 
 		<image_verification>
 		</image_verification>
+
 		<google_chart>
 		</google_chart>
+
+		<weekdays>
+			<multiple>
+			</multiple>
+		</weekdays>
+
+		<timepicker>
+		</timepicker>
 	</property>
 </xml>
