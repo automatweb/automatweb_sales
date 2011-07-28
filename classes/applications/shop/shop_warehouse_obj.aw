@@ -389,7 +389,7 @@ class shop_warehouse_obj extends _int_object
 	**/
 	public function new_product($arr)
 	{
-		$o = new object();
+		$o = obj(null, array(), shop_product_obj::CLID);
 		$parent = $this->id();
 		if(isset($arr["parent"]) && is_oid($arr["parent"]))
 		{
@@ -399,7 +399,6 @@ class shop_warehouse_obj extends _int_object
 		{
 			$parent = $this->get_conf("prod_fld");
 		}
-		$o->set_class_id(CL_SHOP_PRODUCT);
 		$o->set_parent($parent);
 		$o->set_name($arr["name"]);
 		$o->save();
@@ -417,6 +416,54 @@ class shop_warehouse_obj extends _int_object
 				}
 			}
 		}
+		$o->connect(array(
+			"to" => $this->id(),
+			"type" => "RELTYPE_WAREHOUSE"
+		));
+		return $o->id();
+	}
+
+	/**adds new packet to warehouse
+		@attrib api=1
+		@param name required type=string
+		@param parent optional type=int
+		@param category optional type=oid/array
+		@returns oid
+			new object id
+	**/
+	public function new_packet($arr)
+	{
+		$o = obj(null, array(), shop_packet_obj::CLID);
+		$parent = $this->id();
+		if(isset($arr["parent"]) && is_oid($arr["parent"]))
+		{
+			$parent = $arr["parent"];
+		}
+		elseif($this->get_conf("pkt_fld"))
+		{
+			$parent = $this->get_conf("pkt_fld");
+		}
+		$o->set_parent($parent);
+		$o->set_name($arr["name"]);
+		$o->save();
+		if(isset($arr["category"]))
+		{
+			if(is_oid($arr["category"]))
+			{
+				$arr["category"] = array($arr["category"]);
+			}
+			if(is_array($arr["category"]))
+			{
+				foreach($arr["category"] as $cat)
+				{
+					$o->add_category($cat);
+				}
+			}
+		}
+		$o->connect(array(
+			"to" => $this->id(),
+			"type" => "RELTYPE_WAREHOUSE"
+		));
 		return $o->id();
 	}
 

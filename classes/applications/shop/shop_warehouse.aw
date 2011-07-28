@@ -99,10 +99,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 					@property product_managements_price_to type=textbox store=no captionside=top size=8 parent=product_managements_price_box
 					@caption Hind kuni
 
-				@property product_managements_show_pieces type=checkbox ch_value=1 store=no captionside=top size=30  parent=product_managementleft_search no_caption=1
+				@property product_managements_show_pieces type=checkbox ch_value=1 store=no captionside=top size=30  parent=product_managementleft_search no_caption=1 label=Kuva&nbsp;t&uuml;kkidena
 				@caption Kuva t&uuml;kkidena
 
-				@property product_managements_show_batches type=checkbox ch_value=1 store=no captionside=top size=30  parent=product_managementleft_search no_caption=1
+				@property product_managements_show_batches type=checkbox ch_value=1 store=no captionside=top size=30  parent=product_managementleft_search no_caption=1 label=Kuva&nbsp;partiidena
 				@caption Kuva partiidena
 
 
@@ -113,6 +113,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 
 			@property category_list type=table store=no no_caption=1 parent=product_managementright
 			@caption Kategooriate nimekiri
+
+			@property packets_list type=table store=no no_caption=1 parent=product_managementright
+			@caption Pakettide nimekiri
 
 			@property product_management_list type=table store=no no_caption=1  parent=product_managementright
 			@caption Toodete nimekiri
@@ -243,7 +246,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 
 			@layout packets_list_lay type=vbox closeable=1 parent=packets_right closeable=1 area_caption="Paketid"
 
-				@property packets_list type=table store=no no_caption=1 parent=packets_list_lay
+				@property packets_list_old type=table store=no no_caption=1 parent=packets_list_lay
 				@caption Pakettide nimekiri
 
 @default group=brand
@@ -3079,7 +3082,7 @@ class shop_warehouse extends class_base
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
 				"warehouse" => $arr["obj_inst"]->id(),
-				"product" => $prodid,
+				"object" => $prodid,
 			));
 			$o = $ol->begin();
 			$t->define_data(array(
@@ -3121,7 +3124,7 @@ class shop_warehouse extends class_base
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
 				"warehouse" => $arr["obj_inst"]->id(),
-				"product" => $oid,
+				"object" => $oid,
 			));
 			$o = $ol->begin();
 			if(!$o)
@@ -3130,7 +3133,7 @@ class shop_warehouse extends class_base
 				$o->set_class_id(CL_SHOP_PRODUCT_PURVEYANCE);
 				$o->set_parent($oid);
 				$o->set_name(sprintf(t("%s tarnetingimus"), obj($oid)->name()));
-				$o->set_prop("product", $oid);
+				$o->set_prop("object", $oid);
 				$o->set_prop("warehouse", $arr["obj_inst"]->id());
 			}
 			$o->set_prop("company", $data["org"]);
@@ -4140,7 +4143,7 @@ class shop_warehouse extends class_base
 		}
 		if($barcode = automatweb::$request->arg("prod_s_barcode"))
 		{
-			$params["barcode"] = "%".$varcode."%";
+			$params["barcode"] = "%".$barcode."%";
 		}
 
 		$group = $this->get_search_group($arr);
@@ -4487,17 +4490,17 @@ class shop_warehouse extends class_base
 			$purveyance_odl = new object_data_list(
 				array(
 					"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
-					"packaging" => array_merge(array(-1), array_keys($data)),
+					"object" => array_merge(array(-1), array_keys($data)),
 					"company" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 				),
 				array(
-					CL_SHOP_PRODUCT_PURVEYANCE => array("company.name", "company", "packaging"),
+					CL_SHOP_PRODUCT_PURVEYANCE => array("company.name", "company", "object"),
 				)
 			);
 			$purveyance_urls = array();
 			foreach($purveyance_odl->arr() as $pdata)
 			{
-				$purveyance_urls[$pdata["packaging"]][] = html::href(array(
+				$purveyance_urls[$pdata["object"]][] = html::href(array(
 					"caption" => parse_obj_name($pdata["company.name"]),
 					"url" => $this->mk_my_orb("change", array("id" => $pdata["company"], "return_url" => get_ru()), crm_company_obj::CLID),
 				));
@@ -4608,11 +4611,11 @@ class shop_warehouse extends class_base
 			$purveyance_odl = new object_data_list(
 				array(
 					"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
-					"product" => array_merge(array(-1), array_keys($ol)),
+					"object" => array_merge(array(-1), array_keys($ol)),
 					"company" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 				),
 				array(
-					CL_SHOP_PRODUCT_PURVEYANCE => array("company.name", "company", "product"),
+					CL_SHOP_PRODUCT_PURVEYANCE => array("company.name", "company", "object"),
 				)
 			);
 			$purveyance_urls = array();
@@ -5099,11 +5102,13 @@ $tb->add_delete_button();
 		));*/
 	}
 
+	function _get_packets_list_old(&$arr)
+	{
+		return $this->_get_packets_list($arr);
+	}
+
 	function _get_packets_list(&$arr)
 	{
-		$icon = icons::get_class_icon(CL_SHOP_PACKET);
-
-
 		$tb = $arr["prop"]["vcl_inst"];
 		$request = $arr["request"];
 		$this->_init_pkt_list_list_tbl($tb, $arr["obj_inst"]);
@@ -5153,9 +5158,9 @@ $tb->add_delete_button();
 
 //-------------------------------
 
-		if(!empty($arr["request"]["packets_s_name"]))
+		if(!empty($arr["request"]["product_managements_name"]))
 		{
-			$tree_filter["name"] = "%".$arr["request"]["packets_s_name"]."%";
+			$tree_filter["name"] = "%".$arr["request"]["product_managements_name"]."%";
 		}
 		if(!empty($arr["request"]["packets_s_active"]) and $arr["request"]["packets_s_active"] > 0)
 		{
@@ -5262,22 +5267,15 @@ $tb->add_delete_button();
 					"caption" => t("Vii lattu")
 				)),
 				"products" => join(",<br>" , $products),
-				"icon" => $icon,
 				"categories" => join(", " , $o->get_categories()->names()),
 				"color" => $o->status() == 2 ? "#99FF99" : "#E1E1E1",
 			));
 		}
+		$tb->set_caption(t("Pakettide nimekiri"));
 	}
 
 	private function _init_pkt_list_list_tbl($t, $o)
 	{
-		$t->define_field(array(
-			"name" => "icon",
-			"caption" => t("&nbsp;"),
-			"sortable" => 0,
-			"chgbgcolor" => "color",
-		));
-
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -7409,6 +7407,22 @@ $tb->add_delete_button();
 								}
 									$js.= " 'cat': cat}, function (html) {
 									reload_property('product_management_list');
+								}
+							);
+						}
+						function add_packet()
+						{
+							var cat = get_property_data['cat'];
+							var my_string = prompt('".t("Sisesta paketi nimi")."');
+							$.get('/automatweb/orb.aw', {'class': 'shop_warehouse', 'action': 'create_new_packet',
+								'id': '".$arr["obj_inst"]->id()."' , 'name': my_string,";
+								foreach($types->names() as $id => $cat)
+								{
+									$js.= " 'cat_".$id."': get_property_data['cat_".$id."'],
+									";
+								}
+									$js.= " 'cat': cat}, function (html) {
+									reload_property('packets_list');
 								}
 							);
 						}
@@ -10819,16 +10833,16 @@ die();
 				}
 				$odl = new object_data_list(array(
 					"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
-					"product" => $prods,
+					"object" => $prods,
 				),
 				array(
-					CL_SHOP_PRODUCT_PURVEYANCE => array("days" => "days", "product" => "product"),
+					CL_SHOP_PRODUCT_PURVEYANCE => array("days" => "days", "object" => "object"),
 				));
 				$checked_prods = array();
 				foreach($odl->arr() as $od)
 				{
 					$d = $o->prop("starttime") + $od["days"] * 24 * 60 * 60;
-					$checked_prods[] = $od["product"];
+					$checked_prods[] = $od["object"];
 					if($d >= $filt_start and $d <= $filt_end)
 					{
 						$is_in_range = true;
@@ -11247,7 +11261,7 @@ die();
 			}
 			$c_ol = new object_list(array(
 				"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
-				"product" => $oid,
+				"object" => $oid,
 			));
 			$cos = array();
 			foreach($c_ol->arr() as $o)
@@ -12914,7 +12928,7 @@ die();
 			"name" => "add_type",
 //			"img" => "delete.gif",
 			"text" => t("Lisa kategooriale kategooria t&uuml;&uuml;p"),
-			"tooltip" => t("Kustuta"),
+			"tooltip" => t("Lisa kategooriale kategooria t&uuml;&uuml;p"),
 		));
 
 		foreach($types->names() as $id => $name)
@@ -12927,18 +12941,21 @@ die();
 		}
 	}
 
-
 	function _get_product_management_toolbar($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
 		$types = $arr["obj_inst"]->get_product_category_types();
 
-
-
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"img" => "new.gif",
 			"tooltip" => t("Uus"),
+		));
+
+		$tb->add_menu_item(array(
+			"parent" => "new",
+			"text" => t("Pakett"),
+			"link" => "javascript:add_packet();"
 		));
 
 		$tb->add_menu_item(array(
@@ -13063,6 +13080,19 @@ die();
 				));
 			}
 		}
+
+		$tb->add_button(array(
+			"name" => "activate",
+			"action" => "activate_warehouse_items",
+			"text" => t("Aktiveeri"),
+			"tooltip" => t("Aktiveeri"),
+		));
+		$tb->add_button(array(
+			"name" => "deactivate",
+			"action" => "deactivate_warehouse_items",
+			"text" => t("Deaktiveeri"),
+			"tooltip" => t("Deaktiveeri"),
+		));
 
 		load_javascript("reload_properties_layouts.js");
 	}
@@ -13381,8 +13411,8 @@ die();
 
 	function _get_product_managements_sbt($arr)
 	{
-		$arr['prop']['onclick'] = "reload_property(
-			'product_management_list',
+		$arr['prop']['onclick'] = "reload_layout(
+			['product_managementright'],
 			{product_managements_name: $('[id=product_managements_name]').val(),product_managements_code: $('[id=product_managements_code]').val(), product_managements_barcode: $('[id=product_managements_barcode]').val(), product_managements_count: $('[id=product_managements_count]').val(), product_managements_price_from: $('[id=product_managements_price_from]').val(), product_managements_price_to: $('[id=product_managements_price_to]').val(), });";
 		return PROP_OK;
 	}
@@ -13391,17 +13421,15 @@ die();
 	function _get_product_management_list($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
+		
+		$tb->set_caption(t("Toodete nimekiri"));
 
 		$tb->define_pageselector(array(
 			'type' => 'lb',
 			'records_per_page' => 10,
 		));
 
-		$tb->define_field(array(
-			"name" => "icon",
-			"caption" => t("&nbsp;"),
-			"sortable" => 0,
-		));
+		$tb->set_default("chgbgcolor", "color");
 
 		$tb->define_field(array(
 			"name" => "name",
@@ -13467,7 +13495,8 @@ die();
 		));
 		$tb->define_chooser(array(
 			"name" => "sel",
-			"field" => "oid"
+			"field" => "oid",
+			"chgbgcolor" => "color",
 		));
 
 		$filter = array();
@@ -13531,7 +13560,6 @@ die();
 				}
 			}
 			$data = array(
-				"icon" => html::img(array("url" => icons::get_icon_url($o->class_id(), $o->name()))),
 				"oid" => $o->id(),
 				"name" => html::obj_change_url($o, parse_obj_name($o->name())), //$name,
 				"cnt" => $o->prop("item_count"),
@@ -13562,6 +13590,7 @@ die();
 				"type" => ($o->class_id() == CL_SHOP_PRODUCT)?"":t("&Uuml;ksiktooted"),
 				"packagings" => join(", " , $packagings),
 				"cat" => join(", " , $cats),
+				"color" => $o->status() == 2 ? "#99FF99" : "#E1E1E1",
 			);
 			$tb->define_data($data);
 		}
@@ -13653,6 +13682,18 @@ die();
 		$object = obj($arr["id"]);
 		$arr["name"] = iconv("UTF-8",aw_global_get("charset"),$arr["name"]);
 		$id = $object->new_product($arr);
+		die($id);
+	}
+
+	/**
+		@attrib name=create_new_packet all_args=1
+	**/
+	public function create_new_packet($arr)
+	{
+		$arr["category"] =  $this->get_categories_from_search($arr);
+		$object = obj($arr["id"]);
+		$arr["name"] = iconv("UTF-8",aw_global_get("charset"),$arr["name"]);
+		$id = $object->new_packet($arr);
 		die($id);
 	}
 
@@ -13852,6 +13893,61 @@ die();
 
 		return $content;
 	}
+
+	/**
+		@attrib name=activate_warehouse_items params=pos
+		@param sel required type=array
+		@param post_ru required type=string
+	**/
+	public function activate_warehouse_items($arr)
+	{
+		if (!empty($arr["sel"]))
+		{
+			$ol = new object_list(array(
+				"oid" => $arr["sel"],
+				"status" => new obj_predicate_not(object::STAT_ACTIVE),
+			));
+			if ($ol->count() > 0)
+			{
+				$o = $ol->begin();
+				do
+				{
+					$o->set_status(object::STAT_ACTIVE);
+					$o->save();
+				} while ($o = $ol->next());
+			}
+		}
+
+		return $arr["post_ru"];
+	}
+
+	/**
+		@attrib name=deactivate_warehouse_items params=pos
+		@param sel required type=array
+		@param post_ru required type=string
+	**/
+	public function deactivate_warehouse_items($arr)
+	{
+		if (!empty($arr["sel"]))
+		{
+			$ol = new object_list(array(
+				"oid" => $arr["sel"],
+				"status" => new obj_predicate_not(object::STAT_NOTACTIVE),
+			));
+			if ($ol->count() > 0)
+			{
+				$o = $ol->begin();
+				do
+				{
+					$o->set_status(object::STAT_NOTACTIVE);
+					$o->save();
+				} while ($o = $ol->next());
+			}
+		}
+
+		return $arr["post_ru"];
+	}
+	
 
 	/**
 		@attrib name=ajax_set_property all_args=1
