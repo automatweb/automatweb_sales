@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_SHOP_PRODUCT_PURVEYANCE relationmgr=yes no_status=1 prop_cb=1 maintainer=robert
+@classinfo syslog_type=ST_SHOP_PRODUCT_PURVEYANCE relationmgr=yes no_status=1 prop_cb=1
 @tableinfo aw_shop_product_purveyance master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_shop_product_purveyance
@@ -9,11 +9,15 @@
 @property code type=textbox
 @caption Kood
 
-@property product type=relpicker reltype=RELTYPE_PRODUCT
-@caption Toode
+#	{
+#		DEPRECATED PROPERTIES! ONLY HERE TO ENSURE BACKWARD COMPATIBILITY
+		@property product type=hidden field=aw_object
+		@property packaging type=hidden field=aw_object
+		@property packet type=hidden field=aw_object
+#	}
 
-@property packaging type=relpicker reltype=RELTYPE_PACKAGING
-@caption Pakend
+@property object type=objpicker field=aw_object
+@caption Tarnitav artikkel
 
 @property company type=relpicker reltype=RELTYPE_COMPANY
 @caption Tarnija
@@ -21,29 +25,25 @@
 @property warehouse type=relpicker reltype=RELTYPE_WAREHOUSE
 @caption Ladu
 
-@property weekday type=select
-@caption Tarnep&auml;ev
+@property weekdays type=weekdays multiple=1 field=aw_weekdays
+@caption Tarnep&auml;evad
+
+@property time_from type=timepicker field=aw_time_from
+@caption Tarneaja algus
+
+@property time_to type=timepicker field=aw_time_to
+@caption Tarneaja lõpp
 
 @property days type=textbox
 @caption Tarneaeg p&auml;evades
 
-@property date1 type=date_select
-@caption Kuup&auml;ev 1
-
-@property date2 type=date_select
-@caption Kuup&auml;ev 2
-
-@reltype PRODUCT value=1 clid=CL_SHOP_PRODUCT
-@caption Toode
+###
 
 @reltype COMPANY value=2 clid=CL_CRM_COMPANY
 @caption Tarnija
 
 @reltype WAREHOUSE value=3 clid=CL_SHOP_WAREHOUSE
 @caption Ladu
-
-@reltype PACKAGING value=4 clid=CL_SHOP_PRODUCT_PACKAGING
-@caption Pakend
 */
 
 class shop_product_purveyance extends class_base
@@ -56,46 +56,24 @@ class shop_product_purveyance extends class_base
 		));
 	}
 
-	function get_property($arr)
+	function _get_packet($arr)
 	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		return PROP_IGNORE;
+	}
 
-		switch($prop["name"])
-		{
-			case "packaging":
-				if(!empty($arr["new"]) && $this->can("view", $val = automatweb::$request->arg("packaging")))
-				{
-					$prop["options"][$val] = obj($val)->name();
-					$prop["value"] = $val;
-				}
-				break;
+	function _get_product($arr)
+	{
+		return PROP_IGNORE;
+	}
 
-			case "weekday":
-				$prop["options"] = array(0 => t("--vali--"));
-				for($i = 1; $i < 8; $i++)
-				{
-					$prop["options"][$i] = locale::get_lc_weekday($i);
-				}
-				break;
-		}
-
-		return $retval;
+	function _get_packaging($arr)
+	{
+		return PROP_IGNORE;
 	}
 
 	function callback_mod_reforb($arr)
 	{
 		$arr["post_ru"] = post_ru();
-	}
-
-	function show($arr)
-	{
-		$ob = new object($arr["id"]);
-		$this->read_template("show.tpl");
-		$this->vars(array(
-			"name" => $ob->prop("name"),
-		));
-		return $this->parse();
 	}
 
 	function do_db_upgrade($t, $f)
@@ -108,19 +86,31 @@ class shop_product_purveyance extends class_base
 
 		switch($f)
 		{
-			case "packaging":
-			case "product":
+			case "aw_object":
 			case "company":
 			case "warehouse":
 			case "days":
-			case "weekday":
-			case "date1":
-			case "date2":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "int"
 				));
 				return true;
+				
+			case "aw_time_from":
+			case "aw_time_to":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "mediumint"
+				));
+				return true;
+
+			case "aw_weekdays":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "tinyint"
+				));
+				return true;
+
 			case "code":
 				$this->db_add_col($t, array(
 					"name" => $f,
@@ -130,5 +120,3 @@ class shop_product_purveyance extends class_base
 		}
 	}
 }
-
-?>
