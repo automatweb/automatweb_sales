@@ -23,7 +23,7 @@
 	@property product_template type=select
 	@caption &Uuml;he toote n&auml;itamise templeit
 
-	@property type type=select
+	@property type type=select multiple=1 field=aw_type
 	@caption N&auml;idatavad klassi t&uuml;&uuml;bid
 
 	@property oc type=relpicker reltype=RELTYPE_OC
@@ -67,8 +67,8 @@ class products_show extends class_base
 	{
 		$tm = get_instance("templatemgr");
 		$ret = $tm->template_picker(array(
-					"folder" => "applications/shop/products_show/"
-				));;
+			"folder" => "applications/shop/products_show/"
+		));
 		return $ret;
 	}
 
@@ -128,7 +128,7 @@ class products_show extends class_base
 						$dir = "applications/shop/shop_product_packaging";
 						break;
 				}
-				if($dir)
+				if(!empty($dir))
 				{
 					$prop["options"] = $tm->template_picker(array(
 						"folder" => $dir
@@ -192,6 +192,13 @@ class products_show extends class_base
 					"type" => "int"
 				));
 				return true;
+
+			case "aw_type":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "varchar(15)"
+				));
+				return true;
 		}
 	}
 
@@ -216,7 +223,7 @@ class products_show extends class_base
 
 	function show($arr)
 	{
-		$cache_dir = aw_ini_get("cache.page_cache")."/product_show";
+		$cache_dir = aw_ini_get("cache.page_cache")."product_show";
 		$master_cache = $cache_dir.$_SERVER["REQUEST_URI"].".tpl";
 
 		if(file_exists($master_cache))
@@ -231,13 +238,14 @@ class products_show extends class_base
 			$show_product = obj($_GET["product"]);
 			$instance = get_instance($show_product->class_id());
 			$instance->template = $ob->prop("product_template");
-			$ret =  $instance->show(array(
+			$ret = $instance->show(array(
 				"id" => (int)$_GET["product"],
 				"oc" => (int)$_GET["oc"],
 			));
 			$this->set_cache($ret);
 			return $ret;
 		}
+
 		$oc = $ob->get_oc();
 		$this->read_template($ob->get_template());
 		$this->vars(array(
@@ -246,110 +254,139 @@ class products_show extends class_base
 		));
 
 		lc_site_load("shop", &$this);
+
+		//	The products will be ordered by products_show_obj::get_web_items()
 		$products = $ob->get_web_items();
 
 		$GLOBALS["order_center"] = $oc->id();
 		
-		$prod = "";//templeiti muutuja PRODUCT v22rtuseks
-		$rows = "";
+		$PRODUCT = $ROW = "";
 		
-		$max = 4;//default
-		$per_page = 16;//default products per page
+		$max = 4;	//default, TODO: This should be configurable:
+		$per_page = 16;	//default products per page
+
 		$page = empty($_GET["page"]) ? 0 : $_GET["page"];
 		if($oc->prop("per_page"))
 		{
 			$per_page = $oc->prop("per_page");
 		}
 
-		$count = $count_all = 0;
-		//teeb sorteerimise enne ära
-//		$products->sort_by(array(
-//			"prop" => "changed",
-//			"order" => "desc"
-//		));
-		foreach($products->ids() as $product_id)
+		$products->slice($per_page * $page, $per_page);
+		if ($products->count() > 0)
 		{
-			$count_all++;
-			if($count_all <= ($per_page * $page))
+			$product = $products->begin();
+
+			$count_all = $count_row = 0;
+			do
 			{
-				continue;
-			}
-			$product = obj($product_id);
-			$count++;
-			$data_params = array("image_url" => 1,
-				"min_price" => 1,
-				"product_id" => 1,
-				"brand_name" => 1,
-			//"special_prices" => 1
-				"min_special_price" => 1
-			);
-			$product_data = $product->get_data($data_params);
+				$count_all++;
+				$count_row++;
 
-			// this one should be coming from the get_data() fn. probably, but i don't know at the moment how to make that object data list query to work
-			// so i just use this one here:
-			$min_special_price = (!empty($product_data['min_special_price'])) && $product_data['min_special_price'] != $product_data['min_price'] ? $product_data['min_special_price'] : 0;
-			$product_data['PRODUCT_SPECIAL_PRICE'] = '';
-			$product_data['special_price_visibility'] = '';
-			if ($min_special_price > 0)
-			{
-				$product_data['special_price_visibility'] = '_specialPrice';
-				$this->vars(array(
-					'min_special_price' => $min_special_price,
-					'min_special_price_without_zeroes' => $this->woz($min_special_price),
-				));
-				$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
-			}
-			$product_data['min_special_price_without_zeroes'] = $this->woz($product_data['min_special_price']);
-			$product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price']); 
-			$product_data["checkbox"] = html::checkbox(array(
-				"name" => "add_to_cart[".$product_data["product_id"]."]",
-				"value" => 1,
-			));
+				$SUB = $this->__warehouse_item_sub_name($product);
 
-			$product_data["product_link"] = aw_global_get("baseurl")."/".aw_global_get("section")."?product=".$product_data["id"]."&oc=".$oc->id();
+				$data_params = array("image_url" => 1,
+					"min_price" => 1,
+					"product_id" => 1,
+					"brand_name" => 1,
+				//"special_prices" => 1
+					"min_special_price" => 1
+				);
+				$product_data = $product->get_data($data_params);
 
-			$category = $product->get_first_caregory_id();
-
-			$product_data["menu"] = $ob->get_category_menu($category);
-			$product_data["menu_name"] = get_name($product_data["menu"]);
-			$this->vars($product_data);
-
-			if($count >= $max && $this->is_template("ROW"))//viimane tulp yksk6ik mis reas
-			{
-				$count = 0;
-				if($this->is_template("PRODUCT_END"))
+				// this one should be coming from the get_data() fn. probably, but i don't know at the moment how to make that object data list query to work
+				// so i just use this one here:
+				$min_special_price = (!empty($product_data['min_special_price'])) && $product_data['min_special_price'] != $product_data['min_price'] ? $product_data['min_special_price'] : 0;
+				$product_data['PRODUCT_SPECIAL_PRICE'] = '';
+				$product_data['special_price_visibility'] = '';
+				if ($min_special_price > 0)
 				{
-					$prod .= $this->parse("PRODUCT_END");
+					$product_data['special_price_visibility'] = '_specialPrice';
+					$this->vars(array(
+						'min_special_price' => $min_special_price,
+						'min_special_price_without_zeroes' => $this->woz($min_special_price),
+					));
+					$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
+				}
+				$product_data['min_special_price_without_zeroes'] = $this->woz(isset($product_data['min_special_price']) ? $product_data['min_special_price'] : 0);
+				$product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price']); 
+				if ($this->is_template("checkbox"))
+				{
+					$product_data["checkbox"] = html::checkbox(array(
+						"name" => "add_to_cart[".$product_data["product_id"]."]",
+						"value" => 1,
+					));
+				}
+
+				$product_data["product_link"] = aw_global_get("baseurl")."/".aw_global_get("section")."?product=".$product_data["id"]."&oc=".$oc->id();
+
+				$category = $product->get_first_category_id();
+
+				$product_data["menu"] = $ob->get_category_menu($category);
+				$product_data["menu_name"] = get_name($product_data["menu"]);
+				$this->vars($product_data);
+
+				if ($product->is_a(shop_product_obj::CLID) and $this->is_template("PRODUCT.PACKAGING"))
+				{
+					$PACKAGING = "";
+
+					$packagings = $product->get_packagings();
+					if ($packagings->count() > 0)
+					{
+						$packaging = $packagings->begin();
+					}
+					do
+					{
+						$this->vars($packaging->get_data(array(
+							"prefix" => "packaging"
+						)));
+
+						$PACKAGING .= $this->parse("PACKAGING");
+					} while ($packaging = $packagings->next());
+
+					$this->vars(array(
+						"PACKAGING" => $PACKAGING,
+					));
+				}
+
+				if ($this->is_template("IMAGE"))
+				{
+					$this->vars(array(
+						"IMAGE" => !empty($product_data["image_url"]) ? $this->parse("IMAGE") : ""
+					));
+				}
+
+				if($count_row >= $max && $this->is_template("ROW"))//viimane tulp yksk6ik mis reas
+				{
+					$count_row = 0;
+					if($this->is_template("{$SUB}_END"))
+					{
+						$PRODUCT .= $this->parse("{$SUB}_END");
+					}
+					else
+					{
+						$PRODUCT .= $this->parse($SUB);
+					}
+					$this->vars(array($SUB => $PRODUCT));
+					$ROW .= $this->parse("ROW");
+					$PRODUCT = "";
+				}
+				elseif($count_all >= $products->count() && $this->is_template("ROW"))//viimane rida
+				{
+					$PRODUCT .= $this->parse($SUB);
+					$this->vars(array($SUB => $PRODUCT));
+					$ROW .= $this->parse("ROW");
 				}
 				else
 				{
-					$prod .= $this->parse("PRODUCT");
+					$PRODUCT .= ($count_all === 1 and $this->is_template("{$SUB}_BEGIN")) ? $this->parse("{$SUB}_BEGIN") : $this->parse($SUB);
 				}
-				$this->vars(array("PRODUCT" => $prod));
-				$rows .= $this->parse("ROW");
-				$prod = "";
-			}
-			elseif($count_all >= $products->count() && $this->is_template("ROW"))//viimane rida
-			{
-				$prod .= $this->parse("PRODUCT");
-				$this->vars(array("PRODUCT" => $prod));
-				$rows .= $this->parse("ROW");
-			}
-			else
-			{
-				$prod .= ($count_all === 1 and $this->is_template("PRODUCT_BEGIN")) ? $this->parse("PRODUCT_BEGIN") : $this->parse("PRODUCT");
-			}
-
-			if($count_all >= $per_page * ($page + 1))
-			{
-				break;
-			}
+			} while ($product = $products->next());
 		}
 		$this->vars(array(
-			"PRODUCT_BEGIN" => "",
-			"PRODUCT_END" => "",
-			"PRODUCT" => $prod,
-			"ROW" => $rows
+			"{$SUB}_BEGIN" => "",
+			"{$SUB}_END" => "",
+			$SUB => $PRODUCT,
+			"ROW" => $ROW
 		));
 
 		$pages = $products->count() / $per_page;
@@ -438,7 +475,26 @@ class products_show extends class_base
 		return $result;
 	}
 
-	// FIXME: DOCUMENT THIS! Prolly should use aw_math_calc::string2float().
+	protected function __warehouse_item_sub_name($item)
+	{
+		switch($item->class_id())
+		{
+			case shop_packet_obj::CLID:
+				$SUB = "PACKET";
+				break;
+
+			case shop_product_packaging_obj::CLID:
+				$SUB = "PACKAGING";
+				break;
+
+			default:
+				$SUB = "PRODUCT";
+		}
+
+		return $this->is_template($SUB) ? $SUB : "PRODUCT";
+	}
+
+	// FIXME: DOCUMENT THIS! Prolly should use aw_math_calc::string2float(). woz = WithOutZeros
 	public function woz($number)
 	{
 		$number = str_replace("," , "" , $number);
