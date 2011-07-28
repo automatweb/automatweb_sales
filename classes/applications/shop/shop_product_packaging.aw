@@ -1,10 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_packaging.aw,v 1.44 2010/01/09 18:16:22 dragut Exp $
-// shop_product_packaging.aw - Toote pakend 
 /*
-
-@classinfo syslog_type=ST_SHOP_PRODUCT_PACKAGING relationmgr=yes maintainer=kristo prop_cb=1
+@classinfo syslog_type=ST_SHOP_PRODUCT_PACKAGING relationmgr=yes prop_cb=1
 @tableinfo aw_shop_packaging index=id master_table=objects master_index=brother_of
+@extends applications/shop/shop_warehouse_item
 
 @default table=objects
 
@@ -15,6 +13,9 @@
 
 	@property name type=textbox table=objects
 	@caption Nimi
+
+	@property status_edit type=chooser table=objects field=status
+	@caption Staatus
 
 	@property comment type=textbox table=objects
 	@caption Kommentaar
@@ -27,6 +28,9 @@
 
 	@property price type=textbox size=5 field=aw_price
 	@caption Hind
+
+	@property special_price type=textbox size=5 field=aw_special_price
+	@caption Erihind
 
 	@property price_object type=relpicker reltype=RELTYPE_PRICE 
 	@caption Hind (objekt)
@@ -189,18 +193,14 @@
 		@property userch5 type=checkbox ch_value=1  field=userch5 group=data datatype=int
 		@caption User-defined checkbox 5
 
+#      Inherited from shop_warehouse_item
+@groupinfo purveyance
+
 @groupinfo acl caption=&Otilde;igused
 @default group=acl
 	
 	@property acl type=acl_manager store=no
 	@caption &Otilde;igused
-
-@groupinfo purveyance caption=Tarnimine
-@default group=purveyance
-
-	@property purveyance_tlb type=toolbar store=no no_caption=1
-
-	@property purveyance_tbl type=table store=no no_caption=1
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
@@ -236,9 +236,13 @@
 @reltype PRICE value=9 clid=CL_SHOP_ITEM_PRICE
 @caption Hind
 
+#      Inherited from shop_warehouse_item
+#reltype WAREHOUSE value=25 clid=CL_SHOP_WAREHOUSE
+#caption Ladu
+
 */
 
-class shop_product_packaging extends class_base
+class shop_product_packaging extends shop_warehouse_item
 {
 	function shop_product_packaging()
 	{
@@ -290,66 +294,6 @@ class shop_product_packaging extends class_base
 
 		};
 		return $retval;
-	}
-
-	protected function _init_purveyance_tbl($arr)
-	{
-		$t = &$arr["prop"]["vcl_inst"];
-
-		$t->define_chooser();
-		$t->define_field(array(
-			"name" => "name",
-			"caption" => t("Nimi"),
-			"sortable" => true,
-		));
-		$t->define_field(array(
-			"name" => "weekday",
-			"caption" => t("Tarnep&auml;ev"),
-			"sortable" => true,
-		));
-		$t->define_field(array(
-			"name" => "company",
-			"caption" => t("Tarnija"),
-			"sortable" => true,
-		));
-		$t->define_field(array(
-			"name" => "days",
-			"caption" => t("Tarneaeg p&auml;evades"),
-			"sortable" => true,
-		));
-	}
-
-	public function _get_purveyance_tbl($arr)
-	{
-		$t = &$arr["prop"]["vcl_inst"];
-		$this->_init_purveyance_tbl($arr);
-
-		$ol = new object_list(array(
-			"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
-			"packaging" => $arr["obj_inst"]->id(),
-			"lang_id" => array(),
-			"site_id" => array(),
-		));
-
-		foreach($ol->arr() as $o)
-		{
-			$t->define_data(array(
-				"oid" => $o->id(),
-				"name" => html::obj_change_url($o, parse_obj_name($o->name())),
-				"weekday" => $o->prop("weekday") ? locale::get_lc_weekday($o->prop("weekday")) : "",
-				"company" => html::obj_change_url($o->prop("company"), $o->prop("company.name")),
-				"days" => $o->prop("days"),
-			));
-		}
-	}
-
-	public function _get_purveyance_tlb($arr)
-	{
-		$t = &$arr["prop"]["vcl_inst"];
-
-		$t->add_new_button(array(CL_SHOP_PRODUCT_PURVEYANCE), $arr["obj_inst"]->id(), NULL, array("packaging" => $arr["obj_inst"]->id()));
-		$t->add_save_button();
-		$t->add_delete_button();
 	}
 
 	function _get_amount_limits_tbl($arr)
@@ -841,7 +785,7 @@ class shop_product_packaging extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 	
-	function do_db_upgrade($t, $f)
+	function do_db_upgrade($t, $f, $query, $error)
 	{
 		if ($tbl == "aw_shop_packaging" && $field == "")
 		{
@@ -851,6 +795,7 @@ class shop_product_packaging extends class_base
 
 		switch($f)
 		{
+			case "aw_special_price":
 			case "aw_price":
 				$this->db_add_col($t, array(
 					"name" => $f,
@@ -905,4 +850,3 @@ class shop_product_packaging extends class_base
 		return false;
 	}
 }
-?>
