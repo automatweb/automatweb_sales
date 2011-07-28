@@ -1,8 +1,9 @@
 <?php
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_alias)
-@classinfo syslog_type=ST_SHOP_PRODUCT relationmgr=yes prop_cb=1 maintainer=kristo
-@extends common/product/aw_product
+
+@classinfo syslog_type=ST_SHOP_PRODUCT relationmgr=yes prop_cb=1
+@extends applications/shop/shop_warehouse_item
 
 @tableinfo aw_shop_products index=aw_oid master_table=objects master_index=brother_of
 @tableinfo aw_account_balances master_index=oid master_table=objects index=aw_oid
@@ -20,6 +21,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 			@property name type=textbox parent=gen_gen
 			@caption Nimi
 			@comment Objekti nimi
+
+			@property status_edit type=chooser parent=gen_gen table=objects field=status
+			@caption Staatus
 
 			@property comment type=textbox parent=gen_gen
 			@caption Kommentaar
@@ -63,12 +67,12 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 					@property price type=textbox table=aw_shop_products field=price size=10 parent=gen_prices_prop_right
 					@caption Hind
 					@comment M&uuml;&uuml;gi hind
-		
-					@property purchase_price type=textbox table=aw_shop_products field=purchase_price size=10 parent=gen_prices_prop_right
-					@caption Ostu hind
 
 					@property special_price type=textbox table=aw_shop_products field=aw_special_price size=10 parent=gen_prices_prop_right
 					@caption Erihind
+		
+					@property purchase_price type=textbox table=aw_shop_products field=purchase_price size=10 parent=gen_prices_prop_right
+					@caption Ostu hind
 
 			@layout gen_prices_tbl type=vbox parent=gen_prices
 
@@ -198,12 +202,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 
 	@property replacement_prods type=table no_caption=1
 	@caption Asendustooted
-
-@default group=general_purveyance
-
-	@property purveyance_tb type=toolbar no_caption=1
-
-	@property purveyance_tbl type=table no_caption=1
 
 @default group=packaging
 
@@ -485,7 +483,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 	@groupinfo general_limits caption="Kogusepiirangud" parent=general
 	@groupinfo general_match_prod caption="Kokkusobivad tooted" parent=general
 	@groupinfo general_replacement_prods caption="Asendustooted" parent=general
-	@groupinfo general_purveyance caption="Tarneajad" parent=general
 
 @groupinfo packaging caption="Pakendid"
 @groupinfo singles caption="&Uuml;ksiktooted"
@@ -498,6 +495,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 	@groupinfo purveyors caption="Tarnijad" parent=moreinfo
 	@groupinfo materials caption="Materjalid" parent=moreinfo
 	@groupinfo brands caption="Br&auml;ndid" parent=moreinfo
+
+#	Inherited from shop_warehouse_item
+@groupinfo purveyance
 
 @groupinfo transl caption=T&otilde;lgi
 
@@ -573,8 +573,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 @reltype PRICE value=24 clid=CL_SHOP_ITEM_PRICE
 @caption Hind
 
-@reltype WAREHOUSE value=25 clid=CL_SHOP_WAREHOUSE
-@caption Ladu
+#	Inherited from shop_warehouse_item
+#reltype WAREHOUSE value=25 clid=CL_SHOP_WAREHOUSE
+#caption Ladu
 
 @reltype COLOR value=26 clid=CL_SHOP_COLOUR
 @caption V&auml;rvus
@@ -595,8 +596,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 @caption Kogusepiirang
 */
 
-class shop_product extends aw_product
+class shop_product extends shop_warehouse_item
 {
+	private $cfgforms = array();
+
 	function shop_product()
 	{
 		$this->init(array(
@@ -632,7 +635,6 @@ class shop_product extends aw_product
 							"parent" => $fld,
 							"class_id" => CL_CFGFORM,
 						));
-						$this->cfgforms = array();
 						foreach($cfgforms->arr() as $form)
 						{
 							// this is probably the fastest way :(
@@ -714,7 +716,7 @@ class shop_product extends aw_product
 				{
 					$data["value"] = $arr["request"]["item_type"];
 				}
-				if (!isset($data["options"][$data["value"]]) && $this->can("view", $data["value"]))
+				if (isset($data["value"]) and !isset($data["options"][$data["value"]]) and $this->can("view", $data["value"]))
 				{
 					$data["options"][$data["value"]] = obj($data["value"])->name;
 				}
@@ -1024,7 +1026,7 @@ class shop_product extends aw_product
 
 	function _set_brand_series($arr)
 	{
-		$arr["obj_inst"]->set_meta("brand_series", $arr["request"]["brand_series"]);
+		$arr["obj_inst"]->set_meta("brand_series", ifset($arr["request"], "brand_series"));
 		$arr["obj_inst"]->save();
 	}
 
@@ -1111,7 +1113,7 @@ class shop_product extends aw_product
 				}
 			}
 		}
-		if(is_array($props))
+		if(isset($props) and is_array($props))
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_ITEM_PRICE,
@@ -1445,141 +1447,6 @@ class shop_product extends aw_product
 			));
 		}
 		return PROP_OK;
-	}
-
-	function _get_purveyance_tb($arr)
-	{
-		$tb = $arr["prop"]["vcl_inst"];
-		$tb->add_save_button();
-		$tb->add_delete_button();
-	}
-
-	function _get_purveyance_tbl($arr)
-	{
-		$t = $arr["prop"]["vcl_inst"];
-		
-		$t->define_chooser(array(
-			"field" => "oid",
-			"name" => "sel",
-		));
-		$t->define_field(array(
-			"name" => "name",
-			"caption" => t("Nimi"),
-			"align" => "center",
-		));
-		$t->define_field(array(
-			"name" => "company",
-			"caption" => t("Tarnefirma"),
-			"align" => "center",
-		));
-		$t->define_field(array(
-			"name" => "days",
-			"caption" => t("Tarneaeg p&auml;evades"),
-			"align" => "center",
-		));
-
-		$t->set_caption(t("Tarneaegade muutmise tabel"));
-		$t->set_sortable(false);
-
-		$wh = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_WAREHOUSE");
-		if(!$wh)
-		{
-			$errmsg = t("Tootel pole m&auml;&auml;ratud ladu");
-		}
-		else
-		{
-			$cf = $wh->prop("conf.arrival_company_folder");
-		}
-		if(!$cf && $wh)
-		{
-			$errmsg = t("Toote laol pole m&auml;&auml;ratud tarnefirmade kausta");
-		}
-		else
-		{
-			$ol = new object_list(array(
-				"class_id" => CL_CRM_COMPANY,
-				"site_id" => array(),
-				"lang_id" => array(),
-				"parent" => $cf,
-			));
-		}
-		$orgs = array();
-		if($ol && !$ol->count())
-		{
-			$errmsg = t("Tarnefirmade kaustas pole &uuml;htegi firmat");
-		}
-		elseif($ol)
-		{
-			$orgs = $ol->names();
-		}
-
-		$ol = new object_list(array(
-			"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
-			"product" => $arr["obj_inst"]->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
-		));
-		foreach($ol->arr() as $oid => $o)
-		{
-			$org_list = $orgs;
-			if($org_list[$o->prop("company")])
-			{
-				$org_list = $org_list + array($o->prop("company") => $o->prop("company.name"));
-			}
-			$t->define_data(array(
-				"oid" => $oid,
-				"name" => html::obj_change_url($o),
-				"company" => count($org_list) ? html::select(array(
-					"name" => "purveyances[".$oid."][company]",
-					"options" => $org_list,
-					"value" => $o->prop("company"),
-				)) : $errmsg,
-				"days" => html::textbox(array(
-					"name" => "purveyances[".$oid."][days]",
-					"value" => $o->prop("days"),
-					"size" => 5,
-				)),
-			));
-		}
-		$org_list = array("" => t("--vali--")) + $orgs;
-		$t->define_data(array(
-			"name" => t("Uus tarnetingimus"),
-				"company" => html::select(array(
-					"name" => "purveyances[new][company]",
-					"options" => $org_list,
-					"value" => 0,
-				)),
-				"days" => html::textbox(array(
-					"name" => "purveyances[new][days]",
-					"value" => 0,
-					"size" => 5,
-				)),
-		));
-	}
-
-	function _set_purveyance_tbl($arr)
-	{
-		foreach($arr["request"]["purveyances"] as $oid => $data)
-		{arr($oid);
-			if($oid == "new" && ($data["company"] || $data["days"]))
-			{
-				$o = obj();
-				$o->set_class_id(CL_SHOP_PRODUCT_PURVEYANCE);
-				$o->set_name(sprintf("%s tarnetingimus"), $arr["obj_inst"]->name());
-				$o->set_parent($arr["obj_inst"]->id());
-				$o->set_prop("product", $arr["obj_inst"]->id());
-			}
-			elseif($this->can("view", $oid))
-			{
-				$o = obj($oid);
-			}
-			if($o)
-			{
-				$o->set_prop("company", $data["company"]);
-				$o->set_prop("days", $data["days"]);
-				$o->save();
-			}
-		}
 	}
 
 	function set_property($arr = array())
@@ -2478,15 +2345,7 @@ class shop_product extends aw_product
 		));
 	}
 
-
-
-
-
-
-
-
-
-	function do_db_upgrade($t, $f)
+	function do_db_upgrade($t, $f, $query, $error)
 	{
 		if ("aw_account_balances" === $t)
 		{
@@ -2511,7 +2370,6 @@ class shop_product extends aw_product
 					"type" => "int"
 				));
 				return true;
-				break;
 
 			case "description":
 				$this->db_add_col($t, array(
@@ -2519,7 +2377,6 @@ class shop_product extends aw_product
 					"type" => "text"
 				));
 				return true;
-				break;
 
 			case "purchase_price":
 			case "aw_min_order_amt":
@@ -2533,7 +2390,6 @@ class shop_product extends aw_product
 					"type" => "double"
 				));
 				return true;
-				break;
 
 			case "code":
 			case "barcode":
@@ -2556,7 +2412,6 @@ class shop_product extends aw_product
 					"type" => "varchar(100)"
 				));
 				return true;
-				break;
 		}
 	}
 
@@ -3230,5 +3085,3 @@ class shop_product extends aw_product
 
 
 }
-
-?>
