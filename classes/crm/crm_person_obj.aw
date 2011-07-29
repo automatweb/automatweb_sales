@@ -1239,33 +1239,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		}
 		elseif (null === self::$company_id_cache)
 		{
-			$list = new object_list(array(
-				"class_id" => CL_CRM_PERSON_WORK_RELATION,
-				"employer" => new obj_predicate_compare(obj_predicate_compare::GREATER, 0),
-				"employee" => $this->id(),
-				"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time()),
-				new object_list_filter(array(
-					"logic" => "OR",
-					"conditions" => array(
-						new object_list_filter(array(
-							"conditions" => array(
-								"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
-							)
-						)),
-						new object_list_filter(array(
-							"conditions" => array(
-								"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
-							)
-						))
-					)
-				)),
-				new obj_predicate_limit(1)
-			));
-
-			if ($list->count())
+			$this_persons_work_rels = crm_person_work_relation_obj::find($this->ref());
+			if ($this_persons_work_rels->count())
 			{
-				$work_rel = $list->begin();
-				$id = $work_rel->prop("employer");
+				$id = $this_persons_work_rels->begin()->prop("employer");
 			}
 			else
 			{
@@ -1741,13 +1718,11 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	/**
 		@attrib name=handle_show_cnt api=1 params=name
-
-		@param action required type=string
-
-		@param id required type=OID
+		@param action type=string
+		@param id type=OID
 
 	**/
-	public function handle_show_cnt($arr)
+	public static function handle_show_cnt($arr)
 	{
 		extract($arr);
 
