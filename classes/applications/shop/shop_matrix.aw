@@ -1,20 +1,21 @@
 <?php
+//XXX: kus klassi deklaratsioon on?
 class shop_matrix extends class_base
 {
+	var $currency;
+
 	public function callback_pre_edit($arr)
 	{
 		$this->obj = $arr["obj_inst"];
 		$this->matrix_structure = $arr["obj_inst"]->get_matrix_structure($arr["obj_inst"]);
 		$this->col_types = array(
 			"locations" => t("Asukohad"),
-			"customers" => t("Kliendikategooriad"),
+			"customers" => t("Kliendikategooriad")
 		);
 		if(!is_oid($this->currency = automatweb::$request->arg("currency")) || !$this->can("view", $this->currency))
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_CURRENCY,
-				"lang_id" => array(),
-				"site_id" => array(),
 				new obj_predicate_sort(array(
 					"name" => "ASC",
 				)),
@@ -25,13 +26,13 @@ class shop_matrix extends class_base
 		}
 	}
 
-	public function callback_mod_reforb($arr)
+	public function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["currency"] = $this->currency;
 	}
 
-	public function callback_mod_retval($arr)
+	public function callback_mod_retval(&$arr)
 	{
 		if(isset($arr["request"]["currency"]))
 		{
@@ -41,7 +42,7 @@ class shop_matrix extends class_base
 
 	public function _get_matrix_col_order($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "order",
 			"caption" => t("J&auml;rjekord"),
@@ -94,8 +95,6 @@ class shop_matrix extends class_base
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_CURRENCY,
-			"lang_id" => array(),
-			"site_id" => array(),
 			new obj_predicate_sort(array(
 				"name" => "ASC",
 			)),
@@ -139,7 +138,7 @@ class shop_matrix extends class_base
 
 	public function _get_priorities_locations_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_priorities_tbl($t, t("Asukoht"));
 
 		$this->priorities_tbl_insert_row($t, "priorities_locations_tbl", 0, $this->matrix_structure["cols"]["locations"]);
@@ -147,7 +146,7 @@ class shop_matrix extends class_base
 
 	public function _get_priorities_product_categories_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_priorities_tbl($t, t("Tootegrupp"));
 
 		$this->priorities_tbl_insert_row($t, "priorities_product_categories_tbl", 0, $this->matrix_structure["rows"]["products"]);
@@ -155,7 +154,7 @@ class shop_matrix extends class_base
 
 	public function _get_priorities_customer_categories_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_priorities_tbl($t, t("Kliendigrupp"));
 
 		$this->priorities_tbl_insert_row($t, "priorities_customer_categories_tbl", 0, $this->matrix_structure["cols"]["customers"]);
@@ -239,7 +238,7 @@ class shop_matrix extends class_base
 
 	public function callback_generate_scripts($arr)
 	{
-		if(automatweb::$request->arg("group") === "matrix")
+		if("matrix" === $this->use_group)
 		{
 			return "
 jQuery(document).ready(function(){
@@ -271,7 +270,7 @@ jQuery(document).ready(function(){
 	{
 		$arr["matrix"] = shop_price_list_obj::get_matrix_structure($arr["obj_inst"]);
 
-		$t = &$arr["table_inst"];
+		$t = $arr["table_inst"];
 		$t->set_sortable(false);
 
 		// Otherwise the matrix goes too MAD! -kaarel 13.07.2009
@@ -311,7 +310,7 @@ jQuery(document).ready(function(){
 		{
 			foreach(safe_array($arr["matrix"]["cols"][$name]) as $id => $children)
 			{
-				self::draw_matrix_add_col(&$t, &$oids, $name, $id, $children, ifset($arr, "field_callback"), array(
+				self::draw_matrix_add_col($t, $oids, $name, $id, $children, ifset($arr, "field_callback"), array(
 					"sufix" => "_self",
 					"caption" => t("*"),
 					"tooltip" => t("K&otilde;ik \"%s\" kliendid"),
@@ -324,9 +323,7 @@ jQuery(document).ready(function(){
 		if(count($oids) > 0)
 		{
 			$ol = new object_list(array(
-				"oid" => $oids,
-				"lang_id" => array(),
-				"site_id" => array(),
+				"oid" => $oids
 			));
 			$names = $ol->names();
 
@@ -370,7 +367,7 @@ jQuery(document).ready(function(){
 		}
 	}
 
-	protected static function draw_matrix_add_col($t, $oids, $parent, $id, $children, $callback, $all_field = false)
+	protected static function draw_matrix_add_col($t, &$oids, $parent, $id, $children, $callback, $all_field = false)
 	{
 		$name = $parent."_".$id;
 		$t->define_field(array(
@@ -395,13 +392,12 @@ jQuery(document).ready(function(){
 			}
 			foreach($children as $id => $children)
 			{
-				self::draw_matrix_add_col(&$t, &$oids, $name, $id, $children, $callback, $all_field);
+				self::draw_matrix_add_col($t, $oids, $name, $id, $children, $callback, $all_field);
 			}
 		}
 		elseif(is_callable($callback))
 		{
-			$callback[0]->$callback[1](&$t, $name);
+			$callback[0]->$callback[1]($t, $name);
 		}
 	}
 }
-?>
