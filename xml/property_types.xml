@@ -336,10 +336,10 @@
 		<textarea>
 			<rows />
 			<cols />
-			<richtext />
 			<user />
 			<allow_rte />
 			<rte_type />
+			<resize_height />
 			<width />
 			<height />
 			<maxlength />
