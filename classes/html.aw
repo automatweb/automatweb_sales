@@ -421,10 +421,12 @@ class html
 		textarea name
 	@param value type=string default=""
 		textarea value
-	@param cols optional type=int default=60
+	@param cols type=int default=60
 		number of columns
-	@param rows optional type=int default=40
+	@param rows type=int default=40
 		number of rows
+	@param resize_height type=int default=0
+		If not 0 textarea will automatically resize in height according to contained text, -1 means limitless, any other number is max height. Doesn't apply when using RTE
 	@param rte_type type=int default=0
 		Whether to render as rich text editor and which type to use.
 			0 - don't use RTE
@@ -543,6 +545,18 @@ ENDJAVASCRIPT
 		}
 		else
 		{
+			if (!empty($args["resize_height"]))
+			{
+				active_page_data::load_javascript("jquery/plugins/jquery.autogrowtextarea.js");
+				active_page_data::add_javascript(<<<ENDJAVASCRIPT
+$(document).ready(function(){
+	$("#{$id}").autoGrow();
+});
+ENDJAVASCRIPT
+				);
+
+				$args["resize_height"];
+			}
 			$disabled = (empty($disabled) ? "" : ' disabled="disabled"');
 			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onfocus}{$onblur}{$onchange}>{$value}</textarea>\n";
 		}
