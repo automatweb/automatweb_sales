@@ -162,7 +162,7 @@ class active_page_data implements orb_public_interface
 	**/
 	public static function add_javascript($code, $pos = "head")
 	{
-		$loader = self::get_loader();
+		$loader = get_caller();
 		self::$additional_javascript_code[$pos] .= "/* Javascript code loaded by {$loader} */\n{$code}\n\n";
 	}
 
@@ -185,7 +185,7 @@ class active_page_data implements orb_public_interface
 	{
 		if (!isset(self::$load_javascript_files[$pos][$file])) // assuming that some scripts may be needed to be included both at head and bottom
 		{
-			self::$load_javascript_files[$pos][$file] = self::get_loader();
+			self::$load_javascript_files[$pos][$file] = get_caller();
 		}
 	}
 
@@ -204,7 +204,7 @@ class active_page_data implements orb_public_interface
 	{
 		if (!isset(self::$style_sheet_files[$file])) // don't load more than once
 		{
-			self::$style_sheet_files[$file] = self::get_loader();
+			self::$style_sheet_files[$file] = get_caller();
 		}
 	}
 
@@ -221,7 +221,7 @@ class active_page_data implements orb_public_interface
 	**/
 	public static function add_style($css)
 	{
-		$loader = self::get_loader();
+		$loader = get_caller();
 		self::$additional_css .= "/* CSS loaded by {$loader} */\n{$css}\n\n";
 	}
 
@@ -352,15 +352,5 @@ class active_page_data implements orb_public_interface
 		}
 
 		exit;
-	}
-
-	private static function get_loader()
-	{
-		$trace = debug_backtrace();
-		$class = empty($trace[2]["class"]) ? "" : $trace[2]["class"] . "::";
-		$method = empty($trace[2]["function"]) ? "()" : $trace[2]["function"];
-		$line = empty($trace[2]["line"]) ? "n/a" : $trace[2]["line"];
-		$loader = "{$class}{$method} on line {$line}";
-		return $loader;
 	}
 }
