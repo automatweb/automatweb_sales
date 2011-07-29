@@ -25,7 +25,7 @@ class weekdays extends core implements vcl_interface
 		@returns string
 			The HTML of the date picker.
 
-		@comment Weekdays are assigned 0 to 6 (Sun to Mon). For each weekday selected, add 2^[number of weekday] to the sum. For example if Mon, Wed and Fri are selected, the according sum will be 0^2 + 2^2 + 4^2 = 20.
+		@comment Weekdays are assigned 0 to 6 (Sun to Mon). For each weekday selected, add 2^[number of weekday] to the sum. For example if Mon, Wed and Fri are selected, the according sum will be 2^0 + 2^2 + 2^4 = 21.
 	**/
 	public static function create($arr)
 	{
@@ -34,12 +34,10 @@ class weekdays extends core implements vcl_interface
 			throw new awex_weekdays_param("Name is required and must be a string.");
 		}
 
-		$days = self::days2int(isset($arr["value"]) ? (int) $arr["value"] : 0);
+		$days = self::int2days(isset($arr["value"]) ? (int) $arr["value"] : 0);
+		$start_from_monday = (!isset($arr["start_from_monday"]) or $arr["start_from_monday"]) ? 1 : 0;
 
 		$html = "";
-
-		$start_from_monday = !isset($arr["start_from_monday"]) or $arr["start_from_monday"] ? 1 : 0;
-
 		for ($i = 0 + $start_from_monday; $i < 7 + $start_from_monday; $i++)
 		{
 			$d = $i % 7;
@@ -47,7 +45,7 @@ class weekdays extends core implements vcl_interface
 			if (!empty($arr["multiple"]))
 			{
 				$html .= html::checkbox(array(
-					"name" => "{$name}[$d]",
+					"name" => "{$arr["name"]}[$d]",
 					"label" => $label,
 					"checked" => !empty($days[$d])
 				));
@@ -55,9 +53,9 @@ class weekdays extends core implements vcl_interface
 			else
 			{
 				$html .= html::radiobutton(array(
-					"name" => "{$name}",
+					"name" => "{$arr["name"]}",
 					"value" => pow(2, $d),
-					"label" => $label,
+					"caption" => $label,
 					"checked" => !empty($days[$d])
 				));
 			}
@@ -78,16 +76,17 @@ class weekdays extends core implements vcl_interface
 
 	public function process_vcl_property(&$arr)
 	{
-		$prop =& $arr["prop"];
+		$value = self::days2int($arr["prop"]["value"]);
 
-		$arr["obj_inst"]->set_prop($prop["name"], self::days2int($prop["value"]));
+		$arr["prop"]["value"] = $value;
+		$arr["obj_inst"]->set_prop($arr["prop"]["name"], $value);
 	}
 
 	/**	Decodes the integer and returns an array of booleans, true for each weekday selected.
 		@attrib api=1 params=pos
 		@param value required type=int
 			Integer between 0 and 127, included.
-		@comment Weekdays are assigned 0 to 6 (Sun to Mon). For each weekday selected, add 2^[number of weekday] to the sum. For example if Mon, Wed and Fri are selected, the according sum will be 0^2 + 2^2 + 4^2 = 20. This is the function to get [true, false, false, true, false, true, false] (representing Sun, Wed and Fri being selected) from 20.
+		@comment Weekdays are assigned 0 to 6 (Sun to Mon). For each weekday selected, add 2^[number of weekday] to the sum. For example if Mon, Wed and Fri are selected, the according sum will be 2^0 + 2^2 + 2^4 = 21. This is the function to get [true, false, false, true, false, true, false] (representing Sun, Wed and Fri being selected) from 20.
 		@returns bool[]
 	**/
 	public static function int2days($val)
@@ -114,7 +113,7 @@ class weekdays extends core implements vcl_interface
 		@attrib api=1 params=pos
 		@param days required type=bool[]
 			Array keys (0 to 6) represent days (Sun to Mon).
-		@comment Weekdays are assigned 0 to 6 (Sun to Mon). For each weekday selected, add 2^[number of weekday] to the sum. For example if Mon, Wed and Fri are selected, the according sum will be 0^2 + 2^2 + 4^2 = 20. This is the function to get 20 from [true, false, false, true, false, true, false] (representing Sun, Wed and Fri being selected).
+		@comment Weekdays are assigned 0 to 6 (Sun to Mon). For each weekday selected, add 2^[number of weekday] to the sum. For example if Mon, Wed and Fri are selected, the according sum will be 2^0 + 2^2 + 2^4 = 21. This is the function to get 20 from [true, false, false, true, false, true, false] (representing Sun, Wed and Fri being selected).
 		@returns bool[]
 	**/
 	public static function days2int($days)

@@ -12,19 +12,30 @@
             <name>product</name>
             <table>aw_shop_product_purveyance</table>
             <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_PRODUCT</reltype>
-            <field>product</field>
-            <caption>Toode</caption>
+            <type>hidden</type>
+            <field>aw_object</field>
       </property>
       <property>
             <name>packaging</name>
             <table>aw_shop_product_purveyance</table>
             <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_PACKAGING</reltype>
-            <field>packaging</field>
-            <caption>Pakend</caption>
+            <type>hidden</type>
+            <field>aw_object</field>
+      </property>
+      <property>
+            <name>packet</name>
+            <table>aw_shop_product_purveyance</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_object</field>
+      </property>
+      <property>
+            <name>object</name>
+            <table>aw_shop_product_purveyance</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <field>aw_object</field>
+            <caption>Tarnitav artikkel</caption>
       </property>
       <property>
             <name>company</name>
@@ -45,12 +56,29 @@
             <caption>Ladu</caption>
       </property>
       <property>
-            <name>weekday</name>
+            <name>weekdays</name>
             <table>aw_shop_product_purveyance</table>
             <group>general</group>
-            <type>select</type>
-            <field>weekday</field>
-            <caption>Tarnep&amp;amp;auml;ev</caption>
+            <type>weekdays</type>
+            <multiple>1</multiple>
+            <field>aw_weekdays</field>
+            <caption>Tarnep&amp;amp;auml;evad</caption>
+      </property>
+      <property>
+            <name>time_from</name>
+            <table>aw_shop_product_purveyance</table>
+            <group>general</group>
+            <type>timepicker</type>
+            <field>aw_time_from</field>
+            <caption>Tarneaja algus</caption>
+      </property>
+      <property>
+            <name>time_to</name>
+            <table>aw_shop_product_purveyance</table>
+            <group>general</group>
+            <type>timepicker</type>
+            <field>aw_time_to</field>
+            <caption>Tarneaja l&amp;otilde;pp</caption>
       </property>
       <property>
             <name>days</name>
@@ -60,28 +88,11 @@
             <field>days</field>
             <caption>Tarneaeg p&amp;amp;auml;evades</caption>
       </property>
-      <property>
-            <name>date1</name>
-            <table>aw_shop_product_purveyance</table>
-            <group>general</group>
-            <type>date_select</type>
-            <field>date1</field>
-            <caption>Kuup&amp;amp;auml;ev 1</caption>
-      </property>
-      <property>
-            <name>date2</name>
-            <table>aw_shop_product_purveyance</table>
-            <group>general</group>
-            <type>date_select</type>
-            <field>date2</field>
-            <caption>Kuup&amp;amp;auml;ev 2</caption>
-      </property>
       <classinfo>
             <syslog_type>ST_SHOP_PRODUCT_PURVEYANCE</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>robert</maintainer>
       </classinfo>
       <tableinfo>
             <aw_shop_product_purveyance>
@@ -91,11 +102,6 @@
             </aw_shop_product_purveyance>
       </tableinfo>
       <reltypes>
-            <PRODUCT>
-                  <value>1</value>
-                  <clid>CL_SHOP_PRODUCT</clid>
-                  <caption>Toode</caption>
-            </PRODUCT>
             <COMPANY>
                   <value>2</value>
                   <clid>CL_CRM_COMPANY</clid>
@@ -106,11 +112,5 @@
                   <clid>CL_SHOP_WAREHOUSE</clid>
                   <caption>Ladu</caption>
             </WAREHOUSE>
-            <PACKAGING>
-                  <value>4</value>
-                  <clid>CL_SHOP_PRODUCT_PACKAGING</clid>
-                  <caption>Pakend</caption>
-            </PACKAGING>
       </reltypes>
 </properties>
-
