@@ -26,6 +26,7 @@ class automatweb
 	const MODE_PRODUCTION = 4;
 	const MODE_REASONABLE = 8;
 	const MODE_DBG_EXTENDED = 16;
+	const MODE_DBG_CONSOLE = 32;
 
 	private $mode; // current mode
 	private $request_loaded = false; // whether request is loaded or only empty initialized
@@ -648,6 +649,17 @@ aw_global_set("section", $section);
 			aw_ini_set("debug_mode", "1");
 			set_exception_handler("aw_dbg_exception_handler");
 			set_error_handler ("aw_dbg_error_handler");
+			$this->mode = $id;
+		}
+		elseif (self::MODE_DBG_CONSOLE === $id)
+		{
+			error_reporting(E_ALL | E_STRICT);
+			ini_set("display_errors", "1");
+			ini_set("display_startup_errors", "1");
+			ini_set("ignore_repeated_errors", "1");
+			ini_set("mysql.trace_mode", "1");
+			aw_ini_set("debug_mode", "1");
+			//TODO: tekitada konsool uude aknasse siin
 			$this->mode = $id;
 		}
 		elseif (self::MODE_DBG_EXTENDED === $id)

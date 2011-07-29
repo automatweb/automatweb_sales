@@ -5,7 +5,7 @@ define("IMAGE_JPEG", 2);
 define("IMAGE_GIF", 3);
 define("IMAGE_WBMP", 4);
 
-class image_convert extends class_base
+class image_convert extends core
 {
 	var $driver;
 
@@ -18,7 +18,7 @@ class image_convert extends class_base
 		if ($driver != "")
 		{
 			$this->driver = new $driver;
-			$this->driver->ref =& $this;
+			$this->driver->ref = $this;
 		}
 	}
 
@@ -456,7 +456,7 @@ class image_convert extends class_base
 	}
 }
 
-class _int_image_convert_driver_gd extends aw_template
+class _int_image_convert_driver_gd extends core
 {
 	var $image;
 	var $ref;
@@ -504,18 +504,18 @@ class _int_image_convert_driver_gd extends aw_template
 
 	function load_from_file($tn)
 	{
-		$this->image = @imagecreatefromjpeg($tn);
+		$this->image = imagecreatefromjpeg($tn);
 		if (!$this->image)
 		{
-			$this->image = @imagecreatefrompng($tn);
+			$this->image = imagecreatefrompng($tn);
 		}
 		if (!$this->image && function_exists("imagecreatefromgif"))
 		{
-			$this->image = @imagecreatefromgif($tn);
+			$this->image = imagecreatefromgif($tn);
 		}
 		if (!$this->image && function_exists("imagecreatefromwbmp"))
 		{
-			$this->image = @imagecreatefromwbmp($tn);
+			$this->image = imagecreatefromwbmp($tn);
 		}
 		if (!$this->image)
 		{
@@ -632,7 +632,7 @@ class _int_image_convert_driver_gd extends aw_template
 	}
 }
 
-class _int_image_convert_driver_imagick extends aw_template
+class _int_image_convert_driver_imagick extends core
 {
 	var $filename;
 	var $identify;
@@ -790,7 +790,7 @@ class _int_image_convert_driver_imagick extends aw_template
 }
 
 
-class _int_image_convert_driver_imagick_module extends aw_template
+class _int_image_convert_driver_imagick_module extends core
 {
 	function _int_image_convert_driver_imagick()
 	{

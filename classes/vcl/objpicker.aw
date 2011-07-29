@@ -194,6 +194,7 @@ SCRIPT;
 		$prop["value"] = self::create($prop + array(
 			"object" => $args["obj_inst"],
 			"view" => !empty($args["view"]),
+			"clid" => !empty($args["clid"]) ? $args["clid"] : 0
 		));
 
 		return array($prop["name"] => $prop);

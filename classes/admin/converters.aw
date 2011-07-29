@@ -1874,9 +1874,7 @@ echo "mod ".$con["to.name"]."<br>";
 			rename($file, $fn);
 			echo "$file => $fn <br>\n";
 			$o->set_prop("file", $fn);
-			aw_disable_acl();
 			$o->save();
-			aw_restore_acl();
 			flush();
 		}
 		die("all done ");

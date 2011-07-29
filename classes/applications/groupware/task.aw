@@ -928,21 +928,24 @@ class task extends class_base
 		return true;
 	}
 
-	function get_property($arr)
+	function get_property(&$arr)
 	{
 		$data = &$arr["prop"];
 
+		///XXX: mis see teeb?
 		if (is_object($arr["obj_inst"]) && $arr["obj_inst"]->prop("is_personal") && aw_global_get("uid") != $arr["obj_inst"]->createdby())
 		{
-			if (!($arr["prop"]["name"] == "start1" || $arr["prop"]["name"] == "end" || $arr["prop"]["name"] == "deadline"))
+			if (!($arr["prop"]["name"] === "start1" || $arr["prop"]["name"] === "end" || $arr["prop"]["name"] === "deadline"))
 			{
 				return PROP_IGNORE;
 			}
 		}
+
 		if (!is_object($arr["obj_inst"]))
-		{
+		{//XXX: miks vaja?
 			$arr["obj_inst"] = obj();
 		}
+
 		$retval = PROP_OK;
 		switch($data["name"])
 		{

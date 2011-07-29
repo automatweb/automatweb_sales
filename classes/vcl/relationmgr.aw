@@ -85,6 +85,7 @@ class relationmgr extends aw_template implements orb_public_interface
 			}
 			$cli->add_property($pd);
 		}
+
 		$cli->finish_output(array(
 			"method" => "GET",
 			"action" => !empty($arr["srch"]) ? "disp_relmgr" : "submit",
@@ -290,7 +291,7 @@ class relationmgr extends aw_template implements orb_public_interface
 			"clids" => $this->clid_list,
 			"period" => automatweb::$request->arg("period"),
 			"id" => $arr["obj_inst"]->id(),
-			"saveurl" => $this->mk_my_orb("submit", array("reltype" => $this->reltype, "group" => $req["group"], "return_url" => get_ru(), "reforb" => 1, "id" => $req["id"]), $req["class"]),
+			"saveurl" => $this->mk_my_orb("submit", array("reltype" => $this->reltype, "group" => isset($req["group"]) ? $req["group"] : "", "return_url" => get_ru(), "reforb" => 1, "id" => $req["id"]), $req["class"]),
 		));
 		$this->vars["saveurl"] = aw_url_change_var("class",$req["class"],$this->vars["saveurl"]);
 		$tb->add_cdata($this->parse());

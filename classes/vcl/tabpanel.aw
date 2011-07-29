@@ -1,9 +1,7 @@
 <?php
-// $Id: tabpanel.aw,v 1.24 2009/08/12 07:06:05 instrumental Exp $
+
 // tabpanel.aw - class for creating tabbed dialogs
-/*
-@classinfo  maintainer=kristo
-*/
+
 class tabpanel extends aw_template
 {
 	////
@@ -27,19 +25,19 @@ class tabpanel extends aw_template
 		$this->tabcount = array();
 		$this->hide_one_tab = 0;
 	}
-	
+
 	/**
 		@attrib params=name api=1
-		
+
 		@param active optional type=bool
 		Whether to use the "selected" subtemplate for this tab.
-		
+
 		@param caption optional type=string
 		Text to display as caption
-		
+
 		@param link optional type=string
 		Url to where it links to
-		
+
 		@param tabgroup optional type=string
 		If set, uses that template for showing tab
 
@@ -47,8 +45,8 @@ class tabpanel extends aw_template
 		True sets the tab disabled(gray, non-clickable etc)
 
 		@param level optional type=int
-		Sets the tabs depth level, level 2 items are lower than level 1 tabs etc. Default is 1 
-		
+		Sets the tabs depth level, level 2 items are lower than level 1 tabs etc. Default is 1
+
 		@comment
 		Adds a new tab to the panel.
 		@example
@@ -84,12 +82,12 @@ class tabpanel extends aw_template
 		else
 		{
 			$subtpl = "tab";
-		};
+		}
 
 		if (isset($args["disabled"]) && $args["disabled"])
 		{
 			$subtpl = "disabled_tab";
-		};
+		}
 
 		if (isset($args["level"]) && $args["level"])
 		{
@@ -98,32 +96,28 @@ class tabpanel extends aw_template
 		else
 		{
 			$level = 1;
-		};
+		}
 
 		// no link? so let's show the tab as disabled
 		if (isset($args["link"]) && strlen($args["link"]) == 0)
 		{
 			$subtpl = "disabled_tab";
-		};
+		}
 		$this->vars(array(
 			"cfgform_edit_mode" => $this->_do_cfg_edit_mode_check($args),
 			"caption" => $args["caption"],
 			"link" => $args["link"],
 			"target" => $args["target"]
 		));
-		
+
 		$use_subtpl = $tab_prefix . $subtpl . "_L" . $level;
 		//$secondary = $tab_prefix . $use_subtpl;
-		global $XX3;
-		if ($XX3)
-		{
-			print "trying $use_subtpl<br>";
-		};
+
 		if (!$this->is_template($use_subtpl))
 		{
 			$use_subtpl = $subtpl . "_L" . $level;
 			$tab_prefix = "";
-		};
+		}
 
 		if (isset($this->tabcount[$tab_prefix . $level]))
 		{
@@ -132,19 +126,13 @@ class tabpanel extends aw_template
 		else
 		{
 			$this->tabcount[$tab_prefix . $level] = 1;
-		};
-
-		global $XX3;
-		if ($XX3)
-		{
-			print "using " . $tab_prefix . " for " . $args["caption"] . "<br>";
-		};
+		}
 
 		// initialize properly
 		if (empty($this->tabs[$tab_prefix . $level]))
 		{
 			$this->tabs[$tab_prefix . $level] = "";
-		};
+		}
 
 
 		//$this->tabs[$level] .= $this->parse($subtpl . "_L" . $level);
@@ -167,12 +155,11 @@ class tabpanel extends aw_template
 
 
 	}
-	
+
 	function get_html()
 	{
 		// this thing has to return generated html from the component
 		return $this->get_tabpanel();
-
 	}
 
 	/**
@@ -180,7 +167,7 @@ class tabpanel extends aw_template
 		@param logo_image optional type=string
 		To set logo image.
 		@param background_image optional type=string
-		To set background image. 
+		To set background image.
 		@comment
 		Allows to set background & logo image. Tabpanel style must be set to 'with_logo' with set_style() method
 		@examples
@@ -193,15 +180,16 @@ class tabpanel extends aw_template
 			$this->vars(array(
 				"logo_image" => $arr["logo_image"],
 			));
-		};
+		}
 
 		if (isset($arr["background_image"]))
 		{
 			$this->vars(array(
 				"background_image" => $arr["background_image"],
 			));
-		};
+		}
 	}
+
 	/**
 		@attrib params=pos api=1
 		@comment
@@ -216,12 +204,12 @@ class tabpanel extends aw_template
 	**/
 	function set_style($style_name)
 	{
-		if ($style_name == "with_logo")
+		if ($style_name === "with_logo")
 		{
 			$this->read_template("tabs_with_logo.tpl");
-		};
+		}
 	}
-	
+
 
 	/**
 		@attrib params=name api=1
@@ -261,7 +249,7 @@ class tabpanel extends aw_template
 					$px = strpos($level,"_") + 1;
 					$prefix = substr($level,0,strpos($level,"_") + 1);
 					$lnr = substr($level,$px);
-				};
+				}
 				$this->vars_safe(array(
 					$prefix . "tab_L" . $lnr  => $this->tabs[$level],
 				));
@@ -273,14 +261,14 @@ class tabpanel extends aw_template
 				{
 					$r_prefix = str_replace("_","",$prefix);
 					$panels[$r_prefix][] = $this->parse($prefix . "tabs_L" . $lnr);
-				};
-			};
-		};
+				}
+			}
+		}
 
 		if (!empty($args["panels_only"]))
 		{
 			return $panels;
-		};
+		}
 
 
 		$toolbar = isset($args["toolbar"]) ? $args["toolbar"] : "";
@@ -291,7 +279,7 @@ class tabpanel extends aw_template
 		$this->vars_safe(array(
 			//"tabs" => $tabs,
 			"toolbar" => $toolbar,
-//                        "toolbar2" => $toolbar2,
+//          "toolbar2" => $toolbar2,
 			"content" => $args["content"],
 		));
 
@@ -310,7 +298,7 @@ class tabpanel extends aw_template
 
 		return $this->parse();
 	}
-	
+
 	/**
 		@attrib params=name api=1
 		@comment
@@ -378,8 +366,8 @@ class tabpanel extends aw_template
 			));
 		}
 
-		$green = " <a href='javascript:void(0)' onClick='cfEditClickGroup(\"".$arr["id"]."\", ".$_GET["id"].");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_green.png' id='cfgEditGroup".$arr["id"]."'/></a>";
-		$red = " <a href='javascript:void(0)' onClick='cfEditClickGroup(\"".$arr["id"]."\", ".$_GET["id"].");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_red.png' id='cfgEditGroup".$arr["id"]."'/></a>";
+		$green = " <a href='javascript:void(0)' onClick='cfEditClickGroup(\"".$arr["id"]."\", ".$_GET["id"].");'><img src='".aw_ini_get("icons.server")."cfg_edit_green.png' id='cfgEditGroup".$arr["id"]."'/></a>";
+		$red = " <a href='javascript:void(0)' onClick='cfEditClickGroup(\"".$arr["id"]."\", ".$_GET["id"].");'><img src='".aw_ini_get("icons.server")."cfg_edit_red.png' id='cfgEditGroup".$arr["id"]."'/></a>";
 
 		// get default cfgform for this object and get property status from that
 		if ($this->can("view", $cur_cfgform))
@@ -400,5 +388,4 @@ class tabpanel extends aw_template
 			return $green;
 		}
 	}
-};
-?>
+}

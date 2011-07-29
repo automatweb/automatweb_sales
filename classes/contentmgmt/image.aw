@@ -179,7 +179,7 @@ class image extends class_base
 			none
 
 		@examples
-			$image_inst = get_instance(CL_IMAGE);
+			$image_inst = new image();
 			$image_data = $image_inst->get_image_by_id(1234);
 
 	**/
@@ -391,7 +391,7 @@ class image extends class_base
 			$show_link_arr["id"] = $f["target"];
 			if ($do_comments)
 			{
-				$com = get_instance(CL_COMMENT);
+				$com = new forum_comment();
 				$num_comments = $com->get_comment_count(array(
 					'parent' => $idata["id"],
 				));
@@ -710,7 +710,7 @@ class image extends class_base
 			none
 
 		@examples
-			$inst = get_instance(CL_IMAGE);
+			$inst = new image();
 			$o = new object(1234);
 			var_dump( $inst->is_flash( $o->prop('file') ) );
 	**/
@@ -1284,18 +1284,23 @@ class image extends class_base
 				$fl = $arr["obj_inst"]->prop("file2");
 				if (!empty($fl))
 				{
-					if ($fl{0} != "/")
+					if ($fl{0} !== "/")
 					{
 						$fl = aw_ini_get("file.site_files_dir").$fl{0}."/".$fl;
 					}
-					$sz = getimagesize($fl);
-					$prop["value"] = $sz[0] . " X " . $sz[1];
+
+					if (is_readable($fl))
+					{
+						$sz = getimagesize($fl);
+						$prop["value"] = $sz[0] . " X " . $sz[1];
+					}
 				}
 				else
 				{
 					$retval = PROP_IGNORE;
-				};
+				}
 				break;
+
 			case "dimensions":
 				$fl = $arr["obj_inst"]->prop("file");
 				if (!empty($fl))
@@ -1303,8 +1308,11 @@ class image extends class_base
 					// rewrite $fl to be correct if site moved
 					$fl = basename($fl);
 					$fl = aw_ini_get("file.site_files_dir").$fl{0}."/".$fl;
-					$sz = getimagesize($fl);
-					$prop["value"] = $sz[0] . " X " . $sz[1];
+					if (is_readable($fl))
+					{
+						$sz = getimagesize($fl);
+						$prop["value"] = $sz[0] . " X " . $sz[1];
+					}
 				}
 				else
 				{
@@ -1535,8 +1543,8 @@ class image extends class_base
 			$oid = $id;
 		}
 
-		$_fi = get_instance(CL_FILE);
-		$mime = get_instance("core/aw_mime_types");
+		$_fi = new file();
+		$mime = new aw_mime_types();
 		$fl = $_fi->_put_fs(array(
 			"type" => $mime->type_for_file($orig_name),
 			"content" => $str
@@ -1577,7 +1585,7 @@ class image extends class_base
 		$im = $this->get_image_by_id($arr["id"]);
 		$file = $arr['file'];
 
-		$img = get_instance("core/converters/image_convert");
+		$img = new image_convert();
 		$fn = basename($im[$file]);
 		$fn = aw_ini_get("file.site_files_dir").$fn{0}."/".$fn;
 		$img->load_from_file($fn);
@@ -1587,7 +1595,7 @@ class image extends class_base
 
 		if ($width && !$height)
 		{
-			if ($width{strlen($width)-1} == "%")
+			if ($width{strlen($width)-1} === "%")
 			{
 				$height = $width;
 			}
@@ -1750,8 +1758,7 @@ class image extends class_base
 			if (is_object($o_img) && $o_img->class_id() == CL_IMAGE && $this->can("view", $img) && !empty($comment))
 			{
 				// Store comment
-				classload("vcl/comments");
-				$comm = get_instance(CL_COMMENT);
+				$comm = new forum_comment();
 				$added = $comm->submit(array(
 					'parent' => $img,
 					'commtext' => htmlspecialchars($comment),
@@ -1793,7 +1800,7 @@ class image extends class_base
 		lc_site_load("image", $this);
 		if ($this->can("view", $imo->prop("big_flash")))
 		{
-			$fli = get_instance(CL_FLASH);
+			$fli = new flash();
 			$this->vars(array(
 				"FLASH" => $fli->view(array("id" => $imo->prop("big_flash")))
 			));
@@ -1867,7 +1874,7 @@ class image extends class_base
 		if ($this->is_template("NEXT_LINK") && !empty($arr["minigal"]) && $this->can("view", $arr["minigal"]))
 		{
 			$set_next = null;
-			$mg = get_instance(CL_MINI_GALLERY);
+			$mg = new mini_gallery();
 			$ob = obj($arr["minigal"]);
 			$images = $mg->_pic_list($ob);
 			$mg->ob = $ob;
@@ -2101,7 +2108,7 @@ class image extends class_base
 
 			if (file_exists($bigf))
 			{
-				$img = get_instance("core/converters/image_convert");
+				$img = new image_convert();
 				$img->set_error_reporting(false);
 				$img->load_from_file($bigf);
 				if ($img->is_error())
@@ -2123,7 +2130,7 @@ class image extends class_base
 				$bigf = $o->prop("file");
 				if ($bigf)
 				{
-					$f = get_instance(CL_FILE);
+					$f = new file();
 					$bigf = $f->_put_fs(array(
 						"type" => "image/jpg",
 						"content" => $this->get_file(array("file" => $bigf))
@@ -2148,7 +2155,7 @@ class image extends class_base
 			$smallf = $o->prop("file2");
 			if ($smallf)
 			{
-				$f = get_instance(CL_FILE);
+				$f = new file();
 				$smallf = $f->_put_fs(array(
 					"type" => "image/jpg",
 					"content" => $this->get_file(array("file" => $smallf))
@@ -2197,7 +2204,7 @@ class image extends class_base
 	**/
 	function do_resize_file_in_fs($file, $conf, $prefix)
 	{
-		$img = get_instance("core/converters/image_convert");
+		$img = new image_convert();
 		$img->set_error_reporting(false);
 
 		$img->load_from_file($file);
@@ -2249,7 +2256,7 @@ class image extends class_base
 			$img->resize_simple($xyd["width"], $xyd["height"]);
 		}
 
-		$gv = get_instance(CL_GALLERY_V2);
+		$gv = new gallery_v2();
 		$img = $gv->_do_logo($img, $conf, $prefix);
 
 		$img->save($file, IMAGE_JPEG);
@@ -2290,10 +2297,10 @@ class image extends class_base
 	**/
 	function make_img_tag_wl($id, $alt = NULL, $has_big_alt = NULL, $size = array(), $arr = array())
 	{
-		static $that;
+		static $that;//XXX: milleks?
 		if (!$that)
 		{
-			$that = get_instance(CL_IMAGE);
+			$that = new image();
 		}
 		$u = $that->get_url_by_id($id);
 
@@ -2620,9 +2627,9 @@ class image extends class_base
 
 	function _check_comment_delete($imo)
 	{
-		$ii = get_instance(CL_IMAGE);
+		$ii = new image();//XXX: milleks??
 		$cfid = $ii->_get_conf_for_folder($imo->parent());
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$curid = $ui->get_current_user();
 		if(is_oid($curid) && is_oid($cfid))
 		{
