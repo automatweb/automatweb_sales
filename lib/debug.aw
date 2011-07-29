@@ -22,14 +22,19 @@ function arr($arr, $die=false, $see_html=false)
 	{
 		return;
 	}
-
-	echo "<hr/>\n";
-	$tmp = '';
-	ob_start();
-	print_r($arr);
-	$tmp = ob_get_contents();
-	ob_end_clean();
-	echo "<pre style=\"text-align: left;\">\n" . ($see_html ? htmlspecialchars($tmp) : $tmp) . "</pre>\n<hr/>";
+	// elseif (isset(automatweb::$instance) and automatweb::MODE_DBG_CONSOLE === automatweb::$instance->mode())
+	// {
+	// }
+	else
+	{
+		echo "<hr/>\n";
+		$tmp = '';
+		ob_start();
+		print_r($arr);
+		$tmp = ob_get_contents();
+		ob_end_clean();
+		echo "<pre style=\"text-align: left;\">\n" . ($see_html ? htmlspecialchars($tmp) : $tmp) . "</pre>\n<hr/>";
+	}
 
 	if ($die)
 	{
@@ -194,20 +199,27 @@ class dbg
 		@param skip type=int default=-1
 			Number of levels to skip from the end
 
-		@param show_long_args type=bool default=false
+		@param show_long_args type=bool default=FALSE
 			Truncate long argument values or not
 
+		@param html type=bool default=TRUE
+			Html or plain text output
+
+		@param last_call_first type=bool default=FALSE
+			Calls order, if true, last call info shown first
+
 		@returns
-			html with the backtrace formatted to usr-readable format
+			html/text with the backtrace formatted to usr-readable format
 
 		@examples
 			echo process_backtrace(debug_backtrace());
 	**/
-	public static function process_backtrace($bt, $skip = -1, $show_long_args = false)
+	public static function process_backtrace($bt, $skip = -1, $show_long_args = false, $html = true, $last_call_first = false)
 	{
-		$msg = "<br><br> Backtrace: \n\n<Br><br>";
+		$msg = array();
 		for ($i = count($bt)-1; $i > $skip; $i--)
 		{
+			$msg_item = "";
 			if (!empty($bt[$i+1]["class"]))
 			{
 				$fnm = "method <b>".$bt[$i+1]["class"]."::".$bt[$i+1]["function"]."</b>";
@@ -222,7 +234,7 @@ class dbg
 			}
 
 			$line = isset($bt[$i]["line"]) ? $bt[$i]["line"] : "(unknown)";
-			$msg .= $fnm." on line {$line} called <br>\n";
+			$msg_item .= $fnm." on line {$line} called <br>\n";
 
 			if (!empty($bt[$i]["class"]))
 			{
@@ -237,7 +249,7 @@ class dbg
 				$fnm2 = "file ".$bt[$i]["file"];
 			}
 
-			$msg .= $fnm2." with arguments ";
+			$msg_item .= $fnm2." with arguments ";
 
 			$awa = new aw_array($bt[$i]["args"]);
 			$str = array();
@@ -280,19 +292,51 @@ class dbg
 			}
 
 			$file = isset($bt[$i]["file"]) ? $bt[$i]["file"] : "(unknown)";
-			$msg .= "<font size=\"-1\">(".htmlentities(join(",", $str)).") file: {$file}</font>";
-			$msg .= " <br><br>\n\n";
+			$str = $html ? htmlentities(implode(",", $str)) : implode(",", $str);
+			$msg_item .= "<font size=\"-1\">({$str}) file: {$file}</font>";
+			$msg_item .= " <br><br>\n\n";
+			$msg[] = $msg_item;
 		}
+
+		if ($last_call_first)
+		{
+			$msg = array_reverse($msg);
+		}
+
+		if ($html)
+		{
+			$msg = implode("", $msg);
+			$msg = "<br><br> Backtrace: \n\n<br><br>{$msg}";
+		}
+		else
+		{
+			$msg = implode("", $msg);
+			$msg = strip_tags($msg);
+			$msg = "Backtrace:\n\n{$msg}";
+		}
+
 		return $msg;
 	}
 
-	/** Prints html formatted detailed debug backtrace to client
+	/** Prints/returns html formatted detailed debug backtrace to client
 		@attrib api=1 params=pos
+		@param return type=bool default=FALSE
+			echo or return
+		@param html type=bool default=TRUE
+			html or plain text
 		@returns void
 	**/
-	public static function bt()
+	public static function bt($return = false, $html = true)
 	{
-		echo self::process_backtrace(debug_backtrace(), -1, true);
+		$bt = self::process_backtrace(debug_backtrace(), -1, true, $html, true);
+		if ($return)
+		{
+			return $bt;
+		}
+		else
+		{
+			echo $bt;
+		}
 	}
 
 	/** Prints html formatted detailed debug backtrace to client and terminates whole request (php exit)
@@ -301,7 +345,7 @@ class dbg
 	**/
 	public static function btx()
 	{
-		exit (self::process_backtrace(debug_backtrace(), -1, true));
+		exit (self::process_backtrace(debug_backtrace(), -1, true, true, true));
 	}
 
 	/** formats a one-line user-readable string from the current backtrace
@@ -309,38 +353,42 @@ class dbg
 
 		@returns
 			One-line string with a human-readable backtrace
+		@comment
+			Excludes all include construct calls
 	**/
-	public static function short_backtrace()
+	public static function sbt()
 	{
-		$msg = "";
+		$msg = array();
 		if (function_exists("debug_backtrace"))
 		{
+			$include_constructs = array("include", "include_once", "require", "require_once");
 			$bt = debug_backtrace();
 			for ($i = count($bt); $i >= 0; $i--)
 			{
-				$fnm = "";
-
-				if (isset($bt[$i+1]))
+				if (!empty($bt[$i]))
 				{
-					if (!empty($bt[$i+1]["class"]))
+					$fnm = "";
+					if (isset($bt[$i+1]))
 					{
-						$fnm = $bt[$i+1]["class"]."::".$bt[$i+1]["function"];
+						if (!empty($bt[$i+1]["class"]))
+						{
+							$fnm = $bt[$i+1]["class"]."::".$bt[$i+1]["function"];
+						}
+						elseif (!empty($bt[$i+1]["function"]) and !in_array($bt[$i+1]["function"], $include_constructs))
+						{
+							$fnm = $bt[$i+1]["function"];
+						}
 					}
-					elseif (!empty($bt[$i+1]["function"]) and ($bt[$i+1]["function"] !== "include"))
+
+					if ($fnm)
 					{
-						$fnm = $bt[$i+1]["function"];
+						$msg[] = $fnm . (isset($bt[$i]["line"]) ? (":" . $bt[$i]["line"]) : "");
 					}
 				}
-
-				if (isset($bt[$i]))
-				{
-				}
-
-				$msg .= $fnm . (isset($bt[$i]["line"]) ? (":" . $bt[$i]["line"]) : "") ."->";
 			}
 		}
 
-		return $msg;
+		return implode(" > ", $msg);
 	}
 
 	/** prints the results of a database query
@@ -381,6 +429,17 @@ class dbg
 	{
 		echo str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $level) . $msg .": '". var_export($value, true) . "'<br />\n";
 		flush();
+	}
+
+	public static function log($msg = "-")
+	{
+		static $logfile = false;
+		if (!$logfile)
+		{
+			$logfile = fopen(AW_DIR . "files/debug.log", "a");
+		}
+		$msg = date("M d Y H:i:s") . "\t" .  get_caller() . "\t" . $msg . "\n";
+		fwrite($logfile, $msg);
 	}
 }
 

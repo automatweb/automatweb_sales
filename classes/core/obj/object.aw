@@ -164,7 +164,7 @@ class object
 
 		if (!empty($GLOBALS["TRACE_OBJ"]))
 		{
-			echo "load object $param from <br>".dbg::short_backtrace()." <br>";
+			echo "load object $param from <br>".dbg::sbt()." <br>";
 		}
 
 		return $this->oid;
@@ -2438,6 +2438,12 @@ class awex_obj_acl extends awex_obj
 class awex_obj_na extends awex_obj
 {
 	protected $message = "Object doesn't exist";
+}
+
+/** Object is deleted **/
+class awex_obj_deleted extends awex_obj
+{
+	protected $message = "Object is deleted";
 }
 
 /** Generic property exception **/

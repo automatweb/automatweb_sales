@@ -71,4 +71,14 @@ function array_union_recursive($array1 = array(), $array2 = array())
 	return $array;
 }
 
-?>
+function get_caller($steps_back = 0)
+{
+	++$steps_back;
+	++$steps_back;
+	$trace = debug_backtrace();
+	$class = empty($trace[$steps_back]["class"]) ? "" : $trace[$steps_back]["class"] . "::";
+	$method = empty($trace[$steps_back]["function"]) ? "()" : $trace[$steps_back]["function"] . "()";
+	$line = empty($trace[$steps_back]["line"]) ? $trace[$steps_back - 1]["line"] : $trace[$steps_back]["line"];
+	$caller = "{$class}{$method} on line {$line}";
+	return $caller;
+}
