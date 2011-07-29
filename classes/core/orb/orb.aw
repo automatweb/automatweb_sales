@@ -1,7 +1,6 @@
 <?php
 
 // tegeleb ORB requestide handlimisega
-lc_load("automatweb");//TODO: milleks keelt orb-is? orb ei peaks ju l6ppkasutajale midagi ise n2itama
 
 class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 {
