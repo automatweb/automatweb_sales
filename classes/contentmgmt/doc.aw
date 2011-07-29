@@ -216,9 +216,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
 	@property sbt type=submit value=Salvesta store=no trans=1
 
-	@property cb_part type=hidden value=1 group=general,settings store=no
-	@caption cb_part
-
 	@property nobreaks type=hidden table=documents
 
 	@property no_topic_links type=checkbox table=objects field=meta method=serialize ch_value=1
@@ -396,6 +393,12 @@ class doc extends class_base
 		}
 		$data = &$arr["prop"];
 		$retval = PROP_OK;
+
+		if (empty($data["name"]))
+		{
+			return $retval; //TODO: m22rata classbases mis on $arr default sisu, prop ja name peaks olema kohustuslik
+		}
+
 		switch($data["name"])
 		{
 			case "brother_warning":
@@ -436,7 +439,7 @@ class doc extends class_base
 				if ($arr["new"])
 				{
 					$format = aw_ini_get("document.date_format");
-					if ($format == "n/a")
+					if ($format === "n/a")
 					{
 						$format = "";
 					}
@@ -444,9 +447,9 @@ class doc extends class_base
 					if (empty($format))
 					{
 						$format = "d.m.Y";
-					};
+					}
 					$data["value"] = date($format);
-				};
+				}
 				break;
 
 			case "duration":
@@ -458,15 +461,7 @@ class doc extends class_base
 				break;
 
 			case "navtoolbar":
-				// I need a better way to do this!
-				if (!empty($arr["request"]["cb_part"]))
-				{
-					$retval = PROP_IGNORE;
-				}
-				else
-				{
-					$this->gen_navtoolbar($arr);
-				};
+				$this->gen_navtoolbar($arr);
 				break;
 
 			case "edit_version":
@@ -767,7 +762,7 @@ class doc extends class_base
 		}
 
 		$modby = $obj_inst->modifiedby();
-		if ($args["request"]["edit_version"])
+		if (!empty($args["request"]["edit_version"]))
 		{
 			$out = array();
 			parse_str($args["request"]["edit_version"], $out);
@@ -778,12 +773,11 @@ class doc extends class_base
 			}
 		}
 
-		if ($args["request"]["create_new_version"] == 1)
+		if (!empty($args["request"]["create_new_version"]))
 		{
 			$obj_inst->set_create_new_version();
 		}
-		else
-		if ($args["request"]["edit_version"])
+		elseif (!empty($args["request"]["edit_version"]))
 		{
 			$out = array();
 			parse_str($args["request"]["edit_version"], $out);
@@ -836,12 +830,12 @@ class doc extends class_base
 			}
 		}
 
-		if(!$args["request"]["no_rte"])
+		if(empty($args["request"]["no_rte"]))
 		{
 			$props = $this->get_property_group($args);
 			foreach($props as $prop)
 			{
-				if($prop["type"] === "textarea" && $prop["richtext"])
+				if($prop["type"] === "textarea" && !empty($prop["richtext"]))
 				{
 					$val = $args["obj_inst"]->prop($prop["name"]);
 					$setval = false;
@@ -993,12 +987,6 @@ class doc extends class_base
 		$request = &$args["request"];
 		$new = $args["new"];
 		$args = &$args["args"]; //FIXME: ...
-		// if this is a new object, then the form is posted with the _top target
-		// this ensures that the top toolbar will be updated as well
-		if (!$new && $request["cb_part"])
-		{
-			$args["cb_part"] = $request["cb_part"];
-		}
 
 		if (!empty($request["no_rte"]))
 		{
@@ -1034,10 +1022,6 @@ class doc extends class_base
 
 	function callback_mod_reforb(&$args, $request)
 	{
-		if (!empty($_REQUEST["cb_part"]))
-		{
-			$args["cb_part"] = $_REQUEST["cb_part"];
-		}
 		$args["post_ru"] = post_ru();
 		if (!empty($request["edit_version"]))
 		{

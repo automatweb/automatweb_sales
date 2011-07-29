@@ -830,13 +830,6 @@ class htmlclient extends aw_template
 
 	function get_result($arr = array())
 	{
-		if ($this->layout_mode === "fixed_toolbar")
-		{
-			// this will apply a new style to the BODY node, it's required
-			// to get the classbase layoyt with iframe working correctly
-			active_page_data::add_serialized_css_style($this->parse("iframe_body_style"));
-		}
-
 		if(empty($this->no_form))
 		{
 			$this->vars_safe(array(
@@ -1307,10 +1300,6 @@ class htmlclient extends aw_template
 		{
 			$src = $item["src"];
 			$item["html"] = "<iframe id='contentarea' name='contentarea' src='${src}' style='width: 100%; height: 95%; border-top: 1px solid black;' frameborder='no' scrolling='yes'></iframe>";
-		}
-		elseif ($this->layout_mode === "fixed_toolbar")
-		{
-			$item["html"] = $value;
 		}
 		else if ($type === "hidden")
 		{

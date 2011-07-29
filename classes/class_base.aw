@@ -246,6 +246,17 @@ class class_base extends aw_template implements orb_public_interface
 				$clid = constant($obj_class_name."::CLID");//XXX: compatibility w php <5.3
 			}
 		}
+		else
+		{
+			// get class from object class.
+			// TODO: see peaks olema p6hivariant, teised v2lja
+			$class = get_class($this);
+			if (!aw_ini_isset("class_lut.{$class}"))
+			{
+				throw new awex_cb_class("Invalid class '$class'");
+			}
+			$clid = aw_ini_get("class_lut.{$class}");
+		}
 
 		// try to load object with $id
 		$this->obj_inst = obj($id, array(), $clid);
@@ -473,13 +484,6 @@ class class_base extends aw_template implements orb_public_interface
 			$filter["rel"] = 1;
 		}
 
-		// XXX: temporary -- duke
-		if (!empty($args["fxt"]))
-		{
-			$this->layout_mode = "fixed_toolbar";
-			$filter["layout_mode"] == "fixed_toolbar";
-		}
-
 		$properties = $this->get_property_group($filter, $args);
 		$this->inst->use_group = $this->use_group;
 
@@ -584,121 +588,76 @@ class class_base extends aw_template implements orb_public_interface
 			}
 		}
 
-		// the whole freaking fixed toolbar trickery was implemented
-		// only because IE does not support positon: fixed like other
-		// modern browsers do. Once it does, this whole crap with
-		// frames can be taken out again
-
-		// turn off submit button, if the toolbar is being shown
-
-		$lm = $this->classinfo(array("name" => "fixed_toolbar"));
-		if (!empty($lm))
-		{
-			$gdata["submit"] = "no";
-		}
-
 		$user_obj = obj(aw_global_get("uid_oid"));
 		if (!empty($args["no_rte"]) || $user_obj->prop("rte_disabled"))
 		{
 			$this->no_rte = 1;
 		}
 
-		// and, if we are in fixed toolbar layout mode, then we should
-		// probably remap all
-		// the links in the toolbar .. augh, how the hell do I do that?
-		if (!empty($lm) && empty($args["cb_part"]))
+		$template = $this->forminfo(array(
+			"form" => isset($args["form"]) ? $args["form"] : "",
+			"attr" => "template",
+		));
+
+		$o_arr = array();
+		if(!empty($gdata["no_form"]))
 		{
-			$new_uri = aw_url_change_var(array("cb_part" => 1));
-			$cli = get_instance("cfg/" . $this->output_client, array("layout_mode" => "fixed_toolbar"));
-			$cli->used_cfgform = $this->cfgform_id;
-
-			if (!empty($args["no_rte"]))
-			{
-				$new_uri .= "&no_rte=1";
-			}
-			$cli->rte_type = $this->classinfo(array("name" => "allow_rte"));
-			$properties["iframe_container"] = array(
-				"type" => "iframe",
-				"src" => $new_uri,
-				"value" => " ",
-			);
-
-			$this->layout_mode = "fixed_toolbar";
-
-			// show only the elements and not the frame
-			// (because it contains some design
-			// elements and "<form>" tag that I really do not need
-			// this really could use some generic solution!
-			$this->raw_output = 1;
+			$o_arr["no_form"] = true;
 		}
-		else
+
+		if (!empty($template))
 		{
-			$template = $this->forminfo(array(
-				"form" => isset($args["form"]) ? $args["form"] : "",
-				"attr" => "template",
-			));
+			$o_arr["template"] = $template;
+		}
 
-			$o_arr = array();
-			if(!empty($gdata["no_form"]))
+		if ($this->embedded)
+		{
+			$o_arr["embedded"] = true;
+		}
+
+		// if there no class in the request URI, then we are embedded
+		if (false === strpos(aw_global_get("REQUEST_URI"),"class="))
+		{
+			$o_arr["embedded"] = true;
+		}
+
+		$cli = get_instance("cfg/" . $this->output_client,$o_arr);
+		$cli->used_cfgform = $this->cfgform_id;
+
+		if (!empty($lm))
+		{
+			if ($this->use_mode === "new")
 			{
-				$o_arr["no_form"] = true;
+				$cli->set_form_target("_parent");
 			}
+		}
 
+		if ($this->changeform_target)
+		{
+				$cli->set_form_target($this->changeform_target);
+		}
 
-			if (!empty($template))
+		if (!empty($o_arr["no_form"]) or $this->no_form)
+		{
+			$cli->set_opt("no_form",1);
+		}
+
+		$use_layout = isset($this->classinfo["layout"]) ? $this->classinfo["layout"] : "";
+		// XXX: cfgform seemingly overwrites classinfo
+		if ($use_layout === "boxed")
+		{
+			$cli->set_form_layout($use_layout);
+			if (is_callable(array($this->inst,"get_content_elements")))
 			{
-				$o_arr["template"] = $template;
-			}
-
-			if ($this->embedded)
-			{
-				$o_arr["embedded"] = true;
-			};
-
-			// if there no class in the request URI, then we are embedded
-			if (false === strpos(aw_global_get("REQUEST_URI"),"class="))
-			{
-				$o_arr["embedded"] = true;
-			}
-
-			$cli = get_instance("cfg/" . $this->output_client,$o_arr);
-			$cli->used_cfgform = $this->cfgform_id;
-
-			if (!empty($lm))
-			{
-				if ($this->use_mode === "new")
+				$els = $this->inst->get_content_elements(array(
+					"obj_inst" => $this->obj_inst,
+					"new" => $this->new,
+				));
+				if (is_array($els))
 				{
-					$cli->set_form_target("_parent");
-				};
-			};
-
-			if ($this->changeform_target)
-			{
-					$cli->set_form_target($this->changeform_target);
-			}
-
-			if (!empty($o_arr["no_form"]) or $this->no_form)
-			{
-				$cli->set_opt("no_form",1);
-			}
-
-			$use_layout = isset($this->classinfo["layout"]) ? $this->classinfo["layout"] : "";
-			// XXX: cfgform seemingly overwrites classinfo
-			if ($use_layout === "boxed")
-			{
-				$cli->set_form_layout($use_layout);
-				if (is_callable(array($this->inst,"get_content_elements")))
-				{
-					$els = $this->inst->get_content_elements(array(
-						"obj_inst" => $this->obj_inst,
-						"new" => $this->new,
-					));
-					if (is_array($els))
+					foreach($els as $location => $_content)
 					{
-						foreach($els as $location => $_content)
-						{
-							$cli->add_content_element($location,$_content);
-						}
+						$cli->add_content_element($location,$_content);
 					}
 				}
 			}
@@ -792,14 +751,6 @@ class class_base extends aw_template implements orb_public_interface
 			}
 
 			$this->layoutinfo = $tmp;
-		}
-
-		// cb_parts is again used by fixed_toolbar mode
-		if (!empty($args["cb_part"]))
-		{
-			// tabs and YAH are in the upper frame, so we don't show them below
-			$this->set_classinfo(array("name" => "hide_tabs","value" => 1));
-			$this->set_classinfo(array("name" => "no_yah","value" => 1));
 		}
 
 		// parse the properties - resolve generated properties and
@@ -1376,6 +1327,7 @@ class class_base extends aw_template implements orb_public_interface
 		$extraids = isset($args["extraids"]) ? $args["extraids"] : null;
 		$action = isset($args["action"]) ? $args["action"] : null;
 		$all_trans_status = isset($args["all_trans_status"]) ? $args["all_trans_status"] : null;
+		$retval_is_obj_id = (isset($request["return"]) and $request["return"] === "id");
 
 		// I need to know the id of the configuration form, so that I
 		// can load it. Reason being, the properties can be grouped
@@ -1506,7 +1458,7 @@ class class_base extends aw_template implements orb_public_interface
 			if (isset($request["cfgform"]) and $this->can("view", $request["cfgform"]))
 			{
 				$cfgform_o = obj($request["cfgform"]);
-				if (!is_admin() and $cfgform_o->trans_get_val("cfgview_ru" . ($this->new ? "" : "_change")) != "")
+				if (!is_admin() and $cfgform_o->trans_get_val("cfgview_ru" . ($this->new ? "" : "_change")))
 				{
 					$retval = $cfgform_o->trans_get_val("cfgview_ru" . ($this->new ? "" : "_change"));
 					if($cfgform_o->prop("cfgview_ru_id_param") != "")
@@ -1514,11 +1466,11 @@ class class_base extends aw_template implements orb_public_interface
 						$retval = aw_url_change_var($cfgform_o->prop("cfgview_ru_id_param"), $this->obj_inst->id(), $retval);
 					}
 				}
+
 				if(!is_admin() && is_oid($cfgform_o->prop("cfgview_ru_cntrl")) && $this->can("view", $cfgform_o->prop("cfgview_ru_cntrl")))
 				{
-					$nothing = NULL;
 					$i = get_instance(CL_CFGCONTROLLER);
-					$retval = $i->check_property($cfgform_o->prop("cfgview_ru_cntrl"), $this->id, $nothing, $request, $retval, obj($this->id));
+					$retval = $i->check_property($cfgform_o->prop("cfgview_ru_cntrl"), $this->id, null, $request, $retval, obj($this->id));
 				}
 
 				// call mod retval controller(s) from cfgform object if defined
@@ -1556,7 +1508,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		if (empty($retval))
 		{
-			if (isset($this->id_only))
+			if (isset($this->id_only) or $retval_is_obj_id)
 			{
 				$retval = $this->id;
 			}
@@ -1568,7 +1520,8 @@ class class_base extends aw_template implements orb_public_interface
 					$args["section"] = $request["section"];
 					//$args["_alias"] = get_class($this);
 					$use_orb = false;
-				};
+				}
+
 				if (!empty($request["XUL"]))
 				{
 					$args["XUL"] = 1;
@@ -1598,11 +1551,6 @@ class class_base extends aw_template implements orb_public_interface
 						"save_autoreturn" => NULL
 					), false, $retval);
 				}
-
-				if (isset($request["return"]) and $request["return"] === "id")
-				{
-					$retval = $this->id;
-				}
 			}
 		}
 
@@ -1612,7 +1560,7 @@ class class_base extends aw_template implements orb_public_interface
 		}
 
 		// add translation subgroup lang id
-		if (!empty($this->inst->translation_lang_id))
+		if (!empty($this->inst->translation_lang_id) and !$retval_is_obj_id)
 		{
 			$retval = aw_url_change_var($this->translation_lang_var_name, $this->inst->translation_lang_id, $retval);
 		}
@@ -1628,7 +1576,7 @@ class class_base extends aw_template implements orb_public_interface
 			$o->save();
 		}
 
-		if (!empty($request["save_autoreturn"]))
+		if (!empty($request["save_autoreturn"]) and !$retval_is_obj_id)
 		{
 			if (!empty($request["return_url"]))
 			{
@@ -2791,8 +2739,8 @@ class class_base extends aw_template implements orb_public_interface
 				"disp_relmgr",
 				array(
 					"group" => "relationmgr",
-					"id" => $this->obj_inst->brother_of(),
-					"no_op" => 1
+					"in_popup" => "1",
+					"id" => $this->obj_inst->brother_of()
 				),
 				"relationmgr",
 				false,
@@ -3085,7 +3033,6 @@ class class_base extends aw_template implements orb_public_interface
 		//
 
 		$resprops = array();
-
 		foreach($properties as $key => $val)
 		{
 			if (isset($val["callback"]) && method_exists($this->inst,$val["callback"]))
@@ -3234,8 +3181,7 @@ class class_base extends aw_template implements orb_public_interface
 					$resprops[$rkey] = $rprop;
 					$resprops[$rkey]["capt_ord"] = $val["capt_ord"];
 					$resprops[$rkey]["wf_capt_ord"] = $val["wf_capt_ord"];
-				};
-
+				}
 			}
 			else
 			{
@@ -3313,14 +3259,7 @@ class class_base extends aw_template implements orb_public_interface
 				continue;
 			}
 
-			if ($val["type"] === "toolbar")
-			{
-				if ($this->layout_mode === "fixed_toolbar")
-				{
-					$val["vcl_inst"]->set_opt("button_target","contentarea");
-				}
-			}
-			elseif ($val["type"] === "relmanager" && (!isset($val["vcl_inst"]) or !is_object($val["vcl_inst"])))
+			if ($val["type"] === "relmanager" && (!isset($val["vcl_inst"]) or !is_object($val["vcl_inst"])))
 			{
 				$val["vcl_inst"] = new relmanager();
 			}
@@ -3368,7 +3307,7 @@ class class_base extends aw_template implements orb_public_interface
 			if ($val["type"] === "select")
 			{
 				//$val["options"] = $this->make_keys($val["options"]);
-			};
+			}
 
 			if ( isset($val["editonly"]) && empty($this->id))
 			{
@@ -3546,53 +3485,6 @@ class class_base extends aw_template implements orb_public_interface
 
 				if ($val["type"] === "toolbar")
 				{
-					if ($this->layout_mode === "fixed_toolbar")
-					{
-						//$this->groupinfo = $this->groupinfo();
-						$no_rte = automatweb::$request->arg("no_rte");
-						foreach($this->groupinfo as $grp_id => $grp_data)
-						{
-							// disable all other buttons besides the general when
-							// adding a new object
-							if ($this->use_mode === "new" && $grp_id !== $this->active_group)
-							{
-								continue;
-							};
-
-							$has_props = false;
-							// if group is empty, then don't show it.
-							foreach($this->_cfg_props as $pn => $pd)
-							{
-								if ($pd["group"] == $grp_id)
-								{
-									$has_props = true;
-								}
-							}
-
-
-							if (!$has_props)
-							{
-								continue;
-							}
-
-							$target = "contentarea";
-							$cb_part = 1;
-							if ($no_rte)
-							{
-								$target = "_self";
-								$cb_part = null;
-							};
-							$val["vcl_inst"]->add_button(array(
-								"name" => "grp_" . $grp_id,
-								"img" => empty($grp_data["icon"]) ? "" : $grp_data["icon"] . ".gif",
-								"tooltip" => $grp_data["caption"],
-								"target" => $target,
-								"url" => $this->mk_my_orb("change",array("id" => $this->id,"group" => $grp_id,"cb_part" => $cb_part)),
-							));
-
-						}
-					}
-
 					// if we are using rte, then add RTE buttons to the toolbar
 					//if (1 == $this->has_feature("has_rte"))
 					if (($has_rte || $this->no_rte == 1) && (!isset($val["vcl_inst"]->closed) || !$val["vcl_inst"]->closed) && (!isset($val["no_rte_button"]) || !$val["no_rte_button"]))
@@ -3610,11 +3502,11 @@ class class_base extends aw_template implements orb_public_interface
 							$rte = new rte();
 							$rte->get_rte_toolbar(array(
 								"toolbar" => $val["vcl_inst"],
-								"target" => $this->layout_mode === "fixed_toolbar" ? "contentarea" : "",
+								"target" => "",
 								"no_rte" => $this->no_rte,
 							));
 						}
-					};
+					}
 				}
 
 				// this deals with subitems .. what a sucky approach
@@ -4607,7 +4499,7 @@ class class_base extends aw_template implements orb_public_interface
 				$_to = obj(($args["rawdata"]["alias_to"] ? $args["rawdata"]["alias_to"] : $alias_to));
 
 				// XXX: reltype in the url is numeric, it probably should not be
-				$reltype = $args["rawdata"]["reltype"] ? $args["rawdata"]["reltype"] : $reltype;
+				$reltype = empty($args["rawdata"]["reltype"]) ? $reltype : $args["rawdata"]["reltype"];
 				$_to->connect(array(
 					"to" => $this->obj_inst->id(),
 					"type" => $reltype
@@ -4923,7 +4815,7 @@ class class_base extends aw_template implements orb_public_interface
 		// XXX: add some checks
 		$all_properties = $this->load_defaults(array(
 			"clid" => $arr["clid"],
-			"clfile" => $arr["clfile"],
+			"clfile" => empty($arr["clfile"]) ? "" : $arr["clfile"],
 			"filter" => $filter,
 		));
 
@@ -4936,7 +4828,7 @@ class class_base extends aw_template implements orb_public_interface
 		$cfg_props = $all_properties;
 		$tmp = array();
 
-		if ($this->can("view", $arr["cfgform_id"]) && !$force_mgr)
+		if (!empty($arr["cfgform_id"]) && $this->can("view", $arr["cfgform_id"]) && !$force_mgr)
 		{
 			$cfg_props = $this->load_from_storage(array(
 				"id" => $arr["cfgform_id"],
@@ -5296,15 +5188,6 @@ class class_base extends aw_template implements orb_public_interface
 			if (!empty($propdata["richtext"]))
 			{
 				$this->features["has_rte"] = true;
-			};
-
-			// return only toolbar, if this is a config form with fixed toolbar
-			if (empty($arr["ignore_layout"]) && !empty($this->classinfo["fixed_toolbar"]) && empty($arr["cb_part"]))
-			{
-				if ($propdata["type"] !== "toolbar")
-				{
-					continue;
-				}
 			}
 
 			// shouldn't I do some kind of overriding?
@@ -5366,8 +5249,8 @@ class class_base extends aw_template implements orb_public_interface
 			if (in_array($val["name"],$name_filter))
 			{
 				$rv[$key] = $val;
-			};
-		};
+			}
+		}
 
 		return $rv;
 
@@ -5388,7 +5271,6 @@ class class_base extends aw_template implements orb_public_interface
 		}
 
 		$cfg_flags = array(
-			"classinfo_fixed_toolbar" => "fixed_toolbar",
 			"classinfo_allow_rte" => "allow_rte",
 			"classinfo_disable_relationmgr" => "disable_relationmgr",
 		);
@@ -5478,16 +5360,15 @@ class class_base extends aw_template implements orb_public_interface
 	}
 
 	// right now only the document class supports this
-	// added $str parameter, cause image_convert.aw overrides this function with that parameter and gives [STRICT] level error because of that --dragut@
-	function load_from_file($str)
+	function load_from_file()
 	{
 		$cfgu = new cfgutils();
-		$def = $this->get_file(array("file" => (aw_ini_get("basedir") . "/xml/documents/def_cfgform.xml")));
+		$def = $this->get_file(array("file" => (aw_ini_get("basedir") . "xml/documents/def_cfgform.xml")));
 		$rv = $cfgu->parse_cfgform(array("xml_definition" => $def));
 		if (!is_array($this->classinfo))
 		{
 			$this->classinfo = array();
-		};
+		}
 		$tmp = $cfgu->get_classinfo();
 		$this->classinfo = array_merge($tmp,$this->classinfo);
 		return $rv;
