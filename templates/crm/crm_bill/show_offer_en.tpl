@@ -4,7 +4,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-4">
-	<title>Invoice nr {VAR:bill_no}</title>
+	<title>Proposal nr {VAR:bill_no}</title>
 
 	<style type="text/css">
 		body { font-size: 12px; font-family: Arial; margin: 2em 0 2em 0; text-align: center; }
@@ -76,7 +76,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" class="heading">
-			<h1>Invoice nr {VAR:bill_no}</h1>
+			<h1>Proposal nr {VAR:bill_no}</h1>
 		</td>
 	</tr>
 	<tr>
@@ -103,11 +103,11 @@
 		<td class="info">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td class="caption">Invoice nr:</td>
+					<td class="caption">Proposal nr:</td>
 					<td class="content">{VAR:bill_no}</td>
 				</tr>
 				<tr>
-					<td class="caption">Invoice date:</td>
+					<td class="caption">Proposal date:</td>
 					<td class="content">{DATE:bill_date|d.m.Y}</td>
 				</tr>
 				<tr>

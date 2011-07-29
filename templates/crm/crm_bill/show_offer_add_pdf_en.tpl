@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Invoice nr {VAR:bill_no} Report</title>
+	<title>Proposal nr {VAR:bill_no} Report</title>
 	<style>
 	body { font-size: 9; margin: 2em 2em 2em 4em; }
 	table { width: 100%; border: 1px solid white; border-collapse: collapse; }
@@ -40,7 +40,7 @@ if(isset($pdf))
 	/* $text = "{PAGE_NUM}/{PAGE_COUNT}"; */
 	$width = Font_Metrics::get_text_width("1/2", $font, $size);
 	$x = $w - $width;
-	$pdf->page_text($x/10, $y, "Invoice nr {VAR:bill_no} Report", $font, $size, $color);
+	$pdf->page_text($x/10, $y, "Proposal nr {VAR:bill_no} Report", $font, $size, $color);
 	$pdf->page_text(($x-30), $y, $text, $font, $size, $color);
 }
 </script>
@@ -69,7 +69,7 @@ if(isset($pdf))
 </tr>
 <tr>
 	<td colspan="3">
-		<h1>Invoice nr {VAR:bill_no} Report</h1>
+		<h1>Proposal nr {VAR:bill_no} Report</h1>
 	</td>
 </tr>
 <!-- SUB: HAS_COMMENT -->
