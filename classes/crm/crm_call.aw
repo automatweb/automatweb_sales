@@ -56,7 +56,7 @@
 			@property new_call_date type=datepicker table=objects field=meta method=serialize parent=top_2way_left
 			@caption Uue k&otilde;ne aeg
 
-			@property preferred_language type=objpicker clid=CL_CRM_LANGUAGE table=objects field=meta mode=select method=serialize parent=top_2way_left
+			@property preferred_language type=objpicker clid=CL_CRM_LANGUAGE table=objects field=meta method=serialize parent=top_2way_left
 			@caption Soovitav suhtluskeel
 
 			@property add_clauses type=chooser store=no parent=top_2way_left multiple=1
@@ -95,7 +95,7 @@
 		@layout center_bit_right_bottom type=vbox parent=center_bit_right closeable=1 area_caption=Manused no_padding=1
 
 @layout content_bit type=vbox closeable=1 area_caption="Sisu"
-	@property content type=textarea cols=180 rows=30 field=description parent=content_bit no_caption=1 width=100%
+	@property content type=textarea cols=100 rows=10 resize_height=-1 field=description parent=content_bit no_caption=1 width=100%
 
 @layout impl_bit type=vbox closeable=1 area_caption="Osalejad"
 	@property impl_tb type=toolbar no_caption=1 store=no parent=impl_bit
@@ -498,7 +498,7 @@ class crm_call extends task
 		return $r;
 	}
 
-	function get_property($arr)
+	function get_property(&$arr)
 	{
 		$data = &$arr["prop"];
 		$retval = PROP_OK;
@@ -1182,8 +1182,8 @@ EOS;
 				"class_id" => array(CL_CRM_CALL, CL_CRM_PRESENTATION, CL_TASK, CL_CRM_MEETING),//!!! task classes. teha korralikult
 				"hr_schedule_job" => $e->processed_jobs
 			));
-			$unfinished_task_list = array();
 
+			$unfinished_task_list = array();
 			foreach ($list->arr() as $task)
 			{
 				$task_link = html::href(array(
@@ -1193,6 +1193,7 @@ EOS;
 				$unfinished_task_list[] = "'{$task->name()}' (id: {$task_link})";
 			}
 			$unfinished_task_list = implode(", ", $unfinished_task_list);
+
 			$this->show_error_text(sprintf(t("Teie kasutajal on pooleli tegevus(ed) %s. Uut k&otilde;net ei saa alustada."), $unfinished_task_list));
 		}
 
@@ -1203,6 +1204,7 @@ EOS;
 	/**
       @attrib name=end all_args=1
       @param id required type=int acl=view
+      // @param id required type=int acl=view
 	**/
 	function end($arr)
 	{
@@ -1277,7 +1279,10 @@ EOS;
 						// jump to presentation
 						$this->show_msg_text(t("Sisestage k&otilde;ne tulemusena loodud uue esitluse andmed"));
 						$result_task = obj($this_o->prop("result_task"), array(), CL_CRM_PRESENTATION);
-						$r = html::get_change_url($result_task->id(), array("return_url" => $arr["post_ru"]));
+						$r = html::get_change_url($result_task->id(), array(
+							"return_url" => $arr["post_ru"],
+							crm_presentation::REQVAR_SHOW_SCHEDULING_IFACE => "1"
+						));
 					}
 					catch (Exception $e)
 					{
