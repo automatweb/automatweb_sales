@@ -1,8 +1,6 @@
 <?php
 // mssql.aw - MSSQL draiver
-/*
-@classinfo  maintainer=kristo
-*/
+
 class mssql
 {
 	var $dbh; #database handle
@@ -107,7 +105,7 @@ class mssql
 		$this->log_query($qtext);
 		if (!$this->qID )
 		{
-			echo dbg::short_backtrace();
+			echo dbg::sbt();
 			echo mssql_get_last_message()."<br>";
 			echo "sql was ".$qtext." <br>";
 			if (!$errors)
@@ -274,7 +272,7 @@ class mssql
 
 	function db_list_tables()
 	{
-		$this->db_query("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type 
+		$this->db_query("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type
  FROM INFORMATION_SCHEMA.TABLES");
 	}
 
@@ -698,5 +696,4 @@ die(dbg::dump($ret));
 		}
 		return DB_TABLE_TYPE_TABLE;
 	}
-};
-?>
+}
