@@ -66,7 +66,7 @@ class _int_obj_ds_memcache extends _int_obj_ds_decorator
 		$oid = $arr["objdata"]["oid"];
 		if (
 			!self::$memcache->get("storage_object_data") or
-			(!empty($GLOBALS["object2version"][$oid]) && $GLOBALS["object2version"][$oid] != "_act") or
+			(!empty($GLOBALS["object2version"][$oid]) && $GLOBALS["object2version"][$oid] !== "_act") or
 			!empty($GLOBALS["__obj_sys_opts"]["no_cache"])
 		)
 		{

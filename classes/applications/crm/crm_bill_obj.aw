@@ -1931,7 +1931,7 @@ class crm_bill_obj extends _int_object
 				}
 			}
 
-			// add bill creator
+			// add invoice creator
 			if ($this->prop("assembler"))
 			{
 				$person = obj($this->prop("assembler"));
@@ -1979,25 +1979,30 @@ class crm_bill_obj extends _int_object
 				$recipients[$this->prop("bill_mail_to")] = array(0, "");
 			}
 
-			$cro = new object($this->prop("customer_relation"));
-
-			if ($cro->is_saved())
+			try
 			{
-				$bill_person_ol = new object_list($cro->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
-				if($bill_person_ol->count())
+				$cro = new object($this->prop("customer_relation"));
+				if ($cro->is_saved())
 				{
-					$person = $bill_person_ol->begin();
-
-					do
+					$bill_person_ol = new object_list($cro->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
+					if($bill_person_ol->count())
 					{
-						$email = $person->get_mail($customer_oid);
-						if (is_email($email))
+						$person = $bill_person_ol->begin();
+
+						do
 						{
-							$recipients[$email]  = array($person->id(), $person->name());
+							$email = $person->get_mail($customer_oid);
+							if (is_email($email))
+							{
+								$recipients[$email]  = array($person->id(), $person->name());
+							}
 						}
+						while ($person = $bill_person_ol->next());
 					}
-					while ($person = $bill_person_ol->next());
 				}
+			}
+			catch (awex_obj $e)
+			{
 			}
 		}
 

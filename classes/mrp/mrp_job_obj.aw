@@ -468,8 +468,6 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_MATERIAL_EXPENSE,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"job" => $this->id()
 		));
 		$rv = array();
@@ -665,8 +663,6 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		// set amount
 		$ol = new object_list(array(
 			"class_id" => CL_MATERIAL_EXPENSE,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"job" => $this->id(),
 			"product" => $product->id()
 		));

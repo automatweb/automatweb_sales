@@ -3,7 +3,7 @@
 // this class just defines the protocol for obj data sources
 // all of them should derive from this one. if php5 would
 // be here, this would be an abstract class
-
+//TODO: see on interface. teha selleks
 class _int_obj_ds_base extends acl_base
 {
 	function init($args = array())

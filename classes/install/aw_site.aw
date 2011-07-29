@@ -1902,7 +1902,7 @@ $dbi->db_connect(array(
 		// layout
 		$l = obj($vars["tbl_o"]);
 
-		$ge = get_instance("vcl/grid_editor");
+		$ge = new grid_editor();
 		$ge->_init_table($l->meta('grid'));
 		$ge->set_num_rows(3);
 		$ge->set_num_cols(3);

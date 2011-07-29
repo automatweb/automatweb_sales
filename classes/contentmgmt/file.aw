@@ -142,6 +142,8 @@
 
 class file extends class_base
 {
+	var $file_type = null;//TODO: scope ja default?
+
 	//TODO: tmp public, since no spec. if used elsewhere
 	public static $trans_props = array(
 		"comment"
@@ -1510,7 +1512,7 @@ class file extends class_base
 
 
 	/** creates/updates a file object from the arguments
-		@attrib api=1
+		@attrib api=1 params=name
 		@param id optional type=int
 		@param parent optional type=int
 		@param content
@@ -1534,7 +1536,7 @@ class file extends class_base
 			error::raise(array(
 				"msg" => t("Need either id or parent"),
 			));
-		};
+		}
 		$data["return"] = "id";
 		$data["file"] = array(
 			"content" => $arr["content"],

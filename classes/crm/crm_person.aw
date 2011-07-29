@@ -976,10 +976,13 @@ class crm_person extends class_base
 
 	function callback_on_load($arr)
 	{
-		get_instance("crm_person_obj")->handle_show_cnt(array(
-			"action" => $arr["request"]["action"],
-			"id" => $arr["request"]["id"],
-		));
+		if (!empty($arr["request"]["id"]))
+		{
+			crm_person_obj::handle_show_cnt(array(
+				"action" => $arr["request"]["action"],
+				"id" => $arr["request"]["id"]
+			));
+		}
 	}
 
 	function set_property($arr)

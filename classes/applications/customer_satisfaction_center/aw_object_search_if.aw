@@ -286,8 +286,6 @@ class aw_object_search_if extends class_base
 			case "s_clid":
 				$odl = new object_data_list(
 					array(
-						"lang_id" => array(),
-						"site_id" => array()
 					),
 					array(
 						"" => array(new obj_sql_func(OBJ_SQL_UNIQUE, "clid", "class_id"))
@@ -302,10 +300,11 @@ class aw_object_search_if extends class_base
 						$cls[$od["clid"]] = aw_html_entity_decode($cldata[$od["clid"]]["name"]);
 					}
 				}
+				//TODO: lisada atc visible filter
 				natsort($cls);
 				$prop["options"] = $cls;
 				if ($prop["name"] == "s_clid1")
-				{
+				{//XXX: ?
 					$prop["onchange"] = "select_reltypes(this);";
 				}
 				break;

@@ -410,6 +410,7 @@ class crm_bill extends class_base
 	function crm_bill()
 	{
 		$this->init(array(
+			// "tpldir" => "applications/crm/crm_bill",
 			"tpldir" => "crm/crm_bill",
 			"clid" => crm_bill_obj::CLID
 		));
@@ -1699,17 +1700,29 @@ class crm_bill extends class_base
 		$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
 		if($b->prop("customer"))
 		{
-			$text = t("Muuda kliendi andmeid");
-			$edit_button = " " . html::href(array(
-				"url" => html::get_change_url($b->prop("customer"), array("return_url" => get_ru())),
-				"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"), "alt" => $text, "title" => $text))
-			));
+			try
+			{
+				$text = t("Muuda kliendi andmeid");
+				$edit_button = " " . html::href(array(
+					"url" => html::get_change_url($b->prop("customer"), array("return_url" => get_ru())),
+					"caption" => html::img(array("url" => icons::get_std_icon_url("pencil"), "alt" => $text, "title" => $text))
+				));
+			}
+			catch (Exception $e)
+			{
+			}
 
-			$text = t("Muuda kliendisuhet");
-			$edit_cro_button = " " . html::href(array(
-				"url" => html::get_change_url($b->prop("customer_relation"), array("return_url" => get_ru())),
-				"caption" => html::img(array("url" => icons::get_std_icon_url("link_edit"), "alt" => $text, "title" => $text))
-			));
+			try
+			{
+				$text = t("Muuda kliendisuhet");
+				$edit_cro_button = " " . html::href(array(
+					"url" => html::get_change_url($b->prop("customer_relation"), array("return_url" => get_ru())),
+					"caption" => html::img(array("url" => icons::get_std_icon_url("link_edit"), "alt" => $text, "title" => $text))
+				));
+			}
+			catch (Exception $e)
+			{
+			}
 
 			$text = t("Lae kliendi andmed uuesti");
 			$reload_button = " " . html::href(array(
@@ -1912,6 +1925,7 @@ class crm_bill extends class_base
 			"caption" => t("Nimetus"),
 			"valign" => "top",
 			"align" => "left",
+			"width" => "450",
 			"chgbgcolor" => "color"
 		));
 
@@ -2765,7 +2779,7 @@ class crm_bill extends class_base
 					($row->ord() ? sprintf(t("# %s"), $row->ord()) . html::linebreak() : "").
 					($row->prop("date") ? $row->prop("date") . html::linebreak() : "").
 					($row->prop("comment") ? html::bold($row->prop("comment")) . html::linebreak() : "").
-					($row->prop("desc") ? wordwrap($row->prop("desc"), 100, html::linebreak(), true) . html::linebreak() : "").
+					($row->prop("desc") ? $row->prop("desc") . html::linebreak() : "").
 					($row->prop("name_group_comment") ? html::hr().html::italic(wordwrap($row->prop("name_group_comment"), 100, html::linebreak(), true)) : "").
 					"</div>";
 				break;
@@ -3338,6 +3352,28 @@ class crm_bill extends class_base
 		));
 	}
 
+	/**
+		@attrib api=1 params=name
+		@param id type=oid
+			Invoice object id
+		@param reminder type=bool default=FALSE
+			Whether to show as reminder invoice
+		@param handover type=bool default=FALSE
+		@param return type=bool default=FALSE
+			Output control -- return data or send to client
+		@param pdf type=bool default=FALSE
+			Show in pdf format
+		@param all_rows type=bool default=FALSE
+			Whether to combine rows with same name (FALSE) or show all (TRUE)
+		@returns void|string
+		@errors
+	**/
+	public function show_new($arr)
+	{
+		$this_o = obj($arr["id"], array(), crm_bill_obj::CLID);
+		$main_tpl = "invoice_main.tpl";
+		$this->read_template($main_tpl);
+	}
 
 	function show($arr)//kui igav hakkab, siis selle funktsiooni peaks nullist kirjutama
 	{
@@ -3476,7 +3512,7 @@ class crm_bill extends class_base
 			"orderer_contact" => $orderer_contact_person_name,
 			"orderer_contact_profession" => $orderer_contact_person_profession,
 			"overdue" => $this->bill->get_overdue_charge(),
-			"bill_text" => nl2br($this->bill->get_bill_text())
+			"bill_text" => $this->bill->get_bill_text()
 		));
 
 		if($ord_country)
@@ -3635,7 +3671,7 @@ class crm_bill extends class_base
 					$desc = $grp_row["name"];
 				}
 
-				//kui vaid hel real on nimi... et siis arve eeltvaates moodustuks nendest 1 rida
+				//kui vaid yhel real on nimi... et siis arve eeltvaates moodustuks nendest 1 rida
 //				if(empty($arr["all_rows"]) && $has_nameless_rows)
 //				{
 //					if(!strlen($grp_row["comment"])>0 && $primary_row_is_set) break;
@@ -3999,7 +4035,7 @@ class crm_bill extends class_base
 			$grouped_rows[$row["comment"]][] = $row;
 			if ($row["name_group_comment"])
 			{
-				$grouped_rows_comments[$row["comment"]][] = html::paragraph(array("content" => nl2br($row["name_group_comment"])));
+				$grouped_rows_comments[$row["comment"]][] = html::paragraph(array("content" => $row["name_group_comment"]));
 			}
 		}
 
@@ -4077,7 +4113,7 @@ class crm_bill extends class_base
 			"total" => number_format($this->sum, 2,".", " "),
 			"total_text" => aw_locale::get_lc_money_text($this->sum, $cur, $lc),
 			"tot_amt" => $this->stats->hours_format($this->tot_amt),
-			"comment" => nl2br($this->bill->prop("bill_appendix_comment")),
+			"comment" => $this->bill->prop("bill_appendix_comment"),
 			"page_no" => $page_no
 		));
 
@@ -4176,7 +4212,7 @@ class crm_bill extends class_base
 					"amt" => $this->stats->hours_format($row["amt"]),
 					"price" => number_format((double) $row["price"], 2,".", " "),
 					"sum" => number_format($cur_sum, 2,"." , " "),
-					"desc" => nl2br($row["name"]),
+					"desc" => $row["name"],
 					"date" => isset($row["date"]) ? $row["date"] : "",
 					"row_orderer" => isset($row["orderer"]) ? $row["orderer"] : "",
 					"comment" => isset($row["comment"]) ? $row["comment"] : "",

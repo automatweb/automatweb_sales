@@ -95,13 +95,14 @@ class planner_model extends core
 				if (is_oid($evt_folder))
 				{
 					$folders[$evt_folder] = $_tmp->name();
-				};
-			};
+				}
+			}
+
 			if ($clid == CL_PROJECT)
 			{
 				$folders[$_tmp->id()] = $_tmp->name();
-			};
-		};
+			}
+		}
 		return isset($arr["names"]) ? $folders : array_keys($folders);
 	}
 
@@ -130,36 +131,39 @@ class planner_model extends core
 				"class_id" => CL_CRM_MEETING,
 				"oid" => array_keys($events)
 			));
-			$meetings = $ol->ids();
-			$c = new connection();
-			$conns = $c->find(array(
-				"from.class_id" => CL_CRM_PERSON,
-				"to" => $meetings,
-				"type" => "RELTYPE_PERSON_MEETING"
-			));
-			$participants = array();
-			foreach($conns as $con)
+			if ($ol->count())
 			{
-				$participants[$con["to"]][$con["from"]] = array(
-					"id" => $con["from"],
-					"name" => $con["from.name"],
-					"class_id" => $con["from.class_id"],
-				);
-			}
+				$meetings = $ol->ids();
+				$c = new connection();
+				$conns = $c->find(array(
+					"from.class_id" => CL_CRM_PERSON,
+					"to" => $meetings,
+					"type" => "RELTYPE_PERSON_MEETING"
+				));
+				$participants = array();
+				foreach($conns as $con)
+				{
+					$participants[$con["to"]][$con["from"]] = array(
+						"id" => $con["from"],
+						"name" => $con["from.name"],
+						"class_id" => $con["from.class_id"],
+					);
+				}
 
-			$conns = $c->find(array(
-				"from.class_id" => CL_CRM_MEETING,
-				"from" => $meetings,
-				"type" => "RELTYPE_CUSTOMER"
-			));
-			$customers = array();
-			foreach($conns as $con)
-			{
-				$customers[$con["from"]][$con["to"]] = array(
-					"id" => $con["to"],
-					"name" => $con["to.name"],
-					"class_id" => $con["to.class_id"],
-				);
+				$conns = $c->find(array(
+					"from.class_id" => CL_CRM_MEETING,
+					"from" => $meetings,
+					"type" => "RELTYPE_CUSTOMER"
+				));
+				$customers = array();
+				foreach($conns as $con)
+				{
+					$customers[$con["from"]][$con["to"]] = array(
+						"id" => $con["to"],
+						"name" => $con["to.name"],
+						"class_id" => $con["to.class_id"],
+					);
+				}
 			}
 		}
 

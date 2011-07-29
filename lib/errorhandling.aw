@@ -207,6 +207,34 @@ function aw_dbg_error_handler($errno, $errstr, $errfile, $errline, $context)
 	return true;
 }
 
+function aw_console_error_handler($errno, $errstr, $errfile, $errline, $context)
+{
+	if(aw_ignore_error($errno, $errstr, $errfile, $errline, $context))
+	{
+		return true;
+	}
+
+	$class = aw_get_error_exception_class($errno);
+	if (aw_is_non_fatal_error($errno))
+	{ // display non-fatal error information
+		$err = strtoupper(substr($class, 9));
+		dc_dump("[{$err}] <b>{$errstr}</b> in {$errfile} on line {$errline}<br><br>\n\n");
+		if (false !== strpos($errstr, "EXPLAIN"))
+		{
+			echo dbg::process_backtrace(debug_backtrace(), -1, true);
+		}
+	}
+	else
+	{ // generate and throw exception when fatal error occurs
+		$e = new $class($errstr, $errno);
+		$e->errfile = $errfile;
+		$e->errline = $errline;
+		$e->context = $context;
+		throw $e;
+	}
+	return true;
+}
+
 function aw_reasonable_error_handler($errno, $errstr, $errfile, $errline, $context)
 {
 	if(aw_ignore_error($errno, $errstr, $errfile, $errline, $context))

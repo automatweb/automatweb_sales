@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/persona_import/persona_import.aw,v 1.48 2008/09/16 07:25:44 instrumental Exp $
-// persona_import.aw - Persona import 
+
+// persona_import.aw - Persona import
 /*
 
-@classinfo syslog_type=ST_PERSONA_IMPORT relationmgr=yes maintainer=knummert
+@classinfo syslog_type=ST_PERSONA_IMPORT relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -66,136 +66,136 @@
 
 	@groupinfo tags_workers caption="T&ouml;&ouml;tajad" parent=tags
 	@default group=tags_workers
-	
+
 		@property tootajad_tag type=textbox
 		@caption T&ouml;&ouml;tajad
-	
+
 		@property tootaja_tag type=textbox
 		@caption T&ouml;&ouml;taja
-	
+
 		@property tootaja_id_tag type=textbox
 		@caption T&ouml;&ouml;taja ID
-	
+
 		@property eesnimi_tag type=textbox
 		@caption Eesnimi
-	
+
 		@property perekonnanimi_tag type=textbox
 		@caption Perekonnanimi
-	
+
 		@property synniaeg_tag type=textbox
 		@caption S&uuml;nniaeg
-	
+
 		@property haridustase_tag type=textbox
 		@caption Haridustase
-	
+
 		@property telefon_tag type=textbox
 		@caption Telefon
-	
+
 		@property mobiiltelefon_tag type=textbox
 		@caption Mobiiltelefon
-	
+
 		@property lyhinumber_tag type=textbox
 		@caption L&uuml;hinumber
-	
+
 		@property e_post_tag type=textbox
 		@caption E-posti aadress
-	
+
 		@property ametikoht_nimetus_tag type=textbox
 		@caption Ametinimetus
-	
+
 		@property ametikirjeldus_viit_tag type=textbox
 		@caption Ametijuhendi link
-	
+
 		@property ruum_tag type=textbox
 		@caption Ruum
-	
+
 		@property asutus_tag type=textbox
 		@caption Asutus
-	
+
 		@property allasutus_tag type=textbox
 		@caption Allasutus
-	
+
 		@property yksus_tag type=textbox
 		@caption &Uuml;ksus
-	
+
 		@property yksus_id_tag type=textbox
 		@caption &Uuml;ksuse ID
-	
+
 		@property prioriteet_tag type=textbox
 		@caption Prioriteet
-	
+
 		@property on_peatumine_tag type=textbox
 		@caption T&ouml;&ouml;suhe on peatatud
-	
+
 		@property peatumine_pohjus_tag type=textbox
 		@caption T&ouml;&ouml;suhte peatamise p&otilde;hjus
-	
+
 		@property asutusse_tulek_tag type=textbox
 		@caption Asutusse tuleku aeg
-	
+
 		@property on_asendaja_tag type=textbox
 		@caption On asendaja
-	
+
 		@property asendamine_tookoht_tag type=textbox
 		@caption Asendatav t&ouml;&ouml;koht
 
 	@groupinfo tags_educations caption="Haridusk&auml;igud" parent=tags
 	@default group=tags_educations
-	
+
 		@property hariduskaigud_tag type=textbox
 		@caption Haridusk&auml;igud
-	
+
 		@property hariduskaik_tag type=textbox
 		@caption Haridusk&auml;ik
-	
+
 		@property edu_tootaja_id_tag type=textbox
 		@caption T&ouml;&ouml;taja ID
-	
+
 		@property oppeasutus_tag type=textbox
 		@caption &Otilde;ppeasutus
-	
+
 		@property on_opilane_tag type=textbox
 		@caption On &otilde;pilane
-	
+
 		@property eriala_tag type=textbox
 		@caption Eriala
-	
+
 		@property on_pohieriala_tag type=textbox
 		@caption On p&otilde;hieriala
-	
+
 		@property diplom_number_tag type=textbox
 		@caption Diplomi number
-	
+
 		@property akadeemiline_kraad_tag type=textbox
 		@caption Akadeemiline kraad
-	
+
 		@property keel_tag type=textbox
 		@caption Omandamise keel
-	
+
 		@property diplom_kuupaev_tag type=textbox
 		@caption Diplomi kuup&auml;ev
 
 	@groupinfo tags_end_wr caption="T&ouml;&ouml;suhte peatumised" parent=tags
 	@default group=tags_end_wr
-	
+
 		@property toosuhte_peatumised_tag type=textbox
 		@caption T&ouml;&ouml;suhte peatumised
-	
+
 		@property toosuhte_peatumine_tag type=textbox
 		@caption T&ouml;&ouml;suhte peatumine
-	
+
 		@property ewr_tootaja_id_tag type=textbox
 		@caption Tootaja ID
-	
+
 		@property alguskuupaev_tag type=textbox
 		@caption Alguskuup&auml;ev
-	
+
 		@property loppkuupaev_tag type=textbox
 		@caption L&otilde;ppkuup&auml;ev
-	
+
 		@property peatumise_liik_tag type=textbox
 		@caption Peatumise liik
-	
+
 		@property asendaja_id_tag type=textbox
 		@caption Asendaja ID
 
@@ -296,7 +296,7 @@ class persona_import extends class_base
 
 			case "show_xml":
 				$prop["value"] = html::href(array(
-					"url" => $this->mk_my_orb("show_xml",array("id" => 
+					"url" => $this->mk_my_orb("show_xml",array("id" =>
 						$arr["obj_inst"]->id())),
 					"caption" => t("N&auml;ita XMLi"),
 				));
@@ -353,7 +353,7 @@ class persona_import extends class_base
 
 		}
 		return $retval;
-	}	
+	}
 	*/
 
 	function get_config($obj)
@@ -389,7 +389,7 @@ class persona_import extends class_base
 	}
 
 	/**
-		@attrib name=show_xml 
+		@attrib name=show_xml
 		@param id required type=int
 	**/
 	function show_xml($arr)
@@ -420,15 +420,15 @@ class persona_import extends class_base
 		*/
 		// aw_disable_acl();
 		$obj = new object($arr["id"]);
-		
+
 		$import_id = $obj->prop("xml_link");
 		if(!$this->can("view" , $import_id))
 		{
 			$config = $this->get_config($obj);
 		}
 
-		
-		
+
+
 		if (sizeof($config["ftp"]) == 0 && !$this->can("view" , $import_id))
 		{
 			die(t("You forgot to enter server data"));
@@ -512,7 +512,7 @@ class persona_import extends class_base
 		{
 			$meta_cat["puhkused"] = $meta1["Puhkuste liigid"];
 		};
-		
+
 		if (!$meta1["Peatumiste liigid"])
 		{
 			$m1 = new object();
@@ -552,7 +552,7 @@ class persona_import extends class_base
 		*/
 
 		print t("got data<br>");
-	
+
 		flush();
 
 		$p = xml_parser_create();
@@ -598,7 +598,7 @@ class persona_import extends class_base
 
 		// so a file is preferred
 
-		// status - check .. open the file, count data. if > 1 persons left, 
+		// status - check .. open the file, count data. if > 1 persons left,
 		// do the import
 
 		$stat_file = $this->stat_file;
@@ -635,7 +635,7 @@ class persona_import extends class_base
 					$w_open = false;
 				};
 			};
-			
+
 			if ($target && $w_open && "complete" == $val["type"])
 			{
 				// iconv seemed to have a problem with &otilde; character. Better safe than sorry.
@@ -667,7 +667,7 @@ class persona_import extends class_base
 				$ext_id = $worker[$tootaja_id_tag];
 				$persona_to_process[$ext_id] = 0;
 			};
-		
+
 			$this->put_file(array(
 				"file" => $stat_file,
 				"content" => aw_serialize($persona_to_process),
@@ -690,7 +690,7 @@ class persona_import extends class_base
 			"site_id" => array(),
 //			"lang_id" => array(),
 		));
-		
+
 		foreach($person_list->arr() as $person_obj)
 		{
 			/*
@@ -728,7 +728,7 @@ class persona_import extends class_base
 			if ($ext_id)
 			{
 				if(is_oid($person_match[$ext_id]) && $person_match[$ext_id] != $person_obj->id())
-				{					
+				{
 					// If we have multiple objects with the same external ID, we delete 'em. Only need one.
 					// We keep the object with the smaller ID.
 					if($person_match[$ext_id] > $person_obj->id())
@@ -777,11 +777,11 @@ class persona_import extends class_base
 		// use that information later to decide whether a new e-mail object
 		// needs to created or an existing one updated
 		$email_links = array();
-		foreach($email_connections as $email_connection) 
+		foreach($email_connections as $email_connection)
 		{
 			$email_links[$email_connection["from"]] = $email_connection["to"];
 		};
- 
+
 		print "creating phone list<br>";
 		flush();
 
@@ -839,7 +839,7 @@ class persona_import extends class_base
 			$simple_data[$key] = array_flip($olist->names());
 
 		};
-		
+
 		/*
 		arr($simple_data);
 		exit;
@@ -870,7 +870,7 @@ class persona_import extends class_base
 		}
 		*/
 
-		
+
 		print "creating substitute list<br>";
 		flush();
 
@@ -989,7 +989,7 @@ class persona_import extends class_base
 					echo "do not connect section ".$o2->name()." to company, because it already is on a deeper level <br>";
 					continue;
 				}*/
-		
+
 				print "connecting ";
 				//print $sections[$parent_section];
 				print $o1->name();
@@ -1005,7 +1005,7 @@ class persona_import extends class_base
 				//arr($o1->properties());
 				//arr($o2->properties());
 			};
-		};	
+		};
 
 		classload("core/util/timer");
 		$aw_timer = new aw_timer();
@@ -1058,10 +1058,10 @@ class persona_import extends class_base
 			}
 			else
 			{
-				$person_obj = new object($person_match[$ext_id]); 
+				$person_obj = new object($person_match[$ext_id]);
 				unset($person_match[$ext_id]);
 				print t("updating existing person object<br>");
-			};	
+			};
 
 			print "SA = " . $worker[$synniaeg_tag];
 //			$bd_parts = explode(".",$worker[$synniaeg_tag]);
@@ -1069,7 +1069,7 @@ class persona_import extends class_base
 //			$bday = mktime(0,0,0,$bd_parts[1],$bd_parts[0],$bd_parts[2]);
 			$bd_parts = unpack("a4year/a2mon/a2day",$worker[$synniaeg_tag]);
 			$bday = mktime(0,0,0,$bd_parts["mon"],$bd_parts["day"],$bd_parts["year"]);
-			
+
 			$wrds_parts = unpack("a4year/a2mon/a2day",$worker[$asutusse_tulek_tag]);
 			$work_relation_date_start = mktime(0, 0, 0, $wrds_parts["mon"], $wrds_parts["day"], $wrds_parts["year"]);
 
@@ -1108,7 +1108,7 @@ class persona_import extends class_base
 
 				// at this point person_obj already exists, so I need to check
 				// whether an e-mail address is connected
-	
+
 				if ($email_links[$person_obj->id()])
 				{
 					$ml = new object($email_links[$person_obj->id()]);
@@ -1123,15 +1123,15 @@ class persona_import extends class_base
 					$ml->set_parent($dir_default);
 					$ml->set_class_id(CL_ML_MEMBER);
 				};
-	
+
 				$ml->set_name($worker[$e_post_tag]);
 				$ml->set_prop("mail",$worker[$e_post_tag]);
 				aw_disable_acl();
 				$ml->save();
 				aw_restore_acl();
-	
+
 				$mid = $ml->id();
-							
+
 				$person_obj->connect(array(
 					"to" => $mid,
 					"reltype" => 11,
@@ -1147,11 +1147,11 @@ class persona_import extends class_base
 				{
 					continue;
 				};
-				
-				
+
+
 				$_name = $worker[$skey];
 				$_name = iconv("UTF-8", "ISO-8859-4",$_name);
-				
+
 				if ($simple_data[$skey][$_name])
 				{
 					$tmp_o = new object($simple_data[$skey][$_name]);
@@ -1195,16 +1195,16 @@ class persona_import extends class_base
 
 				//print "name = " . $tmp_o->name();
 			};
-		
+
 			// one person can have different types of phone numbers, each has it's own
 			// tag in the XML. phone_type (defined above) contains all possible types
-			// all existing phone numbers are stored in $phones as phone_number => obj_id 
+			// all existing phone numbers are stored in $phones as phone_number => obj_id
 			// pairs. Phone number is key for faster access
-		
+
 			// For each person cycle over all phone types, check whether the given number
 			// exists (in $phones) - if so, then connect person to the phone number object,
 			// if not, then create a new phone number object and connect.
-			
+
 			// it is not necessary to check whether the connection already exists,
 			// storage basically ignores the connect() if this is the case
 			$_pers_phones = array();
@@ -1237,10 +1237,10 @@ class persona_import extends class_base
 
 					$person_obj->connect(array(
 						"to" => $po->id(),
-						"reltype" => 13 // phone 
+						"reltype" => 13 // phone
 					));
-					
-					
+
+
 				};
 				$_pers_phones[$worker[$pkey]] = $worker[$pkey];
 			};
@@ -1343,7 +1343,7 @@ class persona_import extends class_base
 					}
 				}
 				if(!isset($profession_id))
-				{					
+				{
 					print "creating profession object ".$ametikoht_nimetus."<br>";
 					$rank = new object;
 					$rank->set_class_id(CL_CRM_PROFESSION);
@@ -1371,7 +1371,7 @@ class persona_import extends class_base
 
 					foreach($prevjob->connections_from(array("type" => "RELTYPE_ORG")) as $conn_to_org)
 					{
-						$org_obj = $conn_to_org->to();						
+						$org_obj = $conn_to_org->to();
 						if($org_obj->name() == $asutus)
 						{
 							$ok_count++;
@@ -1523,7 +1523,7 @@ class persona_import extends class_base
 					"reltype" => 28, //RELTYPE_SECTION,
 				));
 				print "connected section ".$worker[$allasutus_tag]." to company ".$worker[$asutus_tag]."<br>";
-				
+
 				/*
 				if($worker[$allasutus_tag] == iconv("UTF-8", "ISO-8859-4", $worker[$yksus_tag]))
 				{
@@ -1553,7 +1553,7 @@ class persona_import extends class_base
 					print "sect connect done<br>";
 				}
 				else
-				/**/	
+				/**/
 				if(is_oid($sections_byname[$worker[$yksus_tag]]))
 				{
 					print "connecting to section ".$worker[$yksus_tag]." (using name) - ".$sections_byname[$worker[$yksus_tag]]."<br>";
@@ -1566,7 +1566,7 @@ class persona_import extends class_base
 					print "sect connect done<br>";
 				}
 				else
-				{					
+				{
 					// create yksus
 					print "creating new section ".$worker[$yksus_tag]."<br>";
 					$yk = new object();
@@ -1624,7 +1624,7 @@ class persona_import extends class_base
 						$doomed_conn_to = $doomed_conn->to();
 						if($doomed_conn_to->id() == $ylem_yksus->id())
 						{
-							$doomed_conn->delete(true);						
+							$doomed_conn->delete(true);
 						}
 					}
 					$doomed_conns = $company_obj->connections_from(array(
@@ -1635,7 +1635,7 @@ class persona_import extends class_base
 						$doomed_conn_to = $doomed_conn->to();
 						if($doomed_conn_to->id() == $sections[$worker[$yksus_id_tag]] || $doomed_conn_to->id() == $sections_byname[$worker[$yksus_tag]])
 						{
-							$doomed_conn->delete(true);						
+							$doomed_conn->delete(true);
 						}
 					}
 					print "section ".$worker[$yksus_tag]." connected to parent section ".$worker[$allasutus_tag]."<br>";
@@ -1669,7 +1669,7 @@ class persona_import extends class_base
 			//arr($worker);
 			$persona_persons_done[$ext_id] = $ext_id;
 			// mul on vaja seda folderi id, mille alla t&ouml;&ouml;taja objekte teha
-	
+
 			// 1 means done
 			$persona_to_process[$ext_id] = 1;
 			$batchcounter++;
@@ -1690,12 +1690,12 @@ class persona_import extends class_base
 				{
 					print "Getting too close to time limit, restarting import from beginning<br>";
 					$request_uri = aw_ini_get("baseurl") . "/" . aw_global_get("REQUEST_URI");
-					
+
 					// This one doesn't seem to work.
 //					header("Location: " . $request_uri);
 //					exit;
-					
-					// Therefore using this instead					
+
+					// Therefore using this instead
 					print "<head><meta http-equiv=\"REFRESH\" content=\"1;url=".$request_uri."\"></head>";
 					exit;
 				};
@@ -1703,7 +1703,7 @@ class persona_import extends class_base
 			};
 
 
-			// ja siia siis .. kui on m&ouml;&ouml;das rohkem kui XX &uuml;hikut, siis die ja 
+			// ja siia siis .. kui on m&ouml;&ouml;das rohkem kui XX &uuml;hikut, siis die ja
 			// header("Location: self");
 
 		};
@@ -1725,9 +1725,9 @@ class persona_import extends class_base
 
 		if(!$this->can("view" , $import_id))
 		{
-			$this->import_images($arr);		
+			$this->import_images($arr);
 		}
-	
+
 		print "<h1>T&Ouml;&Ouml;TAJAD done</h1>";
 
 		print "teeme peatuste ja puhkuste objektid<br><br>";
@@ -1750,7 +1750,7 @@ class persona_import extends class_base
 
 		// ei, aga p&otilde;him&otilde;tteliselt, kui t&ouml;&ouml;tajal juba on puhkus v&otilde;i peatumine, siis teist me ei tee
 
-		// aga n&uuml;&uuml;d .. ma tahan person klassile lisada meetodid 
+		// aga n&uuml;&uuml;d .. ma tahan person klassile lisada meetodid
 		// add_or_update_vacation
 		// add_or_update_contract_stop
 
@@ -1769,7 +1769,7 @@ class persona_import extends class_base
 			$t = new object($persons[$peatumine[$ewr_tootaja_id_tag]]);
 
 			print "<br><b>Person: ".$t->name()."</b><br>";
-			
+
 			$stop_done = false;
 			foreach($t->connections_from(array("type" => "RELTYPE_PREVIOUS_JOB")) as $conn_t)
 			{
@@ -1842,7 +1842,7 @@ class persona_import extends class_base
 				$stop->set_prop("start1",$a);
 				if($b > 0)
 				{
-					$stop->set_prop("end",$b);	
+					$stop->set_prop("end",$b);
 				}
 				$stop->set_prop("type", $xo->id());
 				//$stop->set_name($t->name());
@@ -1850,7 +1850,7 @@ class persona_import extends class_base
 				aw_disable_acl();
 				$stop->save();
 				aw_restore_acl();
-				
+
 
 				// I was told to connect these to 'T&ouml;&ouml;suhe' object instead
 				/*
@@ -1900,7 +1900,7 @@ class persona_import extends class_base
 			// vacation object. and somehow I need to determine whether this person
 			// already has an entered vacation.
 
-			// for this I need to check start and end I guess .. and worker_id. really 
+			// for this I need to check start and end I guess .. and worker_id. really
 			// no other way to do it
 
 			// also, whatever should I do with the variable manager?
@@ -1919,7 +1919,7 @@ class persona_import extends class_base
 			"teadustekandidaat" => "Teaduste kandidaat",
 		);
 		$degree = array_flip($degree);
-	
+
 		foreach($data[$hariduskaigud_tag] as $hariduskaik)
 		{
 			$hariduskaik[$akadeemiline_kraad_tag] = iconv("UTF-8", "ISO-8859-4", $hariduskaik[$akadeemiline_kraad_tag]);
@@ -1951,7 +1951,7 @@ class persona_import extends class_base
 				}
 				$education = $edu_conn->to();
 				$end_date = $education->prop("end_date");
-				
+
 				if($education->prop("name") == $oppeasutus && ($t->prop("edulevel") == "keskharidus" || $education->prop("speciality") == iconv("UTF-8", "ISO-8859-4", $hariduskaik[$eriala_tag])) && (empty($end_date) || //$education->prop("end_date") == $this->timestamp_from_xml($hariduskaik["DIPLOM_KP_LOPETAMINE"], 1)))
 				$education->prop("end_date") == $this->timestamp_from_xml($hariduskaik[$diplom_kuupaev_tag])))
 				{
@@ -1965,7 +1965,7 @@ class persona_import extends class_base
 					{
 						$education->set_prop("speciality", "");
 					}
-					$education->set_prop("main_speciality", $hariduskaik[$on_pohieriala_tag]);					
+					$education->set_prop("main_speciality", $hariduskaik[$on_pohieriala_tag]);
 					$education->set_prop("in_progress", $hariduskaik[$on_opilane_tag]);
 					$education->set_prop("diploma_nr", $hariduskaik[$diplom_number_tag]);
 					// P&otilde;hiharidus might cause some drama. We wanna avoid that.
@@ -1987,7 +1987,7 @@ class persona_import extends class_base
 //					break;
 				}
 			}
-			
+
 			if(!$edu_done)
 			{
 				print "creating new education object ".$oppeasutus."<br>";
@@ -2055,10 +2055,10 @@ class persona_import extends class_base
 
 		print "Unlinking status file<br>";
 		unlink($stat_file);
-	
+
 		aw_session_del("persona_import_started");
 		aw_session_del("persona_persons_done");
-		
+
 		print "flushing cache<br>";
 		flush();
 		$cache = get_instance("cache");
@@ -2097,7 +2097,7 @@ class persona_import extends class_base
 				"to" => $stop->id(),
 				"reltype" => 41, //RELTYPE_VACATION,
 			));
-			
+
 			if ($mxlist[$puhkus["PUHKUSE_LIIK"]])
 			{
 				$xo = new object($mxlist[$puhkus["PUHKUSE_LIIK"]]);
@@ -2124,8 +2124,8 @@ class persona_import extends class_base
 		};
 
 		print "finished<br>";
-		
-		
+
+
 
 
 		// puhkusi ning ka peatumisi n&auml;idatakse eraldi tabelis
@@ -2144,7 +2144,7 @@ class persona_import extends class_base
 
 		/* peatumine
 			<rida>
-				<tootaja_id>67</tootaja_id> 
+				<tootaja_id>67</tootaja_id>
 				<liik>lapsehoolduspuhkus</liik>
 				<algus>20010806T00:00:00</algus>
 				<lopp>20060906T00:00:00</lopp>
@@ -2194,7 +2194,7 @@ class persona_import extends class_base
 			  </rida>
 
 
-		
+
 
 
 		*/
@@ -2206,9 +2206,9 @@ class persona_import extends class_base
 	**/
 	function import_images($arr)
 	{
-		
+
 		$obj = new object($arr["id"]);
-		
+
 		$config = $this->get_config($obj);
 
 		if (sizeof($config["ftp"]) == 0)
@@ -2216,7 +2216,7 @@ class persona_import extends class_base
 			die(t("You forgot to enter server data"));
 		};
 
-		aw_set_exec_time(AW_LONG_PROCESS);	
+		aw_set_exec_time(AW_LONG_PROCESS);
 
 		$c = get_instance(CL_FTP_LOGIN);
 
@@ -2233,13 +2233,13 @@ class persona_import extends class_base
 		$persons = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
 			"status" => STAT_ACTIVE,
-		));	
+		));
 		$px = array();
 		foreach($persons->arr() as $person_obj)
 		{
 			//$px[$person_obj->prop("ext_id")] = $person_obj->id();
 			$px[$person_obj->subclass()] = $person_obj->id();
-			
+
 		};
 
 		$rpx = array_flip($px);
@@ -2323,7 +2323,7 @@ class persona_import extends class_base
 								"contents" => $pilt_data,
 								"type" => "image/jpg",
 							);
-							
+
 							aw_disable_acl();
 							$timg = $ti->submit($emb);
 							aw_restore_acl();
@@ -2367,8 +2367,8 @@ class persona_import extends class_base
 							print "imf = " . $config["image_folder"];
 							print "<br>";
 						}
-						
-						// re-save image from $pilt_data 
+
+						// re-save image from $pilt_data
 						$img_o = obj($t->prop("picture"));
 						$fn = $img_o->prop("file");
 						if (!is_writable($fn))
@@ -2416,12 +2416,12 @@ class persona_import extends class_base
 	{
 		switch ($type)
 		{
-			case 0: 
+			case 0:
 				// 20060906T00:00:00
 				$p = unpack("a4year/a2mon/a2day/c1e/a2hour/a2min/a2sec",$xml_stamp);
 				return mktime($p["hour"],$p["min"],$p["sec"],$p["mon"],$p["day"],$p["year"]);
 				break;
-			case 1: 
+			case 1:
 				// 23.06.1966 OR 1989
 				$p = explode(".", $xml_stamp);
 				$mon = (sizeof($p) > 1) ? $p[1] : 1;
@@ -2432,7 +2432,7 @@ class persona_import extends class_base
 			default:
 				// 20060906T00:00:00
 				$p = unpack("a4year/a2mon/a2day/c1e/a2hour/a2min/a2sec",$xml_stamp);
-				return mktime($p["hour"],$p["min"],$p["sec"],$p["mon"],$p["day"],$p["year"]); 
+				return mktime($p["hour"],$p["min"],$p["sec"],$p["mon"],$p["day"],$p["year"]);
 				break;
 		}
 	}
@@ -2475,7 +2475,7 @@ class persona_import extends class_base
 	}
 
 	function get_xml_data($obj, $print = true)
-	{		
+	{
 		$import_id = $obj->prop("xml_link");
 
 		if($this->can("view" , $import_id))
@@ -2483,11 +2483,11 @@ class persona_import extends class_base
 			$import_obj = get_instance(CL_TAAVI_IMPORT);
 			$fdat = $import_obj->export_xml($import_id);
 		}
-		
+
 		else
 		{
 			$config = $this->get_config($obj);
-			
+
 			$c = get_instance(CL_FTP_LOGIN);
 			$c->connect($config["ftp"]);
 
@@ -2497,7 +2497,7 @@ class persona_import extends class_base
 			$fdat .= "<XML_DATA>\n";
 
 			foreach($fs as $f)
-			{				
+			{
 				$fqfn = $obj->prop("xml_folder") . "/" . $obj->prop($f);
 				// THESE SHOULD BE DONE WITH preg_replace()
 				$fdat .= str_replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "", $c->get_file($fqfn));
@@ -2608,4 +2608,4 @@ class persona_import extends class_base
 	}
 
 }
-?>
+

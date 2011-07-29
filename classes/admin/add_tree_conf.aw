@@ -308,10 +308,6 @@ class add_tree_conf extends class_base
 						$show = true;
 					}
 				}
-				if (aw_ini_get("site_id") == 214)
-				{
-					$show = true;
-				}
 
 				if ($show)
 				{

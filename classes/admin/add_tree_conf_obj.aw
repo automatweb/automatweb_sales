@@ -21,6 +21,17 @@ class add_tree_conf_obj extends _int_object
 	{
 	}
 
+	/** Filters and returns aw_ini_get("classes") array. Only classes marked 'visible' in this configuration
+		@attrib api=1 params=pos
+		@comment
+		@returns array
+		@errors
+	**/
+	public function get_visible()
+	{
+	}
+
+
 	/** Returns active configuration object or NULL if none found
 		@attrib api=1 params=pos
 		@comment

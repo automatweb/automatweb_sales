@@ -1,10 +1,9 @@
 <?php
 // gallery.aw - gallery management
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/gallery/gallery_v2.aw,v 1.66 2008/01/31 13:52:27 kristo Exp $
 
 /*
 
-@classinfo syslog_type=ST_GALLERY relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_GALLERY relationmgr=yes
 
 @groupinfo page_1 caption=Lehek&uuml;lg&nbsp;1
 @groupinfo page_2 caption=Lehek&uuml;lg&nbsp;2
@@ -24,16 +23,16 @@
 @default field=meta
 @default method=serialize
 
-@property conf_id type=text size=3 
+@property conf_id type=text size=3
 @caption Konfiguratsioon:
 
 @property reinit_layout type=checkbox ch_value=1
 @caption Uuenda layout (kustutab k&otilde;ik pildid!)
 
-@property num_pages type=textbox size=3 
+@property num_pages type=textbox size=3
 @caption Mitu lehte:
 
-@property rate_redir type=textbox 
+@property rate_redir type=textbox
 @caption Suuna p&auml;rast h&auml;&auml;letamist
 
 @property pg_1_content type=text group=page_1 no_caption=1
@@ -56,25 +55,25 @@
 @property ftp_login type=relpicker reltype=RELTYPE_FTP_LOGIN
 @caption FTP Server
 
-@property ftp_folder type=textbox 
+@property ftp_folder type=textbox
 @caption FTP Serveri kataloog
 
 @property import_local type=checkbox ch_value=1 default=1
 @caption Impordi kataloogist
 
-@property local_folder type=textbox 
+@property local_folder type=textbox
 @caption Kataloog
 
-@property import_zip type=checkbox ch_value=1 
+@property import_zip type=checkbox ch_value=1
 @caption Impordi ZIP failist
 
 @property zip_file type=fileupload store=no
 @caption Uploadi ZIP fail
 
-@property import_overwrite type=checkbox ch_value=1 
+@property import_overwrite type=checkbox ch_value=1
 @caption Importimisel kirjuta olemasolevad pildid &uuml;le
 
-@property import_add_pages type=checkbox ch_value=1 
+@property import_add_pages type=checkbox ch_value=1
 @caption Importimisel lisa vajadusel lehek&uuml;lgi
 
 @property do_import type=checkbox ch_value=1
@@ -107,18 +106,18 @@ class gallery_v2 extends class_base
 	}
 
 
-	/**  
-		
+	/**
+
 		@attrib name=view params=name nologin="1" default="0"
-		
+
 		@param id optional type=int
 		@param page optional type=int
 		@param col optional type=int
 		@param row optional type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -128,8 +127,8 @@ class gallery_v2 extends class_base
 			"oid" => $args["id"],
 		));
 	}
-		
-	/**	
+
+	/**
 		@attrib name=submit_rates nologin="1" no_login=1
 	**/
 	function submit_rates($arr)
@@ -150,7 +149,7 @@ class gallery_v2 extends class_base
 			return $go->prop("rate_redir");
 		}
 		return $arr["r"];
-	
+
 	}
 
 	function get_property(&$arr)
@@ -208,7 +207,7 @@ class gallery_v2 extends class_base
 				return PROP_IGNORE;
 			}
 		}
-		
+
 		return PROP_OK;
 	}
 
@@ -237,7 +236,7 @@ class gallery_v2 extends class_base
 	{
 		extract($arr);
 		$obj = obj($oid);
-		
+
 		$tmp = $obj->meta("page_data");
 		$page_data = $tmp[$page]['layout'];
 		if (!$page_data && ($def_layout = $this->_get_default_layout($obj)))
@@ -246,8 +245,8 @@ class gallery_v2 extends class_base
 			$l = get_instance(CL_LAYOUT);
 			$page_data = $l->get_layout($def_layout);
 		}
-		
-		$ge = get_instance("vcl/grid_editor");
+
+		$ge = new grid_editor();
 		return $ge->on_edit($page_data, $oid, array(
 			"cell_content_callback" => array(&$this, "_get_edit_cell_content", array("obj" => $obj, "page" => $page))
 		));
@@ -317,9 +316,9 @@ class gallery_v2 extends class_base
 			// that image_folder value
 			$obj->set_meta("image_folder",$this->_get_image_folder($obj));
 
-			$ge = get_instance("vcl/grid_editor");
+			$ge = new grid_editor();
 			$pg_data[$page_number]['layout'] = $ge->on_edit_submit(
-				$page_data, 
+				$page_data,
 				$arr['request'],
 				array(
 					"cell_content_callback" => array(&$this, "_set_edit_cell_content", array("obj" => $obj, "page" => $page_number))
@@ -347,7 +346,7 @@ class gallery_v2 extends class_base
 				else
 				{
 					$this->raise_error("move_uploaded_file ($zip_file, $tn) failed!");
-				}	
+				}
 			}
 		}
 		return PROP_OK;
@@ -402,15 +401,15 @@ class gallery_v2 extends class_base
 			if ($meta["import_local"] == 1)
 			{
 				$files = array();
-				if ($dir = @opendir($meta['local_folder'])) 
+				if ($dir = @opendir($meta['local_folder']))
 				{
-					while (($file = readdir($dir)) !== false) 
+					while (($file = readdir($dir)) !== false)
 					{
 						if (!($file == "." || $file == ".."))
 						{
 							$files[] = $file;
 						}
-					}  
+					}
 					closedir($dir);
 				}
 				else
@@ -443,7 +442,7 @@ class gallery_v2 extends class_base
 				{
 					$fc = $this->get_file(array("file" => $ometa['local_folder']."/".$file));
 				}
-			
+
 				$img = get_instance("core/converters/image_convert");
 				$img->load_from_string($fc);
 
@@ -471,17 +470,17 @@ class gallery_v2 extends class_base
 				}
 
 				$fc = $_t->get(IMAGE_JPEG);
-				
+
 				$img_inst = get_instance(CL_IMAGE);
 				$idata = $img_inst->add_image(array(
-					"str" => $fc, 
+					"str" => $fc,
 					"orig_name" => $file,
 					"parent" => $img_folder
 				));
 
 				// now we gots to make a thumbnail and add that as well.
 				$n_img = $img->copy();
-				
+
 				// now if the user specified that the thumbnail is subimage, then cut it out first
 				if ($tn_is_subimage && $tn_si_width && $tn_si_height)
 				{
@@ -507,9 +506,9 @@ class gallery_v2 extends class_base
 				}
 
 				$fc = $img->get(IMAGE_JPEG);
-				
+
 				$tn_idata = $img_inst->add_image(array(
-					"str" => $fc, 
+					"str" => $fc,
 					"orig_name" => $file,
 					"parent" => $img_folder
 				));
@@ -543,20 +542,20 @@ class gallery_v2 extends class_base
 				$ob->set_meta("import_local", 0);
 				$ob->set_meta("local_folder", "");
 				@unlink($meta["up_zip_file"]);
-				if ($dir = @opendir($tn)) 
+				if ($dir = @opendir($tn))
 				{
-					while (($file = readdir($dir)) !== false) 
+					while (($file = readdir($dir)) !== false)
 					{
 						if (!($file == "." || $file == ".."))
 						{
 							@unlink($tn."/".$file);
 						}
-					}  
+					}
 					closedir($dir);
 				}
 				@rmdir($tn);
 			}
-			
+
 			$ob->set_meta("do_import", "");
 			$ob->save();
 			echo "Valmis! <a href='".$this->mk_my_orb("change", array("id" => $arr["id"], "group" => "import"))."'>Tagasi</a><br />\n";
@@ -582,7 +581,7 @@ class gallery_v2 extends class_base
 		if (!$page)
 		{
 			$page = 1;
-		}		
+		}
 		for ($_page = 1; $_page <= $meta['num_pages']; $_page++)
 		{
 			if (!$meta['page_data'][$_page]['layout'])
@@ -596,7 +595,7 @@ class gallery_v2 extends class_base
 			{
 				for ($_col = 0; $_col < $meta['page_data'][$_page]['layout']['cols']; $_col++)
 				{
-					
+
 					$col_data = $meta['page_data'][$_page]['content'][$_row][$_col];
 					if ($_page == $page && $_row >= $row)
 					{
@@ -622,7 +621,7 @@ class gallery_v2 extends class_base
 					if ($_page > $page)
 					{
 						if (!$col_data["img"]["id"])
-						{	
+						{
 							return array($_page, $_row, $_col);
 						}
 					}
@@ -651,7 +650,7 @@ class gallery_v2 extends class_base
 	{
 		$obj = $params['obj'];
 		$page = $params['page'];
-		
+
 		$old = $this->_page_content[$row][$col];
 		// check uploaded images and shit
 		$cd = $post_data['g'][$page][$row][$col];
@@ -660,7 +659,7 @@ class gallery_v2 extends class_base
 		$this->_page_content[$row][$col]["has_textlink"] = $cd["has_textlink"];
 		$this->_page_content[$row][$col]["textlink"] = $cd["textlink"];
 		$this->_page_content[$row][$col]["ord"] = $cd["ord"];
-	
+
 		// also upload images
 		$img_n = "g_".$page."_".$row."_".$col."_img";
 
@@ -674,7 +673,7 @@ class gallery_v2 extends class_base
 		{
 			$f = get_instance(CL_FILE);
 			$this->_page_content[$row][$col]["img"] = $f->add_upload_image(
-				$img_n, 
+				$img_n,
 				$imgfolder,
 				$old['img']['id']
 			);
@@ -685,7 +684,7 @@ class gallery_v2 extends class_base
 		{
 			$f = get_instance(CL_IMAGE);
 			$this->_page_content[$row][$col]["img"] = $f->add_upload_image(
-				$img_n, 
+				$img_n,
 				$imgfolder,
 				$old['img']['id']
 			);
@@ -696,7 +695,7 @@ class gallery_v2 extends class_base
 
 		$f = get_instance(CL_IMAGE);
 		$this->_page_content[$row][$col]["tn"] = $f->add_upload_image(
-			$img_n, 
+			$img_n,
 			$imgfolder,
 			$old['tn']['id']
 		);
@@ -819,7 +818,7 @@ class gallery_v2 extends class_base
 			"PAGESEL_BACK" => $ps_back,
 			"PAGESEL_FWD" => $ps_fwd
 		));
-		
+
 		if ($sp > 1)
 		{
 			$this->vars(array(
@@ -834,7 +833,7 @@ class gallery_v2 extends class_base
 		global $page;
 
 		if (empty($ob))
-		{		
+		{
 			$ob = obj($oid);
 		}
 
@@ -848,7 +847,7 @@ class gallery_v2 extends class_base
 		$l = $pd[$page]['layout'];
 
 		$this->read_any_template("show_v2.tpl");
-		
+
 		// decide which rate object to use
 		$robj = aw_global_get("oid");
 
@@ -860,7 +859,7 @@ class gallery_v2 extends class_base
 		{
 			unset($robj);
 		};
-		
+
 		$this->rating = get_instance(CL_RATE);
 
 		if ($robj)
@@ -877,17 +876,17 @@ class gallery_v2 extends class_base
 
 			$this->reorder(&$ob,$imorder);
 		}
-		
+
 		$this->_show_pageselector($ob, $page);
 
-		// now all images 
+		// now all images
 
 		// get all hit counts for all images, so that we won't do a query for each image
 		$tmp = $ob->meta("page_data");
 		$pd = $tmp[$page]['content'];
 		$this->hits = $this->_get_hit_counts($pd);
 
-		$li = get_instance("vcl/grid_editor");
+		$li = new grid_editor();
 		$li->_init_table($l);
 
 		$this->has_images = false;
@@ -1025,7 +1024,7 @@ class gallery_v2 extends class_base
 		{
 			return "";
 		}
-		
+
 		if ($pd['img']['id'])
 		{
 			$w = $pd['img']['sz'][0];
@@ -1134,7 +1133,7 @@ class gallery_v2 extends class_base
 				"HAS_RATING_SCALE" => $this->parse("HAS_RATING_SCALE")
 			));
 		}
-		
+
 		if ($pd["date"] != "")
 		{
 			$tp->vars(array(
@@ -1165,26 +1164,26 @@ class gallery_v2 extends class_base
 		return $ret;
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=show_image params=name nologin="1" default="0"
-		
+
 		@param id optional type=int
 		@param page optional type=int
 		@param col optional type=int
 		@param row optional type=int
 		@param img_id optional type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
 	function show_image($arr)
 	{
 		extract($arr);
-		
+
 		$ob = obj($id);
 		if ($img_id)
 		{
@@ -1199,7 +1198,7 @@ class gallery_v2 extends class_base
 		$this->read_any_template("show_v2_image.tpl");
 
 		$p_page = $n_page = $page;
-		$p_row = $n_row = $row; 
+		$p_row = $n_row = $row;
 		$p_col = $n_col = $col;
 		$tmp = $ob->meta("page_data");
 		do {
@@ -1213,18 +1212,18 @@ class gallery_v2 extends class_base
 		if ($n_page > $ob->meta('num_pages'))
 		{
 			$post_rate_url = $this->mk_my_orb("show_image", array(
-				"id" => $id, 
+				"id" => $id,
 				"page" => $page,
-				"row" => $row, 
+				"row" => $row,
 				"col" => $col
 			));
 		}
 		else
 		{
 			$post_rate_url = $this->mk_my_orb("show_image", array(
-				"id" => $id, 
+				"id" => $id,
 				"page" => $n_page,
-				"row" => $n_row, 
+				"row" => $n_row,
 				"col" => $n_col
 			));
 		}
@@ -1247,7 +1246,7 @@ class gallery_v2 extends class_base
 				$rsi.=$this->parse("RATING_SCALE_ITEM");
 			}
 		}
-		
+
 		$this->add_hit($pd['img']['id']);
 
 		$email_link = $this->mk_my_orb("send", array("id" => $id, "page" => $page, "row" => $row, "col" => $col), "", false, true);
@@ -1607,18 +1606,18 @@ class gallery_v2 extends class_base
 		return array($n_page, $n_row, $n_col);
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=send params=name nologin="1" default="0"
-		
+
 		@param id required
 		@param page required
 		@param col required
 		@param row required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1633,18 +1632,18 @@ class gallery_v2 extends class_base
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_send params=name nologin="1" default="0"
-		
+
 		@param id required
 		@param page required
 		@param col required
 		@param row required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1678,7 +1677,7 @@ class gallery_v2 extends class_base
 		$rows = $tmp[$page]['layout']["rows"];
 		$cols = $tmp[$page]['layout']["cols"];
 		$pd = $tmp[$page]['content'];
- 
+
 		for ($row = 0; $row < $rows; $row++)
 		{
 			for ($col = 0; $col < $cols; $col++)
@@ -1732,16 +1731,16 @@ class gallery_v2 extends class_base
 		}
 		return $ret;
 	}
-	
-	/** this is a content generator - right now used by the calendar only 
-		
+
+	/** this is a content generator - right now used by the calendar only
+
 		@attrib name=show_aliased params=name nologin="1" caption="Näita galeriid" default="0"
-		
+
 		@param id required type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		shows a gallery attached to an object - or event
 		it should probably be improved a bit, since right now it uses a tambov
@@ -1766,15 +1765,15 @@ class gallery_v2 extends class_base
 		return $retval;
 	}
 
-	/** This is another content generator, except that this one shows the image 
-		
+	/** This is another content generator, except that this one shows the image
+
 		@attrib name=show_top_image params=name nologin="1" caption="Parim pilt" default="0"
-		
+
 		@param id required type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		with the highest rate from the attached gallery, and it has the same
 		flaw as the above show_aliased, since it uses a seemingly random attached
@@ -1850,4 +1849,3 @@ class gallery_v2 extends class_base
 		return $this->db_fetch_field($q,"target");
 	}
 }
-?>
