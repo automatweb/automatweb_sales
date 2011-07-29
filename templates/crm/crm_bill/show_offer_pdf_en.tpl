@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Invoice nr {VAR:bill_no}</title>
+	<title>Proposal nr {VAR:bill_no}</title>
 	<style>
 	body { font-size: 9; margin: 2em 2em 2em 4em; }
 	table { width: 100%; border: 1px solid white; border-collapse: collapse; }
@@ -65,7 +65,7 @@ if(isset($pdf))
 </tr>
 <tr>
 	<td colspan="3">
-		<h1>Invoice nr {VAR:bill_no}</h1>
+		<h1>Proposal nr {VAR:bill_no}</h1>
 	</td>
 </tr>
 </table>
@@ -74,13 +74,13 @@ if(isset($pdf))
 <tr>
 	<td width="15%" class="heading"><strong>Customer:</strong></td>
 	<td width="35%">{VAR:orderer_name} {VAR:orderer_corpform}</td>
-	<td width="15%" class="heading"><strong>Invoice nr:</strong></td>
+	<td width="15%" class="heading"><strong>Proposal nr:</strong></td>
 	<td width="35%">{VAR:bill_no}</td>
 </tr>
 <tr>
 	<td width="15%" class="heading"></td>
 	<td width="35%">{VAR:orderer_street}</td>
-	<td width="15%" class="heading"><strong>Invoice date:</strong></td>
+	<td width="15%" class="heading"><strong>Proposal date:</strong></td>
 	<td width="35%">{DATE:bill_date|d.m.Y}</td>
 </tr>
 <tr>
