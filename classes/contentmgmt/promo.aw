@@ -1155,7 +1155,8 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function _get_linker(&$p, $o)
 	{
-		$ps = get_instance("contentmgmt/ct_linked_obj_search");
+		$ps = new ct_linked_obj_search();
+		$p["post_append_text"] = "";
 		if ($this->can("view", $o->meta("linked_obj")))
 		{
 			$p["post_append_text"] = sprintf(t("Valitud objekt: %s /"), html::obj_change_url($o->meta("linked_obj")));
@@ -1166,7 +1167,7 @@ class promo extends class_base implements main_subtemplate_handler
 		}
 		$p["post_append_text"] .= t(" Otsi uus objekt: ").$ps->get_popup_search_link(array(
 			"pn" => "link_pops",
-			"clid" => array(CL_DOCUMENT,CL_LINK)
+			"clid" => array(doc_obj::CLID, link_fix::CLID)
 		));
 	}
 

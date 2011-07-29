@@ -1,8 +1,6 @@
 <?php
 /**
-A class to help manage template files. 
-$Header: /home/cvs/automatweb_dev/classes/core/util/templatemgr.aw,v 1.5 2009/08/24 08:54:13 instrumental Exp $
-@classinfo  maintainer=kristo
+A class to help manage template files.
 **/
 class templatemgr extends aw_template
 {
@@ -62,14 +60,6 @@ class templatemgr extends aw_template
 
 		foreach($dat as $tpl)
 		{
-			if (false && $tpl["obj_id"] > 0)
-			{
-				if (!$this->can("view", $tpl["obj_id"]))
-				{
-					continue;
-				}
-			}
-
 			if ( !file_exists(aw_ini_get("site_basedir").'/templates/automatweb/documents/'.$tpl["filename"]) )
 			{
 				continue;
@@ -249,6 +239,9 @@ class templatemgr extends aw_template
 		@param folder required type=string
 			The template folder to list templates for
 
+		@param empty optional type=boolean default=true
+			If true, an empty choice will be added to the list.
+
 		@returns 
 			array { template_file => template_file } 
 	**/
@@ -257,7 +250,7 @@ class templatemgr extends aw_template
 		$fp_site = $this->cfg["site_tpldir"]."/".$arr["folder"];
 		$fp_adm = $this->cfg["basedir"]."/templates/".$arr["folder"];
 
-		$ret = array("" => "");
+		$ret = (!isset($arr["empty"]) or $arr["empty"]) ? array("" => "") : array();
 	
 		if (is_dir($GLOBALS["cfg"]["tpldir"]."/".$arr["folder"]))
 		{
@@ -304,4 +297,3 @@ class templatemgr extends aw_template
 		return $ret;
 	}
 }
-?>

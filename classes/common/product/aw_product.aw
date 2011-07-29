@@ -18,7 +18,7 @@ class aw_product extends class_base
 		));
 	}
 
-	function do_db_upgrade($table, $field)
+	function do_db_upgrade($table, $field, $query, $error)
 	{
 		if ("aw_product" === $table)
 		{
@@ -38,5 +38,3 @@ class aw_product extends class_base
 		}
 	}
 }
-
-?>

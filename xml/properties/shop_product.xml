@@ -1,6 +1,24 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>purveyance_tlb</name>
+            <table>aw_shop_warehouse_item</table>
+            <group>purveyance</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>purveyance_tlb</field>
+      </property>
+      <property>
+            <name>purveyance_tbl</name>
+            <table>aw_shop_warehouse_item</table>
+            <group>purveyance</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>purveyance_tbl</field>
+      </property>
+      <property>
             <name>name</name>
             <table>objects</table>
             <group>general_general</group>
@@ -9,6 +27,15 @@
             <field>name</field>
             <caption>Nimi</caption>
             <comment>Objekti nimi</comment>
+      </property>
+      <property>
+            <name>status_edit</name>
+            <table>objects</table>
+            <group>general_general</group>
+            <type>chooser</type>
+            <parent>gen_gen</parent>
+            <field>status</field>
+            <caption>Staatus</caption>
       </property>
       <property>
             <name>comment</name>
@@ -120,16 +147,6 @@
             <comment>M&amp;amp;uuml;&amp;amp;uuml;gi hind</comment>
       </property>
       <property>
-            <name>purchase_price</name>
-            <table>aw_shop_products</table>
-            <group>general_general</group>
-            <type>textbox</type>
-            <field>purchase_price</field>
-            <size>10</size>
-            <parent>gen_prices_prop_right</parent>
-            <caption>Ostu hind</caption>
-      </property>
-      <property>
             <name>special_price</name>
             <table>aw_shop_products</table>
             <group>general_general</group>
@@ -138,6 +155,16 @@
             <size>10</size>
             <parent>gen_prices_prop_right</parent>
             <caption>Erihind</caption>
+      </property>
+      <property>
+            <name>purchase_price</name>
+            <table>aw_shop_products</table>
+            <group>general_general</group>
+            <type>textbox</type>
+            <field>purchase_price</field>
+            <size>10</size>
+            <parent>gen_prices_prop_right</parent>
+            <caption>Ostu hind</caption>
       </property>
       <property>
             <name>prev_sales_price_tbl</name>
@@ -531,24 +558,6 @@
             <store>no</store>
             <field>replacement_prods</field>
             <caption>Asendustooted</caption>
-      </property>
-      <property>
-            <name>purveyance_tb</name>
-            <table>objects</table>
-            <group>general_purveyance</group>
-            <type>toolbar</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>purveyance_tb</field>
-      </property>
-      <property>
-            <name>purveyance_tbl</name>
-            <table>objects</table>
-            <group>general_purveyance</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>purveyance_tbl</field>
       </property>
       <property>
             <name>packaging</name>
@@ -1382,9 +1391,11 @@
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
             <syslog_type>ST_SHOP_PRODUCT</syslog_type>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
+            <purveyance>
+                  <caption>Tarneinfo</caption>
+            </purveyance>
             <general_general>
                   <caption>&amp;amp;Uuml;ldine</caption>
                   <parent>general</parent>
@@ -1409,10 +1420,6 @@
                   <caption>Asendustooted</caption>
                   <parent>general</parent>
             </general_replacement_prods>
-            <general_purveyance>
-                  <caption>Tarneajad</caption>
-                  <parent>general</parent>
-            </general_purveyance>
             <packaging>
                   <caption>Pakendid</caption>
             </packaging>
@@ -1464,6 +1471,11 @@
                   <master_table>objects</master_table>
                   <index>aw_oid</index>
             </aw_product>
+            <aw_shop_warehouse_item>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_shop_warehouse_item>
             <aw_shop_products>
                   <index>aw_oid</index>
                   <master_table>objects</master_table>
@@ -1476,6 +1488,11 @@
             </aw_account_balances>
       </tableinfo>
       <reltypes>
+            <WAREHOUSE>
+                  <value>25</value>
+                  <clid>CL_SHOP_WAREHOUSE</clid>
+                  <caption>Ladu</caption>
+            </WAREHOUSE>
             <IMAGE>
                   <value>1</value>
                   <clid>CL_IMAGE</clid>
@@ -1602,11 +1619,6 @@
                   <clid>CL_SHOP_ITEM_PRICE</clid>
                   <caption>Hind</caption>
             </PRICE>
-            <WAREHOUSE>
-                  <value>25</value>
-                  <clid>CL_SHOP_WAREHOUSE</clid>
-                  <caption>Ladu</caption>
-            </WAREHOUSE>
             <COLOR>
                   <value>26</value>
                   <clid>CL_SHOP_COLOUR</clid>
@@ -1750,4 +1762,3 @@
             </buffer>
       </layout>
 </properties>
-
