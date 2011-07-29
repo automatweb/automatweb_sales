@@ -6,7 +6,8 @@ HANDLE_MESSAGE(MSG_USER_LOGIN, on_user_login)
 
 class acl_base extends db_connector
 {
-	private $acl_ids = array();
+	protected $acl_ids = array();
+
 	private $__aw_acl_cache = array();
 
 	function sql_unpack_string()
@@ -423,7 +424,7 @@ class acl_base extends db_connector
 				if (!isset($max_acl))
 				{
 					$max_acl = $this->_calc_max_acl($object_id);
-					if ($max_acl === false)
+					if (0 === $max_acl)
 					{
 						$max_acl = array_combine($this->acl_ids, array_fill(0, count($this->acl_ids), false));
 					}
@@ -499,7 +500,7 @@ class acl_base extends db_connector
 			}
 			else
 			{
-				$tmp = object_loader::instance()->ds->get_objdata($cur_oid, array( //XXX: TODO: siin peaks ilma objloaderita saama
+				$tmp = object_loader::instance()->ds->get_objdata($cur_oid, array( //XXX: TODO: siin peaks ilma objloaderita saama?
 					"no_errors" => true
 				));
 				if ($tmp !== NULL)
@@ -511,16 +512,13 @@ class acl_base extends db_connector
 			if ($tmp === NULL)
 			{
 				// if any object above the one asked for is deleted, no access
-				return false;
+				return 1;
 			}
 
 			// status and brother_of are not set when acl data is read from e.g. acl mem cache
-			if (isset($tmp["status"]))
+			if (isset($tmp["status"]) and 0 == $tmp["status"])
 			{
-				if ($tmp["status"] == 0)
-				{
-					return false;
-				}
+				return 0;
 			}
 
 			if (isset($tmp["brother_of"]) && $cur_oid != $tmp["brother_of"] && $tmp["brother_of"] > 0 && $cur_oid == $oid)
@@ -559,7 +557,7 @@ class acl_base extends db_connector
 			$rv = $this->_calc_max_acl($do_orig);
 			if ($rv === false)
 			{
-				return false;   // if the original is deleted, then the brother is deleted as well
+				return 1;   // if the original is deleted, then the brother is deleted as well
 			}
 			$rv["can_delete"] = isset($max_acl["can_delete"]) ? (int) $max_acl["can_delete"] : 0;
 			return $rv;
