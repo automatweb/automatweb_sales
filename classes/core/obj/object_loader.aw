@@ -284,8 +284,14 @@ class _int_object_loader extends core
 			///TODO: access should be checked separately from loading
 			if (!$this->ds->can("view", $oid))
 			{
-				$e = new awex_obj_acl("No view access object with id '{$oid}'.");
-				$e->awobj_id = $oid;
+				if (isset($GLOBALS["__obj_sys_objd_memc"][$oid]))
+				{
+				}
+				else
+				{
+					$e = new awex_obj_acl("No view access object with id '{$oid}'.");
+					$e->awobj_id = $oid;
+				}
 				throw $e;
 			}
 
@@ -476,29 +482,6 @@ class _int_object_loader extends core
 		$ds->dc[$ds->default_cid] = $new_conn;
 		$this->dc[$ds->default_cid] = $new_conn;
 		return $old;
-	}
-
-	function _log($new, $oid, $name, $clid = NULL)
-	{
-		if ($clid === NULL)
-		{
-			$tmpo = obj($oid);
-			// get object's class info
-			$clid = $tmpo->class_id();
-		}
-
-		if ($clid == 7)
-		{
-			$type = "ST_DOCUMENT";
-		}
-		elseif (!empty($GLOBALS["classinfo"][$clid]["syslog_type"]["text"]))
-		{
-			$type = $GLOBALS["classinfo"][$clid]["syslog_type"]["text"];
-		}
-		else
-		{
-			$type = 10000;
-		}
 	}
 
 	/**
