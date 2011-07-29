@@ -446,7 +446,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@qc date=20101026 standard=aw3
 	**/
 	public function get_employees($state = "active", object $profession = null, object $section = null)
-	{
+	{// TODO: workrel::find() teha nii, et saaks person objektid sealt
 		if (!$this->is_saved())
 		{
 			return new object_list();
@@ -458,56 +458,20 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		);
 
 		if ("active" === $state)
-		{ // set filter to get work relations with this moment's time falling between start and end property values
-			// work relation end after this moment's time
-			$filter[] = new object_list_filter(array(
-				"logic" => "OR",
-				"conditions" => array(
-					new object_list_filter(array(
-						"logic" => "AND",
-						"conditions" => array(
-							"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
-						)
-					)),
-					new object_list_filter(array(
-						"logic" => "AND",
-						"conditions" => array(
-							"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
-						)
-					))
-				)
-			));
-			// work relation start before this moment's time
-			$filter[] = new object_list_filter(array(
-				"logic" => "OR",
-				"conditions" => array(
-					new object_list_filter(array(
-						"logic" => "AND",
-						"conditions" => array(
-							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
-						)
-					)),
-					new object_list_filter(array(
-						"logic" => "AND",
-						"conditions" => array(
-							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time())
-						)
-					))
-				)
-			));
+		{
+			$filter["state"] = array(crm_person_work_relation_obj::STATE_ACTIVE, crm_person_work_relation_obj::STATE_UNDEFINED);
 		}
 		elseif ("former" === $state)
 		{
-			// work relation end is set and before this moment's time
-			$filter["end"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, 1, time());
+			$filter["state"] = array(crm_person_work_relation_obj::STATE_ENDED);
 		}
 		elseif ("prospective" === $state)
 		{
-			// work relation start is set and after this moment's time
-			$filter["start"] = new obj_predicate_compare(obj_predicate_compare::GREATER, time());
+			$filter["state"] = array(crm_person_work_relation_obj::STATE_NEW);
 		}
 		elseif ("all" === $state)
 		{
+			$filter["state"] = array();
 		}
 		elseif (!empty($state))
 		{
@@ -531,6 +495,8 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			}
 			$filter["company_section"] = $section->id();
 		}
+
+		$filter[] = new obj_predicate_sort(array("employee.name" => obj_predicate_sort::ASC));
 
 		$work_relations_list = new object_data_list(
 			$filter,
@@ -607,15 +573,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $ol;
 	}
 
-	/** Returns company worker selection
-		@attrib api=1 params=name
-		@param active optional type=bool
-			if set, returns only active workers
-		@param profession optional type=oid
-			worker profession in company
-		@return object list
-			person object list
-	**/
+	//DEPRECATED. use crm_company::get_employee_picker()
 	public function get_worker_selection($arr = array())
 	{
 		$workers = $this->get_workers($arr);
@@ -624,17 +582,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $ret;
 	}
 
-	/** Returns company workers
-		@attrib api=1 params=name
-		@param active optional type=bool
-			if set, returns only active workers
-		@param profession optional type=oid
-			worker profession in company
-		@param section optional type=oid
-			worker section in company
-		@return object_list
-			person object list
-	**/
+	//DEPRECATED. use get_employees()
 	public function get_workers($arr = array())
 	{
 		$pl = $this->get_employees(

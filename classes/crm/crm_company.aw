@@ -6479,53 +6479,28 @@ class crm_company extends class_base
 			return $cache[$co->id()][$add_empty][$important_only];
 		}
 
-		if ($add_empty)
-		{
-			$res = array("" => t("--vali--"));
-		}
-		else
-		{
-			$res = array();
-		}
-
-		$workers = $co->get_workers();
-		$res += $workers->ids();
-
-		if (!count($res))
-		{
-			$cache[$co->id()][$add_empty][$important_only] = $res;
-			return $res;
-		}
-
 		if ($important_only)
 		{
 			// filter out my important persons
-			$u = get_instance(CL_USER);
-			$p = obj($u->get_current_person());
-
-			$tmp = array();
-			foreach($p->connections_from(array("type" => "RELTYPE_IMPORTANT_PERSON")) as $c)
+			$p = get_current_person();
+			$cur_user_important_persons = $p->connections_from(array("type" => "RELTYPE_IMPORTANT_PERSON"));
+			foreach ($cur_user_important_persons as $connection)
 			{
-				if (isset($res[$c->prop("to")]))
-				{
-					$tmp[$c->prop("to")] = $c->prop("to");
-				}
+				$employees[$connection->prop("to")] = $connection->prop("to.name");
 			}
-			$res = $tmp;
-		}
-
-		if (count($res))
-		{
-			$ol = new object_list(array("oid" => $res, "sort_by" => "objects.name", "lang_id" => array(), "site_id" => array()));
 		}
 		else
 		{
-			$ol = new object_list();
+			$employees = $co->get_employees()->names();
 		}
-		$res = ($add_empty ? array("" => t("--vali--")) : array()) +  $ol->names();
-		uasort($res, array("self", "__person_name_sorter"));
-		$cache[$co->id()][$add_empty][$important_only] = $res;
-		return $res;
+
+		if ($add_empty)
+		{
+			$employees = html::get_empty_option(0) + $employees;
+		}
+
+		$cache[$co->id()][$add_empty][$important_only] = $employees;
+		return $employees;
 	}
 
 	private static function __person_name_sorter($a, $b)
