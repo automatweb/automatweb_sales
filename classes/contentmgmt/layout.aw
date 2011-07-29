@@ -2,7 +2,7 @@
 
 /*
 
-@classinfo syslog_type=ST_LAYOUT relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_LAYOUT relationmgr=yes no_status=1
 
 @groupinfo settings caption=M&auml;&auml;rangud
 @groupinfo layout caption=Tabel
@@ -25,7 +25,7 @@
 @property cell_style_folders type=relpicker reltype=RELTYPE_CELLSTYLE_FOLDER group=settings multiple=1
 @caption Stiilide kataloogid
 
-@property grid type=callback group=layout 
+@property grid type=callback group=layout
 @caption Tabel
 
 @property table_style type=select group=styles
@@ -34,7 +34,7 @@
 @property sel_style type=select store=no group=styles
 @caption Vali elemendi stiil
 
-@property grid_styles type=callback group=styles 
+@property grid_styles type=callback group=styles
 @caption Vali element
 
 @property row_widths type=callback callback=get_row_widths group=settings store=no
@@ -43,22 +43,22 @@
 @property row_heights type=callback callback=get_row_heights group=settings store=no
 @caption Ridade k&otilde;rgused
 
-@property grid_aliases type=callback group=aliases 
+@property grid_aliases type=callback group=aliases
 @caption Aliased
 
 @property grid_aliases_list type=aliasmgr group=aliases store=no
 @caption Aliaste manager
 
-@property grid_preview type=callback group=preview 
+@property grid_preview type=callback group=preview
 @caption Eelvaade
 
-@property import_file type=fileupload group=import 
+@property import_file type=fileupload group=import
 @caption Uploadi .csv fail
 
-@property import_remove_empty type=checkbox ch_value=1 group=import 
+@property import_remove_empty type=checkbox ch_value=1 group=import
 @caption Kas eemaldame t&uuml;hjad read l&otilde;pust
 
-@property import_sep type=textbox size=1 group=import 
+@property import_sep type=textbox size=1 group=import
 @caption Mis m&auml;rgiga on tulbad eraldatud?
 
 @property show_in_folders type=relpicker reltype=RELTYPE_SHOW_FOLDER multiple=1 rel=1 group=general
@@ -76,8 +76,7 @@
 @reltype SHOW_FOLDER value=2 clid=CL_MENU
 @caption näita selles kataloogis
 
-@classinfo no_status=1
-			
+
 
 */
 
@@ -95,7 +94,7 @@ class layout extends class_base
 	// !this will be called if the object is put in a document by an alias and the document is being shown
 	// parameters
 	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($args)
+	function parse_alias($args = array())
 	{
 		extract($args);
 
@@ -117,15 +116,15 @@ class layout extends class_base
 		}
 
 		$ob = obj($alias["target"]);
-		$ge = get_instance("vcl/grid_editor");
+		$ge = new grid_editor();
 		$grid = $ob->meta('grid');
 		$grid['table_style'] = $ob->meta('table_style');
 
-		$tmp = $ge->show($grid, $alias["target"], &$tpls);
+		$tmp = $ge->show_editor($grid, $alias["target"], $tpls);
 		//$tmp = str_replace("\n", "<br/>", $tmp);
 
-		$al = get_instance("alias_parser");
-		if ($ob->prop("header") != "")
+		$al = new alias_parser();
+		if ($ob->prop("header"))
 		{
 			$h_tmp = create_email_links(nl2br($ob->prop("header")));
 			$al->parse_oo_aliases($ob->id(), &$h_tmp);
@@ -137,7 +136,7 @@ class layout extends class_base
 			$tmp = $h_tmp.$tmp;
 		}
 
-		if ($ob->prop("footer") != "")
+		if ($ob->prop("footer"))
 		{
 			$h_tmp = create_email_links(nl2br($ob->prop("footer")));
 			$al->parse_oo_aliases($ob->id(), &$h_tmp);
@@ -162,10 +161,9 @@ class layout extends class_base
 	// !this shows the object. not strictly necessary, but you'll probably need it, it is used by parse_alias
 	function show($arr)
 	{
-		extract($arr);
-		$ob = obj($id);
-		$ge = get_instance("vcl/grid_editor");
-		return create_email_links($ge->show($ob->meta('grid'), $id));
+		$ob = obj($arr["id"]);
+		$ge = new grid_editor();
+		return create_email_links($ge->show_editor($ob->meta('grid'), $arr["id"]));
 	}
 
 	function get_property(&$arr)
@@ -175,12 +173,12 @@ class layout extends class_base
 		switch($prop["name"])
 		{
 			case "grid":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$prop['value'] = $ge->on_edit($arr['obj_inst']->meta('grid'), $arr['obj_inst']->id());
 				break;
 
 			case "grid_aliases":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$prop['value'] = $ge->on_aliases_edit($arr['obj_inst']->meta('grid'), $arr['obj_inst']->id());
 				break;
 
@@ -189,20 +187,20 @@ class layout extends class_base
 				break;
 
 			case "grid_styles":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$grid = $arr['obj_inst']->meta('grid');
 				$grid["table_style"] = $arr["obj_inst"]->meta("table_style");
 				$prop['value'] = $ge->on_styles_edit(
-					$grid, 
-					$arr['obj_inst']->id() 
+					$grid,
+					$arr['obj_inst']->id()
 				);
 				break;
 
 			case "grid_preview":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$grid = $arr['obj_inst']->meta('grid');
 				$grid["table_style"] = $arr["obj_inst"]->meta("table_style");
-				$tmp = $ge->show($grid, $arr['obj_inst']->id());
+				$tmp = $ge->show_editor($grid, $arr['obj_inst']->id());
 				if ($arr['obj_inst']->prop("header") != "")
 				{
 					$tmp = nl2br($arr['obj_inst']->prop("header")).$tmp;
@@ -230,13 +228,13 @@ class layout extends class_base
 				break;
 
 			case "rows":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$ge->_init_table($arr['obj_inst']->meta('grid'));
 				$prop['value'] = $ge->get_num_rows();
 				break;
 
 			case "columns":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$ge->_init_table($arr['obj_inst']->meta('grid'));
 				$prop['value'] = $ge->get_num_cols();
 				break;
@@ -251,12 +249,12 @@ class layout extends class_base
 		switch($prop["name"])
 		{
 			case "grid":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$prop['value'] = $ge->on_edit_submit($arr['obj_inst']->meta('grid'), $arr['request']);
 				break;
 
 			case "grid_aliases":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$arr['obj_inst']->set_meta("grid",$ge->on_aliases_edit_submit($arr['obj_inst']->meta('grid'), $arr['request']));
 				break;
 
@@ -265,7 +263,7 @@ class layout extends class_base
 				break;
 
 			case "rows":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$ge->_init_table($arr['obj_inst']->meta('grid'));
 				$ge->set_num_rows($arr["request"]["rows"]);
 				$ge->set_num_cols($arr["request"]["columns"]);
@@ -273,7 +271,7 @@ class layout extends class_base
 				break;
 
 			case "columns":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$ge->_init_table($arr['obj_inst']->meta('grid'));
 				$ge->set_num_cols($arr["request"]["columns"]);
 				$ge->set_num_rows($arr["request"]["rows"]);
@@ -284,7 +282,7 @@ class layout extends class_base
 				$import_file = $_FILES["import_file"]["tmp_name"];
 				if (is_uploaded_file($import_file))
 				{
-					$ge = get_instance("vcl/grid_editor");
+					$ge = new grid_editor();
 					$arr["obj_inst"]->set_meta("grid",$ge->do_import(array(
 						"sep" => $arr["request"]["import_sep"],
 						"remove_empty" => $arr["request"]["import_remove_empty"],
@@ -294,7 +292,7 @@ class layout extends class_base
 				break;
 
 			case "row_widths":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$ge->_init_table($arr["obj_inst"]->meta("grid"));
 				for($i = 0; $i < $ge->get_num_cols(); $i++)
 				{
@@ -304,7 +302,7 @@ class layout extends class_base
 				break;
 
 			case "row_heights":
-				$ge = get_instance("vcl/grid_editor");
+				$ge = new grid_editor();
 				$ge->_init_table($arr['obj_inst']->meta('grid'));
 				for($i = 0; $i < $ge->get_num_cols(); $i++)
 				{
@@ -326,13 +324,11 @@ class layout extends class_base
 
 	function _do_import($arr)
 	{
-		extract($arr);
-
 	}
 
 	function submit_styles($obj, $request)
 	{
-		$ge = get_instance("vcl/grid_editor");
+		$ge = new grid_editor();
 		$ge->_init_table($obj->meta('grid'));
 
 		// now we need to figure out where to apply the style
@@ -379,7 +375,7 @@ class layout extends class_base
 	function get_row_widths($arr)
 	{
 		$ret = array();
-		$ge = get_instance("vcl/grid_editor");
+		$ge = new grid_editor();
 		$ge->_init_table($arr['obj_inst']->meta('grid'));
 		for($i = 0; $i < $ge->get_num_cols(); $i++)
 		{
@@ -397,11 +393,11 @@ class layout extends class_base
 		}
 		return $ret;
 	}
-	
+
 	function get_row_heights($arr)
 	{
 		$ret = array();
-		$ge = get_instance("vcl/grid_editor");
+		$ge = new grid_editor();
 		$ge->_init_table($arr['obj_inst']->meta('grid'));
 		for($i = 0; $i < $ge->get_num_cols(); $i++)
 		{
@@ -463,14 +459,14 @@ class layout extends class_base
 		return $ret;
 	}
 
-	function _unserialize($args)
+	function _unserialize($args = array())
 	{
 		$raw = isset($args["raw"]) ? $args["raw"] : aw_unserialize($args["str"]);
 		$o = obj();
 		$o->set_parent($args["parent"]);
 		$o->set_period((int)$args["period"]);
 		$o->set_class_id(CL_LAYOUT);
-	
+
 		foreach(safe_array($raw) as $k => $v)
 		{
 			if ($o->is_property($k))
@@ -491,4 +487,3 @@ class layout extends class_base
 		return $o->id();
 	}
 }
-?>
