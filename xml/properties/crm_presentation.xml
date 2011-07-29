@@ -42,6 +42,7 @@
             <name>name</name>
             <table>objects</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>textbox</type>
             <field>name</field>
             <caption>Nimi</caption>
@@ -50,31 +51,16 @@
             <name>comment</name>
             <table>objects</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>textbox</type>
             <field>comment</field>
             <caption>Kommentaar</caption>
       </property>
       <property>
-            <name>result</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>select</type>
-            <field>result</field>
-            <caption>Tulemus</caption>
-      </property>
-      <property>
-            <name>result_task_view</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>text</type>
-            <store>no</store>
-            <field>result_task_view</field>
-            <caption>Tulemustegevus</caption>
-      </property>
-      <property>
             <name>start1</name>
             <table>planner</table>
             <group>general</group>
+            <parent>data_container</parent>
             <field>start</field>
             <type>datepicker</type>
             <caption>Algus</caption>
@@ -83,33 +69,16 @@
             <name>end</name>
             <table>planner</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>datepicker</type>
             <field>end</field>
             <caption>L&amp;amp;otilde;pp</caption>
       </property>
       <property>
-            <name>real_start</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>datepicker</type>
-            <field>real_start</field>
-            <comment>Kui tegelik algus sisestada, arvatakse esitlus toimunuks.</comment>
-            <caption>Tegelik algus</caption>
-      </property>
-      <property>
-            <name>real_duration</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>textbox</type>
-            <datatype>int</datatype>
-            <field>real_duration</field>
-            <comment>Kui tegelik kestus sisestada, arvatakse esitlus toimunuks.</comment>
-            <caption>Tegelik kestus (h)</caption>
-      </property>
-      <property>
             <name>assigned_salesman_edit</name>
             <table>planner</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>select</type>
             <datatype>int</datatype>
             <store>no</store>
@@ -120,6 +89,7 @@
             <name>participant_select</name>
             <table>planner</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>relpicker</type>
             <delete_rels_popup_button>1</delete_rels_popup_button>
             <no_edit>1</no_edit>
@@ -134,6 +104,7 @@
             <name>presentation_location</name>
             <table>objects</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>relpicker</type>
             <reltype>RELTYPE_LOCATION</reltype>
             <field>meta</field>
@@ -148,6 +119,7 @@
             <name>presentation_location_save_to_customer</name>
             <table>planner</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <store>no</store>
@@ -158,6 +130,7 @@
             <name>presentation_appointment_phone_nr</name>
             <table>planner</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>text</type>
             <store>no</store>
             <field>presentation_appointment_phone_nr</field>
@@ -167,8 +140,9 @@
             <name>offer</name>
             <table>planner</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>objpicker</type>
-            <class_id>CL_CRM_OFFER</class_id>
+            <clid>CL_CRM_OFFER</clid>
             <field>aw_offer</field>
             <caption>Seotud pakkumine</caption>
       </property>
@@ -176,6 +150,7 @@
             <name>presented_products</name>
             <table>planner</table>
             <group>general</group>
+            <parent>data_container</parent>
             <type>relpicker</type>
             <reltype>RELTYPE_PRESENTED_PRODUCT</reltype>
             <store>connect</store>
@@ -185,9 +160,50 @@
             <caption>Esitletavad tooted</caption>
       </property>
       <property>
+            <name>result</name>
+            <table>planner</table>
+            <group>general</group>
+            <parent>result_container</parent>
+            <type>select</type>
+            <field>result</field>
+            <caption>Tulemus</caption>
+      </property>
+      <property>
+            <name>result_task_view</name>
+            <table>planner</table>
+            <group>general</group>
+            <parent>result_container</parent>
+            <type>text</type>
+            <store>no</store>
+            <field>result_task_view</field>
+            <caption>Tulemustegevus</caption>
+      </property>
+      <property>
+            <name>real_start</name>
+            <table>planner</table>
+            <group>general</group>
+            <parent>result_container</parent>
+            <type>datepicker</type>
+            <field>real_start</field>
+            <comment>Kui tegelik algus sisestada, arvatakse esitlus toimunuks.</comment>
+            <caption>Tegelik algus</caption>
+      </property>
+      <property>
+            <name>real_duration</name>
+            <table>planner</table>
+            <group>general</group>
+            <parent>result_container</parent>
+            <type>textbox</type>
+            <datatype>int</datatype>
+            <field>real_duration</field>
+            <comment>Kui tegelik kestus sisestada, arvatakse esitlus toimunuks.</comment>
+            <caption>Tegelik kestus (h)</caption>
+      </property>
+      <property>
             <name>sold_products</name>
             <table>planner</table>
             <group>general</group>
+            <parent>result_container</parent>
             <type>relpicker</type>
             <reltype>RELTYPE_SOLD_PRODUCT</reltype>
             <store>connect</store>
@@ -200,26 +216,27 @@
             <name>impl_tb</name>
             <table>planner</table>
             <group>general</group>
+            <parent>impl_bit</parent>
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <parent>impl_bit</parent>
             <field>impl_tb</field>
       </property>
       <property>
             <name>parts_table</name>
             <table>planner</table>
             <group>general</group>
+            <parent>impl_bit</parent>
             <type>table</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <parent>impl_bit</parent>
             <field>parts_table</field>
       </property>
       <property>
             <name>customer_info</name>
             <table>planner</table>
             <group>customer</group>
+            <parent>result_container</parent>
             <type>text</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -273,6 +290,25 @@
             </PARTICIPANT>
       </reltypes>
       <layout>
+            <main_container>
+                  <type>hbox</type>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </main_container>
+            <data_container>
+                  <type>vbox</type>
+                  <parent>main_container</parent>
+                  <area_caption>Andmed</area_caption>
+                  <closeable>1</closeable>
+                  <group>general</group>
+            </data_container>
+            <result_container>
+                  <type>vbox</type>
+                  <parent>main_container</parent>
+                  <area_caption>Tulemus</area_caption>
+                  <closeable>1</closeable>
+                  <group>general</group>
+            </result_container>
             <impl_bit>
                   <type>vbox</type>
                   <closeable>1</closeable>

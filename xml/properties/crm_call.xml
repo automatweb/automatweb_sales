@@ -240,8 +240,9 @@
             <table>planner</table>
             <group>general</group>
             <type>textarea</type>
-            <cols>180</cols>
-            <rows>30</rows>
+            <cols>100</cols>
+            <rows>10</rows>
+            <resize_height>-1</resize_height>
             <field>description</field>
             <parent>content_bit</parent>
             <no_caption>1</no_caption>

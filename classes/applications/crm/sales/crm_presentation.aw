@@ -15,57 +15,62 @@
 	@property presentation_tools type=toolbar no_caption=1
 	@caption Esitluse toimingud
 
-	@property name type=textbox table=objects field=name
-	@caption Nimi
+	@layout main_container type=hbox
+		@layout data_container type=vbox parent=main_container area_caption=Andmed closeable=1
+		@default parent=data_container
+			@property name type=textbox table=objects field=name
+			@caption Nimi
 
-	@property comment type=textbox table=objects field=comment
-	@caption Kommentaar
+			@property comment type=textbox table=objects field=comment
+			@caption Kommentaar
 
-	@property result type=select
-	@caption Tulemus
+			@property start1 field=start type=datepicker
+			@caption Algus
 
-	@property result_task_view type=text store=no
-	@caption Tulemustegevus
+			@property end type=datepicker
+			@caption L&otilde;pp
 
-	@property start1 field=start type=datepicker
-	@caption Algus
+			@property assigned_salesman_edit type=select datatype=int store=no
+			@caption M&uuml;&uuml;giesindaja
 
-	@property end type=datepicker
-	@caption L&otilde;pp
+			@property participant_select type=relpicker delete_rels_popup_button=1 no_edit=1 multiple=1 size=5 store=connect reltype=RELTYPE_PARTICIPANT
+			@caption Osalejad
 
-	@property real_start type=datepicker
-	@comment Kui tegelik algus sisestada, arvatakse esitlus toimunuks.
-	@caption Tegelik algus
+			@property presentation_location type=relpicker reltype=RELTYPE_LOCATION table=objects field=meta method=serialize no_search=1 add_edit_autoreturn=1 no_sel=1
+			@comment * - m&auml;rgitud aadressid on kontakti aadressid. &Uuml;lej&auml;&auml;nud on esitluse toimumiskohad, mis kontakti andmetes ei kajastu.
+			@caption Toimumiskoht
 
-	@property real_duration type=textbox datatype=int
-	@comment Kui tegelik kestus sisestada, arvatakse esitlus toimunuks.
-	@caption Tegelik kestus (h)
+			@property presentation_location_save_to_customer type=checkbox ch_value=1 store=no
+			@caption &nbsp;
 
-	@property assigned_salesman_edit type=select datatype=int store=no
-	@caption M&uuml;&uuml;giesindaja
+			@property presentation_appointment_phone_nr type=text store=no
+			@caption Tel. nr. millel kokku lepiti
 
-	@property participant_select type=relpicker delete_rels_popup_button=1 no_edit=1 multiple=1 size=5 store=connect reltype=RELTYPE_PARTICIPANT
-	@caption Osalejad
+			@property offer type=objpicker clid=CL_CRM_OFFER field=aw_offer
+			@caption Seotud pakkumine
 
-	@property presentation_location type=relpicker reltype=RELTYPE_LOCATION table=objects field=meta method=serialize no_search=1 add_edit_autoreturn=1 no_sel=1
-	@comment * - m&auml;rgitud aadressid on kontakti aadressid. &Uuml;lej&auml;&auml;nud on esitluse toimumiskohad, mis kontakti andmetes ei kajastu.
-	@caption Toimumiskoht
+			@property presented_products type=relpicker reltype=RELTYPE_PRESENTED_PRODUCT store=connect size=8 no_edit=1
+			@caption Esitletavad tooted
 
-	@property presentation_location_save_to_customer type=checkbox ch_value=1 store=no
-	@caption &nbsp;
 
-	@property presentation_appointment_phone_nr type=text store=no
-	@caption Tel. nr. millel kokku lepiti
+		@layout result_container type=vbox parent=main_container area_caption=Tulemus closeable=1
+		@default parent=result_container
+			@property result type=select
+			@caption Tulemus
 
-	@property offer type=objpicker class_id=CL_CRM_OFFER field=aw_offer
-	@caption Seotud pakkumine
+			@property result_task_view type=text store=no
+			@caption Tulemustegevus
 
-	@property presented_products type=relpicker reltype=RELTYPE_PRESENTED_PRODUCT store=connect size=8 no_edit=1
-	@caption Esitletavad tooted
+			@property real_start type=datepicker
+			@comment Kui tegelik algus sisestada, arvatakse esitlus toimunuks.
+			@caption Tegelik algus
 
-	@property sold_products type=relpicker reltype=RELTYPE_SOLD_PRODUCT store=connect size=8 no_edit=1
-	@caption M&uuml;&uuml;dud tooted
+			@property real_duration type=textbox datatype=int
+			@comment Kui tegelik kestus sisestada, arvatakse esitlus toimunuks.
+			@caption Tegelik kestus (h)
 
+			@property sold_products type=relpicker reltype=RELTYPE_SOLD_PRODUCT store=connect size=8 no_edit=1
+			@caption M&uuml;&uuml;dud tooted
 
 
 @layout impl_bit type=vbox closeable=1 area_caption=Osalejad
@@ -98,6 +103,17 @@
 
 class crm_presentation extends task
 {
+	const REQVAR_SHOW_SCHEDULING_IFACE = "sched";
+
+	// properties that are not to be set when scheduling a call or other sales activity result presentation in sales application
+	private static $sales_schedules_presentation_disable_props = array(
+		"result",
+		"result_task_view",
+		"real_start",
+		"real_duration",
+		"sold_products"
+	);
+
 	function crm_presentation()
 	{
 		$this->init(array(
@@ -106,13 +122,24 @@ class crm_presentation extends task
 		));
 	}
 
+	function get_property(&$arr)
+	{
+		$application = automatweb::$request->get_application();
+		if ($application->is_a(CL_CRM_SALES) and !empty($arr["request"][self::REQVAR_SHOW_SCHEDULING_IFACE]) and in_array($arr["prop"]["name"], self::$sales_schedules_presentation_disable_props))
+		{
+			$arr["prop"]["disabled"] = true;
+		}
+
+		return class_base::PROP_OK;
+	}
+
 	function _get_presentation_tools(&$arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 		$this_o = $arr["obj_inst"];
 		$tb->add_save_button();
 		$tb->add_save_close_button();
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_presentation_appointment_phone_nr(&$arr)
@@ -142,13 +169,13 @@ class crm_presentation extends task
 		}
 
 		$arr["prop"]["value"] = $phone;
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_presentation_location_save_to_customer(&$arr)
 	{
 		$arr["prop"]["post_append_text"] = t("Salvesta valitud toimumiskoht kontakti aadresside hulka");
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_presentation_location(&$arr)
@@ -187,14 +214,14 @@ class crm_presentation extends task
 
 			$arr["prop"]["options"] = $customer_addresses + $presentation_addresses->names();
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_result_task_view(&$arr)
 	{
 		$this_o = $arr["obj_inst"];
 		$result_task = $this_o->prop("result_task");
-		$r = PROP_IGNORE;
+		$r = class_base::PROP_IGNORE;
 
 		if ($result_task)
 		{
@@ -212,7 +239,7 @@ class crm_presentation extends task
 					"title" => t("Muuda")
 				));
 
-				$r = PROP_OK;
+				$r = class_base::PROP_OK;
 			}
 			catch (awex_obj $e)
 			{
@@ -225,7 +252,7 @@ class crm_presentation extends task
 	function _get_presented_products(&$arr)
 	{
 		$this_o = $arr["obj_inst"];
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 
 		// in sales application, get products from associated warehouse
 		$application = automatweb::$request->get_application();
@@ -245,7 +272,7 @@ class crm_presentation extends task
 
 	function _set_presentation_location(&$arr)
 	{
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 		$value = $arr["prop"]["value"];
 
 		$application = automatweb::$request->get_application();
@@ -255,7 +282,7 @@ class crm_presentation extends task
 			if (crm_sales_obj::ROLE_TELEMARKETING_SALESMAN === $role and !is_oid($arr["prop"]["value"]))
 			{
 				$arr["prop"]["error"] = t("Toimumiskoha valimine on kohustuslik");
-				$return = PROP_FATAL_ERROR;
+				$return = class_base::PROP_FATAL_ERROR;
 			}
 		}
 
@@ -278,7 +305,7 @@ class crm_presentation extends task
 
 	function _get_assigned_salesman_edit(&$arr)
 	{
-		$return = PROP_OK;
+		$return = class_base::PROP_OK;
 		$this_o = $arr["obj_inst"];
 
 		// determine access
@@ -289,7 +316,7 @@ class crm_presentation extends task
 			$role = $application->get_current_user_role();
 			if (crm_sales_obj::ROLE_SALESMAN === $role)
 			{
-				$return = PROP_IGNORE;
+				$return = class_base::PROP_IGNORE;
 			}
 			else
 			{
@@ -300,7 +327,7 @@ class crm_presentation extends task
 			}
 		}
 
-		if (PROP_OK === $return)
+		if (class_base::PROP_OK === $return)
 		{
 			// set current value
 			$customer_relation = new object($this_o->prop("customer_relation"));
@@ -315,7 +342,7 @@ class crm_presentation extends task
 
 	function _set_assigned_salesman_edit(&$arr)
 	{
-		$return = PROP_OK;
+		$return = class_base::PROP_OK;
 		$this_o = $arr["obj_inst"];
 
 		// determine access
@@ -326,13 +353,13 @@ class crm_presentation extends task
 			$role = $application->get_current_user_role();
 			if (crm_sales_obj::ROLE_SALESMAN === $role)
 			{
-				$return = PROP_IGNORE;
+				$return = class_base::PROP_IGNORE;
 			}
 
 			if (crm_sales_obj::ROLE_TELEMARKETING_SALESMAN === $role and !is_oid($arr["prop"]["value"]))
 			{
 				$arr["prop"]["error"] = t("M&uuml;&uuml;giesindaja valimine on kohustuslik");
-				$return = PROP_FATAL_ERROR;
+				$return = class_base::PROP_FATAL_ERROR;
 			}
 		}
 
@@ -364,22 +391,24 @@ class crm_presentation extends task
 	{
 		$arr["prop"]["value"] = (isset($arr["prop"]["value"]) and $arr["prop"]["value"] > 0) ? number_format($arr["prop"]["value"]/60, 2, ".", " ") : "";
 
-		if ($arr["obj_inst"]->is_done() and !$arr["obj_inst"]->is_finished())
+		$application = automatweb::$request->get_application();
+		if (($arr["obj_inst"]->is_done() and !$arr["obj_inst"]->is_finished()) or ($application->is_a(CL_CRM_SALES) and !empty($arr["request"][self::REQVAR_SHOW_SCHEDULING_IFACE])))
 		{
-			$arr["prop"]["disabled"] = 1;
+			$arr["prop"]["disabled"] = true;
 		}
 
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_real_start(&$arr)
 	{
-		if ($arr["obj_inst"]->is_done() and !$arr["obj_inst"]->is_finished())
+		$application = automatweb::$request->get_application();
+		if (($arr["obj_inst"]->is_done() and !$arr["obj_inst"]->is_finished()) or ($application->is_a(CL_CRM_SALES) and !empty($arr["request"][self::REQVAR_SHOW_SCHEDULING_IFACE])))
 		{
-			$arr["prop"]["disabled"] = 1;
+			$arr["prop"]["disabled"] = true;
 		}
 
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_customer_info(&$arr)
@@ -392,11 +421,12 @@ class crm_presentation extends task
 			"id" => $this_o->prop("customer_relation"),
 			"group" => "sales_data"
 		));
+		return class_base::PROP_OK;
 	}
 
 	function _get_start1(&$arr)
 	{
-		$return = PROP_OK;
+		$return = class_base::PROP_OK;
 		// in sales application, a salesman can't change planned start/end
 		$application = automatweb::$request->get_application();
 		if ($application->is_a(CL_CRM_SALES))
@@ -534,7 +564,7 @@ class crm_presentation extends task
 
 	function _set_real_start(&$arr)
 	{
-		if ($arr["obj_inst"]->is_done() and !$arr["obj_inst"]->is_finished())
+		if ($arr["obj_inst"]->is_done() and !$arr["obj_inst"]->is_finished() or empty($arr["request"]["result"]))
 		{
 			$return = PROP_IGNORE;
 		}
@@ -620,12 +650,16 @@ class crm_presentation extends task
 	function _get_result(&$arr)
 	{
 		$return = PROP_OK;
-		$results = $arr["obj_inst"]->result_names();
-		arsort($results);
-		$arr["prop"]["options"] = array("" => "") + $results;
-		if ($arr["obj_inst"]->is_done())
+		$application = automatweb::$request->get_application();
+		if ($arr["obj_inst"]->is_done() or ($application->is_a(CL_CRM_SALES) and !empty($arr["request"][self::REQVAR_SHOW_SCHEDULING_IFACE])))
 		{
-			$arr["prop"]["disabled"] = 1;
+			$arr["prop"]["disabled"] = true;
+		}
+		else
+		{
+			$results = $arr["obj_inst"]->result_names();
+			arsort($results);
+			$arr["prop"]["options"] = array("" => "") + $results;
 		}
 		return $return;
 	}
