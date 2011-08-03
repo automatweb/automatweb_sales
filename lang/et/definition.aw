@@ -1,4 +1,6 @@
 <?php
+
+
 // kasutusel otsingus
 define("LC_OBJECTS_ALL","Kõik");
 define("LC_NO_DEFAULT_GROUP","Teil on default grupp puudu, palun teatage sellest veast kohe info@struktuur.ee");

@@ -27,10 +27,6 @@
 	@property needs_translation type=checkbox field=flags method=bitmask ch_value=2 // OBJ_NEEDS_TRANSLATION
 	@caption Vajab t&otilde;lget
 
-	// see peaks olemas olema ainult siis, kui sellel objekt on _actually_ mingi asja t&otilde;lge
-	property is_translated type=checkbox field=flags method=bitmask ch_value=4 trans=1 // OBJ_IS_TRANSLATED
-	caption T&otilde;lge kinnitatud
-
 	@groupinfo general caption=&Uuml;ldine default=1 icon=edit focus=name
 
 	@forminfo add onload=init_storage_object
@@ -107,7 +103,6 @@ class class_base extends aw_template implements orb_public_interface
 	var $_do_call_vcl_mod_reforbs;
 	var $no_mod_view = 0;
 	var $translation_lang_var_name = "awcb_347c92e42_trans_lid";
-	var $translation_lang_id;
 	var $transl_grp_name;
 	var $is_translated;
 	var $request = array();
@@ -125,6 +120,12 @@ class class_base extends aw_template implements orb_public_interface
 
 	/** Main request object, this is what interface is built according to. type=aw_request **/
 	protected $req;
+
+	// selected translation target language
+	protected $translation_lang_id = 0;
+
+	/** array of translatable property names **/
+	protected $trans_props = array();
 
 	/** Main object instance **/
 	// protected $obj_inst;
@@ -1318,9 +1319,8 @@ class class_base extends aw_template implements orb_public_interface
 		$this->orb_action = empty($args["action"]) ? "submit" : $args["action"];
 
 		$this->is_translated = 0;
-		// object framework does it's own quoting
-		//$this->quote($args);
 
+		// object framework does it's own quoting
 		$request = $args;
 		$id = isset($args["id"]) ? $args["id"] : null;
 		$group = isset($args["group"]) ? $args["group"] : null;
@@ -1608,10 +1608,19 @@ class class_base extends aw_template implements orb_public_interface
 
 	protected function process_submit_error(Exception $caught_exception)
 	{
-		$this->show_error_text(t("Andmete salvestamisel esines viga"));
-		$this->data_processing_result_status = PROP_FATAL_ERROR;
-		trigger_error("Caught exception " . get_class($caught_exception) . " while saving data. Thrown in '" . $caught_exception->getFile() . "' on line " . $caught_exception->getLine() . ": '" . $caught_exception->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($caught_exception->getTrace(), -1, true), E_USER_WARNING);
-		return false;
+		$r = false;
+		if ($caught_exception instanceof awex_obj_modified_by_others)
+		{//TODO: vaadata kas submititud andmed j2etakse alles ja saadetakse kasutajale ikka
+			$this->show_error_text(t("Teine kasutaja on vahepeal andmeid muutnud. Kontrollige andmete &otilde;igsust ning proovige uuesti."));
+			$this->data_processing_result_status = PROP_FATAL_ERROR;
+		}
+		else
+		{
+			$this->show_error_text(t("Andmete salvestamisel esines viga"));
+			$this->data_processing_result_status = PROP_FATAL_ERROR;
+			trigger_error("Caught exception " . get_class($caught_exception) . " while saving data. Thrown in '" . $caught_exception->getFile() . "' on line " . $caught_exception->getLine() . ": '" . $caught_exception->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($caught_exception->getTrace(), -1, true), E_USER_WARNING);
+		}
+		return $r;
 	}
 
 	function get_cfgform_for_object($args = array())
@@ -3191,7 +3200,7 @@ class class_base extends aw_template implements orb_public_interface
 			if (isset($val["richtext"]) && 1 == $val["richtext"])
 			{
 				$has_rte = true;
-			};
+			}
 		}
 
 		if ($this->classinfo(array("name" => "allow_rte")) < 1)
@@ -3207,7 +3216,7 @@ class class_base extends aw_template implements orb_public_interface
 		if ($this->no_rte)
 		{
 			$has_rte = false;
-		};
+		}
 
 
 		$properties = $resprops;
@@ -3227,19 +3236,19 @@ class class_base extends aw_template implements orb_public_interface
 			if (isset($val["name"]) && $val["name"] === "tabpanel" && $this->view)
 			{
 				continue;
-			};
+			}
 
 			if (isset($val["name"]) && $val["name"] === "name" && !empty($this->classinfo["no_name"]))
 			{
 				continue;
-			};
+			}
 
 
 			// XXX: need to get rid of that "text" index
 			if (isset($val["name"]) && $val["name"] === "status" && !empty($this->classinfo["no_status"]))
 			{
 				continue;
-			};
+			}
 
 			if (isset($val["name"]) && $val["name"] === "comment" && !empty($this->classinfo["no_comment"]))
 			{
@@ -5417,14 +5426,14 @@ class class_base extends aw_template implements orb_public_interface
 		if (isset($this->classinfo["no_status"]))
 		{
 			unset($defaults["status"]);
-		};
+		}
 
 		if (isset($this->classinfo["no_comment"]))
 		{
 			unset($defaults["comment"]);
-		};
-		$this->layoutinfo = $cfgu->get_layoutinfo();
+		}
 
+		$this->layoutinfo = $cfgu->get_layoutinfo();
 		$this->relinfo = $cfgu->get_relinfo();
 
 		return $defaults;
@@ -5521,31 +5530,34 @@ class class_base extends aw_template implements orb_public_interface
 			$rv[$vgr] = $gval;
 		}
 
-		if (aw_ini_get("config.trans.separate_tabs") and aw_ini_get("user_interface.content_trans") and !empty($this->inst->translation_lang_id))
+		if (aw_ini_get("user_interface.content_trans") and !empty($this->inst->translation_lang_id))
 		{ // add virtual language-subgroups
-			$l = get_instance("languages");
-			$ll = $l->get_list(array(
-				"set_for_user" => true,
-				"all_data" => true
-			));
+			$languages_in_use = languages::list_translate_targets();
 
-			foreach ($ll as $lang_id => $lang)
+			if($languages_in_use->count())
 			{
-				if ($lang_id != $this->obj_inst->lang_id())
-				{
-					$id = $this->translation_lang_var_name . $lang_id;
-					$rv[$id] = array(
-						"caption" => $lang["name"],
-						"parent" => $this->inst->transl_grp_name,
-						"level" => 2,
-						"set_link" => aw_url_change_var($this->translation_lang_var_name, $lang_id)
-					);
+				$o = $languages_in_use->begin();
 
-					if ($lang_id == $this->inst->translation_lang_id)
+				do
+				{
+					$lang_id = $o->prop("db_lang_id");
+					if ($lang_id !== $this->obj_inst->lang_id())
 					{
-						$rv[$id]["active"] = 1;
+						$id = $this->translation_lang_var_name . $lang_id;
+						$rv[$id] = array(
+							"caption" => $o->name(),
+							"parent" => $this->inst->transl_grp_name,
+							"level" => 2,
+							"set_link" => aw_url_change_var($this->translation_lang_var_name, $lang_id)
+						);
+
+						if ($lang_id === $this->inst->translation_lang_id)
+						{
+							$rv[$id]["active"] = 1;
+						}
 					}
 				}
+				while ($o = $languages_in_use->next());
 			}
 		}
 
@@ -5584,7 +5596,7 @@ class class_base extends aw_template implements orb_public_interface
 		if (!empty($arr["_alias"]))
 		{
 			$rv = aw_url_change_var("class",false,$rv);
-		};
+		}
 		return $rv;
 
 	}
@@ -5601,21 +5613,64 @@ class class_base extends aw_template implements orb_public_interface
 
 	/////////////////////////////////////////////
 	// sorta-automatic translation helpers
-	//TODO: ds_obj siia ka teha
-	function trans_save($arr, $props, $props_if = array())
+
+	/** Saves translations
+		@attrib name=submit_translations all_args=1
+		@param id required type=oid acl=view
+			Object id to save
+		@param post_ru required type=string
+	**/
+	public function submit_translations($arr)
 	{
-		$o = $arr["obj_inst"];
+		$this->_trans_save($arr, $this->trans_props);
+		return $arr["post_ru"];
+	}
+
+	protected function trans_save($arr, $props, $props_if = array())
+	{
+		$this->_trans_save($arr["request"], $props, $props_if);
+	}
+
+	//TODO: ds_obj siia ka teha
+	private function _trans_save($arr, $props, $props_if = array())
+	{
+		// check if language request exists
+		if (!aw_ini_get("user_interface.content_trans"))
+		{
+			$this->show_error_text(t("T&otilde;lkimine pole sisse l&uuml;litatud"));
+			return self::PROP_FATAL_ERROR;
+		}
+
+		if (empty($arr[$this->translation_lang_var_name]))
+		{
+			$this->show_error_text(t("T&otilde;lke keel valimata"));
+			return self::PROP_FATAL_ERROR;
+		}
+
+		$this->load_storage_object($arr);
+		$o = $this->obj_inst;
+
+		// get language if exists
+		$l = new languages();
+		$lang = $l->fetch($arr[$this->translation_lang_var_name]);
+		if (empty($lang["id"]))
+		{
+			$this->show_error_text(t("T&otilde;lke keelt ei leitud"));
+			return self::PROP_FATAL_ERROR;
+		}
+
+		if ($lang["id"] === $o->lang_id())
+		{
+			$this->show_msg_text(t("T&otilde;lke keel ei saa olla sama, mis algkeel"));
+			return self::PROP_IGNORE;
+		}
+
 		$o->set_no_modify(true);
 		if ($o->is_brother())
 		{
 			$o = $o->get_original();
 		}
-		$l = get_instance("languages");
-		$ll = $l->get_list(array(
-			"all_data" => true,
-			"set_for_user" => true
-		));
-		$all_vals = $o->meta("translations");
+
 		$repls = array(
 			chr(197).chr(161) => "&scaron;",
 			chr(197).chr(160) => "&Scaron;",
@@ -5636,140 +5691,131 @@ class class_base extends aw_template implements orb_public_interface
 			chr(196).chr(141) => "&#269;",
 			chr(197).chr(171) => "&#363;"
 		);
-		$all_vals = $o->meta("translations");
+		$all_vals = safe_array($o->meta("translations"));
 		$time = time();
+		$lid = $lang["id"];
+		$this->translation_lang_id = $lid;
+		$mod = false;
+		$target_charset = "{$lang["charset"]}//IGNORE";
 
-		if (aw_ini_get("config.trans.separate_tabs") and aw_ini_get("user_interface.content_trans") and array_key_exists($arr["request"][$this->translation_lang_var_name], $ll))
+		foreach(safe_array($props_if) as $pi)
 		{
-			$lang = $ll[$arr["request"][$this->translation_lang_var_name]];
-			$lid = $lang["id"];
+			$props[] = $pi;
+		}
 
-			if ($lid != $o->lang_id())
+		// parse property translations
+		foreach($props as $p)
+		{
+			$nm = "trans_{$lid}_{$p}";
+
+			if (isset($arr[$nm]))
 			{
-				$this->translation_lang_id = $lid;
-				$mod = false;
+				$str = $arr[$nm];
 
-				foreach(safe_array($props_if) as $pi)
+				// replace estonian chars in other languages with entities
+				if ($lang["acceptlang"] !== "et")
 				{
-					$props[] = $pi;
-				}
-				foreach($props as $p)
-				{
-					$nm = "trans_".$lid."_".$p;
-
-					if (isset($arr["request"][$nm]))
-					{
-						$str = $arr["request"][$nm];
-
-						// replace estonian chars in other languages with entities
-						if ($lang["acceptlang"] != "et")
-						{
-							foreach($repls as $r1 => $r2)
-							{
-								$str = str_replace($r1, $r2, $str);
-							}
-						}
-
-						$str = str_replace(chr(226).chr(128).chr(147), "-", $str);
-						$nv = iconv("UTF-8", $lang["charset"]."//IGNORE", $str);
-
-						if (!isset($all_vals[$lid][$p]) or $nv != $all_vals[$lid][$p])
-						{
-							$mod = true;
-						}
-
-						$all_vals[$lid][$p] = $nv;
-					}
+					$str = str_replace(array_keys($repls), array_values($repls), $str);
 				}
 
-				$o->set_meta("trans_".$lid."_status", $arr["request"]["act_".$lid]);
-				$arr["obj_inst"]->set_meta("trans_".$lid."_status", $arr["request"]["act_".$lid]);
+				$str = str_replace(chr(226).chr(128).chr(147), "-", $str);
+				$nv = iconv("UTF-8", $target_charset, $str);
 
-				if ($mod)
+				if (!isset($all_vals[$lid][$p]) or $nv !== $all_vals[$lid][$p])
 				{
-					$o->set_meta("trans_".$lid."_modified", $time);
-					$arr["obj_inst"]->set_meta("trans_".$lid."_modified", $time);
+					$mod = true;
+					$all_vals[$lid][$p] = $nv;
 				}
+			}
+		}
+
+		// save translation active checkbox selection
+		$translation_active = (int) !empty($arr["act_{$lid}"]);
+		if ($o->meta("trans_{$lid}_status") != $translation_active)
+		{
+			$o->set_meta("trans_{$lid}_status", $translation_active);
+			$mod = true;
+		}
+
+		// save if modified
+		if ($mod)
+		{
+			$o->set_meta("trans_{$lid}_modified", $time);
+			$o->set_meta("translations", $all_vals);
+			$o->save();
+		}
+
+		return self::PROP_OK;
+	}
+
+//TODO: ds_obj siia ka teha
+	protected function trans_callback($arr, $props, $props_if_filled = null)
+	{
+		// check if translation view is available
+		if (!aw_ini_get("user_interface.content_trans"))
+		{
+			$this->show_msg_text(t("T&otilde;lkevaade pole seadistatud."));
+			return;
+		}
+
+		// init variables
+		$ret = array();
+		$o = $arr["obj_inst"];
+		$o = $o->get_original();
+		$original_lang_id = $o->lang_id();
+
+		// get langs
+		$languages_in_use = languages::list_translate_targets();
+
+		// get language to translate to
+		$requested_lang_id = empty($arr["request"][$this->translation_lang_var_name]) ? "" : $arr["request"][$this->translation_lang_var_name];
+		if($languages_in_use->count())
+		{
+			$l_o = $languages_in_use->begin();
+
+			do
+			{
+				if ($original_lang_id === $l_o->prop("db_lang_id"))
+				{ // remove object's original language from target list
+					$languages_in_use->remove($l_o);
+				}
+				elseif ($requested_lang_id === $l_o->prop("db_lang_id"))
+				{ // requested language found, set target
+					$this->translation_lang_id = $requested_lang_id;
+					$translation_target_lang_o = $l_o;
+				}
+			}
+			while ($l_o = $languages_in_use->next());
+
+			if(!$this->translation_lang_id and $languages_in_use->count())
+			{
+				// only one language in use besides original, or requested language was not valid
+				$translation_target_lang_o = $languages_in_use->begin();
+				$this->translation_lang_id = $translation_target_lang_o->prop("db_lang_id");
+			}
+			else
+			{
+				$this->show_msg_text(t("Lubatud on vaid k&auml;esoleva objekti algkeel, pole keeli millesse t&otilde;lkida."));
+				return;
 			}
 		}
 		else
 		{
-			foreach($ll as $lid => $lang)
-			{
-				if ($lid == $o->lang_id())
-				{
-					continue;
-				}
-
-				$mod = false;
-
-				foreach($props as $p)
-				{
-					$nm = "trans_".$lid."_".$p;
-
-					if (isset($arr["request"][$nm]))
-					{
-						$str = $arr["request"][$nm];
-
-						// replace estonian chars in other languages with entities
-						if ($lang["acceptlang"] != "et")
-						{
-							foreach($repls as $r1 => $r2)
-							{
-								$str = str_replace($r1, $r2, $str);
-							}
-						}
-
-						$str = str_replace(chr(226).chr(128).chr(147), "-", $str);
-						$nv = iconv("UTF-8", $lang["charset"]."//IGNORE", $str);
-
-						if (!isset($all_vals[$lid][$p]) or $nv != $all_vals[$lid][$p])
-						{
-							$mod = true;
-						}
-
-						$all_vals[$lid][$p] = $nv;
-					}
-				}
-
-				$o->set_meta("trans_".$lid."_status", $arr["request"]["act_".$lid]);
-				$arr["obj_inst"]->set_meta("trans_".$lid."_status", $arr["request"]["act_".$lid]);
-
-				if ($mod)
-				{
-					$o->set_meta("trans_".$lid."_modified", $time);
-					$arr["obj_inst"]->set_meta("trans_".$lid."_modified", $time);
-				}
-			}
+			$this->show_msg_text(t("Pole keeli millesse lubatud t&otilde;lkida."));
+			return;
 		}
 
-		$o->set_meta("translations", $all_vals);
-		$o->save();
-		$arr["obj_inst"]->set_meta("translations", $all_vals);
-	}
-
-//TODO: ds_obj siia ka teha
-	function trans_callback($arr, $props, $props_if_filled = null)
-	{
 		aw_global_set("output_charset","UTF-8");
-		$ret = array();
-
-		// get langs
-		$l = get_instance("languages");
-		$ll = $l->get_list(array(
-			"set_for_user" => true,
-			"all_data" => true
-		));
 
 		$pl = $arr["obj_inst"]->get_property_list();
 
+		// consider cfgform
 		$cfgform_id = $this->get_cfgform_for_object(array(
 			"obj_inst" => $arr["obj_inst"],
 			"args" => $arr["request"],
 		));
 		$ppl = $pl;
-
-		if ($this->can("view", $cfgform_id))
+		if (object_loader::can("view", $cfgform_id))
 		{
 			$cf = get_instance(CL_CFGFORM);
 			$pl = $cf->get_props_from_cfgform(array("id" => $cfgform_id));
@@ -5798,187 +5844,82 @@ class class_base extends aw_template implements orb_public_interface
 			}
 		}
 
-		$o = $arr["obj_inst"];
-		$o = $o->get_original();
+		// show translation props
 		$all_vals = $o->meta("translations");
-		$original_lang_id = $o->lang_id();
+		$this->transl_grp_name = $arr["request"]["group"];
+		$vals = empty($all_vals[$this->translation_lang_id]) ? array() : $all_vals[$this->translation_lang_id];
 
-		if (aw_ini_get("config.trans.separate_tabs") and aw_ini_get("user_interface.content_trans"))
+		// get prop values in user's source language
+		$src_lang_vals = empty($all_vals[$original_lang_id]) ? array() : $all_vals[$original_lang_id];
+
+		foreach(safe_array($props_if_filled) as $p)
 		{
-			$this->transl_grp_name = $arr["request"]["group"];
-
-			if (isset($arr["request"][$this->translation_lang_var_name]) and isset($ll[$arr["request"][$this->translation_lang_var_name]]))
+			if ($arr["obj_inst"]->prop($p) != "")
 			{
-				$lang = $ll[$arr["request"][$this->translation_lang_var_name]];
-			}
-			else
-			{
-				$lang = reset($ll);
-
-				while ($lang["id"] === $original_lang_id)
-				{
-					$lang = next($ll);
-				}
-			}
-
-			$this->translation_lang_id = $lang["id"];
-			if ($lang["id"] != $original_lang_id)
-			{
-				$vals = $all_vals[$lang["id"]];
-
-				// get prop values in user's source language
-				$src_lang_id = $original_lang_id;
-
-				if (aw_global_get("uid"))
-				{
-					$current_user = obj(aw_global_get("uid_oid"));
-					if (isset($all_vals[$current_user->prop("base_lang")]))
-					{
-						$src_lang_id = $current_user->prop("base_lang");
-					}
-				}
-
-				$src_lang_vals = $all_vals[$src_lang_id];
-
-				foreach(safe_array($props_if_filled) as $p)
-				{
-					if ($arr["obj_inst"]->prop($p) != "")
-					{
-						$props[] = $p;
-					}
-				}
-				//
-				$so = 0;
-				foreach($props as $p)
-				{
-					if (!isset($ppl[$p]))
-					{
-						continue;
-					}
-					// source language value
-					$nm = "src_lng_val_".$p;
-					$ret[$nm]["name"] = $nm;
-					$ret[$nm]["caption"] = $ppl[$p]["caption"] . "<small>" . t(" (l&auml;htetekst)") . "</small>";
-					$ret[$nm]["type"] = "text";
-					$ret[$nm]["value"] = iconv(aw_global_get("charset"), "UTF-8", (isset($src_lang_vals[$p]) ? $src_lang_vals[$p] : $o->is_property($p) ? $o->prop_str($p) : ""));
-					$ret[$nm]["ord"] = ++$so;
-					unset($ret[$nm]["parent"]);
-					unset($ret[$nm]["group"]);
-
-					// translation field
-					$nm = "trans_".$lang["id"]."_".$p;
-					$ret[$nm] = $ppl[$p];
-					$ret[$nm]["caption"] .=  "<small>" . t(" (t&otilde;lge)") . "</small>";
-					$ret[$nm]["name"] = $nm;
-					$ret[$nm]["value"] = iconv($lang["charset"], "UTF-8", $vals[$p]);
-					$ret[$nm]["ord"] = ++$so;
-					unset($ret[$nm]["parent"]);
-					unset($ret[$nm]["group"]);
-				}
-				$nm = "act_".$lang["id"];
-				$ret[$nm] = array(
-					"name" => $nm,
-					"caption" => t("T&otilde;lge aktiivne"),
-					"type" => "checkbox",
-					"ch_value" => 1,
-					"value" => $o->meta("trans_".$lang["id"]."_status"),
-					"ord" => ++$so
-				);
-
-				$nm = "sbt_".$lang["id"];
-				$ret[$nm] = array(
-					"name" => $nm,
-					"caption" => t("Salvesta"),
-					"type" => "submit",
-					"ord" => ++$so
-				);
-
-				$nm = $this->translation_lang_var_name;
-				$ret[$nm] = array(
-					"name" => $nm,
-					"type" => "hidden",
-					"value" => $lang["id"]
-				);
+				$props[] = $p;
 			}
 		}
-		else
+		//
+		$so = 0;
+		$str_translation = t(" (t&otilde;lge)");
+		$str_src_text =  t(" (l&auml;htetekst)");
+		foreach($props as $p)
 		{
-			foreach($ll as $lid => $lang)
+			if (!isset($ppl[$p]))
 			{
-				if ($lid == $original_lang_id)
-				{
-					continue;
-				}
-
-				$nm = "sep_$lid";
-				$ret[$nm] = array(
-					"name" => $nm,
-					"type" => "text",
-					"cols" => $pl[$p]["cols"],
-					"rows" => $pl[$p]["rows"],
-					"value" => iconv($lang["charset"], "UTF-8", $vals[$p]),
-					"caption" => $lang["name"]."<a name='#$lid'></a>",
-					"subtitle" => 1,
-				);
-
-				$vals = $all_vals[$lid];
-
-				foreach($props as $p)
-				{
-					$nm = "trans_".$lid."_".$p;
-					$ret[$nm] = $ppl[$p];
-					$ret[$nm]["name"] = $nm;
-					$ret[$nm]["value"] = iconv($lang["charset"], "UTF-8", $vals[$p]);
-				}
-
-				$nm = "act_".$lid;
-				$ret[$nm] = array(
-					"name" => $nm,
-					"caption" => t("T&otilde;lge aktiivne"),
-					"type" => "checkbox",
-					"ch_value" => 1,
-					"value" => $o->meta("trans_".$lid."_status")
-				);
-				$nm = "sbt_".$lid;
-				$ret[$nm] = array(
-					"name" => $nm,
-					"caption" => t("Salvesta"),
-					"type" => "submit",
-				);
+				continue;
 			}
+			// source language value
+			$nm = "src_lng_val_".$p;
+			$ret[$nm]["name"] = $nm;
+			$ret[$nm]["caption"] = $ppl[$p]["caption"] . "<small>{$str_src_text}</small>";
+			$ret[$nm]["type"] = "text";
+			$ret[$nm]["value"] = iconv(aw_global_get("charset"), "UTF-8", (isset($src_lang_vals[$p]) ? $src_lang_vals[$p] : $o->is_property($p) ? $o->prop_str($p) : ""));
+			$ret[$nm]["ord"] = ++$so;
+			unset($ret[$nm]["parent"]);
+			unset($ret[$nm]["group"]);
 
-			foreach(safe_array($props_if_filled) as $p)
-			{
-				if ($arr["obj_inst"]->prop($p) != "")
-				{
-					$nm = "trans_".$lid."_".$p;
-					$ret[$nm] = array(
-						"name" => $nm,
-						"caption" => t($pl[$p]["caption"]),
-						"type" => $pl[$p]["type"],
-						"value" => iconv($lang["charset"], "UTF-8", $vals[$p])
-					);
-					if ($pl[$p]["richtext"] == 1)
-					{
-						$ret[$nm]["richtext"] = 1;
-					}
-				}
-			}
-			$nm = "act_".$lid;
-			$ret[$nm] = array(
-				"name" => $nm,
-				"caption" => t("T&otilde;lge aktiivne"),
-				"type" => "checkbox",
-				"ch_value" => 1,
-				"value" => $o->meta("trans_".$lid."_status")
-			);
-			$nm = "sbt_".$lid;
-			$ret[$nm] = array(
-				"name" => $nm,
-				"caption" => t("Salvesta"),
-				"type" => "submit",
-			);
+			// translation field
+			$nm = "trans_{$this->translation_lang_id}_{$p}";
+			$ret[$nm] = $ppl[$p];
+			$ret[$nm]["caption"] .=  "<small>{$str_translation}</small>";
+			$ret[$nm]["name"] = $nm;
+			$ret[$nm]["value"] = isset($vals[$p]) ? iconv($translation_target_lang_o->prop("lang_charset"), "UTF-8", $vals[$p]) : "";
+			$ret[$nm]["ord"] = ++$so;
+			unset($ret[$nm]["parent"]);
+			unset($ret[$nm]["group"]);
 		}
+		$nm = "act_{$this->translation_lang_id}";
+		$ret[$nm] = array(
+			"name" => $nm,
+			"caption" => t("T&otilde;lge aktiivne"),
+			"type" => "checkbox",
+			"ch_value" => 1,
+			"value" => $o->meta("trans_{$this->translation_lang_id}_status"),
+			"ord" => ++$so
+		);
+
+		$nm = "sbt_{$this->translation_lang_id}";
+		$ret[$nm] = array(
+			"name" => $nm,
+			"caption" => t("Salvesta"),
+			"type" => "submit",
+			"ord" => ++$so
+		);
+
+		$nm = $this->translation_lang_var_name;
+		$ret[$nm] = array(
+			"name" => $nm,
+			"type" => "hidden",
+			"value" => $this->translation_lang_id
+		);
+
+		$ret["action"] = array(
+			"name" => "action",
+			"type" => "hidden",
+			"value" => "submit_translations"
+		);
+
 		return $ret;
 	}
 

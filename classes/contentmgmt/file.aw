@@ -144,8 +144,7 @@ class file extends class_base
 {
 	var $file_type = null;//TODO: scope ja default?
 
-	//TODO: tmp public, since no spec. if used elsewhere
-	public static $trans_props = array(
+	protected $trans_props = array(
 		"comment"
 	);
 
@@ -173,9 +172,8 @@ class file extends class_base
 	{
 		$this->init(array(
 			"clid" => CL_FILE,
-			"tpldir" => "file",
+			"tpldir" => "file"
 		));
-		lc_load("definition");
 		$this->lc_load("file","lc_file");
 	}
 
@@ -208,6 +206,7 @@ class file extends class_base
 				}
 				$data["value"] = join("<br/>", $sig_nice);
 				break;
+
 			case "signed":
 				if(!aw_ini_get("file.ddoc_support"))
 				{

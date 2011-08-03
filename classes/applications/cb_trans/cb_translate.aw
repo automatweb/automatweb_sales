@@ -1,7 +1,7 @@
 <?php
 /*
 
-@classinfo syslog_type=ST_CB_TRANSLATE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -9,7 +9,7 @@
 @default method=serialize
 
 @groupinfo translation caption="T&otilde;lkimine" submit=no
-	
+
 	@groupinfo translation_sub caption="T&otilde;lkimine" submit=no parent=translation
 	@default group=translation_sub
 		@property translation_tb type=toolbar no_caption=1
@@ -19,14 +19,13 @@
 				@property classtree type=treeview parent=translation_vsplit_left no_caption=1
 
 			@layout translation_vsplit_right type=vbox closeable=1 area_caption=T&otilde;lked parent=translation_hsplit_1
-				/@property translation_area type=text parent=translation_vsplit_right no_caption=1
 				@property translation_area type=callback callback=translation_area_callback parent=translation_vsplit_right no_caption=1
 
 	@groupinfo translation_confirm caption="Kinnita t&otilde;lked" parent=translation
 	@default group=translation_confirm
 		@property remove_changes type=toolbar store=no no_caption=1
 		@property show_changes type=table store=no no_caption=1
-	
+
 
 @groupinfo activity caption=Aktiivsus
 
@@ -55,7 +54,7 @@ class cb_translate extends class_base
 			aw_global_set("output_charset", "utf-8");
 		}
 	}
-	
+
 	function init_cfgu($clid = false)
 	{
 		if(!$this->cfgu)
@@ -93,7 +92,7 @@ class cb_translate extends class_base
 
 	function translation_area_callback($arr)
 	{
-		$arr["request"]["area"] = method_exists($this, $arr["request"]["area"])?$arr["request"]["area"]:"classeditor";
+		$arr["request"]["area"] = isset($arr["request"]["area"]) && method_exists($this, $arr["request"]["area"]) ? $arr["request"]["area"] : "classeditor";
 		$data = $this->$arr["request"]["area"]($arr["request"]);
 		foreach($data as $k => $el)
 		{
@@ -104,8 +103,8 @@ class cb_translate extends class_base
 
 	function _set_translation_area($arr)
 	{
-		// i have no fooking idea why this submit ends up here, but i dont have dha brains to figrue ei out right now.. 
-		// now i know.. there are two forms in the page, and the outer one is submitted.. anyway.. i leave it like that at the moment.. 
+		// i have no fooking idea why this submit ends up here, but i dont have dha brains to figrue ei out right now..
+		// now i know.. there are two forms in the page, and the outer one is submitted.. anyway.. i leave it like that at the moment..
 		//$arr["request"]["return_url"] = $this->submit_editor($arr["request"]);
 	}
 
@@ -118,7 +117,7 @@ class cb_translate extends class_base
 
 		$pl = new object_list(array(
 			"class_id" => CL_CB_TRANSLATE
-		));	
+		));
 		for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
 		{
 			$actcheck = checked($o->flag(OBJ_FLAG_IS_SELECTED));
@@ -181,7 +180,7 @@ class cb_translate extends class_base
 
 	function _get_classtree($arr)
 	{
-		$clid = $arr["request"]["clid"]?$arr["request"]["clid"]:"fld_0";
+		$clid = isset($arr["request"]["clid"]) ? $arr["request"]["clid"] : "fld_0";
 		$arr["prop"]["vcl_inst"]->start_tree (array (
 			"type" => TREE_DHTML,
 			//"open_path" => array("fld_10","fld_37","fld_59"),
@@ -214,7 +213,7 @@ class cb_translate extends class_base
 		$cfgu = get_instance("cfg/cfgutils");
 
 // toolbar
-		$tb = get_instance("vcl/toolbar");
+		$tb = new toolbar();
 
 		$tb->add_button(array(
 			"name" => "save",
@@ -244,7 +243,7 @@ class cb_translate extends class_base
 
 
 		$tb->add_separator();
-		
+
 		$htmlc = get_instance("cfg/htmlclient");
 		$htmlc->start_output();
 		$cdata = html::textbox(array(
@@ -378,7 +377,7 @@ class cb_translate extends class_base
 				));
 			}
 
-			// 
+			//
 			$layouts = $cfgu->get_layoutinfo();
 			if(count($layouts) && is_array($layouts))
 			{
@@ -546,29 +545,29 @@ class cb_translate extends class_base
 		return $this->mk_my_orb("change", $arr);
 	}
 
-	function _gen_tree(&$tree, $start_id)
+	function _gen_tree($tree, $start_id)
 	{
 		// checks what's current tree root
 		$parent = trim($start_id);
 		$parent_is_folder = false;
-		if ("fld_" == substr($parent,0,4))
+		if ("fld_" === substr($parent,0,4))
 		{
 			$start_id = substr($parent,4);
 			$parent_is_folder = true;
 		}
-		
+
 		// load cls & clsfld info
 		$cls = aw_ini_get("classes");
 		$clsfld = aw_ini_get("classfolders");
 		// cfgutils for loading props/layouts etc
-		$cfgu = get_instance("cfg/cfgutils");
-		$props = $cfgu->load_properties(array(
-				"clid" => $start_id,
-		));
+		$cfgu = new cfgutils();
 
-		classload("core/icons");
 		if($start_id && is_numeric($start_id) && !$parent_is_folder)
 		{
+			$props = $cfgu->load_properties(array(
+					"clid" => $start_id,
+			));
+
 			$tree->add_item(0,array(
 				"name" => iconv(aw_global_get("charset"), "utf-8", $cls[$start_id]["name"]),
 				"id" => "root",
@@ -590,7 +589,7 @@ class cb_translate extends class_base
 			//groups
 			$this->add_tree_group($tree, $start_id, "root");
 
-			//layouts 
+			//layouts
 			$this->add_tree_layouts($tree, $start_id, "root");
 
 			//properties
@@ -670,12 +669,6 @@ class cb_translate extends class_base
 		$this->read_template("editor.tpl");
 
 		$cfgu = get_instance("cfg/cfgutils");
-		/*
-		if (!$cfgu->has_properties(array("clid" => $arr["clid"])))
-		{
-			die(t("Selle klassil puudub abiinfo"));
-		};
-		*/
 
 		$atc_inst = get_instance("admin/add_tree_conf");
 		$atc_id = $atc_inst->get_current_conf();
@@ -688,7 +681,6 @@ class cb_translate extends class_base
 		$atc = get_instance("admin/add_tree_conf");
 		$tree = $atc->get_class_tree();
 
-
 		$class_tree = $tree;
 
 		$tree = get_instance("vcl/treeview");
@@ -696,8 +688,6 @@ class cb_translate extends class_base
 			"type" => TREE_DHTML,
 			//"url_target" => "editorcontent",
 		));
-
-		classload("core/icons");
 
 		// the class_tree that has been generated by admin_menu does not contain enough information
 		// for me
@@ -715,7 +705,7 @@ class cb_translate extends class_base
 		{
 			$prnt = CLS;
 		}
-		if(substr($parent, 0, 4) == "grp_")
+		if(substr($parent, 0, 4) === "grp_")
 		{
 			$parent = substr($parent, 4);
 			$prnt = GRP;
@@ -769,10 +759,10 @@ class cb_translate extends class_base
 
 			//layouts
 			$this->add_tree_layouts($tree, $parent);
-			
+
 			//properties
 			$this->add_tree_property($tree, $parent);
-			
+
 			//reltypes
 			$this->add_tree_relations($tree, $parent);
 
@@ -970,11 +960,11 @@ class cb_translate extends class_base
 	{
 		$charset_from_local = "iso-8859-1";
 		aw_global_set("output_charset", "UTF-8");
-		
+
 		/*
 		$this->read_template("linetrans.tpl");
 		$this->sub_merge = 1;
-		*/		
+		*/
 
 		$pot_scanner = get_instance("core/trans/pot_scanner");
 		$languages = $pot_scanner->get_langs();
@@ -988,7 +978,7 @@ class cb_translate extends class_base
 		{
 			$mod_lang[$lang["acceptlang"]] = $lang;
 		}
-		
+
 		$title = sprintf("Klass '%s' tekstid.", $cls[$arr["clid"]]["name"]);
 		$callback_data[] = array(
 			"name" => "general_title",
@@ -997,7 +987,7 @@ class cb_translate extends class_base
 			"value" => $title,
 			"textsize" => "17px;",
 		);
-	
+
 
 		foreach($languages as $key => $language)
 		{
@@ -1008,7 +998,7 @@ class cb_translate extends class_base
 				$no_writable_short[] = $language;
 				continue;
 			}
-	
+
 			$lang = $mod_lang[$language];
 			$class_po_file = $pot_scanner->parse_po_file($file_location);
 			foreach($class_po_file as $entry)
@@ -1050,7 +1040,7 @@ class cb_translate extends class_base
 						break;
 					}
 				}
-				
+
 				$callback_data[] = array(
 					"name" => "vars[".$l."][".$text."]",
 					"type" => "textbox",
@@ -1204,10 +1194,15 @@ class cb_translate extends class_base
 	**/
 	function classeditor($arr)
 	{
+		if(empty($arr["clid"]))
+		{
+			return array();
+		}
+
 		$charset_from_local = "iso-8859-1";
 		aw_global_set("output_charset", "UTF-8");
 		$obj_is_folder = false;
-		if(substr($arr["clid"],0,4) == "fld_")
+		if(substr($arr["clid"],0,4) === "fld_")
 		{
 			$obj_is_folder = true;
 			$arr["clid"] = substr($arr["clid"],4);
@@ -1225,7 +1220,7 @@ class cb_translate extends class_base
 		}
 		else
 		{
-			
+
 			$clsfld = aw_ini_get("classfolders"); //$clsfld["classfolders"];
 		}
 		$langs_info = aw_ini_get("languages.list");
@@ -1233,107 +1228,103 @@ class cb_translate extends class_base
 		{
 			$mod_lang[$lang_info["acceptlang"]] = $lang_info;
 		}
-				
+
 		// gen title
 		$cls = aw_ini_get("classes");
-
-		if(strlen($arr["clid"]))
+		$title = sprintf("%s '%s' nimi", $obj_is_folder?t("Kausta"):t("Klassi"), "<b>".($obj_is_folder?$clsfld[$arr["clid"]]["name"]:$cls[$arr["clid"]]["name"])."</b>");
+		$callback_data[] = array(
+			"name" => "general_title",
+			"type" => "text",
+			"no_caption" => 1,
+			"value" => $title,
+			"textsize" => "17px;",
+		);
+		foreach($languages as $key => $language)
 		{
-			$title = sprintf("%s '%s' nimi", $obj_is_folder?t("Kausta"):t("Klassi"), "<b>".($obj_is_folder?$clsfld[$arr["clid"]]["name"]:$cls[$arr["clid"]]["name"])."</b>");
-			$callback_data[] = array(
-				"name" => "general_title",
-				"type" => "text",
-				"no_caption" => 1,
-				"value" => $title,
-				"textsize" => "17px;",
-			);
-			foreach($languages as $key => $language)
+			$charset_from = $mod_lang[$language]["charset"];
+			unset($caption,$comment,$help);
+			$ini_po_loc = aw_ini_get("basedir")."/lang/trans/".$language."/po/aw.ini.po";
+			if(!$this->check_langfile($language, "aw.ini.po"))
 			{
-				$charset_from = $mod_lang[$language]["charset"];
-				unset($caption,$comment,$help);
-				$ini_po_loc = aw_ini_get("basedir")."/lang/trans/".$language."/po/aw.ini.po";
-				if(!$this->check_langfile($language, "aw.ini.po"))
-				{
-					$no_writable_langs[] = $mod_lang[$language]["name"]."(".$language.")";
-					continue;
-				}
-				$ini_po_file = $pot_scanner->parse_po_file($ini_po_loc);
-				foreach($ini_po_file as $po)
-				{
-					$cls_start = "Klassi ".$cls[$arr["clid"]]["name"]." (".$arr["clid"].") ";
-					// class
-					if($cls_start."nimi" == $po["msgid"] && $obj_is_folder == false)
-					{
-						$caption = $po["msgstr"];
-					}
-					if($cls_start."comment" == $po["msgid"] && $obj_is_folder == false)
-					{
-						$comment = $po["msgstr"];
-					}
-					if($cls_start."help" == $po["msgid"] && $obj_is_folder == false)
-					{
-						$help = $po["msgstr"];
-					}
-
-					$fld_start = "Klassi kataloogi ".$clsfld[$arr["clid"]]["name"]." (".$arr["clid"].") ";
-					// dir
-					if($fld_start."nimi" == $po["msgid"] && $obj_is_folder == true)
-					{
-						$caption = $po["msgstr"];
-					}
-					if($fld_start."comment" == $po["msgid"] && $obj_is_folder == true)
-					{
-						$comment = $po["msgstr"];
-					}
-					if($fld_start."help" == $po["msgid"] && $obj_is_folder == true)
-					{
-						$help = $po["msgstr"];
-					}
-				}
-
-				foreach($langs_info as $lang)
-				{
-					if($lang["acceptlang"] == $language)
-					{
-						break;
-					}
-				}
-
-				$callback_data[] = array(
-					"name" => "langname_".$language,
-					"type" => "text",
-					"caption" => t("Keel"),
-					"value" => iconv($charset_from_local, "utf-8", $mod_lang[$language]["name"]),
-				);
-				$callback_data[] = array(
-					"name" => "vars[".$language."][caption]",
-					"type" => "textbox",
-					"caption" => t("Nimi"),
-					"value" => iconv($charset_from, "utf-8", $caption),
-					"size" => 50,
-				);
-				$callback_data[] = array(
-					"name" => "vars[".$language."][comment]",
-					"type" => "textarea",
-					"caption" => t("Kommentaar"),
-					"value" => iconv($charset_from, "utf-8", $comment),
-					"cols" => 50,
-					"rows" => 5,
-				);
-				$callback_data[] = array(
-					"name" => "vars[".$language."][help]",
-					"type" => "textarea",
-					"caption" => t("Abitekst"),
-					"value" => iconv($charset_from, "utf-8", $help),
-					"cols" => 50,
-					"rows" => 10,
-				);
-				$callback_data[] = array(
-					"name" => "sp_".$language,
-					"no_caption" => 1,
-					"value" => "&nbsp;",
-				);
+				$no_writable_langs[] = $mod_lang[$language]["name"]."(".$language.")";
+				continue;
 			}
+			$ini_po_file = $pot_scanner->parse_po_file($ini_po_loc);
+			foreach($ini_po_file as $po)
+			{
+				$cls_start = "Klassi ".$cls[$arr["clid"]]["name"]." (".$arr["clid"].") ";
+				// class
+				if($cls_start."nimi" == $po["msgid"] && $obj_is_folder == false)
+				{
+					$caption = $po["msgstr"];
+				}
+				if($cls_start."comment" == $po["msgid"] && $obj_is_folder == false)
+				{
+					$comment = $po["msgstr"];
+				}
+				if($cls_start."help" == $po["msgid"] && $obj_is_folder == false)
+				{
+					$help = $po["msgstr"];
+				}
+
+				$fld_start = "Klassi kataloogi ".$clsfld[$arr["clid"]]["name"]." (".$arr["clid"].") ";
+				// dir
+				if($fld_start."nimi" == $po["msgid"] && $obj_is_folder == true)
+				{
+					$caption = $po["msgstr"];
+				}
+				if($fld_start."comment" == $po["msgid"] && $obj_is_folder == true)
+				{
+					$comment = $po["msgstr"];
+				}
+				if($fld_start."help" == $po["msgid"] && $obj_is_folder == true)
+				{
+					$help = $po["msgstr"];
+				}
+			}
+
+			foreach($langs_info as $lang)
+			{
+				if($lang["acceptlang"] == $language)
+				{
+					break;
+				}
+			}
+
+			$callback_data[] = array(
+				"name" => "langname_".$language,
+				"type" => "text",
+				"caption" => t("Keel"),
+				"value" => iconv($charset_from_local, "utf-8", $mod_lang[$language]["name"]),
+			);
+			$callback_data[] = array(
+				"name" => "vars[".$language."][caption]",
+				"type" => "textbox",
+				"caption" => t("Nimi"),
+				"value" => iconv($charset_from, "utf-8", $caption),
+				"size" => 50,
+			);
+			$callback_data[] = array(
+				"name" => "vars[".$language."][comment]",
+				"type" => "textarea",
+				"caption" => t("Kommentaar"),
+				"value" => iconv($charset_from, "utf-8", $comment),
+				"cols" => 50,
+				"rows" => 5,
+			);
+			$callback_data[] = array(
+				"name" => "vars[".$language."][help]",
+				"type" => "textarea",
+				"caption" => t("Abitekst"),
+				"value" => iconv($charset_from, "utf-8", $help),
+				"cols" => 50,
+				"rows" => 10,
+			);
+			$callback_data[] = array(
+				"name" => "sp_".$language,
+				"no_caption" => 1,
+				"value" => "&nbsp;",
+			);
 		}
 
 		$callback_data[] = array(
@@ -1341,17 +1332,20 @@ class cb_translate extends class_base
 			"value" => ($obj_is_folder)?"fld_".$arr["clid"]:"".$arr["clid"],
 			"type" => "hidden",
 		);
+
 		$callback_data[] = array(
 			"name" => "caption",
 			"value" => ($obj_is_folder)?iconv($charset_from_local, "utf-8",$clsfld[$arr["clid"]]["name"]):iconv($charset_from_local, "utf-8",$cls[$arr["clid"]]["name"]),
 			"type" => "hidden",
 		);
+
+
 		if(count($no_writable_langs))
 		{
 			$this->gen_no_permission_error($no_writable_langs);
 		}
 
-		return strlen($arr["clid"])?$callback_data:array();
+		return $callback_data;
 	}
 
 	/**
@@ -1379,7 +1373,7 @@ class cb_translate extends class_base
 		$po = split("[/]",$aw_location);
 		$po_file = $po[count($po)-1];
 
-		
+
 		$title = sprintf(t("Klass '%s', Grupp '%s'"), $cls[$arr["clid"]]["name"], "<b>".$groups[$arr["grpid"]]["caption"]."</b>");
 
 		$callback_data[] = array(
@@ -1520,7 +1514,7 @@ class cb_translate extends class_base
 
 		$groups = $cfgu->get_groupinfo();
 		$langs_info = aw_ini_get("languages.list");
-		
+
 		$title = sprintf("Klass '%s', Grupp '%s', Omadus '%s'('%s' t&uuml;&uuml;pi)", $cls[$arr["clid"]]["name"], $groups[$arr["grpid"]]["caption"], "<b>".$props[$arr["propid"]]["caption"]."</b>", $props[$arr["propid"]]["type"]);
 
 		$callback_data[] = array(
@@ -1669,7 +1663,7 @@ class cb_translate extends class_base
 		aw_global_set("output_charset", "UTF-8");
 		$pot_scanner = get_instance("core/trans/pot_scanner");
 		$languages = $pot_scanner->get_langs();
-		
+
 		/*
 		$this->read_template("layouttrans.tpl");
 		$this->sub_merge = 1;
@@ -1689,7 +1683,7 @@ class cb_translate extends class_base
 		$layouts = $cfgu->get_layoutinfo();
 
 		$langs_info = aw_ini_get("languages.list");
-		
+
 		// gen title
 		$title = sprintf("Klass '%s', Kujudusosa '%s' ('%s' t&uuml;&uuml;pi)", iconv($charset_from_local, "UTF-8", $cls[$arr["clid"]]["name"]), "<b>".iconv($charset_from_local, "UTF-8", $layouts[$arr["lid"]]["area_caption"])."</b>", $layouts[$arr["lid"]]["type"]);
 		$callback_data[] = array(
@@ -1778,7 +1772,7 @@ class cb_translate extends class_base
 	function _get_show_changes($arr)
 	{
 		aw_global_set("output_charset", "utf-8");
-		
+
 		$data = aw_unserialize(core::get_cval("trans_changes"));
 		$langs_info = aw_ini_get("languages.list");
 		foreach($langs_info as $lang)
@@ -1844,7 +1838,7 @@ class cb_translate extends class_base
 		{
 			warning(t("Punasega t&auml;histatud ridu ei ole v&otilde;imalik t&otilde;lkefailide kirjutus&otilde;iguste puudumise t&otilde;ttu salvestada!"));
 		}
-		
+
 	}
 
 	/** Removes translation changes, called from toolbar
@@ -1970,7 +1964,7 @@ class cb_translate extends class_base
 		core::set_cval("trans_applyed", serialize(addslashes($not_applyed)));
 		*/
 		core::set_cval("trans_changes", aw_serialize($unwr_changes, SERIALIZE_NATIVE));
-		
+
 		return $this->mk_my_orb("show_changes");
 	}
 
@@ -2527,7 +2521,7 @@ class cb_translate extends class_base
 
 	function check_langfile($lang, $file, $aw = false)
 	{
-		
+
 		if(is_writable(aw_ini_get("basedir")."/lang/trans/".$lang."/".($aw?"aw":"po")."/".$file))
 		{
 			return true;
@@ -2550,8 +2544,8 @@ class cb_translate extends class_base
 		{
 			return false;
 		}
-		
-		
+
+
 		return $arr["trans_url"];
 	}
 
@@ -2579,4 +2573,4 @@ class cb_translate extends class_base
 		return $ret;
 	}
 
-};
+}

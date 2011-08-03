@@ -1,13 +1,13 @@
 <?php
 
-class languages extends aw_template implements request_startup
+class languages extends core implements request_startup
 {
-	var $cf_name = ""; // internal cache file name/key
+	private $cf_name = ""; // internal cache file name/key
+	private static $active_languages_count = 0;
 
 	function languages()
 	{
 		$this->init("languages");
-		$this->lc_load("languages","lc_languages");
 		// the name of the cache file
 		$this->cf_name = "languages-cache-site_id-".aw_ini_get("site_id");
 		$this->init_cache();
@@ -19,34 +19,36 @@ class languages extends aw_template implements request_startup
 		{
 			return false;
 		}
+
 		if ($no_cache)
 		{
-			$ret =  $this->db_fetch_row("SELECT * FROM languages WHERE id = '$id'");
+			$this->quote($id);
+			$ret = $this->db_fetch_row("SELECT * FROM languages WHERE id = '{$id}'");
 			$ret["meta"] = aw_unserialize($ret["meta"]);
 			return $ret;
 		}
 		else
 		{
-			return aw_cache_get("languages",$id);
+			return aw_cache_get("languages", $id);
 		}
 	}
 
 	/** returns a list of available languages
 		@attrib api=1 params=name
 
-		@param all_data optional type=bool
+		@param all_data type=bool default=FALSE
 			If set to true, returns all data about the language, else just the name, defaults to false
 
-		@param ignore_status optional type=bool
+		@param ignore_status type=bool default=FALSE
 			If set to true, returns all languages, even the ones marked as not active, defaults to false
 
-		@param addempty optional type=bool
+		@param addempty type=bool default=FALSE
 			If set to true, the first element in the returned array is an empty one, this is for using it as listbox options, defaults to false
 
-		@param key optional type=string
+		@param key type=string default="id"
 			The field to use as the array index, defaults to "id"
 
-		@param set_for_user optional type=bool
+		@param set_for_user type=bool default=FALSE
 			If set to true, only the languages that are selected from the user config are returned, defaults to false
 
 		@returns
@@ -55,10 +57,7 @@ class languages extends aw_template implements request_startup
 	**/
 	function get_list($arr = array())
 	{
-		extract($arr);
-		$dat = $this->listall(isset($ignore_status) ? $ignore_status : false);
-
-		if (isset($addempty))
+		if (!empty($arr["addempty"]))
 		{
 			$ret = array("0" => "");
 		}
@@ -66,10 +65,13 @@ class languages extends aw_template implements request_startup
 		{
 			$ret = array();
 		}
-		$use_key = isset($key) ? $key : "id";
+
+		$use_key = isset($arr["key"]) ? $arr["key"] : "id";
+
+		$dat = $this->listall(isset($arr["ignore_status"]) ? $arr["ignore_status"] : false);
 		foreach($dat as $ldat)
 		{
-			if (!empty($set_for_user))
+			if (!empty($arr["set_for_user"]))
 			{
 				$uo = obj(aw_global_get("uid_oid"));
 				$tr_ls = $uo->prop("target_lang");
@@ -78,9 +80,10 @@ class languages extends aw_template implements request_startup
 					continue;
 				}
 			}
-			if (!(is_oid($ldat["oid"]) && !$this->can("view", $ldat["oid"])))
+
+			if (!(is_oid($ldat["oid"]) && !object_loader::can("view", $ldat["oid"])))
 			{
-				if (isset($all_data))
+				if (!empty($arr["all_data"]))
 				{
 					$ret[$ldat[$use_key]] = $ldat;
 				}
@@ -135,6 +138,19 @@ class languages extends aw_template implements request_startup
 		return $ret;
 	}
 
+	/** Lists languages that are in use to be translated to
+		@attrib api=1 params=pos
+		@returns object_list(CL_LANGUAGE)
+	**/
+	public static function list_translate_targets()
+	{
+		$list = new object_list(array(
+			"class_id" => CL_LANGUAGE,
+			"show_logged" => 1
+		));
+		return $list;
+	}
+
 	function listall($ignore_status = false)
 	{
 		$lar = new aw_array(aw_cache_get_array("languages"));
@@ -161,7 +177,7 @@ class languages extends aw_template implements request_startup
 		}
 	}
 
-	function set_status($id,$status)
+	function set_status($id, $status)
 	{
 		$ld = $this->fetch($id, true);
 		if ($status != $ld["status"])
@@ -207,7 +223,7 @@ class languages extends aw_template implements request_startup
 		{
 			return false;
 		}
-		if (is_oid($l["oid"]) && !$this->can("view", $l["oid"]))
+		if (is_oid($l["oid"]) && !object_loader::can("view", $l["oid"]))
 		{
 			return false;
 		}
@@ -273,7 +289,7 @@ class languages extends aw_template implements request_startup
 		{
 			foreach($la as $row)
 			{
-				if ($row["status"] == 2 && (!is_oid($row["oid"]) || $this->can("view", $row["oid"])))
+				if ($row["status"] == 2 && (!is_oid($row["oid"]) || object_loader::can("view", $row["oid"])))
 				{
 					$langs[$row["acceptlang"]] = $row["id"];
 					if (!$def)
@@ -358,6 +374,16 @@ class languages extends aw_template implements request_startup
 		return NULL;
 	}
 
+	/** Counts active languages
+		@attrib api=1 params=pos
+		@returns int
+		@errors none
+	**/
+	public static function count()
+	{
+		return self::$active_languages_count;
+	}
+
 	////
 	// !this reads all the languages in the site to aw language cache, all the functions in this file use that
 	function init_cache($force_read = false)
@@ -376,7 +402,8 @@ class languages extends aw_template implements request_startup
 			{
 				// we must re-read from the db and write the cache
 				aw_cache_flush("languages");
-				$this->db_query("SELECT languages.*,o.comment as comment FROM languages LEFT JOIN objects o ON languages.oid = o.oid WHERE languages.status != 0 ORDER BY o.jrk");
+				$this->db_query("SELECT languages.*,o.comment as comment FROM languages LEFT JOIN objects o ON languages.oid = o.oid WHERE languages.status != 0 GROUP BY o.oid ORDER BY o.jrk");
+				$c = 0;
 				while ($row = $this->db_next())
 				{
 					$row["meta"] = aw_unserialize($row["meta"]);
@@ -387,9 +414,11 @@ class languages extends aw_template implements request_startup
 					if (trim($row["site_id"]) == "" || in_array(aw_ini_get("site_id"), explode(",", trim($row["site_id"]))))
 					{
 						aw_cache_set("languages", $row["id"],$row);
+						++$c;
 					}
 				}
 				cache::file_set($this->cf_name,aw_serialize(aw_cache_get_array("languages")));
+				self::$active_languages_count = $c;
 			}
 			aw_global_set("lang_cache_init",1);
 		}
@@ -479,7 +508,7 @@ class languages extends aw_template implements request_startup
 			{
 				// if a language is active, we must check if perhaps someone kas de-activated it in the mean time
 				$la = $this->fetch($lang_id, true);
-				if (!($la["status"] == 2 || ($la["status"] == 1 && aw_global_get("uid") != "")) || (is_oid($la["oid"]) && !$this->can("view", $la["oid"])))
+				if (!($la["status"] == 2 || ($la["status"] == 1 && aw_global_get("uid") != "")) || (is_oid($la["oid"]) && !object_loader::can("view", $la["oid"])))
 				{
 					// if so, try to come up with a better one.
 					$lang_id = $this->find_best();

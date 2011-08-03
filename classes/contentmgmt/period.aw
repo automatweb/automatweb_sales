@@ -28,10 +28,6 @@
 	@default field=meta
 	@default method=serialize
 
-	/@property image type=relpicker reltype=RELTYPE_IMAGE
-	/@caption Pilt
-
-
 	@property image_link type=textbox
 	@caption Pildi link
 
@@ -78,12 +74,10 @@ class period extends class_base implements request_startup
 		{
 			$oid = $this->cfg["per_oid"];
 		}
-		lc_load("definition");
+
 		$this->oid = $this->cfg["per_oid"];
-		$this->lc_load("periods","lc_periods");
 		$this->cf_name = "periods-cache-site_id-".$this->cfg["site_id"]."-period-";
 		$this->cf_ap_name = "active_period-cache-site_id-".$this->cfg["site_id"];
-		$this->cache = get_instance("cache");
 		$this->init_active_period_cache();
 	}
 
@@ -121,9 +115,7 @@ class period extends class_base implements request_startup
 			case "per_oid":
 				$data["value"] = aw_ini_get("per_oid");
 				break;
-
-
-		};
+		}
 		return $retval;
 	}
 
@@ -182,14 +174,14 @@ class period extends class_base implements request_startup
 		};
 		$perdata = $this->db_fetch_row("SELECT id FROM periods WHERE obj_id = " . $arr["obj_inst"]->id());
 		$id = $perdata["id"];
-		$this->cache->file_invalidate($this->cf_name.$id);
+		cache::file_invalidate($this->cf_name.$id);
 		aw_cache_set("per_by_id", $id, false);
 		aw_global_set("aw_period_cache",0);
 	}
 
 	function init_active_period_cache()
 	{
-		if (($cc = $this->cache->file_get($this->cf_ap_name)))
+		if (($cc = cache::file_get($this->cf_ap_name)))
 		{
 			aw_cache_set_array("active_period",aw_unserialize($cc));
 		}
@@ -246,8 +238,8 @@ class period extends class_base implements request_startup
 	{
 		$q = "UPDATE menu SET active_period = '$id' WHERE id = '$oid'";
 		$this->db_query($q);
-		$this->cache->file_invalidate($this->cf_ap_name);
-		$this->cache->file_clear_pt("html");
+		cache::file_invalidate($this->cf_ap_name);
+		cache::file_clear_pt("html");
 	}
 
 	// see funktsioon tagastab k2igi eksisteerivate perioodide nimekirja
@@ -319,7 +311,7 @@ class period extends class_base implements request_startup
 
 			// and also to the file-on-disk cache
 			$str = aw_serialize(aw_cache_get_array("active_period"));
-			$this->cache->file_set($this->cf_ap_name,$str);
+			cache::file_set($this->cf_ap_name,$str);
 			return $ap;
 		}
 	}
@@ -360,18 +352,16 @@ class period extends class_base implements request_startup
 		// 1st, the in-memory cache
 		if (($pr = aw_cache_get("per_by_id", $id)))
 		{
-			dbg::p1("period::get cache hit level 1");
 			return $pr;
 		}
 		// 2nd, the file-on-disk cache
-		if (($cc = $this->cache->file_get($this->cf_name.$id)))
+		if (($cc = cache::file_get($this->cf_name.$id)))
 		{
 			$pr = aw_unserialize($cc);
 			aw_cache_set("per_by_id", $id, $pr);
 			return $pr;
 		}
 		// and finally, the db
-		dbg::p1("period::get no hit ");
 		$q = "SELECT *,objects.name,objects.metadata,objects.status as o_status FROM periods LEFT JOIN objects ON (periods.obj_id = objects.oid) WHERE id = '$id'";
 		$this->db_query($q);
 		$pr = $this->db_fetch_row();
@@ -381,7 +371,7 @@ class period extends class_base implements request_startup
 		unset($pr_tmp["metadata"]);
 		unset($pr_tmp["acldata"]);
 		$str = aw_serialize($pr_tmp);
-		$this->cache->file_set($this->cf_name.$id, $str);
+		cache::file_set($this->cf_name.$id, $str);
 		aw_cache_set("per_by_id", $id, $pr);
 		return $pr;
 	}
@@ -419,8 +409,6 @@ class period extends class_base implements request_startup
 			}
 			$current_period = $this->get_active_period();
 			aw_session_set("current_period", $current_period);
-
-
 			aw_session_set("in_archive", $in_archive);
 		}
 		else
@@ -438,7 +426,7 @@ class period extends class_base implements request_startup
 				aw_session_set("in_archive", $in_archive);
 			}
 			// if a period was previously active we just leave it like that
-		};
+		}
 
 		if (aw_global_get("uid") == "")
 		{
@@ -457,15 +445,7 @@ class period extends class_base implements request_startup
 	}
 
 	/**
-
 		@attrib name=list params=name nologin="1" is_public="1" caption="List" default="1"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function site_list($arr)
 	{
@@ -495,8 +475,8 @@ class period extends class_base implements request_startup
 			else
 			{
 				$content .= $this->parse("passive");
-			};
-		};
+			}
+		}
 		return $content;
 	}
 

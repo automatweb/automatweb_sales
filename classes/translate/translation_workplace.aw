@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/translate/translation_workplace.aw,v 1.9 2008/01/31 13:55:34 kristo Exp $
-// translation_workplace.aw - T&otilde;lkimise t&ouml;&ouml;laud 
+// translation_workplace.aw - T&otilde;lkimise t&ouml;&ouml;laud
 /*
 
-@classinfo syslog_type=ST_TRANSLATION_WORKPLACE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -20,9 +19,9 @@
 		@layout tr_left type=vbox parent=tr_ver_split
 
 			@layout tr_left_top type=vbox closeable=1 area_caption=Filtreeri parent=tr_left
-	
+
 				@property tr_tree type=treeview store=no no_caption=1 parent=tr_left_top
-	
+
 			@layout tr_left_bottom type=vbox parent=tr_left closeable=1 area_caption=Otsing
 
 				@property s_oid type=textbox size=5 store=no parent=tr_left_bottom captionside=top
@@ -38,7 +37,7 @@
 				@caption Otsi
 
 		@property tr_table type=table store=no no_caption=1 parent=tr_ver_split
-		
+
 
 @groupinfo translatable caption="T&otilde;lgitavad objektid"
 groupinfo translated caption="T&otilde;lgitud objektid"
@@ -87,7 +86,7 @@ class translation_workplace extends class_base
 		{
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
@@ -181,15 +180,12 @@ class translation_workplace extends class_base
 
 	function _tr_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_tr_table($t);
 
-		classload("core/date/date_calc");
-
-		$tm = $arr["request"]["tm"];
-		$class_id = $arr["request"]["class_id"];
-		$parent = $arr["request"]["parent"];
-		$clss = aw_ini_get("classes");
+		$tm = isset($arr["request"]["tm"]) ? $arr["request"]["tm"] : "";
+		$class_id = isset($arr["request"]["class_id"]) ? $arr["request"]["class_id"] : 0;
+		$parent = isset($arr["request"]["parent"]) ? $arr["request"]["parent"] : 0;
 
 		$filt = array(
 			"class_id" => array_keys($this->_get_clids($arr["obj_inst"])),
@@ -202,17 +198,17 @@ class translation_workplace extends class_base
 			switch($tm)
 			{
 				case "today":
-					$filt["modified"] = new obj_predicate_compare(OBJ_COMP_GREATER, get_day_start());
+					$filt["modified"] = new obj_predicate_compare(obj_predicate_compare::GREATER, date_calc::get_day_start());
 					$t->set_caption(t("T&auml;na muudetud"));
 					break;
 
 				case "yesterday":
-					$filt["modified"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, get_day_start()-24*3600, get_day_start());
+					$filt["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, date_calc::get_day_start()-24*3600, date_calc::get_day_start());
 					$t->set_caption(t("Eile muudetud"));
 					break;
 
 				case "week":
-					$filt["modified"] = new obj_predicate_compare(OBJ_COMP_GREATER, get_week_start());
+					$filt["modified"] = new obj_predicate_compare(obj_predicate_compare::GREATER, date_calc::get_week_start());
 					$t->set_caption(t("Sel n&auml;dalal muudetud"));
 					break;
 
@@ -222,32 +218,31 @@ class translation_workplace extends class_base
 
 				case "old":
 					$t->set_caption(t("Vanemad"));
-					$filt["modified"] = new obj_predicate_compare(OBJ_COMP_LESS, get_week_start());
+					$filt["modified"] = new obj_predicate_compare(obj_predicate_compare::LESS, date_calc::get_week_start());
 					break;
 			}
 		}
-		else
-		if ($class_id)
+		elseif (aw_ini_isset("classes.{$class_id}.name"))
 		{
 			$has = true;
 			$filt["class_id"] = $class_id;
-			$t->set_caption(sprintf(t("Objektit&uuml;&uuml;p: %s"), $clss[$class_id]["name"]));
+			$t->set_caption(sprintf(t("Objektit&uuml;&uuml;p: %s"), aw_ini_get("classes.{$class_id}.name")));
 		}
-		else
-		if ($parent)
+		elseif ($parent)
 		{
 			$has = true;
 			$filt["parent"] = $parent;
 			$po = obj($parent);
 			$t->set_caption($po->path_str());
 		}
+
 		if (!$has)
 		{
 			return;
 		}
-		$ol = new object_list($filt);
 
-		$l = get_instance("languages");
+		$ol = new object_list($filt);
+		$l = new languages();
 		$ll = $l->get_list(array("set_for_user" => true));
 		$data = array();
 		foreach($ol->arr() as $o)
@@ -258,8 +253,8 @@ class translation_workplace extends class_base
 				"createdby" => $o->createdby(),
 				"modified" => $o->modified(),
 				"modifiedby" => $o->modifiedby(),
-				"class_id" => $clss[$o->class_id()]["name"],
-				"trans_status" => $trs
+				"class_id" => aw_ini_get("classes." . $o->class_id() . ".name"),
+				// "trans_status" => $trs//TODO: $trs oli undefined, kust v6tta?
 			);
 			$has_trans = false;
 			foreach($ll as $lid => $lang)
@@ -297,14 +292,14 @@ class translation_workplace extends class_base
 				}
 			}
 
-			if (($tm == "untr" || $tm == "old") && $has_trans)
+			if (($tm === "untr" || $tm === "old") && $has_trans)
 			{
 				continue;
 			}
 			$data[] = $d;
 		}
 
-		usort($data, array(&$this, "__t_sort"));
+		usort($data, array($this, "__t_sort"));
 		foreach($data as $d)
 		{
 			$t->define_data($d);
@@ -349,7 +344,7 @@ class translation_workplace extends class_base
 
 	function _tr_tree($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->start_tree(array(
 			"type" => TREE_DHTML,
@@ -391,12 +386,12 @@ class translation_workplace extends class_base
 		@attrib name=get_node
 		@param id required type=int acl=view
 		@param url required
-		@param parent required 
+		@param parent required
 	**/
 	function get_node($arr)
 	{
 		$o = obj($arr["id"]);
-		$t = get_instance("vcl/treeview");
+		$t = new treeview();
 		$t->start_tree(array(
 			"type" => TREE_DHTML,
 			"tree_id" => "tr_tree",
@@ -455,7 +450,7 @@ class translation_workplace extends class_base
 			));
 		}
 		else
-		if ($arr["parent"] == "0class_id")
+		if ($arr["parent"] === "0class_id")
 		{
 			$clss = aw_ini_get("classes");
 			$clp = array();
@@ -479,7 +474,7 @@ class translation_workplace extends class_base
 			}
 		}
 		else
-		if ($arr["parent"] == "0parent")
+		if ($arr["parent"] === "0parent")
 		{
 			$ol = new object_list(array(
 				"parent" => aw_ini_get("admin_rootmenu2"),
@@ -585,4 +580,3 @@ class translation_workplace extends class_base
 		$arr["prop"]["options"] = $t;
 	}
 }
-?>

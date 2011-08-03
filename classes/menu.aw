@@ -2307,11 +2307,6 @@ class menu extends class_base implements main_subtemplate_handler
 		return true;
 	}
 
-	function callback_get_transl($arr)
-	{
-		return $this->trans_callback($arr, $this->trans_props);
-	}
-
 	private function kw_tb($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
