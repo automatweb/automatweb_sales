@@ -2,51 +2,36 @@
 
 class aw_locker_file implements aw_lock_interface
 {
-	private static $instance = null;//TODO get rid of
 	private static $lock_file_pointer = false;
 	private static $lock_data = array();
-	private static $inprocess_locks = array();
 	private static $lock_file = "files/aw_lock_data"; // relative to AW_DIR
 
-	public static function instance()//TODO get rid of
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new aw_locker();
-		}
-		return self::$instance;
-	}
-
-	public static function lock($class, $id, $type, $boundary, $wait_type, $release_time = 0)
+	public static function lock($class, $id, $type, $scope, $wait_type, $release_time = 0)
 	{
 		self::_block();
 		$ident = self::get_ident($class, $id);
 		$data = self::get_lock_data($ident);
 		settype($release_time, "int");
 
-		if (false === $data or $data[2] < $boundary)
+		if (false === $data or $data[2] < $scope)
 		{
 			$locker_id = null;
-			if (aw_locker::BOUNDARY_SESSION === $boundary)
+			if (aw_locker::SCOPE_SESSION === $scope)
 			{
 				$locker_id = session_id();
-				self::$lock_data[$ident] = array($type, $wait_type, $boundary, $locker_id, $release_time);
+				self::$lock_data[$ident] = array($type, $wait_type, $scope, $locker_id, $release_time);
 			}
-			elseif (aw_locker::BOUNDARY_SERVER === $boundary)
+			elseif (aw_locker::SCOPE_PROCESS === $scope)
 			{
 				// pid is fine here, cause locks are released at end of process anyway
 				$locker_id = getmypid();
-				self::$lock_data[$ident] = array($type, $wait_type, $boundary, $locker_id, $release_time);
-			}
-			elseif (aw_locker::BOUNDARY_PROCESS === $boundary)
-			{
-				self::$inprocess_locks[$ident] = array($type, $wait_type, $boundary, $locker_id, $release_time);
+				self::$lock_data[$ident] = array($type, $wait_type, $scope, $locker_id, $release_time);
 			}
 		}
 		self::_unblock();
 	}
 
-	public static function unlock($class, $id, $boundary = null)
+	public static function unlock($class, $id, $scope = null)
 	{
 		self::_block();
 		$ident  = self::get_ident($class, $id);
@@ -57,31 +42,27 @@ class aw_locker_file implements aw_lock_interface
 		}
 		else
 		{
-			self::_unlock($ident, $boundary);
+			self::_unlock($ident, $scope);
 		}
 		self::_unblock();
 	}
 
-	private static function _unlock($ident, $boundary)
+	private static function _unlock($ident, $scope)
 	{
-		if (null === $boundary)
+		if (null === $scope)
 		{
 			unset(self::$inprocess_locks[$ident]);
 			unset(self::$lock_data[$ident]);
-		}
-		elseif (aw_locker::BOUNDARY_PROCESS === $boundary)
-		{
-			unset(self::$inprocess_locks[$ident]);
 		}
 		else
 		{
 			if (isset(self::$lock_data[$ident]))
 			{
-				if (aw_locker::BOUNDARY_SERVER === $boundary and aw_locker::BOUNDARY_SERVER === self::$lock_data[$ident][2])
+				if (aw_locker::SCOPE_PROCESS === $scope and aw_locker::SCOPE_PROCESS === self::$lock_data[$ident][2])
 				{
 					unset(self::$lock_data[$ident]);
 				}
-				elseif (aw_locker::BOUNDARY_SESSION === $boundary and aw_locker::BOUNDARY_SESSION === self::$lock_data[$ident][2])
+				elseif (aw_locker::SCOPE_SESSION === $scope and aw_locker::SCOPE_SESSION === self::$lock_data[$ident][2])
 				{
 					unset(self::$lock_data[$ident]);
 				}
@@ -89,73 +70,7 @@ class aw_locker_file implements aw_lock_interface
 		}
 	}
 
-	public static function try_operation($class, $id, $try_type = aw_locker::OPERATION_READ, $wait_type = null)
-	{
-		self::_block();
-		$ident = self::get_ident($class, $id);
-		$data = self::get_lock_data($ident);
-
-		if ($data !== null)
-		{
-			$type = $data[0];
-
-			if (!($type === aw_locker::LOCK_WRITE && $try_type === aw_locker::OPERATION_READ))
-			{
-				if ($wait_type === null)
-				{
-					$wait_type = $data[1];
-				}
-
-				if (aw_locker::WAIT_BLOCK === $wait_type)
-				{
-					$retries = 10000; // wait time limit 100 seconds
-
-					do
-					{
-						if (isset($is_locked))
-						{
-							usleep(10000);
-							self::_unblock();
-							self::_block();
-						}
-
-						$is_locked = self::_is_locked($class, $id);
-						--$retries;
-					}
-					while($is_locked and $retries);
-
-					if (!$retries)
-					{
-						self::_unblock();
-						$e = new aw_lock_exception("Access blocked. Lock wait limit exceeded for '$ident'.");
-						$e->object_class = $class;
-						$e->object_id = $id;
-						throw $e;
-					}
-				}
-				elseif (aw_locker::WAIT_EXCEPTION === $wait_type)
-				{
-					if (self::_is_locked($class, $id))
-					{
-						self::_unblock();
-						$e = new aw_lock_exception("Access blocked");
-						$e->object_class = $class;
-						$e->object_id = $id;
-						throw $e;
-					}
-				}
-				else
-				{
-					self::_unblock();
-					throw new awex_lock("Invalid wait type identifier '". var_export($wait_type, true). "'");
-				}
-			}
-		}
-
-		self::_unblock();
-	}
-
-	public static function is_locked($class, $id)
+	public static function is_locked($class, $id, $operation = aw_locker::LOCK_WRITE)
 	{
 		self::_block();
 		$ident = self::get_ident($class, $id);
@@ -167,7 +82,7 @@ class aw_locker_file implements aw_lock_interface
 	private static function _is_locked($ident)
 	{
 		$lock_data = self::get_lock_data($ident);
-		$locked = 0;
+		$locked = false;
 
 		if (null !== $lock_data)
 		{
@@ -181,9 +96,9 @@ class aw_locker_file implements aw_lock_interface
 			{
 				// compare lock state requester and locker id-s
 				$locker_id = $lock_data[3];
-				$lock_boundary = $lock_data[2];
+				$lock_scope = $lock_data[2];
 
-				if (aw_locker::BOUNDARY_SERVER === $lock_boundary)
+				if (aw_locker::SCOPE_PROCESS === $lock_scope)
 				{
 					$requester_id = getmypid();
 
@@ -229,22 +144,18 @@ class aw_locker_file implements aw_lock_interface
 						}
 					}
 				}
-				elseif (aw_locker::BOUNDARY_SESSION === $lock_boundary)
+				elseif (aw_locker::SCOPE_SESSION === $lock_scope)
 				{
 					$requester_id = session_id();
 				}
-				elseif (aw_locker::BOUNDARY_PROCESS === $lock_boundary)
-				{
-					$requester_id = "SCRIPT";
-				}
 				else
 				{
-					throw new awex_lock("Invalid lock boundary value '{$lock_boundary}'. Checking '{$ident}'");
+					throw new awex_lock("Invalid lock scope value '{$lock_scope}'. Checking '{$ident}'");
 				}
 
 				if ($locker_id !== $requester_id)
 				{
-					$locked = $lock_data[0];
+					$locked = (bool) $lock_data[0];
 				}
 			}
 		}
@@ -255,13 +166,8 @@ class aw_locker_file implements aw_lock_interface
 	private static function get_lock_data($ident)
 	{
 		// go over all boundaries and check them, fastest first
-		// BOUNDARY_PROCESS
-		if (isset(self::$inprocess_locks[$ident]))
-		{
-			$lock_data = self::$inprocess_locks[$ident];
-		}
-		// BOUNDARY_SERVER
-		// BOUNDARY_SESSION
+		// SCOPE_PROCESS
+		// SCOPE_SESSION
 		elseif (isset(self::$lock_data[$ident]))
 		{
 			$lock_data = self::$lock_data[$ident];
