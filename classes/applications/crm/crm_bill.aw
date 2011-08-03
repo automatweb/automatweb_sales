@@ -3,7 +3,7 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 @tableinfo aw_crm_bill index=aw_oid master_index=brother_of master_table=objects
-@classinfo relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
+@classinfo relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1 trans=1
 
 @default table=objects
 
@@ -166,13 +166,13 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=text_comments
-			@property bill_text type=textarea rte_type=4 rows=15 cols=50 field=meta method=serialize
+			@property bill_text type=textarea rte_type=4 rows=15 cols=50 field=meta method=serialize trans=1
 			@caption Arve sissejuhatus
 
-			@property bill_appendix_comment type=textarea rte_type=4 rows=15 cols=50 table=objects field=meta method=serialize
+			@property bill_appendix_comment type=textarea rte_type=4 rows=15 cols=50 table=objects field=meta method=serialize trans=1
 			@caption Kommentaar lisale
 
-			@property reminder_text type=textarea rte_type=4 rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text
+			@property reminder_text type=textarea rte_type=4 rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text trans=1
 			@caption Kommentaar meeldetuletusele
 
 
@@ -312,6 +312,12 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 		@property bill_task_list type=table store=no no_caption=1 parent=bill_task_list_l
 
 
+@default group=transl
+
+	@property transl type=callback callback=callback_get_transl store=no
+	@caption T&otilde;lgi
+
+
 
 //=========== GROUP DEFINITIONS ==============
 
@@ -328,6 +334,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @groupinfo preview caption="Eelvaade"
 @groupinfo preview_add caption="Arve Lisa"
 @groupinfo preview_w_rows caption="Eelvaade ridadega"
+@groupinfo transl caption=T&otilde;lgi
 
 
 
@@ -427,6 +434,12 @@ class crm_bill extends class_base
 		}
 
 		load_javascript("reload_properties_layouts.js");
+
+		$this->trans_props = array(
+			"bill_text",
+			"bill_appendix_comment",
+			"reminder_text"
+		);
 	}
 
 	function callback_post_save($arr)
@@ -1483,10 +1496,6 @@ class crm_bill extends class_base
 				}
 				break;
 
-			case "bill_rows":
-				$this->_save_rows($arr);
-				break;
-
 			case "rows_different_pages":
 				$arr["obj_inst"]->set_meta("rows_in_page" , $arr["request"]["rows_in_page"]);
 				break;
@@ -1722,6 +1731,8 @@ class crm_bill extends class_base
 			}
 			catch (Exception $e)
 			{
+				//TODO: parandada viga kliendisuhtega?
+				$edit_cro_button = "";
 			}
 
 			$text = t("Lae kliendi andmed uuesti");
@@ -2145,12 +2156,12 @@ class crm_bill extends class_base
 			}
 		}
 
-		if(!empty($arr["price"]))
+		if(isset($arr["price"]))
 		{
 			$o->set_prop("price" , aw_math_calc::string2float($arr["price"]));
 		}
 
-		if(!empty($arr["amt"]))
+		if(isset($arr["amt"]))
 		{
 			$o->set_prop("amt" , aw_math_calc::string2float($arr["amt"]));
 		}
@@ -2160,12 +2171,12 @@ class crm_bill extends class_base
 			$o->set_prop("prod", $arr["prod"]);
 		}
 
-		if(!empty($arr["name"]))
+		if(isset($arr["name"]))
 		{
 			$o->set_prop("desc" , iconv("UTF-8", aw_global_get("charset"), $arr["name"]));
 		}
 
-		if(!empty($arr["jrk"]))
+		if(isset($arr["jrk"]))
 		{
 			$o->set_ord((int) $arr["jrk"]);
 		}
@@ -2241,7 +2252,7 @@ class crm_bill extends class_base
 			obj($o->meta("dno"))->update_dn_rows($rows);
 		}
 
-		die(var_dump($arr));
+		exit;
 	}
 
 	/**
@@ -4249,92 +4260,6 @@ class crm_bill extends class_base
 	{
 		return $b->get_bill_sum($type);
 
-	}
-
-	function _save_rows($arr)
-	{
-		if(!isset($arr["request"]["rows"]))
-		{
-			$arr["request"]["rows"] = array();
-		}
-
-		foreach(safe_array($arr["request"]["rows"]) as $oid => $row)
-		{
-			if (!$this->can("edit", $oid))
-			{
-				$o = $arr["obj_inst"]->add_row();
-			}
-			else
-			{
-				$o = obj($oid);
-			}
-
-			if(!$this->can("view", $row["unit"]))
-			{
-				$uo = obj();
-				$uo->set_class_id(CL_UNIT);
-				$uo->set_name($row["unit"]);
-				$uo->set_prop("unit_code", $row["unit"]);
-				$uo->set_parent(get_current_company()->id());
-				$uo->save();
-				$unit = $uo->id();
-			}
-			else
-			{
-				$unit = $row["unit"];
-			}
-
-			if(!empty($row["quality"]))
-			{
-				$o->create_brother($row["quality"]);
-			}
-
-			$o->set_prop("name", $row["name"]);
-			$o->set_prop("comment", $row["comment"]);
-			$o->set_prop("date", $row["date"]);
-			$o->set_prop("unit", $unit);
-			$o->set_ord($row["jrk"]);
-
-			if (isset($row["price"]))
-			{
-				$o->set_prop("price", $row["price"]);
-			}
-
-			if (isset($row["amt"]))
-			{
-				$o->set_prop("amt", $row["amt"]);
-			}
-
-			if (isset($row["prod"]))
-			{
-				$o->set_prop("prod", $row["prod"]);
-			}
-
-			if (isset($row["has_tax"]))
-			{
-				$o->set_prop("has_tax", (int) $row["has_tax"]);
-
-				if ((int) $row["has_tax"])
-				{
-					$o->set_prop("tax", $o->get_row_tax(1));
-				}
-			}
-
-			if (isset($row["person"]))
-			{
-				$o->set_prop("people", $row["person"]);
-			}
-
-			$o->save();
-		}
-
-// agreement_price is DEPRECATED. voldemar 23 nov 2010
-$agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_array($arr["request"]["agreement_price"])) { 		$this->set_current_settings(); foreach($arr["request"]["agreement_price"] as $key => $agreement_price) {$arr["request"]["agreement_price"][$key]["comment"] = $agreement_price["name"]; if ($this->crm_settings && !$arr["request"]["agreement_price"][$key]["prod"]) { $arr["request"]["agreement_price"][$key]["prod"] = $this->crm_settings->prop("bill_def_prod");} $arr["request"]["agreement_price"][$key]["sum"] = str_replace("," , "." , $arr["request"]["agreement_price"][$key]["price"])*str_replace("," , "." , $arr["request"]["agreement_price"][$key]["amt"]); if(!$arr["request"]["agreement_price"][$key]["price"] && !(strlen($arr["request"]["agreement_price"][$key]["name"]) > 1) && empty($arr["request"]["agreement_price"][$key]["atm"])) { unset($arr["request"]["agreement_price"][$key]); } if(isset($arr["request"]["agreement_price"][$key]["prod"])) { $tmp = explode("(", $arr["request"]["agreement_price"][$key]["prod"]); $tmp2 = explode(")", $tmp[count($tmp)-1]); $prod = $tmp2[0]; $arr["request"]["agreement_price"][$key]["prod"] = $prod; } if(!empty($arr["request"]["agreement_price"][$key]["has_tax"])) { $arr["request"]["agreement_price"][$key]["tax"] = $this->crm_settings->get_default_vat(); } } $agreement_price = $arr["request"]["agreement_price"]; } $arr["obj_inst"]->set_meta("agreement_price", $agreement_price); $arr["obj_inst"]->save();
-///////////////
-
-
-		////TODO: kas vaja salvestada? v6i ainult agreemendi jaoks?
-		$arr["obj_inst"]->save();
 	}
 
 	/**
