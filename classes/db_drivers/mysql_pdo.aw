@@ -68,9 +68,7 @@ class mysql_pdo
 			// if we couldn't do this the first time around, we probably won't be able to this time either
 			if (not($this->dbh))
 			{
-				$eri = new class_base;
-				$eri->init();
-				$eri->raise_error("ERR_DB_NOTCONNECTED", "I'm not connected to the database, cannot perform the requested query. Please report this to site administrator immediately", true, false);
+				throw new awex_db_connection("Not connected to the database");
 			}
 		}
 		// elseif ($this->qID)
@@ -116,9 +114,8 @@ class mysql_pdo
 					);
 					return false;
 				}
-				$eri = new core();
-				$eri->init();
-				$eri->raise_error("ERR_DB_QUERY",LC_MYSQL_ERROR_QUERY."\n".$qtext."\n".$err_code."\n".$err_str,true,false);
+
+				throw new awex_db_mysql_query("Invalid query (error {$err_code}: '{$err_str}'): {$qtext}");
 			}
 		}
 		else
@@ -842,3 +839,9 @@ class mysql_pdo
 		$this->qID = null;
 	}
 }
+
+/** Generic MySQL driver error **/
+class awex_db_mysql extends awex_db {}
+
+/** Indicates a not valid MySQL query **/
+class awex_db_mysql_query extends awex_db_mysql {}
