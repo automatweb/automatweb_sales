@@ -9,7 +9,7 @@
 @default group=general
 
 
-@property name type=textarea rows=5 cols=40 table=objects field=name
+@property name type=textbox table=objects field=name
 @caption Nimi
 
 @property comment type=textbox table=objects field=comment
@@ -42,10 +42,10 @@
 @property date type=textbox field=aw_date
 @caption Kuup&auml;ev
 
-@property desc type=textarea rows=5 cols=30 field=aw_desc
+@property desc type=textarea rte_type=4 rows=8 cols=52 field=aw_desc
 @caption Kirjeldus
 
-@property name_group_comment type=textarea rows=2 cols=30 field=aw_name_group_comment
+@property name_group_comment type=textarea rte_type=4 rows=2 cols=52 field=aw_name_group_comment
 @caption Koondkommentaar
 
 @property people type=relpicker reltype=RELTYPE_PEOPLE multiple=1 table=objects field=meta method=serialize
@@ -56,6 +56,11 @@
 
 @property project type=select
 @caption Projekt
+
+@groupinfo transl caption=T&otilde;lgi
+@default group=transl
+	@property transl type=callback callback=callback_get_transl store=no
+	@caption T&otilde;lgi
 
 // RELTYPES
 @reltype PROD value=1 clid=CL_SHOP_PRODUCT
@@ -80,6 +85,12 @@
 
 class crm_bill_row extends class_base
 {
+	protected $trans_props = array(
+		"comment",
+		"desc",
+		"name_group_comment"
+	);
+
 	function crm_bill_row()
 	{
 		$this->init(array(
