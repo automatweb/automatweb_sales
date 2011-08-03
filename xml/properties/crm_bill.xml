@@ -440,6 +440,7 @@
             <cols>50</cols>
             <field>meta</field>
             <method>serialize</method>
+            <trans>1</trans>
             <caption>Arve sissejuhatus</caption>
       </property>
       <property>
@@ -452,6 +453,7 @@
             <cols>50</cols>
             <field>meta</field>
             <method>serialize</method>
+            <trans>1</trans>
             <caption>Kommentaar lisale</caption>
       </property>
       <property>
@@ -463,6 +465,7 @@
             <rows>15</rows>
             <cols>50</cols>
             <field>aw_reminder_text</field>
+            <trans>1</trans>
             <caption>Kommentaar meeldetuletusele</caption>
       </property>
       <property>
@@ -809,11 +812,22 @@
             <parent>bill_task_list_l</parent>
             <field>bill_task_list</field>
       </property>
+      <property>
+            <name>transl</name>
+            <table>objects</table>
+            <group>transl</group>
+            <type>callback</type>
+            <callback>callback_get_transl</callback>
+            <store>no</store>
+            <field>transl</field>
+            <caption>T&amp;amp;otilde;lgi</caption>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
             <confirm_save_data>1</confirm_save_data>
+            <trans>1</trans>
       </classinfo>
       <groupinfo>
             <general_data>
@@ -863,6 +877,9 @@
             <preview_w_rows>
                   <caption>Eelvaade ridadega</caption>
             </preview_w_rows>
+            <transl>
+                  <caption>T&amp;amp;otilde;lgi</caption>
+            </transl>
       </groupinfo>
       <tableinfo>
             <aw_crm_bill>
