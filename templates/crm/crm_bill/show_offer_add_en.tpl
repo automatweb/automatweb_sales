@@ -4,7 +4,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<title>Proposal nr {VAR:bill_no} Report</title>
+	<title>Proposal nr {VAR:bill_no} Details</title>
 
 	<style type="text/css">
 		body { font-size: 12px; font-family: Arial; margin: 2em 0 2em 0; text-align: center; }
@@ -76,7 +76,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" class="heading">
-			<h1>Proposal nr {VAR:bill_no} Report</h1>
+			<h1>Proposal nr {VAR:bill_no} Details</h1>
 		</td>
 	</tr>
 	<tr>
