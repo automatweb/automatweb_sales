@@ -35,11 +35,11 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		parent::delete($full_delete);
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$this->delete_product_show_cache();
 
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	private function get_warehouse_settings()

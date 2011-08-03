@@ -148,7 +148,7 @@ class quickmessage_obj extends _int_object
 		Throws awex_qmsg_box if can't get messagebox for recipient.
 		Forwards awex_obj_acl if no access to recipient's user object.
 	**/
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$new = !$this->obj["oid"];
 
@@ -172,7 +172,7 @@ class quickmessage_obj extends _int_object
 			}
 		}
 
-		$retval = parent::save($exclusive, $previous_state);
+		$retval = parent::save($check_state);
 
 		if ($new)
 		{

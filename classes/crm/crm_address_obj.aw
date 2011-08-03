@@ -7,10 +7,10 @@ class crm_address_obj extends _int_object
 {
 	const CLID = 146;
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$this->set_name($this->get_address_name());
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	function prop($k)

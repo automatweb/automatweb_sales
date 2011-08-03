@@ -50,10 +50,10 @@ class _int_object
 	// DEPRECATED! use self::__construct() instead
 	// function _int_object($objdata) { $this->__construct($objdata); }
 
-	function save($exclusive = false, $previous_state = null)
+	function save($check_state = false)
 	{
 		$this->_int_can_save();
-		$tmp =  $this->_int_do_save($exclusive, $previous_state);
+		$tmp =  $this->_int_do_save($check_state);
 		return $tmp;
 	}
 
@@ -1649,7 +1649,7 @@ class _int_object
 			$i = strrpos($prop, ".");
 			$foo = substr($prop, 0, $i);
 			$foo_prop = substr($prop, $i + 1);
-			if(is_oid($this->prop($foo)) && $this->can("view", $this->prop($foo)))
+			if(is_oid($this->prop($foo)) && object_loader::can("", $this->prop($foo)))
 			{
 				$foo_obj = obj($this->prop($foo));
 				return $foo_obj->trans_get_val($foo_prop, $lang_id);
@@ -1925,7 +1925,7 @@ class _int_object
 
 	public function get_state_id()
 	{
-		return (int)ifset($this->obj, "mod_cnt");
+		return empty($this->obj["mod_cnt"]) ? 0 : (int) $this->obj["mod_cnt"];
 	}
 
 	public function get_object_data()
@@ -2092,11 +2092,21 @@ class _int_object
 		}
 	}
 
-	protected function _int_do_save($exclusive, $previous_state)
+	protected function _int_do_save($check_state)
 	{
-		if ($previous_state === null)
+		if (true === $check_state)
 		{
-			$previous_state = $this->get_state_id();
+			$check_state = $this->get_state_id();
+			$exclusive = true;
+		}
+		elseif (false !== $check_state)
+		{
+			settype($check_state, "int");
+			$exclusive = true;
+		}
+		else
+		{
+			$exclusive = false;
 		}
 
 		// first, update modifier fields
@@ -2155,7 +2165,7 @@ class _int_object
 				"props_modified" => $this->props_modified,
 				"create_new_version" => $this->_create_new_version,
 				"exclusive_save" => $exclusive,
-				"current_mod_count" => $previous_state
+				"current_mod_count" => $check_state
 			));
 			$GLOBALS["object_loader"]->handle_cache_update($this->brother_of(), $this->site_id(), "save_properties");
 
@@ -2167,7 +2177,7 @@ class _int_object
 		// there is a message handler, that reies to load the object just created, it errors out, because it is in a state of flux -
 		// it should be in the objects array, but that gets done in the object_loader that called here.
 		// so we have to do it here as well to fix the in-between state to the correct one right now
-		$GLOBALS["objects"][$this->obj["oid"]] =& $this;
+		$GLOBALS["objects"][$this->obj["oid"]] = $this;
 
 		if (isset($this->obj["_create_connections"]) && is_array($this->obj["_create_connections"]))
 		{
@@ -2892,9 +2902,7 @@ class _int_object
 		while (count($parents) > 0)
 		{
 			list($tmp) = $GLOBALS["object_loader"]->ds->search(array(
-				"parent" => $parents,
-				"lang_id" => array(),
-				"site_id" => array()
+				"parent" => $parents
 			));
 			$parents = array();
 			foreach($tmp as $idx => $d)
@@ -2912,7 +2920,7 @@ class _int_object
 		{
 			if (isset($this->obj["oid"]) and aw_locker::is_locked("object", $this->obj["oid"]))
 			{
-				aw_locker::unlock("object", $this->obj["oid"], aw_locker::BOUNDARY_SERVER);
+				aw_locker::unlock("object", $this->obj["oid"], aw_locker::SCOPE_PROCESS);
 			}
 		}
 		catch (Exception $e)

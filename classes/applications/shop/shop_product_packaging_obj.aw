@@ -19,9 +19,9 @@ class shop_product_packaging_obj extends shop_product_obj
 	}
 
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
-		$retval = parent::save($exclusive, $previous_state);
+		$retval = parent::save($check_state);
 		// This can't be in set_prop(), cuz set_prop() is not always followed by save() therefore not always the props get set for good! -kaarel 6.08.2009
 		if(is_oid($this->prop("product")) && $this->can("view", $this->prop("product")) && count(connection::find(array("from" => $this->prop("product"), "to" => $this->id(), "type" => "RELTYPE_PACKAGING", "from.class_id" => CL_SHOP_PRODUCT))) === 0)
 		{

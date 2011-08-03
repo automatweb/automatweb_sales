@@ -15,9 +15,9 @@ class reservation_obj extends _int_object
 		parent::delete($full_delete);
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
-		$rv = parent::save($exclusive, $previous_state);
+		$rv = parent::save($check_state);
 
 		$this->set_sum();
 

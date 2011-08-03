@@ -95,7 +95,7 @@ class unit_obj extends _int_object
 		}
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if ($this->name())
 		{
@@ -115,6 +115,6 @@ class unit_obj extends _int_object
 			}
 		}
 
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 }

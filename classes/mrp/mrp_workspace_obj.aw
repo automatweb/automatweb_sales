@@ -21,9 +21,7 @@ class mrp_workspace_obj extends _int_object
 		try
 		{
 			$this->set_prop("rescheduling_needed", 1);
-			aw_disable_acl();
 			$this->save();
-			aw_restore_acl();
 		}
 		catch (Exception $E)
 		{
@@ -137,14 +135,14 @@ class mrp_workspace_obj extends _int_object
 	private function _get_material_expense_filter($arr)
 	{
 		$filter = array(
-			"class_id" => CL_MATERIAL_EXPENSE,
-			"site_id" => array(),
-			"lang_id" => array()
+			"class_id" => CL_MATERIAL_EXPENSE
 		);
+
 		if(isset($arr["product"]) && $arr["product"])
 		{
 			$filter["product"] = $arr["product"];
 		}
+
 		if(isset($arr["category"]) && $arr["category"])
 		{
 			$filter["product.RELTYPE_CATEGORY"] = $arr["category"];
@@ -169,6 +167,7 @@ class mrp_workspace_obj extends _int_object
 		{
 			$filter["RELTYPE_JOB.resource"] = $arr["resource"];
 		}
+
 		if(isset($arr["people"]))
 		{
 			$filter["RELTYPE_JOB.RELTYPE_PERSON"] = $arr["people"];
@@ -181,7 +180,7 @@ class mrp_workspace_obj extends _int_object
 	{
 		$resource_tree_filter = array(
 			"parent" => $resources_folder,
-			"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+			"class_id" => array(CL_MENU, mrp_resource_obj::CLID),
 			"sort_by" => "objects.jrk",
 		);
 		$resource_tree = new object_tree($resource_tree_filter);
@@ -223,24 +222,27 @@ class mrp_workspace_obj extends _int_object
 	@param company type=CL_CRM_COMPANY
 	@param person type=CL_CRM_PERSON
 	@returns CL_MRP_RESOURCE
+	@errors
+		throws awex_obj_data_integrity if more than one person resource found
 **/
 	public static function get_person_resource(object $company, object $person)
 	{
 		$self = self::get_hr_manager($company);
 		$list = new object_list(array(
-			"class_id" => CL_MRP_RESOURCE,
+			"class_id" => mrp_resource_obj::CLID,
 			"workspace" => $self->id(),
-			"CL_MRP_RESOURCE.RELTYPE_CONTAINING_OBJECT" => $person->id(),
-			"site_id" => array(),
-			"lang_id" => array()
+			"CL_MRP_RESOURCE.RELTYPE_CONTAINING_OBJECT" => $person->id()
 		));
-		$resource = $list->begin();
 
-		if (!is_object($resource))
+		if (1 === $list->count())
+		{
+			$resource = $list->begin();
+		}
+		elseif (0 === $list->count())
 		{
 			// create person resource
-			$parent = $self->prop("resources_folder");//!!! must check parent's status, that it isn't DELETED.
-			$resource = obj(null, array(), CL_MRP_RESOURCE);
+			$parent = $self->prop("resources_folder");//TODO: must check parent's status, that it isn't DELETED.
+			$resource = obj(null, array(), mrp_resource_obj::CLID);
 			$resource->set_parent($parent);
 			$resource->set_name(sprintf(t("Ressurss '%s'"), $person->name()));
 			$resource->set_prop("workspace", $self);
@@ -249,6 +251,10 @@ class mrp_workspace_obj extends _int_object
 			$resource->save();
 			$resource->connect(array("to" => $self, "reltype" => "RELTYPE_MRP_OWNER"));
 			$resource->connect(array("to" => $person, "reltype" => "RELTYPE_CONTAINING_OBJECT"));
+		}
+		else
+		{
+			throw new awex_obj_data_integrity("More than one resource (".implode(", ", $list->ids()).") exists for person (".$person->id().")");
 		}
 
 		return $resource;
@@ -264,20 +270,21 @@ class mrp_workspace_obj extends _int_object
 	{
 		$self = self::get_hr_manager($company);
 		$list = new object_list(array(
-			"class_id" => CL_MRP_RESOURCE,
+			"class_id" => mrp_resource_obj::CLID,
 			"workspace" => $self->id(),
-			"CL_MRP_RESOURCE.RELTYPE_CONTAINING_OBJECT" => $profession->id(),
-			"site_id" => array(),
-			"lang_id" => array()
+			"CL_MRP_RESOURCE.RELTYPE_CONTAINING_OBJECT" => $profession->id()
 		));
-		$resource = $list->begin();
 
-		if (!is_object($resource))
+		if (1 === $list->count())
 		{
-			// create person resource
+			$resource = $list->begin();
+		}
+		elseif (0 === $list->count())
+		{
+			// create profession resource
 			$num_of_profession_employees = $profession->get_workers(null, false)->count();
-			$parent = $self->prop("resources_folder");//!!! must check parent's status, that it isn't DELETED.
-			$resource = obj(null, array(), CL_MRP_RESOURCE);
+			$parent = $self->prop("resources_folder");//TODO: must check parent's status, that it isn't DELETED.
+			$resource = obj(null, array(), mrp_resource_obj::CLID);
 			$resource->set_parent($parent);
 			$resource->set_name(sprintf(t("Ameti '%s' ressurss"), $profession->name()));
 			$resource->set_prop("workspace", $self);
@@ -286,6 +293,10 @@ class mrp_workspace_obj extends _int_object
 			$resource->save();
 			$resource->connect(array("to" => $self, "type" => "RELTYPE_MRP_OWNER"));
 			$resource->connect(array("to" => $profession, "type" => "RELTYPE_CONTAINING_OBJECT"));
+		}
+		else
+		{
+			throw new awex_obj_data_integrity("More than one resource (".implode(", ", $list->ids()).") exists for profession (".$profession->id().")");
 		}
 
 		return $resource;
@@ -301,9 +312,7 @@ class mrp_workspace_obj extends _int_object
 		$list = new object_list(array(
 			"class_id" => CL_MRP_WORKSPACE,
 			"subclass" => self::MGR_TYPE_HR,
-			"CL_MRP_WORKSPACE.RELTYPE_MRP_OWNER" => $company->id(),
-			"site_id" => array(),
-			"lang_id" => array()
+			"CL_MRP_WORKSPACE.RELTYPE_MRP_OWNER" => $company->id()
 		));
 		$ws = $list->begin();
 
@@ -311,9 +320,7 @@ class mrp_workspace_obj extends _int_object
 		{
 			$list = new object_list(array(
 				"class_id" => CL_MRP_WORKSPACE,
-				"subclass" => self::MGR_TYPE_HR,
-				"site_id" => array(),
-				"lang_id" => array()
+				"subclass" => self::MGR_TYPE_HR
 			));
 			$ws = $list->begin();
 
@@ -328,9 +335,7 @@ class mrp_workspace_obj extends _int_object
 				$ws->set_parent($parent);
 				$ws->set_subclass(self::MGR_TYPE_HR);
 				$ws->set_name(t("Systeemi inimressursside halduskeskkond"));
-				aw_disable_acl();
 				$ws->save();
-				aw_restore_acl();
 				$ws->connect(array("to" => $company, "reltype" => "RELTYPE_MRP_OWNER"));
 
 				$projects_folder = obj(null, array(), CL_MENU);
@@ -348,9 +353,7 @@ class mrp_workspace_obj extends _int_object
 				$ws->set_prop("projects_folder", $projects_folder->id());
 				$ws->set_prop("resources_folder", $resources_folder->id());
 				$ws->set_prop("jobs_folder", $jobs_folder->id());
-				aw_disable_acl();
 				$ws->save();
-				aw_restore_acl();
 			}
 		}
 

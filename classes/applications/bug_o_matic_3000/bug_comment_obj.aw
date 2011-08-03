@@ -7,7 +7,7 @@ class bug_comment_obj extends _int_object
 {
 	const CLID = 1058;
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		//miskit sellise nimelist propi on vaja, et otsinguid teha jne
 		if($this->prop("parent.class_id") == CL_BUG)
@@ -26,7 +26,7 @@ class bug_comment_obj extends _int_object
 			$bug = reset($bugs->ids());
 			$this->set_prop("bug" , $bug);
 		}
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	function set_prop($name,$value)

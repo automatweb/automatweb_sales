@@ -8,13 +8,13 @@ class csv_import_obj extends _int_object
 {
 	const CLID = 1562;
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if (!is_class_id($this->prop("import_class")))
 		{
 			throw new awex_csv_import("Imported object class not defined.");
 		}
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	public function awobj_get_property_map()

@@ -7,6 +7,9 @@ class object_list extends _int_obj_container_base
 	var $list = array();	// array of objects in the current list
 	var $list_names = array();
 	var $list_objdata = array();
+	var $iter_index = 0;
+	var $iter_lut = array();
+	var $iter_lut_count = 0;
 
 	public $ds_query_string = ""; // database query executed to retrieve list data. use for debugging only
 
@@ -895,10 +898,7 @@ class object_list extends _int_obj_container_base
 				$o->$func($param1, $param2, $param3);
 			}
 
-			if ($o->can("edit"))
-			{
-				$o->save();
-			}
+			$o->save();
 		}
 	}
 
@@ -966,13 +966,10 @@ class object_list extends _int_obj_container_base
 					}
 				}
 
-				if (object_loader::can("view", $oid))
-				{
+				// if (!$_o->is_locked()) //TODO: implementeerida
+				// {
 					$add = true;
 					$_o = new object($oid);
-					if (!$_o->is_locked())
-					{
-					}
 					foreach($meta_filter as $mf_k => $mf_v)
 					{
 						if (is_object($mf_v))
@@ -1008,7 +1005,7 @@ class object_list extends _int_obj_container_base
 						$this->list_names[$oid] = $oname;
 						$this->list_objdata[$oid] = $objdata[$oid];
 					}
-				}
+				// }
 			}
 		}
 		else
@@ -1027,12 +1024,12 @@ class object_list extends _int_obj_container_base
 					}
 				}
 
-				if (object_loader::can("view", $oid))
-				{
+				// if (!$_o->is_locked()) //TODO: implementeerida
+				// {
 					$this->list[$oid] = $oid;
 					$this->list_names[$oid] = $oname;
 					$this->list_objdata[$oid] = $objdata[$oid];
-				}
+				// }
 			}
 		}
 
@@ -1144,16 +1141,16 @@ class object_list extends _int_obj_container_base
 		}
 	}
 
-	function _int_get_at($oid)
+	protected function _int_get_at($oid)
 	{
-		if ((!isset($this->list[$oid]) || !is_object($this->list[$oid])) && is_oid($oid) && $GLOBALS["object_loader"]->ds->can("view", $oid))
-		{
+		if ((!isset($this->list[$oid]) || !is_object($this->list[$oid])) && is_oid($oid) && object_loader::can("", $oid))
+		{//XXX: et kui list ei sisalda siis lihtsalt laetakse suvaline objekt vastavalt oid parameetrile?
 			$this->list[$oid] = new object($oid);
 		}
 		return $this->list[$oid];
 	}
 
-	function _int_sort_list_cb($cb)
+	protected function _int_sort_list_cb($cb)
 	{
 		// cb is checked before getting here
 		$this->cb = $cb;
@@ -1176,7 +1173,7 @@ class object_list extends _int_obj_container_base
 		unset($this->cb);
 	}
 
-	function _int_sort_list_cb_cb($a, $b)
+	protected function _int_sort_list_cb_cb($a, $b)
 	{
 		if (is_array($this->cb))
 		{
@@ -1206,11 +1203,12 @@ class object_list extends _int_obj_container_base
 
 		foreach($this->list as $oid => $obj)
 		{
-			if (!is_object($obj) && is_oid($oid) && $GLOBALS["object_loader"]->ds->can("view", $oid))
+			if (!is_object($obj) && is_oid($oid))
 			{
 				$to_fetch[$oid] = $this->list_objdata[$oid]["class_id"];
 			}
 		}
+
 		$data = $GLOBALS["object_loader"]->ds->fetch_list($to_fetch);
 	}
 

@@ -1799,7 +1799,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return null;
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$this->set_name($this->prop("firstname") . " " . $this->prop("lastname") . (strlen($this->prop("previous_lastname")) < 1 ? "" : " (" . $this->prop("previous_lastname") . ")"));
 
@@ -1809,7 +1809,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 		if(!is_oid($this->id()))
 		{
-			parent::save($exclusive, $previous_state);
+			parent::save($check_state);
 		}
 		foreach($fakes as $fake)
 		{
@@ -1821,7 +1821,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				$this->set_meta("tmp_fake_".$fake, NULL);
 			}
 		}
-		$r =  parent::save($exclusive, $previous_state);
+		$r =  parent::save($check_state);
 		return $r;
 	}
 

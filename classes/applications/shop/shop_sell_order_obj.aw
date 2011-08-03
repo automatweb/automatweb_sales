@@ -179,13 +179,13 @@ class shop_sell_order_obj extends _int_object
 		return $ret;
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 //		if(empty($this->order_status))
 //		{
 //			$this->set_prop("order_status" , "1");
 //		}
-		$r =  parent::save($exclusive, $previous_state);
+		$r =  parent::save($check_state);
 		return $r;
 	}
 

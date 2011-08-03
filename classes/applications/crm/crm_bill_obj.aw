@@ -182,7 +182,7 @@ class crm_bill_obj extends _int_object
 		$this->reset_pdf_files_cache = (bool) $value;
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if(!$this->is_saved())
 		{ // set defaults
@@ -260,7 +260,7 @@ class crm_bill_obj extends _int_object
 		//
 		$this->set_prop("sum", $this->_calc_sum());
 
-		$rv = parent::save($exclusive, $previous_state); //XXX: miks siin vaja awdisableacl ?(taketis nii tehtud)
+		$rv = parent::save($check_state); //XXX: miks siin vaja awdisableacl ?(taketis nii tehtud)
 
 		///FIXME: doesn't belong here (voldemar 12 nov 2010)
 		if(isset($_SESSION["bill_change_comments"]) && is_array($_SESSION["bill_change_comments"]))

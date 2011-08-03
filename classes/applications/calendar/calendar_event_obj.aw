@@ -43,10 +43,10 @@ class calendar_event_obj extends _int_object
 	}
 
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$this->set_start_end(1);
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	function get_locations()

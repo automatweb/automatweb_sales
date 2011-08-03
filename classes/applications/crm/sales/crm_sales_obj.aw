@@ -106,14 +106,14 @@ class crm_sales_obj extends _int_object implements application_interface
 		}
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if (!is_oid($this->prop("owner")))
 		{
 			throw new awex_crm_sales_owner("Owner not defined, can't save");
 		}
 
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	public function awobj_get_owner()

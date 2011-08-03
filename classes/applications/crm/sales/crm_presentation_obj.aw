@@ -458,7 +458,7 @@ class crm_presentation_obj extends task_object implements crm_sales_price_compon
 		parent::save();
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if (!$this->is_done())
 		{
@@ -499,7 +499,7 @@ class crm_presentation_obj extends task_object implements crm_sales_price_compon
 							{
 								if (!$this->is_saved())
 								{
-									$r = parent::save($exclusive, $previous_state);
+									$r = parent::save($check_state);
 								}
 
 								// prepare for simulation nulling temporal data
@@ -521,7 +521,7 @@ class crm_presentation_obj extends task_object implements crm_sales_price_compon
 						{ // cancel presentation
 							if (!$this->is_saved())
 							{
-								$r = parent::save($exclusive, $previous_state);
+								$r = parent::save($check_state);
 							}
 
 							$this->cancel();// voids exclusive save
@@ -534,7 +534,7 @@ class crm_presentation_obj extends task_object implements crm_sales_price_compon
 			}
 		}
 
-		$r = parent::save($exclusive, $previous_state);
+		$r = parent::save($check_state);
 		return $r;
 	}
 

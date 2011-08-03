@@ -280,19 +280,19 @@ class _int_object_loader extends core
 
 		if (!isset($ob) || !is_object($ob))
 		{
-			// check access rights to object
-			///TODO: access should be checked separately from loading
-			if (!$this->ds->can("view", $oid))
+			// check if can load object
+			if (!$this->ds->can("", $oid))
 			{
 				if (isset($GLOBALS["__obj_sys_objd_memc"][$oid]))
 				{
+					//XXX: mis siin toimub?
 				}
 				else
 				{
-					$e = new awex_obj_acl("No view access object with id '{$oid}'.");
+					$e = new awex_obj_acl("No access to load object with id '{$oid}'.");
 					$e->awobj_id = $oid;
+					throw $e;
 				}
-				throw $e;
 			}
 
 			// load object data

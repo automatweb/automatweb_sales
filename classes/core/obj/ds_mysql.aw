@@ -1181,8 +1181,6 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$q = "INSERT INTO {$tbl} ({$insert_q_fields}) VALUES ({$insert_q_values}) ON DUPLICATE KEY UPDATE {$sets}"; // insert new row into data table or update if exists
 				// $q = "UPDATE {$tbl} SET {$sets} WHERE {$tableinfo[$tbl]["index"]} = '{$objdata["brother_of"]}'"; // reserve for performance upgrade when other means of row existence checking available
 
-/*~AWdbg*/ if (aw_ini_get("debug_mode") and automatweb::$request->arg("AW_DUKE") === "ds") { dbg::dump($q); }
-
 				$used_tables[$tbl] = $tbl;
 				$data_qs[] = $q;
 			}
@@ -1233,12 +1231,12 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		{
 			// lock tables and check mod count
 			$this->db_query("LOCK TABLES ".join(" , ", map(" %s WRITE ", $used_tables)));
-			$db_mod_cnt = $this->db_fetch_field("SELECT mod_cnt FROM objects WHERE oid = '".$objdata["oid"]."'", "mod_cnt");
-			if ($db_mod_cnt != $arr["current_mod_count"])
+			$db_mod_cnt = (int) $this->db_fetch_field("SELECT mod_cnt FROM objects WHERE oid = '".$objdata["oid"]."'", "mod_cnt");
+			if ($db_mod_cnt !== $arr["current_mod_count"])
 			{
 				// unlock tables and except
 				$this->db_query("UNLOCK TABLES");
-				throw new awex_obj_modified_by_others(sprintf(t("Mod count difference, new %s , old %s!"), $db_mod_cnt, $arr["current_mod_count"]));
+				throw new awex_obj_modified_by_others(sprintf("Object '%s' state mismatch (theirs: %s, ours: %s)", $objdata["oid"], $db_mod_cnt, $arr["current_mod_count"]));
 				return;
 			}
 			// not modified, go save
@@ -1581,17 +1579,6 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			$where .= ($where != "" ? " AND\n " : "")." objects.status > 0 ";
 		}
 
-/*  //!!! kuni vajaduse tekkimiseni ilma site ja lang id-ta et v2hendada koormust
-		if (!isset($params["site_id"]))
-		{
-			$where .= ($where != "" ? " AND " : "")." objects.site_id = '".aw_ini_get("site_id")."' ";
-		}
-
-		if (!$this->has_lang_id)
-		{
-			$where .= ($where != "" ? " AND " : "")." objects.lang_id = '".aw_global_get("lang_id")."' ";
-		}
- */
 		$joins = $this->_get_joins($params);
 
 		// now, optimize out the joins that are not needed

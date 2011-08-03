@@ -1032,7 +1032,7 @@ Parimat,
 		}
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if (!is_oid($this->prop("customer_relation")))
 		{
@@ -1056,7 +1056,7 @@ Parimat,
 		}
 		catch (awex_crm_offer_new $e)
 		{
-			parent::save($exclusive, $previous_state);
+			parent::save($check_state);
 			$this->__set_price_object();
 		}
 
@@ -1069,7 +1069,7 @@ Parimat,
 			// No crm_call / crm_presentation was created, because of a missing customer relation. We should prolly somehow notify the user of this?
 		}
 
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	public function awobj_get_date()
