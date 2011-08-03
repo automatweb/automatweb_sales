@@ -167,7 +167,9 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	**/
 	function post_ru()
 	{
-		return aw_url_change_var("post_ru", NULL, aw_ini_get("baseurl").aw_global_get("REQUEST_URI"));
+		$req_uri = new aw_uri(aw_ini_get("baseurl") . aw_global_get("REQUEST_URI"));
+		$req_uri->unset_arg("post_ru");
+		return $req_uri->get();
 	}
 
 	// DEPRECATED - DO NOT USE!
