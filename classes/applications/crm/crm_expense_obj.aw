@@ -13,13 +13,13 @@ class crm_expense_obj extends _int_object
 		parent::set_prop($name,$value);
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if(!$this->prop("task"))
 		{
 			$this->set_prop("task" , $this->parent());
 		}
-		parent::save($exclusive, $previous_state);
+		parent::save($check_state);
 	}
 
 	function get_task()

@@ -103,7 +103,7 @@ class address_object extends _int_object
 
 		// ...
 		parent::set_name($address_text);
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
     /**

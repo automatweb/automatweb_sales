@@ -119,7 +119,7 @@ class group_obj extends _int_object
 		return $ol;
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if ($this->prop("type") == self::TYPE_NOT_LOGGED_IN)
 		{ // check if the system group already exists
@@ -134,7 +134,7 @@ class group_obj extends _int_object
 			$this->set_prop("priority", 0);
 			$this->set_status(object::STAT_ACTIVE);
 			$this->set_name(t("Sisselogimata kasutajad"));
-			return parent::save($exclusive, $previous_state);
+			return parent::save($check_state);
 		}
 		elseif ($this->prop("type") == self::TYPE_ALL_USERS)
 		{ // check if the system group already exists
@@ -149,11 +149,11 @@ class group_obj extends _int_object
 			$this->set_prop("priority", 1);
 			$this->set_status(object::STAT_ACTIVE);
 			$this->set_name(t("K&otilde;ik kasutajad"));
-			return parent::save($exclusive, $previous_state);
+			return parent::save($check_state);
 		}
 		else
 		{
-			return parent::save($exclusive, $previous_state);
+			return parent::save($check_state);
 		}
 	}
 

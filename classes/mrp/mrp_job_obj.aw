@@ -122,8 +122,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			$this->load_data();
 		}
 
-		$new = (null === $this->id());
-		if ($new)
+		if (!$this->is_saved())
 		{
 			### set status
 			$this->set_prop ("state", self::STATE_NEW);
@@ -295,7 +294,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		return parent::set_prop($k, $v);
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	function save($check_state = false)
 	{
 		$this->mrp_job_data_loaded = false;
 		if ($this->change_name)
@@ -305,7 +304,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			$this->set_name ($project . " - " . $resource . " - " . $this->ord());
 			$this->change_name = false;
 		}
-		$retval = parent::save($exclusive, $previous_state);
+		$retval = parent::save($check_state);
 		$this->log_state_change();
 		return $retval;
 	}
@@ -697,7 +696,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		try
 		{
 			$this->set_prop ("state", self::STATE_PLANNED);
-			$this->save ();
+			$this->save(true);
 			$this->state_changed("");
 			$this->mrp_workspace->request_rescheduling();
 		}
@@ -744,7 +743,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 				$comment = "mrp_schedule";
 			}
 
-			$this->save ();
+			$this->save(true);
 
 			if ($comment)
 			{
@@ -785,13 +784,13 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		try
 		{
 			$this->set_prop ("state", self::STATE_ONHOLD);
-			$this->save ();
+			$this->save(true);
 			$this->state_changed("");
 			$this->mrp_workspace->request_rescheduling();
 		}
 		catch (Exception $E)
 		{
-			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
+			$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
 			$e->set_forwarded_exception($E);
 			throw $e;
@@ -817,13 +816,13 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		try
 		{
 			$this->set_prop ("state", self::STATE_CANCELED);
-			$this->save ();
+			$this->save(true);
 			$this->state_changed("");
 			$this->mrp_workspace->request_rescheduling();
 		}
 		catch (Exception $E)
 		{
-			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
+			$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
 			$e->set_forwarded_exception($E);
 			throw $e;
@@ -874,9 +873,6 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 				$real_start_time = time();
 			}
 
-			// reserve resource
-			$this->mrp_resource->reserve($this->ref()); //!!! kas reserveerida enne kontrolle v6i p2rast?
-
 			### check if prerequisites are done
 			if (!$this->job_prerequisites_are_done())
 			{
@@ -893,12 +889,30 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			// update job in project
 			$this->mrp_case->update_progress($this->ref());
 
+			// reserve resource
+			try
+			{
+				$this->mrp_resource->reserve($this->ref());
+			}
+			catch (awex_mrp_resource_unavailable $e)
+			{
+				try
+				{
+					$this->mrp_resource->restore_data_integrity();
+					$this->mrp_resource->reserve($this->ref());
+				}
+				catch (Exception $e)
+				{
+					throw $e;
+				}
+			}
+
 			// start on resource
 			$this->mrp_resource->start_job($this->ref());
 
 			### all went well, save
 			$saving = true;
-			$this->save ();
+			$this->save(true);
 
 			### log
 			$this->state_changed($comment);
@@ -1010,7 +1024,21 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 				if ($this->prop("done") >= $this->mrp_case->prop("order_quantity")*$this->prop("component_quantity"))
 				{ // whole job done
 					// free resource
-					$this->mrp_resource->stop_job($this->ref());
+					try
+					{
+						$this->mrp_resource->stop_job($this->ref());
+					}
+					catch (Exception $e)
+					{
+						try
+						{
+							$this->mrp_resource->restore_data_integrity();
+							$this->mrp_resource->stop_job($this->ref());
+						}
+						catch (Exception $e)
+						{
+						}
+					}
 
 					### finish job
 					$time = time ();
@@ -1121,7 +1149,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			### abort job
 			$this->set_prop ("state", self::STATE_ABORTED);
 			$this->set_prop ("aborted", time());
-			$this->save ();
+			$this->save(true);
 
 			### post rescheduling msg
 			$this->mrp_workspace->request_rescheduling();
@@ -1140,9 +1168,9 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		catch (awex_mrp_case $e)
 		{
 		}
-		catch (Exception $e)
+		catch (Exception $E)
 		{
-			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
+			$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
 			$e->set_forwarded_exception($E);
 			throw $e;
@@ -1180,7 +1208,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			$this->set_meta("paused_times" , $pt);
 
 			### save project&job
-			$this->save ();
+			$this->save(true);
 
 			### log event
 			$this->state_changed($comment);
@@ -1194,7 +1222,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		}
 		catch (Exception $E)
 		{
-			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
+			$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
 			$e->set_forwarded_exception($E);
 			throw $e;
@@ -1231,7 +1259,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			$pt[count($pt)-1]["end"] = time();
 			$this->set_meta("paused_times" , $pt);
 
-			$this->save ();
+			$this->save(true);
 
 			### log event
 			$this->state_changed($comment);
@@ -1245,7 +1273,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		}
 		catch (Exception $E)
 		{
-			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
+			$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
 			$e->set_forwarded_exception($E);
 			throw $e;
@@ -1279,9 +1307,6 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 
 		try
 		{
-			// reserve resource
-			$this->mrp_resource->reserve($this->ref()); //!!! kas reserveerida enne kontrolle v6i p2rast?
-
 			### check if prerequisites are done
 			if (!$this->job_prerequisites_are_done())
 			{
@@ -1298,12 +1323,15 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			// update job in project
 			$this->mrp_case->update_progress($this->ref());
 
+			// reserve resource
+			$this->mrp_resource->reserve($this->ref());
+
 			// start on resource
 			$this->mrp_resource->start_job($this->ref());
 
 			### all went well, save
 			$saving = true;
-			$this->save ();
+			$this->save(true);
 
 			### log
 			$this->state_changed($comment);
@@ -1377,7 +1405,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		}
 		catch (Exception $E)
 		{
-			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
+			$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
 			$e->set_forwarded_exception($E);
 			throw $e;

@@ -144,11 +144,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return parent::set_name($v);
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if(!is_oid($this->id()))
 		{
-			parent::save($exclusive, $previous_state);
+			parent::save($check_state);
 		}
 		$fakes = array(
 			"url", "email", "phone", "fax", "mobile", "skype", "address_country", "address_country_relp", "address_county", "address_county_relp", "address_city", "address_city_relp", "address_postal_code", "address_address", "address_address2"

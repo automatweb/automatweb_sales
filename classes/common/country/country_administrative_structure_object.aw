@@ -80,11 +80,11 @@ class country_administrative_structure_object extends _int_object
 		}
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$this->as_save();
 		$this->invalidate_cache();
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	private function invalidate_cache()

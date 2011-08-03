@@ -446,8 +446,6 @@ class crm_call_obj extends task_object implements crm_sales_price_component_inte
 			throw new awex_crm_call_state("Call not started", self::ERR_STATE_NEW);
 		}
 
-		$this->set_prop("real_duration", (time() - $this->prop("real_start")));
-
 		if (is_oid($this->prop("hr_schedule_job")))
 		{
 			$job = new object($this->prop("hr_schedule_job"));
@@ -458,13 +456,14 @@ class crm_call_obj extends task_object implements crm_sales_price_component_inte
 			}
 			catch (awex_mrp_job_state $e)
 			{
-				if (mrp_job_obj::STATE_DONE != $job->prop("state"))
+				if (mrp_job_obj::STATE_DONE !== (int) $job->prop("state"))
 				{
 					throw $e;
 				}
 			}
 		}
 
+		$this->set_prop("real_duration", (time() - $this->prop("real_start")));
 		$this->save();
 
 		$application = automatweb::$request->get_application();
@@ -475,7 +474,7 @@ class crm_call_obj extends task_object implements crm_sales_price_component_inte
 		}
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$application = automatweb::$request->get_application();
 		if ($application->is_a(CL_CRM_SALES))
@@ -521,7 +520,7 @@ class crm_call_obj extends task_object implements crm_sales_price_component_inte
 			}
 		}
 
-		$r = parent::save($exclusive, $previous_state);
+		$r = parent::save($check_state);
 
 		if (is_oid($this->prop("hr_schedule_job")))
 		{

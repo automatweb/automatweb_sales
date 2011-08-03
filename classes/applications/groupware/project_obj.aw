@@ -24,10 +24,10 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		return $this->set_prop("participants", $pv);
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$new = !$this->is_saved();
-		$rv = parent::save($exclusive, $previous_state);
+		$rv = parent::save($check_state);
 		if ($new && !count($this->connections_from(array("type" => "RELTYPE_IMPLEMENTOR"))))
 		{
 			$c = get_current_company();

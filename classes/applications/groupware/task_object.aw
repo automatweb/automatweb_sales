@@ -60,7 +60,7 @@ class task_object extends _int_object
 		return $rows;
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if (!is_oid($this->id()))
 		{
@@ -69,7 +69,7 @@ class task_object extends _int_object
 				$this->set_prop("send_bill", 1);
 			}
 		}
-		$res =  parent::save($exclusive, $previous_state);
+		$res =  parent::save($check_state);
 
 		$this->update_all_rows();
 		return $res;

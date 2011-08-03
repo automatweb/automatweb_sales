@@ -313,7 +313,7 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		return $job;
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$new = (null === $this->id());
 		if ($new)
@@ -336,7 +336,7 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 			}
 		}
 
-		$r = parent::save($exclusive, $previous_state);
+		$r = parent::save($check_state);
 
 		if ($new)
 		{

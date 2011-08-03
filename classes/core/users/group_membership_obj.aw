@@ -46,12 +46,12 @@ class group_membership_obj extends _int_object
 		return parent::set_prop($k, $v);
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		// I need the ID!
 		if(!is_oid(parent::id()))
 		{
-			parent::save($exclusive, $previous_state);
+			parent::save($check_state);
 		}
 		// If it's valid right now, it's handled in $this->set_status()
 		if(!parent::prop("membership_forever") && parent::prop("date_start") > time())
@@ -89,7 +89,7 @@ class group_membership_obj extends _int_object
 			));
 			$ol->delete();
 		}
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	public function brother_destroyer($arr)

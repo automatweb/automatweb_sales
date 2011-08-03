@@ -4,11 +4,11 @@ class content_package_obj extends _int_object
 {
 	const CLID = 1477;
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if(!is_oid($this->id()))
 		{
-			parent::save($exclusive, $previous_state);
+			parent::save($check_state);
 		}
 		if(!$this->can("edit", $this->prop("cp_ug")) || !is_oid($this->prop("cp_ug")))
 		{
@@ -41,7 +41,7 @@ class content_package_obj extends _int_object
 		$sp->set_prop("content_package", $this->id());
 		$this->set_prop("cp_sp", $sp->save());
 
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 
 	/**

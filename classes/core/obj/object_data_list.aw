@@ -8,21 +8,20 @@ class object_data_list
 {
 	private $list_data = array();
 
-	/** Returns object_data_list.
-		@attrib params=pos name=object_data_list api=1
+	/** Constructs object data list
+		@attrib params=pos api=1
 
-		@param params
+		@param param type=array() default=NULL
 
-		@param props
+		@param props type=array() default=NULL
 
 		@errors
-			Returns error if param is not an array.
+			Returns error if param is not an array or NULL.
 
-		@returns
-			object_data_list object.
+		@returns void
 
 		@comment
-			You can not rename the following fields in the fetch part: oid, parent, name, brother_of, status, class_id
+			You can not rename the following fields in the fetch/props part: oid, parent, name, brother_of, status, class_id
 
 		@examples
 			$odl = new object_data_list(
@@ -149,10 +148,7 @@ class object_data_list
 		return array_keys($this->list_data);
 	}
 
-
-	////////// private
-
-	function _int_load($arr, $props)
+	private function _int_load($arr, $props)
 	{
 		$this->_int_init_empty();
 		list($oids, $meta_filter, $acldata, $parentdata, $objdata, $data, $has_sql_func) = $GLOBALS["object_loader"]->ds->search($arr, $props);
@@ -183,43 +179,43 @@ class object_data_list
 		{
 			foreach($oids as $oid => $oname)
 			{
-				if (object_loader::can("view", $oid))
+				// TODO: implementeerida lukustatuse check?
+				$add = true;
+				$_o = new object($oid);
+				foreach($meta_filter as $mf_k => $mf_v)
 				{
-					$add = true;
-					$_o = new object($oid);
-					foreach($meta_filter as $mf_k => $mf_v)
+					if (is_object($mf_v))
 					{
-						if (is_object($mf_v))
-						{
-							error::raise(array(
-								"id" => "ERR_META_FILTER",
-								"msg" => sprintf(t("object_list::filter(%s => %s): can not complex searches on metadata fields!"), $mf_k, $mf_v)
-							));
-						}
-						if ($mf_v{0} == "%")
-						{
-							error::raise(array(
-								"id" => "ERR_META_FILTER",
-								"msg" => sprintf(t("object_list::filter(%s => %s): can not do LIKE searches on metadata fields!"), $mf_k, $mf_v)
-							));
-						}
-
-						$tmp = $_o->meta($mf_k);
-						if (is_numeric($mf_v))
-						{
-							$tmp = (int)$tmp;
-							$mf_v = (int)$mf_v;
-						}
-						if ($tmp != $mf_v)
-						{
-							$add = false;
-						}
+						error::raise(array(
+							"id" => "ERR_META_FILTER",
+							"msg" => sprintf(t("object_list::filter(%s => %s): can not complex searches on metadata fields!"), $mf_k, $mf_v)
+						));
 					}
 
-					if ($add)
+					if ($mf_v{0} === "%")
 					{
-						$this->list_data[$oid] = $data[$oid];
+						error::raise(array(
+							"id" => "ERR_META_FILTER",
+							"msg" => sprintf(t("object_list::filter(%s => %s): can not do LIKE searches on metadata fields!"), $mf_k, $mf_v)
+						));
 					}
+
+					$tmp = $_o->meta($mf_k);
+					if (is_numeric($mf_v))
+					{
+						$tmp = (int)$tmp;
+						$mf_v = (int)$mf_v;
+					}
+
+					if ($tmp != $mf_v)
+					{
+						$add = false;
+					}
+				}
+
+				if ($add)
+				{
+					$this->list_data[$oid] = $data[$oid];
 				}
 			}
 		}
@@ -227,50 +223,54 @@ class object_data_list
 		{
 			foreach($oids as $oid => $oname)
 			{
-				if (object_loader::can("view", $oid))
-				{
-					$this->list_data[$oid] = $data[$oid];
-				}
+				// TODO: implementeerida lukustatuse check?
+				$this->list_data[$oid] = $data[$oid];
 			}
 		}
 	}
 
-	function _int_init_empty()
+	private function _int_init_empty()
 	{
 		$this->list_data = array();
 	}
 
-	function count()
+	/** Returns object count currently in list
+		@attrib api=1 params=pos
+		@returns int
+		@errors none
+	**/
+	public function count()
 	{
 		return count($this->list_data);
 	}
 
 	/** Works almost the same as array_slice(), except it doesn't return anything, but modifies the object_data_list it is applied to.
-		@attrib api=1 name=slice params=pos
-
-		@param offset required type=int
-
-		@param length optional type=int
-
-		@errors
-			none
-
-		@returns
-			nothing
+		@attrib api=1 params=pos
+		@param offset type=int
+		@param length type=int default=NULL
+		@errors none
+		@returns void
 	**/
 	public function slice($start, $length = null)
 	{
 		$this->list_data = array_slice($this->list_data, $start, $length, true);
 	}
 
-	function get_element_from_all($col)
+	/** Returns array of values in list identified by $name, a column by $name.
+		@attrib api=1 params=pos
+		@param name type=string
+		@returns array
+			oid => value pairs
+		@errors none
+	**/
+	public function get_element_from_all($name)
 	{
 		$ret = array();
 		foreach($this->arr() as $oid => $o)
 		{
-			if(isset($o[$col]))
+			if(isset($o[$name]))
 			{
-				$ret[$oid] = $o[$col];
+				$ret[$oid] = $o[$name];
 			}
 		}
 		return $ret;

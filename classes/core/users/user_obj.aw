@@ -89,7 +89,7 @@ class user_obj extends _int_object
 		parent::set_prop("uid", $value);
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if (!$this->prop("uid"))
 		{
@@ -106,7 +106,7 @@ class user_obj extends _int_object
 		$person_oid = $this->meta("person");
 		$this->set_meta("person", "");
 
-		$rv = parent::save($exclusive, $previous_state);
+		$rv = parent::save($check_state);
 
 		if ($new)
 		{

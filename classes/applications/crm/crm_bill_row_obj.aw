@@ -6,20 +6,6 @@ class crm_bill_row_obj extends _int_object
 
 	private $crm_settings;
 
-	public function set_name($name)
-	{
-		$rv = parent::set_name($name);
-		$this->set_prop("desc", $name);
-		return $rv;
-	}
-
-	public function awobj_set_name($name)
-	{
-		$rv = parent::set_prop("name", $name);
-		$this->set_prop("desc", $name);
-		return $rv;
-	}
-
 	function set_prop($p, $v)
 	{
 		if(is_oid($this->id()) && $v != $this->prop($p) && !(!$v && !$this->prop($p)))
@@ -166,7 +152,7 @@ class crm_bill_row_obj extends _int_object
 	{
 		$bills_list = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"CL_CRM_BILL.RELTYPE_ROW" => $this->id(),
+			"CL_CRM_BILL.RELTYPE_ROW" => $this->id()
 		));
 		$ids = $bills_list->ids();
 		return reset($ids);
@@ -181,7 +167,7 @@ class crm_bill_row_obj extends _int_object
 	{
 		$bills_list = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"CL_CRM_BILL.RELTYPE_ROW" => $this->id(),
+			"CL_CRM_BILL.RELTYPE_ROW" => $this->id()
 		));
 		return $bills_list->begin();
 	}
@@ -508,5 +494,19 @@ class crm_bill_row_obj extends _int_object
 
 		$this->set_meta("row_group_id", $new_group_id);
 		$this->save();
+	}
+
+	public function save($check_state = false)
+	{
+		$invoice = $this->get_bill_object();
+		$name = $this->comment();
+		$name = substr($name, 0, 100) . (strlen($name) > 100 ? "..." : "");
+		if ($invoice)
+		{
+			$name = sprintf(t("Arve nr. %s rida: %s"), $invoice->prop("bill_no"), $name);
+		}
+
+		$this->set_name($name);
+		return parent::save($check_state);
 	}
 }

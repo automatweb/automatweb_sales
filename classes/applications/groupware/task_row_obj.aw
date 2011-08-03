@@ -182,7 +182,7 @@ class task_row_obj extends _int_object
 		return $ret;
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if (!empty($this->in_save))
 		{
@@ -212,7 +212,7 @@ class task_row_obj extends _int_object
 			}
 		}
 
-		$ret = parent::save($exclusive, $previous_state);
+		$ret = parent::save($check_state);
 		if(is_oid($this->prop("task")))
 		{
 			$task = obj($this->prop("task"));

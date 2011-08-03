@@ -250,7 +250,7 @@ class crm_company_customer_data_obj extends _int_object
 		}
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if (!$this->prop("sales_state"))
 		{
@@ -277,7 +277,7 @@ class crm_company_customer_data_obj extends _int_object
 
 		$this->set_name($this->prop_str("seller.name") . " => " . $this->prop_str("buyer.name"));
 
-		$r = parent::save($exclusive, $previous_state);
+		$r = parent::save($check_state);
 	}
 }
 

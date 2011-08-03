@@ -178,14 +178,14 @@ Your Personnel Management"), $this->name()),
 		}
 	}
 
-	function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		if(parent::prop("confirmed") && !parent::meta("confirmation_mail_sent"))
 		{
 			$this->notify_me_of_confirmation();
 			parent::set_meta("confirmation_mail_sent", 1);
 		}
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 }
 

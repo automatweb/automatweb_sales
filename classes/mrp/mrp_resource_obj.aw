@@ -9,8 +9,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	const CLID = 825;
 
 	const STATE_AVAILABLE = 10;
-	const STATE_RESERVED = 14;
-	const STATE_PROCESSING = 11;
+	const STATE_UNAVAILABLE = 11;
 	const STATE_OUTOFSERVICE = 12;
 	const STATE_INACTIVE = 13;
 
@@ -26,7 +25,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 		self::STATE_OUTOFSERVICE
 	);
 
-	private $thread_index = array(); // thread_job_id => treads_array_key
+	private $thread_index = array(); // job_id => threads_array_key
 
 /** Class constructor
 	@attrib api=1 params=pos
@@ -35,12 +34,10 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	{
 		parent::__construct($objdata);
 
-		$new = (null === $this->id());
-		if ($new)
+		if (!$this->is_saved())
 		{
 			### set status
-			$this->set_prop ("state", self::STATE_AVAILABLE);
-			$this->set_prop ("production_feedback_option_values", array(1));
+			$this->set_prop("production_feedback_option_values", array(1));
 		}
 	}
 
@@ -49,7 +46,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
-			"status" => object::STAT_ACTIVE,
+			"status" => object::STAT_ACTIVE
 		));
 		return $ol;
 	}
@@ -116,30 +113,23 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 			}
 		}
 
-		$r = parent::set_prop("thread_data", $this->threads);
 		$workspace = $this->awobj_get_workspace();
 		$workspace->request_rescheduling();
-		return $r;
 	}
 
 	private function add_thread()
 	{
 		$this->threads[] = new mrp_resource_thread();
-		$this->set_prop ("state", self::STATE_AVAILABLE);
 	}
 
 	private function remove_thread($id)
 	{
 		$thread = $this->threads[$id];
+		$thread->delete();
 
 		if ($thread->is_available())
 		{
-			$thread->delete();
 			unset($this->threads[$id]);
-		}
-		else
-		{
-			$thread->delete();
 		}
 	}
 
@@ -219,8 +209,6 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_MRP_ORDER_COVER,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"status" => object::STAT_ACTIVE,
 			"CL_MRP_ORDER_COVER.RELTYPE_APPLIES_RESOURCE" => $this->id()
 		));
@@ -263,7 +251,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	**/
 	public function awobj_set_production_feedback_option_values($value)
 	{
-		if(!is_oid($this->id()))	// NEW
+		if(!$this->is_saved())
 		{
 			$value = array(1);
 		}
@@ -289,17 +277,11 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 
 	public function awobj_get_state()
 	{
-		$state = parent::prop("state");
+		$state = $this->prop("state");
 		if (!in_array($state, self::$inactive_states))
-		{
-			if ($this->is_available())
-			{
-				$state = self::STATE_AVAILABLE;
-			}
-			else
-			{
-				$state = self::STATE_PROCESSING;
-			}
+		{ // if resource is active then its state is determined by thread states
+			$this->load_threads();
+			$state = $this->is_available() ? self::STATE_AVAILABLE : self::STATE_UNAVAILABLE;
 		}
 		return $state;
 	}
@@ -311,22 +293,17 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 
 	/**
 		@attrib name=get_materials params=name
-
 		@param id required type=int
-
 		@param odl optional type=bool default=false
-
 		@returns object_list/object_data_list of materials (shop_products)
-
 	**/
 	public static function get_materials($arr)
 	{
 		$prms = array(
 			"class_id" => CL_SHOP_PRODUCT,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"RELTYPE_PRODUCT(CL_MATERIAL_EXPENSE_CONDITION).resource" => $arr["id"],
+			"RELTYPE_PRODUCT(CL_MATERIAL_EXPENSE_CONDITION).resource" => $arr["id"]
 		);
+
 		if(empty($arr["odl"]))
 		{
 			return new object_list($prms);
@@ -351,8 +328,6 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_MATERIAL_EXPENSE_CONDITION,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"resource" => $this->id()
 		));
 		return $ol->arr();
@@ -401,8 +376,6 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 
 		$ol = new object_list(array(
 			"class_id" => CL_MATERIAL_EXPENSE_CONDITION,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"resource" => $this->id(),
 			"product" => $product->id()
 		));
@@ -715,10 +688,11 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	@returns void
 	@errors
 		throws awex_obj_type when $job parameter is not CL_MRP_JOB
-		throws awex_mrp_resource_job when given job couldn't be processed
 		throws awex_redundant_instruction when given job already being processed
+		throws awex_mrp_resource_thread when no thread is reserved for given job
+		throws awex_mrp_resource_state when resource isn't reserved for given job
 		throws awex_mrp_resource_unavailable
-		throws awex_mrp_resource on any other error
+		throws awex_mrp_resource on unknown error
 **/
 // Future development idea:
 // @comment
@@ -735,146 +709,35 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 			throw new awex_redundant_instruction("Job (" . $job->id() . ") is already being processed by this resource (" . $this->id() . ")");
 		}
 
+		if (!$this->is_reserved($job))
+		{
+			throw new awex_mrp_resource_state("Job (" . $job->id() . ") has no reservation on this resource (" . $this->id() . ")");
+		}
+
 		try
 		{
 			$processing = false;
-			$this->ref()->lock(aw_locker::LOCK_WRITE);
 			$this->load_threads();
 			$processed_jobs = array();
 			$job_error = $state_error = $thread_error = $index_error = false;
-
-			if (isset($this->thread_index[$job->id()]) and isset($this->threads[$this->thread_index[$job->id()]]))
-			{
-				$thread = $this->threads[$this->thread_index[$job->id()]];
-
-				try
-				{
-					$thread->process($job);
-					$processing = true;
-				}
-				catch (awex_redundant_instruction $e) // probably pointless double checking
-				{
-					throw $e;
-				}
-				catch (awex_mrp_resource_state $e)
-				{
-					// index error. a thread corresponds to job in index but refuses to process it
-					// an index error or job was reserved on this thread and thread deleted meanwhile
-					// if deleted then propagate error, else try to correct index
-					$thread_error = true;
-					$index_error = true;
-				}
-				catch (awex_mrp_resource_job $e)
-				{
-					// index error. a thread corresponds to job in index but refuses to process it
-					// thread is reported to be reserved for this job but is actually free
-					$job_error = true;
-					$index_error = true;
-				}
-				catch (awex_mrp_resource_unavailable $e)
-				{
-					// index error. a thread corresponds to job in index but refuses to process it
-					// thread is reported to be reserved for this job but is actually processing or reserved for another
-					$processed_jobs += $e->processed_jobs;
-					$job_error = true;
-					$index_error = true;
-				}
-				catch (awex_mrp_resource $e)
-				{
-					// index error. a thread corresponds to job in index but refuses to process it
-					// job is correct but state isn't
-					$state_error = true;
-					$index_error = true;
-				}
-			}
-			else
-			{
-				// job not found in thread index. might be an unreserved job or index malfunction
-				// check each thread
-				foreach ($this->threads as $key => $thread)
-				{
-					try
-					{
-						$thread->process($job);
-
-						// if process command succeeded then a simple index error was found. a thread was reserved but job wasin't indexed
-						$processing = true;
-						$this->thread_index[$job->id()] = $key;
-						break;
-					}
-					catch (awex_redundant_instruction $e)
-					{
-						// found an index error and fixing it. job wasn't in index but was found being processed by a thread
-						$this->thread_index[$job->id()] = $key;
-						$this->save ();
-						$this->ref()->unlock();
-						throw $e;
-					}
-					catch (awex_mrp_resource_job $e)
-					{
-						// thread is free and not reserved to this job
-					}
-					catch (awex_mrp_resource_unavailable $e)
-					{
-						// thread just processes some other job
-						$processed_jobs += $e->processed_jobs;
-					}
-					catch (awex_mrp_resource_state $e)
-					{
-						// an index error or job was reserved on this thread and thread deleted meanwhile
-						// if deleted then propagate error, else try to correct index
-						$thread_error = true;
-					}
-					catch (awex_mrp_resource $e)
-					{
-						// index error. a thread corresponds to job in index but refuses to process it
-						// job is correct but state isn't
-						$state_error = true;
-					}
-				}
-			}
-
-			if ($processing)
-			{
-				$this->save ();
-				$this->ref()->unlock();
-			}
-			else
-			{
-				if ($thread_error)
-				{
-					//!!! do
-				}
-
-				if ($job_error)
-				{
-					//!!! do
-				}
-
-				if ($state_error)
-				{
-					//!!! do
-				}
-
-				if (!$processing)
-				{
-					throw new aw_exception("unknown error");
-				}
-			}
+			$thread = $this->_get_thread_for_job($job);// get thread reserved for given job
+			$thread->process($job);
+			$this->save(true);
 		}
 		catch (awex_redundant_instruction $e)
 		{
-			$this->ref()->unlock();
+			throw $e;
+		}
+		catch (awex_mrp_resource_thread $e)
+		{
 			throw $e;
 		}
 		catch (awex_mrp_resource_unavailable $e)
 		{
-			$this->ref()->unlock();
 			throw $e;
 		}
 		catch (Exception $E)
 		{
-			$this->ref()->unlock();
 			$e = new awex_mrp_resource("Unknown error on resource " . $this->id() . " trying to start job " . $job->id());
 			$e->set_forwarded_exception($E);
 			throw $e;
@@ -886,7 +749,9 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	@param job required type=CL_MRP_JOB
 	@errors
 		throws awex_obj_type when $job parameter is not CL_MRP_JOB
-		throws awex_mrp_resource_job when given job not being processed
+		throws awex_mrp_resource_job when given job not being processed but has a thread (data integrity failure)
+		throws awex_mrp_resource_thread when given job not being processed
+		throws awex_mrp_resource_state when job thread state is not 'processing'
 		throws awex_mrp_resource on any other error
 **/
 	function stop_job (object $job)
@@ -898,54 +763,19 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 
 		try
 		{
-			$this->ref()->lock(aw_locker::LOCK_WRITE);
 			$this->load_threads();
+			$thread = $this->_get_thread_for_job($job);// get thread processing given job
+			$thread->finish($job);
 			$finish = false;
-
-			if (isset($this->thread_index[$job->id()]) and isset($this->threads[$this->thread_index[$job->id()]]))
-			{
-				$thread = $this->threads[$this->thread_index[$job->id()]];
-				if ($thread->is_processing($job))
-				{
-					try
-					{
-						$thread->finish($job);
-						$finish = true;
-					}
-					catch (awex_mrp_resource_job $e) // probably pointless double checking
-					{
-						// job was reported processed by thread but actually isn't
-						// $finish stays false, do integrity repairs etc. later with other operations
-					}
-
-					// clear index in any case
-					unset($this->thread_index[$job->id()]);
-				}
-			}
-
-			if (!$finish)
-			{
-				// job wasn't found in thread index.
-				// check thread by thread if any is processing the job to be stopped
-				foreach ($this->threads as $thread)
-				{
-					if ($thread->is_processing($job))
-					{
-						try
-						{
-							$thread->finish($job);
-						}
-						catch (awex_mrp_resource_job $e) // probably pointless double checking
-						{
-							// job was reported processed by thread but actually isn't
-							//!!! repair resource integrity?
-						}
-					}
-				}
-			}
-
-			$this->save ();
-			$this->ref()->unlock();
+			$this->save(true);
+		}
+		catch (awex_mrp_resource_thread $e)
+		{
+			throw $e;
+		}
+		catch (awex_mrp_resource_state $e)
+		{
+			throw $e;
 		}
 		catch (awex_mrp_resource_job $e)
 		{
@@ -953,7 +783,6 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 		}
 		catch (Exception $E)
 		{
-			$this->ref()->unlock();
 			$e = new awex_mrp_resource("Unknown error. job (" . $job->id() . "), resource (" . $this->id() . ")");
 			$e->set_forwarded_exception($E);
 			throw $e;
@@ -976,7 +805,18 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 			throw new awex_obj_type("Job (" . $job->id() . ") of wrong type (" . $job->class_id() . "). Tried to reserve on '" . $this->id() . "'");
 		}
 
-		$this->ref()->lock(aw_locker::LOCK_WRITE);
+		// check if job hasn't already arrived
+		if ($this->is_reserved($job))
+		{
+			throw new awex_mrp_resource_state("Resource ".$this->id()." already reserved for job " . $job->id());
+		}
+
+		if ($this->is_processing($job))
+		{
+			throw new awex_mrp_resource_state("Resource ".$this->id()." already processing job " . $job->id());
+		}
+
+		// lock and load
 		$this->load_threads();
 
 		try
@@ -986,9 +826,8 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 				if ($thread->is_available())
 				{
 					$thread->reserve($job);
-					$this->thread_index[$job->id()] = $key;
-					$this->save();
-					$this->ref()->unlock();
+					$this->_set_thread_for_job($thread, $key);
+					$this->save(true);
 					return;
 				}
 			}
@@ -997,11 +836,9 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 		{
 			$e = new awex_mrp_resource("Unknown error");
 			$e->set_forwarded_exception($E);
-			$this->ref()->unlock();
 			throw $e;
 		}
 
-		$this->ref()->unlock();
 		$e = new awex_mrp_resource_unavailable("Resource unavailable. Processing: " . implode(", ", array_keys($this->thread_index)));
 		$e->processed_jobs = array_keys($this->thread_index);
 		throw $e;
@@ -1013,6 +850,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	@returns bool
 	@errors
 		throws awex_obj_type when $job parameter is not CL_MRP_JOB
+		throws awex_mrp_resource_thread if job has no processing thread (isn't reserved)
 **/
 	public function cancel_reservation(object $job)
 	{
@@ -1023,28 +861,17 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 
 		try
 		{
-			$this->ref()->lock(aw_locker::LOCK_WRITE);
 			$this->load_threads();
-
-			if (isset($this->thread_index[$job->id()]) and isset($this->threads[$this->thread_index[$job->id()]]))
-			{ // look in index first
-				$this->threads[$this->thread_index[$job->id()]]->cancel_reservation($job);
-				unset($this->thread_index[$job->id()]);
-			}
-			else
-			{ // index error, try to cancel reservation on every thread
-				foreach ($this->threads as $thread)
-				{
-					$thread->cancel_reservation($job);
-				}
-			}
-
-			$this->save();
-			$this->ref()->unlock();
+			$thread = $this->_get_thread_for_job($job);
+			$thread->cancel_reservation($job);
+			$this->save(true);
+		}
+		catch (awex_mrp_resource_thread $e)
+		{
+			throw $e;
 		}
 		catch (Exception $e)
 		{
-			$this->ref()->unlock();
 			throw $e;
 		}
 	}
@@ -1066,22 +893,41 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 		$this->load_threads();
 		$is = false;
 
-		// try thread index
-		if (isset($this->thread_index[$job->id()]) and isset($this->threads[$this->thread_index[$job->id()]]) and $this->threads[$this->thread_index[$job->id()]]->is_processing($job))
+		foreach ($this->threads as $key => $thread)
 		{
-			$is = true;
-		}
-		else
-		{	// try iteration
-			foreach ($this->threads as $key => $thread)
+			if ($thread->is_processing($job))
 			{
-				if ($thread->is_processing($job))
-				{
-					$is = true;
-					// mend thread index
-					$this->thread_index[$job->id()] = $key;
-					break;
-				}
+				$is = true;
+				break;
+			}
+		}
+
+		return $is;
+	}
+
+/** Tells if resource is reserved for given job.
+    @attrib api=1 params=pos
+	@param job type=CL_MRP_JOB
+	@returns bool
+	@errors
+		throws awex_obj_type when $job parameter is not CL_MRP_JOB
+**/
+	public function is_reserved(object $job)
+	{
+		if (!$job->is_a(CL_MRP_JOB))
+		{
+			throw new awex_obj_type("Job (" . $job->id() . ") of wrong type (" . $job->class_id() . "). Tried to check if processing on '" . $this->id() . "'");
+		}
+
+		$this->load_threads();
+		$is = false;
+
+		foreach ($this->threads as $key => $thread)
+		{
+			if ($thread->is_reserved($job))
+			{
+				$is = true;
+				break;
 			}
 		}
 
@@ -1119,7 +965,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 @errors
 	throws awex_mrp_case_workspace when workspace not found
 **/
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$this->load_threads();
 		$new = (null === $this->id());
@@ -1134,15 +980,13 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 		{
 			if ($thread->deleted() and $thread->is_available())
 			{
-				$job_id = $thread->get_job_id();
-				unset($this->thread_index[$job_id]);
 				unset($this->threads[$key]);
 			}
 		}
 
 		$this->set_prop("thread_data", $this->threads);
-		parent::set_prop("state", $this->awobj_get_state());
-		$r = parent::save($exclusive, $previous_state);
+		$r = parent::save($check_state);
+		$this->threads = array();
 		return $r;
 	}
 
@@ -1191,50 +1035,59 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 			{ // new object probably
 				$this->threads = array(new mrp_resource_thread());
 			}
-			elseif (is_array(reset($this->threads)))
-			{ // convert old format thread data
-				$old_thread_data = $this->threads;
-				$this->threads = array();
-				foreach ($old_thread_data as $old_thread)
-				{
-					$thread = new mrp_resource_thread();
-					if (!empty($old_thread["job"]))
-					{ // job in work
-						try
-						{
-							$job = obj($old_thread["job"], array(), CL_MRP_JOB, false);
-							$thread->process($job);
-							$this->thread_index[$job->id()] = count($this->threads);
-						}
-						catch (Exception $e)
-						{
-							if ($job)
-							{
-								unset($this->thread_index[$job->id()]);
-							}
-						}
-					}
-					$this->threads[] = $thread;
-				}
-
-				if (count($this->thread_index) === count($this->threads))
-				{ // a job is in work, set global state
-					$this->set_prop("state", self::STATE_PROCESSING);
-				}
-			}
-
-			// index threads by their job
-			foreach ($this->threads as $key => $thread)
+			else
 			{
-				if ($thread->deleted())
+				// index jobs by their thread
+				foreach ($this->threads as $thread_key => $thread)
 				{
-					unset($this->threads[$key]);
-				}
-				else
-				{
-					$this->thread_index[$thread->get_job_id()] = $key;
+					$this->_load_thread($thread, $thread_key);
 				}
 			}
+		}
+	}
+
+	private function _load_thread(mrp_resource_thread $thread, $thread_key)
+	{
+		if ($thread->deleted())
+		{
+			unset($this->threads[$thread_key]);
+		}
+		elseif ($thread->get_job_id())
+		{
+			$this->_set_thread_for_job($thread, $thread_key);
+		}
+	}
+
+	private function _get_thread_for_job(object $job)
+	{
+		if (!isset($this->thread_index[$job->id()]))
+		{
+			throw new awex_mrp_resource_thread("Thread for job '".$job->id()."' not found");
+		}
+
+		if (!isset($this->threads[$this->thread_index[$job->id()]]))
+		{ // index malfunction, thread is indexed for job but thread itself not found
+			throw new awex_mrp_resource_thread("Thread for job '".$job->id()."' doesn't exist");
+		}
+
+		if (!$this->threads[$this->thread_index[$job->id()]] instanceof mrp_resource_thread)
+		{ // thread isn't a thread object
+			throw new awex_mrp_resource_thread("Thread for job '".$job->id()."' is corrupt");
+		}
+
+		return $this->threads[$this->thread_index[$job->id()]];
+	}
+
+	private function _set_thread_for_job($thread, $thread_key)
+	{
+		$this->thread_index[$thread->get_job_id()] = $thread_key;
+	}
+
+	private function _clear_thread_for_job(object $job)
+	{
+		if (isset($this->thread_index[$job->id()]))
+		{
+			unset($this->thread_index[$job->id()]);
 		}
 	}
 
@@ -1363,9 +1216,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 					"CL_CRM_PERSON.RELTYPE_RANK" => $pros,
 					"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.RELTYPE_PROFESSION" => $pros,
 				),
-			)),
-			"lang_id" => array(),
-			"site_id" => array(),
+			))
 		));
 		return $ol;
 	}
@@ -1385,8 +1236,6 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_MRP_RESOURCE_ABILITY,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"CL_MRP_RESOURCE_ABILITY.RELTYPE_RESOURCE_ABILITY_ENTRY(CL_MRP_RESOURCE)" => $this->id(),
 			"act_from" => new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, time()),
 			"act_to" => new obj_predicate_compare(OBJ_COMP_GREATER, time()),
@@ -1438,8 +1287,12 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 
 class mrp_resource_thread
 {
+	const STATE_AVAILABLE = 10;
+	const STATE_RESERVED = 14;
+	const STATE_PROCESSING = 11;
+
 	protected $id;
-	protected $state = mrp_resource_obj::STATE_AVAILABLE;
+	protected $state = self::STATE_AVAILABLE;
 	protected $job; // current job oid
 	protected $to_be_deleted = false;
 
@@ -1452,15 +1305,15 @@ class mrp_resource_thread
 			throw $e;
 		}
 
-		$this->state = mrp_resource_obj::STATE_RESERVED;
+		$this->state = self::STATE_RESERVED;
 		$this->job = $job->id();
 	}
 
 	public function cancel_reservation(object $job)
 	{
-		if ($this->state === mrp_resource_obj::STATE_RESERVED and $job->id() === $this->job)
+		if ($this->state === self::STATE_RESERVED and $job->id() === $this->job)
 		{
-			$this->state = mrp_resource_obj::STATE_AVAILABLE;
+			$this->state = self::STATE_AVAILABLE;
 		}
 	}
 
@@ -1479,11 +1332,11 @@ class mrp_resource_thread
 				throw new awex_mrp_resource_job("Trying to process job with id '" . $job->id() . "' that this thread isn't reserved for.");
 			}
 		}
-		elseif ($this->state === mrp_resource_obj::STATE_PROCESSING)
+		elseif ($this->state === self::STATE_PROCESSING)
 		{
 			throw new awex_redundant_instruction("Job with id '" . $job->id() . "' is already being processed.");
 		}
-		elseif ($this->state !== mrp_resource_obj::STATE_RESERVED)
+		elseif ($this->state !== self::STATE_RESERVED)
 		{
 			throw new awex_mrp_resource("Trying to process job with id '" . $job->id() . "'. Resource state data corrupt. Thread state '{$this->state}'");
 		}
@@ -1494,12 +1347,12 @@ class mrp_resource_thread
 		}
 
 		$this->job = $job->id();
-		$this->state = mrp_resource_obj::STATE_PROCESSING;
+		$this->state = self::STATE_PROCESSING;
 	}
 
 	public function finish(object $job)
 	{
-		if ($this->state !== mrp_resource_obj::STATE_PROCESSING)
+		if ($this->state !== self::STATE_PROCESSING)
 		{
 			throw new awex_mrp_resource_state("Trying to finish job with id '" . $job->id() . "'. Unexpected resource thread state '{$this->state}'");
 		}
@@ -1510,17 +1363,22 @@ class mrp_resource_thread
 		}
 
 		$this->job = null;
-		$this->state = mrp_resource_obj::STATE_AVAILABLE;
+		$this->state = self::STATE_AVAILABLE;
 	}
 
 	public function is_available()
 	{
-		return !$this->to_be_deleted and $this->state === mrp_resource_obj::STATE_AVAILABLE;
+		return !$this->to_be_deleted and $this->state === self::STATE_AVAILABLE;
+	}
+
+	public function is_reserved(object $job = null)
+	{
+		return ($this->state === self::STATE_RESERVED and (null === $job or $job->id() === $this->job));
 	}
 
 	public function is_processing(object $job)
 	{
-		return ($this->state === mrp_resource_obj::STATE_PROCESSING and $job->id() === $this->job);
+		return ($this->state === self::STATE_PROCESSING and $job->id() === $this->job);
 	}
 
 	public function get_job_id()
@@ -1556,3 +1414,6 @@ class awex_mrp_resource_job extends awex_mrp_resource {}
 
 /** Workspace error **/
 class awex_mrp_resource_workspace extends awex_mrp_resource {}
+
+/** Resource thread error **/
+class awex_mrp_resource_thread extends awex_mrp_resource {}

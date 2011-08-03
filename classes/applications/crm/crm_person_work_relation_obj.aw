@@ -241,7 +241,7 @@ class crm_person_work_relation_obj extends _int_object
 		return $list;
 	}
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		// update work relation object name
 		if (strlen($this->name()) < 1)
@@ -270,7 +270,7 @@ class crm_person_work_relation_obj extends _int_object
 		}
 		$this->set_prop("state", $state);
 
-		return parent::save($exclusive, $previous_state);
+		return parent::save($check_state);
 	}
 }
 

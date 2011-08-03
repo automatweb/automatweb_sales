@@ -270,98 +270,6 @@ class acl_base extends db_connector
 		return $max_row;
 	}
 
-	function can_aw($access,$oid)
-	{
-		$access="can_".$access;
-
-		//$this->save_handle();
-
-		$max_priority = -1;
-		$max_acl = $GLOBALS["cfg"]["acl"]["default"];
-		$max_acl["acl_rel_id"] = "666";
-		$cnt = 0;
-
-		$orig_oid = $oid;
-		// here we must traverse the tree from $oid to 1, gather all the acls and return the one with the highest priority
-		while ($oid > 0)
-		{
-			$_t = aw_cache_get("aclcache",$oid);
-			if (is_array($_t))
-			{
-				$tacl = $_t;
-				$parent = $_t["parent"];
-				if (!isset($tacl["oid"]))
-				{
-					// if we are on any level and we get back no object, return no access
-					// cause then we asked about an object that does not exist or an object that is below a deleted object!
-					return array();
-				}
-			}
-			else
-			{
-				$tacl = $this->get_acl_for_oid($oid);
-
-				if (!isset($tacl["oid"]))
-				{
-					// if we are on any level and we get back no object, return no access
-					// cause then we asked about an object that does not exist or an object that is below a deleted object!
-					// set the oid's acl cache as not-bloody-anything
-					aw_cache_set("aclcache",$oid,array());
-					return array();
-				}
-
-				if ($tacl)
-				{
-					// found acl for this object from the database, so check it
-					$parent = $tacl["parent"];
-					aw_cache_set("aclcache",$oid,$tacl);
-				}
-				else
-				{
-					// no acl for this object in the database, find it's parent
-					$parent = $this->db_fetch_field("SELECT parent FROM objects WHERE oid = '$oid'","parent");
-					$tacl = array("oid" => $oid,"parent" => $parent,"priority" => -1);
-					aw_cache_set("aclcache",$oid,$tacl);
-				}
-			}
-
-			$skip = ($oid == $orig_oid && !empty($tacl["can_subs"]));
-			if ($tacl["priority"] > $max_priority && !$skip)
-			{
-				$max_priority = $tacl["priority"];
-				$max_acl = $tacl;
-			}
-
-			if (++$cnt > 100)
-			{
-				error::raise(array(
-					"id" => ERR_ACL_EHIER,
-					"msg" => sprintf(t("acl_base->can(%s, %s): error in object hierarchy, count exceeded!"), $access, $oid)
-				));
-			}
-
-			$oid = $parent;
-		}
-
-		// now, we have the result. but for brothers we need to do this again for the original object and only use the can_delete privilege from the brother
-		$_t = aw_cache_get("aclcache",$orig_oid);
-		if ($_t["brother_of"] > 0 && $_t["brother_of"] != $_t["oid"])
-		{
-			$rv = $this->can_aw($access, $_t["brother_of"]);
-			$rv["can_delete"] = isset($max_acl["can_delete"]) ? $max_acl["can_delete"] : 0;
-			$max_acl = $rv;
-		}
-
-		// if the max_acl does not contain view and no user is logged, return default
-		if (!isset($max_acl["can_view"]) && aw_global_get("uid") == "")
-		{
-			return $GLOBALS["cfg"]["acl"]["default"];
-		}
-
-		// and now return the highest found
-		return $max_acl;
-	}
-
 	function init_acl()
 	{
 		$GLOBALS["object_loader"]->set___aw_acl_cache();
@@ -370,7 +278,9 @@ class acl_base extends db_connector
 	// black magic follows
 	/** Tells if user can perform operation on object
 		@attrib api=1 params=pos
-		@param operation_id type=string
+		@param operation_id type=string default=""
+			Options are acl ids plus "". Empty string doesn't mean an acl operation id but a parameter option
+			interpreted as request to only know if object exists and isn't deleted
 		@param object_id type=oid
 		@param user_oid type=oid default=NULL
 			Defaults to current user if not specified
@@ -378,99 +288,99 @@ class acl_base extends db_connector
 		@returns bool
 		@errors none
 	**/
-	public function can($operation_id, $object_id, $user_oid = null)
+	public function can($operation_id = "", $object_id, $user_oid = null)
 	{
-		$operation_id = "can_{$operation_id}";
-
-		if (!is_oid($object_id) or !is_array($this->acl_ids) or !in_array($operation_id, $this->acl_ids))
-		{
-			return false;
-		}
-
-		$uid = aw_global_get("uid");
 		//TODO: teostada variant kui antakse root kasutaja user_oid
-		if (aw_ini_get("acl.no_check") or "root" === $uid)
-		{ // check if object record exists and state isn't 'deleted'
-			try
-			{
-				$objdata = object_loader::instance()->ds->get_objdata($object_id);
-				return !empty($objdata["oid"]);
-			}
-			catch (awex_obj_na $e)
-			{
-				return false;
-			}
-			catch (awex_obj_acl $e)
-			{
-				return false;
-			}
-		}
-
-		$can = false;
-		$user_oid = $user_oid ? $user_oid : aw_global_get("uid_oid");
-
-		if (aw_ini_get("acl.use_new_acl"))
+		if (!is_oid($object_id))
 		{
-			if (!isset($this->__aw_acl_cache[$object_id]) || !($max_acl = $this->__aw_acl_cache[$object_id]))
+			$can = false;
+		}
+		elseif ($operation_id)
+		{
+			if ("root" === aw_global_get("uid"))
 			{
-				$fn = "acl-{$object_id}-uoid-{$user_oid}";
-				$fn .= "-nliug-".(isset($_SESSION["nliug"]) ? $_SESSION["nliug"] : "");//TODO: mitte sessioonist
-
-				if (!object_loader::opt("no_cache") && ($str_max_acl = cache::file_get_pt_oid("acl", $object_id, $fn)) != false)
-				{
-					$max_acl = aw_unserialize($str_max_acl, false, true);
-				}
-
-				if (!isset($max_acl))
-				{
-					$max_acl = $this->_calc_max_acl($object_id);
-					if (0 === $max_acl)
-					{
-						$max_acl = array_combine($this->acl_ids, array_fill(0, count($this->acl_ids), false));
-					}
-
-					if (!object_loader::opt("no_cache"))
-					{
-						cache::file_set_pt_oid("acl", $object_id, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
-					}
-				}
-
-				$this->__aw_acl_cache[$object_id] = $max_acl;
-			}
-
-			if (!isset($max_acl["can_view"]) && !$user_oid)
-			{
-				$can = aw_ini_get("acl.default.{$operation_id}") === aw_ini_get("acl.allowed");
+				$can = self::_object_exists_and_not_deleted($object_id);
 			}
 			else
 			{
-				$can = isset($max_acl[$operation_id]) ? (bool) $max_acl[$operation_id] : false;
-			}
-		}
-		else
-		{
-			$this->save_handle();
-			if (!($max_acl = aw_cache_get("__aw_acl_cache", $object_id)))
-			{
-				$fn = "acl-{$object_id}-uid-{user_oid}";
-				if (($str_max_acl = cache::file_get_pt_oid("acl", $object_id, $fn)) == false)
-				{
-					$max_acl = $this->can_aw($operation_id,$object_id);
+				$operation_id = "can_{$operation_id}";
 
-					cache::file_set_pt_oid("acl", $object_id, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
-					aw_cache_set("__aw_acl_cache", $object_id, $max_acl);
+				if (!is_array($this->acl_ids) or !in_array($operation_id, $this->acl_ids))
+				{
+					$can = false;
 				}
 				else
 				{
-					$max_acl = aw_unserialize($str_max_acl, false, true);
+					$can = false;
+					$user_oid = $user_oid ? $user_oid : aw_global_get("uid_oid");
+
+					if (!isset($this->__aw_acl_cache[$object_id]) || !($max_acl = $this->__aw_acl_cache[$object_id]))
+					{
+						$fn = "acl-{$object_id}-uoid-{$user_oid}";
+						$fn .= "-nliug-".(isset($_SESSION["nliug"]) ? $_SESSION["nliug"] : "");//TODO: mitte sessioonist
+
+						if (!object_loader::opt("no_cache") && ($str_max_acl = cache::file_get_pt_oid("acl", $object_id, $fn)) != false)
+						{
+							$max_acl = aw_unserialize($str_max_acl, false, true);
+						}
+
+						if (!isset($max_acl))
+						{
+							$max_acl = $this->_calc_max_acl($object_id);
+							if (0 === $max_acl)
+							{
+								$max_acl = array_combine($this->acl_ids, array_fill(0, count($this->acl_ids), false));
+							}
+
+							if (!object_loader::opt("no_cache"))
+							{
+								cache::file_set_pt_oid("acl", $object_id, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
+							}
+						}
+
+						$this->__aw_acl_cache[$object_id] = $max_acl;
+					}
+
+					if (!isset($max_acl["can_view"]) && !$user_oid)
+					{
+						$can = aw_ini_get("acl.default.{$operation_id}") === aw_ini_get("acl.allowed");
+					}
+					else
+					{
+						$can = isset($max_acl[$operation_id]) ? (bool) $max_acl[$operation_id] : false;
+					}
 				}
 			}
-
-			$this->restore_handle();
-			$can = isset($max_acl[$operation_id]) ? $max_acl[$operation_id] : null;
+		}
+		elseif ("" === $operation_id or "root" === aw_global_get("uid"))
+		{ // check if object record exists and state isn't 'deleted'
+			$can = self::_object_exists_and_not_deleted($object_id);
+		}
+		else
+		{
+			$can = false;
 		}
 
 		return $can;
+	}
+
+	private static function _object_exists_and_not_deleted($oid)
+	{
+		$does = false;
+		try
+		{
+			$objdata = object_loader::instance()->ds->get_objdata($oid);
+			$does = !empty($objdata["oid"]);
+		}
+		catch (awex_obj_na $e)
+		{
+			//TODO: exception pole hea vahend kontrollimiseks
+		}
+		catch (awex_obj_acl $e)
+		{
+			//TODO: exception pole hea vahend kontrollimiseks
+		}
+		return $does;
 	}
 
 	private function _calc_max_acl($oid)
