@@ -31,12 +31,11 @@ class object
 	const STAT_NOTACTIVE = 1;
 	const STAT_ACTIVE = 2;
 
-
 	var $oid;	// the object this instance points to
+	//TODO: scope?
 
 	private static $instance_count = 0;
 	private $instance_number;
-	private static $instance_locks = array();
 
 	/** object class constructor
 		@attrib api=1 params=pos
@@ -192,10 +191,12 @@ class object
 			$o->set_class_id(CL_FOO);
 			$o->save();
 	**/
-	function save()
+	function save($check_state = false)
 	{
-		$this->_check_lock_write();
-		return $this->oid = $GLOBALS["object_loader"]->save($this->oid);
+		self::lock();
+		$this->oid = $GLOBALS["object_loader"]->save($this->oid);
+		self::unlock();
+		return $this->oid;
 	}
 
 	/** Saves the currently loaded object or creates a new one if the currently loaded object is not yet saved and all the necessary properties are set; returns the id of the object created or saved.
@@ -227,8 +228,10 @@ class object
 	**/
 	function save_check_state($state_id = null)
 	{
-		$this->_check_lock_write();
+		self::lock();
 		return $this->oid = $GLOBALS["object_loader"]->save($this->oid, true, $state_id);
+		self::unlock();
+		return $this->oid;
 	}
 
 	/** Returns the current state id for the object from memory.
@@ -2350,70 +2353,34 @@ class object
 		$this->__set($prop, null);
 	}
 
-	public function lock($type = aw_locker::LOCK_FULL, $boundary = aw_locker::BOUNDARY_SERVER, $wait_type = aw_locker::WAIT_BLOCK, $release_time = 0)
+	public function lock($type = aw_locker::LOCK_WRITE, $scope = aw_locker::SCOPE_PROCESS, $wait_type = aw_locker::WAIT_BLOCK, $release_time = 0)
 	{
-		if ($boundary == aw_locker::BOUNDARY_PROCESS)
-		{
-			// lock this object class instance, not the object id
-			// in this case, change the wait type to exception, cause waiting would deadlock always
-			aw_locker::lock("object_instance", $this->instance_number, $type, $boundary, aw_locker::WAIT_EXCEPTION, $release_time);
-			self::$instance_locks[$this->oid] = array(
-				$this->instance_number,
-				$type
-			);
-		}
-		else
-		{
-			// lock object by id inter-process
-			aw_locker::lock("object", $this->oid, $type, $boundary, $wait_type, $release_time);
-		}
+		// lock object by id inter-process
+		aw_locker::lock("object", $this->oid, $type, $scope, $wait_type, $release_time);
 	}
 
 	public function unlock()
 	{
-		// unlock both instance and oid
-		aw_locker::unlock("object_instance", $this->instance_number);
 		aw_locker::unlock("object", $this->oid);
-		unset(self::$instance_locks[$this->oid]);
 	}
 
 	public function is_locked()
 	{
-		$instance_lock = aw_locker::is_locked("object_instance", $this->instance_number);
-		$object_lock = aw_locker::is_locked("object", $this->oid);
-		return ($instance_lock or $object_lock);
+		return aw_locker::is_locked("object", $this->oid);
 	}
 
 	public function __destruct()
 	{
-		if (isset(self::$instance_locks[$this->oid]) && is_array(self::$instance_locks[$this->oid]))
-		{
-			foreach(self::$instance_locks[$this->oid] as $key => $item)
-			{
-				if ($item[0] == $this->instance_number)
-				{
-					unset(self::$instance_locks[$this->oid][$key]);
-				}
-			}
-		}
 	}
 
 	private function _check_lock_read()
 	{
-		if (isset(self::$instance_locks[$this->oid]) && self::$instance_locks[$this->oid][0] != $this->instance_number && self::$instance_locks[$this->oid][1] == aw_locker::LOCK_FULL)
-		{
-			aw_locker::try_operation("object_instance", self::$instance_locks[$this->oid][0], aw_locker::OPERATION_READ);
-		}
-		aw_locker::try_operation("object", $this->oid, aw_locker::OPERATION_READ);
+		aw_locker::is_locked("object", $this->oid, aw_locker::LOCK_FULL);
 	}
 
 	private function _check_lock_write()
 	{
-		if (isset(self::$instance_locks[$this->oid]) && self::$instance_locks[$this->oid][0] != $this->instance_number)
-		{
-			aw_locker::try_operation("object_instance", self::$instance_locks[$this->oid][0], aw_locker::OPERATION_WRITE);
-		}
-		aw_locker::try_operation("object", $this->oid, aw_locker::OPERATION_WRITE);
+		aw_locker::is_locked("object", $this->oid, aw_locker::LOCK_WRITE);
 	}
 }
 
