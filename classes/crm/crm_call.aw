@@ -240,7 +240,7 @@ class crm_call extends task
 		if (!empty($arr["request"]["preparing_to_call"]) and "change" === $arr["request"]["action"] and $application->is_a(CL_CRM_SALES))
 		{
 			$this_o = new object($arr["request"]["id"], array(), CL_CRM_CALL);
-			$this_o->lock(aw_locker::LOCK_FULL, aw_locker::BOUNDARY_SESSION, aw_locker::WAIT_EXCEPTION, time() + 300);//!!! 300 normaalseks
+			$this_o->lock(aw_locker::LOCK_FULL, aw_locker::SCOPE_SESSION, aw_locker::WAIT_EXCEPTION, time() + 300);//!!! 300 normaalseks
 		}
 	}
 
