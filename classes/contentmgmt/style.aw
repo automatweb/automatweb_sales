@@ -8,14 +8,17 @@ $style_cache = array();
 
 class style extends aw_template
 {
-	var $type_names = array(0 => LC_STYLE_TABLE_STYLE, 1 => LC_STYLE_CELL_STYLE, 2 => LC_STYLE_ELEMENT_STYLE);
+	var $type_names = array();//TODO: scope?
 
 	function style()
 	{
 		$this->init("style");
 		$this->sub_merge = 1;
-		lc_load("definition");
-		$this->lc_load("style","lc_style");
+		$this->type_names = array(
+			0 => t("Tabeli stiil"),
+			1 => t("Celli stiil"),
+			2 => t("Elemendi stiil")
+		);
 	}
 
 	function db_listall($parent,$type = -1)
@@ -61,8 +64,6 @@ class style extends aw_template
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_CSS,
-				"site_id" => array(),
-				"lang_id" => array(),
 				"sort_by" => "objects.jrk,objects.name"
 			));
 			for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
@@ -889,9 +890,7 @@ class style extends aw_template
 		$aret = $this->get_select(0, ST_TABLE, true);
 		$ol = new object_list(array(
 			"class_id" => CL_CSS,
-			"lang_id" => array(),
-			"sort_by" => "objects.jrk,objects.name",
-			"site_id" => array()
+			"sort_by" => "objects.jrk,objects.name"
 		));
 		foreach($ol->names() as $id => $nm)
 		{
@@ -900,9 +899,7 @@ class style extends aw_template
 
 		$ol = new object_list(array(
 			"oid" => array_keys($aret),
-			"sort_by" => "objects.site_id,objects.class_id",
-			"lang_id" => array(),
-			"site_id" => array()
+			"sort_by" => "objects.site_id,objects.class_id"
 		));
 
 		$ret = array("" => "");

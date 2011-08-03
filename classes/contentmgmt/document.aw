@@ -323,7 +323,7 @@ class document extends aw_template implements orb_public_interface
 // 				}
 
 			$o = obj($loid);
-			$txts = new aw_array($o->meta("texts"));
+			$txts = new aw_array($o->meta("texts"));//DEPRECATED
 			$this->vars($txts->get());
 		}
 
@@ -361,7 +361,7 @@ class document extends aw_template implements orb_public_interface
 					{
 						$doc["lead"] = $pc . $doc["lead"];
 					}
-				};
+				}
 			}
 			else
 			{

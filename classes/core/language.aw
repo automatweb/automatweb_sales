@@ -2,7 +2,7 @@
 // language.aw - Keel
 /*
 
-@classinfo syslog_type=ST_LANGUAGE relationmgr=yes no_status=1 no_comment=1
+@classinfo relationmgr=yes no_status=1 no_comment=1
 
 @default table=objects
 @default group=general
@@ -16,7 +16,6 @@
 
 @property lang_status table=languages type=status field=status
 @caption Aktiivne
-
 
 @property show_not_logged type=checkbox ch_value=1 prop_cb=1 table=languages field=show_not_logged
 @caption N&auml;htav v&auml;lja loginud kasutajatele
@@ -65,16 +64,19 @@
 @property langs type=table group=langs field=meta method=serialize store=no
 @caption Keeled
 
+
+//DEPRECATED
 @groupinfo texts caption="Tekstid"
 @default group=texts
-
+//DEPRECATED
 @property texts type=table no_caption=1
+
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-
 	@property transl type=callback callback=callback_get_transl
 	@caption T&otilde;lgi
+
 
 @reltype IMAGE value=1 clid=CL_IMAGE
 @caption pilt
@@ -119,7 +121,7 @@ class language extends class_base
 				break;
 
 			case "lang_site_id":
-				$adm = get_instance("core/languages");
+				$adm = new languages();
 				$sli = get_instance("install/site_list");
 				$sl = $adm->_get_sl();
 				foreach($sl as $idx => $a)
@@ -171,7 +173,7 @@ class language extends class_base
 			case "texts":
 				$this->do_texts_table($arr);
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -181,30 +183,27 @@ class language extends class_base
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
-			case "transl":
-				$this->trans_save($arr, $this->trans_props);
-				break;
-
 			case "langs":
 				$ol = new object_list(array(
-					"class_id" => CL_LANGUAGE,
-					"status" => array(STAT_ACTIVE, STAT_NOTACTIVE)
+					"class_id" => CL_LANGUAGE
 				));
 				for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 				{
-					if ($arr["request"]["act"][$o->id()] != ($o->prop("lang_status") - 1))
+					$changed = false;
+					if (!empty($arr["request"]["act"][$o->id()]) xor object::STAT_ACTIVE == $o->prop("lang_status"))
 					{
-						$o->set_status($arr["request"]["act"][$o->id()] == 1 ? STAT_ACTIVE : STAT_NOTACTIVE);
-						$o->set_prop("lang_status", $arr["request"]["act"][$o->id()] == 1 ? STAT_ACTIVE : STAT_NOTACTIVE);
-						$o->save();
-						$al = get_instance("core/languages");
-						$al->set_status($o->prop("db_lang_id"), $arr["request"]["act"][$o->id()] == 1 ? STAT_ACTIVE : STAT_NOTACTIVE);
+						$new_status = empty($arr["request"]["act"][$o->id()]) ? object::STAT_NOTACTIVE : object::STAT_ACTIVE;
+						$o->set_status($new_status);
+						$o->set_prop("lang_status", $new_status);
+						$changed = true;
+						$al = new languages();
+						$al->set_status($o->prop("db_lang_id"), $new_status);
 					}
-				}
-				if ($arr["request"]["set_sel_lang"] != aw_global_get("lang_id"))
-				{
-					$l = get_instance("languages");
-					$l->set_active($arr["request"]["set_sel_lang"], true);
+
+					if ($changed)
+					{
+						$o->save();
+					}
 				}
 				break;
 
@@ -213,7 +212,7 @@ class language extends class_base
 				$tmp = aw_ini_get("languages.list");
 				$arr["obj_inst"]->set_prop("lang_acceptlang", $tmp[$prop["value"]]["acceptlang"]);
 				$arr["obj_inst"]->set_prop("lang_charset", $tmp[$prop["value"]]["charset"]);
-				$l = get_instance("core/languages");
+				$l = new languages();
 				$l->init_cache(true);
 				break;
 
@@ -234,10 +233,10 @@ class language extends class_base
 				break;
 
 			case "lang_status":
-				$stat = STAT_NOTACTIVE;
+				$stat = object::STAT_NOTACTIVE;
 				if ($prop["value"])
 				{
-					$stat = STAT_ACTIVE;
+					$stat = object::STAT_ACTIVE;
 				}
 				$arr["obj_inst"]->set_status($stat);
 				break;
@@ -263,7 +262,7 @@ class language extends class_base
 
 	function _get_langs_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "lang",
 			"caption" => t("Keel"),
@@ -271,18 +270,12 @@ class language extends class_base
 		));
 		$t->define_field(array(
 			"name" => "act",
-			"caption" => t("Staatus"),
-			"align" => "center"
-		));
-		$t->define_field(array(
-			"name" => "sel",
-			"caption" => t("Valitud"),
+			"caption" => t("Aktiivne"),
 			"align" => "center"
 		));
 
 		$ol = new object_list(array(
-			"class_id" => CL_LANGUAGE,
-			"status" => array(STAT_ACTIVE, STAT_NOTACTIVE)
+			"class_id" => CL_LANGUAGE
 		));
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
@@ -292,11 +285,6 @@ class language extends class_base
 					"name" => "act[".$o->id()."]",
 					"value" => 1,
 					"checked" => ($o->prop("lang_status") == 2)
-				)),
-				"sel" => html::radiobutton(array(
-					"name" => "set_sel_lang",
-					"value" => $o->prop("db_lang_id"),
-					"checked" => (aw_global_get("lang_id") == $o->prop("db_lang_id"))
 				))
 			));
 		}
@@ -307,14 +295,14 @@ class language extends class_base
 		echo "convert langs to new ! <br>\n";
 		flush();
 
-		$conv = get_instance("admin/converters");
+		$conv = new converters();
 		$conv->dc = $dbi->dc;
 		$conv->lang_new_convert(array(
 			"parent" => $osi_vars["langs"]
 		));
 	}
 
-	function _init_texts_table(&$t)
+	function _init_texts_table($t)
 	{
 		$t->define_field(array(
 			"name" => "text_name",
@@ -329,9 +317,10 @@ class language extends class_base
 		$t->set_sortable(false);
 	}
 
+	//DEPRECATED
 	function do_texts_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_texts_table($t);
 
 		$cnt = 0;
@@ -367,8 +356,9 @@ class language extends class_base
 		}
 	}
 
+	//DEPRECATED
 	function save_texts_table($arr)
-	{
+	{return;
 		$awa = new aw_array($arr["request"]["varvals"]);
 		$tarr = $awa->get();
 
@@ -384,14 +374,13 @@ class language extends class_base
 		$arr["obj_inst"]->set_meta("texts", $texts);
 	}
 
-	function do_insert_texts(&$that)
+	//DEPRECATED
+	function do_insert_texts($that)
 	{
 		$loid = aw_global_get("lang_oid");
 		if ($loid)
 		{
-			aw_disable_acl();
 			$o = obj($loid);
-			aw_restore_acl();
 			$txts = new aw_array($o->meta("texts"));
 			$that->vars($txts->get());
 		}
@@ -399,7 +388,7 @@ class language extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
@@ -419,7 +408,7 @@ class language extends class_base
 	{
 		$pm = new popup_menu();
 		$pm->begin_menu("lang_pop");
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list();
 		foreach($ll as $lid => $ld)
 		{
@@ -448,19 +437,25 @@ class language extends class_base
 			$ld = $l->fetch(aw_global_get("lang_id"));
 		}
 		die($pm->get_menu(array(
-			"text" => $ld["name"].' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
+			"text" => $ld["name"] . ' <img src="' . aw_ini_get("baseurl") . 'automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
 		)));
 	}
 
 	function do_db_upgrade($t, $f)
 	{
-		switch($f)
+		$r = false;
+		if ("languages" === $t)
 		{
-			case "show_logged":
-			case "show_others":
-			case "show_not_logged":
+			if (
+				"show_logged" === $f or
+				"show_others" === $f or
+				"show_not_logged" === $f
+			)
+			{
 				$this->db_add_col($t, array("name" => $f, "type" => "int"));
-				return true;
+				$r = true;
+			}
 		}
+		return $r;
 	}
 }

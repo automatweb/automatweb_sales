@@ -75,8 +75,20 @@ else
 // do not display the YAH bar, if site_title is empty
 $bmb = new popup_menu();
 $bmb->begin_menu("settings_pop");
-$bml = new popup_menu();
-$bml->begin_menu("lang_pop");
+
+if (languages::count() > 1)
+{
+	$languages_menu = new popup_menu();
+	$languages_menu->begin_menu("lang_pop");
+	$languages_menu = $languages_menu->get_menu(array(
+		"load_on_demand_url" => $sf->mk_my_orb("lang_pop", array("url" => get_ru()), "language"),
+		"text" => $ld["name"] . ' <img src="' . aw_ini_get("baseurl") . 'automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
+	));
+}
+else
+{
+	$languages_menu = "";
+}
 
 $l = new languages();
 if (aw_ini_get("user_interface.full_content_trans"))
@@ -128,6 +140,7 @@ catch (aw_lock_exception $e)
 	$cur_obj = obj();
 	$parent = 0;
 }
+
 $sf->vars(array(
 	"prod_family" => $pf,
 	"prod_family_href" => $pf_url,
@@ -155,12 +168,9 @@ $sf->vars(array(
 	)),*/
 	"settings_pop" => $bmb->get_menu(array(
 		"load_on_demand_url" => $sf->mk_my_orb("settings_lod", array("url" => get_ru()), "user"),
-		"text" => '<img src="/automatweb/images/aw06/ikoon_seaded.gif" alt="seaded" width="17" height="17" border="0" align="left" style="margin: -1px 5px -3px -2px" />'.t("Seaded")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
+		"text" => '<img src="/automatweb/images/aw06/ikoon_seaded.gif" alt="seaded" width="17" height="17" border="0" align="left" style="margin: -1px 5px -3px -2px" />'.t("Seaded") . ' <img src="' . aw_ini_get("baseurl") . 'automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
 	)),
-	"lang_pop" => $bml->get_menu(array(
-		"load_on_demand_url" => $sf->mk_my_orb("lang_pop", array("url" => get_ru()), "language"),
-		"text" => $ld["name"]//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
-	)),
+	"lang_pop" => $languages_menu,
 	"parent" => $parent,
 	"random" => rand(100000,1000000),
 	"session_end_msg" => t("Teie AutomatWeb'i sessioon aegub 5 minuti p&auml;rast!"),

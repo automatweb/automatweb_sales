@@ -1,8 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/core/trans/pot_scanner.aw,v 1.51 2008/04/22 08:24:10 kristo Exp $
-/*
-@classinfo  maintainer=tarvo
-*/
+
 class pot_scanner extends core
 {
 	function pot_scanner()
@@ -411,7 +408,7 @@ class pot_scanner extends core
 		for($i = 0; $i < $cnt;  $i++)
 		{
 			$line = $lines[$i];
-			
+
 			if(substr($line, 0, 1) == "#")
 			{
 				$entry_header[] = $line;
@@ -420,7 +417,7 @@ class pot_scanner extends core
 			if (substr($line, 0, 5) == "msgid")
 			{
 				$msgid = substr($line, 7, strlen($line)-9);
-				while (substr(trim($lines[$i+1]), 0, 6) != "msgstr")
+				while (substr(trim($lines[$i+1]), 0, 6) !== "msgstr")
 				{
 					$i++;
 					$line = $lines[$i];
@@ -432,7 +429,7 @@ class pot_scanner extends core
 				}
 			}
 			else
-			if (substr($line, 0, 6) == "msgstr")
+			if (substr($line, 0, 6) === "msgstr")
 			{
 				$str = substr(trim($line), 8, strlen($line)-10);
 				while (trim($lines[$i+1]) != "")
@@ -449,10 +446,11 @@ class pot_scanner extends core
 				// write msgid/msgstr pair
 				if (!$first_msg)
 				{
-					if ($str{strlen($str)-1} == "\"")
+					if (strlen($str) and $str{strlen($str)-1} === "\"")
 					{
 						$str = substr($str, 0, strlen($str)-1);
 					}
+
 					$f[] = array(
 						"headers" => $entry_header,
 						"msgid" => $msgid,
@@ -471,7 +469,7 @@ class pot_scanner extends core
 
 		return $f;
 	}
-	
+
 	// arr(location,data => array(msgid => translated_text))
 	function write_aw_lang_file($arr)
 	{
@@ -499,7 +497,7 @@ class pot_scanner extends core
 	{
 		return  preg_replace('=<br */?>=i', "\r\n", $text);
 	}
-	
+
 	function _nl2br($text)
 	{
 		return preg_replace("/(\r\n|\n|\r)/", "<br />", $text);
@@ -529,7 +527,7 @@ class pot_scanner extends core
 			$contents[] = "msgstr \"".$this->_nl2br($entry["msgstr"])."\"\n\n";
 		}
 		$contents = array_merge($header, $contents);
-		
+
 		chmod($arr["location"], 0777);
 		$fp = fopen($arr["location"], "w");
 		foreach($contents as $line)
@@ -672,7 +670,7 @@ class pot_scanner extends core
 					"str" => "syslog.action.".$sd["def"],
 				);
 			}
-			
+
 			$lgs = aw_ini_get("languages.list");
 			foreach($lgs as $laid => $sd)
 			{
@@ -681,7 +679,7 @@ class pot_scanner extends core
 					"str" => "languages.list.".$sd["acceptlang"],
 				);
 			}
-			
+
 			$this->_cond_write_file($inipot, $strings, $inif);
 
 			$this->_do_update_po($inipot);

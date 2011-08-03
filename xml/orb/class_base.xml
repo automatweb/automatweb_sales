@@ -67,6 +67,15 @@
 			</function>
 		</action>
 
+		<action name="submit_translations" all_args="1">
+			<function name="submit_translations">
+				<arguments>
+					<required name="id" type="oid" acl="edit" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="submit_and_return">
 			<function name="submit_and_return">
 				<arguments>

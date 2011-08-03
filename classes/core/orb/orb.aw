@@ -65,8 +65,6 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 		$vars = $args["vars"];
 
-		lc_load("definition");//TODO: kas vaja?
-
 		// main authentication call
 		$this->check_login($class, $action);
 
