@@ -379,10 +379,6 @@ class class_index
 		return $class_file;
 	}
 
-	public static function overwrite_class($class_name, $contents)
-	{
-	}
-
 	public static function load_class($class_name)
 	{
 		$orig_class_name = $class_name;

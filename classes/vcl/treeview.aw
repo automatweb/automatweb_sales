@@ -1189,12 +1189,12 @@ features = array()
 			$name = empty($item["name"]) ? $this->untitled_text : $item["name"];
 			if ($item["id"] === $this->selected_item)
 			{
-				$name = "<strong>$name</strong>";
+				$name = html::bold($name);
 			}
 
 			$checkbox_status = "undefined";
 
-			if ($item["checkbox"] == "button")
+			if (isset($item["checkbox"]) and $item["checkbox"] === "button")
 			{
 				$checkbox_status = "button";
 			}
@@ -1219,7 +1219,7 @@ features = array()
 					"SUB_NODES" => "",
 				));
 
-				if ($checkbox_status == "button")
+				if ($checkbox_status === "button")
 				{
 					$tpl = "SINGLE_NODE_BUTTON";
 				}
