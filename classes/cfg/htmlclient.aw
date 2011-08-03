@@ -331,8 +331,8 @@ class htmlclient extends aw_template
 		{
 			$args["type"] = "chooser";
 			$args["options"] = array(
-				STAT_ACTIVE => t("Jah"),
-				STAT_NOTACTIVE => t("Ei"),
+				object::STAT_ACTIVE => t("Jah"),
+				object::STAT_NOTACTIVE => t("Ei")
 			);
 		}
 
@@ -355,7 +355,7 @@ class htmlclient extends aw_template
 			{
 				// default to deactive
 				$args["value"] = STAT_NOTACTIVE;
-			};
+			}
 			$args["type"] = "chooser";
 			// hm, do we need STAT_ANY? or should I just fix the search
 			// do not use dumb value like 3 -- duke

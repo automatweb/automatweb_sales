@@ -378,18 +378,19 @@ function load_config ($files = array(), $cache_file = null)
 		}
 
 		// apply configuration settings
-
+/*TODO: t88le panna mingi variant
 		// write lock type to lock class file
 		// (for that copy locker class file contents to cache, replacing what it extends)
-		$locker_reflection = new ReflectionClass("aw_locker");
-		$set_locker_type = aw_ini_get("config.locker.type");
+		$locker_reflection = new ReflectionClass("aw_locker_template");
+		$set_locker_type = aw_ini_get("aw_locker.type");
 		if ("aw_locker_{$set_locker_type}" !== $locker_reflection->getExtensionName())
 		{
 			$locker_contents = file_get_contents($locker_reflection->getFileName());
 			$locker_contents = str_replace("class aw_locker extends aw_locker_none\n{", "class aw_locker extends aw_locker_none\n{", $locker_contents);
 			$locker_contents = preg_replace("/class aw_locker extends aw_locker_[A-z_]+(\n|\r|\r\n){/imU", "class aw_locker extends aw_locker_{$set_locker_type}\n{", $locker_contents);
-			class_index::overwrite_class("aw_locker", $locker_contents);
+			class_index::create_local_class("aw_locker", $locker_contents);
 		}
+		*/
 	}
 
 	// siin ei saa veel aw_global_get'i kasutada, kuna defsi pole veel laetud

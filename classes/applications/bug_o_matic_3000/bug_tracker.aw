@@ -630,6 +630,7 @@ class bug_tracker extends class_base
 	private $tables_show_items = 50;
 	private $_rq_lev;
 	var $combined_priority_formula;
+	var $job_hrs = 0; //TODO: scope?
 
 	function bug_tracker()
 	{
