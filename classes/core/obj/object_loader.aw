@@ -20,6 +20,10 @@ class object_loader
 {
 	private static $instance = false;
 
+	/** Returns object loader singleton instance
+		@attrib api=1 params=pos
+		@returns _int_object_loader
+	**/
 	public static function instance()
 	{
 		if (false === self::$instance)
@@ -35,6 +39,16 @@ class object_loader
 		}
 
 		return self::$instance;
+	}
+
+	/** Get object system data source object
+		@attrib api=1 params=pos
+		@returns _int_obj_ds_base
+			Default data source object.
+	**/
+	public static function ds()
+	{
+		return self::instance()->ds;
 	}
 
 	/** Tells if user can perform operation on object
