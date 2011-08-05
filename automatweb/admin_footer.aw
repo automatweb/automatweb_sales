@@ -76,6 +76,18 @@ else
 $bmb = new popup_menu();
 $bmb->begin_menu("settings_pop");
 
+// language selection menu
+if (aw_ini_get("user_interface.full_content_trans"))
+{
+	$ld = languages::fetch(aw_global_get("ct_lang_id"));
+	$page_charset = $charset = $ld["charset"];
+}
+else
+{
+	$ld = languages::fetch(aw_global_get("lang_id"));
+	$page_charset = $charset = aw_global_get("charset");
+}
+
 if (languages::count() > 1)
 {
 	$languages_menu = new popup_menu();
@@ -87,19 +99,7 @@ if (languages::count() > 1)
 }
 else
 {
-	$languages_menu = "";
-}
-
-$l = new languages();
-if (aw_ini_get("user_interface.full_content_trans"))
-{
-	$ld = $l->fetch(aw_global_get("ct_lang_id"));
-	$page_charset = $charset = $ld["charset"];
-}
-else
-{
-	$ld = $l->fetch(aw_global_get("lang_id"));
-	$page_charset = $charset = aw_global_get("charset");
+	$languages_menu = $ld["name"];
 }
 
 if (empty($pf_url))
@@ -109,7 +109,7 @@ if (empty($pf_url))
 
 $class_names = array(
 	"doc" => t("Dokument"),
-	"config" => t("Seaded"),
+	"config" => t("Seaded")
 );
 
 $cur_class = "";
@@ -347,7 +347,7 @@ if (!$styles_done)
 if (isset($_GET["TPL"]) and $_GET["TPL"] === "1")
 {
 	// fix for logged out users - dint show templates after page refresh
-	if (aw_global_get("uid")=="")
+	if (!aw_global_get("uid"))
 	{
 		if (strlen(cache::file_get("tpl_equals_1_cache_".aw_global_get("section")))==0)
 		{
@@ -449,7 +449,7 @@ if (isset($_SESSION["user_history_count"]) and $_SESSION["user_history_count"] >
 		$st .= " - ".ifset($gl, $bits["group"], "caption");
 	}
 
-	if ($st != "")
+	if ($st)
 	{
 		if ($_SESSION["user_history_has_folders"])
 		{

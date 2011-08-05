@@ -121,9 +121,8 @@ class language extends class_base
 				break;
 
 			case "lang_site_id":
-				$adm = new languages();
-				$sli = get_instance("install/site_list");
-				$sl = $adm->_get_sl();
+				$sli = new site_list();
+				$sl = languages::_get_sl();
 				foreach($sl as $idx => $a)
 				{
 					$sl[$idx] = $sli->get_url_for_site($idx);
@@ -196,8 +195,7 @@ class language extends class_base
 						$o->set_status($new_status);
 						$o->set_prop("lang_status", $new_status);
 						$changed = true;
-						$al = new languages();
-						$al->set_status($o->prop("db_lang_id"), $new_status);
+						languages::set_status($o->prop("db_lang_id"), $new_status);
 					}
 
 					if ($changed)
@@ -212,8 +210,7 @@ class language extends class_base
 				$tmp = aw_ini_get("languages.list");
 				$arr["obj_inst"]->set_prop("lang_acceptlang", $tmp[$prop["value"]]["acceptlang"]);
 				$arr["obj_inst"]->set_prop("lang_charset", $tmp[$prop["value"]]["charset"]);
-				$l = new languages();
-				$l->init_cache(true);
+				languages::init_cache(true);
 				break;
 
 			case "lang_acceptlang":
@@ -256,8 +253,7 @@ class language extends class_base
 
 	function callback_post_save()
 	{
-		$l = get_instance("core/languages");
-		$l->init_cache(true);
+		languages::init_cache(true);
 	}
 
 	function _get_langs_tbl($arr)
@@ -408,8 +404,7 @@ class language extends class_base
 	{
 		$pm = new popup_menu();
 		$pm->begin_menu("lang_pop");
-		$l = new languages();
-		$ll = $l->get_list();
+		$ll = languages::get_list();
 		foreach($ll as $lid => $ld)
 		{
 			if (aw_ini_get("user_interface.full_content_trans"))
@@ -430,11 +425,11 @@ class language extends class_base
 		header("Content-type: text/html; charset=".aw_global_get("charset"));
 		if (aw_ini_get("user_interface.full_content_trans"))
 		{
-			$ld = $l->fetch(aw_global_get("ct_lang_id"));
+			$ld = languages::fetch(aw_global_get("ct_lang_id"));
 		}
 		else
 		{
-			$ld = $l->fetch(aw_global_get("lang_id"));
+			$ld = languages::fetch(aw_global_get("lang_id"));
 		}
 		die($pm->get_menu(array(
 			"text" => $ld["name"] . ' <img src="' . aw_ini_get("baseurl") . 'automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'

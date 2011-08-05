@@ -151,7 +151,11 @@ class users_user extends aw_template
 		}
 
 		// init acl
-		$this->request_startup();
+
+		//XXX: request_startup() meetod pole terves selle klassi hierarhias deklareeritud. kuidas see sai yldse t88tada?
+		// $this->request_startup();
+		//XXX:?
+
 		// The above certainly doesn't initiate acl, but maybe it has some other purpose... -kaarel 28.11.2008
 		// $this->init_acl();// called in aclbase on msguserlogin message
 
@@ -209,8 +213,7 @@ class users_user extends aw_template
 
 		if (!$url)
 		{
-			$la = get_instance("languages");
-			$ld = $la->fetch(aw_global_get("lang_id"));
+			$ld = languages::fetch(aw_global_get("lang_id"));
 
 			$url = $this->get_cval("after_login_".$ld["acceptlang"]);
 			if (!$url)
