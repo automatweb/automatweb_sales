@@ -2770,11 +2770,22 @@ class crm_bill extends class_base
 		switch($field)
 		{
 			case "change":
+				$row_edit_url = core::mk_my_orb("change", array("id" => $id, "return_url" => get_ru()), "crm_bill_row");
 				$ret.=html::button(array(
 					"name" => "change_row",
 					"image" => icons::get_std_icon_url("pencil"),
 					"value" => t("Muuda"),
 					"onclick" => "crm_bill_edit_row('".$id."'); return false;",
+					"style" => "margin-bottom: 5px;"
+				)).
+				html::linebreak().
+				html::href(array(
+					"url" => $row_edit_url,
+					"caption" => html::img(array(
+						"url" => icons::get_std_icon_url("page_white_edit"),
+						"alt" => t("Ava detailne rea muutmisvaade")
+					)),
+					"title" => t("Ava detailne rea muutmisvaade")
 				));
 				break;
 
