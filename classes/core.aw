@@ -301,8 +301,8 @@ class core extends acl_base
 	function raise_error($err_type,$msg, $fatal = false, $silent = false, $oid = 0, $send_mail = true)
 	{
 		if (!function_exists("aw_global_get"))
-		{
-			classload("defs");
+		{//XXX: oletatavasti vaja fastcall-i jaoks, kui selle jaoks ka mitte siis 2ra
+			require_once(AW_DIR . "lib/defs.aw");
 		}
 
 		if(aw_ini_get('raise_error.no_email'))
@@ -659,39 +659,41 @@ class core extends acl_base
 			if $use_orb == 1 then the url will go through orb.aw, not index.aw - which means that it will be shown
 			directly, without drawing menus and stuff
 	**/
-	public function mk_my_orb($fun,$arr=array(),$cl_name="",$force_admin = false,$use_orb = false,$sep = "&",$honor_r_orb = true)
-	{
+	public static function mk_my_orb($fun, $arr=array(), $cl_name = "", $force_admin = false, $use_orb = false, $sep = "&", $honor_r_orb = true)
+	{//TODO: viia orb-i
 		// resolve to name
 		// kui on numeric, siis ma saan class_lut-ist teada tema nime
-		if (is_numeric($cl_name))
+		if (is_numeric($cl_name) and aw_ini_isset("classes.{$cl_name}.file"))
 		{
-			$fx = array_search($cl_name,$GLOBALS["cfg"]["class_lut"]);
-			if (isset($GLOBALS["cfg"]["classes"][$cl_name]))
+			$cl_name = basename(aw_ini_get("classes.{$cl_name}.file"));
+		}
+		elseif (!$cl_name)
+		{
+			$bt = debug_backtrace();
+			if (!empty($bt[1]["class"]))
 			{
-				$cl_name = $GLOBALS["cfg"]["classes"][$cl_name]["file"];
+				$cl_name = $bt[1]["class"];
 			}
 		}
-
-		$cl_name = ("" == $cl_name) ? get_class($this) : basename($cl_name);
+		else
+		{
+			$cl_name = basename($cl_name);
+		}
 
 		// tracked_vars comes from orb->process_request
-		$this->orb_values = isset($GLOBALS["tracked_vars"]) ? $GLOBALS["tracked_vars"] : null;
-
-		if (!empty($arr["section"]))
-		{
-			$this->orb_values["section"] = $arr["section"];
-		}
+		$arr += isset($GLOBALS["tracked_vars"]) ? $GLOBALS["tracked_vars"] : array();
 
 		if (isset($arr["_alias"]) && !empty($arr["section"]))
 		{
-			$this->orb_values["alias"] = $arr["_alias"];
+			$arr["alias"] = $arr["_alias"];
 			unset($arr["_alias"]);
 		}
 		else
 		{
-			$this->orb_values["class"] = $cl_name;
+			$arr["class"] = $cl_name;
 		}
-		$this->orb_values["action"] = $fun;
+
+		$arr["action"] = $fun;
 
 		// figure out the request method once.
 		static $r_use_orb;
@@ -705,8 +707,6 @@ class core extends acl_base
 			$r_use_orb = false;
 		}
 
-		$in_admin = isset($GLOBALS["cfg"]["in_admin"]) ? (bool) $GLOBALS["cfg"]["in_admin"] : false;
-
 		$ru = null;
 		if (isset($arr["return_url"]))
 		{
@@ -714,9 +714,8 @@ class core extends acl_base
 			unset($arr["return_url"]);
 		}
 
-		$this->process_orb_args("",$arr);
 		$res = aw_ini_get("baseurl");
-		if ($force_admin || $in_admin)
+		if ($force_admin || is_admin())
 		{
 			$res .= "automatweb/";
 			$use_orb = true;
@@ -727,13 +726,15 @@ class core extends acl_base
 			$res .= "orb.aw";
 		}
 
-		$res .= ($sep == "/") ? "/" : "?";
-		foreach($this->orb_values as $name => $value)
+		$res .= ($sep === "/") ? "/" : "?";
+
+		self::process_orb_args("", $arr);
+		foreach($arr as $name => $value)
 		{
 			// lets skip the parameter only when it is empty string --dragut
 			if ($value !== '')
 			{
-				$add = $name."=".$value.$sep;
+				$add = "{$name}={$value}{$sep}";
 				if(strlen($res.$add) > 2047)
 				{
 					$add = substr($add, 0, 2000);
@@ -765,26 +766,39 @@ class core extends acl_base
 		@comment
 			This function is documented in the orb specification.
 	**/
-	function mk_reforb($fun, $arr = array(), $cl_name = "")
-	{
-		$cl_name = ("" == $cl_name) ? get_class($this) : basename($cl_name);
+	public static function mk_reforb($fun, $arr = array(), $cl_name = "")
+	{ //TODO: viia orb-i
+		if (is_numeric($cl_name) and aw_ini_isset("classes.{$cl_name}.file"))
+		{
+			$cl_name = basename(aw_ini_get("classes.{$cl_name}.file"));
+		}
+		elseif (!$cl_name)
+		{
+			$bt = debug_backtrace();
+			if (!empty($bt[1]["class"]))
+			{
+				$cl_name = $bt[1]["class"];
+			}
+		}
+		else
+		{
+			$cl_name = basename($cl_name);
+		}
 
 		// tracked_vars comes from orb->process_request
-		$this->orb_values = isset($GLOBALS["tracked_vars"]) ? $GLOBALS["tracked_vars"] : null;
-		$this->orb_values["class"] = $cl_name;
-		$this->orb_values["action"] = $fun;
+		$arr += isset($GLOBALS["tracked_vars"]) ? $GLOBALS["tracked_vars"] : array();
+		$arr["class"] = $cl_name;
+		$arr["action"] = $fun;
 
 		if (empty($arr["no_reforb"]))
 		{
-			$this->orb_values["reforb"] = 1;
+			$arr["reforb"] = 1;
 		}
 
-		$this->use_empty = true;
-
-		// flatten is not the correct term!
-		$this->process_orb_args("",$arr, false);
+		self::process_orb_args("", $arr, false);
 		$res = "";
-		foreach($this->orb_values as $name => $value)
+		// flatten is not the correct term!
+		foreach($arr as $name => $value)
 		{
 			$value = str_replace("\"","&amp;",$value);
 			$res .= "<input type='hidden' name='{$name}' value='{$value}' />\n";
@@ -792,34 +806,25 @@ class core extends acl_base
 		return $res;
 	}
 
-	private function process_orb_args($prefix,$arr, $enc = true)
+	private static function process_orb_args($prefix, &$arr, $enc = true, $use_empty = true)
 	{
 		foreach($arr as $name => $value)
 		{
 			if (is_array($value))
 			{
-				$_tpref = "" == $prefix ? $name : "[".$name."]";
-				$this->process_orb_args($prefix.$_tpref,$arr[$name]);
+				$_tpref = "" == $prefix ? $name : "[{$name}]";
+				self::process_orb_args($prefix . $_tpref, $arr[$name]);
 			}
 			else
 			{
-				// commented this out, because it breaks stuff - namely, urls that are created via
-				// $this->mk_orb("admin_cell", array("id" => $this->id, "col" => (int)$arr["r_col"], "row" => (int)$arr["r_row"]))
-				// where the col and row parameters will be "0"
-				// it will not include them.. damned if I know why
-				// so, before putting this back, check that
-				// - terryf
-
-				// 0 will get included now, "" will not. reforb sets use_empty so
-				// that gets everything
-				if ((isset($value) && ($value !== "")) || $this->use_empty)
-				//{
+				if ($use_empty or (isset($value) && ($value !== "")))
+				{
 					if ($enc)
 					{
 						$value = urlencode($value);
 					}
-					$this->orb_values[empty($prefix) ? $name : $prefix."[".$name."]"] = $value;
-				//};
+					$arr[empty($prefix) ? $name : "{$prefix}[{$name}]"] = $value;
+				}
 			}
 		}
 	}
@@ -1283,17 +1288,15 @@ class core extends acl_base
 		@comment
 			Further information can be found in the orb specification
 	**/
-	function do_orb_method_call($arr)
+	public static function do_orb_method_call($arr)
 	{
-		extract($arr);
-
-		if (!$arr["class"])
+		if (!$arr["class"] and isset($this))
 		{
 			$arr["class"] = get_class($this);
 		}
 
-		$ob = new orb();
-		return $ob->do_method_call($arr);
+		$orb = new orb();
+		return $orb->do_method_call($arr);
 	}
 
 	/** this takes an array and goes through it and makes another array that has as keys the values of the given array and also the velues of the given array
