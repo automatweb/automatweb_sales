@@ -1,36 +1,50 @@
 <?php
 
-class languages extends core implements request_startup
+class languages implements request_startup
 {
-	private $cf_name = ""; // internal cache file name/key
-	private static $active_languages_count = 0;
+	const CACHE_KEY = "languages-cache-site_id-"; // internal cache file name/key
 
-	function languages()
+	private static $languages_data = array();
+	private static $languages_metadata = array(
+		"enabled_languages_count" => 0
+	);
+
+	/** Returns language data array for given id parameter
+		@attrib api=1 params=pos
+		@param id type=int
+			Language id
+		@param no_cache type=bool default=FALSE
+		@returns array
+		@errors
+			throws awex_lang_na if no language data for $id found
+	**/
+	public static function fetch($id, $no_cache = false)
 	{
-		$this->init("languages");
-		// the name of the cache file
-		$this->cf_name = "languages-cache-site_id-".aw_ini_get("site_id");
-		$this->init_cache();
-	}
-
-	function fetch($id, $no_cache = false)
-	{
-		if (!$id)
-		{
-			return false;
-		}
-
 		if ($no_cache)
 		{
-			$this->quote($id);
-			$ret = $this->db_fetch_row("SELECT * FROM languages WHERE id = '{$id}'");
-			$ret["meta"] = aw_unserialize($ret["meta"]);
-			return $ret;
+			object_loader::ds()->quote($id);
+			$ret = object_loader::ds()->db_fetch_row("SELECT * FROM languages WHERE id = '{$id}'");
+
+			if ($ret)
+			{
+				$ret["meta"] = aw_unserialize($ret["meta"]);
+				$language_data = $ret;
+			}
+			else
+			{
+				throw new awex_lang_na("Language '{$id}' not found in database");
+			}
+		}
+		elseif (isset(self::$languages_data[$id]))
+		{
+			$language_data = self::$languages_data[$id];
 		}
 		else
 		{
-			return aw_cache_get("languages", $id);
+			throw new awex_lang_na("Language '{$id}' not found");
 		}
+
+		return $language_data;
 	}
 
 	/** returns a list of available languages
@@ -55,7 +69,7 @@ class languages extends core implements request_startup
 			list of languages as an array { key => language_data }
 
 	**/
-	function get_list($arr = array())
+	public static function get_list($arr = array())
 	{
 		if (!empty($arr["addempty"]))
 		{
@@ -68,7 +82,7 @@ class languages extends core implements request_startup
 
 		$use_key = isset($arr["key"]) ? $arr["key"] : "id";
 
-		$dat = $this->listall(isset($arr["ignore_status"]) ? $arr["ignore_status"] : false);
+		$dat = self::listall(isset($arr["ignore_status"]) ? $arr["ignore_status"] : false);
 		foreach($dat as $ldat)
 		{
 			if (!empty($arr["set_for_user"]))
@@ -96,11 +110,10 @@ class languages extends core implements request_startup
 		return $ret;
 	}
 
-	function list_logged($ignore_status = false)
+	static function list_logged()
 	{
-		$lar = new aw_array(aw_cache_get_array("languages"));
 		$ret = array();
-		foreach($lar->get() as $row)
+		foreach(self::$languages_data as $row)
 		{
 			if (ifset($row, "show_logged") == 1)
 			{
@@ -110,11 +123,10 @@ class languages extends core implements request_startup
 		return $ret;
 	}
 
-	function list_not_logged($ignore_status = false)
+	static function list_not_logged()
 	{
-		$lar = new aw_array(aw_cache_get_array("languages"));
 		$ret = array();
-		foreach($lar->get() as $row)
+		foreach(self::$languages_data as $row)
 		{
 			if ($row["show_not_logged"] == 1)
 			{
@@ -124,11 +136,10 @@ class languages extends core implements request_startup
 		return $ret;
 	}
 
-	function list_others()
+	static function list_others()
 	{
-		$lar = new aw_array(aw_cache_get_array("languages"));
 		$ret = array();
-		foreach($lar->get() as $row)
+		foreach(self::$languages_data as $row)
 		{
 			if ($row["show_others"] == 1)
 			{
@@ -151,18 +162,17 @@ class languages extends core implements request_startup
 		return $list;
 	}
 
-	function listall($ignore_status = false)
+	static function listall($ignore_status = false)
 	{
-		$lar = new aw_array(aw_cache_get_array("languages"));
 		if (!$ignore_status)
 		{
 			$ret = array();
-			$ret = $this->list_logged();
+			$ret = self::list_logged();
 			if(sizeof($ret))
 			{
 				return $ret;
 			}
-			foreach($lar->get() as $row)
+			foreach(self::$languages_data as $row)
 			{
 				if ($row["status"] == 2)
 				{
@@ -173,31 +183,31 @@ class languages extends core implements request_startup
 		}
 		else
 		{
-			return $lar->get();
+			return self::$languages_data;
 		}
 	}
 
-	function set_status($id, $status)
+	static function set_status($id, $status)
 	{
-		$ld = $this->fetch($id, true);
+		$ld = self::fetch($id, true);
 		if ($status != $ld["status"])
 		{
-			$this->db_query("UPDATE languages SET status = $status, modified = '".time()."', modifiedby = '".aw_global_get("uid")."' WHERE id = $id");
+			object_loader::ds()->db_query("UPDATE languages SET status = $status, modified = '".time()."', modifiedby = '".aw_global_get("uid")."' WHERE id = $id");
 		}
-		$this->init_cache(true);
+		self::init_cache(true);
 	}
 
-	function _get_sl()
+	static function _get_sl()//XXX: pole private, language klass kasutab
 	{
 		$ret = array();
-		$this->db_query("SELECT DISTINCT(site_id) AS site_id FROM objects");
-		while ($row = $this->db_next())
+		object_loader::ds()->db_query("SELECT DISTINCT(site_id) AS site_id FROM objects");
+		while ($row = object_loader::ds()->db_next())
 		{
 			if ($row["site_id"] != 0)
 			{
 				// get site name from site server
-				$this->save_handle();
-				$sd = $this->do_orb_method_call(array(
+				object_loader::ds()->save_handle();
+				$sd = core::do_orb_method_call(array(
 					"class" => "site_list",
 					"action" => "get_site_data",
 					"params" => array(
@@ -206,7 +216,7 @@ class languages extends core implements request_startup
 					//"method" => "xmlrpc",
 					//"server" => "register.automatweb.com"
 				));
-				$this->restore_handle();
+				object_loader::ds()->restore_handle();
 				$ret[$row["site_id"]] = $sd["url"]."( ".$row["site_id"]." )";
 			}
 		}
@@ -215,10 +225,10 @@ class languages extends core implements request_startup
 
 	////
 	// !sets the active language to $id
-	function set_active($id,$force_act = false)
+	static function set_active($id, $force_act = false)
 	{
 		$id = (int)$id;
-		$l = $this->fetch($id);
+		$l = self::fetch($id);
 		if (($l["status"] != 2 && aw_global_get("uid") == "") && !$force_act)
 		{
 			return false;
@@ -228,25 +238,25 @@ class languages extends core implements request_startup
 			return false;
 		}
 
-		$this->quote($id);
+		object_loader::ds()->quote($id);
 		$id = (int)$id;
 		$q = "SELECT acceptlang,charset FROM languages WHERE id = '$id'";
-		$this->db_query($q);
-		$row = $this->db_next();
+		object_loader::ds()->db_query($q);
+		$row = object_loader::ds()->db_next();
 		if ($row)
 		{
-			aw_session_set("LC",$row["acceptlang"]);
+			aw_session::set("LC", $row["acceptlang"]);
 			aw_global_set("LC",$row["acceptlang"]);
-			aw_session_set("ct_lang_lc",$row["acceptlang"]);
+			aw_session::set("ct_lang_lc", $row["acceptlang"]);
 			aw_global_set("ct_lang_lc",$row["acceptlang"]);
 			aw_global_set("charset",$row["charset"]);
 		}
 		$uid = aw_global_get("uid");
 		if (!empty($uid))
 		{
-			$this->db_query("UPDATE users SET lang_id = '$id' WHERE uid = '$uid'");
+			object_loader::ds()->db_query("UPDATE users SET lang_id = '$id' WHERE uid = '$uid'");
 		}
-		aw_session_set("lang_id", $id);
+		aw_session::set("lang_id", $id);
 
 		// milleks see cookie vajalik oli?
 		// sest et keele eelistus v6ix ju j22da meelde ka p2rastr seda kui browseri kinni paned
@@ -270,7 +280,6 @@ class languages extends core implements request_startup
 					$_tmp = aw_global_get("LC");
 				}
 
-
 				aw_ini_set("user_interface.default_language", $_tmp);
 			}
 		}
@@ -280,14 +289,13 @@ class languages extends core implements request_startup
 	////
 	// !this tries to figure out the balance between the user's language preferences and the
 	// languages that are available. this will only return active languages.
-	private function find_best()
+	private static function find_best()
 	{
-		$la = aw_cache_get_array("languages");
 		$langs = array();
 		$def = 0;
 		if (is_array($la))
 		{
-			foreach($la as $row)
+			foreach(self::$languages_data as $row)
 			{
 				if ($row["status"] == 2 && (!is_oid($row["oid"]) || object_loader::can("view", $row["oid"])))
 				{
@@ -335,19 +343,19 @@ class languages extends core implements request_startup
 		return 1;
 	}
 
-	function get_charset()
+	static function get_charset()
 	{
-		$a = $this->fetch(aw_global_get("lang_id"), true);
+		$a = self::fetch(aw_global_get("lang_id"), true);
 		return $a["charset"];
 	}
 
-	function get_langid($id = -1)
+	static function get_langid($id = -1)
 	{
 		if ($id == -1)
 		{
 			$id = aw_global_get("lang_id");
 		}
-		$a = $this->fetch($id);
+		$a = self::fetch($id);
 		return $a["acceptlang"];
 	}
 
@@ -361,9 +369,9 @@ class languages extends core implements request_startup
 			NULL if no language for the code is defined in the system, language id (not language object id)
 
 	**/
-	public function get_langid_for_code($code)
+	public static function get_langid_for_code($code)
 	{
-		$list = $this->get_list(array("all_data" => true));
+		$list = self::get_list(array("all_data" => true));
 		foreach($list as $id => $dat)
 		{
 			if ($dat["acceptlang"] == $code)
@@ -381,30 +389,33 @@ class languages extends core implements request_startup
 	**/
 	public static function count()
 	{
-		return self::$active_languages_count;
+		return self::$languages_metadata["enabled_languages_count"];
 	}
 
 	////
 	// !this reads all the languages in the site to aw language cache, all the functions in this file use that
-	function init_cache($force_read = false)
+	static function init_cache($force_read = false)//XXX: language klass kasutab, pole private
 	{
 		if ($force_read || !($_it = aw_global_get("lang_cache_init")))
 		{
+			$cf_name = self::CACHE_KEY . aw_ini_get("site_id");
+			$meta_cf_name = $cf_name . "-meta";
+
 			// now try the file cache thingie - maybe it's faster :) I mean, yeah, ok,
 			// this doesn't exactly take much time anyway, but still, can't be bad, can it?
 
 			// if the file cache exists and this is not an update, then read from that
-			if (!$force_read && ($cc = cache::file_get($this->cf_name)))
+			if (!$force_read && ($languages_data = cache::file_get($cf_name)) && ($languages_metadata = cache::file_get($meta_cf_name)))
 			{
-				aw_cache_set_array("languages", aw_unserialize($cc));
+				self::$languages_data = aw_unserialize($languages_data);
+				self::$languages_metadata = aw_unserialize($languages_metadata);
 			}
 			else
 			{
 				// we must re-read from the db and write the cache
-				aw_cache_flush("languages");
-				$this->db_query("SELECT languages.*,o.comment as comment FROM languages LEFT JOIN objects o ON languages.oid = o.oid WHERE languages.status != 0 GROUP BY o.oid ORDER BY o.jrk");
+				object_loader::ds()->db_query("SELECT languages.*,o.comment as comment FROM languages LEFT JOIN objects o ON languages.oid = o.oid WHERE languages.status > 0 AND o.status > 0 GROUP BY o.oid ORDER BY o.jrk");
 				$c = 0;
-				while ($row = $this->db_next())
+				while ($row = object_loader::ds()->db_next())
 				{
 					$row["meta"] = aw_unserialize($row["meta"]);
 					//the following if was in the form of if(true || .....), so i guess there was
@@ -413,13 +424,18 @@ class languages extends core implements request_startup
 					//write it back in, this why i'm writing this comment :)
 					if (trim($row["site_id"]) == "" || in_array(aw_ini_get("site_id"), explode(",", trim($row["site_id"]))))
 					{
-						aw_cache_set("languages", $row["id"],$row);
-						++$c;
+						self::$languages_data[$row["id"]] = $row;
+						if ($row["status"] == object::STAT_ACTIVE)
+						{
+							++self::$languages_metadata["enabled_languages_count"];
+						}
 					}
 				}
-				cache::file_set($this->cf_name,aw_serialize(aw_cache_get_array("languages")));
-				self::$active_languages_count = $c;
+
+				cache::file_set($cf_name, aw_serialize(self::$languages_data));
+				cache::file_set($meta_cf_name, aw_serialize(self::$languages_metadata));
 			}
+
 			aw_global_set("lang_cache_init",1);
 		}
 	}
@@ -428,13 +444,7 @@ class languages extends core implements request_startup
 	// !this will get called once in the beginning of the page, so that the class can initialize itself nicely
 	public function request_startup()
 	{
-		static $init_done;
-		if ($init_done > 1)
-		{
-			return;
-		}
-		$init_done++;
-
+		self::init_cache();
 		$lang_id = aw_global_get("lang_id");
 
 		// if we explicitly request language change, we get that, except if the language is not active
@@ -444,7 +454,7 @@ class languages extends core implements request_startup
 			// if language has not changed, don't waste time re-setting it
 			if ($sl != $lang_id)
 			{
-				if (($_l = $this->set_active($sl)))
+				if (($_l = self::set_active($sl)))
 				{
 					$lang_id = $_l;
 				}
@@ -459,13 +469,13 @@ class languages extends core implements request_startup
 			if (strlen($lang) == 2 && aw_global_get("ct_lang_lc") != $lang)
 			{
 				// set lang from url
-				$lang_id =  $this->get_langid_for_code($lang);
-				$_SESSION["ct_lang_id"] = $lang_id;
-				$_SESSION["ct_lang_lc"] = $lang;
-				aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
-				aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
+				$lang_id =  self::get_langid_for_code($lang);
+				aw_session::set("ct_lang_id", $lang_id);
+				aw_session::set("ct_lang_lc", $lang);
+				aw_global_set("ct_lang_lc", $lang);
+				aw_global_set("ct_lang_id", $lang_id);
 				setcookie("ct_lang_id", $lang_id, time() + 3600, "/");
-				setcookie("ct_lang_lc", $_SESSION["ct_lang_lc"], time() + 3600, "/");
+				setcookie("ct_lang_lc", $lang, time() + 3600, "/");
 			}
 		}
 
@@ -478,19 +488,20 @@ class languages extends core implements request_startup
 			}
 			else
 			{
-				$ct_id = $this->get_langid_for_code($ct_lc);
+				$ct_id = self::get_langid_for_code($ct_lc);
 			}
-			$_SESSION["ct_lang_lc"] = $ct_lc;
-			$_SESSION["ct_lang_id"] = $ct_id;
-			aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
-			aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
+
+			aw_session::set("ct_lang_lc", $ct_lc);
+			aw_session::set("ct_lang_id", $ct_id);
+			aw_global_set("ct_lang_lc", $ct_lc);
+			aw_global_set("ct_lang_id", $ct_id);
 		}
 
 		if (!$lang_id && aw_ini_get("languages.default"))
 		{
 			$lang_id = aw_ini_get("languages.default");
-			$this->set_active($lang_id,true);
-			$la = $this->fetch($lang_id);
+			self::set_active($lang_id, true);
+			$la = self::fetch($lang_id);
 		}
 		else
 		{
@@ -498,22 +509,22 @@ class languages extends core implements request_startup
 			if (!$lang_id)
 			{
 				// try to find one by looking at the preferences the user has set in his/her browser
-				$lang_id = $this->find_best();
+				$lang_id = self::find_best();
 				// since find_best() pulls just about every trick in the book to try and find a
 				// suitable lang_id, we will just force it to be set active, since we can't do better anyway
-				$this->set_active($lang_id,true);
-				$la = $this->fetch($lang_id);
+				self::set_active($lang_id, true);
+				$la = self::fetch($lang_id);
 			}
 			else
 			{
 				// if a language is active, we must check if perhaps someone kas de-activated it in the mean time
-				$la = $this->fetch($lang_id, true);
+				$la = self::fetch($lang_id, true);
 				if (!($la["status"] == 2 || ($la["status"] == 1 && aw_global_get("uid") != "")) || (is_oid($la["oid"]) && !object_loader::can("view", $la["oid"])))
 				{
 					// if so, try to come up with a better one.
-					$lang_id = $this->find_best();
-					$this->set_active($lang_id,true);
-					$la = $this->fetch($lang_id);
+					$lang_id = self::find_best();
+					self::set_active($lang_id, true);
+					$la = self::fetch($lang_id);
 				}
 			}
 		}
@@ -530,7 +541,7 @@ class languages extends core implements request_startup
            // if parallel trans is on, then read charset from trans lang
 		if (aw_ini_get("user_interface.full_content_trans") && aw_global_get("ct_lang_id") != $lang_id)
 		{
-			$t_la = $this->fetch(aw_global_get("ct_lang_id"));
+			$t_la = self::fetch(aw_global_get("ct_lang_id"));
 			aw_global_set("charset", $t_la["charset"]);
 		}
 		else
@@ -566,7 +577,7 @@ class languages extends core implements request_startup
 		}
 	}
 
-	function on_site_init($dbi, $site, &$ini_opts, &$log)
+	static function on_site_init($dbi, $site, &$ini_opts, &$log)
 	{
 		// no need to add languages if we are to use an existing database
 		if (!$site['site_obj']['use_existing_database'])
@@ -597,3 +608,9 @@ class languages extends core implements request_startup
 		die($_SESSION["user_adm_ui_lc"] != "" ? $_SESSION["user_adm_ui_lc"] : "et");
 	}
 }
+
+/** Generic language module exception **/
+class awex_lang extends aw_exception {}
+
+/** Language or language data not available **/
+class awex_lang_na extends awex_lang {}
