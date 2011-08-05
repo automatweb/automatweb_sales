@@ -728,7 +728,7 @@ class core extends acl_base
 
 		$res .= ($sep === "/") ? "/" : "?";
 
-		self::process_orb_args("", $arr);
+		$arr = self::process_orb_args("", $arr);
 		foreach($arr as $name => $value)
 		{
 			// lets skip the parameter only when it is empty string --dragut
@@ -795,7 +795,7 @@ class core extends acl_base
 			$arr["reforb"] = 1;
 		}
 
-		self::process_orb_args("", $arr, false);
+		$arr = self::process_orb_args("", $arr, false);
 		$res = "";
 		// flatten is not the correct term!
 		foreach($arr as $name => $value)
@@ -806,14 +806,14 @@ class core extends acl_base
 		return $res;
 	}
 
-	private static function process_orb_args($prefix, &$arr, $enc = true, $use_empty = true)
+	private static function process_orb_args($prefix, $arr, $enc = true, $use_empty = true)
 	{
 		foreach($arr as $name => $value)
 		{
 			if (is_array($value))
 			{
 				$_tpref = "" == $prefix ? $name : "[{$name}]";
-				self::process_orb_args($prefix . $_tpref, $arr[$name]);
+				$arr[$name] = self::process_orb_args($prefix . $_tpref, $arr[$name]);
 			}
 			else
 			{
@@ -827,6 +827,7 @@ class core extends acl_base
 				}
 			}
 		}
+		return $arr;
 	}
 
 	/** deprecated - no not use **/
