@@ -3579,12 +3579,12 @@ return; //TODO: sort out maintainers business first
 		// add the current person and his boss
 		$arr["prop"]["options"][$p->id()] = $p->name();
 
-		$sect = new crm_section();
 		$units = safe_array($p->prop("org_section"));
 		$unit = reset($units);
-		if ($this->can("view", $unit))
+		if ($this->can("", $unit))
 		{
-			$work_ol = $sect->get_section_workers($unit, true);
+			$section_o = obj($unit, array(), crm_section_obj::CLID);
+			$work_ol = $customer_o->get_employees("all", null, $section_o);
 			foreach($work_ol->names() as $id => $name)
 			{
 				$arr["prop"]["options"][$id] = $name;
@@ -3690,7 +3690,7 @@ return; //TODO: sort out maintainers business first
 			$unit = $arr["obj_inst"]->prop("orderer_unit");
 		}
 
-		if ($this->can("view", $cust) && $this->can("view", $unit))
+		if ($this->can("", $cust) && $this->can("", $unit))
 		{
 			$arr["prop"]["options"] = html::get_empty_option();
 
@@ -3709,7 +3709,7 @@ return; //TODO: sort out maintainers business first
 				while ($o = $work_ol->next());
 			}
 		}
-		elseif ($this->can("view", $cust))
+		elseif ($this->can("", $cust))
 		{
 			$co = get_instance(CL_CRM_COMPANY);
 			$arr["prop"]["options"] = $co->get_employee_picker(obj($cust), true);
