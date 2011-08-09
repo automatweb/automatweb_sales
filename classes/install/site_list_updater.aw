@@ -170,7 +170,7 @@ class site_list_updater extends aw_template implements orb_public_interface
 			"class" => "site_list",
 			"action" => "do_auto_update",
 			"method" => "xmlrpc",
-			"server" => "http://register.automatweb.com/",
+			"server" => "register.automatweb.com",
 			"params" => array(
 				"site_id" => aw_ini_get("site_id"),
 				"data" => base64_encode($data)
