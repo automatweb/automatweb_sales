@@ -47,6 +47,15 @@
             <caption>Tarnija</caption>
       </property>
       <property>
+            <name>company_section</name>
+            <table>aw_shop_product_purveyance</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SECTION</reltype>
+            <field>company_section</field>
+            <caption>Tarniv &amp;amp;uuml;ksus</caption>
+      </property>
+      <property>
             <name>warehouse</name>
             <table>aw_shop_product_purveyance</table>
             <group>general</group>
@@ -112,5 +121,11 @@
                   <clid>CL_SHOP_WAREHOUSE</clid>
                   <caption>Ladu</caption>
             </WAREHOUSE>
+            <SECTION>
+                  <value>4</value>
+                  <clid>CL_CRM_SECTION</clid>
+                  <caption>Tarniv &amp;amp;uuml;ksus</caption>
+            </SECTION>
       </reltypes>
 </properties>
+
