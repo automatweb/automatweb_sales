@@ -71,7 +71,7 @@ class address_object extends _int_object
 		$this->set_prop("street", ucfirst($name));
 	}
 
-	public function save ($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$address_text = "";
 
