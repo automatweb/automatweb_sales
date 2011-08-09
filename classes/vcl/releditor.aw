@@ -8,9 +8,14 @@
 
 class releditor extends core implements orb_public_interface
 {
-	var $auto_fields;
+	protected $req;
+
+	private $auto_fields = array();
 	private $loaded_from_cfgform = false;
 	private $choose_default = false;
+	private $all_props = array();
+	private $elname = ""; // used for processing data, retain reference to releditor property name
+	private $instance_id = "__aw_reled_"; // used in urls and generated property names to avoid conflicts with other url parameters/names if releditor property name happens to be something common
 
 	function releditor()
 	{
@@ -30,7 +35,7 @@ class releditor extends core implements orb_public_interface
 	private function init_new_rel_table($arr)
 	{
 		$awt = new vcl_table(array(
-			"layout" => "generic",
+			"layout" => "generic"
 		));
 		$property = $arr["prop"];
 
@@ -58,7 +63,7 @@ class releditor extends core implements orb_public_interface
 					$this->_insert_js_data_to_table($awt, $property, $dat_row, $arr["obj_inst"]->class_id(), $idx);
 				}
 				return '<div id="releditor_'.$this->elname.'_table_wrapper">'.$awt->draw()."</div>".html::hidden(array(
-					"name" => $property["name"]."_data",
+					"name" => "{$this->instance_id}_data",
 					"value" => $arr["cb_values"]["edit_data"]
 				));
 			}
@@ -89,7 +94,6 @@ class releditor extends core implements orb_public_interface
 			if (count($conns) == 0)
 			{
 				return '<div id="releditor_'.$this->elname.'_table_wrapper"></div>';
-				return;
 			}
 			$idx = 1;
 			foreach($conns as $conn)
@@ -106,8 +110,8 @@ class releditor extends core implements orb_public_interface
 					"name" => $conn->prop("to.name"),
 					"_sort_jrk" => $conn->prop("to.jrk"),
 					"_sort_name" => $conn->prop("to.name"),
-					"delete" => "<a href='javascript:void(0)' name='".$this->elname."_edit_".($idx-1)."'>".t("Muuda")."</a>",
-					"_delete" => "<a href='javascript:void(0)' name='".$this->elname."_delete_".($idx-1)."'>".t("Kustuta")."</a>",
+					"delete" => "<a href='javascript:void(0)' name='".$this->instance_id."_edit_".($idx-1)."'>".t("Muuda")."</a>",
+					"_delete" => "<a href='javascript:void(0)' name='".$this->instance_id."_delete_".($idx-1)."'>".t("Kustuta")."</a>",
 				);
 
 				$property_list = $this->all_props;
@@ -220,15 +224,14 @@ class releditor extends core implements orb_public_interface
 		$awt->set_default_sortby(array("_sort_jrk"=>"_sort_jrk", "_sort_name"=>"_sort_name"));
 		$awt->sort_by();
 		$awt->set_sortable(false);
-		return '<div id="releditor_'.$this->elname.'_table_wrapper">'.$awt->draw().html::hidden(array("name" => $this->elname."_data", "value" => htmlspecialchars(serialize($data)))).'</div>';
+		return '<div id="releditor_'.$this->elname.'_table_wrapper">'.$awt->draw().html::hidden(array("name" => "{$this->instance_id}_data", "value" => htmlspecialchars(serialize($data)))).'</div>';
 	}
-
 
 	private function init_new_manager($arr)
 	{
 		$visual = $edit_id = "";
 		$prop = $arr["prop"];
-		$this->elname = $prop["name"];
+		$this->_set_elname($prop["name"]);
 		$obj = $arr["obj_inst"];
 		$obj_inst = $obj;
 		$clid = $arr["prop"]["clid"][0];
@@ -274,8 +277,6 @@ class releditor extends core implements orb_public_interface
 		}
 
 		$t->init_class_base();
-		$emb_group = "general";
-
 		$all_props = array();
 
 		// generate a list of all properties. Needed to display edit form
@@ -295,7 +296,7 @@ class releditor extends core implements orb_public_interface
 			}
 		}
 
-		$form_type = isset($arr["request"][$this->elname]) ? $arr["request"][$this->elname] : "";
+		$form_type = isset($arr["request"][$this->instance_id]) ? $arr["request"][$this->instance_id] : "";
 		if (isset($arr["prop"]["always_show_add"]) && $arr["prop"]["always_show_add"] == 1 && !is_oid($edit_id))
 		{
 			$form_type = "new";
@@ -324,7 +325,7 @@ class releditor extends core implements orb_public_interface
 		if(isset($arr["prop"]["cfgform_id"]) and $this->can("view", $arr["prop"]["cfgform_id"]))
 		{
 			$cfgform_id = $arr["prop"]["cfgform_id"];
-			$cfg = get_instance(CL_CFGFORM);
+			$cfg = new cfgform();
 			$this->cfg_act_props = $cfg->get_cfg_proplist($cfgform_id);
 			$act_props = $this->all_props = $all_props = $this->cfg_act_props;
 			$this->loaded_from_cfgform = true;
@@ -368,10 +369,9 @@ class releditor extends core implements orb_public_interface
 						if ($key)
 						{
 							$obj_inst = $key->to();
-						};
+						}
 					}
-					else
-					if ($conns[$prop["rel_id"]])
+					elseif ($conns[$prop["rel_id"]])
 					{
 						$obj_inst = $conns[$prop["rel_id"]]->to();
 					}
@@ -403,27 +403,27 @@ class releditor extends core implements orb_public_interface
 		if (isset($arr["cb_values"]) && $arr["cb_values"])
 		{
 			$t->cb_values = $arr["cb_values"];
-		};
+		}
 
 		if (empty($arr["prop"]["parent"]))
 		{
-			$xprops[$prop["name"]."[0]_caption"] = array(
+			$xprops["{$this->instance_id}_caption"] = array(
 				"type" => "text",
 				"value" => empty($prop["caption"]) ? "" : $prop["caption"],
 				"subtitle" => 1,
 				"store" => "no",
-				"name" => $this->elname."_caption",
-				"caption" => " ",
+				"name" => "{$this->instance_id}_caption",
+				"caption" => " "
 	 		);
 		}
 
-		$xprops[$prop["name"]."[0]table"] = array(
+		$xprops["{$this->instance_id}_table"] = array(
 			"type" => "text",
-			"value" => "<a name='".$arr["prop"]["name"]."'></a>".$this->init_new_rel_table($arr),
+			"value" => "<a name=\"{$this->elname}\"></a>".$this->init_new_rel_table($arr),
 			"store" => "no",
-			"name" => $this->elname."_table",
+			"name" => "{$this->instance_id}_table",
 			"caption" => "",
-			"no_caption" => 1,
+			"no_caption" => 1
  		);
 
 		// Adding the cfgform OID allows us to use view controllers. :P
@@ -439,30 +439,31 @@ class releditor extends core implements orb_public_interface
 			$xprops[$k] = $v;
 		}
 
-		$xprops[$prop["name"]."_reled_data"] = array(
+		$xprops["{$this->instance_id}_reled_data"] = array(
 			"type" => "hidden",
 			"value" => $arr["obj_inst"]->class_id()."::".$prop["name"],
 			"store" => "no",
-			"name" => $prop["name"]."_reled_data",
-			"no_caption" => 1,
+			"name" => "{$this->instance_id}_reled_data",
+			"no_caption" => 1
 		);
 
-		$xprops[$prop["name"]."[0]break"] = array(
+		$xprops["{$this->instance_id}_break"] = array(
 			"type" => "text",
-			"value" => '<br>',
+			"value" => html::linebreak(),
 			"store" => "no",
-			"name" => $this->elname."_break",
-			"caption" => " ",
+			"name" => "{$this->instance_id}_break",
+			"caption" => " "
 		);
 
 		if(is_array($arr["prop"]["clid"]))
 		{
 			$arr["prop"]["clid"] = reset($arr["prop"]["clid"]);
 		}
-		$xprops[$prop["name"]."[0]add_button"] = array(
+
+		$xprops["{$this->instance_id}_add_button"] = array(
 			"type" => "text",
 			"value" => '
-			<input type="submit" value="'.t("Lisa").'" name="'.$prop["name"].'" id="button" onchange="null;set_changed();"/>
+			<input type="button" value="'.t("Lisa").'" name="'.$prop["name"].'" id="button" onchange="null;set_changed();"/>
 			<script>
 				jQuery.aw_releditor({
 					"releditor_name" : "'.$prop["name"].'",
@@ -472,28 +473,27 @@ class releditor extends core implements orb_public_interface
 					"use_clid" : "'.$use_clid.'",
 					"start_from_index" : "'.$conns_count.'",
 					"main_clid" : "'.$obj->class_id().'"
-					});
+				});
 			</script>',
 			"store" => "no",
-			"name" => $this->elname."_add_button",
-			"caption" => " ",//$this->elname."_add_button",
+			"name" => "{$this->instance_id}_add_button",
+			"caption" => " "
  		);
 
 		$arp = isset($arr["prop"]["parent"]) ? $arr["prop"]["parent"] : "";
-		foreach($xprops as $key => $prop)
+		foreach($xprops as $key => $xprop)
 		{
 			$get_prop_arr = $arr;
-			$get_prop_arr["prop"] = $prop;
-			$get_prop_arr["prop"]["name"] = str_replace("[0]" , "" , $get_prop_arr["prop"]["name"]);
-			$get_prop_arr["caller_releditor_name"] = $arr["prop"]["name"];
+			$get_prop_arr["prop"] = $xprop;
 
 			if (method_exists($parent_inst, "get_property"))
 			{
 				$parent_inst->get_property($get_prop_arr);
 			}
-			$get_prop_arr["prop"]["name"] = $prop["name"];
+
+			$get_prop_arr["prop"]["name"] = $xprop["name"];
 			$xprops[$key] = $get_prop_arr["prop"];
-			if ($arp != "")
+			if ($arp)
 			{
 				$xprops[$key]["parent"] = $arp;
 			}
@@ -509,7 +509,7 @@ class releditor extends core implements orb_public_interface
 		}
 		// enter_function("init-rel-editor");
 		$prop = $arr["prop"];
-		$this->elname = $prop["name"];
+		$this->_set_elname($prop["name"]);
 		$obj = $arr["obj_inst"];
 		$obj_inst = $obj;
 
@@ -551,9 +551,9 @@ class releditor extends core implements orb_public_interface
 			$xprops[] = array(
 				"type" => "text",
 				"caption" => t(" "),
-				"error" => sprintf(t("Viga %s definitsioonis (omadused defineerimata!)"), $prop["name"]),
+				"error" => sprintf(t("Viga %s definitsioonis (omadused defineerimata!)"), $this->elname),
 			);
-		};
+		}
 
 		if (empty($clid))
 		{
@@ -561,12 +561,12 @@ class releditor extends core implements orb_public_interface
 			$xprops[] = array(
 				"type" => "text",
 				"caption" => t(" "),
-				"error" => sprintf(t("Viga %s definitsioonis (seose t&uuml;&uuml;p defineerimata!)"), $prop["name"])
+				"error" => sprintf(t("Viga %s definitsioonis (seose t&uuml;&uuml;p defineerimata!)"), $this->elname)
 			);
-		};
+		}
 
 		// now check whether a relation was requested from url
-		$edit_id = isset($arr["request"][$this->elname]) ? $arr["request"][$this->elname] : false;
+		$edit_id = isset($arr["request"][$this->instance_id]) ? $arr["request"][$this->instance_id] : false;
 
 		$found = true;
 
@@ -615,7 +615,6 @@ class releditor extends core implements orb_public_interface
 
 		$t = get_instance($use_clid);
 		$t->init_class_base();
-		$emb_group = "general";
 
 		$filter = array(
 			"group" => "general",
@@ -648,7 +647,7 @@ class releditor extends core implements orb_public_interface
 			}
 		}
 
-		$form_type = empty($arr["request"][$this->elname]) ? "" : $arr["request"][$this->elname];
+		$form_type = empty($arr["request"][$this->instance_id]) ? "" : $arr["request"][$this->instance_id];
 		if (isset($arr["prop"]["always_show_add"]) && $arr["prop"]["always_show_add"] == 1 && !is_oid($edit_id))
 		{
 			$form_type = "new";
@@ -845,14 +844,15 @@ class releditor extends core implements orb_public_interface
 		// want this
 		if ("manager" === $visual)
 		{
-			$act_name = $prop["name"] . "_action";
+			$act_name = "{$this->instance_id}_action";
 			$xprops[$act_name] = array(
 				"type" => "hidden",
 				"name" => $act_name,
 				"id" => $act_name,
 				"value" => "",
 			);
-		};
+		}
+
 		foreach($xprops as $pn => $pd)
 		{
 			preg_match("/.*\[(.*)\]/imsU", $pd["name"], $mt);
@@ -862,7 +862,7 @@ class releditor extends core implements orb_public_interface
 			}
 		}
 
-		if (isset($prop["parent"]) && $prop["parent"] != "")
+		if (!empty($prop["parent"]))
 		{
 			$tmp = array();
 			foreach($xprops as $pn => $pd)
@@ -873,7 +873,6 @@ class releditor extends core implements orb_public_interface
 			$xprops = $tmp;
 		}
 
-		// exit_function("init-rel-editor");
 		return $xprops;
 	}
 
@@ -883,6 +882,7 @@ class releditor extends core implements orb_public_interface
 		{
 			return;
 		}
+
 		$createlinks = array();
 		$return_url = get_ru();
 		// You can set newly created object's parent to be current object
@@ -900,6 +900,7 @@ class releditor extends core implements orb_public_interface
 		{
 			$parent = $arr['obj_inst']->parent();
 		}
+
 		$s_clids = array();
 		foreach ($arr['prop']['clid'] as $clid)
 		{
@@ -919,7 +920,7 @@ class releditor extends core implements orb_public_interface
 			else
 			{
 				$newurl = aw_url_change_var(array(
-					$this->elname => "new",
+					$this->instance_id => "new"
 				));
 			}
 
@@ -927,55 +928,49 @@ class releditor extends core implements orb_public_interface
 			$s_clids[] = $clid;
 		}
 
-		$tb = get_instance("vcl/toolbar");
+		$tb = new toolbar();
 		if (count($createlinks) > 1)
 		{
 			$tb->add_menu_button(array(
 				"name" => "new",
-				"tooltip" => t("Uus"),
+				"tooltip" => t("Lisa uus"),
 			));
-			$clss = aw_ini_get('classes');
+
 			foreach ($createlinks as $i)
 			{
-				$cn = $clss[$i['class']]['name'];
+				$cn = aw_ini_get("classes.{$i["class"]}.name");
 				$tb->add_menu_item(array(
 					'parent' => "new",
-					'tooltip' => t("Uus ").$cn,
-					'text' => sprintf(t('Lisa %s'),$cn),
-					'link' => $i['url'],
+					'tooltip' => sprintf(t("Lisa uus %s"), $cn),
+					'text' => $cn,
+					'link' => $i["url"]
 				));
 			}
 		}
 		else
 		{
+			$cn = aw_ini_get("classes.{$createlinks[0]["class"]}.name");
 			$tb->add_button(array(
 				"name" => "new",
 				"img" => "new.gif",
-				"tooltip" => t("Uus"),
-				"url" => $createlinks[0]['url'],
+				"tooltip" => sprintf(t("Lisa uus %s"), $cn),
+				"url" => $createlinks[0]['url']
 			));
 		}
 
-		$confirm_test = t("Kustutada valitud objektid?");
-		if (isset($arr['prop']['delete_relations']) && $arr['prop']['delete_relations'])
-		{
-			$confirm_test = t("Kustutada valitud seosed?");
-		}
-
-		$act_input = $this->elname . "_action";
-
 		$tb->add_search_button(array(
-			"pn" => "s_reled",
+			"pn" => "{$this->instance_id}_search",
 			"multiple" => 1,
-			"clid" => $s_clids
+			"clid" => implode(",", $s_clids)
 		));
 
+		$confirm_test = empty($arr["prop"]["delete_objects"]) ? t("Kustutada valitud seosed?") : t("Kustutada valitud objektid?");
+		$act_input = "{$this->instance_id}_action";
 		$tb->add_button(array(
 			"name" => "delete",
 			"img" => "delete.gif",
-			// ma pean siia kuidagi mingi triki tegema. Fuck, I hate this :(
-			"url" => "javascript:if(confirm('${confirm_test}')){el=document.getElementsByName('${act_input}');el[0].value='delete';document.changeform.submit();};",
-			//"action" => "submit_list",
+			"confirm" => $confirm_test,
+			"url" => "javascript:$('form input[name={$act_input}]').attr('value', 'delete');document.changeform.submit();"
 		));
 
 		// because it sucks to have both toolbar and a save button, we'll put the save on toolbar -- ahz
@@ -983,7 +978,7 @@ class releditor extends core implements orb_public_interface
 			"name" => "save",
 			"img" => "save.gif",
 			"tooltip" => t("Salvesta"),
-			"action" => "",
+			"action" => "submit"
 		));
 
 		if(isset($arr["prop"]["clone_link"]) and $arr["prop"]["clone_link"] == 1)
@@ -992,12 +987,12 @@ class releditor extends core implements orb_public_interface
 				"name" => "clone",
 				"img" => "copy.gif",
 				"tooltip" => t("Klooni valitud objektid"),
-				"url" => "javascript:element = 'check[';len = document.changeform.elements.length;var count = 0;for (i=0; i < len; i++){if (document.changeform.elements[i].checked == true){count++;}}if(count == 1){num=prompt('Mitu objekti kloonida soovid?', '1');document.changeform.releditor_clones.value=num;document.changeform.submit();}else{alert('Sa oled kas liiga vahe voi liiga palju objekte kloonimiseks valinud, proovi uuesti')}",
+				"url" => "javascript:element = '{$this->instance_id}_check[';len = document.changeform.elements.length;var count = 0;for (i=0; i < len; i++){if (document.changeform.elements[i].checked == true){count++;}}if(count == 1){num=prompt('" . t("Mitu objekti kloonida soovid?") . "', '1');document.changeform.{$this->instance_id}_clones.value=num;document.changeform.submit();}else{alert('".t("Kloonimiseks on valitud sobimatu arv objekte")."')}",
 			));
 		}
 
 		$rv = array(
-			"name" => $this->elname . "_toolbar",
+			"name" => "{$this->instance_id}_toolbar",
 			"type" => "toolbar",
 			"vcl_inst" => $tb,
 			"no_caption" => 1,
@@ -1016,17 +1011,18 @@ class releditor extends core implements orb_public_interface
 		{
 			$ed_fields = new aw_array($arr["prop"]["table_edit_fields"]);
 			$ed_fields = $ed_fields->get();
-		};
+		}
 
 		if(isset($arr["prop"]["filt_edit_fields"]) and $arr["prop"]["filt_edit_fields"] == 1)
 		{
 			$ed_fields = array("name" => "name");
 		}
+
 		if (!empty($arr["prop"]["props"]))
 		{
 			$tmp = new aw_array($arr["prop"]["props"]);
 			$tb_fields = $tmp->get();
-		};
+		}
 
 		$fdata = array();
 		$conns = array();
@@ -1036,7 +1032,6 @@ class releditor extends core implements orb_public_interface
 			$conns = $arr["obj_inst"]->connections_from(array(
 				"type" => $arr["prop"]["reltype"],
 			));
-			$name = $arr["prop"]["name"];
 			$return_url = get_ru();
 			foreach($conns as $conn)
 			{
@@ -1050,8 +1045,15 @@ class releditor extends core implements orb_public_interface
 				}
 				else
 				{
-					$url = aw_url_change_var(array($this->elname => $c_to));
-				};
+					$url = aw_url_change_var(array($this->instance_id => $c_to));
+				}
+
+				$menu = new popup_menu("{$this->instance_id}_pm_{$c_to}");
+				$menu->add_item(array(
+					"link" => $url,
+					"text" => t("Muuda")
+				));
+
 				$target = $conn->to();
 				$clinst = $target->instance();
 				$rowdata = array(
@@ -1059,13 +1061,10 @@ class releditor extends core implements orb_public_interface
 					"parent" => $target->parent(),
 					"conn_id" => $conn->id(),
 					"name" => $conn->prop("to.name"),
-					"edit" => html::href(array(
-						"caption" => t("Muuda"),
-						"url" => $url,
-					)),
+					"edit" => $menu->get_menu(),
 					"_sort_jrk" => $conn->prop("to.jrk"),
 					"_sort_name" => $conn->prop("to.name"),
-					"_active" => (isset($arr["request"][$this->elname]) and $arr["request"][$this->elname] == $c_to),
+					"_active" => (isset($arr["request"][$this->instance_id]) and $arr["request"][$this->instance_id] == $c_to),
 				);
 				$export_props = array();
 				$clss = null;
@@ -1166,28 +1165,28 @@ class releditor extends core implements orb_public_interface
 					foreach(array_unique($ed_fields) as $ed_field)
 					{
 						// fucking hackery! :(
-						if ($this->all_props[$ed_field]["type"] == "textbox")
+						if ($this->all_props[$ed_field]["type"] === "textbox")
 						{
 							$export_props[$ed_field] = html::textbox(array(
-								"name" => "$name" . '[_data][' . $conn->prop("id") . '][' . $ed_field . "]",
+								"name" => "{$this->instance_id}_data[" . $conn->prop("id") . '][' . $ed_field . "]",
 								"value" => $export_props[$ed_field],
 								"size" => empty($this->all_props[$ed_field]["size"]) ? 15 : $this->all_props[$ed_field]["size"]
 							));
-						};
-					};
-				};
+						}
+					}
+				}
+
 				$rowdata = $export_props + $rowdata;
 				if ($this->choose_default)
 				{
 					$rowdata = $rowdata + array(
 						"default" => html::radiobutton(array(
-							"name" => $arr["prop"]["name"] . '[_default]',
+							"name" => "{$this->instance_id}_default",
 							"value" => $rowdata["id"],
-							"checked" => ($arr["prop"]["value"] == $rowdata["id"]),
+							"checked" => ($arr["prop"]["value"] === $rowdata["id"]),
 						)),
 					);
-
-				};
+				}
 				$stuff = $this->get_sub_prop_values(array(
 					"prop" => &$prop,
 					"obj_inst" => $target,
@@ -1215,7 +1214,7 @@ class releditor extends core implements orb_public_interface
 				"name" => "id",
 				"caption" => t("ID"),
 				"sortable" => 1,
-				"numeric" => 1,
+				"numeric" => 1
 			));
 
 			foreach($ed_fields as $field)
@@ -1238,6 +1237,7 @@ class releditor extends core implements orb_public_interface
 			{
 				$arr['prop']['table_fields'] = array($arr['prop']['table_fields']);
 			}
+
 			foreach($arr["prop"]["table_fields"] as $table_field)
 			{
 				$caption = $table_field;
@@ -1255,26 +1255,27 @@ class releditor extends core implements orb_public_interface
 					$caption = $prop2[$sub_fileds[1]]["caption"];
 
 				}
+
 				if (isset($this->all_props[$table_field]))
 				{
 					$caption = $this->all_props[$table_field]['caption'];
 				}
-				else if (isset($this->auto_fields[$table_field]))
+				elseif (isset($this->auto_fields[$table_field]))
 				{
 					$caption = $this->auto_fields[$table_field];
 				}
-				else
-				if (isset($this->cfg_act_props[$table_field]["caption"]))
+				elseif (isset($this->cfg_act_props[$table_field]["caption"]))
 				{
 					$caption = $this->cfg_act_props[$table_field]["caption"];
 				}
+
 				$awt->define_field(array(
 					"name" => $table_field,
 					"caption" => $caption,
 					"sortable" => 1,
 				));
 				//$fdata[$table_field] = $table_field;
-			};
+			}
 		}
 		else
 		{
@@ -1282,7 +1283,7 @@ class releditor extends core implements orb_public_interface
 				"name" => "id",
 				"caption" => t("ID"),
 				"sortable" => 1,
-				"numeric" => 1,
+				"numeric" => 1
 			));
 
 			$awt->define_field(array(
@@ -1290,30 +1291,30 @@ class releditor extends core implements orb_public_interface
 				"caption" => t("Nimi"),
 				"sortable" => 1
 			));
-		};
+		}
 
 		if ($arr["request"]["action"] !== "view")
 		{
 			$awt->define_field(array(
 				"name" => "edit",
-				"caption" => t("Muuda"),
-				"align" => "center",
+				"align" => "center"
 			));
 
 			// aliasmgr uses "check"
 			$awt->define_chooser(array(
 				"field" => "conn_id",
-				"name" => "check",
+				"name" => "{$this->instance_id}_check"
 			));
 		}
-		// and how do I get values for those?
-
-		// and how do I show the selected row?
 
 		if(isset($arr["prop"]["clone_link"] ) and $arr["prop"]["clone_link"] == 1)
 		{
-			$awt->set_header('<input type="hidden" name="releditor_clones" id="releditor_clones" value="0" />');
+			$awt->set_header(html::hidden(array(
+				"name" => "{$this->instance_id}_clones",
+				"value" => "0"
+			)));
 		}
+
 		$awt->set_numeric_field("_sort_jrk");
 		$awt->set_sortable(true);
 		$awt->set_numeric_field("_sort_jrk");
@@ -1327,10 +1328,10 @@ class releditor extends core implements orb_public_interface
 		}
 
 		$rv = array(
-			"name" => $this->elname . "_table",
+			"name" => "{$this->instance_id}_table",
 			"type" => "table",
 			"vcl_inst" => $awt,
-			"no_caption" => 1,
+			"no_caption" => 1
 		);
 
 		return $rv;
@@ -1431,20 +1432,26 @@ class releditor extends core implements orb_public_interface
 
 	function process_releditor($arr)
 	{
+		//TODO: panna releditor kasutama classbaset otse -- salvestamisel cb_class::submit($arr);. tundub, et praegu pole nii
+
+		//TODO: store no peaks t2hendama, et ei salvestata releditori prop nime alla midagi aga releditimine ikka t88tab. v7i siis, et sel juhul ka connectione ei looda
 		if("no" === $arr["prop"]["store"] or isset($arr["prop"]["mode"]) and $arr["prop"]["mode"] === "manager2")
 		{
 			return;
 		}
+
 		$prop = &$arr["prop"];
 		$obj = $arr["obj_inst"];
 		$set_default_relation = false;
+		$this->_set_elname($prop["name"]);
 
+		//TODO: teha, et siinne t88taks ka mitme klassi puhul.
 		$clid = $arr["prop"]["clid"][0];
 
-		if (!empty($arr["prop"]["reltype"]) and isset($arr["request"]["s_reled"]))
+		if (!empty($arr["prop"]["reltype"]) and isset($arr["request"]["{$this->instance_id}_search"]))
 		{
 			$ps = new popup_search();
-			$ps->do_create_rels($obj, $arr["request"]["s_reled"], $arr["prop"]["reltype"]);
+			$ps->do_create_rels($obj, $arr["request"]["{$this->instance_id}_search"], $arr["prop"]["reltype"]);
 		}
 
 		if ($clid == 7)
@@ -1456,66 +1463,98 @@ class releditor extends core implements orb_public_interface
 			$use_clid = $clid;
 		}
 
-		if (!isset($prop['delete_relations']))
+		$releditor_action = isset($arr["request"]["{$this->instance_id}_action"]) ? $arr["request"]["{$this->instance_id}_action"] : "";
+
+		if ("delete" === $releditor_action)
 		{
-			$prop['delete_relations'] = '0';
-		}
-
-		$act_prop = $prop["name"] . "_action";
-
-		if (isset($arr["request"][$act_prop]) and "delete" === $arr["request"][$act_prop])
-		{
-			// XXX: this will fail, if there are multiple releditors on one page
-			$to_delete = new aw_array($arr["request"]["check"]);
-			$delete_default = false;
-
-			foreach($to_delete->get() as $alias_id)
+			if (!empty($arr["request"]["{$this->instance_id}_check"]) and is_array($arr["request"]["{$this->instance_id}_check"]))
 			{
-				$c = new connection($alias_id);
+				$to_delete = new aw_array($arr["request"]["{$this->instance_id}_check"]);
+				$delete_default = false;
+				$errors = array();
 
-				if ("manager" === $prop["mode"] and $c->prop("to") == $obj->prop($prop["name"]))
+				foreach($to_delete->get() as $alias_id)
 				{
-					$delete_default = true;
+					$c = new connection($alias_id);
+
+					if ("manager" === $prop["mode"] and $c->prop("to") === $obj->prop($prop["name"]))
+					{
+						$delete_default = true;
+					}
+
+					if (empty($prop["delete_objects"]))
+					{
+						$c->delete();
+					}
+					else
+					{
+						$selected_object = $c->to();
+
+						try
+						{
+							$selected_object->delete();
+						}
+						catch (awex_obj_acl $e)
+						{
+							$errors[] = $selected_object->id();
+						}
+					}
 				}
 
-				$c->delete();
-			}
-
-			if ($delete_default)
-			{
-				# old default deleted, set first found to be default
-				$conns = $obj->connections_from(array(
-					"type" => $arr["prop"]["reltype"],
-				));
-				$first_conn = reset($conns);
-
-				if (is_object($first_conn))
+				if ($delete_default)
 				{
-					$obj->set_prop($arr["prop"]["name"], $first_conn->prop("to"));
+					# old default deleted, set first found to be new default
+					$conns = $obj->connections_from(array(
+						"type" => $arr["prop"]["reltype"]
+					));
+					$first_conn = reset($conns);
+
+					if (is_object($first_conn))
+					{
+						$obj->set_prop($this->elname, $first_conn->prop("to"));
+					}
 				}
+
+				if ($errors)
+				{
+					$arr["prop"]["error"] = sprintf(t("Osa seoseid (objektide id-d: %s) polnud v&otilde;imalik kustutada"), implode(", ", $errors));
+					$r = class_base::PROP_ERROR;
+				}
+				else
+				{
+					$r = class_base::PROP_OK;
+				}
+
+				return $r;
 			}
-
-			return PROP_OK;
+			else
+			{
+				$prop["error"] = t("Kustutamiseks pole valitud objekte");
+				return PROP_ERROR;
+			}
+		}
+		else
+		{//TODO
+			if ("new" === $releditor_action)
+			{
+			}
+			elseif ("change" === $releditor_action)
+			{
+			}
+			else
+			{
+			}
 		}
 
-		$clinst = get_instance($use_clid);
+		$clinst = get_instance($use_clid);//TODO: teha, et laetaks 6ige klass kui clid on multiple
+		$emb = isset($arr["request"][$this->elname]) ? $arr["request"][$this->elname] : array();
 
-		$elname = $prop["name"];
-		$emb = isset($arr["request"][$elname]) ? $arr["request"][$elname] : array();
-		// _data is used to edit multiple connections at once
-		unset($emb["_data"]);
-
-		if (isset($emb["_default"]) and is_oid($emb["_default"]))
+		if (isset($arr["request"]["{$this->instance_id}_default"]) and is_oid($arr["request"]["{$this->instance_id}_default"]))
 		{
-			$prop["value"] = $emb["_default"];
-			$set_default_relation = $emb["_default"];
+			$set_default_relation = $prop["value"] = $arr["request"]["{$this->instance_id}_default"];
 		}
-
-		unset($emb["_default"]);
 
 		$clinst->init_class_base();
-		$emb_group = "general";
-
 		$filter = array(
 			"group" => "general",
 		);
@@ -1524,28 +1563,26 @@ class releditor extends core implements orb_public_interface
 		{
 			$filter["form"] = $prop["use_form"];
 			$use_form = $prop["use_form"];
-		};
+		}
 
 		$props = $clinst->load_defaults();
-
 		$propname = $prop["name"];
 		$proplist = isset($prop["props"]) ? (is_array($prop["props"]) ? $prop["props"] : array($prop["props"])) : array();
-
 		$el_count = 0;
 
-		foreach($props as $item)
+		foreach($props as $reledited_prop)
 		{
 			// if that property is in the list of the class properties, then
 			// process it
-			if (!empty($use_form) || in_array($item["name"],$proplist))
+			if (!empty($use_form) || in_array($reledited_prop["name"],$proplist))
 			{
-				if ($item["type"] === "fileupload")
+				if ($reledited_prop["type"] === "fileupload")
 				{
-					if (!isset($emb[$item["name"]]) or !is_array($emb[$item["name"]]))
+					if (!isset($emb[$reledited_prop["name"]]) or !is_array($emb[$reledited_prop["name"]]))
 					{
 						// ot, aga miks need 2 caset siin on?
-						$name = $item["name"];
-						$_fileinf = isset($_FILES[$elname]) ? $_FILES[$elname] : array();
+						$name = $reledited_prop["name"];
+						$_fileinf = isset($_FILES[$this->elname]) ? $_FILES[$this->elname] : array();
 						if (!empty($_fileinf["tmp_name"][$name]))
 						{
 							$filename = $_fileinf["name"][$name];
@@ -1573,10 +1610,10 @@ class releditor extends core implements orb_public_interface
 					*/
 					else
 					{
-						$tmpname = $emb[$item["name"]]["tmp_name"];
+						$tmpname = $emb[$reledited_prop["name"]]["tmp_name"];
 						if (is_uploaded_file($tmpname))
 						{
-							$emb[$item["name"]]["contents"] = $this->get_file(array(
+							$emb[$reledited_prop["name"]]["contents"] = $this->get_file(array(
 								"file" => $tmpname,
 							));
 
@@ -1587,14 +1624,14 @@ class releditor extends core implements orb_public_interface
 				else
 				{
 					// this shit takes care of those non-empty select boxes
-					if (!empty($emb[$item["name"]]) && $item["type"] !== "datetime_select" && $item["name"] !== "status")
+					if (!empty($emb[$reledited_prop["name"]]) && $reledited_prop["type"] !== "datetime_select" && $reledited_prop["name"] !== "status")
 					{
 						$el_count++;
 					}
 
-					if ($item["type"] === "checkbox" && empty($emb[$item["name"]]))
+					if ($reledited_prop["type"] === "checkbox" && empty($emb[$reledited_prop["name"]]))
 					{
-						$emb[$item["name"]] = 0;
+						$emb[$reledited_prop["name"]] = 0;
 					}
 				}
 			}
@@ -1617,7 +1654,7 @@ class releditor extends core implements orb_public_interface
 			}
 			$emb["parent"] = $obj_parent;
 			$emb["return"] = "id";
-			$emb["prefix"] = $elname;
+			$emb["prefix"] = $this->elname;
 
 			$reltype = $arr["prop"]["reltype"];
 
@@ -1645,8 +1682,7 @@ class releditor extends core implements orb_public_interface
 				}
 			}
 
-
-			if ($prop["rel_id"] === "first" && empty($emb["id"]))
+			if (isset($prop["rel_id"]) and $prop["rel_id"] === "first" and empty($emb["id"]))
 			{
 				// I need to disconnect, no?
 				if (is_oid($obj->id()))
@@ -1660,8 +1696,8 @@ class releditor extends core implements orb_public_interface
 						$obj->disconnect(array(
 							"from" => $conn->prop("to"),
 						));
-					};
-				};
+					}
+				}
 			}
 
 			if (is_oid($obj_id))
@@ -1677,8 +1713,8 @@ class releditor extends core implements orb_public_interface
 					{
 						$set_default_relation = $obj_id;
 					}
-				};
-			};
+				}
+			}
 		}
 
 		if ($set_default_relation)
@@ -1692,7 +1728,7 @@ class releditor extends core implements orb_public_interface
 		// --dragut
 	//	$obj->save();
 
-		$things = isset($arr["request"][$elname]["_data"]) ? $arr["request"][$elname]["_data"] : array();
+		$things = isset($arr["request"]["{$this->instance_id}_data"]) ? $arr["request"]["{$this->instance_id}_data"] : array();
 		if (sizeof($things) > 0 && is_oid($obj->id()))
 		{
 			$conns = $obj->connections_from(array(
@@ -1708,16 +1744,16 @@ class releditor extends core implements orb_public_interface
 					foreach($things[$conn_id] as $propname => $propvalue)
 					{
 						$to_obj->set_prop($propname,$propvalue);
-					};
+					}
 					$to_obj->save();
 				}
 			}
 		}
 
-		$num = isset($arr["request"]["releditor_clones"]) ? (int) $arr["request"]["releditor_clones"] : 0;
+		$num = isset($arr["request"]["{$this->instance_id}_clones"]) ? (int) $arr["request"]["{$this->instance_id}_clones"] : 0;
 		if(!empty($arr["prop"]["clone_link"]) && $num > 0)
 		{
-			foreach(safe_array($arr["request"]["check"]) as $check)
+			foreach(safe_array($arr["request"]["{$this->instance_id}_check"]) as $check)
 			{
 				$conn = new connection($check);
 				$old_obj = $conn->to();
@@ -1731,17 +1767,18 @@ class releditor extends core implements orb_public_interface
 				}
 			}
 		}
+
+		return PROP_OK;
 	}
 
 	function get_html()
 	{
 		return "here be releditor";
-		//return $this->t->draw();
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["s_reled"] = "0";
+		$arr["{$this->instance_id}_search"] = "0";
 	}
 
 	/**
@@ -1752,7 +1789,7 @@ class releditor extends core implements orb_public_interface
 		$propn = null;
 		foreach($arr as $k => $d)
 		{
-			if (substr($k, -strlen("_reled_data")) === "_reled_data")
+			if (substr($k, -11) === "_reled_data")
 			{
 				list($clid, $propn) = explode("::", $d);
 				break;
@@ -1764,10 +1801,11 @@ class releditor extends core implements orb_public_interface
 			die("error, no property data! given: ".dbg::dump($arr));
 		}
 
-		$num = reset(array_keys($arr[$propn]));
+		$num = array_keys($arr[$propn]);
+		$num = reset($num);
 
 //		$this->loaded_from_cfgform = is_oid($arr["cfgform"]) && $this->can("view", $arr["cfgform"]);
-		$t = new aw_table;
+		$t = new aw_table();
 		$this->_init_js_rv_table($t, $clid, $propn, $arr["cfgform"]);
 
 		$cfgproplist = is_oid($arr["cfgform"]) ? get_instance(CL_CFGFORM)->get_cfg_proplist($arr["cfgform"]) : array();
@@ -1781,7 +1819,7 @@ class releditor extends core implements orb_public_interface
 			}
 		}
 
-		if(is_oid($arr["cfgform"]) && $this->can("view", $arr["cfgform"]))
+		if(is_oid($arr["cfgform"]) && $this->can("", $arr["cfgform"]))
 		{
 			$cfgform_i = new cfgform();
 			$cfgproplist = $cfgform_i->get_cfg_proplist($arr["cfgform"]);
@@ -1832,7 +1870,7 @@ class releditor extends core implements orb_public_interface
 					$msg_str = "";
 					foreach($msgs as $msg)
 					{
-						$msg_str .= strlen($msg_str) > 0 ? "<br />" : "";
+						$msg_str .= strlen($msg_str) > 0 ? html::linebreak() : "";
 						$msg_str .= $msg;
 					}
 					$js_arr .= $propn."_".$arr["start_from_index"]."__".$err_prop."_:\"".$msg."\"";
@@ -1858,17 +1896,15 @@ class releditor extends core implements orb_public_interface
 				$idx2oid[$idx++] = $c->prop("to");
 			}
 
-			$clss = aw_ini_get("classes");
-
 			$row = safe_array($prev_dat[$num]);
-			$row["class"] = basename($clss[$this->_get_related_clid($clid, $propn)]["file"]);
+			$row["class"] = basename(aw_ini_get("classes." . $this->_get_related_clid($clid, $propn) . ".file"));
 			$row["action"] = "submit";
 			$row["parent"] = $arr["id"];
-			$row["id"] = $idx2oid[$num];
+			$row["id"] = empty($idx2oid[$num]) ? 0 : $idx2oid[$num];
 			$row["alias_to"] = $arr["id"];
 			$row["alias_to_prop"] = $propn;
 			$row["reltype"] = $cur_prop["reltype"];
-			$row["cfgform"] = $cfgproplist[$propn]["cfgform_id"];
+			$row["cfgform"] = isset($cfgproplist[$propn]["cfgform_id"]) ? $cfgproplist[$propn]["cfgform_id"] : 0;
 			$i = get_instance($this->_get_related_clid($clid, $propn));
 			$rv = $i->submit($row);
 			// So the set_property() and prop() functions could change the value -kaarel 12.03.2009
@@ -1953,14 +1989,14 @@ class releditor extends core implements orb_public_interface
 //			uasort($cur_prop["table_fields"], array(&$this, "__props_sort"));
 			foreach(safe_array($cur_prop["table_fields"]) as $prop_name)
 			{
-				$data = $rel_props[$prop_name];
-				if (isset($rel_props[$prop_name]) && (!$data["emb_tbl_col_num"] || !isset($defs[$data["emb_tbl_col_num"]])))
+				if (isset($rel_props[$prop_name]) and !empty($rel_props[$prop_name]["emb_tbl_col_num"]) and !isset($defs[$rel_props[$prop_name]["emb_tbl_col_num"]]))
 				{
-					$defs[$data["emb_tbl_col_num"]] = 1;
+					$defs[$rel_props[$prop_name]["emb_tbl_col_num"]] = 1;
 					$this->_define_table_col_from_prop($t, $rel_props[$prop_name]);
 				}
 			}
 		}
+
 		$t->define_field(array(
 			"name" => $propn."_change",
 			"caption" => t("Muuda"),
@@ -2061,16 +2097,17 @@ class releditor extends core implements orb_public_interface
 				"request" => $_POST,
 				"prop" => &$pv
 			);
+
 			if (method_exists($i, "_get_".$prop_name))
 			{
 				$mn = "_get_".$prop_name;
 				$i->$mn($args);
 			}
-			else
-			if (method_exists($i, "get_property"))
+			elseif (method_exists($i, "get_property"))
 			{
 				$i->get_property($args);
 			}
+
 			switch($pv["type"])
 			{
 				case "relpicker":
@@ -2140,6 +2177,7 @@ class releditor extends core implements orb_public_interface
 				default:
 					$tc_val = $pv["value"];
 			}
+
 			if (trim($d[$tc_name]) != "")
 			{
 				$d[$tc_name] .= ($tc_val != "" ? $data["emb_tbl_col_sep"] : "").$tc_val;
@@ -2158,9 +2196,10 @@ class releditor extends core implements orb_public_interface
 		{
 			return;
 		}
+
 		$d = array(
 			"name" => $pd["name"],
-			"caption" => $pd["emb_tbl_caption"] ? $pd["emb_tbl_caption"] : $pd["caption"],
+			"caption" => !empty($pd["emb_tbl_caption"]) ? $pd["emb_tbl_caption"] : $pd["caption"],
 		);
 		if ($pd["type"] === "date_select")
 		{
@@ -2172,14 +2211,17 @@ class releditor extends core implements orb_public_interface
 				{
 					$dmy[] = "d";
 				}
+
 				if (in_array("month", $pd["format"]))
 				{
 					$dmy[] = "m";
 				}
+
 				if (in_array("year", $pd["format"]))
 				{
 					$dmy[] = "Y";
 				}
+
 				if (count($dmy) == 0)
 				{
 					$dmy = "d.m.Y";
@@ -2191,8 +2233,7 @@ class releditor extends core implements orb_public_interface
 				$d["format"] = "d.m.Y";
 			}
 		}
-		else
-		if ($pd["type"] === "datetime_select")
+		elseif ($pd["type"] === "datetime_select")
 		{
 			$d["type"] = "time";
 			$d["format"] = "d.m.Y H:i:s";
@@ -2306,7 +2347,7 @@ class releditor extends core implements orb_public_interface
 	}
 
 	/**
-		@attrib name=js_delete_rows all_args=1 nologin="1"
+		@attrib name=js_delete_rows all_args=1 nologin=1
 	**/
 	function js_delete_rows($arr)
 	{
@@ -2325,7 +2366,7 @@ class releditor extends core implements orb_public_interface
 		}
 
 //		$this->loaded_from_cfgform = is_oid($arr["cfgform"]) && $this->can("view", $arr["cfgform"]);
-		$t = new aw_table;
+		$t = new aw_table();
 		$this->_init_js_rv_table($t, $clid, $propn, $arr["cfgform"]);
 
 		$prev_dat = safe_array(unserialize(iconv("utf-8", aw_global_get("charset")."//IGNORE", $arr[$propn."_data"])));
@@ -2376,5 +2417,11 @@ class releditor extends core implements orb_public_interface
 			"name" => $propn."_data",
 			"value" => htmlspecialchars(serialize($prev_dat))
 		)));
+	}
+
+	private function _set_elname($name)
+	{
+		$this->elname = $name;
+		$this->instance_id .= $name;
 	}
 }
