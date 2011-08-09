@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class awlc_date_fr implements awlc_date
 {
 	protected static $month = array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
@@ -54,5 +52,3 @@ class awlc_date_fr implements awlc_date
 		return self::$month[$num-1];
 	}
 }
-
-?>

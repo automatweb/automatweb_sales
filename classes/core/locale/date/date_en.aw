@@ -1,10 +1,11 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
+
 class awlc_date_en implements awlc_date
 {
 	protected static $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+
+	// date("w") returns 0 for sunday, but for historical reasons 7 should also be sunday
+	protected static $weekdays = array("sunday", "monday", "tueday", "wednesday", "thursday", "friday", "saturday", "sunday");
 
 	public static function get_lc_date($timestamp, $format)
 	{
@@ -47,10 +48,20 @@ class awlc_date_en implements awlc_date
 
 	public static function get_lc_weekday($num, $short = false, $ucfirst = true)
 	{
-		// date("w") returns 0 for sunday, but for historical reasons 7 should also be sunday
-//		$names = array("Sunday","Monday","Tueday","Wednesday","Thursday","Friday","Saturday","Sunday");
-		$names = array("sunday","monday","tuesday","wednesday","thursday","friday","saturday","sunday");
-		$name = ($ucfirst) ? ucfirst($names[$num]) : $names[$num];
+		if (7 == $num)
+		{
+			trigger_error("Weekday index 7 is deprecated (for sunday use 0)", E_USER_NOTICE);
+		}
+
+		if (isset(self::$weekdays[$num]))
+		{
+			$name = $ucfirst ? ucfirst(self::$weekdays[$num]) : self::$weekdays[$num];
+		}
+		else
+		{
+			throw new awex_locale_date_weekday("No weekday for index '{$num}'");
+		}
+
 		return $short ? substr($name,0,3) : $name;
 	}
 
@@ -114,4 +125,3 @@ class awlc_date_en implements awlc_date
 		return $r;
 	}
 }
-?>

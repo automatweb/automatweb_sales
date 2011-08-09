@@ -1,7 +1,6 @@
 <?php
 
 /**
-@classinfo  maintainer=voldemar
 Localisation utilities class.
 **/
 class aw_locale
@@ -312,9 +311,18 @@ class aw_locale
 /** Generic locale class error **/
 class awex_locale extends aw_exception {}
 
+/** Generic date error **/
+class awex_locale_date extends awex_locale {}
+
+/** Weekday related exception **/
+class awex_locale_date_weekday extends awex_locale_date {}
+
+
 
 interface awlc_date
 {
+	// public static function get_months();
+	// public static function get_weekdays();
 	public static function get_lc_month($num);
 	public static function get_lc_date($timestamp, $format);
 	public static function get_lc_weekday($num, $short = false, $ucfirst = false);
