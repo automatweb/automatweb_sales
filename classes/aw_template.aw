@@ -324,30 +324,20 @@ class aw_template extends core
 	function read_template($name, $silent = false)
 	{
 		$this->template_filename = $this->template_dir . $name;
+		$retval = false;
 
 		if (!file_exists($this->template_filename))
 		{
 			$this->template_filename = $this->adm_template_dir . $name;
-			if(function_exists("get_file_version"))
-			{
-				$this->template_filename = get_file_version($this->template_filename);
-			}
 		}
 
 		// try to load a template from aw directory then
 		if (file_exists($this->template_filename))
 		{
 			// validate filename, it has to be in either site_basedir or basedir
-			if (!$this->_validate_pathname($this->template_filename))
+			if (!$this->_validate_pathname($this->template_filename) and !$silent)
 			{
-				if ($silent)
-				{
-					return false;
-				}
-				else
-				{
-					throw new awex_bad_file_path($this->template_filename);
-				}
+				throw new awex_bad_file_path($this->template_filename);
 			}
 			else
 			{
@@ -355,18 +345,12 @@ class aw_template extends core
 				$retval = $this->read_tpl(file($this->template_filename));
 			}
 		}
-		else
+		elseif (!$silent)
 		{
-			if ($silent)
-			{
-				$retval = false;
-			}
-			else
-			{
-				$e = new awex_tpl_not_found(sprintf("Template '%s' resolved to '%s' not found", $name, $this->template_filename));
-				$e->tpl = $this->template_filename;
-			}
+			$e = new awex_tpl_not_found(sprintf("Template '%s' resolved to '%s' not found", $name, $this->template_filename));
+			$e->tpl = $this->template_filename;
 		}
+
 		return $retval;
 	}
 
@@ -424,10 +408,7 @@ class aw_template extends core
 	{
 		$retval = true;
 		$this->template_filename = $this->adm_template_dir.$name;
-		if(function_exists("get_file_version"))
-		{
-			$this->template_filename = get_file_version($this->template_filename);
-		}
+
 		if (file_exists($this->template_filename))
 		{
 			$this->_record_template_load($this->template_filename);
@@ -530,10 +511,6 @@ class aw_template extends core
 		else
 		{
 			$this->template_filename = $this->adm_template_dir.$name;
-			if(function_exists("get_file_version"))
-			{
-				$this->template_filename = get_file_version($this->template_filename);
-			}
 			if (file_exists($this->template_filename))
 			{
 				$this->_record_template_load($this->template_filename);
@@ -1003,6 +980,7 @@ class aw_template extends core
 			$this->v2_arr = $arr;
 			$this->req_read_tpl("MAIN","MAIN","");
 		}
+
 		return true;
 	}
 
