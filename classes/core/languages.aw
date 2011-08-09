@@ -23,7 +23,7 @@ class languages implements request_startup
 		if ($no_cache)
 		{
 			object_loader::ds()->quote($id);
-			$ret = object_loader::ds()->db_fetch_row("SELECT * FROM languages WHERE id = '{$id}'");
+			$ret = object_loader::ds()->db_fetch_row("SELECT * FROM languages l JOIN objects o ON o.oid=l.oid WHERE l.id = '{$id}' AND o.status > 0");
 
 			if ($ret)
 			{
@@ -233,14 +233,13 @@ class languages implements request_startup
 		{
 			return false;
 		}
+
 		if (is_oid($l["oid"]) && !object_loader::can("view", $l["oid"]))
 		{
 			return false;
 		}
 
-		object_loader::ds()->quote($id);
-		$id = (int)$id;
-		$q = "SELECT acceptlang,charset FROM languages WHERE id = '$id'";
+		$q = "SELECT acceptlang,charset FROM languages WHERE id = '{$id}'";
 		object_loader::ds()->db_query($q);
 		$row = object_loader::ds()->db_next();
 		if ($row)
@@ -251,11 +250,14 @@ class languages implements request_startup
 			aw_global_set("ct_lang_lc",$row["acceptlang"]);
 			aw_global_set("charset",$row["charset"]);
 		}
+
 		$uid = aw_global_get("uid");
 		if (!empty($uid))
 		{
+			object_loader::ds()->quote($uid);
 			object_loader::ds()->db_query("UPDATE users SET lang_id = '$id' WHERE uid = '$uid'");
 		}
+
 		aw_session::set("lang_id", $id);
 
 		// milleks see cookie vajalik oli?
@@ -293,18 +295,15 @@ class languages implements request_startup
 	{
 		$langs = array();
 		$def = 0;
-		if (is_array($la))
+		foreach(self::$languages_data as $row)
 		{
-			foreach(self::$languages_data as $row)
+			if ($row["status"] == 2 && (!is_oid($row["oid"]) || object_loader::can("view", $row["oid"])))
 			{
-				if ($row["status"] == 2 && (!is_oid($row["oid"]) || object_loader::can("view", $row["oid"])))
+				$langs[$row["acceptlang"]] = $row["id"];
+				if (!$def)
 				{
-					$langs[$row["acceptlang"]] = $row["id"];
-					if (!$def)
-					{
-						// pick the first active one from the list in case no matches exist for browser settings
-						$def = $row["id"];
-					}
+					// pick the first active one from the list in case no matches exist for browser settings
+					$def = $row["id"];
 				}
 			}
 		}
@@ -329,11 +328,9 @@ class languages implements request_startup
 		}
 
 		// if no languages are active, then get the first one.
-		if (is_array($la))
+		if (count(self::$languages_data))
 		{
-			reset($la);
-			list($_i,$row) = each($la);
-			if ($row["id"])
+			foreach (self::$languages_data as $row)
 			{
 				return $row["id"];
 			}
@@ -349,7 +346,17 @@ class languages implements request_startup
 		return $a["charset"];
 	}
 
-	static function get_langid($id = -1)
+	/**
+		@attrib api=1 params=pos
+		@param id type=int default=-1
+			Language id number
+		@comment
+		@returns string
+			Language code
+		@errors
+			throws awex_lang_na if no language data for $id found
+	**/
+	public static function get_langid($id = -1)
 	{
 		if ($id == -1)
 		{
@@ -500,8 +507,15 @@ class languages implements request_startup
 		if (!$lang_id && aw_ini_get("languages.default"))
 		{
 			$lang_id = aw_ini_get("languages.default");
+			try
+			{
+				$la = self::fetch($lang_id);
+			}
+			catch (awex_lang_na $e)
+			{
+				$la = self::fetch($lang_id, true);
+			}
 			self::set_active($lang_id, true);
-			$la = self::fetch($lang_id);
 		}
 		else
 		{

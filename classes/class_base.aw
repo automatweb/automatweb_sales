@@ -976,7 +976,7 @@ class class_base extends aw_template implements orb_public_interface
 				break;
 			}
 		}
-		$po_loc = aw_ini_get("basedir")."/lang/trans/".aw_global_get("LC")."/po/".$argblock["orb_class"].".po";
+		$po_loc = aw_ini_get("basedir")."lang/trans/".aw_global_get("LC")."/po/".$argblock["orb_class"].".po";
 		$cfgu = new cfgutils();
 		$groups = $cfgu->get_groupinfo();
 		$msgid_grp_cpt = isset($groups[$argblock["group"]]["caption"]) ? $groups[$argblock["group"]]["caption"] : "";
@@ -1306,6 +1306,11 @@ class class_base extends aw_template implements orb_public_interface
 	**/
 	function submit($args = array())
 	{
+		if (!empty($args[$this->translation_lang_var_name]))
+		{
+			return $this->submit_translations($args);
+		}
+
 		if (!empty($args["posted_by_js"]))
 		{
 			$args = iconv_array("utf-8", aw_global_get("charset"), $args);
@@ -3971,8 +3976,7 @@ class class_base extends aw_template implements orb_public_interface
 
 			if (isset($args["rawdata"]["lang_id"]))
 			{
-				$lg = new languages();
-				$o->set_lang($lg->get_langid($args["rawdata"]["lang_id"]));
+				$o->set_lang(languages::get_langid($args["rawdata"]["lang_id"]));
 			}
 
 			$new = true;
@@ -4772,8 +4776,7 @@ class class_base extends aw_template implements orb_public_interface
 			"subclass" => $this->clid
 		));
 		$rv = array();
-		$l = get_instance("languages");
-		$lid = $l->get_langid_for_code(aw_global_get("user_adm_ui_lc"));
+		$lid = languages::get_langid_for_code(aw_global_get("user_adm_ui_lc"));
 		foreach($ol->arr() as $o)
 		{
 			// this must use user interface language, not site content language
@@ -5547,6 +5550,7 @@ class class_base extends aw_template implements orb_public_interface
 						$rv[$id] = array(
 							"caption" => $o->name(),
 							"parent" => $this->inst->transl_grp_name,
+							"submit_action" => "submit_translations",
 							"level" => 2,
 							"set_link" => aw_url_change_var($this->translation_lang_var_name, $lang_id)
 						);
@@ -5651,8 +5655,7 @@ class class_base extends aw_template implements orb_public_interface
 		$o = $this->obj_inst;
 
 		// get language if exists
-		$l = new languages();
-		$lang = $l->fetch($arr[$this->translation_lang_var_name]);
+		$lang = languages::fetch($arr[$this->translation_lang_var_name]);
 		if (empty($lang["id"]))
 		{
 			$this->show_error_text(t("T&otilde;lke keelt ei leitud"));
@@ -5766,7 +5769,6 @@ class class_base extends aw_template implements orb_public_interface
 
 		// get langs
 		$languages_in_use = languages::list_translate_targets();
-
 		// get language to translate to
 		$requested_lang_id = empty($arr["request"][$this->translation_lang_var_name]) ? "" : $arr["request"][$this->translation_lang_var_name];
 		if($languages_in_use->count())
@@ -5785,18 +5787,21 @@ class class_base extends aw_template implements orb_public_interface
 					$translation_target_lang_o = $l_o;
 				}
 			}
-			while ($l_o = $languages_in_use->next());
+			while ($l_o = $languages_in_use->next() and !$this->translation_lang_id);
 
-			if(!$this->translation_lang_id and $languages_in_use->count())
+			if(!$this->translation_lang_id)
 			{
-				// only one language in use besides original, or requested language was not valid
-				$translation_target_lang_o = $languages_in_use->begin();
-				$this->translation_lang_id = $translation_target_lang_o->prop("db_lang_id");
-			}
-			else
-			{
-				$this->show_msg_text(t("Lubatud on vaid k&auml;esoleva objekti algkeel, pole keeli millesse t&otilde;lkida."));
-				return;
+				if($languages_in_use->count())
+				{
+					// only one language in use besides original, or requested language was not valid
+					$translation_target_lang_o = $languages_in_use->begin();
+					$this->translation_lang_id = $translation_target_lang_o->prop("db_lang_id");
+				}
+				else
+				{
+					$this->show_msg_text(t("Lubatud on vaid k&auml;esoleva objekti algkeel, pole keeli millesse t&otilde;lkida."));
+					return;
+				}
 			}
 		}
 		else
@@ -5863,6 +5868,20 @@ class class_base extends aw_template implements orb_public_interface
 		$so = 0;
 		$str_translation = t(" (t&otilde;lge)");
 		$str_src_text =  t(" (l&auml;htetekst)");
+		$toolbar = new toolbar();
+		$toolbar->add_button(array(
+			"name" => "save_translations",
+			"icon" => "disk",
+			"action" => "submit_translations",
+			"tooltip" => t("Salvesta")
+		));
+		$ret["__aw_translations_toolbar"] = array(
+			"name" => "__aw_translations_toolbar",
+			"type" => "text",
+			"value" => $toolbar->get_toolbar(),
+			"no_caption" => "1"
+		);
+
 		foreach($props as $p)
 		{
 			if (!isset($ppl[$p]))
@@ -5899,25 +5918,11 @@ class class_base extends aw_template implements orb_public_interface
 			"ord" => ++$so
 		);
 
-		$nm = "sbt_{$this->translation_lang_id}";
-		$ret[$nm] = array(
-			"name" => $nm,
-			"caption" => t("Salvesta"),
-			"type" => "submit",
-			"ord" => ++$so
-		);
-
 		$nm = $this->translation_lang_var_name;
 		$ret[$nm] = array(
 			"name" => $nm,
 			"type" => "hidden",
 			"value" => $this->translation_lang_id
-		);
-
-		$ret["action"] = array(
-			"name" => "action",
-			"type" => "hidden",
-			"value" => "submit_translations"
 		);
 
 		return $ret;
