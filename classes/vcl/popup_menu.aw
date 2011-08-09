@@ -2,15 +2,21 @@
 
 class popup_menu extends aw_template
 {
-	var $items = array();
-	var $menus = array();
-	var $menu_id;
+	private $items = array();
+	private $menus = array();
+	private $menu_id;
 
-	function popup_menu()
+	function popup_menu($menu_id = "")
 	{
 		$this->init("vcl/popup_menu");
 		$this->read_template("js_popup_menu.tpl");
+
+		if ($menu_id)
+		{
+			$this->begin_menu($menu_id);
+		}
 	}
+
 	/**
 
 		@attrib name=begin_menu params=pos api=1
@@ -21,8 +27,8 @@ class popup_menu extends aw_template
 			Sets the popup menu's id and resets items array
 
 		@examples
-                        $popup_menu = get_instance("vcl/popup_menu");
-                        $popup_menu->begin_menu("my_popup_menu");
+			$popup_menu = get_instance("vcl/popup_menu");
+			$popup_menu->begin_menu("my_popup_menu");
 	**/
 	function begin_menu($menu_id)
 	{
