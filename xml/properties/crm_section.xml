@@ -17,6 +17,8 @@
             <table>objects</table>
             <group>general</group>
             <type>textarea</type>
+            <rows>7</rows>
+            <resize_height>-1</resize_height>
             <field>meta</field>
             <method>serialize</method>
             <caption>Kirjeldus</caption>
@@ -113,11 +115,31 @@
             <name>contact</name>
             <table>objects</table>
             <group>Kontaktid</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_ADDRESS</reltype>
+            <type>hidden</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Aadress</caption>
+      </property>
+      <property>
+            <name>address_edit</name>
+            <table>objects</table>
+            <group>Kontaktid</group>
+            <type>releditor</type>
+            <mode>manager</mode>
+            <props>
+                  <num_0>country</num_0>
+                  <num_1>location_data</num_1>
+                  <num_2>location</num_2>
+                  <num_3>street</num_3>
+                  <num_4>house</num_4>
+                  <num_5>apartment</num_5>
+                  <num_6>postal_code</num_6>
+                  <num_7>po_box</num_7>
+            </props>
+            <table_fields>name</table_fields>
+            <reltype>RELTYPE_LOCATION</reltype>
+            <parent>address_editor_container</parent>
+            <no_caption>1</no_caption>
+            <field>address_edit</field>
       </property>
       <property>
             <name>phone_id</name>
@@ -127,6 +149,7 @@
             <reltype>RELTYPE_PHONE</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>other_contact_data_container</parent>
             <caption>Telefon</caption>
       </property>
       <property>
@@ -137,6 +160,7 @@
             <reltype>RELTYPE_TELEFAX</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>other_contact_data_container</parent>
             <caption>Faks</caption>
       </property>
       <property>
@@ -147,6 +171,7 @@
             <reltype>RELTYPE_EMAIL</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>other_contact_data_container</parent>
             <caption>E-posti aadress</caption>
       </property>
       <property>
@@ -157,6 +182,7 @@
             <reltype>RELTYPE_URL</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>other_contact_data_container</parent>
             <caption>Veebiaadress</caption>
       </property>
       <property>
@@ -203,21 +229,6 @@
             </aw_crm_section>
       </tableinfo>
       <reltypes>
-            <SECTION>
-                  <value>1</value>
-                  <clid>CL_CRM_SECTION</clid>
-                  <caption>(pole kasutusel)</caption>
-            </SECTION>
-            <WORKERS>
-                  <value>2</value>
-                  <clid>CL_CRM_PERSON</clid>
-                  <caption>(pole kasutusel)</caption>
-            </WORKERS>
-            <PROFESSIONS>
-                  <value>3</value>
-                  <clid>CL_CRM_PROFESSION</clid>
-                  <caption>(pole kasutusel)</caption>
-            </PROFESSIONS>
             <JOB_OFFER>
                   <value>4</value>
                   <clid>CL_PERSONNEL_MANAGEMENT_JOB_OFFER</clid>
@@ -228,11 +239,6 @@
                   <clid>CL_GROUP</clid>
                   <caption>grupp</caption>
             </GROUP>
-            <ADDRESS>
-                  <value>6</value>
-                  <clid>CL_CRM_ADDRESS</clid>
-                  <caption>Kontaktaadress</caption>
-            </ADDRESS>
             <EMAIL>
                   <value>7</value>
                   <clid>CL_ML_MEMBER</clid>
@@ -263,6 +269,51 @@
                   <clid>CL_EXTLINK</clid>
                   <caption>Veebiaadress</caption>
             </URL>
+            <LOCATION>
+                  <value>13</value>
+                  <clid>CL_ADDRESS</clid>
+                  <caption>Asukoht</caption>
+            </LOCATION>
+            <SECTION>
+                  <value>1</value>
+                  <clid>CL_CRM_SECTION</clid>
+                  <caption>(pole kasutusel)</caption>
+            </SECTION>
+            <WORKERS>
+                  <value>2</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>(pole kasutusel)</caption>
+            </WORKERS>
+            <PROFESSIONS>
+                  <value>3</value>
+                  <clid>CL_CRM_PROFESSION</clid>
+                  <caption>(pole kasutusel)</caption>
+            </PROFESSIONS>
+            <ADDRESS>
+                  <value>6</value>
+                  <clid>CL_CRM_ADDRESS</clid>
+                  <caption>(pole kasutusel)</caption>
+            </ADDRESS>
       </reltypes>
+      <layout>
+            <main_container>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>Kontaktid</group>
+                  <area_caption></area_caption>
+            </main_container>
+            <address_editor_container>
+                  <type>vbox</type>
+                  <area_caption>Aadressid</area_caption>
+                  <parent>main_container</parent>
+                  <group>Kontaktid</group>
+            </address_editor_container>
+            <other_contact_data_container>
+                  <type>vbox</type>
+                  <area_caption>Muud&amp;amp;nbsp;kontaktandmed</area_caption>
+                  <parent>main_container</parent>
+                  <group>Kontaktid</group>
+            </other_contact_data_container>
+      </layout>
 </properties>
 
