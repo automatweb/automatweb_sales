@@ -338,22 +338,6 @@ function lc_init()
 				}
 			}
 
-			// foreach($GLOBALS["cfg"]["syslog"]["types"] as $typid => $td)
-			// {
-				// if (isset($td["def"]) && ($_tmp = t2("syslog.type.".$td["def"])) != "")
-				// {
-					// $GLOBALS["cfg"]["syslog"]["types"][$typid]["name"] = $_tmp;
-				// }
-			// }
-
-			// foreach($GLOBALS["cfg"]["syslog"]["actions"] as $actid => $ad)
-			// {
-				// if (!empty($ad["def"]) && ($_tmp = t2("syslog.action.".$ad["def"])) != "")
-				// {
-					// $GLOBALS["cfg"]["syslog"]["actions"][$actid]["name"] = $_tmp;
-				// }
-			// }
-
 			foreach($GLOBALS["cfg"]["languages"]["list"] as $laid => $ad)
 			{
 				if (($_tmp = t2("languages.list.".$ad["acceptlang"])) != "")
@@ -412,22 +396,6 @@ function lc_site_load($file, $obj)
 	}
 }
 
-function aw_classload($args)
-{
-	$arg_list = func_get_args();
-	while(list(,$lib) = each($arg_list))
-	{
-		// let's not allow including ../../../etc/passwd :)
-		$lib = str_replace(".","", $lib);
-		$lib = $GLOBALS["cfg"]["classdir"].$lib.".".$GLOBALS["cfg"]["ext"];
-		if (is_readable($lib))
-		{
-			include_once($lib);
-		}
-	}
-}
-
-
 // nyyd on voimalik laadida ka mitu librat yhe calliga
 // a la classload("users","groups","someothershit");
 //
@@ -436,7 +404,6 @@ function aw_classload($args)
 // a nuh, muud varianti ka pole - terryf
 function classload($args)
 {
-	//	enter_function("__global::classload",array());
 	$arg_list = func_get_args();
 	while(list(,$lib) = each($arg_list))
 	{
@@ -517,7 +484,6 @@ function get_instance($class, $args = array(), $errors = true)
 	{
 		echo "get_instance $class from ".dbg::short_backtrace()." <br>";
 	}
-	enter_function("__global::get_instance",array());
 
 	$site = $designed = false;
 	if (is_numeric($class))
@@ -645,7 +611,6 @@ function get_instance($class, $args = array(), $errors = true)
 		$instance->init();
 	}
 
-	exit_function("__global::get_instance",array());
 	return $instance;
 }
 
@@ -662,13 +627,6 @@ function load_class_translations($class)
 		require_once($trans_fn);
 	}
 }
-
-function upd_instance($class,$ref)
-{
-	$id = sprintf("instance::%s",$class);
-	aw_global_set($id,$ref);
-}
-
 
 ////
 // !A neat little functional programming function
@@ -834,135 +792,6 @@ function __init_aw_session_track()
 	);
 }
 
-$GLOBALS["error_handler_calls"] = 0;
-
-function __aw_error_handler($errno, $errstr, $errfile, $errline,  $context) // Looks abandoned and used nowhere. To be deprecated?
-{
-	if ($errno == 8 || $errno == 2)
-	{
-		$GLOBALS["error_handler_calls"]++;
-		if (!isset($GLOBALS["error_handler_calls_by_type"][$errno]))
-		{
-			$GLOBALS["error_handler_calls_by_type"][$errno] = 0;
-		}
-		$GLOBALS["error_handler_calls_by_type"][$errno]++;
-
-		if (!isset($GLOBALS["error_handler_calls_by_file"][$errfile]))
-		{
-			$GLOBALS["error_handler_calls_by_file"][$errfile] = 0;
-		}
-		$GLOBALS["error_handler_calls_by_file"][$errfile]++;
-
-		if (!isset($GLOBALS["error_handler_calls_by_file_line"][$errfile][$errline]))
-		{
-			$GLOBALS["error_handler_calls_by_file_line"][$errfile][$errline] = 0;
-		}
-		$GLOBALS["error_handler_calls_by_file_line"][$errfile][$errline]++;
-		return;
-	}
-
-	$is_rpc_call = $GLOBALS["__aw_globals"]["__is_rpc_call"];
-	$rpc_call_type = $GLOBALS["__aw_globals"]["__rpc_call_type"];
-
-	$msg = "Suhtuge veateadetesse rahulikult!  Te ei ole korda saatnud midagi katastroofilist. Ilmselt juhib programm Teie t&auml;helepanu mingile ebat&auml;psusele  andmetes v&otilde;i n&auml;puveale.<Br><br>\n\n PHP error: errno = $errno , errstr = $errstr, errfile = $errfile, errline = $errline , context = $context\n<br>";
-
-	// meilime veateate listi ka
-	$subj = "Viga saidil ".$GLOBALS["cfg"]["baseurl"];
-	if (!$is_rpc_call && !headers_sent())
-	{
-		header("X-AW-Error: 1");
-	}
-	$content = "\nVeateade: ".$msg;
-	$content.= "\nKood: ".$err_type;
-	$content.= "\nfatal = ".($fatal ? "Jah" : "Ei" )."\n";
-	$content.= "PHP_SELF = ".$GLOBALS["__aw_globals"]["PHP_SELF"]."\n";
-	$content.= "lang_id = ".$GLOBALS["__aw_globals"]["lang_id"]."\n";
-	$content.= "uid = ".$GLOBALS["__aw_globals"]["uid"]."\n";
-	$content.= "section = ".$GLOBALS["section"]."\n";
-	$content.= "url = ".$GLOBALS["cfg"]["baseurl"].$GLOBALS["__aw_globals"]["REQUEST_URI"]."\n-----------------------\n";
-	$content.= "is_rpc_call = $is_rpc_call\n";
-	$content.= "rpc_call_type = $rpc_call_type\n";
-	foreach($_COOKIE as $k => $v)
-	{
-		$content.="_COOKIE[$k] = $v \n";
-	}
-	foreach($_GET as $k => $v)
-	{
-		$content.="_GET[$k] = $v \n";
-	}
-	foreach($_POST as $k => $v)
-	{
-		$content.="_POST[$k] = $v \n";
-	}
-	foreach($_SERVER as $k => $v)
-	{
-		// we will not send out the password or the session key
-		if ( ($k == "PHP_AUTH_PW") || ($k == "automatweb") )
-		{
-			continue;
-		};
-		$content.="_SERVER[$k] = $v \n";
-	}
-
-		// also attach backtrace
-		if (function_exists("debug_backtrace"))
-		{
-			$content .= "<br><br> Backtrace: \n\n<Br><br>";
-			$bt = debug_backtrace();
-			for ($i = count($bt)-1; $i > 0; $i--)
-			{
-				if ($bt[$i+1]["class"] != "")
-				{
-					$fnm = "method <b>".$bt[$i+1]["class"]."::".$bt[$i+1]["function"]."</b>";
-				}
-				else
-				if ($bt[$i+1]["function"] != "")
-				{
-					$fnm = "function <b>".$bt[$i+1]["function"]."</b>";
-				}
-				else
-				{
-					$fnm = "file ".$bt[$i]["file"];
-				}
-
-				$content .= $fnm." on line ".$bt[$i]["line"]." called <br>\n";
-
-				if ($bt[$i]["class"] != "")
-				{
-					$fnm2 = "method <b>".$bt[$i]["class"]."::".$bt[$i]["function"]."</b>";
-				}
-				else
-				if ($bt[$i]["function"] != "")
-				{
-					$fnm2 = "function <b>".$bt[$i]["function"]."</b>";
-				}
-				else
-				{
-					$fnm2 = "file ".$bt[$i]["file"];
-				}
-
-				$conten .= $fnm2." with arguments ";
-
-				$content .= "<font size=\"-1\">(".join(",", $bt[$i]["args"]).") file = ".$bt[$i]["file"]."</font>";
-
-				$content .= " <br><br>\n\n";
-			}
-		}
-
-	$head = "";
-	//mail("vead@struktuur.ee", $subj, $content,$head);
-
-	die(t("<br><b>AW_ERROR: $msg</b><br>"));
-}
-
-function log_pv($mt)
-{return;
-	if (is_readable("/home/revalhotels/automatweb_dev/logger.aw"))
-	{
-		include_once("/home/revalhotels/automatweb_dev/logger.aw");
-	}
-}
-
 function call_fatal_handler($str)
 {
 	if (function_exists($GLOBALS["fatal_error_handler"]))
@@ -971,54 +800,7 @@ function call_fatal_handler($str)
 	}
 }
 
-function incl_f($lib)
-{
-	return;
-	static $f;
-	if ($f[$lib] == 1)
-	{
-		return;
-	}
-	$f[$lib] = 1;
-	echo "$lib ";
-	echo shbt()." <Br>";
-}
-
-function shbt()
-{
-	$msg = "";
-	if (function_exists("debug_backtrace"))
-	{
-		$bt = debug_backtrace();
-		for ($i = count($bt); $i >= 0; $i--)
-		{
-			if ($bt[$i+1]["class"] != "")
-			{
-				$fnm = $bt[$i+1]["class"]."::".$bt[$i+1]["function"];
-			}
-			else
-			if ($bt[$i+1]["function"] != "")
-			{
-				if ($bt[$i+1]["function"] != "include")
-				{
-					$fnm = $bt[$i+1]["function"];
-				}
-				else
-				{
-					$fnm = "";
-				}
-			}
-			else
-			{
-				$fnm = "";
-			}
-
-			$msg .= $fnm.":".$bt[$i]["line"]."->";
-		}
-	}
-
-	return $msg;
-}
+function incl_f($lib) { return; } //DEPRECATED
 
 function check_pagecache_folders()
 {
@@ -1042,14 +824,14 @@ function check_pagecache_folders()
 			for($i = 0; $i < 16; $i++)
 			{
 				$ffq = $fq ."/".($i < 10 ? $i : chr(ord('a') + ($i- 10)));
-				@mkdir($ffq, 0777);
+				mkdir($ffq, 0777);
 				chmod($ffq, 0777);
 			}
 		}
 	}
 	if (!is_dir($pg."/temp"))
 	{
-		@mkdir($pg."/temp", 0777);
+		mkdir($pg."/temp", 0777);
 		chmod($pg."/temp", 0777);
 		touch($pg."/temp/lmod");
 	}
