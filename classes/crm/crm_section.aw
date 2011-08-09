@@ -15,7 +15,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 @default table=objects
 @default group=general
 
-@property description type=textarea field=meta method=serialize
+@property description type=textarea rows=7 resize_height=-1 field=meta method=serialize
 @caption Kirjeldus
 
 @property code type=textbox size=4 field=meta method=serialize
@@ -45,57 +45,49 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 @property public type=checkbox ch_value=1 field=meta method=serialize
 @caption Avalik
 
+
 @groupinfo Kontaktid caption="Kontaktid"
 @default group=Kontaktid
+	//DEPRECATED
+	@property contact type=hidden field=meta method=serialize
 
-	@property contact type=relpicker reltype=RELTYPE_ADDRESS field=meta method=serialize
-	@caption Aadress
+	@layout main_container type=hbox width=50%:50%
+	@layout address_editor_container type=vbox area_caption=Aadressid parent=main_container
+	@layout other_contact_data_container type=vbox area_caption=Muud&nbsp;kontaktandmed parent=main_container
 
-	@property phone_id type=relpicker reltype=RELTYPE_PHONE field=meta method=serialize
+	@property address_edit type=releditor mode=manager delete_objects=1 props=country,location_data,location,street,house,apartment,postal_code,po_box table_fields=name reltype=RELTYPE_LOCATION parent=address_editor_container no_caption=1
+
+	@property phone_id type=relpicker reltype=RELTYPE_PHONE field=meta method=serialize parent=other_contact_data_container
 	@caption Telefon
 
-	@property telefax_id type=relpicker reltype=RELTYPE_TELEFAX field=meta method=serialize
+	@property telefax_id type=relpicker reltype=RELTYPE_TELEFAX field=meta method=serialize parent=other_contact_data_container
 	@caption Faks
 
-	@property email_id type=relpicker reltype=RELTYPE_EMAIL field=meta method=serialize
+	@property email_id type=relpicker reltype=RELTYPE_EMAIL field=meta method=serialize parent=other_contact_data_container
 	@caption E-posti aadress
 
-	@property url type=relpicker reltype=RELTYPE_URL field=meta method=serialize
+	@property url type=relpicker reltype=RELTYPE_URL field=meta method=serialize parent=other_contact_data_container
 	@caption Veebiaadress
+
 
 @groupinfo wpls caption="T&ouml;&ouml;kohad"
 @default group=wpls
-
 	@property wpls type=relpicker reltype=RELTYPE_WORKPLACE multiple=1 store=connect automatic=1
 	@caption T&ouml;&ouml;kohad
 
+
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
-//DEPRECATED
-@reltype SECTION value=1 clid=CL_CRM_SECTION
-@caption (pole kasutusel)
-// @caption Alam&uuml;ksus
-//DEPRECATED
-@reltype WORKERS value=2 clid=CL_CRM_PERSON
-@caption (pole kasutusel)
-// @caption Liige
-//DEPRECATED
-@reltype PROFESSIONS value=3 clid=CL_CRM_PROFESSION
-@caption (pole kasutusel)
-// @caption Roll
+
 
 @reltype JOB_OFFER value=4 clid=CL_PERSONNEL_MANAGEMENT_JOB_OFFER
 @caption T&ouml;&ouml;pakkumine
 
 @reltype GROUP value=5 clid=CL_GROUP
 @caption grupp
-
-@reltype ADDRESS value=6 clid=CL_CRM_ADDRESS
-@caption Kontaktaadress
 
 @reltype EMAIL value=7 clid=CL_ML_MEMBER
 @caption E-post
@@ -115,18 +107,40 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 @reltype URL value=12 clid=CL_EXTLINK
 @caption Veebiaadress
 
+@reltype LOCATION value=13 clid=CL_ADDRESS
+@caption Asukoht
+
+
+//DEPRECATED
+@reltype SECTION value=1 clid=CL_CRM_SECTION
+@caption (pole kasutusel)
+// @caption Alam&uuml;ksus
+//DEPRECATED
+@reltype WORKERS value=2 clid=CL_CRM_PERSON
+@caption (pole kasutusel)
+// @caption Liige
+//DEPRECATED
+@reltype PROFESSIONS value=3 clid=CL_CRM_PROFESSION
+@caption (pole kasutusel)
+// @caption Roll
+//DEPRECATED
+@reltype ADDRESS value=6 clid=CL_CRM_ADDRESS
+// @caption Kontaktaadress
+@caption (pole kasutusel)
+
 */
 
 class crm_section extends class_base
 {
+	protected $trans_props = array(
+		"name"
+	);
+
 	function crm_section()
 	{
 		$this->init(array(
 			"clid" => CL_CRM_SECTION
 		));
-		$this->trans_props = array(
-			"name"
-		);
 	}
 
 	function get_folders_as_object_list($o, $level, $parent)
@@ -134,13 +148,13 @@ class crm_section extends class_base
 		// I need all objects that target this one
 		// $o - is the sector object
 		$conns = $o->connections_to(array(
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => CL_CRM_PERSON
 		));
 		$ol = new object_list();
 		foreach($conns as $conn)
 		{
 			$ol->add($conn->prop("from"));
-		};
+		}
 		return $ol;
 	}
 
@@ -149,14 +163,7 @@ class crm_section extends class_base
 		// right, now I need to implement the proper code
 		// need to figure out the section!
 		$sect = $o->prop("sect");
-		return $this->mk_my_orb("show",array("id" => $o->id(),"section" => aw_global_get("section")),CL_CRM_PERSON);
-		//return aw_ini_get("baseurl") . "/" . $o->id() . "?oid=" . $sect;
-		/*
-		print "swching";
-		print "<pre>";
-		var_dump($o->name());
-		print "</pre>";
-		*/
+		return $this->mk_my_orb("show",array("id" => $o->id(),"section" => aw_global_get("section")), "crm_person");
 	}
 
 
@@ -174,9 +181,9 @@ class crm_section extends class_base
 
 			case "grp_crea":
 				$prop["options"] = array(
-					"has_group" => "sellele &uuml;ksusele",
-					"has_group_subs" => "alam&uuml;ksustele",
-					"has_group_subs_prof" => "ametinimetustele"
+					"has_group" => t("sellele &uuml;ksusele"),
+					"has_group_subs" => t("alam&uuml;ksustele"),
+					"has_group_subs_prof" => t("ametinimetustele")
 				);
 				$prop["value"]["has_group"] = $arr["obj_inst"]->prop("has_group");
 				$prop["value"]["has_group_subs"] = $arr["obj_inst"]->prop("has_group_subs");
@@ -242,7 +249,7 @@ class crm_section extends class_base
 
 	function get_all_org_professions($org_id, $recrusive=false)
 	{
-		$obj = &obj($org_id);
+		$obj = obj($org_id);
 		foreach ($obj->connections_from(array("type" => "RELTYPE_PROFESSIONS")) as $prof_conn)
 		{
 			$rtrn[$prof_conn->prop('to')] = $prof_conn->prop('to.name');
@@ -317,6 +324,7 @@ class crm_section extends class_base
 		{
 			$retval->add($section->get_workers());
 		}
+
 		if($recrusive)
 		{
 			foreach ($section->connections_from(array("type" => "RELTYPE_SECTION")) as $subsection)
@@ -356,7 +364,7 @@ class crm_section extends class_base
 
 	function get_section_job_ids($unit_id)
 	{
-		$section_obj = &obj($unit_id);
+		$section_obj = obj($unit_id);
 		foreach ($section_obj->connections_from(array("type" => "RELTYPE_JOB_OFFER")) as $joboffer)
 		{
 			$jobs_ids[] = $joboffer->prop("to");
