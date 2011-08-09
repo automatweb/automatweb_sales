@@ -35,7 +35,7 @@ class timepicker extends core implements vcl_interface
 			"name" => $arr["name"],
 			"value" => isset($arr["value"]) ? self::get_time($arr["value"]) : "",
 			"disabled" => isset($arr["disabled"]) ? $arr["disabled"] : false,
-			"size" => 2,
+			"size" => 3,
 			"textsize" => !empty($arr["textsize"]) ? $arr["textsize"] : null
 		));
 		$timepicker = <<<EOS
