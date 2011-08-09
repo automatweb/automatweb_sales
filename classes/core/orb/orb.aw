@@ -1128,7 +1128,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		static $r_use_orb;
 		if (!isset($r_use_orb))
 		{
-			$r_use_orb = basename($_SERVER["SCRIPT_NAME"],".aw") === "orb";
+			$r_use_orb = basename($_SERVER["SCRIPT_NAME"], AW_FILE_EXT) === "orb";
 		}
 
 		if (!$honor_r_orb)
@@ -1155,7 +1155,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 		if ($use_orb || $r_use_orb)
 		{
-			$res .= "orb.aw";
+			$res .= "orb" . AW_FILE_EXT;
 		}
 
 		$res .= ($sep === "/") ? "/" : "?";

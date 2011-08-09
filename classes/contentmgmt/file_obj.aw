@@ -17,7 +17,7 @@ class file_obj extends _int_object
 		{
 			if ($ret["meta"]["file_url"] != "")
 			{
-				$proto_find = get_instance("protocols/protocol_finder");
+				$proto_find = new protocol_finder();
 				$proto_inst = $proto_find->inst($ret["meta"]["file_url"]);
 
 				$ret["content"] = $proto_inst->get($ret["meta"]["file_url"]);
@@ -48,10 +48,10 @@ class file_obj extends _int_object
 			else
 			{
 				$this->dequote($ret["content"]);
-			};
+			}
 		}
 
-		if (aw_ini_get("user_interface.content_trans") == 1 && ($cur_lid = aw_global_get("lang_id")) != $tmpo->lang_id())
+		if (aw_ini_get("user_interface.content_trans") == 1 && ($cur_lid = aw_global_get("lang_id")) != $this->lang_id())
 		{
 			$trs = $this->meta("translations");
 			if (isset($trs[$cur_lid]))
@@ -77,7 +77,7 @@ class file_obj extends _int_object
 		$f2 = substr($f1, $slash1+1);
 
 		// add site basedir
-		return aw_ini_get("site_basedir")."/files/".$f2."/".substr($fname, $slash+1);
+		return aw_ini_get("site_basedir")."files/".$f2."/".substr($fname, $slash+1);
 	}
 
 	/** Returns the download url for the file.

@@ -8,7 +8,7 @@
 <html>
 <?php
 
-class check_server_conf 
+class check_server_conf
 {
 	function _get_results($arr)
 	{
@@ -59,14 +59,14 @@ class check_server_conf
 		return $t->draw();
 	}
 
-	function _php_settings(&$t)
+	function _php_settings($t)
 	{
 		// modules
 		// 	eaccelerator
 		//	calendar: recommended
 		//	curl: realestate / ut_xml / digidoc
 		//	exif: recommended / minigallery / image
-		// 	ftp: persona_import  / gallery_v2 / xml_export / scala_import 
+		// 	ftp: persona_import  / gallery_v2 / xml_export / scala_import
 		//	gd: if ! imagemagick/imagick  / gallery / image
 		//	iconv: bloody everything
 		//	imap: messenger
@@ -83,14 +83,14 @@ class check_server_conf
 		$loaded_exts = get_loaded_extensions();
 
 		$opt_exts = array(
-			"calendar" => "", 
-			"curl" => "Kinnisvara import, UT xml import, digidoc", 
-			"exif" => "minigalerii, pilt", 
-			"ftp" => "persona import, galerii v2, xml eksport, scala import", 
-			"gd" => "galerii, pilt",  
-			"imap" => "messenger", 
-			"ldap" => "ldap autentimine", 
-			"mssql" => "awmyadmin msqql serveritega", 
+			"calendar" => "",
+			"curl" => "Kinnisvara import, UT xml import, digidoc",
+			"exif" => "minigalerii, pilt",
+			"ftp" => "persona import, galerii v2, xml eksport, scala import",
+			"gd" => "galerii, pilt",
+			"imap" => "messenger",
+			"ldap" => "ldap autentimine",
+			"mssql" => "awmyadmin msqql serveritega",
 			"openssl" => "pangamaksed, id kaart",
 		);
 		$req_exts = array(
@@ -103,7 +103,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("N&otilde;utud PHP laiendid"),
-					"setting" => $ext, 
+					"setting" => $ext,
 					"result" => t("OK"),
 					"col" => "#00FF00",
 				));
@@ -112,7 +112,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("N&otilde;utud PHP laiendid"),
-					"setting" => $ext, 
+					"setting" => $ext,
 					"result" => t("Laadimata, vajalik!"),
 					"col" => "#FF0000"
 				));
@@ -125,7 +125,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("Soovitatud PHP laiendid"),
-					"setting" => $ext, 
+					"setting" => $ext,
 					"result" => t("OK"),
 					"col" => "#00FF00",
 					"why" => $mods
@@ -135,7 +135,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("Soovitatud PHP laiendid"),
-					"setting" => $ext, 
+					"setting" => $ext,
 					"result" => t("Laadimata, soovitatav!"),
 					"col" => "#e1a9a9",
 					"why" => $mods
@@ -144,9 +144,9 @@ class check_server_conf
 		}
 
 		// ini settings
-		// 	file_uploads post_max_size safe_mode upload_max_filesize 
+		// 	file_uploads post_max_size safe_mode upload_max_filesize
 		//	eaccel: eaccelerator.check_mtime eaccelerator.compress eaccelerator.enable eaccelerator.optimizer eaccelerator.shm_only eaccelerator.shm_size
-		//	session: session.bug_compat_42 session.bug_compat_warn 
+		//	session: session.bug_compat_42 session.bug_compat_warn
 		$req_inis = array(
 			"session.bug_compat_42" => 1,
 			"session.bug_compat_warn" => 0
@@ -170,7 +170,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("N&otilde;utud PHP INI settingud"),
-					"setting" => $setting, 
+					"setting" => $setting,
 					"result" => t("OK"),
 					"col" => "#00FF00",
 					"why" => $val
@@ -180,7 +180,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("N&otilde;utud PHP INI settingud"),
-					"setting" => $setting, 
+					"setting" => $setting,
 					"result" => t("Vale v&auml;&auml;rtus! (".ini_get($setting).")"),
 					"col" => "#FF0000",
 					"why" => $val
@@ -202,7 +202,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("Soovitavad PHP INI settingud"),
-					"setting" => $setting, 
+					"setting" => $setting,
 					"result" => t("OK"),
 					"col" => "#00FF00",
 					"why" => $val
@@ -212,7 +212,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("Soovitavad PHP INI settingud"),
-					"setting" => $setting, 
+					"setting" => $setting,
 					"result" => t("Vale v&auml;&auml;rtus! (".ini_get($setting).")"),
 					"col" => "#FF0000",
 					"why" => $val
@@ -221,28 +221,28 @@ class check_server_conf
 		}
 	}
 
-	function _mysql_settings(&$t)
+	function _mysql_settings($t)
 	{
-		
+
 	}
 
-	function _server_folders(&$t)
+	function _server_folders($t)
 	{
 		// pagecache
 		$tf = aw_ini_get("cache.page_cache")."/chk";
-		$f = @fopen($tf, "w");
+		$f = fopen($tf, "w");
 		$writeable = $f ? true : false;
 		if ($f)
 		{
 			fwrite($f, "a");
 			fclose($f);
-			@unlink($tf);
+			unlink($tf);
 		}
 		if ($writeable)
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => aw_ini_get("cache.page_cache"), 
+				"setting" => aw_ini_get("cache.page_cache"),
 				"result" => t("OK"),
 				"col" => "#00FF00",
 				"why" => "pagecache failid"
@@ -252,7 +252,7 @@ class check_server_conf
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => aw_ini_get("cache.page_cache"), 
+				"setting" => aw_ini_get("cache.page_cache"),
 				"result" => t("Ei saa kirjutada!"),
 				"col" => "#FF0000",
 				"why" => "pagecache failid"
@@ -260,14 +260,14 @@ class check_server_conf
 		}
 		// files in lang folder for site, so that translation editor can work
 		$wt = false;
-		$fs = $this->files(aw_ini_get("site_basedir")."/lang");
+		$fs = $this->files(aw_ini_get("site_basedir")."lang");
 		foreach($fs as $file)
 		{
 			if (!is_writable($file))
 			{
 				$t->define_data(array(
 					"grp" => t("Serveri kataloogid"),
-					"setting" => $file, 
+					"setting" => $file,
 					"result" => t("Ei saa kirjutada!"),
 					"col" => "#e1a9a9",
 					"why" => "T&otilde;lgete editor ei saa faili kirjutada!"
@@ -276,12 +276,12 @@ class check_server_conf
 		}
 
 		// scheduler
-		$tf = aw_ini_get("basedir")."/files/scheduler.schedule";
+		$tf = aw_ini_get("basedir")."files/scheduler.schedule";
 		if (is_writeable($tf))
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => $tf, 
+				"setting" => $tf,
 				"result" => t("OK"),
 				"col" => "#00FF00",
 				"why" => "scheduleri ajakava"
@@ -291,20 +291,20 @@ class check_server_conf
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => $tf, 
+				"setting" => $tf,
 				"result" => t("Ei saa kirjutada!"),
 				"col" => "#FF0000",
 				"why" => "scheduleri ajakava"
 			));
 		}
-		
+
 		// code files
-		$tf = aw_ini_get("basedir")."/files";
+		$tf = aw_ini_get("basedir")."files";
 		if (is_writeable($tf))
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => $tf, 
+				"setting" => $tf,
 				"result" => t("OK"),
 				"col" => "#00FF00",
 				"why" => "koodi juures olevad failid"
@@ -314,7 +314,7 @@ class check_server_conf
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => $tf, 
+				"setting" => $tf,
 				"result" => t("Ei saa kirjutada!"),
 				"col" => "#FF0000",
 				"why" => "koodi juures olevad failid"
@@ -322,12 +322,12 @@ class check_server_conf
 		}
 
 		// site files
-		$tf = aw_ini_get("site_basedir")."/files";
+		$tf = aw_ini_get("site_basedir")."files";
 		if (is_writeable($tf))
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => $tf, 
+				"setting" => $tf,
 				"result" => t("OK"),
 				"col" => "#00FF00",
 				"why" => "saidi juures olevad failid"
@@ -337,7 +337,7 @@ class check_server_conf
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => $tf, 
+				"setting" => $tf,
 				"result" => t("Ei saa kirjutada!"),
 				"col" => "#FF0000",
 				"why" => "saidi juures olevad failid"
@@ -350,7 +350,7 @@ class check_server_conf
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => $tf, 
+				"setting" => $tf,
 				"result" => t("OK"),
 				"col" => "#00FF00",
 				"why" => "ajutiste failide kataloog"
@@ -360,7 +360,7 @@ class check_server_conf
 		{
 			$t->define_data(array(
 				"grp" => t("Serveri kataloogid"),
-				"setting" => $tf, 
+				"setting" => $tf,
 				"result" => t("Ei saa kirjutada!"),
 				"col" => "#FF0000",
 				"why" => "ajutiste failide kataloog"
@@ -368,12 +368,12 @@ class check_server_conf
 		}
 	}
 
-	function _server_software(&$t)
+	function _server_software($t)
 	{
-		$sets = array( 
+		$sets = array(
 			"server.mysqldump_path" => "backup, statistika arhiiv",
 			"server.mysql_path" => "statistika arhiiv",
-			"server.gzip_path" => "google sitemap, statistika arhiiv", 
+			"server.gzip_path" => "google sitemap, statistika arhiiv",
 			"server.gunzip_path" => "statistika arhiiv",
 			"server.tar_path" => "backup",
 			"server.zip_path" => "saidi html eksport",
@@ -387,7 +387,7 @@ class check_server_conf
 			"server.rtf2txt" => "otsing RTF failidest",
 			"server.catppt" => "otsing PPT failidest",
 			"server.pdftotext" => "otsing PDF failidest",
-			"server.catdoc" => "otsing DOC failidest", 
+			"server.catdoc" => "otsing DOC failidest",
 			"html2pdf.htmldoc_path" => "HTMList PDF genereerimine"
 		);
 		foreach($sets as $ini => $why)
@@ -397,7 +397,7 @@ class check_server_conf
 				// try and find the damn thing
 				list(, $prg) = explode(".", $ini);
 				$prg = str_replace("_path", "", str_replace("_dir", "", $prg));
-				
+
 				$rpath = `which $prg`;
 				if (trim($rpath) == "")
 				{
@@ -409,7 +409,7 @@ class check_server_conf
 							$rpath = $line;
 						}
 					}
-				}	
+				}
 
 				$app = "<br>Praegune m&auml;&auml;rang: ".aw_ini_get($ini)." <br>";
 				if (trim($rpath) != "")
@@ -418,7 +418,7 @@ class check_server_conf
 				}
 				$t->define_data(array(
 					"grp" => t("Serveri programmid"),
-					"setting" => $ini, 
+					"setting" => $ini,
 					"result" => t("Ei ole k&auml;ivitatav!").$app,
 					"col" => "#e1a9a9",
 					"why" => $why
@@ -428,7 +428,7 @@ class check_server_conf
 			{
 				$t->define_data(array(
 					"grp" => t("Serveri programmid"),
-					"setting" => $ini, 
+					"setting" => $ini,
 					"result" => t("OK - ").aw_ini_get($ini),
 					"col" => "#00FF00",
 					"why" => $why
@@ -471,13 +471,13 @@ class check_server_conf
 	function dirfiles($dir)
 	{
 		$files = array();
-		if ($DH = @opendir($dir)) {
+		if ($DH = opendir($dir)) {
 			while (false !== ($file = readdir($DH))) {
 				$fn = $dir . "/" . $file;
 				if (is_file($fn) && (substr($fn, -2) == "aw"))
 				{
 					$files[$fn] = $fn;
-				};
+				}
 			}
 			closedir($DH);
 		}
@@ -487,13 +487,13 @@ class check_server_conf
 	function dirdirs($dir)
 	{
 		$files = array();
-		if ($DH = @opendir($dir)) {
+		if ($DH = opendir($dir)) {
 			while (false !== ($file = readdir($DH))) {
 				$fn = $dir . "/" . $file;
 				if (is_dir($fn) && $file != "." && $file != "..")
 				{
 					$files[$fn] = $fn;
-				};
+				}
 			}
 			closedir($DH);
 		}
@@ -503,7 +503,7 @@ class check_server_conf
 
 
 
-class aw_table 
+class aw_table
 {
 	////
 	// !constructor - paramaters:
@@ -514,7 +514,7 @@ class aw_table
 	var $filter_name = "awTblFlt";
 	var $name = "awTable0";
 
-	var $table_caption = ''; 
+	var $table_caption = '';
 	var $parsed_pageselector = '';
 
 	function aw_table($data = array())
@@ -553,7 +553,7 @@ class aw_table
 		$this->selected_filters = array();
 		$this->filter_index = array();
 		$this->rowspans = array();
-		
+
 		if ($data["prop_name"] != "")
 		{
 			$this->filter_name = $data["prop_name"].$_GET["id"];
@@ -798,7 +798,8 @@ class aw_table
 		if ($this->headerlinkclassid)
 		{
 			$hlcl=" class='".$this->headerlinkclassid."' ";
-		};
+		}
+
 		reset($links);
 		while(list($k,$v) = each($links))
 		{
@@ -1164,7 +1165,7 @@ class aw_table
 		   return ($a["order"] < $b["order"]) ? -1 : 1;
 		}
 	}
-	
+
 	/**
 		@attrib api=1 params=name
 		@param header required type=array
@@ -1175,7 +1176,7 @@ class aw_table
 			Second row's data. Array has the same structure as define_data() parameter.
 		@param finalize optional type=array
 			if this is set to true, html source for the table is returned.
-		
+
 		@errors
 			if $arg["header"] is not array or hasn't any fields in it... funcion returns false.
 		@comment
@@ -2114,12 +2115,12 @@ class aw_table
 		@param numeric optional type=bool
 		@param filter_compare optional array
 		@param order optional
-		
+
 		@param onclick optional type=string
 			variable name for onClick actions in define_field function
 		@param rowspan optional type=string
 			variable name for roswpan in define_field function
-			
+
 		@param filter optional
 
 		@param filter_options optional
@@ -2201,7 +2202,7 @@ class aw_table
 		}
 		$this->rowdefs_key_index = array_flip($tmp);
 	}
-	
+
 	function field_exists($field)
 	{
 		return isset($this->rowdefs_key_index[$field]);
@@ -2556,7 +2557,7 @@ class aw_table
 		{
 			$style = "class=\"style_".$style."\"";
 		}
-		
+
 		$_drc = ($arr["d_row_cnt"] ? $arr["d_row_cnt"] : $this->d_row_cnt);
 
 		$act_page = $GLOBALS["ft_page"];
@@ -3029,7 +3030,7 @@ class vcl_table extends aw_table
 			<div class="navigaator">
 				<!-- siia tuleb ühel ilusal päeval lehtede kruttimise navigaator, homseks seda vaja pole, seega las see div jääb tühjaks -->
 				'.$pageselector_top.'
-				
+
 			</div>
 		    </div>
 		    <div class="sisu">
@@ -3039,7 +3040,7 @@ class vcl_table extends aw_table
 		    </div>
 		    <div>
 				'.$pageselector_bottom.'
-		    </div>	
+		    </div>
 		</div>';
 		return $rv;
 	}

@@ -3551,9 +3551,7 @@ d)
 		}
 		$filter = array(
 			"class_id" => CL_MESSAGE,
-			"site_id" => array(),
-			"lang_id" => array(),
-			"parent" => $arr["bills"],
+			"parent" => $arr["bills"]
 		);
 
 		$t = new object_data_list(
@@ -3587,12 +3585,11 @@ d)
 
 	}
 
-
 	private function all_bill_customers()
 	{
 		$filter = array(
 			"class_id" => CL_CRM_BILL,
-			"CL_CRM_BILL.customer" =>  new obj_predicate_compare(OBJ_COMP_GREATER, 0),
+			"CL_CRM_BILL.customer" =>  new obj_predicate_compare(OBJ_COMP_GREATER, 0)
 		);
 
 		$t = new object_data_list(
@@ -3609,7 +3606,7 @@ d)
 
 	function _get_quality_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		if($arr["request"]["tf"])
 		{
@@ -3636,9 +3633,8 @@ d)
 
 	function _get_quality_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "st";
-		classload("core/icons");
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -3648,8 +3644,6 @@ d)
 
 		$bills_inst = get_instance(CL_CRM_BILL);
 		$states = $bills_inst->states;
-
-
 
 		$menu = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_QUALITY_MENU");
 		if(is_object($menu))
@@ -3681,7 +3675,7 @@ d)
 
 	function _get_quality_list($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"caption" => t("Nimi"),
@@ -3718,9 +3712,6 @@ d)
 //					)),
 				));
 			}
-
 		}
-
 	}
-
 }

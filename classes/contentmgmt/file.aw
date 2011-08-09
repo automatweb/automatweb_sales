@@ -1118,7 +1118,7 @@ class file extends class_base
 		{
 			if (!empty($ret["meta"]["file_url"]))
 			{
-				$proto_find = get_instance("protocols/protocol_finder");
+				$proto_find = new protocol_finder();
 				$proto_inst = $proto_find->inst($ret["meta"]["file_url"]);
 
 				$ret["content"] = $proto_inst->get($ret["meta"]["file_url"]);
