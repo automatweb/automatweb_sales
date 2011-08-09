@@ -7,11 +7,11 @@ jQuery.aw_releditor = function(arr) {
 	jQuery.get("/orb.aw?class=releditor&action=js_get_delete_confirmation_text", function(data){
 		s_alert_on_delete = data;
 	});
-	
+
 	jQuery(document).ready(function() {
    		_handle_events();
  	});
-	
+
 	function _handle_events()
 	{
 		// add/change btn events
@@ -27,7 +27,7 @@ jQuery.aw_releditor = function(arr) {
 			_renew_and_save_form();
 			return false;
 		});
-		
+
 		handle_change_links();
 		handle_delete_links();
 	}
@@ -38,13 +38,13 @@ jQuery.aw_releditor = function(arr) {
 	function do_edit()
 	{
 		data = jQuery("#"+arr["releditor_name"]+"_data").serialize();
-		
+
 		// change button name when editing not adding
 		jQuery.get("/orb.aw?class=releditor&action=js_get_button_name&is_edit=1", function(change_btn_name){
 			btn = jQuery("input[name="+arr["releditor_name"]+"]");
 			btn.attr("value", change_btn_name);
 		});
-		
+
 		jQuery.ajax({
 			type: "POST",
 			url: "/orb.aw?class=releditor&action=js_change_data&releditor_name="+arr["releditor_name"]+"&edit_index="+i_releditor_edit_index+"&main_clid="+arr["main_clid"],
@@ -55,7 +55,7 @@ jQuery.aw_releditor = function(arr) {
 			}
 		});
 	}
-	
+
 	/*
 		fills the form for editing
 	*/
@@ -87,7 +87,7 @@ jQuery.aw_releditor = function(arr) {
 							jQuery(this).attr("selected", true)
 						}
 					}
-					
+
 				});
 			}
 			else if (jQuery(this).attr("type") == "checkbox")
@@ -111,7 +111,7 @@ jQuery.aw_releditor = function(arr) {
 		i_releditor_edit_index_last_edit = i_releditor_edit_index;
 		is_edit_mode = true;
 	}
-	
+
 	/*
 		adds delete events to delete links
 	*/
@@ -141,7 +141,7 @@ jQuery.aw_releditor = function(arr) {
 			return false;
 		});
 	}
-	
+
 	function handle_change_links()
 	{
 		// and add edit btn events
@@ -151,20 +151,20 @@ jQuery.aw_releditor = function(arr) {
 			return false;
 		});
 	}
-	
+
 	/*
 		send data to be edited
 	*/
 	function _renew_and_save_form()
 	{
-		var a_elements = new Array();
+		var a_elements = new Array(); //XXX: pole kasutusel?
 		if (is_edit_mode)
 		{
 			tmp_index = i_releditor_form_index;
 			i_releditor_form_index = i_releditor_edit_index
 			// class info
 		}
-		form = jQuery("form [name^="+arr["releditor_name"]+"\["+i_releditor_form_index+"][type!=submit]").not("a");
+		form = jQuery("form [name^="+arr["releditor_name"]+"\["+i_releditor_form_index+"][type!=button]").not("a");
 		s_form = form.serialize();
 		s_form_extension = jQuery("#"+arr["releditor_name"]+"_data").serialize();
 		data = s_form_extension.length>0 ? s_form+"&"+s_form_extension : s_form;
@@ -175,6 +175,7 @@ jQuery.aw_releditor = function(arr) {
 		data += "&id="+arr["id"];
 		data += "&use_clid="+arr["use_clid"];
 		data += "&start_from_index="+arr["start_from_index"];
+
 		jQuery.ajax({
 			type: "POST",
 			url: "/orb.aw?class=releditor&action=handle_js_submit",
@@ -193,12 +194,12 @@ jQuery.aw_releditor = function(arr) {
 					handle_change_links();
 					handle_delete_links();
 					location.href="#"+arr["releditor_name"];
-					
+
 					if (is_edit_mode)
 					{
 						i_releditor_form_index = tmp_index;
 					}
-					
+
 					form.each(function()
 					{
 						s_prop_name = _get_prop_name(jQuery(this).attr("name"));
@@ -213,10 +214,10 @@ jQuery.aw_releditor = function(arr) {
 						jQuery(this).attr("name", arr["releditor_name"]+"["+next_index+"]"+s_prop_name);
 						jQuery(this).reset();
 					});
-					
+
 					if (is_edit_mode)
 					{
-						is_edit_mode = false;	
+						is_edit_mode = false;
 					}
 					else
 					{
@@ -227,7 +228,7 @@ jQuery.aw_releditor = function(arr) {
 			}
 		});
 	}
-	
+
 	function _handle_errors(error)
 	{
 		for ( key in error )
@@ -235,7 +236,7 @@ jQuery.aw_releditor = function(arr) {
 			jQuery("#"+key).after(" <span class='jquery_aw_releditor_error' style='color: red'>"+error[key]+"</span>");
 		}
 	}
-	
+
 	/*
 		gets last part of name element
 	*/
@@ -256,7 +257,7 @@ jQuery.aw_releditor = function(arr) {
 		var re  =  new RegExp("^.+\\[[0-9]+\\](.*)$", "g").exec(s_input_name);
 		return re[1];
 	}
-	
+
 	/*
 		gets the last part (form index) from releditors edit link name
 	*/
@@ -266,7 +267,7 @@ jQuery.aw_releditor = function(arr) {
 		var re  =  new RegExp("^.*_.*_(.*)$", "g").exec(s_name);
 		return re[1];
 	}
-	
+
 	/*
 		checks if selectbox is part of date: event_time_edit[1][end][day]
 	*/
@@ -285,4 +286,4 @@ jQuery.aw_releditor = function(arr) {
 		}
 		return false;
 	}
-}; 
+};
