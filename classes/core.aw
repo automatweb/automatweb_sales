@@ -302,7 +302,7 @@ class core extends acl_base
 	{
 		if (!function_exists("aw_global_get"))
 		{//XXX: oletatavasti vaja fastcall-i jaoks, kui selle jaoks ka mitte siis 2ra
-			require_once(AW_DIR . "lib/defs.aw");
+			require_once(AW_DIR . "lib/defs" . AW_FILE_EXT);
 		}
 
 		if(aw_ini_get('raise_error.no_email'))
@@ -580,7 +580,7 @@ class core extends acl_base
 				$req.= "&err_uid=".aw_global_get("uid");
 				$req.= "&err_content=".urlencode($content);
 
-				$op = "POST http://".aw_ini_get("config.error_log_site")."/reforb".AW_FILE_EXT." HTTP/1.0\r\n";
+				$op = "POST http://".aw_ini_get("config.error_log_site")."reforb".AW_FILE_EXT." HTTP/1.0\r\n";
 				$op .= "Host: ".aw_ini_get("config.error_log_site")."\r\n";
 				$op .= "Content-type: application/x-www-form-urlencoded\r\n";
 				$op .= "Content-Length: " . strlen($req) . "\r\n\r\n";
@@ -613,8 +613,7 @@ class core extends acl_base
 				//!!! liigutada
 				//!!! liigutada p6hierrorhandlerisse, lib/errorhandling.aw-sse
 				$co = get_instance("config");
-				$la = get_instance("core/languages");
-				$ld = $la->fetch(aw_global_get("lang_id"));
+				$ld = languages::fetch(aw_global_get("lang_id"));
 				$u = $co->get_simple_config("error_redirect_".$ld["acceptlang"]);
 				if (!$u)
 				{
@@ -699,7 +698,7 @@ class core extends acl_base
 		static $r_use_orb;
 		if (!isset($r_use_orb))
 		{
-			$r_use_orb = basename($_SERVER["SCRIPT_NAME"],".aw") === "orb";
+			$r_use_orb = basename($_SERVER["SCRIPT_NAME"], AW_FILE_EXT) === "orb";
 		}
 
 		if (!$honor_r_orb)
@@ -723,7 +722,7 @@ class core extends acl_base
 
 		if ($use_orb || $r_use_orb)
 		{
-			$res .= "orb.aw";
+			$res .= "orb" . AW_FILE_EXT;
 		}
 
 		$res .= ($sep === "/") ? "/" : "?";
@@ -941,9 +940,9 @@ class core extends acl_base
 	}
 
 	/** Returns the contents of the given file. If file is not found, false is returned.
-		@attrib api=1
+		@attrib api=1 params=name
 
-		@param file required type=string
+		@param file type=string
 			The full path of the file whose contents must be returned. Can be http or local.
 
 		@errors

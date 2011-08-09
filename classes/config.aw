@@ -6,7 +6,6 @@ class config extends aw_template
 	{
 		$this->init("automatweb/config");
 		$this->sub_merge = 1;
-		lc_load("definition");
 	}
 
 	/** sets the value for a configuration key
@@ -27,7 +26,7 @@ class config extends aw_template
 	**/
 	function set_simple_config($ckey,$value)
 	{
-		if (!is_object($this))
+		if (!is_object($this))//XXX: ?
 		{
 			$i = new core();
 			$i->init();
@@ -70,7 +69,7 @@ class config extends aw_template
 	**/
 	function get_simple_config($ckey)
 	{
-		if (!is_object($this))
+		if (!is_object($this))//XXX: ?
 		{
 			$i = new core();
 			$i->init();
@@ -105,15 +104,7 @@ class config extends aw_template
 	}
 
 	/** lets the user set it so that different groups get redirected to diferent pages when logging in
-
 		@attrib name=grp_redirect params=name default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function grp_redirect($arr)
 	{
@@ -122,8 +113,6 @@ class config extends aw_template
 
 		$ol = new object_list(array(
 			"class_id" => CL_GROUP,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"type" => new obj_predicate_not(group_obj::TYPE_DEFAULT)
 		));
 
@@ -148,15 +137,7 @@ class config extends aw_template
 	}
 
 	/**
-
 		@attrib name=submit_grp_redirect params=name default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function submit_grp_redirect($arr)
 	{
@@ -202,8 +183,7 @@ class config extends aw_template
 		$ipp = $this->get_cval("ipaddresses::default_folder");
 
 		$us = get_instance("users");
-		$la = get_instance("languages");
-		$li = $la->get_list(array("all_data" => true));
+		$li = languages::get_list(array("all_data" => true));
 		$r_al = "";
 		foreach($li as $lid => $ld)
 		{
@@ -277,8 +257,7 @@ class config extends aw_template
 	function submit_loaginaddr($arr)
 	{
 		extract($arr);
-		$la = get_instance("languages");
-		$li = $la->get_list(array("all_data" => true));
+		$li = languages::get_list(array("all_data" => true));
 		foreach($li as $lid => $ld)
 		{
 			$var = "after_login_".$ld["acceptlang"];
@@ -319,9 +298,7 @@ class config extends aw_template
 	function join_mail($arr)
 	{
 		$this->read_template("join_mail.tpl");
-
-		$la = get_instance("languages");
-		$ll = $la->listall();
+		$ll = languages::listall();
 
 		foreach($ll as $lid => $ldata)
 		{
@@ -349,12 +326,12 @@ class config extends aw_template
 	/**
 		@attrib name=submit_join_mail params=name default="0"
 	**/
+	//XXX: mis see? miks siin? mida t2hendab default 0 orbi definitsioonis?
 	function submit_join_mail($arr)
 	{
 		extract($arr);
 
-		$la = get_instance("languages");
-		$ll = $la->listall();
+		$ll = languages::listall();
 
 		foreach($ll as $lid => $ldata)
 		{

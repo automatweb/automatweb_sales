@@ -16,7 +16,6 @@ class document extends aw_template implements orb_public_interface
 		$this->period = $period;
 
 		$this->lc_load("document","lc_document");
-		lc_load("definition");
 
 		// this takes less than 0.1 seconds btw
 		$xml_def = $this->get_file(array("file" => aw_ini_get("basedir")."xml/documents/defaults.xml"));

@@ -318,8 +318,7 @@ class aw_object_search_if extends class_base
 				break;
 
 			case "s_language":
-				$lg = new languages();
-				$prop["options"] = $lg->get_list(array("addempty" => true));
+				$prop["options"] = languages::get_list(array("addempty" => true));
 				break;
 
 			case "s_period":
@@ -433,31 +432,31 @@ class aw_object_search_if extends class_base
 		$t->define_field(array(
 			"name" => "icon",
 			"caption" => t(""),
-			"align" => "center",
+			"align" => "center"
 		));
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
 			"align" => "center",
-			"sortable" => 1,
+			"sortable" => 1
 		));
 		$t->define_field(array(
 			"name" => "lang",
 			"caption" => t("Keel"),
 			"align" => "center",
-			"sortable" => 1,
+			"sortable" => 1
 		));
 		$t->define_field(array(
 			"name" => "class_id",
 			"caption" => t("T&uuml;&uuml;p"),
 			"align" => "center",
-			"sortable" => 1,
+			"sortable" => 1
 		));
 		$t->define_field(array(
 			"name" => "location",
 			"caption" => t("Asukoht"),
 			"align" => "center",
-			"sortable" => 1,
+			"sortable" => 1
 		));
 		$t->define_field(array(
 			"name" => "created",
@@ -472,7 +471,7 @@ class aw_object_search_if extends class_base
 			"name" => "createdby",
 			"caption" => t("Looja"),
 			"align" => "center",
-			"sortable" => 1,
+			"sortable" => 1
 		));
 		$t->define_field(array(
 			"name" => "modified",
@@ -487,7 +486,7 @@ class aw_object_search_if extends class_base
 			"name" => "modifiedby",
 			"caption" => t("Muutja"),
 			"align" => "center",
-			"sortable" => 1,
+			"sortable" => 1
 		));
 		$t->define_field(array(
 			"name" => "oppnar",
@@ -571,7 +570,6 @@ class aw_object_search_if extends class_base
 
 		$clss = aw_ini_get("classes");
 		$t->set_caption(sprintf(t("Leiti %s objekti"), sizeof($data)));
-		$li = new languages();
 
 		foreach($data as $id => $d)
 		{
@@ -579,6 +577,16 @@ class aw_object_search_if extends class_base
 			{
 				$this->u_oids[] = $id;
 			}
+
+			try
+			{
+				$lang = languages::get_langid($d["lang"]);
+			}
+			catch (Exception $e)
+			{
+				$lang = "-";
+			}
+
 			$t->define_data(array(
 				"oid" => $id,
 				"icon" => html::img(array(
@@ -591,7 +599,7 @@ class aw_object_search_if extends class_base
 					"caption" => $d["name"],
 					"url" => $this->mk_my_orb("change", array("id" => $d["oid"]), $d["class_id"])
 				)),
-				"lang" => $li->get_langid($d["lang"]),
+				"lang" => $lang,
 				"class_id" => $clss[$d["class_id"]]["name"],
 				"location" => isset($d["parent_name"]) ? $d["parent_name"] : "",
 				"created" => $d["created"],
@@ -599,7 +607,7 @@ class aw_object_search_if extends class_base
 				"modified" => $d["modified"],
 				"modifiedby" => $d["modifiedby"],
 				"oppnar" => html::href(array(
-					"url" => $this->mk_my_orb("redir", array("parent" => $id), CL_ADMIN_IF),
+					"url" => $this->mk_my_orb("redir", array("parent" => $id), "admin_if"),
 					"caption" => t("Ava")
 				))
 			));

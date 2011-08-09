@@ -214,7 +214,6 @@ define("CAL_SHOW_WEEK",3);
 define("CAL_SHOW_MONTH",4);
 
 
-lc_load("calendar");
 class planner extends class_base
 {
 	private $event_id = 0;
@@ -251,9 +250,6 @@ class planner extends class_base
 		));
 
 		$this->date = isset($args["date"]) ? $args["date"] : date("d-m-Y");
-		lc_load("definition");
-		$this->lc_load("planner","lc_planner");
-
 		$this->vt = array(
 			"day" => t("P&auml;ev"),
 			"week" => t("N&auml;dal"),
