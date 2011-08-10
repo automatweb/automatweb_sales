@@ -97,6 +97,14 @@ if(isset($pdf))
 </tr>
 </table>
 
+<table class="bill_text" width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td>
+		<div class="bill_text_div">{VAR:bill_text}</div>
+	</td>
+</tr>
+</table>
+
 <table class="data" width="100%" cellspacing="0" cellpadding="5">
 <tr>
 	<td width="40%" class="heading"><strong>Specification</strong></td>
@@ -112,8 +120,8 @@ if(isset($pdf))
 	<td>{VAR:unit}&nbsp;</td>
 	<td>{VAR:amt}&nbsp;</td>
 	<td>{VAR:price}&nbsp;</td>
-	<td>{VAR:sum} {VAR:ord_currency_name}&nbsp;</td>
-	<td>{VAR:row_tax} {VAR:ord_currency_name}&nbsp;</td>
+	<td>{VAR:sum}&nbsp;</td>
+	<td>{VAR:row_tax}&nbsp;</td>
 </tr>
 <!-- END SUB: ROW -->
 <tr>

@@ -1360,7 +1360,7 @@ class crm_bill_obj extends _int_object
 	}
 
 	/** Returns bill rows data using object data list
-		@attrib api=1
+		@attrib api=1 params=pos
 		@returns array
 			array(
 				bill_obj1_id => array(
@@ -1384,7 +1384,7 @@ class crm_bill_obj extends _int_object
 				bill_obj2_id...
 			)
 	**/
-	public function get_bill_rows_dat()
+	public function get_bill_rows_dat($translated = false)
 	{
 		$filter = $this->get_bill_rows_filter();
 		$rowsres = array(
@@ -1541,17 +1541,18 @@ class crm_bill_obj extends _int_object
 	/** returns bill rows data
 		@attrib api=1
 	**/
-	public function get_bill_rows_data()
+	public function get_bill_rows_data($translated = false)
 	{
 		$inf = array();
+		$lang_id = $this->prop("language.db_lang_id");
 
 		foreach($this->get_bill_rows()->arr() as $row)
 		{
 			$kmk = "";
-			if (object_loader::can("view", $row->prop("prod")))
+			if (object_loader::can("", $row->prop("prod")))
 			{
 				$prod = obj($row->prop("prod"));
-				if (object_loader::can("view", $prod->prop("tax_rate")))
+				if (object_loader::can("", $prod->prop("tax_rate")))
 				{
 					$tr = obj($prod->prop("tax_rate"));
 					$kmk = $tr->prop("code");
@@ -1561,7 +1562,7 @@ class crm_bill_obj extends _int_object
 			$ppl = array();
 			foreach((array)$row->prop("people") as $p_id)
 			{
-				if (object_loader::can("view", $p_id))
+				if (object_loader::can("", $p_id))
 				{
 					$ppl[$p_id] = $p_id;
 				}
@@ -1570,9 +1571,9 @@ class crm_bill_obj extends _int_object
 			$rd = array(
 				"amt" => $row->prop("amt"),
 				"prod" => $row->prop("prod"),
-				"name" => $row->prop("desc"),
-				"name_group_comment" => $row->prop("name_group_comment"),
-				"comment" => $row->prop("comment"),
+				"name" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
+				"name_group_comment" => $translated ? $row->trans_get_val("name_group_comment", $lang_id) : $row->prop("name_group_comment"),
+				"comment" => $translated ? $row->trans_get_val("comment", $lang_id) : $row->prop("comment"),
 				"price" => $row->prop("price"),
 				"sum" => $row->prop("amt") * $row->prop("price"),
 				"km_code" => $kmk,
@@ -1585,7 +1586,7 @@ class crm_bill_obj extends _int_object
 				"date" => $row->prop("date"),
 				"persons" => $ppl,
 				"has_task_row" => $row->has_task_row(),
-				"task_rows" => $row->task_rows(),
+				"task_rows" => $row->task_rows()
 			);
 
 			$inf[$row->id()] = $rd;
@@ -2421,7 +2422,7 @@ class crm_bill_obj extends _int_object
 		return $inst->show_add(array(
 			"id" => $this->id(),
 			"pdf" => 1,
-			"return" => 1,
+			"return" => 1
 		));
 	}
 
@@ -2431,7 +2432,7 @@ class crm_bill_obj extends _int_object
 		return $inst->show(array(
 			"id" => $this->id(),
 			"pdf" => 1,
-			"return" => 1,
+			"return" => 1
 		));
 	}
 
@@ -3822,16 +3823,25 @@ class crm_bill_obj extends _int_object
 		@attrib api=1
 		@returns string
 	**/
-	public function get_bill_text()
+	public function get_bill_text($translated = false)
 	{
 		$bill_text = "";
-		if($this->prop("bill_text"))
+
+		if ($translated)
 		{
-			$bill_text = $this->prop("bill_text");
+			$language_id = $this->prop("language.db_lang_id");
+
+			if(!strlen($bill_text = $this->trans_get_val("bill_text", $language_id)) and $this->set_crm_settings())
+			{
+				$bill_text = $this->crm_settings->trans_get_val("bill_text", $language_id);
+			}
 		}
-		elseif($this->set_crm_settings() && $this->crm_settings->prop("bill_text"))
+		else
 		{
-			$bill_text = $this->crm_settings->prop("bill_text");
+			if(!strlen($bill_text = $this->prop("bill_text")) and $this->set_crm_settings())
+			{
+				$bill_text = $this->crm_settings->prop("bill_text");
+			}
 		}
 
 		return $bill_text;
@@ -3843,14 +3853,15 @@ class crm_bill_obj extends _int_object
 	**/
 	public function get_unit_name($unit)
 	{
-		if(object_loader::can("view", $unit))
+		if(object_loader::can("", $unit))
 		{
 			$uo = obj($unit);
-			$u_trans = $uo->meta("translations");
-			if($this->can("view", $this->prop("language")))
+			if($this->can("", $this->prop("language")))
 			{
+				$u_trans = $uo->meta("translations");
 				$unit_name = $u_trans[obj($this->prop("language"))->prop("db_lang_id")]["unit_code"];
 			}
+
 			if(!$unit_name)
 			{
 				$unit_name = $uo->prop("unit_code");

@@ -30,8 +30,6 @@
 		#bill tr td.footer { border-top: 1px solid #cccccc; text-align: center; font-size: 11px; color: #666666; vertical-align: bottom; height: 2em; }
 		#bill tr td.footer p { margin-top: 1em; }
 
-		#footer { display: none; }
-
 		div.nameGroupComment
 		{
 			font-size: 12px;
@@ -79,6 +77,13 @@
 			<h1>Proposal nr {VAR:bill_no} Details</h1>
 		</td>
 	</tr>
+	<!-- SUB: HAS_COMMENT -->
+	<tr>
+		<td colspan="2" style="font-size: 12px; font-family: Arial; padding: 2em 0 1em 0; text-align: left;">
+			{VAR:comment}
+		</td>
+	</tr>
+	<!-- END SUB: HAS_COMMENT -->
 	<tr>
 		<td colspan="2" class="main">
 			<!-- SUB: GROUP_ROWS -->
@@ -103,8 +108,8 @@
 					<td>{VAR:desc}&nbsp;</td>
 					<td>{VAR:amt}&nbsp;</td>
 					<td>{VAR:price}&nbsp;</td>
-					<td>{VAR:sum} {VAR:ord_currency_name}&nbsp;</td>
-					<td>{VAR:row_tax} {VAR:ord_currency_name}&nbsp;</td>
+					<td>{VAR:sum}&nbsp;</td>
+					<td>{VAR:row_tax}&nbsp;</td>
 				</tr>
 				<!-- END SUB: ROW -->
 			</table>
@@ -112,15 +117,12 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" class="footer">
-			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | VAT nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel +372 6 558 334 | {VAR:impl_url}</p>
+		<td colspan="2" style="text-align: center; font-size: 12px;">
+			<p>All prices in this proposal are in {VAR:ord_currency_name}</p>
 		</td>
 	</tr>
-</table>
-
-<table id="footer" cellpadding="0" cellspacing="0" border="0">
 	<tr>
-		<td>
+		<td colspan="2" class="footer">
 			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | VAT nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel +372 6 558 334 | {VAR:impl_url}</p>
 		</td>
 	</tr>
