@@ -13,6 +13,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 	const PS_HEIGHT = 500;
 
 	private $req;
+	private $clid = array();
 
 	public function __construct()
 	{
@@ -247,7 +248,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 				}
 			}
 			// link to unlinkink page if there are any options and if we'ere in relpicker mode i guess
-			if (count($options) && isset($arr['property']['style']) && $arr['property']['style'] == 'relpicker' && isset($arr['property']['reltype']))
+			if (count($options) && isset($arr['property']['style']) && $arr['property']['style'] === 'relpicker' && isset($arr['property']['reltype']))
 			{
 				$url2 = $this->mk_my_orb("do_unlink", array(
 					"id" => $arr["obj_inst"]->id(),
@@ -625,6 +626,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 				"sortable" => 1,
 				"caption" => t("Muutja")
 			));
+
 			$t->define_field(array(
 				"name" => "modified",
 				"caption" => t("Muudetud"),
@@ -917,7 +919,7 @@ function aw_get_el(name,form)
 	}
 
 	/** Returns the html that displays search button for the user
-		@attrib api=1
+		@attrib api=1 params=name
 
 		@param pn required type=string
 			The html element name to stick the search results to
@@ -927,11 +929,13 @@ function aw_get_el(name,form)
 
 		@param clid optional type=array
 			The class id to search
+
 		@param confirm optional type=string
 			javascript confirmation popup caption
+
 		@comment
 			Returns the thml that displays search button for the user
-		@returns
+		@returns string
 			html code for search button..
 	**/
 	function get_popup_search_link($arr)
@@ -940,7 +944,7 @@ function aw_get_el(name,form)
 		unset($arr["confirm"]);
 		$url = $this->mk_my_orb("do_search", $arr);
 		$s = t("Otsi");
-		return "<a class=\"aw04toolbarbutton\" title=\"$s\" alt=\"$s\" href='javascript:aw_popup_scroll(\"$url\",\"$s\",".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")'$c onMouseOver=\"this.className='aw04toolbarbuttonhover'\" onMouseOut=\"this.className='aw04toolbarbutton'\" onMouseDown=\"this.className='aw04toolbarbuttondown'\" onMouseUp=\"this.className='aw04toolbarbuttonhover'\"><img alt=\"$s\" src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0></a>";
+		return "<a class=\"aw04toolbarbutton\" title=\"$s\" alt=\"$s\" href='javascript:aw_popup_scroll(\"$url\",\"$s\",".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")'$c onMouseOver=\"this.className='aw04toolbarbuttonhover'\" onMouseOut=\"this.className='aw04toolbarbutton'\" onMouseDown=\"this.className='aw04toolbarbuttondown'\" onMouseUp=\"this.className='aw04toolbarbuttonhover'\"><img alt=\"$s\" src='".aw_ini_get("baseurl")."automatweb/images/icons/search.gif' border=0></a>";
 	}
 
 	/**
@@ -1010,7 +1014,7 @@ function aw_get_el(name,form)
 	//----------------- Marko teeb siia miskit uut varianti.... katsetab
 	function set_class_id($clid)
 	{
-		$this->clid = $clid;
+		$this->clid = safe_array($clid);
 	}
 
 	function set_id($id)
@@ -1056,14 +1060,13 @@ function aw_get_el(name,form)
 			"property" => $this->property
 		));
 		return $url;
-
 	}
 
 	/**
 		@attrib name=do_ajax_search
 		@param id optional
 		@param multiple optional
-		@param clid optional
+		@param clid optional type=array
 		@param property optional
 		@param reload_property optional type=string
 		@param reload_layout optional type=string
@@ -1140,7 +1143,7 @@ function aw_get_el(name,form)
 			"caption" => t("Objekti id")
 		));
 
-		$arr["clid"] = join("," , $arr["clid"]);
+		$clid = empty($arr["clid"]) ? "" : (is_array($arr["clid"]) ? join("," , $arr["clid"]) : $arr["clid"]);
 		$reload_layout = isset($arr["reload_layout"]) ? "\nreload_layout: '".$arr["reload_layout"]."'," : "";
 		$reload_property = isset($arr["reload_property"]) ? "\nreload_property: '".$arr["reload_property"]."'," : "";
 
@@ -1166,7 +1169,7 @@ function aw_get_el(name,form)
 					id: '".(isset($arr["id"]) ? $arr["id"] : "0")."',
 					oid: oids.value,
 					name: names.value,
-					clid: '{$arr["clid"]}',
+					clid: '{$clid}',
 					{$reload_property}
 					{$reload_layout}
 					property: '{$arr["property"]}'
@@ -1181,11 +1184,11 @@ function aw_get_el(name,form)
 
 		$data = array(
 			"id" => isset($arr["id"]) ? $arr["id"] : 0,
-			"clid" => $arr["clid"],
+			"clid" => $clid,
 			"no_submit" => ifset($arr, "no_submit"),
 			"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
 			"orb_class" => $_GET["class"],
-			"reforb" => 0,
+			"reforb" => 0
 		);
 		$this->_process_reforb_args($data);
 
