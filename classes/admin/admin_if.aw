@@ -36,6 +36,8 @@
 
 class admin_if extends class_base
 {
+	const NEW_MENU_CACHE_KEY = "aw_adminif_newbtn_menu_cache_";
+
 	var $use_parent;
 	var $period;
 	var $curl;
@@ -926,12 +928,13 @@ class admin_if extends class_base
 
 	private function generate_new($tb, $i_parent, $period)
 	{
+		$cache_key = self::NEW_MENU_CACHE_KEY . aw_global_get("uid");
 		$atc = new add_tree_conf();
 
 		// although fast enough allready .. caching makes it 3 times as fast
 		if(aw_ini_get("admin_if.cache_toolbar_new"))
 		{
-			$tree = cache::file_get("newbtn_tree_cache_".aw_global_get("uid"));
+			$tree = cache::file_get($cache_key);
 			$tree = unserialize($tree);
 		}
 
@@ -942,35 +945,31 @@ class admin_if extends class_base
 				"docforms" => 1,
 				// those are for docs menu only
 				"parent" => "--pt--",
-				"period" => "--pr--",
+				"period" => "--pr--"
 			));
-			cache::file_set("newbtn_tree_cache_".aw_global_get("uid"), serialize($tree));
+			cache::file_set($cache_key, serialize($tree));//XXX: tundub m6ttetu, get_class_tree v6iks ise cacheda kui ainult seda vaja cacheda
 		}
 
-		$new_url_template = str_replace("__", "%s", $this->mk_my_orb("new",array("parent" => "__"),"__"));
-		$obn = aw_ini_get("baseurl")."/automatweb/orb.aw";
+		$new_url_template = str_replace("__", "%s", $this->mk_my_orb("new", array("parent" => "__"), "__"));
 
 		foreach($tree as $item_id => $item_collection)
 		{
 			foreach($item_collection as $el_id => $el_data)
 			{
-				$parnt = $item_id == "root" ? "new" : $item_id;
+				$parnt = $item_id === "root" ? "new" : $item_id;
 
 				if (!empty($el_data["clid"]))
 				{
 					$url = sprintf($new_url_template, basename($el_data["file"]), $i_parent);
-					$url = str_replace($obn, "", $url);
 					$tb->add_menu_item(array(
 						"name" => (empty($el_data["id"]) ? $el_id : $el_data["id"]),
 						"parent" => $parnt,
 						"text" => $el_data["name"],
-						"url" => $url,
+						"url" => $url
 					));
 				}
-				else
-				if (!empty($el_data["link"]))
+				elseif (!empty($el_data["link"]))
 				{
-					$url = str_replace($obn, "", $el_data["link"]);
 					$url =  str_replace("--pt--", $i_parent, str_replace("--pr--", $period, $url));
 
 					// docs menu has links ..
@@ -978,7 +977,7 @@ class admin_if extends class_base
 						"name" => (empty($el_data["id"]) ? $el_id : $el_data["id"]),
 						"parent" => $parnt,
 						"text" => $el_data["name"],
-						"url" => $url,
+						"url" => $url
 					));
 				}
 				else
@@ -986,14 +985,14 @@ class admin_if extends class_base
 					$tb->add_sub_menu(array(
 						"name" => (empty($el_data["id"]) ? $el_id : $el_data["id"]),
 						"parent" => $parnt,
-						"text" => $el_data["name"],
+						"text" => $el_data["name"]
 					));
 				}
 
 				if (!empty($el_data["separator"]))
 				{
 					$tb->add_menu_separator(array(
-						"parent" => $parnt,
+						"parent" => $parnt
 					));
 				}
 			}
