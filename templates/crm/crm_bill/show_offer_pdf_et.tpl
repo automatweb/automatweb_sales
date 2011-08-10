@@ -119,8 +119,8 @@ if(isset($pdf))
 	<td>{VAR:unit}&nbsp;</td>
 	<td>{VAR:amt}&nbsp;</td>
 	<td>{VAR:price}&nbsp;</td>
-	<td>{VAR:sum} {VAR:ord_currency_name}&nbsp;</td>
-	<td>{VAR:row_tax} {VAR:ord_currency_name}&nbsp;</td>
+	<td>{VAR:sum}&nbsp;</td>
+	<td>{VAR:row_tax}&nbsp;</td>
 </tr>
 <!-- END SUB: ROW -->
 <tr>

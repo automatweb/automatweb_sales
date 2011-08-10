@@ -90,6 +90,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@caption Viivis (%)
 
 	@property language type=relpicker automatic=1 field=meta method=serialize reltype=RELTYPE_LANGUAGE parent=bottom_left
+	@comment Arve saadetakse kasutades valitud keele t&otilde;lkeid
 	@caption Keel
 
 	@property on_demand type=checkbox table=aw_crm_bill field=aw_on_demand parent=bottom_left
@@ -166,14 +167,14 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=text_comments
-			@property bill_text type=textarea rte_type=4 rows=15 cols=50 field=meta method=serialize trans=1
-			@caption Arve sissejuhatus
+	@property bill_text type=textarea rte_type=4 rows=15 cols=50 field=meta method=serialize trans=1
+	@caption Arve sissejuhatus
 
-			@property bill_appendix_comment type=textarea rte_type=4 rows=15 cols=50 table=objects field=meta method=serialize trans=1
-			@caption Kommentaar lisale
+	@property bill_appendix_comment type=textarea rte_type=4 rows=15 cols=50 table=objects field=meta method=serialize trans=1
+	@caption Kommentaar lisale
 
-			@property reminder_text type=textarea rte_type=4 rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text trans=1
-			@caption Kommentaar meeldetuletusele
+	@property reminder_text type=textarea rte_type=4 rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text trans=1
+	@caption Kommentaar meeldetuletusele
 
 
 
@@ -1373,7 +1374,7 @@ class crm_bill extends class_base
 					$appendix_pdf_o = obj($attachments_tmp["a"], array(), CL_FILE);
 				}
 				catch (Exception $e)
-	{
+				{
 					$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
 				}
 			}
@@ -2684,7 +2685,7 @@ class crm_bill extends class_base
 					"pn" => "rows[$id][person]",
 					"multiple" => 1,
 					"no_submit" => 1,
-					"clid" => array(CL_CRM_PERSON)
+					"clid" => array(crm_person_obj::CLID)
 				));
 				break;
 		}
@@ -3149,9 +3150,14 @@ class crm_bill extends class_base
 	**/
 	public function preview($arr)
 	{
-		return $this->show(array(
-			"id" => $arr["id"],
-		));
+		if (empty($arr["preview_type"]))
+		{
+			return $this->show($arr);
+		}
+		elseif ("appendix" === $arr["preview_type"])
+		{
+			return $this->show_add($arr);
+		}
 	}
 
 	function _get_preview(&$arr)
@@ -3407,7 +3413,7 @@ class crm_bill extends class_base
 	//templeidi lugemine
 		$tpl = "show{$tpl_suffix}";
 		$lc = "et";
-		if ($this->can("view", $this->bill->prop("language")))
+		if ($this->can("", $this->bill->prop("language")))
 		{
 			$lc = $this->bill->prop("language.lang_acceptlang");
 		}
@@ -3424,8 +3430,7 @@ class crm_bill extends class_base
 
 		if(!empty($arr["pdf"]))
 		{
-			$tpl .= "_pdf";
-			$tpl .= "_".$lc;
+			$tpl .= "_pdf_{$lc}";
 			if ($this->read_template("{$tpl}.tpl", true) === false)
 			{
 				if ($this->read_template("show_{$tpl_suffix}{$lc}.tpl", true) === false)
@@ -3534,7 +3539,7 @@ class crm_bill extends class_base
 			"orderer_contact" => $orderer_contact_person_name,
 			"orderer_contact_profession" => $orderer_contact_person_profession,
 			"overdue" => $this->bill->get_overdue_charge(),
-			"bill_text" => $this->bill->get_bill_text()
+			"bill_text" => $this->bill->get_bill_text(true)
 		));
 
 		if($ord_country)
@@ -3591,7 +3596,7 @@ class crm_bill extends class_base
 		}
 		else
 		{
-			$bill_rows = $this->bill->get_bill_rows_data();
+			$bill_rows = $this->bill->get_bill_rows_data(true);
 		}
 		$brows = $bill_rows; //moment ei tea miks see topelt tuleb... igaks juhuks ei vtnud maha... hiljem kib miski reset
 		$grp_rows = array();
@@ -3800,7 +3805,7 @@ class crm_bill extends class_base
 					$pdf_name = $this->parse("TITLE").".pdf";
 				}
 
-				if($arr["return"])
+				if(!empty($arr["return"]))
 				{
 					$res = $conv->convert(array(
 						"source" => $res,
@@ -3918,6 +3923,7 @@ class crm_bill extends class_base
 		$this->stats = new crm_company_stats_impl();
 		$this->bill = obj($arr["id"]);
 		$tpl_suffix = $this->bill->prop("state") == crm_bill_obj::STATUS_OFFER ? "_offer" : "";
+		$lang_id = $this->bill->prop("language.db_lang_id");
 
 		$agreement_prices = $this->bill->meta("agreement_price");
 		if(!empty($agreement_prices["price"]) && !empty($agreement_prices["name"]))
@@ -3931,7 +3937,7 @@ class crm_bill extends class_base
 		}
 		else
 		{
-			$bill_rows = $this->bill->get_bill_rows_data();
+			$bill_rows = $this->bill->get_bill_rows_data(true);
 		}
 
 		//thja kirjeldusega read vlja
@@ -4135,7 +4141,7 @@ class crm_bill extends class_base
 			"total" => number_format($this->sum, 2,".", " "),
 			"total_text" => aw_locale::get_lc_money_text($this->sum, $cur, $lc),
 			"tot_amt" => $this->stats->hours_format($this->tot_amt),
-			"comment" => $this->bill->prop("bill_appendix_comment"),
+			"comment" => $this->bill->trans_get_val("bill_appendix_comment", $lang_id),
 			"page_no" => $page_no
 		));
 
@@ -5591,10 +5597,10 @@ ENDSCRIPT;
 			"text" => t("Prindi arve")
 		));
 
-		$onclick_middle = "win = window.open('".$this->mk_my_orb("change", array(
+		$onclick_middle = "win = window.open('".$this->mk_my_orb("preview", array(
 			"pdf" => 1,
 			"id" => $arr["obj_inst"]->id(),
-			"group" => "preview"), CL_CRM_BILL)."','billprint','width=100,height=100,statusbar=yes');";
+			), "crm_bill")."','billprint','width=100,height=100,statusbar=yes');";
 		$tb->add_menu_item(array(
 			"parent" => "print",
 			"url" => "#",

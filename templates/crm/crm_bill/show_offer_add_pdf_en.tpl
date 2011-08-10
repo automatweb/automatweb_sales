@@ -97,7 +97,7 @@ if(isset($pdf))
 	<td width="40%" class="heading"><strong>Description</strong></td>
 	<td width="5%" class="heading"><strong>Unit</strong></td>
 	<td width="5%" class="heading"><strong>Amount</strong></td>
-	<td width="10%" class="heading"><strong>Price</strong></td>
+	<td width="10%" class="heading"><strong>Price ({VAR:ord_currency_name})</strong></td>
 	<td width="15%" class="heading"><strong>Sum</strong></td>
 	<td width="10%" class="heading"><strong>VAT</strong></td>
 </tr>
@@ -109,8 +109,8 @@ if(isset($pdf))
 	<td>{VAR:unit}&nbsp;</td>
 	<td>{VAR:amt}&nbsp;</td>
 	<td>{VAR:price}&nbsp;</td>
-	<td>{VAR:sum} {VAR:ord_currency_name}&nbsp;</td>
-	<td>{VAR:row_tax} {VAR:ord_currency_name}&nbsp;</td>
+	<td>{VAR:sum}&nbsp;</td>
+	<td>{VAR:row_tax}&nbsp;</td>
 </tr>
 <!-- END SUB: ROW -->
 </table>

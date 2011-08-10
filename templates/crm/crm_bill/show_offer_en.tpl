@@ -19,6 +19,7 @@
 
 		#bill tr td.heading { height: 3em; }
 
+		#bill tr td.bill_text { padding-top: 2em; font-size: 12px; }
 		#bill tr td.info { width: 50%; vertical-align: top; height: 4em; }
 		#bill tr td.info table { font-size: 12px; font-family: Arial; }
 		#bill tr td.info table tr td.caption { font-weight: bold; color: #666666; padding: 0.4em 1em 0.4em 0.4em; }
@@ -122,6 +123,11 @@
 		</td>
 	</tr>
 	<tr>
+		<td colspan="2" class="bill_text">
+			{VAR:bill_text}
+		</td>
+	</tr>
+	<tr>
 		<td colspan="2" class="main">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
@@ -138,35 +144,32 @@
 					<td>{VAR:unit}&nbsp;</td>
 					<td>{VAR:amt}&nbsp;</td>
 					<td>{VAR:price}&nbsp;</td>
-					<td>{VAR:sum} {VAR:ord_currency_name}&nbsp;</td>
-					<td>{VAR:row_tax} {VAR:ord_currency_name}&nbsp;</td>
+					<td>{VAR:sum}&nbsp;</td>
+					<td>{VAR:row_tax}&nbsp;</td>
 				</tr>
 				<!-- END SUB: ROW -->
 				<tr>
 					<td colspan="4" class="caption">SUM:</td>
-					<td>{VAR:total_wo_tax} {VAR:ord_currency_name}</td>
-					<td>{VAR:tax} {VAR:ord_currency_name}</td>
+					<td>{VAR:total_wo_tax}</td>
+					<td>{VAR:tax}</td>
 				</tr>
 				<tr>
 					<td colspan="6" class="caption">&nbsp;</td>
 				</tr>
 				<tr>
-					<td colspan="4" class="caption">To pay:</td>
+					<td colspan="4" class="caption">Total:</td>
 					<td colspan="2"><strong>{VAR:total} {VAR:ord_currency_name}</strong></td>
 				</tr>
 			</table>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" class="footer">
-			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | VAT nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel +372 6 558 334 | {VAR:impl_url}</p>
+		<td colspan="2" style="text-align: center; font-size: 12px;">
+			<p>All prices in this proposal are in {VAR:ord_currency_name}</p>
 		</td>
 	</tr>
-</table>
-
-<table id="footer" cellpadding="0" cellspacing="0" border="0">
 	<tr>
-		<td>
+		<td colspan="2" class="footer">
 			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | VAT nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel +372 6 558 334 | {VAR:impl_url}</p>
 		</td>
 	</tr>
