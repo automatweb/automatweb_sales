@@ -51,8 +51,6 @@ class currency extends class_base
 			"clid" => CL_CURRENCY
 		));
 		$this->sub_merge = 1;
-		$this->lc_load("currency","lc_currency");
-		lc_load("definition");
 	}
 
 	function get_property($arr)

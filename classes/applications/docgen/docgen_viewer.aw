@@ -442,16 +442,9 @@ class docgen_viewer extends class_base
 	}
 
 	/**
-
-		@attrib name=frames params=name default="1"
-
+		@attrib name=frames params=name default=1
 		@param id optional type=int
-
-		@returns
-
-
-		@comment
-
+		@returns void
 	**/
 	function frameset($arr)
 	{
@@ -463,11 +456,10 @@ class docgen_viewer extends class_base
 				"class_id" => CL_AW_DOCGEN_VIEWER
 			));
 
-
 			if ($list->count() === 1)
 			{ // one found, redirect
 				$id = $list->begin()->id();
-				$url = $this->mk_my_orb("frames", array(array("id" => $id)));
+				$url = $this->mk_my_orb("frames", array("id" => $id), "docgen_viewer");
 				aw_redirect(new aw_uri($url));
 			}
 			elseif ($list->count() === 0)
