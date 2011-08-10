@@ -1708,14 +1708,16 @@ class _int_object
 			$cur_lid = $lang_id;
 		}
 
+
 		if ($trans and isset($this->obj["meta"]["translations"]))
 		{
 			$trs = $this->obj["meta"]["translations"];
-			if ($prop == "status") // check transl status
+			if ($prop === "status") // check transl status
 			{
-				return $this->obj["meta"]["trans_".$cur_lid."_status"] == 1 ? object::STAT_ACTIVE : object::STAT_NOTACTIVE;
+				return empty($this->obj["meta"]["trans_{$cur_lid}_status"]) ? object::STAT_NOTACTIVE : object::STAT_ACTIVE;
 			}
-			if (isset($trs[$cur_lid]) && ($this->obj["meta"]["trans_".$cur_lid."_status"] == 1 || $ignore_status))
+
+			if (isset($trs[$cur_lid]) && (!empty($this->obj["meta"]["trans_{$cur_lid}_status"]) || $ignore_status))
 			{
 				if ($trs[$cur_lid][$prop] == "")
 				{
@@ -1724,6 +1726,7 @@ class _int_object
 				$val = $trs[$cur_lid][$prop];
 			}
 		}
+
 		// No spaces in the end of alias! -kaarel 26.02.2009
 		if($prop === "alias")
 		{
