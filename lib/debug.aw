@@ -394,10 +394,10 @@ class dbg
 	/** prints the results of a database query
 		@attrib api=1 params=pos
 
-		@param q required type=string
+		@param q type=string
 			The sql query to perform
 	**/
-	static function q($q)
+	public static function q($q)
 	{
 		$first = true;
 		$db = new db_connector();
@@ -416,19 +416,43 @@ class dbg
 
 	/** Prints message followed by variable dump of $value in html, inserts a colon between and quotes around value
 		@attrib api=1 params=pos
-		@param msg type=string
-			message to describe event/value
 		@param value type=mixed default=NULL
-			value to print
+			Value to print. If message not specified, multiline detailed info printed
+		@param msg type=string default=""
+			Message to describe event/value. If message isn't specified then info about the variable $value is displayed instead
 		@param level type=int default=0
-			output indenting level
+			Output indenting level. Has no meaning if $msg not specified
 		@returns void
 		@errors none
 	**/
-	public static function d($msg, $value = null, $level = 0)
+	public static function d($value = null, $msg = "", $level = 0)
 	{
-		echo str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $level) . $msg .": '". var_export($value, true) . "'<br />\n";
+		if ($msg)
+		{
+			echo str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $level) . $msg .": '". var_export($value, true) . "'<br />\n";
+		}
+		else
+		{
+			ob_start();
+			debug_zval_dump($value);
+			$msg = ob_get_clean();
+			echo nl2br(str_replace(" ", "&nbsp;", $msg)) . "<br />\n<br />\n";
+		}
 		flush();
+	}
+
+	/** Prints and exits. See method d() documentation
+		@attrib api=1 params=pos
+		@param value type=mixed default=NULL
+		@param msg type=string default=""
+		@param level type=int default=0
+		@returns void
+		@errors none
+	**/
+	public static function dx($value = null, $msg = "", $level = 0)
+	{
+		self::d($value, $msg, $level);
+		exit;
 	}
 
 	public static function log($msg = "-")
