@@ -645,11 +645,30 @@ class core extends acl_base
 	}
 
 	/** Creates orb links
-		@attrib api=1
+		@attrib api=1 params=pos
+
+		@param fun type=string
+			Name of the action to create the URL for -- ORB action to call
+
+		@param arr type=array default=array()
+			Array of parameters to add to the url. Parameter order in the URL is as given in array
+
+		@param cl_name type=string|int
+			The class that contains the action to call
+
+		@param force_admin type=bool default=FALSE
+			If true, the url will always refer to the admin interface
+
+		@param use_orb type=bool default=FALSE
+			If true the link refers to orb.aw, if false, the file is automatically detected and can be either index.aw or orb.aw
+
+		@param sep type=string default="&"
+			The argument separator for the url.
+
+		@param honor_r_orb type=bool default=TRUE
+
 
 		@comment
-			This function is documented in the orb specification.
-
 			the idea is this that it determines itself whether we go through the site (index.aw)
 			or the orb (orb.aw) - for the admin interface
 			you can force it to point to the admin interface
@@ -657,6 +676,27 @@ class core extends acl_base
 			crap, I hate this but I gotta do it - shoulda used array arguments or something -
 			if $use_orb == 1 then the url will go through orb.aw, not index.aw - which means that it will be shown
 			directly, without drawing menus and stuff
+
+		@examples
+			class foo extends class_base
+			{
+				function a()
+				{
+					$url = $this->mk_my_orb("b");
+				}
+			}
+
+			$url will be "http://www.site.com/?class=foo&action=b"
+
+			next examples assume the same class
+
+			$url = $this->mk_my_orb("c", array("id" => 2), "bar");
+
+			$url now contains "http://www.site.com/?class=bar&action=c&id=2"
+
+			$url = $this->mk_my_orb("d", array("arr" => array("1" => "a", "3" => "g"), "baz", true, true, "/");
+
+			$url now contains "http://www.site.com/automatweb/orb.aw/class=baz/action=d/arr[1]=a/arr[3]=g"
 	**/
 	public static function mk_my_orb($fun, $arr=array(), $cl_name = "", $force_admin = false, $use_orb = false, $sep = "&", $honor_r_orb = true)
 	{//TODO: viia orb-i
@@ -686,13 +726,19 @@ class core extends acl_base
 		{
 			$arr["alias"] = $arr["_alias"];
 			unset($arr["_alias"]);
+			$main_arguments = array(
+				"action" => $fun
+			);
 		}
 		else
 		{
-			$arr["class"] = $cl_name;
+			$main_arguments = array(
+				"class" => $cl_name,
+				"action" => $fun
+			);
 		}
 
-		$arr["action"] = $fun;
+		$arr = $main_arguments + $arr;
 
 		// figure out the request method once.
 		static $r_use_orb;
@@ -728,6 +774,7 @@ class core extends acl_base
 		$res .= ($sep === "/") ? "/" : "?";
 
 		$arr = self::process_orb_args("", $arr);
+
 		foreach($arr as $name => $value)
 		{
 			// lets skip the parameter only when it is empty string --dragut
@@ -807,12 +854,13 @@ class core extends acl_base
 
 	private static function process_orb_args($prefix, $arr, $enc = true, $use_empty = true)
 	{
+		$processed = array();
 		foreach($arr as $name => $value)
 		{
 			if (is_array($value))
 			{
-				$_tpref = "" == $prefix ? $name : "[{$name}]";
-				$arr[$name] = self::process_orb_args($prefix . $_tpref, $arr[$name]);
+				$arr_prefix = "" === $prefix ? $name : "{$prefix}[{$name}]";
+				$processed += self::process_orb_args($arr_prefix, $value, $enc, $use_empty);
 			}
 			else
 			{
@@ -822,11 +870,12 @@ class core extends acl_base
 					{
 						$value = urlencode($value);
 					}
-					$arr[empty($prefix) ? $name : "{$prefix}[{$name}]"] = $value;
+					$name = "" === $prefix ? $name : "{$prefix}[{$name}]";
+					$processed[$name] = $value;
 				}
 			}
 		}
-		return $arr;
+		return $processed;
 	}
 
 	/** deprecated - no not use **/
