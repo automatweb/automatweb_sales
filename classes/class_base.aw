@@ -719,7 +719,7 @@ class class_base extends aw_template implements orb_public_interface
 		// kasutan seda
 
 		// aga mul on kuidagi vaja need layout asjad ka &otilde;igesse kohta saada .. how the fuck do I do that?
-		if (is_array($this->layoutinfo) && method_exists($cli,"set_layout"))
+		if ($this->layoutinfo && method_exists($cli,"set_layout"))
 		{
 			$tmp = array();
 			// export only layout information for the current group
@@ -748,7 +748,7 @@ class class_base extends aw_template implements orb_public_interface
 				if (in_array($this->use_group,$_lgroups))
 				{
 					$tmp[$key] = $val;
-				};
+				}
 			}
 
 			$this->layoutinfo = $tmp;
@@ -5674,26 +5674,6 @@ class class_base extends aw_template implements orb_public_interface
 			$o = $o->get_original();
 		}
 
-		$repls = array(
-			chr(197).chr(161) => "&scaron;",
-			chr(197).chr(160) => "&Scaron;",
-			chr(197).chr(190) => "&#158;",
-			chr(197).chr(189) => "&#142;",
-			chr(195).chr(182) => "&ouml;",
-			chr(195).chr(164) => "&auml;",
-			chr(195).chr(188) => "&uuml;",
-			chr(195).chr(181) => "&otilde;",
-			chr(195).chr(156) => "&Uuml;",
-			chr(195).chr(149) => "&Otilde;",
-			chr(195).chr(150) => "&Ouml;",
-			chr(195).chr(132) => "&Auml;",
-			chr(196).chr(171) => "&#299;",
-			chr(196).chr(129) => "&#257;",
-			chr(196).chr(147) => "&#275;",
-			chr(197).chr(179) => "&#371;",
-			chr(196).chr(141) => "&#269;",
-			chr(197).chr(171) => "&#363;"
-		);
 		$all_vals = safe_array($o->meta("translations"));
 		$time = time();
 		$lid = $lang["id"];
@@ -5713,16 +5693,7 @@ class class_base extends aw_template implements orb_public_interface
 
 			if (isset($arr[$nm]))
 			{
-				$str = $arr[$nm];
-
-				// replace estonian chars in other languages with entities
-				if ($lang["acceptlang"] !== "et")
-				{
-					$str = str_replace(array_keys($repls), array_values($repls), $str);
-				}
-
-				$str = str_replace(chr(226).chr(128).chr(147), "-", $str);
-				$nv = iconv("UTF-8", $target_charset, $str);
+				$nv = iconv("UTF-8", $target_charset, $arr[$nm]);
 
 				if (!isset($all_vals[$lid][$p]) or $nv !== $all_vals[$lid][$p])
 				{
@@ -5766,6 +5737,10 @@ class class_base extends aw_template implements orb_public_interface
 		$o = $arr["obj_inst"];
 		$o = $o->get_original();
 		$original_lang_id = $o->lang_id();
+		$original_lang_data = languages::fetch($original_lang_id);
+		$original_lang_charset = $original_lang_data["charset"];
+
+		aw_global_set("output_charset","UTF-8");
 
 		// get langs
 		$languages_in_use = languages::list_translate_targets();
@@ -5809,8 +5784,6 @@ class class_base extends aw_template implements orb_public_interface
 			$this->show_msg_text(t("Pole keeli millesse lubatud t&otilde;lkida."));
 			return;
 		}
-
-		aw_global_set("output_charset","UTF-8");
 
 		$pl = $arr["obj_inst"]->get_property_list();
 
@@ -5888,26 +5861,57 @@ class class_base extends aw_template implements orb_public_interface
 			{
 				continue;
 			}
+
+			$container_layout = "{$p}_container";
+			$original_layout = "{$p}_original";
+			$translation_layout = "{$p}_translation";
+			$this->layoutinfo[$container_layout] = array(
+				"area_caption" => $ppl[$p]["caption"],
+				"type" => "hbox",
+				"width" => "50%:50%",
+				"group" => $this->use_group
+			);
+			$this->layoutinfo[$translation_layout] = array(
+				"type" => "vbox",
+				"parent" => $container_layout,
+				"group" => $this->use_group
+			);
+			$this->layoutinfo[$original_layout] = array(
+				"type" => "vbox",
+				"parent" => $container_layout,
+				"group" => $this->use_group
+			);
+
 			// source language value
+			$original_value = $o->prop($p);
 			$nm = "src_lng_val_".$p;
 			$ret[$nm]["name"] = $nm;
-			$ret[$nm]["caption"] = $ppl[$p]["caption"] . "<small>{$str_src_text}</small>";
+			$ret[$nm]["no_caption"] = "1";
 			$ret[$nm]["type"] = "text";
-			$ret[$nm]["value"] = iconv(aw_global_get("charset"), "UTF-8", (isset($src_lang_vals[$p]) ? $src_lang_vals[$p] : $o->is_property($p) ? $o->prop_str($p) : ""));
+			$ret[$nm]["value"] = iconv($original_lang_charset, "UTF-8", $original_value);
 			$ret[$nm]["ord"] = ++$so;
-			unset($ret[$nm]["parent"]);
-			unset($ret[$nm]["group"]);
+			$ret[$nm]["group"] = $this->use_group;
+			$ret[$nm]["parent"] = $original_layout;
 
 			// translation field
 			$nm = "trans_{$this->translation_lang_id}_{$p}";
 			$ret[$nm] = $ppl[$p];
-			$ret[$nm]["caption"] .=  "<small>{$str_translation}</small>";
+			$ret[$nm]["no_caption"] = "1";
 			$ret[$nm]["name"] = $nm;
-			$ret[$nm]["value"] = isset($vals[$p]) ? iconv($translation_target_lang_o->prop("lang_charset"), "UTF-8", $vals[$p]) : "";
+			$ret[$nm]["value"] = iconv($translation_target_lang_o->prop("lang_charset"), "UTF-8", $o->trans_get_val($p, $this->translation_lang_id, true));
 			$ret[$nm]["ord"] = ++$so;
-			unset($ret[$nm]["parent"]);
-			unset($ret[$nm]["group"]);
+			$ret[$nm]["group"] = $this->use_group;
+			$ret[$nm]["parent"] = $translation_layout;
 		}
+
+		$ret["spacer"] = array(
+			"name" => "spacer",
+			"value" =>  html::space(),
+			"no_caption" => "1",
+			"type" => "text",
+			"ord" => ++$so
+		);
+
 		$nm = "act_{$this->translation_lang_id}";
 		$ret[$nm] = array(
 			"name" => $nm,
@@ -5928,108 +5932,9 @@ class class_base extends aw_template implements orb_public_interface
 		return $ret;
 	}
 
+	//DEPRECATED
 	function trans_get_val($obj, $prop, $lang_id = false, $ignore_status = false)
-	{
-		if ($obj->is_brother())
-		{
-			$obj = $obj->get_original();
-		}
-		return $obj->trans_get_val($prop, $lang_id, $ignore_status);
-	}
-
-	function trans_get_val_str($obj, $prop)
-	{
-		if ($obj->is_brother())
-		{
-			$obj = $obj->get_original();
-		}
-		$pd = $GLOBALS["properties"][$obj->class_id()][$prop];
-		$type = $pd["type"];
-		$val = $obj->prop($prop);
-		switch($type)
-		{
-			// YOU *CAN NOT* convert dates to strings here - it fucks up dates in vcl tables
-			case "relmanager":
-			case "relpicker":
-			case "classificator":
-			case "popup_search":
-			case "releditor":
-				if ($pd["store"] == "connect")
-				{
-					$rels = new object_list($obj->connections_from(array(
-						"type" => $pd["reltype"]
-					)));
-					//$_tmp = $rels->names();
-					$_tmp = array();
-					foreach($rels->arr() as $relo)
-					{
-						$_tmp[] = $this->trans_get_val($relo, "name");
-					}
-					if (count($_tmp))
-					{
-						$val = join(", ", $_tmp);
-					}
-					else
-					{
-						$val = "";
-					}
-					break;
-				}
-
-			case "oid":
-				if (is_oid($val))
-				{
-					if ($GLOBALS["object_loader"]->ds->can("view", $val))
-					{
-						$tmp = new object($val);
-						//$val = $tmp->name();
-						$val = $this->trans_get_val($tmp, "name");
-					}
-					else
-					{
-						$val = "";
-					}
-				}
-				else
-				if (is_array($val))
-				{
-					$vals = array();
-					foreach($val as $k)
-					{
-						if (is_oid($k))
-						{
-							if ($GLOBALS["object_loader"]->ds->can("view", $k))
-							{
-								$tmp = new object($k);
-								$vals[] = $this->trans_get_val($tmp, "name");
-								//$vals[] = $tmp->name();
-							}
-						}
-					}
-					$val = join(", ", $vals);
-				}
-				break;
-		}
-		if ($val === "0" || $val === 0)
-		{
-			$val = "";
-		}
-
-
-		if (aw_ini_get("user_interface.content_trans") == 1 && ($cur_lid = aw_global_get("lang_id")) != $obj->lang_id())
-		{
-			$trs = $obj->meta("translations");
-			if (isset($trs[$cur_lid]))
-			{
-				if ((true || $prop == "url" || $prop == "author") && $trs[$cur_lid][$prop] == "")
-				{
-					return $val;
-				}
-				$val = $trs[$cur_lid][$prop];
-			}
-		}
-		return $val;
-	}
+	{ 		if ($obj->is_brother())		{ 			$obj = $obj->get_original(); 		} 		return $obj->trans_get_val($prop, $lang_id, $ignore_status); 	}
 
 	/**
 		@attrib name=rel_cut
@@ -6881,9 +6786,18 @@ ENDSCRIPT;
 				}
 
 				$this->awcb_data_sources[$name] = $this->$method(array("obj_inst" => $this->obj_inst));
-			}
+				$r = $this->awcb_data_sources[$name];
 
-			$r = $this->awcb_data_sources[$name];
+				// check character set compatibility
+				if ($r->lang_id() and aw_global_get("lang_id") and aw_global_get("lang_id") != $r->lang_id())
+				{
+					$this->show_msg_text(t("Valitud keel ja objekti keel on erinevad. Kuvamisel v&otilde;ib esineda t&auml;hem&auml;rgivigu"));
+				}
+			}
+			else
+			{
+				$r = $this->awcb_data_sources[$name];
+			}
 		}
 		else
 		{
