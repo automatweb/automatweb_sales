@@ -1281,70 +1281,64 @@ ENDJAVASCRIPT
 		return $res;
 	}
 
-	/**Image
+	/** Renders and returns html image tag
 	@attrib api=1 params=name
 
-	@param url optional type=string
-		image url
-	@param width optional type=int
-		image width
-	@param height optional type=int
-		image height
-	@param border optional type=int
-		border size
-	@param alt optional type=string
-		text you can see when you scroll over the image
-	@param title optional type=string
-		image title
-	@param class optional type=string
-		style class name
-	@param id optional type=string
-		image id
+	@param url type=string
+		Identical to $src parameter
+	@param src type=string
+		Image source url
+	@param width type=int default=NULL
+		Image width
+	@param height type=int default=NULL
+		Image height
+	@param border type=int default=0
+		Border size
+	@param alt type=string default=NULL
+		Alternative text (alt attribute)
+	@param title type=string default=NULL
+		Image title
+	@param class type=string default=NULL
+		DOM class name
+	@param stype type=string default=NULL
+		CSS style
+	@param id type=string default=NULL
+		Image element DOM id
 
-	@returns string/html image
+	@returns string
+		HTML image
 
 	@comments
-		draws html image tag
+		Either url or src is mandatory
 	**/
 	public static function img($args = array())
 	{
-		$xhtml_slash = "";
-		if (aw_ini_get("content.doctype") === "xhtml")
+		if (!empty($args["src"]))
 		{
-			$xhtml_slash = " /";
+			$src = $args["src"];
+		}
+		elseif (!empty($args["url"]))
+		{
+			$src = $args["url"];
+		}
+		else
+		{
+			throw new awex_html_param("Image url missing.");
 		}
 
-		extract($args);
-		$ret = "<img src='$url'";
-		if (isset($width))
-		{
-			$ret.=" width='$width'";
-		}
-		if (isset($height))
-		{
-			$ret.=" height='$height'";
-		}
-		if (isset($border))
-		{
-			$ret.=" border='$border'";
-		}
-		if(isset($alt))
-		{
-			$ret.=" alt='$alt'";
-		}
-		if(isset($title))
-		{
-			$ret.=" title='$title'";
-		}
-		if(isset($class))
-		{
-			$ret.=" class='$class'";
-		}
-		if(isset($id))
-		{
-			$ret.=" id='$id'";
-		}
-		return $ret.$xhtml_slash.">";
+		$width = empty($args["width"]) ? "" : " width=\"{$args["width"]}\"";
+		$height = empty($args["height"]) ? "" : " height=\"{$args["height"]}\"";
+		$border = empty($args["border"]) ? " border=\"0\"" : " border=\"{$args["border"]}\"";
+		$alt = empty($args["alt"]) ? "" : " alt=\"{$args["alt"]}\"";
+		$title = empty($args["title"]) ? "" : " title=\"{$args["title"]}\"";
+		$class = empty($args["class"]) ? "" : " class=\"{$args["class"]}\"";
+		$id = empty($args["id"]) ? "" : " id=\"{$args["id"]}\"";
+		$style= empty($args["style"]) ? "" : " style=\"{$args["style"]}\"";
+		$xhtml_slash = (aw_ini_get("content.doctype") === "xhtml") ? " /" : "";
+
+		$image_element = "<img src=\"{$src}\"{$width}{$height}{$border}{$alt}{$title}{$class}{$id}{$style}{$xhtml_slash}>";
+
+		return $image_element;
 	}
 
 	/**Link
