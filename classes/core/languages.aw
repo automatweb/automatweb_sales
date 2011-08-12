@@ -398,6 +398,7 @@ class languages implements request_startup, orb_public_interface
 		@comment
 		@returns string
 		@errors
+			throws awex_lang_na if no language data for $id found
 	**/
 	public static function get_charset($id = 0)
 	{

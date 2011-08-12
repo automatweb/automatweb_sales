@@ -6791,7 +6791,7 @@ ENDSCRIPT;
 				// check character set compatibility
 				if ($r->lang_id() and aw_global_get("lang_id") and aw_global_get("lang_id") != $r->lang_id())
 				{
-					$this->show_msg_text(t("Valitud keel ja objekti keel on erinevad. Kuvamisel v&otilde;ib esineda t&auml;hem&auml;rgivigu"));
+					$this->show_msg_text(sprintf(t("Valitud keel ja objekti keel (%s) on erinevad. Kuvamisel v&otilde;ib esineda t&auml;hem&auml;rgivigu"), $r->lang()));
 				}
 			}
 			else
