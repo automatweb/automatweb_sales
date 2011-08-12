@@ -1,13 +1,25 @@
 <?php
 
-class languages implements request_startup
+class languages implements request_startup, orb_public_interface
 {
 	const CACHE_KEY = "languages-cache-site_id-"; // internal cache file name/key
 
+	private $req;
 	private static $languages_data = array();
 	private static $languages_metadata = array(
 		"enabled_languages_count" => 0
 	);
+
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
+	}
 
 	/** Returns language data array for given id parameter
 		@attrib api=1 params=pos
@@ -223,18 +235,56 @@ class languages implements request_startup
 		return $ret;
 	}
 
-	////
-	// !sets the active language to $id
-	static function set_active($id, $force_act = false)
+	/** Sets active language and redirects if requested.
+		@attrib name=set_active
+		@param id required type=int
+			Language id to set
+		@param return_url optional type=string
+			URL to redirect back to
+		@comment
+			Public interface to set_active api method
+			Redirects to baseurl if given return url is invalid
+
+		@returns void
+	**/
+	public static function _set_active($arr)
+	{
+		self::set_active($arr["id"]);
+
+		if (!empty($arr["return_url"]))
+		{
+			try
+			{
+				aw_redirect(new aw_uri($arr["return_url"]));
+			}
+			catch (Exception $e)
+			{
+				aw_redirect(aw_ini_get("baseurl"));
+			}
+		}
+	}
+
+	/** Sets the active language to $id
+		@attrib api=1 params=pos
+		@param id type=int
+			Language id (db_lang_id property)
+		@param force_act type=bool default=FALSE
+			If TRUE and user has logged in then requested language will be set active regardless of its object status (excluding 'deleted')
+		@comment
+		@returns int|bool
+			returns set language id or FALSE if failed
+		@errors none
+	**/
+	public static function set_active($id, $force_act = false)
 	{
 		$id = (int)$id;
 		$l = self::fetch($id);
-		if (($l["status"] != 2 && aw_global_get("uid") == "") && !$force_act)
+		if (($l["status"] != object::STAT_ACTIVE && !aw_global_get("uid")) && !$force_act)
 		{
 			return false;
 		}
 
-		if (is_oid($l["oid"]) && !object_loader::can("view", $l["oid"]))
+		if (is_oid($l["oid"]) && !object_loader::can("", $l["oid"]))
 		{
 			return false;
 		}
@@ -340,9 +390,22 @@ class languages implements request_startup
 		return 1;
 	}
 
-	static function get_charset()
+
+	/**
+		@attrib api=1 params=pos
+		@param id type=int default=0
+			Language id to get charset for. If not specified, current language charset returned
+		@comment
+		@returns string
+		@errors
+	**/
+	public static function get_charset($id = 0)
 	{
-		$a = self::fetch(aw_global_get("lang_id"), true);
+		if (!$id)
+		{
+			$id = aw_global_get("lang_id");
+		}
+		$a = self::fetch($id);
 		return $a["charset"];
 	}
 
