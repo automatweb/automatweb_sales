@@ -9,7 +9,7 @@
 @default group=general
 
 
-@property name type=textbox table=objects field=name
+@property name type=text table=objects field=name
 @caption Nimi
 
 @property comment type=textbox table=objects field=comment
@@ -108,23 +108,8 @@ class crm_bill_row extends class_base
 			case "sum":
 				$prop["value"] = str_replace(",", ".", $arr["obj_inst"]->prop("amt")) * str_replace(",", ".", $arr["obj_inst"]->prop("price"));
 				break;
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
 		}
 		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	function do_db_upgrade($table, $field, $q, $err)

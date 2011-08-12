@@ -4,7 +4,7 @@
             <name>name</name>
             <table>objects</table>
             <group>general</group>
-            <type>textbox</type>
+            <type>text</type>
             <field>name</field>
             <caption>Nimi</caption>
       </property>
