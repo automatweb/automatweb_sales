@@ -1687,29 +1687,30 @@ class _int_object
 				$val = $this->prop($prop);
 		}
 
-		$trans = false;
-		$cur_lid = false;
-		if (!empty($GLOBALS["cfg"]["user_interface"]["content_trans"]) && ($cur_lid = aw_global_get("lang_id")) != $this->lang_id())
+		// translate if language is given or contenttrans ini settings enabled and found language isn't same as original language
+		if (false === $lang_id)
 		{
-			$trans = true;
+			if (aw_ini_get("user_interface.full_content_trans") or aw_ini_isset("user_interface.trans_classes." . $this->class_id()))
+			{
+				$lang_id = aw_global_get(aw_ini_get("user_interface.full_content_trans") ? "ct_lang_id" : "lang_id");
+			}
+			elseif (aw_ini_get("user_interface.content_trans"))
+			{
+				$lang_id = aw_global_get("lang_id");
+			}
 		}
 
-		if ((!empty($GLOBALS["cfg"]["user_interface"]["full_content_trans"]) || !empty($GLOBALS["cfg"]["user_interface"]["trans_classes"][$this->class_id()])) &&
-			($cl = aw_global_get($GLOBALS["cfg"]["user_interface"]["full_content_trans"] ? "ct_lang_id" : "lang_id")) != $this->lang_id())
+		if ($lang_id and $lang_id !== $this->lang_id())
 		{
-			$trans = true;
-			$cur_lid = $cl;
-		}
-
-		// If the language id is given, ignore the stuff above.
-		if($lang_id !== false && $lang_id != $this->lang_id())
-		{
-			$trans = true;
 			$cur_lid = $lang_id;
 		}
+		else
+		{
+			$cur_lid = false;
+		}
 
-
-		if ($trans and isset($this->obj["meta"]["translations"]))
+		// get translation
+		if ($cur_lid and isset($this->obj["meta"]["translations"]))
 		{
 			$trs = $this->obj["meta"]["translations"];
 			if ($prop === "status") // check transl status
