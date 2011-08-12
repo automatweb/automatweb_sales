@@ -723,9 +723,15 @@ class _int_object
 			return NULL;
 		}
 
-		// right. once we convert all code to use lang codes (en/et/..) we can make this better. right now, the sucky version.
-		$li = new languages();
-		return $li->get_langid($this->obj["lang_id"]);
+		try
+		{
+			// right. once we convert all code to use lang codes (en/et/..) we can make this better. right now, the sucky version.
+			return languages::get_langid($this->obj["lang_id"]);//TODO: keele id-d universaalseks, et alati oleks olemas
+		}
+		catch (awex_lang_na $e)
+		{
+			return "";
+		}
 	}
 
 	function lang_id()
