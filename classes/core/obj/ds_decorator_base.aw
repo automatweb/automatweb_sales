@@ -1,13 +1,8 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class _int_obj_ds_decorator
 {
-	//////////////////////////////////////////////
-	// private variables
-	var $contained;	// the contained ds
+	private $contained;	// the contained data source object
 
 	function _int_obj_ds_decorator($contained)
 	{
@@ -58,7 +53,7 @@ class _int_obj_ds_decorator
 	}
 
 	////
-	// !saves object properties, including all object table fields, 
+	// !saves object properties, including all object table fields,
 	// params:
 	//	properties - prop array from propreader
 	//	objdata - object data from objtable
@@ -77,7 +72,7 @@ class _int_obj_ds_decorator
 	}
 
 	////
-	// !saves connection 
+	// !saves connection
 	function save_connection($data)
 	{
 		return $this->contained->save_connection($data);
@@ -90,7 +85,7 @@ class _int_obj_ds_decorator
 		return $this->contained->delete_connection($id);
 	}
 
-	
+
 	////
 	// !returns all connections that match filter
 	function find_connections($arr)
@@ -101,7 +96,7 @@ class _int_obj_ds_decorator
 	////
 	// !searches the database
 	// params:
-	//	array of filter parameters 
+	//	array of filter parameters
 	// if class id is present, properties can also be filtered, otherwise only object table fields
 	function search($params)
 	{
@@ -218,6 +213,9 @@ class _int_obj_ds_decorator
 	{
 		return $this->contained->execute_oql_query($oql);
 	}
-}
 
-?>
+	function __call($method, $arguments)
+	{
+		return call_user_func_array(array($this->contained, $method), $arguments)
+	}
+}
