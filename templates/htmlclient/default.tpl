@@ -240,7 +240,7 @@
 		    <div class="pais">
 			<div class="caption">Tabeli pealkiri</div>
 			<div class="navigaator">
-			    <!-- siia tuleb ühel ilusal päeval lehtede kruttimise navigaator, homseks seda vaja pole, seega las see div jääb tühjaks -->
+			    <!-- siia tuleb yhel ilusal p2eval lehtede kruttimise navigaator, homseks seda vaja pole, seega las see div j22b tyhjaks -->
 			</div>
 		    </div>
 		    <div class="sisu">

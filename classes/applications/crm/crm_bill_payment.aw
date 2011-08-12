@@ -470,8 +470,8 @@ class crm_bill_payment extends class_base
 		$t->set_caption(t("Laekumised"));
 
 		$sum = 0;
-		$inst = get_instance("applications/crm/crm_company_stats_impl");
-		$curr = get_instance("formgen/currency");
+		$inst = new crm_company_stats_impl();
+		$curr = new currency();
 		foreach($ol->arr() as $o)
 		{
 			$cust_name = $bill = $bills_list = "";
