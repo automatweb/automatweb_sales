@@ -1,13 +1,28 @@
 <?php
 // siin imporditakse muutujad saidi raami sisse
 // ja v2ljastatakse see
+
+if (aw_ini_get("user_interface.full_content_trans"))
+{
+	$ld = languages::fetch(aw_global_get("ct_lang_id"));
+	$page_charset = $charset = $ld["charset"];
+}
+else
+{
+	$ld = languages::fetch(aw_global_get("lang_id"));
+	$page_charset = $charset = aw_global_get("charset");
+}
+
+$output_charset = aw_global_get("output_charset") ? aw_global_get("output_charset") : $charset;
+automatweb::$result->set_charset($output_charset);
+
 $site_title = isset($GLOBALS["site_title"]) ? $GLOBALS["site_title"] : "AutomatWeb";
 $sf->read_template("index.tpl");
 
 $i = new admin_if();
 $i->insert_texts($sf);
 
-$ta = aw_global_get("title_action");
+$ta = aw_global_get("title_action");//TODO: iconv
 if ($ta != "")
 {
 	$ta.=" / ";
@@ -67,33 +82,25 @@ if (!$co)
 if (!empty($_GET["id"]) and $sf->can("view", $_GET["id"]))
 {
 	$cur_obj = obj($_GET["id"]);
+	$cur_obj_name = iconv(languages::get_charset($cur_obj->lang_id()), $output_charset, $cur_obj->prop_xml("name"));
 }
 else
 {
 	$cur_obj = obj();
+	$cur_obj_name = "";
 }
+
 // do not display the YAH bar, if site_title is empty
 $bmb = new popup_menu();
 $bmb->begin_menu("settings_pop");
 
 // language selection menu
-if (aw_ini_get("user_interface.full_content_trans"))
-{
-	$ld = languages::fetch(aw_global_get("ct_lang_id"));
-	$page_charset = $charset = $ld["charset"];
-}
-else
-{
-	$ld = languages::fetch(aw_global_get("lang_id"));
-	$page_charset = $charset = aw_global_get("charset");
-}
-
 if (languages::count() > 1)
 {
 	$languages_menu = new popup_menu();
 	$languages_menu->begin_menu("lang_pop");
 	$languages_menu = $languages_menu->get_menu(array(
-		"load_on_demand_url" => $sf->mk_my_orb("lang_pop", array("url" => get_ru()), "language"),
+		"load_on_demand_url" => $sf->mk_my_orb("lang_pop", array("url" => automatweb::$request->get_uri()->get()), "language"),
 		"text" => $ld["name"] . ' <img src="' . aw_ini_get("baseurl") . 'automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
 	));
 }
@@ -144,23 +151,23 @@ catch (aw_lock_exception $e)
 $sf->vars(array(
 	"prod_family" => $pf,
 	"prod_family_href" => $pf_url,
-	"cur_p_name" => $p->prop_xml("name"),
+	"cur_p_name" => iconv(languages::get_charset($p->lang_id()), $output_charset, $p->prop_xml("name")),
 	"cur_p_url" => html::get_change_url($p->id(), array('return_url' => get_ru())),
 	"cur_co_url" => html::get_change_url($co->id(), array('return_url' => get_ru())),
 	"cur_co_url_view" => $sf->mk_my_orb("view", array("id" => $co->id(), 'return_url' => get_ru()), CL_CRM_COMPANY),
-	"cur_co_name" => $co->prop_xml("name"),
+	"cur_co_name" => iconv(languages::get_charset($co->lang_id()), $output_charset, $co->prop_xml("name")),
 	"cur_class" => $cur_class,
-	"cur_obj_name" => $cur_obj->prop_xml("name"),
+	"cur_obj_name" => $cur_obj_name,
 	"site_title" => $site_title,
 	"stop_pop_url_add" => $sf->mk_my_orb("stopper_pop", array(
 		"s_action" => "start",
-		"new" => 1,
+		"new" => 1
 	), CL_TASK),
 	"stop_pop_url_quick_add" => $sf->mk_my_orb("stopper_pop", array(
 		"source" => isset($_GET["class"]) ? $_GET["class"] : null,
 		"source_id" => isset($_GET["id"]) ? $_GET["id"] : null,
 		"s_action" => "start",
-		"new" => 1,
+		"new" => 1
 	), CL_TASK),
 	"stop_pop_url_qw" => $sf->mk_my_orb("stopper_pop", array(), CL_TASK),
 /*	"ui_lang" => $pm->get_menu(array(
@@ -174,10 +181,10 @@ $sf->vars(array(
 	"parent" => $parent,
 	"random" => rand(100000,1000000),
 	"session_end_msg" => t("Teie AutomatWeb'i sessioon aegub 5 minuti p&auml;rast!"),
-	"btn_session_end_continue" => html_entity_decode(t("J&auml;tkan")),
-	"btn_session_end_cancel" => html_entity_decode(t("L&otilde;petan")),
+	"btn_session_end_continue" => t("J&auml;tkan"),
+	"btn_session_end_cancel" => t("L&otilde;petan"),
 	"session_length" => ini_get("session.gc_maxlifetime")*1000,
-	"ajax_loader_msg" => t("T&ouml;&ouml;tlen.<br />&Uuml;ks hetk, palun.")
+	"ajax_loader_msg" => t("T&ouml;&ouml;tlen.") . html::linebreak() . t("&Uuml;ks hetk, palun.")
 ));
 
 
@@ -259,50 +266,13 @@ else
 }
 
 
-$tmp = array();
-if (!empty($site_title))	// weird, but lots of places rely on the yah line being empty and thus having no height.
-{
-	// do the language selecta
-	$baseurl = aw_ini_get("baseurl");
-	$lang_id = aw_global_get("lang_id");
-	$li = $l->get_list();
-	foreach($li as $lid => $ln)
-	{
-		$url = $baseurl."automatweb/index.aw?set_lang_id=".$lid;
-		$target = "_top";
-		$tmp[] = html::href(array(
-			"url" => $url,
-			"target" => $target,
-			"caption" => ($lid == $lang_id ? "<b><font color=\"#FF0000\">".$ln."</font></b>" : $ln)
-		));
-	}
-
-	$sf->vars(array(
-		"lang_string" => join("|", $tmp),
-		"header_text" => aw_call_header_text_cb()
-	));
-	$sf->vars(array(
-		"LANG_STRING" => $sf->parse("LANG_STRING")
-	));
-}
-
-
-
-
 // if you set this global variable in your code, then the whole page will be converted and shown
 // in the requested charset. This will be handy for translation forms .. and hey .. perhaps one
 // day we are going to move to unicode for the whole interface
 
-$output_charset = aw_global_get("output_charset");
-
-if (!empty($output_charset))
-{
-	$charset = $output_charset;
-}
-
 // compose html title
 $html_title = aw_ini_get("stitle");
-$html_title_obj = (CL_ADMIN_IF == $cur_obj->class_id()) ? aw_global_get("site_title_path_obj_name") : $cur_obj->prop_xml("name");
+$html_title_obj = (CL_ADMIN_IF == $cur_obj->class_id()) ? aw_global_get("site_title_path_obj_name") : $cur_obj_name;
 
 if (!empty($html_title))
 {
@@ -435,7 +405,7 @@ if (isset($_SESSION["user_history_count"]) and $_SESSION["user_history_count"] >
 	if (!$locked and !empty($bits["id"]))
 	{
 		$o = obj($bits["id"]);
-		$st = $o->name();
+		$st = iconv(languages::get_charset($o->lang_id()), $output_charset, $o->name());
 	}
 	else
 	{
