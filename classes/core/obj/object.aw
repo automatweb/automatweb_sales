@@ -1746,12 +1746,16 @@ class object
 	/** returns the value for the specified property for the current object, suitable for use directly in xml, html
 		@attrib api=1
 
-		@param param required type=string
+		@param param type=string
 			the name of the property whose value is to be returned
+
+		@param charset type=string default=""
+			Charset to return value in
 	**/
-	function prop_xml($param)
+	function prop_xml($param, $charset = "")
 	{
-		return htmlspecialchars($this->prop($param));
+		$this->_check_lock_read();
+		return $GLOBALS["objects"][$this->oid]->prop_xml($param, $charset);
 	}
 
 	/** returns the value for the specified property for the current object, suitable for displaying to the user
