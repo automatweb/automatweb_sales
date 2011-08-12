@@ -1,5 +1,7 @@
 <?php
 // language.aw - Keel
+
+//TODO:!!! keele id tuleb v6tta aw.ini-st v6i kuskilt isegi konstantsemast. mingis keeles objektid peavad olema yheselt teada mis keeles nad on
 /*
 
 @classinfo relationmgr=yes no_status=1 no_comment=1
