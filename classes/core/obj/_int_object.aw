@@ -25,6 +25,8 @@ class _int_object
 	protected $props_loaded = false;
 	protected $props_modified = array();
 	protected $ot_modified = array("modified" => 1);
+	protected $data_charset = "UTF-8";
+
 	protected static $global_save_count = 0;
 	protected static $cache_off = false;
 
@@ -1351,6 +1353,18 @@ class _int_object
 		return $val;
 	}
 
+	public function prop_xml($name, $charset = "")
+	{
+		if ("" === $charset)
+		{
+			return htmlspecialchars($this->prop($name));
+		}
+		else
+		{
+			return htmlspecialchars(iconv($this->data_charset, $charset, $this->prop($name)));
+		}
+	}
+
 	function set_prop($key, $val)
 	{
 		if (!$this->_int_is_property($key))
@@ -2027,6 +2041,16 @@ class _int_object
 		if ($oid !== $this->obj["oid"])
 		{
 			$GLOBALS["objects"][$this->obj["oid"]] = $this;
+		}
+
+		// load meta info
+		try
+		{ //TODO: keele id-d universaalseks
+			$this->data_charset = $this->lang_id() ? languages::get_charset($this->lang_id()) : aw_global_get("charset");
+		}
+		catch (awex_lang_na $e)
+		{
+			$this->data_charset = aw_global_get("charset");//TODO: paremast kohast v6tta
 		}
 	}
 
