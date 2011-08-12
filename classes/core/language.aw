@@ -416,9 +416,14 @@ class language extends class_base
 			}
 			else
 			{
+				$url = core::mk_my_orb("set_active", array(
+					"id" => $lid,
+					"return_url" => empty($arr["url"]) ? aw_ini_get("baseurl") : $arr["url"]
+				), "languages");
+
 				$pm->add_item(array(
 					"text" => $ld,
-					"link" => aw_ini_get("baseurl")."automatweb/index.aw?set_lang_id=".$lid,
+					"link" => $url
 				));
 			}
 		}
