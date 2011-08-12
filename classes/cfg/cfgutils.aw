@@ -535,7 +535,7 @@ class cfgutils extends aw_template
 		if (empty($filter["form"]) && !$system)
 		{
 			$filter["form"] = array("","add","edit");
-		};
+		}
 
 		if (isset($filter) && is_array($filter) && sizeof($filter) > 0)
 		{
@@ -582,8 +582,8 @@ class cfgutils extends aw_template
 								if (in_array($_tmp[$key],$val))
 								{
 									$pass++;
-								};
-							};
+								}
+							}
 						}
 						else if (isset($_tmp[$key]) && is_array($_tmp[$key]) && in_array($val,$_tmp[$key]))
 						{
@@ -678,27 +678,22 @@ class cfgutils extends aw_template
 		}
 
 		$tft = 0;
-		$adm_ui_lc = null;
-		if (aw_ini_isset("user_interface.default_language"))
+		$adm_ui_lc = aw_ini_get("user_interface.default_language");
+		$trans_fn = AW_DIR . "lang/trans/{$adm_ui_lc}/aw/{$file}" . AW_FILE_EXT;
+		if (file_exists($trans_fn))
 		{
-			$adm_ui_lc = aw_ini_get("user_interface.default_language");
-			$trans_fn = AW_DIR . "lang/trans/" . $adm_ui_lc . "/aw/" . $file . AW_FILE_EXT;
-			if (file_exists($trans_fn))
-			{
-				require_once($trans_fn);
-				$tft = filemtime($trans_fn);
-			}
+			require_once($trans_fn);
+			$tft = filemtime($trans_fn);
 		}
-
 
 		$sc = ifset($GLOBALS, "cfg", "classes", $clid, "site_class");
 		if ($sc)
 		{
-			$ts = is_readable(aw_ini_get("site_basedir")."/xml/properties/".$file.".xml") ? filemtime(aw_ini_get("site_basedir")."/xml/properties/".$file.".xml") : null;
+			$ts = is_readable(aw_ini_get("site_basedir")."xml/properties/{$file}.xml") ? filemtime(aw_ini_get("site_basedir")."/xml/properties/{$file}.xml") : null;
 		}
 		else
 		{
-			$ts = is_readable(aw_ini_get("basedir")."/xml/properties/".$file.".xml") ? filemtime(aw_ini_get("basedir")."/xml/properties/".$file.".xml") : null;
+			$ts = is_readable(AW_DIR."xml/properties/{$file}.xml") ? filemtime(AW_DIR."/xml/properties/{$file}.xml") : null;
 		}
 
 		$args["adm_ui_lc"] = $adm_ui_lc;
@@ -756,14 +751,11 @@ class cfgutils extends aw_template
 			}
 		}
 
-		if (aw_ini_isset("user_interface.default_language"))
+		$adm_ui_lc = aw_ini_get("user_interface.default_language");
+		$trans_fn = AW_DIR . "/lang/trans/{$adm_ui_lc}/aw/".basename($file) . AW_FILE_EXT;
+		if (file_exists($trans_fn))
 		{
-			$adm_ui_lc = aw_ini_get("user_interface.default_language");
-			$trans_fn = aw_ini_get("basedir") . "/lang/trans/" . $adm_ui_lc . "/aw/".basename($file) .".aw";
-			if (file_exists($trans_fn))
-			{
-				require_once($trans_fn);
-			}
+			require_once($trans_fn);
 		}
 
 		$this->groupinfo = array();
@@ -782,10 +774,10 @@ class cfgutils extends aw_template
 
 		if (isset($cldat["generated"]))
 		{
-			$fld = aw_ini_get("site_basedir")."/files/classes";
-			$loc = $fld . "/" . $cldat["file"] . "." . aw_ini_get("ext");
+			$fld = aw_ini_get("site_basedir")."files/classes";
+			$loc = $fld . "/" . $cldat["file"] . AW_FILE_EXT;
 
-			$anakin = get_instance("cfg/propcollector");
+			$anakin = new propcollector();
 			$result = $anakin->parse_file(array(
 				"file" => $loc,
 			));

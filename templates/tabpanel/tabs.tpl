@@ -40,7 +40,7 @@
 	<!-- END SUB: NOT_POPUP -->
 
 </div>
-<!-- //päis -->
+<!-- //header -->
 
 	<div id="k_menyy">
 		<!-- SUB: tabs_L2 -->

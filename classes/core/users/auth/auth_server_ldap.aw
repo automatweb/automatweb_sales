@@ -2,7 +2,7 @@
 // auth_server_ldap.aw - Autentimisserver LDAP
 /*
 
-@classinfo syslog_type=ST_AUTH_SERVER_LDAP relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1
 
 @default table=objects
 @default group=general
@@ -279,8 +279,6 @@ class auth_server_ldap extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_USER,
 			"name" => $cred["uid"],
-			"site_id" => array(),
-			"lang_id" => array(),
 			"brother_of" => new obj_predicate_prop("id")
 		));
 
@@ -288,10 +286,7 @@ class auth_server_ldap extends class_base
 		{
 			$u = $ol->begin();
 			$g = get_instance(CL_GROUP);
-			aw_disable_acl();
 			$g->remove_user_from_group($u, obj($grp));
-			aw_restore_acl();
 		}
 	}
 }
-?>

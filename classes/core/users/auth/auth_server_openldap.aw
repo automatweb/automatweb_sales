@@ -104,7 +104,7 @@ class auth_server_openldap extends class_base
 					return PROP_IGNORE;
 				}
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -285,8 +285,6 @@ class auth_server_openldap extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_USER,
 			"name" => $cred["uid"],
-			"site_id" => array(),
-			"lang_id" => array(),
 			"brother_of" => new obj_predicate_prop("id")
 		));
 
@@ -294,9 +292,7 @@ class auth_server_openldap extends class_base
 		{
 			$u = $ol->begin();
 			$g = get_instance(CL_GROUP);
-			aw_disable_acl();
 			$g->remove_user_from_group($u, obj($grp));
-			aw_restore_acl();
 		}
 	}
 }

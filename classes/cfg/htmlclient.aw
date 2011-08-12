@@ -1331,7 +1331,7 @@ class htmlclient extends aw_template
 		else
 		{
 			$item["html"] = $this->put_content($item);
-		};
+		}
 		return $item["html"];
 	}
 
@@ -1367,6 +1367,7 @@ class htmlclient extends aw_template
 				return null;
 			}
 		}
+
 		$html = "";
 		$ldata = $this->layoutinfo[$layout_name];
 		$location = false;
@@ -1426,7 +1427,7 @@ class htmlclient extends aw_template
 		}
 		else
 		{
-			// this deals with  deepers levels
+			// this deals with deeper levels
 			foreach(safe_array(isset($this->properties_by_parent[$layout_name]) ? $this->properties_by_parent[$layout_name] : null) as $pkey => $pval)
 			{
 				$layout_items[] = $this->put_griditem($this->proplist[$pkey]);
