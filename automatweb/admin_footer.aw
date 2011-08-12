@@ -82,7 +82,7 @@ if (!$co)
 if (!empty($_GET["id"]) and $sf->can("view", $_GET["id"]))
 {
 	$cur_obj = obj($_GET["id"]);
-	$cur_obj_name = iconv(languages::get_charset($cur_obj->lang_id()), $output_charset, $cur_obj->prop_xml("name"));
+	$cur_obj_name = $cur_obj->prop_xml("name", $output_charset);
 }
 else
 {
@@ -151,11 +151,11 @@ catch (aw_lock_exception $e)
 $sf->vars(array(
 	"prod_family" => $pf,
 	"prod_family_href" => $pf_url,
-	"cur_p_name" => iconv(languages::get_charset($p->lang_id()), $output_charset, $p->prop_xml("name")),
+	"cur_p_name" => $p->prop_xml("name", $output_charset),
 	"cur_p_url" => html::get_change_url($p->id(), array('return_url' => get_ru())),
 	"cur_co_url" => html::get_change_url($co->id(), array('return_url' => get_ru())),
 	"cur_co_url_view" => $sf->mk_my_orb("view", array("id" => $co->id(), 'return_url' => get_ru()), CL_CRM_COMPANY),
-	"cur_co_name" => iconv(languages::get_charset($co->lang_id()), $output_charset, $co->prop_xml("name")),
+	"cur_co_name" => $co->prop_xml("name", $output_charset),
 	"cur_class" => $cur_class,
 	"cur_obj_name" => $cur_obj_name,
 	"site_title" => $site_title,
@@ -405,7 +405,7 @@ if (isset($_SESSION["user_history_count"]) and $_SESSION["user_history_count"] >
 	if (!$locked and !empty($bits["id"]))
 	{
 		$o = obj($bits["id"]);
-		$st = iconv(languages::get_charset($o->lang_id()), $output_charset, $o->name());
+		$st = $o->prop_xml("name", $output_charset);
 	}
 	else
 	{
