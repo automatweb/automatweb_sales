@@ -8,5 +8,14 @@
 			</function>
 		</action>
 
+		<action name="set_active">
+			<function name="_set_active">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>
