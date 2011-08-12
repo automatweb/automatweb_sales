@@ -3,6 +3,7 @@
 class aw_http_response extends aw_resource
 {
 	protected $headers = array(); // http headers, array( header_name => value, ...)
+	private $charset = "UTF-8";
 
 	/**
 	@attrib api=1 params=pos
@@ -13,7 +14,7 @@ class aw_http_response extends aw_resource
 	{
 		if (!headers_sent())
 		{
-			header("Content-Type: text/html; charset=" . aw_global_get("charset"), true);
+			header("Content-Type: text/html; charset={$this->charset}", true);
 
 			if (empty($this->headers) and empty($this->data))
 			{ // 404 - resource not found
@@ -42,6 +43,11 @@ class aw_http_response extends aw_resource
 		}
 
 		parent::send();
+	}
+
+	public function set_charset($charset)
+	{
+		$this->charset = $charset;
 	}
 
 	public function sysmsg($message)
