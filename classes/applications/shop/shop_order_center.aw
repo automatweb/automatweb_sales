@@ -125,7 +125,7 @@
 	@property per_page type=textbox table=aw_shop_order_center field=aw_per_page method=null
 	@caption Tooteid lehek&uuml;ljel
 
-	@property product_type type=select
+	@property product_type type=select multiple=1
 	@caption N&auml;idatavad klassi t&uuml;&uuml;bid
 
 	@property dont_sell_not_available_products type=checkbox ch_value=1

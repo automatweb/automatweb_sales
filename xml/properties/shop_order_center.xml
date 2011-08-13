@@ -287,6 +287,7 @@
             <field>meta</field>
             <method>serialize</method>
             <type>select</type>
+            <multiple>1</multiple>
             <caption>N&amp;amp;auml;idatavad klassi t&amp;amp;uuml;&amp;amp;uuml;bid</caption>
       </property>
       <property>
@@ -690,7 +691,6 @@
       <classinfo>
             <syslog_type>ST_SHOP_ORDER_CENTER</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>kristo</maintainer>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
