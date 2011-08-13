@@ -703,6 +703,7 @@ aw_global_set("section", $section);
 		$this->bc = true;
 		require_once(AW_DIR . "lib/bc" .AW_FILE_EXT);
 		include AW_DIR . "const" . AW_FILE_EXT;
+		self::$result->set_charset(aw_global_get("charset"));
 	}
 }
 
