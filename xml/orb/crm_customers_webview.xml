@@ -1,6 +1,11 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="crm_customers_webview" folder="applications/crm" extends="class_base">
+		<action name="show" all_args="1">
+			<function name="show">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>
-		
