@@ -1,5 +1,35 @@
 <?xml version='1.0'?>
 <properties>
+      <property>
+            <name>template</name>
+            <table>aw_shop_purveyors_webview</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_template</field>
+            <caption>Tarnijate kuvamise kujundus</caption>
+      </property>
+      <property>
+            <name>categories</name>
+            <table>aw_shop_purveyors_webview</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <reltype>RELTYPE_CATEGORY</reltype>
+            <field>categories</field>
+            <caption>Tootekategooriad</caption>
+            <comment>Tootekategooriad millesse toode peaks kuuluma, et teda kuvataks</comment>
+      </property>
+      <property>
+            <name>oc</name>
+            <table>aw_shop_purveyors_webview</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_SHOP_ORDER_CENTER</clid>
+            <field>aw_oc</field>
+            <caption>Tellimiskeskkond</caption>
+            <comment>Veebipood, mille tooteid see n&amp;amp;auml;itamise objekt n&amp;amp;auml;itab</comment>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
@@ -13,5 +43,12 @@
                   <index>aw_oid</index>
             </aw_shop_purveyors_webview>
       </tableinfo>
+      <reltypes>
+            <CATEGORY>
+                  <value>1</value>
+                  <clid>CL_SHOP_PRODUCT_CATEGORY</clid>
+                  <caption>Kuvatav tootekategooria</caption>
+            </CATEGORY>
+      </reltypes>
 </properties>
 
