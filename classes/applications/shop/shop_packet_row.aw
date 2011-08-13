@@ -7,6 +7,18 @@
 @default table=aw_shop_packet_row
 @default group=general
 
+	@property jrk type=textbox table=objects
+	@caption Jrk
+
+	@property packet type=objpicker clid=CL_SHOP_PACKET field=aw_packet
+	@caption Pakett
+
+	@property item type=objpicker clid=CL_SHOP_PRODUCT,CL_SHOP_PRODUCT_PACKAGING field=aw_item
+	@caption Artikkel
+
+	@property amount type=textbox field=aw_amount
+	@caption Kogus
+
 */
 
 class shop_packet_row extends class_base
@@ -33,11 +45,11 @@ class shop_packet_row extends class_base
 				)");
 				$r = true;
 			}
-			elseif ("" === $field)
+			elseif ("aw_packet" === $field or "aw_item" === $field or "aw_amount" === $field)
 			{
 				$this->db_add_col("aw_shop_packet_row", array(
-					"name" => "",
-					"type" => ""
+					"name" => $field,
+					"type" => "int"
 				));
 				$r = true;
 			}

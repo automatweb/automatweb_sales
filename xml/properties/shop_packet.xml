@@ -71,6 +71,16 @@
             <caption>Erihind</caption>
       </property>
       <property>
+            <name>actual_price</name>
+            <table>aw_shop_packets</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>actual_price</field>
+            <caption>Tegelik hind</caption>
+			<comment>Paketis olevate toodete ja pakendite minimaalne maksumus</comment>
+      </property>
+      <property>
             <name>max_usage_in_time</name>
             <table>objects</table>
             <group>general</group>
