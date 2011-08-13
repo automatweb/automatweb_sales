@@ -5,10 +5,10 @@ class shop_order_center_obj extends _int_object
 	const CLID = 314;
 
 
-	public function save($exclusive = false, $previous_state = null)
+	public function save($check_state = false)
 	{
 		$do_new_shop_stuff = is_oid($this->id()) ? 0 : 1;
-		$r =  parent::save($exclusive, $previous_state);
+		$r =  parent::save($check_state);
 
 		if($do_new_shop_stuff)
 		{
