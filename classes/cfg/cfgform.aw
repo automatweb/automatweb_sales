@@ -4895,7 +4895,7 @@ class cfgform extends class_base
 			$action = $this->cfgview_vars["action"];
 			$this->cfgview_grps = safe_array($this_o->prop("cfgview_grps"));
 
-			if ("new" !== $action and !is_oid($this->cfgview_vars["id"]))
+			if ("new" !== $action and !empty($this->cfgview_vars["id"]) and !is_oid($this->cfgview_vars["id"]))
 			{
 				return "";
 			}
