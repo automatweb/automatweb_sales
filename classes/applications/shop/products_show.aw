@@ -215,6 +215,7 @@ class products_show extends class_base
 
 	function set_cache($html)
 	{
+		return;
 		// TODO: Should use Memcached! Not sure if AW has all the necessary developments, though...
 		$cache_dir = aw_ini_get("cache.page_cache")."/product_show";
 		$master_cache = $cache_dir.$_SERVER["REQUEST_URI"].".tpl";
@@ -267,7 +268,13 @@ class products_show extends class_base
 
 		$GLOBALS["order_center"] = $oc->id();
 		
-		$PRODUCT = $ROW = "";
+		$ROW = "";
+		$PARSED_SUBS = array(
+			"PRODUCT" => "",
+			"PACKET" => "",
+			"PACKAGING" => "",
+		);
+		$HAS_SUBS = array();
 		
 		$max = 4;	//default, TODO: This should be configurable:
 		$per_page = 16;	//default products per page
@@ -290,6 +297,7 @@ class products_show extends class_base
 				$count_row++;
 
 				$SUB = $this->__warehouse_item_sub_name($product);
+				$HAS_SUBS[] = $SUB;
 
 				$data_params = array("image_url" => 1,
 					"min_price" => 1,
@@ -404,34 +412,39 @@ class products_show extends class_base
 					$count_row = 0;
 					if($this->is_template("{$SUB}_END"))
 					{
-						$PRODUCT .= $this->parse("{$SUB}_END");
+						$PARSED_SUBS[$SUB] .= $this->parse("{$SUB}_END");
 					}
 					else
 					{
-						$PRODUCT .= $this->parse($SUB);
+						$PARSED_SUBS[$SUB] .= $this->parse($SUB);
 					}
-					$this->vars(array($SUB => $PRODUCT));
+					$this->vars(array($SUB => $PARSED_SUBS[$SUB]));
 					$ROW .= $this->parse("ROW");
-					$PRODUCT = "";
+					$PARSED_SUBS[$SUB] = "";
 				}
 				elseif($count_all >= $products->count() && $this->is_template("ROW"))//viimane rida
 				{
-					$PRODUCT .= $this->parse($SUB);
-					$this->vars(array($SUB => $PRODUCT));
+					$PARSED_SUBS[$SUB] .= $this->parse($SUB);
+					$this->vars(array($SUB => $PARSED_SUBS[$SUB]));
 					$ROW .= $this->parse("ROW");
 				}
 				else
 				{
-					$PRODUCT .= ($count_all === 1 and $this->is_template("{$SUB}_BEGIN")) ? $this->parse("{$SUB}_BEGIN") : $this->parse($SUB);
+					$PARSED_SUBS[$SUB] .= ($count_all === 1 and $this->is_template("{$SUB}_BEGIN")) ? $this->parse("{$SUB}_BEGIN") : $this->parse($SUB);
 				}
 			} while ($product = $products->next());
 		}
-		$this->vars(array(
+		$this->vars_safe($PARSED_SUBS + array(
 			"{$SUB}_BEGIN" => "",
 			"{$SUB}_END" => "",
-			$SUB => $PRODUCT,
 			"ROW" => $ROW
 		));
+		foreach ($HAS_SUBS as $HAS_SUB)
+		{
+			$this->vars_safe(array(
+				"HAS_{$HAS_SUB}S" => $this->parse("HAS_{$HAS_SUB}S"),
+			));
+		}
 
 		$pages = $products->count() / $per_page;
 		$pages = (int)$pages;
