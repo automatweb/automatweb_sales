@@ -2579,11 +2579,50 @@ class shop_order_center extends class_base
 			));
 		}
 
+		$new_struct_html_url = $this->mk_my_orb("get_make_new_struct_prompt", array("id" => $arr["obj_inst"]->id()));
+		$new_struct_submit_url = $this->mk_my_orb("make_new_struct", array("id" => $arr["obj_inst"]->id()));
+
+		$onclick = <<<SCRIPT
+$.please_wait_window.show();
+$.ajax({
+	url: '{$new_struct_html_url}',
+	success: function(html){
+		$.please_wait_window.hide();
+		$.prompt(html, {
+			callback: function(v,m){
+				if(v){
+					$.please_wait_window.show();
+					products_show_tpls = {};
+					m.find('select[name^=products_show_tpl_]').each(function(){
+						console.log(this);
+						products_show_tpls[this.id.substr(18)] = $(this).val();
+					});
+					$.ajax({
+						url: '{$new_struct_submit_url}',
+						data: {
+							products_show_tpl: products_show_tpls,
+							delete_menus_without_category: m.find('#delete_menus_without_category').prop('checked'),
+							delete_menus_with_deleted_category: m.find('#delete_menus_with_deleted_category').prop('checked')
+						},
+						success: function(){
+							$.please_wait_window.hide();
+							$.prompt('Uus struktuur edukalt loodud!', { buttons: { 'OK': true } });
+						}
+					});
+				}
+			},
+			buttons: { 'Loo uus struktuur': true, 'Katkesta': false }
+		});
+	}
+});
+SCRIPT;
+
 		$tb->add_button(array(
 			"name" => "new_struct",
 			"text" => t("Loo uus struktuur"),
 			"tooltip" => t("Loo uus struktuur"),
-			"url" => "javascript:make_new_struct()",
+			"url" => "javascript:void(0)",
+			"onclick" => $onclick,
 		));
 
 
@@ -2749,16 +2788,69 @@ class shop_order_center extends class_base
 	}
 
 	/**
+		@attrib name=get_make_new_struct_prompt params=name
+		@param id required type=int
+	**/
+	public function get_make_new_struct_prompt($arr)
+	{
+		$o = obj($arr["id"], array(), shop_order_center_obj::CLID);
+		$categories_depth = 3;//is_oid($o->prop("warehouse")) ? $o->warehouse()->get_categories_depth() : 0;
+
+		$tm = new templatemgr();
+		$tpl_options = $tm->template_picker(array(
+			"empty" => false,
+			"folder" => "applications/shop/products_show/"
+		));
+
+		$tpl_selectors = "";
+		$default_tpl_values = $o->meta("make_new_struct.products_show_tpl");
+		for ($i = 0; $i < $categories_depth; $i++)
+		{
+			$tpl_selectors .= sprintf(t("%u. taseme template"), $i + 1).html::select(array(
+				"name" => "products_show_tpl_{$i}",
+				"options" => $tpl_options,
+				"value" => isset($default_tpl_values[$i]) ? $default_tpl_values[$i] : "show.tpl",
+			));
+		}
+
+		$delete_menus_without_category = html::checkbox(array(
+			"name" => "delete_menus_without_category",
+			"label" => t("Kustuta kaustad, mis ei ole loodud 'Loo uus struktuur' nupu abil"),
+			"checked" => $o->meta("make_new_struct.delete_menus_without_category"),
+		));
+		$delete_menus_with_deleted_category = html::checkbox(array(
+			"name" => "delete_menus_with_deleted_category",
+			"label" => t("Kustuta kaustad, mille kategooria on kustutatud"),
+			"checked" => $o->meta("make_new_struct.delete_menus_with_deleted_category"),
+		));
+
+		$html = <<<HTML
+{$tpl_selectors}{$delete_menus_without_category}{$delete_menus_with_deleted_category}
+HTML;
+		die(nl2br($html));
+	}
+
+	/**
 		@attrib name=make_new_struct params=name
 		@param id required type=int
 			shop id
+		@param products_show_tpl optional type=array
+		@param delete_menus_without_category optional type=boolean
+		@param delete_menus_with_deleted_category optional type=boolean
 	**/
 	public function make_new_struct($arr)
 	{
+		var_dump($arr);
+
 		$this->shop = obj($arr["id"]);
+		$this->shop->set_meta("make_new_struct.products_show_tpl", isset($arr["products_show_tpl"]) ? $arr["products_show_tpl"] : null);
+		$this->shop->set_meta("make_new_struct.delete_menus_without_category", !empty($arr["delete_menus_without_category"]) and $arr["delete_menus_without_category"] !== "false");
+		$this->shop->set_meta("make_new_struct.delete_menus_with_deleted_category", !empty($arr["delete_menus_with_deleted_category"]) and $arr["delete_menus_with_deleted_category"] !== "false");
+		$this->shop->save();
+
 		$this->shop->make_new_struct();
-		//	FIXME: ???
-		die("MINGE MUNNI!!!!");
+
+		die("SUCCESS");
 	}
 
 	/**
