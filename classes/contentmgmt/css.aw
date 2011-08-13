@@ -368,13 +368,21 @@ class css extends class_base
 			}
 		}
 
-		$retval .= $data["user_css"];
+		if (isset($data["user_css"]))
+		{
+			$retval .= $data["user_css"];
+		}
 		$retval .= "}\n";
 
-		if ($has_border || trim($data["padding"]) != "" || trim($data["margin"]) != "" || trim($data["fgcolor"]) != "")
+		if (
+			$has_border or 
+			isset($data["padding"]) and trim($data["padding"]) != "" or 
+			isset($data["margin"]) and trim($data["margin"]) != "" or
+			isset($data["fgcolor"]) and trim($data["fgcolor"]) != ""
+		)
 		{
 			$retval .= ".$name td {\n";
-			if (trim($data["border"]) != "")
+			if (isset($data["border"]) and trim($data["border"]) !== "")
 			{
 				$retval .= "\tborder: $data[border]px solid ";
 				if (trim($data["bordercolor"]) != "")
