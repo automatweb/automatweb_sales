@@ -2592,15 +2592,31 @@ $.ajax({
 			callback: function(v,m){
 				if(v){
 					$.please_wait_window.show();
-					products_show_tpls = {};
-					m.find('select[name^=products_show_tpl_]').each(function(){
-						console.log(this);
-						products_show_tpls[this.id.substr(18)] = $(this).val();
+					products_shows = {};
+					m.find('input[name^=products_show_]:checked').each(function(){
+						console.log(this.id);
+						products_shows[this.id.substr(14)] = true;
+					});
+					purveyors_shows = {};
+					m.find('input[name^=purveyors_show_]:checked').each(function(){
+						console.log(this.id);
+						purveyors_shows[this.id.substr(15)] = true;
+					});
+					products_tpls = {};
+					m.find('select[name^=products_tpl_]').each(function(){
+						products_tpls[this.id.substr(13)] = $(this).val();
+					});
+					purveyors_tpls = {};
+					m.find('select[name^=purveyors_tpl_]').each(function(){
+						purveyors_tpls[this.id.substr(14)] = $(this).val();
 					});
 					$.ajax({
 						url: '{$new_struct_submit_url}',
 						data: {
-							products_show_tpl: products_show_tpls,
+							products_show: products_shows,
+							purveyors_show: purveyors_shows,
+							products_tpl: products_tpls,
+							purveyors_tpl: purveyors_tpls,
 							delete_menus_without_category: m.find('#delete_menus_without_category').prop('checked'),
 							delete_menus_with_deleted_category: m.find('#delete_menus_with_deleted_category').prop('checked')
 						},
@@ -2794,47 +2810,77 @@ SCRIPT;
 	public function get_make_new_struct_prompt($arr)
 	{
 		$o = obj($arr["id"], array(), shop_order_center_obj::CLID);
-		$categories_depth = 3;//is_oid($o->prop("warehouse")) ? $o->warehouse()->get_categories_depth() : 0;
+		$categories_depth = 3; // TODO: is_oid($o->prop("warehouse")) ? $o->warehouse()->get_categories_depth() : 0;
 
 		$tm = new templatemgr();
-		$tpl_options = $tm->template_picker(array(
+		$products_tpl_options = $tm->template_picker(array(
 			"empty" => false,
 			"folder" => "applications/shop/products_show/"
 		));
+		$purveyors_tpl_options = $tm->template_picker(array(
+			"empty" => false,
+			"folder" => "applications/shop/shop_purveyors_webview/"
+		));
 
 		$tpl_selectors = "";
-		$default_tpl_values = $o->meta("make_new_struct.products_show_tpl");
+		$default_products_show_values = $o->meta("make_new_struct.products_show");
+		$default_purveyors_show_values = $o->meta("make_new_struct.purveyors_show");
+		$default_products_tpl_values = $o->meta("make_new_struct.products_tpl");
+		$default_purveyors_tpl_values = $o->meta("make_new_struct.purveyors_tpl");
 		for ($i = 0; $i < $categories_depth; $i++)
 		{
-			$tpl_selectors .= sprintf(t("%u. taseme template"), $i + 1).html::select(array(
-				"name" => "products_show_tpl_{$i}",
-				"options" => $tpl_options,
-				"value" => isset($default_tpl_values[$i]) ? $default_tpl_values[$i] : "show.tpl",
-			));
+			$tpl_selectors .= sprintf(t("%u. tase\n"), $i + 1)
+			.html::linebreak()
+			.html::checkbox(array(
+				"name" => "products_show_{$i}",
+				"checked" => !empty($default_products_show_values[$i]),
+			))
+			.t("Kuva tooteid kujundusega: ")
+			.html::select(array(
+				"name" => "products_tpl_{$i}",
+				"options" => $products_tpl_options,
+				"value" => isset($default_products_tpl_values[$i]) ? $default_products_tpl_values[$i] : "show.tpl",
+			))
+			.html::linebreak()
+			.html::checkbox(array(
+				"name" => "purveyors_show_{$i}",
+				"checked" => !empty($default_purveyors_show_values[$i]),
+			))
+			.t("Kuva tarnijaid kujudusega: ")
+			.html::select(array(
+				"name" => "purveyors_tpl_{$i}",
+				"options" => $purveyors_tpl_options,
+				"value" => isset($default_purveyors_tpl_values[$i]) ? $default_purveyors_tpl_values[$i] : "show.tpl",
+			))
+			.html::linebreak();
 		}
+		$tpl_selectors .= html::linebreak();
 
 		$delete_menus_without_category = html::checkbox(array(
 			"name" => "delete_menus_without_category",
 			"label" => t("Kustuta kaustad, mis ei ole loodud 'Loo uus struktuur' nupu abil"),
 			"checked" => $o->meta("make_new_struct.delete_menus_without_category"),
-		));
+		)).html::linebreak();
 		$delete_menus_with_deleted_category = html::checkbox(array(
 			"name" => "delete_menus_with_deleted_category",
 			"label" => t("Kustuta kaustad, mille kategooria on kustutatud"),
 			"checked" => $o->meta("make_new_struct.delete_menus_with_deleted_category"),
-		));
+		)).html::linebreak();
 
 		$html = <<<HTML
 {$tpl_selectors}{$delete_menus_without_category}{$delete_menus_with_deleted_category}
 HTML;
-		die(nl2br($html));
+		die($html);
 	}
 
 	/**
 		@attrib name=make_new_struct params=name
 		@param id required type=int
 			shop id
-		@param products_show_tpl optional type=array
+		@param products_show optional type=array
+		@param purveyors_show optional type=array
+		@param products_tpl optional type=array
+		@param purveyors_tpl optional type=array
 		@param delete_menus_without_category optional type=boolean
 		@param delete_menus_with_deleted_category optional type=boolean
 	**/
@@ -2843,7 +2889,10 @@ HTML;
 		var_dump($arr);
 
 		$this->shop = obj($arr["id"]);
-		$this->shop->set_meta("make_new_struct.products_show_tpl", isset($arr["products_show_tpl"]) ? $arr["products_show_tpl"] : null);
+		$this->shop->set_meta("make_new_struct.products_show", isset($arr["products_show"]) ? $arr["products_show"] : null);
+		$this->shop->set_meta("make_new_struct.purveyors_show", isset($arr["purveyors_show"]) ? $arr["purveyors_show"] : null);
+		$this->shop->set_meta("make_new_struct.products_tpl", isset($arr["products_tpl"]) ? $arr["products_tpl"] : null);
+		$this->shop->set_meta("make_new_struct.purveyors_tpl", isset($arr["purveyors_tpl"]) ? $arr["purveyors_tpl"] : null);
 		$this->shop->set_meta("make_new_struct.delete_menus_without_category", !empty($arr["delete_menus_without_category"]) and $arr["delete_menus_without_category"] !== "false");
 		$this->shop->set_meta("make_new_struct.delete_menus_with_deleted_category", !empty($arr["delete_menus_with_deleted_category"]) and $arr["delete_menus_with_deleted_category"] !== "false");
 		$this->shop->save();
