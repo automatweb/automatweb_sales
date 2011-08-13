@@ -272,6 +272,10 @@
 		@property ctx type=releditor reltype=RELTYPE_CTX field=meta method=serialize mode=manager props=name,status table_fields=name,status table_edit_fields=name,status group=advanced_ctx
 		@caption Kontekstid
 
+		@property shop_product_category type=objpicker clid=CL_SHOP_PRODUCT_CATEGORY field=aw_shop_product_category table=menu
+		@caption Tootekategooria
+		@comment Tootekategooria, mille veebis kuvatava vastena kaust on loodud
+
 	@groupinfo relations caption="Vaata lisaks" parent=menus
 
 		@property sa_manager type=relmanager reltype=RELTYPE_SEEALSO group=relations store=no
@@ -931,6 +935,10 @@ class menu extends class_base implements main_subtemplate_handler
 			case "acl_edits":
 				$this->_get_acl_edits($arr);
 				break;
+
+			case "shop_product_category":
+				$retval = PROP_IGNORE;
+				break;
 		};
 		return $retval;
 	}
@@ -1548,6 +1556,10 @@ class menu extends class_base implements main_subtemplate_handler
 
 			case "seealso_docs_t":
 				$arr["obj_inst"]->set_meta("sad_opts", $arr["request"]["sad_opts"]);
+				break;
+
+			case "shop_product_category":
+				$retval = PROP_IGNORE;
 				break;
 		}
 		return $retval;
@@ -2335,9 +2347,12 @@ class menu extends class_base implements main_subtemplate_handler
 			case "set_doc_content_type":
 			case "tpl_view_no_inherit":
 			case "tpl_lead_no_inherit":
-				$this->db_query("ALTER TABLE menu add {$field} int");
+			case "aw_shop_product_category":
+				$this->db_add_col($table, array(
+					"name" => $field,
+					"type" => "int"
+				));
 				return true;
-				break;
 		}
 	}
 
