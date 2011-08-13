@@ -942,6 +942,8 @@ define("CRM_PERSON_USECASE_CLIENT_EMPLOYEE", "customer_employer");
 
 class crm_person extends class_base
 {
+	public $gender_options;
+
 	function crm_person()
 	{
 		$this->init(array(
@@ -971,6 +973,11 @@ class crm_person extends class_base
 			1 => t("Bakalaureus"),
 			2 => t("Magister"),
 			3 => t("Doktor"),
+		);
+
+		$this->gender_options = array(
+			crm_person_obj::GENDER_MALE => t("Mees"),
+			crm_person_obj::GENDER_FEMALE => t("Naine"),
 		);
 	}
 
@@ -2225,10 +2232,7 @@ class crm_person extends class_base
 				break;
 
 			case "gender":
-				$data["options"] = array(
-					"1" => t("mees"),
-					"2" => t("naine"),
-				);
+				$data["options"] = $this->gender_options;
 				break;
 
 			case "email":

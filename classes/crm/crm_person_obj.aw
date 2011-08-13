@@ -4,6 +4,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 {
 	const CLID = 145;
 
+	const GENDER_MALE = 1;
+	const GENDER_FEMALE = 2;
+
 	protected $all_jobs;
 	protected $current_jobs;
 	private static $company_id_cache;
@@ -1940,5 +1943,15 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			$data[$prop] = $this->prop_str($prop);
 		}
 		return $data;
+	}
+
+	public function prop_str($k, $is_oid = NULL)
+	{
+		if ($k === "gender")
+		{
+			return $this->instance()->gender_options[parent::prop_str($k, false)];
+		}
+
+		return parent::prop_str($k, $is_oid);
 	}
 }
