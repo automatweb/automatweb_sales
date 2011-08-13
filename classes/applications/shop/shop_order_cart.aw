@@ -905,7 +905,7 @@ class shop_order_cart extends class_base
 			$mon = $i_i->get_must_order_num($i_o);
 			$uid = aw_global_get("uid");
 			$group = strlen($uid) > 0 ? get_instance(CL_USER)->get_groups_for_user($uid)->ids() : get_instance(CL_GROUP)->get_non_logged_in_group();
-			$am_limits = $i_i->get_amount_limits(array("id" => $iid, "group" => $group));
+			$am_limits = array(); // This bit clearly needs to be rewritten! -kaarel 29.07.2011 $i_i->get_amount_limits(array("id" => $iid, "group" => $group));
 			// initialize $am_limit - markop
 			// oh no you don't! - terryf. check :436
 			// OK. Now, I do. Cuz otherwise it memorizes limits from previous products. -kaarel (fixed :437, :439 and :459)
@@ -1542,7 +1542,7 @@ class shop_order_cart extends class_base
 //see miski loll systeem, et site.aw'st toodete hindade jms k2ki muutmise funktsioon k2iku lasta... juhul kui on mikski erandv2rk
 			if (function_exists("__get_site_instance"))
 			{
-				$si =&__get_site_instance();
+				$si = __get_site_instance();
 				if (is_object($si))
 				{
 					if (method_exists($si, "handle_product_display"))
@@ -1552,7 +1552,11 @@ class shop_order_cart extends class_base
 				}
 			}
 //------------porno
-			$price = $i->get_special_price();
+			// TODO: There's a major flaw in this price, special_price system! There should prolly be ONE method that figures out how much a customer should eventually pay. There also should prolly be method(s) to display all the different prices. You know, just to convince the customer he/she really wants to buy it (for example cuz it's actual price is way higher than the one he/she has to pay) Blaaaaaah!
+			// FIXME: The following few lines that make a pathetic effort to find the correct price are TEMPORARY! See the above comment.
+			$special_price = $i->prop("special_price");
+			$normal_price = $i->prop("price");
+			$price = $special_price > 0 ? $special_price : $normal_price;
 //			$price = $inst->get_calc_price($i);
 			$quantx = new aw_array($quantx);
 			foreach($quantx->get() as $x => $quant)
@@ -3155,7 +3159,7 @@ class shop_order_cart extends class_base
 				$items ++;
 	
 				$vars = $product->get_data();
-				$special_price = $product->get_shop_special_price($this->oc->id());
+				$special_price = $product->prop("special_price");
 				$vars['PRODUCT_SPECIAL_PRICE'] = '';
 				$vars['special_price_visibility'] = '';
 				if (!empty($special_price))
@@ -3171,7 +3175,7 @@ class shop_order_cart extends class_base
 				}
 				else
 				{
-					$price = $product->get_shop_price($this->oc->id());
+					$price = $product->prop("price");
 					$sum = $quant["items"] * $price;
 					$vars['special_price_visibility'] = '';
 					$vars['PRODUCT_SPECIAL_PRICE'] = '';
@@ -3180,7 +3184,11 @@ class shop_order_cart extends class_base
 				
 				$vars["amount"] = $quant["items"];
 
-				$price = $product->get_shop_price($this->oc->id());
+				// FIXME: The following few lines that make a pathetic effort to find the correct price are TEMPORARY!
+				$special_price = $product->prop("special_price");
+				$normal_price = $product->prop("price");
+				$price = $special_price > 0 ? $special_price : $normal_price;
+
 				$vars["price"] = number_format($price , 2 , "." , "");
 				$vars["unformated_price"] = $price;
 				$vars['unformated_special_price'] = $vars['special_price'];
@@ -3190,8 +3198,10 @@ class shop_order_cart extends class_base
 				$vars["total_price_without_thousand_separator"] = $sum;//see yleliigne vast nyyd
 
 				$vars["remove_url"] = $this->mk_my_orb("remove_product" , array("cart" => $this->cart->id(), "product" => $iid));
+				//	FIXME: Why is there "crap" anyway?
+				unset($vars["crap"]);
 				$this->vars($vars);
-//arr($vars);
+
 				$subs = array();
 				foreach($vars as $key => $val)
 				{
@@ -3324,4 +3334,3 @@ class shop_order_cart extends class_base
 		return (double)str_replace(",", "", $p);
 	}
 }
-?>
