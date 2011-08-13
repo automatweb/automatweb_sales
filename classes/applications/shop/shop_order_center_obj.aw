@@ -5,10 +5,10 @@ class shop_order_center_obj extends _int_object
 	const CLID = 314;
 
 
-	public function save($check_state = false)
+	public function save($exclusive = false, $previous_state = null)
 	{
 		$do_new_shop_stuff = is_oid($this->id()) ? 0 : 1;
-		$r =  parent::save($check_state);
+		$r =  parent::save($exclusive, $previous_state);
 
 		if($do_new_shop_stuff)
 		{
@@ -531,58 +531,87 @@ class shop_order_center_obj extends _int_object
 	/**
 		@attrib name=make_new_struct api=1
 	**/
-	public function make_new_struct($arr)
+	public function make_new_struct($arr = array())
 	{
 		$warehouse = obj($this->prop("warehouse"));
 		$root_menus = $this->prop("root_menu");
 		$root = reset($root_menus);
 		$cats = $warehouse->get_root_categories();
 
-		if($cats->count())
+		if ($cats->count())
 		{
-			$this->_make_new_struct_leaf($cats , $root);
+			$this->_make_new_struct_leaf($cats, $root);
 		}
 	}
 
-	private function _make_new_struct_leaf($cats , $root)
+	private function _make_new_struct_leaf($categories, $root, $level = 0)
 	{
+		$objs_by_category = array();
+
 		$ol = new object_list(array(
 			"class_id" => menu_obj::CLID,
 			"parent" => $root,
 		));
-
-		foreach($cats->arr() as $cat)
+		if ($ol->count() > 0)
 		{
-			$menu_found = false;
-			foreach($ol->names() as $menu_oid => $menu_name)
+			$o = $ol->begin();
+			do
 			{
-				if($menu_name === $cat->name())
+				if ($o->prop("shop_product_category"))
 				{
-					$menu_found = true;
-					$menu = obj($menu_oid, array(), menu_obj::CLID);
-					break;
+					$objs_by_category[$o->prop("shop_product_category")] = $o;
 				}
-			}
-			if(!$menu_found)
+				elseif ($this->meta("make_new_struct.delete_menus_without_category"))
+				{
+					$o->delete();
+				}
+			} while ( $o = $ol->next() );
+		}
+
+		if ($categories->count() > 0)
+		{
+			$category = $categories->begin();
+			do
 			{
-				$menu = obj(null, array(), menu_obj::CLID);
-				$menu->set_parent($root);
-				$menu->set_name($cat->name());
-			}
-			$menu->set_prop("status", object::STAT_ACTIVE);
-			$menu->save();
+				if (!empty($objs_by_category[$category->id()]))
+				{
+					$menu = $objs_by_category[$category->id()];
+					unset($objs_by_category[$category->id()]);
+				}
+				else
+				{					
+					$menu = obj(null, array(), menu_obj::CLID);
+					$menu->set_parent($root);
+					$menu->set_prop("shop_product_category", $category->id());
+				}
+				$menu->set_name($category->name());
+				$menu->set_prop("status", $category->status());
+				$menu->save();
 
-			$this->__copy_category_images_to_menu($cat, $menu);
+				$this->__copy_category_images_to_menu($category, $menu);
 
-			$o = $this->get_product_show_obj($menu->id(), true);
-			$o->add_category($cat->get_all_categories());
-			$o->set_prop("type", $this->prop("product_type"));
-			$o->save();
+				$tpls = $this->meta("make_new_struct.products_show_tpl");
+				$tpl = !empty($tpls[$level]) ? $tpls[$level] : "show.tpl";
 
-			$categories = $cat->get_categories();
-			if($categories->count())
+				$products_show = $this->get_product_show_obj($menu->id(), true);
+				$products_show->add_category($category->get_all_categories());
+				$products_show->set_prop("type", $this->prop("product_type"));
+				$products_show->set_prop("template", $tpl);
+				$products_show->save();
+
+				$subcategories = $category->get_categories();
+				if ($subcategories->count())
+				{
+					$this->_make_new_struct_leaf($subcategories, $menu->id(), $level + 1);
+				}
+			} while ( $category = $categories->next() );
+		}
+
+		if ($this->meta("make_new_struct.delete_menus_with_deleted_category"))
+		{
+			foreach ($objs_by_category as $menu)
 			{
-				$this->_make_new_struct_leaf($categories , $menu->id());
+				$menu->delete();
 			}
 		}
 	}
