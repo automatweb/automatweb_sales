@@ -60,6 +60,12 @@ class products_show extends class_base
 		);
 	}
 
+	public function _get_categories($arr)
+	{
+		$arr["prop"]["value"] = $arr["obj_inst"]->prop("categories");
+		return PROP_OK;
+	}
+
 	/** returns products showing template selection
 		@attrib api=1
 	**/
@@ -114,28 +120,28 @@ class products_show extends class_base
 
 			case "product_template":
 				$tm = get_instance("templatemgr");
-				switch($arr["obj_inst"]->prop("type"))
+				$prop["options"] = array();
+				foreach ($arr["obj_inst"]->prop("type") as $type)
 				{
-					case CL_SHOP_PACKET:
-						$dir = "applications/shop/shop_packet";
-						break;
-
-					case CL_SHOP_PRODUCT:
-						$dir = "applications/shop/shop_product";
-						break;
-
-					case CL_SHOP_PRODUCT_PACKAGING:
-						$dir = "applications/shop/shop_product_packaging";
-						break;
-				}
-				if(!empty($dir))
-				{
-					$prop["options"] = $tm->template_picker(array(
-						"folder" => $dir
-					));
-					if(sizeof($prop["options"]) < 2)
+					switch($type)
 					{
-						$prop["caption"].= "<br>".t("templates/").$dir;
+						case CL_SHOP_PACKET:
+							$dir = "applications/shop/shop_packet";
+							break;
+
+						case CL_SHOP_PRODUCT:
+							$dir = "applications/shop/shop_product";
+							break;
+
+						case CL_SHOP_PRODUCT_PACKAGING:
+							$dir = "applications/shop/shop_product_packaging";
+							break;
+					}
+					if(!empty($dir))
+					{
+						$prop["options"] += $tm->template_picker(array(
+							"folder" => $dir
+						));
 					}
 				}
 				break;
