@@ -528,6 +528,65 @@ class crm_sales_obj extends _int_object implements application_interface
 		$this->process_presentation_result($presentation);
 	}
 
+	/**	Creates an offer object and returns it
+		@attrib api=1 params=pos
+
+		@param salesman optional type=CL_CRM_PERSON
+			The salesman responsible for creating this offer
+		@param customer optional type=CL_CRM_COMPANY,CL_CRM_PERSON
+			The customer the offer is created for.
+		@param currency optional type=CL_CURRENCY
+			The currency of the offer.
+		@param objects optional type=array
+			Array of objects that implement the crm_offer_row_interface interface. That is, can be added as a row to offers.
+			Notice that if one wants to specify the amount of an object, a tuple containing the object and its amount should be given as the element of items array. E.g. $items = array($item1, array($item2, 4)); If no amount given, default amount of 1 will be used.
+
+		@errors
+			Throws awex_crm_sales_folder if offers folder not set
+		@returns CL_CRM_OFFER
+	**/
+	public function create_offer(object $salesman = null, object $customer = null, object $currency = null, $objects = array())
+	{
+		$offers_folder = $this->prop("offers_folder");
+		if (!is_oid($offers_folder))
+		{
+			throw new awex_crm_sales_folder("Offers folder not defined");
+		}
+		$offer = obj(null, array(), crm_offer_obj::CLID);
+		$offer->set_parent($offers_folder);
+		if ($salesman !== null and $salesman->is_a(crm_person_obj::CLID))
+		{
+			$offer->set_prop("salesman", $salesman->id());
+		}
+		if ($customer !== null and ($customer->is_a(crm_person_obj::CLID) or $customer->is_a(crm_company_obj::CLID)))
+		{
+			$offer->set_prop("customer", $customer->id());
+		}
+		if ($currency !== null and $currency->is_a(currency_obj::CLID))
+		{
+			$offer->set_prop("currency", $currency->id());
+		}
+		$offer->save();
+
+		if (count($objects) > 0)
+		{
+			foreach ($objects as $object)
+			{
+				if (is_array($object))
+				{
+					list($object, $amount) = $object;
+				}
+				else
+				{
+					$amount = 1;
+				}
+				$offer->add_object($object, $amount);
+			}
+		}
+		
+		return $offer;
+	}
+
 	/**
 	@attrib api=1 params=pos
 	@param call type=CL_CRM_CALL
