@@ -232,10 +232,13 @@ class shop_sell_order_obj extends _int_object
 		{
 			$o->set_prop("prod_name" , $data["product_name"]);
 		}
-		$o->set_prop("items" , $data["amount"]);
-		$o->set_prop("amount" , $data["amount"]);
-		$o->set_prop("price" , $data["price"]);
-		$o->set_prop("other_code" , $data["code"]);
+		foreach (array("amount" => "items", "price" => "price", "code" => "other_code") as $key => $prop)
+		{
+			if (isset($data[$key]))
+			{
+				$o->set_prop($prop, $data[$key]);
+			}
+		}
 		$o->set_prop("date", time());
 		$o->save();
 		$this->connect(array(
