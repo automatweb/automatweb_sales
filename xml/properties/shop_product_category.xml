@@ -129,6 +129,11 @@
                   <clid>CL_SHOP_PRODUCT_CATEGORY_TYPE</clid>
                   <caption>Kategooria t&amp;amp;uuml;&amp;amp;uuml;p mille kategooriaid valida saab toodete otsingus</caption>
             </CATEGORY_TYPES>
+            <PURVEYOR>
+                  <value>8</value>
+                  <clid>CL_CRM_COMPANY</clid>
+                  <caption>Tarnija</caption>
+            </PURVEYOR>
       </reltypes>
 </properties>
 

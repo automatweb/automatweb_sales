@@ -49,6 +49,9 @@
 @reltype CATEGORY_TYPES value=7 clid=CL_SHOP_PRODUCT_CATEGORY_TYPE
 @caption Kategooria t&uuml;&uuml;p mille kategooriaid valida saab toodete otsingus
 
+@reltype PURVEYOR value=8 clid=CL_CRM_COMPANY
+@caption Tarnija
+
 */
 
 class shop_product_category extends class_base
