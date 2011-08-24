@@ -3,13 +3,9 @@
 // crm_number_series.aw - CRM Numbriseeria
 /*
 
-@classinfo syslog_type=ST_CRM_NUMBER_SERIES relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@property series type=table no_caption=1 store=no
 
-@default table=objects
-
-@default group=general
-
-	@property series type=table no_caption=1 store=no
 */
 
 class crm_number_series extends class_base
@@ -25,37 +21,6 @@ class crm_number_series extends class_base
 			crm_bill_obj::CLID => aw_ini_get("classes." . crm_bill_obj::CLID . ".name"),
 			CL_PATENT => aw_ini_get("classes." . CL_PATENT . ".name")
 		);
-	}
-
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			case "series":
-				$this->_series($arr);
-				break;
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			case "series":
-				$this->_save_series($arr);
-				break;
-		}
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	function _init_series_t($t)
@@ -91,7 +56,7 @@ class crm_number_series extends class_base
 		));
 	}
 
-	function _series($arr)
+	function _get_series($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_series_t($t);
@@ -137,7 +102,7 @@ class crm_number_series extends class_base
 		$t->set_sortable(false);
 	}
 
-	function _save_series($arr)
+	function _set_series($arr)
 	{
 		$val = array();
 		foreach(safe_array($arr["request"]["ser"]) as $row)
@@ -164,7 +129,7 @@ class crm_number_series extends class_base
 		@param class - class to return number for
 		@param time - time for series
 	**/
-	function get_next_in_series($series, $class, $time)
+	public function get_next_in_series($series, $class, $time)
 	{
 		// get all series
 		$ser = safe_array($series->meta("series"));
@@ -263,7 +228,6 @@ class crm_number_series extends class_base
 			}
 		}
 
-
 		if($class == CL_CRM_BILL)
 		{
 			// actually, just list all bills and get max number+1 for bills
@@ -293,8 +257,8 @@ class crm_number_series extends class_base
 				}
 			}
 		}
+
 		return $num;
-		return NULL;
 	}
 
 	/** finds the current company and from that the series	and returns next number in series**/
@@ -318,7 +282,7 @@ class crm_number_series extends class_base
 		return $this->get_next_in_series($ser, $class, $time);
 	}
 
-	function number_is_in_series($class, $num)
+	public function number_is_in_series($class, $num)
 	{
 		$u = get_instance(CL_USER);
 		$co = obj($u->get_current_company());

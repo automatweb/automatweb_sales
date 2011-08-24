@@ -1749,7 +1749,6 @@ class class_base extends aw_template implements orb_public_interface
 		$ol = new object_list(array(
 			"class_id" => CL_CFGFORM,
 			"subclass" => $this->clid,
-			"lang_id" => array(),
 			"flags" => array(
 				"mask" => OBJ_FLAG_IS_SELECTED,
 				"flags" => OBJ_FLAG_IS_SELECTED
@@ -4771,8 +4770,6 @@ class class_base extends aw_template implements orb_public_interface
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_CFGFORM,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"subclass" => $this->clid
 		));
 		$rv = array();
@@ -6605,8 +6602,6 @@ ENDSCRIPT;
 		{
 			$param = array(
 				"class_id" => CL_CRM_PERSON,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"name" => "%".$arr["request"]["sp_p_name"]."%"
 			);
 			if ($arr["request"]["sp_p_co"] != "")

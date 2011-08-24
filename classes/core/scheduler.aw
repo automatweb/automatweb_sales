@@ -1,12 +1,8 @@
 <?php
-/*
-$Header: /home/cvs/automatweb_dev/classes/core/scheduler.aw,v 1.3 2009/06/29 13:37:51 dragut Exp $
-@classinfo  maintainer=kristo
-*/
 
-/** 
+/**
 		The scheduler can be used to schedule events to happen at certain times.
-		An event is an orb function call that will get called at the time specified. 
+		An event is an orb function call that will get called at the time specified.
 		You can specify a certain time or an aw repeater when the event will take place.
 
 		The fields in the event array are:
@@ -29,12 +25,12 @@ class scheduler extends aw_template
 		$this->file = get_instance(CL_FILE);
 	}
 
-	/** adds the specified event to the scheduler 
+	/** adds the specified event to the scheduler
 		@attrib api=1 params=name
-	
+
 		@param event required type=string
 			the url that will get called at the right time
-		
+
 		@param time optional type=int
 			the time when the event will be executed - if this is omitted, then rep_id must be specified
 
@@ -91,12 +87,12 @@ class scheduler extends aw_template
 				$ltime = $row["recur_start"];
 				break;
 			};
-			// and the clever bit here - schedule an event right after the last repeater to reschedule 
+			// and the clever bit here - schedule an event right after the last repeater to reschedule
 			// events for that repeater
 			if ($ltime)
 			{
 				$this->evnt_add(
-					$ltime+3000, 
+					$ltime+3000,
 					str_replace("automatweb/", "", $this->mk_my_orb("update_repeaters", array("id" => $rep_id))),
 					$uid,
 					$password
@@ -105,15 +101,15 @@ class scheduler extends aw_template
 		}
 	}
 
-	/** updates the scheduled events that use repeater $id 
-		
+	/** updates the scheduled events that use repeater $id
+
 		@attrib name=update_repeaters params=name default="0" nologin="1"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -123,7 +119,7 @@ class scheduler extends aw_template
 		$this->open_session();
 
 		$newdat = array();
-		
+
 		// delete the events for that repeater
 		foreach($this->repdata as $evnt)
 		{
@@ -133,17 +129,17 @@ class scheduler extends aw_template
 			}
 		}
 		$this->repdata = $newdat;
-			
+
 		$o = new object($id);
 		$now = time();
 		$clid = $o->class_id();
-			
+
 		$cs = $o->connections_to(array("from.class_id" => CL_SCHEDULER));
 		$c = reset($cs);
 		// recur_id refers to a single CL_RECURRENCE object, conventional connections method is not used
 		// because it would add too much overhead, too much redundant data. There can literally be
 		// thousands of records in the recurrence table for a single recurrence object and every little
-		// bit of speed helps in those cases 
+		// bit of speed helps in those cases
 		//print "recur_id = $id<br>";
 		$q = "SELECT * FROM recurrence WHERE recur_id = '$id' AND recur_start >= '${now}' ORDER BY recur_start LIMIT 20";
 		$this->db_query($q);
@@ -198,12 +194,12 @@ class scheduler extends aw_template
 			};
 			break;
 		};
-		// and the clever bit here - schedule an event right after the last repeater to reschedule 
+		// and the clever bit here - schedule an event right after the last repeater to reschedule
 		// events for that repeater
 		if ($ltime)
 		{
 			$this->evnt_add(
-				$ltime+3000, 
+				$ltime+3000,
 				str_replace("automatweb/", "", $this->mk_my_orb("update_repeaters", array("id" => $id))),
 				$uid,
 				$password
@@ -297,7 +293,7 @@ class scheduler extends aw_template
 		{
 			$this->repdata = array();
 		}
-		
+
 		// also remove events that only have time set, but no url
 		$nrd = array();
 		foreach($this->repdata as $idx => $evnt)
@@ -325,14 +321,14 @@ class scheduler extends aw_template
 		$this->session_fp = false;
 	}
 
-	/** this is where the event processing will take place 
-		
+	/** this is where the event processing will take place
+
 		@attrib name=do_events params=name nologin="1" default="1"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -376,7 +372,7 @@ class scheduler extends aw_template
 			ob_end_flush();
 			return;
 		}
-	
+
 		// ok, here check if this event is already being processed
 		$lockfilename = $this->cfg["lock_file"] . "." . $evnt["event_id"];
 		if (file_exists($lockfilename) && (filemtime($lockfilename) > (time()-300)))
@@ -426,10 +422,10 @@ class scheduler extends aw_template
 
 		if ($evnt["uid"] && $evnt["password"])
 		{
-			// we must log in 
+			// we must log in
 			$awt->login(array(
-				"host" => $url, 
-				"uid" => $evnt["uid"], 
+				"host" => $url,
+				"uid" => $evnt["uid"],
 				"password" => $evnt["password"]
 			));
 		}
@@ -437,8 +433,8 @@ class scheduler extends aw_template
 		if ($evnt["uid"] && $evnt["auth_hash"])
 		{
 			$awt->login_hash(array(
-				"host" => $url, 
-				"uid" => $evnt["uid"], 
+				"host" => $url,
+				"uid" => $evnt["uid"],
 				"hash" => $evnt["auth_hash"],
 			));
 		}
@@ -505,7 +501,7 @@ class scheduler extends aw_template
 				$newdat[] = $e;
 			}
 		}
-	
+
 		$this->close_session();
 		return $newdat;
 	}
@@ -611,16 +607,16 @@ class scheduler extends aw_template
 		$this->close_log_session(true);
 	}
 
-	/** ui for scheduler 
-		
+	/** ui for scheduler
+
 		@attrib name=show params=name default="0"
-		
+
 		@param sortby optional
 		@param sort_order optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -658,14 +654,14 @@ class scheduler extends aw_template
 		return $this->parse();
 	}
 
-	/** shows log entries 
-		
+	/** shows log entries
+
 		@attrib name=show_log params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -692,15 +688,15 @@ class scheduler extends aw_template
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=show_log_entry params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -710,7 +706,7 @@ class scheduler extends aw_template
 		$this->read_template("log_entry.tpl");
 		$this->open_log_session();
 		$this->close_log_session();
-		
+
 		$this->vars(array(
 			"time" => $this->time2date($this->log[$id]["time"],2),
 			"event" => $this->log[$id]["event"]["event"],
@@ -722,10 +718,10 @@ class scheduler extends aw_template
 		return $this->parse();
 	}
 
-				
+
 	// ah yes. Each time I'm saving the schedulering object, I need to create a new
 	// record in the scheduler table. And that pretty much is it too
-	
+
 	//$this->add(array("event" => $link,"rep_id" => $id, "uid" => $obj["meta"]["login_uid"],"password" => $obj["meta"]["login_password"]));
 
 	function _check_hash_tbl()
@@ -733,7 +729,7 @@ class scheduler extends aw_template
 		if (!$this->db_table_exists("user_hashes"))
 		{
 			$this->db_query("CREATE TABLE user_hashes(uid varchar(100),hash char(32), hash_time int)");
-		}	
+		}
 	}
 
 	/** Shows a list of all scheduled items
@@ -751,24 +747,24 @@ class scheduler extends aw_template
 			"name" => "time",
 			"caption" => t("Aeg"),
 		));
-		
+
 		$t->define_field(array(
 			"name" => "url",
 			"caption" => t("URL"),
 		));
-		
+
 		$t->define_field(array(
 			"name" => "rep_id",
 			"caption" => t("Kordus"),
 		));
-		
+
 		$this->open_session();
 		$newdat = array();
 		foreach($this->repdata as $e)
 		{
 			arr($e);
 		}
-	
+
 		$this->close_session();
 
 		$htmlc->add_property(array(
@@ -789,7 +785,7 @@ class scheduler extends aw_template
 	function static_sched($arr)
 	{
 		// basically, what this thing should do, is:
-		// read the static scheduler definition file and if the time for something is about to come, then 
+		// read the static scheduler definition file and if the time for something is about to come, then
 		// generate the correct url and add it to the real scheduler
 		$p = xml_parser_create();
 		xml_parse_into_struct($p, file_get_contents(aw_ini_get("basedir")."/xml/static_scheduler.xml"), $vals, $index);
@@ -840,4 +836,3 @@ class scheduler extends aw_template
 	}
 
 }
-?>

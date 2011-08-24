@@ -49,7 +49,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 		if (!$class_reflection->implementsInterface("orb_public_interface"))
 		{
-			throw new awex_orb_class("Requested class {$class} doesn't implement ORB interface");
+			throw new awex_orb_class("Requested class '{$class}' doesn't implement ORB interface");
 		}
 
 		$this->orb_class->set_request(automatweb::$request);
