@@ -936,9 +936,7 @@ class _int_object
 		}
 		$args = array(
 			"class_id" => $this->obj["class_id"],
-			"brother_of" => $this->obj["brother_of"],
-			"site_id" => array(),
-			"lang_id" => array(),
+			"brother_of" => $this->obj["brother_of"]
 		);
 		if(is_array($parent) || is_oid($parent))
 		{
@@ -957,9 +955,7 @@ class _int_object
 		$args = array(
 			"class_id" => $this->obj["class_id"],
 			"brother_of" => $this->obj["oid"],
-			"oid" => new obj_predicate_not($this->obj["oid"]),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"oid" => new obj_predicate_not($this->obj["oid"])
 		);
 		$ol = new object_list($args);
 		return $ol->ids();
@@ -1112,18 +1108,27 @@ class _int_object
 		}
 	}
 
-	function set_meta($key, $value)
+	function set_meta($param, $value = null)
 	{
-		$prev = isset($this->obj["meta"][$key]) ? $this->obj["meta"][$key] : null;
-		$this->_int_set_ot_mod("metadata", $prev, $value);
-		$this->obj["meta"][$key] = $value;
-
-		$dat = isset($GLOBALS["properties"][$this->obj["class_id"]][$key]) ? $GLOBALS["properties"][$this->obj["class_id"]][$key] : null;
-
-		// if any property is defined for metadata, we gots to sync from object to property
-		if (is_array($dat) && $dat["field"] === "meta" && $dat["table"] === "objects")
+		if (is_array($param))
 		{
-			$this->_int_set_prop($key, $value);
+			$prev = $this->obj["meta"];
+			$this->_int_set_ot_mod("metadata", $prev, $param);
+			$this->obj["meta"] = $param;
+		}
+		else
+		{
+			$prev = isset($this->obj["meta"][$param]) ? $this->obj["meta"][$param] : null;
+			$this->_int_set_ot_mod("metadata", $prev, $value);
+			$this->obj["meta"][$param] = $value;
+
+			$dat = isset($GLOBALS["properties"][$this->obj["class_id"]][$param]) ? $GLOBALS["properties"][$this->obj["class_id"]][$param] : null;
+
+			// if any property is defined for metadata, we gots to sync from object to property
+			if (is_array($dat) && $dat["field"] === "meta" && $dat["table"] === "objects")
+			{
+				$this->_int_set_prop($param, $value);
+			}
 		}
 
 		$this->_int_do_implicit_save();
@@ -1586,8 +1591,7 @@ class _int_object
 		// the $parent menu.
 		$ol = new object_list(array(
 			"parent" => $parent,
-			"brother_of" => $this->obj["oid"],
-			"site_id" => array(),
+			"brother_of" => $this->obj["oid"]
 		));
 		if ($ol->count() > 0)
 		{

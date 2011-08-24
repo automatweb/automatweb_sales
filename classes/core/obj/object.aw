@@ -1660,11 +1660,13 @@ class object
 	/** sets the value for the specified metadata element
 		@attrib api=1
 
-		@param key required type=string
+		@param param type=string|array
 			key of the metadata element
+			or array of whole meta content
 
-		@param val required type=any
+		@param val type=any default=NULL
 			 value of the metadata element
+			 not applicable if $key is array, required if $key is a meta field name
 
 		@errors
 			none, if implicit save is off
@@ -1676,10 +1678,10 @@ class object
 			$o = obj(78);
 			$o->set_meta("fish", "tunafish");
 	**/
-	function set_meta($key, $value)
+	function set_meta($param, $value = null)
 	{
 		$this->_check_lock_write();
-		return $GLOBALS["objects"][$this->oid]->set_meta($key, $value);
+		return $GLOBALS["objects"][$this->oid]->set_meta($param, $value);
 	}
 
 	/** returns the value for the specified property for the current object
