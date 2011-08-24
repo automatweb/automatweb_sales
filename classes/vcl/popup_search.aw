@@ -594,9 +594,24 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 			$proplist = $tmpo->get_property_list();
 			foreach($arr["tbl_props"] as $pn)
 			{
+				switch ($pn)
+				{
+					case "oid":
+						$caption = t("Objekti id");
+						break;
+
+					case "parent":
+						$caption = t("&Uuml;lemobjekti id");
+						break;
+
+					default:
+						$caption = $proplist[$pn]["caption"];
+						break;
+				}
+
 				$t->define_field(array(
 					"name" => $pn,
-					"caption" => $proplist[$pn]["caption"],
+					"caption" => $caption,
 					"sortable" => 1
 				));
 			}
