@@ -11,6 +11,7 @@
             <table>aw_crm_bill</table>
             <type>hidden</type>
             <field>aw_customer_relation</field>
+            <group>general_data</group>
       </property>
       <property>
             <name>bill_mail_to</name>
@@ -214,6 +215,7 @@
             <method>serialize</method>
             <reltype>RELTYPE_LANGUAGE</reltype>
             <parent>bottom_left</parent>
+            <comment>Arve saadetakse kasutades valitud keele t&amp;amp;otilde;lkeid</comment>
             <caption>Keel</caption>
       </property>
       <property>
@@ -288,7 +290,7 @@
             <ch_value>1</ch_value>
             <field>aw_is_invoice_template</field>
             <parent>bottom_left</parent>
-            <caption>Salvesta arve arvep&amp;amp;otilde;hjana</caption>
+            <caption>Arve on arvemall</caption>
       </property>
       <property>
             <name>customer_name</name>
@@ -298,15 +300,6 @@
             <field>aw_customer_name</field>
             <parent>top_right</parent>
             <caption>Kliendi nimi</caption>
-      </property>
-      <property>
-            <name>customer_code</name>
-            <table>aw_crm_bill</table>
-            <group>general_data</group>
-            <type>textbox</type>
-            <field>aw_customer_code</field>
-            <parent>top_right</parent>
-            <caption>Kliendikood</caption>
       </property>
       <property>
             <name>ctp_text</name>
@@ -435,7 +428,6 @@
             <table>objects</table>
             <group>text_comments</group>
             <type>textarea</type>
-            <rte_type>4</rte_type>
             <rows>15</rows>
             <cols>50</cols>
             <field>meta</field>
@@ -448,7 +440,6 @@
             <table>objects</table>
             <group>text_comments</group>
             <type>textarea</type>
-            <rte_type>4</rte_type>
             <rows>15</rows>
             <cols>50</cols>
             <field>meta</field>
@@ -461,7 +452,6 @@
             <table>aw_crm_bill</table>
             <group>text_comments</group>
             <type>textarea</type>
-            <rte_type>4</rte_type>
             <rows>15</rows>
             <cols>50</cols>
             <field>aw_reminder_text</field>
@@ -484,56 +474,6 @@
             <type>textbox</type>
             <field>aw_time_spent_desc</field>
             <caption>Kulunud aeg tekstina</caption>
-      </property>
-      <property>
-            <name>udef1</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kasutajadefineeritud muutuja 1</caption>
-      </property>
-      <property>
-            <name>udef2</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kasutajadefineeritud muutuja 2</caption>
-      </property>
-      <property>
-            <name>udef3</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kasutajadefineeritud muutuja 3</caption>
-      </property>
-      <property>
-            <name>udef4</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kasutajadefineeritud muutuja 4</caption>
-      </property>
-      <property>
-            <name>udef5</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kasutajadefineeritud muutuja 5</caption>
       </property>
       <property>
             <name>is_overdue_bill</name>
@@ -633,61 +573,64 @@
             <name>sendmail_toolbar</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>sendmail_toolbar</field>
       </property>
       <property>
             <name>bill_mail_from</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>textbox</type>
-            <store>no</store>
             <parent>sendmail_sender</parent>
-            <field>bill_mail_from</field>
             <caption>E-posti aadress</caption>
       </property>
       <property>
             <name>bill_mail_from_name</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>textbox</type>
-            <store>no</store>
             <parent>sendmail_sender</parent>
-            <field>bill_mail_from_name</field>
             <caption>Nimi</caption>
       </property>
       <property>
             <name>sendmail_attachments</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>chooser</type>
             <multiple>1</multiple>
-            <store>no</store>
             <parent>sendmail_attachments</parent>
             <orient>vertical</orient>
             <no_caption>1</no_caption>
-            <field>sendmail_attachments</field>
       </property>
       <property>
             <name>sendmail_recipients</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <parent>sendmail_recipients</parent>
             <no_caption>1</no_caption>
-            <field>sendmail_recipients</field>
       </property>
       <property>
             <name>bill_rec_name</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>textbox</type>
             <store>no</store>
             <parent>sendmail_recipients</parent>
-            <field>bill_rec_name</field>
             <comment>Otsi olemasolevate isikute hulgast v&amp;amp;otilde;i sisesta kehtiv suvaline e-posti aadress</comment>
             <caption>Lisa arve saaja</caption>
       </property>
@@ -695,35 +638,36 @@
             <name>bill_mail_subj</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>textbox</type>
             <parent>sendmail_content_l</parent>
             <captionside>top</captionside>
-            <field>meta</field>
-            <method>serialize</method>
             <caption>Pealkiri</caption>
       </property>
       <property>
             <name>bill_mail_ct</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>textarea</type>
             <rows>20</rows>
             <cols>53</cols>
             <parent>sendmail_content_l</parent>
             <captionside>top</captionside>
-            <field>meta</field>
-            <method>serialize</method>
             <caption>Sisu</caption>
       </property>
       <property>
             <name>bill_mail_legend</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <parent>sendmail_content_l</parent>
             <captionside>top</captionside>
-            <field>bill_mail_legend</field>
             <comment>E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&amp;amp;auml;&amp;amp;auml;rtustega</comment>
             <caption>Kasutatavad muutujad</caption>
       </property>
@@ -731,95 +675,106 @@
             <name>sendmail_subject_view</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <parent>sendmail_content_r</parent>
             <captionside>top</captionside>
-            <field>sendmail_subject_view</field>
+            <store>no</store>
             <caption>Pealkiri</caption>
       </property>
       <property>
             <name>sendmail_body_view</name>
             <table>objects</table>
             <group>send_mail</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <parent>sendmail_content_r</parent>
             <captionside>top</captionside>
-            <field>sendmail_body_view</field>
             <caption>Sisu</caption>
       </property>
       <property>
             <name>dn_tb</name>
             <table>objects</table>
             <group>delivery_notes</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>dn_tb</field>
       </property>
       <property>
             <name>dn_tbl</name>
             <table>objects</table>
             <group>delivery_notes</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>dn_tbl</field>
       </property>
       <property>
             <name>preview</name>
             <table>objects</table>
             <group>preview</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>preview</field>
       </property>
       <property>
             <name>preview_add</name>
             <table>objects</table>
             <group>preview_add</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>preview_add</field>
       </property>
       <property>
             <name>preview_w_rows</name>
             <table>objects</table>
             <group>preview_w_rows</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>text</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>preview_w_rows</field>
       </property>
       <property>
             <name>billt_tb</name>
             <table>objects</table>
             <group>tasks</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>billt_tb</field>
       </property>
       <property>
             <name>bill_task_list</name>
             <table>objects</table>
             <group>tasks</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <parent>bill_task_list_l</parent>
-            <field>bill_task_list</field>
       </property>
       <property>
             <name>transl</name>
             <table>objects</table>
             <group>transl</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>callback</type>
             <callback>callback_get_transl</callback>
             <store>no</store>
-            <field>transl</field>
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
@@ -834,10 +789,6 @@
                   <caption>P&amp;amp;otilde;hiandmed</caption>
                   <parent>general</parent>
             </general_data>
-            <text_comments>
-                  <caption>Kommentaartekstid</caption>
-                  <parent>general</parent>
-            </text_comments>
             <action_comments>
                   <caption>Tegevuste ajalugu</caption>
                   <parent>general</parent>
@@ -846,9 +797,17 @@
                   <caption>Muud andmed</caption>
                   <parent>general</parent>
             </other_data>
+            <content>
+                  <caption>Sisu</caption>
+            </content>
             <rows>
                   <caption>Read</caption>
+                  <parent>content</parent>
             </rows>
+            <text_comments>
+                  <caption>Kommentaartekstid</caption>
+                  <parent>content</parent>
+            </text_comments>
             <mails>
                   <caption>Kirjad</caption>
             </mails>

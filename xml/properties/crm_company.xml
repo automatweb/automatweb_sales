@@ -3861,7 +3861,7 @@
             </bills_list>
             <invoice_templates>
                   <parent>bills</parent>
-                  <caption>Arvep&amp;amp;otilde;hjad</caption>
+                  <caption>Arvemallid</caption>
                   <submit>no</submit>
                   <save>no</save>
             </invoice_templates>
@@ -4058,21 +4058,11 @@
                   </clid>
                   <caption>Klient</caption>
             </CUSTOMER>
-            <POTENTIONAL_CUSTOMER>
-                  <value>23</value>
-                  <clid>CL_CRM_COMPANY</clid>
-                  <caption>Tulevane klient</caption>
-            </POTENTIONAL_CUSTOMER>
             <PARTNER>
                   <value>24</value>
                   <clid>CL_CRM_COMPANY</clid>
                   <caption>Partner</caption>
             </PARTNER>
-            <POTENTIONAL_PARTNER>
-                  <value>25</value>
-                  <clid>CL_CRM_COMPANY</clid>
-                  <caption>Tulevane partner</caption>
-            </POTENTIONAL_PARTNER>
             <COMPETITOR>
                   <value>26</value>
                   <clid>CL_CRM_COMPANY</clid>
@@ -4919,7 +4909,7 @@
                   <type>vbox</type>
                   <parent>templates_container</parent>
                   <closeable>0</closeable>
-                  <area_caption>Arvep&amp;amp;otilde;hjade&amp;amp;nbsp;kaustad</area_caption>
+                  <area_caption>Arvemallide&amp;amp;nbsp;kaustad</area_caption>
                   <group>invoice_templates</group>
             </template_folders>
             <templates_list_box>
@@ -4936,7 +4926,7 @@
                   <closeable>1</closeable>
                   <no_padding>1</no_padding>
                   <default_state>closed</default_state>
-                  <area_caption>Arvep&amp;amp;otilde;hjade&amp;amp;nbsp;kaustad</area_caption>
+                  <area_caption>Arvemallide&amp;amp;nbsp;kaustad</area_caption>
                   <group>invoice_templates</group>
             </folders_list_box>
             <bills_payments_box>

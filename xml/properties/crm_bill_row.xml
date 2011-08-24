@@ -100,7 +100,6 @@
             <table>aw_crm_bill_rows</table>
             <group>general</group>
             <type>textarea</type>
-            <rte_type>4</rte_type>
             <rows>8</rows>
             <cols>52</cols>
             <field>aw_desc</field>
@@ -111,7 +110,6 @@
             <table>aw_crm_bill_rows</table>
             <group>general</group>
             <type>textarea</type>
-            <rte_type>4</rte_type>
             <rows>2</rows>
             <cols>52</cols>
             <field>aw_name_group_comment</field>

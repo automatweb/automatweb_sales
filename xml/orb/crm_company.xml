@@ -409,8 +409,8 @@
 		<action name="create_invoice_from_template">
 			<function name="create_invoice_from_template">
 				<arguments>
-					<required name="id" type="int" acl="view" />
-					<required name="co" type="int" acl="view" />
+					<required name="id" type="oid" acl="view" />
+					<required name="co" type="oid" acl="view" />
 					<optional name="post_ru" />
 				</arguments>
 			</function>
@@ -419,7 +419,8 @@
 		<action name="create_new_invoice_template">
 			<function name="create_new_invoice_template">
 				<arguments>
-					<required name="id" type="int" acl="view" />
+					<required name="id" type="oid" acl="view" />
+					<required name="i_fldr" type="oid" acl="view" />
 					<required name="post_ru" type="string" />
 				</arguments>
 			</function>
@@ -428,8 +429,8 @@
 		<action name="create_new_invoice_folder">
 			<function name="create_new_invoice_folder">
 				<arguments>
-					<required name="invoice_folder_parent" type="int" acl="view" />
-					<optional name="id" type="int" acl="view" />
+					<required name="invoice_folder_parent" type="oid" acl="view" />
+					<optional name="id" type="oid" acl="view" />
 					<required name="post_ru" type="string" />
 				</arguments>
 			</function>
