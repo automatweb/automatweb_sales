@@ -110,9 +110,9 @@ class _int_obj_container_base
 		return $this->_int_setter("set_flag", array($flag, $val));
 	}
 
-	function set_meta($key, $val)
+	function set_meta($param, $val = null)
 	{
-		return $this->_int_setter("set_meta", array($key, $val));
+		return $this->_int_setter("set_meta", array($param, $val));
 	}
 
 	function set_prop($prop, $val)
