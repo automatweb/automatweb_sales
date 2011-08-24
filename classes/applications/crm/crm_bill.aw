@@ -8,7 +8,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @default table=objects
 
 @property customer type=hidden table=aw_crm_bill field=aw_customer
-@property customer_relation type=hidden table=aw_crm_bill field=aw_customer_relation
+@property customer_relation type=hidden table=aw_crm_bill field=aw_customer_relation group=general_data
 
 //deprecated
 @property bill_mail_to type=hidden field=meta method=serialize
@@ -112,15 +112,12 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@caption Allkirja t&uuml;&uuml;p
 
 	@property is_invoice_template type=checkbox ch_value=1 table=aw_crm_bill field=aw_is_invoice_template parent=bottom_left
-	@caption Salvesta arve arvep&otilde;hjana
+	@caption Arve on arvemall
 
 
 // Customer info. top right lyt
 	@property customer_name type=textbox table=aw_crm_bill field=aw_customer_name parent=top_right
 	@caption Kliendi nimi
-
-	@property customer_code type=textbox table=aw_crm_bill field=aw_customer_code parent=top_right
-	@caption Kliendikood
 
 	@property ctp_text type=textbox table=objects field=meta method=serialize parent=top_right
 	@caption Kontaktisik vabatekstina
@@ -167,13 +164,13 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=text_comments
-	@property bill_text type=textarea rte_type=4 rows=15 cols=50 field=meta method=serialize trans=1
+	@property bill_text type=textarea rows=15 cols=50 field=meta method=serialize trans=1
 	@caption Arve sissejuhatus
 
-	@property bill_appendix_comment type=textarea rte_type=4 rows=15 cols=50 table=objects field=meta method=serialize trans=1
+	@property bill_appendix_comment type=textarea rows=15 cols=50 table=objects field=meta method=serialize trans=1
 	@caption Kommentaar lisale
 
-	@property reminder_text type=textarea rte_type=4 rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text trans=1
+	@property reminder_text type=textarea rows=15 cols=50 table=aw_crm_bill field=aw_reminder_text trans=1
 	@caption Kommentaar meeldetuletusele
 
 
@@ -190,21 +187,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 	@property time_spent_desc type=textbox table=aw_crm_bill field=aw_time_spent_desc
 	@caption Kulunud aeg tekstina
-
-	@property udef1 type=checkbox ch_value=1 field=meta method=serialize
-	@caption Kasutajadefineeritud muutuja 1
-
-	@property udef2 type=checkbox ch_value=1 field=meta method=serialize
-	@caption Kasutajadefineeritud muutuja 2
-
-	@property udef3 type=checkbox ch_value=1 field=meta method=serialize
-	@caption Kasutajadefineeritud muutuja 3
-
-	@property udef4 type=checkbox ch_value=1 field=meta method=serialize
-	@caption Kasutajadefineeritud muutuja 4
-
-	@property udef5 type=checkbox ch_value=1 field=meta method=serialize
-	@caption Kasutajadefineeritud muutuja 5
 
 	@property is_overdue_bill type=checkbox ch_value=1  table=aw_crm_bill field=aw_is_overdue_bill
 	@caption Viivisarve
@@ -244,21 +226,21 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @default group=sent_mails
 	@property mail_table type=table no_caption=1 no_caption=1
 
-
+@default table=objects field=meta method=serialize
 @default group=send_mail
-// properties 'sendmail_attachments' and 'sendmail_recipients' in send_mail group are
+// 'sendmail_recipients' in send_mail group are
 // temporarily saved in active session and cleared, when send_bill action is requested by user
 	@property sendmail_toolbar type=toolbar store=no no_caption=1
 	@layout sendmail_settings type=hbox closeable=1 area_caption=Kirja&nbsp;seaded width=50%:50%
 	@layout sendmail_sender type=vbox closeable=0 area_caption=Saatja parent=sendmail_settings
-		@property bill_mail_from type=textbox store=no parent=sendmail_sender
+		@property bill_mail_from type=textbox parent=sendmail_sender
 		@caption E-posti aadress
 
-		@property bill_mail_from_name type=textbox store=no parent=sendmail_sender
+		@property bill_mail_from_name type=textbox parent=sendmail_sender
 		@caption Nimi
 
 	@layout sendmail_attachments type=vbox closeable=0 area_caption=Lisatavad&nbsp;dokumendid parent=sendmail_settings
-		@property sendmail_attachments type=chooser multiple=1 store=no parent=sendmail_attachments orient=vertical no_caption=1
+		@property sendmail_attachments type=chooser multiple=1 parent=sendmail_attachments orient=vertical no_caption=1
 
 	@layout sendmail_recipients type=vbox closeable=1 area_caption=Kirja&nbsp;saajad
 		@property sendmail_recipients type=table store=no parent=sendmail_recipients no_caption=1
@@ -271,17 +253,17 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 		@layout sendmail_content_l type=vbox parent=sendmail_content closeable=0 area_caption=Muutmine
 		@layout sendmail_content_r type=vbox parent=sendmail_content closeable=0 area_caption=Eelvaade&nbsp;(kliki&nbsp;tekstil&nbsp;et&nbsp;uuendada)
 
-	@property bill_mail_subj type=textbox parent=sendmail_content_l captionside=top table=objects field=meta method=serialize
+	@property bill_mail_subj type=textbox parent=sendmail_content_l captionside=top
 	@caption Pealkiri
 
-	@property bill_mail_ct type=textarea rows=20 cols=53 parent=sendmail_content_l captionside=top table=objects field=meta method=serialize
+	@property bill_mail_ct type=textarea rows=20 cols=53 parent=sendmail_content_l captionside=top
 	@caption Sisu
 
 	@property bill_mail_legend type=text store=no parent=sendmail_content_l captionside=top
 	@comment E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&auml;&auml;rtustega
 	@caption Kasutatavad muutujad
 
-	@property sendmail_subject_view type=text parent=sendmail_content_r captionside=top
+	@property sendmail_subject_view type=text parent=sendmail_content_r captionside=top store=no
 	@caption Pealkiri
 
 	@property sendmail_body_view type=text store=no parent=sendmail_content_r captionside=top
@@ -323,10 +305,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 //=========== GROUP DEFINITIONS ==============
 
 @groupinfo general_data caption="P&otilde;hiandmed" parent=general
-@groupinfo text_comments caption="Kommentaartekstid" parent=general
 @groupinfo action_comments caption="Tegevuste ajalugu" parent=general
 @groupinfo other_data caption="Muud andmed" parent=general
-@groupinfo rows caption="Read"
+@groupinfo content caption="Sisu"
+	@groupinfo rows caption="Read" parent=content
+	@groupinfo text_comments caption="Kommentaartekstid" parent=content
 @groupinfo mails caption="Kirjad"
 	@groupinfo send_mail caption="Arve saatmine" parent=mails confirm_save_data=0
 	@groupinfo sent_mails caption="Saadetud kirjad" parent=mails
@@ -445,11 +428,6 @@ class crm_bill extends class_base
 
 	function callback_post_save($arr)
 	{
-		if ("send_mail" === $this->use_group)
-		{
-			$arr["obj_inst"]->reset_pdf_files_cache(true);
-		}
-
 		if(isset($arr["request"]["project"]) && $this->can("view" , $arr["request"]["project"]))
 		{
 			$arr["obj_inst"]->set_project($arr["request"]["project"]);
@@ -642,7 +620,6 @@ class crm_bill extends class_base
 				break;
 
 			case "ctp_text":
-			case "customer_code":
 			case "customer_address":
 				if(!$arr["obj_inst"]->prop("customer"))
 				{
@@ -932,35 +909,15 @@ class crm_bill extends class_base
 	function _get_bill_mail_from(&$arr)
 	{
 		$r = PROP_OK;
-		$tmp = aw_global_get("crm_bill_sendmail_sender_email_tmp");
-		$arr["prop"]["value"] = $tmp ? $tmp : $arr["obj_inst"]->get_mail_from();
+		$arr["prop"]["value"] = empty($arr["prop"]["value"]) ? $arr["obj_inst"]->get_mail_from_default() : $arr["prop"]["value"];
 		return $r;
 	}
 
 	function _get_bill_mail_from_name(&$arr)
 	{
 		$r = PROP_OK;
-		$tmp = aw_global_get("crm_bill_sendmail_sender_name_tmp");
-		$arr["prop"]["value"] = $tmp ? $tmp : $arr["obj_inst"]->get_mail_from_name();
+		$arr["prop"]["value"] = empty($arr["prop"]["value"]) ? $arr["obj_inst"]->get_mail_from_name_default() : $arr["prop"]["value"];
 		return $r;
-	}
-
-	function _set_bill_mail_from(&$arr)
-	{
-		if (isset($arr["request"]["bill_mail_from"]))
-		{
-			aw_session_set("crm_bill_sendmail_sender_email_tmp", $arr["request"]["bill_mail_from"]);
-		}
-		return PROP_IGNORE;
-	}
-
-	function _set_bill_mail_from_name(&$arr)
-	{
-		if (isset($arr["request"]["bill_mail_from_name"]))
-		{
-			aw_session_set("crm_bill_sendmail_sender_name_tmp", $arr["request"]["bill_mail_from_name"]);
-		}
-		return PROP_IGNORE;
 	}
 
 	function _get_bill_mail_legend(&$arr)
@@ -985,7 +942,7 @@ class crm_bill extends class_base
 		$t->add_button(array(
 			"name" => "save",
 			"icon" => "disk",
-			"tooltip" => t("Salvesta muudatused ajutiselt"),
+			"tooltip" => t("Salvesta"),
 			"action" => "submit"
 		));
 
@@ -1205,64 +1162,59 @@ class crm_bill extends class_base
 	function _get_sendmail_attachments(&$arr)
 	{
 		$r = PROP_OK;
-		$invoice_pdf_o = $reminder_pdf_o = $appendix_pdf_o = null;
-		$invoice_pdf_link = $reminder_pdf_link = $appendix_pdf_link = "";
-		$value = array();
-		$attachments_tmp = safe_array(aw_global_get("crm_bill_sendmail_attachments_tmp"));
 
-		if (count($attachments_tmp))
-		{
-			try
-			{
-				if (!empty($attachments_tmp["p"]))
-				{
-					$invoice_pdf_o = obj($attachments_tmp["p"], array(), CL_FILE);
-				}
-				elseif (!empty($attachments_tmp["r"]))
-				{
-					$invoice_pdf_o = obj($attachments_tmp["r"], array(), CL_FILE);
-				}
+		// load found or requested pdf-s
+		$invoice_pdf_o = $arr["obj_inst"]->get_invoice_pdf(false);
+		$appendix_pdf_o = $arr["obj_inst"]->get_appendix_pdf(false);
+		$reminder_pdf_o = $arr["obj_inst"]->get_reminder_pdf(false);
 
-				if (!empty($attachments_tmp["a"]))
-				{
-					$appendix_pdf_o = obj($attachments_tmp["a"], array(), CL_FILE);
-				}
-			}
-			catch (Exception $e)
-			{
-				$this->show_error_text(t("Viga PDF dokumendi laadimisel"));
-				aw_session_del("crm_bill_sendmail_attachments_tmp");
-			}
-		}
-		elseif (isset($arr["request"]["sendmail_type"]))
+		if (isset($arr["request"]["sendmail_type"]))
 		{
 			if ("p" === $arr["request"]["sendmail_type"])
 			{
-				$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
-				$attachments_tmp["p"] = $invoice_pdf_o->id();
+				$invoice_pdf_o = $arr["obj_inst"]->get_invoice_pdf();
 			}
 			elseif ("r" === $arr["request"]["sendmail_type"])
 			{
-				$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
-				$attachments_tmp["r"] = $invoice_pdf_o->id();
+				$reminder_pdf_o = $arr["obj_inst"]->get_reminder_pdf();
 			}
 			elseif ("pa" === $arr["request"]["sendmail_type"])
 			{
-				$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
-				$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
-				$attachments_tmp["p"] = $invoice_pdf_o->id();
-				$attachments_tmp["a"] = $appendix_pdf_o->id();
+				$invoice_pdf_o = $arr["obj_inst"]->get_invoice_pdf();
+				$appendix_pdf_o = $arr["obj_inst"]->get_appendix_pdf();
 			}
 			elseif ("ra" === $arr["request"]["sendmail_type"])
 			{
-				$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
-				$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
-				$attachments_tmp["r"] = $invoice_pdf_o->id();
-				$attachments_tmp["a"] = $appendix_pdf_o->id();
+				$reminder_pdf_o = $arr["obj_inst"]->get_reminder_pdf();
+				$appendix_pdf_o = $arr["obj_inst"]->get_appendix_pdf();
 			}
 		}
+		elseif (isset($arr["prop"]["value"]) and !empty($arr["prop"]["value"]))
+		{
+			if (!empty($arr["prop"]["value"]["p"]))
+			{
+				$invoice_pdf_o = $arr["obj_inst"]->get_invoice_pdf();
+			}
 
-		aw_session_set("crm_bill_sendmail_attachments_tmp", $attachments_tmp);
+			if (!empty($arr["prop"]["value"]["a"]))
+			{
+				$appendix_pdf_o = $arr["obj_inst"]->get_appendix_pdf();
+			}
+
+			if (!empty($arr["prop"]["value"]["r"]))
+			{
+				$reminder_pdf_o = $arr["obj_inst"]->get_reminder_pdf();
+			}
+		}
+		else
+		{
+			$invoice_pdf_o = $arr["obj_inst"]->get_invoice_pdf(false);
+			$appendix_pdf_o = $arr["obj_inst"]->get_appendix_pdf(false);
+			$reminder_pdf_o = $arr["obj_inst"]->get_reminder_pdf(false);
+		}
+
+		// make links to pdf files
+		$invoice_pdf_link = $reminder_pdf_link = $appendix_pdf_link = "";
 
 		if ($invoice_pdf_o)
 		{
@@ -1274,9 +1226,9 @@ class crm_bill extends class_base
 				)) . $invoice_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $invoice_pdf_o->get_url(),
 			));
-			$value["p"] = "p";
 		}
-		elseif ($reminder_pdf_o)
+
+		if ($reminder_pdf_o)
 		{
 			$file_data = $reminder_pdf_o->get_file();
 			$reminder_pdf_link = " " . html::href(array(
@@ -1286,7 +1238,6 @@ class crm_bill extends class_base
 				)) . $reminder_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $reminder_pdf_o->get_url(),
 			));
-			$value["r"] = "r";
 		}
 
 		if ($appendix_pdf_o)
@@ -1299,7 +1250,6 @@ class crm_bill extends class_base
 				)) . $appendix_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $appendix_pdf_o->get_url(),
 			));
-			$value["a"] = "a";
 		}
 
 		$arr["prop"]["options"] = array(
@@ -1308,82 +1258,7 @@ class crm_bill extends class_base
 			"a" => t("Arve lisa PDF") . $appendix_pdf_link
 		);
 
-		$arr["prop"]["value"] = $value;
-
 		return $r;
-	}
-
-	function _set_sendmail_attachments($arr)
-	{
-		$attachments_tmp = safe_array(aw_global_get("crm_bill_sendmail_attachments_tmp"));
-		$attachments_tmp["p"] = empty($arr["prop"]["value"]["p"]) ? 0 : $attachments_tmp["p"];
-		$attachments_tmp["r"] = empty($arr["prop"]["value"]["r"]) ? 0 : $attachments_tmp["r"];
-		$attachments_tmp["a"] = empty($arr["prop"]["value"]["a"]) ? 0 : $attachments_tmp["a"];
-
-		if (!empty($arr["prop"]["value"]["p"]))
-		{
-			if (empty($attachments_tmp["p"]))
-			{
-				$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
-			}
-			else
-			{
-				try
-				{
-					$invoice_pdf_o = obj($attachments_tmp["p"], array(), CL_FILE);
-				}
-				catch (Exception $e)
-				{
-					$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
-				}
-			}
-
-			$attachments_tmp["p"] = $invoice_pdf_o->id();
-		}
-		elseif (!empty($arr["prop"]["value"]["r"]))
-		{
-			if (empty($attachments_tmp["r"]))
-			{
-				$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
-			}
-			else
-			{
-				try
-				{
-					$reminder_pdf_o = obj($attachments_tmp["r"], array(), CL_FILE);
-				}
-				catch (Exception $e)
-				{
-					$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
-				}
-			}
-
-			$attachments_tmp["r"] = $reminder_pdf_o->id();
-		}
-
-		if (!empty($arr["prop"]["value"]["a"]))
-		{
-			if (empty($attachments_tmp["a"]))
-			{
-				$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
-			}
-			else
-			{
-				try
-				{
-					$appendix_pdf_o = obj($attachments_tmp["a"], array(), CL_FILE);
-				}
-				catch (Exception $e)
-				{
-					$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
-				}
-			}
-
-			$attachments_tmp["a"] = $appendix_pdf_o->id();
-		}
-
-		aw_session_set("crm_bill_sendmail_attachments_tmp", $attachments_tmp);
-		return PROP_IGNORE;
 	}
 
 	function _get_bill_mail_subj(&$arr)
@@ -1764,14 +1639,6 @@ class crm_bill extends class_base
 		return $r;
 	}
 
-	function _get_customer_code(&$arr)
-	{
-		$r = class_base::PROP_OK;
-		$b = $arr["obj_inst"];
-		$arr["prop"]["value"] = $b->get_customer_code();
-		return $r;
-	}
-
 	function num($a)
 	{
 		return str_replace(",", ".", $a);
@@ -2048,12 +1915,14 @@ class crm_bill extends class_base
 
 	function _get_bill_rows(&$arr)
 	{
+		/*
 		// dummy rte textarea to load required scripts and styles.
 		html::textarea(array(
 			"name" => "tmp",
 			"value" => "",
 			"rte_type" => 4
 		));
+		*/
 
 		if($arr["new"])
 		{
@@ -2638,11 +2507,14 @@ class crm_bill extends class_base
 				$url = $this->mk_my_orb("do_search", array(
 					"pn" => "rows[$id][prod]",
 					"clid" => array(
-						CL_SHOP_PRODUCT
+						CL_SHOP_PRODUCT,
+						CL_SHOP_PRODUCT_PACKAGING,
+						CL_SHOP_PACKET
 					),
-					"tbl_props" => array("oid", "name", "code", "parent"),
+					"tbl_props" => array("name", "code", "oid", "parent"),
 					"multiple" => 0,
-					"no_submit" => 1,
+					"start_empty" => 1,
+					"no_submit" => 1
 				), "shop_product_popup_search");
 				$url = "javascript:aw_popup_scroll('".$url."','".t("Otsi")."',600,500)";
 				$s = html::href(array(
@@ -2847,8 +2719,9 @@ class crm_bill extends class_base
 						"date" =>  $date,
 					));
 					$ccurrency_o = new object($ccurrency);
-					$price_cc = html::linebreak().round($cc_price , 2)." ".$ccurrency_o->name();
-					$sum_cc = html::linebreak().round($cc_price*$row->prop("amt") , 2)." ".$ccurrency_o->name();
+					$ccurrency_str = $ccurrency_o->prop("unit_name_after_sum") ? $ccurrency_o->prop("unit_name_after_sum") : $ccurrency_o->name();
+					$price_cc = html::linebreak().round($cc_price , 2)." ".$ccurrency_str;
+					$sum_cc = html::linebreak().round($cc_price*$row->prop("amt") , 2)." ".$ccurrency_str;
 				}
 
 				$ret.=
@@ -3136,11 +3009,6 @@ class crm_bill extends class_base
 
 	function callback_pre_save($arr)
 	{
-		if ("send_mail" === $this->use_group)
-		{
-			$arr["obj_inst"]->reset_pdf_files_cache(false);
-		}
-
 		if (!empty($this->_set_recv_date))
 		{
 			$arr["obj_inst"]->set_prop("bill_recieved", $this->_set_recv_date);
@@ -3531,7 +3399,6 @@ class crm_bill extends class_base
 
 		$this->vars(array(
 			"orderer_name" => $this->bill->get_customer_name(),
-			"orderer_code" => $this->bill->get_customer_code(),
 			"orderer_corpform" => $ord->prop("ettevotlusvorm.shortname"),
 			"ord_penalty_pct" => number_format($bpct, 2),
 			"ord_currency_name" => $this->bill->get_bill_currency_name(),
@@ -3571,12 +3438,6 @@ class crm_bill extends class_base
 				"NO_DUE_DATE" => $this->parse("NO_DUE_DATE")
 			));
 		}
-
-		if($this->bill->prop("udef1")) $this->vars(array("userch1_checked" => $this->parse("userch1_checked")));
-		if($this->bill->prop("udef2")) $this->vars(array("userch2_checked" => $this->parse("userch2_checked")));
-		if($this->bill->prop("udef3")) $this->vars(array("userch3_checked" => $this->parse("userch3_checked")));
-		if($this->bill->prop("udef4")) $this->vars(array("userch4_checked" => $this->parse("userch4_checked")));
-		if($this->bill->prop("udef5")) $this->vars(array("userch5_checked" => $this->parse("userch5_checked")));
 
 		if ($ord->prop("tax_nr") != "")
 		{
@@ -4958,7 +4819,6 @@ ENDSCRIPT;
 			{
 				case "aw_customer_name":
 				case "aw_customer_address":
-				case "aw_customer_code":
 				case "aw_time_spent_desc":
 				case "aw_reminder_text":
 					$this->db_add_col($table, array(

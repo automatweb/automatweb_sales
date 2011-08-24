@@ -715,9 +715,9 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 	@property bills_mon_tb type=toolbar no_caption=1 store=no
 
 	@layout templates_container type=hbox width=20%:80%
-		@layout template_folders type=vbox parent=templates_container closeable=0 area_caption=Arvep&otilde;hjade&nbsp;kaustad
+		@layout template_folders type=vbox parent=templates_container closeable=0 area_caption=Arvemallide&nbsp;kaustad
 		@layout templates_list_box type=vbox parent=templates_container closeable=0 no_padding=1
-		@layout folders_list_box type=vbox parent=templates_list_box closeable=1 no_padding=1 default_state=closed area_caption=Arvep&otilde;hjade&nbsp;kaustad
+		@layout folders_list_box type=vbox parent=templates_list_box closeable=1 no_padding=1 default_state=closed area_caption=Arvemallide&nbsp;kaustad
 			@property invoice_template_folders type=treeview no_caption=1 store=no parent=template_folders
 			@property invoice_folders_list type=table store=no no_caption=1 parent=folders_list_box
 			@property invoice_templates_list type=table store=no no_caption=1 parent=templates_list_box
@@ -1248,7 +1248,7 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 @groupinfo bills caption="Arved" submit=no save=no
 
 	@groupinfo bills_list parent=bills caption="Nimekiri" submit=no save=no
-	@groupinfo invoice_templates parent=bills caption="Arvep&otilde;hjad" submit=no save=no
+	@groupinfo invoice_templates parent=bills caption="Arvemallid" submit=no save=no
 	@groupinfo bills_search parent=bills caption="Otsi toimetusi" submit=no save=no
 	@groupinfo bills_create parent=bills caption="Maksmata t&ouml;&ouml;d" submit=no save=no
 	@groupinfo bill_payments parent=bills caption="Laekumised" submit=no save=no
@@ -1328,14 +1328,14 @@ groupinfo qv caption="Vaata"  submit=no save=no
 @reltype CUSTOMER value=22 clid=CL_CRM_COMPANY,CL_CRM_PERSON
 @caption Klient
 
-@reltype POTENTIONAL_CUSTOMER value=23 clid=CL_CRM_COMPANY
-@caption Tulevane klient
+// @reltype POTENTIONAL_CUSTOMER value=23 clid=CL_CRM_COMPANY
+// @caption Tulevane klient
 
 @reltype PARTNER value=24 clid=CL_CRM_COMPANY
 @caption Partner
 
-@reltype POTENTIONAL_PARTNER value=25 clid=CL_CRM_COMPANY
-@caption Tulevane partner
+// @reltype POTENTIONAL_PARTNER value=25 clid=CL_CRM_COMPANY
+// @caption Tulevane partner
 
 @reltype COMPETITOR value=26 clid=CL_CRM_COMPANY
 @caption Konkurent
@@ -6621,13 +6621,15 @@ class crm_company extends class_base
 
 	/**
 		@attrib name=create_new_invoice_template
-		@param id required type=int acl=view
+		@param id required type=oid acl=view
+		@param i_fldr optional type=oid acl=view
 		@param post_ru required type=string
 	**/
 	function create_new_invoice_template($arr)
 	{
 		$invoice_template = obj(null, array(), crm_bill_obj::CLID);
-		$invoice_template->set_parent($arr["id"]);
+		$parent = empty($arr["i_fldr"]) ? $arr["id"] : $arr["i_fldr"];
+		$invoice_template->set_parent($parent);
 		$invoice_template->set_prop("is_invoice_template", 1);
 		$invoice_template->save();
 		return $this->mk_my_orb("change", array(
@@ -6638,89 +6640,16 @@ class crm_company extends class_base
 
 	/**
 		@attrib name=create_invoice_from_template
-		@param id required type=int acl=view
-		@param co required type=int acl=view
-		@param post_ru optional
+		@param id required type=oid acl=view
+		@param co required type=oid acl=view
+		@param post_ru required type=string
 	**/
 	function create_invoice_from_template($arr)
 	{
-		if (!empty($arr["id"]) && empty($arr["sel"]))
-		{
-			$arr["sel"] = array($arr["id"]);
-		}
+		$invoice = obj(null, array(), crm_bill_obj::CLID);
+		$invoice->load_from_template($arr["id"]);
 
-		foreach(safe_array($arr["sel"]) as $bill_id)
-		{
-			$b = obj($bill_id);
-
-			/// copy
-			$n = obj(null, array(), crm_bill_obj::CLID);
-			$n->set_parent($b->parent());
-			$n->save();
-			$ser = get_instance(CL_CRM_NUMBER_SERIES);
-			$n->set_prop("bill_no", $ser->find_series_and_get_next(CL_CRM_BILL,0,time()));
-			$n->set_name(sprintf(t("Arve nr %s"), $n->prop("bill_no")));
-			$n->set_prop("bill_date", time());
-			$n->set_prop("comment", $b->prop("comment"));
-			$n->set_prop("time_spent_desc", $b->prop("time_spent_desc"));
-			$n->set_prop("bill_due_date_days", $b->prop("bill_due_date_days"));
-			$n->set_prop("bill_due_date", (time() + $b->prop("bill_due_date_days") * 86400));
-			$n->set_prop("bill_recieved", -1);
-			$n->set_prop("disc", $b->prop("disc"));
-			$n->set_prop("language", $b->prop("language"));
-			$n->set_prop("impl", $b->prop("impl"));
-			$n->set_prop("customer", $b->prop("customer"));
-			$n->set_prop("disc", $b->prop("disc"));
-			$n->set_prop("sum", $b->prop("sum"));
-
-			$n->save();
-
-			// connections
-			foreach($b->connections_from() as $con)
-			{
-				if($con->prop("reltype") == 5)
-				{
-					$br = $con->to();
-					$nbr = new object();
-					$nbr->set_name($br->name());
-					$nbr->set_class_id(crm_bill_row_obj::CLID);
-					$nbr->set_parent($n->id());
-					foreach($br->properties() as $prop => $val)
-					{
-						if($nbr->is_property($prop))
-						{
-							$nbr->set_prop($prop , $val);
-						}
-					}
-					$nbr->save();
-					$nbr->set_meta($br->meta());
-					$n->connect(array(
-						"to" => $nbr->id(),
-						"reltype" => $con->prop("reltype")
-					));
-				}
-				else
-				{
-					$n->connect(array(
-						"to" => $con->prop("to"),
-						"reltype" => $con->prop("reltype")
-					));
-				}
-			}
-		}
-
-		if (count(safe_array($arr["sel"])) == 1)
-		{
-			return html::get_change_url($n->id(), array("return_url" => $arr["post_ru"]));
-		}
-		else
-		{
-			return $this->mk_my_orb("change", array(
-				"id" => $arr["id"],
-				"group" => "bills_list",
-				"return_url" => $arr["post_ru"]
-			));
-		}
+		return html::get_change_url($invoice->id(), array("return_url" => $arr["post_ru"]));
 	}
 
 	// handler for address save message
@@ -6809,7 +6738,7 @@ class crm_company extends class_base
 
 		if (!$fld)
 		{
-			$i = get_instance("applications/crm/crm_company_docs_impl");
+			$i = new crm_company_docs_impl();
 			$fld = $i->_init_docs_fld(obj($arr["id"]));
 			$fld = $fld->id();
 		}

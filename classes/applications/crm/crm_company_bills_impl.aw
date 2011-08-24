@@ -2403,7 +2403,6 @@ $x++;
 				$custr[] = $b->get_customer_address();
 				$custr[] = $b->get_customer_address("index") . " " . $b->get_customer_address("country");
 
-				$cust_code = str_replace("\n", "", str_replace("\r", "", trim($b->get_customer_code())));
 				list($cm) = explode(" ", $cust->prop_str("client_manager"));
 				$cm = mb_strtoupper($cm);
 			}
