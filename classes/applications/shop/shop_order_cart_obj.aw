@@ -75,15 +75,16 @@ class shop_order_cart_obj extends _int_object
 		return $ol->begin();
 	}
 
-	function prop($prop)
+	public function awobj_get_cart_type()
 	{
-		switch($prop["name"])
-		{
-			case "cart_type":
-				$oc = $this->get_oc();
-				return $oc->prop("cart_type");
-		}
-		return parent::prop($prop);
+		$oc = $this->get_oc();
+		return $oc->prop("cart_type");
+	}
+
+	public function awobj_get_result_clid()
+	{
+		$clid = parent::prop("result_clid");
+		return is_class_id($clid) ? (int) $clid : shop_sell_order_obj::CLID;
 	}
 
 	public function set_oc()
@@ -227,13 +228,15 @@ class shop_order_cart_obj extends _int_object
 		$warehouse = $this->oc->prop("warehouse");
 		$cart = $this->get_cart();
 		$order_data = $this->get_order_data();
-//kui mingi imega suudetakse isikuandmeteta tellimus teha... suuname tagasi
-		if(empty($order_data["email"]) && empty($order_data["fisrsname"]) && empty($order_data["lastname"]))
+		/*	I don't think object override should worry about redirecting anyone anywhere! -kaarel 14.08.2011
+		//kui mingi imega suudetakse isikuandmeteta tellimus teha... suuname tagasi
+		if(empty($order_data["email"]) && empty($order_data["firstname"]) && empty($order_data["lastname"]))
 		{
 			$return_url = str_replace("final_finish_order" , "orderer_data", $GLOBALS["_SERVER"]["HTTP_REFERER"]);
-			   header( 'Location: '.$return_url);
-			   die();
+			header( 'Location: '.$return_url);
+			die();
 		}
+		*/
 		$o = new object();
 		$o->set_name(t("M&uuml;&uuml;gitellimus")." ".date("d.m.Y H:i"));
 		$o->set_parent($this->oc->id());
@@ -247,9 +250,13 @@ class shop_order_cart_obj extends _int_object
 
 		$address = $this->_get_address($order_data);
 		$o->set_prop("delivery_address" , $address->id());
-
-		$o->set_prop("transp_type" , $order_data["delivery"]);
-		$o->set_prop("shop_delivery_type" , $order_data["delivery"]);
+		foreach(array("delivery" => "transp_type", "delivery" => "shop_delivery_type", "payment" => "payment_type") as $key => $prop)
+		{
+			if (isset($order_data[$key]))
+			{
+				$o->set_prop($prop, $order_data[]);
+			}
+		}
 
 		//kui valitud transpordiliik omab oma miskeid kontoreid v6i kohti kuhu viia, siis salvestab selle aadressi ka
 		$ed_types = $this->oc->prop("extra_address_delivery_types");
@@ -261,7 +268,6 @@ class shop_order_cart_obj extends _int_object
 			$o->set_prop("smartpost_sell_place_name" , $delivery_vars["smartpost_sell_place_name"]);
 		}
 
-		$o->set_prop("payment_type" , $order_data["payment"]);
 		$o->set_prop("currency" , $this->oc->get_currency());
 		$o->set_prop("channel" , $this->prop("channel"));
 		$o->set_meta("order_data" , $order_data);
@@ -270,19 +276,23 @@ class shop_order_cart_obj extends _int_object
 		$lang = aw_global_get("lang_id");
 		$l = get_instance("languages");
 		$o->set_meta("lang" , $lang);
-		$o->set_meta("lang_id" , $_SESSION["ct_lang_id"]);
-		$o->set_meta("lang_lc" , $l->get_langid($_SESSION["ct_lang_id"]));
+		// FIXME: Is $_SESSION["ct_lang_id"] still valid?
+		if(!empty($_SESSION["ct_lang_id"]))
+		{
+			$o->set_meta("lang_id", $_SESSION["ct_lang_id"]);
+			$o->set_meta("lang_lc", $l->get_langid($_SESSION["ct_lang_id"]));
+		}
 
 		$o->save();
 
-		$awa = new aw_array($cart["items"]);
+		$awa = !empty($cart["items"]) ? new aw_array($cart["items"]) : new aw_array();
 		$sum = 0;
 		foreach($awa->get() as $iid => $quant)
 		{
 			$qu = new aw_array($quant);
 			foreach($qu->get() as $key => $val)
 			{
-				if($val["cart"] && !$this->check_confirm_carts($val["cart"]) && $iid)
+				if(!empty($val["cart"]) and !$this->check_confirm_carts($val["cart"]) and $iid)
 				{
 					continue;
 				}
@@ -293,15 +303,10 @@ class shop_order_cart_obj extends _int_object
 					continue;
 				}
 				$product = obj($iid);
-				$special_price = $product->get_shop_special_price($this->oc->id());
-				if (!empty($special_price))
-				{
-					$price = $special_price;
-				}
-				else
-				{
-					$price = $product->get_shop_price($this->oc->id());
-				}
+				// FIXME: Once I get to fixing the whole price system, fix this here as well!
+//				$special_price = $product->get_shop_special_price($this->oc->id());
+				$special_price = $product->prop("special_price");
+				$price = $special_price ? $special_price : $product->prop("price");
 				$sum += $cart["items"][$iid][$key]["items"] * $price;
 				$o->add_row(array(
 					"product" => $iid,
@@ -312,7 +317,7 @@ class shop_order_cart_obj extends _int_object
 		}
 
 		//j2relmaksude arv, juhul kui tegu on j2relmaksuga
-		if($this->is_after_payment($order_data["payment"] , $sum))
+		if(!empty($order_data["payment"]) and $this->is_after_payment($order_data["payment"], $sum))
 		{
 			$o->set_prop("deferred_payment_count" , $order_data["deferred_payment_count"]);
 			$o->save();
@@ -456,12 +461,18 @@ class shop_order_cart_obj extends _int_object
 	{
 		$address = new object();
 		$address->set_parent($this->oc->id());
-		$address->set_name($data["address"]." ".$data["city"]);
+		if(!empty($data["address"]) and !empty($data["city"]))
+		{
+			$address->set_name($data["address"]." ".$data["city"]);
+		}
 		$address->set_class_id(CL_CRM_ADDRESS);
-		$address->set_prop("aadress" ,$data["address"]);
+		if (!empty($data["address"]))
+		{
+			$address->set_prop("aadress", $data["address"]);
+		}
 		if(!empty($data["index"]))
 		{
-			$address->set_prop("postiindeks",$data["index"]);
+			$address->set_prop("postiindeks", $data["index"]);
 		}
 		$address->save();
 		if(!empty($data["city"]))
@@ -473,6 +484,55 @@ class shop_order_cart_obj extends _int_object
 
 	public function confirm_order()
 	{
+		if ($this->awobj_get_result_clid() === crm_offer_obj::CLID)
+		{
+			$result = $this->__confirm_crm_offer();
+		}
+		else
+		{
+			$result = $this->__confirm_shop_sell_order();
+		}
+		$this->reset_cart();
+		return $result;
+	}
+
+	/**	Will be used if shop_order_cart_obj::confirm_order() is called and the result class ID is set to CL_CRM_OFFER
+	**/
+	private function __confirm_crm_offer()
+	{
+		$sales = obj($this->prop("crm_sales"), array(), crm_sales_obj::CLID);
+		
+		$customer = $this->_get_person($this->get_order_data());
+		$salesman = obj($this->prop("salesman"), array(), crm_person_obj::CLID);
+
+		$order_center = $this->get_oc();
+		$currency = obj($order_center->prop("default_currency"), array(), currency_obj::CLID);
+
+		$cart_data = $this->get_cart();
+		$items = array();
+		if (!empty($cart_data["items"]))
+		{
+			foreach ($cart_data["items"] as $item_id => $item_rows)
+			{
+				foreach ($item_rows as $item_row)
+				{
+					if($item_row["items"] > 0)
+					{
+						$items[] = array(obj($item_id), $item_row["items"]);
+					}
+				}
+			}
+		}
+
+		$offer = $sales->create_offer($salesman, $customer, $currency, $items);
+
+		return $offer;
+	}
+
+	/**	Will be used if shop_order_cart_obj::confirm_order() is called and the result class ID is set to CL_SHOP_SELL_ORDER
+	**/
+	private function __confirm_shop_sell_order()
+	{
 		$order = $this->create_order();
 		$this->set_oc();
 		$order_obj = obj($order);
@@ -481,12 +541,11 @@ class shop_order_cart_obj extends _int_object
 
 		if($this->can("view", $this->prop("finish_handler")))
 		{
-			$ctrl = get_instance(CL_FORM_CONTROLLER);
+			$ctrl = new form_controller();
 			$ctrl->eval_controller($this->prop("finish_handler"), $order_obj, $this);
 		}
 
 		$this->oc->send_confirm_mail($order);
-		$this->reset_cart();
 		return $order_obj;
 	}
 

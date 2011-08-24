@@ -1034,6 +1034,12 @@ Parimat,
 
 	public function save($check_state = false)
 	{
+		// New offers start off with STATE_NEW
+		if (!$this->is_saved())
+		{
+			$this->set_prop("state", self::STATE_NEW);
+		}
+
 		if (!is_oid($this->prop("customer_relation")))
 		{
 			try
@@ -1112,14 +1118,16 @@ Parimat,
 
 	/**
 		@attrib api=1
-		@param object type=object
+		@param object required type=object
 			The object to be added to the offer
+		@param amount optional type=real default=1
+			The amount of objects to be added to the offer
 		@returns void
 		@error
 			Throws awex_crm_offer_new if this offer is not saved.
 			TODO: Throws awex_crm_offer if the object to be added doesn't implement crm_sales_price_component_interface.
 	**/
-	public function add_object(object $o)
+	public function add_object(object $o, $amount = 1)
 	{
 		if(!$this->is_saved())
 		{
@@ -1130,7 +1138,7 @@ Parimat,
 		$row->set_parent($this->id());
 		$row->set_prop("offer", $this->id());
 		$row->set_prop("object", $o->id());
-		$row->set_prop("amount", 1);
+		$row->set_prop("amount", $amount);
 		$row->save();
 	}
 

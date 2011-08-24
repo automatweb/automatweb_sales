@@ -60,6 +60,12 @@ class products_show extends class_base
 		);
 	}
 
+	public function _get_categories($arr)
+	{
+		$arr["prop"]["value"] = $arr["obj_inst"]->prop("categories");
+		return PROP_OK;
+	}
+
 	/** returns products showing template selection
 		@attrib api=1
 	**/
@@ -114,28 +120,28 @@ class products_show extends class_base
 
 			case "product_template":
 				$tm = get_instance("templatemgr");
-				switch($arr["obj_inst"]->prop("type"))
+				$prop["options"] = array();
+				foreach ($arr["obj_inst"]->prop("type") as $type)
 				{
-					case CL_SHOP_PACKET:
-						$dir = "applications/shop/shop_packet";
-						break;
-
-					case CL_SHOP_PRODUCT:
-						$dir = "applications/shop/shop_product";
-						break;
-
-					case CL_SHOP_PRODUCT_PACKAGING:
-						$dir = "applications/shop/shop_product_packaging";
-						break;
-				}
-				if(!empty($dir))
-				{
-					$prop["options"] = $tm->template_picker(array(
-						"folder" => $dir
-					));
-					if(sizeof($prop["options"]) < 2)
+					switch($type)
 					{
-						$prop["caption"].= "<br>".t("templates/").$dir;
+						case CL_SHOP_PACKET:
+							$dir = "applications/shop/shop_packet";
+							break;
+
+						case CL_SHOP_PRODUCT:
+							$dir = "applications/shop/shop_product";
+							break;
+
+						case CL_SHOP_PRODUCT_PACKAGING:
+							$dir = "applications/shop/shop_product_packaging";
+							break;
+					}
+					if(!empty($dir))
+					{
+						$prop["options"] += $tm->template_picker(array(
+							"folder" => $dir
+						));
 					}
 				}
 				break;
@@ -209,6 +215,8 @@ class products_show extends class_base
 
 	function set_cache($html)
 	{
+		return;
+		// TODO: Should use Memcached! Not sure if AW has all the necessary developments, though...
 		$cache_dir = aw_ini_get("cache.page_cache")."/product_show";
 		$master_cache = $cache_dir.$_SERVER["REQUEST_URI"].".tpl";
 
@@ -229,7 +237,7 @@ class products_show extends class_base
 		if(file_exists($master_cache))
 		{
 			$cache = file($master_cache);
-			return join ("" , $cache);
+//	DBG		return join ("" , $cache);
 		}
 
 		$ob = new object($arr["id"]);
@@ -260,7 +268,13 @@ class products_show extends class_base
 
 		$GLOBALS["order_center"] = $oc->id();
 		
-		$PRODUCT = $ROW = "";
+		$ROW = "";
+		$PARSED_SUBS = array(
+			"PRODUCT" => "",
+			"PACKET" => "",
+			"PACKAGING" => "",
+		);
+		$HAS_SUBS = array();
 		
 		$max = 4;	//default, TODO: This should be configurable:
 		$per_page = 16;	//default products per page
@@ -283,6 +297,7 @@ class products_show extends class_base
 				$count_row++;
 
 				$SUB = $this->__warehouse_item_sub_name($product);
+				$HAS_SUBS[] = $SUB;
 
 				$data_params = array("image_url" => 1,
 					"min_price" => 1,
@@ -293,55 +308,92 @@ class products_show extends class_base
 				);
 				$product_data = $product->get_data($data_params);
 
-				// this one should be coming from the get_data() fn. probably, but i don't know at the moment how to make that object data list query to work
-				// so i just use this one here:
-				$min_special_price = (!empty($product_data['min_special_price'])) && $product_data['min_special_price'] != $product_data['min_price'] ? $product_data['min_special_price'] : 0;
-				$product_data['PRODUCT_SPECIAL_PRICE'] = '';
-				$product_data['special_price_visibility'] = '';
-				if ($min_special_price > 0)
-				{
-					$product_data['special_price_visibility'] = '_specialPrice';
-					$this->vars(array(
-						'min_special_price' => $min_special_price,
-						'min_special_price_without_zeroes' => $this->woz($min_special_price),
-					));
-					$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
-				}
-				$product_data['min_special_price_without_zeroes'] = $this->woz(isset($product_data['min_special_price']) ? $product_data['min_special_price'] : 0);
-				$product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price']); 
-				if ($this->is_template("checkbox"))
-				{
-					$product_data["checkbox"] = html::checkbox(array(
-						"name" => "add_to_cart[".$product_data["product_id"]."]",
-						"value" => 1,
-					));
-				}
+				$this->__prepare_data($product_data, $ob, $oc, $product);
 
-				$product_data["product_link"] = aw_global_get("baseurl")."/".aw_global_get("section")."?product=".$product_data["id"]."&oc=".$oc->id();
-
-				$category = $product->get_first_category_id();
-
-				$product_data["menu"] = $ob->get_category_menu($category);
-				$product_data["menu_name"] = get_name($product_data["menu"]);
 				$this->vars($product_data);
+
+				if (isset($product_data["special_price"]) and strlen(trim($product_data["special_price"])) > 0)
+				{
+					$this->vars(array(
+						"HAS_SPECIAL_PRICE" => $this->parse("HAS_SPECIAL_PRICE"),
+						"NO_SPECIAL_PRICE" => "",
+					));
+				}
+				else
+				{
+					$this->vars(array(
+						"HAS_SPECIAL_PRICE" => "",
+						"NO_SPECIAL_PRICE" => $this->parse("NO_SPECIAL_PRICE"),
+					));
+				}
+
+				if ($product->is_a(shop_packet_obj::CLID) and  $this->is_template("PACKET.ROW"))
+				{
+					$PACKET_ROW = "";
+
+					$packet_rows = $product->get_rows();
+					if ($packet_rows->count() > 0)
+					{
+						$row_prefix = "row.";
+						$item_prefix = "{$row_prefix}item.";
+						$packet_row = $packet_rows->begin();
+						do
+						{
+							$this->vars(array(
+								"{$row_prefix}amount" => $packet_row->prop("amount"),
+							));
+
+							$item = obj($packet_row->prop("item"));
+							$item_data = $item->get_data(array("prefix" => $item_prefix));
+							$this->__prepare_data($item_data, $ob, $oc, $item, $item_prefix);
+
+							$this->vars($item_data);
+
+							$PACKET_ROW .= $this->parse("PACKET.ROW");
+						} while ($packet_row = $packet_rows->next());
+					}
+					$this->vars_safe(array(
+						"PACKET.ROW" => $PACKET_ROW,
+					));
+				}
 
 				if ($product->is_a(shop_product_obj::CLID) and $this->is_template("PRODUCT.PACKAGING"))
 				{
 					$PACKAGING = "";
+					$packaging_prefix = "packaging.";
 
 					$packagings = $product->get_packagings();
 					if ($packagings->count() > 0)
 					{
 						$packaging = $packagings->begin();
-					}
-					do
-					{
-						$this->vars($packaging->get_data(array(
-							"prefix" => "packaging"
-						)));
+						do
+						{
+							$packaging_data = $packaging->get_data(array(
+								"prefix" => $packaging_prefix,
+							));
 
-						$PACKAGING .= $this->parse("PACKAGING");
-					} while ($packaging = $packagings->next());
+							$this->__prepare_data($packaging_data, $ob, $oc, $packaging, $packaging_prefix);
+
+							$this->vars($packaging_data);
+
+							if (isset($packaging_data["{$packaging_prefix}special_price"]) and strlen(trim($packaging_data["{$packaging_prefix}special_price"])) > 0)
+							{
+								$this->vars(array(
+									"PACKAGING.HAS_SPECIAL_PRICE" => $this->parse("PACKAGING.HAS_SPECIAL_PRICE"),
+									"PACKAGING.NO_SPECIAL_PRICE" => "",
+								));
+							}
+							else
+							{
+								$this->vars(array(
+									"PACKAGING.HAS_SPECIAL_PRICE" => "",
+									"PACKAGING.NO_SPECIAL_PRICE" => $this->parse("PACKAGING.NO_SPECIAL_PRICE"),
+								));
+							}
+
+							$PACKAGING .= $this->parse("PACKAGING");
+						} while ($packaging = $packagings->next());
+					}
 
 					$this->vars(array(
 						"PACKAGING" => $PACKAGING,
@@ -360,34 +412,39 @@ class products_show extends class_base
 					$count_row = 0;
 					if($this->is_template("{$SUB}_END"))
 					{
-						$PRODUCT .= $this->parse("{$SUB}_END");
+						$PARSED_SUBS[$SUB] .= $this->parse("{$SUB}_END");
 					}
 					else
 					{
-						$PRODUCT .= $this->parse($SUB);
+						$PARSED_SUBS[$SUB] .= $this->parse($SUB);
 					}
-					$this->vars(array($SUB => $PRODUCT));
+					$this->vars(array($SUB => $PARSED_SUBS[$SUB]));
 					$ROW .= $this->parse("ROW");
-					$PRODUCT = "";
+					$PARSED_SUBS[$SUB] = "";
 				}
 				elseif($count_all >= $products->count() && $this->is_template("ROW"))//viimane rida
 				{
-					$PRODUCT .= $this->parse($SUB);
-					$this->vars(array($SUB => $PRODUCT));
+					$PARSED_SUBS[$SUB] .= $this->parse($SUB);
+					$this->vars(array($SUB => $PARSED_SUBS[$SUB]));
 					$ROW .= $this->parse("ROW");
 				}
 				else
 				{
-					$PRODUCT .= ($count_all === 1 and $this->is_template("{$SUB}_BEGIN")) ? $this->parse("{$SUB}_BEGIN") : $this->parse($SUB);
+					$PARSED_SUBS[$SUB] .= ($count_all === 1 and $this->is_template("{$SUB}_BEGIN")) ? $this->parse("{$SUB}_BEGIN") : $this->parse($SUB);
 				}
 			} while ($product = $products->next());
 		}
-		$this->vars(array(
+		$this->vars_safe($PARSED_SUBS + array(
 			"{$SUB}_BEGIN" => "",
 			"{$SUB}_END" => "",
-			$SUB => $PRODUCT,
 			"ROW" => $ROW
 		));
+		foreach ($HAS_SUBS as $HAS_SUB)
+		{
+			$this->vars_safe(array(
+				"HAS_{$HAS_SUB}S" => $this->parse("HAS_{$HAS_SUB}S"),
+			));
+		}
 
 		$pages = $products->count() / $per_page;
 		$pages = (int)$pages;
@@ -504,6 +561,52 @@ class products_show extends class_base
 		}
 
 		return number_format($number , 2);
+	}
+
+	/**
+		TODO: Throw out unnecessary stuff!
+	**/
+	protected function __prepare_data(&$data, $products_show, $oc, $o, $prefix = "")
+	{
+		// this one should be coming from the get_data() fn. probably, but i don't know at the moment how to make that object data list query to work
+		// so i just use this one here:
+		$min_special_price = (!empty($data["{$prefix}min_special_price"])) && $data["{$prefix}min_special_price"] != $data["{$prefix}min_price"] ? $data["{$prefix}min_special_price"] : 0;
+		if ($min_special_price > 0)
+		{
+			$this->vars(array(
+				"min_special_price" => $min_special_price,
+				"min_special_price_without_zeroes" => $this->woz($min_special_price),
+			));
+		}
+		$data["{$prefix}min_special_price_without_zeroes"] = $this->woz(isset($data["{$prefix}min_special_price"]) ? $data["{$prefix}min_special_price"] : 0);
+		$data["{$prefix}min_price_without_zeroes"] = $this->woz($data["{$prefix}min_price"]); 
+		if ($this->is_template("checkbox"))
+		{
+			$data["{$prefix}checkbox"] = html::checkbox(array(
+				"name" => "add_to_cart[".$data["{$prefix}product_id"]."]",
+				"value" => 1,
+			));
+		}
+
+		$data["{$prefix}product_link"] = aw_global_get("baseurl")."/".aw_global_get("section")."?product=".$data["{$prefix}id"]."&oc=".$oc->id();
+
+		$category = $o->get_first_category_id();
+
+		$data["{$prefix}menu"] = $products_show->get_category_menu($category);
+		$data["{$prefix}menu_name"] = get_name($data["{$prefix}menu"]);
+
+		$data["{$prefix}price"] = $this->number_format($data["{$prefix}price"]);
+		$data["{$prefix}special_price"] = $this->number_format($data["{$prefix}special_price"]);
+		$data["{$prefix}min_price"] = $this->number_format($data["{$prefix}min_price"]);
+	}
+
+	/**
+		TODO: This one should be configurable!
+	**/
+	protected function number_format($value)
+	{
+		$precision = 2;
+		return is_numeric($value) ? number_format(aw_math_calc::string2float($value), $precision) : $value;
 	}
 
 }

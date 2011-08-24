@@ -744,8 +744,8 @@ class class_base extends aw_template implements orb_public_interface
 						$val["area_caption"] = $tmpval["area_caption"];
 					}
 				}
-				$_lgroups = is_array($val["group"]) ? $val["group"] : array($val["group"]);
-				if (in_array($this->use_group,$_lgroups))
+				$_lgroups = isset($val["group"]) ? (array) $val["group"] : array();
+				if (in_array($this->use_group, $_lgroups))
 				{
 					$tmp[$key] = $val;
 				}

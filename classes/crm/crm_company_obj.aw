@@ -2015,15 +2015,33 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 	/**
 		@attrib api=1
+		@param clids optional type=array
+			Array of class IDs of object expected to be returned. If not specified, all classes will be returned.
 		@return Object list of all customers by customer data objects.
 	**/
-	public function get_customers_by_customer_data_objs()
+	public function get_customers_by_customer_data_objs($clids = null)
 	{
-		$ol = new object_list(array(
-			"class_id" => CL_CRM_COMPANY,
-			"CL_CRM_COMPANY.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).seller" => $this->id(),
-			"CL_CRM_COMPANY.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).buyer" => new obj_predicate_prop("id"),
-		));
+		$ol = new object_list();
+
+		if (!is_array($clids) or in_array(crm_company_obj::CLID, $clids))
+		{			
+			$ol->add(new object_list(array(
+				"class_id" => crm_company_obj::CLID,
+				"CL_CRM_COMPANY.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).status" => array(object::STAT_ACTIVE, object::STAT_NOTACTIVE),
+				"CL_CRM_COMPANY.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).seller" => $this->id(),
+				"CL_CRM_COMPANY.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).buyer" => new obj_predicate_prop("id"),
+			)));
+		}
+		if (!is_array($clids) or in_array(crm_person_obj::CLID, $clids))
+		{
+			$ol->add(new object_list(array(
+				"class_id" => crm_person_obj::CLID,
+				"CL_CRM_PERSON.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).status" => array(object::STAT_ACTIVE, object::STAT_NOTACTIVE),
+				"CL_CRM_PERSON.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).seller" => $this->id(),
+				"CL_CRM_PERSON.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).buyer" => new obj_predicate_prop("id"),
+			)));
+		}
+
 		return $ol;
 	}
 
@@ -2191,6 +2209,70 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		}
 
 		return $customer_relation;
+	}
+
+	/**	Creates a new customer object.
+		@attrib api=1 params=name
+		@param id optional type=int
+			The OID of the customer
+		@param clid optional type=class_id default=CL_CRM_COMPANY
+			The class ID of the customer object to be created, only used if id not given
+		@param name required type=string
+			The name of the customer to be created
+		@param gender optional type=int
+			The gender of the customer to be created. Only used if clid = CL_CRM_PERSON
+		@param birthday optional type=int
+			The birthday of the customer to be created, given as a UNIX timestamp. Only used if clid = CL_CRM_PERSON
+		@qc date=20110813
+	**/
+	public function create_customer($arr)
+	{
+		if(isset($arr["id"]) and is_oid($arr["id"]))
+		{
+			$customer = obj($arr["id"]);
+		}
+		else
+		{
+			if (!isset($arr["clid"]))
+			{
+				$arr["clid"] = crm_company_obj::CLID;
+			}
+
+			$customer = obj(null, array(), $arr["clid"]);
+			$customer->set_parent($this->id());
+			$customer->set_name($arr["name"]);
+		}
+
+		switch ($customer->class_id())
+		{
+			case crm_person_obj::CLID:
+				$firstname = $lastname = "";
+				if (strpos(" ", $arr["name"]) !== false)
+				{
+					list($firstname, $lastname) = explode(" ", $arr["name"]);
+				}
+				else
+				{
+					$lastname = $arr["name"];
+				}
+				$customer->set_prop("firstname", $firstname);
+				$customer->set_prop("lastname", $lastname);
+				// All accepted properties:
+				foreach (array("gender", "birthday") as $prop)
+				{
+					if (isset($arr[$prop]))
+					{
+						$customer->set_prop($prop, $arr[$prop]);
+					}
+				}
+				break;
+		}
+
+		$customer->save();
+
+		$this->create_customer_relation(self::CUSTOMER_TYPE_BUYER, $customer);
+
+		return $customer;
 	}
 
 	/** Creates a new customer relation of given type.

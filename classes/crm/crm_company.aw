@@ -3332,6 +3332,42 @@ class crm_company extends class_base
 	}
 
 	/**
+		@attrib name=create_customer api=1 params=name
+		@param company required type=int
+			The OID of the company the customer is created for
+		@param id optional type=int
+			The OID of the customer
+		@param clid optional type=class_id default=CL_CRM_COMPANY
+			The class ID of the customer object to be created, only used if id not given
+		@param name required type=string
+			The name of the customer to be created
+		@param gender optional type=int
+			The gender of the customer to be created. Only used if clid = CL_CRM_PERSON
+		@param birthday optional type=int
+			The birthday of the customer to be created, given as a UNIX timestamp. Only used if clid = CL_CRM_PERSON
+	**/
+	public function create_customer($arr)
+	{
+		$company = obj($arr["company"], array(), crm_company_obj::CLID);
+		unset($arr["company"]);
+		$customer = $company->create_customer($arr);
+		return $customer;
+	}
+
+	/**
+		@attrib name=delete_customer api=1 params=name
+		@param id required type=int
+			The OID of the company the customer is deleted for
+		@param customer required type=int
+			The OID of the customer to be deleted
+	**/
+	public function delete_customer($arr)
+	{
+		$company = obj($arr["id"], array(), crm_company_obj::CLID);
+		$company->delete_customer($company->get_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, obj($arr["customer"])));
+	}
+
+	/**
 		@attrib name=submit_new_task
 		@param id required type=int acl=view
 	**/

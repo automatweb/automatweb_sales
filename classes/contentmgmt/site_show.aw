@@ -1801,7 +1801,7 @@ class site_show extends aw_template
 			else
 			{
 				$use_aliases = false;
-				$link = aw_ini_get("baseurl").$ref->id();
+				$link = $this->make_menu_link($ref);
 			}
 
 			if ($ref->prop("link") != "")
@@ -2734,7 +2734,6 @@ class site_show extends aw_template
 	{
 		$this->skip = false;
 		$link = "";
-// /*~AWdbg*/ dbg::d("1", $link);
 		$link_str = $o->trans_get_val("link");
 		if ($this->can("view", $o->meta("linked_obj")) && $o->meta("linked_obj") != $o->id())
 		{
@@ -2826,7 +2825,6 @@ class site_show extends aw_template
 						$values["section"] = $_REQUEST["section"];
 					}
 					$link = $this->mk_my_orb($_act,$values,($_cl === "document" ? "doc" : $_cl),$o->meta("pm_url_admin"),!$o->meta("pm_url_menus"));
-// /*~AWdbg*/ dbg::d("2", $link);
 				}
 				else
 				{
@@ -2838,24 +2836,20 @@ class site_show extends aw_template
 					ob_start();
 					eval("?>".$o->meta("pm_extra_params"));//XXX: what is this?
 					$link .= ob_get_contents();
-// /*~AWdbg*/ dbg::d("3", $link);
 					ob_end_clean();
 				}
 			}
 			else
 			{
 				$link = "";
-// /*~AWdbg*/ dbg::d("4", $link);
 			}
 		}
 		elseif (!$this->brother_level_from && $link_str != "")
 		{
 			$link = $link_str;
-// /*~AWdbg*/ dbg::d("5", $link);
 			if (is_numeric($link)) // link is without preceding /
 			{
 				$link = obj_link($link);
-// /*~AWdbg*/ dbg::d("6", $link);
 			}
 		}
 		else
@@ -2871,11 +2865,9 @@ class site_show extends aw_template
 			}
 
 			$link = aw_ini_get("baseurl");
-// /*~AWdbg*/ dbg::d("7", $link);
 			if (aw_ini_get("menuedit.language_in_url"))
 			{
 				$link .= $lc."/";
-// /*~AWdbg*/ dbg::d("8", $link);
 			}
 
 			if (aw_ini_get("menuedit.long_section_url"))
@@ -2883,26 +2875,23 @@ class site_show extends aw_template
 				if (($use_trans ? $o->trans_get_val("alias") : $o->alias()) != "")
 				{
 					$link .= ($use_trans ? $o->trans_get_val("alias") : $o->alias());
-// /*~AWdbg*/ dbg::d("9", $link);
 				}
 				else
 				{
 					if (aw_ini_get("menuedit.show_real_location"))
 					{
 						$link .= "index".AW_FILE_EXT."?section=".$o->brother_of().$this->add_url;
-// /*~AWdbg*/ dbg::d("10", $link);
 					}
 					else
 					{
 						$link .= "index".AW_FILE_EXT."?section=".$o->id().$this->add_url;
-// /*~AWdbg*/ dbg::d("11", $link);
 					}
 				}
 			}
 			else
 			{
 //				if (((!$this->brother_level_from && !$o->is_brother()) || aw_ini_get("menuedit.show_real_location"))&& ($use_trans ? $o->trans_get_val("alias") : $o->alias()) != "")
-if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_get_val("alias") : $o->alias()) != "")
+				if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_get_val("alias") : $o->alias()) != "")
 				{
 					if (aw_ini_get("menuedit.long_menu_aliases"))
 					{

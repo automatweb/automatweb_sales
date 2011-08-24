@@ -169,10 +169,6 @@ class shop_packet extends shop_warehouse_item
 		$retval = PROP_OK;
 		switch($data["name"])
 		{
-			case "packet":
-				$this->save_packet_table($arr);
-				break;
-
 			case "transl":
 				$this->trans_save($arr, $this->trans_props);
 				break;
@@ -182,97 +178,72 @@ class shop_packet extends shop_warehouse_item
 
 	public function _get_actual_price(&$arr)
 	{
-		$actual_price = 0;
-
-
-
-		$arr["prop"]["value"] = $actual_price;
+		$arr["prop"]["value"] = $arr["obj_inst"]->prop("actual_price");
+		return PROP_OK;
 	}
 
-	function _init_packet_table(&$t)
+	function _init_packet_table($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi")
 		));
-
 		$t->define_field(array(
 			"name" => "ord",
 			"caption" => t("J&auml;rjekord"),
 			"align" => "center"
 		));
-
 		$t->define_field(array(
 			"name" => "count",
 			"caption" => t("Mitu paketis"),
 			"align" => "center"
 		));
-
 		$t->define_field(array(
 			"name" => "packaging",
 			"caption" => t("Pakend"),
 			"align" => "center"
 		));
-		$t->define_field(array(
-			"name" => "group",
-			"caption" => t("Grupp"),
-			"align" => "center"
-		));
 
-		$t->define_chooser(array(
-			"name" => "sel",
-			"field" => "oid"
-		));
+		$t->define_chooser();
 	}
 
 	function do_packet_table(&$arr)
 	{
-		$arr['prop']['vcl_inst']->set_sortable(false);
+		$t = $arr['prop']['vcl_inst'];
+		$this->_init_packet_table($t);
+		$t->set_sortable(false);
 
-		$pd = $arr["obj_inst"]->meta("packet_content");
-		$pg = $arr["obj_inst"]->meta("packet_groups");
-		$pk = $arr["obj_inst"]->meta("packet_def_pkgs");
-
-		$this->_init_packet_table($arr["prop"]["vcl_inst"]);
-		$connections_to_products = $arr["obj_inst"]->connections_from(array(
-			"type" => "RELTYPE_PRODUCT",
-			"sort_by_num" => "to.jrk",
-			"sort_dir" => "asc"
-		));
-		foreach($connections_to_products as $c)
+		$rows = $arr["obj_inst"]->get_rows();
+		if ($rows->count() > 0)
 		{
-			if(isset($pd[$c->prop("to")]))
+			$row = $rows->begin();
+			do
 			{
-				$value = $pd[$c->prop("to")];
-			} 
-			else
-			{
-				$value = 1;
-			}
-			$arr["prop"]["vcl_inst"]->define_data(array(
-				"name" => html::obj_change_url($c->to()),
-				"ord" => html::textbox(array(
-					"name" => "packet_order[".$c->prop("to")."]",
-					"value" => $c->to()->ord(),
-					"size" => 5
-				)),
-				"count" => html::textbox(array(
-					"name" => "pd[".$c->prop("to")."]",
-					"value" => $value,
-					"size" => 5
-				)),
-				"group" => html::textbox(array(
-					"name" => "pg[".$c->prop("to")."]",
-					"value" => $pg[$c->prop("to")],
-					"size" => 5
-				)),
-				"oid" => $c->prop("to"),
-				"packaging" => html::select(array(
-					"name" => "pk[".$c->prop("to")."]",
-					"value" => $pk[$c->prop("to")],
-					"options" => $this->get_package_picker_for_prod($c->to())
-				))
-			));
+				$row_id = $row->id();
+				$item = obj($row->prop("item"));
+				$product = $item->is_a(shop_product_packaging_obj::CLID) ? obj($item->prop("product"), array(), shop_product_obj::CLID) : $item;
+				$packaging_id = $item->is_a(shop_product_packaging_obj::CLID) ? $item->id() : null;
+
+				$t->define_data(array(
+					"oid" => $row_id,
+					"name" => html::obj_change_url($product),
+					"ord" => html::textbox(array(
+						"name" => "packet_content[{$row_id}][jrk]",
+						"value" => $row->ord(),
+						"size" => 5
+					)),
+					"count" => html::textbox(array(
+						"name" => "packet_content[{$row_id}][amount]",
+						"value" => $row->amount,
+						"size" => 5
+					)),
+					"packaging" => html::select(array(
+						"name" => "packet_content[{$row_id}][packaging]",
+						"value" => $packaging_id,
+						"options" => $this->get_package_picker_for_prod($product)
+					))
+				));
+			} while ($row = $rows->next());
 		}
 	}
 
@@ -284,27 +255,6 @@ class shop_packet extends shop_warehouse_item
 			$ret[$c->prop("to")] = $c->prop("to.name");
 		}
 		return $ret;
-	}
-
-	function save_packet_table(&$arr)
-	{
-		$arr["obj_inst"]->set_meta("packet_content", $arr["request"]["pd"]);
-		$arr["obj_inst"]->set_meta("packet_groups", $arr["request"]["pg"]);
-		$arr["obj_inst"]->set_meta("packet_def_pkgs", $arr["request"]["pk"]);
-
-		// if the order is changed, then update the order value in product objects:
-		foreach ($arr['request']['packet_order'] as $product_oid => $product_order)
-		{
-			if ($this->can('view', $product_oid))
-			{
-				$product_obj = new object($product_oid);
-				if ($product_order != $product_obj->ord())
-				{
-					$product_obj->set_ord($product_order);
-					$product_obj->save();
-				}
-			}
-		}
 	}
 
 	function get_price($o)
@@ -645,31 +595,75 @@ class shop_packet extends shop_warehouse_item
 		$ps = get_instance("vcl/popup_search");
 		$tb->add_cdata(
 			$ps->get_popup_search_link(array(
-				"pn" => "set_prods",
+				"pn" => "add_items_to_packet",
 				"multiple" => 1,
 				"clid" => CL_SHOP_PRODUCT
 			))
 		);
-		$tb->add_button(array(
-			"name" => "delete",
-			"img" => "delete.gif",
-			"tooltip" => t("Kustuta tooted paketist"),
-			"action" => "del_from_pkt"
-		));
+		$tb->add_delete_button();
 	}
 
 	function callback_mod_reforb(&$arr)
 	{
-		$arr["set_prods"] = "0";
+		$arr["add_items_to_packet"] = "0";
 		$arr["post_ru"] = post_ru();
 	}
 
-	function callback_pre_save($arr)
+	function callback_post_save($arr)
 	{
-		if (!empty($arr["request"]["set_prods"]))
+		$items_to_be_added = automatweb::$request->arg("add_items_to_packet") ? array_flip(explode(",", automatweb::$request->arg("add_items_to_packet"))) : null;
+		if (!empty($items_to_be_added))
 		{
-			$ps = get_instance("vcl/popup_search");
-			$ps->do_create_rels($arr["obj_inst"], $arr["request"]["set_prods"], "RELTYPE_PRODUCT");
+			$rows = $arr["obj_inst"]->get_rows();
+
+			if ($rows->count() > 0)
+			{
+				$row = $rows->begin();
+				do
+				{
+					$item = obj($row->prop("item"));
+					$product = $item->is_a(shop_product_packaging_obj::CLID) ? obj($item->prop("product"), array(), shop_product_obj::CLID) : $item;
+
+					if (isset($items_to_be_added[$item->id()]))
+					{
+						unset($items_to_be_added[$item->id()]);
+					}
+					if (isset($items_to_be_added[$product->id()]))
+					{
+						unset($items_to_be_added[$product->id()]);
+					}
+
+				} while ($row = $rows->next());
+			}
+			foreach (array_keys($items_to_be_added) as $item_id)
+			{
+				$arr["obj_inst"]->add_row($item_id);
+			}
+		}
+
+		$rows_to_be_saved = automatweb::$request->arg("packet_content");
+		if (!empty($rows_to_be_saved))
+		{
+			foreach($rows_to_be_saved as $row_id => $row_data)
+			{
+				$row = obj($row_id, array(), shop_packet_row_obj::CLID);
+				$row->set_prop("jrk", $row_data["jrk"]);
+				$row->set_prop("amount", $row_data["amount"]);
+				if (!empty($row_data["packaging"]))
+				{
+					$row->set_prop("item", $row_data["packaging"]);
+				}
+				else
+				{
+					$item = obj($row->prop("item"));
+					if ($item->is_a(shop_product_packaging_obj::CLID))
+					{
+						$product = obj($item->prop("product"), array(), shop_product_obj::CLID);
+						$row->set_prop("item", $product->id());
+					}
+				}
+				$row->save();
+			}
 		}
 	}
 
@@ -1049,5 +1043,4 @@ class shop_packet extends shop_warehouse_item
 		}aw_restore_acl();
 		return null;
 	}
-
 }

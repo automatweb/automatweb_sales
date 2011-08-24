@@ -51,10 +51,24 @@
 			</function>
 		</action>
 
+		<action name="get_make_new_struct_prompt">
+			<function name="get_make_new_struct_prompt">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="make_new_struct">
 			<function name="make_new_struct">
 				<arguments>
 					<required name="id" type="int" />
+					<optional name="products_show" type="array" />
+					<optional name="purveyors_show" type="array" />
+					<optional name="products_tpl" type="array" />
+					<optional name="purveyors_tpl" type="array" />
+					<optional name="delete_menus_without_category" type="bool" />
+					<optional name="delete_menus_with_deleted_category" type="bool" />
 				</arguments>
 			</function>
 		</action>

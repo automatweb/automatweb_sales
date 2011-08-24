@@ -6507,7 +6507,7 @@ $tb->add_delete_button();
 
 		$props = $oc_i->get_properties_from_data_form($oc, $cud);
 
-		if ($arr["no_data"])
+		if (!empty($arr["no_data"]))
 		{
 			return $props;
 		}

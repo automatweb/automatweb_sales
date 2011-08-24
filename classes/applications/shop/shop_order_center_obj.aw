@@ -285,11 +285,21 @@ class shop_order_center_obj extends _int_object
 		}
 	}
 
+	public function get_purveyor_show_obj($menu, $make_new = false)
+	{
+		return $this->__get_show_obj(shop_purveyors_webview_obj::CLID, $menu, $make_new);
+	}
+
 	public function get_product_show_obj($menu, $make_new = false)
+	{
+		return $this->__get_show_obj(products_show_obj::CLID, $menu, $make_new);
+	}
+
+	private function __get_show_obj($clid, $menu, $make_new = false)
 	{
 		$o = "";
 		$docs = new object_list(array(
-			"class_id" => CL_DOCUMENT,
+			"class_id" => doc_obj::CLID,
 			"parent" => $menu,
 			"lang_id" => array(),
 		));
@@ -297,7 +307,7 @@ class shop_order_center_obj extends _int_object
 		if(!is_object($doc) && $make_new)
 		{
 			$doc = new object();
-			$doc->set_class_id(CL_DOCUMENT);
+			$doc->set_class_id(doc_obj::CLID);
 			$doc->set_parent($menu);
 			$doc->set_name($menu);
 			$doc->set_status(2);
@@ -305,25 +315,51 @@ class shop_order_center_obj extends _int_object
 		}
 		if(is_object($doc))
 		{
-			foreach($doc->connections_from(array("to.class_id" => CL_PRODUCTS_SHOW)) as $c)
+			foreach($doc->connections_from(array("to.class_id" => $clid)) as $c)
 			{
 				$o = $c->to();
 				break;
 			}
 			if(!is_object($o) && $make_new)
 			{
+				switch ($clid)
+				{
+					case shop_purveyors_webview_obj::CLID:
+						$name_postfix = t(" tarnijate kuvamine");
+						break;
+
+					default:
+						$name_postfix = t(" toodete kuvamine");
+						break;
+				}
+
 				$o = new object();
-				$o->set_class_id(CL_PRODUCTS_SHOW);
+				$o->set_class_id($clid);
 				$o->set_parent($menu);
-				$o->set_name($menu." ".t("toodete n&auml;itamine"));
+				$o->set_name($menu.$name_postfix);
 				$o->set_prop("oc" , $this->id());
 				$o->save();
-				$doc->set_prop("content" , $doc->prop("content")."#show_products1#");
-				$doc->save();
 				$doc->connect(array(
 					"type" => "RELTYPE_ALIAS",
 					"to" => $o->id(),
 				));
+				$alias = "";
+				foreach($doc->connections_from(array("to.class_id" => $clid)) as $conn)
+				{
+					$astr = "";
+					if (aw_ini_isset("classes.{$clid}.alias"))
+					{
+						list($astr) = explode(",", aw_ini_get("classes.{$clid}.alias"));
+					}
+					elseif (aw_ini_isset("classes.{$clid}.old_alias"))
+					{
+						list($astr) = explode(",", aw_ini_get("classes.{$clid}.old_alias"));
+					}
+					$alias = sprintf("#%s%d#", $astr, $conn->prop("idx"));
+					break;
+				}
+				$doc->set_prop("content", $alias);
+				$doc->save();
 			}
 		}
 		return $o;
@@ -531,58 +567,117 @@ class shop_order_center_obj extends _int_object
 	/**
 		@attrib name=make_new_struct api=1
 	**/
-	public function make_new_struct($arr)
+	public function make_new_struct($arr = array())
 	{
 		$warehouse = obj($this->prop("warehouse"));
 		$root_menus = $this->prop("root_menu");
 		$root = reset($root_menus);
 		$cats = $warehouse->get_root_categories();
 
-		if($cats->count())
+		if ($cats->count())
 		{
-			$this->_make_new_struct_leaf($cats , $root);
+			$this->_make_new_struct_leaf($cats, $root);
 		}
 	}
 
-	private function _make_new_struct_leaf($cats , $root)
+	private function _make_new_struct_leaf($categories, $root, $level = 0)
 	{
+		$objs_by_category = array();
+
 		$ol = new object_list(array(
 			"class_id" => menu_obj::CLID,
 			"parent" => $root,
 		));
-
-		foreach($cats->arr() as $cat)
+		if ($ol->count() > 0)
 		{
-			$menu_found = false;
-			foreach($ol->names() as $menu_oid => $menu_name)
+			$o = $ol->begin();
+			do
 			{
-				if($menu_name === $cat->name())
+				if ($o->prop("shop_product_category"))
 				{
-					$menu_found = true;
-					$menu = obj($menu_oid, array(), menu_obj::CLID);
-					break;
+					$objs_by_category[$o->prop("shop_product_category")] = $o;
 				}
-			}
-			if(!$menu_found)
+				elseif ($this->meta("make_new_struct.delete_menus_without_category"))
+				{
+					$o->delete();
+				}
+			} while ( $o = $ol->next() );
+		}
+
+		if ($categories->count() > 0)
+		{
+			$category = $categories->begin();
+			do
 			{
-				$menu = obj(null, array(), menu_obj::CLID);
-				$menu->set_parent($root);
-				$menu->set_name($cat->name());
-			}
-			$menu->set_prop("status", object::STAT_ACTIVE);
-			$menu->save();
+				if (!empty($objs_by_category[$category->id()]))
+				{
+					$menu = $objs_by_category[$category->id()];
+					unset($objs_by_category[$category->id()]);
+				}
+				else
+				{					
+					$menu = obj(null, array(), menu_obj::CLID);
+					$menu->set_parent($root);
+					$menu->set_prop("shop_product_category", $category->id());
+				}
+				$menu->set_name($category->name());
+				$menu->set_prop("status", $category->status());
+				$menu->save();
 
-			$this->__copy_category_images_to_menu($cat, $menu);
+				$this->__copy_category_images_to_menu($category, $menu);
 
-			$o = $this->get_product_show_obj($menu->id(), true);
-			$o->add_category($cat->get_all_categories());
-			$o->set_prop("type", $this->prop("product_type"));
-			$o->save();
+				$products_show = $this->meta("make_new_struct.products_show");
+				if (!empty($products_show[$level]))
+				{
+					$tpls = $this->meta("make_new_struct.products_tpl");
+					$tpl = !empty($tpls[$level]) ? $tpls[$level] : "show.tpl";
 
-			$categories = $cat->get_categories();
-			if($categories->count())
+					$products_show = $this->get_product_show_obj($menu->id(), true);
+					$products_show->add_category($category->get_all_categories());
+					$products_show->set_prop("type", $this->prop("product_type"));
+					$products_show->set_prop("template", $tpl);
+					$products_show->save();
+				}
+				else
+				{
+					if ($products_show = $this->get_product_show_obj($menu->id(), false))
+					{
+						$products_show->delete();
+					}
+				}
+
+				$purveyors_show = $this->meta("make_new_struct.purveyors_show");
+				if (!empty($purveyors_show[$level]))
+				{
+					$tpls = $this->meta("make_new_struct.purveyors_tpl");
+					$tpl = !empty($tpls[$level]) ? $tpls[$level] : "show.tpl";
+
+					$purveyors_show = $this->get_purveyor_show_obj($menu->id(), true);
+					$purveyors_show->set_prop("categories", $category->get_all_categories());
+					$purveyors_show->set_prop("template", $tpl);
+					$purveyors_show->save();
+				}
+				else
+				{
+					if ($purveyors_show = $this->get_purveyor_show_obj($menu->id(), false))
+					{
+						$purveyors_show->delete();
+					}
+				}
+
+				$subcategories = $category->get_categories();
+				if ($subcategories->count())
+				{
+					$this->_make_new_struct_leaf($subcategories, $menu->id(), $level + 1);
+				}
+			} while ( $category = $categories->next() );
+		}
+
+		if ($this->meta("make_new_struct.delete_menus_with_deleted_category"))
+		{
+			foreach ($objs_by_category as $menu)
 			{
-				$this->_make_new_struct_leaf($categories , $menu->id());
+				$menu->delete();
 			}
 		}
 	}

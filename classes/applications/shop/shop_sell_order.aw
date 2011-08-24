@@ -502,11 +502,11 @@ class shop_sell_order extends class_base
 			foreach($row->get_property_list() as $pn => $pd)
 			{
 				$row_data[$pn] = $row->prop_str($pn);
-			}		
-			foreach($row->meta() as $pn => $pd)
+			}
+			foreach(safe_array($row->meta()) as $pn => $pd)
 			{
 				$row_data[$pn] = $pd;
-			}		
+			}
 			$different_products++;
 
 			//$row_data - muutujad mis tulevad tellimuse reast, $prod_data - need muutujad, mis tulevad toote juurest
@@ -668,7 +668,7 @@ if(aw_ini_get("site_id") != 484)//true)//aw_global_get("uid") == "struktuur.mark
 		$sub_vars = array("payment");
 		foreach($sub_vars as $var)
 		{
-			if($this->is_template(strtoupper($var)."_".$data[$var]))
+			if(isset($data[$var]) and $this->is_template(strtoupper($var)."_".$data[$var]))
 			{
 				$this->vars(array(strtoupper($var)."_".$data[$var] => $this->parse(strtoupper($var)."_".$data[$var])));
 			}
