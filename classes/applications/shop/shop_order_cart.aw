@@ -1,47 +1,85 @@
 <?php
-
-// shop_order_cart.aw - Poe ostukorv
 /*
-
-@classinfo syslog_type=ST_SHOP_ORDER_CART relationmgr=yes prop_cb=1 no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_SHOP_ORDER_CART relationmgr=yes prop_cb=1 no_status=1 no_name=1 no_comment=1
 
 @default table=objects
 @default group=general
 
-	@property prod_layout type=relpicker reltype=RELTYPE_PROD_LAYOUT field=meta method=serialize
-	@caption Kujundus, mida korvis kasutatakse
+	@layout split type=hbox width=50%:50%
 
-	@property email_subj type=textbox field=meta method=serialize
-	@caption Tellimuse e-maili subjekt
+		@layout left type=vbox parent=split
 
-	@property postal_price type=textbox field=meta method=serialize size=5
-	@caption Vaikimisi postikulu
+			@layout _general type=vbox parent=left area_caption=&Uuml;ldandmed
+				
+				@property _name type=textbox field=name parent=_general
+				@caption Nimi
+				
+				@property _comment type=textbox field=comment parent=_general
+				@caption Kommentaar
 
-	@property subject_handler type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize
-	@caption Subjekti kontroller
+			@layout result type=vbox parent=left area_caption=Tulemus
 
-	@property update_handler type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize
-	@caption Korvi uuendamise kontroller
+				@layout result_type type=vbox no_padding=1 parent=result
 
-	@property finish_handler type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize
-	@caption Tellimise kontroller ($form_ref - ostukorvi instants , $entry - loodud tellimus)
+					@property result_clid type=chooser orient=vertical field=meta method=serialize parent=result_type
+					@caption Tulemuse t&uuml;&uuml;p
+					@comment Milline object genereeritakse ostukorvi kinnitamise tulemusena?
 
-	@property order_show_controller type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize
-	@caption Tellimuse n&auml;itamise kontroller
-   @property show_only_valid_delivery_methods type=checkbox field=meta method=serialize 	 
-	         @caption N&auml;ita checkout'is ainult valiidseid k&auml;ttetoimetamise viise 	 
-	  	 
-	         @property show_only_valid_payment_types type=checkbox field=meta method=serialize 	 
-	         @caption N&auml;ita checkout'is ainult valiidseid makseviise 	 
-	 
-@property product_template type=select field=meta method=serialize
-@caption Ostukorvi &uuml;he toote vaate templeit
+				@layout result_offer type=vbox_sub no_padding=1 area_caption=Pakkumus&nbsp;seaded parent=result
 
-@property orderer_data_template type=select field=meta method=serialize
-@caption Ostukorvi kasutaja andmete templeit
+					@property crm_sales type=objpicker clid=CL_CRM_SALES field=meta method=serialize parent=result_offer
+					@caption M&uuml;&uuml;git&ouml;&ouml;laud
+					@comment M&uuml;&uuml;git&ouml;&ouml;laud, kuhu pakkumine genereeritakse. Kasutatakse ainult siis, kui tulemuseks on valitud pakkumus
 
-@property channel type=relpicker reltype=RELTYPE_CHANNEL store=connect
-@caption M&uuml;&uuml;gikanal
+					@property salesman type=objpicker clid=CL_CRM_PERSON field=meta method=serialize parent=result_offer
+					@caption M&uuml;&uuml;giesindaja
+					@comment Vaikimisi m&uuml;&uuml;giesindaja, kes genereeritud pakkumuse m&uuml;&uuml;giesindajaks määratakse
+
+			@layout delivery_and_payment type=vbox parent=left area_caption=K&auml;ttetoimetamine&nbsp;ja&nbsp;maksmine
+
+				@property postal_price type=textbox field=meta method=serialize size=5 parent=delivery_and_payment
+				@caption Vaikimisi postikulu
+
+				@property show_only_valid_delivery_methods type=checkbox field=meta method=serialize parent=delivery_and_payment
+				@caption N&auml;ita checkout'is ainult valiidseid k&auml;ttetoimetamise viise 	 
+
+				@property show_only_valid_payment_types type=checkbox field=meta method=serialize parent=delivery_and_payment
+				@caption N&auml;ita checkout'is ainult valiidseid makseviise
+
+		@layout right type=vbox parent=split
+
+			@layout controllers type=vbox parent=right area_caption=Kontrollerid
+
+				@property subject_handler type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize parent=controllers
+				@caption Subjekti kontroller
+
+				@property update_handler type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize parent=controllers
+				@caption Korvi uuendamise kontroller
+
+				@property finish_handler type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize parent=controllers
+				@caption Tellimise kontroller ($form_ref - ostukorvi instants , $entry - loodud tellimus)
+
+				@property order_show_controller type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize parent=controllers
+				@caption Tellimuse n&auml;itamise kontroller
+
+			@layout templates type=vbox parent=right area_caption=Kujundusmallid
+
+				@property prod_layout type=relpicker reltype=RELTYPE_PROD_LAYOUT field=meta method=serialize parent=templates
+				@caption Kujundus, mida korvis kasutatakse
+				 
+				@property product_template type=select field=meta method=serialize parent=templates
+				@caption Ostukorvi &uuml;he toote vaate templeit
+
+				@property orderer_data_template type=select field=meta method=serialize parent=templates
+				@caption Ostukorvi kasutaja andmete templeit
+
+			@layout uncategorized type=vbox parent=left area_caption=Kategoriseerimata
+			
+				@property email_subj type=textbox field=meta method=serialize parent=uncategorized
+				@caption Tellimuse e-maili subjekt
+
+				@property channel type=relpicker reltype=RELTYPE_CHANNEL store=connect parent=uncategorized
+				@caption M&uuml;&uuml;gikanal
 
 @groupinfo delivery_methods caption="K&auml;ttetoimetamise viisid"
 @default group=delivery_methods
@@ -125,6 +163,16 @@ class shop_order_cart extends class_base
 				break;
 		};
 		return $retval;
+	}
+
+	public function _get_result_clid(&$arr)
+	{
+		$arr["prop"]["options"] = array(
+			shop_sell_order_obj::CLID => t("M&uuml;&uuml;gitellimus"),
+			crm_offer_obj::CLID => t("Pakkumus"),
+		);
+
+		return PROP_OK;
 	}
 
 
@@ -366,7 +414,7 @@ class shop_order_cart extends class_base
 //		$cart_total = 0;
 		$str = "";
 		$cart = $this->get_cart($oc);
-		$awa = new aw_array($cart["items"]);
+		$awa = !empty($cart["items"]) ? new aw_array($cart["items"]) : new aw_array();
 		$show_info_page = true;
 //		$l_inst = $layout->instance();
 //		$l_inst->read_template($layout->prop("template"));
@@ -542,8 +590,8 @@ class shop_order_cart extends class_base
 			return $this->parse("NO_SHOW_EMPTY");
 		}
 
-		$swh = get_instance(CL_SHOP_WAREHOUSE);
-		$wh_o = obj($oc->prop("warehouse"));
+		$swh = new shop_warehouse();
+		$wh_o = obj($oc->prop("warehouse"), array(), shop_warehouse_obj::CLID);
 
 		// fake user data
 		if(!empty($cart["user_data"]))	$wh_o->set_meta("order_cur_ud", $cart["user_data"]);
@@ -890,7 +938,7 @@ class shop_order_cart extends class_base
 				$arr["add_to_cart_id"] => $arr["order_data"]
 			);
 		}
-		$awa = new aw_array($arr["add_to_cart"]);
+		$awa = isset($arr["add_to_cart"]) ? new aw_array($arr["add_to_cart"]) : new aw_array();
 		$si = __get_site_instance();
 		$has_cb = method_exists($si, "check_submit_add_to_cart");
 		foreach($awa->get() as $iid => $quantx)
@@ -905,7 +953,7 @@ class shop_order_cart extends class_base
 			$mon = $i_i->get_must_order_num($i_o);
 			$uid = aw_global_get("uid");
 			$group = strlen($uid) > 0 ? get_instance(CL_USER)->get_groups_for_user($uid)->ids() : get_instance(CL_GROUP)->get_non_logged_in_group();
-			$am_limits = $i_i->get_amount_limits(array("id" => $iid, "group" => $group));
+			$am_limits = array(); // This bit clearly needs to be rewritten! -kaarel 29.07.2011 $i_i->get_amount_limits(array("id" => $iid, "group" => $group));
 			// initialize $am_limit - markop
 			// oh no you don't! - terryf. check :436
 			// OK. Now, I do. Cuz otherwise it memorizes limits from previous products. -kaarel (fixed :437, :439 and :459)
@@ -1032,7 +1080,7 @@ class shop_order_cart extends class_base
 			$ctrl->eval_controller($oc->prop("delivery_save_controller"), $oc, $cart);
 		}
 
-		if (($arr["from"] != "confirm" && $arr["from"] != "") || (is_array($_REQUEST["user_data"]) && count($_REQUEST["user_data"])))
+		if (!empty($arr["from"]) and $arr["from"] != "confirm" or !empty($_REQUEST["user_data"]) and is_array($_REQUEST["user_data"]))
 		{
 			$cart["user_data"] = $_REQUEST["user_data"];
 		}
@@ -1068,8 +1116,8 @@ class shop_order_cart extends class_base
 
 		// i'm quite sure that you don't want to know, whatta hell is going on in here
 		// neighter do i... -- ahz
-		$awa = new aw_array($arr["add_to_cart"]);
-		$order_data = safe_array($order_data);
+		$awa = isset($arr["add_to_cart"]) ? new aw_array($arr["add_to_cart"]) : new aw_array();
+		$order_data = isset($order_data) ? safe_array($order_data) : array();
 		foreach($awa->get() as $iid => $quantx)
 		{
 			$cart["items"][$iid] = safe_array($cart["items"][$iid]);
@@ -1113,39 +1161,45 @@ class shop_order_cart extends class_base
 						$cart["items"][$iid][$x]["items"] += $quant;
 					}
 				}
-				if($arr["from"] != "confirm")
+				if(empty($arr["from"]) or $arr["from"] !== "confirm")
 				{
-					foreach(safe_array($order_data[$iid]) as $key => $val)
+					if(isset($order_data[$iid]) and is_array($order_data[$iid]))
 					{
-						if((string)$key == "all_items" || (string)$key == "all_pkts")
+						foreach($order_data[$iid] as $key => $val)
 						{
-							continue;
-						}
-						if(is_array($val))
-						{
-							if($key == $x)
+							if((string)$key == "all_items" || (string)$key == "all_pkts")
 							{
-								$tmp = $cart["items"][$iid][$x];
-								$cart["items"][$iid][$x] = $val + $tmp;
+								continue;
 							}
-						}
-						else
-						{
-							$cart["items"][$iid][$x][$key] = $val;
+							if(is_array($val))
+							{
+								if($key == $x)
+								{
+									$tmp = $cart["items"][$iid][$x];
+									$cart["items"][$iid][$x] = $val + $tmp;
+								}
+							}
+							else
+							{
+								$cart["items"][$iid][$x][$key] = $val;
+							}
 						}
 					}
 				}
 			}
 		}
 
-		foreach(safe_array($to_remove) as $xid => $rm)
+		if(!empty($to_remove))
 		{
-			$rm = new aw_array($rm);
-			foreach($rm->get() as $key => $val)
+			foreach(safe_array($to_remove) as $xid => $rm)
 			{
-				if($val == 1)
+				$rm = new aw_array($rm);
+				foreach($rm->get() as $key => $val)
 				{
-					unset($cart["items"][$xid][$key]);
+					if($val == 1)
+					{
+						unset($cart["items"][$xid][$key]);
+					}
 				}
 			}
 		}
@@ -1198,7 +1252,7 @@ class shop_order_cart extends class_base
 			die();
 		}
 
-		if ($arr["from"] == "pre" && !$arr["order_cond_ok"])
+		if (isset($arr["from"]) and $arr["from"] === "pre" and empty($arr["order_cond_ok"]))
 		{
 			aw_session_set("order_cond_fail", 1);
 			aw_session_set("no_cache", 1);
@@ -1221,9 +1275,9 @@ class shop_order_cart extends class_base
 		}
 
 
-		if($arr["from"] != "confirm")
+		if(empty($arr["from"]) or $arr["from"] != "confirm")
 		{
-			if (is_array($order_data["all_items"]))
+			if (isset($order_data["all_items"]) and is_array($order_data["all_items"]))
 			{
 				$awa_i = new aw_array($arr["add_to_cart"]);
 				$awa_all = safe_array($order_data["all_items"]);
@@ -1243,7 +1297,7 @@ class shop_order_cart extends class_base
 					}
 				}
 			}
-			if (is_array($order_data["all_pkts"]))
+			if (isset($order_data["all_pkts"]) and is_array($order_data["all_pkts"]))
 			{
 				foreach($order_data["all_pkts"] as $iid => $k_d)
 				{
@@ -1265,14 +1319,17 @@ class shop_order_cart extends class_base
 				}
 			}
 		}
-		foreach(safe_array($to_remove) as $xid => $rm)
+		if (isset($to_remove))
 		{
-			$rm = new aw_array($rm);
-			foreach($rm->get() as $key => $val)
+			foreach(safe_array($to_remove) as $xid => $rm)
 			{
-				if($val == 1)
+				$rm = new aw_array($rm);
+				foreach($rm->get() as $key => $val)
 				{
-					unset($cart["items"][$xid][$key]);
+					if($val == 1)
+					{
+						unset($cart["items"][$xid][$key]);
+					}
 				}
 			}
 		}
@@ -1283,12 +1340,10 @@ class shop_order_cart extends class_base
 				unset($cart["items"][$iid]);
 			}
 		}
-		//arr($cart);
 		$this->set_cart(array(
 			"oc" => $oc,
 			"cart" => $cart,
 		));
-		//arr($cart);
 
 		if (is_oid($cart_o->prop("update_handler")) && $this->can("view", $cart_o->prop("update_handler")))
 		{
@@ -1542,7 +1597,7 @@ class shop_order_cart extends class_base
 //see miski loll systeem, et site.aw'st toodete hindade jms k2ki muutmise funktsioon k2iku lasta... juhul kui on mikski erandv2rk
 			if (function_exists("__get_site_instance"))
 			{
-				$si =&__get_site_instance();
+				$si = __get_site_instance();
 				if (is_object($si))
 				{
 					if (method_exists($si, "handle_product_display"))
@@ -1552,7 +1607,11 @@ class shop_order_cart extends class_base
 				}
 			}
 //------------porno
-			$price = $i->get_special_price();
+			// TODO: There's a major flaw in this price, special_price system! There should prolly be ONE method that figures out how much a customer should eventually pay. There also should prolly be method(s) to display all the different prices. You know, just to convince the customer he/she really wants to buy it (for example cuz it's actual price is way higher than the one he/she has to pay) Blaaaaaah!
+			// FIXME: The following few lines that make a pathetic effort to find the correct price are TEMPORARY! See the above comment.
+			$special_price = $i->prop("special_price");
+			$normal_price = $i->prop("price");
+			$price = $special_price > 0 ? $special_price : $normal_price;
 //			$price = $inst->get_calc_price($i);
 			$quantx = new aw_array($quantx);
 			foreach($quantx->get() as $x => $quant)
@@ -2459,7 +2518,6 @@ class shop_order_cart extends class_base
 			$bank_lang = $user_data[$oc->prop("bank_lang")];
 		}
 
-		//if(aw_global_get(uid) == "struktuur"){arr($_SESSION);arr($user_data);arr($GLOBALS);die();}
 		$bank_inst = get_instance(CL_BANK_PAYMENT);
 		$bank_payment = $oc->prop("bank_payment");
 
@@ -2477,7 +2535,6 @@ class shop_order_cart extends class_base
 		aw_disable_acl();
 		$order_obj->save();
 		aw_restore_acl();
-//		arr($cart);
 
 		$expl = $order_id;
 		if(is_object($oc) && $oc->prop("show_prod_and_package"))
@@ -3139,78 +3196,87 @@ class shop_order_cart extends class_base
 		$product_str = "";
 		$cart_total = 0;
 		$items = 0;
-		foreach($cart["items"] as $iid => $quantx)
+		if(!empty($cart["items"]))
 		{
-			if(!is_oid($iid) || !$this->can("view", $iid))
+			foreach($cart["items"] as $iid => $quantx)
 			{
-				continue;
-			}
-			$product = obj($iid);
-			foreach($quantx as $x => $quant)
-			{
-				if($quant["items"] < 1)
+				if(!is_oid($iid) || !$this->can("view", $iid))
 				{
 					continue;
 				}
-				$items ++;
-	
-				$vars = $product->get_data();
-				$special_price = $product->get_shop_special_price($this->oc->id());
-				$vars['PRODUCT_SPECIAL_PRICE'] = '';
-				$vars['special_price_visibility'] = '';
-				if (!empty($special_price))
+				$product = obj($iid);
+				foreach($quantx as $x => $quant)
 				{
-					$sum = $quant["items"] * $special_price;
-					$vars['special_price_visibility'] = '_specialPrice';
-					$vars['special_price'] = $special_price;
-					$this->vars(array(
-						'special_price' => number_format($special_price, 2),
-						'unformated_special_price' => $special_price
-					));
-					$vars['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
-				}
-				else
-				{
-					$price = $product->get_shop_price($this->oc->id());
-					$sum = $quant["items"] * $price;
-					$vars['special_price_visibility'] = '';
-					$vars['PRODUCT_SPECIAL_PRICE'] = '';
-					$vars['special_price'] = $price;
-				}
-				
-				$vars["amount"] = $quant["items"];
-
-				$price = $product->get_shop_price($this->oc->id());
-				$vars["price"] = number_format($price , 2 , "." , "");
-				$vars["unformated_price"] = $price;
-				$vars['unformated_special_price'] = $vars['special_price'];
-				$vars['special_price'] = number_format($vars['special_price'] , 2, "." , "");
-				$vars["unformated_total_price"] = $sum;
-				$vars["total_price"] = number_format($sum , 2, "." , "");
-				$vars["total_price_without_thousand_separator"] = $sum;//see yleliigne vast nyyd
-
-				$vars["remove_url"] = $this->mk_my_orb("remove_product" , array("cart" => $this->cart->id(), "product" => $iid));
-				$this->vars($vars);
-//arr($vars);
-				$subs = array();
-				foreach($vars as $key => $val)
-				{
-					if($this->is_template("HAS_".strtoupper($key)))
+					if($quant["items"] < 1)
 					{
-						if($val)
+						continue;
+					}
+					$items ++;
+		
+					$vars = $product->get_data();
+					$special_price = $product->prop("special_price");
+					$vars['PRODUCT_SPECIAL_PRICE'] = '';
+					$vars['special_price_visibility'] = '';
+					if (!empty($special_price))
+					{
+						$sum = $quant["items"] * $special_price;
+						$vars['special_price_visibility'] = '_specialPrice';
+						$vars['special_price'] = $special_price;
+						$this->vars(array(
+							'special_price' => number_format($special_price, 2),
+							'unformated_special_price' => $special_price
+						));
+						$vars['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
+					}
+					else
+					{
+						$price = $product->prop("price");
+						$sum = $quant["items"] * $price;
+						$vars['special_price_visibility'] = '';
+						$vars['PRODUCT_SPECIAL_PRICE'] = '';
+						$vars['special_price'] = $price;
+					}
+					
+					$vars["amount"] = $quant["items"];
+
+					// FIXME: The following few lines that make a pathetic effort to find the correct price are TEMPORARY!
+					$special_price = $product->prop("special_price");
+					$normal_price = $product->prop("price");
+					$price = $special_price > 0 ? $special_price : $normal_price;
+
+					$vars["price"] = number_format($price , 2 , "." , "");
+					$vars["unformated_price"] = $price;
+					$vars['unformated_special_price'] = $vars['special_price'];
+					$vars['special_price'] = number_format($vars['special_price'] , 2, "." , "");
+					$vars["unformated_total_price"] = $sum;
+					$vars["total_price"] = number_format($sum , 2, "." , "");
+					$vars["total_price_without_thousand_separator"] = $sum;//see yleliigne vast nyyd
+
+					$vars["remove_url"] = $this->mk_my_orb("remove_product" , array("cart" => $this->cart->id(), "product" => $iid));
+					//	FIXME: Why is there "crap" anyway?
+					unset($vars["crap"]);
+					$this->vars($vars);
+
+					$subs = array();
+					foreach($vars as $key => $val)
+					{
+						if($this->is_template("HAS_".strtoupper($key)))
 						{
-							$subs["HAS_".strtoupper($key)] = $this->parse("HAS_".strtoupper($key));
-						}
-						else
-						{
-							$subs["HAS_".strtoupper($key)] = "";
+							if($val)
+							{
+								$subs["HAS_".strtoupper($key)] = $this->parse("HAS_".strtoupper($key));
+							}
+							else
+							{
+								$subs["HAS_".strtoupper($key)] = "";
+							}
 						}
 					}
-				}
-				$this->vars($subs);
+					$this->vars($subs);
 
-				$product_str.= $this->parse("PRODUCT");
-				$cart_total += $sum;
+					$product_str.= $this->parse("PRODUCT");
+					$cart_total += $sum;
+				}
 			}
 		}
 		$this->product_count = $items;
@@ -3242,7 +3308,7 @@ class shop_order_cart extends class_base
 		$cart = obj($arr["cart"]);
 		$cart -> set_order_data($arr);
 
-		if($arr["next_action"])
+		if(!empty($arr["next_action"]))
 		{
 			$action = $arr["next_action"];
 		}
@@ -3251,7 +3317,7 @@ class shop_order_cart extends class_base
 			$action = "final_finish_order";
 		}
 		$return_data = array(
-			"oc" => $arr["oc"],
+			"oc" => isset($arr["oc"]) ? $arr["oc"] : null,
 			"cart" => $arr["cart"],
 			"section" => $arr["section"],
 		);
@@ -3265,9 +3331,7 @@ class shop_order_cart extends class_base
 		if(substr($_SERVER["SCRIPT_URI"],0,8) == "https://")
 		{
 			$return = str_replace("http://" ,  "https://" , $return);
-		//	if(aw_global_get("uid") == "struktuur.markop"){arr($return);}
 		}
-//if(aw_global_get("uid") == "struktuur.markop"){arr($return);die();}
 		return $return; 
 	}
 
@@ -3324,4 +3388,3 @@ class shop_order_cart extends class_base
 		return (double)str_replace(",", "", $p);
 	}
 }
-?>

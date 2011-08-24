@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>mode</name>
+            <table>aw_crm_customers_webview</table>
+            <group>general</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <field>aw_mode</field>
+            <caption>Kuvamisviis</caption>
+      </property>
+      <property>
+            <name>clids</name>
+            <table>aw_crm_customers_webview</table>
+            <group>general</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <multiple>1</multiple>
+            <field>aw_clids</field>
+            <caption>Kuvatavad klassid</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_crm_customers_webview>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_crm_customers_webview>
+      </tableinfo>
+</properties>

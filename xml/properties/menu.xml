@@ -39,6 +39,7 @@
             <default>0</default>
             <group>general_sub</group>
             <store>no</store>
+            <editonly>1</editonly>
             <field>status_recursive</field>
             <caption>Aktiveeri/deaktiveeri ka alamkaustad</caption>
             <comment>Suure hulga alamkaustade olemasolul on see operatsioon ajamahukas</comment>
@@ -697,6 +698,15 @@
             </table_edit_fields>
             <group>advanced_ctx</group>
             <caption>Kontekstid</caption>
+      </property>
+      <property>
+            <name>shop_product_category</name>
+            <table>menu</table>
+            <type>objpicker</type>
+            <clid>CL_SHOP_PRODUCT_CATEGORY</clid>
+            <field>aw_shop_product_category</field>
+            <caption>Tootekategooria</caption>
+            <comment>Tootekategooria, mille veebis kuvatava vastena kaust on loodud</comment>
       </property>
       <property>
             <name>sa_manager</name>

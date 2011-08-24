@@ -966,7 +966,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$subs = safe_array($box->meta("src_submenus"));
 		foreach($box->connections_from(array("type" => "RELTYPE_DOC_SOURCE")) as $c)
 		{
-			$ret[$c->prop("to")] = $subs[$c->prop("to")] == $c->prop("to");
+			$ret[$c->prop("to")] = isset($subs[$c->prop("to")]) and $subs[$c->prop("to")] == $c->prop("to");
 		}
 
 		if (!count($ret))

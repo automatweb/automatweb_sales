@@ -688,7 +688,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		{
 			foreach($data as $k => $v)
 			{
-				$data["{$args["prefix"]}.{$k}"] = $v;
+				$data["{$args["prefix"]}{$k}"] = $v;
 				unset($data[$k]);
 			}
 		}
@@ -696,25 +696,41 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		return $data;
 	}
 
-	private function get_min_price()
+	public function get_min_price()
 	{
 		$min = $this->prop("price");
 		$t = new object_data_list(
 			array(
 				"class_id" => CL_SHOP_PRODUCT_PACKAGING,
-				"site_id" => array(),
-				"lang_id" => array(),
 				"CL_SHOP_PRODUCT_PACKAGING.RELTYPE_PACKAGING(CL_SHOP_PRODUCT)" => $this->id(),
 				"CL_SHOP_PRODUCT_PACKAGING.price" =>  new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 			),
 			array(
-				CL_SHOP_PRODUCT_PACKAGING =>  array(new obj_sql_func(OBJ_SQL_MIN, "price","aw_shop_packaging.aw_price"))
+				CL_SHOP_PRODUCT_PACKAGING =>  array(
+					new obj_sql_func(OBJ_SQL_MIN, "price","aw_shop_packaging.aw_price"),
+					new obj_sql_func(OBJ_SQL_MIN, "special_price","aw_shop_packaging.aw_special_price")
+				)
 			)
 		);
 		$prices = $t->get_element_from_all("price");
-		if(is_array($prices) && sizeof($prices))
+		$special_prices = $t->get_element_from_all("special_price");
+		if(is_array($prices) and sizeof($prices) > 0)
 		{
-			return reset($prices);
+			$price = reset($prices);
+			$special_price = reset($special_prices);
+
+			if (is_numeric($price) and is_numeric($special_price))
+			{
+				return min($price, $special_price);
+			}
+			elseif (is_numeric($price))
+			{
+				return $price;
+			}
+			elseif (is_numeric($special_price))
+			{
+				return $special_price;
+			}
 		}
 		return $min;
 	}
@@ -908,5 +924,4 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 			unlink($file);
 		}
 	}
-
 }

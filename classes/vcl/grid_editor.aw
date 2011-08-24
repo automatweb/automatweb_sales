@@ -1366,15 +1366,10 @@ class grid_editor extends aw_template
 
 		$stc = get_instance(CL_STYLE);
 		$this->_init_show_styles();
-		if ($this->arr["table_style"])
-		{
-			$table.= "<table border=\"0\" ".$stc->get_table_string($this->arr["table_style"]).">";
-		}
-		else
-		{
-			$table.= "<table>";
-		}
 
+		$table = $this->arr["table_style"] ? "<table border=\"0\" ".$stc->get_table_string($this->arr["table_style"]).">" : "<table>";
+
+		$rs = "";
 		for ($row=0; $row < $this->arr["rows"]; $row++)
 		{
 			$cs = "";
@@ -1439,11 +1434,11 @@ class grid_editor extends aw_template
 					$cs.= $stc->get_cell_end_str($st);
 				}
 
-				$cs.= "</td>";
+				$cs .= "</td>";
 			}
-			$rs.="<tr>".$cs."</tr>";
+			$rs .= "<tr>{$cs}</tr>";
 		}
-		$table.=$rs."</table>";
+		$table .= "{$rs}</table>";
 
 		$d = get_instance(CL_DOCUMENT);
 		$d->create_relative_links($table);
@@ -1880,7 +1875,7 @@ class grid_editor extends aw_template
 			}
 		}
 
-		if ($scell["style"] && $st == 0)
+		if (!empty($scell["style"]))
 		{
 			$st = $scell["style"];
 		}
@@ -1910,7 +1905,7 @@ class grid_editor extends aw_template
 
 			// kui tabeli stiilis pold m22ratud stiili v6i ei old esimene rida/tulp,
 			// siis v6tame default celli stiili, kui see on
-			if ($st == 0 && $this->arr["default_style"])
+			if ($st == 0 && !empty($this->arr["default_style"]))
 			{
 				$st = $this->arr["default_style"];
 			}

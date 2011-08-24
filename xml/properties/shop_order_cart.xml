@@ -1,23 +1,58 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>prod_layout</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_PROD_LAYOUT</reltype>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kujundus, mida korvis kasutatakse</caption>
-      </property>
-      <property>
-            <name>email_subj</name>
+            <name>_name</name>
             <table>objects</table>
             <group>general</group>
             <type>textbox</type>
+            <field>name</field>
+            <parent>_general</parent>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>_comment</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>comment</field>
+            <parent>_general</parent>
+            <caption>Kommentaar</caption>
+      </property>
+      <property>
+            <name>result_clid</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Tellimuse e-maili subjekt</caption>
+            <parent>result_type</parent>
+            <caption>Tulemuse t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+            <comment>Milline object genereeritakse ostukorvi kinnitamise tulemusena?</comment>
+      </property>
+      <property>
+            <name>crm_sales</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_SALES</clid>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>result_offer</parent>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;git&amp;amp;ouml;&amp;amp;ouml;laud</caption>
+            <comment>M&amp;amp;uuml;&amp;amp;uuml;git&amp;amp;ouml;&amp;amp;ouml;laud, kuhu pakkumine genereeritakse. Kasutatakse ainult siis, kui tulemuseks on valitud pakkumus</comment>
+      </property>
+      <property>
+            <name>salesman</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_PERSON</clid>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>result_offer</parent>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja</caption>
+            <comment>Vaikimisi m&amp;amp;uuml;&amp;amp;uuml;giesindaja, kes genereeritud pakkumuse m&amp;amp;uuml;&amp;amp;uuml;giesindajaks m&amp;auml;&amp;auml;ratakse</comment>
       </property>
       <property>
             <name>postal_price</name>
@@ -27,7 +62,28 @@
             <field>meta</field>
             <method>serialize</method>
             <size>5</size>
+            <parent>delivery_and_payment</parent>
             <caption>Vaikimisi postikulu</caption>
+      </property>
+      <property>
+            <name>show_only_valid_delivery_methods</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>delivery_and_payment</parent>
+            <caption>N&amp;amp;auml;ita checkout'is ainult valiidseid k&amp;amp;auml;ttetoimetamise viise 	 </caption>
+      </property>
+      <property>
+            <name>show_only_valid_payment_types</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>delivery_and_payment</parent>
+            <caption>N&amp;amp;auml;ita checkout'is ainult valiidseid makseviise</caption>
       </property>
       <property>
             <name>subject_handler</name>
@@ -37,6 +93,7 @@
             <reltype>RELTYPE_CONTROLLER</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>controllers</parent>
             <caption>Subjekti kontroller</caption>
       </property>
       <property>
@@ -47,6 +104,7 @@
             <reltype>RELTYPE_CONTROLLER</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>controllers</parent>
             <caption>Korvi uuendamise kontroller</caption>
       </property>
       <property>
@@ -57,6 +115,7 @@
             <reltype>RELTYPE_CONTROLLER</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>controllers</parent>
             <caption>Tellimise kontroller ($form_ref - ostukorvi instants , $entry - loodud tellimus)</caption>
       </property>
       <property>
@@ -67,25 +126,19 @@
             <reltype>RELTYPE_CONTROLLER</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>controllers</parent>
             <caption>Tellimuse n&amp;amp;auml;itamise kontroller</caption>
       </property>
       <property>
-            <name>show_only_valid_delivery_methods</name>
+            <name>prod_layout</name>
             <table>objects</table>
             <group>general</group>
-            <type>checkbox</type>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PROD_LAYOUT</reltype>
             <field>meta</field>
             <method>serialize</method>
-            <caption>N&amp;amp;auml;ita checkout'is ainult valiidseid k&amp;amp;auml;ttetoimetamise viise 	 </caption>
-      </property>
-      <property>
-            <name>show_only_valid_payment_types</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>checkbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>N&amp;amp;auml;ita checkout'is ainult valiidseid makseviise 	 </caption>
+            <parent>templates</parent>
+            <caption>Kujundus, mida korvis kasutatakse</caption>
       </property>
       <property>
             <name>product_template</name>
@@ -94,6 +147,7 @@
             <type>select</type>
             <field>meta</field>
             <method>serialize</method>
+            <parent>templates</parent>
             <caption>Ostukorvi &amp;amp;uuml;he toote vaate templeit</caption>
       </property>
       <property>
@@ -103,7 +157,18 @@
             <type>select</type>
             <field>meta</field>
             <method>serialize</method>
+            <parent>templates</parent>
             <caption>Ostukorvi kasutaja andmete templeit</caption>
+      </property>
+      <property>
+            <name>email_subj</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>uncategorized</parent>
+            <caption>Tellimuse e-maili subjekt</caption>
       </property>
       <property>
             <name>channel</name>
@@ -112,6 +177,7 @@
             <type>relpicker</type>
             <reltype>RELTYPE_CHANNEL</reltype>
             <store>connect</store>
+            <parent>uncategorized</parent>
             <field>channel</field>
             <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanal</caption>
       </property>
@@ -146,7 +212,8 @@
             <relationmgr>yes</relationmgr>
             <prop_cb>1</prop_cb>
             <no_status>1</no_status>
-            <maintainer>kristo</maintainer>
+            <no_name>1</no_name>
+            <no_comment>1</no_comment>
       </classinfo>
       <groupinfo>
             <delivery_methods>
@@ -175,5 +242,75 @@
                   <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanal</caption>
             </RELTYPE_CHANNEL>
       </reltypes>
+      <layout>
+            <split>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </split>
+            <left>
+                  <type>vbox</type>
+                  <parent>split</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </left>
+            <_general>
+                  <type>vbox</type>
+                  <parent>left</parent>
+                  <area_caption>&amp;amp;Uuml;ldandmed</area_caption>
+                  <group>general</group>
+            </_general>
+            <result>
+                  <type>vbox</type>
+                  <parent>left</parent>
+                  <area_caption>Tulemus</area_caption>
+                  <group>general</group>
+            </result>
+            <result_type>
+                  <type>vbox</type>
+                  <no_padding>1</no_padding>
+                  <parent>result</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </result_type>
+            <result_offer>
+                  <type>vbox_sub</type>
+                  <no_padding>1</no_padding>
+                  <area_caption>Pakkumus&amp;amp;nbsp;seaded</area_caption>
+                  <parent>result</parent>
+                  <group>general</group>
+            </result_offer>
+            <delivery_and_payment>
+                  <type>vbox</type>
+                  <parent>left</parent>
+                  <area_caption>K&amp;amp;auml;ttetoimetamine&amp;amp;nbsp;ja&amp;amp;nbsp;maksmine</area_caption>
+                  <group>general</group>
+            </delivery_and_payment>
+            <right>
+                  <type>vbox</type>
+                  <parent>split</parent>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </right>
+            <controllers>
+                  <type>vbox</type>
+                  <parent>right</parent>
+                  <area_caption>Kontrollerid</area_caption>
+                  <group>general</group>
+            </controllers>
+            <templates>
+                  <type>vbox</type>
+                  <parent>right</parent>
+                  <area_caption>Kujundusmallid</area_caption>
+                  <group>general</group>
+            </templates>
+            <uncategorized>
+                  <type>vbox</type>
+                  <parent>left</parent>
+                  <area_caption>Kategoriseerimata</area_caption>
+                  <group>general</group>
+            </uncategorized>
+      </layout>
 </properties>
 

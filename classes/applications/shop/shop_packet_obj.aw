@@ -4,6 +4,25 @@ class shop_packet_obj extends shop_warehouse_item_obj
 {
 	const CLID = 297;
 
+	public function awobj_get_actual_price()
+	{
+		$actual_price = 0;
+
+		$rows = $this->get_rows();
+		if ($rows->count() > 0)
+		{
+			$row = $rows->begin();
+			do
+			{
+				$row_id = $row->id();
+				$item = obj($row->prop("item"));
+				$actual_price += $row->prop("amount") * $item->get_min_price();
+			} while ($row = $rows->next());
+		}
+
+		return $actual_price;
+	}
+
 	/** Adds packet to category
 		@attrib api=1 params=pos
 		@param category optional type=oid
@@ -35,11 +54,70 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		parent::delete($full_delete);
 	}
 
-	public function save($check_state = false)
+	public function save($exclusive = false, $previous_state = null)
 	{
 		$this->delete_product_show_cache();
 
-		return parent::save($check_state);
+		return parent::save($exclusive, $previous_state);
+	}
+
+	/**	Returns object_(data_)list of packet rows
+		@attrib api=1 params=pos
+		@param odl optional type=boolean default=false
+			If true, object_data_list will be returned instead of object_list
+		@param odl_args optional type=array default=array(shop_packet_row_obj::CLID => array("item", "amount"))
+			The second parameter to be passed on to object_data_list constructor. Only used when 'odl' is set to true.
+		@returns object_list/object_data_list
+	**/
+	public function get_rows($odl = false, $odl_args = null)
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_shop_packet_new("Packet must be saved before its rows can be accessed!");
+		}
+
+		$filter = array(
+			"class_id" => shop_packet_row_obj::CLID,
+			"packet" => $this->id(),
+			new obj_predicate_sort(array(
+				"jrk" => obj_predicate_sort::ASC,
+//	TODO:		"item.name" => obj_predicate_sort::ASC,
+			))
+		);
+
+		if ($odl and empty($odl_args))
+		{
+			$odl_args = array(
+				shop_packet_row_obj::CLID => array("item", "amount")
+			);
+		}
+
+		return $odl ? new object_data_list($filter, $odl_args) : new object_list($filter);
+	}
+
+	/**	DOES NOT CHECK IF A ROW WITH GIVEN ITEM EXISTS!
+		@attrib api=1 params=pos
+		@param item required type=object/oid
+		@param amount optional type=int default=1
+	**/
+	public function add_row($item, $amount = 1)
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_shop_packet_new("Packet must be saved before items can be added!");
+		}
+
+		$item = is_object($item) ? $item : obj($item);
+
+		$row = obj(null, array(), shop_packet_row_obj::CLID);
+		$row->set_parent($this->id());
+		$row->set_name(sprintf("Paketi '%s' rida, reaartikkel '%s'", $this->name(), $item->name()));
+		$row->set_prop("packet", $this->id());
+		$row->set_prop("item", $item->id());
+		$row->set_prop("amount", $amount);
+		$row->save();
+
+		return $row;
 	}
 
 	private function get_warehouse_settings()
@@ -146,6 +224,10 @@ class shop_packet_obj extends shop_warehouse_item_obj
 	public function get_data($params = array())
 	{
 		$data = $this->properties();
+		if (empty($data["price"]))
+		{
+			$data["price"] = $this->awobj_get_actual_price();
+		}
 		$data["id"] = $this->id();
 
 		if(!sizeof($params)|| isset($params["product_id"])) $data["product_id"] = $this->random_product_id();
@@ -186,8 +268,8 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		if(!sizeof($params))
 		{
 			$data["image_size"] = $this->get_image_size();
-			$data["image_width"] = $data["image_size"][0];
-			$data["image_height"] = $data["image_size"][1];
+			$data["image_width"] = ifset($data["image_size"], 0);
+			$data["image_height"] = ifset($data["image_size"], 1);
 			//$data["image_height"] = $this->get_image_width();
 		}
 		return $data;
@@ -638,5 +720,10 @@ WHERE
 			unlink($file);
 		}
 	}
-
 }
+
+/** Generic shop_packet exception **/
+class awex_shop_packet extends awex_crm {}
+
+/** Packet-not-saved error **/
+class awex_shop_packet_new extends awex_crm {}

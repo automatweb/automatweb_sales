@@ -292,37 +292,15 @@ class style extends aw_template
 			return $rv."class=\"".$this->get_style_name($st["oid"])."\"";
 		}
 
-		if ($st["bgcolor"] != "")
+		$str = "";
+
+		$keys = array("bgcolor", "border", "cellpadding", "cellspacing", "height", "width", "hspace", "vspace");
+		foreach ($keys as $key)
 		{
-			$str.="bgcolor=\"".$st["bgcolor"]."\" ";
-		}
-		if ($st["border"] != "")
-		{
-			$str.="border=\"".$st["border"]."\" ";
-		}
-		if ($st["cellpadding"] != "")
-		{
-			$str.="cellpadding=\"".$st["cellpadding"]."\" ";
-		}
-		if ($st["cellspacing"] != "")
-		{
-			$str.="cellspacing=\"".$st["cellspacing"]."\" ";
-		}
-		if ($st["height"] != "")
-		{
-			$str.="height=\"".$st["height"]."\" ";
-		}
-		if ($st["width"] != "")
-		{
-			$str.="width=\"".$st["width"]."\" ";
-		}
-		if ($st["hspace"] != "")
-		{
-			$str.="hspace=\"".$st["hspace"]."\" ";
-		}
-		if ($st["vspace"] != "")
-		{
-			$str.="vspace=\"".$st["vspace"]."\" ";
+			if (!empty($st[$key]))
+			{
+				$str .= "{$key}=\"".$st[$key]."\" ";
+			}
 		}
 
 		return $str;
@@ -430,22 +408,23 @@ class style extends aw_template
 		$st = $this->mk_cache($id);
 
 		$str = "";
-		if ($st["fontstyle"] == "bold")
+		if (isset($st["fontstyle"]))
 		{
-			$str = "</b>";
-		}
-		else
-		if ($st["fontstyle"] == "italic")
-		{
-			$str = "</i>";
-		}
-		else
-		if ($st["fontstyle"] == "underline")
-		{
-			$str = "</u>";
+			if ($st["fontstyle"] == "bold")
+			{
+				$str = "</b>";
+			}
+			elseif ($st["fontstyle"] == "italic")
+			{
+				$str = "</i>";
+			}
+			elseif ($st["fontstyle"] == "underline")
+			{
+				$str = "</u>";
+			}
 		}
 
-		if ($st["font1"] != "" || $st["font2"] != "" || $st["font3"] != "" || $st["fontsize"] || $st["color"] != "")
+		if (!empty($st["font1"]) or !empty($st["font2"]) or !empty($st["font3"]) or !empty($st["fontsize"]) or !empty($st["color"]))
 		{
 			$str.= "</font>";
 		}
@@ -530,7 +509,7 @@ class style extends aw_template
 			return $tmp->prop("lrow_style");
 		}
 
-		return $st["lrow_style"];
+		return ifset($st, "lrow_style");
 	}
 
 	function get_lcol_style($id)
@@ -546,7 +525,7 @@ class style extends aw_template
 			return $tmp->prop("lcol_style");
 		}
 
-		return $st["lcol_style"];
+		return ifset($st, "lcol_style");
 	}
 
 	function get_num_lrows($id)
@@ -562,7 +541,7 @@ class style extends aw_template
 			return $tmp->prop("num_lrows");
 		}
 
-		return $st["num_lrows"];
+		return ifset($st, "num_lrows");
 	}
 
 	function get_num_lcols($id)
@@ -578,7 +557,7 @@ class style extends aw_template
 			return $tmp->prop("num_lcols");
 		}
 
-		return $st["num_lcols"];
+		return ifset($st, "num_lcols");
 	}
 
 	function get_text_begin_str($id)
@@ -664,7 +643,7 @@ class style extends aw_template
 			$tmp = obj($id);
 			return $tmp->prop("header_style");
 		}
-		return $st["header_style"];
+		return ifset($st, "header_style");
 	}
 
 	function get_footer_style($id)
@@ -675,7 +654,7 @@ class style extends aw_template
 			$tmp = obj($id);
 			return $tmp->prop("footer_style");
 		}
-		return $st["footer_style"];
+		return ifset($st, "footer_style");
 	}
 
 	function get_odd_style($id)
@@ -690,7 +669,7 @@ class style extends aw_template
 			$tmp = obj($id);
 			return $tmp->prop("odd_style");
 		}
-		return $st["odd_style"];
+		return ifset($st, "odd_style");
 	}
 
 	function get_even_style($id)
@@ -705,13 +684,13 @@ class style extends aw_template
 			$tmp = obj($id);
 			return $tmp->prop("even_style");
 		}
-		return $st["even_style"];
+		return ifset($st, "even_style");
 	}
 
 	function get_css_class($id)
 	{
 		$st = $this->mk_cache($id);
-		return $st["css_class"];
+		return ifset($st, "css_class");
 	}
 
 	function mk_cache($id)
