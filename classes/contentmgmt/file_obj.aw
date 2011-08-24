@@ -12,7 +12,7 @@ class file_obj extends _int_object
 		$ret = $this->fetch();
 		$ret["id"] = $this->id();
 
-		$ret["file"] = basename($ret["file"]);
+		$ret["file"] = isset($ret["file"]) ? basename($ret["file"]) : "";
 		if ($fetch_file)
 		{
 			if ($ret["meta"]["file_url"] != "")
@@ -23,8 +23,7 @@ class file_obj extends _int_object
 				$ret["content"] = $proto_inst->get($ret["meta"]["file_url"]);
 				$ret["type"] = $proto_inst->get_type();
 			}
-			else
-			if ($ret["file"] != "")
+			elseif ($ret["file"])
 			{
 				// file saved in filesystem - fetch it
 				if ($this->meta("force_path") != "")
@@ -47,7 +46,7 @@ class file_obj extends _int_object
 			}
 			else
 			{
-				$this->dequote($ret["content"]);
+				object_loader::ds()->dequote($ret["content"]);
 			}
 		}
 
