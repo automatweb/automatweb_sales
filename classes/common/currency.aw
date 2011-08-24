@@ -19,6 +19,12 @@
 @property small_unit_name type=textbox table=objects field=meta method=serialize
 @caption Peenraha&uuml;hiku nimetus
 
+@property unit_name_after_sum type=textbox table=objects field=meta method=serialize
+@caption Raha&uuml;hiku nimetus summa j&auml;rel
+
+@property small_unit_name_after_sum type=textbox table=objects field=meta method=serialize
+@caption Peenraha&uuml;hiku nimetus summa j&auml;rel
+
 @property symbol type=textbox size=2 table=objects field=meta method=serialize
 @caption S&uuml;mbol
 
@@ -35,6 +41,7 @@
 
 
 */
+//TODO: translate normaalseks
 
 define("RET_NAME",1);
 define("RET_ARR",2);
@@ -87,6 +94,8 @@ class currency extends class_base
 	{
 		$arr["obj_inst"]->set_meta("unit", $arr["request"]["unit"]);
 		$arr["obj_inst"]->set_meta("small_unit", $arr["request"]["small_unit"]);
+		$arr["obj_inst"]->set_meta("unit_after_sum", $arr["request"]["unit_after_sum"]);
+		$arr["obj_inst"]->set_meta("small_unit_after_sum", $arr["request"]["small_unit_after_sum"]);
 	}
 
 	function do_table($arr)
@@ -105,14 +114,24 @@ class currency extends class_base
 			"name" => "small_unit",
 			"caption" => t("Peenraha"),
 		));
+		$t->define_field(array(
+			"name" => "unit_after_sum",
+			"caption" => t("&Uuml;hik summa j&auml;rel"),
+		));
+		$t->define_field(array(
+			"name" => "small_unit_after_sum",
+			"caption" => t("Peenraha summa j&auml;rel"),
+		));
 
 		$langdata = array();
 		aw_global_set("output_charset", "utf-8");
 		$lg = get_instance("languages");
-		$langdata = $lg->get_list(array("all_data" => 1,"ignore_status" => 1));
+		$langdata = languages::get_list(array("all_data" => 1,"ignore_status" => 1));
 
 		$unit_meta = $arr["obj_inst"]->meta("unit");
 		$small_unit_meta = $arr["obj_inst"]->meta("small_unit");
+		$unit_after_sum_meta = $arr["obj_inst"]->meta("unit_after_sum");
+		$small_unit_after_sum_meta = $arr["obj_inst"]->meta("small_unit_after_sum");
 
 		//kui ei ole keelt valitud, siis ei tule eriti suurt valikut mitte
 /*		$t->define_data(array(
@@ -134,21 +153,30 @@ class currency extends class_base
 			if($arr["obj_inst"]->lang_id() != $id)
 			{
 				$t->define_data(array(
+					"lang" => $lang["name"],
 					"unit" => html::textbox(array(
 							"name" => "unit[".$lang["acceptlang"]."]",
 							"value" => $unit_meta[$lang["acceptlang"]],
 							"size" => 10,
 					)),
-					"lang" => $lang["name"],
 					"small_unit" =>html::textbox(array(
 							"name" => "small_unit[".$lang["acceptlang"]."]",
 							"value" => $small_unit_meta[$lang["acceptlang"]],
 							"size" => 10,
 					)),
+					"unit_after_sum" => html::textbox(array(
+							"name" => "unit_after_sum[".$lang["acceptlang"]."]",
+							"value" => $unit_after_sum_meta[$lang["acceptlang"]],
+							"size" => 10,
+					)),
+					"small_unit_after_sum" =>html::textbox(array(
+							"name" => "small_unit_after_sum[".$lang["acceptlang"]."]",
+							"value" => $small_unit_after_sum_meta[$lang["acceptlang"]],
+							"size" => 10,
+					))
 				));
 			}
 		}
-
 	}
 
 
@@ -353,7 +381,7 @@ class currency extends class_base
 		@attrib api=1
 	**/
 	function get_company_currency()
-	{
+	{//TODO: ei kuulu siia
 		if($this->co_currency)
 		{
 			return $this->co_currency;
@@ -382,7 +410,7 @@ class currency extends class_base
 	function get_default_currency_name()
 	{
 		$c = $this->get_default_currency();
-		if(!(is_oid($c) && $this->can("view" , $c)))
+		if(!(is_oid($c) && $this->can("" , $c)))
 		{
 			return "EEK";
 		}
