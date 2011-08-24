@@ -1,4 +1,6 @@
 <?php
+//TODO: failisysteemi nimede kirjutamine iconvi abil. in encoding on obj->langid->charset ja out awiiniget serverfilesys encoding
+
 /*
 
 @classinfo trans=1 relationmgr=yes
@@ -124,19 +126,22 @@
 	property n_test type=mail_notify store=no
 	caption maili teavituse test prop
 
-@groupinfo settings caption=Seadistused
-@groupinfo dates caption=Ajad
-@groupinfo transl caption=T&otilde;lgi
-@groupinfo keywords caption="M&auml;rks&otilde;nad"
-@groupinfo acl caption=&Otilde;igused
 @default group=acl
-
 	@property acl type=acl_manager store=no
 	@caption &Otilde;igused
+
+
+@groupinfo settings caption=Seadistused
+@groupinfo dates caption=Ajad
+@groupinfo keywords caption="M&auml;rks&otilde;nad"
+@groupinfo acl caption=&Otilde;igused
 @groupinfo notify caption="Teavitamine"
+@groupinfo transl caption=T&otilde;lgi
+
 
 @reltype KEYWORD value=2 clid=CL_KEYWORD
 @caption M&auml;rks&otilde;na
+
 */
 
 
@@ -188,11 +193,13 @@ class file extends class_base
 				{
 					return PROP_IGNORE;
 				}
+
 				$re = $this->is_signed($arr["obj_inst"]->id());
 				if($re["status"] != 1)
 				{
 					return PROP_IGNORE;
 				}
+
 				if (basename($arr["obj_inst"]->prop("file")) == "" && $arr["obj_inst"]->prop("file_url") == "")
 				{
 					return PROP_IGNORE;
@@ -204,7 +211,7 @@ class file extends class_base
 				{
 					$sig_nice[] = sprintf(t("%s, %s (%s) - %s"), $sig["signer_ln"], $sig["signer_fn"], $sig["signer_pid"], date("H:i d/m/Y", $sig["signing_time"]));
 				}
-				$data["value"] = join("<br/>", $sig_nice);
+				$data["value"] = join(html::linebreak(), $sig_nice);
 				break;
 
 			case "signed":
@@ -268,6 +275,7 @@ class file extends class_base
 						break;
 				}
 				break;
+
 			case "mail_notify_toolbar":
 			case "mail_notify_table":
 			case "mail_notify_mail_settings":
@@ -279,6 +287,7 @@ class file extends class_base
 				$fn = "callback_".$data["name"];
 				$data = $mn->$fn($arr);
 				break;
+
 			case "show_icon":
 				if ($arr["obj_inst"]->prop("show_icon") == 8 || $arr["obj_inst"]->prop("show_icon") === NULL)
 				{
@@ -289,7 +298,7 @@ class file extends class_base
 			case "name":
 				if (isset($arr["called_from"]) and $arr["called_from"] === "releditor")
 				{
-					$data["type"] = "hidden";//arr($arr["obj_inst"]->name());
+					$data["type"] = "hidden";
 					$data["value"] = html::href(array(
 						"caption" => $arr["obj_inst"]->name(),
 						"url" => $this->get_url($arr["obj_inst"]->id(), $arr["obj_inst"]->name())
@@ -298,8 +307,7 @@ class file extends class_base
 				}
 				$retval = PROP_IGNORE;
 				break;
-			case "comment":
-			break;
+
 			case "filename":
 				if ($arr["new"])
 				{
@@ -308,7 +316,7 @@ class file extends class_base
 				}
 
 				$fname = $this->check_file_path($arr["obj_inst"]->prop("file"));
-				if ($fname == "" && $arr["obj_inst"]->prop("file_url") == "")
+				if (!$fname && !$arr["obj_inst"]->prop("file_url"))
 				{
 					$data["value"] = t("fail puudub");
 					return PROP_IGNORE;
@@ -320,13 +328,28 @@ class file extends class_base
 
 				if (is_file($file))
 				{
+					$is_in_filesystem = true;
+				}
+				elseif (is_file(iconv("ISO-8859-1", aw_ini_get("server.filesystem.encoding"), $file)))
+				{ // for when files have been moved/charset changed and file names in database are not updated to new encoding
+					// in and out charsets are selected most common
+					//TODO: in ja out encoding kuskilt mujalt v6tta
+					$file = iconv("ISO-8859-1", aw_ini_get("server.filesystem.encoding"), $file);
+					$is_in_filesystem = true;
+				}
+				else
+				{
+					$is_in_filesystem = false;
+				}
+
+				if ($is_in_filesystem)
+				{
 					$size = filesize($file);
 					if ($size > 1024)
 					{
 						$filesize = number_format($size / 1024, 2)."kb";
 					}
-					else
-					if ($size > (1024*1024))
+					elseif ($size > (1024*1024))
 					{
 						$filesize = number_format($size / (1024*1024), 2)."mb";
 					}
@@ -367,7 +390,8 @@ class file extends class_base
 						"title" => $fname
 					));
 				}
-				if (is_oid($arr["obj_inst"]->id()))
+
+				if ($arr["obj_inst"]->is_saved())
 				{
 					$link_url = $this->get_url($arr["obj_inst"]->id(), $arr["obj_inst"]->name());
 					$url = $this->mk_my_orb("fetch_file_tag_for_doc", array("id" => $arr["obj_inst"]->id()), CL_FILE);
@@ -545,7 +569,7 @@ class file extends class_base
 					$pathinfo = pathinfo($file_name);
 					if (empty($file_type))
 					{
-						$mimeregistry = get_instance("core/aw_mime_types");
+						$mimeregistry = new aw_mime_types();
 						$realtype = $mimeregistry->type_for_ext($pathinfo["extension"]);
 						$file_type = $realtype;
 					}
@@ -563,7 +587,7 @@ class file extends class_base
 
 					if (file_exists($arr["obj_inst"]->prop("file")))
 					{
-						unlink($arr["obj_inst"]->prop("file"));
+						unlink($arr["obj_inst"]->prop("file"));//FIXME: kustutab v88ra faili 2ra?
 					}
 				}
 				elseif (is_array($data["value"]) && isset($data["value"]["content"]))
@@ -1580,13 +1604,12 @@ class file extends class_base
 		return parent::change($args);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		if (isset($_GET["docid"]))
+		if (isset($request["docid"]))
 		{
-			$arr["docid"] = $_GET["docid"];
+			$arr["docid"] = $request["docid"];
 		}
-		$arr["post_ru"] = post_ru();
 	}
 
 	function callback_mod_tab($arr)
@@ -1603,7 +1626,7 @@ class file extends class_base
 		return true;
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$arr["args"]["docid"] = isset($arr["request"]["docid"]) ? $arr["request"]["docid"] : 0;
 	}
@@ -1633,7 +1656,7 @@ class file extends class_base
 	**/
 	function fetch_file_alias_for_doc($arr)
 	{
-		$alp = get_instance("alias_parser");
+		$alp = new alias_parser();
 		$alias_list = $alp->get_alias_list_for_obj_as_aliasnames($arr["doc_id"]);
 
 		foreach($alias_list as $obj_id => $alias_string)
@@ -1670,7 +1693,7 @@ class file extends class_base
 	**/
 	function fetch_file_name_for_alias($arr)
 	{
-		$alp = get_instance("alias_parser");
+		$alp = new alias_parser();
 		$alias_list = $alp->get_alias_list_for_obj_as_aliasnames($arr["doc_id"]);
 
 		foreach($alias_list as $obj_id => $alias_string)
@@ -1727,7 +1750,7 @@ class file extends class_base
 			$sufix = "\n";
 		}
 		$out = "";
-		$alp = get_instance("alias_parser");
+		$alp = new alias_parser();
 		$alias_list = $alp->get_alias_list_for_obj_as_aliasnames($arr["doc_id"]);
 		$out = 'connection_details_for_doc = new Array();'.$sufix;
 		foreach($alias_list as $obj_id => $alias_string)
@@ -1748,8 +1771,6 @@ class file extends class_base
 		// see if there is a site_search content class set to search from static content
 		$ol = new object_list(array(
 			"class_id" => CL_SITE_SEARCH_CONTENT,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"search_static" => 1
 		));
 		$rv = "";
@@ -1818,10 +1839,10 @@ class file extends class_base
 
 		// get the last folder
 		$slash1 = strrpos($f1, "/");
-		$f2 = substr($f1, $slash1+1);
+		$f2 = false === $slash1 ? $f1 : substr($f1, $slash1+1);
 
 		// add site basedir
-		return aw_ini_get("site_basedir")."/files/".$f2."/".substr($fname, $slash+1);
+		return aw_ini_get("site_basedir")."files/".$f2."/".substr($fname, $slash+1);
 	}
 
 	function file_is_in_whitelist($fn)
