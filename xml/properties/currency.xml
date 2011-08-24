@@ -36,6 +36,24 @@
             <caption>Peenraha&amp;amp;uuml;hiku nimetus</caption>
       </property>
       <property>
+            <name>unit_name_after_sum</name>
+            <group>general</group>
+            <type>textbox</type>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Raha&amp;amp;uuml;hiku nimetus summa j&amp;amp;auml;rel</caption>
+      </property>
+      <property>
+            <name>small_unit_name_after_sum</name>
+            <group>general</group>
+            <type>textbox</type>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Peenraha&amp;amp;uuml;hiku nimetus summa j&amp;amp;auml;rel</caption>
+      </property>
+      <property>
             <name>symbol</name>
             <group>general</group>
             <type>textbox</type>
