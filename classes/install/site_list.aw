@@ -205,8 +205,7 @@ class site_list extends aw_template
 	}
 
 	/**
-
-		@attrib name=server_list params=name default="0"
+		@attrib name=server_list params=name
 	**/
 	function orb_server_list($arr)
 	{
@@ -260,7 +259,7 @@ class site_list extends aw_template
 
 	/** adds or updates site
 
-		@attrib name=update_site params=name all_args="1" default="0"
+		@attrib name=update_site params=name all_args=1
 
 
 		@comment
@@ -390,9 +389,8 @@ fclose($f);
 		}
 	}
 
-	/** returns a list of sites matching filter
-
-		@attrib name=get_site_list params=name default=0
+	/** Returns a list of sites matching filter
+		@attrib name=get_site_list params=name
 
 		@param server_id optional
 
@@ -982,6 +980,26 @@ fclose($f);
 		{
 			$this->_do_update_list_cache();
 			return $this->get_local_list();
+		}
+		return $ret;
+	}
+
+	/** Returns array of site ids that have objects in local object system
+		@attrib api=1 params=pos
+		@comment
+		@returns array[int]
+		@errors
+	**/
+	public static function get_local_site_ids()
+	{
+		$ret = array();
+		object_loader::ds()->db_query("SELECT DISTINCT(site_id) AS site_id FROM objects");
+		while ($row = object_loader::ds()->db_next())
+		{
+			if ($row["site_id"])
+			{
+				$ret[$row["site_id"]] = $row["site_id"];
+			}
 		}
 		return $ret;
 	}

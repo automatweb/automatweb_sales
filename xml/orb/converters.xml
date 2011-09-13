@@ -256,5 +256,12 @@
 			</function>
 		</action>
 
+		<action name="update_languages_1">
+			<function name="update_languages_1">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

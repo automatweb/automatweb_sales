@@ -1,17 +1,14 @@
 <?php
 // language.aw - Keel
 
-//TODO:!!! keele id tuleb v6tta aw.ini-st v6i kuskilt isegi konstantsemast. mingis keeles objektid peavad olema yheselt teada mis keeles nad on
 /*
 
 @classinfo relationmgr=yes no_status=1 no_comment=1
+@tableinfo languages index=oid master_table=objects master_index=oid
 
 @default table=objects
 @default group=general
 
-@groupinfo langs caption="K&otilde;ik keeled"
-
-@tableinfo languages index=oid master_table=objects master_index=oid
 
 @property lang_name table=languages type=textbox field=name
 @caption Nimi
@@ -28,13 +25,11 @@
 @property show_others type=checkbox ch_value=1 prop_cb=1 table=languages field=show_others
 @caption N&auml;htav muudele applikatsioonidele
 
-
-
-@property lang_sel_lang type=select store=no
+@property lang_sel_lang type=select table=languages field=lang_code
 @caption Keel
 
-@property lang_charset table=languages type=select field=charset
-@caption Charset
+@property lang_charset table=languages type=textbox field=charset editonly=1
+@caption Kooditabel
 
 @property lang_acceptlang table=languages type=select field=acceptlang
 @caption Keele kood
@@ -42,7 +37,7 @@
 @property lang_site_id table=languages type=select multiple=1 field=site_id
 @caption Saidid kus keel on valitav
 
-@property db_lang_id table=languages type=hidden field=id
+@property aw_lang_id table=languages type=hidden field=aw_lid
 @caption Keele ID
 
 @property lang_trans_msg table=languages type=textarea rows=5 cols=30 field=meta method=serialize
@@ -66,6 +61,8 @@
 @property langs type=table group=langs field=meta method=serialize store=no
 @caption Keeled
 
+
+@groupinfo langs caption="K&otilde;ik keeled"
 
 //DEPRECATED
 @groupinfo texts caption="Tekstid"
@@ -94,43 +91,43 @@ class language extends class_base
 			"clid" => CL_LANGUAGE
 		));
 
-		// check if we need to upgrade
-		//$tbl = $this->db_get_table("languages");
-		/*if (!isset($tbl["fields"]["oid"]))
-		{
-			die("Keeled tuleb konvertida uuele s&uuml;steemile, seda saab teha ".html::href(array(
-				"url" => $this->mk_my_orb("lang_new_convert", array(), "converters"),
-				"caption" => t("siit")
-			)));
-		}*/
-
 		$this->trans_props = array(
 			"lang_name", "lang_trans_msg"
 		);
 	}
 
-	//////
-	// class_base classes usually need those, uncomment them if you want to use them
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($prop["name"])
 		{
 
 			case "name":
-				return PROP_IGNORE;
+				$retval = class_base::PROP_IGNORE;
 				break;
 
 			case "lang_site_id":
-				$sli = new site_list();
-				$sl = languages::_get_sl();
-				foreach($sl as $idx => $a)
+				$sl = site_list::get_local_site_ids();
+
+				if (count($sl))
 				{
-					$sl[$idx] = $sli->get_url_for_site($idx);
+					$sli = new site_list();
+					foreach($sl as $site_id)
+					{
+						$sl[$site_id] = $sli->get_url_for_site($site_id) ? $sli->get_url_for_site($site_id) : $site_id;
+					}
+					$prop["options"] = $sl;
+					$prop["value"] = isset($prop["value"]) ? $this->make_keys(explode(",", $prop["value"])) : "";
 				}
-				$prop["options"] = $sl;
-				$prop["value"] = isset($prop["value"]) ? $this->make_keys(explode(",",$prop["value"])) : "";
+				elseif (!empty($prop["value"]))
+				{
+					$prop["type"] = "text";
+				}
+				else
+				{
+					$retval = class_base::PROP_IGNORE;
+				}
 				break;
 
 			case "langs":
@@ -138,38 +135,26 @@ class language extends class_base
 				break;
 
 			case "lang_sel_lang":
-				$ol = new object_list(array(
-					"class_id" => CL_LANGUAGE
-				));
-				$ll = array();
-				for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
+				if ($this->awcb_ds_id->is_saved())
 				{
-					$ll[$o->prop("lang_acceptlang")] = true;
+					$id = $this->awcb_ds_id->prop("aw_lang_id");
+					$prop["type"] = "text";
+					$prop["value"] = aw_ini_get("languages.list.{$id}.name");
 				}
-
-				$tmp = aw_ini_get("languages.list");
-				$lang_codes = array();
-				foreach($tmp as $_lid => $langdata)
+				else
 				{
-					if ($langdata["acceptlang"] == $arr["obj_inst"]->prop("lang_acceptlang"))
+					$languages = aw_ini_get("languages.list");
+					foreach($languages as $aw_lid => $langdata)
 					{
-						$prop["selected"] = $_lid;
-						$lang_codes[$_lid] = $langdata["name"];
+						$languages[$aw_lid] = $langdata["name"];
 					}
-					else
-					if (!isset($ll[$langdata["acceptlang"]]))
-					{
-						$lang_codes[$_lid] = $langdata["name"];
-					}
-				};
-				$prop["options"] = $lang_codes;
+					$prop["options"] = $languages;
+				}
 				break;
 
 			case "lang_acceptlang":
-				return PROP_IGNORE;
-
-			case "lang_charset":
-				return PROP_IGNORE;
+				$retval = class_base::PROP_IGNORE;
+				break;
 
 			case "texts":
 				$this->do_texts_table($arr);
@@ -181,7 +166,7 @@ class language extends class_base
 	function set_property($arr = array())
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($prop["name"])
 		{
 			case "langs":
@@ -197,7 +182,7 @@ class language extends class_base
 						$o->set_status($new_status);
 						$o->set_prop("lang_status", $new_status);
 						$changed = true;
-						languages::set_status($o->prop("db_lang_id"), $new_status);
+						languages::set_status($o->prop("aw_lang_id"), $new_status);
 					}
 
 					if ($changed)
@@ -216,15 +201,17 @@ class language extends class_base
 				break;
 
 			case "lang_acceptlang":
-				return PROP_IGNORE;
+				$retval = class_base::PROP_IGNORE;
+				break;
 
 			case "lang_charset":
-				return PROP_IGNORE;
+				$retval = class_base::PROP_IGNORE;
+				break;
 
 			case "lang_site_id":
 				$prop["value"] = join(",", array_values(is_array($prop["value"]) ? $prop["value"] : array()));
 				$arr["obj_inst"]->set_prop("lang_site_id", $prop["value"]);
-				return PROP_IGNORE;
+				$retval = class_base::PROP_IGNORE;
 				break;
 
 			case "texts":
@@ -241,21 +228,6 @@ class language extends class_base
 				break;
 		}
 		return $retval;
-	}
-
-	function callback_pre_save($arr)
-	{
-		if (!$arr["obj_inst"]->prop("db_lang_id"))
-		{
-			$id = $this->db_fetch_field("SELECT max(id) as id FROM languages", "id")+1;
-			$arr["obj_inst"]->set_prop("db_lang_id", $id);
-		}
-		$arr["obj_inst"]->set_name($arr["obj_inst"]->prop("lang_name"));
-	}
-
-	function callback_post_save()
-	{
-		languages::init_cache(true);
 	}
 
 	function _get_langs_tbl($arr)
@@ -286,18 +258,6 @@ class language extends class_base
 				))
 			));
 		}
-	}
-
-	function on_site_init($dbi, &$site, &$ini_opts, &$log, &$osi_vars)
-	{
-		echo "convert langs to new ! <br>\n";
-		flush();
-
-		$conv = new converters();
-		$conv->dc = $dbi->dc;
-		$conv->lang_new_convert(array(
-			"parent" => $osi_vars["langs"]
-		));
 	}
 
 	function _init_texts_table($t)
@@ -455,6 +415,11 @@ class language extends class_base
 			)
 			{
 				$this->db_add_col($t, array("name" => $f, "type" => "int"));
+				$r = true;
+			}
+			elseif ("lang_code" === $f)
+			{
+				$this->db_add_col("languages", array("name" => "lang_code", "type" => "char(3)"));
 				$r = true;
 			}
 		}

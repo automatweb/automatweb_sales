@@ -578,14 +578,7 @@ class aw_object_search_if extends class_base
 				$this->u_oids[] = $id;
 			}
 
-			try
-			{
-				$lang = languages::get_langid($d["lang"]);
-			}
-			catch (Exception $e)
-			{
-				$lang = "-";
-			}
+			$lang = languages::get_code_for_id($d["lang"]);
 
 			$t->define_data(array(
 				"oid" => $id,

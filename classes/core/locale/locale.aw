@@ -18,6 +18,8 @@ class aw_locale
 	const TIME_SHORT_WORDS = 2; // 20t 6min 8sek
 	const TIME_LONG_WORDS = 3; // 10 hours 15 minutes and 23 seconds
 
+	const BYTES_SHORT = 2;
+	const BYTES_LONG = 4;
 
 	const DATE_DEFAULT_FORMAT = "[\E] m.d Y H:i";
 
@@ -35,6 +37,31 @@ class aw_locale
 
 	private static $default_locale = "en";
 	private static $current_locale = false;
+
+	private static $byte_binary_units_short = array(
+		"B",
+		"KiB",
+		"MiB",
+		"GiB",
+		"TiB",
+		"PiB",
+		"EiB",
+		"ZiB",
+		"YiB"
+	);
+
+	private static $byte_decimal_units_short = array(
+		"B",
+		"kB",
+		"MB",
+		"GB",
+		"TB",
+		"PB",
+		"EB",
+		"ZB",
+		"YB"
+	);
+
 
 	/** returns the name of the weekday in the current language
 		@attrib api=1 params=pos
@@ -85,10 +112,10 @@ class aw_locale
 	/** returns a localized date in the current language
 		@attrib api=1 params=pos
 
-		@param timestamp optional type=int
+		@param timestamp type=int default=NULL
 			The unix timestamp to return the date for. If NULL current time is used.
 
-		@param format required type=int
+		@param format type=int default=aw_locale::DATE_SHORT_FULLYEAR
 			One of the defined date formats
 
 		@comment
@@ -104,7 +131,7 @@ class aw_locale
 
 		@returns string
 	**/
-	public static function get_lc_date($timestamp, $format)
+	public static function get_lc_date($timestamp = null, $format = self::DATE_SHORT_FULLYEAR)
 	{
 		if (empty($timestamp)) //!!! teha et saaks siin olla NULL === $timestamp
 		{
@@ -230,13 +257,13 @@ class aw_locale
 	/** returns the given amount of money as text with the currency name n the right place
 		@attrib api=1 params=pos
 
-		@param number required type=double
+		@param number type=double
 			The sum to stringify
 
-		@param currency required type=object
+		@param currency type=CL_CURRENCY
 			The currency object to use for the sum.
 
-		@param lc optional type=string
+		@param lc type=string default=NULL
 			The locale code, defaults to the current one
 
 		@comment
@@ -261,7 +288,10 @@ class aw_locale
 	/** returns genitive case of a proper name
 		@attrib api=1 params=pos
 
-		@param name required type=string
+		@param name type=string
+
+		@param lc type=string default=NULL
+			The locale code, defaults to the current one
 
 		@param lc optional type=string
 			The locale code, defaults to the current one
@@ -291,6 +321,111 @@ class aw_locale
 	public static function is_valid_lc_code($code)
 	{
 		return isset(self::$lc_data[(string) $code]);
+	}
+
+	/** Converts number of bytes to human readable string size info
+		@attrib api=1 params=pos
+		@param bytes type=int
+		@param format type=int default=aw_locale::BYTES_SHORT
+		@param precision type=int default=2
+		@param binary type=bool default=TRUE
+			Binary or decimal
+		@param lc optional type=string default=null
+			The locale code, defaults to the current one
+		@comment
+		@returns string
+		@errors
+	**/
+	public static function bytes2string ($bytes, $format = self::BYTES_SHORT, $precision = 2, $binary = true, $lc = null)
+	{
+		settype($bytes, "int");
+
+		if (!$lc or !self::is_valid_lc_code($lc))
+		{
+			$lc = self::get_lc();
+		}
+
+		$units = $binary ? self::$byte_binary_units_short : self::$byte_decimal_units_short;
+		$count = count($units) - 2;
+
+		for ($i = 0; $bytes >= 1024 && $i < $count; $i++)
+		{
+			$bytes /= 1024;
+		}
+
+		$str = round($bytes, (int) $precision) . " " . $units[$i];
+		return $str;
+	}
+
+	/** Returns value with unit name in correct grammatical case
+		@attrib api=1 params=pos
+		@param value type=string
+			Numeric string. Float values can have dot or comma for radix point. Common fractions in from n/m
+		@param unit_spec type=string
+			AW unit usage specification format string
+			Specification items are separated by semicolon. * means any value, other specs are treated as exceptions.
+			Trailing and preceding white space is ignored. Float values can be specified (dot as radix point).
+			Common fractions can be represented by separating numerator and denominator with / character
+			Value part may potentially be any string containing no white space but since replacement is made by direct
+			comparison then result may be unexpected
+			An example for euro currency: "* euros; 1 euro"
+		@returns string
+			Return value correctness depends on unit specification validity
+		@errors none
+	**/
+	public static function get_unit_string($value, $unit_spec)
+	{
+		// standardize radix point and remove white space
+		$value_parsed = str_replace(array(",", " ", "\t"), array(".", "", ""), $value);
+
+		// separate fraction/float value parts
+		$value_part1 = (int) strtok($value_parsed, "./");
+		$value_part2 = strtok("./");
+
+		if (false === $value_part2 or "" === $value_part2)
+		{ // integer
+			// look for exact cases in spec
+			$pattern = "#[;]?([^;]*)([\./])?{$value_parsed}([^;]*)[;]?#";
+			preg_match($pattern, $unit_spec, $unit_name);
+
+			if (isset($unit_name[1]) and !in_array(substr($unit_name[1], -1), array(".", "/")))
+			{
+				$unit_name_prepend = empty($unit_name[1]) ? "" : $unit_name[1];
+				$unit_name_append = empty($unit_name[3]) ? "" : $unit_name[3];
+			}
+		}
+		else
+		{ // non integer value.
+			// look for exact cases in spec
+			$pattern = "#[;]?([^;]*){$value_parsed}([^;]*)[;]?#";
+			preg_match($pattern, $unit_spec, $unit_name);
+
+			$unit_name_prepend = empty($unit_name[1]) ? "" : $unit_name[1];
+			$unit_name_append = empty($unit_name[2]) ? "" : $unit_name[2];
+
+			if (empty($unit_name_prepend) and empty($unit_name_append))
+			{
+				// look for specific wildcard definitions
+				settype($value_part2, "int");
+				$separator = false === strpos($value_parsed, ".") ? "\/" : "\.";
+				$pattern = "#[;]?([^;]*)(({$value_part1}{$separator}\*)|(\*{$separator}{$value_part2})|(\*{$separator}\*))([^;]*)[;]?#";
+				preg_match($pattern, $unit_spec, $unit_name);
+
+				$unit_name_prepend = empty($unit_name[1]) ? "" : $unit_name[1];
+				$unit_name_append = empty($unit_name[6]) ? "" : $unit_name[6];
+			}
+		}
+
+		if (empty($unit_name_prepend) and empty($unit_name_append))
+		{ // look for most general wildcard: *
+			$pattern = "#[;]?([^;]*)\*([^;]*)[;]?#";
+			preg_match($pattern, $unit_spec, $unit_name);
+
+			$unit_name_prepend = empty($unit_name[1]) ? "" : $unit_name[1];
+			$unit_name_append = empty($unit_name[2]) ? "" : $unit_name[2];
+		}
+
+		return trim($unit_name_prepend . $value . $unit_name_append);
 	}
 
 	private static function get_lc()

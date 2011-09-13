@@ -36,22 +36,24 @@
             <caption>Peenraha&amp;amp;uuml;hiku nimetus</caption>
       </property>
       <property>
-            <name>unit_name_after_sum</name>
+            <name>unit_name_morphology_spec</name>
             <group>general</group>
             <type>textbox</type>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Raha&amp;amp;uuml;hiku nimetus summa j&amp;amp;auml;rel</caption>
+            <comment>Reeglid &amp;amp;uuml;hiku nime kasutamiseks koos summa numbriga. N&amp;amp;auml;ide: 1 euro; * eurot</comment>
+            <caption>Raha&amp;amp;uuml;hiku morfoloogia</caption>
       </property>
       <property>
-            <name>small_unit_name_after_sum</name>
+            <name>small_unit_morphology_spec</name>
             <group>general</group>
             <type>textbox</type>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Peenraha&amp;amp;uuml;hiku nimetus summa j&amp;amp;auml;rel</caption>
+            <comment>Reeglid &amp;amp;uuml;hiku nime kasutamiseks koos summa numbriga. N&amp;amp;auml;ide: 1 sent; * senti</comment>
+            <caption>Peenraha&amp;amp;uuml;hiku morfoloogia</caption>
       </property>
       <property>
             <name>symbol</name>
@@ -72,12 +74,13 @@
             <caption>Kaustad kust otsida</caption>
       </property>
       <property>
-            <name>translate</name>
-            <group>translate</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
+            <name>transl</name>
+            <group>transl</group>
+            <type>callback</type>
+            <callback>callback_get_transl</callback>
             <store>no</store>
-            <field>translate</field>
+            <field>transl</field>
+            <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
             <no_status>1</no_status>
@@ -86,9 +89,9 @@
             <rates>
                   <caption>Kursid</caption>
             </rates>
-            <translate>
-                  <caption>T&amp;amp;otilde;lge</caption>
-            </translate>
+            <transl>
+                  <caption>T&amp;amp;otilde;lgi</caption>
+            </transl>
       </groupinfo>
 </properties>
 
