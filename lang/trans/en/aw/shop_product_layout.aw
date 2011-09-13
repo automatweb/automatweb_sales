@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Template (template) caption"] = "Template";
+$GLOBALS["TRANS"][5147]["Omaduse Template (template) caption"] = "Template";
 ?>

@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Syslogi arhiivi staatus"] = "Syslog archive status";
+$GLOBALS["TRANS"][5147]["Syslogi arhiivi staatus"] = "Syslog archive status";
 ?>

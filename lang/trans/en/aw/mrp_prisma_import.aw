@@ -1,5 +1,5 @@
 <?php
-$GLOBALS["TRANS"]["all done"] = "all done";
-$GLOBALS["TRANS"]["Jah"] = "Yes";
-$GLOBALS["TRANS"]["Ei"] = "No";
+$GLOBALS["TRANS"][5147]["all done"] = "all done";
+$GLOBALS["TRANS"][5147]["Jah"] = "Yes";
+$GLOBALS["TRANS"][5147]["Ei"] = "No";
 ?>

@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Lisas keele"] = "Added language";
+$GLOBALS["TRANS"][5147]["Lisas keele"] = "Added language";
 ?>

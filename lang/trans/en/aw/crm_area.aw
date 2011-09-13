@@ -1,4 +1,4 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Riik (country) caption"] = "Country";
-$GLOBALS["TRANS"]["Seose Riik (RELTYPE_COUNTRY) tekst"] = "Country";
+$GLOBALS["TRANS"][5147]["Omaduse Riik (country) caption"] = "Country";
+$GLOBALS["TRANS"][5147]["Seose Riik (RELTYPE_COUNTRY) tekst"] = "Country";
 ?>

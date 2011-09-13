@@ -1,4 +1,4 @@
 <?php
-$GLOBALS["TRANS"]["I'm so depessed"] = "I'm so depessed";
-$GLOBALS["TRANS"]["Seostehaldur"] = "Connection manager";
+$GLOBALS["TRANS"][5147]["I'm so depessed"] = "I'm so depessed";
+$GLOBALS["TRANS"][5147]["Seostehaldur"] = "Connection manager";
 ?>

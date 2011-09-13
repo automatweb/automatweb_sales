@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["\n\nnumber of untranslated strings: %s\nnumber of strings: %s\n\n"] = "\n\nnumber of untranslated strings: %s\nnumber of strings: %s\n\n";
+$GLOBALS["TRANS"][5147]["\n\nnumber of untranslated strings: %s\nnumber of strings: %s\n\n"] = "\n\nnumber of untranslated strings: %s\nnumber of strings: %s\n\n";
 ?>

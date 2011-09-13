@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Couldn't open file '%s' for writing"] = "Couldn't open file '%s' for writing";
+$GLOBALS["TRANS"][5147]["Couldn't open file '%s' for writing"] = "Couldn't open file '%s' for writing";
 ?>

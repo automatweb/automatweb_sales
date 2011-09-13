@@ -1,14 +1,14 @@
 <?php
-$GLOBALS["TRANS"]["Jaanuar"] = "January";
-$GLOBALS["TRANS"]["Veebruar"] = "February";
-$GLOBALS["TRANS"]["M&auml;rts"] = "March";
-$GLOBALS["TRANS"]["Aprill"] = "April";
-$GLOBALS["TRANS"]["Mai"] = "May";
-$GLOBALS["TRANS"]["Juuni"] = "June";
-$GLOBALS["TRANS"]["Juuli"] = "July";
-$GLOBALS["TRANS"]["August"] = "August";
-$GLOBALS["TRANS"]["September"] = "September";
-$GLOBALS["TRANS"]["Oktoober"] = "October";
-$GLOBALS["TRANS"]["November"] = "November";
-$GLOBALS["TRANS"]["Detsember"] = "December";
+$GLOBALS["TRANS"][5147]["Jaanuar"] = "January";
+$GLOBALS["TRANS"][5147]["Veebruar"] = "February";
+$GLOBALS["TRANS"][5147]["M&auml;rts"] = "March";
+$GLOBALS["TRANS"][5147]["Aprill"] = "April";
+$GLOBALS["TRANS"][5147]["Mai"] = "May";
+$GLOBALS["TRANS"][5147]["Juuni"] = "June";
+$GLOBALS["TRANS"][5147]["Juuli"] = "July";
+$GLOBALS["TRANS"][5147]["August"] = "August";
+$GLOBALS["TRANS"][5147]["September"] = "September";
+$GLOBALS["TRANS"][5147]["Oktoober"] = "October";
+$GLOBALS["TRANS"][5147]["November"] = "November";
+$GLOBALS["TRANS"][5147]["Detsember"] = "December";
 ?>

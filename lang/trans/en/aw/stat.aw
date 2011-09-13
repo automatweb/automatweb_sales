@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Top %s logijat"] = "Top %s loggers";
+$GLOBALS["TRANS"][5147]["Top %s logijat"] = "Top %s loggers";
 ?>

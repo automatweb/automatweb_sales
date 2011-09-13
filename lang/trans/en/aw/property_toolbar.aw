@@ -1,4 +1,4 @@
 <?php
-$GLOBALS["TRANS"]["Grupi Nupud (buttons) pealkiri"] = "Buttons";
-$GLOBALS["TRANS"]["Seose nupp (RELTYPE_BUTTON) tekst"] = "button";
+$GLOBALS["TRANS"][5147]["Grupi Nupud (buttons) pealkiri"] = "Buttons";
+$GLOBALS["TRANS"][5147]["Seose nupp (RELTYPE_BUTTON) tekst"] = "button";
 ?>

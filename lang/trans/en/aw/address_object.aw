@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Postkast"] = "P.O Box";
+$GLOBALS["TRANS"][5147]["Postkast"] = "P.O Box";
 ?>

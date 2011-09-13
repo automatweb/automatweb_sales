@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Prioriteet (pri) caption"] = "Priority";
+$GLOBALS["TRANS"][5147]["Omaduse Prioriteet (pri) caption"] = "Priority";
 ?>
