@@ -688,7 +688,7 @@ class development_order extends class_base
 			"class_id" => CL_BUG,
 			"parent" => $arr["obj_inst"]->id()
 		));
-		classload("core/icons");
+		
 		$u = get_instance(CL_USER);
 		$us = get_instance("users");
 		$bug_i = get_instance(CL_BUG);
@@ -933,7 +933,7 @@ class development_order extends class_base
 	{
 		$o = obj($arr["id"]);
 		$ol = new object_list($o->connections_from(array("type" => "RELTYPE_REQ")));
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 		$t->table_from_ol($ol, array("name", "created", "pri", "req_co", "req_p", "project", "process", "planned_time", "desc", "state", "budget"), CL_PROCUREMENT_REQUIREMENT);
 		header('Content-type: application/octet-stream');

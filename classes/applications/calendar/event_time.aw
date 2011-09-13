@@ -197,7 +197,7 @@ class event_time extends class_base
 			"caption" => t("Otsi")
 		));
 
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));

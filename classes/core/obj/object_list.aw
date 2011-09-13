@@ -173,11 +173,11 @@ class object_list extends _int_obj_container_base
 	/** adds the specified object to the current list
 		@attrib api=1
 
-		@param param required type=oid
+		@param param required type=oid|array[oid]
 			the object(s) to add to the list. type: integer (object id), string (object alias), object class instance, object list instance
 
 		@errors
-			- acl error is raised if the user has no view access to the object specified
+			throws awex_obj_acl if the user has no view access to an object specified
 
 		@returns
 			the number of object in the list after addition

@@ -502,7 +502,7 @@ EOT;
 
 	private function get_cont_locs($cont, $t, $parent, $arr)
 	{
-		classload("core/icons");
+		
 		// get document under promo and list all connections from that to bannerplaces
 		$ol = new object_list(array("class_id" => CL_DOCUMENT, "parent" => $cont->id()));
 		$doc = $ol->begin();
@@ -536,7 +536,7 @@ EOT;
 	**/
 	function mgr_tree_func($arr)
 	{
-		classload("core/icons");
+		
 		$t = get_instance("vcl/treeview");
 		$t->start_tree(array(
 			"type" => TREE_DHTML,
@@ -584,7 +584,7 @@ EOT;
 	function _get_mgr_tree($arr)
 	{
 		$t =& $arr["prop"]["vcl_inst"];
-		classload("core/icons");
+		
 		$t->set_root_name(t("K&otilde;ik asukohad"));
 		$t->set_root_url(aw_url_change_var(array("tf" => null, "container" => null)));
 		$t->set_root_icon(icons::get_icon_url(CL_MENU));

@@ -82,5 +82,3 @@ class awlc_cases_et implements awlc_cases
 		return $genitive;
 	}
 }
-
-?>

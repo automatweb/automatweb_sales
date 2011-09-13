@@ -66,7 +66,7 @@ class bt_req_impl extends core
 	
 	function _get_reqs_tree($arr)
 	{
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 

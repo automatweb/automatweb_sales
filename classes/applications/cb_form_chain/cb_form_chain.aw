@@ -1332,7 +1332,7 @@ class cb_form_chain extends class_base
 			return $this->_display_data_table_tpl($o, $fd);
 		}
 		// make table via component
-		classload("vcl/table");
+		
 		$t = new aw_table(array("layout" => "generic"));
 
 		$wf = get_instance(CL_WEBFORM);

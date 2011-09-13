@@ -92,7 +92,7 @@ class keyword_selector extends class_base
 
 	function _draw_alphabet($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new aw_table();
 		$n = isset($arr["prop"]["keyword_per_row"]) && (int) $arr["prop"]["keyword_per_row"] > 0 ? (int) $arr["prop"]["keyword_per_row"] : 3;
 		$this->_init_kw_t($t, $n);

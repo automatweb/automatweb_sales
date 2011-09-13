@@ -390,7 +390,7 @@ class watercraft_add extends class_base
 				if($name == "sail_table")
 				{
 					$inst = get_instance(CL_WATERCRAFT);
-					classload("vcl/table");
+					
 					$prop["vcl_inst"] = new aw_table();
 					$inst->_get_sail_table(array(
 						"obj_inst" => $watercraft_obj,

@@ -1189,7 +1189,7 @@ class workflow extends class_base
 			"class_id" => array(CL_MENU, $arr["class_id"])
 		));
 
-		classload("vcl/treeview");
+		
 		$tv = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML,

@@ -11,7 +11,7 @@ class crm_company_objects_impl extends class_base
 
 	function _get_objects_listing_tree($arr)
 	{
-		classload("core/icons");
+		
 		$tree = &$arr["prop"]["vcl_inst"];
 		$ot = new object_tree(array(
     		"parent" => $arr["obj_inst"]->id(),
@@ -213,8 +213,8 @@ class crm_company_objects_impl extends class_base
 
 	function _get_stypes_tree($arr)
 	{
-		classload("vcl/treeview");
-		classload("core/icons");
+		
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 

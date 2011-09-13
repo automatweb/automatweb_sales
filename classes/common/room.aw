@@ -351,7 +351,7 @@ class room extends class_base
 			"tpldir" => "common/room",
 			"clid" => CL_ROOM
 		));
-		classload("core/icons");
+		
 
 		$this->unit_step = array(
 			1 => t("minutit"),
@@ -1380,7 +1380,7 @@ class room extends class_base
 	function admin_add_bron_popup_table($arr)
 	{
 		extract($arr);
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));
@@ -3668,7 +3668,7 @@ class room extends class_base
 
 	function _products_tbl(&$arr)
 	{
-		classload("core/icons");
+		
 		$tb =& $arr["prop"]["vcl_inst"];
 		$this->_init_prod_list_list_tbl($tb,$arr["obj_inst"]);
 
@@ -3686,7 +3686,7 @@ class room extends class_base
 			));
 		}
 
-		classload("core/icons");
+		
 
 		//$ol = $ot->to_list();
 		$ol = $ot->arr();
@@ -3895,7 +3895,7 @@ class room extends class_base
 			"sort_by" => "objects.jrk"
 		));
 
-		classload("vcl/treeview");
+		
 		$tv = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML,
@@ -6128,7 +6128,7 @@ class room extends class_base
 		$prices[] = "";
 		$n = 1;
 		$rows = array();
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));
@@ -6662,7 +6662,7 @@ class room extends class_base
 			);
 		}
 		$working_days = $arr["obj_inst"]->meta("working_days");
-		classload("vcl/table");
+		
 		if($arr["month"])
 		{
 			$time = mktime(0,0,0,(date("m" , time()) +$arr["month"]) ,date("j" , time()), date("Y" , time()));
@@ -6808,7 +6808,7 @@ class room extends class_base
 	function get_people_table($arr)
 	{
 		$working_days = $arr["obj_inst"]->meta("working_days");
-		classload("vcl/table");
+		
 		if($arr["month"])
 		{
 			$time = mktime(0,0,0,(date("m" , time()) +$arr["month"]) ,date("j" , time()), date("Y" , time()));

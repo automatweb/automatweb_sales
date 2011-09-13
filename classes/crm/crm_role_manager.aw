@@ -85,7 +85,7 @@ class crm_role_manager extends class_base
 
 	function _get_table($org, $r)
 	{
-		classload("vcl/table");
+		
 		$t = new aw_table();
 
 		$filt = array(
@@ -352,7 +352,7 @@ class crm_role_manager extends class_base
 
 	function _get_list($r)
 	{
-		classload("vcl/table");
+		
 		$t = new aw_table();
 		$this->_init_list_t($t);
 

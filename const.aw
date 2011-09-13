@@ -64,20 +64,20 @@ if (strlen($QUERY_STRING) > 1)
 
 $pi = trim($pi);
 
-if (substr($pi, 0, strlen("/class=image")) == "/class=image")
+if (substr($pi, 0, 12) === "/class=image")
 {
 	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
 	parse_str($pi, $_GET);
 	extract($_GET);
 }
 
-if (substr($pi, 0, strlen("/class=file")) == "/class=file")
+if (substr($pi, 0, 11) === "/class=file")
 {
 	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
 	parse_str($pi, $_GET);
 	extract($_GET);
 }
-elseif (substr($pi, 0, strlen("/class=flv_file")) == "/class=flv_file")
+elseif (substr($pi, 0, 15) === "/class=flv_file")
 {
 	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
 	parse_str($pi, $_GET);
@@ -468,7 +468,7 @@ function classload($args)
 			}
 
 			// try to handle it with class_index and autoload
-			__autoload(basename($olib));
+			class_index::load_class(basename($olib));
 		}
 	}
 }
@@ -553,7 +553,7 @@ function get_instance($class, $args = array(), $errors = true)
 
 	if (!file_exists($classdir.$replaced.AW_FILE_EXT))
 	{
-		__autoload(basename($class));
+		class_index::load_class(basename($class));
 	}
 
 	if(function_exists("get_class_version"))

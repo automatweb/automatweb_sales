@@ -7,4 +7,3 @@ class obj_predicate_regex
 		$this->data = $data;
 	}
 }
-?>

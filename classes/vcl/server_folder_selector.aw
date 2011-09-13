@@ -81,7 +81,7 @@ class server_folder_selector extends core
 	**/
 	function select_folder($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 
 		$this->_init_t($t);

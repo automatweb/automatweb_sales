@@ -158,7 +158,7 @@ class mail_notify extends core
 
 	function _get_mail_notify_table($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 		$search_data = $arr["obj_inst"] -> meta("not_mail_ppl_search");
 
@@ -253,7 +253,7 @@ class mail_notify extends core
 
 	function _sp_s_res($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 		$this->_init_p_tbl($t);
 		$t->set_caption(t("Otsingu tulemused"));
@@ -326,7 +326,7 @@ class mail_notify extends core
 
 	function _sp_table($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 		$this->_init_p_tbl($t);
 		foreach($this->get_people_list($arr["obj_inst"]) as $p_id => $p_nm)

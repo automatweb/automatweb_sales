@@ -114,7 +114,7 @@ class site_show extends aw_template
 		// figure out the menu that is active
 		$this->sel_section = $this->_get_sel_section(aw_global_get("section"));
 		$this->sel_section_real = $this->sel_section;
-		$this->sel_section_obj = obj($this->sel_section);
+		$this->sel_section_obj = $this->sel_section ? new object($this->sel_section) : obj(null, array(), CL_MENU);
 
 		$this->site_title = $this->sel_section_obj->trans_get_val("name");
 

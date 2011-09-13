@@ -740,7 +740,7 @@ class scheduler extends aw_template
 		// nii, nyyd ma pean kuidagi html-i tegema? how?
 		$htmlc = get_instance("cfg/htmlclient");
 
-		classload("vcl/table");
+
 		$t = new vcl_table();
 
 		$t->define_field(array(

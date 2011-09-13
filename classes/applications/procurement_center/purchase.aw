@@ -329,7 +329,7 @@ class purchase extends class_base
 
 		$ol = new object_list($arr["obj_inst"]->connections_from(array()));
 		
-		classload("core/icons");
+		
 		$clss = aw_ini_get("classes");
 		get_instance(CL_FILE);
 		foreach($ol->arr() as $o)
@@ -796,7 +796,7 @@ class purchase extends class_base
 			}
 		}
 
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));

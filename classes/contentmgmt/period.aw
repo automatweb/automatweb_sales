@@ -285,7 +285,8 @@ class period extends class_base implements request_startup
 		if (!$oid)
 		{
 			$oid = $this->oid;
-		};
+		}
+
 		// ok, here we have problem - $ap could very well be empty and then we will think
 		// that it is not in the cache.
 		// so, to fix that we rewrite 0 to -1 :)
@@ -376,7 +377,7 @@ class period extends class_base implements request_startup
 		return $pr;
 	}
 
-	function request_startup()
+	public function request_startup()
 	{
 		// check if a period number was specified in the url
 		$period = aw_global_get("period");

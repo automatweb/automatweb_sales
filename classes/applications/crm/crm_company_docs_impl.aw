@@ -364,7 +364,7 @@ class crm_company_docs_impl extends class_base
 	**/
 	function get_tree_stuff($arr)
 	{
-		classload("core/icons");
+		
 		$seti = get_instance(CL_CRM_SETTINGS);
 		$sts = $seti->get_current_settings();
 
@@ -463,7 +463,7 @@ class crm_company_docs_impl extends class_base
 
 		array_unshift($open_path, $fld_id); // top parent item
 
-		classload("core/icons");
+		
 		$file_inst = get_instance(CL_FILE);
 		$gbf = $this->mk_my_orb("get_tree_stuff",array(
 			"set_retu" => aw_url_change_var(),
@@ -756,7 +756,7 @@ class crm_company_docs_impl extends class_base
 			$cur_level_folders = $this->_get_level_folders_from_fld($fld, $sel, true);
 		}
 
-		classload("core/icons");
+		
 		$clss = aw_ini_get("classes");
 		get_instance(CL_FILE);
 

@@ -153,7 +153,7 @@ $sf->vars(array(
 	"prod_family_href" => $pf_url,
 	"cur_p_name" => $p->prop_xml("name", $output_charset),
 	"cur_p_url" => html::get_change_url($p->id(), array('return_url' => get_ru())),
-	"cur_co_url" => html::get_change_url($co->id(), array('return_url' => get_ru())),
+	"cur_co_url" => $co->is_saved() ? html::get_change_url($co->id(), array('return_url' => get_ru())) : "",
 	"cur_co_url_view" => $sf->mk_my_orb("view", array("id" => $co->id(), 'return_url' => get_ru()), CL_CRM_COMPANY),
 	"cur_co_name" => $co->prop_xml("name", $output_charset),
 	"cur_class" => $cur_class,

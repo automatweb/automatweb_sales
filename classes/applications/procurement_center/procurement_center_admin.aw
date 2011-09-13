@@ -166,7 +166,7 @@ class procurement_center_admin extends class_base
 
 	function _ord_tree($arr)
 	{
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 
@@ -317,7 +317,7 @@ class procurement_center_admin extends class_base
 
 	function _impl_tree($arr)
 	{
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 
