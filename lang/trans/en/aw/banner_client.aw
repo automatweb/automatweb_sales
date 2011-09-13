@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Asukoha HTML (html) caption"] = "Location HTML";
+$GLOBALS["TRANS"][5147]["Omaduse Asukoha HTML (html) caption"] = "Location HTML";
 ?>

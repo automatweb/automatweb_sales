@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Peida"] = "Hide";
+$GLOBALS["TRANS"][5147]["Peida"] = "Hide";
 ?>

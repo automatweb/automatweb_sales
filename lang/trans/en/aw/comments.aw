@@ -1,5 +1,5 @@
 <?php
-$GLOBALS["TRANS"]["Lisa kommentaar"] = "Add comment";
-$GLOBALS["TRANS"]["Kasutaja"] = "User";
-$GLOBALS["TRANS"]["Kommentaar"] = "Comment";
+$GLOBALS["TRANS"][5147]["Lisa kommentaar"] = "Add comment";
+$GLOBALS["TRANS"][5147]["Kasutaja"] = "User";
+$GLOBALS["TRANS"][5147]["Kommentaar"] = "Comment";
 ?>

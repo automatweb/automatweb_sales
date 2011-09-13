@@ -1,7 +1,7 @@
 <?php
-$GLOBALS["TRANS"]["Nimi"] = "Name";
-$GLOBALS["TRANS"]["Telefon"] = "Phone";
-$GLOBALS["TRANS"]["E-post"] = "E-mail";
-$GLOBALS["TRANS"]["Ametinimetus"] = "Profession";
-$GLOBALS["TRANS"]["osalejad.xls"] = "participants.xls";
+$GLOBALS["TRANS"][5147]["Nimi"] = "Name";
+$GLOBALS["TRANS"][5147]["Telefon"] = "Phone";
+$GLOBALS["TRANS"][5147]["E-post"] = "E-mail";
+$GLOBALS["TRANS"][5147]["Ametinimetus"] = "Profession";
+$GLOBALS["TRANS"][5147]["osalejad.xls"] = "participants.xls";
 ?>

@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Vaikimisi: "] = "By default: ";
+$GLOBALS["TRANS"][5147]["Vaikimisi: "] = "By default: ";
 ?>

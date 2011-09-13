@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Valem (formula) caption"] = "Expression";
+$GLOBALS["TRANS"][5147]["Omaduse Valem (formula) caption"] = "Expression";
 ?>

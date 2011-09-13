@@ -1,5 +1,5 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Saab teha mitu valikut (multiple) caption"] = "Multiple";
-$GLOBALS["TRANS"]["Omaduse Pikkus (kui on mitu valikut) (size) caption"] = "Length";
-$GLOBALS["TRANS"]["Omaduse Valikud (options) caption"] = "Options";
+$GLOBALS["TRANS"][5147]["Omaduse Saab teha mitu valikut (multiple) caption"] = "Multiple";
+$GLOBALS["TRANS"][5147]["Omaduse Pikkus (kui on mitu valikut) (size) caption"] = "Length";
+$GLOBALS["TRANS"][5147]["Omaduse Valikud (options) caption"] = "Options";
 ?>

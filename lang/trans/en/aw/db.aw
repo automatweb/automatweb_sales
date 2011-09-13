@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["this driver is not supported"] = "this driver is not supported";
+$GLOBALS["TRANS"][5147]["this driver is not supported"] = "this driver is not supported";
 ?>

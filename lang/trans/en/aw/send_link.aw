@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Saada link nähtav"] = "Send link visible";
+$GLOBALS["TRANS"][5147]["Saada link nähtav"] = "Send link visible";
 ?>

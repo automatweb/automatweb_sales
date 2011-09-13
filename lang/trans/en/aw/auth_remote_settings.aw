@@ -1,11 +1,11 @@
 <?php
-$GLOBALS["TRANS"]["Grupi Vali saidid (sel_sites) pealkiri"] = "Select sites";
-$GLOBALS["TRANS"]["Grupi Vali kasutajad (sel_users) pealkiri"] = "Select users";
-$GLOBALS["TRANS"]["Grupi Aktiivsus (activity) pealkiri"] = "Activity";
-$GLOBALS["TRANS"]["Seose kasutaja (RELTYPE_USER) tekst"] = "user";
-$GLOBALS["TRANS"]["ID"] = "ID";
-$GLOBALS["TRANS"]["Aadress"] = "Address";
-$GLOBALS["TRANS"]["Lubatud automaatne ligip&auml;&auml;s"] = "Automatic access allowed";
-$GLOBALS["TRANS"]["Sait"] = "Site";
-$GLOBALS["TRANS"]["Kasutaja, kellena teise saidi kasutajad ligi saavad"] = "User that the other users will gain access as";
+$GLOBALS["TRANS"][5147]["Grupi Vali saidid (sel_sites) pealkiri"] = "Select sites";
+$GLOBALS["TRANS"][5147]["Grupi Vali kasutajad (sel_users) pealkiri"] = "Select users";
+$GLOBALS["TRANS"][5147]["Grupi Aktiivsus (activity) pealkiri"] = "Activity";
+$GLOBALS["TRANS"][5147]["Seose kasutaja (RELTYPE_USER) tekst"] = "user";
+$GLOBALS["TRANS"][5147]["ID"] = "ID";
+$GLOBALS["TRANS"][5147]["Aadress"] = "Address";
+$GLOBALS["TRANS"][5147]["Lubatud automaatne ligip&auml;&auml;s"] = "Automatic access allowed";
+$GLOBALS["TRANS"][5147]["Sait"] = "Site";
+$GLOBALS["TRANS"][5147]["Kasutaja, kellena teise saidi kasutajad ligi saavad"] = "User that the other users will gain access as";
 ?>

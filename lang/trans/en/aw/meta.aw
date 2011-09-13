@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Jrk. (ord) caption"] = "Ord";
+$GLOBALS["TRANS"][5147]["Omaduse Jrk. (ord) caption"] = "Ord";
 ?>
