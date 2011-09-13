@@ -4,63 +4,13 @@ class crm_bill_payment_obj extends _int_object
 {
 	const CLID = 1383;
 
-	function set_prop($name,$value)
+	public function awobj_set_currency_rate($value)
 	{
-/*		if($name == "sum")
+		if(!$value && $this->prop("currency"))
 		{
-			parent::set_prop($name,$value);
-			if(!$this->id())
-			{
-				$this->save();//kui id'd pole , siis l2heb lolliks
-			}
-			$ol = new object_list(array(
-				"class_id" => CL_CRM_BILL,
-				"lang_id" => array(),
-				"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id(),
-			));
-			$bi = get_instance(CL_CRM_BILL);
-			foreach($ol -> arr() as $o)
-			{
-				$bill_sum = $bi->get_bill_sum($o);
-				$sum = 0;
-				foreach($o->connections_from(array("type" => "RELTYPE_PAYMENT")) as $conn)
-				{
-					$p = $conn->to();
-					$sum = $sum + $p->get_free_sum($o);
-				}
-				if($bill_sum < $sum)
-				{
-					$sum = $bill_sum;
-				}
-				$o->set_prop("partial_recieved", $sum);
-				$o->save();
-			}
-			return;
+			$ci = get_instance(CL_CURRENCY);
+			$value = $ci->convert(array("sum" => 1, "from" => $this->prop("currency"), "date" => $this->prop("date") ? $this->prop("date") : time()));
 		}
-*/
-		if($name === "currency_rate")
-		{
-			if(!$value && $this->prop("currency"))
-			{
-				$ci = get_instance(CL_CURRENCY);
-				$value = $ci->convert(array("sum" => 1, "from" => $this->prop("currency"), "date" => $this->prop("date") ? $this->prop("date") : time()));
-			}
-		}
-	//	if($name == "currency")
-	//	{
-	//		$ol = new object_list(array(
-	//			"class_id" => CL_CRM_BILL,
-	//			"lang_id" => array(),
-	//			"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id(),
-	//		));
-	//		$o = reset($ol->arr());
-	//		$bi = get_instance(CL_CRM_BILL);
-	//		if(is_object($o) && $bi->get_bill_currency_id($o) != $value)
-	//		{
-	//			return;
-	//		}
-	//	}
-		parent::set_prop($name,$value);
 	}
 
 	/**
@@ -76,8 +26,7 @@ class crm_bill_payment_obj extends _int_object
 		$sum = $this->prop("sum");
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id(),
+			"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id()
 		));
 		foreach($ol->arr() as $o)
 		{
@@ -164,7 +113,7 @@ class crm_bill_payment_obj extends _int_object
 	{
 		extract($arr);
 		//kui in id, siis objektiks
-		if(!is_object($o) && object_loader::can("view", $o))
+		if(!is_object($o) && object_loader::can("", $o))
 		{
 			$o = obj($o);
 		}
@@ -248,7 +197,7 @@ class crm_bill_payment_obj extends _int_object
 				return obj($o->get_bill_currency_id());
 			}
 		}
-		return "";
+		return null;
 	}
 
 	function get_currency_id()
@@ -262,7 +211,7 @@ class crm_bill_payment_obj extends _int_object
 		{
 			return $co->id();
 		}
-		return "";
+		return 0;
 	}
 
 	function get_currency_name()

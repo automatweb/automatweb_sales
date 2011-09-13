@@ -1,0 +1,224 @@
+@media all
+{
+	* { margin: 0;  padding: 0; }
+	div.clear { clear: both; }
+
+	body { font-family: Tahoma, Arial, Helvetica, sans-serif; text-align: center; padding-top: 1.6em; }
+
+	h1 { font-size: 1em; color: #05A6E9; padding: 1em 0 0 0; font-weight: bold; }
+	h2 { font-size: 0.9em; color: #666; padding: 0.3em 0 0 0; }
+	.caption { font-weight: bold; color: #666; }
+	.nowrap { white-space: nowrap; }
+
+	div#container
+	{
+		width: 50em; height: 100%; margin: auto; text-align: left;
+	}
+
+	div#header
+	{
+	}
+
+	div#logo
+	{
+		float: left; margin-bottom: 1em; width: 22em; overflow: visible;
+	}
+
+	/* top right contact data */
+	div#contacts
+	{
+		float: right; padding-right: 1em; border-right: 0.1em solid #D50000; color: #666; width: 22em;
+	}
+
+	div#contacts li
+	{
+		padding-right: 0.3em; white-space: nowrap;
+	}
+
+	div#contacts ul
+	{
+		font-size: 0.7em; list-style: none; text-align: right;
+	}
+
+	/* customer info container */
+	div.customerInfo
+	{
+		float: left; width: 49%; padding-top: 1em;
+	}
+
+	div.customerInfo dl
+	{
+		float: left; margin: 1em 0; font-size: 0.8em;
+	}
+
+	div.customerInfo dl dt
+	{
+		clear: left; float: left; width: 10em; padding: 0.25em; font-weight: bold;  white-space: nowrap; text-align: left;
+	}
+
+	div.customerInfo dl dd
+	{
+		float: left; width: 10em; padding: 0.25em; border-top: 0.05em solid #ccc;  white-space: nowrap; text-align: left;
+	}
+
+	div.customerInfo dl dd.first
+	{
+		border-top: none;
+	}
+
+
+	/* content */
+	div#content
+	{
+		 font-size: 0.8em;  text-align: left; padding-top: 2em;
+	}
+
+	div#content p
+	{
+	}
+
+	p#documentComment
+	{
+		margin-bottom: 2em;
+	}
+
+	/* invoice rows table */
+	table#rows
+	{
+		width: 100%;
+	}
+
+	table#rows td,
+	table#rows th
+	{
+		border-bottom: 0.05em solid #ccc; padding: 0.3em; vertical-align: top; text-align: left;
+	}
+
+	table#rows th
+	{
+		border-top: 0.05em solid #ccc;
+	}
+
+	table#rows td.sumcaption
+	{
+		border: none; text-align: right;
+	}
+
+	tbody.rowgroup td
+	{
+		border: none ! important;
+	}
+
+	tbody.rowgroup h3
+	{
+		padding-top: 1em; text-align: center;
+	}
+
+	tbody.rowgroup td p
+	{
+		padding: 1em 0 0.2em 2em;
+	}
+
+	td.descriptionText
+	{
+		width: 33em;
+	}
+
+	/* signatures */
+	div.signatureContainer
+	{
+		width: 100%; margin-top: 6em;
+	}
+
+	div.signer
+	{
+		float: left; width: 40%; text-align: left; font-size: 0.9em; margin-left: 4em;
+	}
+
+	div.signer h4
+	{
+		padding-bottom: 2em;
+	}
+
+	div.signer p
+	{
+		margin-left: 0.5em;
+	}
+
+	p.signature
+	{
+		font-size: 0.9em; height: 100%; float:left; width: 100%; border-bottom: 0.05em solid black; padding-top: 4em;
+	}
+
+	/* footer */
+	div#footer
+	{
+		border-top: 0.05em solid #ccc; text-align: center; color: #666; height: 3em; margin: 6em 0 1em 0;
+	}
+
+	div#footer p
+	{
+		margin-top: 1em; font-size: 0.7em;
+	}
+}
+
+@media print
+{
+	/* rows table */
+	table#rows th,
+	table#rows td
+	{
+		font-size: 0.8em; border-bottom: 0.05em solid #ccc;
+	}
+
+	td.descriptionText
+	{
+		width: 25em;
+	}
+
+	tbody.rowgroup td
+	{
+		margin-top: 4em;
+		padding-top: 14em;
+	}
+
+
+	/* signature and footer */
+	div.signatureContainer
+	{
+		page-break-inside: avoid; height: auto;
+	}
+
+	p.signature
+	{
+		font-size: 0.7em; height: auto;
+	}
+
+	div.signer p,
+	div.signer h4
+	{
+		padding: auto; font-size: 0.8em;
+	}
+
+	div#footer
+	{
+		height: auto; margin: auto;
+	}
+}
+
+@media screen
+{
+	div#footer,
+	div.customerInfo dl dd
+	{
+		border-top-width: 1px;
+	}
+
+	p.signature,
+	table#rows td,
+	table#rows th
+	{
+
+		border-bottom-width: 1px;
+	}
+}

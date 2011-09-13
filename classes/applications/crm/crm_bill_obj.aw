@@ -33,6 +33,8 @@ class crm_bill_obj extends _int_object
 	const STATUS_DISCARDED = -5;
 	const STATUS_OFFER = 16;
 
+	const ROW_ORDER_INCREMENT = 100;
+
 	private static $status_names = array();
 	private $implementor_object = false;
 	private $cust_data_object = null;
@@ -92,17 +94,15 @@ class crm_bill_obj extends _int_object
 		return $status_names;
 	}
 
+	public function handle_row_save(object $row)
+	{
+		$this->save();
+	}
+
 	function set_prop($name,$value)
 	{
 		switch($name)
 		{
-			case "customer":
-				if($value != $this->prop("customer"))
-				{
-					$this->set_prop("customer_name" , "");
-				}
-				break;
-
 			case "bill_no":
 				$this->set_name(t("Arve nr")." ".$value);
 				break;
@@ -154,13 +154,12 @@ class crm_bill_obj extends _int_object
 
 	public function awobj_set_customer_relation($cr_oid)
 	{
-		if (is_oid($cr_oid))
+		$this->set_prop("customer_relation", $cr_oid);
+		if (object_loader::can("", $cr_oid))
 		{
 			$cro = obj($cr_oid, array(), crm_company_customer_data_obj::CLID);
-			$this->set_prop("customer", $cro->prop("buyer"));
 			$this->load_customer_data();
 		}
-		$this->set_prop("customer_relation", $cr_oid);
 	}
 
 	public function save($check_state = false)
@@ -279,20 +278,20 @@ class crm_bill_obj extends _int_object
 		@attrib api=1 obj_save=1
 		@returns oid
 	**/
-	function get_bill_currency_id()
+	public function get_bill_currency_id()
 	{
 		if(!is_oid($this->id()))
 		{
 			return;
 		}
 
-		if($this->prop("currency"))
+		if(object_loader::can("", $this->prop("currency")))
 		{
 			return $this->prop("currency");
 		}
 
 		$currency = null;
-		if($this->prop("customer.currency"))
+		if(object_loader::can("", $this->prop("customer.currency")))
 		{
 			$currency = $this->prop("customer.currency");
 		}
@@ -305,7 +304,7 @@ class crm_bill_obj extends _int_object
 
 		if(!$currency)
 		{
-			$co_stat_inst = get_instance("applications/crm/crm_company_stats_impl");
+			$co_stat_inst = new crm_company_stats_impl();
 			$currency = $co_stat_inst->get_company_currency();
 		}
 
@@ -324,30 +323,11 @@ class crm_bill_obj extends _int_object
 		{
 			return get_name($currency);
 		}
-/*
-		if($this->prop("customer.currency"))
-		{
-			$company_curr = $this->prop("customer.currency");
-		}
 		else
 		{
-			if($cust = $this->get_bill_customer())
-			{
-				$customer = obj($cust);
-				$company_curr = $customer->prop("currency");
-			}
-			else
-			{
-				$co_stat_inst = get_instance("applications/crm/crm_company_stats_impl");
-				$company_curr = $co_stat_inst->get_company_currency();
-			}
+			return "EUR";
+			//TODO: http://www.currency-iso.org/dl_iso_table_a1.xml
 		}
-		if(is_oid($company_curr) && $this->can("view" , $company_curr))
-		{
-			$cu_o = obj($company_curr);
-			return $cu_o->name();
-		}*/
-		return "EEK";
 	}
 
 
@@ -377,6 +357,7 @@ class crm_bill_obj extends _int_object
 			}
 			$sum = $sum + $p->get_free_sum($this->id());
 		}
+
 		if($bill_sum < $sum)
 		{
 			$sum = $bill_sum;
@@ -407,16 +388,16 @@ class crm_bill_obj extends _int_object
 			$sum = $this->get_bill_sum(self::BILL_SUM) - $this->prop("partial_recieved");
 		}
 		$p = new object();
-		$p-> set_parent($this->id());
-		$p-> set_name($this->name() . " " . t("laekumine"));
-		$p-> set_class_id(CL_CRM_BILL_PAYMENT);
+		$p->set_parent($this->id());
+		$p->set_name($this->name() . " " . t("laekumine"));
+		$p->set_class_id(CL_CRM_BILL_PAYMENT);
 		$p->set_prop("customer" , $this->prop("customer"));
-		$p-> set_prop("date", $tm);
+		$p->set_prop("date", $tm);
 		$p->save();
 
 		$p->add_bill(array(
 			"sum" => $sum,
-			"o" => $this,
+			"o" => $this->ref(),
 		));
 		return $p->id();
 	}
@@ -466,46 +447,12 @@ class crm_bill_obj extends _int_object
 
 	/** Returns bill customer id
 		@attrib api=1 obj_save=1
-		@returns
+		@returns int
 			oid of the customer
 	**/
 	function get_bill_customer()
 	{
-		// New
-		if(!is_oid($this->id()))
-		{
-			return "";
-		}
-
-		$id = "";
-
-		if (is_oid($this->prop("customer")) && object_loader::can("view", $this->prop("customer")))
-		{
-			return $this->prop("customer");
-		}
-		else
-		{
-			foreach($this->connections_from(array("type" => "RELTYPE_CUST")) as $conn)
-			{
-				$id = $conn->prop("to");
-			}
-		}
-
-		if(!$id)
-		{
-			foreach($this->connections_from(array("type" => "RELTYPE_TASK")) as $conn)
-			{
-				$p = $conn->to();
-				$id = $p->prop("customer");
-			}
-		}
-
-		if($id)
-		{
-			$this->set_prop("customer" , $id);
-			$this->save();
-		}
-		return $id;
+		return object_loader::can("", $this->prop("customer_relation.buyer")) ? $this->prop("customer_relation.buyer") : 0;
 	}
 
 	/** Adds bug comments to bill
@@ -673,14 +620,15 @@ class crm_bill_obj extends _int_object
 		return $row->id();
 	}
 
-	/** checks if bill has other customers...
-		@attrib api=1
-		@param customer type=oid
-		@returns string/int
-			error, if true, if not, then 0
-	**/
+//XXX: Mida see asi teeb ja milleks on???
+	// checks if bill has other customers...
+		// @attrib api=1
+		// @param customer type=oid
+		// @returns string/int
+			// error, if true, if not, then 0
 	public function check_if_has_other_customers($customer)
 	{
+		automatweb::http_exit(http::STATUS_NOT_IMPLEMENTED);
 		if(!is_oid($customer))
 		{
 			return 0;
@@ -707,13 +655,14 @@ class crm_bill_obj extends _int_object
 	}
 
 
-	/** connects bill to a bug comment
-		@attrib api=1
-		@returns
-			error string if unsuccessful
-	**/
+	// /** connects bill to a bug comment
+		// @attrib api=1
+		// @returns
+			// error string if unsuccessful
+	// **/
 	public function connect_bug_comment($c)
 	{
+		automatweb::http_exit(http::STATUS_NOT_IMPLEMENTED);
 		if(!is_oid($c))
 		{
 			return t("Pole piisavalt p&auml;dev id");
@@ -767,19 +716,20 @@ class crm_bill_obj extends _int_object
 		$this->save();
 	}
 
-	/** sets customer
-		@attrib api=1 obj_save=1
-		@param cust optional type=oid
-			customer object id
-		@param tasks optional type=array
-			tasks or task rows of other expenses, array(id, id2, ..)
-		@param bugs optional type=array
-			bug comments , array(id, id2, ..)
-		@returns string/int
-			error, if true, if not, then 0
-	**/
+	// /** sets customer
+		// @attrib api=1 obj_save=1
+		// @param cust optional type=oid
+			// customer object id
+		// @param tasks optional type=array
+			// tasks or task rows of other expenses, array(id, id2, ..)
+		// @param bugs optional type=array
+			// bug comments , array(id, id2, ..)
+		// @returns string/int
+			// error, if true, if not, then 0
+	// **/
 	public function set_customer($arr)
 	{
+		automatweb::http_exit(http::STATUS_NOT_IMPLEMENTED);
 		if (object_loader::can("view" , $arr["cust"]))
 		{
 			$cust = obj();
@@ -1311,7 +1261,7 @@ class crm_bill_obj extends _int_object
 		return $filter;
 	}
 
-	/** Returns bill rows data using object data list
+	/** Returns bill rows data
 		@attrib api=1 params=pos
 		@returns array
 			array(
@@ -1374,17 +1324,22 @@ class crm_bill_obj extends _int_object
 	}
 
 
-	/** calculates bill sum
+	/** Calculates bill sum
 		@attrib api=1 params=pos
 		@param type type=int
-			BILL_SUM_TAX - bill tax sum , BILL_SUM_WO_TAX - bill sum without tax , BILL_AMT - bill hours
-		@returns int
+			BILL_SUM total sum with taxes added
+			BILL_SUM_WO_TAX - sum without tax(es)
+			BILL_SUM_TAX - tax part
+			BILL_SUM_WO_DISCOUNT
+			BILL_SUM_TAX_WO_DISCOUNT
+			BILL_SUM_WO_TAX_WO_DISCOUNT
+		@returns float
 	**/
 	public function get_bill_sum($type = self::BILL_SUM)
 	{
-		if(!is_oid($this->id()))
+		if(!$this->is_saved())
 		{
-			return 0;
+			return (float) 0;
 		}
 
 		$rs = "";
@@ -1415,7 +1370,7 @@ class crm_bill_obj extends _int_object
 				$set = false;
 				// get tax from prod
 				$prod = obj($row["prod"]);
-				if (object_loader::can("view", $prod->prop("tax_rate")))
+				if (object_loader::can("", $prod->prop("tax_rate")))
 				{
 					$tr = obj($prod->prop("tax_rate"));
 
@@ -1486,65 +1441,138 @@ class crm_bill_obj extends _int_object
 			$sum = $tot_amt;
 		}
 
-		return $sum * $discount_factor;
-		}
+		return (float) $sum * $discount_factor;
+	}
 
 	//selle asemel kasuta get_bill_rows_dat funktsiooni... iganenud on
 	/** returns bill rows data
 		@attrib api=1
+		@param translated type=bool default=FALSE
+		@param combine_by type=string default="" set="comment"|""
+		@returns array
+			array(
+				array(
+					"amt" => int row item quantity
+					"prod" => product
+					"name" => row title
+					"name_group_comment" => string grouped rows comment addition from this row
+					"comment" => string text comment
+					"desc" => string text row description
+					"price" => float row item price
+					"sum" => float row sum
+					"km_code" => vat code
+					"unit" => int unit oid
+					"unit_name" => string unit name
+					"jrk" => int row order in rows
+					"oid" => int object id
+					"has_tax" => bool tax
+					"tax" => tax rate
+					"tax_sum" => vat part sum
+					"date" => string row date
+					"persons" =>
+					"has_task_row" => bool
+					"task_rows" =>
+				),
+				...
+			)
+		@errors
 	**/
-	public function get_bill_rows_data($translated = false)
+	public function get_bill_rows_data($translated = false, $combine_by = "")
 	{
-		$inf = array();
-		$lang_id = $this->prop("language.db_lang_id");
+		$rows_data = array();
+		$lang_id = $this->prop("language.aw_lang_id");
+		$rows = $this->get_bill_rows();
 
-		foreach($this->get_bill_rows()->arr() as $row)
+		if($rows->count())
 		{
-			$kmk = "";
-			if (object_loader::can("", $row->prop("prod")))
+			$row = $rows->begin();
+
+			do
 			{
-				$prod = obj($row->prop("prod"));
-				if (object_loader::can("", $prod->prop("tax_rate")))
+				$kmk = "";
+				if (object_loader::can("", $row->prop("prod")))
 				{
-					$tr = obj($prod->prop("tax_rate"));
-					$kmk = $tr->prop("code");
+					$prod = obj($row->prop("prod"));
+					if (object_loader::can("", $prod->prop("tax_rate")))
+					{
+						$tr = obj($prod->prop("tax_rate"));
+						$kmk = $tr->prop("code");
+					}
+				}
+
+				$ppl = array();
+				foreach((array)$row->prop("people") as $p_id)
+				{
+					if (object_loader::can("", $p_id))
+					{
+						$ppl[$p_id] = $p_id;
+					}
+				}
+
+				try
+				{
+					$unit = obj((int) $row->prop("unit"), array(), unit_obj::CLID);
+				}
+				catch (Exception $e)
+				{
+					$unit = obj(null, array(), unit_obj::CLID);
+				}
+
+				$row_sum = $row->prop("amt") * $row->prop("price");
+				$tax_sum = $row_sum / 100 * $row->get_row_tax();
+				$quantity = $row->prop("amt") == (int) $row->prop("amt") ? $row->prop("amt") : number_format($row->prop("amt"), 2, ".", " ");
+				$rd = array(
+					"amt" => $quantity,
+					"quantity_str" => $unit->get_string_for_value($quantity, $lang_id),
+					"prod" => $row->prop("prod"),
+					"name" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
+					"name_group_comment" => $translated ? $row->trans_get_val("name_group_comment", $lang_id) : $row->prop("name_group_comment"),
+					"comment" => $translated ? $row->trans_get_val("comment", $lang_id) : $row->prop("comment"),
+					"desc" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
+					"price" => $row->prop("price") == (int) $row->prop("price") ? $row->prop("price") : number_format($row->prop("price"), 2, ".", " "),
+					"sum" => is_int($row_sum) ? $row_sum : number_format($row_sum, 2, ".", " "),
+					"km_code" => $kmk,
+					"unit" => $row->prop("unit"),
+					"unit_name" => $row->trans_get_val("unit.name", $lang_id),
+					"jrk" => $row->ord(),
+					"oid" => $row->id(),
+					"has_tax" => $row->prop("has_tax"),
+					"tax" => $row->get_row_tax(),
+					"tax_sum" => is_int($tax_sum) ? $tax_sum : number_format($tax_sum, 2, ".", " "),
+					"date" => $row->prop("date"),
+					"persons" => $ppl,
+					"has_task_row" => $row->has_task_row(),
+					"task_rows" => $row->task_rows()
+				);
+
+				if ("comment" === $combine_by)
+				{
+					// combined key to not combine rows by comment that have different units or other not combinable properties
+					$key = $rd["comment"] . $rd["prod"] . $rd["km_code"] . $rd["unit"] . $rd["has_tax"] . $rd["tax"] . $rd["price"];
+
+					if (isset($rows_data[$key]))
+					{
+						$rows_data[$key]["amt"] += $rd["amt"];
+						$rows_data[$key]["sum"] += $rd["sum"];
+						$rows_data[$key]["tax_sum"] += $rd["tax_sum"];
+						$rows_data[$key]["name_group_comment"] .= "\n\n" . $rd["name_group_comment"];
+						$rows_data[$key]["desc"] .= "\n\n" . $rd["desc"];
+					}
+					else
+					{
+						$rows_data[$key] = $rd;
+					}
+				}
+				else
+				{
+					$rows_data[] = $rd;
 				}
 			}
-
-			$ppl = array();
-			foreach((array)$row->prop("people") as $p_id)
-			{
-				if (object_loader::can("", $p_id))
-				{
-					$ppl[$p_id] = $p_id;
-				}
-			}
-
-			$rd = array(
-				"amt" => $row->prop("amt"),
-				"prod" => $row->prop("prod"),
-				"name" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
-				"name_group_comment" => $translated ? $row->trans_get_val("name_group_comment", $lang_id) : $row->prop("name_group_comment"),
-				"comment" => $translated ? $row->trans_get_val("comment", $lang_id) : $row->prop("comment"),
-				"price" => $row->prop("price"),
-				"sum" => $row->prop("amt") * $row->prop("price"),
-				"km_code" => $kmk,
-				"unit" => $row->prop("unit"),
-				"unit_name" => $row->prop("unit.name"),
-				"jrk" => $row->ord(),
-				"id" => $row->id(),
-				"has_tax" => $row->prop("has_tax"),
-				"tax" => $row->get_row_tax(),
-				"date" => $row->prop("date"),
-				"persons" => $ppl,
-				"has_task_row" => $row->has_task_row(),
-				"task_rows" => $row->task_rows()
-			);
-
-			$inf[$row->id()] = $rd;
+			while ($row = $rows->next());
 		}
-		uksort($inf, array($this, "__br_sort"));
-		return $inf;
+
+		usort($rows_data, array($this, "__br_sort"));
+		return $rows_data;
 	}
 
 	private function __br_sort($a, $b)
@@ -1568,7 +1596,7 @@ class crm_bill_obj extends _int_object
 		return $a["jrk"] < $b["jrk"] ? -1 :
 			($a["jrk"] > $b["jrk"] ? 1:
 				($a_tm >  $b_tm ? 1:
-					($a_tm == $b_tm ? ($a["id"] > $b["id"] ? 1 : -1): -1)
+					($a_tm == $b_tm ? ($a["oid"] > $b["oid"] ? 1 : -1): -1)
 				)
 			);
 	}
@@ -1847,7 +1875,7 @@ class crm_bill_obj extends _int_object
 		}
 
 		$recipients = array();
-		$customer_oid = $this->prop("customer");
+		$customer_oid = (int) $this->prop("customer");
 
 		if (!count($type) or in_array("project_managers", $type))
 		{
@@ -1915,12 +1943,11 @@ class crm_bill_obj extends _int_object
 		if (!count($type) or in_array("customer_general", $type))
 		{
 			$name = $this->get_customer_name();
-			$oid = $this->prop("customer");
 			foreach($this->get_cust_mails() as $email)
 			{
 				if (is_email($email))
 				{
-					$recipients[$email] = array($oid, $name);
+					$recipients[$email] = array($customer_oid, $name);
 				}
 			}
 		}
@@ -1937,6 +1964,26 @@ class crm_bill_obj extends _int_object
 				$cro = new object($this->prop("customer_relation"));
 				if ($cro->is_saved())
 				{
+					// customer invoice e-mails
+					$name = $this->get_customer_name();
+					$customer_o = obj($customer_oid, array(), crm_company_obj::CLID);
+					$invoice_emails = $customer_o->get_email_addresses("invoice");
+					if($invoice_emails->count())
+					{
+						$email = $invoice_emails->begin();
+
+						do
+						{
+							if (is_email($email->prop("mail")))
+							{
+								$recipients[$email->prop("mail")]  = array($customer_oid, $name);
+							}
+						}
+						while ($email = $invoice_emails->next());
+					}
+
+
+					// customer relation invoice e-mails
 					$bill_person_ol = new object_list($cro->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
 					if($bill_person_ol->count())
 					{
@@ -1944,10 +1991,27 @@ class crm_bill_obj extends _int_object
 
 						do
 						{
-							$email = $person->get_mail($customer_oid);
-							if (is_email($email))
+							$emails = $person->get_email_addresses("invoice");
+							if($emails->count())
 							{
-								$recipients[$email]  = array($person->id(), $person->name());
+								$email = $emails->begin();
+
+								do
+								{
+									if (is_email($email->prop("mail")))
+									{
+										$recipients[$email->prop("mail")]  = array($person->id(), $person->name());
+									}
+								}
+								while ($email = $emails->next());
+							}
+							else
+							{
+								$email = $person->get_email_address();
+								if (is_email($email->prop("mail")))
+								{
+									$recipients[$email->prop("mail")]  = array($person->id(), $person->name());
+								}
 							}
 						}
 						while ($person = $bill_person_ol->next());
@@ -1993,118 +2057,6 @@ class crm_bill_obj extends _int_object
 		}
 
 		return $recipients;
-	}
-
-/**
-	@attrib api=1 params=pos
-	@returns array
-		Indexed by email address, values are in the format "person name <email address>"
-	@errors
-**/
-	public function get_bcc()
-	{
-		$ret = array();
-		$bill_targets = safe_array($this->meta("bill_targets"));
-		$ol = new object_list();
-
-		if($this->project_leaders())
-		{
-			$ol->add($this->project_leaders());
-		}
-
-		foreach($ol->arr() as $mail_person)
-		{
-			if(empty($bill_targets) or $bill_targets[$mail_person->id()])
-			{
-				$ret[$mail_person->get_mail($this->prop("customer"))] = $mail_person->name() . " <" . $mail_person->get_mail($this->prop("customer")) . ">";
-			}
-		}
-
-		if($this->set_crm_settings() && $this->crm_settings->prop("bill_mail_to"))
-		{
-			$ret[$this->crm_settings->prop("bill_mail_to")] = $this->crm_settings->prop("bill_mail_to");
-		}
-
-		// add current user
-		if (aw_global_get("uid_oid"))
-		{
-			$user_inst = new user();
-			$u = obj(aw_global_get("uid_oid"));
-			$person = obj($user_inst->get_current_person());
-			$ret[$u->get_user_mail_address()] = $person->name() . " <" . $u->get_user_mail_address() . ">";
-		}
-
-		return $ret;
-	}
-
-	public function get_mail_targets()
-	{
-		$res = array();
-		$bill_targets = safe_array($this->meta("bill_targets"));
-		$bill_t_names = safe_array($this->meta("bill_t_names"));
-		if($this->prop("bill_mail_to"))
-		{
-			$res[$this->prop("bill_mail_to")] = $this->prop("bill_mail_to");
-		}
-
-		$ol = new object_list();
-		if($this->get_customer_data("bill_person"))
-		{
-			$ol->add($this->get_customer_data("bill_person"));
-		}
-
-		foreach($ol->arr() as $mail_person)
-		{
- 			if(empty($bill_targets) or $bill_targets[$mail_person->id()])
-			{
-				if(!empty($bill_t_names[$mail_person->id()]))
-				{
-					$name = $bill_t_names[$mail_person->id()];
-				}
-				else
-				{
-					$name = $mail_person->name();
-				}
-
-				$res[$mail_person->get_mail($this->prop("customer"))]  = $name . " <" . $mail_person->get_mail($this->prop("customer")) . ">";
-			}
-		}
-
-		foreach($this->get_cust_mails() as $id => $mail)
-		{
-			if(empty($bill_targets) or $bill_targets[$id])
-			{
-				if(!empty($bill_t_names[$id]))
-				{
-					$name = $bill_t_names[$id];
-				}
-				else
-				{
-					$name = $this->get_customer_name();
-				}
-
-				$res[$mail] = $name . " <" . $mail . ">";
-			}
-		}
-		return $res;
-	}
-
-	public function get_mail_persons()
-	{
-		$ol = new object_list();
-		foreach($this->connections_from(array("type" => "RELTYPE_RECEIVER")) as $c)
-		{
-			$ol->add($c->prop("to"));
-		}
-		if($this->get_customer_data("bill_person"))
-		{
-			$ol->add($this->get_customer_data("bill_person"));
-		}
-		if($this->project_leaders())
-		{
-			$ol->add($this->project_leaders());
-		}
-		return $ol;
 	}
 
 	public function get_cust_mails()
@@ -2240,26 +2192,14 @@ class crm_bill_obj extends _int_object
 	{
 		if($this->prop("customer_name"))
 		{
-			return $this->prop("customer_name");
+			$name = $this->prop("customer_name");
 		}
 		else
 		{
-			return $this->prop("customer.name");
+			$name = $this->prop("customer.name");
 		}
-	}
 
-	private function get_bill_target_name()
-	{
-		$ret = "";
-//		if($this->prop("bill_rec_name"))
-//		{
-//			$ret = $this->prop("bill_rec_name");
-//		}
-//		else
-//		{
-			$ret = $this->get_customer_name();
-//		}
-		return $ret;
+		return $name;
 	}
 
 	/** Returns mail body/contents string
@@ -2311,16 +2251,13 @@ class crm_bill_obj extends _int_object
 	**/
 	public function parse_mail_text($text)
 	{
-		$contact_person = $this->get_contact_person();
-		$contact_person = trim($this->prop("ctp_text")) ? trim($this->prop("ctp_text")) : ($contact_person ? $contact_person->name() : "");
-
 		$replace = array(
 			"#type#" => $this->prop("state") == self::STATUS_OFFER ? t("pakkumuse") : t("arve"),
 			"#type2#" => $this->prop("state") == self::STATUS_OFFER ? t("Pakkumus") : t("Arve"),
 			"#bill_no#" => $this->prop("bill_no"),
-			"#customer_name#" => $this->get_bill_target_name(),
-			"#contact_person#" => $contact_person,
-			"#signature#" => $this->get_sender_signature(),
+			"#customer_name#" => $this->get_customer_name(),
+			"#contact_person#" => $this->get_customer_contact_person_name(),
+			"#signature#" => $this->get_sender_signature()
 		);
 
 		foreach($replace as $key => $val)
@@ -2435,7 +2372,7 @@ class crm_bill_obj extends _int_object
 			$id = $f->create_file_from_string(array(
 				"parent" => $this->id(),
 				"content" => $content,
-				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("arve_nr_%s") : t("pakkumus_nr_%s")), $this->prop("bill_no")) . ".pdf",
+				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("pakkumus_nr_%s") : t("arve_nr_%s")), $this->prop("bill_no")) . ".pdf",
 				"type" => "application/pdf"
 			));
 			$this->set_meta("crm_bill_attachments_tmp_invoice_pdf_oid", $id);
@@ -2476,7 +2413,7 @@ class crm_bill_obj extends _int_object
 				"id" => $this->id(),
 				"pdf" => 1,
 				"return" => 1,
-				"reminder" => 1
+				"view_type" => "reminder"
 			));
 
 			// create file
@@ -2521,9 +2458,10 @@ class crm_bill_obj extends _int_object
 		{
 			// get html content
 			$inst = new crm_bill();
-			$content = $inst->show_add(array(
+			$content = $inst->show(array(
 				"id" => $this->id(),
 				"pdf" => 1,
+				"view_type" => "descriptions",
 				"return" => 1
 			));
 
@@ -2532,7 +2470,7 @@ class crm_bill_obj extends _int_object
 			$id = $f->create_file_from_string(array(
 				"parent" => $this->id(),
 				"content" => $content,
-				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("arve_nr_%s_aruanne") : t("pakkumuse_nr_%s_detailid")), $this->prop("bill_no")) . ".pdf",
+				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr_%s_detailid") : t("arve_nr_%s_aruanne")), $this->prop("bill_no")) . ".pdf",
 				"type" => "application/pdf"
 			));
 			$this->set_meta("crm_bill_attachments_tmp_appendix_pdf_oid", $id);
@@ -2714,6 +2652,7 @@ class crm_bill_obj extends _int_object
 			"class_id" => CL_FILE,
 			"CL_FILE.RELTYPE_ATTACHED_FILE(CL_CRM_BILL)" => $this->id()
 		));
+
 		if($attachments_list->count())
 		{
 			$file_o = $attachments_list->begin();
@@ -2732,19 +2671,16 @@ class crm_bill_obj extends _int_object
 
 				if (!$part_count)
 				{
-					throw new awex_crm_bill_file("Attaching  invoice appendix file (id: " . $file_o->id() . ") failed. Invoice id " . $this->id());
+					throw new awex_crm_bill_file("Attaching  invoice additional file (id: " . $file_o->id() . ") failed. Invoice id " . $this->id());
 				}
 			}
-			while ($o = $attachments_list->next());
+			while ($file_o = $attachments_list->next());
 		}
-
-
 
 		// add mail html body
 		$awm->htmlbodyattach(array(
 			"data" => $body
 		));
-
 
 		// send mail
 		try
@@ -2798,9 +2734,10 @@ class crm_bill_obj extends _int_object
 		}
 
 		// clear attachment file references so they won't be deleted as junk
+		// the ones sent are archived
 		$this->_clear_pdf_file_references_tmp();
 
-		// save
+		// save changes to this
 		$this->save();
 	}
 
@@ -3067,7 +3004,7 @@ class crm_bill_obj extends _int_object
 
 			do
 			{
-				$row->set_ord($count*10);
+				$row->set_ord($count*self::ROW_ORDER_INCREMENT);
 				$row->save();
 				$count++;
 			}
@@ -3591,7 +3528,7 @@ class crm_bill_obj extends _int_object
 
 		if ($translated)
 		{
-			$language_id = $this->prop("language.db_lang_id");
+			$language_id = $this->prop("language.aw_lang_id");
 
 			if(!strlen($bill_text = $this->trans_get_val("bill_text", $language_id)) and $this->set_crm_settings())
 			{
@@ -3618,10 +3555,10 @@ class crm_bill_obj extends _int_object
 		if(object_loader::can("", $unit))
 		{
 			$uo = obj($unit);
-			if($this->can("", $this->prop("language")))
+			if(object_loader::can("", $this->prop("language")))
 			{
 				$u_trans = $uo->meta("translations");
-				$unit_name = $u_trans[obj($this->prop("language"))->prop("db_lang_id")]["unit_code"];
+				$unit_name = $u_trans[obj($this->prop("language"))->prop("aw_lang_id")]["unit_code"];
 			}
 
 			if(!$unit_name)
@@ -3650,7 +3587,7 @@ class crm_bill_obj extends _int_object
 		@attrib api=1
 		@returns object
 	**/
-	public function get_the_person_who_made_this_fucking_thing()
+	public function get_creator()
 	{
 		if(is_oid($this->prop("assembler")))
 		{
@@ -3675,86 +3612,83 @@ class crm_bill_obj extends _int_object
 	**/
 	public function get_contact_person()
 	{
-		$contact_person = null;
-		if(object_loader::can("view" , $this->prop("customer")))
+		if(object_loader::can("" , $this->prop("customer_relation")))
 		{
-			$ord = obj($this->prop("customer"));
+			$crel = obj($this->prop("customer_relation"));
+			$contact_person = $crel->get_first_obj_by_reltype("RELTYPE_BILL_PERSON");
 
-			if ($this->prop("impl"))
+			if (!$contact_person)
 			{
 				try
 				{
-					$ol = new object_list(array(
-						"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-						"buyer" => $ord->id(),
-						"seller" => $this->prop("impl")
-					));
-
-					if ($ol->count())
+					if ($crel->prop("buyer_contact_person"))
 					{
-						$crel = $ol->begin();
-						$contact_person = $crel->get_first_obj_by_reltype("RELTYPE_BILL_PERSON");
-
-						if (!$contact_person)
-						{
-							if ($crel->prop("buyer_contact_person"))
-							{
-								$contact_person = obj($crel->prop("buyer_contact_person"), array(), CL_CRM_PERSON);
-							}
-							elseif ($crel->prop("buyer_contact_person2"))
-							{
-								$contact_person = obj($crel->prop("buyer_contact_person2"), array(), CL_CRM_PERSON);
-							}
-							elseif ($crel->prop("buyer_contact_person3"))
-							{
-								$contact_person = obj($crel->prop("buyer_contact_person3"), array(), CL_CRM_PERSON);
-							}
-						}
+						$contact_person = new object((int) $crel->prop("buyer_contact_person"));
+					}
+					elseif ($crel->prop("buyer_contact_person2"))
+					{
+						$contact_person = new object((int) $crel->prop("buyer_contact_person2"));
+					}
+					elseif ($crel->prop("buyer_contact_person3"))
+					{
+						$contact_person = new object((int) $crel->prop("buyer_contact_person3"));
 					}
 				}
-				catch (awex_obj $e)
+				catch (Exception $e)
 				{
+					$contact_person = null;
 				}
-			}
-
-			if (!$contact_person or !$contact_person->is_saved())
-			{
-				try
-				{
-					$contact_person = obj($ord->prop("firmajuht"), array(), CL_CRM_PERSON);
-				}
-				catch (awex_obj $e)
-				{
-				}
-			}
-
-			if ($contact_person and !$contact_person->is_saved())
-			{
-				$contact_person = null;
 			}
 		}
+
+		if(!$contact_person and object_loader::can("" , $this->prop("customer_relation.buyer.firmajuht")))
+		{
+			$contact_person = new object($ord->prop("firmajuht"));
+		}
+		else
+		{
+			$contact_person = null;
+		}
+
 		return $contact_person;
 	}
 
-	/**
-		@attrib api=1 params=pos
-		@return CL_CRM_COMPANY_CUSTOMER_DATA
-			Customer relation object
-		@errors
-			throws awex_crm_bill_customer customer not defined
-			throws awex_crm_bill_implementor if implementor not defined
+	 /** Returns invoice customer contact person name as it is set in this invoice
+		@attrib api=1
+		@returns string
 	**/
+	public function get_customer_contact_person_name()
+	{
+		$contact_person_name = $this->prop("ctp_text") or
+		$contact_person_name = $this->prop("customer_relation.RELTYPE_BILL_PERSON.name") or
+		$contact_person_name = $this->prop("customer_relation.buyer_contact_person") or
+		$contact_person_name = $this->prop("customer_relation.buyer_contact_person2") or
+		$contact_person_name = $this->prop("customer_relation.buyer_contact_person3") or
+		$contact_person_name = $this->prop("customer_relation.buyer.firmajuht.name") or
+		$contact_person_name = "";
+		;
+		return $contact_person_name;
+	}
+
+		// @attrib api=1 params=pos
+		// @return CL_CRM_COMPANY_CUSTOMER_DATA
+			// Customer relation object
+		// @errors
+			// throws awex_crm_bill_customer customer not defined
+			// throws awex_crm_bill_implementor if implementor not defined
+	//XXX: praegu pole see veel api osa
 	public function load_customer_data()
 	{
-		if (!$this->prop("customer"))
+		if (!$this->prop("customer_relation"))
 		{
 			throw new awex_crm_bill_customer("Customer not defined");
 		}
 
 		try
 		{
-			$customer_o = obj($this->prop("customer"));
 			$customer_relation_o = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
+			$customer_o = $customer_relation_o->get_buyer();
+			$this->set_prop("customer", $customer_o->id());
 
 			// load/reload customer data bill properties
 			if ($this->set_crm_settings())
@@ -3773,9 +3707,14 @@ class crm_bill_obj extends _int_object
 				$this->set_prop("bill_due_date_days", $customer_relation_o->prop("bill_due_date_days"));
 			}
 
-			if (strlen($customer_relation_o->prop("overdue_charge")))
+			if (strlen($customer_relation_o->prop("bill_penalty_pct")))
 			{
 				$this->set_prop("overdue_charge", $customer_relation_o->prop("bill_penalty_pct"));
+			}
+
+			if (strlen($customer_relation_o->prop("discount")))
+			{
+				$this->set_prop("disc", $customer_relation_o->prop("discount"));
 			}
 
 			// load/reload customer address
@@ -3784,9 +3723,7 @@ class crm_bill_obj extends _int_object
 			if ($customer_o->class_id() == CL_CRM_COMPANY)
 			{
 				$this->set_prop("customer_address", (string) $customer_o->prop("contact.name"));
-				$orderer_contact_person = $this->get_contact_person();
-				$orderer_contact_person_name = $orderer_contact_person ? $orderer_contact_person->name() : "";
-				$this->set_prop("ctp_text", (string) $orderer_contact_person_name);
+				$this->set_prop("ctp_text", $this->get_customer_contact_person_name());
 				$this->set_customer_address("street", (string) $customer_o->prop("contact.aadress"));
 				$this->set_customer_address("city", (string) $customer_o->prop("contact.linn.name"));
 				$this->set_customer_address("county", (string) $customer_o->prop("contact.maakond.name"));
@@ -3890,7 +3827,7 @@ class crm_bill_obj extends _int_object
 
 				do
 				{
-					$lang_id = $o->prop("db_lang_id");
+					$lang_id = $o->prop("aw_lang_id");
 					$this->set_meta("trans_{$lang_id}_status", $template->meta("trans_{$lang_id}_status"));
 				}
 				while ($o = $languages_in_use->next());
@@ -3910,6 +3847,8 @@ class crm_bill_obj extends _int_object
 				$nbr->set_name($br->name());
 				$nbr->set_class_id(crm_bill_row_obj::CLID);
 				$nbr->set_parent($this->id());
+				$nbr->set_ord($br->ord());
+
 				foreach($br->properties() as $prop => $val)
 				{
 					if($nbr->is_property($prop))
@@ -3917,8 +3856,9 @@ class crm_bill_obj extends _int_object
 						$nbr->set_prop($prop , $val);
 					}
 				}
-				$nbr->save();
+
 				$nbr->set_meta($br->meta());
+				$nbr->save();
 				$this->connect(array(
 					"to" => $nbr->id(),
 					"reltype" => $con->prop("reltype")

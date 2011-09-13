@@ -2,123 +2,113 @@
 <properties>
       <property>
             <name>name</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>text</type>
+            <type>hidden</type>
             <field>name</field>
-            <caption>Nimi</caption>
-      </property>
-      <property>
-            <name>comment</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>textbox</type>
-            <field>comment</field>
-            <caption>Tekst arvel</caption>
-      </property>
-      <property>
-            <name>amt</name>
-            <table>aw_crm_bill_rows</table>
-            <group>general</group>
-            <type>textbox</type>
-            <size>5</size>
-            <field>aw_amt</field>
-            <caption>Kogus</caption>
       </property>
       <property>
             <name>prod</name>
             <table>aw_crm_bill_rows</table>
             <group>general</group>
+            <parent>left_container</parent>
             <type>relpicker</type>
             <reltype>RELTYPE_PROD</reltype>
             <field>aw_prod</field>
             <caption>Toode</caption>
       </property>
       <property>
+            <name>amt</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <parent>left_container</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <field>aw_amt</field>
+            <caption>Kogus</caption>
+      </property>
+      <property>
+            <name>unit</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <parent>left_container</parent>
+            <type>objpicker</type>
+            <field>aw_unit</field>
+            <caption>&amp;amp;Uuml;hik</caption>
+      </property>
+      <property>
             <name>price</name>
             <table>aw_crm_bill_rows</table>
             <group>general</group>
+            <parent>left_container</parent>
             <type>textbox</type>
-            <size>7</size>
+            <size>10</size>
             <field>aw_price</field>
             <caption>Hind</caption>
+      </property>
+      <property>
+            <name>has_tax</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <parent>left_container</parent>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>aw_has_tax</field>
+            <caption>Lisandub k&amp;amp;auml;ibemaks</caption>
+      </property>
+      <property>
+            <name>tax</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <parent>left_container</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <field>aw_tax</field>
+            <caption>K&amp;amp;auml;ibemaksu %</caption>
       </property>
       <property>
             <name>sum</name>
             <table>aw_crm_bill_rows</table>
             <group>general</group>
+            <parent>left_container</parent>
             <type>text</type>
             <store>no</store>
             <field>sum</field>
             <caption>Summa</caption>
       </property>
       <property>
-            <name>unit</name>
+            <name>date</name>
             <table>aw_crm_bill_rows</table>
             <group>general</group>
+            <parent>left_container</parent>
             <type>textbox</type>
-            <field>aw_unit</field>
-            <caption>&amp;amp;Uuml;hik</caption>
+            <size>10</size>
+            <field>aw_date</field>
+            <caption>Kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>jrk</name>
+            <table>objects</table>
+            <group>general</group>
+            <parent>left_container</parent>
+            <type>textbox</type>
+            <size>10</size>
+            <field>jrk</field>
+            <caption>Jrk. nr.</caption>
       </property>
       <property>
             <name>writeoff</name>
             <table>aw_crm_bill_rows</table>
             <group>general</group>
+            <parent>left_container</parent>
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <field>aw_writeoff</field>
             <caption>Maha kantud</caption>
       </property>
       <property>
-            <name>has_tax</name>
-            <table>aw_crm_bill_rows</table>
-            <group>general</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>aw_has_tax</field>
-            <caption>Lisandub k&amp;amp;auml;ibemaks?</caption>
-      </property>
-      <property>
-            <name>tax</name>
-            <table>aw_crm_bill_rows</table>
-            <group>general</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>aw_tax</field>
-            <caption>K&amp;amp;auml;ibemaksu %</caption>
-      </property>
-      <property>
-            <name>date</name>
-            <table>aw_crm_bill_rows</table>
-            <group>general</group>
-            <type>textbox</type>
-            <field>aw_date</field>
-            <caption>Kuup&amp;amp;auml;ev</caption>
-      </property>
-      <property>
-            <name>desc</name>
-            <table>aw_crm_bill_rows</table>
-            <group>general</group>
-            <type>textarea</type>
-            <rows>8</rows>
-            <cols>52</cols>
-            <field>aw_desc</field>
-            <caption>Kirjeldus</caption>
-      </property>
-      <property>
-            <name>name_group_comment</name>
-            <table>aw_crm_bill_rows</table>
-            <group>general</group>
-            <type>textarea</type>
-            <rows>2</rows>
-            <cols>52</cols>
-            <field>aw_name_group_comment</field>
-            <caption>Koondkommentaar</caption>
-      </property>
-      <property>
             <name>people</name>
             <table>objects</table>
             <group>general</group>
+            <parent>left_container</parent>
             <type>relpicker</type>
             <reltype>RELTYPE_PEOPLE</reltype>
             <multiple>1</multiple>
@@ -130,6 +120,7 @@
             <name>task_row</name>
             <table>aw_crm_bill_rows</table>
             <group>general</group>
+            <parent>left_container</parent>
             <type>relpicker</type>
             <reltype>RELTYPE_TASK_ROW</reltype>
             <store>connect</store>
@@ -141,14 +132,50 @@
             <name>project</name>
             <table>aw_crm_bill_rows</table>
             <group>general</group>
+            <parent>left_container</parent>
             <type>select</type>
             <field>project</field>
             <caption>Projekt</caption>
       </property>
       <property>
+            <name>comment</name>
+            <table>objects</table>
+            <group>general</group>
+            <parent>right_container</parent>
+            <type>textbox</type>
+            <size>67</size>
+            <field>comment</field>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>desc</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <parent>right_container</parent>
+            <type>textarea</type>
+            <rows>8</rows>
+            <cols>52</cols>
+            <resize_height>100</resize_height>
+            <field>aw_desc</field>
+            <caption>Kirjeldus</caption>
+      </property>
+      <property>
+            <name>name_group_comment</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <parent>right_container</parent>
+            <type>textarea</type>
+            <rows>2</rows>
+            <cols>52</cols>
+            <resize_height>100</resize_height>
+            <field>aw_name_group_comment</field>
+            <caption>Koondkommentaar</caption>
+      </property>
+      <property>
             <name>transl</name>
             <table>aw_crm_bill_rows</table>
             <group>transl</group>
+            <parent>right_container</parent>
             <type>callback</type>
             <callback>callback_get_transl</callback>
             <store>no</store>
@@ -205,5 +232,25 @@
                   <caption>Bugi</caption>
             </BUG>
       </reltypes>
+      <layout>
+            <main_container>
+                  <type>hbox</type>
+                  <width>40%:60%</width>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </main_container>
+            <left_container>
+                  <type>vbox</type>
+                  <parent>main_container</parent>
+                  <area_caption>P&amp;amp;otilde;hiandmed</area_caption>
+                  <group>general</group>
+            </left_container>
+            <right_container>
+                  <type>vbox</type>
+                  <parent>main_container</parent>
+                  <area_caption>Kommentaarid</area_caption>
+                  <group>general</group>
+            </right_container>
+      </layout>
 </properties>
 

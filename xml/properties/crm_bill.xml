@@ -299,6 +299,7 @@
             <type>textbox</type>
             <field>aw_customer_name</field>
             <parent>top_right</parent>
+            <editonly>1</editonly>
             <caption>Kliendi nimi</caption>
       </property>
       <property>
@@ -309,6 +310,7 @@
             <field>meta</field>
             <method>serialize</method>
             <parent>top_right</parent>
+            <editonly>1</editonly>
             <caption>Kontaktisik vabatekstina</caption>
       </property>
       <property>
@@ -318,6 +320,7 @@
             <type>textbox</type>
             <field>aw_customer_address</field>
             <parent>top_right</parent>
+            <editonly>1</editonly>
             <caption>Kliendi aadress</caption>
       </property>
       <property>
@@ -328,6 +331,7 @@
             <callback>customer_add_meta_cb</callback>
             <store>no</store>
             <parent>top_right</parent>
+            <editonly>1</editonly>
             <field>customer_add_meta_cb</field>
       </property>
       <property>
@@ -422,6 +426,17 @@
             <field>attached_files</field>
             <comment>Siin lisatud failid saadetakse arve e-posti manustena</comment>
             <caption>Manused</caption>
+      </property>
+      <property>
+            <name>title</name>
+            <table>objects</table>
+            <group>text_comments</group>
+            <type>textbox</type>
+            <size>67</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <trans>1</trans>
+            <caption>Arve pealkiri</caption>
       </property>
       <property>
             <name>bill_text</name>
@@ -862,6 +877,7 @@
                         <num_0>CL_CRM_COMPANY</num_0>
                         <num_1>CL_CRM_PERSON</num_1>
                   </clid>
+                  <deprecated>1</deprecated>
                   <caption>Klient</caption>
             </CUST>
             <IMPL>
