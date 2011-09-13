@@ -1,8 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
-
 /**
 * Converts to and from JSON format.
 *
@@ -24,7 +20,8 @@
 * Javascript, and can be directly eval()'ed with no further parsing
 * overhead
 *
-* All strings should be in ASCII or UTF-8 format!
+* Unless input charset is given, all strings should be in ASCII or UTF-8
+* format!
 *
 * LICENSE: Redistribution and use in source and binary forms, with or
 * without modification, are permitted provided that the following
@@ -116,6 +113,9 @@ define('AW_JSON_SUPPRESS_ERRORS', 32);
 */
 class json
 {
+	protected $use;
+	protected $input_charset;
+
    /**
     * constructs a new JSON instance
     *
@@ -132,9 +132,10 @@ class json
     *                                   bubble up with an error, so all return values
     *                                   from encode() should be checked with isError()
     */
-    function json($use = 0)
+    function json($use = 0, $input_charset = null)
     {
         $this->use = $use;
+		$this->input_charset = $input_charset;
     }
 
    /**
@@ -253,6 +254,10 @@ class json
                 return (float) $var;
 
             case 'string':
+				if ($this->input_charset !== null)
+				{
+					$var = iconv($this->input_charset, "UTF-8", $var);
+				}
                 // STRINGS ARE EXPECTED TO BE IN ASCII OR UTF-8 FORMAT
                 $ascii = '';
                 $strlen_var = strlen($var);
@@ -778,5 +783,3 @@ class json_error
 	{
 	}
 }
-
-?>
