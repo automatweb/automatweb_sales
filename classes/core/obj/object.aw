@@ -81,7 +81,7 @@ class object
 		{
 			$this->oid = $GLOBALS["object_loader"]->load_new_object($param, $constructor_args);
 		}
-		elseif (!empty($param))
+		elseif (null !== $param)
 		{
 			$this->load($param, false, $constructor_args);
 		}
