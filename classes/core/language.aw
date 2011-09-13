@@ -6,6 +6,10 @@
 @classinfo relationmgr=yes no_status=1 no_comment=1
 @tableinfo languages index=oid master_table=objects master_index=oid
 
+
+@property aw_lang_id table=languages type=hidden field=aw_lid
+@caption Keele ID
+
 @default table=objects
 @default group=general
 
@@ -36,9 +40,6 @@
 
 @property lang_site_id table=languages type=select multiple=1 field=site_id
 @caption Saidid kus keel on valitav
-
-@property aw_lang_id table=languages type=hidden field=aw_lid
-@caption Keele ID
 
 @property lang_trans_msg table=languages type=textarea rows=5 cols=30 field=meta method=serialize
 @caption T&otilde;lkimata sisu teade
@@ -135,9 +136,8 @@ class language extends class_base
 				break;
 
 			case "lang_sel_lang":
-				if ($this->awcb_ds_id->is_saved())
+				if ($this->awcb_ds_id->is_saved() and $id = $this->awcb_ds_id->prop("aw_lang_id"))
 				{
-					$id = $this->awcb_ds_id->prop("aw_lang_id");
 					$prop["type"] = "text";
 					$prop["value"] = aw_ini_get("languages.list.{$id}.name");
 				}
@@ -192,14 +192,6 @@ class language extends class_base
 				}
 				break;
 
-			case "lang_sel_lang":
-				// set the acceptlang and charset properties based on the selection
-				$tmp = aw_ini_get("languages.list");
-				$arr["obj_inst"]->set_prop("lang_acceptlang", $tmp[$prop["value"]]["acceptlang"]);
-				$arr["obj_inst"]->set_prop("lang_charset", $tmp[$prop["value"]]["charset"]);
-				languages::init_cache(true);
-				break;
-
 			case "lang_acceptlang":
 				$retval = class_base::PROP_IGNORE;
 				break;
@@ -211,6 +203,11 @@ class language extends class_base
 			case "lang_site_id":
 				$prop["value"] = join(",", array_values(is_array($prop["value"]) ? $prop["value"] : array()));
 				$arr["obj_inst"]->set_prop("lang_site_id", $prop["value"]);
+				$retval = class_base::PROP_IGNORE;
+				break;
+
+			case "lang_sel_lang":
+				$arr["obj_inst"]->set_prop("aw_lang_id", $prop["value"]);
 				$retval = class_base::PROP_IGNORE;
 				break;
 
@@ -260,6 +257,7 @@ class language extends class_base
 		}
 	}
 
+	//DEPRECATED
 	function _init_texts_table($t)
 	{
 		$t->define_field(array(
@@ -389,6 +387,7 @@ class language extends class_base
 				));
 			}
 		}
+
 		header("Content-type: text/html; charset=".aw_global_get("charset"));
 		if (aw_ini_get("user_interface.full_content_trans"))
 		{

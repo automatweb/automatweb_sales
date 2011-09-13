@@ -1367,15 +1367,8 @@ function aw_get_el(name,form)
 			}
 		}
 
-		if (!empty($arr["reload_property"]))
-		{
-			$reload = "window.opener.reload_property('".$arr["reload_property"]."');";
-		}
-		elseif (!empty($arr["reload_layout"]))
-		{
-			$reload = "window.opener.reload_layout('".$arr["reload_layout"]."');";
-		}
-		elseif (!empty($arr["reload_window"]))
+
+		if (!empty($arr["reload_window"]))
 		{
 			$reload = "window.opener.location.reload();";
 		}
@@ -1386,6 +1379,16 @@ function aw_get_el(name,form)
 		else
 		{
 			$reload = "";
+
+			if (!empty($arr["reload_property"]))
+			{
+				$reload .= "window.opener.reload_property('".$arr["reload_property"]."');";
+			}
+
+			if (!empty($arr["reload_layout"]))
+			{
+				$reload .= "window.opener.reload_layout('".$arr["reload_layout"]."');";
+			}
 		}
 
 		$javascript = "<script language='javascript'>

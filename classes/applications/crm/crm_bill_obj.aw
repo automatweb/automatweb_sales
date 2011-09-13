@@ -3641,9 +3641,9 @@ class crm_bill_obj extends _int_object
 			}
 		}
 
-		if(!$contact_person and object_loader::can("" , $this->prop("customer_relation.buyer.firmajuht")))
+		if(!$contact_person and object_loader::can("", $this->prop("customer_relation.buyer.firmajuht")))
 		{
-			$contact_person = new object($ord->prop("firmajuht"));
+			$contact_person = new object($this->prop("customer_relation.buyer.firmajuht"));
 		}
 		else
 		{
