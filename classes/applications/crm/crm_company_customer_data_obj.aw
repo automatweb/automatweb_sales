@@ -103,6 +103,34 @@ class crm_company_customer_data_obj extends _int_object
 		return $case;
 	}
 
+	/** Get seller object
+		@attrib api=1 params=pos
+		@comment
+		@returns CL_CRM_COMPANY|CL_CRM_PERSON|NULL
+		@errors
+	**/
+	public function get_seller()
+	{
+		if (object_loader::can("", $this->prop("seller")))
+		{
+			return new object($this->prop("seller"));
+		}
+	}
+
+	/** Get buyer object
+		@attrib api=1 params=pos
+		@comment
+		@returns CL_CRM_COMPANY|CL_CRM_PERSON|NULL
+		@errors
+	**/
+	public function get_buyer()
+	{
+		if (object_loader::can("", $this->prop("buyer")))
+		{
+			return new object($this->prop("buyer"));
+		}
+	}
+
 	public function get_bills()
 	{
 		$filter = array(
@@ -273,9 +301,9 @@ class crm_company_customer_data_obj extends _int_object
 			{
 				$this->set_prop("cust_contract_date", time());
 			}
-		}
 
-		$this->set_name($this->prop_str("seller.name") . " => " . $this->prop_str("buyer.name"));
+			$this->set_name($this->prop_str("seller.name") . " => " . $this->prop_str("buyer.name"));
+		}
 
 		$r = parent::save($check_state);
 	}

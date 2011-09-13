@@ -1,6 +1,14 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
             <name>buyer</name>
             <table>aw_crm_customer_data</table>
             <group>general</group>
@@ -56,8 +64,8 @@
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_TAX_RATE</reltype>
-            <store>connect</store>
-            <field>tax_rate</field>
+            <field>meta</field>
+            <method>serialize</method>
             <caption>M&amp;amp;uuml;&amp;amp;uuml;gi KM-kood</caption>
       </property>
       <property>
@@ -66,10 +74,11 @@
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CATEGORY</reltype>
-            <store>connect</store>
             <multiple>1</multiple>
             <size>7</size>
-            <field>categories</field>
+            <no_add>1</no_add>
+            <field>meta</field>
+            <method>serialize</method>
             <caption>Kliendikategooria(d)</caption>
       </property>
       <property>
