@@ -845,29 +845,6 @@ class cache extends core
 		}
 	}
 
-	function _get_cache_files($fld)
-	{
-		if ($dir = opendir($fld))
-		{
-			while (($file = readdir($dir)) !== false)
-			{
-				if (!($file === "." || $file === ".."))
-				{
-					if (is_dir($fld."/".$file))
-					{
-						$this->_get_cache_files($fld."/".$file);
-					}
-					else
-					{
-						$this->cache_files[] = $file;
-						$this->cache_files2[] = $fld."/".$file;
-					}
-				}
-			}
-		}
-	}
-
-
 	/** Returns the date for the last time any object in the system was modified
 		@attrib api=1
 
@@ -906,34 +883,55 @@ class cache extends core
 	/** Completely clears the cache.
 		@attrib params=pos api=1
 
-		@errors
-			none
-
-		@returns
-			none
-
-
+		@errors none
+		@returns void
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set('foo', 'bar');
-			echo $cache->file_get('foo'); // prints 'bar'
-			$cache->full_flush();
-			echo $cache->file_get('foo'); // prints nothing
+			cache::file_set('foo', 'bar');
+			echo cache::file_get('foo'); // prints 'bar'
+			cache::full_flush();
+			echo cache::file_get('foo'); // prints nothing
 
 	**/
-	function full_flush()
+	public static function full_flush()
 	{
 		if (aw_global_get("no_cache_flush") == 1)
 		{
 			return;
 		}
-		$this->cache_files = array();
-		$this->cache_files2 = array();
-		$this->_get_cache_files(aw_ini_get("cache.page_cache"));
 
-		foreach($this->cache_files2 as $file)
+		$cache_dir = realpath(aw_ini_get("cache.page_cache"));
+
+		// just in case, check if root directory or other necessary thing isn't deleted
+		$count = count_chars($cache_dir, 1);
+		if ($count[47] <= 1 or 2 === $count[47] and substr($cache_dir, -1) === "/")
 		{
-			unlink($file);
+			throw new aw_exception(sprintf("Found cache directory '%s'.  Assuming an error.", $cache_dir));
+		}
+
+		// delete file cache contents
+		self::_recursive_delete_cache_files_and_dirs($cache_dir);
+	}
+
+	private static function _recursive_delete_cache_files_and_dirs($fld)
+	{
+		if (is_dir($fld) and $dir = opendir($fld))
+		{
+			while (($file = readdir($dir)) !== false)
+			{
+				if ($file !== "." and $file !== "..")
+				{
+					$fld = "{$fld}/{$file}";
+					if (is_dir($fld))
+					{
+						self::_recursive_delete_cache_files_and_dirs($fld);
+						rmdir($fld);
+					}
+					else
+					{
+						unlink($fld);
+					}
+				}
+			}
 		}
 	}
 }
