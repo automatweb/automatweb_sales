@@ -148,7 +148,7 @@ class relationmgr extends aw_template implements orb_public_interface
 		return $this->mk_my_orb("disp_relmgr", array("id" => $arr["id"]));
 	}
 
-	function _get_reltypes($clid)
+	private function _get_reltypes($clid)
 	{
 		$reltypes[0] = t("Alias");
 		$reltypes[RELTYPE_BROTHER] = t("Too vend");
@@ -158,7 +158,7 @@ class relationmgr extends aw_template implements orb_public_interface
 		$relinfo = $tmpo->get_relinfo();
 		foreach($relinfo as $key => $rel)
 		{
-			if(empty($reltypes[$rel["value"]]) && empty($rel["hidden"]))
+			if(empty($reltypes[$rel["value"]]) && empty($rel["hidden"]) && empty($rel["deprecated"]))
 			{
 				$reltypes[$rel["value"]] = empty($rel["caption"]) ? t("[nimetu]") : $rel["caption"];
 			}
@@ -166,7 +166,7 @@ class relationmgr extends aw_template implements orb_public_interface
 		return $reltypes;
 	}
 
-	function _init_relations($arr)
+	private function _init_relations($arr)
 	{
 		$this->clids = array();
 		$classes = aw_ini_get("classes");
@@ -215,7 +215,7 @@ class relationmgr extends aw_template implements orb_public_interface
 		{
 			$this->rel_classes = $this->rel_classes + $arr["property"]["configured_rels"];
 			$this->reltypes = $this->reltypes + $arr["property"]["configured_rel_names"];
-		};
+		}
 		$atc = new add_tree_conf();
 		$filt = false;
 		if (($adc_id = $atc->get_current_conf()))
@@ -256,7 +256,7 @@ class relationmgr extends aw_template implements orb_public_interface
 		}
 	}
 
-	function _show_search($arr)
+	private function _show_search($arr)
 	{
 		$pr = array();
 		$this->reltype = $arr["request"]["reltype"];
@@ -306,7 +306,7 @@ class relationmgr extends aw_template implements orb_public_interface
 		return $pr;
 	}
 
-	function _init_search($arr)
+	private function _init_search($arr)
 	{
 //@property server type=select group=advsearch
 //@caption Server
@@ -579,7 +579,7 @@ class relationmgr extends aw_template implements orb_public_interface
 		return $ret;
 	}
 
-	function _init_search_fields($arr)
+	private function _init_search_fields($arr)
 	{
 		$this->do_search = false;
 		$parts = array();
@@ -702,10 +702,10 @@ class relationmgr extends aw_template implements orb_public_interface
 
 			$tb->add_cdata(
 				html::select(array(
-					"options" => (count($this->reltypes) <= 1) ? $this->reltypes :(array('_' => t('Seose t&uuml;&uuml;p')) + $this->reltypes),
+					"options" => array('_' => t('Seose t&uuml;&uuml;p')) + $this->reltypes,
 					"name" => "reltype",
 					"selected" => isset($this->reltype) ? $this->reltype : NULL,
-					'onchange' => "listB.populate();",
+					"onchange" => "listB.populate();"
 				))
 			);
 			$tb->add_cdata('<select NAME="aselect" style="width:200px"><script LANGUAGE="JavaScript">listB.printOptions()</SCRIPT></select>');
@@ -1226,7 +1226,7 @@ class relationmgr extends aw_template implements orb_public_interface
 	**/
 	function rel_reverse($arr)
 	{
-		$_SESSION["rel_reverse"][$arr["id"]] = $_SESSION["rel_reverse"][$arr["id"]]?0:1;
-		return $this->mk_my_orb("disp_relmgr", array("id" => $arr["id"]));;
+		$_SESSION["rel_reverse"][$arr["id"]] = (int) empty($_SESSION["rel_reverse"][$arr["id"]]);
+		return $this->mk_my_orb("disp_relmgr", array("id" => $arr["id"]));
 	}
 }
