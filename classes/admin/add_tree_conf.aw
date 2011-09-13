@@ -166,8 +166,10 @@ class add_tree_conf extends class_base
 						"checked" => !empty($alias_add[$cl_id])
 					));
 
+					$class_name = empty($cld["name"]) ? (!empty($cld["file"]) ? basename($cld["file"]) : $cl_id) : $cld["name"];
+
 					$t->define_data(array(
-						"name" => str_repeat("&nbsp;", ($this->level+1) * 10) . $cld["name"] . " [" . substr(strrchr($cld["file"], "/"), 1) . "]",
+						"name" => str_repeat("&nbsp;", ($this->level+1) * 10) . $class_name . " [" . substr(strrchr($cld["file"], "/"), 1) . "]",
 						"visible" => html::checkbox(array(
 							"name" => "visible[obj][{$cl_id}]",
 							"value" => 1,

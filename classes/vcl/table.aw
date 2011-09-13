@@ -1016,7 +1016,7 @@ class aw_table extends aw_template
 		If this is set, the table will be drawn without chooser javascript
 	@return string/html table
 	@example
-		classload("vcl/table");
+		
 		$table = new aw_table(array(
 			"layout" => "generic"
 		));

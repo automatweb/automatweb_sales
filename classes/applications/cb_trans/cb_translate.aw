@@ -344,7 +344,7 @@ class cb_translate extends class_base
 		$this->_gen_tree($tree, $arr["clid"]);
 
 		/*
-		classload("core/icons");
+		
 
 		if($arr["clid"] && is_numeric($arr["clid"]) && !$parent_is_folder)
 		{

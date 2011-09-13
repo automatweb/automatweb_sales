@@ -1042,7 +1042,7 @@ arr($row);*/
 			$bt = $msgr->get_first_obj_by_reltype("RELTYPE_BUGTRACKER");
 			if ($bt)
 			{
-				classload("core/icons");
+				
 				/*$tb->add_button(array(
 					"name" => "add_bug",
 					"tooltip" => t("Lisa bugiks"),

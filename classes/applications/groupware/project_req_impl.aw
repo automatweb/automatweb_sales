@@ -132,7 +132,7 @@ class project_req_impl extends class_base
 		{
 			$proc = $arr["obj_inst"]->id();
 		}
-		classload("core/icons");
+		
 		// get all procurements and list them in the tree by process
 		$ot = new object_tree(array(
 			"class_id" => array(CL_MENU, CL_PROCUREMENT_REQUIREMENT),
@@ -183,7 +183,7 @@ class project_req_impl extends class_base
 		{
 			$proc = $arr["obj_inst"]->id();
 		}
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 
@@ -266,7 +266,7 @@ class project_req_impl extends class_base
 				"class_id" => array(CL_BUG,CL_TASK,CL_CRM_CALL,CL_CRM_MEETING, CL_PROCUREMENT_REQUIREMENT, CL_MENU)
 			));
 		}
-		classload("core/icons");
+		
 		$u = get_instance(CL_USER);
 		foreach($ol->arr() as $o)
 		{

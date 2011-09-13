@@ -236,7 +236,7 @@ class rostering_schedule extends class_base
 			"lang_id" => array(),
 			"site_id" => array()
 		));
-		classload("core/icons");
+		
 		foreach($events->arr() as $o)
 		{
 			$icon = icons::get_icon_url($o);

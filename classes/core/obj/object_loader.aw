@@ -206,7 +206,7 @@ class _int_object_loader extends core
 			$oid = $this->oid_for_alias($param);
 			if (!$oid)
 			{
-				throw new awex_oid("Invalid object alias '{$param}'");
+				throw new awex_oid(sprintf("Invalid object alias %s", var_export($param, true)));
 			}
 			return $oid;
 		}

@@ -667,7 +667,7 @@ class procurement extends class_base
 			$_SESSION["return_url"] = $_GET["return_url"];
 		}
 		$this_object = obj($_GET["id"]);
-		classload("vcl/table");
+		
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -845,7 +845,7 @@ class procurement extends class_base
 
 	function _d_tr($arr)
 	{
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML,
@@ -982,7 +982,7 @@ class procurement extends class_base
 
 	function _o_tr($arr)
 	{
-		classload("core/icons");
+		
 		$t =& $arr["prop"]["vcl_inst"];
 		$coid = $arr["request"]["co_id"] ? $arr["request"]["co_id"] : "top";
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_CRITERIA")) as $c)

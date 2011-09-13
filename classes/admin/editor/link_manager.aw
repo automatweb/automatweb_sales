@@ -117,7 +117,7 @@ class link_manager extends aw_editor_manager_base
 	**/
 	function manager($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table;
 		$this->_init_t($t, t("Link"));
 		

@@ -31,7 +31,7 @@
 
 */
 
-classload("core/icons");
+
 class server_folder extends class_base
 {
 	function server_folder()

@@ -2830,7 +2830,7 @@ class shop_warehouse extends class_base
 	**/
 	function unsent_table($arr)
 	{
-		classload("vcl/table");
+		
 		$arr["prop"]["vcl_inst"] = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -2846,7 +2846,7 @@ class shop_warehouse extends class_base
 	**/
 	function undone_xls($arr)
 	{
-		classload("vcl/table");
+		
 		$arr["prop"]["vcl_inst"] = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -4601,7 +4601,7 @@ class shop_warehouse extends class_base
 				break;
 		}
 
-		classload("core/icons");
+		
 		$pi = get_instance(CL_SHOP_PRODUCT);
 		//$ol = $ot->to_list();
 		$ol = $res["ol"]->arr();
@@ -13815,7 +13815,7 @@ die();
 			"reforb" => 0,
 		);
 
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));

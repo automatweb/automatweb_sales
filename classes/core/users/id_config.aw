@@ -162,7 +162,7 @@ class id_config extends class_base
 				)),
 			));
 		}
-		classload("core/icons");
+		
 		foreach($list as $k => $el)
 		{
 			$name = t("-");

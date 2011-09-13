@@ -273,7 +273,7 @@ class vastuv6tt_keskkond extends class_base
 			case "sisseastuja_nimekiri_table_d":
 			case "sisseastuja_nimekiri_table_o":
 			case "sisseastuja_list_table":
-				classload("vcl/table");
+				
 				$table = new aw_table(array(
 				"layout" => "generic"
 					));//& $arr["prop"]["vcl_inst"];
@@ -1046,7 +1046,7 @@ class vastuv6tt_keskkond extends class_base
 		$caption .= $eriala ? ($this->get_trans("eriala_b", $eriala) . ". ") : "";
 		$caption .= ")";
 
-		classload("vcl/table");
+		
 		$table = new vcl_table(array(
 			"layout" => "generic",
 		));

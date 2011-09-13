@@ -89,7 +89,7 @@ class workflow_resource extends class_base
 
 		$start = $range["start"];
 		$end = $range["end"];
-		classload("core/icons");
+		
 
 		$this->overview = array();
 

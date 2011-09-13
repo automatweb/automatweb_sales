@@ -633,7 +633,7 @@ class questionary extends class_base
 	function gen_csv_output($results, $questionary)
 	{
 		$first = true;
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 		foreach($results as $result => $answers)
 		{

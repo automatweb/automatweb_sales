@@ -165,7 +165,7 @@ class budgeting_workspace extends class_base
 {
 	function budgeting_workspace()
 	{
-		classload("core/icons");
+		
 		$this->init(array(
 			"tpldir" => "applications/budgeting/budgeting_workspace",
 			"clid" => CL_BUDGETING_WORKSPACE
@@ -214,7 +214,7 @@ class budgeting_workspace extends class_base
 	function _get_acct_tree($arr)
 	{
 		$pt = $this->get_acct_tree_parent($arr["obj_inst"]);
-		classload("vcl/treeview");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 
@@ -556,7 +556,7 @@ class budgeting_workspace extends class_base
 	function _get_fund_tree($arr)
 	{
 		$pt = $this->get_fund_tree_parent($arr["obj_inst"]);
-		classload("vcl/treeview");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 
@@ -626,7 +626,7 @@ class budgeting_workspace extends class_base
 	{
 		$tax_fld = $arr["r"]["tax_fld"];
 		$pt = trim($arr["parent"]);
-		classload("core/icons");
+		
 		$tv = get_instance("vcl/treeview");
 		$tv->start_tree (array (
 			"type" => TREE_DHTML,

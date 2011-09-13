@@ -1176,7 +1176,7 @@ class cb_search extends class_base
 		
 		if ($show_results)
 		{
-			classload("vcl/table");
+			
 			$t = new aw_table(array(
 				"layout" => "generic"
 			));

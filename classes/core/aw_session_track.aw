@@ -17,7 +17,7 @@ class aw_session_track extends class_base
 	**/
 	function orb_list($arr)
 	{
-		classload("vcl/table");
+		
 		$tb = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -164,7 +164,7 @@ class aw_session_track extends class_base
 	**/
 	function show_site($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));

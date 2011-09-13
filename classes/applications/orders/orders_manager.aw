@@ -716,7 +716,7 @@ class orders_manager extends class_base
 	**/
 	function undone_xls($arr)
 	{
-		classload("vcl/table");
+		
 		$arr["prop"]["vcl_inst"] = new aw_table(array(
 			"layout" => "generic"
 		));

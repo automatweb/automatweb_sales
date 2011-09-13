@@ -1103,50 +1103,53 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 
 	function _set_cedit_bank_account_tbl($arr)
 	{
-		foreach(safe_array($arr["request"]["cedit_acct"]) as $id => $data)
+		if (isset($arr["request"]["cedit_acct"]))
 		{
-			if ($this->can("view", $id))
+			foreach(safe_array($arr["request"]["cedit_acct"]) as $id => $data)
 			{
-				$o = obj($id);
-				$o->set_name($data["name"]);
-				foreach($data as $k => $v)
+				if ($this->can("view", $id))
 				{
-					$o->set_prop($k, $v);
-				}
-				$o->save();
-			}
-			else
-			if ($id == -1)
-			{
-				$o = obj();
-				$o->set_parent($arr["obj_inst"]->id());
-				$o->set_class_id(CL_CRM_BANK_ACCOUNT);
-				$o->set_name($data["name"]);
-				$has = false;
-				foreach($data as $k => $v)
-				{
-					if ($v != "")
+					$o = obj($id);
+					$o->set_name($data["name"]);
+					foreach($data as $k => $v)
 					{
-						$has = true;
+						$o->set_prop($k, $v);
 					}
-					$o->set_prop($k, $v);
-				}
-				if ($has)
-				{
 					$o->save();
-					$arr["obj_inst"]->connect(array(
-						"to" => $o->id(),
-						"type" => "RELTYPE_BANK_ACCOUNT"
-					));
-					if ($arr["request"]["cedit"]["cedit_bank_account_tbl"] == -1)
+				}
+				else
+				if ($id == -1)
+				{
+					$o = obj();
+					$o->set_parent($arr["obj_inst"]->id());
+					$o->set_class_id(CL_CRM_BANK_ACCOUNT);
+					$o->set_name($data["name"]);
+					$has = false;
+					foreach($data as $k => $v)
 					{
-						$arr["obj_inst"]->set_prop("aw_bank_account", $o->id());
+						if ($v != "")
+						{
+							$has = true;
+						}
+						$o->set_prop($k, $v);
+					}
+					if ($has)
+					{
+						$o->save();
+						$arr["obj_inst"]->connect(array(
+							"to" => $o->id(),
+							"type" => "RELTYPE_BANK_ACCOUNT"
+						));
+						if ($arr["request"]["cedit"]["cedit_bank_account_tbl"] == -1)
+						{
+							$arr["obj_inst"]->set_prop("aw_bank_account", $o->id());
+						}
 					}
 				}
 			}
 		}
 
-		if ($this->can("view", $arr["request"]["cedit"]["cedit_bank_account_tbl"]))
+		if ($this->can("", $arr["request"]["cedit"]["cedit_bank_account_tbl"]))
 		{
 			$arr["obj_inst"]->set_prop("aw_bank_account", $arr["request"]["cedit"]["cedit_bank_account_tbl"]);
 		}

@@ -271,7 +271,7 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 
 		if($slaves->count())
 		{
-			classload("vcl/table");
+			
 			classload("vcl/toolbar");
 			$t = new vcl_table();
 			$t->define_chooser(array(

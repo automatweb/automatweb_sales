@@ -835,8 +835,8 @@ class rostering_workbench extends class_base
 
 	function _sk_tree($arr)
 	{
-		classload("vcl/treeview");
-		classload("core/icons");
+		
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 
@@ -938,7 +938,7 @@ class rostering_workbench extends class_base
 
 	function _graph_tree($arr)
 	{
-		classload("core/icons");
+		
 		$pt = $this->_get_graph_pt($arr["obj_inst"]);
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(

@@ -187,7 +187,7 @@ class bt_problems_impl extends core
 
 	function _get_pr_tree($arr)
 	{
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 

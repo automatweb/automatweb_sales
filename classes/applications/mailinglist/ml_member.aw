@@ -3,6 +3,7 @@
 // ml_member.aw - Mailing list member
 
 /*
+	@classinfo no_status=1 no_comment=1
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_PERSON_WORK_RELATION, on_connect_work_relation_to_email)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON_WORK_RELATION, on_disconnect_work_relation_from_email)
@@ -17,9 +18,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON_WORK_RELA
 
 	@property mail type=textbox table=ml_users
 	@caption E-post
-
-	@classinfo syslog_type=ST_MAILINGLIST_MEMBER
-	@classinfo no_status=1 no_comment=1
 
 	@default group=udef_fields
 
@@ -122,7 +120,6 @@ class ml_member extends class_base
 		$this->init(array(
 			"clid" => CL_ML_MEMBER,
 		));
-		lc_load("definition");
 		$this->users = get_instance("users");
 		$this->types = array(
 			"" => "",
@@ -155,9 +152,7 @@ class ml_member extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_ML_MEMBER,
 			"mail" => $email,
-			"parent" => $folder,
-			"site_id" => array(),
-			"lang_id" => array(),
+			"parent" => $folder
 		));
 		$rv = $ol->count() > 0 ? $ol->begin() : false;
 		return $rv;

@@ -1030,7 +1030,7 @@ class conference_planning extends class_base
 				break;
 
 			case "mails":
-				classload("vcl/table");
+				
 				$vcl = new vcl_table();
 				$vcl->define_field(array(
 					"name" => "hotel",

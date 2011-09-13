@@ -880,7 +880,7 @@ class shop_product_search extends class_base
 
 	function _s_res($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new aw_table(array("layout" => "generic"));
 
 		$cols = safe_array($arr["obj_inst"]->meta("s_tbl"));

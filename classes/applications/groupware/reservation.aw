@@ -2663,7 +2663,7 @@ class reservation extends class_base
 
 	function _format_sum($o)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table;
 
 		$t->define_field(array(

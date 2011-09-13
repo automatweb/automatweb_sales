@@ -52,9 +52,9 @@ class crm_company_my_view extends class_base
 			mulle lisatud failid, foorumi viimased teemad,
 		*/
 
-		classload("vcl/table");
+		
 		classload("core/date/date_calc");
-		classload("core/icons");
+		
 
 		$this->vars(array(
 			"events" => $this->_events($arr),
@@ -150,7 +150,7 @@ class crm_company_my_view extends class_base
 
 	function _forums($arr)
 	{
-		classload("vcl/table");
+		
 		// get forum from co and last topics from that
 		$u = get_instance(CL_USER);
 		$co = obj($u->get_current_company());
@@ -361,7 +361,7 @@ class crm_company_my_view extends class_base
 	function _events($arr, $tm)
 	{
 		$p = get_current_person();
-		classload("core/icons");
+		
 		$i = get_instance("applications/crm/crm_company_overview_impl");
 		$filt = $i->_get_tasks_search_filt(
 			array(

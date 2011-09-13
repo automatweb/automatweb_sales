@@ -1118,7 +1118,7 @@ $x++;
 		if($_GET["sel"])
 		{
 			echo t("Valitud t&ouml;&ouml;d on teostatud erinevatele klientidele!");
-			classload("vcl/table");
+			
 			$t = new aw_table(array(
 				"layout" => "generic"
 			));
@@ -1188,7 +1188,7 @@ $x++;
 				</script></body></html>
 			");
 		}
-		classload("vcl/table");
+		
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
