@@ -3997,7 +3997,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		$this->awcb_data_sources["id"] = $this->obj_inst;
 
-		if (isset($args["_object_type"]) and $this->can("view", $args["_object_type"]))
+		if (isset($args["_object_type"]) and $this->can("", $args["_object_type"]))
 		{//XXX: kahtlane! cfgform salvestati ka metasse, pole hea
 			$ot_obj = new object($args["_object_type"]);
 			$this->obj_inst->set_meta("object_type",$args["_object_type"]);

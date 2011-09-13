@@ -1,6 +1,13 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>aw_lang_id</name>
+            <table>languages</table>
+            <type>hidden</type>
+            <field>aw_lid</field>
+            <caption>Keele ID</caption>
+      </property>
+      <property>
             <name>lang_name</name>
             <table>languages</table>
             <group>general</group>
@@ -79,14 +86,6 @@
             <multiple>1</multiple>
             <field>site_id</field>
             <caption>Saidid kus keel on valitav</caption>
-      </property>
-      <property>
-            <name>aw_lang_id</name>
-            <table>languages</table>
-            <group>general</group>
-            <type>hidden</type>
-            <field>aw_lid</field>
-            <caption>Keele ID</caption>
       </property>
       <property>
             <name>lang_trans_msg</name>
