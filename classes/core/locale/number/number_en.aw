@@ -102,36 +102,11 @@ class awlc_number_en implements awlc_number
 
 	public static function get_lc_money_text($number, $currency)
 	{
-		// exploide by . or ,
-		/*if (strpos($number, ",") !== false)
-		{
-			$number = str_replace(",", ".", $number);
-		}*/
-
 		list($eek, $cent) = explode(".", number_format($number, 2, ".", ""));
-		if (!is_oid($currency->id()))
-		{
-			if (!is_class_id($currency->class_id()))
-			{
-				$currency->set_class_id(CL_CURRENCY);
-			}
-			$currency->set_prop("unit_name", "euros");
-			$currency->set_prop("small_unit_name", "cents");
-		}
-
-		//äkki on unitid tõlgitud
-		$unit_meta = $currency->meta("unit");
-		$small_unit_meta = $currency->meta("small_unit");
-		if($unit_meta["en"]) $unit = $unit_meta["en"];
-		else $unit = $currency->prop("unit_name");
-
-		if($small_unit_meta["en"]) $small_unit = $small_unit_meta["en"];
-		else $small_unit = $currency->prop("small_unit_name");
-
-		$res = self::get_lc_number($eek)." ".$unit;
+		$res = $currency->get_string_for_sum(self::get_lc_number($eek), languages::LC_ENG);
 		if ($cent > 0)
 		{
-			$res .= " and ". self::get_lc_number($cent)." ".$small_unit;
+			$res .= " and ". $currency->get_small_unit_string_for_sum(self::get_lc_number($cent), languages::LC_ENG);
 		}
 		return $res;
 	}

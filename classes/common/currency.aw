@@ -6,48 +6,54 @@
 @classinfo no_status=1
 
 @default group=general
+	@property ord type=textbox table=objects field=jrk size=5
+	@caption J&auml;rjekord
 
-@property ord type=textbox table=objects field=jrk size=5
-@caption J&auml;rjekord
+	@property comment type=textbox table=objects field=comment
+	@caption Kurss euro suhtes
 
-@property comment type=textbox table=objects field=comment
-@caption Kurss euro suhtes
+	@property unit_name type=textbox table=objects field=meta method=serialize
+	@caption Raha&uuml;hiku nimetus
 
-@property unit_name type=textbox table=objects field=meta method=serialize
-@caption Raha&uuml;hiku nimetus
+	@property small_unit_name type=textbox table=objects field=meta method=serialize
+	@caption Peenraha&uuml;hiku nimetus
 
-@property small_unit_name type=textbox table=objects field=meta method=serialize
-@caption Peenraha&uuml;hiku nimetus
+	@property unit_name_morphology_spec type=textbox table=objects field=meta method=serialize
+	@comment Reeglid &uuml;hiku nime kasutamiseks koos summa numbriga. N&auml;ide: 1 euro; * eurot
+	@caption Raha&uuml;hiku morfoloogia
 
-@property unit_name_after_sum type=textbox table=objects field=meta method=serialize
-@caption Raha&uuml;hiku nimetus summa j&auml;rel
+	@property small_unit_morphology_spec type=textbox table=objects field=meta method=serialize
+	@comment Reeglid &uuml;hiku nime kasutamiseks koos summa numbriga. N&auml;ide: 1 sent; * senti
+	@caption Peenraha&uuml;hiku morfoloogia
 
-@property small_unit_name_after_sum type=textbox table=objects field=meta method=serialize
-@caption Peenraha&uuml;hiku nimetus summa j&auml;rel
+	@property symbol type=textbox size=2 table=objects field=meta method=serialize
+	@caption S&uuml;mbol
 
-@property symbol type=textbox size=2 table=objects field=meta method=serialize
-@caption S&uuml;mbol
 
 @groupinfo rates caption=Kursid
 @default group=rates
+	@property rates type=callback callback=callback_get_rates
+	@caption Kaustad kust otsida
 
-@property rates type=callback callback=callback_get_rates
-@caption Kaustad kust otsida
 
-@groupinfo translate caption=T&otilde;lge
-@default group=translate
-
-@property translate type=table no_caption=1
-
+@groupinfo transl caption=T&otilde;lgi
+@default group=transl
+	@property transl type=callback callback=callback_get_transl store=no
+	@caption T&otilde;lgi
 
 */
-//TODO: translate normaalseks
 
 define("RET_NAME",1);
 define("RET_ARR",2);
 
 class currency extends class_base
 {
+	protected $trans_props = array(
+		"name",
+		"small_unit_morphology_spec",
+		"unit_name_morphology_spec"
+	);
+
 	private $default_currency;
 	private $co_currency;
 
@@ -60,42 +66,17 @@ class currency extends class_base
 		$this->sub_merge = 1;
 	}
 
-	function get_property($arr)
-	{
-		$data = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($data["name"])
-		{
-			case "translate":
-				$this->do_table($arr);
-				break;
-			};
-		return $retval;
-	}
-
 	function set_property($arr = array())
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
-			//-- set_property --//
 			case "rates":
 				$this->submit_meta($arr);
 				break;
-			case "translate":
-				$this->submit_trans($arr);
-				break;
 		}
 		return $retval;
-	}
-
-	function submit_trans($arr = array())
-	{
-		$arr["obj_inst"]->set_meta("unit", $arr["request"]["unit"]);
-		$arr["obj_inst"]->set_meta("small_unit", $arr["request"]["small_unit"]);
-		$arr["obj_inst"]->set_meta("unit_after_sum", $arr["request"]["unit_after_sum"]);
-		$arr["obj_inst"]->set_meta("small_unit_after_sum", $arr["request"]["small_unit_after_sum"]);
 	}
 
 	function do_table($arr)

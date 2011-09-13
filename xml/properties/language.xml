@@ -48,20 +48,20 @@
       </property>
       <property>
             <name>lang_sel_lang</name>
-            <table>objects</table>
+            <table>languages</table>
             <group>general</group>
             <type>select</type>
-            <store>no</store>
-            <field>lang_sel_lang</field>
+            <field>lang_code</field>
             <caption>Keel</caption>
       </property>
       <property>
             <name>lang_charset</name>
             <table>languages</table>
             <group>general</group>
-            <type>select</type>
+            <type>textbox</type>
             <field>charset</field>
-            <caption>Charset</caption>
+            <editonly>1</editonly>
+            <caption>Kooditabel</caption>
       </property>
       <property>
             <name>lang_acceptlang</name>
@@ -81,11 +81,11 @@
             <caption>Saidid kus keel on valitav</caption>
       </property>
       <property>
-            <name>db_lang_id</name>
+            <name>aw_lang_id</name>
             <table>languages</table>
             <group>general</group>
             <type>hidden</type>
-            <field>id</field>
+            <field>aw_lid</field>
             <caption>Keele ID</caption>
       </property>
       <property>

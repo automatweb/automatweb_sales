@@ -62,57 +62,45 @@ class unit_obj extends _int_object
 		));
 	}
 
-	/** Returns form of unit name for given value
+	/** Returns form of unit name with value as specified in unit_name_morphology_spec
 		@attrib api=1 params=pos
 		@param value type=string
 		@comment
 		@returns string
-		@errors
+			Value plus space plus unit name if correct form not found
+		@errors none
 	**/
-	public function get_name_for_value($value)
+	public function get_string_for_value($value, $lang_id = AW_LANGUAGES_DEFAULT_CT_LID)
 	{
 		settype($value, "string");
-		if ("1" === $value)
+		$str = aw_locale::get_unit_string($value, $this->trans_get_val("unit_name_morphology_spec", $lang_id));
+
+		if ($str == $value)
 		{
-			$name = $this->prop("name_for_1");
-		}
-		elseif ("2" === $value)
-		{
-			$name = $this->prop("name_for_2");
-		}
-		else
-		{
-			$name = $this->prop("name_for_n");
+			$str = $value . " " . $this->name();
 		}
 
-		if ($name)
-		{
-			return $name;
-		}
-		else
-		{
-			return $this->name();
-		}
+		return $str;
 	}
 
 	public function save($check_state = false)
 	{
-		if ($this->name())
-		{
-			if (!$this->prop("name_for_1"))
+		$name = $this->name();
+		if (!$this->is_saved() and !$this->set_prop("unit_name_morphology_spec") and $name)
+		{ // predefine morphology spec
+			if (languages::LC_EST == aw_global_get("lang_id"))
 			{
-				$this->set_prop("name_for_1", $this->name());
+				$guessed_plural_suffix = "t";
 			}
-
-			if (!$this->prop("name_for_2"))
+			elseif (languages::LC_ENG == aw_global_get("lang_id"))
 			{
-				$this->set_prop("name_for_2", $this->name());
+				$guessed_plural_suffix = "s";
 			}
-
-			if (!$this->prop("name_for_n"))
+			else
 			{
-				$this->set_prop("name_for_n", $this->name());
+				$guessed_plural_suffix = "";
 			}
+			$this->set_prop("unit_name_morphology_spec", "1 {$name}; * {$name}{$guessed_plural_suffix}");
 		}
 
 		return parent::save($check_state);
