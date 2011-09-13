@@ -301,7 +301,10 @@ function aw_fatal_error_handler($e = null)
 			//////////////
 
 			// handle the exception
-			$current_exception_handler($E);
+			if ($current_exception_handler)
+			{
+				$current_exception_handler($E);
+			}
 			//////////////
 		}
 	}
@@ -324,6 +327,8 @@ function aw_get_error_exception_class($error_type)
 		E_PARSE => "awex_php_parse",
 		E_ERROR => "awex_php_error",
 		E_USER_ERROR => "awex_php_user_error",
+		E_USER_DEPRECATED => "awex_php_user_notice",
+		E_DEPRECATED => "awex_php_notice",
 		E_CORE_ERROR => "awex_php_core_error"
 	);
 
@@ -346,6 +351,7 @@ function aw_is_non_fatal_error($error_type)
 		E_WARNING => 1,
 		E_USER_NOTICE => 1,
 		E_USER_WARNING => 1,
+		E_USER_DEPRECATED => 1,
 		E_CORE_WARNING => 1,
 		E_COMPILE_WARNING => 1
 	);
