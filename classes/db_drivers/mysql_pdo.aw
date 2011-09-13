@@ -726,12 +726,12 @@ class mysql_pdo
 				}
 			}
 
-			if ($this->db_proc_error_last_fn == $mt[2] && $this->db_proc_error_last_fn)
+			if (isset($mt[2]) && $this->db_proc_error_last_fn == $mt[2] && $this->db_proc_error_last_fn)
 			{
 				return false; // if we get the same error as last time, the upgrader did not create the correct field, so error out
 			}
 
-			$this->db_proc_error_last_fn = $mt[2];
+			$this->db_proc_error_last_fn = isset($mt[2]) ? $mt[2] : "";
 			// find the table from property list. oh this is gonna be slooooooow
 			$clss = aw_ini_get("classes");
 			$upgrade_result = null;
