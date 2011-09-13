@@ -102,28 +102,19 @@ class _int_object
 		return $this->obj;
 	}
 
-	function delete($full_delete = false)
+	public function delete($full_delete = false)
 	{
 		if (!$this->obj["oid"])
-		{
+		{//TODO: see on tyhi siis kui on uus objekt? uusi objekte v6ib ka olla vaja kustutda.
 			error::raise(array(
 				"id" => "ERR_NO_OID",
-				"msg" => t("object::delete(): no current object loaded")
+				"msg" => t("object::delete(): no object loaded")
 			));
 			return;
 		}
 
-		if (!$this->can("delete"))
-		{
-			$e = new awex_obj_acl("No delete access.");
-			$e->awobj_id = $this->obj["oid"];
-			throw $e;
-		}
-
 		$ret = $this->obj["oid"];
-
 		$this->_int_do_delete($this->obj["oid"], $full_delete);
-
 		return $ret;
 	}
 
@@ -139,7 +130,7 @@ class _int_object
 			$param["reltype"] = $param["type"];
 		}
 
-		$oids = $GLOBALS["object_loader"]->param_to_oid_list($param["to"]);
+		$oids = object_loader::instance()->param_to_oid_list($param["to"]);
 		foreach($oids as $oid)
 		{
 			$to = obj($oid);
@@ -169,8 +160,7 @@ class _int_object
 			}
 			else
 			{
-				if (isset($this->obj["brother_of"]) && $GLOBALS["object_loader"]->ds->can("view", $this->obj["brother_of"]) &&
-					$GLOBALS["object_loader"]->ds->can("view", $oid))
+				if (!empty($this->obj["brother_of"]) && object_loader::can("", $this->obj["brother_of"]) && object_loader::can("", $oid))
 				{
 					$c = new connection();
 					$param["from"] = $this->obj["brother_of"];
@@ -179,13 +169,9 @@ class _int_object
 				}
 				else
 				{
-					error::raise(array(
-						"id" => "ERR_ACL",
-						"msg" => sprintf(t("object::connect(): no view access for both endpoints (%s and %s)!"), $this->obj["brother_of"], $oid)
-					));
-					return;
+					throw new awex_obj_acl(sprintf("No view access for both endpoints (%s and %s)", var_export($this->obj["brother_of"], true), var_export($oid, true)));
 				}
-			};
+			}
 		}
 	}
 
@@ -193,13 +179,10 @@ class _int_object
 	{
 		if (!is_array($param))
 		{
-			error::raise(array(
-				"id" => "ERR_PARAM",
-				"msg" => sprintf(t("object::disconnect(%s): parameter must be an array!"), $param)
-			));
-			return;
+			throw new awex_obj_param(sprintf("Parameter must be an array. %s given", var_export($param, true)));
 		}
-		$oids = $GLOBALS["object_loader"]->param_to_oid_list($param["from"]);
+
+		$oids = object_loader::instance()->param_to_oid_list($param["from"]);
 		foreach($oids as $oid)
 		{
 			$c = new connection();
@@ -210,7 +193,7 @@ class _int_object
 			);
 			if (!empty($param["type"]))
 			{
-				$finder["type"] = $GLOBALS["object_loader"]->resolve_reltype($param["type"], $this->obj["class_id"]);
+				$finder["type"] = object_loader::instance()->resolve_reltype($param["type"], $this->obj["class_id"]);
 			}
 			$conn_id = $c->find($finder);
 			if (count($conn_id) < 1)
@@ -221,11 +204,7 @@ class _int_object
 				}
 				else
 				{
-					error::raise(array(
-						"id" => "ERR_CONNECTION",
-						"msg" => sprintf(t("object::disconnect(): could not find connection to object %s from object %s"), $oid, $this->obj["oid"])
-					));
-					return;
+					throw new awex_obj_na(sprintf("Could not find connection to object %s from object %s", $oid, $this->obj["oid"]));
 				}
 			}
 			reset($conn_id);
@@ -255,16 +234,12 @@ class _int_object
 		{
 			if (!is_array($param))
 			{
-				error::raise(array(
-					"id" => "ERR_PARAM",
-					"msg" => t("object::connections_from(): if argument is present, then argument must be array of filter parameters!")
-				));
-				return;
+				throw new awex_obj_param("If argument is present, then argument must be array of filter parameters");
 			}
 
 			if (isset($param["type"]))
 			{
-				$param["type"] = $GLOBALS["object_loader"]->resolve_reltype($param["type"], $this->obj["class_id"]);
+				$param["type"] = object_loader::instance()->resolve_reltype($param["type"], $this->obj["class_id"]);
 				if ($param["type"])
 				{
 					$filter["type"] = $param["type"];
@@ -273,7 +248,7 @@ class _int_object
 
 			if (isset($param["to"]))
 			{
-				$filter["to"] = $GLOBALS["object_loader"]->param_to_oid_list($param["to"]);
+				$filter["to"] = object_loader::instance()->param_to_oid_list($param["to"]);
 			}
 
 			if (isset($param["idx"]))
@@ -305,7 +280,7 @@ class _int_object
 		}
 
 		$ret = array();
-		$cs = $GLOBALS["object_loader"]->ds->find_connections($filter);
+		$cs = object_loader::ds()->find_connections($filter);
 		foreach($cs as $c_id => $c_d)
 		{
 			// set acldata to memcache
@@ -317,7 +292,7 @@ class _int_object
 				"acldata" => $c_d["to.acldata"],
 				"parent" => $c_d["to.parent"]
 			);
-			if ($GLOBALS["object_loader"]->ds->can("view", $c_d["to"]))
+			if (object_loader::can("", $c_d["to"]))
 			{
 				$ret[$c_id] = new connection($c_d);
 			}
@@ -360,12 +335,9 @@ class _int_object
 		{
 			if (!is_array($param))
 			{
-				error::raise(array(
-					"id" => "ERR_PARAM",
-					"msg" => t("object::connections_to(): if argument is present, then argument must be array of filter parameters!")
-				));
-				return;
+				throw new awex_obj_param("If argument is present, then argument must be array of filter parameters");
 			}
+
 			if (isset($param["type"]))
 			{
 				if (!is_numeric($param["type"]) && !is_array($param["type"]) && substr($param["type"], 0, 7) === "RELTYPE" && isset($param["from.class_id"]) && is_class_id($param["from.class_id"]))
@@ -393,7 +365,7 @@ class _int_object
 
 			if (isset($param["from"]))
 			{
-				$filter["from"] = $GLOBALS["object_loader"]->param_to_oid_list($param["from"]);
+				$filter["from"] = object_loader::instance()->param_to_oid_list($param["from"]);
 			}
 
 			if (isset($param["idx"]))
@@ -419,7 +391,7 @@ class _int_object
 		}
 
 		$ret = array();
-		$cs = $GLOBALS["object_loader"]->ds->find_connections($filter);
+		$cs = object_loader::ds()->find_connections($filter);
 		foreach($cs as $c_d)
 		{
 			// set acldata to memcache
@@ -431,7 +403,7 @@ class _int_object
 				"acldata" => $c_d["to.acldata"],
 				"parent" => $c_d["to.parent"]
 			);
-			if ($GLOBALS["object_loader"]->ds->can("view", $c_d["from"]))
+			if (object_loader::can("", $c_d["from"]))
 			{
 				$ret[] = new connection($c_d);
 			}
@@ -475,16 +447,12 @@ class _int_object
 
 		if ($param !== NULL && !is_array($param))
 		{
-			error::raise(array(
-				"id" => "ERR_PARAM",
-				"msg" => sprintf(t("object::path(%s): if parameter is specified, it must be an array!"), $param)
-			));
-			return;
+			throw new awex_obj_param("If parameter is specified, it must be an array");
 		}
 
 		if (is_array($param) && isset($param["to"]))
 		{
-			$param["to"] = $GLOBALS["object_loader"]->param_to_oid($param["to"]);
+			$param["to"] = object_loader::instance()->param_to_oid($param["to"]);
 		}
 
 		return $this->_int_path($param);
@@ -492,16 +460,9 @@ class _int_object
 
 	function path_str($param = NULL)
 	{
-		if ($param != NULL)
+		if ($param !== null and !is_array($param))
 		{
-			if (!is_array($param))
-			{
-				error::raise(array(
-					"id" => "ERR_PARAM",
-					"msg" => t("object::path_str(): parameter must be an array if present!")
-				));
-				return;
-			}
+			throw new awex_obj_param("If parameter is specified, it must be an array");
 		}
 
 		$pt = $this->path($param);
@@ -549,59 +510,32 @@ class _int_object
 
 	function can($param)
 	{
-		if (empty($this->obj["oid"]))
-		{
-			error::raise(array(
-				"id" => "ERR_ACL",
-				"msg" => sprintf(t("object::can(%s): no current object loaded!"),$param)
-			));
-			return;
-		}
-
-		return $this->_int_can($param);
+		return object_loader::can($param, $this->id());
 	}
 
 	function init_acl()
 	{
-		$GLOBALS["object_loader"]->set___aw_acl_cache();
+		object_loader::instance()->set___aw_acl_cache();
 	}
 
-	function is_property($param)
+	public function is_property($param)
 	{
-		if (!is_string($param) or empty($param))
-		{
-			return false;
-		}
-
-		if (!is_class_id($this->obj["class_id"]))
-		{
-			error::raise(array(
-				"err" => "ERR_NO_CLASS_ID",
-				"msg" => sprintf(t("object::is_property(%s): no class_id for the current object is set!"), $param)
-			));
-			return;
-		}
-
-		return $this->_int_is_property($param);
+		return !empty($param) and is_string($param) and is_class_id($this->obj["class_id"]) and $this->_int_is_property($param);
 	}
 
-	function parent()
+	public function parent()
 	{
 		return isset($this->obj["parent"]) ? $this->obj["parent"] : null;
 	}
 
-	function set_parent($parent)
+	public function set_parent($parent)
 	{
 		$prev = isset($this->obj["parent"]) ? $this->obj["parent"] : null;
-		$parent = $GLOBALS["object_loader"]->param_to_oid($parent);
+		$parent = object_loader::instance()->param_to_oid($parent);
 
 		if (!$parent)
 		{
-			error::raise(array(
-				"id" => "ERR_NO_PARENT",
-				"msg" => sprintf(t("object::set_parent(%s): no parent specified!"), $parent)
-			));
-			return;
+			throw new awex_obj_param(sprintf("Invalid parent parameter: %s", var_export($parent, true)));
 		}
 
 
@@ -611,7 +545,7 @@ class _int_object
 		// also, check parent object and set site_id according to these rules:
 		// - if parent is client type menu, then do nothing
 		// - else set site_id same as parent's
-		if (is_oid($parent) && $GLOBALS["object_loader"]->ds->can("view", $parent))
+		if (is_oid($parent) && object_loader::can("", $parent))
 		{
 			if (isset($GLOBALS["objects"][$parent]) && is_object($GLOBALS["objects"][$parent]))
 			{
@@ -619,7 +553,7 @@ class _int_object
 			}
 			else
 			{
-				$objdata = $GLOBALS["object_loader"]->ds->get_objdata($parent, array("no_errors" => true));
+				$objdata = object_loader::ds()->get_objdata($parent, array("no_errors" => true));
 			}
 
 			if ($objdata !== NULL)
@@ -635,36 +569,32 @@ class _int_object
 		return $prev;
 	}
 
-	function name()
+	public function name()
 	{
 		return isset($this->obj["name"]) ? $this->obj["name"] : null;
 	}
 
-	function set_name($param)
+	public function set_name($param)
 	{
-		$prev = isset($this->obj["name"]) ? $this->obj["name"] : null;
-		$this->_int_set_of_value("name", $param);
+		$prev = isset($this->obj["name"]) ? $this->obj["name"] : "";
+		$this->_int_set_of_value("name", (string) $param);
 		$this->_int_do_implicit_save();
 		return $prev;
 	}
 
-	function class_id()
+	public function class_id()
 	{
-		return (int) (isset($this->obj["class_id"]) ? $this->obj["class_id"] : null);
+		return isset($this->obj["class_id"]) ? (int) $this->obj["class_id"] : 0;
 	}
 
-	function set_class_id($param)
+	public function set_class_id($param)
 	{
 		if (!is_class_id($param))
 		{
-			error::raise(array(
-				"id" => "ERR_CLASS_ID",
-				"msg" => sprintf(t("object::set_class(%s): specified class id id is not valid!"), $param)
-			));
-			return;
+			throw new awex_obj_param(sprintf("Invalid class id parameter %s", var_export($param, true)));
 		}
 
-		$this->_int_set_of_value("class_id", $param);
+		$this->_int_set_of_value("class_id", (int) $param);
 
 		// since the class id has changed, we gots to load new properties for the new class type
 		$this->_int_load_properties();
@@ -673,23 +603,15 @@ class _int_object
 
 	public function class_title()
 	{
-		try
-		{
-			$class_title = aw_ini_get(sprintf("classes.%u.name", $this->class_id()));
-		}
-		catch(awex_cfg_key $e)
-		{
-			$class_title = NULL;
-		}
-		return $class_title;
+		return aw_ini_isset("classes.{$this->obj["class_id"]}.name") ? aw_ini_get("classes.{$this->obj["class_id"]}.name") : "";
 	}
 
-	function status()
+	public function status()
 	{
 		return isset($this->obj["status"]) ? $this->obj["status"] : null;
 	}
 
-	function set_status($param)
+	public function set_status($param)
 	{
 		$prev = isset($this->obj["status"]) ? $this->obj["status"] : null;
 		settype($param, "int");
@@ -704,66 +626,45 @@ class _int_object
 		}
 		elseif (object::STAT_DELETED === $param)
 		{
-			$this->_int_set_of_value("status", object::STAT_DELETED);
 			return $this->delete();
 		}
 		else
 		{
-			throw new awex_obj_type("Invalid status parameter '{$param}' for object '{$this->obj["oid"]}'");
+			throw new awex_obj_param(sprintf("Invalid status parameter %s", var_export($param, true)));
 		}
 
 		$this->_int_do_implicit_save();
 		return $prev;
 	}
 
-	function lang()
+	public function lang()
 	{
-		if (!isset($this->obj["lang_id"]))
-		{
-			return NULL;
-		}
-
-		try
-		{
-			// right. once we convert all code to use lang codes (en/et/..) we can make this better. right now, the sucky version.
-			return languages::get_langid($this->obj["lang_id"]);//TODO: keele id-d universaalseks, et alati oleks olemas
-		}
-		catch (awex_lang_na $e)
-		{
-			return "";
-		}
+		return isset($this->obj["lang_id"]) ? languages::get_code_for_id($this->obj["lang_id"]) : "";
 	}
 
-	function lang_id()
+	public function lang_id()
 	{
-		return isset($this->obj["lang_id"]) ? $this->obj["lang_id"] : null;
+		return isset($this->obj["lang_id"]) ? (int) $this->obj["lang_id"] : 0;
 	}
 
-	function set_lang_id($param)
+	public function set_lang_id($param)
 	{
-		$prev = isset($this->obj["lang_id"]) ? $this->obj["lang_id"] : null;
+		$prev = isset($this->obj["lang_id"]) ? (int) $this->obj["lang_id"] : null;
 
-		if (!is_numeric($param))
+		if ($param and $param != (int) $param) // language id can be unset
 		{
-			error::raise(array(
-				"id" => "ERR_LANG_ID",
-				"msg" => sprintf(t("object::set_lang_id(%s): lang_id must be integer!"), $param)
-			));
-			return;
-
+			throw new awex_obj_param(sprintf("Invalid language id parameter: %s. Integer expression expected", var_export($param, true)));
 		}
-		$this->_int_set_of_value("lang_id", (int)$param);
+
+		$this->_int_set_of_value("lang_id", (int) $param);
 		$this->_int_do_implicit_save();
 		return $prev;
-
 	}
 
-	function set_lang($param)
+	public function set_lang($param)
 	{
 		$prev = $this->lang();
-
-		$li = new languages();
-		$lang_id = $li->get_langid_for_code($param);
+		$lang_id = languages::get_id_for_code($param);
 		if (!$lang_id)
 		{
 			$lang_id = aw_global_get("lang_id");
@@ -774,12 +675,12 @@ class _int_object
 		return $prev;
 	}
 
-	function comment()
+	public function comment()
 	{
 		return isset($this->obj["comment"]) ? $this->obj["comment"] : null;
 	}
 
-	function set_comment($param)
+	public function set_comment($param)
 	{
 		$prev = isset($this->obj["comment"]) ? $this->obj["comment"] : null;
 		$this->_int_set_of_value("comment", $param);
@@ -787,35 +688,31 @@ class _int_object
 		return $prev;
 	}
 
-	function ord()
+	public function ord()
 	{
 		return isset($this->obj["jrk"]) ? $this->obj["jrk"] : null;
 	}
 
-	function set_ord($param)
+	public function set_ord($param)
 	{
 		$prev = isset($this->obj["jrk"]) ? $this->obj["jrk"] : null;
 
-		if (!is_numeric($param) && $param != "")
+		if ($param and $param != (int) $param)
 		{
-			error::raise(array(
-				"id" => "ERR_ORD",
-				"msg" => sprintf(t("object::set_ord(%s): order must be integer!"), $param)
-			));
-			return;
+			throw new awex_obj_param(sprintf("Invalid order parameter: %s. Integer expression expected", var_export($param, true)));
 		}
 
-		$this->_int_set_of_value("jrk", (int)$param);
+		$this->_int_set_of_value("jrk", (int) $param);
 		$this->_int_do_implicit_save();
 		return $prev;
 	}
 
-	function alias()
+	public function alias()
 	{
 		return isset($this->obj["alias"]) ? $this->obj["alias"] : null;
 	}
 
-	function set_alias($param)
+	public function set_alias($param)
 	{
 		$prev = isset($this->obj["alias"]) ? $this->obj["alias"] : null;
 		$this->_int_set_of_value("alias", $param);
@@ -824,101 +721,89 @@ class _int_object
 	}
 
 	// id is null until object is saved
-	function id()
+	public function id()
 	{
 		return isset($this->obj["oid"]) ? $this->obj["oid"] : null;
 	}
 
-	function createdby()
+	public function createdby()
 	{
 		return isset($this->obj["createdby"]) ? $this->obj["createdby"] : null;
 	}
 
-	function created()
+	public function created()
 	{
 		return isset($this->obj["created"]) ? $this->obj["created"] : null;
 	}
 
-	function modifiedby()
+	public function modifiedby()
 	{
 		return isset($this->obj["modifiedby"]) ? $this->obj["modifiedby"] : null;
 	}
 
-	function modified()
+	public function modified()
 	{
 		return isset($this->obj["modified"]) ? $this->obj["modified"] : null;
 	}
 
-	function period()
+	public function period()
 	{
-		return isset($this->obj["period"]) ? $this->obj["period"] : null;
+		return isset($this->obj["period"]) ? $this->obj["period"] : 0;
 	}
 
-	function set_period($param)
+	public function set_period($param)
 	{
-		$prev = isset($this->obj["period"]) ? $this->obj["period"] : null;
+		$prev = isset($this->obj["period"]) ? $this->obj["period"] : 0;
 
-		if (!is_numeric($param) && $param != "")
+		if ($param and $param != (int) $param)
 		{
-			error::raise(array(
-				"id" => "ERR_PERIOD",
-				"msg" => sprintf(t("object::set_period(%s): period must be integer!"), $param)
-			));
-			return;
+			throw new awex_obj_param(sprintf("Invalid period id parameter: %s. Integer expression expected", var_export($param, true)));
 		}
 
-		$this->_int_set_of_value("period", (int)$param);
+		$this->_int_set_of_value("period", (int) $param);
 		$this->_int_do_implicit_save();
 		return $prev;
 	}
 
-	function is_periodic()
+	public function is_periodic()
 	{
-		return isset($this->obj["periodic"]) ? $this->obj["periodic"] : null;
+		return isset($this->obj["periodic"]) ? (bool) $this->obj["periodic"] : false;
 	}
 
-	function set_periodic($param)
+	public function set_periodic($param)
 	{
 		$prev = isset($this->obj["periodic"]) ? $this->obj["periodic"] : null;
 
-		if (!(is_numeric($param) || is_bool($param)) && $param != "")
+		if ($param and $param != (bool) $param)
 		{
-			error::raise(array(
-				"id" => "ERR_BOOL",
-				"msg" => sprintf(t("object::set_periodic(%s): order must be integer or boolean!"), $param)
-			));
-			return;
+			throw new awex_obj_param(sprintf("Invalid period id parameter: %s. Boolean expression expected", var_export($param, true)));
 		}
 
-		$this->_int_set_of_value("periodic", ($param ? true : false));
+		$this->_int_set_of_value("periodic", (bool) $param);
 		$this->_int_do_implicit_save();
 		return $prev;
 	}
 
-	function site_id()
+	public function site_id()
 	{
 		return isset($this->obj["site_id"]) ? $this->obj["site_id"] : null;
 	}
 
-	function set_site_id($param)
+	public function set_site_id($param)
 	{
 		$prev = isset($this->obj["site_id"]) ? $this->obj["site_id"] : null;
 
-		if (!is_numeric($param))
+		if ($param and $param != (int) $param) // site id can be unset
 		{
-			error::raise(array(
-				"id" => "ERR_SITE_ID",
-				"msg" => sprintf(t("object::set_site_id(%s): site_id must be integer!"), $param)
-			));
-			return;
+			throw new awex_obj_param(sprintf("Invalid site id parameter: %s. Integer expression expected", var_export($param, true)));
 		}
 
-		$this->_int_set_of_value("site_id", (int)$param);
+		$this->_int_set_of_value("site_id", (int) $param);
 		$this->_int_do_implicit_save();
 		return $prev;
 	}
 
-	function is_brother()
+	public function is_brother()
 	{
 		if (!isset($this->obj["oid"]))
 		{
@@ -928,8 +813,8 @@ class _int_object
 		return ($this->obj["oid"] != $this->obj["brother_of"]);
 	}
 
-	function has_brother($parent)
-	{
+	public function has_brother($parent)
+	{//XXX: mida see tagastab? peab tagastama?
 		if (!isset($this->obj["oid"]))
 		{
 			return NULL;
@@ -946,30 +831,31 @@ class _int_object
 		return reset($ol->ids());
 	}
 
-	function brothers()
+	public function brothers()
 	{
-		if (!isset($this->obj["oid"]))
+		if (isset($this->obj["oid"]))
 		{
-			return NULL;
+			$args = array(
+				"class_id" => $this->obj["class_id"],
+				"brother_of" => $this->obj["oid"],
+				"oid" => new obj_predicate_not($this->obj["oid"])
+			);
 		}
-		$args = array(
-			"class_id" => $this->obj["class_id"],
-			"brother_of" => $this->obj["oid"],
-			"oid" => new obj_predicate_not($this->obj["oid"])
-		);
+		else
+		{
+			$args = null;
+		}
 		$ol = new object_list($args);
 		return $ol->ids();
 	}
 
-	function get_original()
+	public function get_original()
 	{
 		$ib = $this->is_brother();
-		$cv = $GLOBALS["object_loader"]->ds->can("view", $this->obj["brother_of"]);
+		$cv = object_loader::can("", $this->obj["brother_of"]);
 		if ($ib && $cv)
 		{
-			aw_global_set("__from_raise_error", 1);
 			$rv =  new object($this->obj["brother_of"]);
-			aw_global_set("__from_raise_error", 0);
 			if (isset($GLOBALS["aw_is_error"]) && $GLOBALS["aw_is_error"] == 1)
 			{
 				return $this;
@@ -979,34 +865,25 @@ class _int_object
 		return $this;
 	}
 
-	function subclass()
+	public function subclass()
 	{
 		return isset($this->obj["subclass"]) ? $this->obj["subclass"] : null;
 	}
 
-	function set_subclass($param)
+	public function set_subclass($param)
 	{
 		$prev = isset($this->obj["subclass"]) ? $this->obj["subclass"] : null;
 
-		if ($param  == "")
+		if ($param and $param != (int) $param) // subclass can be unset
 		{
-			$param = 0;
+			throw new awex_obj_param(sprintf("Invalid subclass parameter: %s. Integer expression expected", var_export($param, true)));
 		}
 
-		if (!is_numeric($param))
-		{
-			error::raise(array(
-				"id" => "ERR_SUBCLASS",
-				"msg" => sprintf(t("object::set_subclass(%s): subclass must be integer!"), $param)
-			));
-			return;
-		}
-
-		$this->_int_set_of_value("subclass", (int)$param);
+		$this->_int_set_of_value("subclass", (int) $param);
 		$this->_int_do_implicit_save();
 		return $prev;
 	}
-
+//TODO: flag meetodid yle vaadata
 	function flags()
 	{
 		return isset($this->obj["flags"]) ? $this->obj["flags"] : null;
@@ -1094,7 +971,7 @@ class _int_object
 		return $prev;
 	}
 
-	function meta($param = false)
+	public function meta($param = false)
 	{
 		// calling this without an argument returns the contents of whole metainfo
 		// site_content->build_menu_chain for example needs access to the whole metainfo at once -- duke
@@ -1108,7 +985,7 @@ class _int_object
 		}
 	}
 
-	function set_meta($param, $value = null)
+	public function set_meta($param, $value = null)
 	{
 		if (is_array($param))
 		{
@@ -1144,7 +1021,7 @@ class _int_object
 	{
 		$clid = isset($this->obj["class_id"]) ? $this->obj["class_id"] : null; //!!! return default kui clid null
 		$classes = aw_ini_get("classes");
-		$inf = $GLOBALS["object_loader"]->load_properties(array(
+		$inf = object_loader::instance()->load_properties(array(
 			"file" => ($clid == doc_obj::CLID ? "doc" : basename($classes[$clid]["file"])),
 			"clid" => $clid
 
@@ -1213,24 +1090,23 @@ class _int_object
 					$cur_v = $o->prop($part);
 					$prop_dat = $GLOBALS["properties"][$o->class_id()][$part];
 				}
+
 				// the true here is because if the user says that this thingie is an oid, then we trust him
 				// we check of course, but still. we trust him.
 				if (is_array($cur_v) && count($cur_v) == 1)
 				{
 					$cur_v = reset($cur_v);
 				}
-				$acl_tmp = $GLOBALS["cfg"]["acl"]["no_check"];
-				$GLOBALS["cfg"]["acl"]["no_check"] = 0;
-				if (!$GLOBALS["object_loader"]->ds->can("view", $cur_v))
+
+				if (!object_loader::can("", $cur_v))
 				{
-					$GLOBALS["cfg"]["acl"]["no_check"] = $acl_tmp;
 					if ($idx == (count($bits)-1))
 					{
 						return $o->prop_str($part);
 					}
 					return null;
 				}
-				$GLOBALS["cfg"]["acl"]["no_check"] = $acl_tmp;
+
 				if ($idx == (count($bits)-1))
 				{
 					if ($is_rel)
@@ -1311,7 +1187,7 @@ class _int_object
 			case "oid":
 				if (is_oid($val))
 				{
-					if (object_loader::can("view", $val))
+					if (object_loader::can("", $val))
 					{
 						$tmp = new object($val);
 						$val = $tmp->name();
@@ -1328,7 +1204,7 @@ class _int_object
 					{
 						if (is_oid($k))
 						{
-							if (object_loader::can("view", $k))
+							if (object_loader::can("", $k))
 							{
 								$tmp = new object($k);
 								$tmp = $tmp->name();
@@ -1368,11 +1244,11 @@ class _int_object
 	{
 		if ("" === $charset)
 		{
-			return htmlspecialchars($this->prop($name));
+			return trim(htmlspecialchars($this->prop($name)));
 		}
 		else
 		{
-			return htmlspecialchars(iconv($this->data_charset, $charset, $this->prop($name)));
+			return trim(htmlspecialchars(iconv($this->data_charset, $charset, $this->prop($name))));
 		}
 	}
 
@@ -1418,7 +1294,7 @@ class _int_object
 				// connect to all selected ones
 				foreach(safe_array($tval) as $_idx => $connect_to)
 				{
-					if (is_oid($connect_to) && $GLOBALS["object_loader"]->ds->can("view", $connect_to))
+					if (is_oid($connect_to) && object_loader::can("", $connect_to))
 					{
 						$this->connect(array(
 							"to" => $connect_to,
@@ -1444,7 +1320,7 @@ class _int_object
 						}
 					}
 				}
-				if (is_oid($val) && $GLOBALS["object_loader"]->ds->can("view", $val))
+				if (is_oid($val) && object_loader::can("", $val))
 				{
 					$this->connect(array(
 						"to" => $val,
@@ -1542,7 +1418,7 @@ class _int_object
 		return isset($this->obj["last"]) ? $this->obj["last"] : null;
 	}
 
-	function brother_of()
+	public function brother_of()
 	{
 		return isset($this->obj["brother_of"]) ? $this->obj["brother_of"] : null;
 	}
@@ -1559,24 +1435,20 @@ class _int_object
 			return;
 		}
 
-		$cl = basename(aw_ini_get("classes." . $clid . ".file"));
+		$cl = basename(aw_ini_get("classes.{$clid}.file"));
 		return new $cl();
 	}
 
-	function create_brother($parent)
+	public function create_brother($parent)
 	{
+		if (!is_oid($parent))
+		{
+			throw new awex_obj_param(sprintf("Invalid parent parameter %s", var_export($parent, true)));
+		}
+
 		if (empty($this->obj["oid"]))
 		{
 			$this->obj["_create_brothers"][] = $parent;
-			return;
-		}
-
-		if (!is_oid($parent))
-		{
-			error::raise(array(
-				"id" => "ERR_CORE_OID",
-				"msg" => sprintf(t("object::create_brother(%s): no parent!"), $parent)
-			));
 			return;
 		}
 
@@ -1602,7 +1474,7 @@ class _int_object
 		return $this->_int_create_brother($parent);
 	}
 
-	function is_connected_to($param)
+	public function is_connected_to($param)
 	{
 		if (count($this->connections_from($param)) > 0)
 		{
@@ -1622,7 +1494,7 @@ class _int_object
 		$GLOBALS["object2version"][$oid] = $v;
 
 		// check access rights to object
-		if (!$GLOBALS["object_loader"]->ds->can("view", $oid))
+		if (!object_loader::can("", $oid))
 		{
 			$e = new awex_obj_acl("No view access object with id '{$oid}'.");
 			$e->awobj_id = $oid;
@@ -1637,7 +1509,7 @@ class _int_object
 		}
 		else
 		{
-			$objdata = $GLOBALS["object_loader"]->ds->get_objdata($oid);
+			$objdata = object_loader::ds()->get_objdata($oid);
 		}
 
 		$objdata["__obj_load_parameter"] = $oid;
@@ -1661,8 +1533,8 @@ class _int_object
 		{
 			return;
 		}
-		$GLOBALS["object_loader"]->ds->originalize($this->obj["oid"]);
-		$GLOBALS["object_loader"]->handle_cache_update($this->id(), $this->site_id(), "originalize");
+		object_loader::ds()->originalize($this->obj["oid"]);
+		object_loader::instance()->handle_cache_update($this->id(), $this->site_id(), "originalize");
 	}
 
 	function trans_get_val($prop, $lang_id = false, $ignore_status = false)
@@ -1744,7 +1616,7 @@ class _int_object
 
 			if (isset($trs[$cur_lid]) && (!empty($this->obj["meta"]["trans_{$cur_lid}_status"]) || $ignore_status))
 			{
-				if ($trs[$cur_lid][$prop] == "")
+				if (empty($trs[$cur_lid][$prop]))
 				{
 					return $val;
 				}
@@ -1764,12 +1636,12 @@ class _int_object
 	{
 		$trans = false;
 		$cur_lid = false;
-		if ($GLOBALS["cfg"]["user_interface"]["content_trans"] == 1 && ($cur_lid = aw_global_get("lang_id")) != $this->lang_id())
+		if (aw_ini_get("user_interface.content_trans") && ($cur_lid = aw_global_get("lang_id")) != $this->lang_id())
 		{
 			$trans = true;
 		}
 
-		if ($GLOBALS["cfg"]["user_interface"]["full_content_trans"] == 1 && ($cl = aw_global_get("ct_lang_id")) != $this->lang_id())
+		if (aw_ini_get("user_interface.full_content_trans") && ($cl = aw_global_get("ct_lang_id")) != $this->lang_id())
 		{
 			$trans = true;
 			$cur_lid = $cl;
@@ -1842,7 +1714,7 @@ class _int_object
 			case "oid":
 				if (is_oid($val))
 				{
-					if ($GLOBALS["object_loader"]->ds->can("view", $val))
+					if (object_loader::can("", $val))
 					{
 						$tmp = new object($val);
 						$val = $tmp->trans_get_val("name");
@@ -1860,7 +1732,7 @@ class _int_object
 					{
 						if (is_oid($k))
 						{
-							if ($GLOBALS["object_loader"]->ds->can("view", $k))
+							if (object_loader::can("", $k))
 							{
 								$tmp = new object($k);
 								$vals[] = $tmp->trans_get_val("name");
@@ -1881,7 +1753,7 @@ class _int_object
 	public function acl_del($g_oid)
 	{
 		$group = obj($g_oid);
-		$GLOBALS["object_loader"]->remove_acl_group_from_obj($group, $this->obj["oid"]);
+		object_loader::instance()->remove_acl_group_from_obj($group, $this->obj["oid"]);
 		$this->disconnect(array(
 			"from" => $group->id(),
 			"type" => RELTYPE_ACL
@@ -1890,7 +1762,7 @@ class _int_object
 
 	public function acl_get()
 	{
-		return $GLOBALS["object_loader"]->get_acl_groups_for_obj($this->obj["oid"]);
+		return object_loader::instance()->get_acl_groups_for_obj($this->obj["oid"]);
 	}
 
 	public function acl_set($group, $acl)
@@ -1908,8 +1780,8 @@ class _int_object
 			return;
 		}
 
-		$GLOBALS["object_loader"]->add_acl_group_to_obj($group->prop("gid"), $this->obj["oid"]);
-		$GLOBALS["object_loader"]->save_acl(
+		object_loader::instance()->add_acl_group_to_obj($group->prop("gid"), $this->obj["oid"]);
+		object_loader::instance()->save_acl(
 			$this->obj["oid"],
 			$group->prop("gid"),
 			$acl
@@ -2034,7 +1906,7 @@ class _int_object
 			$cv1 = serialize($cv1);
 			$cv2 = serialize($cv2);
 		}
-		if ($cv1 != $cv2 && isset($GLOBALS["object_loader"]->all_ot_flds[$fld]))
+		if ($cv1 != $cv2 && isset(object_loader::instance()->all_ot_flds[$fld]))
 		{
 			$this->ot_modified[$fld] = 1;
 		}
@@ -2042,7 +1914,7 @@ class _int_object
 
 	protected function _int_load()
 	{
-		$oid = $GLOBALS["object_loader"]->param_to_oid($this->obj["__obj_load_parameter"]);
+		$oid = object_loader::instance()->param_to_oid($this->obj["__obj_load_parameter"]);
 		$this->_int_load_property_values();
 
 		// yeees, this looks weird, BUT it is needed if the loaded object is not actually the one requested
@@ -2083,7 +1955,7 @@ class _int_object
 		}
 		else
 		{
-			$file = empty($GLOBALS["cfg"]["classes"][$cl_id]["file"]) ? null : basename($GLOBALS["cfg"]["classes"][$cl_id]["file"]);
+			$file = aw_ini_isset("classes.{$cl_id}.file") ? basename(aw_ini_get("classes.{$cl_id}.file")) : "";
 		}
 
 		list(
@@ -2092,7 +1964,7 @@ class _int_object
 				$GLOBALS["relinfo"][$cl_id],
 				$GLOBALS["classinfo"][$cl_id],
 			) =
-			$GLOBALS["object_loader"]->load_properties(array(
+			object_loader::instance()->load_properties(array(
 				"file" => $file,
 				"clid" => $cl_id
 		));
@@ -2166,7 +2038,7 @@ class _int_object
 			$this->_int_do_inherit_new_props();
 
 			// no exclusive when creating
-			$this->obj["oid"] = $GLOBALS["object_loader"]->ds->create_new_object(array(
+			$this->obj["oid"] = object_loader::ds()->create_new_object(array(
 				"objdata" => &$this->obj,
 				"properties" => $GLOBALS["properties"][$this->obj["class_id"]],
 				"tableinfo" => $GLOBALS["tableinfo"][$this->obj["class_id"]]
@@ -2175,7 +2047,7 @@ class _int_object
 			{
 				$this->obj["brother_of"] = $this->obj["oid"];
 			}
-			$GLOBALS["object_loader"]->handle_cache_update($this->id(), $this->site_id(), "create_new_object");
+			object_loader::instance()->handle_cache_update($this->id(), $this->site_id(), "create_new_object");
 			$_is_new = true;
 		}
 		else
@@ -2185,7 +2057,7 @@ class _int_object
 			{
 				if (count($this->ot_modified) > 1 || count($this->props_modified) > 1)
 				{
-					$GLOBALS["object_loader"]->ds->backup_current_version(array(
+					object_loader::ds()->backup_current_version(array(
 						"properties" => $GLOBALS["properties"][$this->obj["class_id"]],
 						"tableinfo" => $GLOBALS["tableinfo"][$this->obj["class_id"]],
 						"id" => $this->obj["oid"]
@@ -2194,7 +2066,7 @@ class _int_object
 			}
 
 			// now, save objdata
-			$GLOBALS["object_loader"]->ds->save_properties(array(
+			object_loader::ds()->save_properties(array(
 				"objdata" => $this->obj,
 				"properties" => $GLOBALS["properties"][$this->obj["class_id"]],
 				"tableinfo" => $GLOBALS["tableinfo"][$this->obj["class_id"]],
@@ -2205,7 +2077,7 @@ class _int_object
 				"exclusive_save" => $exclusive,
 				"current_mod_count" => $check_state
 			));
-			$GLOBALS["object_loader"]->handle_cache_update($this->brother_of(), $this->site_id(), "save_properties");
+			object_loader::instance()->handle_cache_update($this->brother_of(), $this->site_id(), "save_properties");
 
 			$this->ot_modified = array("modified" => 1);
 			$this->props_modified = array();
@@ -2253,7 +2125,7 @@ class _int_object
 		}
 
 		// log save
-		$GLOBALS["object_loader"]->_log($_is_new, $this->obj["oid"], (string)$this->name(), $this->obj["class_id"]);
+		object_loader::instance()->_log($_is_new, $this->obj["oid"], (string)$this->name(), $this->obj["class_id"]);
 
 		// check cache
 		$this->_check_save_cache();
@@ -2267,7 +2139,7 @@ class _int_object
 		{
 			obj_set_opt("no_cache", 1);
 			self::$cache_off = true;
-			register_shutdown_function(array(&$GLOBALS["object_loader"], "handle_no_cache_clear"));
+			register_shutdown_function(array(object_loader::instance(), "handle_no_cache_clear"));
 		}
 		self::$global_save_count++;
 	}
@@ -2288,7 +2160,7 @@ class _int_object
 				{
 					if ($r_ihd["to_class"] == $this->obj["class_id"] && (!is_array($r_ihd["only_to_objs"]) || count($r_ihd["only_to_objs"]) == 0))
 					{
-						if (object_loader::can("edit", $from_oid))
+						if (object_loader::can("", $from_oid))
 						{
 							$orig = obj($from_oid);
 							$this->_int_set_prop_mod($r_ihd["to_prop"], $this->obj["properties"][$r_ihd["to_prop"]], $orig->prop($r_ihd["from_prop"]));
@@ -2302,9 +2174,9 @@ class _int_object
 
 	protected function _int_do_obj_inherit_props()
 	{
-		if (isset($GLOBALS["object_loader"]->obj_inherit_props_conf[$this->obj["oid"]]))
+		if (isset(object_loader::instance()->obj_inherit_props_conf[$this->obj["oid"]]))
 		{
-			$tmp = safe_array($GLOBALS["object_loader"]->obj_inherit_props_conf[$this->obj["oid"]]);
+			$tmp = safe_array(object_loader::instance()->obj_inherit_props_conf[$this->obj["oid"]]);
 			foreach($tmp as $ihd)
 			{
 				$propv = $this->obj["properties"][$ihd["from_prop"]];
@@ -2384,7 +2256,7 @@ class _int_object
 // /* dbg */ if ($GLOBALS["gdg"] == 1)
 // /* dbg */ echo "loop with $parent <br>\n";
 
-			if ($GLOBALS["object_loader"]->ds->can("view", $parent))
+			if (object_loader::can("", $parent))
 			{
 				unset($t);
 				$__from_raise_error = aw_global_get("__from_raise_error");
@@ -2419,13 +2291,9 @@ class _int_object
 
 			$cnt++;
 
-			if ($cnt > 100)
+			if ($cnt > 100)//TODO: v6tta mujalt
 			{
-				error::raise(array(
-					"id" => "ERR_HIER",
-					"msg" => sprintf(t("object::path(%s): error in object hierarchy, infinite loop!"), $this->id())
-				));
-				return;
+				throw new awex_obj_data_integrity(sprintf("Error in object %s hierarchy, infinite loop. (Last parent: %s. Parameters: %s)", var_export($this->obj["oid"], true), var_export($parent, true), var_export($param, true)));
 			}
 		}
 
@@ -2435,7 +2303,7 @@ class _int_object
 		if ($add && !aw_global_get("__is_install"))
 		{
 			$rm = reset($rootmenu);
-			if ($GLOBALS["object_loader"]->ds->can("view", $rm))
+			if (object_loader::can("", $rm))
 			{
 				$ret[] = obj($rm);
 			}
@@ -2447,11 +2315,6 @@ class _int_object
 			array_pop($ret);
 		}
 		return $ret;
-	}
-
-	protected function _int_can($param)
-	{
-		return object_loader::can($param, $this->obj["oid"]);
 	}
 
 	protected function _int_can_save()
@@ -2466,10 +2329,10 @@ class _int_object
 		// required params - parent and class_id
 		if (isset($this->obj["parent"]) and $this->obj["parent"] > 0 and isset($clid) and $clid > 0)
 		{
-			// acl
+			// check if object or its parent exist and aren't deleted
 			if (!empty($this->obj["oid"]))
 			{
-				if ($this->_int_can("edit"))
+				if (object_loader::can("", $this->obj["oid"]))
 				{
 					return true;
 				}
@@ -2480,7 +2343,7 @@ class _int_object
 			}
 			else
 			{
-				if (object_loader::can("add", $this->obj["parent"]))
+				if (object_loader::can("", $this->obj["parent"]))
 				{
 					return true;
 				}
@@ -2516,7 +2379,7 @@ class _int_object
 
 		if (empty($this->obj["site_id"]))
 		{
-			$this->_int_set_of_value("site_id", $GLOBALS["cfg"]["site_id"]);
+			$this->_int_set_of_value("site_id", aw_ini_get("site_id"));
 		}
 
 		// new objects can't be created with deleted status
@@ -2546,7 +2409,7 @@ class _int_object
 	protected function _int_do_delete($oid, $full_delete = false)
 	{
 		// load the object to see of its brother status
-		$obj = $GLOBALS["object_loader"]->ds->get_objdata($oid);
+		$obj = object_loader::ds()->get_objdata($oid);
 
 		$todelete = array();
 
@@ -2559,7 +2422,7 @@ class _int_object
 		else
 		{
 			// find all of its brothers and delete all of them.
-			list($tmp) = $GLOBALS["object_loader"]->ds->search(array(
+			list($tmp) = object_loader::ds()->search(array(
 				"brother_of" => $oid
 			));
 			$todelete = array_keys($tmp);
@@ -2567,7 +2430,7 @@ class _int_object
 
 		foreach($todelete as $oid)
 		{
-			if (!$GLOBALS["object_loader"]->ds->can("delete", $oid))
+			if (!object_loader::can("", $oid))
 			{
 				continue;
 			}
@@ -2600,14 +2463,12 @@ class _int_object
 
 			if ($full_delete)
 			{
-				$GLOBALS["object_loader"]->ds->final_delete_object($oid);
-				$GLOBALS["object_loader"]->cache->_log($type, "SA_FINAL_DELETE", $nm, $oid, false);
+				object_loader::ds()->final_delete_object($oid);
 			}
 			else
 			{
-				$GLOBALS["object_loader"]->ds->delete_object($oid);
-				$GLOBALS["object_loader"]->cache->_log($type, "SA_DELETE", $nm, $oid, false);
-				$GLOBALS["object_loader"]->handle_cache_update($tmpo->id(), $tmpo->site_id(), "delete_object");
+				object_loader::ds()->delete_object($oid);
+				object_loader::instance()->handle_cache_update($tmpo->id(), $tmpo->site_id(), "delete_object");
 			}
 		}
 
@@ -2615,7 +2476,7 @@ class _int_object
 		$belows = $this->_fetch_to_delete_objects($oid);
 		if (count($belows))
 		{
-			$GLOBALS["object_loader"]->ds->delete_multiple_objects($belows);
+			object_loader::ds()->delete_multiple_objects($belows);
 		}
 
 		// must clear acl cache for all objects below it
@@ -2630,11 +2491,11 @@ class _int_object
 
 	protected function _int_create_brother($parent)
 	{
-		$rv =  $GLOBALS["object_loader"]->ds->create_brother(array(
+		$rv =  object_loader::ds()->create_brother(array(
 			"objdata" => $this->obj,
 			"parent" => $parent
 		));
-		$GLOBALS["object_loader"]->handle_cache_update($this->id(), $this->site_id(), "create_brother");
+		object_loader::instance()->handle_cache_update($this->id(), $this->site_id(), "create_brother");
 		// this here makes sure that the site_id setting is correct for the brother
 		$o = obj($rv);
 		$o->set_parent($o->parent());
@@ -2815,7 +2676,7 @@ class _int_object
 				}
 				// the true here is because if the user says that this thingie is an oid, then we trust him
 				// we check of course, but still. we trust him.
-				if (!$prop_dat && $GLOBALS["object_loader"]->is_object_member_fun($part))
+				if (!$prop_dat && object_loader::instance()->is_object_member_fun($part))
 				{
 					$cur_v = $o->$part();
 					if ($part === "parent")
@@ -2824,30 +2685,22 @@ class _int_object
 					}
 				}
 				else
-				if (true || in_array($prop_dat["type"], array("relpicker", "classificator", "popup_search", "relmanager", "releditor")))
 				{
 					if (is_array($cur_v) && count($cur_v) == 1)
 					{
 						$cur_v = reset($cur_v);
 					}
-					$acl_tmp = $GLOBALS["cfg"]["acl"]["no_check"];
-					$GLOBALS["cfg"]["acl"]["no_check"] = 0;
-					if (!$GLOBALS["object_loader"]->ds->can("view", $cur_v))
+
+					if (!object_loader::can("", $cur_v))
 					{
-						$GLOBALS["cfg"]["acl"]["no_check"] = $acl_tmp;
 						if ($idx == (count($bits)-1))
 						{
 							return $cur_v;
 						}
 						return null;
 					}
-					$GLOBALS["cfg"]["acl"]["no_check"] = $acl_tmp;
 
 					$o = obj($cur_v);
-				}
-				else
-				{
-					return $cur_v;
 				}
 			}
 			return $cur_v;
@@ -2916,7 +2769,7 @@ class _int_object
 			return;
 		}
 
-		$this->obj["properties"] = $GLOBALS["object_loader"]->ds->read_properties(array(
+		$this->obj["properties"] = object_loader::ds()->read_properties(array(
 			"properties" => $GLOBALS["properties"][$this->obj["class_id"]],
 			"tableinfo" => $GLOBALS["tableinfo"][$this->obj["class_id"]],
 			"objdata" => $this->obj,
@@ -2939,7 +2792,7 @@ class _int_object
 		$ret = array();
 		while (count($parents) > 0)
 		{
-			list($tmp) = $GLOBALS["object_loader"]->ds->search(array(
+			list($tmp) = object_loader::ds()->search(array(
 				"parent" => $parents
 			));
 			$parents = array();
