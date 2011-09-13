@@ -24,7 +24,7 @@ class aw_template extends core
 	private $templates = array();
 
 	/** whether to use eval() or preg_replace to render templates **/
-	private $use_eval;
+	private $use_eval = false;
 	public $v2_templates;
 	private $v2_arr;
 	private $v2_parent_map;
@@ -194,10 +194,7 @@ class aw_template extends core
 	**/
 	function set_parse_method($method = "")
 	{
-		if ($method === "eval")
-		{
-			$this->use_eval = true;
-		}
+		$this->use_eval = ($method === "eval");
 	}
 
 	/** resets the template parser to the default state - clears all variables and loaded templates
@@ -583,7 +580,7 @@ class aw_template extends core
 				));
 			}
 	**/
-	function template_has_var($varname,$tplname = "MAIN")
+	function template_has_var($varname, $tplname = "MAIN")
 	{
 		return strpos($this->v2_templates[$tplname],"{VAR:" . $varname . "}") !== false;
 	}
@@ -1020,7 +1017,9 @@ class aw_template extends core
 				if ($this->use_eval)
 				{
 					$xsrc = str_replace("\"","\\\"",$cur_src);
-					$this->c_templates[$fq_name] = preg_replace("/{VAR:(.+?)}/S","\".(isset(\$vars['\$1']) ? \$vars['\$1'] : null).\"", $xsrc);
+					$xsrc = preg_replace("/{VAR:(.+?)}/S","\".(isset(\$vars['\$1']) ? \$vars['\$1'] : null).\"", $xsrc);
+					$xsrc = preg_replace("/{DATE:(.+?)\|(.+?)}/e","((isset(\$vars[\"\\1\"]) && is_numeric(\$vars[\"\\1\"]) && \$vars[\"\\1\"] > 1 )? date(\"\\2\",\$vars[\"\\1\"]) : \"\")", $xsrc);
+					$this->c_templates[$fq_name] = preg_replace("/{LC:(.+?)}/S","\".(t(\$1)).\"", $xsrc);
 				}
 
 				$this->templates[$cur_name] = $cur_src;	// ugh, this line for aliasmanager and image_inplace compatibility :(
@@ -1035,11 +1034,14 @@ class aw_template extends core
 				$cur_src.=$line;
 			}
 		}
+
 		$this->v2_templates[$fq_name] = $cur_src;
 		if ($this->use_eval)
 		{
 			$xsrc = str_replace("\"","\\\"",$cur_src);
-			$this->c_templates[$fq_name] = preg_replace("/{VAR:(.+?)}/S","\".(isset(\$vars['\$1']) ? \$vars['\$1'] : null).\"",$xsrc);
+			$xsrc = preg_replace("/{VAR:(.+?)}/S","\".(isset(\$vars['\$1']) ? \$vars['\$1'] : null).\"",$xsrc);
+			$xsrc = preg_replace("/{DATE:(.+?)\|(.+?)}/e","((isset(\$vars[\"\\1\"]) && is_numeric(\$vars[\"\\1\"]) && \$vars[\"\\1\"] > 1 )? date(\"\\2\",\$vars[\"\\1\"]) : \"\")", $xsrc);
+			$this->c_templates[$fq_name] = preg_replace("/{LC:(.+?)}/S","\".(t(\$1)).\"", $xsrc);
 		}
 
 		$this->templates[$cur_name] = $cur_src;	// ugh, this line for aliasmanager and image_inplace compatibility :(

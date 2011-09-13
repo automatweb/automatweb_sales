@@ -76,7 +76,7 @@ class style extends aw_template
 
 	// parent
 	/**
-		@attrib name=list params=name default="0"
+		@attrib name=list params=name
 		@param parent required
 	**/
 	function glist($arr)
@@ -104,11 +104,11 @@ class style extends aw_template
 
 	// parent
 	/**
-		@attrib name=add params=name default="0"
+		@attrib name=add params=name
 		@param parent required acl="add"
 	**/
 	/**
-		@attrib name=new params=name default="0"
+		@attrib name=new params=name
 		@param parent required acl="add"
 	**/
 	function add($arr)
@@ -124,8 +124,8 @@ class style extends aw_template
 
 	// parent, id
 	/**
-		@attrib name=change params=name default="0"
-		@param id required acl="view;edit"
+		@attrib name=change params=name
+		@param id required acl="edit"
 	**/
 	function change($arr)
 	{
@@ -222,7 +222,7 @@ class style extends aw_template
 	}
 
 	/**
-		@attrib name=submit_sel params=name default="0"
+		@attrib name=submit_sel params=name
 	**/
 	function submit_sel($arr)
 	{
@@ -239,7 +239,7 @@ class style extends aw_template
 	}
 
 	/**
-		@attrib name=submit params=name default="0"
+		@attrib name=submit params=name
 	**/
 	function submit($arr)
 	{
@@ -260,7 +260,7 @@ class style extends aw_template
 	}
 
 	/**
-		@attrib name=delete params=name default="0"
+		@attrib name=delete params=name
 		@param parent required
 		@param id required acl="delete"
 	**/
@@ -855,7 +855,7 @@ class style extends aw_template
 		$oid = $o->save();
 
 		// same with the style.
-		$this->quote(&$row);
+		$this->quote($row);
 		$this->db_query("INSERT INTO	styles(id,style,type) values($oid,'".$row["style"]."','".$row["type"]."')");
 
 		return $oid;
@@ -931,7 +931,7 @@ class style extends aw_template
 
 			$st = $tmp;
 
-			if (is_oid($st) && $this->can("view", $st))
+			if ($this->can("", $st))
 			{
 				active_page_data::add_serialized_css_style($this->get_css($st));
 				return "<span class=\"".$this->get_style_name($st)."\">$text</a>";
@@ -952,5 +952,24 @@ class style extends aw_template
 			return $nm;
 		}
 		return "st".$id;
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param class type=string
+		@param name type=string
+			CSS style name
+		@comment
+		@returns string
+		@errors
+	**/
+	public static function get_url($class, $name)
+	{
+		$path = class_index::get_class_path($class);
+		$file = "{$path}{$name}.css";
+		$site_style_file = aw_ini_get("site_styles_dir") . $file;
+		$default_style_file = AW_DIR . "automatweb/css/{$file}";
+		$url = file_exists($site_style_file) ? aw_ini_get("site_styles_url") . $file : aw_ini_get("baseurl") . "automatweb/css/{$file}";
+		return $url;
 	}
 }
