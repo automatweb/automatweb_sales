@@ -2389,18 +2389,22 @@ echo "mod ".$con["to.name"]."<br>";
 			 }
 		 }
 
-		 if ($convert)
-		 {
-			 foreach ($queries as $q)
-			 {
+		if ($convert)
+		{
+			foreach ($queries as $q)
+			{
 				$result = $this->db_query($q);
 				if (!$result)
 				{
-					 automatweb::$result->sysmsg("Query  '{$q}' failed");
+					automatweb::$result->sysmsg("Query  '{$q}' failed");
 				}
-			 }
-		 }
+			}
+		}
 
+		// clear cache because old language id-s are stored persistently
+		cache::full_flush();
+
+		//
 		automatweb::http_exit();
 	}
 }
