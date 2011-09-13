@@ -1,7 +1,7 @@
 <?php
 
 /*
-Customer relations are per contract, meaning provision
+Customer relations are per contract, meaning that provision
 and acquisition contracts are represented in separate customer relation objects
 
 @classinfo relationmgr=yes no_status=1 prop_cb=1
@@ -11,7 +11,9 @@ and acquisition contracts are represented in separate customer relation objects
 @default table=objects
 @default group=general
 
-	@property name type=text table=objects field=name store=no
+	// @property name type=text table=objects field=name store=no
+	//TODO: ...
+	@property name type=textbox table=objects field=name
 	@caption Nimi
 
 	@property buyer type=relpicker reltype=RELTYPE_BUYER table=aw_crm_customer_data field=aw_buyer
@@ -32,10 +34,14 @@ and acquisition contracts are represented in separate customer relation objects
 	@property authorized_person_control table=aw_crm_customer_data field=aw_authorized_person_control type=checkbox
 	@caption Volitatud isiku kontroll
 
-	@property tax_rate type=relpicker reltype=RELTYPE_TAX_RATE store=connect
+	// @property tax_rate type=relpicker reltype=RELTYPE_TAX_RATE store=connect
+	//TODO: relpicker muuta, et oskaks seostatuna hoida ainult valitut
+	@property tax_rate type=relpicker reltype=RELTYPE_TAX_RATE table=objects field=meta method=serialize
 	@caption M&uuml;&uuml;gi KM-kood
 
-	@property categories type=relpicker reltype=RELTYPE_CATEGORY store=connect multiple=1 size=7
+	// @property categories type=relpicker reltype=RELTYPE_CATEGORY store=connect multiple=1 size=7 no_add=1
+	//TODO: optioniteks myyja org kliendikategooriad, teha et relpicker oskaks hoida seostatuna ainult neid mis on selectboxis valitud
+	@property categories type=relpicker reltype=RELTYPE_CATEGORY multiple=1 size=7 no_add=1 table=objects field=meta method=serialize
 	@caption Kliendikategooria(d)
 
 	@property comment type=textarea rows=10 cols=40
