@@ -585,7 +585,7 @@ class propcollector extends aw_template
 		return $success;
 	}
 
-	private function _parse_attribs($data)
+	private function _parse_attribs($data, $tag = "")
 	{
 		$_x = new aw_array(explode(" ",$data));
 		//$fields = array("name" => $name);
@@ -599,7 +599,7 @@ class propcollector extends aw_template
 			list($fname,$fvalue) = explode("=",$field);
 			$fname = trim($fname);
 			$fvalue = trim($fvalue);
-			if (strlen($fname) && strlen($fvalue))
+			if (strlen($fname) && (strlen($fvalue) or "default" === $tag))
 			{
 				// try to split fvalue
 				if(substr($fvalue, 0, 1) === "\"" && substr($fvalue, -1, 1) === "\"")
@@ -610,6 +610,7 @@ class propcollector extends aw_template
 				{
 					$_split = explode(",",$fvalue);
 				}
+
 				if (sizeof($_split) > 1)
 				{
 					$fields[$fname] = $_split;
@@ -622,7 +623,7 @@ class propcollector extends aw_template
 			else
 			{
 				print "Invalid syntax: $field\n";
-			};
+			}
 		}
 		return $fields;
 	}
@@ -727,7 +728,7 @@ class propcollector extends aw_template
 			switch ($this->tags[$tagname])
 			{
 				case self::TAG_PAIRS:
-					$attribs = $this->_parse_attribs($m[2]);
+					$attribs = $this->_parse_attribs($m[2], $tagname);
 
 					if ($tagname === "classinfo")
 					{
