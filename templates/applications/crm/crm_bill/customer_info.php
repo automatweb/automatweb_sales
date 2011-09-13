@@ -17,7 +17,7 @@
 			<dt class="caption"><?=t("Arve nr.", $lang_id)?></dt>
 			<dd class="first"><?=$invoice_no?></dd>
 
-			<dt class="caption"><?=t("Kuup&auml;ev", $lang_id)?></dt>
+			<dt class="caption"><?=t("Arve kuup&auml;ev", $lang_id)?></dt>
 			<dd><?=$date?></dd>
 
 			<?if ($due_date){?>
