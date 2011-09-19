@@ -1,4 +1,4 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Rolli kirjeldus (description) caption"] = "Role description";
-$GLOBALS["TRANS"]["Seose instruktsioon (RELTYPE_INSTRUCTION) tekst"] = "instructions";
+$GLOBALS["TRANS"][5147]["Omaduse Rolli kirjeldus (description) caption"] = "Role description";
+$GLOBALS["TRANS"][5147]["Seose instruktsioon (RELTYPE_INSTRUCTION) tekst"] = "instructions";
 ?>

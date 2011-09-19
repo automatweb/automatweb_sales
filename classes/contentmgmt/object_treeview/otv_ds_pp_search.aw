@@ -675,7 +675,7 @@ class otv_ds_pp_search extends class_base
 		}
 
 
-		classload("vcl/table");
+		
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));

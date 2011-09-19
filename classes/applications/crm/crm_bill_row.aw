@@ -5,57 +5,65 @@
 @classinfo syslog_type=ST_CRM_BILL_ROW relationmgr=yes no_status=1 prop_cb=1
 @tableinfo aw_crm_bill_rows index=aw_oid master_index=brother_of master_table=objects
 
+@property name type=hidden
+
 @default table=aw_crm_bill_rows
 @default group=general
 
+@layout main_container type=hbox width=40%:60%
+	@layout left_container type=vbox parent=main_container area_caption=P&otilde;hiandmed
+	@default parent=left_container
+		@property prod type=relpicker reltype=RELTYPE_PROD field=aw_prod
+		@caption Toode
 
-@property name type=text table=objects field=name
-@caption Nimi
+		@property amt type=textbox size=10 field=aw_amt
+		@caption Kogus
 
-@property comment type=textbox table=objects field=comment
-@caption Tekst arvel
+		@property unit type=objpicker field=aw_unit
+		@caption &Uuml;hik
 
-@property amt type=textbox size=5 field=aw_amt
-@caption Kogus
+		@property price type=textbox size=10 field=aw_price
+		@caption Hind
 
-@property prod type=relpicker reltype=RELTYPE_PROD field=aw_prod
-@caption Toode
+		@property has_tax type=checkbox ch_value=1 field=aw_has_tax
+		@caption Lisandub k&auml;ibemaks
 
-@property price type=textbox size=7 field=aw_price
-@caption Hind
+		@property tax type=textbox size=10 field=aw_tax
+		@caption K&auml;ibemaksu %
 
-@property sum type=text store=no
-@caption Summa
+		@property sum type=text store=no
+		@caption Summa
 
-@property unit type=textbox field=aw_unit
-@caption &Uuml;hik
+		@property date type=textbox size=10 field=aw_date
+		@caption Kuup&auml;ev
 
-@property writeoff type=checkbox ch_value=1 field=aw_writeoff
-@caption Maha kantud
+		@property jrk type=textbox size=10 field=jrk table=objects
+		@caption Jrk. nr.
 
-@property has_tax type=checkbox ch_value=1 field=aw_has_tax
-@caption Lisandub k&auml;ibemaks?
+		@property writeoff type=checkbox ch_value=1 field=aw_writeoff
+		@caption Maha kantud
 
-@property tax type=checkbox ch_value=1 field=aw_tax
-@caption K&auml;ibemaksu %
+		@property people type=relpicker reltype=RELTYPE_PEOPLE multiple=1 table=objects field=meta method=serialize
+		@caption Isikud
 
-@property date type=textbox field=aw_date
-@caption Kuup&auml;ev
+		@property task_row type=relpicker reltype=RELTYPE_TASK_ROW store=connect multiple=1
+		@caption Toimetuse read
 
-@property desc type=textarea rows=8 cols=52 field=aw_desc
-@caption Kirjeldus
+		@property project type=select
+		@caption Projekt
 
-@property name_group_comment type=textarea rows=2 cols=52 field=aw_name_group_comment
-@caption Koondkommentaar
 
-@property people type=relpicker reltype=RELTYPE_PEOPLE multiple=1 table=objects field=meta method=serialize
-@caption Isikud
+	@layout right_container type=vbox parent=main_container area_caption=Kommentaarid
+	@default parent=right_container
+		@property comment type=textbox size=67 table=objects field=comment
+		@caption Pealkiri
 
-@property task_row type=relpicker reltype=RELTYPE_TASK_ROW store=connect multiple=1
-@caption Toimetuse read
+		@property desc type=textarea rows=8 cols=52 resize_height=100 field=aw_desc
+		@caption Kirjeldus
 
-@property project type=select
-@caption Projekt
+		@property name_group_comment type=textarea rows=2 cols=52 resize_height=100 field=aw_name_group_comment
+		@caption Koondkommentaar
+
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl

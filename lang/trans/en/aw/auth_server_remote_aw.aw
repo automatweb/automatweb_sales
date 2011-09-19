@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse AW Server (server) caption"] = "AW Server";
+$GLOBALS["TRANS"][5147]["Omaduse AW Server (server) caption"] = "AW Server";
 ?>

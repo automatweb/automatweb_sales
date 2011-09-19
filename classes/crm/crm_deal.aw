@@ -122,7 +122,7 @@ class crm_deal extends class_base
 			"type" => "RELTYPE_FILE",
 		));
 		$file_inst = get_instance(CL_FILE);
-		classload("core/icons");
+		
 		foreach($conns as $c)
 		{
 			$f = $c->to();

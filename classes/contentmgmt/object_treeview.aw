@@ -649,7 +649,7 @@ class object_treeview extends class_base
 			return;
 		}
 
-		classload("core/icons");
+		
 		// use treeview widget
 		$tv = get_instance("vcl/treeview");
 		$tv->start_tree(array(

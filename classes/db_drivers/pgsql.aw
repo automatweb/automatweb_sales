@@ -1,9 +1,6 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/db_drivers/pgsql.aw,v 1.12 2008/02/14 21:21:28 kristo Exp $
-// pgsql.aw - PostgreSQL draiver
-/*
-@classinfo  maintainer=kristo
-*/
+
+// pgsql.aw - PostgreSQL driver
 
 class pgsql
 {
@@ -751,5 +748,4 @@ class pgsql
 		}
 		return false;
 	}
-};
-?>
+}

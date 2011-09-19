@@ -44,7 +44,6 @@ class html
 		extract($args);
 		$disabled = (!empty($disabled) ? ' disabled="disabled"' : "");
 		$sz = $mz = $onc = $cl = $w = $ts = "";
-		// things that make one go humm.. -- duke
 
 		// style attributes
 		if (!empty($width))
@@ -990,7 +989,6 @@ ENDJAVASCRIPT
 	**/
 	public static function time_select($args = array())
 	{
-		load_vcl("date_edit");
 		$selector = new date_edit($args["name"]);
 		$selector->set("minute_step", (empty($args["minute_step"]) ? 1 : $args["minute_step"]));
 		$selector->configure(array("hour" => 1, "minute" => 1));
@@ -1531,13 +1529,33 @@ ENDJAVASCRIPT
 		$textsize = (!empty($textsize) ? 'font-size:' . $textsize . ';' : "");
 		$fontweight = (!empty($fontweight) ? 'font-weight:' . $fontweight . ';' : "");
 		$color = (!empty($color) ? "color: {$color};" : "");
-		$nowrap = empty($args["nowrap"]) ? "" : "white-space:nowrap; display: block;";
+		$nowrap = empty($args["nowrap"]) ? "" : "white-space: nowrap; display: block;";
 		$style = (empty($textsize) and empty($fontweight) and empty($color) and empty($nowrap)) ? "" : " style=\"{$textsize}{$fontweight}{$color}{$nowrap}\"";
 		$class = (!empty($class) ? ' class="' . $class . '"' : "");
 		$id = (!empty($id) ? " id=\"{$id}\"" : "");
 		$content = isset($content) ? $content : "";
 		return "<span{$class}{$style}{$id}>{$content}</span>";
 	}
+
+	/** Replaces white space characters with non breaking spaces
+		@attrib api=1 params=pos
+		@param value type=string
+		@comment
+			Multiple whitespace is not preserved
+		@returns string
+			One line no white space
+		@errors none
+	**/
+	public static function nowrap($value)
+	{
+		$value = str_replace(array(" ", "\t", "\n", "\r"), "&nbsp;", $value);
+		while (false !== strpos($value, "&nbsp;&nbsp;"))
+		{
+			$value = str_replace("&nbsp;&nbsp;", "&nbsp;", $value);
+		}
+		return $value;
+	}
+
 
 	/** HTML paragraph element
 	@attrib api=1 params=name
@@ -1698,7 +1716,7 @@ ENDJAVASCRIPT
 			$res = array();
 			foreach($o as $id)
 			{
-				$res[] = html::obj_change_url($id);
+				$res[] = self::obj_change_url($id);
 			}
 			return join(", ", $res);
 		}
@@ -1715,7 +1733,7 @@ ENDJAVASCRIPT
 			}
 		}
 		$prms = array_merge(array("return_url" => get_ru()), safe_array($prms));
-		return html::get_change_url($o->id(), $prms, $caption === null ? parse_obj_name($o->name()) : $caption);
+		return self::get_change_url($o->id(), $prms, $caption === null ? parse_obj_name($o->name()) : $caption);
 	}
 
 	/**
@@ -1739,15 +1757,14 @@ ENDJAVASCRIPT
 			$res = array();
 			foreach($o as $id)
 			{
-				$res[] = html::obj_change_url($id);
+				$res[] = self::obj_change_url($id);
 			}
 			return join(", ", $res);
 		}
 
 		if (!is_object($o))
 		{
-			$inst = new acl_base();
-			if ($inst->can("view", $o))
+			if (object_loader::can("", $o))
 			{
 				$o = obj($o);
 			}
@@ -1756,7 +1773,7 @@ ENDJAVASCRIPT
 				return "";
 			}
 		}
-		return html::get_change_url($o->id(), array("action" => "view", "return_url" => get_ru()), $caption === null ? parse_obj_name($o->name()) : $caption);
+		return self::get_change_url($o->id(), array("action" => "view", "return_url" => get_ru()), $caption === null ? parse_obj_name($o->name()) : $caption);
 	}
 
 
@@ -1770,33 +1787,37 @@ ENDJAVASCRIPT
 	@param caption optional type=string
 		the text user can see, if set, returns html href tags
 	@param title optional type=string
-		you can see this text when scrolling over the link
-	@returns string/url or string/html href
+		you can see this text when hovering over the link
 
+	@returns string
+		url or html href element
 	@comments
 		returns the url where can change the given object in AW
 	@example
 		$url = html::get_change_url($val["oid"], array("return_url" => get_ru()), $val["name"];
+	@errors
+		throws awex_obj if object by $oid can't be loaded
 	**/
-	public static function get_change_url($oid, $params = array(), $caption = false, $title=null)
+	public static function get_change_url($oid, $params = array(), $caption = "", $title=null)
 	{
-		static $core;
-		if (!$core)
+		if ($oid)
 		{
-			$core = new core();
+			$obj = new object($oid);
+			$params["id"] = $obj->id();
+			$retval = core::mk_my_orb("change", $params, $obj->class_id());
+
+			if($caption)
+			{
+				$retval = self::href(array(
+					"url" => $retval,
+					"caption" => $caption,
+					"title" => $title
+				));
+			}
 		}
-
-		$obj = obj($oid);
-		$params["id"] = $obj->id();
-		$retval = $core->mk_my_orb("change", $params, $obj->class_id());
-
-		if($caption)
+		else
 		{
-			$retval = html::href(array(
-				"url" => $retval,
-				"caption" => $caption,
-				"title" => $title
-			));
+			$retval = "";
 		}
 
 		return $retval;
@@ -1824,16 +1845,15 @@ ENDJAVASCRIPT
 	{
 		$params = array("parent" => $parent) + $params;
 
-		if (isset($_GET["section"]) && is_oid($_GET["section"]) and !isset($params["section"]))
+		if (!isset($params["section"]) && is_oid(automatweb::$request->arg("section")))
 		{
-			$params["section"] = $_GET["section"];
+			$params["section"] = automatweb::$request->arg("section");
 		}
 
-		$core = new core();
-		$retval =  $core->mk_my_orb("new", $params, $class_id);
+		$retval =  core::mk_my_orb("new", $params, $class_id);
 		if($caption)
 		{
-			$retval = html::href(array(
+			$retval = self::href(array(
 				"url" => $retval,
 				"caption" => $caption
 			));
@@ -1843,7 +1863,7 @@ ENDJAVASCRIPT
 
 	public static function strong($str)
 	{
-		return "<b>{$str}</b>";
+		return "<strong>{$str}</strong>";
 	}
 
 	/**

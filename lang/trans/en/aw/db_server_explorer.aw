@@ -1,5 +1,5 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Vali konfiguratsioon (conf) caption"] = "Select configuration";
-$GLOBALS["TRANS"]["Grupi Explorer (explorer) pealkiri"] = "Explorer";
-$GLOBALS["TRANS"]["Seose konfiguratsioon (RELTYPE_CONF) tekst"] = "configuration";
+$GLOBALS["TRANS"][5147]["Omaduse Vali konfiguratsioon (conf) caption"] = "Select configuration";
+$GLOBALS["TRANS"][5147]["Grupi Explorer (explorer) pealkiri"] = "Explorer";
+$GLOBALS["TRANS"][5147]["Seose konfiguratsioon (RELTYPE_CONF) tekst"] = "configuration";
 ?>

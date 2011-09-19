@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Grupi  () pealkiri"] = " ";
+$GLOBALS["TRANS"][5147]["Grupi  () pealkiri"] = " ";
 ?>

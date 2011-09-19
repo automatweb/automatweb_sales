@@ -1,4 +1,4 @@
 <?php
-$GLOBALS["TRANS"]["Nimi"] = "Name";
-$GLOBALS["TRANS"]["Väärtus"] = "Value";
+$GLOBALS["TRANS"][5147]["Nimi"] = "Name";
+$GLOBALS["TRANS"][5147]["Väärtus"] = "Value";
 ?>

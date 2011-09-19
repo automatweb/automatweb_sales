@@ -1027,14 +1027,26 @@ class object_treeview_v2 extends class_base
 	// parsing table rows - if the field value, which is used to make table groups
 	// changes, i'll create group header line and put it in the table
 	// groups are not made, if char param is present in url
+
+			/// row controllers from this object
 			$controllers = array();
 			$conn = $ob->connections_from(array(
-				"type" => "RELTYPE_ROW_CONTROLLER",
+				"type" => "RELTYPE_ROW_CONTROLLER"
 			));
 			foreach($conn as $cn)
 			{
 				$controllers[] = $cn->prop("to");
 			}
+
+			/// row controllers from inherited object
+			$conn = $ih_ob->connections_from(array(
+				"type" => "RELTYPE_ROW_CONTROLLER"
+			));
+			foreach($conn as $cn)
+			{
+				$controllers[] = $cn->prop("to");
+			}
+
 			$view_controller_inst = get_instance(CL_CFG_VIEW_CONTROLLER);
 			foreach($ol as $odata)
 			{
@@ -1042,13 +1054,10 @@ class object_treeview_v2 extends class_base
 				{
 					if ($view_controller_inst->check_property(&$odata, $controller, array()) == PROP_IGNORE)
 					{
-						$cont = 1;
+						continue;
 					}
 				}
-				if($cont)
-				{
-					continue;
-				}
+
 				if(($group_name != $odata[$group_field]) && empty($_GET['char']))
 				{
 					$this->vars(array(
@@ -1623,7 +1632,7 @@ class object_treeview_v2 extends class_base
 		switch ($tree_type)
 		{
 			case "TREE_TABLE":
-				classload("vcl/table");
+				
 				$table = new vcl_table();
 				$cols_count = $ih_ob->prop("folders_table_column_count");
 				if (empty($cols_count))
@@ -1661,7 +1670,7 @@ class object_treeview_v2 extends class_base
 				return $table->draw();
 
 			case "TREE_DHTML":
-				classload("core/icons");
+				
 				// use treeview widget
 				$tv = get_instance("vcl/treeview");
 				$tv->start_tree(array(

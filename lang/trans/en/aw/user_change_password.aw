@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Paroolid ei ole samad!"] = "Passwords do not match!";
+$GLOBALS["TRANS"][5147]["Paroolid ei ole samad!"] = "Passwords do not match!";
 ?>

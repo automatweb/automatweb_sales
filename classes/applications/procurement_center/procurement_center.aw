@@ -583,7 +583,7 @@ class procurement_center extends class_base
 
 	function _p_tr($arr)
 	{
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML,
@@ -613,7 +613,7 @@ class procurement_center extends class_base
 
 	function _offerers_tr($arr)
 	{
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML,
@@ -1026,7 +1026,7 @@ class procurement_center extends class_base
 
 	function _offers_tr($arr)
 	{
-		classload("core/icons");
+		
 		//$arr["prop"]["vcl_inst"] = get_instance("vcl/treeview");
 
 		$arr["prop"]["vcl_inst"]->start_tree (array (
@@ -1125,7 +1125,7 @@ class procurement_center extends class_base
 	function add_offerers_to_offers_tree(&$vcl,$arr)
 	{
 		extract($arr);
-		classload("core/icons");
+		
 		$ol = new object_list(array(
 			"class_id" => array(CL_CRM_CATEGORY),
 //			"parent" => $menu,
@@ -1220,7 +1220,7 @@ class procurement_center extends class_base
 
 	function add_companys_to_tree(&$vcl,$arr)
 	{
-		classload("core/icons");
+		
 		extract($arr);
 		$ol2 = new object_list();
 		$o = obj($menu);
@@ -1263,7 +1263,7 @@ class procurement_center extends class_base
 
 	function add_procurements_to_offers_tree(&$vcl,$arr)
 	{
-		classload("core/icons");
+		
 		extract($arr);
 		$ol = new object_list(array(
 			"class_id" => array(CL_MENU),
@@ -2029,7 +2029,7 @@ class procurement_center extends class_base
 	}
 	function _buyings_tr($arr)
 	{
-		classload("core/icons");
+		
 
 		$arr["prop"]["vcl_inst"]->add_item(0, array(
 			"id" => $arr["obj_inst"]->prop("offerers_folder"),
@@ -2849,7 +2849,7 @@ class procurement_center extends class_base
 
 	function _products_tbl(&$arr)
 	{
-		classload("core/icons");
+		
 		$tb =& $arr["prop"]["vcl_inst"];
 		$this->no_warehouse = $arr["obj_inst"]->prop("no_warehouse");
 		$this->_init_prod_list_list_tbl($tb);
@@ -2868,7 +2868,7 @@ class procurement_center extends class_base
 			));
 		}
 
-		classload("core/icons");
+		
 
 		//$ol = $ot->to_list();
 		$ol = $ot->arr();
@@ -3043,7 +3043,7 @@ class procurement_center extends class_base
 
 /*	function _products_tbl($arr)
 	{
-		classload("core/icons");
+		
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_products_tbl($t);
 		$filter = array(
@@ -3162,7 +3162,7 @@ class procurement_center extends class_base
 			"sort_by" => "objects.jrk"
 		));
 
-		classload("vcl/treeview");
+		
 		$tv = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML,
@@ -3350,7 +3350,7 @@ class procurement_center extends class_base
 		$this_obj = obj($arr["id"]);
 		$owner = $this_obj->get_first_obj_by_reltype("RELTYPE_MANAGER_CO");
 		$this->buyer = $owner->id();
-		classload("vcl/table");
+		
 		$ret = "";
 		$t = new vcl_table;
 //		$this->_init_compare_t($t);

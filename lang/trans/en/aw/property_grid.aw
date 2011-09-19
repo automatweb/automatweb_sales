@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Gridi tüüp (grid_type) caption"] = "Grid type";
+$GLOBALS["TRANS"][5147]["Omaduse Gridi tüüp (grid_type) caption"] = "Grid type";
 ?>

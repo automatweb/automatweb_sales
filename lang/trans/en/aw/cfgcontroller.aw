@@ -1,4 +1,4 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Valem (formula) caption"] = "Expression";
-$GLOBALS["TRANS"]["Omaduse Veateade (errmsg) caption"] = "Error message";
+$GLOBALS["TRANS"][5147]["Omaduse Valem (formula) caption"] = "Expression";
+$GLOBALS["TRANS"][5147]["Omaduse Veateade (errmsg) caption"] = "Error message";
 ?>

@@ -1,7 +1,7 @@
 <?php
-$GLOBALS["TRANS"]["--vali--"] = "--select--";
-$GLOBALS["TRANS"]["Otsi"] = "Search";
-$GLOBALS["TRANS"]["Muuda"] = "Change";
-$GLOBALS["TRANS"]["Lisa"] = "Add";
-$GLOBALS["TRANS"]["Lisa uus %s"] = "Add new %s";
+$GLOBALS["TRANS"][5147]["--vali--"] = "--select--";
+$GLOBALS["TRANS"][5147]["Otsi"] = "Search";
+$GLOBALS["TRANS"][5147]["Muuda"] = "Change";
+$GLOBALS["TRANS"][5147]["Lisa"] = "Add";
+$GLOBALS["TRANS"][5147]["Lisa uus %s"] = "Add new %s";
 ?>

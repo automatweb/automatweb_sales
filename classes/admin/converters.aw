@@ -1,7 +1,7 @@
 <?php
 // converters.aw - this is where all kind of converters should live in
 
-class converters extends aw_template
+class converters extends aw_template implements orb_public_interface
 {
 	// this will be set to document id if only one document is shown, a document which can be edited
 	var $active_doc = false;
@@ -9,7 +9,16 @@ class converters extends aw_template
 	function converters()
 	{
 		$this->init("");
+	}
 
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	/**
@@ -583,15 +592,7 @@ class converters extends aw_template
 	}
 
 	/**
-
 		@attrib name=convert_fg_tables_deleted params=name nologin="1" default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function convert_fg_tables_deleted()
 	{
@@ -777,12 +778,10 @@ class converters extends aw_template
 	}
 
 	/**
-
 		@attrib name=convert_doc_templates params=name nologin="1" default="0"
 		@param parent required
 		@returns
 		@comment
-
 	**/
 	function convert_doc_templates($arr)
 	{
@@ -813,15 +812,7 @@ class converters extends aw_template
 	}
 
 	/**
-
 		@attrib name=convert_menu_images params=name nologin="1" default="0"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function convert_menu_images($arr)
 	{
@@ -863,15 +854,7 @@ class converters extends aw_template
 	}
 
 	/**
-
 		@attrib name=convert_crm_relations2 nologin="1"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function convert_crm_relations2($arr)
 	{
@@ -1051,10 +1034,8 @@ class converters extends aw_template
 	}
 
 	/**
-
 		@attrib name=confirm_crm_choices
-
-	*/
+	**/
 	function confirm_crm_choices($arr)
 	{
 		// go over all objects, figure out the ones that do not have a confirmed relation
@@ -1089,15 +1070,7 @@ class converters extends aw_template
 	}
 
 	/**
-
 		@attrib name=convert_docs_from_menu nologin="1"
-
-
-		@returns
-
-
-		@comment
-
 	**/
 	function convert_docs_from_menu($arr)
 	{
@@ -2331,5 +2304,107 @@ echo "mod ".$con["to.name"]."<br>";
 		while (!$parent_organization and $category);
 
 		return $parent_organization;
+	}
+
+	/**
+		@attrib name=update_languages_1
+	**/
+	public function update_languages_1($arr)
+	{
+		// check if already converted.
+		$q = "SHOW COLUMNS FROM `languages` LIKE 'aw_lid'";
+		$cols = $this->db_fetch_array($q);
+		if (isset($cols[0]["Field"]) and "aw_lid" === $cols[0]["Field"])
+		{
+			automatweb::$result->sysmsg("Object system is already converted. Exiting.");
+			automatweb::http_exit();
+		}
+
+		// ..
+		$convert = true;
+		$queries = array();
+
+		// give more room to new language codes in objects table
+		$queries[] = "ALTER TABLE `objects` CHANGE COLUMN `lang_id` `lang_id` MEDIUMINT(6) NOT NULL DEFAULT '0' AFTER `hits`";
+
+		// new column for aw lang id
+		$queries[] = "ALTER TABLE `languages` ADD COLUMN `aw_lid` MEDIUMINT(6) UNSIGNED NOT NULL DEFAULT '0' AFTER `id`;";
+
+		// new column for ISO lang code
+		$queries[] = "ALTER TABLE `languages` ADD COLUMN `lang_code` CHAR(3) NOT NULL DEFAULT '' AFTER `aw_lid`;";
+
+		// copy languages table oid to id, id is the new master index column
+		$queries[] = "UPDATE `languages` SET `id`=`oid`";
+
+		// delete oid column
+		$queries[] = "ALTER TABLE `languages` DROP COLUMN `oid`;";
+
+		// rename id to oid
+		$queries[] = "ALTER TABLE `languages` CHANGE COLUMN `id` `oid` INT(11) UNSIGNED NOT NULL DEFAULT '0' FIRST";
+
+		 // update data
+		 /// language transcoding table acceptlang -> new lang id
+		 $transcode_lut = array(
+			 "en" => languages::LC_ENG,
+			 "et" => languages::LC_EST,
+			 "ru" => languages::LC_RUS,
+			 "fi" => languages::LC_FIN,
+			 "lv" => languages::LC_LAV,
+			 "lt" => languages::LC_LIT,
+			 "de" => languages::LC_DEU,
+			 "es" => languages::LC_SPA,
+			 "fr" => languages::LC_FRA
+		);
+		 $transcode_lut2 = array(
+			 "en" => "eng",
+			 "et" => "est",
+			 "ru" => "rus",
+			 "fi" => "fin",
+			 "lv" => "lav",
+			 "lt" => "lit",
+			 "de" => "deu",
+			 "es" => "spa",
+			 "fr" => "fra"
+		);
+
+		 /// get site languages
+		$q = "SELECT * FROM `languages`";
+		$site_lang_data = $this->db_fetch_array($q);
+		 foreach ($site_lang_data as $data)
+		 {
+			 $site_lang_id = $data["id"];
+			 $site_lc = $data["acceptlang"];
+			 if (isset($transcode_lut[$site_lc]))
+			 {
+				 $new_lang_id = $transcode_lut[$site_lc];
+				 $new_lang_code = $transcode_lut2[$site_lc];
+				 // update all objects lang id
+				 $queries[] = "UPDATE `objects` SET `lang_id`={$new_lang_id} WHERE `lang_id`={$site_lang_id}";
+
+				 // set languages table aw_lid column
+				 $queries[] = "UPDATE `languages` SET `aw_lid`={$new_lang_id} WHERE `acceptlang`={$site_lc}";
+
+				 // set languages table lang_code column
+				 $queries[] = "UPDATE `languages` SET `lang_code`={$new_lang_code} WHERE `acceptlang`={$site_lc}";
+			 }
+		 }
+
+		if ($convert)
+		{
+			foreach ($queries as $q)
+			{
+				$result = $this->db_query($q);
+				if (!$result)
+				{
+					automatweb::$result->sysmsg("Query  '{$q}' failed");
+				}
+			}
+		}
+
+		// clear cache because old language id-s are stored persistently
+		cache::full_flush();
+
+		//
+		automatweb::http_exit();
 	}
 }

@@ -151,7 +151,7 @@ class cb_form_chain_entry extends class_base
 	function _display_data_table($o, $wf_id, $entries, $d = array())
 	{
 		// make table via component
-		classload("vcl/table");
+		
 		$t = new aw_table(array("layout" => "generic"));
 
 		$wf = get_instance(CL_WEBFORM);

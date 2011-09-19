@@ -143,7 +143,7 @@ class procurement_implementor_center extends class_base
 
 	function _p_tr($arr)
 	{
-		classload("core/icons");
+		
 
 		$ol = $this->model->get_my_procurements();
 		foreach($ol->arr() as $o)

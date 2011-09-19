@@ -1,34 +1,14 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>name_for_1</name>
+            <name>unit_name_morphology_spec</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
             <group>general</group>
             <type>textbox</type>
-            <comment>&amp;amp;Uuml;hiku nimi k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on 1</comment>
-            <caption>V&amp;amp;auml;&amp;amp;auml;rtuse j&amp;amp;auml;rel (1 ...)</caption>
-      </property>
-      <property>
-            <name>name_for_2</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>general</group>
-            <type>textbox</type>
-            <comment>&amp;amp;Uuml;hiku nimi k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on 2</comment>
-            <caption>V&amp;amp;auml;&amp;amp;auml;rtuse j&amp;amp;auml;rel (2 ...)</caption>
-      </property>
-      <property>
-            <name>name_for_n</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>general</group>
-            <type>textbox</type>
-            <comment>&amp;amp;Uuml;hiku nimi k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on muu</comment>
-            <caption>V&amp;amp;auml;&amp;amp;auml;rtuse j&amp;amp;auml;rel (n ...)</caption>
+            <comment>Reeglid &amp;amp;uuml;hiku nime kasutamiseks koos numbriga. N&amp;amp;auml;ide: 1 tund; * tundi</comment>
+            <caption>&amp;amp;Uuml;hiku morfoloogia</caption>
       </property>
       <property>
             <name>unit_code</name>

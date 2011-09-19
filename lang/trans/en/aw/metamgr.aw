@@ -1,15 +1,15 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Toolbar (mgrtoolbar) caption"] = "Toolbar";
-$GLOBALS["TRANS"]["Omaduse Vali muutujatega fail (mupload) caption"] = "Select file with variables";
-$GLOBALS["TRANS"]["Omaduse Metainfo (meta) caption"] = "Metainfo";
-$GLOBALS["TRANS"]["Grupi Muutujad (manager) pealkiri"] = "Variables";
-$GLOBALS["TRANS"]["ID"] = "ID";
-$GLOBALS["TRANS"]["Nimi"] = "Name";
-$GLOBALS["TRANS"]["Jrk"] = "Ord";
-$GLOBALS["TRANS"]["Salvesta"] = "Save";
-$GLOBALS["TRANS"]["Liiguta valitud omadused gruppi"] = "Move selected properties to group";
-$GLOBALS["TRANS"]["Export"] = "Export";
-$GLOBALS["TRANS"]["Import"] = "Import";
-$GLOBALS["TRANS"]["Kustuta valitud muutujad"] = "Delete selected variables";
-$GLOBALS["TRANS"]["Kustuta valitud muutujad?"] = "Delete selected variables?";
+$GLOBALS["TRANS"][5147]["Omaduse Toolbar (mgrtoolbar) caption"] = "Toolbar";
+$GLOBALS["TRANS"][5147]["Omaduse Vali muutujatega fail (mupload) caption"] = "Select file with variables";
+$GLOBALS["TRANS"][5147]["Omaduse Metainfo (meta) caption"] = "Metainfo";
+$GLOBALS["TRANS"][5147]["Grupi Muutujad (manager) pealkiri"] = "Variables";
+$GLOBALS["TRANS"][5147]["ID"] = "ID";
+$GLOBALS["TRANS"][5147]["Nimi"] = "Name";
+$GLOBALS["TRANS"][5147]["Jrk"] = "Ord";
+$GLOBALS["TRANS"][5147]["Salvesta"] = "Save";
+$GLOBALS["TRANS"][5147]["Liiguta valitud omadused gruppi"] = "Move selected properties to group";
+$GLOBALS["TRANS"][5147]["Export"] = "Export";
+$GLOBALS["TRANS"][5147]["Import"] = "Import";
+$GLOBALS["TRANS"][5147]["Kustuta valitud muutujad"] = "Delete selected variables";
+$GLOBALS["TRANS"][5147]["Kustuta valitud muutujad?"] = "Delete selected variables?";
 ?>

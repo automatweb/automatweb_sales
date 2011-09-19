@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aw_console" folder="classes/core/util" extends="">
+		<action name="show_console">
+			<function name="show_console">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

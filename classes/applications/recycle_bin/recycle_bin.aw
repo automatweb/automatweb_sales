@@ -241,7 +241,7 @@ class recycle_bin extends class_base
 	function do_recycle_table($arr)
 	{
 		//$table = &$arr["prop"]["vcl_inst"];
-		classload("vcl/table");
+		
 		$table = new aw_table();
 	
 		$this->_init_table($table);	

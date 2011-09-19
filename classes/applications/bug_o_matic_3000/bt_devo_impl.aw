@@ -60,7 +60,7 @@ class bt_devo_impl extends core
 
 	function _get_dev_orders_tree($arr)
 	{
-		classload("core/icons");
+		
 		if(true || $arr["obj_inst"]->prop("order_tree_conf"))
 		{
 			$i = get_instance(CL_BUG_TRACKER);

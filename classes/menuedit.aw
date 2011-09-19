@@ -31,7 +31,7 @@ class menuedit extends aw_template implements request_startup
 			if (strlen($section) == 2)
 			{
 				$l = get_instance("languages");
-				$tmp = $l->get_langid_for_code($section);
+				$tmp = $l->get_id_for_code($section);
 				if ($tmp)
 				{
 					$fp = aw_ini_get("ini_frontpage");
@@ -79,11 +79,11 @@ class menuedit extends aw_template implements request_startup
 				$l = new languages();
 				if (aw_ini_get("user_interface.full_content_trans"))
 				{
-					$set_ct_lang_id = $l->get_langid_for_code($lc);
+					$set_ct_lang_id = $l->get_id_for_code($lc);
 				}
 				else
 				{
-					$set_lang_id = $l->get_langid_for_code($lc);
+					$set_lang_id = $l->get_id_for_code($lc);
 				}
 			}
 			$section = $section_a;

@@ -2572,7 +2572,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 	{
 		$arr["obj_inst"] = $arr["obj_inst"]?$arr["obj_inst"]:obj($arr["id"]);
 
-		classload("vcl/table");
+		
 		$t = new vcl_table;
 
 		$t->define_field(array(

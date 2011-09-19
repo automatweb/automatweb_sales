@@ -114,13 +114,16 @@ class auth_server_ldap extends class_base
 		$srv = $server->prop("server");
 		if ($server->prop("server_ldaps"))
 		{
-			$srv = "https://".$srv;
+			$srv = "https://{$srv}";
 		}
+
 		$res = ldap_connect($srv, $server->prop("server_port"));
+
 		if (!$res)
 		{
 			return array(false, sprintf(t("Ei saanud &uuml;hendust LDAP serveriga %s"), $server->prop("server")));
 		}
+
 		ldap_set_option($res, LDAP_OPT_PROTOCOL_VERSION, 3);
 
 		$uid = $credentials["uid"];

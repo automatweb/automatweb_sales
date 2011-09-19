@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Objekti id on %s"] = "Object id is %s";
+$GLOBALS["TRANS"][5147]["Objekti id on %s"] = "Object id is %s";
 ?>

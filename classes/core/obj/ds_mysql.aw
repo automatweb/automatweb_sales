@@ -2145,7 +2145,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							{
 								$has_pct = true;
 							}
-							$tmp_sql[] = $tf." NOT LIKE '$__val' ";
+							$tmp_sql[] = "{$tf} NOT LIKE '{$__val}' ";
 						}
 						if ($has_pct)
 						{
@@ -2153,7 +2153,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						}
 						else
 						{
-							$sql[] = $tf." NOT IN (".join(",", map("'%s'", $v_data)).") ";
+							$sql[] = "{$tf} NOT IN (".join(",", map("'%s'", $v_data)).") ";
 						}
 					}
 					else
@@ -2166,18 +2166,18 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 						if (strpos($v_data, "%") !== false)
 						{
-							$sql[] = " (".$tf." NOT LIKE '".$v_data."'  $opn_app ) ";
+							$sql[] = " ({$tf} NOT LIKE '{$v_data}'  $opn_app ) ";
 						}
 						else
 						{
-							$sql[] = " (".$tf." != '".$v_data."'  $opn_app ) ";
+							$sql[] = " ({$tf} != '{$v_data}'  $opn_app ) ";
 						}
 					}
 				}
 				elseif ($class_name === "obj_predicate_regex")
 				{
 					$v_data = $val->data;
-					$sql[] = " (".$tf." REGEXP '".$v_data."'  ) ";
+					$sql[] = " ({$tf} REGEXP '{$v_data}'  ) ";
 				}
 				elseif ($class_name === "obj_predicate_compare")
 				{

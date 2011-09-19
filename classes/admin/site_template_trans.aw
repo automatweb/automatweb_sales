@@ -99,7 +99,7 @@ class site_template_trans extends class_base
 
 			foreach($langs as $lang)
 			{
-				$lid = $lang_i->get_langid_for_code($lang);
+				$lid = $lang_i->get_id_for_code($lang);
 				$t->add_item($file, array(
 					"id" => $file."_".$lang,
 					"parent" => $file,

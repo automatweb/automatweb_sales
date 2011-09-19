@@ -190,7 +190,6 @@ class auth_config extends class_base
 			$tmp = $ol->begin();
 			// also check if there are any servers in it. if not, then it is not valid.
 			$servers = self::_get_auth_servers($tmp->id());
-			aw_restore_acl();
 			if (!count($servers))
 			{
 				return false;
@@ -507,4 +506,5 @@ class auth_config extends class_base
 }
 
 class awex_auth extends aw_exception {}
+class awex_auth_pw extends awex_auth {}
 

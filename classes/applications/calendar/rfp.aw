@@ -1111,7 +1111,7 @@ class rfp extends class_base
 				{
 					$obj = obj($arr["request"]["reservation_oid"]);
 					$inst = $obj->instance();
-					classload("vcl/table");
+					
 					$args = array(
 						"request" => array(
 							"class" => "reservation",
@@ -1148,7 +1148,7 @@ class rfp extends class_base
 				break;
 
 			case "prices_tbl":
-				classload("vcl/table");
+				
 				$args = array(
 					"request" => array(
 						"class" => "reservation",
@@ -1260,7 +1260,7 @@ class rfp extends class_base
 				}
 				$prop["value"] = aw_unserialize($prop["value"]);
 				$props = $arr["obj_inst"]->get_property_list();
-				classload("vcl/table");
+				
 				$t = new aw_table();
 				$header = array_keys(reset($prop["value"]));
 				foreach($header as $field)
@@ -1335,7 +1335,7 @@ class rfp extends class_base
 			case "catering_for_main":
 				$data = aw_unserialize($prop["value"]);
 
-				classload("vcl/table");
+				
 				$t = new vcl_table();
 				$t->define_field(array(
 					"name" => "catering_type",
@@ -1368,7 +1368,7 @@ class rfp extends class_base
 			case "additional_functions":
 			case "search_result":
 				$data = aw_unserialize($prop["value"]);
-				classload("vcl/table");
+				
 				$t = new vcl_table();
 				$fun = "_gen_table_".$prop["name"];
 				$this->$fun($data, $t);

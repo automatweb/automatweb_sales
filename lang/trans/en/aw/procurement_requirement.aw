@@ -1,15 +1,15 @@
 <?php
-$GLOBALS["TRANS"]["Omaduse Kirjeldus (desc) caption"] = "Description";
-$GLOBALS["TRANS"]["Grupi Kommentaarid (comments) pealkiri"] = "Comments";
-$GLOBALS["TRANS"]["Nimi"] = "Name";
-$GLOBALS["TRANS"]["Lahendus"] = "Solution";
-$GLOBALS["TRANS"]["Pakkuja"] = "Offerer";
-$GLOBALS["TRANS"]["Eelistatud"] = "Preferred";
-$GLOBALS["TRANS"]["Hinne"] = "Mark";
-$GLOBALS["TRANS"]["Sobiv"] = "Suitable";
-$GLOBALS["TRANS"]["Hind"] = "Price";
-$GLOBALS["TRANS"]["Tundide arv"] = "Hours";
-$GLOBALS["TRANS"]["Valmidus"] = "Readyness";
-$GLOBALS["TRANS"]["X"] = "X";
-$GLOBALS["TRANS"]["<b>Keskmine:</b>"] = "<b>Average:</b>";
+$GLOBALS["TRANS"][5147]["Omaduse Kirjeldus (desc) caption"] = "Description";
+$GLOBALS["TRANS"][5147]["Grupi Kommentaarid (comments) pealkiri"] = "Comments";
+$GLOBALS["TRANS"][5147]["Nimi"] = "Name";
+$GLOBALS["TRANS"][5147]["Lahendus"] = "Solution";
+$GLOBALS["TRANS"][5147]["Pakkuja"] = "Offerer";
+$GLOBALS["TRANS"][5147]["Eelistatud"] = "Preferred";
+$GLOBALS["TRANS"][5147]["Hinne"] = "Mark";
+$GLOBALS["TRANS"][5147]["Sobiv"] = "Suitable";
+$GLOBALS["TRANS"][5147]["Hind"] = "Price";
+$GLOBALS["TRANS"][5147]["Tundide arv"] = "Hours";
+$GLOBALS["TRANS"][5147]["Valmidus"] = "Readyness";
+$GLOBALS["TRANS"][5147]["X"] = "X";
+$GLOBALS["TRANS"][5147]["<b>Keskmine:</b>"] = "<b>Average:</b>";
 ?>

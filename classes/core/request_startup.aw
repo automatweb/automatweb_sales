@@ -7,5 +7,3 @@ interface request_startup
 	**/
 	function request_startup();
 }
-
-?>

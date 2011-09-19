@@ -129,7 +129,7 @@ class class_base extends aw_template implements orb_public_interface
 
 	/** Main object instance **/
 	// protected $obj_inst;
-	var $obj_inst; //XXX: PUBLIC, peaks olema protected arvatavasti
+	var $obj_inst; //TODO: PUBLIC, peaks olema protected arvatavasti
 
 	private $cfgform;
 	private $cfgform_obj;
@@ -208,7 +208,7 @@ class class_base extends aw_template implements orb_public_interface
 		$this->reltype = isset($arr["reltype"]) ? $arr["reltype"] : "";
 	}
 
-	private function load_storage_object($arr)
+	protected function load_storage_object($arr)
 	{
 		if (empty($arr["id"]))
 		{
@@ -3997,7 +3997,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		$this->awcb_data_sources["id"] = $this->obj_inst;
 
-		if (isset($args["_object_type"]) and $this->can("view", $args["_object_type"]))
+		if (isset($args["_object_type"]) and $this->can("", $args["_object_type"]))
 		{//XXX: kahtlane! cfgform salvestati ka metasse, pole hea
 			$ot_obj = new object($args["_object_type"]);
 			$this->obj_inst->set_meta("object_type",$args["_object_type"]);
@@ -4773,7 +4773,7 @@ class class_base extends aw_template implements orb_public_interface
 			"subclass" => $this->clid
 		));
 		$rv = array();
-		$lid = languages::get_langid_for_code(aw_global_get("user_adm_ui_lc"));
+		$lid = languages::get_id_for_code(aw_global_get("user_adm_ui_lc"));
 		foreach($ol->arr() as $o)
 		{
 			// this must use user interface language, not site content language
@@ -5540,7 +5540,7 @@ class class_base extends aw_template implements orb_public_interface
 
 				do
 				{
-					$lang_id = $o->prop("db_lang_id");
+					$lang_id = $o->prop("aw_lang_id");
 					if ($lang_id !== $this->obj_inst->lang_id())
 					{
 						$id = $this->translation_lang_var_name . $lang_id;
@@ -5749,11 +5749,11 @@ class class_base extends aw_template implements orb_public_interface
 
 			do
 			{
-				if ($original_lang_id === $l_o->prop("db_lang_id"))
+				if ($original_lang_id === $l_o->prop("aw_lang_id"))
 				{ // remove object's original language from target list
 					$languages_in_use->remove($l_o);
 				}
-				elseif ($requested_lang_id === $l_o->prop("db_lang_id"))
+				elseif ($requested_lang_id === $l_o->prop("aw_lang_id"))
 				{ // requested language found, set target
 					$this->translation_lang_id = $requested_lang_id;
 					$translation_target_lang_o = $l_o;
@@ -5767,7 +5767,7 @@ class class_base extends aw_template implements orb_public_interface
 				{
 					// only one language in use besides original, or requested language was not valid
 					$translation_target_lang_o = $languages_in_use->begin();
-					$this->translation_lang_id = $translation_target_lang_o->prop("db_lang_id");
+					$this->translation_lang_id = $translation_target_lang_o->prop("aw_lang_id");
 				}
 				else
 				{

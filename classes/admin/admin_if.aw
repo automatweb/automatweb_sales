@@ -154,6 +154,7 @@ class admin_if extends class_base
 			$tb->add_menu_button(array(
 				"name" => "new",
 				"tooltip" => t("Lisa"),
+				"icon" => "add"
 			));
 
 			$this->generate_new($tb, $parent, (isset($arr["request"]["period"]) ? $arr["request"]["period"] : null));
@@ -163,7 +164,7 @@ class admin_if extends class_base
 			"name" => "save",
 			"tooltip" => t("Salvesta"),
 			"action" => "save_if",
-			"img" => "save.gif",
+			"icon" => "disk"
 		));
 
 		$tb->add_separator();
@@ -172,14 +173,14 @@ class admin_if extends class_base
 			"name" => "cut",
 			"tooltip" => t("L&otilde;ika"),
 			"action" => "if_cut",
-			"img" => "cut.gif",
+			"icon" => "cut"
 		));
 
 		$tb->add_button(array(
 			"name" => "copy",
 			"tooltip" => t("Kopeeri"),
 			"action" => "if_copy",
-			"img" => "copy.gif",
+			"icon" => "copy"
 		));
 
 		if (count($this->get_cutcopied_objects()) && $can_add)
@@ -188,7 +189,7 @@ class admin_if extends class_base
 				"name" => "paste",
 				"tooltip" => t("Kleebi"),
 				"action" => "if_paste",
-				"img" => "paste.gif",
+				"icon" => "paste"
 			));
 		}
 
@@ -197,7 +198,7 @@ class admin_if extends class_base
 			"tooltip" => t("Kustuta"),
 			"confirm" => t("Kustutada valitud objektid?"),
 			"action" => "if_delete",
-			"img" => "delete.gif",
+			"icon" => "delete"
 		));
 		$tb->add_separator();
 
@@ -205,7 +206,7 @@ class admin_if extends class_base
 			"name" => "refresh",
 			"tooltip" => t("Uuenda"),
 			"url" => "javascript:window.location.reload()",
-			"img" => "refresh.gif",
+			"img" => "refresh.gif"
 		));
 
 		$tb->add_menu_button(array(
@@ -222,7 +223,7 @@ class admin_if extends class_base
 				"title" => t("Impordi kaustu"),
 				"name" => "import_menus",
 				"tooltip" => t("Impordi kaustu"),
-				"link" => $this->mk_my_orb("import",array("parent" => $parent)),
+				"link" => $this->mk_my_orb("import",array("parent" => $parent))
 			));
 
 			$tb->add_menu_item(array(

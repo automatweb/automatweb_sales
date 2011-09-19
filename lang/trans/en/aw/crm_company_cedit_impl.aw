@@ -1,5 +1,5 @@
 <?php
-$GLOBALS["TRANS"]["Muuda"] = "Change";
-$GLOBALS["TRANS"]["--vali--"] = "--select--";
-$GLOBALS["TRANS"]["Vali &uuml;ks"] = "Pick one";
+$GLOBALS["TRANS"][5147]["Muuda"] = "Change";
+$GLOBALS["TRANS"][5147]["--vali--"] = "--select--";
+$GLOBALS["TRANS"][5147]["Vali &uuml;ks"] = "Pick one";
 ?>

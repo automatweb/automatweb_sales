@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Aktiivne"] = "Active";
+$GLOBALS["TRANS"][5147]["Aktiivne"] = "Active";
 ?>

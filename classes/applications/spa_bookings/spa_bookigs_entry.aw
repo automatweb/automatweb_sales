@@ -775,7 +775,7 @@ class spa_bookigs_entry extends class_base
 		$extra_stuff=array();
 		foreach($ol->arr() as $o)
 		{
-			classload("vcl/table");
+			
 			$ot = new aw_table(array(
 				"layout" => "generic"
 			));
@@ -1104,7 +1104,7 @@ class spa_bookigs_entry extends class_base
 		// split into weeks, and if more than 1, let the user select range
 		$rs = get_week_start($from) + 24*7*3600;
 		// now, draw table for the active range
-		classload("vcl/table");
+		
 		$t = new aw_table();//if(aw_global_get("uid") == "st88rl2206"){ arr(date("H:i d.m.Y" , $range_to)); arr(date("H:i d.m.Y" , $range_from));}
 		$num_days = floor(($range_to - $range_from) / (24*3600)+1);
 		for ($i = 0; $i < $num_days; $i++)
@@ -1997,7 +1997,7 @@ class spa_bookigs_entry extends class_base
 
 	function _get_prod_list_tbl($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new aw_table();
 
 		if (!$_GET["tree_filter"])

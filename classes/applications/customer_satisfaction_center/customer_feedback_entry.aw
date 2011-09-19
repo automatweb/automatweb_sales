@@ -115,7 +115,7 @@ class customer_feedback_entry extends class_base
 			10 => t("Vajab tagasisidet")
 		);
 
-		classload("core/icons");
+		
 	}
 
 	function get_property($arr)

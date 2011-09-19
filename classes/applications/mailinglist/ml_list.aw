@@ -432,7 +432,7 @@ class ml_list extends class_base
 	function choose_addresses($arr)
 	{/*
 		$members = $this->get_members(array("id" => $arr["id"]));
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 		$t->define_chooser(array(
 			"field" => "oid",

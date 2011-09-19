@@ -48,7 +48,7 @@ function aw_ini_get($var)
 function aw_ini_isset($var)
 {
 	$path = explode(".", $var);
-	$path = implode('"]["', $path); //!!! v6ibolla replace kiirem?
+	$path = implode('"]["', $path); //XXX: v6ibolla replace kiirem?
 	return eval('return !empty($GLOBALS["cfg"]["' . $path . '"]);');
 }
 
@@ -127,6 +127,12 @@ function parse_config($file, $return = false)
 {
 	$fd = file($file);
 	$config = array();
+	$autoloaded_variables = array(
+		"site_basedir" => 1,
+		"site_public_root_dir" => 1,
+		"basedir" => 1,
+		"baseurl" => 1
+	);
 
 	foreach($fd as $linenum => $line)
 	{
@@ -145,7 +151,6 @@ function parse_config($file, $return = false)
 				try
 				{
 					$value = preg_replace('/\$\{(.*)\}/e', "aw_ini_get(\"\\1\")",$value);
-					$var = preg_replace('/\$\{(.*)\}/e', "aw_ini_get(\"\\1\")",$var);
 				}
 				catch (awex_cfg_key $e)
 				{
@@ -156,49 +161,52 @@ function parse_config($file, $return = false)
 				}
 
 				// add setting
-				if ($return)
+				if (!isset($autoloaded_variables[$var]) or "" === $autoloaded_variables[$var])
 				{
-					$config[] = $var . "=" . $value;
-				}
-				else
-				{
-					$setting_index = explode(".", $var);
-
-					// for loading cfg here
-					$setting_path = "\$GLOBALS['cfg']";
-
-					foreach ($setting_index as $key => $index)
+					if ($return)
 					{
-						$setting_path .= "['" . $index . "']";
-
-						if (isset($setting_index[$key + 1]) and eval("return (isset(" . $setting_path . ") and !is_array(" . $setting_path . "));"))
-						{
-							eval($setting_path . " = array();");
-						}
+						$config[] = $var . "=" . $value;
 					}
-
-					// for caching
-					$setting_path = "\$config";
-
-					foreach ($setting_index as $key => $index)
+					else
 					{
-						$setting_path .= "['" . $index . "']";
+						$setting_index = explode(".", $var);
 
-						if (isset($setting_index[$key + 1]) and eval("return (isset(" . $setting_path . ") and !is_array(" . $setting_path . "));"))
+						// for loading cfg here
+						$setting_path = "\$GLOBALS['cfg']";
+
+						foreach ($setting_index as $key => $index)
 						{
-							eval($setting_path . " = array();");
+							$setting_path .= "['" . $index . "']";
+
+							if (isset($setting_index[$key + 1]) and eval("return (isset(" . $setting_path . ") and !is_array(" . $setting_path . "));"))
+							{
+								eval($setting_path . " = array();");
+							}
 						}
+
+						// for caching
+						$setting_path = "\$config";
+
+						foreach ($setting_index as $key => $index)
+						{
+							$setting_path .= "['" . $index . "']";
+
+							if (isset($setting_index[$key + 1]) and eval("return (isset(" . $setting_path . ") and !is_array(" . $setting_path . "));"))
+							{
+								eval($setting_path . " = array();");
+							}
+						}
+
+						$str = str_replace(".", "']['", $var) . "'] = " . var_export($value, true) . ";";
+
+						// load setting here
+						$setting = "\$GLOBALS['cfg']['" . $str;
+						eval($setting);
+
+						// store for caching
+						$setting = "\$config['" . $str;
+						eval($setting);
 					}
-
-					$str = str_replace(".", "']['", $var) . "'] = " . var_export($value, true) . ";";
-
-					// load setting here
-					$setting = "\$GLOBALS['cfg']['" . $str;
-					eval($setting);
-
-					// store for caching
-					$setting = "\$config['" . $str;
-					eval($setting);
 				}
 			}
 			elseif ("include" === substr(trim($line), 0, 7))
@@ -236,51 +244,80 @@ function parse_config($file, $return = false)
 		If specified, parsed configuration will be saved to cache in $cache_file and read from there if it already exists and is up to date.
 	@comment
 		Loads aw configuration files $files to system memory. if $cache_file not up to date or not readable. Caches result to $cache_file
+		Some automatic settings depend on from where (file, class, method) this function is called
 	@returns void
 **/
 function load_config ($files = array(), $cache_file = null)
 {
-	$is_cached = true;
+	if (empty($files) or !is_array($files))
+	{
+		throw new awex_cfg_file("Configuration files not specified.");
+	}
 
+	// init "db"
 	if (!isset($GLOBALS["cfg"]))
 	{
 		$GLOBALS["cfg"] = array();
 	}
 
+	// determine directories
+	//TODO: mitte lugeda iga kord, viia installerisse
 	$GLOBALS["cfg"]["basedir"] = AW_DIR;
-	//TODO: if DOCUMENT_ROOT not available, then site dir set to aw framework code directory files subdir. may not be a good solution. check for errors
-	// str_replace is for windows style paths
-	$site_basedir = empty($_SERVER["DOCUMENT_ROOT"]) ? AW_DIR . "files/" : str_replace("\\", "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) . "/";
-	$GLOBALS["cfg"]["site_basedir"] = $site_basedir;
 
-	// get the modification date on the ini cache
-	if (file_exists($cache_file) and is_array($files))
+//TODO: if DOCUMENT_ROOT not available, then site dir set to aw framework code directory files subdir. may not be a good solution. check for errors
+//TODO: allolev on ebakindel heuristika v6ibolla
+	// get directory depending on caller
+	// str_replace is for windows style paths
+	list($class, $method, $line, $file) = get_caller();
+	if ("automatweb" === $class and ("start" === $method or "load_config_files" === $method))
+	{
+		list($class, $method, $line, $file) = get_caller(1);
+		$site_public_root_dir = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file))) . "/";
+		$site_basedir = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file) . "/../")) . "/";
+		// $site_basedir = empty($_SERVER["DOCUMENT_ROOT"]) ? AW_DIR . "files/" : str_replace(DIRECTORY_SEPARATOR, "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) . "/";
+	}
+	else
+	{
+		//TODO
+	}
+
+	$GLOBALS["cfg"]["site_basedir"] = $site_basedir;
+	$GLOBALS["cfg"]["site_public_root_dir"] = $site_public_root_dir;
+
+	//selle peab ikka igaltpoolt uuesti saama, muidu ei saa sisev6rgust ja mujalt ligi
+	if (empty($GLOBALS["cfg"]["no_update_baseurl"]) and isset($_SERVER["HTTP_HOST"]))
+	{
+		$baseurl = "http://" . $_SERVER["HTTP_HOST"] . "/";
+		$GLOBALS["cfg"]["baseurl"] = $baseurl;
+	}
+
+	// determine cache state
+	$cache_success = true;
+	if ($cache_file and file_exists($cache_file))
 	{
 		// check the modification date of each of the config files
 		$cache_timestamp = filemtime($cache_file);
-
-		foreach($files as $k => $file)
+		foreach($files as $file)
 		{
 			if (filemtime($file) >= $cache_timestamp)
 			{
-				$is_cached = false;
+				$cache_success = false;
 			}
 		}
 	}
 	else
 	{
-		$is_cached = false;
+		$cache_success = false;
 	}
 
-	// read from cache
-	$read_from_cache = false;
-	if ($is_cached)
+	// try read from cache
+	if ($cache_success)
 	{
 		$cfg = file_get_contents($cache_file);
 
 		if (false === $cfg)
 		{
-			throw new aw_exception("Configuration cache file not readable.");
+			throw new awex_cfg_file("Configuration cache file not readable.");
 		}
 
 		$cfg = unserialize($cfg);
@@ -290,29 +327,22 @@ function load_config ($files = array(), $cache_file = null)
 		{
 			if ($cfg["__aw_ini_cache_meta_cached_files"] !== $files)
 			{
-				$read_from_cache = false;
+				$cache_success = false;
 				unset($cfg["__aw_ini_cache_meta_cached_files"]);
 			}
 		}
 
 		if (!is_array($cfg))
 		{
-			throw new aw_exception("Configuration cache file corrupt.");
+			throw new awex_cfg_file("Configuration cache file corrupt.");
 		}
 
 		$GLOBALS["cfg"] = array_union_recursive($cfg, $GLOBALS["cfg"]);
-		$read_from_cache = true;
-	}
-
-	//selle peab ikka igaltpoolt uuesti saama, muidu ei saa sisev6rgust ja mujalt ligi
-	if (empty($GLOBALS["cfg"]["no_update_baseurl"]) and isset($_SERVER["HTTP_HOST"]))
-	{
-		$baseurl = "http://" . $_SERVER["HTTP_HOST"] . "/";
-		$GLOBALS["cfg"]["baseurl"] = $baseurl;
+		$cache_success = true;
 	}
 
 	// load from file
-	if (!$read_from_cache)
+	if (!$cache_success)
 	{
 		$cfg = array();
 
@@ -322,7 +352,7 @@ function load_config ($files = array(), $cache_file = null)
 		}
 
 		// and write to cache if file is specified
-		if (isset($cache_file))
+		if (!empty($cache_file))
 		{
 			if (!is_dir(dirname($cache_file)))
 			{
@@ -334,7 +364,7 @@ function load_config ($files = array(), $cache_file = null)
 				$success = chmod($cache_file, 0770);
 				if (!$success)
 				{
-					throw new aw_exception("Mode change failed for cache file directory.");
+					throw new awex_cfg_file("Mode change failed for cache file directory.");
 				}
 
 				if (!is_writable(dirname($cache_file)))
@@ -344,7 +374,7 @@ function load_config ($files = array(), $cache_file = null)
 
 				if (!is_writable(dirname($cache_file)))
 				{
-					throw new aw_exception("No permissions for cache file directory.");
+					throw new awex_cfg_file("No permissions for cache file directory.");
 				}
 			}
 
@@ -353,7 +383,7 @@ function load_config ($files = array(), $cache_file = null)
 				$success = chmod($cache_file, 0660);
 				if (!$success)
 				{
-					throw new aw_exception("Mode change failed for cache file.");
+					throw new awex_cfg_file("Mode change failed for cache file.");
 				}
 
 				if (!is_writable($cache_file))
@@ -363,7 +393,7 @@ function load_config ($files = array(), $cache_file = null)
 
 				if (!is_writable($cache_file))
 				{
-					throw new aw_exception("No permissions for cache file.");
+					throw new awex_cfg_file("No permissions for cache file.");
 				}
 			}
 
@@ -373,7 +403,7 @@ function load_config ($files = array(), $cache_file = null)
 
 			if ($bytes !== strlen($cfg))
 			{
-				throw new aw_exception("Failed to write configuration file cache.");
+				throw new awex_cfg_file("Failed to write configuration file cache.");
 			}
 		}
 
@@ -393,20 +423,12 @@ function load_config ($files = array(), $cache_file = null)
 		*/
 	}
 
-	// siin ei saa veel aw_global_get'i kasutada, kuna defsi pole veel laetud
-	if (aw_ini_isset("tpldir"))
-	{
-		aw_ini_set("site_tpldir", aw_ini_get("tpldir"));
-	}
+	aw_global_set("lang_id", languages::get_active());
 
-	// kui saidi "sees", siis votame templated tolle saidi juurest, ehk siis ei puutu miskit
-
-	// only load those definitions if fastcall is not set. This shouldnt break anything
-	// and should save us a little memory. -- duke
+	// only load those definitions if fastcall is not set
 	if (empty($_REQUEST["fastcall"]))
 	{
-//TODO:
-/* defining class id-s as global constants is to be taken out of use */
+//TODO: /* defining class id-s as global constants is to be taken out of use */
 		if (!empty($GLOBALS["cfg"]["classes"]))
 		{
 			// and here do the defs for classes
@@ -426,70 +448,10 @@ function load_config ($files = array(), $cache_file = null)
 				}
 			}
 
+			//TODO: doc erand kaotada
 			// special case for doc
 			$GLOBALS["cfg"]["class_lut"]["doc"] = 7;
 		}
-/* defining various names as global constants is deprecated
-		// and here do the defs for programs
-		if (!empty($GLOBALS["cfg"]["programs"]))
-		{
-			foreach($GLOBALS["cfg"]["programs"] as $prid => $prd)
-			{
-				if (!defined($prd["def"]))
-				{
-					define($prd["def"], $prid);
-				}
-			}
-		}
-
-		// and here do the defs for errors
-		if (!empty($GLOBALS["cfg"]["errors"]))
-		{
-			foreach($GLOBALS["cfg"]["errors"] as $erid => $erd)
-			{
-				if (isset($erd["def"]) and !defined($erd["def"]))
-				{
-					define($erd["def"], $erid);
-				}
-			}
-		}
-
-		// defines for syslog
-		if (!empty($GLOBALS["cfg"]["syslog"]["types"]))
-		{
-			foreach($GLOBALS["cfg"]["syslog"]["types"] as $stid => $std)
-			{
-				if (isset($std["def"]) and !defined($std["def"]))
-				{
-					define($std["def"], $stid);
-				}
-			}
-		}
-
-		// defines for syslog actions
-		if (!empty($GLOBALS["cfg"]["syslog"]["actions"]))
-		{
-			foreach($GLOBALS["cfg"]["syslog"]["actions"] as $said => $sad)
-			{
-				if (!defined($sad["def"]))
-				{
-					define($sad["def"], $said);
-				}
-			}
-		}
-
-		// ...
-		if (!empty($GLOBALS["cfg"]["translate"]["ids"]))
-		{
-			foreach($GLOBALS["cfg"]["translate"]["ids"] as $tid => $tdef)
-			{
-				if (!defined($tdef))
-				{
-					define($tdef, $tid);
-				}
-			}
-		}
-*/
 	}
 }
 
@@ -506,6 +468,7 @@ function _aw_global_init()
 {
 	// reset aw_global_* function globals
 	$GLOBALS["__aw_globals"] = array();
+	$lang_cookie_name = languages::get_cookie_name();
 
 	// import CGI spec variables and apache variables
 
@@ -525,7 +488,8 @@ function _aw_global_init()
 		"set_lang_id",
 		"admin_lang",
 		"admin_lang_lc",
-		"LC","period",
+		"LC",
+		"period",
 		"oid",
 		"print",
 		"sortby",
@@ -554,17 +518,17 @@ function _aw_global_init()
 	// why don't we just use $_SERVER where needed?
 	foreach($server as $var)
 	{
-		aw_global_set($var,isset($_SERVER[$var]) ? $_SERVER[$var] : null);
+		aw_global_set($var, isset($_SERVER[$var]) ? $_SERVER[$var] : null);
 	}
 
-	if (isset($_COOKIE["lang_id"]) && !isset($_SESSION["lang_id"]))
+	if (isset($_COOKIE[$lang_cookie_name]) && !isset($_SESSION[$lang_cookie_name]))
 	{
-		aw_global_set("lang_id", $_COOKIE["lang_id"]);
+		aw_global_set("lang_id", $_COOKIE[$lang_cookie_name]);
 	}
 
 	if (isset($_REQUEST))
 	{
-		aw_global_set("request",$_REQUEST);
+		aw_global_set("request", $_REQUEST);
 	}
 
 	$GLOBALS["__aw_globals_inited"] = true;

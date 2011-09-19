@@ -1,6 +1,6 @@
 <?php
-$GLOBALS["TRANS"]["Nimi"] = "Name";
-$GLOBALS["TRANS"]["N&auml;htav"] = "Visible";
-$GLOBALS["TRANS"]["Kasutatav"] = "Usable";
-$GLOBALS["TRANS"]["Aliasena lisatav"] = "Can be used as alias";
+$GLOBALS["TRANS"][5147]["Nimi"] = "Name";
+$GLOBALS["TRANS"][5147]["N&auml;htav"] = "Visible";
+$GLOBALS["TRANS"][5147]["Kasutatav"] = "Usable";
+$GLOBALS["TRANS"][5147]["Aliasena lisatav"] = "Can be used as alias";
 ?>

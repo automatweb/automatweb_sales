@@ -14,6 +14,9 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	define("SERIALIZE_XMLRPC", 5);
 	define("SERIALIZE_PHP_FILE",6);
 
+	// used by t() functions for performance reasons
+	define("AW_DEFAULT_LANG_ID", aw_global_get("lang_id"));
+
 	/** registers a post-submit handler callback
 		@attrib api=1 params=pos
 
@@ -738,10 +741,10 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	/** Replace template variables in the given string
 		@attrib api=1 params=pos
 
-		@param src optional type=string
+		@param src type=string default=""
 			The template string
 
-		@param vars optional type=array
+		@param vars type=array default=array()
 			The list of variable values
 
 		@comment
@@ -751,14 +754,18 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			$str = "a = {VAR:value} ";
 			echo localparse($str, array("value" => 5));	// echoes "a = 5"
 	**/
-	function localparse($src = "",$vars = array())
+	function localparse($src = "", $vars = array())
 	{
 		// kogu asendus tehakse yhe reaga
 		// "e" regexpi lopus tahendab seda, et teist parameetrit ksitletakse php koodina,
 		// mis eval-ist lbi lastakse.
 		$src = preg_replace("/{VAR:(.+?)}/e","(isset(\$vars[\"\\1\"]) ? \$vars[\"\\1\"] : '')",$src);
+		$src = preg_replace("/{LC:(.+?)}/S","\".(t(\$1)).\"", $src);
 		$src = preg_replace("/{DATE:(.+?)\|(.+?)}/e","((isset(\$vars[\"\\1\"]) && is_numeric(\$vars[\"\\1\"]) && \$vars[\"\\1\"] > 1 )? date(\"\\2\",\$vars[\"\\1\"]) : \"\")",$src);
-		return preg_replace("/{INI:(.+?)}/e","aw_ini_get(\"\\1\")",$src);
+		//XXX: kasutuselt v2lja sest ei oma suurt m6tet ja raiskavad iga kord regex peale aega
+		// $src = preg_replace("/{INI:(.+?)}/e","aw_ini_get(\"\\1\")",$src);
+
+		return $src;
 	}
 
 	/** gives the given string to xml_parse_into_struct and returns the result
@@ -947,7 +954,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	function gen_uniq_id()
 	{
 		return md5(uniqid('',true));
-	};
+	}
 
 	/** helper for generating html checkboxes
 		@attrib api=1 params=pos
@@ -2245,25 +2252,29 @@ function eval_buffer($res)
 	}
 
 /**
-@attrib api=1
-@param s required type=string
+@attrib api=1 params=pos
+@param s type=string
 	String to translate
-@comment Translates the string to currently active language. Returns same string if translation not available.
+@param lang_id type=string default=AW_DEFAULT_LANG_ID
+	Default is current language
+@comment Translates the string to currently active or required language. Returns same string if translation not available.
 **/
-function t($s)
+function t($s, $lang_id = AW_DEFAULT_LANG_ID)
 {
-	return isset($GLOBALS["TRANS"][$s]) ? $GLOBALS["TRANS"][$s] : $s;
+	return isset($GLOBALS["TRANS"][$lang_id][$s]) ? $GLOBALS["TRANS"][$lang_id][$s] : $s;
 }
 
 /**
-@attrib api=1
-@param s required type=string
+@attrib api=1 params=pos
+@param s type=string
 	String to translate
-@comment Translates the string to currently active language. Returns NULL if translation not available.
+@param lang_id type=string default=AW_DEFAULT_LANG_ID
+	Default is current language
+@comment Translates the string to currently active or required language. Returns NULL if translation not available.
 **/
-function t2($s)
+function t2($s, $lang_id = AW_DEFAULT_LANG_ID)
 {
-	return isset($GLOBALS["TRANS"][$s]) ? $GLOBALS["TRANS"][$s] : NULL;
+	return isset($GLOBALS["TRANS"][$lang_id][$s]) ? $GLOBALS["TRANS"][$lang_id][$s] : null;
 }
 
 function get_active_lang()

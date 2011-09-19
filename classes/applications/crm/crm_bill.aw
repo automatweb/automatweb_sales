@@ -116,16 +116,16 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 // Customer info. top right lyt
-	@property customer_name type=textbox table=aw_crm_bill field=aw_customer_name parent=top_right
+	@property customer_name type=textbox table=aw_crm_bill field=aw_customer_name parent=top_right editonly=1
 	@caption Kliendi nimi
 
-	@property ctp_text type=textbox table=objects field=meta method=serialize parent=top_right
+	@property ctp_text type=textbox table=objects field=meta method=serialize parent=top_right editonly=1
 	@caption Kontaktisik vabatekstina
 
-	@property customer_address type=textbox table=aw_crm_bill field=aw_customer_address parent=top_right
+	@property customer_address type=textbox table=aw_crm_bill field=aw_customer_address parent=top_right editonly=1
 	@caption Kliendi aadress
 
-	@property customer_add_meta_cb type=callback callback=customer_add_meta_cb store=no parent=top_right
+	@property customer_add_meta_cb type=callback callback=customer_add_meta_cb store=no parent=top_right editonly=1
 
 
 // Warehouse info. right side bottom layout (bottom_right_left)
@@ -164,6 +164,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=text_comments
+	@property title type=textbox size=67 field=meta method=serialize trans=1
+	@caption Arve pealkiri
+
 	@property bill_text type=textarea rows=15 cols=50 field=meta method=serialize trans=1
 	@caption Arve sissejuhatus
 
@@ -327,7 +330,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @reltype TASK value=1 clid=CL_TASK,CL_BUG
 @caption &Uuml;lesanne
 
-@reltype CUST value=2 clid=CL_CRM_COMPANY,CL_CRM_PERSON
+@reltype CUST value=2 clid=CL_CRM_COMPANY,CL_CRM_PERSON deprecated=1
 @caption Klient
 
 @reltype IMPL value=3 clid=CL_CRM_COMPANY,CL_CRM_PERSON
@@ -391,7 +394,6 @@ class crm_bill extends class_base
 	const SELECT_OPTION_MAXLENGTH = 12;
 
 	private $tot_amt = 0;
-	private $customer_object;
 
 	private $rows_sum_cache = 0;
 	private $rows_list_cache;
@@ -401,25 +403,21 @@ class crm_bill extends class_base
 	function crm_bill()
 	{
 		$this->init(array(
-			// "tpldir" => "applications/crm/crm_bill",
-			"tpldir" => "crm/crm_bill",
+			"tpldir" => "applications/crm/crm_bill",
 			"clid" => crm_bill_obj::CLID
 		));
 
 		$this->states = crm_bill_obj::status_names();
 
-		if(!empty($_GET["project"]) && $this->can("view" , $_GET["project"]))
+		if(!empty($_GET["project"]) && $this->can("" , $_GET["project"]))
 		{
 			$this->project_object = obj($_GET["project"]);
-			if($this->can("view" , $this->project_object->get_orderer()))
-			{
-				$this->customer_object = obj($this->project_object->get_orderer());
-			}
 		}
 
 		load_javascript("reload_properties_layouts.js");
 
 		$this->trans_props = array(
+			"title",
 			"bill_text",
 			"bill_appendix_comment",
 			"reminder_text"
@@ -474,7 +472,7 @@ class crm_bill extends class_base
 			case "assembler" :
 				if ($arr["obj_inst"]->is_saved())
 				{
-					$maker = $arr["obj_inst"]->get_the_person_who_made_this_fucking_thing();
+					$maker = $arr["obj_inst"]->get_creator();
 					$prop["options"] = array($maker->id() => $maker->name());
 				}
 				$ps = new popup_search();
@@ -621,19 +619,10 @@ class crm_bill extends class_base
 
 			case "ctp_text":
 			case "customer_address":
-				if(!$arr["obj_inst"]->prop("customer"))
+				if(!$arr["obj_inst"]->prop("customer_relation"))
 				{
 					return PROP_IGNORE;
 				}
-				break;
-
-			case "customer":
-				if($this->customer_object)
-				{
-					$prop["value"] = $this->customer_object->id();
-				}
-
-				$retval = PROP_IGNORE;
 				break;
 
 			case "bill_text":
@@ -962,7 +951,7 @@ class crm_bill extends class_base
 	function _get_sendmail_recipients(&$arr)
 	{
 		$this_o = $arr["obj_inst"];
-		if(!$this_o->prop("customer"))
+		if(!$this_o->prop("customer_relation"))
 		{
 			return PROP_IGNORE;
 		}
@@ -1223,7 +1212,7 @@ class crm_bill extends class_base
 				"caption" => html::img(array(
 					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 					"border" => 0
-				)) . $invoice_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
+				)) . $invoice_pdf_o->name() . " (". aw_locale::bytes2string(filesize($file_data["properties"]["file"])) . ")",
 				"url" => $invoice_pdf_o->get_url(),
 			));
 		}
@@ -1235,7 +1224,7 @@ class crm_bill extends class_base
 				"caption" => html::img(array(
 					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 					"border" => 0
-				)) . $reminder_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
+				)) . $reminder_pdf_o->name() . " (". aw_locale::bytes2string(filesize($file_data["properties"]["file"])) . ")",
 				"url" => $reminder_pdf_o->get_url(),
 			));
 		}
@@ -1247,7 +1236,7 @@ class crm_bill extends class_base
 				"caption" => html::img(array(
 					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 					"border" => 0
-				)) . $appendix_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
+				)) . $appendix_pdf_o->name() . " (". aw_locale::bytes2string(filesize($file_data["properties"]["file"])) . ")",
 				"url" => $appendix_pdf_o->get_url(),
 			));
 		}
@@ -1386,6 +1375,7 @@ class crm_bill extends class_base
 				{
 					$this->_set_recv_date = time();
 				}
+
 				if($prop["value"] == 3)
 				{
 					$payments = $arr["obj_inst"]->connections_from(array('type' => 'RELTYPE_PAYMENT'));
@@ -1405,28 +1395,7 @@ class crm_bill extends class_base
 				break;
 
 			case "customer":
-				if (isset($prop["value"]) and $arr["obj_inst"]->prop("customer") != $prop["value"])
-				{
-					if (!object_loader::can("view", $prop["value"]))
-					{
-						$prop["error"] = sprintf(t("Klient pole loetav (id %s)"), $customer_o->id());
-						return class_base::PROP_ERROR;
-					}
-
-					$customer_o = new object($prop["value"]);
-
-					if (!$customer_o->is_a(CL_CRM_PERSON) and !$customer_o->is_a(CL_CRM_COMPANY))
-					{
-						$prop["error"] = sprintf(t("Sobimatu kliendi id (%s)"), $customer_o->id());
-						return class_base::PROP_ERROR;
-					}
-
-					$this->customer_object = $customer_o;
-				}
-				else
-				{
-					$retval = class_base::PROP_IGNORE;
-				}
+				$retval = class_base::PROP_IGNORE;
 				break;
 		}
 		return $retval;
@@ -1470,7 +1439,7 @@ class crm_bill extends class_base
 
 	function _set_customer_address(&$arr)
 	{
-		if (!$arr["obj_inst"]->prop("customer"))
+		if (!$arr["obj_inst"]->prop("customer_relation"))
 		{
 			$r = class_base::PROP_IGNORE;
 		}
@@ -1499,9 +1468,9 @@ class crm_bill extends class_base
 		return class_base::PROP_OK;
 	}
 
-	function customer_add_meta_cb($arr)
+	public function customer_add_meta_cb($arr)
 	{
-		if(!$arr["obj_inst"]->prop("customer"))
+		if(!$arr["obj_inst"]->prop("customer_relation"))
 		{
 			return class_base::PROP_IGNORE;
 		}
@@ -1579,11 +1548,11 @@ class crm_bill extends class_base
 		$ps = new popup_search();
 		$ps->set_class_id(array(crm_company_customer_data_obj::CLID));
 		$ps->set_id($b->id());
-		$ps->set_reload_layout("top_right");
+		$ps->set_reload_window();
 		$ps->set_property("customer_relation");
 		$search_button = $ps->get_search_button();
 		$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
-		if($b->prop("customer"))
+		if($b->prop("customer_relation"))
 		{
 			try
 			{
@@ -1595,6 +1564,7 @@ class crm_bill extends class_base
 			}
 			catch (Exception $e)
 			{
+				$edit_button = "";
 			}
 
 			try
@@ -2686,8 +2656,8 @@ class crm_bill extends class_base
 					($row->ord() ? sprintf(t("# %s"), $row->ord()) . html::linebreak() : "").
 					($row->prop("date") ? $row->prop("date") . html::linebreak() : "").
 					($row->prop("comment") ? html::bold($row->prop("comment")) . html::linebreak() : "").
-					($row->prop("desc") ? $row->prop("desc") . html::linebreak() : "").
-					($row->prop("name_group_comment") ? html::hr().html::italic(wordwrap($row->prop("name_group_comment"), 100, html::linebreak(), true)) : "").
+					($row->prop("desc") ? nl2br($row->prop("desc")) . html::linebreak() : "").
+					($row->prop("name_group_comment") ? html::hr().html::italic(nl2br(wordwrap($row->prop("name_group_comment"), 100, html::linebreak(), true))) : "").
 					"</div>";
 				break;
 
@@ -3014,7 +2984,7 @@ class crm_bill extends class_base
 			$arr["obj_inst"]->set_prop("bill_recieved", $this->_set_recv_date);
 		}
 
-		if (!$this->customer_object and isset($arr["request"]["address_meta"]))
+		if (isset($arr["request"]["address_meta"]))
 		{
 			$arr["obj_inst"]->set_customer_address("street", $arr["request"]["address_meta"]["street"]);
 			$arr["obj_inst"]->set_customer_address("city", $arr["request"]["address_meta"]["city"]);
@@ -3030,14 +3000,20 @@ class crm_bill extends class_base
 	**/
 	public function preview($arr)
 	{
-		if (empty($arr["preview_type"]))
+		if (empty($arr["preview_type"]) or "main" === $arr["preview_type"])
 		{
-			return $this->show($arr);
+			$view_type = empty($arr["reminder"]) ? "main" : "reminder";
 		}
-		elseif ("appendix" === $arr["preview_type"])
+		elseif ("descriptions" === $arr["preview_type"])
 		{
-			return $this->show_add($arr);
+			$view_type = "descriptions";
 		}
+
+		return $this->show(array(
+			"id" => $arr["obj_inst"]->id(),
+			"pdf" => !empty($arr["pdf"]),
+			"view_type" => $view_type
+		));
 	}
 
 	function _get_preview(&$arr)
@@ -3047,13 +3023,13 @@ class crm_bill extends class_base
 			return PROP_IGNORE;
 		}
 
-		$arr["prop"]["value"] = $this->show(array(
+		$view_type = empty($arr["request"]["reminder"]) ? "main" : "reminder";
+		$this->show(array(
 			"id" => $arr["obj_inst"]->id(),
-			"all_rows" => !empty($arr["all_rows"]),
-			"pdf" => !empty($arr["pdf"]),
-			"reminder" => !empty($arr["request"]["reminder"]),
-			"handover" => !empty($arr["request"]["handover"])
+			"pdf" => !empty($arr["request"]["pdf"]),
+			"view_type" => $view_type
 		));
+
 		return PROP_OK;
 	}
 
@@ -3064,36 +3040,11 @@ class crm_bill extends class_base
 			return PROP_IGNORE;
 		}
 
-		$show_pdf = (!empty($arr["request"]["pdf"]) or !empty($arr["pdf"]));
-		$handover = (!empty($arr["request"]["handover"]) or !empty($arr["handover"]));
-
-		if($arr["obj_inst"]->meta("rows_in_page"))
-		{
-			$page = 0;
-		}
-		else
-		{
-			$page = 0;//FIXME
-		}
-
-		if(array_sum(safe_array($arr["obj_inst"]->meta("rows_in_page"))) > 0)
-		{
-			$this->_preview_popup(array(
-				"rows_in_page" => $arr["obj_inst"]->meta("rows_in_page"),
-				"page" => $page,
-				"id" => $arr["obj_inst"]->id(),
-				"handover" => $handover
-			));
-		}
-
-		if($page == 0)
-		{
-			exit ($this->show_add(array(
-				"id" => $arr["obj_inst"]->id(),
-				"pdf" => $show_pdf,
-				"handover" => $handover
-			)));
-		}
+		$this->show(array(
+			"id" => $arr["obj_inst"]->id(),
+			"pdf" => !empty($arr["request"]["pdf"]),
+			"view_type" => "descriptions"
+		));
 
 		return PROP_OK;
 	}
@@ -3155,103 +3106,6 @@ class crm_bill extends class_base
 		return ($grp_rows);
 	}
 
-	private function implementor_vars($imp)
-	{
-		$vars = array();
-		if ($this->can("view", $imp))
-		{
-			$impl = obj($imp);
-			$vars["impl_name"] = $impl->name();
-			$vars["impl_reg_nr"] = $impl->prop("reg_nr");
-			$vars["impl_kmk_nr"] = $impl->prop("tax_nr");
-			$vars["impl_fax"] = $impl->prop_str("telefax_id", true);//TODO: use get_phone(), get_telefax(),... type methods instead -- implementor could be a person. todo: create these methods in crmco crmperson and add them to customerinterface
-			$vars["impl_url"] = $impl->prop_str("url_id", true);
-			$vars["impl_phone"] = $impl->prop_str("phone_id", true);
-			$vars["imp_penalty"] = $impl->prop("bill_penalty_pct");//TODO: belongs to customer relation not crmco
-			$vars["impl_ou"] = $impl->prop("ettevotlusvorm.shortname");
-
-			$impl_logo = $impl->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
-			if ($impl_logo)
-			{
-				$logo_url = $impl_logo->instance()->get_url_by_id($impl_logo->id());
-				$this->vars["impl_logo_url"] = $logo_url;
-				if ($logo_url)
-				{
-					$this->vars(array(
-						"HAS_IMPL_LOGO" => $this->parse("HAS_IMPL_LOGO")
-					));
-				}
-			}
-
-			$ba = "";
-			foreach($impl->connections_from(array("type" => "RELTYPE_BANK_ACCOUNT")) as $c)
-			{
-				$acc = $c->to();
-				$bank = obj();
-				if ($this->can("view", $acc->prop("bank")))
-				{
-					$bank = obj($acc->prop("bank"));
-				}
-				$this->vars(array(
-					"bank_name" => $bank->name(),
-					"acct_no" => $acc->prop("acct_no"),
-					"bank_iban" => $acc->prop("iban_code")
-				));
-
-				$ba .= $this->parse("BANK_ACCOUNT");
-			}
-			$this->vars(array(
-				"BANK_ACCOUNT" => $ba
-			));
-
-			$logo_o = $impl->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
-			if ($logo_o)
-			{
-				$logo_i = $logo_o->instance();
-				$vars["logo"] = $logo_i->make_img_tag_wl($logo_o->id());
-				$vars["logo_url"] = $logo_i->get_url_by_id($logo_o->id());
-			}
-
-
-			$has_country = "";
-			if ($this->can("view", $impl->prop("contact")))
-			{
-				$ct = obj($impl->prop("contact"));
-				$ap = array($ct->prop("aadress"));
-				if ($ct->prop("linn"))
-				{
-					$vars["impl_city"] = $ct->prop_str("linn");
-					$ap[] = $ct->prop_str("linn");
-				}
-				$aps = join(", ", $ap).html::linebreak();
-				$aps .= $ct->prop_str("maakond");
-				$aps .= " ".$ct->prop("postiindeks");
-				$vars["impl_index"] = $ct->prop("postiindeks");
-				$vars["impl_county"] = $ct->prop_str("maakond");
-				$vars["impl_addr"] = $aps;
-				$vars["impl_street"] = $ct->prop("aadress");
-
-				if ($this->can("view", $ct->prop("riik")))
-				{
-					$riik = obj($ct->prop("riik"));
-					$vars["impl_country"] = $riik->name();
-					//TODO: make sense and order in phone number handling before adding areacode automatically.
-					// $vars["impl_phone"] = $riik->prop("area_code")." ".$impl->prop_str("phone_id");
-					$this->vars(array("HAS_COUNTRY" => $this->parse("HAS_COUNTRY")));
-				}
-			}
-
-			if ($this->can("view", $impl->prop("email_id")))
-			{
-				$mail = obj($impl->prop("email_id"));
-				$vars["impl_mail"] = $mail->prop("mail");
-			}
-
-			$this->vars($vars);
-		}
-		return $vars;
-	}
-
 	function request_execute($o)
 	{
 		return $this->show(array(
@@ -3264,459 +3118,329 @@ class crm_bill extends class_base
 		@attrib api=1 params=name
 		@param id type=oid
 			Invoice object id
-		@param reminder type=bool default=FALSE
+		@param view_type type=string default="main" set="main"|"descriptions"|"reminder"
 			Whether to show as reminder invoice
-		@param handover type=bool default=FALSE
 		@param return type=bool default=FALSE
 			Output control -- return data or send to client
 		@param pdf type=bool default=FALSE
 			Show in pdf format
-		@param all_rows type=bool default=FALSE
-			Whether to combine rows with same name (FALSE) or show all (TRUE)
 		@returns void|string
-		@errors
+		@errors none
 	**/
-	public function show_new($arr)
+	public function show($arr)
 	{
-		$this_o = obj($arr["id"], array(), crm_bill_obj::CLID);
-		$main_tpl = "invoice_main.tpl";
-		$this->read_template($main_tpl);
-	}
+		$this->load_storage_object($arr);
+		$this_o = $this->awcb_ds_id;
+		$lang_id = $this_o->prop("language.aw_lang_id") ? $this_o->prop("language.aw_lang_id") : languages::LC_EST;
+		aw_translations::load("crm_bill", $lang_id);
+//XXX: TMP kuni p2ris pakkumuse klass korda ja valmis saab
+if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptranslations();
+//END TMP
+		$main_tpl = new aw_php_template("crm_bill", "main", $lang_id);
+		$doc = new aw_xhtml_document();
+		$doc->set_content_template($main_tpl);
+		$footer_tpl = new aw_php_template("crm_bill", "footer", $lang_id);
 
-	function show($arr)//kui igav hakkab, siis selle funktsiooni peaks nullist kirjutama
-	{
-		$this->bill = obj($arr["id"]);
-		$stats = new crm_company_stats_impl();
-		$currency = $this->bill->get_bill_currency_id();
-		$tpl_suffix = $this->bill->prop("state") == crm_bill_obj::STATUS_OFFER ? "_offer" : "";
-
-	//templeidi lugemine
-		$tpl = "show{$tpl_suffix}";
-		$lc = "et";
-		if ($this->can("", $this->bill->prop("language")))
+		if ($this->can("", $this_o->prop("customer_relation")))
 		{
-			$lc = $this->bill->prop("language.lang_acceptlang");
+			$customer_relation = new object($this_o->prop("customer_relation"));
+		}
+		else
+		{
+			throw new awex_crm_bill("Customer relation not defined");
 		}
 
-		if(!empty($arr["reminder"]))
+		// do according to requested view type
+		if (empty($arr["view_type"]) or "main" === $arr["view_type"] or "reminder" === $arr["view_type"])
 		{
-			$tpl .= "_remind";
-		}
+			$view_type = empty($arr["view_type"]) ? "main" : $arr["view_type"];
+			$content_tpl = new aw_php_template("crm_bill", "rows_overview", $lang_id);
+			$view_type_name = t("p&otilde;hivaade", $lang_id);
+			$rows = $this_o->get_bill_rows_data(true, "comment");
+			$document_title = $this_o->trans_get_val("title", $lang_id);
+			$document_name = sprintf(t("Arve nr. %s", $lang_id), $this_o->prop("bill_no"));
 
-		if(!empty($arr["handover"]))
-		{
-			$tpl .= "_remit";
-		}
-
-		if(!empty($arr["pdf"]))
-		{
-			$tpl .= "_pdf_{$lc}";
-			if ($this->read_template("{$tpl}.tpl", true) === false)
+			// view subtype handling. reminder has some minor differences
+			if ("reminder" === $view_type)
 			{
-				if ($this->read_template("show_{$tpl_suffix}{$lc}.tpl", true) === false)
+				$document_name .= " " . html::span(array("content" => t("MEELDETULETUS", $lang_id), "color" => "red"));
+				$intro_text = nl2br($this_o->trans_get_val("reminder_text"));
+				$reminder_date = aw_locale::get_lc_date();
+				$over_due_days = ceil(((time() - $this_o->prop("bill_due_date")))/86400);
+			}
+			else
+			{
+				$over_due_days = $reminder_date = "";
+				$intro_text = nl2br($this_o->get_bill_text(true));
+			}
+
+			// add heading part (containing info about and for customer)
+			$heading_tpl = new aw_php_template("crm_bill", "customer_info", $lang_id);
+			$main_tpl->bind($heading_tpl, "heading");
+			$heading_tpl->add_vars(array(
+				"invoice_no" => $this_o->prop("bill_no"),
+				"date" => aw_locale::get_lc_date($this_o->prop("bill_date")),
+				"due_date" => aw_locale::get_lc_date($this_o->prop("bill_due_date")),
+				"due_days" => $this_o->prop("bill_due_date_days"),
+				"late_fee" => $this_o->get_overdue_charge(),
+				"over_due_days" => $over_due_days,
+				"reminder_date" => $reminder_date
+			));
+
+			if ($buyer = $customer_relation->get_buyer())
+			{
+				$heading_tpl->add_vars($this->_get_invoice_party_vars($buyer, "buyer"));
+			}
+		}
+		elseif ("descriptions" === $arr["view_type"])
+		{
+			$view_type = "descriptions";
+			$content_tpl = new aw_php_template("crm_bill", "rows_detailed", $lang_id);
+			$view_type_name = t("aruanne", $lang_id);
+			$main_tpl->set_var("heading", "");
+			$document_name = sprintf(t("Arve nr. %s aruanne", $lang_id), $this_o->prop("bill_no"));
+			$document_title = $this_o->trans_get_val("title", $lang_id);
+			$intro_text = nl2br($this_o->trans_get_val("bill_appendix_comment", $lang_id));
+			$rows_data = $this_o->get_bill_rows_data(true);
+			$rows = array();
+
+			foreach ($rows_data as $row)
+			{
+				if (isset($rows[$row["comment"]]))
 				{
-					$this->read_template("show{$tpl_suffix}.tpl");
+					$rows[$row["comment"]]["name_group_comment"] .= nl2br("\n\n" . $row["name_group_comment"]);
+					$rows[$row["comment"]]["rows"][] = $row;
+				}
+				else
+				{
+					$rows[$row["comment"]] = array(
+						"name" => $row["comment"],
+						"name_group_comment" => $row["name_group_comment"],
+						"rows" => array($row)
+					);
 				}
 			}
 		}
 		else
 		{
-			$tpl .= "_".$lc;
-			if ($this->read_template($tpl.".tpl", true) === false)
-			{
-				$this->read_template("show{$tpl_suffix}.tpl");
-			}
+			throw new awex_crm_bill("Invalid view type");
 		}
-	//templeidi l6pp
 
-	//tellija
-		$ord = obj();
-		$ord_cur = obj();
-		$orderer_contact_person_name = $orderer_contact_person_profession = $ord_index = $ord_country = "";
-		if ($this->can("view", $this->bill->prop("customer")))
+		// bind content
+		$main_tpl->bind($content_tpl, "content");
+
+		// proper footer (and header) is rendered by other means when pdf output
+		empty($arr["pdf"]) ? $main_tpl->bind($footer_tpl, "footer") : $main_tpl->set_var("footer", "");
+
+		// find buyer contact person/signer
+		$buyer_signer_profession = "";
+		if ($buyer_signer = $this_o->get_contact_person())
 		{
-			$ord = obj($this->bill->prop("customer"));
-			if ($this->bill->prop("ctp_text"))
-			{
-				$orderer_contact_person_name = $this->bill->prop("ctp_text");
-			}
-			else
-			{
-				$orderer_contact_person = $this->bill->get_contact_person();
-
-				if ($orderer_contact_person)
-				{
-					$orderer_contact_person_name = $orderer_contact_person->name();
-					// get profession for contact_person
-					$orderer_contact_person_profession = implode(", ", $orderer_contact_person->get_profession_names());
-				}
-			}
-
-			$prop = "contact";
-			if ($ord->class_id() == CL_CRM_PERSON)
-			{
-				$prop = "address";
-			}
-
-			if ($this->can("view", $ord->prop($prop)))
-			{
-				$ct = obj($ord->prop($prop));
-				//riigi tlge, kui on inglise keeles
-				if($this->bill->prop("language"))
-				{
-					$lo = obj($this->bill->prop("language"));
-					$lc = $lo->prop("lang_acceptlang");
-					if($lc === "en")
-					{
-						$ord_country = $this->bill->get_customer_address("country_en");
-					}
-				}
-				else
-				{
-					$ord_country = $this->bill->get_customer_address("country");
-				}
-			}
+			$buyer_signer_profession = implode(", ", $buyer_signer->get_profession_names());
 		}
-	//tellija l6pp
 
-	//teostaja
-		$imp_vars = $this->implementor_vars($this->bill->prop("impl"));
-		$this->add_creator_vars();
-		$this->add_contact_person_vars();
-		$this->bill_vars();
+		$buyer_signer_name = $this_o->get_customer_contact_person_name();
 
-		$bpct = $this->bill->prop("overdue_charge");
-		if (!$bpct)
+		// find seller contact person/signer
+		$seller_signer_profession = $seller_signer_name = "";
+		if ($seller_signer = $this_o->get_creator())
 		{
-			$bpct = $ord->prop("bill_penalty_pct");
-			if (!$bpct)
-			{
-				$bpct = isset($imp_vars["impl_penalty"]) ? $imp_vars["impl_penalty"] : 0;
-			}
+			$seller_signer_name = $seller_signer->name();
+			$seller_signer_profession = implode(", ", $seller_signer->get_profession_names());
 		}
-		//need enne vaja 2ra leida, sest hiljem subide jaoks ka vaja
-		$ord_county = $this->bill->get_customer_address("county");
 
-		$this->vars(array(
-			"orderer_name" => $this->bill->get_customer_name(),
-			"orderer_corpform" => $ord->prop("ettevotlusvorm.shortname"),
-			"ord_penalty_pct" => number_format($bpct, 2),
-			"ord_currency_name" => $this->bill->get_bill_currency_name(),
-			"orderer_addr" => $this->bill->get_customer_address(),
-			"orderer_city" => $this->bill->get_customer_address("city"),
-			"orderer_county" => $ord_county,
-			"orderer_index" => $this->bill->get_customer_address("index"),
-			"orderer_country" => $ord_country,
-			"orderer_street" => $this->bill->get_customer_address("street"),
-			"orderer_kmk_nr" => $ord->prop("tax_nr"),
-			"orderer_reg_nr" => $ord->prop("reg_nr"),
-			"bill_no" => $this->bill->prop("bill_no"),
-			"bill_date" => $this->bill->prop("bill_date"),
-			"bill_due" => date("d.m.Y", $this->bill->prop("bill_due_date")),
-			"payment_due_days" => $this->bill->prop("bill_due_date_days"),
-			"bill_due" => date("d.m.Y", $this->bill->prop("bill_due_date")),
-			"orderer_contact" => $orderer_contact_person_name,
-			"orderer_contact_profession" => $orderer_contact_person_profession,
-			"overdue" => $this->bill->get_overdue_charge(),
-			"bill_text" => $this->bill->get_bill_text(true)
+		//
+		$main_tpl->add_vars(array(
+			"document_name" => $document_name,
+			"invoice_no" => $this_o->prop("bill_no"),
+			"title" => $document_title
 		));
 
-		if($ord_country)
+		try
 		{
-			$this->vars(array("HAS_COUNTRY" => $this->parse("HAS_COUNTRY")));
+			$currency = obj($this_o->get_bill_currency_id());
+			$currency_code = $currency->prop("symbol");
+		}
+		catch (Exception $e)
+		{
+			$currency_code = $this_o->get_bill_currency_name();
 		}
 
-		if ($this->bill->prop("bill_due_date") > 200)
-		{
-			$this->vars(array(
-				"HAS_DUE_DATE" => $this->parse("HAS_DUE_DATE")
-			));
-		}
-		elseif ($this->bill->prop("bill_due_date_text") != "")
-		{
-			$this->vars(array(
-				"NO_DUE_DATE" => $this->parse("NO_DUE_DATE")
-			));
-		}
-
-		if ($ord->prop("tax_nr") != "")
-		{
-			$this->vars(array(
-				"HAS_KMK_NR" => $this->parse("HAS_KMK_NR")
-			));
-		}
-
-		if ($orderer_contact_person_profession)
-		{
-			$this->vars(array(
-				"HAS_ORDERER_CONTACT_PROF" => $this->parse("HAS_ORDERER_CONTACT_PROF")
-			));
-		}
-
-		$rs = array();
-		$sum_wo_tax = $tax = $sum = $tot_amt = $tot_cur_sum = 0;
-
-		$agreement = $this->bill->meta("agreement_price");
-		if(!empty($agreement["price"]) && !empty($agreement["name"]))
-		{
-			$agreement = array($agreement); // kui on vanast ajast jnud
-		}
-
-		if(!empty($agreement[0]["price"]) && isset($agreement[0]["name"]) && strlen($agreement[0]["name"]) > 0 )//kui kokkuleppehind on tidetud, siis rohkem ridu ei ole nha
-		{
-			$this->show_agreement_rows = 1;
-			$bill_rows = $agreement;
-		}
-		else
-		{
-			$bill_rows = $this->bill->get_bill_rows_data(true);
-		}
-		$brows = $bill_rows; //moment ei tea miks see topelt tuleb... igaks juhuks ei vtnud maha... hiljem kib miski reset
-		$grp_rows = array();
-		$tax_rows = array();
-		$_no_prod_idx = -1;
-		$has_nameless_rows = 0;//miski muutuja , et kui see heks muutub, siis lisab liidab kik read kokku
-
-		foreach($brows as $row)
-		{
-			$cur_tax = 0;
-			$cur_sum = 0;
-			$tax_rate = isset($row["tax"]) ? ((double) $row["tax"] / 100.0) : 0;
-
-			//kole asi... idee selles, et kuskil seppikus ja sirelis jne on toodetega mingi teema, mida mujal ei kasutata, ja siis ridade kokku koondamine k2iks nagu vaid siis kui toode on sama, a kui ei ole, siis peaks ikka ka saama.... et ma siis olematule tootele kui kommentaari v2li on t2idetud, l2heb tooteks 1
-			if (!$this->can("view", $row["prod"]))
-			{
-				if(!empty($row["comment"]))
-				{
-					$row["prod"] = 1;
-				}
-				else $row["prod"] = --$_no_prod_idx;
-			}
-
-			$cur_sum = $row["sum"];
-			$cur_pr = $this->num($row["price"]);
-
-			if ($tax_rate > 0)
-			{
-				// tax needs to be added
-				$cur_tax = ($row["sum"] * $tax_rate);
-			}
-			else
-			{
-				// tax does not need to be added, tax free it seems
-				$cur_tax = 0;
-			}
-
-			if (!empty($arr["all_rows"]))
-			{
-				$row["prod"] = gen_uniq_id();
-			}
-
-			$tax_rows[$tax_rate] = isset($tax_rows[$tax_rate]) ? ($tax_rows[$tax_rate] + $cur_tax) : $cur_tax;
-			$unp = $row["price"].$row["comment"];
-			$grp_rows[$row["prod"]][$unp]["sum_wo_tax"] = isset($grp_rows[$row["prod"]][$unp]["sum_wo_tax"]) ? ($grp_rows[$row["prod"]][$unp]["sum_wo_tax"] + $cur_sum) : $cur_sum;
-			$grp_rows[$row["prod"]][$unp]["tax"] = isset($grp_rows[$row["prod"]][$unp]["tax"]) ? ($grp_rows[$row["prod"]][$unp]["tax"] + $cur_tax) : $cur_tax;
-			$grp_rows[$row["prod"]][$unp]["sum"] = isset($grp_rows[$row["prod"]][$unp]["sum"]) ? ($grp_rows[$row["prod"]][$unp]["sum"] + $cur_tax + $cur_sum) : ($cur_tax+$cur_sum);
-			$grp_rows[$row["prod"]][$unp]["tot_cur_sum"] = isset($grp_rows[$row["prod"]][$unp]["tot_cur_sum"]) ? ($grp_rows[$row["prod"]][$unp]["tot_cur_sum"] + $cur_sum) : $cur_sum;
-			$grp_rows[$row["prod"]][$unp]["tot_amt"] = isset($grp_rows[$row["prod"]][$unp]["tot_amt"]) ? ($grp_rows[$row["prod"]][$unp]["tot_amt"] + $row["amt"]) : $row["amt"];
-			$grp_rows[$row["prod"]][$unp]["unit"] = empty($row["unit_name"]) ? "" :$row["unit_name"];
-			$grp_rows[$row["prod"]][$unp]["price"] = empty($row["price"]) ? "" :$row["price"];
-			$grp_rows[$row["prod"]][$unp]["date"] = empty($row["date"]) ? "" :$row["date"];
-			$grp_rows[$row["prod"]][$unp]["jrk"] = empty($row["jrk"]) ? "" :$row["jrk"];
-			$grp_rows[$row["prod"]][$unp]["id"] = empty($row["id"]) ? "" :$row["id"];
-			$grp_rows[$row["prod"]][$unp]["name"] = empty($row["name"]) ? "" :$row["name"];
-			$grp_rows[$row["prod"]][$unp]["comment"] = empty($row["comment"]) ? "" :$row["comment"];
-			$grp_rows[$row["prod"]][$unp]["orderer"] = empty($row["orderer"]) ? "" :$row["orderer"];
-
-			if (empty($grp_rows[$row["prod"]][$unp]["comment"]))
-			{
-				$grp_rows[$row["prod"]][$unp]["comment"] = $row["comment"];
-			}
-
-			$sum_wo_tax += $cur_sum;
-			$tax += $cur_tax;
-			$sum += ($cur_tax+$cur_sum);
-			$tot_amt += $row["amt"];
-			$tot_cur_sum += $cur_sum;
-
-			if(!strlen($row["comment"])>0)
-			{
-				$has_nameless_rows = 1;
-			}
-		}
-
-		$fbr = reset($brows);
-
-		//koondab sama nimega ja nimetud he hinnaga read kokku
-		if(empty($arr["all_rows"]))
-		{
-			$grp_rows = $this->collocate_rows($grp_rows);
-		}
-
-		foreach($grp_rows as $prod => $grp_rowa)
-		{
-			foreach($grp_rowa as $key => $grp_row)
-			{
-				if (!empty($grp_row["comment"]))
-				{
-					$desc = $grp_row["comment"];
-				}
-				elseif ($this->can("view", $prod))
-				{
-					$po = obj($prod);
-					$desc = $po->comment();
-				}
-				else
-				{
-					$desc = $grp_row["name"];
-				}
-
-				//kui vaid yhel real on nimi... et siis arve eeltvaates moodustuks nendest 1 rida
-//				if(empty($arr["all_rows"]) && $has_nameless_rows)
-//				{
-//					if(!strlen($grp_row["comment"])>0 && $primary_row_is_set) break;
-//					{
-//						$grp_row["tot_cur_sum"] = $tot_cur_sum;
-//						$grp_row["tot_amt"] = $tot_amt;
-//						$primary_row_is_set = 1;
-//					}
-//				}
-				$this->vars(array(
-					"unit" => $this->bill->get_unit_name($grp_row["unit"]),
-					"amt" => $stats->hours_format($grp_row["tot_amt"]),//TODO: miks sealt kysitakse?
-					"price" => number_format($grp_row["tot_amt"] ? ($grp_row["tot_cur_sum"] / $grp_row["tot_amt"]) : 0,2,".", " "),
-					"sum" => number_format($grp_row["tot_cur_sum"], 2, ".", " "),
-					"row_tax" => number_format($grp_row["tax"], 2, ".", " "),
-					"desc" => $desc,
-					"date" => "",
-					"row_orderer" => $grp_row["orderer"]
-				));
-				$rs[] = array("str" => $this->parse("ROW"), "date" => $grp_row["date"] , "jrk" => $grp_row["jrk"] , "id" => $grp_row["id"],);
-			}
-		}
-
-		usort($rs, array($this, "__br_sort"));
-
-		foreach($rs as $idx => $ida)
-		{
-			$rs[$idx] = $ida["str"];
-		}
-
-		$tax_rows_str = "";
-		$there_is_tax_rate = 0;
-		foreach($tax_rows as $tax_rate => $tax_amt)
-		{
-			if ($tax_rate > 0.005)
-			{
-				$there_is_tax_rate = $tax_rate;
-			}
-		}
-
-		if($there_is_tax_rate)
-		{
-			foreach($tax_rows as $tax_rate => $tax_amt)
-			{
-	//			if ($tax_rate > 0)
-	//			{
-	//				$there_is_tax_rate = $tax_rate;
-					$this->vars(array(
-						"tax_rate" => floor($tax_rate*100.0),
-						"tax" => number_format($tax_amt, 2),
-						"tax_sum_from" => number_format($tax_amt/$tax_rate, 2),
-					));
-					$tax_rows_str .= $this->parse("TAX_ROW");
-	//			}
-			}
-//			$tax_rate = $there_is_tax_rate;
-		}
-		$sigs = "";
-
-		foreach((array)$this->bill->prop("signers") as $signer)
-		{
-			if (!$this->can("view", $signer))
-			{
-				continue;
-			}
-			$signer_p = obj($signer);
-			$this->vars(array(
-				"signer_person" => $signer_p->name()
-			));
-			$sigs .= $this->parse("SIGNATURE");
-		}
-
-		$sum = $this->round_sum($sum);
-		$this->vars(array(
-			"SIGNATURE" => $sigs,
-			"TAX_ROW" => $tax_rows_str,
-			"ROW" => join("", $rs),
-			"total_wo_tax" => number_format($sum_wo_tax, 2,".", " "),
-			"tax" => number_format($tax, 2,".", " "),
+		$sum = $this_o->get_bill_sum();
+		$content_tpl->add_vars(array(
+			"currency_name" => $currency_code,
+			"intro_text" => $intro_text,
+			"buyer_signer_name" => $buyer_signer_name,
+			"buyer_signer_profession" => $buyer_signer_profession,
+			"seller_signer_name" => $seller_signer_name,
+			"seller_signer_profession" => $seller_signer_profession,
+			"total_wo_tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2,".", " "),
+			"tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2,".", " "),
 			"total" => number_format($sum, 2, ".", " "),
-			"total_text" => aw_locale::get_lc_money_text($sum, obj($currency), $lc)
+			"total_text" => aw_locale::get_lc_money_text($sum, obj($currency), languages::get_code_for_id($lang_id)),
+			"rows" => $rows
 		));
 
-	//k6ikidele muutujatele HAS_ sub
-		foreach($this->vars as $var => $value)
+		// add seller variables
+		if ($seller = $customer_relation->get_seller())
 		{
-			if(!empty($value) && $this->is_template("HAS_".strtoupper($var)))
-			{
-				$this->vars(array("HAS_".strtoupper($var) => $this->parse("HAS_".strtoupper($var))));
-			}
+			$seller_vars = $this->_get_invoice_party_vars($seller, "seller");
+			$main_tpl->add_vars($seller_vars);
+			$footer_tpl->add_vars($seller_vars);
 		}
-		$res =  $this->parse();
 
-	//kuvamine
+		$doc->set_title(sprintf(t("Arve nr. %s %s", $lang_id), $this_o->prop("bill_no"), $view_type_name));
+		$doc->add_stylesheet(style::get_url("crm_bill", "invoice_main"));
+
+//XXX: TMP kuni p2ris pakkumuse klass korda ja valmis saab
+if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state"))
+{
+$this->_loadoffertmptranslations();
+if (isset($heading_tpl)) $heading_tpl->set_var("late_fee", "");
+}
+//END TMP
+
 		if(!empty($arr["pdf"]))
 		{
 			$conv = new html2pdf();
 			if($conv->can_convert())
 			{
-				$pdf_name = $this->bill->name().".pdf";
-
-				if($this->is_template("TITLE"))
+				$pdf_args = array(
+					"source" => $doc->render(),
+					"footer" => $footer_tpl->render(),
+					"filename" => urlencode(str_replace(array(" ", "\t"), "_", $this_o->name())).".pdf",
+				);
+				if(empty($arr["return"]))
 				{
-					$pdf_name = $this->parse("TITLE").".pdf";
-				}
-
-				if(!empty($arr["return"]))
-				{
-					$res = $conv->convert(array(
-						"source" => $res,
-						"filename" => $pdf_name,
-					));
-					return $res;
+					$res = $conv->gen_pdf($pdf_args);
 				}
 				else
 				{
-					$conv->gen_pdf(array(
-						"source" => $res,
-						"filename" => $pdf_name,
-					));
+					return $conv->convert($pdf_args);
 				}
 			}
 		}
 
 		if(!empty($arr["return"]))
 		{
-			return $res;
+			return $doc->render();
 		}
 
-		if (!empty($_GET["openprintdialog"]))
+		if (!empty($arr["openprintdialog"]))
 		{
-			$res .= "<script language='javascript'>setTimeout('window.close()',10000);window.print();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.close(); }</script>";
+			$doc->add_javascript("setTimeout('window.close()',10000);window.print();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.close(); }", "footer");
 		}
 
-		if (!empty($_GET["openprintdialog_b"]))
+		if (!empty($arr["openprintdialog_b"]))
 		{
 			$url = aw_url_change_var("group", "preview_add", aw_url_change_var("openprintdialog", 1));
-			$res .= "<script language='javascript'>setTimeout('window.location.href=\"$url\"',10000);window.print();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.location.href='$url'; }</script>";
+			$doc->add_javascript("setTimeout('window.location.href=\"$url\"',10000);window.print();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.location.href='{$url}'; }", "footer");
 		}
-		die($res);
+
+		automatweb::$result->set_data($doc);
+		automatweb::http_exit();
+	}
+
+//XXX: TMP kuni p2ris pakkumuse klass korda ja valmis saab
+private function _loadoffertmptranslations()
+{
+$GLOBALS["TRANS"][5147]["Arve koostaja:"] = "Proposal author:";
+$GLOBALS["TRANS"][5147]["Arve nr. %s"] = "Proposal nr. %s";
+$GLOBALS["TRANS"][5147]["Arve nr."] = "Proposal nr.";
+$GLOBALS["TRANS"][5147]["Makset&auml;htp&auml;ev"] = "Valid until";
+$GLOBALS["TRANS"][5147]["Kuup&auml;ev"] = "Due date";
+$GLOBALS["TRANS"][5147]["Arve nr. %s aruanne"] = "Proposal nr. %s details";
+$GLOBALS["TRANS"][5147]["aruanne"] = "details";
+$GLOBALS["TRANS"][5147]["Kliendi kontaktisik:"] = "Customer contact:";
+
+$GLOBALS["TRANS"][51920]["Arve koostaja:"] = "Pakkumuse koostaja:";
+$GLOBALS["TRANS"][51920]["Arve nr. %s"] = "Pakkumus nr. %s";
+$GLOBALS["TRANS"][51920]["Arve nr."] = "Pakkumuse nr.";
+$GLOBALS["TRANS"][51920]["Makset&auml;htp&auml;ev"] = "Kehtivus";
+$GLOBALS["TRANS"][51920]["Kuup&auml;ev"] = "T&auml;htp&auml;ev";
+$GLOBALS["TRANS"][51920]["Arve nr. %s aruanne"] = "Pakkumuse nr. %s n&otilde;uded";
+$GLOBALS["TRANS"][51920]["aruanne"] = "n&otilde;uded";
+}
+//END TMP kuni p2ris pakkumuse klass korda ja valmis saab
+
+	private function _get_invoice_party_vars(object $party, $type)
+	{
+		$vars = array();
+
+		$vars["{$type}_name"] = $party->name();
+		$vars["{$type}_reg_nr"] = $party->prop("reg_nr");
+		$vars["{$type}_tax_reg_nr"] = $party->prop("tax_nr");
+		$vars["{$type}_fax"] = $party->prop_str("telefax_id", true);//TODO: use get_phone(), get_telefax(),... type methods instead -- seller could be a person. todo: create these methods in crmco crmperson and add them to customerinterface
+		$vars["{$type}_url"] = $party->prop_str("url_id", true);
+		$vars["{$type}_phone"] = $party->prop_str("phone_id", true);
+		$vars["{$type}_email"] = $party->prop("email_id.mail");
+		$vars["{$type}_corpform"] = $party->prop("ettevotlusvorm.shortname");
+
+		// logo
+		$logo = $party->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
+		$logo_url = $logo ? $logo->instance()->get_url_by_id($logo->id()) : "";
+		$vars["{$type}_logo_url"] = $logo_url;
+
+		// bank accounts
+		$vars["{$type}_bank_accounts"] = array();
+		foreach($party->connections_from(array("type" => "RELTYPE_BANK_ACCOUNT")) as $c)
+		{
+			$acc = $c->to();
+			$bank = obj();
+			if ($this->can("view", $acc->prop("bank")))
+			{
+				$bank = obj($acc->prop("bank"));
+			}
+
+			$vars["{$type}_bank_accounts"][] = array(
+				"bank_name" => $bank->prop_xml("name"),
+				"account_nr" => $acc->prop("acct_no"),
+				"iban" => $acc->prop("iban_code")
+			);
+		}
+
+		// address
+		$vars["{$type}_country"] = $party->prop_xml("contact.riik.name");
+		$vars["{$type}_county"] = $party->prop_xml("contact.maakond.name");
+		$vars["{$type}_city"] = $party->prop_xml("contact.linn.name");
+		$vars["{$type}_index"] = $party->prop_xml("contact.postiindeks");
+		$vars["{$type}_street"] = $party->prop_xml("contact.aadress");
+
+		// compacted address string
+		$vars["{$type}_address"] = array();
+		if ($vars["{$type}_street"])
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_street"];
+		}
+
+		if ($vars["{$type}_index"])
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_index"];
+		}
+
+		if ($vars["{$type}_city"])
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_city"];
+		}
+
+		if ($vars["{$type}_county"])
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_county"];
+		}
+
+		if ($vars["{$type}_country"])
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_country"];
+		}
+
+		$vars["{$type}_address"] = implode(", ", $vars["{$type}_address"]);
+
+		return $vars;
 	}
 
 	private function add_creator_vars()
 	{
-		$creator = $this->bill->get_the_person_who_made_this_fucking_thing();
+		$creator = $this->bill->get_creator();
 		if(is_object($creator))
 		{
 			$creator_vars = $creator->get_data();
@@ -3791,12 +3515,14 @@ class crm_bill extends class_base
 			);
 	}
 
+	//XXX: lehekylje kaupa kuvamine v6tta siit.
+	//pole enam kasutusel.
 	function show_add($arr)//see ka jube l2bu... et kui igav hakkab, siis nullist kirjutada
 	{
 		$this->stats = new crm_company_stats_impl();
 		$this->bill = obj($arr["id"]);
 		$tpl_suffix = $this->bill->prop("state") == crm_bill_obj::STATUS_OFFER ? "_offer" : "";
-		$lang_id = $this->bill->prop("language.db_lang_id");
+		$lang_id = $this->bill->prop("language.aw_lang_id");
 
 		$agreement_prices = $this->bill->meta("agreement_price");
 		if(!empty($agreement_prices["price"]) && !empty($agreement_prices["name"]))
@@ -3946,7 +3672,7 @@ class crm_bill extends class_base
 		foreach ($grouped_rows_comments as $capt_key => $name_group_comments)
 		{
 			$name_group_comment = implode("\n", array_reverse($name_group_comments));
-			$this->vars(array("name_group_comment" => $name_group_comment));
+			$this->vars(array("name_group_comment" => nl2br($name_group_comment)));
 			$grouped_rows_comments[$capt_key] = $this->parse("HAS_NAME_GROUP_COMMENT");
 		}
 
@@ -3973,7 +3699,7 @@ class crm_bill extends class_base
 		{
 			$rs = $this->parse_preview_add_rows($bill_rows);
 		}
-		$sigs = "";
+		$sigs = $total_ = "";
 
 		foreach((array)$this->bill->prop("signers") as $signer)
 		{
@@ -4014,7 +3740,7 @@ class crm_bill extends class_base
 			"total" => number_format($this->sum, 2,".", " "),
 			"total_text" => aw_locale::get_lc_money_text($this->sum, $cur, $lc),
 			"tot_amt" => $this->stats->hours_format($this->tot_amt),
-			"comment" => $this->bill->trans_get_val("bill_appendix_comment", $lang_id),
+			"comment" => nl2br($this->bill->trans_get_val("bill_appendix_comment", $lang_id)),
 			"page_no" => $page_no
 		));
 
@@ -4067,6 +3793,7 @@ class crm_bill extends class_base
 		return $res;
 	}
 
+	//XXX: vaadata yle. pole kasutusel enam
 	private function parse_preview_add_rows($bill_rows)
 	{
 		$rs = array();
@@ -4113,10 +3840,10 @@ class crm_bill extends class_base
 					"amt" => $this->stats->hours_format($row["amt"]),
 					"price" => number_format((double) $row["price"], 2,".", " "),
 					"sum" => number_format($cur_sum, 2,"." , " "),
-					"desc" => $row["name"],
+					"desc" => nl2br($row["name"]),
 					"date" => isset($row["date"]) ? $row["date"] : "",
 					"row_orderer" => isset($row["orderer"]) ? $row["orderer"] : "",
-					"comment" => isset($row["comment"]) ? $row["comment"] : "",
+					"comment" => isset($row["comment"]) ? nl2br($row["comment"]) : "",
 					"oid" => isset($row["oid"]) ? $row["oid"] : "",
 					"row_tax" => $cur_tax
 				));
@@ -4161,10 +3888,10 @@ class crm_bill extends class_base
 	{
 		$bill = obj($arr["id"]);
 		$rows = $bill->get_bill_rows_data();
-		$jrk = 0;
+		$jrk = crm_bill_obj::ROW_ORDER_INCREMENT;
 		foreach($rows as $row)
 		{
-			if($row["jrk"] > $jrk-10) $jrk = $row["jrk"]+10;
+			if($row["jrk"] > $jrk-crm_bill_obj::ROW_ORDER_INCREMENT) $jrk = $row["jrk"]+crm_bill_obj::ROW_ORDER_INCREMENT;
 		}
 		$row = $bill->add_row();
 		$row->set_ord($jrk);
@@ -5103,7 +4830,7 @@ ENDSCRIPT;
 
 	/** returns bill id
 		@attrib name=bug_search all_args=1
-	@param customer optional type=int
+		@param customer optional type=int
 		customer id
 	**/
 	function bug_search($arr)
@@ -5167,7 +4894,7 @@ ENDSCRIPT;
 			"caption" => t("Projekt"),
 		));
 		$filter = array(
-			"class_id" => array(CL_TASK,CL_BUG),
+			"class_id" => array(CL_TASK, CL_BUG),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -5272,7 +4999,7 @@ ENDSCRIPT;
 						"caption" => html::img(array(
 							"url" => aw_ini_get("icons.server")."pdf_upload.gif",
 							"border" => 0,
-						)).$o->name()." (".filesize($file_data["properties"]["file"])." B)",
+						)) . $o->name() . " (" . aw_locale::bytes2string(filesize($file_data["properties"]["file"])) . ")",
 						"url" => $o->get_url(),
 					));
 				}

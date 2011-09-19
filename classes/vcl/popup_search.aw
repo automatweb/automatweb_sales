@@ -15,6 +15,12 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 	private $req;
 	private $clid = array();
 
+	private $action;
+	private $property;
+	private $reload_property;
+	private $reload_layouts;
+	private $reload_window = false;
+
 	public function __construct()
 	{
 		load_javascript("reload_properties_layouts.js");
@@ -1042,6 +1048,11 @@ function aw_get_el(name,form)
 		$this->reload_layouts = $layouts;
 	}
 
+	function set_reload_window($value = true)
+	{
+		$this->reload_window = (bool) $value;
+	}
+
 	function set_reload_property($prop)
 	{
 		$this->reload_property = $prop;
@@ -1050,6 +1061,11 @@ function aw_get_el(name,form)
 	function set_property($prop)
 	{
 		$this->property = $prop;
+	}
+
+	function set_action($action)
+	{
+		$this->action = $action;
 	}
 
 	function get_search_button()
@@ -1071,7 +1087,9 @@ function aw_get_el(name,form)
 			"start_empty" => "1",
 			"reload_layout" => isset($this->reload_layouts) ? $this->reload_layouts :"",
 			"reload_property" => isset($this->reload_property) ? $this->reload_property :"",
+			"reload_window" => !empty($this->reload_window),
 			"clid" => $this->clid,
+			"action" => $this->action,
 			"property" => $this->property
 		));
 		return $url;
@@ -1085,6 +1103,7 @@ function aw_get_el(name,form)
 		@param property optional
 		@param reload_property optional type=string
 		@param reload_layout optional type=string
+		@param reload_window type=bool default=FALSE
 		@param tbl_props optional
 		@param no_submit optional
 		@param start_empty optional type=bool
@@ -1161,6 +1180,7 @@ function aw_get_el(name,form)
 		$clid = empty($arr["clid"]) ? "" : (is_array($arr["clid"]) ? join("," , $arr["clid"]) : $arr["clid"]);
 		$reload_layout = isset($arr["reload_layout"]) ? "\nreload_layout: '".$arr["reload_layout"]."'," : "";
 		$reload_property = isset($arr["reload_property"]) ? "\nreload_property: '".$arr["reload_property"]."'," : "";
+		$reload_window = !empty($arr["reload_window"]) ? "\nreload_window: '1'," : "";
 
 		$htmlc->add_property(array(
 			"name" => "s[submit]",
@@ -1187,6 +1207,7 @@ function aw_get_el(name,form)
 					clid: '{$clid}',
 					{$reload_property}
 					{$reload_layout}
+					{$reload_window}
 					property: '{$arr["property"]}'
 				}, function (html) {
 					x=document.getElementById('result');
@@ -1223,14 +1244,16 @@ function aw_get_el(name,form)
 		@attrib name=get_search_results api=1
 		@param id optional
 		@param oid optional
-		@param name optional
+		@param name type=string default=""
+		@param action type=string default=""
 		@param multiple optional
 		@param clid optional
-		@param property optional
-		@param reload_layout optional type=string
+		@param property type=string default=""
+		@param reload_layout type=string default=""
+		@param reload_window type=bool default=FALSE
 		@param tbl_props optional
 		@param no_submit optional
-		@param start_empty optional type=bool
+		@param start_empty type=bool default=FALSE
 			If true, initially search results table is empty.
 		@returns
 			returns the html for search form & results
@@ -1345,16 +1368,27 @@ function aw_get_el(name,form)
 		}
 
 
-		$reload = "";
-		if(!empty($arr["reload_layout"]))
+		if (!empty($arr["reload_window"]))
 		{
-			$reload.= "window.opener.reload_layout('".$arr["reload_layout"]."');";
-
+			$reload = "window.opener.location.reload();";
 		}
-
-		if(!empty($arr["reload_property"]))
+		elseif (!empty($arr["action"]))
 		{
-			$reload.= "window.opener.reload_property('".$arr["reload_property"]."');";
+			//TODO: popup akent avava klassi action valimisel v2lja kutsuda kui on m22ratud
+		}
+		else
+		{
+			$reload = "";
+
+			if (!empty($arr["reload_property"]))
+			{
+				$reload .= "window.opener.reload_property('".$arr["reload_property"]."');";
+			}
+
+			if (!empty($arr["reload_layout"]))
+			{
+				$reload .= "window.opener.reload_layout('".$arr["reload_layout"]."');";
+			}
 		}
 
 		$javascript = "<script language='javascript'>
@@ -1369,7 +1403,6 @@ function aw_get_el(name,form)
 					".$reload."
 					window.close();
 				});
-
 			}
 			</script>
 		";
@@ -1380,6 +1413,7 @@ function aw_get_el(name,form)
 			"select_text" => t("Vali"),
 			"table" => $t->draw().$javascript,
 		));
+
 		if(!empty($arr["return"]))
 		{
 			return $this->parse();

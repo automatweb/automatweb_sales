@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Kliki siia jätkamiseks"] = "Click here to continue";
+$GLOBALS["TRANS"][5147]["Kliki siia jätkamiseks"] = "Click here to continue";
 ?>

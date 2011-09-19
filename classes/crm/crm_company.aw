@@ -1568,7 +1568,6 @@ class crm_company extends class_base
 		$this->trans_props = array(
 			"name", "tegevuse_kirjeldus", "userta1", "userta2", "userta3", "userta4", "userta5", "comment"
 		);
-
 	}
 
 	function crm_company_init()
@@ -5785,6 +5784,7 @@ class crm_company extends class_base
 	**/
 	function create_bill($arr)
 	{
+		automatweb::http_exit(http::STATUS_NOT_IMPLEMENTED);
 		if(is_oid($_SESSION["bill_id"]) && $this->can("view", $_SESSION["bill_id"]))
 		{
 			$bill_id = $_SESSION["bill_id"];
@@ -5855,7 +5855,7 @@ class crm_company extends class_base
 
 		$bill->set_impl();
 		$bill->set_prop("bill_date", time());
-		if(!$this->can("view" ,$bill->prop("customer")))
+		if(!$this->can("view", $bill->prop("customer")))
 		{
 			$bill->set_customer(array(
 				"cust" => $arr["cust"],
@@ -5869,7 +5869,7 @@ class crm_company extends class_base
 		if (is_oid($bill->prop("customer")) && is_oid($bill->prop("impl")))
 		{
 			$cust_rel_list = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"class_id" => crm_company_customer_data_obj::CLID,
 				"buyer" => $bill->prop("customer"),
 				"seller" => $bill->prop("impl")
 			));
