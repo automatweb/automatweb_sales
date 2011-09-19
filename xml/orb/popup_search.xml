@@ -50,6 +50,7 @@
 					<optional name="property" />
 					<optional name="reload_property" type="string" />
 					<optional name="reload_layout" type="string" />
+					<optional name="reload_window" type="bool" />
 					<optional name="tbl_props" />
 					<optional name="no_submit" />
 					<optional name="start_empty" type="bool" />
@@ -77,6 +78,7 @@
 					<optional name="clid" />
 					<optional name="property" />
 					<optional name="reload_layout" type="string" />
+					<optional name="reload_window" type="bool" />
 					<optional name="tbl_props" />
 					<optional name="no_submit" />
 					<optional name="start_empty" type="bool" />

@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["(nimetu)"] = "(unnamed)";
+$GLOBALS["TRANS"][5147]["(nimetu)"] = "(unnamed)";
 ?>

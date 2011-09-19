@@ -338,7 +338,7 @@ class crm_working_time_scenario extends class_base
 
 		$weeks = number_format(($end - $week_start) / (24*3600*7) , 0);
 
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));

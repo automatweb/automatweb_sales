@@ -747,7 +747,7 @@ class bank_payment extends class_base
 	private function get_log(&$arr)
 	{
 		$log_data = $this->get_log_data($arr["obj_inst"]);
-		classload("vcl/table");
+		
 		$t = new vcl_table;
 		$this->init_log($t);
 		$sum = 0;

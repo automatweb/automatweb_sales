@@ -403,7 +403,7 @@ class crm_company_stats_impl extends class_base
 
 	function _get_bug_stats($slaves, $tasks, $req, $bugs, $t = null)
 	{
-		classload("vcl/table");
+		
 		if($t)
 		{
 			$t = new vcl_table;

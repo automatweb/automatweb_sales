@@ -2,7 +2,7 @@
 // auth_server_local.aw - Autentimsserver Kohalik
 /*
 
-@classinfo syslog_type=ST_AUTH_SERVER_LOCAL relationmgr=yes no_comment=1 no_status=1
+@classinfo relationmgr=yes no_comment=1 no_status=1
 
 @default table=objects
 @default group=general
@@ -111,5 +111,3 @@ class auth_server_local extends class_base
 		return array($success, $msg, false);
 	}
 }
-
-class awex_auth_pw extends awex_auth {}

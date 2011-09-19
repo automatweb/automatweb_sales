@@ -398,7 +398,7 @@ class trademark_manager extends class_base
 */
 	function _get_trademark_tr($arr)
 	{
-		classload("core/icons");
+		
 
 		$arr["prop"]["vcl_inst"]->start_tree (array (
 			"type" => TREE_DHTML,

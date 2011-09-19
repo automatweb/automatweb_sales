@@ -1,11 +1,11 @@
 <?php
-$GLOBALS["TRANS"]["Vaata/Muuda"] = "View/Modify";
-$GLOBALS["TRANS"]["Muuda"] = "Modify";
-$GLOBALS["TRANS"]["Vali"] = "Select";
-$GLOBALS["TRANS"]["K&otilde;ik"] = "All";
-$GLOBALS["TRANS"]["Nimi"] = "Name";
-$GLOBALS["TRANS"]["Looja"] = "Created by";
-$GLOBALS["TRANS"]["Loodud"] = "Created";
-$GLOBALS["TRANS"]["Muutja"] = "Modified by";
-$GLOBALS["TRANS"]["Muudetud"] = "Modified";
+$GLOBALS["TRANS"][5147]["Vaata/Muuda"] = "View/Modify";
+$GLOBALS["TRANS"][5147]["Muuda"] = "Modify";
+$GLOBALS["TRANS"][5147]["Vali"] = "Select";
+$GLOBALS["TRANS"][5147]["K&otilde;ik"] = "All";
+$GLOBALS["TRANS"][5147]["Nimi"] = "Name";
+$GLOBALS["TRANS"][5147]["Looja"] = "Created by";
+$GLOBALS["TRANS"][5147]["Loodud"] = "Created";
+$GLOBALS["TRANS"][5147]["Muutja"] = "Modified by";
+$GLOBALS["TRANS"][5147]["Muudetud"] = "Modified";
 ?>

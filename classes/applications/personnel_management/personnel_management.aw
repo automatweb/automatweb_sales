@@ -718,6 +718,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_CRM_PERSON, on_add_person)
 
 class personnel_management extends class_base
 {
+	private $_level = 0;
+
 	function personnel_management()
 	{
 		$this->init(array(
@@ -4502,7 +4504,7 @@ class personnel_management extends class_base
 		@attrib api=1 params=name
 
 		@returns
-			The oid of the system default personnel management for the class or false if no personnel management object exists.
+			The oid of the system default personnel management for the class or null if no personnel management object exists.
 
 		@examples
 			$pm_inst = get_instance(CL_PERSONNEL_MANAGEMENT);
@@ -4511,11 +4513,11 @@ class personnel_management extends class_base
 				print "default personnel management  is ".$pm_oid."<br>";
 			}
 	**/
-	function get_sysdefault()
+	public function get_sysdefault()
 	{
 		// 2 passes, because I need to know which element is active before
 		// doing the table
-		$active = false;
+		$active = null;
 		$ol = new object_list(array(
 			"class_id" => $this->clid,
 			"flags" => array(

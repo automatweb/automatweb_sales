@@ -7,18 +7,9 @@
 @default method=serialize
 
 @default group=general
-
-	@property name_for_1 type=textbox
-	@comment &Uuml;hiku nimi k&auml;&auml;ndes kui v&auml;&auml;rtus on 1
-	@caption V&auml;&auml;rtuse j&auml;rel (1 ...)
-
-	@property name_for_2 type=textbox
-	@comment &Uuml;hiku nimi k&auml;&auml;ndes kui v&auml;&auml;rtus on 2
-	@caption V&auml;&auml;rtuse j&auml;rel (2 ...)
-
-	@property name_for_n type=textbox
-	@comment &Uuml;hiku nimi k&auml;&auml;ndes kui v&auml;&auml;rtus on muu
-	@caption V&auml;&auml;rtuse j&auml;rel (n ...)
+	@property unit_name_morphology_spec type=textbox
+	@comment Reeglid &uuml;hiku nime kasutamiseks koos numbriga. N&auml;ide: 1 tund; * tundi
+	@caption &Uuml;hiku morfoloogia
 
 	@property unit_code type=textbox
 	@caption &Uuml;hiku t&auml;his
@@ -27,16 +18,16 @@
 	@comment Suurus, mida &uuml;hik m&otilde;&otilde;dab
 	@caption Suurus
 
+
 @groupinfo units caption=K&otilde;ik&nbsp;&uuml;hikud
 @default group=units
-
 	@property units_tlb type=toolbar store=no no_caption=1
-	
+
 	@property units_tbl type=table store=no no_caption=1
+
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
@@ -44,15 +35,16 @@
 
 class unit extends class_base
 {
+	protected $trans_props = array(
+		"name", "unit_name_morphology_spec"
+	);
+
 	function unit()
 	{
 		$this->init(array(
 			"tpldir" => "common/unit",
 			"clid" => CL_UNIT
 		));
-		$this->trans_props = array(
-			"name", "unit_code"
-		);
 	}
 
 	public function _get_units_tlb($arr)
@@ -83,7 +75,7 @@ class unit extends class_base
 			"callback" => array($this, "callback_units_tbl_state"),
 			"callb_pass_row" => true,
 		));
-		
+
 		$quantity_names = unit_obj::quantity_names();
 		foreach(unit_obj::get_all_units()->arr() as $unit)
 		{
@@ -114,43 +106,9 @@ class unit extends class_base
 
 	function _get_unit_sort(&$arr)
 	{
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		$arr["prop"]["options"] = array(0 => "") + unit_obj::quantity_names();
 		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			case "transl":
-				$this->trans_save($arr, $this->trans_props);
-				break;
-		}
-		return $retval;
-	}
-
-	function callback_mod_tab($arr)
-	{
-		$trc = aw_ini_get("user_interface.trans_classes");
-
-		if ($arr["id"] === "transl" && (aw_ini_get("user_interface.content_trans") != 1 && empty($trc[$this->clid])))
-		{
-			return false;
-		}
-		return true;
-	}
-
-	function callback_get_transl($arr)
-	{
-		return $this->trans_callback($arr, $this->trans_props);
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	public function callback_post_save($arr)

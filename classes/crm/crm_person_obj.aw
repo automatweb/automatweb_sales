@@ -10,6 +10,14 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	protected $all_jobs;
 	protected $current_jobs;
 	private static $company_id_cache;
+	private static $gender_options = array();
+	private static $_email_type_lut = array(
+		"" => null,
+		"all" => null,
+		"general" => ml_member_obj::TYPE_GENERIC,
+		"invoice" => ml_member_obj::TYPE_INVOICE
+	);
+
 
 	//	Written solely for testing purposes!
 	public function get_units()
@@ -19,6 +27,42 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			"status" => object::STAT_ACTIVE,
 		));
 		return $ol;
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param value type=int
+			If specified, option name for that value is returned
+		@comment
+			If $value is not among valid options, empty string is returned
+		@returns array|string
+			All options or the one corresponding to $value
+		@errors none
+	**/
+	public static function gender_options($value = null)
+	{
+		if (empty(self::$gender_options))
+		{
+			self::$gender_options = array(
+				self::GENDER_MALE => t("Mees"),
+				self::GENDER_FEMALE => t("Naine")
+			);
+		}
+
+		if (null === $value)
+		{
+			$r = self::$gender_options;
+		}
+		elseif (isset(self::$gender_options[$value]))
+		{
+			$r = self::$gender_options[$value];
+		}
+		else
+		{
+			$r = "";
+		}
+
+		return $r;
 	}
 
 	public function awobj_set_is_quickmessenger_enabled($value)
@@ -228,7 +272,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	function get_prop_phone($type, $return_oid = false)
 	{
-		if($type === "fake_phone" && $GLOBALS["object_loader"]->cache->can("view", $this->prop("phone")))
+		if($type === "fake_phone" && object_loader::can("", $this->prop("phone")))
 		{
 			return $return_oid ? $this->prop("phone") : $this->prop("phone.name");
 		}
@@ -526,6 +570,38 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return $ret;
 	}
 
+	/**
+		@attrib api=1 params=pos
+		@param type type=string default="" set=""|"all"|"invoice"|"general"
+		@returns object_list(CL_ML_MEMBER)
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function get_email_addresses($type = "")
+	{
+		$this->require_state("saved");
+		$type = isset(self::$_email_type_lut[$type]) ? self::$_email_type_lut[$type] : null;
+		$list = new object_list(array(
+			"class_id" => ml_member_obj::CLID,
+			"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_PERSON)" => $this->id(),
+			"contact_type" => $type
+		));
+		return $list;
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@returns CL_ML_MEMBER|NULL
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function get_email_address()
+	{
+		$this->require_state("saved");
+		$email = $this->get_first_obj_by_reltype("RELTYPE_EMAIL");
+		return $email;
+	}
+
 	function get_skills()
 	{
 		$ol = new object_list();
@@ -650,7 +726,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	private function set_fake_email($mail, $set_into_meta = true)
 	{
 		$n = false;
-		if ($GLOBALS["object_loader"]->cache->can("view", $this->prop("email")))
+		if (object_loader::can("", $this->prop("email")))
 		{
 			$this->set_meta("tmp_fake_email", $mail);
 			$this->set_meta("sim_fake_email", 1);
@@ -658,7 +734,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		else
 		{
 			$n = false;
-			if ($GLOBALS["object_loader"]->cache->can("view", $this->prop("email")))
+			if (object_loader::can("", $this->prop("email")))
 			{
 				$eo = obj($this->prop("email"));
 			}
@@ -698,7 +774,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			$n = false;
 
 			$id = $this->get_prop_phone($type, true);
-			if ($GLOBALS["object_loader"]->cache->can("view", $id))
+			if (object_loader::can("", $id))
 			{
 				$eo = obj($id);
 			}
@@ -750,7 +826,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				"fake_address_address2" => "aadress2"
 			);
 			$n = false;
-			if ($GLOBALS["object_loader"]->cache->can("view", $this->prop("address")))
+			if (object_loader::can("", $this->prop("address")))
 			{
 				$eo = obj($this->prop("address"));
 			}
@@ -767,7 +843,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				case "fake_address_county":
 				case "fake_address_city":
 				case "fake_address_country":
-					if($GLOBALS["object_loader"]->cache->can("view", $v))
+					if(object_loader::can("", $v))
 					{
 						$eo->set_prop($pmap[$k], $v);
 					}
@@ -825,7 +901,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	private function _adr_set_via_rel($o, $prop, $val)
 	{
-		if ($GLOBALS["object_loader"]->cache->can("view", $o->prop($prop)))
+		if (object_loader::can("", $o->prop($prop)))
 		{
 			$ro = obj($o->prop($prop));
 		}
@@ -1729,7 +1805,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		extract($arr);
 
-		$show_cnt_conf = get_instance("personnel_management_obj")->get_show_cnt_conf();
+		$show_cnt_conf = personnel_management_obj::get_show_cnt_conf();
 		$usr = new user();
 		$u = $usr->get_current_user();
 		$g = isset($show_cnt_conf[CL_CRM_PERSON][$action]["groups"]) ? $show_cnt_conf[CL_CRM_PERSON][$action]["groups"] : null;
@@ -1749,9 +1825,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_PROJECT,
-			"CL_PROJECT.RELTYPE_ORDERER" => $this->id(),
-			"lang_id" => array(),
-			"site_id" => array()
+			"CL_PROJECT.RELTYPE_ORDERER" => $this->id()
 		));
 		return $ol;
 	}
@@ -1767,10 +1841,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$mails = new object_list();
 
 		$filter = array(
-			"site_id" => array(),
-			"lang_id" => array(),
 			"class_id" => CL_MESSAGE,
-			"CL_MESSAGE.RELTYPE_TO_MAIL_ADDRESS" => $adress_objects->ids(),
+			"CL_MESSAGE.RELTYPE_TO_MAIL_ADDRESS" => $adress_objects->ids()
 		);
 
 		if(!empty($arr["subject"]))
@@ -1843,7 +1915,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		else
 		{
 			$address_id = parent::prop("address");
-			if ($GLOBALS["object_loader"]->cache->can("view", $address_id))
+			if (object_loader::can("", $address_id))
 			{
 				$address_str = obj($address_id)->name();
 			}
@@ -1922,9 +1994,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$filter = array(
 			"class_id" => CL_SHOP_SELL_ORDER,
-			"purchaser" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"purchaser" => $this->id()
 		);
 		$ol = new object_list($filter);
 		return $ol;
@@ -1949,7 +2019,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		if ($k === "gender")
 		{
-			return $this->instance()->gender_options[parent::prop_str($k, false)];
+			return $this->gender_options((int) parent::prop_str($k, false));
 		}
 
 		return parent::prop_str($k, $is_oid);

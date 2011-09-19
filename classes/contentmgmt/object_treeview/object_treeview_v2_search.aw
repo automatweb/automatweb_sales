@@ -172,7 +172,7 @@ class object_treeview_v2_search extends class_base
 
 		if ($show_table)
 		{
-			classload("vcl/table");
+			
 			$t = new aw_table(array(
 				"layout" => "generic"
 			));

@@ -2,15 +2,113 @@
 
 class http implements protocol_interface
 {
-	function http()
-	{
-		aw_config_init_class($this);
-	}
+	const STATUS_CONTINUE = 100;
+	const STATUS_SWITCHING_PROTOCOLS = 101;
+	const STATUS_OK = 200;
+	const STATUS_CREATED = 201;
+	const STATUS_ACCEPTED = 202;
+	const STATUS_NO_CONTENT = 204;
+	const STATUS_RESET_CONTENT = 205;
+	const STATUS_PARTIAL_CONTENT = 206;
+	const STATUS_MULTIPLE_CHOICES = 300;
+	const STATUS_MOVED_PERMANENTLY = 301;
+	const STATUS_FOUND = 302;
+	const STATUS_SEE_OTHER = 303;
+	const STATUS_NOT_MODIFIED = 304;
+	const STATUS_TEMPORARY_REDIRECT = 307;
+	const STATUS_RESUME_INCOMPLETE = 308;
+	const STATUS_BAD_REQUEST = 400;
+	const STATUS_UNAUTHORIZED = 401;
+	const STATUS_FORBIDDEN = 403;
+	const STATUS_NOT_FOUND = 404;
+	const STATUS_METHOD_NOT_ALLOWED = 405;
+	const STATUS_NOT_ACCEPTABLE = 406;
+	const STATUS_REQUEST_TIMEOUT = 408;
+	const STATUS_CONFLICT = 409;
+	const STATUS_GONE = 410;
+	const STATUS_LENGTH_REQUIRED = 411;
+	const STATUS_PRECONDITION_FAILED = 412;
+	const STATUS_REQUEST_TOO_LARGE = 413;
+	const STATUS_URI_TOO_LONG = 414;
+	const STATUS_UNSUPPORTED_MEDIA_TYPE = 415;
+	const STATUS_RANGE_NOT_SATISFIABLE = 416;
+	const STATUS_EXPECTATION_FAILED = 417;
+	const STATUS_TEAPOT = 418;
+	const STATUS_SERVER_ERROR = 500;
+	const STATUS_NOT_IMPLEMENTED = 501;
+	const STATUS_BAD_GATEWAY = 502;
+	const STATUS_SERVICE_UNAVAILABLE = 503;
+	const STATUS_GATEWAY_TIMEOUT = 504;
+
+	private static $status_strings = array(
+		self::STATUS_CONTINUE => "100 Continue",
+		self::STATUS_SWITCHING_PROTOCOLS => "101 Switching Protocols",
+		self::STATUS_OK => "200 OK",
+		self::STATUS_CREATED => "201 Created",
+		self::STATUS_ACCEPTED => "202 Accepted",
+		self::STATUS_NO_CONTENT => "204 No Content",
+		self::STATUS_RESET_CONTENT => "205 Reset Content",
+		self::STATUS_PARTIAL_CONTENT => "206 Partial Content",
+		self::STATUS_MULTIPLE_CHOICES => "300 Multiple Choices",
+		self::STATUS_MOVED_PERMANENTLY => "301 Moved Permanently",
+		self::STATUS_FOUND => "302 Found",
+		self::STATUS_SEE_OTHER => "303 See Other",
+		self::STATUS_NOT_MODIFIED => "304 Not Modified",
+		self::STATUS_TEMPORARY_REDIRECT => "307 Temporary Redirect",
+		self::STATUS_RESUME_INCOMPLETE => "308 Resume Incomplete",
+		self::STATUS_BAD_REQUEST => "400 Bad Request",
+		self::STATUS_UNAUTHORIZED => "401 Unauthorized",
+		self::STATUS_FORBIDDEN => "403 Forbidden",
+		self::STATUS_NOT_FOUND => "404 Not Found",
+		self::STATUS_METHOD_NOT_ALLOWED => "405 Method Not Allowed",
+		self::STATUS_NOT_ACCEPTABLE => "406 Not Acceptable",
+		self::STATUS_REQUEST_TIMEOUT => "408 Request Timeout",
+		self::STATUS_CONFLICT => "409 Conflict",
+		self::STATUS_GONE => "410 Gone",
+		self::STATUS_LENGTH_REQUIRED => "411 Length Required",
+		self::STATUS_PRECONDITION_FAILED => "412 Precondition Failed",
+		self::STATUS_REQUEST_TOO_LARGE => "413 Request Entity Too Large",
+		self::STATUS_URI_TOO_LONG => "414 Request-URI Too Long",
+		self::STATUS_UNSUPPORTED_MEDIA_TYPE => "415 Unsupported Media Type",
+		self::STATUS_RANGE_NOT_SATISFIABLE => "416 Requested Range Not Satisfiable",
+		self::STATUS_EXPECTATION_FAILED => "417 Expectation Failed",
+		self::STATUS_TEAPOT => "418 I'm a teapot",
+		self::STATUS_SERVER_ERROR => "500 Internal Server Error",
+		self::STATUS_NOT_IMPLEMENTED => "501 Not Implemented",
+		self::STATUS_BAD_GATEWAY => "502 Bad Gateway",
+		self::STATUS_SERVICE_UNAVAILABLE => "503 Service Unavailable",
+		self::STATUS_GATEWAY_TIMEOUT => "504 Gateway Timeout",
+	);
+
+	var $cookie;
+	var $last_request_headers = array();
+	var $socket;
 
 	public function name()
 	{
 		return "HTTP/1.1";
 	}
+
+	/**
+		@attrib api=1 params=pos
+		@param code type=int
+		@comment
+		@returns string
+		@errors
+			throws awex_param if invalid code
+	**/
+	public static function get_status_string($code)
+	{
+		if (isset(self::$status_strings[$code]))
+		{
+			return self::$status_strings[$code];
+		}
+		else
+		{
+			throw new awex_param("Invalid status code parameter '{$code}'");
+		}
+	}
+
 
 	/**
 	@attrib api=1 params=pos
@@ -215,7 +313,7 @@ class http implements protocol_interface
 			return;
 		}
 		// what if remote host uses a different "ext"?
-		$op = "HEAD /orb.".$this->cfg["ext"]."?class=remote_login&action=getcookie HTTP/1.0\r\n";
+		$op = "HEAD /orb.".AW_FILE_EXT."?class=remote_login&action=getcookie HTTP/1.0\r\n";
 		$op .= "Host: $host\r\n\r\n";
 
 		if (!$silent)
@@ -232,12 +330,12 @@ class http implements protocol_interface
 		while($data = $socket->read())
 		{
 			$ipd .= $data;
-		};
+		}
 
 		if (preg_match("/automatweb=(\w+?);/",$ipd,$matches))
 		{
 			$cookie = $matches[1];
-		};
+		}
 
 		$this->cookie = $cookie;
 
@@ -295,7 +393,7 @@ class http implements protocol_interface
 		extract($args);
 		$cookie = $this->cookie;
 		$socket = new socket();
-		if (substr($host,0,7) == "http://")
+		if (substr($host,0,7) === "http://")
 		{
 			$host = substr($host,7);
 		}
@@ -306,10 +404,10 @@ class http implements protocol_interface
 
 		$request = "uid=$uid&password=$password&class=users&action=login";
 
-		$op = "GET /orb.".$this->cfg["ext"]."?$request HTTP/1.0\r\n";
+		$op = "GET /orb.".AW_FILE_EXT."?$request HTTP/1.0\r\n";
 		$op .= "Host: $host\r\n";
 		$op .= "Cookie: automatweb=$cookie\r\n";
-		$op .= "Referer: http://$host/login.".$this->cfg["ext"]."\r\n\r\n";
+		$op .= "Referer: http://$host/login.".AW_FILE_EXT."\r\n\r\n";
 		if (!$silent)
 		{
 			print "<pre>";
@@ -321,7 +419,7 @@ class http implements protocol_interface
 		while($data = $socket->read())
 		{
 			$ipd .= $data;
-		};
+		}
 		$this->socket = $socket;
 
 		if (!$silent)
@@ -347,14 +445,14 @@ class http implements protocol_interface
 	function login_hash($args = array())
 	{
 		extract($args);
-		if (substr($host,0,7) == "http://")
+		if (substr($host,0,7) === "http://")
 		{
 			$host = substr($host,7);
 		}
 
 		$cookie = $this->cookie;
 		$socket = new socket();
-		if (substr($host,0,7) == "http://")
+		if (substr($host,0,7) === "http://")
 		{
 			$host = substr($host,7);
 		};
@@ -364,10 +462,10 @@ class http implements protocol_interface
 		));
 
 		$request = "uid=$uid&hash=$hash&class=users&action=login";
-		$op = "GET /orb.".$this->cfg["ext"]."?$request HTTP/1.0\r\n";
+		$op = "GET /orb.".AW_FILE_EXT."?$request HTTP/1.0\r\n";
 		$op .= "Host: $host\r\n";
 		$op .= "Cookie: automatweb=$cookie\r\n";
-		$op .= "Referer: http://$host/login.".$this->cfg["ext"]."\r\n\r\n";
+		$op .= "Referer: http://$host/login.".AW_FILE_EXT."\r\n\r\n";
 		if (!$silent)
 		{
 			print "<pre>";
@@ -378,7 +476,7 @@ class http implements protocol_interface
 		while($data = $socket->read())
 		{
 			$ipd .= $data;
-		};
+		}
 
 		$this->socket = $socket;
 
@@ -422,7 +520,7 @@ class http implements protocol_interface
 		while($data = $socket->read())
 		{
 			$ipd .= $data;
-		};
+		}
 		$socket->close();
 
 		return $ipd;
@@ -488,7 +586,7 @@ class http implements protocol_interface
 	{
 		extract($args);
 		$cookie = $this->cookie;
-		$socket = get_instance("protocols/socket");
+		$socket = new socket();
 		$socket->open(array(
 			"host" => $host,
 			"port" => 80,

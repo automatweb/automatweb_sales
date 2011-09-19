@@ -9,14 +9,9 @@ class aw_resource
 
 	protected $data_chunk_separator = "\n";
 
-	public function __construct()
-	{
-		$this->last_modified = time();
-	}
-
 	/**
 	@attrib api=1 params=pos
-	@returns array mixed
+	@returns array[mixed]
 		Raw data as and in order it was set by applications executed.
 	**/
 	public function data()
@@ -26,12 +21,24 @@ class aw_resource
 
 	/**
 	@attrib api=1 params=pos
-	@param data required type=mixed
+	@param data type=mixed
 	@returns void
 	@comment
-		Sets resource data. Multiple calls add data not replace old.
+		Sets resource data. Replaces all previous data
 	**/
 	public function set_data($data)
+	{
+		$this->data = array($data);
+	}
+
+	/**
+	@attrib api=1 params=pos
+	@param data type=mixed
+	@returns void
+	@comment
+		Adds resource data. Multiple calls add data not replace old.
+	**/
+	public function add_data($data)
 	{
 		$this->data[] = $data;
 	}
@@ -113,5 +120,3 @@ class aw_resource
 		flush();
 	}
 }
-
-?>

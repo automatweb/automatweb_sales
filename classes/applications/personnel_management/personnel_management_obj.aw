@@ -193,9 +193,9 @@ class personnel_management_obj extends _int_object
 		}
 	}
 
-	function get_show_cnt_conf($arr = array())
+	public static function get_show_cnt_conf($arr = array())
 	{
-		$pm = obj(get_instance(CL_PERSONNEL_MANAGEMENT)->get_sysdefault());
+		$pm = obj(get_instance(CL_PERSONNEL_MANAGEMENT)->get_sysdefault(), array(), self::CLID);
 		return array(
 			CL_CRM_PERSON => array(
 				"view" => array(

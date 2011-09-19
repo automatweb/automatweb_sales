@@ -503,14 +503,22 @@ class classificator extends class_base
 			}
 		}
 
-		$c_obj = new object($active_object_id);
-		$clinf = $c_obj->meta("classificator");
+		if ($active_object_id)
+		{
+			$c_obj = new object($active_object_id);
+			$clinf = $c_obj->meta("classificator");
+			$items = new object_list(array(
+				"parent" => $clinf[$arr["name"]],
+				"class_id" => CL_META,
+				"sort_by" => "objects.jrk"
+			));
+			$items = $items->names();
+		}
+		else
+		{
+			$items = array();
+		}
 
-		$items = new object_list(array(
-			"parent" => $clinf[$arr["name"]],
-			"class_id" => CL_META,
-			"sort_by" => "objects.jrk"
-		));
-		return $items->names();
+		return $items;
 	}
 }

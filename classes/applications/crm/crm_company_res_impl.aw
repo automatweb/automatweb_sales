@@ -71,7 +71,7 @@ class crm_company_res_impl extends class_base
 	function _get_res_tree($arr)
 	{
 		$ri = obj($this->_get_res_parent($arr["obj_inst"]));
-		classload("core/icons");
+		
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML, 

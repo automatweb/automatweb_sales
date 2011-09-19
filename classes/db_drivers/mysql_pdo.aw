@@ -707,6 +707,7 @@ class mysql_pdo
 
 		if (strpos($errstr, "Unknown column") !== false)
 		{
+			$mt = array(1 => "", 2 => "");
 			if (!preg_match("/Unknown column '(.*)\.(.*)'/imsU" , $errstr, $mt))
 			{
 				if (preg_match("/Unknown column '(.*)' in 'order clause'/imsU" , $errstr, $mt))
@@ -725,12 +726,12 @@ class mysql_pdo
 				}
 			}
 
-			if ($this->db_proc_error_last_fn == $mt[2] && $this->db_proc_error_last_fn)
+			if (isset($mt[2]) && $this->db_proc_error_last_fn == $mt[2] && $this->db_proc_error_last_fn)
 			{
 				return false; // if we get the same error as last time, the upgrader did not create the correct field, so error out
 			}
 
-			$this->db_proc_error_last_fn = $mt[2];
+			$this->db_proc_error_last_fn = isset($mt[2]) ? $mt[2] : "";
 			// find the table from property list. oh this is gonna be slooooooow
 			$clss = aw_ini_get("classes");
 			$upgrade_result = null;
@@ -772,7 +773,8 @@ class mysql_pdo
 						$i = $o->instance();
 						if (method_exists($i, "do_db_upgrade"))
 						{
-							$upgrade_result = $upgrade_result | $i->do_db_upgrade($tn, $mt[2], $q, $errstr);// classes exist that use same db table. collect upgrades from all of them.
+							$field = empty($mt[2]) ? "" : $mt[2];
+							$upgrade_result = $upgrade_result | $i->do_db_upgrade($tn, $field, $q, $errstr);// classes exist that use same db table. collect upgrades from all of them.
 						}
 					}
 				}
@@ -782,7 +784,9 @@ class mysql_pdo
 			{
 				// if not found, then call the static upgrader
 				$cv = new converters();
-				$upgrade_result = $cv->do_db_upgrade($mt[1], $mt[2], $q, $errstr);
+				$table = empty($mt[1]) ? "" : $mt[1];
+				$field = empty($mt[2]) ? "" : $mt[2];
+				$upgrade_result = $cv->do_db_upgrade($table, $field, $q, $errstr);
 			}
 
 			return $upgrade_result;

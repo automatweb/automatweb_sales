@@ -130,7 +130,7 @@ class project_teams_impl extends class_base
 			$arr["request"]["no_search"] = 1;
 		}
 
-		classload("core/icons");
+		
 		$nm = t("T&ouml;&ouml;perekonnad");
 		if ($arr["request"]["team"] == "")
 		{

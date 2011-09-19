@@ -1127,7 +1127,7 @@ if(!$level)
 		{
 			return false;
 		}
-		classload("vcl/table");
+		
 		$t = new vcl_table;
 		$res_inst = get_instance(CL_RESERVATION);
 		$html = $res_inst->_get_products_order_view(array(
@@ -1210,7 +1210,7 @@ if(!$level)
 
 		$rooms = array_keys($rooms);
 		$tables = "";
-		classload("vcl/table");
+		
 
 		$sf = new aw_template;
 		$sf->db_init();

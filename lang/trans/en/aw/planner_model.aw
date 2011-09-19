@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["%s s&uuml;nnip&auml;ev!"] = "%s birthday!";
+$GLOBALS["TRANS"][5147]["%s s&uuml;nnip&auml;ev!"] = "%s birthday!";
 ?>

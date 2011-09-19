@@ -146,7 +146,7 @@ class scm_team extends class_base
 
 			case "members_tree":
 				$t = get_instance("vcl/treeview");
-				classload("core/icons");
+				
 				$t->start_tree(array(
 					"type" => TREE_DHTML,
 					"has_root" => 1,
@@ -689,7 +689,7 @@ class scm_team extends class_base
 	function _gen_reg_tree($t)
 	{
 		$inst = get_instance(CL_SCM_ORGANIZER);
-		classload("core/icons");
+		
 		foreach($inst->get_organizers(array("only_with_competitions" => true)) as $oid => $obj)
 		{
 			$t->add_item(0, array(
@@ -801,7 +801,7 @@ class scm_team extends class_base
 			}
 		}
 
-		classload("core/icons");
+		
 		$t = get_instance("vcl/treeview");
 		$t->start_tree(array(
 			"type" => TREE_DHTML,
@@ -1000,7 +1000,7 @@ class scm_team extends class_base
 	**/
 	function get_contestants_row_table($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 		$t->define_field(array(
 			"name" => "contestant",

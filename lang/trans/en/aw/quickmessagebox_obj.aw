@@ -1,6 +1,6 @@
 <?php
-$GLOBALS["TRANS"]["anyone"] = "anyone";
-$GLOBALS["TRANS"]["users in my contact list"] = "users in my contact list";
-$GLOBALS["TRANS"]["no-one"] = "no-one";
-$GLOBALS["TRANS"]["Quickmessagebox of %s"] = "Quickmessagebox of %s";
+$GLOBALS["TRANS"][5147]["anyone"] = "anyone";
+$GLOBALS["TRANS"][5147]["users in my contact list"] = "users in my contact list";
+$GLOBALS["TRANS"][5147]["no-one"] = "no-one";
+$GLOBALS["TRANS"][5147]["Quickmessagebox of %s"] = "Quickmessagebox of %s";
 ?>

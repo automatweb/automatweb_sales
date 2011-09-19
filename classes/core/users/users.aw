@@ -413,7 +413,7 @@ class users extends users_user implements request_startup, orb_public_interface
 
 	function request_startup()
 	{
-		if (isset($_GET["set_group"]) && $this->can("view", $_GET["set_group"]))
+		if (isset($_GET["set_group"]) && object_loader::can("", $_GET["set_group"]))
 		{
 			// fetch thegroup and check if non logged users can switch to it
 			$setg_o = obj($_GET["set_group"]);

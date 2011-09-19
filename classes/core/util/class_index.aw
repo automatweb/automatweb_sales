@@ -379,6 +379,18 @@ class class_index
 		return $class_file;
 	}
 
+	/** Returns relative class path to be used in various directories for class related files (javascripts, templates, etc.)
+		@attrib api=1 params=pos
+		@param class_name type=string
+		@comment
+		@returns string
+		@errors
+	**/
+	public static function get_class_path($class_name)
+	{
+		return substr(str_replace(AW_DIR . self::CLASS_DIR, "", self::get_file_by_name($class_name)), 0, -strlen(AW_FILE_EXT)) . "/";
+	}
+
 	public static function load_class($class_name)
 	{
 		$orig_class_name = $class_name;
@@ -430,6 +442,7 @@ class class_index
 				//!!! take action
 			}
 		}
+
 		$class_name = $orig_class_name;
 		if (!class_exists($class_name, false) and !interface_exists($class_name, false))
 		{ // class may be moved to another file, force update and try again

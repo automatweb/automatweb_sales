@@ -1179,7 +1179,7 @@ class realestate_add extends class_base
 				"raw_output" => 1,
 			));
 		}
-	//	classload("vcl/table");
+	//	
 	//	$t = new vcl_table();
 	//	$prop = array("name" => "address_connection", "type" => "table", "vcl_inst" =>&$t);
 	//	$i = get_instance(CL_REALESTATE_PROPERTY);

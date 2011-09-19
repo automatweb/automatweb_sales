@@ -40,15 +40,11 @@ class crm_company_overview_impl extends class_base
 
 	function do_org_actions($arr, $args, $clid)
 	{
-		enter_function("do_org_actions");
 		// whee, this thing includes project and that uses properties, so we gots
 		// to do this here or something. damn, we need to do the reltype
 		// loading in get_instance or something
 
-		enter_function("do_org_actions:1");
-
-		enter_function("do_org_actions:1:1");
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$cfgu->load_class_properties(array(
 			"file" => "project",
 			"clid" => 239
@@ -57,17 +53,13 @@ class crm_company_overview_impl extends class_base
 		$ob = $arr["obj_inst"];
 		$conns = $ob->connections_from($args);
 		$t = $arr["prop"]["vcl_inst"];
-		exit_function("do_org_actions:1:1");
 
-		enter_function("do_org_actions:1:2");
 		$arr["prop"]["vcl_inst"]->configure(array(
 			"overview_func" => array($this,"get_overview"),
 		));
 
-		$p = get_instance(CL_PLANNER);
+		$p = new planner();
 		$cal = $p->get_calendar_for_user();
-		exit_function("do_org_actions:1:2");
-		enter_function("do_org_actions:1:3");
 		if ($cal)
 		{
 			$calo = obj($cal);
@@ -95,7 +87,6 @@ class crm_company_overview_impl extends class_base
 				"full_weeks" => $full_weeks
 			));
 		}
-		exit_function("do_org_actions:1:3");
 
 		$range = $arr["prop"]["vcl_inst"]->get_range(array(
 			"date" => $arr["request"]["date"],
@@ -110,20 +101,14 @@ class crm_company_overview_impl extends class_base
 		$classes = aw_ini_get("classes");
 
 		$return_url = get_ru();
-		$planner = get_instance(CL_PLANNER);
-		exit_function("do_org_actions:1");
+		$planner = new planner();
 
-		enter_function("do_org_actions:2");
-		enter_function("do_org_actions:2:1");
 		$arr["range"] = $range;
 		$task_ol = $this->_get_task_list($arr);
 		$evts = $task_ol->arr();
-		exit_function("do_org_actions:2:1");
 
-
-		enter_function("do_org_actions:2:2");
 		$this->overview = array();
-		classload("core/icons");
+
 		// get b-days
 		if ($calo && $calo->prop("show_bdays") == 1)
 		{
@@ -132,7 +117,7 @@ class crm_company_overview_impl extends class_base
 			$p_id_filt = "";
 			if ($arr["obj_inst"]->id() != $cc->id())
 			{
-				$co_i = get_instance(CL_CRM_COMPANY);
+				$co_i = new crm_company();
 				$epl = new aw_array(array_keys($co_i->get_employee_picker($arr["obj_inst"])));
 				$p_id_filt = " AND objects.oid in (".$epl->to_sql().")";
 			}
@@ -161,10 +146,7 @@ class crm_company_overview_impl extends class_base
 				}
 			}
 		}
-		exit_function("do_org_actions:2:2");
-		exit_function("do_org_actions:2");
 
-		enter_function("do_org_actions:3");
 		foreach($evts as $obj_id=>$obj)
 		{
 			if(!$this->can("view", $obj_id))
@@ -277,7 +259,7 @@ class crm_company_overview_impl extends class_base
 							'comment' => $item->comment(),
 						),
 					));
-				};
+				}
 
 				if ($rd > $overview_start)
 				{
@@ -300,15 +282,13 @@ class crm_company_overview_impl extends class_base
 						'comment' => $item->comment(),
 					),
 				));
-			};
+			}
 
 			if ($date > $overview_start)
 			{
 				$this->overview[$date] = 1;
-			};
+			}
 		}
-		enter_function("do_org_actions:3");
-		exit_function("do_org_actions");
 	}
 
 	function _get_tasks_call($arr)
@@ -326,8 +306,8 @@ class crm_company_overview_impl extends class_base
 			if (method_exists($inst,"request_execute"))
 			{
 				$rv .= $inst->request_execute($target_obj);
-			};
-		};
+			}
+		}
 		$prop["value"] = $rv;
 	}
 
@@ -357,10 +337,12 @@ class crm_company_overview_impl extends class_base
 		{
 			$parents[] = $mf->id();
 		}
+
 		$filt = array(
 			"parent" => $parents,
-			"class_id" => CL_MESSAGE,
+			"class_id" => CL_MESSAGE
 		);
+
 		if($arr["request"]["id"] != $cur->id())
 		{
 			$c = $arr["obj_inst"];
@@ -374,14 +356,17 @@ class crm_company_overview_impl extends class_base
 			}
 			$filt["mto"] = $emails;
 		}
+
 		if($arr["request"]["mail_s_subj"])
 		{
 			$filt["name"] = '%'.$arr["request"]["mail_s_subj"].'%';
 		}
+
 		if($arr["request"]["mail_s_body"])
 		{
 			$filt["message"] = '%'.$arr["request"]["mail_s_body"].'%';
 		}
+
 		if($arr["request"]["mail_s_to"])
 		{
 			if($filt["mto"])
@@ -568,9 +553,7 @@ class crm_company_overview_impl extends class_base
 
 	function _get_my_tasks($arr)
 	{
-		enter_function("get_my_tasks");
-		enter_function("get_my_tasks:1");
-		$seti = get_instance(CL_CRM_SETTINGS);
+		$seti = new crm_settings();
 		$sts = $seti->get_current_settings();
 		if(is_object($sts) && $sts->prop("group_task_view"))
 		{
@@ -580,38 +563,21 @@ class crm_company_overview_impl extends class_base
 		{
 			return PROP_IGNORE;
 		}
-		exit_function("get_my_tasks:1");
 
-		enter_function("get_my_tasks:1.5");
-		classload("core/icons");
 		$ol = $this->_get_task_list($arr);
-		exit_function("get_my_tasks:1.5");
-
-		enter_function("get_my_tasks:2");
-
-		enter_function("get_my_tasks:2:2:arr");
 		$olarr = $ol->arr();
-		exit_function("get_my_tasks:2:2:arr");
-
-		enter_function("get_my_tasks:2:2::preload");
 		$this->_preload_customer_list_for_tasks($olarr);
-		exit_function("get_my_tasks:2:2::preload");
-
-		enter_function("get_my_tasks:2:2");
-		if($arr["request"]["group"] != "ovrv_mails")
+		if($arr["request"]["group"] !== "ovrv_mails")
 		{
 			$ol->sort_by_cb(array($this, "__task_sorter"));
 		}
-		exit_function("get_my_tasks:2:2");
-		exit_function("get_my_tasks:2");
 
-
-		if ($arr["request"]["group"] == "ovrv_offers")
+		if ($arr["request"]["group"] === "ovrv_offers")
 		{
 			return $this->_get_ovrv_offers($arr, $ol);
 		}
-		enter_function("get_my_tasks:3");
-		$pm = get_instance("vcl/popup_menu");
+
+		$pm = new popup_menu();
 		// make task2person list
 		$task2person = $this->_get_participant_list_for_tasks($ol->ids());
 		$task2recur = $this->_get_recur_list_for_tasks($ol->ids());
@@ -620,10 +586,8 @@ class crm_company_overview_impl extends class_base
 		$table_data = array();
 
 		$last_cust = $last_proj = 0;
-		$ti = get_instance(CL_TASK);
-		exit_function("get_my_tasks:3");
+		$ti = new task();
 
-		enter_function("get_my_tasks:4");
 		foreach($ol->ids() as $task_id)
 		{
 			$task_nr++;
@@ -918,10 +882,8 @@ class crm_company_overview_impl extends class_base
 				"when" => date("d.m.Y H:i", $task->prop("start1"))." - ".date("d.m.Y H:i",$task->prop("end"))
 			);
 		}
-		exit_function("get_my_tasks:4");
 
-		enter_function("get_my_tasks:5");
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_my_tasks_t($t, $table_data, $arr["request"], $group);
 
 		foreach($table_data as $row)
@@ -964,8 +926,6 @@ class crm_company_overview_impl extends class_base
 			));
 			die($sf->parse());
 		}
-		exit_function("get_my_tasks:5");
-		exit_function("get_my_tasks");
 	}
 
 	function _get_tasks_search_filt($r, $tasks, $clid)
@@ -1028,12 +988,10 @@ class crm_company_overview_impl extends class_base
 			$str_filt = $this->_get_string_filt($r["act_s_cal_name"]);
 			$cal_list = new object_list(array(
 				"class_id" => CL_PLANNER,
-				"name" => $str_filt,
-				"lang_id" => array(),
-				"site_id" => array()
+				"name" => $str_filt
 			));
 			$oids = array();
-			$pm = get_instance("applications/calendar/planner_model");
+			$pm = new planner_model();
 			foreach($cal_list->arr() as $cal)
 			{
 				$parms = array(
@@ -1090,9 +1048,7 @@ class crm_company_overview_impl extends class_base
 				// get the person(s) typed
 				$persons = new object_list(array(
 					"class_id" => CL_CRM_PERSON,
-					"name" => $str_filt, //map("%%%s%%", explode(",", $r["act_s_part"])),
-					"lang_id" => array(),
-					"site_id" => array()
+					"name" => $str_filt //map("%%%s%%", explode(",", $r["act_s_part"])),
 				));
 				if (!$persons->count())
 				{
@@ -1310,14 +1266,14 @@ class crm_company_overview_impl extends class_base
 
 	function _get_my_tasks_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_menu_button(array(
 			'name'=>'add_item',
 			'tooltip'=> t('Uus')
 		));
 
-		$pl = get_instance(CL_PLANNER);
+		$pl = new planner();
 		$this->cal_id = $pl->get_calendar_for_user(array(
 			"uid" => aw_global_get("uid"),
 		));
@@ -1398,7 +1354,7 @@ class crm_company_overview_impl extends class_base
 		}
 		if($arr["request"]["group"] == "ovrv_mails")
 		{
-			$mail_mgr = get_instance("applications/crm/crm_email_mgr");
+			$mail_mgr = new crm_email_mgr();
 			$tb->add_button(array(
 				"name" => "user_calendar",
 				"tooltip" => t("Impordi mailid"),
@@ -1414,9 +1370,7 @@ class crm_company_overview_impl extends class_base
 
 			$ol = new object_list(array(
 				"class_id" => CL_PROJECT,
-				"CL_PROJECT.RELTYPE_ORDERER.id" => $arr["obj_inst"]->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
+				"CL_PROJECT.RELTYPE_ORDERER.id" => $arr["obj_inst"]->id()
 			));
 			$u = get_instance(CL_USER);
 			$cur_co = $u->get_current_company();
@@ -1475,8 +1429,6 @@ class crm_company_overview_impl extends class_base
 
 // 			$col = new object_list(array(
 // 				"class_id" => array(CL_CRM_MEETING, CL_CRM_CALL, CL_TASK, CL_BUG , CL_DOCUMENT),
-// 				"site_id" => array(),
-// 				"lang_id" => array(),
 // 				"name" => "%".$p->name()."%",
 // 			));
 // 			if($col->count())
@@ -1502,7 +1454,7 @@ class crm_company_overview_impl extends class_base
 	{
 		if ($arr["request"]["act_s_sbt"] == "" && $arr["request"]["act_s_is_is"] != 1)
 		{
-			$cal = get_instance(CL_PLANNER);
+			$cal = new planner();
 			$p = $cal->get_calendar_for_user();
 			if ($p)
 			{
@@ -1577,8 +1529,7 @@ class crm_company_overview_impl extends class_base
 		$params = explode("_" , $arr["request"]["st"]);
 		$time_params = explode("_" , $arr["request"]["tm"]);
 		$type_params = explode("_" , $arr["request"]["tf"]);
-		$stats = get_instance("applications/crm/crm_company_stats_impl");
-		classload("core/date/date_calc");
+		$stats = new crm_company_stats_impl();
 
 		switch($params[0])
 		{
@@ -1596,11 +1547,12 @@ class crm_company_overview_impl extends class_base
 				$filter["person"] = $person->id();
 				break;
 		}
-//arr($type_params);arr($time_params); arr($params);
+
 		if(!$type_params[0])
 		{
 			$type_params[1] = "undone";
 		}
+
 		switch($type_params[0])
 		{
 /*			case "next":
@@ -1646,17 +1598,17 @@ class crm_company_overview_impl extends class_base
 				$end = time()*2;
 				break;
 			case "currentmonth":
-				$start = get_month_start();
+				$start = date_calc::get_month_start();
 				$end = mktime(0,0,0,(date("m") + 1) , 1 , date("Y"))-1;
 				break;
 			case "lastmonth":
 				$start = mktime(0,0,0,(date("m") - 1) ,1 , date("Y"));
-				$end = get_month_start()-1;
+				$end = date_calc::get_month_start()-1;
 				break;
 			case "currentweek":
 			default:
-				$start = get_week_start();
-				$end = get_week_start()+7*DAY-1;
+				$start = date_calc::get_week_start();
+				$end = date_calc::get_week_start()+7*DAY-1;
 				break;
 		}
 
@@ -1679,8 +1631,8 @@ class crm_company_overview_impl extends class_base
 
 		if(!$start)
 		{
-			$start = get_week_start();
-			$end = get_week_start()+7*DAY-1;
+			$start = date_calc::get_week_start();
+			$end = date_calc::get_week_start()+7*DAY-1;
 		}
 
 		$filter["between"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING,$start, $end);
@@ -1726,11 +1678,10 @@ class crm_company_overview_impl extends class_base
 			return $this->tree_tasks($arr);
 		}
 
-		enter_function("_get_task_list:1");
 		$u = get_instance(CL_USER);
 		$co = $u->get_current_company();
 
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		$clid = NULL;
 		switch($arr["request"]["group"])
 		{
@@ -1859,9 +1810,7 @@ class crm_company_overview_impl extends class_base
 				{
 					$ol = new object_list(array(
 						"class_id" => CL_CRM_EMAIL,
-						"lang_id" => array(),
-						"site_id" => array(),
-						"customer" => $arr["obj_inst"]->id(),
+						"customer" => $arr["obj_inst"]->id()
 					));
 					$tasks = $this->make_keys($ol->ids());
 				}
@@ -1889,30 +1838,25 @@ class crm_company_overview_impl extends class_base
 				{
 					$clid = CL_CRM_DOCUMENT_ACTION;
 
-					$offers = new object_list(array("class_id" => CL_CRM_OFFER,
-						"site_id" => array(),
-						"lang_id" => array(),
-						"orderer" => $arr["obj_inst"]->id(),
+					$offers = new object_list(array(
+						"class_id" => CL_CRM_OFFER,
+						"orderer" => $arr["obj_inst"]->id()
 					));
 
 					$filt = array(
 						"class_id" => CL_CRM_DOCUMENT_ACTION,
-						"site_id" => array(),
-						"lang_id" => array(),
-						"CL_CRM_DOCUMENT_ACTION.RELTYPE_DOC" => $offers->ids(),
+						"CL_CRM_DOCUMENT_ACTION.RELTYPE_DOC" => $offers->ids()
 					);
 				}
-					$ol = new object_list($filt);
-					$tasks = $this->make_keys($ol->ids());
+				$ol = new object_list($filt);
+				$tasks = $this->make_keys($ol->ids());
 				break;
 
 			default:
-				enter_function("_get_task_list:2:1");
 				$clid = array(CL_TASK,CL_CRM_MEETING,CL_CRM_CALL,CL_CRM_OFFER);
 				$clid2 = array("CL_TASK","CL_CRM_MEETING","CL_CRM_CALL");
-				$cali = get_instance(CL_PLANNER);
+				$cali = new planner();
 				$calid = $cali->get_calendar_for_user();
-				exit_function("_get_task_list:2:1");
 				if($calid)
 				{
 					$cal = obj($calid);
@@ -1924,32 +1868,23 @@ class crm_company_overview_impl extends class_base
 				}
 				if ($co == $arr["obj_inst"]->id())
 				{
-					enter_function("_get_task_list:2:2");
 					$tasks = array();
-					enter_function("_get_task_list:2:2:get_my_act");
 					$tg = $i->get_my_actions($arr);
-					exit_function("_get_task_list:2:2:get_my_act");
 					if (!count($tg))
 					{
 						$tasks = array();
 					}
 					else
 					{
-						enter_function("_get_task_list:2:2:ol");
 						$ol = new object_list(array(
 							"oid" => $tg,
-							"site_id" => array(),
-							"lang_id" => array(),
 							"flags" => array("mask" => OBJ_IS_DONE, "flags" => 0)
 						));
 						$tasks = $this->make_keys($ol->ids());
-					exit_function("_get_task_list:2:2:ol");
 					}
-					exit_function("_get_task_list:2:2");
 				}
 				else
 				{
-					enter_function("_get_task_list:2:3");
 					$ol = new object_list($arr["obj_inst"]->connections_from(array(
 						"type" => array("RELTYPE_KOHTUMINE", "RELTYPE_CALL", "RELTYPE_TASK", "RELTYPE_DEAL", "RELTYPE_OFFER")
 					)));
@@ -1967,8 +1902,6 @@ class crm_company_overview_impl extends class_base
 						)),
 						"class_id" => $clid,
 //						"customer" => $arr["obj_inst"]->id(),
-						"lang_id" => array(),
-						"site_id" => array(),
 					));
 					$ol->add($ol2);
 					$tasks = $this->make_keys($ol->ids());
@@ -1976,12 +1909,10 @@ class crm_company_overview_impl extends class_base
 					{
 						$tasks = array(-1);
 					}
-					exit_function("_get_task_list:2:3");
 				}
 				break;
 		}
-		exit_function("_get_task_list:1");
-		enter_function("_get_task_list:2");
+
 		if ($arr["request"]["act_s_sbt"] != "" || $arr["request"]["act_s_is_is"] == 1)
 		{
 			// filter
@@ -1991,11 +1922,8 @@ class crm_company_overview_impl extends class_base
 				$param = array();
 			}
 			$p = $this->_get_tasks_search_filt($arr["request"], $param, $clid);
-			$p["lang_id"] = array();
-			$p["site_id"] = array();
 			$p["brother_of"] = new obj_predicate_prop("id");
 			$ol = new object_list($p);
-			exit_function("_get_task_list:2");
 			return $ol;
 		}
 		else
@@ -2003,18 +1931,14 @@ class crm_company_overview_impl extends class_base
 			if (!count($tasks))
 			{
 				$ol = new object_list();
-			exit_function("_get_task_list:2");
 				return $ol;
 			}
 			else
 			{
 				$ol = new object_list(array(
 					"oid" => $tasks,
-					"lang_id" => array(),
-					"site_id" => array(),
 					"brother_of" => new obj_predicate_prop("id")
 				));
-		exit_function("_get_task_list:2");
 				return $ol;
 			}
 		}
@@ -2023,9 +1947,7 @@ class crm_company_overview_impl extends class_base
 		{
 			$ol = new object_list(array(
 				"oid" => $ol->ids(),
-				"brother_of" => new obj_predicate_prop("id"),
-				"lang_id" => array(),
-				"site_id" => array()
+				"brother_of" => new obj_predicate_prop("id")
 			));
 		}
 
@@ -2033,7 +1955,7 @@ class crm_company_overview_impl extends class_base
 		{
 			// filter out all tasks that can not get bills
 			$res = new object_list();
-			$ti = get_instance(CL_TASK);
+			$ti = new task();
 			foreach($ol->arr() as $o)
 			{
 				$has = false;
@@ -2051,7 +1973,6 @@ class crm_company_overview_impl extends class_base
 			}
 			$ol = $res;
 		}
-		exit_function("_get_task_list:2");
 		return $ol;
 	}
 
@@ -2106,7 +2027,7 @@ class crm_company_overview_impl extends class_base
 
 	function _get_ovrv_offers($arr, $ol)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$table_data = array();
 		foreach($ol->ids() as $act_id)
 		{
@@ -2185,7 +2106,7 @@ class crm_company_overview_impl extends class_base
 			);
 		}
 
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_my_tasks_t($t, $table_data, $arr["request"]);
 
 		$format = t('%s dokumendid');
@@ -2307,7 +2228,7 @@ class crm_company_overview_impl extends class_base
 		// warm cache
 		if (count($plist))
 		{
-			$ol = new object_list(array("oid" => $plist, "site_id" => array(), "lang_id" => array()));
+			$ol = new object_list(array("oid" => $plist));
 			$ol->arr();
 		}
 		$conns = $c->find(array(
@@ -2375,7 +2296,6 @@ class crm_company_overview_impl extends class_base
 	{
 		$sum = 0;
 		global $company;
-		classload("vcl/table");
 		$t = new vcl_table();
 		$this->_init_task_row_table($t);
 		$task = obj($arr["id"]);
@@ -2434,18 +2354,14 @@ class crm_company_overview_impl extends class_base
 		if (count($custs))
 		{
 			$ol = new object_list(array(
-				"oid" => array_keys($custs),
-				"lang_id" => array(),
-				"site_id" => array()
+				"oid" => array_keys($custs)
 			));
 			$ol->arr();
 		}
 		if (count($projs))
 		{
 			$ol = new object_list(array(
-				"oid" => array_keys($projs),
-				"lang_id" => array(),
-				"site_id" => array()
+				"oid" => array_keys($projs)
 			));
 			$ol->arr();
 		}
@@ -2616,7 +2532,7 @@ class crm_company_overview_impl extends class_base
 
 	function _get_tasks_time_tree($arr)
 	{
-		$tree =& $arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 		$var = "tm";
 
 		if(!isset($_GET[$var]))
@@ -2658,10 +2574,10 @@ class crm_company_overview_impl extends class_base
 
 	function _get_tasks_type_tree($arr)
 	{
-		$tree =& $arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 		$var = "tf";
 
-		$bug_inst = get_instance(CL_BUG);
+		$bug_inst = new bug();
 
 		if(!isset($_GET[$var]))
 		{
@@ -2792,14 +2708,12 @@ class crm_company_overview_impl extends class_base
 
 	function _get_tasks_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "st";
 		if(!isset($_GET[$var]))
 		{
 			$_GET[$var] = "my";
 		}
-
-		classload("core/icons");
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -2828,7 +2742,7 @@ class crm_company_overview_impl extends class_base
 //			"url" => aw_url_change_var($var, $stat_id+10),
 		));
 
-		$bill_stats = get_instance("applications/crm/crm_company_bills_impl");
+		$bill_stats = new crm_company_bills_impl();
 
 		foreach($bill_stats->all_project_managers()->names() as $id => $name)
 		{
@@ -2936,7 +2850,6 @@ class crm_company_overview_impl extends class_base
 			"id" => $id,
 			"url" => aw_url_change_var($var, $id),
 		));
-
  	}
 
 	private function all_customers()
@@ -2945,7 +2858,7 @@ class crm_company_overview_impl extends class_base
 
 		$filter = array(
 			"class_id" => CL_BUG,
-			"CL_BUG.customer" =>  new obj_predicate_compare(OBJ_COMP_GREATER, 0),
+			"CL_BUG.customer" =>  new obj_predicate_compare(obj_predicate_compare::GREATER, 0)
 		);
 		$t = new object_data_list(
 			$filter,

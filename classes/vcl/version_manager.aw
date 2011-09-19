@@ -69,7 +69,7 @@ class version_manager extends class_base
 
 	function _get_version_table($o)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table;
 		$this->_init_version_table($t);
 
@@ -185,7 +185,7 @@ class version_manager extends class_base
 	**/
 	function view_diff($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table;
 		$t->define_field(array(
 			"name" => "prop",

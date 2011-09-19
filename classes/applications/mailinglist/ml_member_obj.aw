@@ -4,6 +4,10 @@ class ml_member_obj extends _int_object
 {
 	const CLID = 73;
 
+	const TYPE_GENERIC = 0;
+	const TYPE_INVOICE = 1;
+	const TYPE_PROJECT_MANAGEMENT = 2;
+
 	function prop($name)
 	{
 		//FIXME: konverteerimine viia mujale. kasutada prop_xml-i vms.
@@ -23,7 +27,7 @@ class ml_member_obj extends _int_object
 			"from" => array(),
 			"to" => $arr["id"],
 			"type" => "RELTYPE_EMAIL",
-			"from.class_id" => CL_CRM_PERSON_WORK_RELATION,
+			"from.class_id" => crm_person_work_relation_obj::CLID,
 		));
 		if(count($cs) > 0)
 		{
@@ -35,7 +39,7 @@ class ml_member_obj extends _int_object
 			$cs = connection::find(array(
 				"from" => array(),
 				"to" => $wrids,
-				"from.class_id" => CL_CRM_PERSON,
+				"from.class_id" => crm_person_obj::CLID
 			));
 			foreach($cs as $c)
 			{
@@ -46,7 +50,7 @@ class ml_member_obj extends _int_object
 			"from" => array(),
 			"to" => $arr["id"],
 			"type" => "RELTYPE_EMAIL",
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID
 		));
 		foreach($cs as $c)
 		{
@@ -188,12 +192,10 @@ class ml_member_obj extends _int_object
 		// Check if we already have an e-mail address with the same parent and mail property.
 		// If so, return this instead of creating new one (or changing the current one).
 		$ol = new object_list(array(
-			"class_id" => CL_ML_MEMBER,
+			"class_id" => self::CLID,
 			"mail" => parent::prop("mail"),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"limit" => 1,
-			"parent" => parent::parent(),
+			"parent" => parent::parent()
 		));
 		if($ol->count() > 0)
 		{
@@ -206,12 +208,10 @@ class ml_member_obj extends _int_object
 		else
 		{
 			$ol = new object_list(array(
-				"class_id" => CL_ML_MEMBER,
+				"class_id" => self::CLID,
 				"mail" => parent::prop("mail"),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"limit" => 1,
-				"parent" => array(),
+				"parent" => array()
 			));
 			if($ol->count() > 0)
 			{

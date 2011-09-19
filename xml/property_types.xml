@@ -119,11 +119,10 @@
 
 
 	<reltype>
-		<value>
-		</value>
+		<value />
 		<clid type="clid"></clid>
-		<hidden>
-		</hidden>
+		<hidden />
+		<deprecated />
 	</reltype>
 
 
@@ -244,64 +243,41 @@
 		</table>
 
 		<relpicker>
-			<reltype>
-			</reltype>
-			<multiple>
-			</multiple>
-			<automatic>
-			</automatic>
-			<no_edit>
-			</no_edit>
+			<reltype />
+			<multiple />
+			<automatic />
+			<no_edit />
 			<no_search />
+			<no_sel />
+			<no_add />
 			<add_edit_autoreturn />
-			<mode>
-			</mode>
-			<orient>
-			</orient>
-			<size>
-			</size>
-			<delete_button>
-			</delete_button>
-			<delete_rels_button>
-			</delete_rels_button>
+			<mode />
+			<orient />
+			<size />
+			<delete_button />
+			<delete_rels_button />
 			<clid type="clid"></clid>
-			<use_form>
-			</use_form>
-			<rel_id>
-			</rel_id>
-			<delete_rels_popup_button>
-			</delete_rels_popup_button>
-			<display>
-			</display>
-			<search_button>
-			</search_button>
-			<no_sel>
-			</no_sel>
-			<width>
-			</width>
+			<use_form />
+			<rel_id />
+			<delete_rels_popup_button />
+			<display />
+			<search_button />
+			<width />
 		</relpicker>
 
 		<select>
-			<multiple>
-			</multiple>
-			<size>
-			</size>
-			<width>
-			</width>
+			<multiple />
+			<size />
+			<width />
 			<disabled />
 		</select>
 
 		<text>
-			<subtitle>
-			</subtitle>
-			<value>
-			</value>
-			<wrapchildren>
-			</wrapchildren>
-			<size>
-			</size>
-			<callback>
-			</callback>
+			<subtitle />
+			<value />
+			<wrapchildren />
+			<size />
+			<callback />
 		</text>
 
 		<releditor>
@@ -356,23 +332,18 @@
 		</chooser>
 
 		<submit>
-			<value>
-			</value>
-			<action>
-			</action>
-			<size>
-			</size>
+			<value />
+			<action />
+			<size />
 		</submit>
 
 		<callback>
-			<callback>
-			</callback>
-			<submit_method>
-			</submit_method>
+			<callback />
+			<submit_method />
 		</callback>
 
 		<comments>
-			<form_before_comments></form_before_comments>
+			<form_before_comments />
 		</comments>
 
 		<classificator>
@@ -417,12 +388,9 @@
 
 		<popup_search>
 			<clid type="clid"></clid>
-			<style>
-			</style>
-			<reltype>
-			</reltype>
-			<multiple>
-			</multiple>
+			<style />
+			<reltype />
+			<multiple />
 		</popup_search>
 
 		<datepicker>

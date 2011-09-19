@@ -37,18 +37,22 @@ class relpicker extends core implements orb_public_interface
 		@param size optional type=int
 			Select size for multiple relpickers
 
-		@param no_sel optional type=int
+		@param no_sel type=bool default=FALSE
 			Show no selection options
 
-		@param automatic optional type=int
+		@param automatic type=bool default=FALSE
+			Whether to load all valid objects for this relation to selection options
 
-		@param no_edit optional type=int
+		@param no_edit type=bool default=FALSE
 			Don't show new/search/edit buttons
 
-		@param no_search optional type=int
+		@param no_add type=bool default=FALSE
+			Don't show add button
+
+		@param no_search type=bool default=FALSE
 			Don't show search button
 
-		@param add_edit_autoreturn optional type=int
+		@param add_edit_autoreturn type=bool default=FALSE
 			When adding a new related object or editing a selected one, return immediately back to caller view after saving
 
 		@param options optional type=array
@@ -98,14 +102,15 @@ class relpicker extends core implements orb_public_interface
 		$oid = isset($arr["oid"]) ? $arr["oid"] : 0;
 		$value = isset($arr["value"]) ? $arr["value"] : 0;
 		$options = isset($arr["options"]) ? $arr["options"] : array();
-		$no_sel = isset($arr["no_sel"]) ? $arr["no_sel"] : 0;
-		$no_edit = isset($arr["no_edit"]) ? $arr["no_edit"] : 0;
-		$no_search = isset($arr["no_search"]) ? $arr["no_search"] : 0;
+		$show_sel = empty($arr["no_sel"]);
+		$show_edit = empty($arr["no_edit"]);
+		$show_add = empty($arr["no_add"]);
+		$show_search = empty($arr["no_search"]);
 		$disabled = isset($arr["disabled"]) ? $arr["disabled"] : 0;
 		$multiple = isset($arr["multiple"]) ? $arr["multiple"] : 0;
 		$size = isset($arr["size"]) ? $arr["size"] : 1;
 		$width = isset($arr["width"]) ? $arr["width"] : 0;
-		$automatic = isset($arr["automatic"]) ? $arr["automatic"] : 0;
+		$automatic = !empty($arr["automatic"]);
 		$buttonspos = isset($arr["buttonspos"]) ? $arr["buttonspos"] : 0;
 
 		if(!$this->can("view", $oid))
@@ -130,9 +135,9 @@ class relpicker extends core implements orb_public_interface
 			$selected = 0;
 		}
 
-		if($no_sel != 1)
+		if($show_sel)
 		{
-			$options = array(0 => t("--vali--")) + $options;
+			$options = html::get_empty_option(0) + $options;
 		}
 
 		// generate option list
@@ -181,7 +186,7 @@ class relpicker extends core implements orb_public_interface
 		}
 
 		// add search button
-		if (!$no_search)
+		if ($show_search)
 		{
 			$url = $this->mk_my_orb("do_search", array(
 				"id" => $oid,
@@ -200,7 +205,7 @@ class relpicker extends core implements orb_public_interface
 		}
 
 		// add edit button
-		if(!is_array($selected) && $this->can("edit", $selected) && !$no_edit)
+		if(!is_array($selected) && $this->can("edit", $selected) && $show_edit)
 		{
 			$selected_obj = new object($selected);
 			$selected_clid = $selected_obj->class_id();
@@ -214,7 +219,7 @@ class relpicker extends core implements orb_public_interface
 				"title" => t("Muuda")
 			));
 		}
-		elseif(is_array($selected) && !$no_edit)
+		elseif(is_array($selected) && $show_edit)
 		{
 			$pm = new popup_menu();
 			$pm->begin_menu(str_replace(array("[", "]"), "", $name)."_rp_editbtn");
@@ -234,9 +239,8 @@ class relpicker extends core implements orb_public_interface
 		}
 
 		// add create button
-		if(!$no_edit)
+		if($show_add and $show_edit)
 		{
-			$clss = aw_ini_get("classes");
 			if (count($clids) > 1)
 			{
 				$pm = new popup_menu();
@@ -244,7 +248,7 @@ class relpicker extends core implements orb_public_interface
 				foreach($clids as $clid)
 				{
 					$pm->add_item(array(
-						"text" => $clss[$clid]["name"],
+						"text" => aw_ini_get("classes.{$clid}.name"),
 						"link" => html::get_new_url(
 							$clid,
 							$oid,
@@ -280,7 +284,7 @@ class relpicker extends core implements orb_public_interface
 							)
 						),
 						"caption" => html::img(array("url" => icons::get_std_icon_url("add"), "border" => "0")),
-						"title" => sprintf(t("Lisa uus %s"), $clss[$_clid]["name"]),
+						"title" => sprintf(t("Lisa uus %s"), aw_ini_get("classes.{$clid}.name"))
 					));
 				}
 			}
@@ -293,7 +297,7 @@ class relpicker extends core implements orb_public_interface
 	}
 
 	function init_vcl_property($arr)
-	{
+	{//TODO: KASUTADA create_relpicker()-it !!!
 		$prop = &$arr["property"];
 		$this->obj = $arr["obj_inst"];
 		if (isset($prop["mode"]) && $prop["mode"] === "autocomplete")
@@ -586,12 +590,11 @@ class relpicker extends core implements orb_public_interface
 		}
 
 		// create button
-		if ($prop["type"] === "select" && is_object($this->obj) && is_oid($this->obj->id()) && empty($prop["no_edit"]))
+		if ($prop["type"] === "select" && is_object($this->obj) && is_oid($this->obj->id()) && empty($prop["no_edit"]) && empty($prop["no_add"]))
 		{
 			$clid = isset($arr["relinfo"][$reltype]["clid"]) ? (array)$arr["relinfo"][$reltype]["clid"] : array();
 			$rel_val = isset($arr["relinfo"][$reltype]["value"]) ? $arr["relinfo"][$reltype]["value"] : null;
 
-			$clss = aw_ini_get("classes");
 			if (count($clid) > 1)
 			{
 				$pm = new popup_menu();
@@ -599,7 +602,7 @@ class relpicker extends core implements orb_public_interface
 				foreach($clid as $_clid)
 				{
 					$pm->add_item(array(
-						"text" => $clss[$_clid]["name"],
+						"text" => aw_ini_get("classes.{$_clid}.name"),
 						"link" => html::get_new_url(
 							$_clid,
 							(isset($arr["prop"]["parent"]) && $arr["prop"]["parent"] === "this.parent") ? $this->obj->parent() : $this->obj->id(),
@@ -635,7 +638,7 @@ class relpicker extends core implements orb_public_interface
 							)
 						),
 						"caption" => html::img(array("url" => icons::get_std_icon_url("add"), "border" => "0")),
-						"title" => sprintf(t("Lisa uus %s"), $clss[$_clid]["name"]),
+						"title" => sprintf(t("Lisa uus %s"), aw_ini_get("classes.{$_clid}.name"))
 					));
 				}
 			}

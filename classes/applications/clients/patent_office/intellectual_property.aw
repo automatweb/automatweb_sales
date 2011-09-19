@@ -2252,7 +2252,7 @@ abstract class intellectual_property extends class_base
 
 	function _get_applicants_table()
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 			"id" => "patent_requesters_registered",
@@ -2310,7 +2310,7 @@ abstract class intellectual_property extends class_base
 
 	function _get_authors_table()
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 			"id" => "patent_author_registered",

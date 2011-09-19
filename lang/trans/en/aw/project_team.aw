@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Seose Tiimi liige (RELTYPE_TEAM_MEMBER) tekst"] = "Team member";
+$GLOBALS["TRANS"][5147]["Seose Tiimi liige (RELTYPE_TEAM_MEMBER) tekst"] = "Team member";
 ?>

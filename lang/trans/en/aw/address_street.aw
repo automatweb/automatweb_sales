@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Grupi Üldine (general) pealkiri"] = "General";
+$GLOBALS["TRANS"][5147]["Grupi Üldine (general) pealkiri"] = "General";
 ?>

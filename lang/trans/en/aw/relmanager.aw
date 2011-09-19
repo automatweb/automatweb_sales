@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Vali üks"] = "Pick one";
+$GLOBALS["TRANS"][5147]["Vali üks"] = "Pick one";
 ?>

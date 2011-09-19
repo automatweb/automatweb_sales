@@ -942,8 +942,6 @@ define("CRM_PERSON_USECASE_CLIENT_EMPLOYEE", "customer_employer");
 
 class crm_person extends class_base
 {
-	public $gender_options;
-
 	function crm_person()
 	{
 		$this->init(array(
@@ -973,11 +971,6 @@ class crm_person extends class_base
 			1 => t("Bakalaureus"),
 			2 => t("Magister"),
 			3 => t("Doktor"),
-		);
-
-		$this->gender_options = array(
-			crm_person_obj::GENDER_MALE => t("Mees"),
-			crm_person_obj::GENDER_FEMALE => t("Naine"),
 		);
 	}
 
@@ -1603,7 +1596,7 @@ class crm_person extends class_base
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_RECOMMENDATION")) as $conn)
 		{
 			$rec = $conn->to();
-			if($this->can("view", $rec->prop("person")))
+			if($this->can("", $rec->prop("person")))
 			{
 				$p_obj = obj($rec->prop("person"));
 				$phones = "";
@@ -1656,7 +1649,7 @@ class crm_person extends class_base
 			$arr["prop"]["value"] = $rel->prop($arr["prop"]["name"]);
 		}
 
-		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("view", $arr["prop"]["value"]))
+		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("", $arr["prop"]["value"]))
 		{
 			$v = obj($arr["prop"]["value"]);
 			$arr["prop"]["options"][$arr["prop"]["value"]] = $v->name();
@@ -1674,7 +1667,7 @@ class crm_person extends class_base
 			$arr["prop"]["value"] = $rel->prop($arr["prop"]["name"]);
 		}
 
-		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("view", $arr["prop"]["value"]))
+		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("", $arr["prop"]["value"]))
 		{
 			$v = obj($arr["prop"]["value"]);
 			$arr["prop"]["options"][$arr["prop"]["value"]] = $v->name();
@@ -2125,11 +2118,11 @@ class crm_person extends class_base
 				break;
 
 			case "code":
-				if (empty($data["value"]) && is_oid($ct = $arr["obj_inst"]->prop("address")) && $this->can("view", $ct))
+				if (empty($data["value"]) && is_oid($ct = $arr["obj_inst"]->prop("address")) && $this->can("", $ct))
 				{
 					$ct = obj($ct);
 					$rk = $ct->prop("riik");
-					if (is_oid($rk) && $this->can("view", $rk))
+					if (is_oid($rk) && $this->can("", $rk))
 					{
 						$rk = obj($rk);
 						$code = substr(trim($rk->ord()), 0, 1);
@@ -2167,7 +2160,7 @@ class crm_person extends class_base
 				{
 					$data["value"] = $u->get_current_person();
 				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("view", $data["value"]))
+				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$data["value"]] = $tmp->name();
@@ -2190,7 +2183,7 @@ class crm_person extends class_base
 				//through sections, relpicker obviously doesn't cover that
 				//maybe i made design flaw and should have done what i did
 				//a bit differently?
-				if($this->can("view", $arr["obj_inst"]->id()))
+				if($this->can("", $arr["obj_inst"]->id()))
 				{
 					$company = $this->get_work_contacts($arr);
 				}
@@ -2212,14 +2205,14 @@ class crm_person extends class_base
 					3 => t("Vallaline"),
 					1 => t("Abielus"),
 					2 => t("Lahutatud"),
-					4 => t("Vabaabielus"),
+					4 => t("Vabaabielus")
 				);
 				break;
 
 			case "templates":
 				$data["options"] = array(
 					"1" => t("Pilt, kontakt, artiklid"),
-					"2" => t("kontakt"),
+					"2" => t("kontakt")
 				);
 				break;
 
@@ -2232,7 +2225,7 @@ class crm_person extends class_base
 				break;
 
 			case "gender":
-				$data["options"] = $this->gender_options;
+				$data["options"] = $arr["obj_inst"]->gender_options();
 				break;
 
 			case "email":
@@ -2261,14 +2254,14 @@ class crm_person extends class_base
 				break;
 
 			case "juhiload":
-				if(!($arr["request"]["skill"]=="driving_licenses"))
+				if(!($arr["request"]["skill"]==="driving_licenses"))
 				{
 					return PROP_IGNORE;
 				}
 				break;
 
 			case "submit_driving_licenses":
-				if(!($arr["request"]["skill"]=="driving_licenses"))
+				if(!($arr["request"]["skill"]==="driving_licenses"))
 				{
 					return PROP_IGNORE;
 				}
@@ -2279,7 +2272,7 @@ class crm_person extends class_base
 				break;
 
 			case "language_skills_table":
-				if($arr["request"]["skill"] =="languages")
+				if($arr["request"]["skill"] ==="languages")
 				{
 					$this->do_language_skills_table($arr);
 				}
@@ -2528,7 +2521,7 @@ class crm_person extends class_base
 						$data["value"] = $rel->prop($data["name"]);
 					}
 				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("view", $data["value"]))
+				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$data["value"]] = $tmp->name();
@@ -2547,7 +2540,7 @@ class crm_person extends class_base
 						$data["value"] = $rel->prop($data["name"]);
 					}
 				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("view", $data["value"]))
+				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$data["value"]] = $tmp->name();
@@ -2826,7 +2819,7 @@ class crm_person extends class_base
 	{
 		$org_fixed = 0;
 		$query = $this->parse_url_parse_query($arr["request"]["return_url"]);
-		if($query["class"] === "crm_company" && $this->can("view", $query["id"]))
+		if($query["class"] === "crm_company" && $this->can("", $query["id"]))
 		{
 			$org_fixed = $query["id"];
 		}
@@ -2860,7 +2853,7 @@ class crm_person extends class_base
 			}
 
 			$sec_options = array();
-			if($this->can("view", $orgid))
+			if($this->can("", $orgid))
 			{
 				$org_obj = new object($orgid);
 				if(empty($sec_options[$orgid]) or !is_array($sec_options[$orgid]))
@@ -2878,7 +2871,7 @@ class crm_person extends class_base
 				}
 			}
 			$pro_options = array();
-			if($this->can("view", $secid))
+			if($this->can("", $secid))
 			{
 				$sec_obj = obj($secid);
 				foreach($sec_obj->connections_from(array("type" => 3)) as $pro_conn)
@@ -5070,7 +5063,7 @@ fnCallbackAddNew = function()
 		$u = get_instance(CL_USER);
 		$p = $u->get_current_person();
 		$arr["request"]["stats_s_worker_sel"] = array($p => $p);
-		classload("vcl/table");
+		
 		$t = new vcl_table;
 		$arr["prop"]["vcl_inst"] = $t;
 		$arr["request"]["ret"] = 1;

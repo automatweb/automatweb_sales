@@ -171,7 +171,7 @@ class patent extends intellectual_property
 
 	function _get_products_and_services_tbl(&$arr)
 	{
-		classload("vcl/table");
+		
 		$t = &$arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
@@ -209,7 +209,7 @@ class patent extends intellectual_property
 			return;
 		}
 
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));
@@ -399,7 +399,7 @@ class patent extends intellectual_property
 			}
 			$tpl = "products_res.tpl";
 			$is_tpl = $this->read_template($tpl,1);
-			classload("vcl/table");
+			
 			$t = new vcl_table(array(
 				"layout" => "generic",
 			));

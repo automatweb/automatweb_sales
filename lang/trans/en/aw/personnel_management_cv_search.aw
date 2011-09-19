@@ -1,3 +1,3 @@
 <?php
-$GLOBALS["TRANS"]["Nimi"] = "Name";
+$GLOBALS["TRANS"][5147]["Nimi"] = "Name";
 ?>

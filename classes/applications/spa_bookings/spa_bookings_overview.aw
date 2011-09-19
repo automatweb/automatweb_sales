@@ -257,7 +257,7 @@ class spa_bookings_overview extends class_base
 			"clid" => CL_SPA_BOOKINGS_OVERVIEW
 		));
 		classload("core/date/date_calc");
-		classload("core/icons");
+		
 		$this->stats_search_properties = array(
 			"r_ra_name",
 			"r_ra_booker_name",
@@ -2035,7 +2035,7 @@ class spa_bookings_overview extends class_base
 	**/
 	function ajax_update_prop($arr)
 	{
-		classload("vcl/table");
+		
 		$t = new vcl_table();
 
 		$property = $arr["prop"];
@@ -2058,7 +2058,7 @@ class spa_bookings_overview extends class_base
 				$this->_get_reservation_management_list($arr);
 				break;
 			case "room_management_tree":
-				classload("vcl/treeview");
+				
 				$t = new treeview();
 				$arr["prop"] = array("vcl_inst" => $t);
 				$this->_get_room_management_tree($arr);
@@ -2070,7 +2070,7 @@ class spa_bookings_overview extends class_base
 			case "room_management_capacity_from_tree":
 			case "room_management_capacity_to_tree":	
 			case "reservation_management_tree":
-				classload("vcl/treeview");
+				
 				$t = new treeview();
 				$arr["prop"] = array("vcl_inst" => $t);
 				$fun = "_get_".$property;
@@ -2469,7 +2469,7 @@ class spa_bookings_overview extends class_base
 	function show_cals_pop($arr)
 	{
 		$_GET["in_popup"] = 1;
-		classload("vcl/table");
+		
 		$html = "";
 		$this->read_template("room_cals.tpl");
 		$cals = "";

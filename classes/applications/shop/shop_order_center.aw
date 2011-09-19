@@ -2705,7 +2705,7 @@ SCRIPT;
 			"reforb" => 0,
 		);
 
-		classload("vcl/table");
+		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));

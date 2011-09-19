@@ -517,7 +517,7 @@ class cfgform extends class_base
 				break;
 
 			case "ctype":
-				classload("core/icons");
+				
 				$clid = $arr["obj_inst"]->prop("subclass");
 				$iu = html::img(array(
 					"url" => icons::get_icon_url($clid,""),
@@ -1348,7 +1348,7 @@ class cfgform extends class_base
 				$trans = safe_array($arr["obj_inst"]->meta("translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_langid_for_code($lid), false);
+					$ld = $l->fetch($l->get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
 						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
@@ -1363,7 +1363,7 @@ class cfgform extends class_base
 				$trans = safe_array($arr["obj_inst"]->meta("grp_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_langid_for_code($lid), false);
+					$ld = $l->fetch($l->get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
 						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
@@ -1378,7 +1378,7 @@ class cfgform extends class_base
 				$trans = safe_array($arr["obj_inst"]->meta("layout_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_langid_for_code($lid), false);
+					$ld = $l->fetch($l->get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
 						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
@@ -1393,7 +1393,7 @@ class cfgform extends class_base
 				$trans = safe_array($arr["obj_inst"]->meta("tbl_capt_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_langid_for_code($lid), false);
+					$ld = $l->fetch($l->get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
 						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);

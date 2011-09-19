@@ -161,7 +161,7 @@ class person_skill_manager extends class_base
 			return;
 		}
 
-		classload("core/icons");
+		
 		$tree =&$arr["prop"]["vcl_inst"];
 		$tree->start_tree(array (
 			"type" => TREE_DHTML,
@@ -352,7 +352,7 @@ class person_skill_manager extends class_base
 
 		if ($_SESSION["crm"]["people_view"] == "edit")
 		{
-			classload("core/icons");
+			
 			$tree_inst->set_root_name($arr["obj_inst"]->name());
 			$tree_inst->set_root_icon(icons::get_icon_url(CL_CRM_COMPANY));
 			$tree_inst->set_root_url(aw_url_change_var("cat", NULL, aw_url_change_var("unit", NULL)));

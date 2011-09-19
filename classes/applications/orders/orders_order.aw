@@ -237,7 +237,7 @@ class orders_order extends class_base
 
 				$prop["value"] = join ("<br>\n" , $oi_data);
 
-				classload("vcl/table");
+				
 				$table = new aw_table(array(
 					"layout" => "generic"
 				));

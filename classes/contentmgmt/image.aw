@@ -861,28 +861,21 @@ class image extends class_base
 	}
 
 	/**
-
 		@attrib name=show params=name nologin="1"
-
 		@param file required
-
 		@returns
-
-
 		@comment
-
 	**/
 	function show($arr)
 	{
-		extract($arr);
+		$file = $arr["file"];
 		$rootdir = aw_ini_get("site_basedir");
-		$f1 = substr($file,0,1);
-		$fname = $rootdir . "img/$f1/" . $file;
+		$f1 = substr($file, 0, 1);
+		$fname = "{$rootdir}img/{$f1}/{$file}";
 		if ($file)
 		{
 			if (strpos("/",$file) !== false)
 			{
-				header("Content-type: text/html");
 				print "access denied,";
 			}
 
@@ -894,14 +887,7 @@ class image extends class_base
 			else
 			{
 				$fname = aw_ini_get("file.site_files_dir") . "{$f1}/{$file}";
-				if (is_file($fname) && is_readable($fname))
-				{
-					$passed = true;
-				}
-				else
-				{
-					$passed = false;
-				}
+				$passed = (is_file($fname) && is_readable($fname));
 			}
 
 			if ($passed)
@@ -912,12 +898,12 @@ class image extends class_base
 				}
 				else
 				{
-					$size = GetImageSize($fname);
+					$size = getimagesize($fname);
 				}
 
 				if (!is_array($size))
 				{
-					print "access denied.";
+					automatweb::http_exit(http::STATUS_NOT_FOUND);
 				}
 				else
 				{
@@ -956,7 +942,7 @@ class image extends class_base
 						imagecopyresampled($tmpimg, $im,0,0, 0, 0, $x, $y, $size[0], $size[1]);
 						imagedestroy($im);
 
-						header("Content-type: $type");
+						automatweb::$result->set_content_type($type);
 						switch($size[2])
 						{
 							case "1":
@@ -969,7 +955,8 @@ class image extends class_base
 								imagepng($tmpimg);
 								break;
 						}
-						die();
+
+						automatweb::http_exit();
 					}
 
 					// let the browser cache images
@@ -980,14 +967,13 @@ class image extends class_base
 					header("Expires: ".gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
 					header("Pragma:");
 					header("Cache-control: max-age=".$offset);
-					header("Content-type: $type");
 					header("Content-length: ".filesize($fname));
 					header("ETag: ".$cur_etag);
+					automatweb::$result->set_content_type($type);
 
 					if(isset($_SERVER["HTTP_IF_MODIFIED_SINCE"]) and strtotime($_SERVER["HTTP_IF_MODIFIED_SINCE"]) > filemtime($fname))
 					{
-						header("HTTP/1.x 304 Not Modified");
-						die();
+						automatweb::http_exit(http::STATUS_NOT_MODIFIED);
 					}
 
 					// check if we got an if-none-match and if we did, then check the etag and
@@ -999,25 +985,28 @@ class image extends class_base
 							$check_etag = trim($check_etag);
 							if ($check_etag == $cur_etag)
 							{
-								header("HTTP/1.x 304 Not Modified");
-								die();
+								automatweb::http_exit(http::STATUS_NOT_MODIFIED);
 							}
 						}
 					}
 
+					automatweb::$result->send_headers();
 					readfile($fname);
+					automatweb::shutdown();
+					exit;
 				}
 			}
 			else
 			{
-				print "Access denied.";
+				automatweb::http_exit(http::STATUS_NOT_FOUND);
 			}
 		}
 		else
 		{
-			print "Access denied.";
+			automatweb::http_exit(http::STATUS_BAD_REQUEST);
 		}
-		die();
+
+		exit;
 	}
 
 	/** Creates HTML image tag

@@ -1,5 +1,5 @@
 <?php
-$GLOBALS["TRANS"]["Grupi Erandid (exc) pealkiri"] = "Exceptions";
-$GLOBALS["TRANS"]["Mis asendada"] = "Replace what";
-$GLOBALS["TRANS"]["Millega asendada"] = "With what";
+$GLOBALS["TRANS"][5147]["Grupi Erandid (exc) pealkiri"] = "Exceptions";
+$GLOBALS["TRANS"][5147]["Mis asendada"] = "Replace what";
+$GLOBALS["TRANS"][5147]["Millega asendada"] = "With what";
 ?>

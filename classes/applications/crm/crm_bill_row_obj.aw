@@ -507,6 +507,14 @@ class crm_bill_row_obj extends _int_object
 		}
 
 		$this->set_name($name);
-		return parent::save($check_state);
+		$r = parent::save($check_state);
+
+		// update invoice
+		if ($invoice)
+		{
+			$invoice->handle_row_save($this->ref());
+		}
+
+		return $r;
 	}
 }

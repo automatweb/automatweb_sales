@@ -2,23 +2,38 @@
 
 // get aw directory and file extension
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
-$aw_dir = str_replace("\\", "/", dirname($__FILE__)) . "/";
-$aw_dir = str_replace("//", "/", $aw_dir);
+$aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", dirname($__FILE__)) . "/";
+$aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", $aw_dir);
 define("AW_DIR", $aw_dir);
 define("AW_FILE_EXT", substr($__FILE__, strrpos($__FILE__, "automatweb") + 10)); // extension can't be 'automatweb'
 
 // required for Zend Framework classes autoloading
 set_include_path(implode(PATH_SEPARATOR, array(
 	AW_DIR . "addons/",
-	get_include_path(),
+	get_include_path()
 )));
 
-// include required libraries
+// include required 'kernel' libraries
 require_once(AW_DIR . "lib/main" . AW_FILE_EXT);
 
-// set required confituration
+// set required configuration
 register_shutdown_function("aw_fatal_error_handler");
 ini_set("track_errors", "1");
+
+/*
+//TODO: cli exec option
+// service request if script used in executable mode
+if (!empty($argv[1]))
+{
+	$request = aw_request::autoload();
+	automatweb::start();
+	automatweb::$instance->bc();
+	automatweb::$instance->set_request($request);
+	automatweb::$instance->exec();
+	automatweb::$result->send();
+	automatweb::shutdown();
+}
+*/
 
 class automatweb
 {
@@ -92,9 +107,9 @@ class automatweb
 		$request = aw_request::autoload();
 		automatweb::$instance->set_request($request);
 		automatweb::$instance->exec();
-		echo automatweb::$result->send();
+		automatweb::$result->send();
 		automatweb::shutdown();
-		exit;
+		automatweb::http_exit();
 	}
 
 	/**
@@ -213,6 +228,23 @@ class automatweb
 		}
 	}
 
+	/** Outputs buffers, shuts down and stops scipt execution
+		@attrib api=1 params=pos
+		@param status type=int default=http::STATUS_OK
+			One of http::STATUS_ constants
+		@comment
+		@returns void
+		@errors
+	**/
+	public static function http_exit($status = http::STATUS_OK)
+	{
+		automatweb::$result->set_status($status);
+		automatweb::$result->send();
+		automatweb::shutdown();
+		exit;
+	}
+
+
 	/**
 	@attrib api=1 params=pos
 	@param request required type=aw_request
@@ -282,6 +314,7 @@ class automatweb
 		if (self::$request instanceof aw_http_request)
 		{
 			self::$result = new aw_http_response();
+			self::$result->set_charset(aw_global_get("charset"));
 		}
 
 		if ($this->bc)

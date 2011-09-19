@@ -6,6 +6,13 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	const CUSTOMER_TYPE_SELLER = 1;
 	const CUSTOMER_TYPE_BUYER = 2;
 
+	private static $_email_type_lut = array(
+		"" => null,
+		"all" => null,
+		"general" => ml_member_obj::TYPE_GENERIC,
+		"invoice" => ml_member_obj::TYPE_INVOICE
+	);
+
 	//	Written solely for testing purposes!
 	public function get_units()
 	{
@@ -959,20 +966,9 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			}
 
 			// to not add employee twice
-			// look for existing employment contracts between this organization and person in given profession
-			$filter = array(
-				"class_id" => CL_CRM_PERSON_WORK_RELATION,
-				"employer" => $this->id(),
-				"employee" => $person->id()
-			);
-			// look for any relation if no profession given
-			if ($profession)
-			{
-				$filter["profession"] = $profession->id();
-			}
-
-			$list = new object_list($filter);
-			if ($list->count())
+			// look for existing employment contracts between this organization and person in given profession (active or undefined)
+			$existing = crm_person_work_relation_obj::find($person, $profession, $this->ref());
+			if ($existing->count())
 			{
 				throw new awex_redundant_instruction("Person " . $person->id() . " is already employed by organization " . $this->id() . " in profession " . $profession->id());
 			}
@@ -1158,11 +1154,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		$prms = array(
 			"class_id" => CL_ML_MEMBER,
-			"status" => array(),
-			"parent" => array(),
-			"site_id" => array(),
-			"lang_id" => array(),
-			"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_COMPANY)" => isset($id) ? $id : parent::id(),
+			"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_COMPANY)" => isset($id) ? $id : parent::id()
 		);
 
 		if(isset($return_as_names) && $return_as_names)
@@ -1231,6 +1223,39 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $ret;
 	}
 
+	/**
+		@attrib api=1 params=pos
+		@comment
+		@param type type=string default="" set=""|"all"|"invoice"|"general"
+		@returns object_list(CL_ML_MEMBER)
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function get_email_addresses($type = "")
+	{
+		$this->require_state("saved");
+		$type = isset(self::$_email_type_lut[$type]) ? self::$_email_type_lut[$type] : null;
+		$list = new object_list(array(
+			"class_id" => ml_member_obj::CLID,
+			"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_COMPANY)" => $this->id(),
+			"contact_type" => $type
+		));
+		return $list;
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@returns CL_ML_MEMBER|NULL
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function get_email_address()
+	{
+		$this->require_state("saved");
+		$email = $this->get_first_obj_by_reltype("RELTYPE_EMAIL");
+		return $email;
+	}
+
 	public function set_default_email_address()
 	{
 	}
@@ -1255,7 +1280,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		}
 
 		$mo = new object();
-		$mo->set_class_id(CL_ML_MEMBER);
+		$mo->set_class_id(ml_member_obj::CLID);
 		$mo->set_parent($this->id());
 		$mo->set_name($address);
 		$mo->set_prop("mail" , $address);
@@ -2024,7 +2049,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		$ol = new object_list();
 
 		if (!is_array($clids) or in_array(crm_company_obj::CLID, $clids))
-		{			
+		{
 			$ol->add(new object_list(array(
 				"class_id" => crm_company_obj::CLID,
 				"CL_CRM_COMPANY.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).status" => array(object::STAT_ACTIVE, object::STAT_NOTACTIVE),
