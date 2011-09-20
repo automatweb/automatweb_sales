@@ -12,6 +12,7 @@ class awlc_number_en implements awlc_number
 		// check if there is a dot in the number and if so, separate the last part
 
 		$special = array(
+			"00" => "",
 			"10" => "ten",
 			"11" => "eleven",
 			"12" => "twelve",
@@ -55,7 +56,7 @@ class awlc_number_en implements awlc_number
 					$res .= $singles[reset($pieces)] . " hundred ";
 					array_shift($pieces);
 					$size--;
-				};
+				}
 
 				if ($size == 2)
 				{
@@ -68,12 +69,12 @@ class awlc_number_en implements awlc_number
 					{
 						$res .= $special[$pieces[0]."0"] . " ";
 						$res .= $singles[end($pieces)];
-					};
+					}
 				}
 				else
 				{
 					$res .= $singles[end($pieces)];
-				};
+				}
 
 				//$res .= end($pieces) == 1 ? $jargud1[$jrk] : $jargud2[$jrk];
 				$res .= $jargud1[$jrk];
@@ -98,20 +99,20 @@ class awlc_number_en implements awlc_number
 		if (!empty($lastpart))
 		{
 			$res .= " $currency1 and " . $lastpart . " " .$currency2;
-		};
+		}
 
 		return $res;
-
 	}
 
 	public static function get_lc_money_text($sum, $currency)
 	{
 		list($sum, $small_unit_sum) = explode(".", number_format($sum, 2, ".", ""));
+
 		$res = str_replace($sum, self::get_lc_number($sum), $currency->get_string_for_sum($sum, languages::LC_ENG));
 
 		if ($small_unit_sum > 0)
 		{
-			$res .= " and ". str_replace($small_unit_sum, self::get_lc_number($small_unit_sum), $currency->get_small_unit_string_for_sum($small_unit_sum, languages::LC_EST));
+			$res .= " and ". str_replace($small_unit_sum, self::get_lc_number($small_unit_sum), $currency->get_small_unit_string_for_sum($small_unit_sum, languages::LC_ENG));
 		}
 		else
 		{

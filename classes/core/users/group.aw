@@ -892,7 +892,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 		@comment
 		Adds the $user to the $group.
 	**/
-	function add_user_to_group($user, $group, $arr = array())
+	public static function add_user_to_group($user, $group, $arr = array())
 	{
 		// for each group in path from the to-add group
 		foreach($group->path() as $p_o)

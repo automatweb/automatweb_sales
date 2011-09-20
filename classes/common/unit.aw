@@ -36,7 +36,7 @@
 class unit extends class_base
 {
 	protected $trans_props = array(
-		"name", "unit_name_morphology_spec"
+		"name", "unit_name_morphology_spec", "unit_code"
 	);
 
 	function unit()
