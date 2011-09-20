@@ -1,6 +1,6 @@
 <?php
 
-abstract class aw_db_connector
+abstract class aw_db_connection
 {
 	const DEFAULT_CID_STR = "DBMAIN";
 
@@ -842,14 +842,14 @@ abstract class aw_db_connector
 	}
 }
 
-/** Generic database provider error **/
-class awex_db extends aw_exception {}
+// /** Generic database provider error **/
+// class awex_db extends aw_exception {}
 
-/** Database connection error **/
-class awex_db_connection extends awex_db {}
+// /** Database connection error **/
+// class awex_db_connection extends awex_db {}
 
-/** Database connection parameters error **/
-class awex_db_connection_param extends awex_db_connection {}
+// /** Database connection parameters error **/
+// class awex_db_connection_param extends awex_db_connection {}
 
-/** Database driver error **/
-class awex_db_driver extends awex_db {}
+// /** Database driver error **/
+// class awex_db_driver extends awex_db {}
