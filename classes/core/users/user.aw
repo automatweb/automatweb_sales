@@ -1376,9 +1376,10 @@ EOF;
 						"reltype" => "RELTYPE_MEMBER" // from group
 					));
 
-
-					$user->create_brother($p_o->id());
-
+					if ("root" !== $user->prop("uid"))
+					{
+						$user->create_brother($p_o->id());
+					}
 				}
 			}
 
