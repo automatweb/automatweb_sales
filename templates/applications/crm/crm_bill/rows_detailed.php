@@ -20,18 +20,17 @@
 			</thead>
 
 			<?foreach($rows as $row_group){?>
-			<tbody class="rowgroup">
+			<tbody class="rows">
 				<tr>
-					<td colspan="7">
+					<td colspan="7" class="rowgroup">
+						<p class="printspacer">&nbsp;</p>
 						<h3 class="caption"><?=$row_group["name"]?></h3>
 						<?if($row_group["name_group_comment"]){?>
 						<p><?=$row_group["name_group_comment"]?></p>
 						<?}?>
 					</td>
 				</tr>
-			</tbody>
 
-			<tbody class="rows">
 			<?foreach($row_group["rows"] as $row){?>
 				<tr>
 					<td><?=$row["oid"]?></td>
