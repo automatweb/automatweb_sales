@@ -30,7 +30,7 @@ class shop_delivery_note_obj extends _int_object
 		}
 	}
 
-	function update_dn($data)
+	function update_dn(array $data)
 	{
 		$dno = $this;
 		$dno->set_prop("from_warehouse", $data["from_warehouse"]);
@@ -38,13 +38,13 @@ class shop_delivery_note_obj extends _int_object
 		$dno->set_prop("impl", $data["impl"]);
 		$dno->set_prop("currency", $data["currency"]);
 		$dno->save();
-		if(is_array($data["rows"]))
+		if(isset($data["rows"]) and is_array($data["rows"]))
 		{
 			$dno->update_dn_rows($data["rows"]);
 		}
 	}
 
-	function update_dn_rows($data)
+	function update_dn_rows(array $data)
 	{
 		$dno = $this;
 		$conn = $dno->connections_from(array(
@@ -66,7 +66,7 @@ class shop_delivery_note_obj extends _int_object
 			else
 			{
 				$row->delete();
-			}	
+			}
 		}
 		foreach($data as $prod => $d)
 		{
@@ -129,7 +129,7 @@ class shop_delivery_note_obj extends _int_object
 
 	/**
 	@attrib name=create_movement api=1
-		
+
 	@comment
 		if called on a delivery note object, creates movements from its rows and changes the warehouse amounts
 	@returns
@@ -528,7 +528,7 @@ class shop_delivery_note_obj extends _int_object
 		}
 		$whs = array(0=>t("--vali--")) + $whs;
 		natcasesort($whs);
-		return $whs;	
+		return $whs;
 	}
 
 	function _get_article_code_chooser()
