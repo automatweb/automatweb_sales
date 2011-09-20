@@ -58,7 +58,7 @@ class users_user extends aw_template
 				{
 					throw new awex_auth_pw("Root password not set or doesn't meet requirements");
 				}
-
+//TODO: viia auth moodulisse root autentimine?
 				// compare with what user submitted
 				if ($password === $root_password)
 				{
@@ -74,7 +74,14 @@ class users_user extends aw_template
 						$root_user = obj(null, array(), user_obj::CLID);
 						$root_user->set_parent(1);
 						$root_user->set_prop("uid", "root");
+						$root_user->set_name("root");
 						$root_user->save();
+
+						$root_group = obj(null, array(), group_obj::CLID);
+						$root_group->set_parent(1);
+						$root_group->set_name("root");
+						$root_group->save();
+						group::add_user_to_group($root_user, $root_group);
 					}
 				}
 				else
