@@ -261,15 +261,15 @@ class automatweb
 
 	/**
 	@attrib api=1 params=pos
-	@param files required type=array
+	@param files type=array
 		Configuration files to load.
-	@param cache_file required type=string
+	@param cache_file type=string default=""
 		Where to write cached version of loaded configuration.
 	@returns void
 	@comment
 		Loads configuration from given files, merging it to default configuration.
 	**/
-	public function load_config_files($files = array(), $cache_file)
+	public function load_config_files(array $files, $cache_file = "")
 	{
 		$keys = array_keys($files, AW_DIR . "aw.ini", true);
 		foreach ($keys as $i)
