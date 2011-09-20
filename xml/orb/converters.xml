@@ -263,5 +263,21 @@
 			</function>
 		</action>
 
+		<action name="convert_translations_1_find_lang_ids">
+			<function name="convert_translations_1_find_lang_ids">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_translations_1">
+			<function name="convert_translations_1">
+				<arguments>
+					<required name="from_lid" />
+					<required name="to_lid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>
