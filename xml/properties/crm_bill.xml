@@ -818,6 +818,7 @@
             <rows>
                   <caption>Read</caption>
                   <parent>content</parent>
+                  <no_submit>1</no_submit>
             </rows>
             <text_comments>
                   <caption>Kommentaartekstid</caption>
