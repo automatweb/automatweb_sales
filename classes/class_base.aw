@@ -6784,7 +6784,7 @@ ENDSCRIPT;
 				$r = $this->awcb_data_sources[$name];
 
 				// check character set compatibility
-				if ($r->lang_id() and aw_global_get("lang_id") and aw_global_get("lang_id") != $r->lang_id())
+				if ($r->lang_id() and aw_global_get("lang_id") and !aw_ini_empty("classes.".$r->class_id().".ct_lang_sensitive") and aw_global_get("lang_id") != $r->lang_id())
 				{
 					$this->show_msg_text(sprintf(t("Valitud keel ja objekti keel (%s) on erinevad. Kuvamisel v&otilde;ib esineda t&auml;hem&auml;rgivigu"), $r->lang()));
 				}
