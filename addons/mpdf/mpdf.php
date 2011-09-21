@@ -2123,7 +2123,7 @@ function PrintTableBackgrounds($adjustmenty=0) {
 		// mPDF 5.1.008
 		foreach ($pbs AS $pb) {
 	 	 if ((!isset($pb['gradient']) || !$pb['gradient']) && (!isset($pb['image_id']) || !$pb['image_id'])) {
-			$s .= $this->SetFColor($pb['col'], true)."\n";
+			if(isset($pb['col'])) $s .= $this->SetFColor($pb['col'], true)."\n";
 			$s .= sprintf('%.3f %.3f %.3f %.3f re %s',$pb['x']*$this->k,($this->h-$pb['y'])*$this->k,$pb['w']*$this->k,-$pb['h']*$this->k,'f')."\n";
 		  }
 	 	 if (isset($pb['gradient']) && $pb['gradient']) {
@@ -2279,7 +2279,7 @@ function AddPage($orientation='',$condition='', $resetpagenum='', $pagenumstyle=
 	$condition = strtoupper($condition);
 
 
-	if ($condition == 'NEXT-EVEN') {	// always adds at least one new page to create an Even page
+	if ($condition === 'NEXT-EVEN') {	// always adds at least one new page to create an Even page
 	   if (!$this->mirrorMargins) { $condition = ''; }
 	   else {
 		if ($pagesel) { $pbch = $pagesel; $pagesel = ''; }	// *CSS-PAGE*
@@ -2289,7 +2289,7 @@ function AddPage($orientation='',$condition='', $resetpagenum='', $pagenumstyle=
 		$condition = '';
 	   }
 	}
-	if ($condition == 'NEXT-ODD') {	// always adds at least one new page to create an Odd page
+	if ($condition === 'NEXT-ODD') {	// always adds at least one new page to create an Odd page
 	   if (!$this->mirrorMargins) { $condition = ''; }
 	   else {
 		if ($pagesel) { $pbch = $pagesel; $pagesel = ''; }	// *CSS-PAGE*
@@ -2301,10 +2301,10 @@ function AddPage($orientation='',$condition='', $resetpagenum='', $pagenumstyle=
 	}
 
 
-	if ($condition == 'E') {	// only adds new page if needed to create an Even page
+	if ($condition === 'E') {	// only adds new page if needed to create an Even page
 	   if (!$this->mirrorMargins || ($this->page)%2==0) { return false; }
 	}
-	if ($condition == 'O') {	// only adds new page if needed to create an Odd page
+	if ($condition === 'O') {	// only adds new page if needed to create an Odd page
 	   if (!$this->mirrorMargins || ($this->page)%2==1) { return false; }
 	}
 
@@ -2486,7 +2486,7 @@ function PageNo() {
 }
 
 function AddSpotColorsFromFile($file) {
-	$colors = @file($file) or die("Cannot load spot colors file - ".$file);
+	$colors = file($file) or die("Cannot load spot colors file - ".$file);
 	foreach($colors AS $sc) {
 		list($name, $c, $m, $y, $k) = preg_split("/\t/",$sc);
 		$c = intval($c);
@@ -7273,6 +7273,7 @@ function Output($name='',$dest='')
 			fwrite($f,$this->buffer,strlen($this->buffer));
 			fclose($f);
 			break;
+
 		   case 'S':
 			//Return as a string
 			return $this->buffer;
@@ -12268,7 +12269,7 @@ function TableHeaderFooter($content='',$tablestartpage='',$tablestartcolumn ='',
 	}
 
 	if (isset($tablehf['background-image']) && $paintcell){
-	  if ($tablehf['background-image']['gradient'] && preg_match('/(-moz-)*(repeating-)*(linear|radial)-gradient/', $tablehf['background-image']['gradient'] )) {
+	  if (!empty($tablehf['background-image']['gradient']) && preg_match('/(-moz-)*(repeating-)*(linear|radial)-gradient/', $tablehf['background-image']['gradient'] )) {
 		$g = $this->parseMozGradient( $tablehf['background-image']['gradient'] );
 		if ($g) {
  		  if ($table['borders_separate']) {
@@ -12292,7 +12293,7 @@ function TableHeaderFooter($content='',$tablestartpage='',$tablestartcolumn ='',
 		  }
 		}
 	  }
-	  else if ($tablehf['background-image']['image_id']) {	// Background pattern
+	  else if (!empty($tablehf['background-image']['image_id'])) {	// Background pattern
 		$n = count($this->patterns)+1;
  		if ($table['borders_separate']) {
  			$px = $x+ ($table['border_spacing_H']/2);
@@ -12449,7 +12450,7 @@ function TableHeaderFooter($content='',$tablestartpage='',$tablestartcolumn ='',
 			    }
 
 			   if (isset($content[$i][0]['trbackground-images']) && ($colctr==1 || $table['borders_separate'])) {
-			    if ($content[$i][0]['trbackground-images']['gradient'] && preg_match('/(-moz-)*(repeating-)*(linear|radial)-gradient/', $content[$i][0]['trbackground-images']['gradient'] )) {
+			    if (!empty($content[$i][0]['trbackground-images']['gradient']) && preg_match('/(-moz-)*(repeating-)*(linear|radial)-gradient/', $content[$i][0]['trbackground-images']['gradient'] )) {
 				$g = $this->parseMozGradient( $content[$i][0]['trbackground-images']['gradient'] );
 				if ($g) {
 					$gx = $x0;
@@ -12481,16 +12482,16 @@ function TableHeaderFooter($content='',$tablestartpage='',$tablestartcolumn ='',
 				}
 			    }
 			    else {
-				$image_id = $content[$i][0]['trbackground-images']['image_id'];
-				$orig_w = $content[$i][0]['trbackground-images']['orig_w'];
-				$orig_h = $content[$i][0]['trbackground-images']['orig_h'];
-				$x_pos = $content[$i][0]['trbackground-images']['x_pos'];
-				$y_pos = $content[$i][0]['trbackground-images']['y_pos'];
-				$x_repeat = $content[$i][0]['trbackground-images']['x_repeat'];
-				$y_repeat = $content[$i][0]['trbackground-images']['y_repeat'];
-				$resize = $content[$i][0]['trbackground-images']['resize'];
-				$opacity = $content[$i][0]['trbackground-images']['opacity'];
-				$itype = $content[$i][0]['trbackground-image']['itype'];		// mPDF 5.2.04
+					$image_id = isset($content[$i][0]['trbackground-images']['image_id']) ? $content[$i][0]['trbackground-images']['image_id'] : "";
+					$orig_w = isset($content[$i][0]['trbackground-images']['orig_w']) ? $content[$i][0]['trbackground-images']['orig_w'] : "";
+					$orig_h = isset($content[$i][0]['trbackground-images']['orig_h']) ? $content[$i][0]['trbackground-images']['orig_h'] : "";
+					$x_pos = isset($content[$i][0]['trbackground-images']['x_pos']) ? $content[$i][0]['trbackground-images']['x_pos'] : "";
+					$y_pos = isset($content[$i][0]['trbackground-images']['y_pos']) ? $content[$i][0]['trbackground-images']['y_pos'] : "";
+					$x_repeat = isset($content[$i][0]['trbackground-images']['x_repeat']) ? $content[$i][0]['trbackground-images']['x_repeat'] : "";
+					$y_repeat = isset($content[$i][0]['trbackground-images']['y_repeat']) ? $content[$i][0]['trbackground-images']['y_repeat'] : "";
+					$resize = isset($content[$i][0]['trbackground-images']['resize']) ? $content[$i][0]['trbackground-images']['resize'] : "";
+					$opacity = isset($content[$i][0]['trbackground-images']['opacity']) ? $content[$i][0]['trbackground-images']['opacity'] : "";
+					$itype = isset($content[$i][0]['trbackground-image']['itype']) ? $content[$i][0]['trbackground-image']['itype'] : "";		// mPDF 5.2.04
 				$clippath = '';
 				$gx = $x0;
 				$gy = $y;
@@ -14688,11 +14689,11 @@ function fixCSS($prop) {
 	if (!is_array($prop) || (count($prop)==0)) return array();
 	$newprop = array();
 	foreach($prop AS $k => $v) {
-		if ($k != 'BACKGROUND-IMAGE' && $k != 'BACKGROUND' && $k != 'ODD-HEADER-NAME' && $k != 'EVEN-HEADER-NAME' && $k != 'ODD-FOOTER-NAME' && $k != 'EVEN-FOOTER-NAME' && $k != 'HEADER' && $k != 'FOOTER') {
+		if ($k !== 'BACKGROUND-IMAGE' && $k !== 'BACKGROUND' && $k !== 'ODD-HEADER-NAME' && $k !== 'EVEN-HEADER-NAME' && $k !== 'ODD-FOOTER-NAME' && $k !== 'EVEN-FOOTER-NAME' && $k !== 'HEADER' && $k !== 'FOOTER') {
 			$v = strtolower($v);
 		}
 
-		if ($k == 'FONT') {
+		if ($k === 'FONT') {
 			$s = trim($v);
 			preg_match_all('/\"(.*?)\"/',$s,$ff);
 			if (count($ff[1])) {
@@ -14725,7 +14726,7 @@ function fixCSS($prop) {
 				if (preg_match('/small-caps/i',$s)) { $newprop['TEXT-TRANSFORM'] = 'uppercase'; }
 			}
 		}
-		if ($k == 'FONT-FAMILY') {
+		if ($k === 'FONT-FAMILY') {
 			$aux_fontlist = explode(",",$v);
 			$found = 0;
 			foreach($aux_fontlist AS $f) {
@@ -14756,7 +14757,7 @@ function fixCSS($prop) {
 			   }
 			}
 		}
-		else if ($k == 'MARGIN') {
+		else if ($k === 'MARGIN') {
 			$tmp =  $this->expand24($v);
 			$newprop['MARGIN-TOP'] = $tmp['T'];
 			$newprop['MARGIN-RIGHT'] = $tmp['R'];
@@ -14764,7 +14765,7 @@ function fixCSS($prop) {
 			$newprop['MARGIN-LEFT'] = $tmp['L'];
 		}
 /*-- BORDER-RADIUS --*/
-		else if ($k == 'BORDER-RADIUS' || $k == 'BORDER-TOP-LEFT-RADIUS' || $k == 'BORDER-TOP-RIGHT-RADIUS' || $k == 'BORDER-BOTTOM-LEFT-RADIUS' || $k == 'BORDER-BOTTOM-RIGHT-RADIUS') {
+		else if ($k === 'BORDER-RADIUS' || $k === 'BORDER-TOP-LEFT-RADIUS' || $k === 'BORDER-TOP-RIGHT-RADIUS' || $k === 'BORDER-BOTTOM-LEFT-RADIUS' || $k === 'BORDER-BOTTOM-RIGHT-RADIUS') {
 			$tmp =  $this->border_radius_expand($v,$k);
 			if (isset($tmp['TL-H'])) $newprop['BORDER-TOP-LEFT-RADIUS-H'] = $tmp['TL-H'];
 			if (isset($tmp['TL-V'])) $newprop['BORDER-TOP-LEFT-RADIUS-V'] = $tmp['TL-V'];
@@ -14776,14 +14777,14 @@ function fixCSS($prop) {
 			if (isset($tmp['BR-V'])) $newprop['BORDER-BOTTOM-RIGHT-RADIUS-V'] = $tmp['BR-V'];
 		}
 /*-- END BORDER-RADIUS --*/
-		else if ($k == 'PADDING') {
+		else if ($k === 'PADDING') {
 			$tmp =  $this->expand24($v);
 			$newprop['PADDING-TOP'] = $tmp['T'];
 			$newprop['PADDING-RIGHT'] = $tmp['R'];
 			$newprop['PADDING-BOTTOM'] = $tmp['B'];
 			$newprop['PADDING-LEFT'] = $tmp['L'];
 		}
-		else if ($k == 'BORDER') {
+		else if ($k === 'BORDER') {
 			if ($v == '1') { $v = '1px solid #000000'; }
 			else { $v = $this->_fix_borderStr($v); }
 			$newprop['BORDER-TOP'] = $v;
@@ -14791,33 +14792,33 @@ function fixCSS($prop) {
 			$newprop['BORDER-BOTTOM'] = $v;
 			$newprop['BORDER-LEFT'] = $v;
 		}
-		else if ($k == 'BORDER-TOP') {
+		else if ($k === 'BORDER-TOP') {
 			$newprop['BORDER-TOP'] = $this->_fix_borderStr($v);
 		}
-		else if ($k == 'BORDER-RIGHT') {
+		else if ($k === 'BORDER-RIGHT') {
 			$newprop['BORDER-RIGHT'] = $this->_fix_borderStr($v);
 		}
-		else if ($k == 'BORDER-BOTTOM') {
+		else if ($k === 'BORDER-BOTTOM') {
 			$newprop['BORDER-BOTTOM'] = $this->_fix_borderStr($v);
 		}
-		else if ($k == 'BORDER-LEFT') {
+		else if ($k === 'BORDER-LEFT') {
 			$newprop['BORDER-LEFT'] = $this->_fix_borderStr($v);
 		}
-		else if ($k == 'BORDER-STYLE') {
+		else if ($k === 'BORDER-STYLE') {
 			$e = $this->expand24($v);
 			$newprop['BORDER-TOP-STYLE'] = $e['T'];
 			$newprop['BORDER-RIGHT-STYLE'] = $e['R'];
 			$newprop['BORDER-BOTTOM-STYLE'] = $e['B'];
 			$newprop['BORDER-LEFT-STYLE'] = $e['L'];
 		}
-		else if ($k == 'BORDER-WIDTH') {
+		else if ($k === 'BORDER-WIDTH') {
 			$e = $this->expand24($v);
 			$newprop['BORDER-TOP-WIDTH'] = $e['T'];
 			$newprop['BORDER-RIGHT-WIDTH'] = $e['R'];
 			$newprop['BORDER-BOTTOM-WIDTH'] = $e['B'];
 			$newprop['BORDER-LEFT-WIDTH'] = $e['L'];
 		}
-		else if ($k == 'BORDER-COLOR') {
+		else if ($k === 'BORDER-COLOR') {
 			$e = $this->expand24($v);
 			$newprop['BORDER-TOP-COLOR'] = $e['T'];
 			$newprop['BORDER-RIGHT-COLOR'] = $e['R'];
@@ -14825,7 +14826,7 @@ function fixCSS($prop) {
 			$newprop['BORDER-LEFT-COLOR'] = $e['L'];
 		}
 
-		else if ($k == 'BORDER-SPACING') {
+		else if ($k === 'BORDER-SPACING') {
 			$prop = preg_split('/\s+/',trim($v));
 			if (count($prop) == 1 ) {
 				$newprop['BORDER-SPACING-H'] = $prop[0];
@@ -14836,7 +14837,7 @@ function fixCSS($prop) {
 				$newprop['BORDER-SPACING-V'] = $prop[1];
 			}
 		}
-		else if ($k == 'SIZE') {
+		else if ($k === 'SIZE') {
 			$prop = preg_split('/\s+/',trim($v));
 			if (preg_match('/(auto|portrait|landscape)/',$prop[0])) {
 				$newprop['SIZE'] = strtoupper($prop[0]);
@@ -14850,7 +14851,7 @@ function fixCSS($prop) {
 				$newprop['SIZE']['H'] = $this->ConvertSize($prop[1]);
 			}
 		}
-		else if ($k == 'SHEET-SIZE') {
+		else if ($k === 'SHEET-SIZE') {
 			$prop = preg_split('/\s+/',trim($v));
 			if (count($prop) == 2 ) {
 				$newprop['SHEET-SIZE'] = array($this->ConvertSize($prop[0]), $this->ConvertSize($prop[1]));
@@ -14864,7 +14865,7 @@ function fixCSS($prop) {
 				if ($format) { $newprop['SHEET-SIZE'] = array($format[0]/$this->k, $format[1]/$this->k); }
 			}
 		}
-		else if ($k == 'BACKGROUND') {
+		else if ($k === 'BACKGROUND') {
 			$bg = $this->parseCSSbackground($v);
 			if ($bg['c']) { $newprop['BACKGROUND-COLOR'] = $bg['c']; }
 			else { $newprop['BACKGROUND-COLOR'] = 'transparent'; }
@@ -14878,7 +14879,7 @@ function fixCSS($prop) {
 /*-- END BACKGROUNDS --*/
 		}
 /*-- BACKGROUNDS --*/
-		else if ($k == 'BACKGROUND-IMAGE') {
+		else if ($k === 'BACKGROUND-IMAGE') {
 			if (preg_match('/(-moz-)*(repeating-)*(linear|radial)-gradient\(.*\)/i',$v,$m)) {
 				$newprop['BACKGROUND-IMAGE'] = $m[0];
 				continue;
@@ -14887,15 +14888,15 @@ function fixCSS($prop) {
 				$newprop['BACKGROUND-IMAGE'] = $m[1];
 			}
 
-			else if (strtolower($v)=='none') { $newprop['BACKGROUND-IMAGE'] = ''; }
+			else if (strtolower($v)==='none') { $newprop['BACKGROUND-IMAGE'] = ''; }
 
 		}
-		else if ($k == 'BACKGROUND-REPEAT') {
+		else if ($k === 'BACKGROUND-REPEAT') {
 			if (preg_match('/(repeat-x|repeat-y|no-repeat|repeat)/i',$v,$m)) {
 				$newprop['BACKGROUND-REPEAT'] = strtolower($m[1]);
 			}
 		}
-		else if ($k == 'BACKGROUND-POSITION') {
+		else if ($k === 'BACKGROUND-POSITION') {
 			$s = $v;
 			$bits = preg_split('/\s+/',trim($s));
 			// These should be Position x1 or x2
@@ -14924,7 +14925,7 @@ function fixCSS($prop) {
 			if ($bg['p']) { $newprop['BACKGROUND-POSITION'] = $bg['p']; }
 		}
 /*-- END BACKGROUNDS --*/
-		else if ($k == 'IMAGE-ORIENTATION') {
+		else if ($k === 'IMAGE-ORIENTATION') {
 			if (preg_match('/([\-]*[0-9\.]+)(deg|grad|rad)/i',$v,$m)) {
 				$angle = $m[1] + 0;
 				if (strtolower($m[2])=='deg') { $angle = $angle; }
@@ -15272,61 +15273,63 @@ function parseBackgroundGradient($bg) {
 
 function expand24($mp) {
 	$prop = preg_split('/\s+/',trim($mp));
-	if (count($prop) == 1 ) {
+	if (count($prop) === 1 ) {
 		return array('T' => $prop[0], 'R' => $prop[0], 'B' => $prop[0], 'L'=> $prop[0]);
 	}
-	if (count($prop) == 2 ) {
+	elseif (count($prop) === 2 ) {
 		return array('T' => $prop[0], 'R' => $prop[1], 'B' => $prop[0], 'L'=> $prop[1]);
 	}
-
-	if (count($prop) == 3 ) {
+	elseif (count($prop) === 3 ) {
 		return array('T' => $prop[0], 'R' => $prop[1], 'B' => $prop[2], 'L'=> $prop[1]);
 	}
-	if (count($prop) == 4 ) {
+	elseif (count($prop) === 4 ) {
 		return array('T' => $prop[0], 'R' => $prop[1], 'B' => $prop[2], 'L'=> $prop[3]);
 	}
-	return array();
+	else
+	{
+		return array('T' => "", 'R' => "", 'B' => "", 'L'=> "");
+	}
 }
 
 /*-- BORDER-RADIUS --*/
 function border_radius_expand($val,$k) {
 	$b = array();
-	if ($k == 'BORDER-RADIUS') {
+	if ($k === 'BORDER-RADIUS') {
 		$hv = explode('/',trim($val));
 		$prop = preg_split('/\s+/',trim($hv[0]));
-		if (count($prop)==1) {
+		if (count($prop)===1) {
 			$b['TL-H'] = $b['TR-H'] = $b['BR-H'] = $b['BL-H'] = $prop[0];
 		}
-		else if (count($prop)==2) {
+		else if (count($prop)===2) {
 			$b['TL-H'] = $b['BR-H'] = $prop[0];
 			$b['TR-H'] = $b['BL-H'] = $prop[1];
 		}
-		else if (count($prop)==3) {
+		else if (count($prop)===3) {
 			$b['TL-H'] = $prop[0];
 			$b['TR-H'] = $b['BL-H'] = $prop[1];
 			$b['BR-H'] = $prop[2];
 		}
-		else if (count($prop)==4) {
+		else if (count($prop)===4) {
 			$b['TL-H'] = $prop[0];
 			$b['TR-H'] = $prop[1];
 			$b['BR-H'] = $prop[2];
 			$b['BL-H'] = $prop[3];
 		}
-		if (count($hv)==2) {
+		if (count($hv)===2) {
 			$prop = preg_split('/\s+/',trim($hv[1]));
 			if (count($prop)==1) {
 				$b['TL-V'] = $b['TR-V'] = $b['BR-V'] = $b['BL-V'] = $prop[0];
 			}
-			else if (count($prop)==2) {
+			else if (count($prop)===2) {
 				$b['TL-V'] = $b['BR-V'] = $prop[0];
 				$b['TR-V'] = $b['BL-V'] = $prop[1];
 			}
-			else if (count($prop)==3) {
+			else if (count($prop)===3) {
 				$b['TL-V'] = $prop[0];
 				$b['TR-V'] = $b['BL-V'] = $prop[1];
 				$b['BR-V'] = $prop[2];
 			}
-			else if (count($prop)==4) {
+			else if (count($prop)===4) {
 				$b['TL-V'] = $prop[0];
 				$b['TR-V'] = $prop[1];
 				$b['BR-V'] = $prop[2];
@@ -15346,22 +15349,22 @@ function border_radius_expand($val,$k) {
 	$h = 0;
 	$v = 0;
 	$prop = preg_split('/\s+/',trim($val));
-	if (count($prop)==1) { $h = $v = $val; }
+	if (count($prop)===1) { $h = $v = $val; }
 	else { $h = $prop[0]; $v = $prop[1]; }
 	if ($h==0 || $v==0) { $h = $v = 0; }
-	if ($k == 'BORDER-TOP-LEFT-RADIUS') {
+	if ($k === 'BORDER-TOP-LEFT-RADIUS') {
 		$b['TL-H'] = $h;
 		$b['TL-V'] = $v;
 	}
-	else if ($k == 'BORDER-TOP-RIGHT-RADIUS') {
+	else if ($k === 'BORDER-TOP-RIGHT-RADIUS') {
 		$b['TR-H'] = $h;
 		$b['TR-V'] = $v;
 	}
-	else if ($k == 'BORDER-BOTTOM-LEFT-RADIUS') {
+	else if ($k === 'BORDER-BOTTOM-LEFT-RADIUS') {
 		$b['BL-H'] = $h;
 		$b['BL-V'] = $v;
 	}
-	else if ($k == 'BORDER-BOTTOM-RIGHT-RADIUS') {
+	else if ($k === 'BORDER-BOTTOM-RIGHT-RADIUS') {
 		$b['BR-H'] = $h;
 		$b['BR-V'] = $v;
 	}
@@ -17251,7 +17254,7 @@ function OpenTag($tag,$attr)
 	}
 
 
-	if (isset($properties['PAGE-BREAK-INSIDE']) && strtoupper($properties['PAGE-BREAK-INSIDE']) == 'AVOID' && !$this->ColActive && !$this->keep_block_together) {
+	if (isset($properties['PAGE-BREAK-INSIDE']) && strtoupper($properties['PAGE-BREAK-INSIDE']) === 'AVOID' && !$this->ColActive && !$this->keep_block_together) {
 		$currblk['keep_block_together'] = 1;
 		$this->kt_y00 = $this->y;
 		$this->kt_p00 = $this->page;
@@ -17299,7 +17302,7 @@ function OpenTag($tag,$attr)
 	if (isset($properties['FLOAT']) && strtoupper($properties['FLOAT']) == 'RIGHT' && !$this->ColActive) {
 		// Cancel Keep-Block-together
 		// $currblk['keep_block_together'] = false;
-		$this->kt_y00 = '';
+		// $this->kt_y00 = '';
 		// $this->keep_block_together = 0;
 
 		$this->blockContext++;
@@ -17342,7 +17345,7 @@ function OpenTag($tag,$attr)
 	else if (isset($properties['FLOAT']) && strtoupper($properties['FLOAT']) == 'LEFT' && !$this->ColActive) {
 		// Cancel Keep-Block-together
 		// $currblk['keep_block_together'] = false;
-		$this->kt_y00 = '';
+		// $this->kt_y00 = '';
 		// $this->keep_block_together = 0;
 
 		$this->blockContext++;
@@ -18768,7 +18771,7 @@ function OpenTag($tag,$attr)
 		}
 		else { $table['empty_cells'] = ''; }
 
-		if (isset($properties['PAGE-BREAK-INSIDE']) && strtoupper($properties['PAGE-BREAK-INSIDE'])=='AVOID' && $this->tableLevel==1 && !$this->writingHTMLfooter) {
+		if (isset($properties['PAGE-BREAK-INSIDE']) && strtoupper($properties['PAGE-BREAK-INSIDE'])==='AVOID' && $this->tableLevel==1 && !$this->writingHTMLfooter) {
 			$this->table_keep_together = true;
 		}
 		else if ($this->tableLevel==1) {
@@ -22941,11 +22944,11 @@ function setCSS($arrayaux,$type='',$tag='') {	// type= INLINE | BLOCK // tag= BO
 /*-- END BORDER-RADIUS --*/
 
 		case 'BACKGROUND-CLIP':
-			if (strtoupper($v) == 'PADDING-BOX') { $this->blk[$this->blklvl]['background_clip'] = 'padding-box'; }
+			if (strtoupper($v) === 'PADDING-BOX') { $this->blk[$this->blklvl]['background_clip'] = 'padding-box'; }
 			break;
 
 		case 'PAGE-BREAK-AFTER':
-			if (strtoupper($v) == 'AVOID') { $this->blk[$this->blklvl]['page_break_after_avoid'] = true; }
+			if (strtoupper($v) === 'AVOID') { $this->blk[$this->blklvl]['page_break_after_avoid'] = true; }
 			break;
 
 		case 'WIDTH':

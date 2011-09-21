@@ -75,7 +75,7 @@ class unit_obj extends _int_object
 		settype($value, "string");
 		$str = aw_locale::get_unit_string($value, $this->trans_get_val("unit_name_morphology_spec", $lang_id));
 
-		if ($str == $value)
+		if ($str === $value)
 		{
 			$str = $value . " " . $this->name();
 		}

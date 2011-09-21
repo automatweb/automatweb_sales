@@ -166,7 +166,7 @@ class crm_sales_offers_view
 				));
 				$tpls = $this_o->get_offer_templates();
 				if($tpls->count() > 0)
-				{					
+				{
 					$toolbar->add_sub_menu(array(
 						"parent" => "new",
 						"name" => "new_from_tpl",
@@ -174,7 +174,7 @@ class crm_sales_offers_view
 					));
 
 					foreach($tpls->names() as $tpl_oid => $tpl_name)
-					{						
+					{
 						$toolbar->add_menu_item(array(
 							"parent" => "new_from_tpl",
 							"text" => $tpl_name,
@@ -299,9 +299,9 @@ class crm_sales_offers_view
 			$offer = $offers->begin();
 			do
 			{
-				$customer_relation = new object($offer->prop("customer_relation"));
-				if (is_oid($customer_relation->id()))
+				if (object_loader::can("", $offer->prop("customer_relation")))
 				{
+					$customer_relation = new object($offer->prop("customer_relation"));
 					$customer = $customer_relation->get_first_obj_by_reltype("RELTYPE_BUYER");
 					$customer_name = html::obj_change_url($customer_relation, crm_sales::parse_customer_name($customer));
 				}
@@ -330,7 +330,7 @@ class crm_sales_offers_view
 				$sum = $offer->sum_with_currency();
 
 				$state = $offer_state_names[$offer->state];
-				
+
 				if (isset($offer_result_names[$offer->result]))
 				{
 					try

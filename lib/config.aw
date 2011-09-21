@@ -49,7 +49,19 @@ function aw_ini_isset($var)
 {
 	$path = explode(".", $var);
 	$path = implode('"]["', $path); //XXX: v6ibolla replace kiirem?
-	return eval('return !empty($GLOBALS["cfg"]["' . $path . '"]);');
+	return eval('return isset($GLOBALS["cfg"]["' . $path . '"]);');
+}
+
+/** Determines if configuration setting is not set or has empty value (0, "0", "", array()).
+	@attrib api=1
+	@param var required type=string
+	@returns boolean
+**/
+function aw_ini_empty($var)
+{
+	$path = explode(".", $var);
+	$path = implode('"]["', $path); //XXX: v6ibolla replace kiirem?
+	return eval('return empty($GLOBALS["cfg"]["' . $path . '"]);');
 }
 
 
@@ -123,95 +135,86 @@ function aw_global_set($var,$val)
 	@returns void|array
 		If $return parameter TRUE, returns result array
 **/
-function parse_config($file, $return = false)
+function parse_config($file, $return = false, $parsing_default_cfg = false)
 {
-	$fd = file($file);
 	$config = array();
-	$autoloaded_variables = array(
-		"site_basedir" => 1,
-		"site_public_root_dir" => 1,
-		"basedir" => 1,
-		"baseurl" => 1
+	$setting_variable_pattern = "/\\$\{([A-z][A-z\_\.\"\'\[\]]+)\}/Se";
+	$default_autoloaded_settings = array(
+		"baseurl",
+		"basedir",
+		"site_basedir",
+		"site_public_root_dir"
 	);
 
+	// __aw_cfg_meta__variable_dependencies is for altering/reloading ini settings defined using reference variables (e.g. default cfg
+	// sets pagecache_dir=${site_basedir}pagecache and a configuration file loaded later
+	// changes the value of site_basedir setting)
+	// format:
+	// array(
+		// nameof_ini_setting_used_as_variable => array(
+			// nameof_ini_setting_defined_using_reference => its_raw_value (i.e. containing reference not refered value),
+			// ...
+		// ),
+		// ...
+	// )
+	$GLOBALS["__aw_cfg_meta__variable_dependencies"] = array();
+
+	$fd = file($file);
 	foreach($fd as $linenum => $line)
 	{
 		// parse line
-		if (strlen(trim($line)) and $line{0} !== "#") // exclude comments and empty lines
+		$line = trim($line);
+		if (strlen($line) and $line{0} !== "#") // exclude comments and empty lines
 		{
 			// config option format is variable = value. variable is class1. ... .classN.
 			$data = explode("=", $line, 2);
 
 			if (2 === count($data))
 			{ // process regular variable
-				$var = str_replace(array('["','"]',"['","']","[","]"), array(".","",".", "",".", ""), trim($data[0]));//!!! should be deprecated and only '.' notation used. kept here for back compatibility.
-				$value = trim($data[1]);
+				$var = rtrim($data[0]);
+				$var = str_replace(array('["','"]',"['","']","[","]"), array(".","",".", "",".", ""), $var);//DEPRECATED. only '.' notation used. kept here for back compatibility.
+
+				// some variables are determined automatically when loading aw default cfg
+				// these are not to be overwritten by settings from default aw.ini
+				if ($parsing_default_cfg and in_array($var, $default_autoloaded_settings))
+				{
+					continue;
+				}
+
+				$value = ltrim($data[1]);
 
 				// now, replace all variables in varvalue
-				try
+				if (preg_match($setting_variable_pattern, $value, $m))
 				{
-					$value = preg_replace('/\$\{(.*)\}/e', "aw_ini_get(\"\\1\")",$value);
+					$referenced_setting_name = $m[1];
+					$GLOBALS["__aw_cfg_meta__variable_dependencies"][$referenced_setting_name][$var] = $value;
+
+					try
+					{
+						$value = str_replace("\${{$referenced_setting_name}}", aw_ini_get($referenced_setting_name), $value);
+					}
+					catch (awex_cfg_key $e)
+					{
+						$e = new awex_cfg_file("Failed to parse configuration file '" . $file . "' on line " . ($linenum + 1) . ". Invalid key '" . $e->awcfg_key . "'.");
+						$e->awcfg_file = $file;
+						$e->awcfg_line = $linenum + 1;
+						throw $e;
+					}
 				}
-				catch (awex_cfg_key $e)
+				elseif (isset($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var]))
 				{
-					$e = new awex_cfg_file("Failed to parse configuration file '" . $file . "' on line " . ($linenum + 1) . ". Invalid key '" . $e->awcfg_key . "'.");
-					$e->awcfg_file = $file;
-					$e->awcfg_line = $linenum + 1;
-					throw $e;
+					foreach ($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var] as $setting_using_reference => $raw_value)
+					{
+						_load_setting($setting_using_reference, str_replace("\${{$var}}", $value, $raw_value), $config, $return);
+					}
 				}
 
 				// add setting
-				if (!isset($autoloaded_variables[$var]) or "" === $autoloaded_variables[$var])
-				{
-					if ($return)
-					{
-						$config[] = $var . "=" . $value;
-					}
-					else
-					{
-						$setting_index = explode(".", $var);
-
-						// for loading cfg here
-						$setting_path = "\$GLOBALS['cfg']";
-
-						foreach ($setting_index as $key => $index)
-						{
-							$setting_path .= "['" . $index . "']";
-
-							if (isset($setting_index[$key + 1]) and eval("return (isset(" . $setting_path . ") and !is_array(" . $setting_path . "));"))
-							{
-								eval($setting_path . " = array();");
-							}
-						}
-
-						// for caching
-						$setting_path = "\$config";
-
-						foreach ($setting_index as $key => $index)
-						{
-							$setting_path .= "['" . $index . "']";
-
-							if (isset($setting_index[$key + 1]) and eval("return (isset(" . $setting_path . ") and !is_array(" . $setting_path . "));"))
-							{
-								eval($setting_path . " = array();");
-							}
-						}
-
-						$str = str_replace(".", "']['", $var) . "'] = " . var_export($value, true) . ";";
-
-						// load setting here
-						$setting = "\$GLOBALS['cfg']['" . $str;
-						eval($setting);
-
-						// store for caching
-						$setting = "\$config['" . $str;
-						eval($setting);
-					}
-				}
+				_load_setting($var, $value, $config, $return);
 			}
 			elseif ("include" === substr(trim($line), 0, 7))
 			{ // process config file include
-				$line = preg_replace('/\$\{(.*)\}/e',"aw_ini_get(\"\\1\")",$line);
+				$line = preg_replace($setting_variable_pattern, "aw_ini_get(\"\\1\")", $line);
 				$ifile = trim(substr($line, 7));
 
 				if (!is_readable($ifile))
@@ -237,6 +240,52 @@ function parse_config($file, $return = false)
 	return $config;
 }
 
+function _load_setting($var, $value, &$config, $return)
+{
+	if ($return)
+	{
+		$config[] = "{$var}={$value}";
+	}
+	else
+	{
+		$setting_index = explode(".", $var);
+
+		// for loading cfg here
+		$setting_path = "\$GLOBALS['cfg']";
+		foreach ($setting_index as $key => $index)
+		{
+			$setting_path .= "['" . $index . "']";
+
+			if (isset($setting_index[$key + 1]) and eval("return (isset({$setting_path}) and !is_array({$setting_path}));"))
+			{
+				eval("{$setting_path} = array();");
+			}
+		}
+
+		// for caching
+		$setting_path = "\$config";
+		foreach ($setting_index as $key => $index)
+		{
+			$setting_path .= "['{$index}']";
+
+			if (isset($setting_index[$key + 1]) and eval("return (isset({$setting_path}) and !is_array({$setting_path}));"))
+			{
+				eval("{$setting_path} = array();");
+			}
+		}
+
+		$str = str_replace(".", "']['", $var) . "'] = " . var_export($value, true) . ";";
+
+		// load setting here
+		$setting = "\$GLOBALS['cfg']['{$str}";
+		eval($setting);
+
+		// store for caching
+		$setting = "\$config['{$str}";
+		eval($setting);
+	}
+}
+
 /**
 	@param files required type=array
 		Configuration files full paths
@@ -247,7 +296,7 @@ function parse_config($file, $return = false)
 		Some automatic settings depend on from where (file, class, method) this function is called
 	@returns void
 **/
-function load_config ($files = array(), $cache_file = null)
+function load_config ($files = array(), $cache_file = "")
 {
 	if (empty($files) or !is_array($files))
 	{
@@ -272,36 +321,39 @@ function load_config ($files = array(), $cache_file = null)
 	if ("automatweb" === $class and ("start" === $method or "load_config_files" === $method))
 	{
 		list($class, $method, $line, $file) = get_caller(1);
-		$site_public_root_dir = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file))) . "/";
-		$site_basedir = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file) . "/../")) . "/";
-		// $site_basedir = empty($_SERVER["DOCUMENT_ROOT"]) ? AW_DIR . "files/" : str_replace(DIRECTORY_SEPARATOR, "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) . "/";
+		$GLOBALS["cfg"]["site_public_root_dir"] = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file))) . "/";
+		$GLOBALS["cfg"]["site_basedir"] = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file) . "/../")) . "/";
+		// $GLOBALS["cfg"]["site_basedir"] = empty($_SERVER["DOCUMENT_ROOT"]) ? AW_DIR . "files/" : str_replace(DIRECTORY_SEPARATOR, "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) . "/";
+		$parsing_default_cfg = true;
 	}
 	else
 	{
+		$parsing_default_cfg = false;
 		//TODO
 	}
-
-	$GLOBALS["cfg"]["site_basedir"] = $site_basedir;
-	$GLOBALS["cfg"]["site_public_root_dir"] = $site_public_root_dir;
 
 	//selle peab ikka igaltpoolt uuesti saama, muidu ei saa sisev6rgust ja mujalt ligi
 	if (empty($GLOBALS["cfg"]["no_update_baseurl"]) and isset($_SERVER["HTTP_HOST"]))
 	{
-		$baseurl = "http://" . $_SERVER["HTTP_HOST"] . "/";
-		$GLOBALS["cfg"]["baseurl"] = $baseurl;
+		$GLOBALS["cfg"]["baseurl"] = "http://{$_SERVER["HTTP_HOST"]}/";
 	}
 
 	// determine cache state
 	$cache_success = true;
-	if ($cache_file and file_exists($cache_file))
+	$source_files_info = array();
+	if (is_file($cache_file))
 	{
 		// check the modification date of each of the config files
 		$cache_timestamp = filemtime($cache_file);
 		foreach($files as $file)
 		{
-			if (filemtime($file) >= $cache_timestamp)
+			if (!is_file($file) or filemtime($file) >= $cache_timestamp)
 			{
 				$cache_success = false;
+			}
+			else
+			{
+				$source_files_info[$file] = filesize($file);
 			}
 		}
 	}
@@ -314,45 +366,68 @@ function load_config ($files = array(), $cache_file = null)
 	if ($cache_success)
 	{
 		$cfg = file_get_contents($cache_file);
-
 		if (false === $cfg)
 		{
-			throw new awex_cfg_file("Configuration cache file not readable.");
+			trigger_error("Configuration cache file '{$cache_file}' not readable", E_USER_WARNING);
+			$cache_success = false;
 		}
+	}
 
+	// get cached version
+	if ($cache_success)
+	{
 		$cfg = unserialize($cfg);
-
-		// check if cache file is for the same files and in same order as are those requested to be loadad
-		if (isset($cfg["__aw_ini_cache_meta_cached_files"]))
+		if (!is_array($cfg))
 		{
-			if ($cfg["__aw_ini_cache_meta_cached_files"] !== $files)
+			$cache_success = false;
+			trigger_error("Configuration cache file '{$cache_file}' is corrupt", E_USER_WARNING);
+		}
+	}
+
+	// check if cache file is for the same files and in same order as are those requested to be loadad
+	if ($cache_success)
+	{
+		if (!isset($cfg["__aw_ini_cache_meta_cached_files"]) or $cfg["__aw_ini_cache_meta_cached_files"] !== $files)
+		{
+			$cache_success = false;
+			unset($cfg["__aw_ini_cache_meta_cached_files"]);
+		}
+	}
+
+	// compare cached files sizes against requested source file sizes
+	if ($cache_success)
+	{
+		foreach ($files as $file)
+		{
+			if (filesize($file) !== $source_files_info[$file])
 			{
 				$cache_success = false;
 				unset($cfg["__aw_ini_cache_meta_cached_files"]);
+				break;
 			}
 		}
-
-		if (!is_array($cfg))
-		{
-			throw new awex_cfg_file("Configuration cache file corrupt.");
-		}
-
-		$GLOBALS["cfg"] = array_union_recursive($cfg, $GLOBALS["cfg"]);
-		$cache_success = true;
 	}
 
-	// load from file
-	if (!$cache_success)
-	{
+	if ($cache_success)
+	{ // load cached configuration
+		$GLOBALS["cfg"] = array_union_recursive($cfg, $GLOBALS["cfg"]);
+	}
+	else
+	{ // load from file
 		$cfg = array();
 
 		foreach($files as $file)
 		{
-			$cfg = array_union_recursive(parse_config($file), $cfg);
+			if (!is_readable($file))
+			{
+				throw new awex_cfg_file("Configuration file '{$file}' not readable.");
+			}
+
+			$cfg = array_union_recursive(parse_config($file, false, $parsing_default_cfg), $cfg);
 		}
 
 		// and write to cache if file is specified
-		if (!empty($cache_file))
+		if ($cache_file)
 		{
 			if (!is_dir(dirname($cache_file)))
 			{

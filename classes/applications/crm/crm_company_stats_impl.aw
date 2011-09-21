@@ -403,7 +403,7 @@ class crm_company_stats_impl extends class_base
 
 	function _get_bug_stats($slaves, $tasks, $req, $bugs, $t = null)
 	{
-		
+
 		if($t)
 		{
 			$t = new vcl_table;
@@ -3145,7 +3145,7 @@ ini_set("memory_limit", "1500M");
 		if(!$this->co_currency)
 		{
 			$u = get_instance(CL_USER);
-			$company = obj($u->get_current_company());
+			$company = get_current_company();
 			if ($company)
 			{
 				$this->co_currency = $company->prop("currency");

@@ -78,20 +78,51 @@ class languages implements request_startup, orb_public_interface
 				$language_data["meta"] = aw_unserialize($language_data["meta"]);
 				$language_data["id"] = $language_data["aw_lid"]; // BC
 			}
+			elseif (aw_ini_isset("languages.list.{$id}"))
+			{
+				$language_data = self::_fetch_default($id);
+			}
 			else
 			{
-				throw new awex_lang_na("Language '{$id}' not found in database");
+				throw new awex_lang_na("Language '{$id}' not found in database or default settings");
 			}
 		}
 		elseif (isset(self::$languages_data[$id]))
 		{
 			$language_data = self::$languages_data[$id];
 		}
+		elseif (aw_ini_isset("languages.list.{$id}"))
+		{
+			$language_data = self::_fetch_default($id);
+		}
 		else
 		{
 			throw new awex_lang_na("Language '{$id}' not found");
 		}
 
+		return $language_data;
+	}
+
+	// get lang data from aw.ini
+	private static function _fetch_default($id)
+	{
+		$language_data = aw_ini_get("languages.list.{$id}");
+		$language_data = array(
+			"oid" => 0,
+			"aw_lid" => $id,
+			"status" => object::STAT_NOTACTIVE,
+			"modified" => 0,
+			"modifiedby" => "",
+			"site_id" => 0,
+			"show_not_logged" => 1,
+			"show_logged" => 1,
+			"show_others" => 1,
+			"in_use" => 0,
+			"name" => $language_data["name"],
+			"acceptlang" => $language_data["acceptlang"],
+			"charset" => $language_data["charset"],
+			"lang_code" => $language_data["lc"]
+		);
 		return $language_data;
 	}
 
@@ -408,7 +439,7 @@ class languages implements request_startup, orb_public_interface
 		}
 
 		// if there are no languages defined in the site, we are fucked anyway, so just return a reasonable number
-		return 1;
+		return self::LC_EST;
 	}
 
 	/**

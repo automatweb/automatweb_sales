@@ -2,7 +2,7 @@
 // crm_people_search.aw - Isikute otsing
 /*
 
-@classinfo syslog_type=ST_CRM_PEOPLE_SEARCH relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -12,7 +12,7 @@
 @property webview type=relpicker reltype=RELTYPE_WEBVIEW store=connect
 @caption Isikud veebis
 
-property people_search_template type=select 
+property people_search_template type=select
 caption Isikute otsinguvormi template
 
 @groupinfo sel_props caption="Vali elemendid"
@@ -69,7 +69,7 @@ class crm_people_search extends class_base
 		switch($prop["name"])
 		{
 			case "search_properties":
-				$arr["obj_inst"]->set_search_props($arr["request"]["search_props"]);	
+				$arr["obj_inst"]->set_search_props($arr["request"]["search_props"]);
 				break;
 		}
 		return $retval;
@@ -80,10 +80,10 @@ class crm_people_search extends class_base
 		$arr["post_ru"] = post_ru();
 	}
 
-	/** parse alias 
+	/** parse alias
 		@attrib name=parse_alias is_public="1"
 	**/
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		//esimesel juhul on juba otsing toimunud, et siis võtaks selle va personali veebid objektist edasi
 		$this->search_obj = obj($arr["alias"]["to"]); // dokumendis aliasena
@@ -153,7 +153,7 @@ class crm_people_search extends class_base
 		));
 
 		return "<form method=POST name=people_search action='".get_ru()."'>".$html."</form>";
-		return "jogaboo";	
+		return "jogaboo";
 	}
 
 	function get_workers_search_results()
@@ -206,7 +206,7 @@ class crm_people_search extends class_base
 		return $props;
 	}
 
-	function _init_jp_table(&$t)
+	function _init_jp_table($t)
 	{
 		$t->define_field(array(
 			"name" => "jrk",
@@ -272,7 +272,8 @@ class crm_people_search extends class_base
 				"j" => $search_props[$nprop["name"]]["jrk"],
 			));
 
-		}//arr($prop["vcl_inst"]);
+		}
+
 		$prop["vcl_inst"]->set_numeric_field("j");
 		$prop["vcl_inst"]->set_sortable("true");
 		$prop["vcl_inst"]->set_default_sortby(array("v" , "j"));
@@ -292,5 +293,3 @@ class crm_people_search extends class_base
 		return $this->parse();
 	}
 }
-
-?>

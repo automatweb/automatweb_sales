@@ -3024,9 +3024,10 @@ class crm_company extends class_base
 				break;
 
 			case "server_folder":
-				if ($prop["value"] == "")
+				if (empty($data["value"]))
 				{
-					$prop["value"] = reset(aw_ini_get("server.name_mappings"));
+					$tmp = safe_array(aw_ini_get("server.name_mappings"));
+					$data["value"] = reset($tmp);
 				}
 				break;
 
@@ -7019,7 +7020,7 @@ class crm_company extends class_base
 			case "relorg_b":
 			case "relorg_s":
 				$co = user::get_current_company();
-				return ($arr["request"]["id"] == $co);
+				return (!isset($arr["request"]["id"]) xor (isset($arr["request"]["id"]) and $arr["request"]["id"] == $co));
 		}
 
 		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)

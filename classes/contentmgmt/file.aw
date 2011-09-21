@@ -569,8 +569,7 @@ class file extends class_base
 					$pathinfo = pathinfo($file_name);
 					if (empty($file_type))
 					{
-						$mimeregistry = new aw_mime_types();
-						$realtype = $mimeregistry->type_for_ext($pathinfo["extension"]);
+						$realtype = aw_mime_types::type_for_ext($pathinfo["extension"]);
 						$file_type = $realtype;
 					}
 
@@ -1229,8 +1228,7 @@ class file extends class_base
 			$f2 = substr($f1, $slash1+1);
 			$fn = aw_ini_get("baseurl").aw_ini_get("image.imgbaseurl").$f2."/".substr($fname, $slash+1);
 			$pi = pathinfo($fn);
-			$mimeregistry = get_instance("core/aw_mime_types");
-			$tmp = $mimeregistry->type_for_ext($pi["extension"]);
+			$tmp = aw_mime_types::type_for_ext($pi["extension"]);
 			if ($tmp != "")
 			{
 				header("Location: ".aw_ini_get("baseurl").aw_ini_get("image.imgbaseurl").$f2."/".substr($fname, $slash+1));
@@ -1241,8 +1239,7 @@ class file extends class_base
 		$fc = $this->get_file_by_id($id);
 
 		$pi = pathinfo($fc["name"]);
-		$mimeregistry = get_instance("core/aw_mime_types");
-		$tmp = $mimeregistry->type_for_ext($pi["extension"]);
+		$tmp = aw_mime_types::type_for_ext($pi["extension"]);
 
 		if ($tmp != "")
 		{
@@ -1278,8 +1275,7 @@ class file extends class_base
 			if (empty($fc["type"]))
 			{
 				$pi = pathinfo($fc["name"]);
-				$mimeregistry = get_instance("core/aw_mime_types");
-				$fc["type"] = $mimeregistry->type_for_ext($pi["extension"]);
+				$fc["type"] = aw_mime_types::type_for_ext($pi["extension"]);
 			}
 			header("Content-type: ".$fc["type"]);
 			header("Content-Disposition: filename=$fc[name]");

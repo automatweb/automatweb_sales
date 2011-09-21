@@ -935,8 +935,8 @@ class admin_if extends class_base
 		// although fast enough allready .. caching makes it 3 times as fast
 		if(aw_ini_get("admin_if.cache_toolbar_new"))
 		{
-			$tree = cache::file_get($cache_key);
-			$tree = unserialize($tree);
+			// $tree = cache::file_get($cache_key);
+			// $tree = unserialize($tree);
 		}
 
 		if(!isset($tree) or !is_array($tree))
@@ -951,17 +951,17 @@ class admin_if extends class_base
 			cache::file_set($cache_key, serialize($tree));//XXX: tundub m6ttetu, get_class_tree v6iks ise cacheda kui ainult seda vaja cacheda
 		}
 
-		$new_url_template = str_replace("__", "%s", $this->mk_my_orb("new", array("parent" => "__"), "__"));
+		$new_url_template = str_replace("__", "%s", core::mk_my_orb("new", array("parent" => $i_parent), "__"));
 
 		foreach($tree as $item_id => $item_collection)
 		{
 			foreach($item_collection as $el_id => $el_data)
 			{
-				$parnt = $item_id === "root" ? "new" : $item_id;
+				$parnt = ($item_id === "root" ? "new" : $item_id);
 
 				if (!empty($el_data["clid"]))
 				{
-					$url = sprintf($new_url_template, basename($el_data["file"]), $i_parent);
+					$url = sprintf($new_url_template, basename($el_data["file"]));
 					$tb->add_menu_item(array(
 						"name" => (empty($el_data["id"]) ? $el_id : $el_data["id"]),
 						"parent" => $parnt,
@@ -971,7 +971,7 @@ class admin_if extends class_base
 				}
 				elseif (!empty($el_data["link"]))
 				{
-					$url =  str_replace("--pt--", $i_parent, str_replace("--pr--", $period, $url));
+					$url =  str_replace(array("--pt--", "--pr--"), array($i_parent, $period), $el_data["link"]);
 
 					// docs menu has links ..
 					$tb->add_menu_item(array(
@@ -2108,6 +2108,18 @@ class admin_if extends class_base
 			}
 		}
 		return $val;
+	}
+
+	/**
+		@attrib name=install params=name
+	**/
+	public function install($arr)
+	{
+		$o = obj(null, array(), CL_ADMIN_IF);
+		$o->set_parent(1);
+		$o->save();
+		$url = core::mk_my_orb("change", array("id" => $o->id(), "group" => "o"), CL_ADMIN_IF);
+		aw_redirect($url);
 	}
 }
 

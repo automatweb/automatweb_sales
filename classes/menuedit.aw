@@ -30,8 +30,7 @@ class menuedit extends aw_template implements request_startup
 			}
 			if (strlen($section) == 2)
 			{
-				$l = get_instance("languages");
-				$tmp = $l->get_id_for_code($section);
+				$tmp = languages::get_id_for_code($section);
 				if ($tmp)
 				{
 					$fp = aw_ini_get("ini_frontpage");
@@ -76,18 +75,18 @@ class menuedit extends aw_template implements request_startup
 			if ($lc != "" && $section_a != "")
 			{
 				// switch to lang
-				$l = new languages();
 				if (aw_ini_get("user_interface.full_content_trans"))
 				{
-					$set_ct_lang_id = $l->get_id_for_code($lc);
+					$set_ct_lang_id = languages::get_id_for_code($lc);
 				}
 				else
 				{
-					$set_lang_id = $l->get_id_for_code($lc);
+					$set_lang_id = languages::get_id_for_code($lc);
 				}
 			}
 			$section = $section_a;
 		}
+
 		$realsect = $this->check_section($section);
 		if ($this->can("view",$realsect))
 		{
@@ -157,8 +156,7 @@ class menuedit extends aw_template implements request_startup
 		if ($set_ct_lang_id)
 		{
 			$_SESSION["ct_lang_id"] = $set_ct_lang_id;
-			$l = get_instance("languages");
-			$_SESSION["ct_lang_lc"] = $l->get_langid($set_ct_lang_id);
+			$_SESSION["ct_lang_lc"] = languages::get_langid($set_ct_lang_id);
 			aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
 			aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
 			//$_COOKIE["ct_lang_id"] = $set_ct_lang_id;
@@ -169,8 +167,7 @@ class menuedit extends aw_template implements request_startup
 
 		if ($set_lang_id && aw_global_get("lang_id") != $set_lang_id)
 		{
-			$la = get_instance("languages");
-			if (!$la->set_active($set_lang_id))
+			if (!languages::set_active($set_lang_id))
 			{
 				$realsect = $this->cfg["frontpage"];
 			}
@@ -350,8 +347,7 @@ class menuedit extends aw_template implements request_startup
 						$ol = new object_list(array(
 							"alias" => $last,
 							//"status" => STAT_ACTIVE,
-							"site_id" => aw_ini_get("site_id"),
-							"lang_id" => array(),
+							"site_id" => aw_ini_get("site_id")
 						));
 						foreach($ol->ids() as $id)
 						{
@@ -442,7 +438,6 @@ class menuedit extends aw_template implements request_startup
 						if ($row && $row["status"] > 1)
 						{
 							// try login, just in case this is protected
-							classload("core/users/auth/auth_config");
 							auth_config::redir_to_login();
 						}
 					}
@@ -491,7 +486,6 @@ class menuedit extends aw_template implements request_startup
 			if (!$this->can("view", $section))
 			{
 				$ns = $_SERVER["REQUEST_URI"];
-				$this->_log(ST_MENUEDIT, SA_NOTEXIST,sprintf(t("&uuml;ritas accessida olematut objekti id-ga '%s'. Suunati esilehele."),$ns), $section);
 				if ($show_errors)
 				{
 					if (aw_ini_get("menuedit.login_on_no_access") == 1)
@@ -551,8 +545,6 @@ class menuedit extends aw_template implements request_startup
 	**/
 	function do_error_redir($section)
 	{
-//echo dbg::short_backtrace()." <br>";
-//die(dbg::dump($section));
 		// check site config
 		$pl = new object_list(array(
 			"class_id" => CL_CONFIG_OLD_REDIRECT,
@@ -612,7 +604,7 @@ class menuedit extends aw_template implements request_startup
 				die();
 			}
 		}
-		$this->_log("ST_MENUEDIT", "SA_ACL_ERROR",sprintf(t("&uuml;ritas accessida objekti id-ga '%s'. Kr&auml;kkimiskatse?"),$_SERVER["REQUEST_URI"]), $section);
+
 		// neat :), kui objekti ei leita, siis saadame 404 koodi
 		$r404 = aw_ini_get("menuedit.404redir");
 		if (is_array($r404))
@@ -639,7 +631,7 @@ class menuedit extends aw_template implements request_startup
 		{
 			header ("HTTP/1.1 404 Not Found");
 			printf(t("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"> <html><head><title>404</title><meta name=\"robots\" content=\"noindex, nofollow\"></head><body><h1>404 Sellist sektsiooni pole</h1></body></html>"));
-		};
+		}
 		exit;
 	}
 }

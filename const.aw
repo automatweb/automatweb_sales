@@ -816,7 +816,7 @@ function check_pagecache_folders()
 	$pg = aw_ini_get("cache.page_cache");
 	foreach($flds as $f)
 	{
-		$fq = $pg."/".$f;
+		$fq = $pg.$f;
 		if (!is_dir($fq))
 		{
 			mkdir($fq, 0777);
@@ -829,11 +829,11 @@ function check_pagecache_folders()
 			}
 		}
 	}
-	if (!is_dir($pg."/temp"))
+	if (!is_dir("{$pg}temp"))
 	{
-		mkdir($pg."/temp", 0777);
-		chmod($pg."/temp", 0777);
-		touch($pg."/temp/lmod");
+		mkdir("{$pg}temp", 0777);
+		chmod("{$pg}temp", 0777);
+		touch("{$pg}temp/lmod");
 	}
 }
 

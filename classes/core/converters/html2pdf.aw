@@ -184,7 +184,8 @@ class html2pdf extends class_base
 		require_once("{$path}mpdf.php");
 
 		$file_name = str_replace(" " , "_" , (strpos($arr["filename"], ".pdf") === (strlen($arr["filename"]) - 4) ? $arr["filename"] : $arr["filename"].".pdf"));
-		$mpdf=new mPDF();
+		// mPDF ($mode, $format, $default_font_size, $default_font, $margin_left, $margin_right, $margin_top , $margin_bottom, $margin_header, $margin_footer, $orientation)
+		$mpdf = new mPDF("", "A4", 0, "", 15, 15, 16, 16, 9, 9, (empty($arr["landscape"]) ? "P" : "L"));
 		$this->_process_mpdf($mpdf, $arr);
 		$mpdf->Output($file_name, "I");
 		exit;
@@ -195,7 +196,7 @@ class html2pdf extends class_base
 		$path = aw_ini_get("html2pdf.mpdf_path");
 		require_once("{$path}mpdf.php");
 
-		$mpdf=new mPDF("", "A4", 0, "", 0, 0, 0, 0, 0, 0, (empty($arr["landscape"]) ? "P" : "L"));
+		$mpdf = new mPDF("", "A4", 0, "", 15, 15, 16, 16, 9, 9, (empty($arr["landscape"]) ? "P" : "L"));
 		$this->_process_mpdf($mpdf, $arr);
 		return $mpdf->Output("", "S");
 	}

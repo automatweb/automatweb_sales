@@ -185,7 +185,7 @@ class cfgutils extends aw_template
 				$fqfn = AW_DIR .$this->f_site_basedir . $file . ".xml";
 			}
 
-			$cachename = aw_ini_get("cache.page_cache") . "/propdef_" . $file . ".cache";
+			$cachename = aw_ini_get("cache.page_cache") . "propdef_{$file}.cache";
 
 			if (!$system)
 			{
@@ -543,7 +543,7 @@ class cfgutils extends aw_template
 			if (in_array("group",array_keys($filter)) && strlen($filter["group"]) == 0 )
 			{
 				$filter["group"] = "general";
-			};
+			}
 			$pass_count = sizeof($filter);
 		}
 
@@ -592,12 +592,13 @@ class cfgutils extends aw_template
 						else if (ifset($_tmp, $key) == $val)
 						{
 							$pass++;
-						};
+						}
 					}
+
 					if ($pass == $pass_count)
 					{
 						$res[$name] = $_tmp;
-					};
+					}
 				}
 				else
 				{

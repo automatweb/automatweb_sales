@@ -2407,4 +2407,104 @@ echo "mod ".$con["to.name"]."<br>";
 		//
 		automatweb::http_exit();
 	}
+
+
+	/**
+		@attrib name=convert_translations_1_find_lang_ids
+	**/
+	public function convert_translations_1_find_lang_ids($arr)
+	{
+		$limit = 5000;
+		$page = 0;
+		$found_lang_ids = array();
+		do
+		{
+			$offset = $page * $limit;
+			$page++;
+			$q = "SELECT `metadata` FROM `objects` WHERE `metadata` LIKE '%translations%' LIMIT {$offset},{$limit}";
+			$metadata = $this->db_fetch_array($q);
+			$qcount = count($metadata);
+		 	foreach ($metadata as $data)
+			{
+				if ($data["metadata"])
+				{
+					$meta = unserialize($data["metadata"]);
+					if (!empty($meta["translations"]))
+					{
+						$found_lang_ids = array_merge($found_lang_ids, array_keys($meta["translations"]));
+					}
+				}
+			}
+		}
+		while ($qcount === $limit);
+		$found_lang_ids = array_unique($found_lang_ids);
+		arr($found_lang_ids);
+		automatweb::http_exit();
+	}
+
+	/**
+		@attrib name=convert_translations_1
+		@param from_lid required
+		@param to_lid required type=int
+	**/
+	public function convert_translations_1($arr)
+	{
+		automatweb::$instance->mode(automatweb::MODE_PRODUCTION);
+		$limit = 5000;
+		$page = 0;
+		$from_lid = $arr["from_lid"];
+		$to_lid = $arr["to_lid"];
+		do
+		{
+			$offset = $page * $limit;
+			$page++;
+			$q = "SELECT `oid`,`metadata` FROM `objects` WHERE `metadata` LIKE '%translations%' LIMIT {$offset},{$limit}";
+			$metadata = $this->db_fetch_array($q);
+			$qcount = count($metadata);
+		 	foreach ($metadata as $data)
+			{
+				if ($data["metadata"])
+				{
+					$oid = $data["oid"];
+					$meta = unserialize($data["metadata"]);
+					$changed = false;
+
+					if (isset($meta["translations"][$from_lid]))
+					{
+						$changed = true;
+						$meta["translations"][$to_lid] = $meta["translations"][$from_lid];
+						unset($meta["translations"][$from_lid]);
+					}
+
+					if (isset($meta["trans_{$from_lid}_status"]))
+					{
+						$changed = true;
+						$meta["trans_{$to_lid}_status"] = $meta["trans_{$from_lid}_status"];
+						unset($meta["trans_{$from_lid}_status"]);
+					}
+
+					if (isset($meta["trans_{$from_lid}_modified"]))
+					{
+						$changed = true;
+						$meta["trans_{$to_lid}_modified"] = $meta["trans_{$from_lid}_modified"];
+						unset($meta["trans_{$from_lid}_modified"]);
+					}
+
+					if ($changed)
+					{
+						$meta = serialize($meta);
+						$this->quote($meta);
+						$q = "UPDATE `objects` SET `metadata`='{$meta}' WHERE oid={$oid}";
+						$r = $this->db_query($q);
+						if (!$r)
+						{
+							automatweb::$result->sysmsg("error converting {$oid}");
+						}
+					}
+				}
+			}
+		}
+		while ($qcount === $limit);
+		automatweb::http_exit();
+	}
 }

@@ -311,7 +311,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @groupinfo action_comments caption="Tegevuste ajalugu" parent=general
 @groupinfo other_data caption="Muud andmed" parent=general
 @groupinfo content caption="Sisu"
-	@groupinfo rows caption="Read" parent=content
+	@groupinfo rows caption="Read" parent=content no_submit=1
 	@groupinfo text_comments caption="Kommentaartekstid" parent=content
 @groupinfo mails caption="Kirjad"
 	@groupinfo send_mail caption="Arve saatmine" parent=mails confirm_save_data=0
@@ -3010,7 +3010,7 @@ class crm_bill extends class_base
 		}
 
 		return $this->show(array(
-			"id" => $arr["obj_inst"]->id(),
+			"id" => $arr["id"],
 			"pdf" => !empty($arr["pdf"]),
 			"view_type" => $view_type
 		));
@@ -3204,16 +3204,22 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 			$rows_data = $this_o->get_bill_rows_data(true);
 			$rows = array();
 
+			// group rows by comment
+			$i = 0;
 			foreach ($rows_data as $row)
 			{
 				if (isset($rows[$row["comment"]]))
 				{
-					$rows[$row["comment"]]["name_group_comment"] .= nl2br("\n\n" . $row["name_group_comment"]);
+					if (!empty($row["name_group_comment"]))
+					{ // add name group comment ant its separator prefix only if there is one
+						$rows[$row["comment"]]["name_group_comment"] .= nl2br("\n\n" . $row["name_group_comment"]);
+					}
 					$rows[$row["comment"]]["rows"][] = $row;
 				}
 				else
 				{
 					$rows[$row["comment"]] = array(
+						"id" => ++$i,
 						"name" => $row["comment"],
 						"name_group_comment" => $row["name_group_comment"],
 						"rows" => array($row)
@@ -3256,17 +3262,19 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 			"title" => $document_title
 		));
 
+		$sum = $this_o->get_bill_sum();
+
 		try
 		{
-			$currency = obj($this_o->get_bill_currency_id());
+			$currency = new object($this_o->get_bill_currency_id());
 			$currency_code = $currency->prop("symbol");
+			$total_text = aw_locale::get_lc_money_text($sum, $currency, languages::get_code_for_id($lang_id));
 		}
 		catch (Exception $e)
 		{
-			$currency_code = $this_o->get_bill_currency_name();
+			$currency_code = $total_text = t("Valuuta m&auml;&auml;ramata");
 		}
 
-		$sum = $this_o->get_bill_sum();
 		$content_tpl->add_vars(array(
 			"currency_name" => $currency_code,
 			"intro_text" => $intro_text,
@@ -3277,7 +3285,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 			"total_wo_tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2,".", " "),
 			"tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2,".", " "),
 			"total" => number_format($sum, 2, ".", " "),
-			"total_text" => aw_locale::get_lc_money_text($sum, obj($currency), languages::get_code_for_id($lang_id)),
+			"total_text" => $total_text,
 			"rows" => $rows
 		));
 

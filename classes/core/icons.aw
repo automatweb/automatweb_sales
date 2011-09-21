@@ -113,7 +113,7 @@ class icons
 	**/
 	public static function get_icon($o)
 	{
-		if (!is_object($o) && object_loader::can("view", $o))
+		if (!is_object($o) && object_loader::can("", $o))
 		{
 			$o = obj($o);
 		}

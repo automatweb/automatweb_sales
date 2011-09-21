@@ -12,6 +12,13 @@
 			</function>
 		</action>
 
+		<action name="install">
+			<function name="install">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="save_if">
 			<function name="save_if">
 				<arguments>
