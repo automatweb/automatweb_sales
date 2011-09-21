@@ -583,7 +583,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 								die("silly robot!");
 							}
 
-							if (!$this->can($aclid, $varvalue))
+							if (!object_loader::can($aclid, $varvalue))
 							{
 								$this->raise_error("ERR_ACL", "ORB:Teil puudub $aclid-&otilde;igus objektile id-ga $varvalue!", true, false);
 							}

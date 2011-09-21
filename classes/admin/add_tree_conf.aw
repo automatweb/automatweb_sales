@@ -732,12 +732,12 @@ class add_tree_conf extends class_base
 			if (!isset($cldata["parents"]))
 			{
 				continue;
-			};
+			}
 
 			if (empty($cldata["can_add"]))
 			{
 				continue;
-			};
+			}
 
 			$parens = explode(",", $cldata["parents"]);
 			if (!empty($this->visible["obj"][$clid]))
@@ -782,7 +782,7 @@ class add_tree_conf extends class_base
 			if (!empty($folder_data["parent"]))
 			{
 				$parent = "fld_" . $folder_data["parent"];
-			};
+			}
 			$folder_data["id"] = "fld_" . $folder_id;
 			$by_parent[$parent][] = $folder_data;
 
@@ -793,19 +793,17 @@ class add_tree_conf extends class_base
 				{
 					$by_parent[$folder_data["id"]][] = array(
 						"name" => $az_key,
-						"id" => "letter_" . $az_key,
+						"id" => "letter_{$az_key}",
 					);
 					uasort($az_val, create_function('$a,$b', 'return strcasecmp($a["name"], $b["name"]);'));
-					$by_parent["letter_".$az_key] = $az_val;
-
+					$by_parent["letter_{$az_key}"] = $az_val;
 				}
 			}
 
 			if (isset($arr["docforms"]) && isset($folder_data["docforms"]))
 			{
 				$d = get_instance("doc");
-                        	$docmenu = $d->get_doc_add_menu($arr["parent"],$arr["period"]);
-
+				$docmenu = $d->get_doc_add_menu($arr["parent"],$arr["period"]);
 				$by_parent[$folder_data["id"]] = $docmenu;
 			}
 		}

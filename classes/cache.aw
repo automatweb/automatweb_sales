@@ -131,7 +131,7 @@ class cache extends core
 		{
 			$fname = aw_ini_get("cache.page_cache");
 			$hash = md5($key);
-			$fname .= "/".$hash{0};
+			$fname .= $hash{0};
 			if (!is_dir($fname))
 			{
 				mkdir($fname, 0777);
@@ -184,11 +184,11 @@ class cache extends core
 
 		if ($key{0} == "/")
 		{
-			return aw_ini_get("cache.page_cache")."/".$hash{0}.$key;
+			return aw_ini_get("cache.page_cache").$hash{0}.$key;
 		}
 		else
 		{
-			return aw_ini_get("cache.page_cache")."/".$hash{0}."/".$key;
+			return aw_ini_get("cache.page_cache").$hash{0}."/".$key;
 		}
 	}
 
@@ -213,11 +213,11 @@ class cache extends core
 		$hash = md5($key);
 		if ($key{0} === "/")
 		{
-			$file = aw_ini_get("cache.page_cache")."/".$hash{0}.$key;
+			$file = aw_ini_get("cache.page_cache").$hash{0}.$key;
 		}
 		else
 		{
-			$file =  aw_ini_get("cache.page_cache")."/".$hash{0}."/".$key;
+			$file =  aw_ini_get("cache.page_cache").$hash{0}."/".$key;
 		}
 
 		if(is_readable($file))
@@ -435,7 +435,7 @@ class cache extends core
 	**/
 	public static function file_set_pt($pt, $subf, $fn, $cont)
 	{
-		$fq = aw_ini_get("cache.page_cache")."/{$pt}/{$subf}/{$fn}";
+		$fq = aw_ini_get("cache.page_cache")."{$pt}/{$subf}/{$fn}";
 		$f = is_writable($fq) ? fopen($fq, "w") : false;
 		if (!$f)
 		{
@@ -476,7 +476,7 @@ class cache extends core
 	**/
 	public static function file_get_pt($pt, $subf, $fn)
 	{
-		$fq = aw_ini_get("cache.page_cache")."/{$pt}/{$subf}/{$fn}";
+		$fq = aw_ini_get("cache.page_cache")."{$pt}/{$subf}/{$fn}";
 		if (!file_exists($fq))
 		{
 			return false;
@@ -528,7 +528,7 @@ class cache extends core
 	**/
 	public static function file_get_pt_ts($pt, $subf, $fn, $ts)
 	{
-		$fq = aw_ini_get("cache.page_cache")."/".$pt."/".$subf."/".$fn;
+		$fq = aw_ini_get("cache.page_cache").$pt."/".$subf."/".$fn;
 
 		if (!file_exists($fq) || filemtime($fq) < $ts)
 		{
@@ -583,8 +583,8 @@ class cache extends core
 		// now, this is where the magic happens.
 		// basically, we rename the whole folder and clear it's contents later.
 		$cache_dir = aw_ini_get("cache.page_cache");
-		$fq = "{$cache_dir}/{$pt}";
-		$nn = "{$cache_dir}/temp/{$pt}_".gen_uniq_id();
+		$fq = "{$cache_dir}{$pt}";
+		$nn = "{$cache_dir}temp/{$pt}_".gen_uniq_id();
 
 		rename($fq, $nn);
 		self::_crea_fld($pt);
@@ -613,8 +613,8 @@ class cache extends core
 	{
 		$of = substr($oid, -1, 1);
 		$cachedir = aw_ini_get("cache.page_cache");
-		$fq = "{$cachedir}/{$pt}/{$of}";
-		$nn = "{$cachedir}/temp/{$pt}_{$of}_".gen_uniq_id();
+		$fq = "{$cachedir}{$pt}/{$of}";
+		$nn = "{$cachedir}temp/{$pt}_{$of}_".gen_uniq_id();
 
 		rename($fq, $nn);
 
@@ -650,7 +650,7 @@ class cache extends core
 	public static function file_clear_pt_oid_fn($pt, $oid, $fn)
 	{
 		$of = substr($oid, -1, 1);
-		$fq = aw_ini_get("cache.page_cache")."/{$pt}/{$of}/{$fn}";
+		$fq = aw_ini_get("cache.page_cache")."{$pt}/{$of}/{$fn}";
 
 		// here we know the full path to the file, so just delete the damn thing
 		if(file_exists($fq))
@@ -684,8 +684,8 @@ class cache extends core
 	public static function file_clear_pt_sub($pt, $subf)
 	{
 		$cachedir = aw_ini_get("cache.page_cache");
-		$fq = "{$cachedir}/{$pt}/{$subf}";
-		$nn = "{$cachedir}/temp/{$pt}_{$subf}_" . gen_uniq_id();
+		$fq = "{$cachedir}{$pt}/{$subf}";
+		$nn = "{$cachedir}temp/{$pt}_{$subf}_" . gen_uniq_id();
 
 		if (!rename($fq, $nn))
 		{
@@ -702,7 +702,7 @@ class cache extends core
 
 	private static function _crea_fld($f)
 	{
-		$fq = aw_ini_get("cache.page_cache")."/{$f}";
+		$fq = aw_ini_get("cache.page_cache").$f;
 		mkdir($fq, 0777);
 		chmod($fq, 0777);
 		for($i = 0; $i < 16; $i++)
@@ -777,7 +777,7 @@ class cache extends core
 		}
 
 		$cachedir = aw_ini_get("cache.page_cache");
-		$cachefile = "{$cachedir}/{$cache_id}";
+		$cachefile = "{$cachedir}{$cache_id}";
 
 		// now get mtime for both files, source and cache
 		$source_mtime = filemtime($fqfn);

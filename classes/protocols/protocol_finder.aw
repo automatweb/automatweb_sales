@@ -36,6 +36,9 @@ class protocol_finder
 
 interface protocol_interface
 {
-	// protocol name string
-	function name();
+	/** Protocol name
+		@attrib api=1 params=pos
+		@returns string
+	**/
+	public function name();
 }

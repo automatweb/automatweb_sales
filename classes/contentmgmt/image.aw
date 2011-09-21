@@ -1507,12 +1507,12 @@ class image extends class_base
 	function add_image($arr)
 	{
 		extract($arr);
-		if ($from == "file")
+		if ($from === "file")
 		{
 			$str = $this->get_file(array("file" => $file));
 		}
 
-		if ($from == "url" && !empty($url))
+		if ($from === "url" && !empty($url))
 		{
 			$str = file_get_contents($url); // since php 4.3.0
 		}
@@ -1533,9 +1533,8 @@ class image extends class_base
 		}
 
 		$_fi = new file();
-		$mime = new aw_mime_types();
 		$fl = $_fi->_put_fs(array(
-			"type" => $mime->type_for_file($orig_name),
+			"type" => aw_mime_types::type_for_file($orig_name),
 			"content" => $str
 		));
 
@@ -1598,7 +1597,7 @@ class image extends class_base
 
 		if (!$width && $height)
 		{
-			if ($height{strlen($height)-1} == "%")
+			if ($height{strlen($height)-1} === "%")
 			{
 				$width = $height;
 			}
@@ -1610,11 +1609,11 @@ class image extends class_base
 			}
 		}
 
-		if ($width{strlen($width)-1} == "%")
+		if ($width{strlen($width)-1} === "%")
 		{
 			$width = (int)($i_width * (((int)substr($width, 0, -1))/100));
 		}
-		if ($height{strlen($height)-1} == "%")
+		if ($height{strlen($height)-1} === "%")
 		{
 			$height = (int)($i_height * (((int)substr($height, 0, -1))/100));
 		}
@@ -1659,9 +1658,6 @@ class image extends class_base
 			$arr['file'] = 'file2';
 			$arr['height'] = $this->new_h_big;
 			$arr['width'] = $this->new_w_big;
-			/*echo $arr['file'],":<br>";
-			echo $arr['height'],"<br>";
-			echo $arr['width'],"<br>";*/
 			$this->resize_picture($arr);
 		}
 
@@ -1670,9 +1666,6 @@ class image extends class_base
 			$arr['file'] = 'file';
 			$arr['height'] = $this->new_h;
 			$arr['width'] = $this->new_w;
-			/*echo $arr['file'],":<br>";
-			echo $arr['height'],"<br>";
-			echo $arr['width'],"<br>";*/
 			$this->resize_picture($arr);
 		}
 
@@ -1739,7 +1732,7 @@ class image extends class_base
 	function submit_comment($arr)
 	{
 		// Submitted new comment
-		if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($arr['image_comm']) && is_array($arr['image_comm']))
+		if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($arr['image_comm']) && is_array($arr['image_comm']))
 		{
 			$img = $arr['image_comm']['obj_id'];
 			$comment = $arr['image_comm']['comment'];

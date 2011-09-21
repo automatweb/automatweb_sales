@@ -1485,6 +1485,7 @@ class crm_bill_obj extends _int_object
 
 		if($rows->count())
 		{
+			// go over rows, get raw data and combine/group
 			$row = $rows->begin();
 
 			do
@@ -1520,17 +1521,15 @@ class crm_bill_obj extends _int_object
 
 				$row_sum = $row->prop("amt") * $row->prop("price");
 				$tax_sum = $row_sum / 100 * $row->get_row_tax();
-				$quantity = $row->prop("amt") == (int) $row->prop("amt") ? $row->prop("amt") : number_format($row->prop("amt"), 2, ".", " ");
 				$rd = array(
-					"amt" => $quantity,
-					"quantity_str" => $unit->get_string_for_value($quantity, $lang_id),
+					"amt" => $row->prop("amt"),
 					"prod" => $row->prop("prod"),
 					"name" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
 					"name_group_comment" => $translated ? $row->trans_get_val("name_group_comment", $lang_id) : $row->prop("name_group_comment"),
 					"comment" => $translated ? $row->trans_get_val("comment", $lang_id) : $row->prop("comment"),
 					"desc" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
 					"price" => $row->prop("price") == (int) $row->prop("price") ? $row->prop("price") : number_format($row->prop("price"), 2, ".", " "),
-					"sum" => is_int($row_sum) ? $row_sum : number_format($row_sum, 2, ".", " "),
+					"sum" => $row_sum,
 					"km_code" => $kmk,
 					"unit" => $row->prop("unit"),
 					"unit_name" => $row->trans_get_val("unit.name", $lang_id),
@@ -1538,13 +1537,14 @@ class crm_bill_obj extends _int_object
 					"oid" => $row->id(),
 					"has_tax" => $row->prop("has_tax"),
 					"tax" => $row->get_row_tax(),
-					"tax_sum" => is_int($tax_sum) ? $tax_sum : number_format($tax_sum, 2, ".", " "),
+					"tax_sum" => $tax_sum,
 					"date" => $row->prop("date"),
 					"persons" => $ppl,
 					"has_task_row" => $row->has_task_row(),
 					"task_rows" => $row->task_rows()
 				);
 
+				// group/combine if requested
 				if ("comment" === $combine_by)
 				{
 					// combined key to not combine rows by comment that have different units or other not combinable properties
@@ -1569,8 +1569,20 @@ class crm_bill_obj extends _int_object
 				}
 			}
 			while ($row = $rows->next());
-		}
 
+			// iterate over combined and parsed rows once more to
+			// convert needed values to human readable formats
+			//TODO: api peaks andma raw data. viia see konverteerimine v2lja, liideseklassi
+			foreach ($rows_data as $key => $rd)
+			{
+				$quantity = $rd["amt"] == (int) $rd["amt"] ? $rd["amt"] : number_format($rd["amt"], 2, ".", " ");
+				$rd["amt"] = $quantity;
+				$rd["quantity_str"] = $unit->get_string_for_value($quantity, $lang_id);
+				$rd["tax_sum"] = is_int($rd["tax_sum"]) ? $rd["tax_sum"] : number_format($rd["tax_sum"], 2, ".", " ");
+				$rd["sum"] = is_int($rd["sum"]) ? $rd["sum"] : number_format($rd["sum"], 2, ".", " ");
+				$rows_data[$key] = $rd;
+			}
+		}
 		usort($rows_data, array($this, "__br_sort"));
 		return $rows_data;
 	}

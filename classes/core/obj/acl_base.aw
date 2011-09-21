@@ -563,12 +563,12 @@ class acl_base extends db_connector
 	// !checks if the user has the $right for program $progid
 	function prog_acl($right = "", $progid = "can_admin_interface")
 	{
-		if (!aw_global_get("uid"))
+		if (!($uid = aw_global_get("uid")))
 		{
 			return false;
 		}
 
-		if (aw_ini_get("acl.check_prog") != true)
+		if (!aw_ini_get("acl.check_prog") or "root" === $uid)
 		{
 			return true;
 		}

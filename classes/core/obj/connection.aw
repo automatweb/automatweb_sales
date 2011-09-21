@@ -34,15 +34,7 @@ EMIT_MESSAGE(MSG_STORAGE_ALIAS_ADD_FROM)
 
 class connection
 {
-	////////////////////////////
-	// private variables
-
-	var $conn;		// int connection data
-
-
-	////////////////////////////
-	// public functions
-
+	private $conn;		// int connection data
 
 	/**	inits the connection
 		@attrib api=1
@@ -233,10 +225,10 @@ class connection
 
 		if (isset($param["type"]) && is_class_id(ifset($param, "from.class_id")))
 		{
-			$param["type"] = $GLOBALS["object_loader"]->resolve_reltype($param["type"], $param["from.class_id"]);
+			$param["type"] = object_loader::instance()->resolve_reltype($param["type"], $param["from.class_id"]);
 		}
 
-		$retval =  $GLOBALS["object_loader"]->ds->find_connections($param);
+		$retval =  object_loader::ds()->find_connections($param);
 
 		if (isset($param["sort_by"]) && $param["sort_by"] != "")
 		{
@@ -254,8 +246,8 @@ class connection
 		$rv = array();
 		foreach($retval as $k => $v)
 		{
-			if ($GLOBALS["object_loader"]->ds->can("view", $v["to"]) &&
-			    $GLOBALS["object_loader"]->ds->can("view", $v["from"]))
+			if (object_loader::can("view", $v["to"]) &&
+			    object_loader::can("view", $v["from"]))
 			{
 				$rv[$k] = $v;
 			}
@@ -337,7 +329,7 @@ class connection
 		}
 
 		// now, check acl - both ends must be visible for the connection to be deleted
-		if (!($GLOBALS["object_loader"]->ds->can("view", $this->conn["from"]) || $GLOBALS["object_loader"]->ds->can("view", $this->conn["to"])))
+		if (!(object_loader::can("view", $this->conn["from"]) || object_loader::can("view", $this->conn["to"])))
 		{
 			error::raise(array(
 				"id" => ERR_ACL,
@@ -368,13 +360,13 @@ class connection
 		);
 
 		// need to read both from and to site_ids to know if cache needs to be propagated
-		$from_objdata = $GLOBALS["object_loader"]->ds->get_objdata($this->prop("from"));
-		$GLOBALS["object_loader"]->handle_cache_update($from_objdata["oid"], $from_objdata["site_id"], "delete_connection");
+		$from_objdata = object_loader::ds()->get_objdata($this->prop("from"));
+		object_loader::instance()->handle_cache_update($from_objdata["oid"], $from_objdata["site_id"], "delete_connection");
 
-		$to_objdata = $GLOBALS["object_loader"]->ds->get_objdata($this->prop("to"));
-		$GLOBALS["object_loader"]->handle_cache_update($to_objdata["oid"], $to_objdata["site_id"], "delete_connection");
+		$to_objdata = object_loader::ds()->get_objdata($this->prop("to"));
+		object_loader::instance()->handle_cache_update($to_objdata["oid"], $to_objdata["site_id"], "delete_connection");
 
-		$GLOBALS["object_loader"]->ds->delete_connection($this->conn["id"]);
+		object_loader::ds()->delete_connection($this->conn["id"]);
 		return $this->conn["id"];
 	}
 
@@ -544,7 +536,7 @@ class connection
 
 	function _int_load($id)
 	{
-		$this->conn = $GLOBALS["object_loader"]->ds->read_connection($id);
+		$this->conn = object_loader::ds()->read_connection($id);
 		if ($this->conn === false)
 		{
 			error::raise(array(
@@ -555,7 +547,7 @@ class connection
 		}
 
 		// now, check acl - both ends must be visible for the connection to be shown
-		if (!($GLOBALS["object_loader"]->ds->can("view", $this->conn["from"]) || $GLOBALS["object_loader"]->ds->can("view", $this->conn["to"])))
+		if (!(object_loader::can("view", $this->conn["from"]) || object_loader::can("view", $this->conn["to"])))
 		{
 			error::raise(array(
 				"id" => ERR_ACL,
@@ -577,7 +569,7 @@ class connection
 		}
 
 		// now, check acl - both ends must be visible for the connection to be changed
-		if (!($GLOBALS["object_loader"]->ds->can("view", $this->conn["from"]) || $GLOBALS["object_loader"]->ds->can("view", $this->conn["to"])))
+		if (!(object_loader::can("view", $this->conn["from"]) || object_loader::can("view", $this->conn["to"])))
 		{
 			error::raise(array(
 				"id" => ERR_ACL,
@@ -624,51 +616,18 @@ class connection
 				if ($this->conn["reltype"] == RELTYPE_ACL || $to->class_id() == CL_CALENDAR_VIEW || $to->class_id() == CL_ML_LIST)
 				{
 					$from = obj($this->conn["from"]);
-
 					$o = obj();
-					if ($GLOBALS["object_loader"]->ds->can("add", $from->parent()))
-					{
-						$o->set_parent($from->parent());
-					}
-					else
-					if ($GLOBALS["object_loader"]->ds->can("add", $from->id()))
-					{
-						$o->set_parent($from->id());
-					}
-					if ($GLOBALS["object_loader"]->ds->can("add", $to->parent()))
-					{
-						$o->set_parent($to->parent());
-					}
-					else
-					if ($GLOBALS["object_loader"]->ds->can("add", $to->id()))
-					{
-						$o->set_parent($to->id());
-					}
-					else
-					{
-						$noc = true;
-					}
-
-					if ($noc)
-					{
-						aw_disable_acl();
-					}
-
+					$o->set_parent($from->parent());
 					$o->set_class_id(CL_RELATION);
 					$o->set_status(STAT_ACTIVE);
 					$o->set_subclass($to->class_id());
 					$this->conn["relobj_id"] = $o->save();
-
-					if ($noc)
-					{
-						aw_restore_acl();
-					}
 				}
 			}
 		}
 
 		// now that everything is ok, save the damn thing
-		$this->conn["id"] = $GLOBALS["object_loader"]->ds->save_connection($this->conn);
+		$this->conn["id"] = object_loader::ds()->save_connection($this->conn);
 
 		// load all connection parameters
 		$this->_int_load($this->conn["id"]);
@@ -680,11 +639,11 @@ class connection
 		}
 		else
 		{
-			$from_objdata = $GLOBALS["object_loader"]->ds->get_objdata($this->prop("from"));
+			$from_objdata = object_loader::ds()->get_objdata($this->prop("from"));
 			$from_site_id = $from_objdata["site_id"];
 		}
 
-		$GLOBALS["object_loader"]->handle_cache_update($this->prop("from"), $from_site_id, "save_connection");
+		object_loader::instance()->handle_cache_update($this->prop("from"), $from_site_id, "save_connection");
 
 		if (isset($GLOBALS["objects"][$this->prop("to")]))
 		{
@@ -692,11 +651,11 @@ class connection
 		}
 		else
 		{
-			$to_objdata = $GLOBALS["object_loader"]->ds->get_objdata($this->prop("to"));
+			$to_objdata = object_loader::ds()->get_objdata($this->prop("to"));
 			$to_site_id = $to_objdata["site_id"];
 		}
 
-		$GLOBALS["object_loader"]->handle_cache_update($this->prop("to"), $to_site_id, "save_connection");
+		object_loader::instance()->handle_cache_update($this->prop("to"), $to_site_id, "save_connection");
 
 		if ($new)
 		{

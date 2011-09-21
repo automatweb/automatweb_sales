@@ -195,7 +195,7 @@ class crm_offer_obj extends crm_offer_price_component_handler implements crm_off
 		@param clids type=array default=array()
 			Array of class_id's of operations to be returned. If empty array given, all operations will be returned.
 		@errors Throws awex_crm_offer_new if this offer is not saved
-			
+
 	**/
 	public function get_related_operations($clids = array())
 	{
@@ -234,7 +234,7 @@ class crm_offer_obj extends crm_offer_price_component_handler implements crm_off
 
 		return new object_list($ol_args);
 	}
-	
+
 	/**	Returns temporary (or default value if temporary is not set) value of a given mail property
 		@attrib api=1
 		@errors
@@ -634,7 +634,7 @@ Parimat,
 		{
 			$acc = $c->to();
 			$bank = obj();
-			if ($this->can("view", $acc->prop("bank")))
+			if (object_loader::can("", $acc->prop("bank")))
 			{
 				$bank = obj($acc->prop("bank"));
 			}
@@ -645,7 +645,7 @@ Parimat,
 			);
 		}
 
-		if ($this->can("view", $salesorg->prop("contact")))
+		if (object_loader::can("", $salesorg->prop("contact")))
 		{
 			$ct = obj($salesorg->prop("contact"));
 			$ap = array($ct->prop("aadress"));
@@ -662,13 +662,13 @@ Parimat,
 			$data["salesorg.address.addr"] = $aps;
 			$data["salesorg.address.street"] = $ct->prop("aadress");
 
-			if ($this->can("view", $ct->prop("riik")))
+			if (object_loader::can("", $ct->prop("riik")))
 			{
 				$riik = obj($ct->prop("riik"));
 				$data["salesorg.address.country"] = $riik->name();
 			}
 		}
-		
+
 		return $data;
 	}
 
@@ -735,7 +735,7 @@ Parimat,
 		{
 			throw new awex_crm_offer_email("Can't send mail, no recipients specified");
 		}
-		
+
 		$offer_pdf = $this->make_pdf();
 
 		if (!is_object($offer_pdf))
@@ -1535,7 +1535,7 @@ Parimat,
 		{
 			throw new awex_crm_offer_result("No result_object OID stored for offer " + $this->id() + "!");
 		}
-		
+
 		try
 		{
 			$result_object = new object($result_oid);

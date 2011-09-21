@@ -298,7 +298,7 @@ class http implements protocol_interface
 			$silent = true;
 		}
 		$socket = new socket();
-		if (substr($host,0,7) == "http://")
+		if (substr($host,0,7) === "http://")
 		{
 			$host = substr($host,7);
 		};
@@ -335,6 +335,10 @@ class http implements protocol_interface
 		if (preg_match("/automatweb=(\w+?);/",$ipd,$matches))
 		{
 			$cookie = $matches[1];
+		}
+		else
+		{
+			$cookie = "";
 		}
 
 		$this->cookie = $cookie;
@@ -631,7 +635,7 @@ class http implements protocol_interface
 	@param port optional type=int default=80
 		Connection port
 	@example
-		$http = get_instance("protocols/file/http");
+		$http = new http();
 		return $http->post_request(
 			"https://unet.eyp.ee/cgi-bin/unet3.sh/un3min.r",
 			"https://unet.eyp.ee/cgi-bin/unet3.sh/un3min",

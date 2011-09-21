@@ -1553,34 +1553,12 @@ class _int_object
 		}
 
 		if (isset($this->obj["oid"]) and $this->obj["oid"] != $this->obj["brother_of"])
-		{
+		{//XXX: ei saa aru selle eesm2rgist
 			$tmp = $this->get_original();
 			if ($tmp->id() != $this->obj["oid"]) // if no view access for original, bro can return the same object
 			{
 				return $tmp->trans_get_val($prop, $lang_id);
 			}
-		}
-
-		switch($prop)
-		{
-			case "name":
-				if ($this->class_id() == language_obj::CLID)
-				{
-					$val = $this->prop("lang_name");
-					$prop = "lang_name";
-				}
-				else
-				{
-					$val = $this->$prop();
-				}
-				break;
-
-			case "alias":
-				$val = $this->$prop();
-				break;
-
-			default:
-				$val = $this->prop($prop);
 		}
 
 		// translate if language is given or contenttrans ini settings enabled and found language isn't same as original language
@@ -1596,39 +1574,29 @@ class _int_object
 			}
 		}
 
-		if ($lang_id and $lang_id !== $this->lang_id())
+		// get trans_val
+		if ("status" === $prop)
+		{ // check transl status
+			$val = empty($this->obj["meta"]["trans_{$lang_id}_status"]) ? object::STAT_NOTACTIVE : object::STAT_ACTIVE;
+		}
+		elseif (
+			(aw_ini_empty("classes.{$this->obj["class_id"]}.ct_lang_sensitive") or $lang_id !== $this->lang_id())and
+			!empty($this->obj["meta"]["translations"][$lang_id][$prop]) and
+			(!empty($this->obj["meta"]["trans_{$lang_id}_status"]) or $ignore_status)
+		)
+		{ // get translation
+			$val = $this->obj["meta"]["translations"][$lang_id][$prop];
+		}
+		elseif ("alias" === $prop)
 		{
-			$cur_lid = $lang_id;
+			// No spaces in the end of alias! -kaarel 26.02.2009
+			$val = trim($this->alias());
 		}
 		else
 		{
-			$cur_lid = false;
+			$val = $this->prop($prop);
 		}
 
-		// get translation
-		if ($cur_lid and isset($this->obj["meta"]["translations"]))
-		{
-			$trs = $this->obj["meta"]["translations"];
-			if ($prop === "status") // check transl status
-			{
-				return empty($this->obj["meta"]["trans_{$cur_lid}_status"]) ? object::STAT_NOTACTIVE : object::STAT_ACTIVE;
-			}
-
-			if (isset($trs[$cur_lid]) && (!empty($this->obj["meta"]["trans_{$cur_lid}_status"]) || $ignore_status))
-			{
-				if (empty($trs[$cur_lid][$prop]))
-				{
-					return $val;
-				}
-				$val = $trs[$cur_lid][$prop];
-			}
-		}
-
-		// No spaces in the end of alias! -kaarel 26.02.2009
-		if($prop === "alias")
-		{
-			$val = trim($val);
-		}
 		return $val;
 	}
 
