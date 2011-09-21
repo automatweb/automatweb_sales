@@ -25,16 +25,19 @@ class crm_sales_offers_templates_view
 
 		$templates = $arr["obj_inst"]->get_offer_templates();
 
-		$template = $templates->begin();
-		do
+		if ($templates->count() > 0)
 		{
-			$t->define_data(array(
-				"oid" => $template->id(),
-				"name" => html::obj_change_url($template),
-				"sum" => $template->sum_with_currency(),
-			));
+			$template = $templates->begin();
+			do
+			{
+				$t->define_data(array(
+					"oid" => $template->id(),
+					"name" => html::obj_change_url($template),
+					"sum" => $template->sum_with_currency(),
+				));
+			}
+			while ($template = $templates->next());
 		}
-		while ($template = $templates->next());
 
 		return PROP_OK;
 	}
