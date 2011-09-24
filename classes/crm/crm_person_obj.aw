@@ -1405,28 +1405,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				return;
 			}
 
-			$this->current_jobs = new object_list(array(
-				"class_id" => CL_CRM_PERSON_WORK_RELATION,
-				"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time()),
-				"employee" => $this->id(),
-				new object_list_filter(array(
-					"logic" => "OR",
-					"conditions" => array(
-						new object_list_filter(array(
-							"logic" => "AND",
-							"conditions" => array(
-								"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
-							)
-						)),
-						new object_list_filter(array(
-							"logic" => "AND",
-							"conditions" => array(
-								"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
-							)
-						))
-					)
-				))
-			));
+			$this->current_jobs = crm_person_work_relation_obj::find($this->ref());
 		}
 	}
 
@@ -1478,7 +1457,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		@attrib api=1 params=pos
 		@param co optional type=oid
 			company id
-		@return array
+		@returns array
 			section names
 	**/
 	public function get_section_name($co = null, $sec = array())
@@ -1492,24 +1471,23 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			employer
 		@param sections optional type=object_list
 			if professions in specific sections desired
-		@return array
+		@returns array
 			profession names
 	**/
 	public function get_profession_names(object $employer = null, object_list $sections = null)
 	{
-		$this->set_current_jobs();
+		$professions = crm_person_work_relation_obj::find_professions($this->ref(), $employer);
 		$profession_names = array();
 
-		foreach($this->current_jobs->arr() as $work_relation)
+		if($professions->count())
 		{
-			if (
-				$employer and $work_relation->prop("employer") == $employer->id() or
-				$sections and $sections->in_list($work_relation->prop("company_section")) or
-				!$employer and !$sections
-			)
+			$profession = $professions->begin();
+
+			do
 			{
-				$profession_names[] = $work_relation->prop("profession.name");
+				$profession_names[] = $profession->name();
 			}
+			while ($profession = $professions->next());
 		}
 
 		return $profession_names;
@@ -1534,7 +1512,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			Work salary per month
 		@param salary_currency optional type=int
 			Work salary currency
-		@return oid
+		@returns oid
 			Work relation object id
 	**/
 	public function add_work_relation($arr = array())
@@ -1581,7 +1559,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			Section id
 		@param profession optional type=oid
 			Profession id
-		@return oid/0
+		@returns oid/0
 			oid, if successful
 	**/
 	public function finish_work_relation($arr = array())
@@ -1618,7 +1596,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		@attrib api=1 params=pos
 		@param company optional type=oid
 			Company id
-		@return object list
+		@returns object list
 	**/
 	public function get_important_persons($company = null)
 	{
