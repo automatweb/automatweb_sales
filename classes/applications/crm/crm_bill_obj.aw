@@ -3653,13 +3653,16 @@ class crm_bill_obj extends _int_object
 			}
 		}
 
-		if(!$contact_person and object_loader::can("", $this->prop("customer_relation.buyer.firmajuht")))
+		if(!$contact_person and $this->prop("customer_relation.buyer.firmajuht"))
 		{
-			$contact_person = new object($this->prop("customer_relation.buyer.firmajuht"));
-		}
-		else
-		{
-			$contact_person = null;
+			try
+			{
+				$contact_person = new object($this->prop("customer_relation.buyer.firmajuht"));
+			}
+			catch (Exception $e)
+			{
+				$contact_person = null;
+			}
 		}
 
 		return $contact_person;
