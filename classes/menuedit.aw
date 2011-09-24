@@ -101,14 +101,15 @@ class menuedit extends aw_template implements request_startup
 				)
 				{
 					$ls = $_obj->trans_get_val("link");
-					if ($ls[0] === "/")
+					if ($ls{0} === "/")
 					{
-						$ls = aw_ini_get("baseurl").$ls;
+						$ls = aw_ini_get("baseurl").substr($ls, 1);
 					}
-					if (strpos($ls, "://") === false)
+					elseif (strpos($ls, "://") === false)
 					{
 						$ls = "/".$ls;
 					}
+
 					if (get_ru() != $ls)
 					{
 						header("Location: ".$ls);
@@ -253,7 +254,7 @@ class menuedit extends aw_template implements request_startup
 
 		if($section === 'robots.txt')
 		{
-			echo "Sitemap: ".aw_ini_get("baseurl")."/sitemap.gz";
+			echo "Sitemap: ".aw_ini_get("baseurl")."sitemap.gz";
 			die();
 		}
 
@@ -577,7 +578,7 @@ class menuedit extends aw_template implements request_startup
 					}
 					else
 					{
-						header("Location: ".aw_ini_get("baseurl")."/".$row["new"]);
+						header("Location: ".aw_ini_get("baseurl").$row["new"]);
 					}
 					die();
 				}
@@ -591,7 +592,7 @@ class menuedit extends aw_template implements request_startup
 			{
 				$repl_gr = substr($repl_gr, 0, -1);
 			}
-			header("Location: ".aw_ini_get("baseurl")."/".$repl_gr);
+			header("Location: ".aw_ini_get("baseurl").$repl_gr);
 			die();
 		}
 		$si = __get_site_instance();

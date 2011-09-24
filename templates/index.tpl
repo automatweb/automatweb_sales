@@ -12,7 +12,7 @@
 <tr>
 <td>
 <font face="Verdana,Arial,Helvetica,sans-serif size="+1">
-<form action="{VAR:baseurl}/reforb.{VAR:ext}" method="POST">
+<form action="{VAR:baseurl}reforb.{VAR:ext}" method="POST">
 UID: <input type="text" name="uid" size="20"><br>
 Pass: <input type="password" name="password" size="20"><br>
 <input type="submit" value="Log in">
@@ -29,9 +29,9 @@ Pass: <input type="password" name="password" size="20"><br>
 <td>
 <font face="Verdana,Arial,Helvetica,sans-serif size="+1">
 <b>{VAR:uid}</b><br>
-<a href="{VAR:baseurl}/automatweb">Tee tööd</a><br>
-<a href="{VAR:baseurl}/orb.{VAR:ext}?class=syslog">DR Online</a><br>
-<a href="{VAR:baseurl}/orb.{VAR:ext}?class=users&action=logout"><br>
+<a href="{VAR:baseurl}automatweb">Tee tööd</a><br>
+<a href="{VAR:baseurl}orb.{VAR:ext}?class=syslog">DR Online</a><br>
+<a href="{VAR:baseurl}orb.{VAR:ext}?class=users&action=logout"><br>
 </td>
 </tr>
 </table>
