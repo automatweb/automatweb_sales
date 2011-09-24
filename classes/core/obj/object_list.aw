@@ -193,7 +193,7 @@ class object_list extends _int_obj_container_base
 	**/
 	function add($param)
 	{
-		$this->_int_add_to_list($GLOBALS["object_loader"]->param_to_oid_list($param));
+		$this->_int_add_to_list(object_loader::instance()->param_to_oid_list($param));
 	}
 
 	/** removes the specified object(s) from the current list
@@ -216,7 +216,7 @@ class object_list extends _int_obj_container_base
 	**/
 	function remove($param)
 	{
-		$this->_int_remove_from_list($GLOBALS["object_loader"]->param_to_oid_list($param));
+		$this->_int_remove_from_list(object_loader::instance()->param_to_oid_list($param));
 	}
 
 	/** removes all objects from the list
@@ -259,7 +259,7 @@ class object_list extends _int_obj_container_base
 	**/
 	function get_at($param)
 	{
-		return $this->_int_get_at($GLOBALS["object_loader"]->param_to_oid($param));
+		return $this->_int_get_at(object_loader::instance()->param_to_oid($param));
 	}
 
 	/** tells if object is in list
@@ -567,7 +567,7 @@ class object_list extends _int_obj_container_base
 
 		$func = $param["func"];
 
-		if (!$GLOBALS["object_loader"]->is_object_member_fun($func))
+		if (!object_loader::instance()->is_object_member_fun($func))
 		{
 			error::raise(array(
 				"id" => ERR_PARAM,
@@ -576,9 +576,9 @@ class object_list extends _int_obj_container_base
 		}
 
 		// special-case multiple object set_prop and save so we can do just one query
-		if ($func === "set_prop" && $param["save"] && ($single_clid = $this->_is_single_clid()) && $GLOBALS["object_loader"]->ds->property_is_multi_saveable($single_clid, $param["params"][0]))
+		if ($func === "set_prop" && $param["save"] && ($single_clid = $this->_is_single_clid()) && object_loader::ds()->property_is_multi_saveable($single_clid, $param["params"][0]))
 		{
-			return $GLOBALS["object_loader"]->ds->save_property_multiple($single_clid, $param["params"][0], $param["params"][1], $this->ids());
+			return object_loader::ds()->save_property_multiple($single_clid, $param["params"][0], $param["params"][1], $this->ids());
 		}
 
 		for($o = $this->begin(), $cnt = 0; !$this->end(); $o = $this->next(), $cnt++)
@@ -913,11 +913,6 @@ class object_list extends _int_obj_container_base
 		return $this->filter;
 	}
 
-	function get_parentdata()
-	{
-		return $this->list_parentdata;
-	}
-
 	///////////////////////////////////////
 	// internal private functions. call these directly and die.
 
@@ -926,15 +921,41 @@ class object_list extends _int_obj_container_base
 		$this->filter = $filter;
 		$this->_int_init_empty();
 
-		$tmp = $GLOBALS["object_loader"]->ds->search($filter);
-		//TODO: 'greedy loading'. et tehtaks korraga suurem p2ring kui vaja. load_param kaudu peaks seda n6uda saama
-
-		if (method_exists($GLOBALS["object_loader"]->ds, "last_search_query_string"))
+		if ($this->object_id_property !== "oid")
 		{
-			$this->ds_query_string = $GLOBALS["object_loader"]->ds->last_search_query_string();
+			if (empty($filter["class_id"]))
+			{
+				throw new awex_objlist_oid_class("object_id_property without class_id specified");
+			}
+
+			$clids = (array) $filter["class_id"];
+			$props = array();
+			foreach ($clids as $class_id)
+			{
+				$props[(int) $class_id] = array(
+					$this->object_id_property,
+					"{$this->object_id_property}.name",
+					"{$this->object_id_property}.brother_of",
+					"{$this->object_id_property}.status",
+					"{$this->object_id_property}.class_id",
+					"{$this->object_id_property}.jrk"
+				);
+				$filter[aw_ini_get("classes.{$class_id}.def").".{$this->object_id_property}.status"] = new obj_predicate_not(object::STAT_DELETED);
+			}
+
+			list($oids, $meta_filter, $acldata, $parentdata, $objdata, $objdata_extended) = object_loader::ds()->search($filter, $props);
+		}
+		else
+		{
+			//TODO: 'greedy loading'. et tehtaks korraga suurem p2ring kui vaja. load_param kaudu peaks seda n6uda saama
+			list($oids, $meta_filter, $acldata, $parentdata, $objdata) = object_loader::ds()->search($filter);
 		}
 
-		list($oids, $meta_filter, $acldata, $parentdata, $objdata) = $tmp;
+		if (method_exists(object_loader::ds(), "last_search_query_string"))
+		{
+			$this->ds_query_string = object_loader::ds()->last_search_query_string();
+		}
+
 		if (!is_array($oids))
 		{
 			return false;
@@ -954,102 +975,109 @@ class object_list extends _int_obj_container_base
 		{
 			foreach($oids as $oid => $oname)
 			{
-				if ($this->object_id_property !== "oid" and isset($objdata[$oid][$this->object_id_property]))
+				if ($this->object_id_property !== "oid")
 				{
-					if (!isset($objdata[$oid][$this->object_id_property]))
+					if (isset($objdata_extended[$oid][$this->object_id_property]))
 					{
-						throw new awex_objlist_oid("Invalid key property '{$this->object_id_property}' specified");
+						$load_oid = $objdata_extended[$oid][$this->object_id_property];
+						$oname = $objdata_extended[$oid]["{$this->object_id_property}.name"];
+						$list_objdata = array(
+							"brother_of" => $objdata_extended[$oid]["{$this->object_id_property}.brother_of"],
+							"status" => $objdata_extended[$oid]["{$this->object_id_property}.status"],
+							"class_id" => $objdata_extended[$oid]["{$this->object_id_property}.class_id"],
+							"jrk" => $objdata_extended[$oid]["{$this->object_id_property}.jrk"]
+						);
 					}
 					else
 					{
-						$oid = $objdata[$oid][$this->object_id_property];
+						throw new awex_objlist_oid_prop("Invalid key property '{$this->object_id_property}' specified");
+					}
+				}
+				else
+				{
+					$load_oid = $oid;
+					$list_objdata = $objdata[$oid];
+				}
+
+				$add = true;
+				$_o = new object($load_oid);
+				foreach($meta_filter as $mf_k => $mf_v)
+				{
+					if (is_object($mf_v))
+					{
+						error::raise(array(
+							"id" => "ERR_META_FILTER",
+							"msg" => sprintf(t("object_list::filter(%s => %s): can not complex searches on metadata fields!"), $mf_k, $mf_v)
+						));
+					}
+					if ($mf_v{0} === "%")
+					{
+						error::raise(array(
+							"id" => "ERR_META_FILTER",
+							"msg" => sprintf(t("object_list::filter(%s => %s): can not do LIKE searches on metadata fields!"), $mf_k, $mf_v)
+						));
+					}
+
+					$tmp = $_o->meta($mf_k);
+					if (is_numeric($mf_v))
+					{
+						$tmp = (int)$tmp;
+						$mf_v = (int)$mf_v;
+					}
+					if ($tmp != $mf_v)
+					{
+						$add = false;
 					}
 				}
 
-				// if (!$_o->is_locked()) //TODO: implementeerida
-				// {
-					$add = true;
-					$_o = new object($oid);
-					foreach($meta_filter as $mf_k => $mf_v)
-					{
-						if (is_object($mf_v))
-						{
-							error::raise(array(
-								"id" => "ERR_META_FILTER",
-								"msg" => sprintf(t("object_list::filter(%s => %s): can not complex searches on metadata fields!"), $mf_k, $mf_v)
-							));
-						}
-						if ($mf_v{0} === "%")
-						{
-							error::raise(array(
-								"id" => "ERR_META_FILTER",
-								"msg" => sprintf(t("object_list::filter(%s => %s): can not do LIKE searches on metadata fields!"), $mf_k, $mf_v)
-							));
-						}
-
-						$tmp = $_o->meta($mf_k);
-						if (is_numeric($mf_v))
-						{
-							$tmp = (int)$tmp;
-							$mf_v = (int)$mf_v;
-						}
-						if ($tmp != $mf_v)
-						{
-							$add = false;
-						}
-					}
-
-					if ($add)
-					{
-						$this->list[$oid] = $_o;
-						$this->list_names[$oid] = $oname;
-						$this->list_objdata[$oid] = $objdata[$oid];
-					}
-				// }
+				if ($add)
+				{
+					$this->list[$load_oid] = $_o;
+					$this->list_names[$load_oid] = $oname;
+					$this->list_objdata[$load_oid] = $list_objdata;
+				}
 			}
 		}
 		else
 		{
 			foreach($oids as $oid => $oname)
 			{
-				if ($this->object_id_property !== "oid" and isset($objdata[$oid][$this->object_id_property]))
+				if ($this->object_id_property !== "oid")
 				{
-					if (!isset($objdata[$oid][$this->object_id_property]))
+					if (isset($objdata_extended[$oid][$this->object_id_property]))
 					{
-						throw new awex_objlist_oid("Invalid key property '{$this->object_id_property}' specified");
+						$load_oid = $objdata_extended[$oid][$this->object_id_property];
+						$oname = $objdata_extended[$oid]["{$this->object_id_property}.name"];
+						$list_objdata = array(
+							"brother_of" => $objdata_extended[$oid]["{$this->object_id_property}.brother_of"],
+							"status" => $objdata_extended[$oid]["{$this->object_id_property}.status"],
+							"class_id" => $objdata_extended[$oid]["{$this->object_id_property}.class_id"],
+							"jrk" => $objdata_extended[$oid]["{$this->object_id_property}.jrk"]
+						);
 					}
 					else
 					{
-						$oid = $objdata[$oid][$this->object_id_property];
+						throw new awex_objlist_oid_prop("Invalid key property '{$this->object_id_property}' specified");
 					}
 				}
+				else
+				{
+					$load_oid = $oid;
+					$list_objdata = $objdata[$oid];
+				}
 
-				// if (!$_o->is_locked()) //TODO: implementeerida
-				// {
-					$this->list[$oid] = $oid;
-					$this->list_names[$oid] = $oname;
-					$this->list_objdata[$oid] = $objdata[$oid];
-				// }
-			}
-		}
-
-		// go over parentdata and list that as well
-		foreach($parentdata as $obj_id => $parent_id)
-		{
-			if (isset($this->list[$obj_id]))
-			{
-				$this->list_parentdata[$parent_id][] = $obj_id;
+				$this->list[$load_oid] = $load_oid;
+				$this->list_names[$load_oid] = $oname;
+				$this->list_objdata[$load_oid] = $list_objdata;
 			}
 		}
 	}
-
 
 	function _int_init_empty()
 	{
 		$this->list = array();
 		$this->list_names = array();
 		$this->list_objdata = array();
-		$this->list_parentdata = array();
 	}
 
 	function _int_sort_list($prop, $order)
@@ -1065,7 +1093,7 @@ class object_list extends _int_obj_container_base
 
 	private function _int_sort_list_default_sort_get_val($a, $b, $sb)
 	{
-		if ($GLOBALS["object_loader"]->is_object_member_fun($sb))
+		if (object_loader::instance()->is_object_member_fun($sb))
 		{
 			$val1 = $a->$sb();
 			$val2 = $b->$sb();
@@ -1158,7 +1186,7 @@ class object_list extends _int_obj_container_base
 		// init list
 		foreach($this->list as $k => $v)
 		{
-			$cn = $GLOBALS["object_loader"]->ds->can("view", $k);
+			$cn = object_loader::ds()->can("", $k);
 			if (is_oid($k) && $cn)
 			{
 				$this->_int_get_at($k);
@@ -1209,7 +1237,7 @@ class object_list extends _int_obj_container_base
 			}
 		}
 
-		$data = $GLOBALS["object_loader"]->ds->fetch_list($to_fetch);
+		$data = object_loader::ds()->fetch_list($to_fetch);
 	}
 
 	private function _is_single_clid()
@@ -1234,5 +1262,8 @@ class object_list extends _int_obj_container_base
 /** Generic objectlist exception. All objectlist extensions should also derive their exception classes from this **/
 class awex_objlist extends aw_exception {}
 
-/** Object id error **/
-class awex_objlist_oid extends awex_objlist {}
+/** Object id property error **/
+class awex_objlist_oid_prop extends awex_objlist {}
+
+/** Object id property specified without giving class id(s) **/
+class awex_objlist_oid_class extends awex_objlist {}

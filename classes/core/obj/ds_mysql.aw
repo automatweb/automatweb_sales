@@ -1734,7 +1734,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							"brother_of" => isset($row["brother_of"]) ? $row["brother_of"] : null,
 							"status" => isset($row["status"]) ? $row["status"] : null,
 							"class_id" => isset($row["class_id"]) ? $row["class_id"] : null,
-							"jrk" => isset($row["jrk"]) ? $row["jrk"] : null ,
+							"jrk" => isset($row["jrk"]) ? $row["jrk"] : null
 						);
 
 						if ($GLOBALS["cfg"]["acl"]["use_new_acl"] && isset($row["acldata"]))
@@ -2889,6 +2889,10 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					{
 						$__fld = "parent";
 					}
+					elseif ($join["prop"] === "brother_of")
+					{
+						$__fld = "brother_of";
+					}
 					else
 					{
 						$__fld = $GLOBALS["properties"][$join["from_class"]][$join["prop"]]["field"];
@@ -3039,43 +3043,39 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			{
 				$cur_prop = array("name" => "id", "table" => "objects", "field" => "oid");
 			}
-			else
-			if ($pp === "oid")
+			elseif ($pp === "oid")
 			{
 				$cur_prop = array("name" => "oid", "table" => "objects", "field" => "oid");
 			}
-			else
-			if ($pp === "class_id")
+			elseif ($pp === "brother_of")
+			{
+				$cur_prop = array("name" => "brother_of", "table" => "objects", "field" => "brother_of");
+			}
+			elseif ($pp === "class_id")
 			{
 				$cur_prop = array("name" => "id", "table" => "objects", "field" => "class_id");
 			}
-			else
-			if ($pp === "parent")
+			elseif ($pp === "parent")
 			{
 				$cur_prop = array("name" => "parent", "table" => "objects", "field" => "parent");
 			}
-			else
-			if ($pp === "created")
+			elseif ($pp === "created")
 			{
 				$cur_prop = array("name" => "created", "table" => "objects", "field" => "created");
 			}
-			else
-			if ($pp === "createdby")
+			elseif ($pp === "createdby")
 			{
 				$cur_prop = array("name" => "createdby", "table" => "objects", "field" => "createdby");
 			}
-			else
-			if ($pp === "modified")
+			elseif ($pp === "modified")
 			{
 				$cur_prop = array("name" => "modified", "table" => "objects", "field" => "modified");
 			}
-			else
-			if ($pp === "modifiedby")
+			elseif ($pp === "modifiedby")
 			{
 				$cur_prop = array("name" => "modifiedby", "table" => "objects", "field" => "modifiedby");
 			}
-			else
-			if ($pp === "ord")
+			elseif ($pp === "ord")
 			{
 				$cur_prop = array("name" => "ord", "table" => "objects", "field" => "jrk");
 			}
