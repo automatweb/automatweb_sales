@@ -660,7 +660,17 @@ class languages implements request_startup, orb_public_interface
 			else
 			{
 				// if a language is active, we must check if perhaps someone kas de-activated it in the mean time
-				$la = self::fetch($lang_id, true);
+				try
+				{
+					$la = self::fetch($lang_id, true);
+				}
+				catch (awex_lang_na $e)
+				{
+					// Backward compatibility, sort of...
+					setcookie("lang_id", $lang_id, time() - 3600);
+					$url = new aw_uri();
+					header("Location: " . $url->get());
+				}
 				if (!($la["status"] == 2 || ($la["status"] == 1 && aw_global_get("uid") != "")) || (is_oid($la["oid"]) && !object_loader::can("", $la["oid"])))
 				{
 					// if so, try to come up with a better one.
