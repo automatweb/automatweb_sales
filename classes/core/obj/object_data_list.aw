@@ -151,7 +151,7 @@ class object_data_list
 	private function _int_load($arr, $props)
 	{
 		$this->_int_init_empty();
-		list($oids, $meta_filter, $acldata, $parentdata, $objdata, $data, $has_sql_func) = $GLOBALS["object_loader"]->ds->search($arr, $props);
+		list($oids, $meta_filter, $acldata, $parentdata, $objdata, $data, $has_sql_func) = object_loader::ds()->search($arr, $props);
 
 		if ($has_sql_func)
 		{

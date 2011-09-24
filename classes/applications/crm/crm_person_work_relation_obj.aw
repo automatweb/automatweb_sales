@@ -127,7 +127,7 @@ class crm_person_work_relation_obj extends _int_object
 		@param section type=CL_CRM_SECTION default=NULL
 		@param state type=array default=array(self::STATE_ACTIVE, self::STATE_UNDEFINED)
 			Default value returns "not inactive" relations
-		@return object_list of CL_CRM_PROFESSION
+		@returns object_list of CL_CRM_PROFESSION
 		@errors
 			throws awex_obj_type when a parameter object is not of correct type
 	**/
@@ -147,15 +147,15 @@ class crm_person_work_relation_obj extends _int_object
 			Employer organization(s), object, array of objects, or array of object id-s
 		@param section type=CL_CRM_SECTION default=NULL
 		@param state type=array default=array(self::STATE_ACTIVE, self::STATE_UNDEFINED)
-			Default value returns "not inactive" relations
-		@return object_list of CL_CRM_PERSON_WORK_RELATION
+			Default value returns "not inactive" relations. Empty array returns all relations satisfying other constraints regardless state
+		@returns object_list of CL_CRM_PERSON_WORK_RELATION
 		@errors
 			throws awex_obj_type when a parameter object is not of correct type
 	**/
 	public static function find(object $person = null, object $profession = null, $organization = null, object $section = null, $state = array(self::STATE_ACTIVE, self::STATE_UNDEFINED))
 	{
 		$params = array(
-			"class_id" => CL_CRM_PERSON_WORK_RELATION,
+			"class_id" => self::CLID
 		);
 
 		if ($person)
@@ -237,8 +237,7 @@ class crm_person_work_relation_obj extends _int_object
 			$load_params["object_id_property"] = "profession";
 		}
 
-		$list = new object_list($params, $load_params);
-		return $list;
+		return new object_list($params, $load_params);
 	}
 
 	public function save($check_state = false)
