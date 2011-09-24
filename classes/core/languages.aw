@@ -765,7 +765,7 @@ class languages implements request_startup, orb_public_interface
 			Three to six digit encoded language code
 		@errors
 	**/
-	public static function get_aw_lid($code)
+	public static final function get_aw_lid($code)
 	{
 		$code = strtolower($code);
 		$alphabet = "abcdefghijklmnopqrstuvwxyz";
