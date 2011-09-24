@@ -363,17 +363,17 @@ class automatweb
 $section = null;
 $pi = "";
 
-$PATH_INFO = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : null;
-$QUERY_STRING = isset($_SERVER["QUERY_STRING"]) ? $_SERVER["QUERY_STRING"] : null;
-$REQUEST_URI = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : null;
+$PATH_INFO = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "";
+$QUERY_STRING = isset($_SERVER["QUERY_STRING"]) ? $_SERVER["QUERY_STRING"] : "";
+$REQUEST_URI = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : "";
 
-$PATH_INFO = isset($PATH_INFO) ? preg_replace("|\?automatweb=[^&]*|","", $PATH_INFO) : "";
-$QUERY_STRING = isset($QUERY_STRING) ? preg_replace("|\?automatweb=[^&]*|","", $QUERY_STRING) : "";
+$PATH_INFO = $PATH_INFO ? preg_replace("|\?automatweb=[^&]*|","", $PATH_INFO) : "";
+$QUERY_STRING = $QUERY_STRING ? preg_replace("|\?automatweb=[^&]*|","", $QUERY_STRING) : "";
 
-if (($QUERY_STRING == "" && $PATH_INFO == "") && $REQUEST_URI != "")
+if (($QUERY_STRING === "" && $PATH_INFO === "") && $REQUEST_URI !== "")
 {
         $QUERY_STRING = $REQUEST_URI;
-        $QUERY_STRING = str_replace("xmlrpc.aw", "", str_replace("index.aw", "", str_replace("orb.aw", "", str_replace("login.aw", "", str_replace("reforb.aw", "", $QUERY_STRING)))));
+        $QUERY_STRING = str_replace(array("xmlrpc.aw", "index.aw", "orb.aw", "login.aw", "reforb.aw"), "", $QUERY_STRING);
 }
 
 if (strlen($PATH_INFO) > 1)
@@ -383,31 +383,23 @@ if (strlen($PATH_INFO) > 1)
 
 if (strlen($QUERY_STRING) > 1)
 {
-	$pi .= "?".$QUERY_STRING;
+	$pi .= ("/" === $QUERY_STRING{0}) ? $QUERY_STRING : "?{$QUERY_STRING}";
+	// for nginx aw configuration, to make queries like orb.aw/class=file/... work, the
+	// question mark is not prepended. apache finds a file orb.aw and passes rest of
+	// the url to it. nginx looks for a local file with that whole name, therefore a rewrite
+	// is used and everything after .aw is passed as query string: ?/class=file...
 }
 
 $pi = trim($pi);
 
-if (substr($pi, 0, strlen("/class=image")) == "/class=image")
+if (substr($pi, 0, 12) === "/class=image" or substr($pi, 0, 11) === "/class=file" or substr($pi, 0, 15) === "/class=flv_file")
 {
-	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
-	parse_str($pi, $_GET);
-}
-
-if (substr($pi, 0, strlen("/class=file")) == "/class=file")
-{
-	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
-	parse_str($pi, $_GET);
-}
-elseif (substr($pi, 0, strlen("/class=flv_file")) == "/class=flv_file")
-{
-	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
+	$pi = substr(str_replace(array("/", "?"), "&", $pi), 1);
 	parse_str($pi, $_GET);
 }
 else
 {
 	$_SERVER["REQUEST_URI"] = isset($_SERVER['REQUEST_URI']) ? preg_replace("|\?automatweb=[^&]*|","", $_SERVER["REQUEST_URI"]) : "";
-	$pi = preg_replace("|\?automatweb=[^&]*|ims", "", $pi);
 	if ($pi)
 	{
 		if (($_pos = strpos($pi, "section=")) === false)
