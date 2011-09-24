@@ -3150,6 +3150,9 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 			throw new awex_crm_bill("Customer relation not defined");
 		}
 
+		$seller = $customer_relation->get_seller();
+		$buyer = $customer_relation->get_buyer();
+
 		// do according to requested view type
 		if (empty($arr["view_type"]) or "main" === $arr["view_type"] or "reminder" === $arr["view_type"])
 		{
@@ -3187,7 +3190,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 				"reminder_date" => $reminder_date
 			));
 
-			if ($buyer = $customer_relation->get_buyer())
+			if ($buyer)
 			{
 				$heading_tpl->add_vars($this->_get_invoice_party_vars($buyer, "buyer"));
 			}
@@ -3239,20 +3242,20 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 		empty($arr["pdf"]) ? $main_tpl->bind($footer_tpl, "footer") : $main_tpl->set_var("footer", "");
 
 		// find buyer contact person/signer
+		$buyer_signer_name = $this_o->get_customer_contact_person_name();
 		$buyer_signer_profession = "";
-		if ($buyer_signer = $this_o->get_contact_person())
-		{
-			$buyer_signer_profession = implode(", ", $buyer_signer->get_profession_names());
+		if ($buyer_signer = $this_o->get_contact_person() and $buyer_signer_name === $buyer_signer->name())
+		{ // get profession only if contact person name isn't defined different in ctp_text prop
+			$buyer_signer_profession = implode(", ", $buyer_signer->get_profession_names($buyer));
 		}
 
-		$buyer_signer_name = $this_o->get_customer_contact_person_name();
 
 		// find seller contact person/signer
 		$seller_signer_profession = $seller_signer_name = "";
 		if ($seller_signer = $this_o->get_creator())
 		{
 			$seller_signer_name = $seller_signer->name();
-			$seller_signer_profession = implode(", ", $seller_signer->get_profession_names());
+			$seller_signer_profession = implode(", ", $seller_signer->get_profession_names($seller));
 		}
 
 		//
