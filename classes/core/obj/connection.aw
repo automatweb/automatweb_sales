@@ -246,8 +246,7 @@ class connection
 		$rv = array();
 		foreach($retval as $k => $v)
 		{
-			if (object_loader::can("view", $v["to"]) &&
-			    object_loader::can("view", $v["from"]))
+			if (object_loader::can("", $v["to"]) and object_loader::can("", $v["from"]))
 			{
 				$rv[$k] = $v;
 			}
@@ -324,16 +323,6 @@ class connection
 			error::raise(array(
 				"id" => ERR_CONNECTION,
 				"msg" => t("connection::delete(): no current connection to delete!")
-			));
-			return;
-		}
-
-		// now, check acl - both ends must be visible for the connection to be deleted
-		if (!(object_loader::can("view", $this->conn["from"]) || object_loader::can("view", $this->conn["to"])))
-		{
-			error::raise(array(
-				"id" => ERR_ACL,
-				"msg" => sprintf(t("connection::delete(): no view access for this connection (%s)!"), $this->conn["id"])
 			));
 			return;
 		}
@@ -547,7 +536,7 @@ class connection
 		}
 
 		// now, check acl - both ends must be visible for the connection to be shown
-		if (!(object_loader::can("view", $this->conn["from"]) || object_loader::can("view", $this->conn["to"])))
+		if (!(object_loader::can("", $this->conn["from"]) || object_loader::can("", $this->conn["to"])))
 		{
 			error::raise(array(
 				"id" => ERR_ACL,
@@ -569,7 +558,7 @@ class connection
 		}
 
 		// now, check acl - both ends must be visible for the connection to be changed
-		if (!(object_loader::can("view", $this->conn["from"]) || object_loader::can("view", $this->conn["to"])))
+		if (!object_loader::can("", $this->conn["from"]) or !object_loader::can("", $this->conn["to"]))
 		{
 			error::raise(array(
 				"id" => ERR_ACL,
