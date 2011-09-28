@@ -107,7 +107,7 @@ class tabpanel extends aw_template
 			"cfgform_edit_mode" => $this->_do_cfg_edit_mode_check($args),
 			"caption" => $args["caption"],
 			"link" => $args["link"],
-			"target" => $args["target"]
+			"target" => isset($args["target"]) ? $args["target"] : null,
 		));
 
 		$use_subtpl = $tab_prefix . $subtpl . "_L" . $level;
@@ -324,14 +324,14 @@ class tabpanel extends aw_template
 		print $tp->get_tabpanel();
 		//this will create a tabpanel with two tabs, active is derived from the "cool_tab" variable in the url
 	**/
-	function simple_tabpanel($arr)
+	public static function simple_tabpanel($arr)
 	{
 		if (!isset($_GET[$arr["var"]]) || empty($_GET[$arr["var"]]))
 		{
 			$_GET[$arr["var"]] = $arr["default"];
 		}
 
-		$tb = new tabpanel($arr["panel_props"]);
+		$tb = isset($arr["panel_props"]) ? new tabpanel($arr["panel_props"]) : new tabpanel();
 		foreach($arr["opts"] as $k => $v)
 		{
 			$tb->add_tab(array(
