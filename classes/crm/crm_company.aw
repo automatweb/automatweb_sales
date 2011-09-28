@@ -7262,6 +7262,7 @@ class crm_company extends class_base
 				$ci = new planner();
 				$cp = get_current_person();
 				$cal = $ci->get_calendar_for_person($cp);
+				$show_bds = false;
 				if(is_oid($cal))
 				{
 					$calo = obj($cal);
