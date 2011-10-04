@@ -462,7 +462,7 @@ class dbg
 		{
 			$logfile = fopen(AW_DIR . "files/debug.log", "a");
 		}
-		$msg = date("M d Y H:i:s") . "\t" .  get_caller_str() . "\t" . $msg . "\n";
+		$msg = date("M d Y H:i:s") . "\t" .  get_caller_str(1) . "\t" . $msg . "\n";
 		fwrite($logfile, $msg);
 	}
 }
