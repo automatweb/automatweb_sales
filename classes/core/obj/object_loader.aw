@@ -297,16 +297,9 @@ class _int_object_loader extends core
 			// check if can load object
 			if (!$this->ds->can("", $oid))
 			{
-				if (isset($GLOBALS["__obj_sys_objd_memc"][$oid]))
-				{
-					//XXX: mis siin toimub?
-				}
-				else
-				{
-					$e = new awex_obj_acl("No access to load object with id '{$oid}'.");
-					$e->awobj_id = $oid;
-					throw $e;
-				}
+				$e = new awex_obj_acl("No access to load object with id '{$oid}'.");
+				$e->awobj_id = $oid;
+				throw $e;
 			}
 
 			// load object data
@@ -326,7 +319,7 @@ class _int_object_loader extends core
 			$objdata["__obj_load_parameter"] = $oid;
 
 			$ref = new $class($objdata, $constructor_args);
-			if ($ref->id() === NULL)
+			if ($ref->id() === null)
 			{
 				throw new awex_obj_na("No object with id '{$oid}'");
 			}
