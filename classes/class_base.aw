@@ -4532,7 +4532,7 @@ class class_base extends aw_template implements orb_public_interface
 				// figure out symbolic name for numeric reltype
 				foreach($this->relinfo as $key => $val)
 				{
-					if (substr($key,0,7) === "RELTYPE")
+					if (substr($key,0,7) === "RELTYPE")//XXX: miks relinfo peaks sisaldama selliseid asju millel pole RELTYPE algus
 					{
 						if ($reltype == $val["value"])
 						{
@@ -4545,7 +4545,7 @@ class class_base extends aw_template implements orb_public_interface
 				foreach($bt as $item_key => $item)
 				{
 					// double check just in case
-					if (!empty($symname) && ($item["type"] === "popup_search" || $item["type"] === "relpicker" || $item["type"] === "relmanager") && ($item["reltype"] == $symname))
+					if (!empty($symname) && ($item["type"] === "popup_search" || $item["type"] === "relpicker" || $item["type"] === "relmanager") && (isset($item["reltype"]) && $item["reltype"] === $symname))
 					{
 						$target_prop = $item_key;
 					}
