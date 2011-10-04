@@ -3,6 +3,7 @@
       <property>
             <name>name</name>
             <type>hidden</type>
+            <table>objects</table>
             <field>name</field>
       </property>
       <property>
@@ -183,7 +184,6 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_BILL_ROW</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
@@ -203,7 +203,11 @@
       <reltypes>
             <PROD>
                   <value>1</value>
-                  <clid>CL_SHOP_PRODUCT</clid>
+                  <clid>
+                        <num_0>CL_SHOP_PRODUCT</num_0>
+                        <num_1>CL_SHOP_PRODUCT_PACKAGING</num_1>
+                        <num_2>CL_SHOP_PACKET</num_2>
+                  </clid>
                   <caption>Toode</caption>
             </PROD>
             <TASK_ROW>
@@ -231,6 +235,19 @@
                   <clid>CL_BUG</clid>
                   <caption>Bugi</caption>
             </BUG>
+            <GOOD>
+                  <value>7</value>
+                  <clid>
+                        <num_0>CL_SHOP_PRODUCT</num_0>
+                        <num_1>CL_SHOP_PRODUCT_PACKAGING</num_1>
+                        <num_2>CL_SHOP_PACKET</num_2>
+                        <num_3>CL_TASK_ROW</num_3>
+                        <num_4>CL_TASK</num_4>
+                        <num_5>CL_CRM_EXPENSE</num_5>
+                        <num_6>CL_BUG</num_6>
+                  </clid>
+                  <caption>H&amp;amp;uuml;ve</caption>
+            </GOOD>
       </reltypes>
       <layout>
             <main_container>

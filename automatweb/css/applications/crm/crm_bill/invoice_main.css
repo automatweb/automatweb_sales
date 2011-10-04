@@ -5,12 +5,11 @@
 
 	body { font-family: Tahoma, Arial, Helvetica, sans-serif; text-align: center; padding-top: 1.6em; }
 
-	h1 { font-size: 1em; color: #05A6E9; padding: 1em 0 0 0; font-weight: bold; }
+	h1 { font-size: 1em; color: #0977D2; padding: 1em 0 0 0; font-weight: bold; }
 	h2 { font-size: 0.9em; color: #666; padding: 0.3em 0 0 0; }
 	.caption { font-weight: bold; color: #666; }
 	.nowrap { white-space: nowrap; }
 	.printspacer { display: none; }
-
 
 	div#container
 	{
@@ -29,7 +28,7 @@
 	/* top right contact data */
 	div#contacts
 	{
-		float: right; padding-right: 1em; border-right: 0.1em solid #D50000; color: #666; width: 22em;
+		float: right; padding-right: 1em; border-right: 0.1em solid #FF9400; color: #666; width: 22em;
 	}
 
 	div#contacts li
@@ -60,14 +59,13 @@
 
 	div.customerInfo dl dd
 	{
-		float: left; width: 10em; padding: 0.25em; border-top: 0.05em solid #ccc;  white-space: nowrap; text-align: left;
+		float: left; width: 10em; padding: 0.25em; border-top: 0.07em solid #AAAAAA;  white-space: nowrap; text-align: left;
 	}
 
 	div.customerInfo dl dd.first
 	{
 		border-top: none;
 	}
-
 
 	/* content */
 	div#content
@@ -93,12 +91,12 @@
 	table#rows td,
 	table#rows th
 	{
-		border-bottom: 0.05em solid #ccc; padding: 0.3em; vertical-align: top; text-align: left;
+		border-bottom: 0.07em solid #AAAAAA; padding: 0.3em; vertical-align: top; text-align: left;
 	}
 
 	table#rows th
 	{
-		border-top: 0.05em solid #ccc;
+		border-top: 0.07em solid #AAAAAA; background-color: #AAAAAA; color: #FFFFFF;
 	}
 
 	table#rows td.sumcaption
@@ -118,7 +116,17 @@
 
 	td.descriptionText
 	{
-		width: 33em;
+		width: 40em;
+	}
+
+	div.descriptionText
+	{
+		width: 35em; margin-bottom: 0.6em;
+	}
+
+	tbody.sum td
+	{
+		border: none ! important;
 	}
 
 	/* signatures */
@@ -144,13 +152,13 @@
 
 	p.signature
 	{
-		font-size: 0.9em; height: 100%; float:left; width: 100%; border-bottom: 0.05em solid black; padding-top: 4em;
+		font-size: 0.9em; height: 100%; float:left; width: 100%; border-bottom: 0.07em solid #AAAAAA; padding-top: 4em;
 	}
 
 	/* footer */
 	div#footer
 	{
-		border-top: 0.05em solid #ccc; text-align: center; color: #666; height: 3em; margin: 6em 0 1em 0;
+		border-top: 0.07em solid #AAAAAA; text-align: center; color: #666; height: 3em; margin: 6em 0 1em 0;
 	}
 
 	div#footer p
@@ -170,17 +178,24 @@
 	table#rows th,
 	table#rows td
 	{
-		font-size: 0.8em; background-color: white;
+		font-size: 0.8em; background-color: #FFFFFF;
 	}
 
 	td.descriptionText
 	{
-		width: 25em;
+		width: 30em;
+		min-width: 25em;
+		max-width: 35em;
 	}
 
 	td.rowgroup
 	{
 		border: none;
+	}
+
+	tr.headerrow
+	{
+		page-break-after: avoid;
 	}
 
 	.printspacer

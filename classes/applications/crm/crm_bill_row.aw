@@ -2,10 +2,10 @@
 // crm_bill_row.aw - Arve rida
 /*
 
-@classinfo syslog_type=ST_CRM_BILL_ROW relationmgr=yes no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 @tableinfo aw_crm_bill_rows index=aw_oid master_index=brother_of master_table=objects
 
-@property name type=hidden
+@property name type=hidden table=objects
 
 @default table=aw_crm_bill_rows
 @default group=general
@@ -71,7 +71,7 @@
 	@caption T&otilde;lgi
 
 // RELTYPES
-@reltype PROD value=1 clid=CL_SHOP_PRODUCT
+@reltype PROD value=1 clid=CL_SHOP_PRODUCT,CL_SHOP_PRODUCT_PACKAGING,CL_SHOP_PACKET
 @caption Toode
 
 @reltype TASK_ROW value=2 clid=CL_TASK_ROW
@@ -88,6 +88,11 @@
 
 @reltype BUG value=6 clid=CL_BUG
 @caption Bugi
+
+@reltype GOOD value=7 clid=CL_SHOP_PRODUCT,CL_SHOP_PRODUCT_PACKAGING,CL_SHOP_PACKET,CL_TASK_ROW,CL_TASK,CL_CRM_EXPENSE,CL_BUG
+@comment H&uuml;ve, mille omanduse muutumise tasu rida kajastab
+@caption H&uuml;ve
+
 
 */
 

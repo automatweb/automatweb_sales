@@ -1,9 +1,7 @@
 <div id="container">
 	<div id="header">
 		<div id="logo">
-			<?if($seller_logo_url){?>
-			<img src="<?=$seller_logo_url?>">
-			<?}?>
+			<?=$seller_logo?>
 		</div>
 		<div id="contacts">
 			<ul>

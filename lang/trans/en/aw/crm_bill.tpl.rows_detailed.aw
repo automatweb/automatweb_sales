@@ -12,3 +12,5 @@ $GLOBALS["TRANS"][5147]["Summa s&otilde;nadega:"] = "Total sum in words:";
 $GLOBALS["TRANS"][5147]["Arve koostaja:"] = "Seller representative:";
 $GLOBALS["TRANS"][5147]["Kliendi kontaktisik:"] = "Buyer representative:";
 $GLOBALS["TRANS"][5147]["Allkiri"] = "Signature";
+$GLOBALS["TRANS"][5147]["Kuup&auml;ev:"] = "Date:";
+$GLOBALS["TRANS"][5147]["ID:"] = "ID:";
