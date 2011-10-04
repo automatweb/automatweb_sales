@@ -704,7 +704,7 @@ class image extends class_base
 			none
 
 		@returns
-			true if it is flash file, false othervise
+			true if it is flash file, false otherwise
 
 		@comment
 			none
@@ -718,14 +718,7 @@ class image extends class_base
 	{
 		$pos = strrpos($file,".");
 		$ext = substr($file,$pos);
-		if ($ext == ".x-shockwave-flash")
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return ($ext === ".x-shockwave-flash");
 	}
 
 	function add_upload_multifile($name,$parent)
@@ -894,7 +887,11 @@ class image extends class_base
 			{
 				if ($this->is_flash($file))
 				{
-					$size[2] = 69;
+					$size = array(2 => 69);
+				}
+				elseif (".svg" === substr($fname, -4))
+				{
+					$size = array(2 => "svg");
 				}
 				else
 				{
@@ -920,6 +917,9 @@ class image extends class_base
 							break;
 						case "69":
 							$type = "application/x-shockwave-flash";
+							break;
+						case "svg":
+							$type = aw_mime_types::type_for_ext("svg");
 							break;
 					}
 
@@ -961,7 +961,6 @@ class image extends class_base
 
 					// let the browser cache images
 					$cur_etag = md5($arr["file"]);
-
 
 					$offset = 3600;
 					header("Expires: ".gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
@@ -1089,7 +1088,7 @@ class image extends class_base
 				$fname = $m[1];
 				$first = substr($fname,0,1);
 				$url = aw_ini_get("baseurl") . $imgbaseurl . $first . "/" . $fname;
-				if (substr($url,-11) == "/aw_img.jpg")
+				if (substr($url,-11) === "/aw_img.jpg")
 				{
 					$url = str_replace("/aw_img.jpg","",$url);
 				}
@@ -1102,47 +1101,54 @@ class image extends class_base
 	/** Creates HTML image tag
 		@attrib name=make_img_tag params=pos
 
-		@param url required type=string
+		@param url type=string
 			URL to the image
-		@param alt optional type=string
+
+		@param alt type=string default=""
 			Alt text of the image
 
-		@param size optional type=array
+		@param size type=array default=array()
 			array(
 				height => int,
 				width => int
 			)
 			sets img tag height and width
-		@param arguments optional type=array
+
+		@param arr type=array default=array()
 			array(
 				show_title => true	// default true
+				svg_img_tag => true	// default false, if true and url points to an svg image, <img> tag is returned instead of <object>
 			)
 
-		@returns
-			- Rewrote URL
-			- If url parameter is empty, then returns empty value
-
+		@return string
 		@comment
 			removes host name from url
 			if url is site/img.aw , rewrites to the correct orb fastcall
 			adds baseurl
-
-		@examples
-			none
 	**/
 	public static function make_img_tag($url, $alt = "", $size = array(), $arr = array())
 	{
-		$tag = isset($size["height"]) ?" height=\"".$size["height"]."\"":"";
-		$tag .= isset($size["width"]) ?" width=\"".$size["width"]."\"":"";
+		$tag = isset($size["height"]) ? " height=\"{$size["height"]}\"" : "";
+		$tag .= isset($size["width"]) ? " width=\"{$size["width"]}\"" : "";
 
-		$title = !isset($arr["show_title"]) || !empty($arr["show_title"]) ? " title=\"$alt\"" : "";
-		if ($url == "")
+		$title = empty($arr["show_title"]) ? "" : " title=\"{$alt}\"";
+		if (empty($url))
 		{
-			return "<img src=\"".aw_ini_get("baseurl")."automatweb/images/trans.gif\" alt=\"$alt\"{$title}".$tag." />";
+			return "<img src=\"".aw_ini_get("baseurl")."automatweb/images/trans.gif\" alt=\"{$alt}\"{$title}{$tag} />";
+		}
+		elseif (".svg" === substr($url, -4) and empty($arr["svg_img_tag"])) //TODO: normaalsemalt
+		{
+			// overflow : hidden is a fix for ff3 (shows scrollbars otherwise)
+			return <<<SVGOBJECT
+<object type="image/svg+xml" data="{$url}"{$tag} style="overflow: hidden;">
+	<param name="src" value="{$url}" />
+	<param name="wmode" value="transparent" />
+</object>
+SVGOBJECT;
 		}
 		else
 		{
-			return "<img src=\"$url\" alt=\"$alt\"{$title}".$tag." />";
+			return "<img src=\"{$url}\" alt=\"{$alt}\"{$title}{$tag} />";
 		}
 	}
 
@@ -1370,7 +1376,7 @@ class image extends class_base
 				{
 					$_fi = new file();
 					$final_name = $_fi->generate_file_path(array(
-						"type" => $ftype,
+						"type" => aw_mime_types::ext_for_type($ftype)
 					));
 					move_uploaded_file($src_file, $final_name);
 
@@ -1943,7 +1949,7 @@ class image extends class_base
 			none
 
 		@returns
-			empty value if the image object has no view access, url to the image othervise
+			empty value if the image object has no view access, url to the image otherwise
 
 		@comment
 			none
@@ -1972,7 +1978,7 @@ class image extends class_base
 			none
 
 		@returns
-			empty value if the image object has no view access, url to the big image othervise
+			empty value if the image object has no view access, url to the big image otherwise
 
 		@comment
 			none
