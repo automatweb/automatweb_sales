@@ -250,6 +250,8 @@ class crm_settings extends class_base
 	var $crmcfg_defined_tables = array();
 	var $crmcfg_class_index = array();
 
+	private $cl_cfgu;
+
 	function crm_settings()
 	{
 		$this->init(array(
@@ -301,7 +303,7 @@ class crm_settings extends class_base
 			"s" => CL_CRM_COMPANY,
 			"s_p" => CL_CRM_PERSON,
 			"coworker" => CL_CRM_PERSON,
-			"customer_employer" => CL_CRM_PERSON,
+			"customer_employer" => CL_CRM_PERSON
 		);
 
 		$this->bills_filter_options = array(
@@ -562,13 +564,13 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 		$tree->set_selected_item($arr["request"]["tables_treemenu_item"]);
 	}
 
-	function _add_tables(&$tree, $cl_id, $parent)
+	function _add_tables($tree, $cl_id, $parent)
 	{
 		$properties_var = "_properties" . $cl_id;
 
 		if (!is_object ($this->cl_cfgu))
 		{
-			$this->cl_cfgu = get_instance("cfg/cfgutils");
+			$this->cl_cfgu = new cfgutils();
 		}
 
 		if (!isset($this->$properties_var))

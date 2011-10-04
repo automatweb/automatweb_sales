@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw,v 1.36 2009/05/22 14:15:03 markop Exp $
-// otv_ds_postipoiss.aw - Objektinimekirja Postipoisi datasource 
+
+// otv_ds_postipoiss.aw - Objektinimekirja Postipoisi datasource
 /*
 
-@classinfo syslog_type=ST_OTV_DS_POSTIPOISS relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1 no_comment=1
 
 @default table=objects
 @default group=general
@@ -18,7 +18,7 @@
 	@caption Teemade xml fail
 
 	@property update_cache type=text store=no
-	@caption 
+	@caption
 
 @groupinfo settings caption="Seaded"
 
@@ -63,7 +63,7 @@ class otv_ds_postipoiss extends class_base
 		"seosed" => "seosed",
 		"teemad" => "Teemad",
 		"saatja_indeks" => "Saatja indeks",
-		"saatja_kuupaev" => "Saatja kuupaev",		
+		"saatja_kuupaev" => "Saatja kuupaev",
 		"regist_nr" => "Nr.",
 		"indeks" => "Dokument",
 		"reg_kpv" => "Registreeritud",
@@ -153,7 +153,7 @@ class otv_ds_postipoiss extends class_base
 
 		}
 		return $retval;
-	}	
+	}
 
 	function _init_ct_tbl(&$t)
 	{
@@ -206,13 +206,13 @@ class otv_ds_postipoiss extends class_base
 		}
 
 		$this->db_query("
-			SELECT 
-				* 
-			FROM 
+			SELECT
+				*
+			FROM
 				aw_otv_ds_pp_cache_file2folder ff
 				LEFT JOIN  aw_otv_ds_pp_cache c on c.id = ff.aw_file
-				
-			WHERE 
+
+			WHERE
 				ff.aw_pp_id = '".$o->id()."' AND
 				ff.aw_folder = '$parent'
 		");
@@ -311,7 +311,7 @@ class otv_ds_postipoiss extends class_base
 					}
 				}
 				$rowd = $tmp;
-				
+
 
 				$fp = fopen($cache_file, "w");
 				fwrite($fp, aw_serialize($rowd, SERIALIZE_PHP));
@@ -370,32 +370,32 @@ class otv_ds_postipoiss extends class_base
 		foreach($values as $key => $val)
 		{
 			$val["value"] = convert_unicode($val["value"]);
-			if ($val["tag"] == "teema" && $val["type"] == "open")
+			if ($val["tag"] === "teema" && $val["type"] === "open")
 			{
 				$cur = array();
 			}
 			else
-			if ($val["tag"] == "teema" && $val["type"] == "close")
+			if ($val["tag"] === "teema" && $val["type"] === "close")
 			{
 				$data[$cur["id"]] = $cur;
 			}
 			else
-			if ($val["tag"] == "nimetus" && $val["type"] == "complete")
+			if ($val["tag"] === "nimetus" && $val["type"] === "complete")
 			{
 				$cur["name"] = trim($val["value"]);
 			}
 			else
-			if ($val["tag"] == "teema_kood" && $val["type"] == "complete")
+			if ($val["tag"] === "teema_kood" && $val["type"] === "complete")
 			{
 				$cur["id"] = trim($val["value"]);
 			}
 			else
-			if ($val["tag"] == "ylem_teema" && $val["type"] == "complete")
+			if ($val["tag"] === "ylem_teema" && $val["type"] === "complete")
 			{
 				$cur["parent"] = trim($val["value"]);
 			}
 			else
-			if ($val["tag"] == "jrk_nr" && $val["type"] == "complete")
+			if ($val["tag"] === "jrk_nr" && $val["type"] === "complete")
 			{
 				$cur["ord"] = (int)trim($val["value"]);
 			}
@@ -432,8 +432,8 @@ class otv_ds_postipoiss extends class_base
 		$this->vars($fd);
 		$lineno = 0;
 		foreach($this->all_cols as $f_n => $f_v)
-		{//if(aw_global_get("uid") == "struktuur") arr($fd);
-			if (substr($f_n, 0, 3) == "sep" && $hasc)
+		{
+			if (substr($f_n, 0, 3) === "sep" && $hasc)
 			{
 				$lines .= $this->parse("LINE_SEP");
 				$lineno = 0;
@@ -477,7 +477,7 @@ class otv_ds_postipoiss extends class_base
 			{
 				continue;
 			}
-			$url = aw_ini_get("baseurl")."/".$o->id().":".$ppid.":".$cnt;
+			$url = aw_ini_get("baseurl").$o->id().":".$ppid.":".$cnt;
 			$this->vars(array(
 				"furl" => $url,
 				"fname" => convert_unicode($fname)
@@ -490,15 +490,15 @@ class otv_ds_postipoiss extends class_base
 		$this->vars(array(
 			"FILE" => $str
 		));
-		
-		if($fd["suund"] == "sissetulev")//jube h2kk........
+
+		if($fd["suund"] === "sissetulev")//TODO: teha korralikult
 		{
 			$this->vars(array(
 				"INCOMING" => $this->parse("INCOMING")
 			));
 		}
-		
-		if (!($fd["juurdepaasupiirang"] == "Salajane" || $fd["juurdepaasupiirang"] == "Asutusesiseseks kasutamiseks" || $fd["juurdepaasupiirang"] == "Juurdepääsupiirang eraelulistele isikuandmetele")) //h2kk
+
+		if (!($fd["juurdepaasupiirang"] === "Salajane" || $fd["juurdepaasupiirang"] === "Asutusesiseseks kasutamiseks" || $fd["juurdepaasupiirang"] === "Juurdepääsupiirang eraelulistele isikuandmetele")) //TODO: teha korralikult
 		{
 			$this->vars(array(
 				"HAS_FILES" => $this->parse("HAS_FILES")
@@ -511,8 +511,6 @@ class otv_ds_postipoiss extends class_base
 	{
 		$o = obj($arr["oid"]);
 		$fnam = basename($arr["fnam"]);
-		$mt = get_instance("core/aw_mime_types");
-
 		$patt = $o->prop("ct_fld")."/*".$arr["real_nr"];
 		$ret = glob($patt);
 		// check if the last letters are the real number
@@ -526,7 +524,7 @@ class otv_ds_postipoiss extends class_base
 				$t2_fn = preg_replace("/[^a-z0-9A-Z]/imsU", "", $o->prop("ct_fld")."/".$arr["fnam"].".".$arr["real_nr"]);
 				if ($t_fn == $t2_fn)
 				{
-					header("Content-type: ".$mt->type_for_file($fnam));	
+					header("Content-type: ".aw_mime_types::type_for_file($fnam));
 					header("Content-Disposition: attachment;filename=$fnam");
 					readfile($fn);
 					die();
@@ -547,7 +545,7 @@ class otv_ds_postipoiss extends class_base
 			$fp = $o->prop("xml_fld")."/".basename($td[1]).".xml";
 			$fc = aw_unserialize($this->get_file(array("file" => $fp)));
 			$files = explode(",", $fc["viide"]);
-	
+
 			list($tmp, $real_nr) = explode("_", $td[1]);
 
 			return $this->pget_file(array(
@@ -556,7 +554,7 @@ class otv_ds_postipoiss extends class_base
 				"real_nr" => $real_nr
 			));
 		}
-		
+
 		return $this->show(array(
 			"id" => aw_global_get("raw_section")
 		));
@@ -566,21 +564,21 @@ class otv_ds_postipoiss extends class_base
 	{
 		return $this->all_cols;
 	}
-	
+
 	function get_add_types()
 	{
 		return array();
 	}
 
 	/**
-		
+
 		@attrib name=do_cache_update nologin="1"
 
 	**/
 	function do_cache_update($arr)
 	{
 		$this->do_reschedule();
-		
+
 		// for all pp objects
 			// get object
 			// read all xml files for it
@@ -589,9 +587,7 @@ class otv_ds_postipoiss extends class_base
 			// write to database
 
 		$ol = new object_list(array(
-			"class_id" => CL_OTV_DS_POSTIPOISS,
-			"site_id" => array(),
-			"lang_id" => array()
+			"class_id" => CL_OTV_DS_POSTIPOISS
 		));
 		for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
@@ -639,7 +635,6 @@ class otv_ds_postipoiss extends class_base
 	function do_update_ds($o)
 	{
 		aw_set_exec_time(AW_LONG_PROCESS);
-		classload("core/icons", "image");
 		$xml_fld = $o->prop("xml_fld");
 
 		$dc = $this->get_directory(array(
@@ -651,11 +646,11 @@ class otv_ds_postipoiss extends class_base
 		$file_cnt = 0;
 		foreach($dc as $fe)
 		{
-			if (substr($fe, -3) != "xml")
+			if (substr($fe, -3) !== "xml")
 			{
 				continue;
 			}
-			$mtime = max(@filemtime($xml_fld."/".$fe), $mtime);
+			$mtime = max(filemtime($xml_fld."/".$fe), $mtime);
 			//echo "file = ".$xml_fld."/".$fe." , mtime = ".date("d.m.Y H:i", filemtime($xml_fld."/".$fe))."<br>";
 			$file_cnt++;
 		}
@@ -677,10 +672,10 @@ class otv_ds_postipoiss extends class_base
 		$db_to_xml_connections = $o->meta("aw_otv_ds_pp_cache_fields_to_xml");
 
 		$is_date_fields = $o->meta("is_date_fields");
-		
+
 		foreach($dc as $fe)
 		{
-			if (substr($fe, -3) != "xml")
+			if (substr($fe, -3) !== "xml")
 			{
 				continue;
 			}
@@ -696,7 +691,7 @@ class otv_ds_postipoiss extends class_base
 			$mdd = mktime(0,0,0, $_m, $_d, $y);
 
 			list($fn) = explode(",", $fd["viide"]);
-			$fsb = @filesize($o->prop("ct_fld")."/".$fn);
+			$fsb = filesize($o->prop("ct_fld")."/".$fn);
 			$rowd = array(
 				"id" => $fd["tegevused"]["tegevus"]["dok_nr"],
 				"name" => $fd["pealkiri"],
@@ -749,16 +744,12 @@ class otv_ds_postipoiss extends class_base
 			}
 			$data = $tmp;
 
-			$this->quote(&$data);
-			if(aw_global_get("uid") == "robert")
-			{
-			}
+			$this->quote($data);
 			$this->db_query("
-				INSERT INTO aw_otv_ds_pp_cache (".join(",", map("aw_%s", array_keys($data))).") 
+				INSERT INTO aw_otv_ds_pp_cache (".join(",", map("aw_%s", array_keys($data))).")
 					VALUES(".join(",", map("'%s'", array_values($data))).")
 			");
 			$id = $this->db_last_insert_id();
-
 
 			$sbs = explode(",", $fd["teemad"]);
 			foreach($sbs as $sb)
@@ -766,8 +757,8 @@ class otv_ds_postipoiss extends class_base
 				$this->db_query("INSERT INTO aw_otv_ds_pp_cache_file2folder(aw_file, aw_folder, aw_pp_id) values('$id','$sb','".$o->id()."')");
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("html");
+
+		cache::file_clear_pt("html");
 		echo "all done! <br>\n";
 		flush();
 	}
@@ -776,7 +767,7 @@ class otv_ds_postipoiss extends class_base
 
 		@attrib api=1
 
-		
+
 	**/
 	function update_object($ef, $id, $data)
 	{
@@ -785,7 +776,7 @@ class otv_ds_postipoiss extends class_base
 
 	function _do_db_to_xml_connections_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->define_field(array(
 			"name" => "db_field",
 			"caption" => t("Andmebaasi v&auml;li"),
@@ -817,8 +808,5 @@ class otv_ds_postipoiss extends class_base
 				))
 			));
 		}
-
-		
-	}	
+	}
 }
-?>

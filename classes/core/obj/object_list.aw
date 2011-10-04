@@ -1214,7 +1214,7 @@ class object_list extends _int_obj_container_base
 		}
 	}
 
-	function _int_remove_from_list($oid_l)
+	protected function _int_remove_from_list($oid_l)
 	{
 		foreach($oid_l as $oid)
 		{
@@ -1224,7 +1224,7 @@ class object_list extends _int_obj_container_base
 		}
 	}
 
-	function _int_fetch_full_list()
+	protected function _int_fetch_full_list()
 	{
 		// go over list, gather inf on what objects need to be fetched
 		$to_fetch = array();
@@ -1237,7 +1237,7 @@ class object_list extends _int_obj_container_base
 			}
 		}
 
-		$data = object_loader::ds()->fetch_list($to_fetch);
+		object_loader::ds()->fetch_list($to_fetch);
 	}
 
 	private function _is_single_clid()

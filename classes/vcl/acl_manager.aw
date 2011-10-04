@@ -1,9 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
-class acl_manager extends class_base
+class acl_manager extends aw_template
 {
 	function acl_manager()
 	{
@@ -24,7 +21,7 @@ class acl_manager extends class_base
 			$content .= html::href(array(
 				"caption" => t("Muuda"),
 				"url" => "javascript:void(0)",
-				"onClick" => "aw_popup_scroll(\"{$url}\", \"acl_manager\", 800, 500);"
+				"onclick" => "aw_popup_scroll(\"{$url}\", \"acl_manager\", 800, 500);"
 			));
 		}
 
@@ -338,4 +335,3 @@ class acl_manager extends class_base
 		return $arr["post_ru"];
 	}
 }
-?>

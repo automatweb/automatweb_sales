@@ -966,7 +966,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 			}
 
 			// brother under group
-			if(!isset($arr["brother_done"]) || !$arr["brother_done"])
+			if(empty($arr["brother_done"]))
 			{
 				$brother_id = $user->create_brother($p_o->id());
 			}

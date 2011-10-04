@@ -765,7 +765,7 @@ class cache extends core
 				// could not calculate a valid cache_id, bail out
 				return false;
 			}
-			$cache_id = $prefix . "_" . $pathinfo["basename"] . ".cache";
+			$cache_id = "{$prefix}_{$pathinfo["basename"]}.cache";
 		}
 		else
 		{
@@ -800,7 +800,7 @@ class cache extends core
 			//print "need to reparse<br />";
 			// 1) get an instance of the unserializer class,
 
-			$clobj = &$args["unserializer"][0];
+			$clobj = $args["unserializer"][0];
 			$clmeth = $unserializer[1];
 			if (is_object($clobj) && method_exists($clobj,$clmeth))
 			{
@@ -811,13 +811,15 @@ class cache extends core
 					"fname" => $fqfn,
 					"content" => $contents,
 				));
-			};
-			$clobj = &$args["loader"][0];
+			}
+
+			$clobj = $args["loader"][0];
 			$clmeth = $loader[1];
-			if (is_object($clobj) && method_exists($clobj,$clmeth))
+			if (is_object($clobj) && method_exists($clobj, $clmeth))
 			{
 				$clobj->$clmeth(array("data" => $result));
-			};
+			}
+
 			if (is_writable($cachedir))
 			{
 				$ser_res = aw_serialize($result,SERIALIZE_PHP);
@@ -826,7 +828,7 @@ class cache extends core
 					"content" => $ser_res,
 				));
 				chmod($cachefile, 0666);
-			};
+			}
 			// Now I somehow need to retrieve the results of unserialization
 			// and write them out to the file
 			// 4) aquire reference to results
@@ -836,7 +838,7 @@ class cache extends core
 			// 1) get the contents of cached file
 			// 2) awunserialize the data
 
-			$clobj = &$args["loader"][0];
+			$clobj = $args["loader"][0];
 			$clmeth = $loader[1];
 			if (is_object($clobj) && method_exists($clobj,$clmeth))
 			{

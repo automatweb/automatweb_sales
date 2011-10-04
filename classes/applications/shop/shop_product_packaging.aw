@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_SHOP_PRODUCT_PACKAGING relationmgr=yes prop_cb=1
+@classinfo relationmgr=yes prop_cb=1
 @tableinfo aw_shop_packaging index=id master_table=objects master_index=brother_of
 @extends applications/shop/shop_warehouse_item
 
@@ -32,10 +32,10 @@
 	@property special_price type=textbox size=5 field=aw_special_price
 	@caption Erihind
 
-	@property price_object type=relpicker reltype=RELTYPE_PRICE 
+	@property price_object type=relpicker reltype=RELTYPE_PRICE
 	@caption Hind (objekt)
-			
-	@property special_price_object type=relpicker reltype=RELTYPE_PRICE 
+
+	@property special_price_object type=relpicker reltype=RELTYPE_PRICE
 	@caption Erihind (objekt)
 
 	@property content_package_price_condition type=checkbox ch_value=1 disabled=1 table=aw_shop_packaging field=aw_content_package_price_condition
@@ -47,15 +47,15 @@
 @groupinfo general_time_settings caption="Ajaseaded" parent=general
 @default group=general_time_settings
 
-	@layout gentms_main type=hbox 
+	@layout gentms_main type=hbox
 
 		@layout reservation type=hbox area_caption=Broneeritav&nbsp;aeg closeable=1 parent=gentms_main
-	
+
 			@property reservation_time type=textbox size=5 table=objects field=meta method=serialize parent=reservation
 			@caption Broneeritav aeg
 
 			@property reservation_time_unit type=select table=objects field=meta method=serialize parent=reservation no_caption=1
-	
+
 		@layout buffer type=hbox area_caption=Puhveraeg closeable=1 parent=gentms_main
 
 			@property buffer_time_before type=textbox size=5 table=objects field=meta method=serialize parent=buffer
@@ -63,7 +63,7 @@
 
 			@property buffer_time_after type=textbox size=5 table=objects field=meta method=serialize parent=buffer
 			@caption Puhveraeg p&auml;rast
-	
+
 			@property buffer_time_unit type=select  table=objects field=meta method=serialize parent=buffer no_caption=1
 
 @groupinfo amount_limits caption="Kogusepiirangud" parent=general
@@ -96,7 +96,7 @@
 	@groupinfo data caption="Andmed" parent=info
 	@default group=data
 
-		@property size type=textbox 
+		@property size type=textbox
 		@caption Suurus
 
 		@property user1 type=textbox field=user1 group=data
@@ -198,19 +198,19 @@
 
 @groupinfo acl caption=&Otilde;igused
 @default group=acl
-	
+
 	@property acl type=acl_manager store=no
 	@caption &Otilde;igused
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
 
 @reltype IMAGE value=1 clid=CL_IMAGE
-@caption pilt 
+@caption pilt
 
 @reltype FILE value=2 clid=CL_FILE
 @caption fail
@@ -252,7 +252,7 @@ class shop_product_packaging extends shop_warehouse_item
 		));
 		$this->trans_props = array(
 			"name","comment","user1", "user2", "user3", "user4", "user5", "user6",
-			"user7", "user8", "user9", "user10", "user11", "user12", "user13", "user14", 
+			"user7", "user8", "user9", "user10", "user11", "user12", "user13", "user14",
 			"user15", "userta1", "userta2", "userta3", "userta4", "userta5"
 		);
 	}
@@ -311,12 +311,12 @@ class shop_product_packaging extends shop_warehouse_item
 		$t->define_field(array(
 			"name" => "min_amount",
 			"caption" => t("Minimaalne kogus"),
-			"align" => "center",			
+			"align" => "center",
 		));
 		$t->define_field(array(
 			"name" => "max_amount",
 			"caption" => t("Maksimaalne kogus"),
-			"align" => "center",			
+			"align" => "center",
 		));
 		$amount_limits = $this->get_amount_limits(array(
 			"id" => $arr["obj_inst"]->id(),
@@ -387,7 +387,7 @@ class shop_product_packaging extends shop_warehouse_item
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function parse_alias($arr = array())
 	{
@@ -412,7 +412,7 @@ class shop_product_packaging extends shop_warehouse_item
 			from the layout reads the template and inserts correct vars
 			optionally you can give the $quantity parameter
 			$oc_obj must be the order center object via what the product is drawn
-			
+
 	**/
 	function do_draw_product($arr)
 	{
@@ -455,7 +455,7 @@ class shop_product_packaging extends shop_warehouse_item
 				$rp_all_cur .= " ".number_format($cur_price, 2)." ".$cur_obj->name();
 			}
 		}
-														
+
 
 		$soc = get_instance(CL_SHOP_ORDER_CART);
 		$soc->get_cart($oc_obj);
@@ -516,7 +516,7 @@ class shop_product_packaging extends shop_warehouse_item
 			));
 			$cnt++;
 		}
-		
+
 		for($i = 1; $i < 21; $i++)
 		{
 			$tmp = $prod->prop("uservar".$i);
@@ -649,7 +649,7 @@ class shop_product_packaging extends shop_warehouse_item
 
 	function get_must_order_num($o)
 	{
-		
+
 		foreach($o->connections_to(array(
 			"from.class_id" => CL_SHOP_PRODUCT,
 		)) as $prod)
@@ -762,7 +762,7 @@ class shop_product_packaging extends shop_warehouse_item
 		$o = obj($arr["id"]);
 		$o->set_meta("amount_limits", $arr["limits"]);
 		$o->save();
-		
+
 		return $arr["post_ru"];
 	}
 
@@ -784,7 +784,7 @@ class shop_product_packaging extends shop_warehouse_item
 	{
 		return $this->trans_callback($arr, $this->trans_props);
 	}
-	
+
 	function do_db_upgrade($t, $f, $query, $error)
 	{
 		if ($tbl == "aw_shop_packaging" && $field == "")

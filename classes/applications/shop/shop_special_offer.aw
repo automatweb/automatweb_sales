@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_special_offer.aw,v 1.17 2008/07/22 06:58:51 tarvo Exp $
-// shop_special_offer.aw - Poe eripakkumine 
+
+// shop_special_offer.aw - Poe eripakkumine
 /*
 
-@classinfo syslog_type=ST_SHOP_SPECIAL_OFFER relationmgr=yes no_caption=1 no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_caption=1 no_status=1
 
 @default table=objects
 @default group=general
@@ -16,7 +16,7 @@
 @layout main_split type=hbox
 
 @layout left_top type=vbox closeable=1 area_caption=&Uuml;ldseaded parent=main_split
-	
+
 	@property name type=textbox parent=left_top
 	@caption Nimi
 
@@ -92,7 +92,7 @@
 
 @layout down_box type=vbox closeable=1 area_caption=Artiklikategooriate&nbsp;soodustused
 
-	
+
 	@property product_groups_tbl type=table store=no no_caption=1 parent=down_box
 
 
@@ -104,7 +104,7 @@
 	@property template type=relpicker reltype=RELTYPE_ITEM_LAYOUT field=meta method=serialize automatic=1
 	@caption Kujundusmall
 
-	@property use_controller type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize 
+	@property use_controller type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize
 	@caption Kasuta toodete n&auml;itamiseks kontrollerit
 
 
@@ -113,7 +113,7 @@
 @default group=prods
 
 	@property products_tb type=toolbar store=no no_caption=1
-	
+
 	@property products_table type=table store=no no_caption=1
 
 
@@ -385,7 +385,7 @@ class shop_special_offer extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function _init_discount_scheme_tbl(&$arr)
 	{
@@ -608,7 +608,7 @@ class shop_special_offer extends class_base
 				$arr["request"]["prodat"] = array();
 			}
 			$prc = $this->_get_product_prices($arr["request"]["new_product"]["product"]);
-			
+
 			foreach($arr["request"]["new_product"]["currency"] as $oid => $val)
 			{
 				if(empty($val))
@@ -655,8 +655,8 @@ class shop_special_offer extends class_base
 			));
 		}
 		$t->define_data($empty_line);
-		
-		// fill table 
+
+		// fill table
 		$this->_gen_products_table($arr);
 	}
 
@@ -817,7 +817,6 @@ class shop_special_offer extends class_base
 	**/
 	function _get_ac_product_groups($args)
 	{
-		classload("protocols/data/json");
 		$json = new json();
 		$error = false;
 		$errorstring = "";
@@ -876,7 +875,6 @@ class shop_special_offer extends class_base
 	**/
 	function _get_ac_cats($args)
 	{
-		classload("protocols/data/json");
 		$json = new json();
 		$error = false;
 		$units = array();
@@ -921,7 +919,6 @@ class shop_special_offer extends class_base
 	 **/
 	function _get_ac_products($args)
 	{
-		classload("protocols/data/json");
 		$json = new json();
 		$error = false;
 		$errorstring = "";
@@ -979,7 +976,6 @@ class shop_special_offer extends class_base
 	**/
 	function _get_ac_product_units($args)
 	{
-		classload("protocols/data/json");
 		$json = new json();
 		$error = false;
 		$units = array();
@@ -1083,4 +1079,3 @@ class shop_special_offer extends class_base
 		return $arr["rurl"];
 	}
 }
-?>

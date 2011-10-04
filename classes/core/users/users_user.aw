@@ -36,7 +36,7 @@ class users_user extends aw_template
 		@param remote_auth optional type=int
 			If set to true, the only output is 1 for a successful login and 0 for unsuccessful.
 	**/
-	function login($params = array())
+	public function login($params = array())
 	{
 		$uid = $params["uid"];
 		$password = $params["password"];
@@ -58,7 +58,7 @@ class users_user extends aw_template
 				{
 					throw new awex_auth_pw("Root password not set or doesn't meet requirements");
 				}
-//TODO: viia auth moodulisse root autentimine?
+//TODO: viia auth moodulisse root autentimine!
 				// compare with what user submitted
 				if ($password === $root_password)
 				{
@@ -69,7 +69,7 @@ class users_user extends aw_template
 					// create root user if not found
 					if (!strtolower($this->db_fetch_field("SELECT uid FROM users WHERE uid = 'root'", "uid")))
 					{//TODO: tmp lahendus. user::add_USER korda teha ja viia user_manager_obj-i.
-						$_SESSION["uid"] = "root";
+						aw_session::set("uid", "root");
 						aw_global_set("uid", "root");
 						$root_user = obj(null, array(), user_obj::CLID);
 						$root_user->set_parent(1);
@@ -144,11 +144,11 @@ class users_user extends aw_template
 			$user_obj->save();
 		}
 
-		aw_session_set("user_adm_ui_lc", $user_obj->prop("ui_language"));
+		aw_session::set("user_adm_ui_lc", $user_obj->prop("ui_language"));
 
-		setcookie("nocache",1);
-		$_SESSION["uid"] = $uid;
-		$_SESSION["uid_oid"] = $u_oid;
+		setcookie("nocache", 1);//XXX: mida t2hendab?
+		aw_session::set("uid", $uid);
+		aw_session::set("uid_oid", $u_oid);
 		aw_global_set("uid_oid", $u_oid);
 		aw_global_set("uid", $uid);
 

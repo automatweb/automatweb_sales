@@ -339,26 +339,26 @@ class users extends users_user implements request_startup, orb_public_interface
 		{
 			aw_session_set("status_msg",t("Sellist kasutajat pole registreeritud"));
 			return $this->mk_my_orb("send_hash",array());
-		};
+		}
 
 		$pwhash1 = $uo->meta("password_hash");
-		if ($pwhash1 != $pwhash)
+		if ($pwhash1 !== $pwhash)
 		{
 			aw_session_set("status_msg",t("Sellist v&otilde;tit pole v&auml;ljastatud"));
 			return $this->mk_my_orb("pwhash",array("u" => $uo->prop("uid"),"k" => $pwhash));
-		};
+		}
 
 		if (!is_valid("password",$pass1))
 		{
 			aw_session_set("status_msg",t("Parool sisaldab keelatud m&auml;rke"));
 			return $this->mk_my_orb("pwhash",array("u" => $uo->prop("uid"),"k" => $pwhash));
-		};
+		}
 
-		if ($pass1 != $pass2)
+		if ($pass1 !== $pass2)
 		{
 			aw_session_set("status_msg",t("Paroolid peavad olema &uuml;hesugused"));
 			return $this->mk_my_orb("pwhash",array("u" => $uo->prop("uid"),"k" => $pwhash));
-		};
+		}
 		$uo->set_password($pass1);
 		$uo->save();
 
@@ -413,7 +413,7 @@ class users extends users_user implements request_startup, orb_public_interface
 
 	function request_startup()
 	{
-		if (isset($_GET["set_group"]) && object_loader::can("", $_GET["set_group"]))
+		if (isset($_GET["set_group"]) && object_loader::can("", $_GET["set_group"]))//XXX: mis see on?
 		{
 			// fetch thegroup and check if non logged users can switch to it
 			$setg_o = obj($_GET["set_group"]);
@@ -440,14 +440,14 @@ class users extends users_user implements request_startup, orb_public_interface
 			$_SESSION["nliug"] = null;
 		}
 
-		if ($uid = aw_global_get("uid"))
+		if ($uid = aw_session::get("uid"))
 		{
-			if(empty($_SESSION["uid_oid"]))
+			if(!aw_session::get("uid_oid"))
 			{
-				$_SESSION["uid_oid"] = $this->get_oid_for_uid(aw_global_get("uid"));
+				aw_session::set("uid_oid", $this->get_oid_for_uid(aw_global_get("uid")));
 			}
 
-			$this->create_gidlists($_SESSION["uid_oid"]);
+			$this->create_gidlists(aw_session::get("uid_oid"));
 			$gidlist_pri_oid = aw_global_get("gidlist_pri_oid");
 			if (count($gidlist_pri_oid) < 1)
 			{
@@ -651,7 +651,6 @@ class users extends users_user implements request_startup, orb_public_interface
 			$last_user_oid = $user_o->id();
 			echo "Adding users... <br>\n";
 			flush();
-
 			echo "adding user to groups! <br>\n";
 			flush();
 			$this->_install_create_g_u_o_rel($last_user_oid, $admg);

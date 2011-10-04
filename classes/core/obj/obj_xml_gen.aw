@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class obj_xml_gen
 {
@@ -303,7 +300,7 @@ echo "<pre>".htmlentities($xml)."</pre>";
 				"to" => $new_to->id(),
 				"type" => $rel["reltype"]
 			));
-	
+
 			if ($rel["aliaslink"])
 			{
 				$lls = $new_obj->meta("aliaslinks");
@@ -360,7 +357,7 @@ echo "<pre>".htmlentities($xml)."</pre>";
 			{
 				continue;
 			}
-			
+
 			// we need to skip metadata props, because they are serialized and we didn't do that here
 			if ($o->is_property($k) && $pl[$k]["field"] != "metadata" && $pl[$k]["table"] != "objects")
 			{
@@ -498,4 +495,3 @@ echo "<pre>".htmlentities($xml)."</pre>";
 		}
 	}
 }
-?>

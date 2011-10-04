@@ -144,14 +144,13 @@ class quick_reservation extends class_base
 					$prop["value"] = $prop["value"] + 3600;
 				}
 				break;
-		};
+		}
 		return $retval;
 	}
 
 	function set_property($arr = array())
 	{
-		$room_inst = get_instance(CL_ROOM);
-		$url = $room_inst->mk_my_orb("admin_add_bron_popup", array(
+		$url = core::mk_my_orb("admin_add_bron_popup", array(
 			"bron" => $arr["request"]["bron"],
 			"end" => date_edit::get_timestamp($arr["request"]["bron"]["end"]),
 			"start1" => date_edit::get_timestamp($arr["request"]["bron"]["start1"]),
@@ -161,7 +160,7 @@ class quick_reservation extends class_base
 			"product" => $arr["request"]["bron"]["product"],
 			"post_msg_after_reservation" => $arr["request"]["post_msg_after_reservation"],
 			"other_rooms" => $arr["request"]["bron"]["other_rooms"],
-		));
+		), CL_ROOM);
 
 		die("<script type='text/javascript'>
 			window.location.href='".$url."';
