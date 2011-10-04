@@ -3,7 +3,6 @@
 /*
 
 @classinfo relationmgr=yes no_status=1
-
 @default table=objects
 
 ------------- general -------------
@@ -358,7 +357,7 @@ class webform extends class_base
 		if($this->cfgform)
 		{
 			$this->cfgform_i->callback_pre_save(array(
-				"obj_inst" => &$this->cfgform,
+				"obj_inst" => $this->cfgform,
 				"request" => array("subclass" => $this->p_clid),
 			));
 			$this->cfgform->save();
@@ -633,7 +632,7 @@ class webform extends class_base
 		$classificator = $object_type->meta("classificator");
 		$clf_type = $arr["request"]["clf_type"];
 		$this->cfgform_i->save_layout(array(
-			"obj_inst" => &$this->cfgform,
+			"obj_inst" => $this->cfgform,
 			"request" => &$arr["request"],
 		));
 		$prplist = $this->cfgform_i->cfg_proplist;
@@ -991,7 +990,7 @@ class webform extends class_base
 		$register = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_REGISTER");
 		$object_export = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_OBJECT_EXPORT");
 		$register_search = $register->prop("search_o");
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "search",
 			"tooltip" => t("Otsi"),
@@ -1060,17 +1059,16 @@ class webform extends class_base
 			if(!array_key_exists($key, $c_props))
 			{
 				// we skip the checkboxes
-				if($prp_count[$prop["type"]] == 1 && $prop["type"] == "checkbox")
+				if($prp_count[$prop["type"]] == 1 && $prop["type"] === "checkbox")
 				{
 					continue;
 				}
 
-				if ($prop["type"] == "releditor" && substr($prop["name"], 0, 6) == "userim")
+				if ($prop["type"] === "releditor" && substr($prop["name"], 0, 6) === "userim")
 				{
 					$prp_count[$prop["type"]."_im"]++;
 				}
-				else
-				if ($prop["type"] == "releditor" && substr($prop["name"], 0, 8) == "userfile")
+				elseif ($prop["type"] === "releditor" && substr($prop["name"], 0, 8) === "userfile")
 				{
 					$prp_count[$prop["type"]."_fl"]++;
 				}
@@ -1085,12 +1083,11 @@ class webform extends class_base
 		// these props won't go to heaven
 		foreach($this->cfgform_i->all_props as $key => $prop)
 		{
-			if ($prop["type"] == "releditor" && substr($prop["name"], 0, 6) == "userim")
+			if ($prop["type"] === "releditor" && substr($prop["name"], 0, 6) === "userim")
 			{
 				$prop["type"] = "releditor_im";
 			}
-			else
-			if ($prop["type"] == "releditor" && substr($prop["name"], 0, 8) == "userfile")
+			elseif ($prop["type"] === "releditor" && substr($prop["name"], 0, 8) === "userfile")
 			{
 				$prop["type"] = "releditor_fl";
 			}
@@ -1107,7 +1104,7 @@ class webform extends class_base
 
 			if(!array_key_exists($key, $c_props))
 			{
-				if($ext_count[$prop["type"]] == 1 && $prop["type"] == "checkbox")
+				if($ext_count[$prop["type"]] == 1 && $prop["type"] === "checkbox")
 				{
 					continue;
 				}
@@ -2620,10 +2617,6 @@ class webform extends class_base
 			}
 			$emls = safe_array(aw_global_get("receivers_name"));
 			$emails = $emails + $emls;
-			/*if (aw_global_get("uid") == "struktuur")
-			{
-				die(dbg::dump($emails));
-			}*/
 			$nm = aw_global_get("global_name");
 			if(!empty($nm))
 			{
@@ -2673,7 +2666,6 @@ class webform extends class_base
 
 	function draw_confirm_page($arr)
 	{
-
 		// webform object
 		if ($this->can('view', $arr['id']))
 		{
@@ -2714,6 +2706,15 @@ class webform extends class_base
 					break;
 				case 'text':
 					$vars[$name] = $prop_data['value'];
+					break;
+				case 'releditor':
+					if ("userfile" === substr($prop_data["name"], 0, -1))
+					{ // user file upload confirm
+					}
+					else
+					{ // other releditors if implemented
+						$vars[$name] = $form_data[$name];
+					}
 					break;
 				case 'textarea':
 					$vars[$name] = nl2br($form_data[$name]);
@@ -2800,7 +2801,7 @@ class webform extends class_base
 		$wf = obj($arr["id"]);
 		if ($wf->prop("disp_after_entry") != "")
 		{
-			if (($arr["format"] == "print" || $arr["format"] == "pdf") && $wf->prop("disp_after_entry_print"))
+			if (($arr["format"] === "print" || $arr["format"] === "pdf") && $wf->prop("disp_after_entry_print"))
 			{
 				$this->read_template("disp/".$wf->prop("disp_after_entry_print"));
 			}
@@ -2863,14 +2864,10 @@ class webform extends class_base
 	}
 
 	/**
-
 		@attrib api=1
-
 		@param id required
-
 		@comment
 			returns list of properties from the webform ($id)
-
 	**/
 	function get_props_from_wf($arr)
 	{
@@ -2883,18 +2880,18 @@ class webform extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
-		if($_GET["group"] == "send_mails")
+		if("send_mails" === $this->use_group)
 		{
 			$arr["add_search_mail"] = 0;
 		}
-		$arr["post_ru"] = get_ru();
+		$arr["post_ru"] = get_ru();//XXX: vaja?
 	}
 
 	function callback_generate_scripts($arr)
 	{
-		if($_GET["group"] == "send_mails")
+		if("send_mails" === $this->use_group)
 		{
 			$this->vars(array(
 				"agurl" => $this->mk_my_orb("ajax_get_mail_field"),
@@ -2906,7 +2903,7 @@ class webform extends class_base
 
 	function get_mails_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(array(CL_ML_MEMBER), $arr["obj_inst"]->id(), 5);
 		$tb->add_search_button(array(
 			"pn" => "add_search_mail",
@@ -3041,12 +3038,12 @@ class webform extends class_base
 	{
 		if(!empty($arr["val"]))
 		{
-			if($arr["find"] == "search_mail_name")
+			if($arr["find"] === "search_mail_name")
 			{
 				$params["mail"] = $arr["val"];
 				$var = "name";
 			}
-			elseif($arr["find"] == "search_mail_email")
+			elseif($arr["find"] === "search_mail_email")
 			{
 				$params["CL_ML_MEMBER.name"] = $arr["val"];
 				$var = "mail";
