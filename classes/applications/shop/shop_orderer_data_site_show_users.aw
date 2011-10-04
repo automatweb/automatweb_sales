@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_SHOP_ORDERER_DATA_SITE_SHOW_USERS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_shop_orderer_data_site_show master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_shop_orderer_data_site_show
@@ -9,7 +9,7 @@
 @property template type=select
 @caption Template
 
-@property slave_groups type=relpicker multiple=1 store=connect reltype=RELTYPE_GROUP 
+@property slave_groups type=relpicker multiple=1 store=connect reltype=RELTYPE_GROUP
 @caption Alamkasutajate kasutajagrupid
 @comment sinna gruppidesse lisatakse kasutajad
 
@@ -26,30 +26,6 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 			"tpldir" => "applications/shop/shop_orderer_data_site_show",
 			"clid" => CL_SHOP_ORDERER_DATA_SITE_SHOW_USERS
 		));
-	}
-
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
 	}
 
 	function show($arr)
@@ -69,7 +45,7 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 		{
 			$template = $ob->prop("template");
 		}
-		;
+
 		if(!$this->read_template($template , 1))
 		{
 			 $this->read_site_template($template);
@@ -90,13 +66,12 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 
 		return $this->parse();
 	}
-	
+
 	/**
 		@attrib name=add_slave is_public="1" caption="Change" nologin=1 all_args=1
 	**/
 	public function add_slave($arr)
 	{
-
 		$user_inst = get_instance(CL_USER);
 		$this->add_user_error = null;
 		if(!(strlen($arr["password"]) > 2))
@@ -138,7 +113,7 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 			$this->user_lastname = $arr["lastname"];
 			$this->user_phone = $arr["phone"];
 		}
-		$this->update_html($arr["id"]); 
+		$this->update_html($arr["id"]);
 	}
 
 	/**
@@ -153,7 +128,7 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 		}
 		$this->update_html($arr["id"]);
 	}
-	
+
 	/**
 		@attrib name=update_html is_public="1" caption="Change" nologin=1 all_args=1
 	**/
@@ -165,13 +140,42 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 	private function get_slave_name()
 	{
 		$user = obj(aw_global_get("uid_oid"));
-		$slave_name = $user->get_new_slave_name();
+		$slave_name = $this->_get_new_slave_name();
 		return $slave_name;
 	}
 
+	private function _get_slaves(object $user)
+	{
+		$ol = new object_list(array(
+			"class_id" => self::CLID,
+			"parent" => $user->id(),
+			"name" => $user->name().".%"
+		));
+		return $ol;
+	}
+
+	private function _get_new_slave_name()
+	{
+		$uid = aw_global_get("uid");
+		$n = 1;
+		while($n < 10000)
+		{
+			$ol = new object_list(array(
+				"class_id" => self::CLID,
+				"name" => aw_global_get("uid").".".$n
+			));
+			if(!$ol->count())
+			{
+				return aw_global_get("uid").".".$n;
+			}
+			$n++;
+		}
+		return $uid.".0";
+	}
+
+
 	private function get_add_new($id)
 	{
-		classload("cfg/htmlclient");
 		$htmlc = new htmlclient(array(
 			'template' => "default",
 		));
@@ -266,13 +270,11 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 	private function get_users_table($id)
 	{
 		$user = obj(aw_global_get("uid_oid"));
-		$slaves = $user->get_slaves();
+		$slaves = $this->get_slaves($user);
 		$result = "";
 
 		if($slaves->count())
 		{
-			
-			classload("vcl/toolbar");
 			$t = new vcl_table();
 			$t->define_chooser(array(
 				"field" => "oid",
@@ -301,7 +303,7 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 				"name" => "group",
 				"caption" => t("Grupp")
 			));
-			
+
 			$groups = array();
 			foreach($user->get_groups_for_user() as $group)
 			{
@@ -368,5 +370,3 @@ $.post('/automatweb/orb.aw?class=shop_orderer_data_site_show_users&action=remove
 	}
 
 }
-
-?>

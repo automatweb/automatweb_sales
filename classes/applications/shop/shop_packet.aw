@@ -1,5 +1,10 @@
 <?php
 /*
+Pakett koondab tooteid
+Toode koondab pakendeid
+N2iteks: pluus on pakett, eri v2rvi pluusid on tooted, iga pluusi suurus on pakend
+*/
+/*
 @classinfo syslog_type=ST_SHOP_PACKET relationmgr=yes prop_cb=1
 @tableinfo aw_shop_packets index=aw_oid master_table=objects master_index=brother_of
 @extends applications/shop/shop_warehouse_item
@@ -10,7 +15,7 @@
 @property status_edit type=chooser table=objects field=status
 @caption Staatus
 
-@property description type=textarea cols=40 rows=5 table=aw_shop_packets 
+@property description type=textarea cols=40 rows=5 table=aw_shop_packets
 @caption Kirjeldus
 @comment Toote kirjeldus
 
@@ -26,7 +31,7 @@
 @property special_price type=textbox table=aw_shop_packets field=aw_special_price
 @caption Erihind
 
-@property actual_price type=text store=no
+@property actual_price type=text store=no editonly=1
 @caption Tegelik hind
 @comment Paketis olevate toodete ja pakendite minimaalne maksumus
 
@@ -96,13 +101,13 @@
 
 @groupinfo acl caption=&Otilde;igused
 @default group=acl
-	
+
 	@property acl type=acl_manager store=no
 	@caption &Otilde;igused
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
@@ -476,7 +481,7 @@ class shop_packet extends shop_warehouse_item
 				"image".$cnt."_url" => $u,
 				"image".$cnt."_onclick" => $onc
 			));
-			
+
 			if ($onc != "")
 			{
 				$l_inst->vars(array(
@@ -543,7 +548,7 @@ class shop_packet extends shop_warehouse_item
 		@param o required type=object
 		 the packet to get prods for
 
-		 @returns 
+		 @returns
 			array of product id -> count in packet
 	**/
 	function get_products_for_package($o)
@@ -758,7 +763,7 @@ class shop_packet extends shop_warehouse_item
 		$this->vars(array(
 			"name" => $ob->prop("name"),
 		));
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 		//r2ndom miskite sama kategooria pakettide n2itamine
 		if($this->is_template("MORE_PRODUCTS"))
 		{
@@ -793,7 +798,7 @@ class shop_packet extends shop_warehouse_item
 						"image_url" => $data["cat_images"][$key],
 					));
 					$tags.= $this->parse("TAGS");
-				}		
+				}
 			}
 			$this->vars(array("TAGS" => $tags));
 		}
@@ -815,7 +820,7 @@ class shop_packet extends shop_warehouse_item
 		$data["COLORS"] = "";
 		$szs = 0;//lihtsalt n2itab kas on yhelgi pakendil suurusi
 		$clrs = 0;//n2itab kas on yhelgi tootel v2rve suurusi
-		
+
 		$purveyances_stuff = $this->get_purveyances($data["packages"]);
 		$this->add_purveyances($data["packages"]);
 
@@ -841,7 +846,7 @@ class shop_packet extends shop_warehouse_item
 			{
 				$clrs = 1;
 			}
-			//arr($data);	
+			//arr($data);
 
 			foreach($packages as $package)
 			{
@@ -872,7 +877,7 @@ class shop_packet extends shop_warehouse_item
 
 			$data["COLORS"].= $this->parse("COLORS");
 
-		} 
+		}
 
 //if(aw_global_get("uid") == "struktuur.markop") arr($prod_params);
 
@@ -903,7 +908,7 @@ class shop_packet extends shop_warehouse_item
 			$data["special_price"] = number_format($special_price, 2);
 			$data["special_price_visibility"] = "_showSpecialPrice";
 		}
-		
+
 		$data["product_params"] = "productParams = {\n";
 		$data["product_params"].= join(",\n" , $prod_params);
 //						111111111 : { sizes : [32,34,36], prices : [100,200,300]  },
@@ -933,7 +938,7 @@ class shop_packet extends shop_warehouse_item
 		{
 			foreach($packaging_array as $key => $packaging)
 			{
-	
+
 				$conns = connection::find(array(
 					"to" => $packaging,
 					"from.class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
@@ -947,7 +952,7 @@ class shop_packet extends shop_warehouse_item
 						'comment' => $o->comment(),
 						'code' => $o->prop("code")
 					);
-				}				
+				}
 
 			}
 		}
@@ -1011,7 +1016,7 @@ class shop_packet extends shop_warehouse_item
 
 	}
 
-	/** 
+	/**
 		@attrib name=get_data nologin=1 is_public=1 all_args=1 params=pos api=1
 		@param prop required type=string
 		@param code required type=string
@@ -1039,7 +1044,7 @@ class shop_packet extends shop_warehouse_item
 			$fun = "get_".$arr["prop"];
 			$stuff = $o->$fun(1);
 			aw_restore_acl();
-			return $stuff; 
+			return $stuff;
 		}aw_restore_acl();
 		return null;
 	}

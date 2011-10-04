@@ -103,7 +103,7 @@ class shop_matrix_obj extends _int_object
 			self::get_matrix_structure_parents($matrix["rows"]["products"] + $matrix["cols"]["customers"] + $matrix["cols"]["locations"] + $matrix["rows"]["products"], $matrix["parents"]);
 
 			$retval[$o->id()] = $matrix;
-		}		
+		}
 
 		return $retval[$o->id()];
 	}
@@ -203,7 +203,7 @@ class shop_matrix_obj extends _int_object
 			"row" => $row,
 			"col" => $col,
 			"parent" => $parent,
-		);		
+		);
 		foreach($subcols as $_col => $_subcols)
 		{
 			$this->update_code_add_cell($row, $_col, array("row" => $row, "col" => $col), array(), $_subcols);
@@ -214,4 +214,3 @@ class shop_matrix_obj extends _int_object
 		}
 	}
 }
-?>
