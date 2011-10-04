@@ -151,7 +151,7 @@ class user_obj extends _int_object
 				$mail->set_parent($p->id());
 				$mail->set_prop("mail", $umail);
 				$mail->set_prop("name", $uname);
-				$mail->set_name($uname." &lt;".$umail."&gt;");
+				$mail->set_name($uname." &lt;".$umail."&gt;");//FIXME: html entiteid pole m6tet andmebaasi salvestada
 				$mail->save();
 				$this->connect(array(
 					"to" => $mail->id(),
@@ -312,12 +312,14 @@ class user_obj extends _int_object
 		return $p;
 	}
 
-	function create_brother($p)
+	public function create_brother($p)
 	{
+		/* XXX : tekitas probleemi, meenutada, milleks yldse vaja oli
 		if ("root" === $this->prop("uid"))
 		{ //TODO: vaadata kas see ei tekita kuskil probleemi.
 			throw new awex_obj_acl("Access denied");
 		}
+		*/
 
 		$rv = parent::create_brother($p);
 		if(obj($p)->class_id() == group_obj::CLID)
@@ -387,49 +389,10 @@ class user_obj extends _int_object
 		return $person->get_phone();
 	}
 
-	function awobj_set_cfg_admin_mode($v)
+	public function awobj_set_cfg_admin_mode($v)
 	{
 		$_SESSION["cfg_admin_mode"] = $v;
 		return $this->set_prop("cfg_admin_mode", $v);
-	}
-
-	/** returns lower users
-		@attrib api=1
-		@returns object list
-	**/
-	//XXX: slaves?
-	public function get_slaves()
-	{
-		$ol = new object_list(array(
-			"class_id" => self::CLID,
-			"parent" => $this->id(),
-			"name" => $this->name().".%"
-		));
-		return $ol;
-	}
-
-	/** returns next slave name
-		@attrib api=1
-		@returns string
-	**/
-	//XXX: slaves?
-	public function get_new_slave_name()
-	{
-		$uid = aw_global_get("uid");
-		$n = 1;
-		while($n < 10000)
-		{
-			$ol = new object_list(array(
-				"class_id" => self::CLID,
-				"name" => aw_global_get("uid").".".$n
-			));
-			if(!$ol->count())
-			{
-				return aw_global_get("uid").".".$n;
-			}
-			$n++;
-		}
-		return $uid.".0";
 	}
 
 	/** adds the user $user to group $group (storage objects)
@@ -515,13 +478,13 @@ class user_obj extends _int_object
 			}
 
 			// brother under group
-			if(!isset($arr["brother_done"]) || !$arr["brother_done"])
+			if(empty($arr["brother_done"]))
 			{
 				$brother_id = $this->create_brother($p_o->id());
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+
+		cache::file_clear_pt("acl");
 	}
 
 
