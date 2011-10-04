@@ -999,6 +999,22 @@ class users extends users_user implements request_startup, orb_public_interface
 		return parent::logout($arr);
 	}
 
+	/**	Returns true if user is logged in, false otherwise.
+		@attrib api=1
+		@returns boolean
+	**/
+	public static function is_logged_in(object $user = null)
+	{
+		if (null === $user)
+		{
+			return is_oid(aw_global_get("uid_oid"));
+		}
+		else
+		{
+			throw new aw_exception("Missing implementation!");
+		}
+	}
+
 	/**
 		@comment
 			converts certificates subject value to ISO-8859-1
@@ -1120,4 +1136,3 @@ class users extends users_user implements request_startup, orb_public_interface
 		}
 	}
 }
-

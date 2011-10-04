@@ -300,20 +300,19 @@ class acl_manager extends aw_template
 			{
 				$obj->acl_del($o);
 			}
-			else
-			if (isset($acl[$o->id()]) || (isset($arr["acl_matrix"][$o->id()]) && count($arr["acl_matrix"][$o->id()])) || $arr["set_acl"][$o->id()] == 1)
+			elseif (isset($acl[$o->id()]) || isset($arr["acl_matrix"][$o->id()]) && count($arr["acl_matrix"][$o->id()]) || !empty($arr["set_acl"][$o->id()]))
 			{
 				$obj->acl_set($o, safe_array($arr["acl_matrix"][$o->id()]));
 			}
 
-			if ($arr["is_rootmenu"][$oid] == 1)
+			if (!empty($arr["is_rootmenu"][$oid]))
 			{
 				$o->connect(array(
 					"to" => $obj->id(),
 					"type" => "RELTYPE_ADMIN_ROOT"
 				));
 				$adm_rm = safe_array($o->meta("admin_rootmenu2"));
-				if (!is_array($adm_rm[aw_global_get("lang_id")]))
+				if (!isset($adm_rm[aw_global_get("lang_id")]) or !is_array($adm_rm[aw_global_get("lang_id")]))
 				{
 					$adm_rm[aw_global_get("lang_id")] = array();
 				}

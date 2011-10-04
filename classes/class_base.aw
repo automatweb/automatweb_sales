@@ -3000,7 +3000,10 @@ class class_base extends aw_template implements orb_public_interface
 		if (!empty($args["name_prefix"]))
 		{
 			$this->name_prefix = $args["name_prefix"];
-			$this->inst->name_prefix = $args["name_prefix"];
+			if (isset($this->inst))
+			{
+				$this->inst->name_prefix = $args["name_prefix"];
+			}
 		}
 
 		if (!is_array($this->relinfo))
