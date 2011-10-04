@@ -238,8 +238,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 					));
 					$params[$key] = $vars[$key];
 				}
-				else
-				if (isset($orb_defs[$class][$action]["defaults"][$key]))
+				elseif (isset($orb_defs[$class][$action]["defaults"][$key]))
 				{
 					if ($orb_defs[$class][$action]["defaults"][$key] === "true")
 					{
@@ -347,13 +346,20 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		$this->_tmp = $args["data"];
 	}
 
-	////
-	// !laeb XML failist orbi definitsiooni
+	/**
+		@attrib api=1 params=name
+		@param content type=xml
+			Class's ORB xml definition
+		@comment
+		@returns array
+			xml parsed to array
+		@errors
+	**/
 	function load_xml_orb_def_file($args = array())
 	{
 		// loome parseri
 		$parser = xml_parser_create();
-		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
+		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
 		// xml data arraysse
 		xml_parse_into_struct($parser, $args["content"], $values, $tags);
 		// R.I.P. parser
@@ -370,6 +376,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 		// ja siia moodustub loplik struktuur
 		$orb_defs = array();
+
 		foreach($values as $key => $val)
 		{
 			// parajasti t88deldava tag-i nimi
@@ -384,33 +391,49 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			// kui tegemist on n8 "konteiner" tag-iga, siis...
 			if (in_array($tag,$containers))
 			{
-
 				if ((sizeof($attribs) > 0) && in_array($tagtype,array("open","complete")))
 				{
 					$$tag = $attribs["name"];
 
 					if ("action" === $tag)
 					{
+						//XXX: DEPRECATED. use "login" attribute
 						if (!empty($attribs["nologin"]))
 						{
 							$orb_defs[$class][$attribs["name"]]["nologin"] = 1;
-						};
+						}
+
+						if (!empty($attribs["login"]))
+						{
+							$orb_defs[$class][$attribs["name"]]["login"] = $attribs["login"];
+						}
+						else
+						{
+							$orb_defs[$class][$attribs["name"]]["login"] = "all";
+						}
+
 						if (!empty($attribs["is_public"]))
 						{
 							$orb_defs[$class][$attribs["name"]]["is_public"] = 1;
-						};
+						}
+
 						if (!empty($attribs["is_content"]))
 						{
 							$orb_defs[$class][$attribs["name"]]["is_content"] = 1;
-						};
+						}
+
 						if (!empty($attribs["all_args"]))
 						{
 							$orb_defs[$class][$attribs["name"]]["all_args"] = true;
-						};
+						}
+
 						if (!empty($attribs["caption"]))
 						{
 							$orb_defs[$class][$attribs["name"]]["caption"] = $attribs["caption"];
-						};
+						}
+
+						//XXX: DEPRECATED
+						//TODO: klassi atribuutidesse viia
 						if (!empty($attribs["default"]))
 						{
 							$orb_defs[$class]["default"] = $attribs["name"];
@@ -443,7 +466,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 						if (isset($attribs["default"]) && $attribs["default"])
 						{
 							$orb_defs[$class]["default"] = $action;
-						};
+						}
 					}
 					elseif ($tag === "class")
 					{
@@ -451,20 +474,23 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 						if (isset($attribs["xmlrpc"]))
 						{
 							$xmlrpc_defs["xmlrpc"] = $attribs["xmlrpc"];
-						};
+						}
+
 						if (isset($attribs["server"]))
 						{
 							$xmlrpc_defs["server"] = $attribs["server"];
-						};
+						}
+
 						if (isset($attribs["extends"]))
 						{
 							$extends = explode(",",$attribs["extends"]);
 							$orb_defs[$class]["_extends"] = $extends;
-						};
+						}
+
 						if (isset($attribs["folder"]))
 						{
 							$orb_defs[$class]["___folder"] = $attribs["folder"];
-						};
+						}
 					}
 				}
 				elseif ($tagtype === "close")
@@ -474,7 +500,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			}
 
 			// kui leidsime argumenti m22rava tag-i, siis ...
-			if (in_array($tag,$argtypes))
+			if (in_array($tag, $argtypes))
 			{
 				// kontroll, just in case
 				if ($tagtype === "complete")
@@ -534,13 +560,33 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 	// !Checks whether a resource requires login and if so, asks for the password
 	// also, remembers the requesterd url so we can redirect back there after the
 	// login
-	function check_login($class, $action)
+	private function check_login($class, $action)
 	{
-		if (!aw_global_get("uid") && !isset($this->orb_defs[$class][$action]["nologin"]))
+		if (empty($this->orb_defs[$class][$action]["nologin"]) and !empty($this->orb_defs[$class][$action]["login"]))//nologin is DEPRECATED
 		{
-			$auth = new auth_config();
-			print $auth->show_login();
-			exit;
+			switch ($this->orb_defs[$class][$action]["login"])
+			{
+				case "all":
+					if (!aw_global_get("uid"))
+					{
+						$auth = new auth_config();
+						print $auth->show_login();
+						exit;
+					}
+					return;
+
+				case "none":
+					return;
+
+				case "root":
+					if ("root" !== aw_global_get("uid"))
+					{
+						$auth = new auth_config();
+						print $auth->show_login(array("login_msg" => t("Teie kasutajal pole selle toimingu tegemiseks &otilde;igusi.")));
+						exit;
+					}
+					return;
+			}
 		}
 	}
 
@@ -578,11 +624,6 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 						$aclarr = explode(";", $varacl);
 						foreach($aclarr as $aclid)
 						{
-							if (strpos($varvalue, "http") !== false)
-							{
-								die("silly robot!");
-							}
-
 							if (!object_loader::can($aclid, $varvalue))
 							{
 								$this->raise_error("ERR_ACL", "ORB:Teil puudub $aclid-&otilde;igus objektile id-ga $varvalue!", true, false);
@@ -600,6 +641,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 										break;
 									}
 								}
+
 								if(!$true)
 								{
 									error::raise(array(
@@ -648,7 +690,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		// get orb defs for the class
 
 		// check params
-		if (!isset($method) || (isset($method) && ($method == "local")))
+		if (!isset($method) || (isset($method) && ($method === "local")))
 		{
 			$orb_defs = $this->try_load_class($class);
 			$params = $this->check_method_params($orb_defs, $params, $class, $action);
@@ -996,11 +1038,12 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			$meth["values"]["period"] = aw_global_get("act_per_id");
 			//$data = $cl->get_opt("data");
 			$meth["values"]["parent"] = $cl->get_opt("parent");
-			if ($action == "change" && $cl->get_opt("shown_document"))
+			if ($action === "change" && $cl->get_opt("shown_document"))
 			{
 				$meth["values"]["id"] = $cl->get_opt("shown_document");
 			}
-			if ($action == "new")
+
+			if ($action === "new")
 			{
 				if ($this->can("view", aw_global_get("section")))
 				{
@@ -1021,11 +1064,13 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			{
 				$meth["values"]["id"] = $cl->get_opt("shown_document");
 			}
+
 			$meth["values"]["period"] = aw_global_get("act_per_id");
 			if ($action === "change" && $cl->get_opt("shown_document"))
 			{
 				$meth["values"]["id"] = $cl->get_opt("shown_document");
 			}
+
 			if ($action === "new")
 			{
 				$meth["values"]["parent"] = aw_global_get("section");
