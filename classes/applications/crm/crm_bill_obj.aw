@@ -1525,9 +1525,9 @@ class crm_bill_obj extends _int_object
 					"amt" => $row->prop("amt"),
 					"prod" => $row->prop("prod"),
 					"name" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
-					"name_group_comment" => $translated ? $row->trans_get_val("name_group_comment", $lang_id) : $row->prop("name_group_comment"),
+					"name_group_comment" => nl2br($translated ? $row->trans_get_val("name_group_comment", $lang_id) : $row->prop("name_group_comment")),
 					"comment" => $translated ? $row->trans_get_val("comment", $lang_id) : $row->prop("comment"),
-					"desc" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
+					"desc" => nl2br($translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc")),
 					"price" => $row->prop("price") == (int) $row->prop("price") ? $row->prop("price") : number_format($row->prop("price"), 2, ".", " "),
 					"sum" => $row_sum,
 					"km_code" => $kmk,
@@ -1555,8 +1555,8 @@ class crm_bill_obj extends _int_object
 						$rows_data[$key]["amt"] += $rd["amt"];
 						$rows_data[$key]["sum"] += $rd["sum"];
 						$rows_data[$key]["tax_sum"] += $rd["tax_sum"];
-						$rows_data[$key]["name_group_comment"] .= "\n\n" . $rd["name_group_comment"];
-						$rows_data[$key]["desc"] .= "\n\n" . $rd["desc"];
+						$rows_data[$key]["name_group_comment"] .= html::linebreak(2) . $rd["name_group_comment"];
+						$rows_data[$key]["desc"] .= html::linebreak(2) . $rd["desc"];
 					}
 					else
 					{
@@ -1571,15 +1571,15 @@ class crm_bill_obj extends _int_object
 			while ($row = $rows->next());
 
 			// iterate over combined and parsed rows once more to
-			// convert needed values to human readable formats
+			// convert applicable values to human readable formats
 			//TODO: api peaks andma raw data. viia see konverteerimine v2lja, liideseklassi
 			foreach ($rows_data as $key => $rd)
 			{
-				$quantity = $rd["amt"] == (int) $rd["amt"] ? $rd["amt"] : number_format($rd["amt"], 2, ".", " ");
+				$quantity = $rd["amt"] == (int) $rd["amt"] ? (int) $rd["amt"] : number_format($rd["amt"], 2, ".", " ");
 				$rd["amt"] = $quantity;
 				$rd["quantity_str"] = $unit->get_string_for_value($quantity, $lang_id);
-				$rd["tax_sum"] = is_int($rd["tax_sum"]) ? $rd["tax_sum"] : number_format($rd["tax_sum"], 2, ".", " ");
-				$rd["sum"] = is_int($rd["sum"]) ? $rd["sum"] : number_format($rd["sum"], 2, ".", " ");
+				$rd["tax_sum"] = $rd["tax_sum"] == (int) $rd["tax_sum"] ? (int) $rd["tax_sum"] : number_format($rd["tax_sum"], 2, ".", " ");
+				$rd["sum"] = $rd["sum"] == (int) $rd["sum"] ? (int) $rd["sum"] : number_format($rd["sum"], 2, ".", " ");
 				$rows_data[$key] = $rd;
 			}
 		}
@@ -2208,7 +2208,7 @@ class crm_bill_obj extends _int_object
 		}
 		else
 		{
-			$name = $this->prop("customer.name");
+			$name = $this->prop("customer_relation.buyer.name");
 		}
 
 		return $name;
@@ -2357,6 +2357,7 @@ class crm_bill_obj extends _int_object
 	**/
 	public function get_invoice_pdf($create = true)
 	{
+		$lang_id = $this->prop("language.aw_lang_id") ? $this->prop("language.aw_lang_id") : languages::LC_EST;
 		$invoice_pdf = null;
 		if (object_loader::can("", $this->meta("crm_bill_attachments_tmp_invoice_pdf_oid")))
 		{
@@ -2384,7 +2385,7 @@ class crm_bill_obj extends _int_object
 			$id = $f->create_file_from_string(array(
 				"parent" => $this->id(),
 				"content" => $content,
-				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("pakkumus_nr_%s") : t("arve_nr_%s")), $this->prop("bill_no")) . ".pdf",
+				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("pakkumus_nr_%s", $lang_id) : t("arve_nr_%s", $lang_id)), $this->prop("bill_no")) . ".pdf",
 				"type" => "application/pdf"
 			));
 			$this->set_meta("crm_bill_attachments_tmp_invoice_pdf_oid", $id);
@@ -2405,6 +2406,7 @@ class crm_bill_obj extends _int_object
 	**/
 	public function get_reminder_pdf($create = true)
 	{
+		$lang_id = $this->prop("language.aw_lang_id") ? $this->prop("language.aw_lang_id") : languages::LC_EST;
 		$reminder_pdf = null;
 		if (object_loader::can("", $this->meta("crm_bill_attachments_tmp_reminder_pdf_oid")))
 		{
@@ -2433,7 +2435,7 @@ class crm_bill_obj extends _int_object
 			$id = $f->create_file_from_string(array(
 				"parent" => $this->id(),
 				"content" => $content,
-				"name" => sprintf(t("arve_nr_%s_meeldetuletus"), $this->prop("bill_no")) . ".pdf",
+				"name" => sprintf(t("arve_nr_%s_meeldetuletus", $lang_id), $this->prop("bill_no")) . ".pdf",
 				"type" => "application/pdf"
 			));
 			$this->set_meta("crm_bill_attachments_tmp_reminder_pdf_oid", $id);
@@ -2454,6 +2456,7 @@ class crm_bill_obj extends _int_object
 	**/
 	public function get_appendix_pdf($create = true)
 	{
+		$lang_id = $this->prop("language.aw_lang_id") ? $this->prop("language.aw_lang_id") : languages::LC_EST;
 		$appendix_pdf = null;
 		if (object_loader::can("", $this->meta("crm_bill_attachments_tmp_appendix_pdf_oid")))
 		{
@@ -2482,7 +2485,7 @@ class crm_bill_obj extends _int_object
 			$id = $f->create_file_from_string(array(
 				"parent" => $this->id(),
 				"content" => $content,
-				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr_%s_detailid") : t("arve_nr_%s_aruanne")), $this->prop("bill_no")) . ".pdf",
+				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr_%s_detailid", $lang_id) : t("arve_nr_%s_aruanne", $lang_id)), $this->prop("bill_no")) . ".pdf",
 				"type" => "application/pdf"
 			));
 			$this->set_meta("crm_bill_attachments_tmp_appendix_pdf_oid", $id);

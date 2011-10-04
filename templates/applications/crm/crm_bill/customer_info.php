@@ -4,6 +4,8 @@
 			<dt class="caption"><?=t("Tellija andmed", $lang_id)?></dt>
 			<dd class="first"><?=$buyer_name?> <?=$buyer_corpform?></dd>
 			<dt class="caption">&nbsp;</dt>
+			<?if ($buyer_reg_nr){?><dd><?=sprintf(t("Reg. nr. %s"), $buyer_reg_nr)?></dd><?}?>
+			<dt class="caption">&nbsp;</dt>
 			<?if ($buyer_street){?><dd><?=$buyer_street?></dd><?}?>
 			<dt class="caption">&nbsp;</dt>
 			<?if ($buyer_index or $buyer_city){?><dd><?if ($buyer_index){ echo $buyer_index . ","; }?> <?=$buyer_city?></dd><?}?>

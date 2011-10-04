@@ -209,13 +209,16 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 
-@default group=rows
+@default group=rows,rowsnew
 	@layout bill_rows_container type=vbox
 	@layout bill_writeoff_rows_container type=hbox
 		@property rows_toolbar type=toolbar store=no no_caption=1 editonly=1 parent=bill_rows_container
 		@caption Arve ridade tegevused
 
-		@property bill_rows type=text store=no no_caption=1 editonly=1 parent=bill_rows_container
+		@property bill_rows type=text store=no no_caption=1 editonly=1 parent=bill_rows_container group=rows
+		@caption Arve read
+
+		@property bill_rows_table type=table store=no no_caption=1 editonly=1 parent=bill_rows_container group=rowsnew
 		@caption Arve read
 
 		@property writeoffs type=table store=no no_caption=1 editonly=1 parent=bill_writeoff_rows_container
@@ -311,7 +314,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @groupinfo action_comments caption="Tegevuste ajalugu" parent=general
 @groupinfo other_data caption="Muud andmed" parent=general
 @groupinfo content caption="Sisu"
-	@groupinfo rows caption="Read" parent=content no_submit=1
+	@groupinfo rows caption="Read" parent=content submit=no
+	//@groupinfo rowsnew caption="Read uus" parent=content submit=no
 	@groupinfo text_comments caption="Kommentaartekstid" parent=content
 @groupinfo mails caption="Kirjad"
 	@groupinfo send_mail caption="Arve saatmine" parent=mails confirm_save_data=0
@@ -3131,6 +3135,7 @@ class crm_bill extends class_base
 	{
 		$this->load_storage_object($arr);
 		$this_o = $this->awcb_ds_id;
+		$pdf = !empty($arr["pdf"]);
 		$lang_id = $this_o->prop("language.aw_lang_id") ? $this_o->prop("language.aw_lang_id") : languages::LC_EST;
 		aw_translations::load("crm_bill", $lang_id);
 //XXX: TMP kuni p2ris pakkumuse klass korda ja valmis saab
@@ -3192,7 +3197,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 
 			if ($buyer)
 			{
-				$heading_tpl->add_vars($this->_get_invoice_party_vars($buyer, "buyer"));
+				$heading_tpl->add_vars($this->_get_invoice_party_vars($this_o, $buyer, "buyer", $pdf));
 			}
 		}
 		elseif ("descriptions" === $arr["view_type"])
@@ -3215,7 +3220,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 				{
 					if (!empty($row["name_group_comment"]))
 					{ // add name group comment ant its separator prefix only if there is one
-						$rows[$row["comment"]]["name_group_comment"] .= nl2br("\n\n" . $row["name_group_comment"]);
+						$rows[$row["comment"]]["name_group_comment"] .= html::linebreak(2) . $row["name_group_comment"];
 					}
 					$rows[$row["comment"]]["rows"][] = $row;
 				}
@@ -3286,7 +3291,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 			"seller_signer_name" => $seller_signer_name,
 			"seller_signer_profession" => $seller_signer_profession,
 			"total_wo_tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2,".", " "),
-			"tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2,".", " "),
+			"tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_TAX), 2,".", " "),
 			"total" => number_format($sum, 2, ".", " "),
 			"total_text" => $total_text,
 			"rows" => $rows
@@ -3295,7 +3300,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 		// add seller variables
 		if ($seller = $customer_relation->get_seller())
 		{
-			$seller_vars = $this->_get_invoice_party_vars($seller, "seller");
+			$seller_vars = $this->_get_invoice_party_vars($this_o, $seller, "seller", $pdf);
 			$main_tpl->add_vars($seller_vars);
 			$footer_tpl->add_vars($seller_vars);
 		}
@@ -3311,7 +3316,7 @@ if (isset($heading_tpl)) $heading_tpl->set_var("late_fee", "");
 }
 //END TMP
 
-		if(!empty($arr["pdf"]))
+		if($pdf)
 		{
 			$conv = new html2pdf();
 			if($conv->can_convert())
@@ -3360,25 +3365,29 @@ $GLOBALS["TRANS"][5147]["Arve nr. %s"] = "Proposal nr. %s";
 $GLOBALS["TRANS"][5147]["Arve nr."] = "Proposal nr.";
 $GLOBALS["TRANS"][5147]["Makset&auml;htp&auml;ev"] = "Valid until";
 $GLOBALS["TRANS"][5147]["Kuup&auml;ev"] = "Due date";
+$GLOBALS["TRANS"][5147]["Arve kuup&auml;ev"] = "Date";
 $GLOBALS["TRANS"][5147]["Arve nr. %s aruanne"] = "Proposal nr. %s details";
 $GLOBALS["TRANS"][5147]["aruanne"] = "details";
 $GLOBALS["TRANS"][5147]["Kliendi kontaktisik:"] = "Customer contact:";
+$GLOBALS["TRANS"][5147]["pakkumus_nr_%s"] = "proposal_nr_%s";
+$GLOBALS["TRANS"][5147]["pakkumuse_nr_%s_detailid"] = "proposal_nr_%s_details";
 
 $GLOBALS["TRANS"][51920]["Arve koostaja:"] = "Pakkumuse koostaja:";
 $GLOBALS["TRANS"][51920]["Arve nr. %s"] = "Pakkumus nr. %s";
 $GLOBALS["TRANS"][51920]["Arve nr."] = "Pakkumuse nr.";
 $GLOBALS["TRANS"][51920]["Makset&auml;htp&auml;ev"] = "Kehtivus";
 $GLOBALS["TRANS"][51920]["Kuup&auml;ev"] = "T&auml;htp&auml;ev";
+$GLOBALS["TRANS"][51920]["Arve kuup&auml;ev"] = "Kuup&auml;ev";
 $GLOBALS["TRANS"][51920]["Arve nr. %s aruanne"] = "Pakkumuse nr. %s n&otilde;uded";
 $GLOBALS["TRANS"][51920]["aruanne"] = "n&otilde;uded";
 }
 //END TMP kuni p2ris pakkumuse klass korda ja valmis saab
 
-	private function _get_invoice_party_vars(object $party, $type)
+	private function _get_invoice_party_vars(object $this_o, object $party, $type, $pdf)
 	{
 		$vars = array();
 
-		$vars["{$type}_name"] = $party->name();
+		$vars["{$type}_name"] = "buyer" === $type ? $this_o->get_customer_name() : $party->name();
 		$vars["{$type}_reg_nr"] = $party->prop("reg_nr");
 		$vars["{$type}_tax_reg_nr"] = $party->prop("tax_nr");
 		$vars["{$type}_fax"] = $party->prop_str("telefax_id", true);//TODO: use get_phone(), get_telefax(),... type methods instead -- seller could be a person. todo: create these methods in crmco crmperson and add them to customerinterface
@@ -3389,8 +3398,7 @@ $GLOBALS["TRANS"][51920]["aruanne"] = "n&otilde;uded";
 
 		// logo
 		$logo = $party->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
-		$logo_url = $logo ? $logo->instance()->get_url_by_id($logo->id()) : "";
-		$vars["{$type}_logo_url"] = $logo_url;
+		$vars["{$type}_logo"] = $logo ? image::make_img_tag($logo->instance()->get_url_by_id($logo->id()), $party->name(), array(), array("svg_img_tag" => $pdf)) : $party->name();
 
 		// bank accounts
 		$vars["{$type}_bank_accounts"] = array();
@@ -3398,7 +3406,7 @@ $GLOBALS["TRANS"][51920]["aruanne"] = "n&otilde;uded";
 		{
 			$acc = $c->to();
 			$bank = obj();
-			if ($this->can("view", $acc->prop("bank")))
+			if ($this->can("", $acc->prop("bank")))
 			{
 				$bank = obj($acc->prop("bank"));
 			}
