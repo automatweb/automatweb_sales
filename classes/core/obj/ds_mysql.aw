@@ -573,10 +573,9 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	//  object_id - array of object id's
 	// class_id - class id
 	// full - bool, true - read objdata, false - just tables
-	function get_read_properties_sql($arr)
+	private function get_read_properties_sql($arr)
 	{
 		extract($arr);
-
 		$ret = array();
 
 		// then read the properties from the db
@@ -658,7 +657,6 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			}
 		}
 
-
 		if ($full)
 		{
 			$q = "SELECT
@@ -684,21 +682,20 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				objects.brother_of as brother_of,
 				objects.metadata as metadata,
 				objects.subclass as subclass,
-				objects.flags as flags";
-			if (aw_ini_get("acl.use_new_acl") == 1)
-			{
-				$q .= ",objects.acldata as acldata";
-			}
+				objects.flags as flags,
+				objects.acldata as acldata";
+
 			if (count($objtblprops))
 			{
 				foreach($objtblprops as $objtblprop)
 				{
-	                                if ($objtblprop["method"] === "bitmask")
-	                                {
-	                                        $q .= ",\n(objects.`".$objtblprop["field"]."` & ".$objtblprop["ch_value"].") AS `".$objtblprop["name"]."`";
-	                                }
+					if ($objtblprop["method"] === "bitmask")
+					{
+						$q .= ",\n(objects.`{$objtblprop["field"]}` & {$objtblprop["ch_value"]}) AS `{$objtblprop["name"]}`";
+					}
 				}
 			}
+
 			if (count($fields) > 0)
 			{
 				$joins = "";
@@ -706,36 +703,34 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					$joins .= " LEFT JOIN {$table} ON objects.brother_of = {$table}.`{$tableinfo[$table]["index"]}` ";
 				}
-				$q .= ",".join(",", $fields)." FROM objects $joins  WHERE ";
-				$q .= " objects.oid ";
+				$q .= "," . implode(",", $fields) . " FROM objects {$joins} WHERE objects.oid";
 			}
 			else
 			{
 				$q .= " FROM objects WHERE oid";
 			}
 		}
-		else
-		if (count($fields) > 0)
+		elseif (count($fields) > 0)
 		{
 			$table = reset($tables);
-			$from = " FROM $table ";
+			$from = " FROM {$table} ";
 			$o_t = $table;
 			while($table = each($tables))
 			{
 				$from .= " LEFT JOIN {$table} ON {$o_t}.`{$tableinfo[$o_t]["index"]}` = {$table}.`{$tableinfo[$table]["index"]}` ";
 			}
-			$q = "SELECT ".join(",", $fields)." $from WHERE `".$tableinfo[$table]["index"]."`";
+			$q = "SELECT " . implode(",", $fields) . " {$from} WHERE `{$tableinfo[$table]["index"]}`";
 		}
 
 		if (!$full)
 		{
 			if (is_array($object_id))
 			{
-				$q .= " IN (".join(",", $object_id).")";
+				$q .= " IN (" . implode(",", $object_id) . ")";
 			}
 			else
 			{
-				$q .= " = '".$object_id."'";
+				$q .= "={$object_id}";
 			}
 		}
 
@@ -1941,7 +1936,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			{
 				$tbl = $this->properties[$key]["table"];
 				$fld = $this->properties[$key]["field"];
-				if ($fld == "meta")
+				if ($fld === "meta")
 				{
 					if ($this->properties[$key]["store"] !== "connect")
 					{
@@ -1949,8 +1944,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						continue;
 					}
 				}
-				else
-				if ($this->properties[$key]["method"] === "serialize")
+				elseif ($this->properties[$key]["method"] === "serialize")
 				{
 					error::raise(array(
 						"id" => "ERR_FIELD",
@@ -1965,7 +1959,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			{
 				$this->has_data_table_filter = true;
 			}
-			$tf = $tbl.".`".$fld."`";
+			$tf = "{$tbl}.`{$fld}`";
 
 			if (isset($this->properties[$key]["store"]) && $this->properties[$key]["store"] === "connect")
 			{
@@ -1980,24 +1974,24 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				}
 
 				$this->alias_joins[$key] = array(
-					"name" => "aliases_".$key,
-					"on" => $tbl.".".$idx." = "."aliases_".$key.".source AND aliases_".$key.".reltype=".$GLOBALS["relinfo"][$this->class_id][$this->properties[$key]["reltype"]]["value"]
+					"name" => "aliases_{$key}",
+					"on" => "{$tbl}.{$idx} = aliases_{$key}.source AND aliases_{$key}.reltype=".$GLOBALS["relinfo"][$this->class_id][$this->properties[$key]["reltype"]]["value"]
 				);
-				$this->_add_s("aliases_".$key);
+				$this->_add_s("aliases_{$key}");
 			}
 
 			if (isset($this->properties[$key]["store"]) && $this->properties[$key]["store"] === "connect" && $fld === "meta")
 			{
 				// figure out the joined alias table name and search from that
-				$tbl = "aliases_".$key;
+				$tbl = "aliases_{$key}";
 				$fld = "target";
-				$tf = $tbl.".`".$fld."`";
+				$tf = "{$tbl}.`{$fld}`";
 				$this->_add_s($tbl);
 			}
 
 			if (is_array($val) && ((isset($this->properties[$key]["method"]) && $this->properties[$key]["method"] === "bitmask") || $key === "flags"))
 			{
-				$sql[] = $tf." & ".$val["mask"]." = ".((int)$val["flags"]);
+				$sql[] = "{$tf} & {$val["mask"]} = ".((int)$val["flags"]);
 			}
 			elseif (!is_array($val) && isset($this->properties[$key]) && ($this->properties[$key]["method"] === "bitmask") && $this->properties[$key]["ch_value"] > 0)
 			{
@@ -2036,12 +2030,12 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 									break;
 
 								case obj_predicate_compare::BETWEEN:
-									$comparator = " > ".$v_data." AND {$tf} < ";
+									$comparator = " > {$v_data} AND {$tf} < ";
 									$v_data = $val->data2;
 									break;
 
 								case obj_predicate_compare::BETWEEN_INCLUDING:
-									$comparator = " >= ".$v_data." AND {$tf} <= ";
+									$comparator = " >= {$v_data} AND {$tf} <= ";
 									$v_data = $val->data2;
 									break;
 
@@ -2437,8 +2431,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					{
 						$str[] = " aliases_{$key}.target = '{$v}' ";
 					}
-					else
-					if (strpos($v, "%") !== false)
+					elseif (strpos($v, "%") !== false)
 					{
 						$str[] = "{$tf} LIKE '{$v}'";
 					}
@@ -2460,14 +2453,12 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					$sql[] = " aliases_{$key}.target = '{$val}' ";
 				}
-				else
-				if (($key === "modified" && strpos($val, "%") === false) || $key === "flags")
+				elseif (($key === "modified" && strpos($val, "%") === false) || $key === "flags")
 				{
 					// pass all arguments .. &, >, < or whatever the user wants to
 					$sql[] = "{$tf} {$val}";
 				}
-				else
-				if (strpos($val,"%") !== false)
+				elseif (strpos($val,"%") !== false)
 				{
 					$sql[] = "{$tf} LIKE '{$val}'";
 				}
@@ -3219,7 +3210,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		return "objects ".join("", $js).join(" ", $this->joins);
 	}
 
-	function fetch_list($to_fetch)
+	public function fetch_list($to_fetch)
 	{
 		$this->used_tables = array();
 		$this->properties = array();
@@ -3252,6 +3243,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				"object_id" => $cl2obj[$clid],
 				"full" => true
 			));
+
 			aw_cache_set("storage::get_read_properties_sql",$clid,$sql);
 
 			if (!empty($sql["q"]))
@@ -3279,7 +3271,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				}
 			}
 
-			if ($sql["q2"] != "")
+			if (!empty($sql["q2"]))
 			{
 				$this->db_query($sql["q2"]);
 				while ($row = $this->db_next())
