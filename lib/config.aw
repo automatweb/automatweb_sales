@@ -181,17 +181,17 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 					continue;
 				}
 
-				$value = ltrim($data[1]);
+				$raw_value = $value = ltrim($data[1]);
 
 				// now, replace all variables in varvalue
-				if (preg_match($setting_variable_pattern, $value, $m))
+				if (preg_match($setting_variable_pattern, $raw_value, $m))
 				{
 					$referenced_setting_name = $m[1];
-					$GLOBALS["__aw_cfg_meta__variable_dependencies"][$referenced_setting_name][$var] = $value;
+					$GLOBALS["__aw_cfg_meta__variable_dependencies"][$referenced_setting_name][$var] = $raw_value;
 
 					try
 					{
-						$value = str_replace("\${{$referenced_setting_name}}", aw_ini_get($referenced_setting_name), $value);
+						$value = str_replace("\${{$referenced_setting_name}}", aw_ini_get($referenced_setting_name), $raw_value);
 					}
 					catch (awex_cfg_key $e)
 					{
@@ -203,18 +203,18 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 				}
 				elseif (isset($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var]))
 				{
-					foreach ($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var] as $setting_using_reference => $raw_value)
+					foreach ($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var] as $setting_using_reference => $ref_raw_value)
 					{
-						_load_setting($setting_using_reference, str_replace("\${{$var}}", $value, $raw_value), $config, $return);
+						_load_setting($setting_using_reference, str_replace("\${{$var}}", $value, $ref_raw_value), $ref_raw_value, $config, $return);
 					}
 				}
 
 				// add setting
-				_load_setting($var, $value, $config, $return);
+				_load_setting($var, $value, $raw_value, $config, $return);
 			}
 			elseif ("include" === substr(trim($line), 0, 7))
 			{ // process config file include
-				$line = preg_replace($setting_variable_pattern, "aw_ini_get(\"\\1\")", $line);
+				$line = preg_replace($setting_variable_pattern, "aw_ini_get(\"$1\")", $line);
 				$ifile = trim(substr($line, 7));
 
 				if (!is_readable($ifile))
@@ -240,7 +240,7 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 	return $config;
 }
 
-function _load_setting($var, $value, &$config, $return)
+function _load_setting($var, $value, $raw_value, &$config, $return)
 {
 	if ($return)
 	{
@@ -254,7 +254,7 @@ function _load_setting($var, $value, &$config, $return)
 		$setting_path = "\$GLOBALS['cfg']";
 		foreach ($setting_index as $key => $index)
 		{
-			$setting_path .= "['" . $index . "']";
+			$setting_path .= "['{$index}']";
 
 			if (isset($setting_index[$key + 1]) and eval("return (isset({$setting_path}) and !is_array({$setting_path}));"))
 			{
@@ -274,7 +274,8 @@ function _load_setting($var, $value, &$config, $return)
 			}
 		}
 
-		$str = str_replace(".", "']['", $var) . "'] = " . var_export($value, true) . ";";
+		$setting_variable_pattern = "/\\$\{([A-z][A-z\_\.\"\'\[\]]+)\}/S";
+		$str = str_replace(".", "']['", $var) . "'] = " . preg_replace($setting_variable_pattern, "' . aw_ini_get('$1') . '", var_export($raw_value, true)) . ";";
 
 		// load setting here
 		$setting = "\$GLOBALS['cfg']['{$str}";
@@ -335,7 +336,8 @@ function load_config ($files = array(), $cache_file = "")
 	//selle peab ikka igaltpoolt uuesti saama, muidu ei saa sisev6rgust ja mujalt ligi
 	if (empty($GLOBALS["cfg"]["no_update_baseurl"]) and isset($_SERVER["HTTP_HOST"]))
 	{
-		$GLOBALS["cfg"]["baseurl"] = "http://{$_SERVER["HTTP_HOST"]}/";
+		$protocol = isset($_SERVER["HTTPS"]) && "on" === $_SERVER["HTTPS"] ? "https" : "http";
+		$GLOBALS["cfg"]["baseurl"] = "{$protocol}://{$_SERVER["HTTP_HOST"]}/";
 	}
 
 	// determine cache state
@@ -543,7 +545,6 @@ function _aw_global_init()
 {
 	// reset aw_global_* function globals
 	$GLOBALS["__aw_globals"] = array();
-	$lang_cookie_name = languages::get_cookie_name();
 
 	// import CGI spec variables and apache variables
 
@@ -551,9 +552,8 @@ function _aw_global_init()
 	// why? well, then you can't override server vars from the url.
 
 	// known variables - these can be modified by the user and are not to be trusted, so we get them first
+	//TODO: yle vaadata, milleks miski on jne
 	$impvars = array(
-		"lang_id",
-		"DEBUG",
 		"no_menus",
 		"section",
 		"class",
@@ -596,10 +596,7 @@ function _aw_global_init()
 		aw_global_set($var, isset($_SERVER[$var]) ? $_SERVER[$var] : null);
 	}
 
-	if (isset($_COOKIE[$lang_cookie_name]) && !isset($_SESSION[$lang_cookie_name]))
-	{
-		aw_global_set("lang_id", $_COOKIE[$lang_cookie_name]);
-	}
+	aw_global_set("lang_id", languages::get_active());
 
 	if (isset($_REQUEST))
 	{
