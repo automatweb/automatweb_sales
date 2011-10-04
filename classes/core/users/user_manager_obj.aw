@@ -42,7 +42,8 @@ class user_manager_obj extends _int_object
 			$groups = new object_list(array(
 				"class_id" => group_obj::CLID,
 				"site_id" => aw_ini_get("site_id"),
-				"type" => group_obj::TYPE_NOT_LOGGED_IN
+				"type" => group_obj::TYPE_NOT_LOGGED_IN,
+				new obj_predicate_limit(2) //XXX: seda pole vaja mujal kui intranetis, kus nliug-e on kolm tuhat, see on nende laadimise v2ltimiseks
 			));
 
 			if (1 === $groups->count())

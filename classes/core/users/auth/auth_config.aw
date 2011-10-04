@@ -19,7 +19,7 @@
 @caption Aktiivsus
 
 @reltype AUTH_SERVER value=1 clid=CL_AUTH_SERVER_LDAP,CL_AUTH_SERVER_LOCAL,CL_AUTH_SERVER_NDS,CL_AUTH_SERVER_OPENLDAP,CL_AUTH_SERVER_USERDEFINED
-@caption autentimisserver
+@caption Autentimisserver
 
 */
 
@@ -370,7 +370,8 @@ class auth_config extends class_base
 
 	/** Generates the login form
 
-		@attrib name=show_login params=name nologin="1" default="0"
+		@attrib name=show_login params=name login=none
+		@param login_msg type=string
 		@returns
 		@comment
 
@@ -385,7 +386,7 @@ class auth_config extends class_base
 
 		if (($port = aw_ini_get("auth.display_over_ssl_port")) > 0)
 		{
-			if (!$_SERVER["HTTPS"])
+			if (empty($_SERVER["HTTPS"]))
 			{
 				$bits = parse_url(aw_ini_get("baseurl"));
 				header("Location: https://".$bits["host"].":".$port.aw_global_get("REQUEST_URI"));
@@ -408,9 +409,13 @@ class auth_config extends class_base
 			$_SESSION["auth_redir_post"] = $_POST;
 		}
 		$_SESSION["request_uri_before_auth"] = aw_global_get("REQUEST_URI");
+		$login_msg = empty($args["login_msg"]) ? t("Selle ressursi kasutamiseks peate olema sisse logitud!") : $args["login_msg"];
+
 		$this->vars(array(
-			"reforb" => $this->mk_reforb("login",array(),'users')
+			"reforb" => $this->mk_reforb("login",array(),'users'),
+			"login_msg" => $login_msg
 		));
+
 
 		if (is_oid($ac_id = auth_config::has_config()))
 		{
@@ -428,7 +433,7 @@ class auth_config extends class_base
 			if (aw_ini_get("users.id_login_url"))
 			{
 				$this->vars(array(
-					"id_login_url" => str_replace("http:", "https:", aw_ini_get("baseurl"))."/".aw_ini_get("users.id_login_url"),
+					"id_login_url" => str_replace("http:", "https:", aw_ini_get("baseurl")).aw_ini_get("users.id_login_url"),
 				));
 				$this->vars(array(
 					"ID_LOGIN" => $this->parse("ID_LOGIN")

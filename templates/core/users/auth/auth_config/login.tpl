@@ -91,8 +91,8 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="errors">
-						<p>Selle ressursi kasutamiseks peate olema sisse logitud!</p>
+					<td class="errors" colspan="2">
+						<p>{VAR:login_msg}</p>
 					</td>
 				</tr>
 				<!-- SUB: SERVER_PICKER -->
