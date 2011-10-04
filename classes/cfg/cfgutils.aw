@@ -1,6 +1,6 @@
 <?php
 
-class cfgutils extends aw_template
+class cfgutils extends core
 {
 	private $fbasedir = "xml/properties/";
 	private $f_site_basedir = "xml/properties/";
@@ -274,8 +274,8 @@ class cfgutils extends aw_template
 				}
 				else
 				/*** multiple value handling ends **/
-				if ("groupinfo" == $propkey || "reltypes" == $propkey || "tableinfo" == $propkey ||
-						"layout" == $propkey || "forminfo" == $propkey)
+				if ("groupinfo" === $propkey || "reltypes" === $propkey || "tableinfo" === $propkey ||
+						"layout" === $propkey || "forminfo" === $propkey)
 				{
 					// level 3 is the direct child of propkey
 					if (3 == $val["level"] && "open" === $val["type"])
@@ -775,8 +775,8 @@ class cfgutils extends aw_template
 
 		if (isset($cldat["generated"]))
 		{
-			$fld = aw_ini_get("site_basedir")."files/classes";
-			$loc = $fld . "/" . $cldat["file"] . AW_FILE_EXT;
+			$fld = aw_ini_get("site_basedir")."files/classes/";
+			$loc = $fld . $cldat["file"] . AW_FILE_EXT;
 
 			$anakin = new propcollector();
 			$result = $anakin->parse_file(array(
