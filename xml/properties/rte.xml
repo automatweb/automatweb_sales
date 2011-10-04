@@ -1,9 +1,0 @@
-<?xml version='1.0'?>
-<properties>
-      <classinfo>
-            <syslog_type>ST_RTE</syslog_type>
-            <relationmgr>yes</relationmgr>
-            <maintainer>hannes</maintainer>
-      </classinfo>
-</properties>
-
