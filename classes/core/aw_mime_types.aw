@@ -67,6 +67,7 @@ class aw_mime_types
 		"image/jpeg" => "jpeg,jpg,jpe",
 		"image/png" => "png",
 		"image/tiff" => "tiff,tif",
+		"image/svg+xml" => "svg",
 		"image/vnd.djvu" => "djvu,djv",
 		"image/vnd.wap.wbmp" => "wbmp",
 		"image/x-cmu-raster" => "ras",
@@ -102,6 +103,61 @@ class aw_mime_types
 		"x-conference/x-cooltalk" => "ice",
 		"application/vnd.sun.xml.writer" => "sxw",
 		"application/vnd.sun.xml.calc" => "sxc",
+	);
+
+	 private static $ext2type = array(
+		'txt' => 'text/plain',
+		'htm' => 'text/html',
+		'html' => 'text/html',
+		'php' => 'text/html',
+		'css' => 'text/css',
+		'js' => 'application/javascript',
+		'json' => 'application/json',
+		'xml' => 'application/xml',
+		'swf' => 'application/x-shockwave-flash',
+		'flv' => 'video/x-flv',
+
+		// images
+		'png' => 'image/png',
+		'jpe' => 'image/jpeg',
+		'jpeg' => 'image/jpeg',
+		'jpg' => 'image/jpeg',
+		'gif' => 'image/gif',
+		'bmp' => 'image/bmp',
+		'ico' => 'image/vnd.microsoft.icon',
+		'tiff' => 'image/tiff',
+		'tif' => 'image/tiff',
+		'svg' => 'image/svg+xml',
+		'svgz' => 'image/svg+xml',
+
+		// archives
+		'zip' => 'application/zip',
+		'rar' => 'application/x-rar-compressed',
+		'exe' => 'application/x-msdownload',
+		'msi' => 'application/x-msdownload',
+		'cab' => 'application/vnd.ms-cab-compressed',
+
+		// audio/video
+		'mp3' => 'audio/mpeg',
+		'qt' => 'video/quicktime',
+		'mov' => 'video/quicktime',
+
+		// adobe
+		'pdf' => 'application/pdf',
+		'psd' => 'image/vnd.adobe.photoshop',
+		'ai' => 'application/postscript',
+		'eps' => 'application/postscript',
+		'ps' => 'application/postscript',
+
+		// ms office
+		'doc' => 'application/msword',
+		'rtf' => 'application/rtf',
+		'xls' => 'application/vnd.ms-excel',
+		'ppt' => 'application/vnd.ms-powerpoint',
+
+		// open office
+		'odt' => 'application/vnd.oasis.opendocument.text',
+		'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
 	);
 
 	/** Returns the MIME type of an extension
@@ -148,8 +204,7 @@ class aw_mime_types
 			For MIME type detection, file extension is used
 
 		@examples
-			$mimeregistry = get_instance("core/aw_mime_types");
-			echo $mimeregistry->type_for_file('my_cv.rtf'); // prints 'text/rtf'
+			echo aw_mime_types::type_for_file('my_cv.rtf'); // prints 'text/rtf'
 
 	**/
 	public static function type_for_file($file)
@@ -169,8 +224,7 @@ class aw_mime_types
 			Extension for the MIME type
 
 		@examples
-			$mimeregistry = get_instance("core/aw_mime_types");
-			echo $mimeregistry->ext_for_type('text/rtf'); // prints 'rtf'
+			echo aw_mime_types::ext_for_type('text/rtf'); // prints 'rtf'
 
 	**/
 	public static function ext_for_type($type)
