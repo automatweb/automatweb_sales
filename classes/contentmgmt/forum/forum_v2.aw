@@ -345,6 +345,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 	private $topic_id = 0;
 	private $style_donor_obj;
+	private $style_data = array();
 
 	function forum_v2()
 	{
@@ -1207,7 +1208,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		$topics_list_params = array(
 			'parent' => $topic_obj->id(),
 			'class_id' => CL_MSGBOARD_TOPIC,
-			'status' => STAT_ACTIVE,
+			'status' => object::STAT_ACTIVE
 		);
 		if($args["obj_inst"]->prop("activation"))
 		{
@@ -1502,16 +1503,18 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		if ($tcount % $comments_on_page)
 		{
 			$num_pages++;
-		};
+		}
+
 		$selpage = (int)$args["request"]["page"];
 		if ($selpage == 0)
 		{
 			$selpage = 1;
-		};
+		}
+
 		if ($selpage > $num_pages)
 		{
 			$selpage = $num_pages;
-		};
+		}
 
 		$from = ($selpage - 1) * $comments_on_page + 1;
 		$to = $from + $comments_on_page - 1;
@@ -2572,7 +2575,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 	{
 		$arr["obj_inst"] = $arr["obj_inst"]?$arr["obj_inst"]:obj($arr["id"]);
 
-		
+
 		$t = new vcl_table;
 
 		$t->define_field(array(

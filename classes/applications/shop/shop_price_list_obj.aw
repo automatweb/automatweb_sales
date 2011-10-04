@@ -17,9 +17,7 @@ class shop_price_list_obj extends shop_matrix_obj
 		if(!isset($retval[$hash]))
 		{
 			$prms = array(
-				"class_id" => CL_SHOP_PRICE_LIST,
-				"lang_id" => array(),
-				"site_id" => array(),
+				"class_id" => self::CLID,
 				new obj_predicate_sort(array(
 					"jrk" => "ASC",
 				)),
@@ -30,8 +28,8 @@ class shop_price_list_obj extends shop_matrix_obj
 				$prms[] = new object_list_filter(array(
 					"logic" => "AND",
 					"conditions" => array(
-						"CL_SHOP_PRICE_LIST.valid_from" => new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $arr["timespan"]["start"]),
-						"CL_SHOP_PRICE_LIST.valid_to" => new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $arr["timespan"]["end"]),
+						"CL_SHOP_PRICE_LIST.valid_from" => new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, $arr["timespan"]["start"]),
+						"CL_SHOP_PRICE_LIST.valid_to" => new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, $arr["timespan"]["end"]),
 					)
 				));
 			}
@@ -41,8 +39,8 @@ class shop_price_list_obj extends shop_matrix_obj
 				$prms[] = new object_list_filter(array(
 					"logic" => "AND",
 					"conditions" => array(
-						"CL_SHOP_PRICE_LIST.valid_from" => new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, time()),
-						"CL_SHOP_PRICE_LIST.valid_to" => new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, time()),
+						"CL_SHOP_PRICE_LIST.valid_from" => new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, time()),
+						"CL_SHOP_PRICE_LIST.valid_to" => new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, time()),
 					)
 				));
 			}
@@ -51,8 +49,8 @@ class shop_price_list_obj extends shop_matrix_obj
 				$prms[] = new object_list_filter(array(
 					"logic" => "OR",
 					"conditions" => array(
-						"CL_SHOP_PRICE_LIST.valid_from" => new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, time()),
-						"CL_SHOP_PRICE_LIST.valid_to" => new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, time()),
+						"CL_SHOP_PRICE_LIST.valid_from" => new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, time()),
+						"CL_SHOP_PRICE_LIST.valid_to" => new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, time()),
 					)
 				));
 			}
@@ -122,7 +120,6 @@ class shop_price_list_obj extends shop_matrix_obj
 			throw $e;
 		}
 
-		enter_function("shop_price_list_obj::price");
 		/**
 			# STRUCTURE of $retval (if $arr["structure"] is true)
 			array(
@@ -189,7 +186,7 @@ class shop_price_list_obj extends shop_matrix_obj
 				$retval[$currency]["log"] = array_merge($retval[$currency]["log"], safe_array($price_data["log"]));
 			}
 		}
-		exit_function("shop_price_list_obj::price");
+
 		return empty($arr["structure"]) ? $prices_only_retval : $retval;
 	}
 
@@ -292,12 +289,10 @@ class shop_price_list_obj extends shop_matrix_obj
 			array(
 				"class_id" => CL_SHOP_PRICE_LIST_CONDITION,
 				"price_list" => $this->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
-				"currency" => new obj_predicate_compare(OBJ_COMP_GREATER, 0, false, "int"),
+				"currency" => new obj_predicate_compare(OBJ_COMP_GREATER, 0, false, "int")
 			),
 			array(
-				CL_SHOP_PRICE_LIST_CONDITION => array("row", "col", "type", "value", "bonus", "quantities", "currency"),
+				CL_SHOP_PRICE_LIST_CONDITION => array("row", "col", "type", "value", "bonus", "quantities", "currency")
 			)
 		);
 		foreach($odl->arr() as $cond_id => $cond)
@@ -364,7 +359,7 @@ class shop_price_list_obj extends shop_matrix_obj
 										));
 										$QUANTITY_CONDITION_SINGLE .= rtrim($i->parse("QUANTITY_CONDITION_SINGLE"), "\t");
 										break;
-										
+
 									case "range":
 										$i->vars(array(
 											"quantity_from" => $quantity_condition["quantity_from"],
@@ -376,7 +371,7 @@ class shop_price_list_obj extends shop_matrix_obj
 								$i->vars(array(
 									"QUANTITY_CONDITION_SINGLE" => $QUANTITY_CONDITION_SINGLE,
 									"QUANTITY_CONDITION_RANGE" => $QUANTITY_CONDITION_RANGE,
-								));							
+								));
 								$QUANTITY_CONDITION .= rtrim($i->parse("QUANTITY_CONDITION".(++$quantity_condition_count === 1 ? "_FIRST" : "")), "\t");
 							}
 							$i->vars(array(
@@ -506,5 +501,3 @@ class awex_price_list extends aw_exception {}
 
 /* Indicates invalid argument */
 class awex_price_list_parameter extends awex_price_list {}
-
-?>

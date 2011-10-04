@@ -95,7 +95,7 @@ class icons
 	**/
 	public static function get_feature_icon_url($fid)
 	{
-		return aw_ini_get("icons.server")."prog_".$fid.".gif";
+		return aw_ini_get("icons.server")."prog_{$fid}.gif";
 	}
 
 	/**

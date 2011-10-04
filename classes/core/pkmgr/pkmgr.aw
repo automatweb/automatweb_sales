@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class pkmgr extends class_base
 {
@@ -15,9 +12,8 @@ class pkmgr extends class_base
 	// parameters:
 	//	name - the name of the package
 	//	code - array of code classes
-	//	
+	//
 	function create_package($arr)
 	{
 	}
 }
-?>

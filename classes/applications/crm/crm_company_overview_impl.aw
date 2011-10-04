@@ -2406,7 +2406,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent,array(
 // 				"name" => $type,
@@ -2420,7 +2420,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent,array(
 // 				"name" => $type,
@@ -2433,7 +2433,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_CRM_CALL."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent."_".CL_CRM_CALL,array(
 // 				"name" => $type,
@@ -2445,7 +2445,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_CRM_CALL."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent."_".CL_CRM_CALL,array(
 // 				"name" => $type,
@@ -2458,7 +2458,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_CRM_MEETING."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent."_".CL_CRM_MEETING,array(
 // 				"name" => $type,
@@ -2470,7 +2470,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_CRM_MEETING."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent."_".CL_CRM_MEETING,array(
 // 				"name" => $type,
@@ -2483,7 +2483,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_TASK."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent."_".CL_TASK,array(
 // 				"name" => $type,
@@ -2495,7 +2495,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_TASK."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent."_".CL_TASK,array(
 // 				"name" => $type,
@@ -2508,7 +2508,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_BUG."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent."_".CL_BUG,array(
 // 				"name" => $type,
@@ -2520,7 +2520,7 @@ class crm_company_overview_impl extends class_base
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_BUG."_".$type_id)
 // 			{
-// 				$type = "<b>".$type."</b>";
+// 				$type = html::bold($type);
 // 			}
 // 			$tree->add_item($parent."_".CL_BUG,array(
 // 				"name" => $type,
@@ -2550,7 +2550,7 @@ class crm_company_overview_impl extends class_base
 		{
 			if (isset($_GET[$var]) && $_GET[$var] == $type_id)
 			{
-				$type = "<b>".$type."</b>";
+				$type = html::bold($type);
 			}
 			$tree->add_item(0,array(
 				"name" => $type,
@@ -2562,7 +2562,7 @@ class crm_company_overview_impl extends class_base
 		$type = t("K&otilde;ik perioodid");
 		if (isset($_GET[$var]) && $_GET[$var] == "all")
 		{
-			$type = "<b>".$type."</b>";
+			$type = html::bold($type);
 		}
 		$tree->add_item(0,array(
 			"name" => $type,
@@ -2618,7 +2618,7 @@ class crm_company_overview_impl extends class_base
 		{
 			if (isset($_GET[$var]) && $_GET[$var] == $type_id)
 			{
-				$type = "<b>".$type."</b>";
+				$type = html::bold($type);
 			}
 			$tree->add_item(0,array(
 				"name" => $type,
@@ -2632,7 +2632,7 @@ class crm_company_overview_impl extends class_base
 		{
 			if (isset($_GET[$var]) && $_GET[$var] == CL_CRM_CALL."_".$type_id)
 			{
-				$type = "<b>".$type."</b>";
+				$type = html::bold($type);
 			}
 			$tree->add_item(CL_CRM_CALL,array(
 				"name" => $type,
@@ -2645,7 +2645,7 @@ class crm_company_overview_impl extends class_base
 		{
 			if (isset($_GET[$var]) && $_GET[$var] == CL_CRM_MEETING."_".$type_id)
 			{
-				$type = "<b>".$type."</b>";
+				$type = html::bold($type);
 			}
 			$tree->add_item(CL_CRM_MEETING,array(
 				"name" => $type,
@@ -2658,7 +2658,7 @@ class crm_company_overview_impl extends class_base
 		{
 			if (isset($_GET[$var]) && $_GET[$var] == CL_TASK."_".$type_id)
 			{
-				$type = "<b>".$type."</b>";
+				$type = html::bold($type);
 			}
 			$tree->add_item(CL_TASK,array(
 				"name" => $type,
@@ -2671,7 +2671,7 @@ class crm_company_overview_impl extends class_base
 		{
 			if (isset($_GET[$var]) && $_GET[$var] == CL_BUG."_".$type_id)
 			{
-				$type = "<b>".$type."</b>";
+				$type = html::bold($type);
 			}
 			$tree->add_item(CL_BUG,array(
 				"name" => $type,
@@ -2683,7 +2683,7 @@ class crm_company_overview_impl extends class_base
 		{
 			if (isset($_GET[$var]) && $_GET[$var] == CL_BUG."_".$type_id)
 			{
-				$type = "<b>".$type."</b>";
+				$type = html::bold($type);
 			}
 			$tree->add_item(CL_BUG,array(
 				"name" => $type,
@@ -2694,9 +2694,9 @@ class crm_company_overview_impl extends class_base
 
 		foreach($task_params as $type_id => $type)
 		{
-			if (isset($_GET[$var]) && $_GET[$var] == "all_".$type_id)
+			if (isset($_GET[$var]) && $_GET[$var] === "all_".$type_id)
 			{
-				$type = "<b>".$type."</b>";
+				$type = html::bold($type);
 			}
 			$tree->add_item("all",array(
 				"name" => $type,
@@ -2726,7 +2726,7 @@ class crm_company_overview_impl extends class_base
 		$id = "my";
 		if (!isset($_GET[$var]) || $_GET[$var] == $id)
 		{
-			$name = "<b>".$name."</b>";
+			$name = html::bold($name);
 		}
 		$tv->add_item(0,array(
 			"name" => $name,
@@ -2751,9 +2751,9 @@ class crm_company_overview_impl extends class_base
 				continue;
 			}
 
-			if (isset($_GET[$var]) && $_GET[$var] == "prman_".$id)
+			if (isset($_GET[$var]) && $_GET[$var] === "prman_".$id)
 			{
-				$name = "<b>".$name."</b>";
+				$name = html::bold($name);
 			}
 
 			$tv->add_item("prman",array(
@@ -2778,9 +2778,9 @@ class crm_company_overview_impl extends class_base
 			{
 				continue;
 			}
-			if (isset($_GET[$var]) && $_GET[$var] == "custman_".$id)
+			if (isset($_GET[$var]) && $_GET[$var] === "custman_".$id)
 			{
-				$name = "<b>".$name."</b>";
+				$name = html::bold($name);
 			}
 			$tv->add_item("custman",array(
 				"name" => $name,
@@ -2812,9 +2812,9 @@ class crm_company_overview_impl extends class_base
 		foreach($customers_by_1_letter as $letter1 => $customers)
 		{
 			$name = $letter1 ." (".sizeof($customers).")";
-			if (isset($_GET[$var]) && $_GET[$var] == "cust_".$letter1)
+			if (isset($_GET[$var]) && $_GET[$var] === "cust_".$letter1)
 			{
-				$name = "<b>".$name."</b>";
+				$name = html::bold($name);
 			}
 			$tv->add_item("cust",array(
 				"name" => $name,
@@ -2825,9 +2825,9 @@ class crm_company_overview_impl extends class_base
 
 			foreach($customers as $id => $name)
 			{
-				if (isset($_GET[$var]) && $_GET[$var] == "cust_".$id)
+				if (isset($_GET[$var]) && $_GET[$var] === "cust_".$id)
 				{
-					$name = "<b>".$name."</b>";
+					$name = html::bold($name);
 				}
 				$tv->add_item("cust".$letter1,array(
 					"name" => $name,
@@ -2843,7 +2843,7 @@ class crm_company_overview_impl extends class_base
 		$id = "all";
 		if (isset($_GET[$var]) && $_GET[$var] == $id)
 		{
-			$name = "<b>".$name."</b>";
+			$name = html::bold($name);
 		}
 		$tv->add_item(0,array(
 			"name" => $name,
@@ -2866,7 +2866,7 @@ class crm_company_overview_impl extends class_base
 				CL_CRM_BILL => array(new obj_sql_func(OBJ_SQL_UNIQUE, "customer", "aw_bugs.customer"))
 			)
 		);
-		$ol->add($t->get_element_from_all("customer"));
+		$ol->add($t->get_element_from_all("customer"));//FIXME: No access to load object with id '118369'.
 
 		return $ol;
 	}

@@ -1,10 +1,5 @@
 <?php
 // parses a bunch o files and creates translation templates
-/*
-@classinfo  maintainer=kristo
-*/
-
-classload("aw_template");
 class scanner extends aw_template
 {
 	function scanner()
@@ -211,7 +206,7 @@ class scanner extends aw_template
 		}
 		elseif (empty($this->trans_id))
 		{
-			//print "ERR: $fname doesn't have a defined translation context, skipping\n"; 
+			//print "ERR: $fname doesn't have a defined translation context, skipping\n";
 		}
 		else
 		{
@@ -267,5 +262,4 @@ class scanner extends aw_template
 	}
 
 
-};
-?>
+}

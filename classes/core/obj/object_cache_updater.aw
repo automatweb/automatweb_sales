@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class object_cache_updater extends core
 {
