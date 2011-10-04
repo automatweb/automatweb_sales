@@ -4,10 +4,25 @@ class shop_order_center_obj extends _int_object
 {
 	const CLID = 314;
 
+	/**
+		@attrib api=1 params=pos
+		@param product type=CL_SHOP_PRODUCT,CL_SHOP_PACKET,CL_SHOP_PRODUCT_PACKAGING
+		@param currency type=CL_CURRENCY
+		@param customer type=CL_CRM_COMPANY_CUSTOMER_DATA
+		@comment
+		@returns float
+		@errors
+	**/
+	public function get_product_price(object $product, object $currency, object $customer)
+	{
+		//TODO: kysida price_list-ilt kui see valmis. hetkel ajutine lahendus
+		return $product->prop("price");
+	}
+
 
 	public function save($check_state = false)
 	{
-		$do_new_shop_stuff = is_oid($this->id()) ? 0 : 1;
+		$do_new_shop_stuff = !$this->is_saved();
 		$r =  parent::save($check_state);
 
 		if($do_new_shop_stuff)
@@ -40,9 +55,7 @@ class shop_order_center_obj extends _int_object
 		$this->set_prop("mail_to_client" , 1);
 
 		$warehouses = new object_list(array(
-			"class_id" => CL_SHOP_WAREHOUSE,
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => CL_SHOP_WAREHOUSE
 		));
 		$warehouse = $warehouses->begin();
 		if(!is_object($warehouse))
@@ -121,9 +134,7 @@ class shop_order_center_obj extends _int_object
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PAYMENT_TYPE,
-			"shop" => $this->id(),
-			"lang_id" => array(),
-			"site_id" => array(),
+			"shop" => $this->id()
 		));
 		if((!isset($arr["validate"]) || !empty($arr["validate"])) && !empty($arr["sum"]))
 		{
@@ -214,13 +225,13 @@ class shop_order_center_obj extends _int_object
 	function filter_get_active_by_folder($folder_id)
 	{
 		$fbf = safe_array($this->meta("filter_by_folder"));
-		if (is_oid($fbf[$folder_id]) && $GLOBALS["object_loader"]->cache->can("view", $fbf[$folder_id]))
+		if (is_oid($fbf[$folder_id]) && object_loader::can("view", $fbf[$folder_id]))
 		{
 			return $fbf[$folder_id];
 		}
 		foreach(obj($folder_id)->path(array("full_path" => 1)) as $path_item)
 		{
-			if (is_oid($fbf[$path_item->id()]) && $GLOBALS["object_loader"]->cache->can("view", $fbf[$path_item->id()]))
+			if (is_oid($fbf[$path_item->id()]) && object_loader::can("view", $fbf[$path_item->id()]))
 			{
 				return $fbf[$path_item->id()];
 			}
@@ -251,14 +262,13 @@ class shop_order_center_obj extends _int_object
 	**/
 	public function set_cart($arr)
 	{
-		if($this->prop("cart_type") == 1 && aw_global_get("uid") != "")
+		if($this->prop("cart_type") == 1 && aw_global_get("uid"))
 		{
 			$user = obj(aw_global_get("uid_oid"));
 			$user->set_meta("shop_cart", $arr["cart"]);
 			$user->save();
 		}
 		$_SESSION["cart"] = $arr["cart"];
-
 	}
 
 
@@ -274,12 +284,10 @@ class shop_order_center_obj extends _int_object
 		else
 		{
 			$ol = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"class_id" => crm_company_customer_data_obj::CLID,
 				"buyer" => array(user::get_current_company(), user::get_current_person()),
 				"seller" => $this->prop("warehouse.conf.owner"),
-				"lang_id" => array(),
-				"site_id" => array(),
-				new obj_predicate_limit(1),
+				new obj_predicate_limit(1)
 			));
 			return $ol->count() > 0 ? $ol->begin() : FALSE;
 		}
@@ -301,7 +309,7 @@ class shop_order_center_obj extends _int_object
 		$docs = new object_list(array(
 			"class_id" => doc_obj::CLID,
 			"parent" => $menu,
-			"lang_id" => array(),
+			"site_id" => aw_ini_get("site_id")
 		));
 		$doc = $docs->count() ? $docs->begin() : "";
 		if(!is_object($doc) && $make_new)
@@ -388,14 +396,14 @@ class shop_order_center_obj extends _int_object
 		$email_subj = t("Tellimus laost");
 		$mail_from_addr = "automatweb@automatweb.com";
 		$mail_from_name = str_replace("http://", "", aw_ini_get("baseurl"));
-		if ($GLOBALS["object_loader"]->cache->can("view", $this->prop("cart")))
+		if (object_loader::can("view", $this->prop("cart")))
 		{
 			$cart_o = obj($this->prop("cart"));
 			if ($cart_o->prop("email_subj") != "")
 			{
 				$email_subj = $cart_o->prop("email_subj");
 			}
-			if($GLOBALS["object_loader"]->cache->can("view", $cart_o->prop("subject_handler")))
+			if(object_loader::can("view", $cart_o->prop("subject_handler")))
 			{
 				$ctr = get_instance(CL_FORM_CONTROLLER);
 				$email_subj = $ctr->eval_controller_ref($cart_o->prop("subject_handler"), NULL, $cart_o, $order);
@@ -615,7 +623,7 @@ class shop_order_center_obj extends _int_object
 					unset($objs_by_category[$category->id()]);
 				}
 				else
-				{					
+				{
 					$menu = obj(null, array(), menu_obj::CLID);
 					$menu->set_parent($root);
 					$menu->set_prop("shop_product_category", $category->id());
@@ -685,7 +693,7 @@ class shop_order_center_obj extends _int_object
 	private function __copy_category_images_to_menu($category, $menu)
 	{
 		$images = $category->prop("images");
-		
+
 		// Delete old image_connections
 		foreach($menu->connections_from(array("type" => "RELTYPE_IMAGE")) as $image_connection)
 		{
@@ -694,7 +702,7 @@ class shop_order_center_obj extends _int_object
 				$image_connection->delete();
 			}
 		}
-		
+
 		$menu_images = array();
 		if (is_array($images))
 		{
@@ -773,30 +781,23 @@ class shop_order_center_obj extends _int_object
 			break;
 		}
 
-
 		return $ret;
 	}
 
 	public function get_active_products_count()
-	{//CL_SHOP_PRODUCT_PACKAGE.RELTYPE_CATEGORY.
-		$GLOBALS["SLOW_DUKE"] = 1;
-
+	{
 		$t = new object_data_list(
 			array(
 				"class_id" => CL_SHOP_PACKET,
-				"site_id" => array(),
-				"lang_id" => array(),
 				"status" => 2,
-//				"CL_SHOP_PACKET.RELTYPE_CATEGORY.RELTYPE_CATEGORY(CL_PRODUCTS_SHOW)" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 			),
 			array(
-				CL_SHOP_PACKET =>  array(new obj_sql_func(OBJ_SQL_COUNT,"cnt" , "*"))
+				CL_SHOP_PACKET =>  array(new obj_sql_func(OBJ_SQL_COUNT, "cnt" , "*"))
 			)
 		);
 
 		$cnt = $t->get_element_from_all("cnt");
 		return reset($cnt);
-
 	}
 
 	public function get_bonus_codes()

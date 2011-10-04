@@ -411,7 +411,7 @@ class shop_order_center extends class_base
 
 	function callback_mod_layout(&$arr)
 	{
-		if($arr["name"] == "appearance_r")
+		if($arr["name"] === "appearance_r")
 		{
 			if(isset($arr["request"]["menu"]) && $this->can("view" , $arr["request"]["menu"]))
 			{
@@ -712,7 +712,7 @@ class shop_order_center extends class_base
 
 	function _get_person_properties($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("V&auml;lja nimi")
@@ -865,7 +865,7 @@ class shop_order_center extends class_base
 	}
 
 
-	function layoutbl_ot_cb(&$o, &$t)
+	function layoutbl_ot_cb($o, $t)
 	{
 		$t->define_data(array(
 			"name" => $o->path_str(),
@@ -892,7 +892,7 @@ class shop_order_center extends class_base
 		));
 	}
 
-	function _init_sortbl(&$t)
+	function _init_sortbl($t)
 	{
 		$t->define_field(array(
 			"name" => "sby",
@@ -909,7 +909,7 @@ class shop_order_center extends class_base
 
 	function do_sortbl(&$arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_sortbl($t);
 
 		$elements = array("" => "");
@@ -1057,7 +1057,6 @@ class shop_order_center extends class_base
 	**/
 	function show_items($arr)
 	{
-		enter_function("shop_order_center::show_items");
 		extract($arr);
 		$soc = obj($arr["id"]);
 		if ($soc->prop("use_controller"))
@@ -1067,7 +1066,6 @@ class shop_order_center extends class_base
 			// see if this folder has a special controller
 			$vals = safe_array($soc->meta("fld_controllers"));
 			$so = obj(aw_global_get("section"));
-			enter_function("shop_order_center::show_items::path");
 			$path = $so->path();
 
 			foreach($path as $po)
@@ -1078,17 +1076,13 @@ class shop_order_center extends class_base
 					$ctr = $vals[$po_id];
 				}
 			}
-			exit_function("shop_order_center::show_items::path");
 
 			if (is_oid($ctr) && $this->can("view", $ctr))
 			{
-				enter_function("shop_order_center::show_items::controller");
 				$fc = get_instance(CL_FORM_CONTROLLER);
 				$html = $fc->eval_controller($ctr, array(
 					"soc" => $soc
 				));
-				exit_function("shop_order_center::show_items::controller");
-				exit_function("shop_order_center::show_items");
 				return $html;
 			}
 		}
@@ -1156,7 +1150,6 @@ class shop_order_center extends class_base
 			));
 		}
 
-		exit_function("shop_order_center::show_items");
 		return $html;
 	}
 
@@ -1211,7 +1204,6 @@ class shop_order_center extends class_base
 	{
 		extract($arr);
 		$soce = aw_global_get("soc_err");
-//arr($_SESSION["soc_err"]);
 		error::raise_if(!is_object($t_layout), array(
 			"id" => "ERR_NO_LAYOUT",
 			"msg" => "do_draw_prods_with_layout(): layout not set!"
@@ -2118,7 +2110,6 @@ class shop_order_center extends class_base
 
 	function apply_filter_to_product_list(&$pl, $filter_prod)
 	{
-		enter_function("shop_product::apply_filter_to_product_list");
 		$filt = array(
 			"oid" => $pl,
 			"lang_id" => array(),
@@ -2131,8 +2122,9 @@ class shop_order_center extends class_base
 		}
 		$ol = new object_list($filt);
 		$pl = $this->make_keys($ol->ids());
-		exit_function("shop_product::apply_filter_to_product_list");
 	}
+
+
 //------------------ siit piitist peaks ok olema... enne seda on l2bu
 	function do_db_upgrade($t, $f)
 	{
@@ -2159,7 +2151,7 @@ class shop_order_center extends class_base
 	function _get_appearance_tree($arr)
 	{
 		$roots = $arr["obj_inst"]->prop("root_menu");
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "menu";
 		$tv->set_selected_item(isset($arr["request"][$var]) ? $arr["request"][$var] : reset($roots));
 
@@ -2705,7 +2697,7 @@ SCRIPT;
 			"reforb" => 0,
 		);
 
-		
+
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));
