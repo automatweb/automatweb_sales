@@ -413,6 +413,7 @@ class toolbar extends aw_template
 		$right_side_content = "";
 		foreach($matrix->get() as $val)
 		{
+			$this->__reset_matrix_vars();
 			$side = !empty($val["side"]) ? "right" : "left";
 			switch($val["type"])
 			{
@@ -543,6 +544,17 @@ class toolbar extends aw_template
 
 		$result .= $this->parse("real_end") . $this->custom_data;
 		return $result;
+	}
+
+	private function __reset_matrix_vars()
+	{
+		$this->vars(array(
+			"img_url" => null,
+			"url" => null,
+			"target" => null,
+			"onclick" => null,
+			"tooltip" => null,
+		));
 	}
 
 	public function init_vcl_property($arr)
