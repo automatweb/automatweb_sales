@@ -19,6 +19,12 @@ class languages implements request_startup, orb_public_interface
 
 
 	private $req;
+
+	private static $current_ui_lid = self::LC_EST;
+	private static $current_ui_lc = "est";
+	private static $current_ct_lid = self::LC_EST;
+	private static $current_ct_lc = "est";
+
 	private static $languages_data = array();
 	private static $languages_metadata = array(
 		"enabled_languages_count" => 0
@@ -346,7 +352,7 @@ class languages implements request_startup, orb_public_interface
 		// save selected language to globals, session, cookie and user preferences
 		aw_global_set("lang_id", $id);
 
-		$cookie_name = self::get_cookie_name();
+		$cookie_name = self::get_ct_cookie_name();
 		aw_session::set($cookie_name, $id);
 		aw_cookie::set($cookie_name, $id, aw_ini_get("languages.cookie_lifetime"));
 
@@ -386,7 +392,7 @@ class languages implements request_startup, orb_public_interface
 	**/
 	public static function get_active()
 	{
-		$lang_id = aw_global_get("lang_id") or $lang_id = aw_session::get(self::get_cookie_name()) or $lang_id = aw_cookie::get(self::get_cookie_name());
+		$lang_id = aw_global_get("lang_id") or $lang_id = aw_session::get(self::get_ct_cookie_name()) or $lang_id = aw_cookie::get(self::get_ct_cookie_name());
 		return (int) $lang_id;
 	}
 
@@ -782,15 +788,26 @@ class languages implements request_startup, orb_public_interface
 		return (int) strpos($alphabet, $code{0}) + 1 . strpos($alphabet, $code{1}) + 1 . strpos($alphabet, $code{2}) + 1;
 	}
 
-	/** Returns language cookie/session variable name
+	/** Returns content language cookie/session variable name
 		@attrib api=1 params=pos
 		@returns string
 		@errors none
 	**/
-	public static function get_cookie_name()
+	public static function get_ct_cookie_name()
 	{
 		$site_id = aw_ini_get("site_id");
-		return "1" === $site_id ? "lang_id" : "lang_id_{$site_id}";
+		return "1" === $site_id ? "__aw-languages_ct_lid" : "__aw-languages_site-{$site_id}_ct_lid";
+	}
+
+	/** Returns user interface language cookie/session variable name
+		@attrib api=1 params=pos
+		@returns string
+		@errors none
+	**/
+	public static function get_ui_cookie_name()
+	{
+		$site_id = aw_ini_get("site_id");
+		return "1" === $site_id ? "__aw-languages_ui_lid" : "__aw-languages_site-{$site_id}_ui_lid";
 	}
 }
 
