@@ -44,7 +44,7 @@
 	/* customer info container */
 	div.customerInfo
 	{
-		float: left; width: 49%; padding-top: 1em;
+		float: left; padding-top: 1em;
 	}
 
 	div.customerInfo dl
@@ -59,12 +59,27 @@
 
 	div.customerInfo dl dd
 	{
-		float: left; width: 10em; padding: 0.25em; border-top: 0.07em solid #AAAAAA;  white-space: nowrap; text-align: left;
+		float: left; width: 20em; padding: 0.2em 1em 0.2em 0.2em; white-space: nowrap; text-align: left;
 	}
 
 	div.customerInfo dl dd.first
 	{
 		border-top: none;
+	}
+
+	div#customerInfoContacts
+	{
+		width: 59%;
+	}
+
+	div#customerInfoInvoice
+	{
+		width: 39%;
+	}
+
+	div#customerInfoInvoice dl dd
+	{
+		 width: 10em;
 	}
 
 	/* content */
@@ -94,9 +109,10 @@
 		border-bottom: 0.07em solid #AAAAAA; padding: 0.3em; vertical-align: top; text-align: left;
 	}
 
+	/*header row*/
 	table#rows th
 	{
-		border-top: 0.07em solid #AAAAAA; background-color: #AAAAAA; color: #FFFFFF;
+		background-color: #AAAAAA; color: #FFFFFF;
 	}
 
 	table#rows td.sumcaption
@@ -178,7 +194,7 @@
 	table#rows th,
 	table#rows td
 	{
-		font-size: 0.8em; background-color: #FFFFFF;
+		font-size: 0.8em;
 	}
 
 	td.descriptionText
