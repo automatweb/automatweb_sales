@@ -310,7 +310,7 @@ class relpicker extends core implements orb_public_interface
 		{
 			$options = array();
 		}
-		else
+		elseif(("connect" !== $prop["store"]))
 		{
 			$options = html::get_empty_option();
 		}
@@ -392,6 +392,11 @@ class relpicker extends core implements orb_public_interface
 					$prop["options"] = $options;
 				}
 			}
+		}
+
+		if ("connect" === $prop["store"])
+		{
+			$prop["value"] = array_keys($prop["options"]);
 		}
 
 		$prop["type"] = (isset($prop["display"]) && $prop["display"] === "radio") ? "chooser" : "select";
@@ -772,7 +777,7 @@ class relpicker extends core implements orb_public_interface
 			}
 
 			// no existing connection, create a new one
-			if ($arr["new"] || sizeof($conns) == 0)
+			if ($arr["new"] || count($conns) === 0)
 			{
 				if (is_array($property["value"]))
 				{
@@ -832,6 +837,7 @@ class relpicker extends core implements orb_public_interface
 			"caption" => $arr["prop"]["caption"],
 			"parent" => ifset($arr, "prop", "parent"),
 		);
+
 		$ri = $arr["obj_inst"]->get_relinfo();
 		if(!is_array($ri) || !sizeof($ri))
 		{
@@ -844,6 +850,7 @@ class relpicker extends core implements orb_public_interface
 		{
 			$prop["value"] = $arr["obj_inst"]->prop($arr["prop"]["name"].".name");
 		}
+
 		if (is_admin())
 		{
 			$prop["autocomplete_source"] = $this->mk_my_orb("get_relp_opts", array("clids" => $clids));
