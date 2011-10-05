@@ -1,20 +1,16 @@
 <div id="customerInfoContainer">
-	<div class="customerInfo">
+	<div class="customerInfo" id="customerInfoContacts">
 		<dl>
 			<dt class="caption"><?=t("Tellija andmed", $lang_id)?></dt>
 			<dd class="first"><?=$buyer_name?> <?=$buyer_corpform?></dd>
-			<dt class="caption">&nbsp;</dt>
-			<?if ($buyer_reg_nr){?><dd><?=sprintf(t("Reg. nr. %s"), $buyer_reg_nr)?></dd><?}?>
-			<dt class="caption">&nbsp;</dt>
-			<?if ($buyer_street){?><dd><?=$buyer_street?></dd><?}?>
-			<dt class="caption">&nbsp;</dt>
-			<?if ($buyer_index or $buyer_city){?><dd><?if ($buyer_index){ echo $buyer_index . ","; }?> <?=$buyer_city?></dd><?}?>
-			<dt class="caption">&nbsp;</dt>
-			<?if ($buyer_country){?><dd><?=$buyer_country?></dd><?}?>
+			<?if ($buyer_reg_nr){?><dt class="caption">&nbsp;</dt><dd><?=sprintf(t("Reg. nr. %s"), $buyer_reg_nr)?></dd><?}?>
+			<?if ($buyer_street){?><dt class="caption">&nbsp;</dt><dd><?=$buyer_street?></dd><?}?>
+			<?if ($buyer_index or $buyer_city){?><dt class="caption">&nbsp;</dt><dd><?if ($buyer_index){ echo $buyer_index . ","; }?> <?=$buyer_city?></dd><?}?>
+			<?if ($buyer_country){?><dt class="caption">&nbsp;</dt><dd><?=$buyer_country?></dd><?}?>
 		</dl>
 	</div>
 
-	<div class="customerInfo">
+	<div class="customerInfo" id="customerInfoInvoice">
 		<dl>
 			<dt class="caption"><?=t("Arve nr.", $lang_id)?></dt>
 			<dd class="first"><?=$invoice_no?></dd>
