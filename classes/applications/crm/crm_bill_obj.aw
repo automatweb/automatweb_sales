@@ -35,10 +35,32 @@ class crm_bill_obj extends _int_object
 
 	const ROW_ORDER_INCREMENT = 100;
 
+	private static $_states_disabling_accounting_data_edit = array(
+		self::STATUS_SENT,
+		self::STATUS_PAID,
+		self::STATUS_RECEIVED,
+		self::STATUS_PARTIALLY_RECEIVED
+	);
+
 	private static $status_names = array();
 	private $implementor_object = false;
 	private $cust_data_object = null;
-	private $clear_pdf_cache = true; // set false to instruct save() not to clear pdf files cache for one subsequent call,
+	private $clear_pdf_cache = true; // set false to instruct save() not to clear pdf files cache for one subsequent call
+	private $_accounting_data_disabled = false;
+
+	public static $accounting_data_properties = array(
+		"bill_no",
+		"bill_due_date_days",
+		"sum",
+		"bill_trans_date",
+		"overdue_charge",
+		"disc",
+		"customer",
+		"customer_relation",
+		"currency",
+		"bill_date",
+		"bill_accounting_date"
+	);
 
 	public static $customer_address_properties = array(
 		"street" => "street",
@@ -48,6 +70,27 @@ class crm_bill_obj extends _int_object
 		"country" => "country",
 		"country_en" => "country_en"
 	);
+
+	public function __construct($objdata = array())
+	{
+		$r = parent::__construct($objdata);
+		if (in_array($this->prop("state"), self::$_states_disabling_accounting_data_edit))
+		{
+			$this->_accounting_data_disabled = true;
+		}
+		return $r;
+	}
+
+	/** Tells if invoice state allows changing properties that are used in corporate accounting
+		If invoice has been sent to customer then no changes may be made locally
+		@attrib api=1 params=pos
+		@returns bool
+		@errors none
+	**/
+	public function can_edit_accounting_data()
+	{
+		return !$this->_accounting_data_disabled;
+	}
 
 	/** Returns list of bill status names
 	@attrib api=1 params=pos
@@ -99,8 +142,13 @@ class crm_bill_obj extends _int_object
 		$this->save();
 	}
 
-	function set_prop($name,$value)
+	public function set_prop($name,$value)
 	{
+		if (in_array($name, self::$accounting_data_properties) and $this->_accounting_data_disabled)
+		{
+			throw new awex_crm_bill_state("Can't change accounting data for an invoice already sent");
+		}
+
 		switch($name)
 		{
 			case "bill_no":
@@ -181,13 +229,19 @@ class crm_bill_obj extends _int_object
 			unset($_SESSION["bill_change_comments"]);
 		}
 
-		// update due date according to bill date
-		$bt = $this->prop("bill_accounting_date");
-		if ($bt)
+		if ($this->can_edit_accounting_data())
 		{
-			$this->set_prop("bill_due_date",
-				mktime(0, 0, 1, date("m", $bt), date("d", $bt) + $this->prop("bill_due_date_days"), date("Y", $bt))
-			);
+			// update due date according to bill date
+			$bt = $this->prop("bill_accounting_date");
+			if ($bt)
+			{
+				$this->set_prop("bill_due_date",
+					mktime(0, 0, 1, date("m", $bt), date("d", $bt) + $this->prop("bill_due_date_days"), date("Y", $bt))
+				);
+			}
+
+			// update sum
+			$this->set_prop("sum", $this->_calc_sum());
 		}
 
 		// delete temporary pdf files
@@ -199,9 +253,6 @@ class crm_bill_obj extends _int_object
 		{
 			$this->clear_pdf_cache = true;
 		}
-
-		//
-		$this->set_prop("sum", $this->_calc_sum());
 
 		$rv = parent::save($check_state); //XXX: miks siin vaja awdisableacl ?(taketis nii tehtud)
 
@@ -2017,9 +2068,8 @@ class crm_bill_obj extends _int_object
 								}
 								while ($email = $emails->next());
 							}
-							else
+							elseif ($email = $person->get_email_address())
 							{
-								$email = $person->get_email_address();
 								if (is_email($email->prop("mail")))
 								{
 									$recipients[$email->prop("mail")]  = array($person->id(), $person->name());
