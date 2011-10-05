@@ -8,7 +8,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @default table=objects
 
 @property customer type=hidden table=aw_crm_bill field=aw_customer
+@caption Klient
+
 @property customer_relation type=hidden table=aw_crm_bill field=aw_customer_relation group=general_data
+@caption Kliendisuhe
 
 //deprecated
 @property bill_mail_to type=hidden field=meta method=serialize
@@ -83,7 +86,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 	// bottom left lyt
-	@property disc type=textbox table=aw_crm_bill field=aw_discount size=5  parent=bottom_left
+	@property disc type=textbox table=aw_crm_bill field=aw_discount size=5 parent=bottom_left
 	@caption Allahindlus (%)
 
 	@property overdue_charge type=textbox table=aw_crm_bill field=aw_overdue_charge size=5 parent=bottom_left
@@ -471,6 +474,12 @@ class crm_bill extends class_base
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
+
+		if (!$arr["obj_inst"]->can_edit_accounting_data() and in_array($prop["name"], crm_bill_obj::$accounting_data_properties))
+		{
+			$prop["disabled"] = "1";
+		}
+
 		switch($prop["name"])
 		{
 			case "assembler" :
@@ -1043,19 +1052,20 @@ class crm_bill extends class_base
 		return $r;
 	}
 
-	function _set_disc(&$arr)
+	public function _set_disc(&$arr)
 	{
 		$r = PROP_OK;
 		$discount_pct = aw_math_calc::string2float($arr["prop"]["value"]);
 
 		if ($discount_pct > 100 or $discount_pct < 0)
 		{
-			$arr["prop"]["error"] = t("Allahindluse protsent ei saa olla suurem kui sada ega negatiivne.");
+			$arr["prop"]["error"] = t("Allahindluse protsent ei saa olla negatiivne ega suurem kui sada.");
 			$r = PROP_ERROR;
 		}
 		else
 		{
 			$arr["prop"]["value"] = $discount_pct;
+			$r = $this->set_property($arr);
 		}
 
 		return $r;
@@ -1290,10 +1300,11 @@ class crm_bill extends class_base
 		return $r;
 	}
 
-	function set_property($arr = array())
+	public function set_property($arr = array())
 	{
 		$prop = &$arr["prop"];
 		$retval = class_base::PROP_OK;
+
 		switch($prop["name"])
 		{
 			case "comments_add":
@@ -1402,6 +1413,12 @@ class crm_bill extends class_base
 				$retval = class_base::PROP_IGNORE;
 				break;
 		}
+
+		if (!$arr["obj_inst"]->can_edit_accounting_data() and in_array($prop["name"], crm_bill_obj::$accounting_data_properties))
+		{
+			$retval = class_base::PROP_IGNORE;
+		}
+
 		return $retval;
 	}
 
@@ -5311,5 +5328,20 @@ ENDSCRIPT;
 		aw_session_del("crm_bill_sendmail_sender_name_tmp");
 		aw_session_del("crm_bill_sendmail_recipients_tmp");
 		aw_session_del("crm_bill_sendmail_attachments_tmp");
+	}
+
+	protected function process_submit_error(Exception $caught_exception)
+	{
+		$r = false;
+		if ($caught_exception instanceof awex_crm_bill_state)
+		{
+			$this->show_error_text(t("Arve staatus ei luba andmete muutmist"));
+			$this->data_processing_result_status = PROP_FATAL_ERROR;
+		}
+		else
+		{
+			$r = parent::process_submit_error($caught_exception);
+		}
+		return $r;
 	}
 }

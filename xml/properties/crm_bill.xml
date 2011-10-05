@@ -5,6 +5,7 @@
             <table>aw_crm_bill</table>
             <type>hidden</type>
             <field>aw_customer</field>
+            <caption>Klient</caption>
       </property>
       <property>
             <name>customer_relation</name>
@@ -12,6 +13,7 @@
             <type>hidden</type>
             <field>aw_customer_relation</field>
             <group>general_data</group>
+            <caption>Kliendisuhe</caption>
       </property>
       <property>
             <name>bill_mail_to</name>
@@ -841,11 +843,6 @@
                   <parent>content</parent>
                   <submit>no</submit>
             </rows>
-            <!-- rowsnew>
-                  <caption>Read uus</caption>
-                  <parent>content</parent>
-                  <submit>no</submit>
-            </rowsnew -->
             <text_comments>
                   <caption>Kommentaartekstid</caption>
                   <parent>content</parent>
