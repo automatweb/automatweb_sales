@@ -306,14 +306,16 @@ class relpicker extends core implements orb_public_interface
 		}
 
 		$prop["post_append_text"] = isset($prop["post_append_text"]) ? $prop["post_append_text"] : "";
-		if(isset($prop["no_sel"]) && $prop["no_sel"] == 1)
-		{
-			$options = array();
-		}
-		elseif(("connect" !== $prop["store"]))
+
+		if("connect" !== $prop["store"] and empty($prop["no_sel"]))
 		{
 			$options = html::get_empty_option();
 		}
+		else
+		{
+			$options = array();
+		}
+
 		$reltype = isset($prop["reltype"]) ? $prop["reltype"] : null;
 		// generate option list
 		if (isset($prop["options"]) && is_array($prop["options"]))
