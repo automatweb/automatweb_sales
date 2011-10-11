@@ -340,7 +340,7 @@ class crm_settings extends class_base
 				$prop["options"] = $this->get_company_tabs();
 				break;
 			case "bill_mail_legend":
-				$prop["value"] = nl2br(crm_bill_obj::get_mail_parse_legend());
+				$prop["value"] = nl2br(crm_bill_obj::get_text_variables_legend());
 				break;
 			case "bill_default_unit":
 				$filter = array(

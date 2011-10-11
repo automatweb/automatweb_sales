@@ -25,24 +25,31 @@ class crm_bill_obj extends _int_object
 	const STATUS_READY = 8;
 	const STATUS_VERIFIED = 7;
 	const STATUS_SENT = 1;
+	const STATUS_DELIVERED = 32;
 	const STATUS_PAID = 2;
 	const STATUS_RECEIVED = 3;
 	const STATUS_PARTIALLY_RECEIVED = 6;
 	const STATUS_CREDIT = 4;
 	const STATUS_CREDIT_MADE = 5;
-	const STATUS_DISCARDED = -5;
+	const STATUS_DISCARDED = -5;//TODO: milleks see peab negatiivne olema
 	const STATUS_OFFER = 16;
+
+	const DELIVERY_EMAIL = 2;
+	const DELIVERY_MAIL = 4;
+	const DELIVERY_WEB = 8;
 
 	const ROW_ORDER_INCREMENT = 100;
 
 	private static $_states_disabling_accounting_data_edit = array(
 		self::STATUS_SENT,
+		self::STATUS_DELIVERED,
 		self::STATUS_PAID,
 		self::STATUS_RECEIVED,
 		self::STATUS_PARTIALLY_RECEIVED
 	);
 
 	private static $status_names = array();
+	private static $delivery_method_names = array();
 	private $implementor_object = false;
 	private $cust_data_object = null;
 	private $clear_pdf_cache = true; // set false to instruct save() not to clear pdf files cache for one subsequent call
@@ -92,14 +99,53 @@ class crm_bill_obj extends _int_object
 		return !$this->_accounting_data_disabled;
 	}
 
+	/** Returns list of delivery method values with names
+	@attrib api=1 params=pos
+	@param value type=int
+		Delivery method constant value to get name for, one of crm_bill_obj::DELIVERY_*
+	@returns array|string
+		Format option value => human readable name.
+		If $value parameter set, corresponding method name string returned and empty string when that delivery method not found.
+	**/
+	public static function delivery_method_names($value = null)
+	{
+		if (empty(self::$delivery_method_names))
+		{
+			self::$delivery_method_names = array(
+				self::DELIVERY_EMAIL => t("E-post"),
+				self::DELIVERY_MAIL => t("Post"),
+				self::DELIVERY_WEB => t("Serverip&auml;ring")
+			);
+		}
+
+		if (isset($value))
+		{
+			if (isset(self::$delivery_method_names[$value]))
+			{
+				$names = self::$delivery_method_names[$value];
+			}
+			else
+			{
+				$names = "";
+			}
+		}
+		else
+		{
+			$names = self::$delivery_method_names;
+		}
+
+		return $names;
+	}
+
 	/** Returns list of bill status names
 	@attrib api=1 params=pos
-	@param status type=int
+	@param value type=int
 		Status constant value to get name for, one of crm_bill_obj::STATUS_*
-	@returns array
-		Format option value => human readable name, if $status parameter set, array with one element returned and empty array when that status not found.
+	@returns array|string
+		Format option value => human readable name.
+		If $value parameter set, corresponding status name string returned and empty string when that status not found.
 	**/
-	public static function status_names($status = null)
+	public static function status_names($value = null)
 	{
 		if (empty(self::$status_names))
 		{
@@ -108,6 +154,7 @@ class crm_bill_obj extends _int_object
 				self::STATUS_READY => t("Koostatud"),
 				self::STATUS_VERIFIED => t("Kinnitatud"),
 				self::STATUS_SENT => t("Saadetud"),
+				self::STATUS_DELIVERED => t("K&auml;ttetoimetatud"),
 				self::STATUS_PAID => t("Makstud"),
 				self::STATUS_RECEIVED => t("Laekunud"),
 				self::STATUS_PARTIALLY_RECEIVED => t("Osaliselt laekunud"),
@@ -118,15 +165,15 @@ class crm_bill_obj extends _int_object
 			);
 		}
 
-		if (isset($status))
+		if (isset($value))
 		{
-			if (isset(self::$status_names[$status]))
+			if (isset(self::$status_names[$value]))
 			{
-				$status_names = array($status => self::$status_names[$status]);
+				$status_names = self::$status_names[$value];
 			}
 			else
 			{
-				$status_names = array();
+				$status_names = "";
 			}
 		}
 		else
@@ -159,9 +206,7 @@ class crm_bill_obj extends _int_object
 				if($value != $this->prop("state"))
 				{
 					$prev_state = self::status_names($this->prop("state"));
-					$prev_state = reset($prev_state);
 					$new_state = self::status_names($value);
-					$new_state = reset($new_state);
 					$_SESSION["bill_change_comments"][] = t("Staatus") .": {$prev_state} => {$new_state}";
 				}
 				break;
@@ -904,9 +949,8 @@ class crm_bill_obj extends _int_object
 	**/
 	public function add_rows($arr)
 	{
-		$seti = new crm_settings();
 		$co_inst = new crm_company();
-		$sts = $seti->get_current_settings();
+		$sts = crm_settings_obj::get_active_instance();
 		define("DEFAULT_TAX", 0.18);//TODO: correct this
 		$bug_rows = array();
 		$task_rows = array();
@@ -1505,9 +1549,10 @@ class crm_bill_obj extends _int_object
 				array(
 					"amt" => int row item quantity
 					"prod" => product
-					"name" => row title
+					"name" => row name
+					"comment" => string row caption
+					"row_title" => string row title
 					"name_group_comment" => string grouped rows comment addition from this row
-					"comment" => string text comment
 					"desc" => string text row description
 					"price" => float row item price
 					"sum" => float row sum
@@ -1577,6 +1622,7 @@ class crm_bill_obj extends _int_object
 					"prod" => $row->prop("prod"),
 					"name" => $translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc"),
 					"name_group_comment" => nl2br($translated ? $row->trans_get_val("name_group_comment", $lang_id) : $row->prop("name_group_comment")),
+					"row_title" => $translated ? $row->trans_get_val("row_title", $lang_id) : $row->prop("row_title"),
 					"comment" => $translated ? $row->trans_get_val("comment", $lang_id) : $row->prop("comment"),
 					"desc" => nl2br($translated ? $row->trans_get_val("desc", $lang_id) : $row->prop("desc")),
 					"price" => $row->prop("price") == (int) $row->prop("price") ? $row->prop("price") : number_format($row->prop("price"), 2, ".", " "),
@@ -1664,37 +1710,30 @@ class crm_bill_obj extends _int_object
 			);
 	}
 
-	/** returns bill project id's
+	/** returns bill projects
 		@attrib api=1
-		@returns array
+		@returns object_list(CL_PROJECT)
 	**/
-	public function get_project_ids()
+	public function get_projects()
 	{
-		$ret = array();
-		foreach($this->connections_from(array("type" => "RELTYPE_PROJECT")) as $c)
-		{
-			$ret[] = $c->prop("to");
-		}
-		return $ret;
+		$projects = new object_list(array(
+			"class_id" => project_obj::CLID,
+			"CL_PROJECT.RELTYPE_PROJECT(CL_CRM_BILL)" => $this->id()
+		));
+		return $projects;
 	}
 
-	/** returns bill project leaders
+	/** Returns list of project leaders associated with this invoice
 		@attrib api=1
-		@returns object list
+		@returns object_list(CL_CRM_PERSON)
 	**/
-	public function project_leaders()
+	public function get_project_leaders()
 	{
-		$ol = new object_list();
-		$ol->add($this->get_project_ids());
-		$leaders = new object_list();
-		foreach($ol->arr() as $o)
-		{
-			if(is_oid($o->prop("proj_mgr")))
-			{
-				$leaders->add($o->prop("proj_mgr"));
-			}
-		}
-		return $leaders;
+		$project_leaders = new object_list(array(
+			"class_id" => project_obj::CLID,
+			"CL_PROJECT.RELTYPE_PROJECT(CL_CRM_BILL)" => $this->id()
+		), array("object_id_property" => "proj_mgr"));
+		return $project_leaders;
 	}
 
 	/** returns bill project leader names
@@ -1703,17 +1742,8 @@ class crm_bill_obj extends _int_object
 	**/
 	public function project_leader_names()
 	{
-		$ret = array();
-		$ol = new object_list();
-		$ol->add($this->get_project_ids());
-		foreach($ol->arr() as $o)
-		{
-			if(is_oid($o->prop("proj_mgr")))
-			{
-				$ret[$o->prop("proj_mgr")] = $o->prop("proj_mgr.name");
-			}
-		}
-		return $ret;
+		$names = $this->get_project_leaders()->names();//TODO: odl-i abil?
+		return $names;
 	}
 
 
@@ -1943,7 +1973,7 @@ class crm_bill_obj extends _int_object
 		if (!count($type) or in_array("project_managers", $type))
 		{
 			// add project managers
-			$project_managers = $this->project_leaders();
+			$project_managers = $this->get_project_leaders();
 			if($project_managers->count())
 			{
 				$project_manager = $project_managers->begin();
@@ -2244,7 +2274,7 @@ class crm_bill_obj extends _int_object
 
 		if ($subject and $parse)
 		{
-			$subject = $this->parse_mail_text($subject);
+			$subject = $this->parse_text_variables($subject);
 		}
 
 		return $subject;
@@ -2289,7 +2319,7 @@ class crm_bill_obj extends _int_object
 
 		if ($content and $parse)
 		{
-			$content = $this->parse_mail_text($content);
+			$content = $this->parse_text_variables($content);
 		}
 
 		return $content;
@@ -2311,13 +2341,16 @@ class crm_bill_obj extends _int_object
 		@returns string
 		@errors
 	**/
-	public function parse_mail_text($text)
+	public function parse_text_variables($text)
 	{
+		$project = $this->get_projects();
+		$project =	$project->count() ? $project->begin()->name() : "";
 		$replace = array(
 			"#type#" => $this->prop("state") == self::STATUS_OFFER ? t("pakkumuse") : t("arve"),
 			"#type2#" => $this->prop("state") == self::STATUS_OFFER ? t("Pakkumus") : t("Arve"),
 			"#bill_no#" => $this->prop("bill_no"),
 			"#customer_name#" => $this->get_customer_name(),
+			"#project_name#" => $project,
 			"#contact_person#" => $this->get_customer_contact_person_name(),
 			"#signature#" => $this->get_sender_signature()
 		);
@@ -2330,11 +2363,12 @@ class crm_bill_obj extends _int_object
 		return $text;
 	}
 
-	public static function get_mail_parse_legend()
+	public static function get_text_variables_legend()
 	{
 		return '#bill_no# => '.t("Arve number").'
 #customer_name# => '.t("Kliendi nimi").'
-#contact_person# => '.t("Kontaktisiku nimi").'
+#project_name# => '.t("Projekti nimi").'
+#contact_person# => '.t("Kliendi kontaktisiku nimi").'
 #signature# => '.t("Saatja allkiri").'
 ';
 	}
@@ -2344,8 +2378,7 @@ class crm_bill_obj extends _int_object
 	{
 		if(!isset($this->crm_settings) || !is_oid($this->crm_settings))
 		{
-			$seti = get_instance(CL_CRM_SETTINGS);
-			$this->crm_settings = $seti->get_current_settings();
+			$this->crm_settings = crm_settings_obj::get_active_instance();
 		}
 		if($this->crm_settings)
 		{
@@ -2785,18 +2818,31 @@ class crm_bill_obj extends _int_object
 		$mail->set_prop("bcc", $bcc);
 		$mail->save();
 
-		$comment = html_entity_decode(sprintf(t("%s saatis arve nr. %s; summa %s; kuup&auml;ev: %s; kellaaeg: %s; aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s. "), aw_global_get("uid"), $this->prop("bill_no") , $this->prop("sum") , date("d.m.Y") , date("H:i") , htmlspecialchars($to), htmlspecialchars($cc), $body, $att_comment));
-		$this->add_comment($comment);
+		$comment = html_entity_decode(sprintf(t("Saadetud aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s."), $to, $cc, $body, $att_comment));
+		$this->send(self::DELIVERY_EMAIL, $comment);
+	}
 
+	/**
+		@attrib api=1 params=pos obj_save=1
+		@param delivery_method type=int default=crm_bill_obj::DELIVERY_EMAIL
+		@param comment type=string default=""
+		@returns void
+		@errors
+	**/
+	public function send($delivery_method = self::DELIVERY_EMAIL, $comment = "")
+	{
 		$state = (int) $this->prop("state");
-		if ( false
-			or self::STATUS_DRAFT === $state
+		if (
+			self::STATUS_DRAFT === $state
 			or self::STATUS_READY === $state
 			or self::STATUS_VERIFIED === $state
 		)
 		{
 			$this->set_prop("state", self::STATUS_SENT);
 		}
+
+		$comment = sprintf(t("%s saatis arve nr. %s. K&auml;ttetoimetamismeetod %s; summa %s; kuup&auml;ev: %s; kellaaeg: %s."), aw_global_get("uid"), $this->prop("bill_no"), $this->delivery_method_names($delivery_method), $this->prop("sum"), date("d.m.Y") , date("H:i")) . ($comment ? " " . $comment : "");
+		$this->add_comment($comment);
 
 		// clear attachment file references so they won't be deleted as junk
 		// the ones sent are archived
@@ -2805,6 +2851,7 @@ class crm_bill_obj extends _int_object
 		// save changes to this
 		$this->save();
 	}
+
 
 	/** shows if bill has rows with no price or amount
 		@attrib api=1
