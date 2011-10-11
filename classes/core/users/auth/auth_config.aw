@@ -395,11 +395,6 @@ class auth_config extends class_base
 		}
 
 		$tpl = "login.tpl";
-		if (aw_ini_get("user_interface.default_language") === "en")
-		{
-			$tpl = "login_en.tpl";
-		}
-
 		$this->read_adm_template($tpl);
 		// remember the uri used before login so that we can
 		// redirect the user back there after (and if) he/she has finally

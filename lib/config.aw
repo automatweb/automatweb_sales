@@ -500,8 +500,6 @@ function load_config ($files = array(), $cache_file = "")
 		*/
 	}
 
-	aw_global_set("lang_id", languages::get_active());
-
 	// only load those definitions if fastcall is not set
 	if (empty($_REQUEST["fastcall"]))
 	{
@@ -560,10 +558,9 @@ function _aw_global_init()
 		"action",
 		"fastcall",
 		"reforb",
-		"set_lang_id",
-		"admin_lang",
-		"admin_lang_lc",
-		"LC",
+		"set_lang_id",//TODO: rm
+		"admin_lang_lc",//TODO: rm
+		"LC",//TODO: rm
 		"period",
 		"oid",
 		"print",
@@ -595,8 +592,6 @@ function _aw_global_init()
 	{
 		aw_global_set($var, isset($_SERVER[$var]) ? $_SERVER[$var] : null);
 	}
-
-	aw_global_set("lang_id", languages::get_active());
 
 	if (isset($_REQUEST))
 	{

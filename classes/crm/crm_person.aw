@@ -5063,7 +5063,7 @@ fnCallbackAddNew = function()
 		$u = get_instance(CL_USER);
 		$p = $u->get_current_person();
 		$arr["request"]["stats_s_worker_sel"] = array($p => $p);
-		
+
 		$t = new vcl_table;
 		$arr["prop"]["vcl_inst"] = $t;
 		$arr["request"]["ret"] = 1;
@@ -5465,12 +5465,12 @@ fnCallbackAddNew = function()
 			CL_PERSONNEL_MANAGEMENT_JOB_OFFER => "cff_job_offer",
 		);
 
-		// Maybe I've changed aw_ini_get(user_interface.default_language)
-		$cfgutils = get_instance("cfgutils");
+		// Maybe I've changed user interface language
+		$cfgutils = new cfgutils();
 		foreach(array_keys($pmprops) as $clid)
 		{
 			$cfgutils->load_properties(array(
-				"clid" => $clid,
+				"clid" => $clid
 			));
 		}
 

@@ -1,5 +1,17 @@
 <?php
 
+//TODO: need peab defineerima ka siis kui ei kasutata autoloadi!!!
+// selleks tuleb _autoload_language viia lang() meetodisse
+/**
+defines global constants
+
+AW_REQUEST_UI_LANG_ID - active user interface language AW id
+AW_REQUEST_UI_LANG_CODE - active user interface language ISO_639-3 3-letter code
+
+AW_REQUEST_CT_LANG_ID - active content language AW id
+AW_REQUEST_CT_LANG_CODE - active content language ISO_639-3 3-letter code
+
+**/
 class aw_request
 {
 	// const DEFAULT_CLASS = "admin_if";
@@ -22,6 +34,7 @@ class aw_request
 		"events_manager"
 	);
 	private $_protocol; // protocol object
+	private $_lang_id = 0;
 
 	public function __construct($autoload = false)
 	{
@@ -29,6 +42,7 @@ class aw_request
 		{
 			// load current/active request
 			$this->parse_args();
+			$this->_autoload_language();
 		}
 	}
 
@@ -49,6 +63,168 @@ class aw_request
 		}
 
 		return $request;
+	}
+
+	// - loads both content and ui active language variables from cookie and session
+	// - finds best language if not requested or found in cookie or session in any way and set it active
+	protected function _autoload_language()
+	{
+		// determine and set up content language
+		// look if set_lang_id request made then if active is defined and finally find best if not
+		if ($ct_lid = languages::get_active_ct_lang_id())
+		{
+			aw_global_set("lang_id", $ct_lid);
+		}
+
+		if ($set_lang_id = (int) automatweb::$request->arg("set_lang_id"))
+		{
+			/// if language has not changed, don't waste time re-setting it
+			if ($set_lang_id !== $ct_lid)
+			{
+				/// if we explicitly request language change, we get that, except if the language is not active
+				/// and we are not logged in
+				$ct_lid = languages::set_active_ct_lang($set_lang_id);
+				if (!$ct_lid)
+				{
+					///TODO: startup error
+				}
+			}
+		}
+
+		/// if at this point no language is active, then we must select one
+		if (!$ct_lid)
+		{
+			////
+			// try to figure out the balance between the user's language preferences and the
+			// languages that are available.
+			// places checked:
+			// 1 ini languages.default setting
+			// 2 request (browser acceptlang etc.)
+			// 3 first active language found
+			// 4 any defined language
+			// 5 a hard coded default
+			{
+				// try ini
+				$ct_lid = languages::lc2lid(aw_ini_get("languages.default"));
+
+				// try request
+				if (!$ct_lid)
+				{
+					$ct_lid = self::lang();
+				}
+
+				// try to find an active language
+				// if no languages are active, then get the first one.
+				if (!$ct_lid)
+				{
+					$languages = languages::listall();
+					if (count($languages))
+					{
+						foreach($languages as $l)
+						{
+							if ($l["status"] == object::STAT_ACTIVE && object_loader::can("", $l["oid"]))
+							{
+								$ct_lid = $l["aw_lid"];
+								break;
+							}
+						}
+
+						if (!$ct_lid)
+						{
+							$l = reset($languages);
+							$ct_lid = $l["aw_lid"];
+						}
+					}
+				}
+
+				// if there are no languages defined in the site, we are fucked anyway, so just return a reasonable number
+				if (!$ct_lid)
+				{
+					$ct_lid = languages::LC_EST;
+				}
+			}
+
+			// since just about every trick in the book to try and find a
+			// suitable lang_id is exhausted, just force it to be set active
+			$ct_lid = languages::set_active_ct_lang($ct_lid, true);
+
+			if (!$ct_lid)
+			{
+				///TODO: startup error
+			}
+		}
+
+		$ct_lc = languages::lid2lc($ct_lid);
+		// content language determined
+
+
+		// determine and set up user interface language
+		// default to user_interface.default_language ini setting or content language if all else fails
+		$ui_lid = languages::get_active_ui_lang_id();
+		if (!$ui_lc = languages::lid2lc($ui_lid))
+		{
+			$ui_lc = aw_ini_get("user_interface.default_language");
+			$ui_lid = languages::lc2lid($ui_lc);
+
+			if (!$ui_lid)
+			{
+				$ui_lc = $ct_lc;
+				$ui_lid = $ct_lid;
+			}
+		}
+		// ui language determined
+
+
+//////////////////////////// milleks need on?
+//
+$la = languages::fetch($ct_lid);
+if (!aw_global_get("ct_lang_id") && aw_ini_get("user_interface.full_content_trans") && ($ct_lc1 = aw_ini_get("user_interface.default_language")))
+{
+	if (!empty($_COOKIE["ct_lang_id"]))
+	{
+		$ct_id = $_COOKIE["ct_lang_id"];
+		$ct_lc1 = $_COOKIE["ct_lang_lc"];
+	}
+	else
+	{
+		$ct_id = languages::get_id_for_code($ct_lc1);
+	}
+
+	aw_session::set("ct_lang_lc", $ct_lc1);
+	aw_session::set("ct_lang_id", $ct_id);
+	aw_global_set("ct_lang_lc", $ct_lc1);
+	aw_global_set("ct_lang_id", $ct_id);
+}
+   // if parallel trans is on, then read charset from trans lang
+if (aw_ini_get("user_interface.full_content_trans") && aw_global_get("ct_lang_id") != $lang_id)
+{
+	$t_la = languages::fetch(aw_global_get("ct_lang_id"));
+	aw_global_set("charset", $t_la["charset"]);
+}
+else
+{
+	aw_global_set("charset", $la["charset"]);
+}
+////////////////////////////
+
+
+//TODO: get rid of!
+$LC = $la["acceptlang"]; if ($LC == "") { $LC = "et"; } aw_global_set("LC", $LC);
+aw_global_set("admin_lang_lc", $LC);
+aw_global_set("lang_oid", $la["oid"]);
+//////////////////////////////
+
+
+
+		putenv('LC_ALL=de_DE');
+		setlocale(LC_ALL, 'de_DE');
+		aw_global_set("lang_id", $ui_lid);
+
+		// define global constants
+		define("AW_REQUEST_UI_LANG_ID", $ui_lid);
+		define("AW_REQUEST_UI_LANG_CODE", $ui_lc);
+		define("AW_REQUEST_CT_LANG_ID", $ct_lid);
+		define("AW_REQUEST_CT_LANG_CODE", $ct_lc);
 	}
 
 	/**
@@ -313,6 +489,33 @@ class aw_request
 	public function action()
 	{
 		return $this->_action;
+	}
+
+	/**
+	@attrib api=1 params=pos
+	@returns string
+		Requested language aw id
+	**/
+	public function lang()
+	{
+		return $this->_lang_id;
+	}
+
+	/** Sets content language id
+	@attrib api=1 params=pos
+	@param lid type=string
+		Language aw id
+	@returns void
+	@errors
+		throws awex_param if invalid language id given
+	**/
+	public function set_lang($lid)
+	{
+		if (!languages::lid2lc($lid))
+		{
+			throw new awex_param("Invalid language id {$lid}");
+		}
+		$this->_lang_id = (int) $lid;
 	}
 
 	private function _set_args($args)

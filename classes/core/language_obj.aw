@@ -29,4 +29,24 @@ class language_obj extends _int_object
 		languages::init_cache(true);
 		return $r;
 	}
+
+	/**
+		@attrib api=1 params=pos
+		@param lid type=int
+		@comment
+		@returns object(CL_LANGUAGE)
+		@errors
+			throws awex_obj_na if language for $lid not found
+	**/
+	public static function get_by_lid($lid)
+	{
+		$list = new object_list(array(
+			"class_id" => self::CLID,
+			"aw_lang_id" => $lid
+		));
+
+		if (!$list->count()) throw new awex_obj_na("Language for {$lid} not found");
+
+		return $list->begin();
+	}
 }

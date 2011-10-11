@@ -4,6 +4,7 @@ class aw_http_request extends aw_request
 {
 	private $_uri; // request uri aw_uri object if available, empty aw_uri object if not. read-only
 	private $_method = "GET";
+	private $_client_lang_parsed = false; // http request language init flag
 
 	public function __construct($autoload = false)
 	{
@@ -17,6 +18,75 @@ class aw_http_request extends aw_request
 		{
 			$this->_autoload();
 		}
+	}
+
+	public function lang()
+	{
+		if (!$this->_client_lang_parsed)
+		{
+			$this->_get_client_language();
+			$this->_client_lang_parsed = true;
+		}
+
+		return $this->_lang_id;
+	}
+
+	private function _get_client_language()
+	{
+		$lid = 0;
+		/// try url if settings direct
+		/// language from url. usu. in the form http://myserver/eng/somedocument...
+		if (aw_ini_get("menuedit.language_in_url"))
+		{
+			$lang = explode("/", $this->_uri->get_path());
+			$lc0 = $lang[0];
+			$lc1 = $lang[1];
+
+			!empty($lc0) and
+			"automatweb" !== $lc0 and
+			aw_ini_isset("menuedit.language_table.{$lc0}") and
+			$lid = languages::lc2lid(aw_ini_get("menuedit.language_table.{$lc0}"))
+			or
+			!empty($lc1) and
+			"automatweb" !== $lc1 and
+			aw_ini_isset("menuedit.language_table.{$lc1}") and
+			$lid = languages::lc2lid(aw_ini_get("menuedit.language_table.{$lc1}"))
+			;
+		}
+
+		/// try browser acceptlang header
+		if (!$lid and !empty($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
+		{
+			$langs = array();
+			// break up string into pieces (languages and q factors)
+			preg_match_all("/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i", $_SERVER["HTTP_ACCEPT_LANGUAGE"], $lang_parse);
+
+			if (count($lang_parse[1]))
+			{
+				// create a list like "en" => 0.8
+				$langs = array_combine($lang_parse[1], $lang_parse[4]);
+
+				// set default to 1 for any without q factor
+				foreach ($langs as $lang => $val)
+				{
+					if ($val === "") $langs[$lang] = 1;
+				}
+
+				// sort list based on value
+				arsort($langs, SORT_NUMERIC);
+			}
+
+			/// look through sorted list and use first one that matches an aw language
+			foreach ($langs as $lang => $val)
+			{
+				if ($lid = languages::acceptlang2lid($lang))
+				{
+					break;
+				}
+			}
+		}
+
+		$this->set_lang($lid);
 	}
 
 	/**
@@ -79,6 +149,9 @@ class aw_http_request extends aw_request
 				$this->_uri = new aw_uri();
 			}
 		}
+
+		// load language
+		$this->_autoload_language();
 
 		// parse special automatweb request variables
 		$AW_GET_VARS = array();

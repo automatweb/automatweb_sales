@@ -27,7 +27,6 @@ EMIT_MESSAGE(MSG_USER_CREATE);
 
 @default table=users
 @default group=general
-
 	@property uid field=uid type=text group=general editonly=1
 	@caption Kasutajanimi
 
@@ -43,7 +42,7 @@ EMIT_MESSAGE(MSG_USER_CREATE);
 	@property lastaction field=lastaction type=text
 	@caption Viimane sisselogimine
 
-	@property created field=created type=date table=objects
+	@property created field=created type=text table=objects
 	@caption Loodud
 
 	@property createdby field=createdby type=text table=objects
@@ -151,12 +150,10 @@ EMIT_MESSAGE(MSG_USER_CREATE);
 	@caption Ajalugu on jagatud kataloogideks
 
 	@property lg_hdl type=text subtitle=1 store=no
-	@caption Keeleseaded
+	@caption Keelte seaded
 
-	@property set_ui_lang type=select store=no
+	@property ui_language type=select table=objects field=meta method=serialize
 	@caption Liidese keel
-
-	@property ui_language type=hidden table=objects field=meta method=serialize
 
 	@property lg_hd type=text subtitle=1 store=no
 	@caption T&otilde;lkekeskkond
@@ -287,14 +284,14 @@ class user extends class_base
 			case "link_to_p":
 				if (!is_oid($arr["obj_inst"]->id()))
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				$p = $this->get_person_for_user($arr["obj_inst"]);
 				$prop["value"] = html::obj_change_url($p);
 				break;
 
 			case "name":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 
 			case "lastaction";
 				$prop["value"] = $this->db_fetch_field("SELECT lastaction FROM users WHERE uid = '".$arr["obj_inst"]->prop("uid")."'", "lastaction");
@@ -304,7 +301,7 @@ class user extends class_base
 			case "uid_entry":
 				if (is_oid($arr["obj_inst"]->id()))
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				break;
 
@@ -317,14 +314,7 @@ class user extends class_base
 
 			case "base_lang":
 			case "target_lang":
-				$l = new languages();
-				$prop["options"] = $l->get_list();
-				break;
-
-			case "admin_lang":
-				$l = new languages();
-				$prop['options'] = $l->get_list();
-				$prop['value'] = aw_global_get("admin_lang");
+				$prop["options"] = languages::get_list();
 				break;
 
 			case "groups":
@@ -383,10 +373,8 @@ class user extends class_base
 				}
 				break;
 
-			case "set_ui_lang":
-				$i = new pot_scanner();
-				$prop["options"] = array("" => "") + $i->get_langs();
-				$prop["value"] = aw_ini_get("user_interface.default_language");
+			case "ui_language":
+				$prop["options"] = html::get_empty_option() + aw_translations::lang_selection();
 				break;
 
 			case "history_size":
@@ -397,7 +385,8 @@ class user extends class_base
 				$_SESSION["user_history_has_folders"] = $arr["obj_inst"]->prop("history_has_folders");
 				break;
 		}
-		return PROP_OK;
+
+		return class_base::PROP_OK;
 	}
 
 	function set_property(&$arr)
@@ -428,22 +417,14 @@ class user extends class_base
 					if (strtolower($this->db_fetch_field("SELECT uid FROM users WHERE uid = '".$prop["value"]."'", "uid")) == strtolower($prop["value"]))
 					{
 						$prop["error"] = t("Selline kasutaja on juba olemas!");
-						return PROP_FATAL_ERROR;
+						return class_base::PROP_FATAL_ERROR;
 					}
 					if (!is_valid("uid", $prop["value"]))
 					{
 						$prop["error"] = t("Selline kasutajanimi pole lubatud!");
-						return PROP_FATAL_ERROR;
+						return class_base::PROP_FATAL_ERROR;
 					}
 				}
-				break;
-
-			case "admin_lang":
-				$l = new languages();
-				$admin_lang = $prop['value'];
-				$admin_lang_lc = $t->get_langid($admin_lang);
-				setcookie("admin_lang",$admin_lang,time()+24*3600*1000,"/"); //FIXME: lahendamata probleem #371894, miks valge leht selle func call peale?
-				setcookie("admin_lang_lc",$admin_lang_lc,time()+24*3600*1000,"/");
 				break;
 
 			case "passwd_again":
@@ -452,12 +433,12 @@ class user extends class_base
 					if ($prop['value'] !== $arr['request']['passwd'])
 					{
 						$prop["error"] = t("Paroolid pole samad!");
-						return PROP_FATAL_ERROR;
+						return class_base::PROP_FATAL_ERROR;
 					}
 					elseif (!is_valid("password", $prop['value']))
 					{
 						$prop["error"] = t("Parool sisaldab lubamatuid t&auml;hem&auml;rke v&otilde;i on liiga l&uuml;hike!");
-						return PROP_FATAL_ERROR;
+						return class_base::PROP_FATAL_ERROR;
 					}
 					else
 					{
@@ -487,15 +468,13 @@ class user extends class_base
 				if ($arr["request"]["aclwizard"]["user"] != "")
 				{
 					$ol = new object_list(array(
-						"class_id" => CL_USER,
-						"name" => $arr["request"]["aclwizard"]["user"],
-						"site_id" => array(),
-						"lang_id" => array()
+						"class_id" => user_obj::CLID,
+						"name" => $arr["request"]["aclwizard"]["user"]
 					));
 					if ($ol->count() < 1)
 					{
 						$prop["error"] = t("Sellist kasutajat pole!");
-						return PROP_FATAL_ERROR;
+						return class_base::PROP_FATAL_ERROR;
 					}
 				}
 				$prop["value"] = $arr["request"]["aclwizard"];
@@ -1078,11 +1057,6 @@ class user extends class_base
 		{
 			$arr["args"]["edit_acl"] = $arr["request"]["edit_acl"];
 		}
-
-		if (!empty($arr["request"]["set_ui_lang"]))
-		{
-			$arr["args"]["set_ui_lang"] = $arr["request"]["set_ui_lang"];
-		}
 	}
 
 	function callback_generate_scripts($arr)
@@ -1408,11 +1382,6 @@ EOF;
 		}
 
 		$arr["obj_inst"]->set_name($arr["obj_inst"]->prop("uid"));
-
-		if ($this->use_group === "settings")
-		{
-			$arr["obj_inst"]->set_prop("ui_language", $arr["request"]["set_ui_lang"]);
-		}
 	}
 
 	function callback_post_save($arr)
@@ -2460,10 +2429,8 @@ EOF;
 			$aug = aw_ini_get("groups.all_users_grp");
 			// convert to oid and store that
 			$ol = new object_list(array(
-				"class_id" => CL_GROUP,
-				"gid" => $aug,
-				"lang_id" => array(),
-				"site_id" => array()
+				"class_id" => group_obj::CLID,
+				"gid" => $aug
 			));
 			if ($ol->count())
 			{

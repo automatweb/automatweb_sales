@@ -8,6 +8,11 @@ class user_obj extends _int_object
 	private static $uid_max_length = 100;
 	private static $uid_min_length = 2;
 
+	public function awobj_set_ui_language($aw_lid)
+	{
+		languages::set_active_ui_lang($aw_lid, true);
+		return $this->set_prop("ui_language", $aw_lid);
+	}
 
 	public function awobj_get_password()
 	{
@@ -231,7 +236,7 @@ class user_obj extends _int_object
 		@returns
 			array { group_oid => group_obj, ... } for all groups that this user is a member of
 	**/
-	function get_groups_for_user()
+	public function get_groups_for_user()
 	{
 		$ol = get_instance(self::CLID)->get_groups_for_user(parent::prop("uid"));
 		$rv = $ol->arr();

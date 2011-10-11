@@ -9,7 +9,7 @@
 		</action>
 
 		<action name="set_active">
-			<function name="_set_active">
+			<function name="set_active">
 				<arguments>
 					<required name="id" type="int" />
 					<optional name="return_url" type="string" />
