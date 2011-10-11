@@ -97,7 +97,7 @@ class active_page_data implements orb_public_interface
 			$ret = "";
 			foreach($styles->get() as $stylid)
 			{
-				if (object_loader::instance()->can("view", $stylid))
+				if (object_loader::can("", $stylid))
 				{
 					$ret .= $css->get_style_data_by_id($stylid);
 				}
@@ -265,18 +265,18 @@ class active_page_data implements orb_public_interface
 
 		if ($uid and $class and $layout)
 		{
-			$object_loader = object_loader::instance();
+			$ds = object_loader::ds();
 			$query = "SELECT aw_state FROM layer_states WHERE aw_class = '{$class}' AND aw_group = '{$group}' AND aw_layer = '{$layout}' AND aw_uid = '{$uid}'";
-			$result = $object_loader->db_query($query, false);
+			$result = $ds->db_query($query, false);
 
 			if (true !== $result)
 			{
 				// create table and repeat query
 				self::check_layer_state_storage();
-				$object_loader->db_query($query);
+				$ds->db_query($query);
 			}
 
-			$row = $object_loader->db_next();
+			$row = $ds->db_next();
 			$state = (int) $row["aw_state"];
 		}
 
@@ -290,7 +290,7 @@ class active_page_data implements orb_public_interface
 		// which could mean all is ok or indicate unknown problems
 		// char cols size is 250 because MyISAM's max key length is 1000 bytes
 
-		$result = object_loader::instance()->db_query("CREATE TABLE layer_states (aw_class varchar(250), aw_group varchar(250), aw_layer varchar(250), aw_state int(1) default 1, aw_uid varchar(250), PRIMARY KEY (aw_class, aw_group, aw_layer, aw_uid))");
+		$result = object_loader::ds()->db_query("CREATE TABLE layer_states (aw_class varchar(250), aw_group varchar(250), aw_layer varchar(250), aw_state int(1) default 1, aw_uid varchar(250), PRIMARY KEY (aw_class, aw_group, aw_layer, aw_uid))");
 		return $result;
 	}
 
@@ -311,12 +311,12 @@ class active_page_data implements orb_public_interface
 		{
 			$state = self::LAYER_OPEN;
 			$query = "INSERT INTO `layer_states` (`aw_state`, `aw_class`, `aw_group`, `aw_layer`, `aw_uid`) VALUES ({$state}, '{$u_class}', '{$u_group}', '{$u_layout}', '{$uid}') ON DUPLICATE KEY UPDATE `aw_state` = {$state}";
-			$result = object_loader::instance()->db_query($query, false);
+			$result = object_loader::ds()->db_query($query, false);
 			if (true !== $result)
 			{
 				// create table and repeat query
 				self::check_layer_state_storage();
-				object_loader::instance()->db_query($query);
+				object_loader::ds()->db_query($query);
 			}
 		}
 
@@ -339,15 +339,14 @@ class active_page_data implements orb_public_interface
 		if ($uid and $u_class and $u_layout)
 		{
 			$state = self::LAYER_CLOSED;
-			$object_loader = object_loader::instance();
 			$query = "INSERT INTO `layer_states` (`aw_state`, `aw_class`, `aw_group`, `aw_layer`, `aw_uid`) VALUES ({$state}, '{$u_class}', '{$u_group}', '{$u_layout}', '{$uid}') ON DUPLICATE KEY UPDATE `aw_state` = {$state}";
-			$result = $object_loader->db_query($query, false);
+			$result = object_loader::ds()->db_query($query, false);
 
 			if (true !== $result)
 			{
 				// create table and repeat query
 				self::check_layer_state_storage();
-				$object_loader->db_query($query);
+				object_loader::ds()->db_query($query);
 			}
 		}
 

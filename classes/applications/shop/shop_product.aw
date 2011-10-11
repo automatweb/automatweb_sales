@@ -53,33 +53,33 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 		@layout gen_prices type=vbox area_caption=Hinnad closeable=1 parent=gen_left
 
 			@layout gen_prices_prop type=hbox parent=gen_prices
-			
+
 				@layout gen_prices_prop_left type=vbox parent=gen_prices_prop
-	
+
 					@property price_settings type=relpicker automatic=1 table=objects field=meta method=serialize reltype=RELTYPE_PRICE_SETTINGS parent=gen_prices_prop_left
 					@caption Hinnakujundus
-		
+
 					@property tax_rate type=relpicker automatic=1 table=objects field=meta method=serialize reltype=RELTYPE_TAX_RATE parent=gen_prices_prop_left
 					@caption Maksum&auml;&auml;r
-		
+
 				@layout gen_prices_prop_right type=vbox parent=gen_prices_prop
-	
+
 					@property price type=textbox table=aw_shop_products field=price size=10 parent=gen_prices_prop_right
 					@caption Hind
 					@comment M&uuml;&uuml;gi hind
 
 					@property special_price type=textbox table=aw_shop_products field=aw_special_price size=10 parent=gen_prices_prop_right
 					@caption Erihind
-		
+
 					@property purchase_price type=textbox table=aw_shop_products field=purchase_price size=10 parent=gen_prices_prop_right
 					@caption Ostu hind
 
 			@layout gen_prices_tbl type=vbox parent=gen_prices
 
 				@property prev_sales_price_tbl type=table store=no parent=gen_prices_tbl no_caption=1
-	
+
 				@property prev_purchase_price_tbl type=table store=no no_caption=1 parent=gen_prices_tbl
-	
+
 				@property price_cur type=table store=no parent=gen_prices_tbl no_caption=1
 
 		@layout gen_right type=vbox parent=gen_split
@@ -1339,7 +1339,7 @@ class shop_product extends shop_warehouse_item
 		));
 
 	}
-	
+
 	function _set_replacement_prods_tb($arr)
 	{
 		if($add = $arr["request"]["add_replacement_product"])
@@ -1359,11 +1359,11 @@ class shop_product extends shop_warehouse_item
 	}
 
 	/**
-		@attrib name=delete_replacement_prods_rels params=name 
+		@attrib name=delete_replacement_prods_rels params=name
 
 		@param sel required type=array
 			The array of select object ids, which relations will be deleted
-		
+
 	**/
 	function delete_replacement_prods_rels($arr)
 	{
@@ -1417,7 +1417,7 @@ class shop_product extends shop_warehouse_item
 
 		$prods = $arr['obj_inst']->get_replacement_products();
 		foreach ($prods as $oid => $o)
-		{	
+		{
 			$connection_type = array();
 			$highlight = '';
 			if ($arr['obj_inst']->prop('type_code') != '' && $arr['obj_inst']->prop('type_code') == $o->prop('type_code'))
@@ -1519,9 +1519,7 @@ class shop_product extends shop_warehouse_item
 	function do_draw_product($arr)
 	{
 		extract($arr);
-		enter_function("shop_product::do_draw_product");
 		$tmp = $this->do_final_draw_product($arr);
-		exit_function("shop_product::do_draw_product");
 		return $tmp;
 	}
 
@@ -1568,7 +1566,6 @@ class shop_product extends shop_warehouse_item
 	{
 		extract($arr);
 		$it = isset($arr["it"]) ? $arr["it"] : NULL;
-		enter_function("shop_product::bgin");
 
 		$si = __get_site_instance();
 		if (method_exists($si, "handle_product_display"))
@@ -1687,14 +1684,6 @@ class shop_product extends shop_warehouse_item
 		$sso["shop_special_offer_discount"] = ifset($arr, "shop_spcial_offer_discount");
 		$ivs += is_array($sso) ? $sso : array();
 
-
-		/*
-		if(strpos(aw_global_get("HTTP_HOST"), "tiitveod") !== false)
-		{
-			arr($arr);
-			arr(dbg::process_backtrace(debug_backtrace()));
-		}
-		*/
 		$l_inst->vars_safe(array(
 			"printlink" => aw_global_get("REQUEST_URI")."&print=1"
 		));
@@ -1714,9 +1703,6 @@ class shop_product extends shop_warehouse_item
 		{
 			$l_inst->vars_safe(array('show_change' => $l_inst->parse('show_change')));
 		}
-		exit_function("shop_product::bgin");
-
-		enter_function("shop_product::pre");
 
 		$proc_ivs = $ivs;
 
@@ -1772,9 +1758,6 @@ class shop_product extends shop_warehouse_item
 				$cnt++;
 			}
 		}
-		exit_function("shop_product::pre");
-
-		enter_function("shop_product::final");
 
 		$cnt = 1;
 		if($only_prods != 1)
@@ -2213,9 +2196,6 @@ class shop_product extends shop_warehouse_item
 			"logged" => (aw_global_get("uid") == "" ? "" : $l_inst->parse("logged"))
 		));
 
-
-
-		exit_function("shop_product::final");
 		return eval_buffer($l_inst->parse());
 	}
 
@@ -2859,14 +2839,14 @@ class shop_product extends shop_warehouse_item
 		@param pricelist_params optional type=array
 
 		@returns price, integer.
-		
+
 		@comment
 			if currency is not set, uses warehouse's default currency.
 
 			if pricelist is set to false, then no pricelist is used
 			if pricelist is set to oid, then that pricelist is used
 			if pricelist is set to true:
-				you can use param pricelist_params, which may include: 
+				you can use param pricelist_params, which may include:
 				group, crm_category, org, person, warehouse, prod_category
 				to find and apply a pricelist according to those filters
 
@@ -2874,7 +2854,7 @@ class shop_product extends shop_warehouse_item
 			$prod->instance()->calc_price($prod, null, true, array(
 				"crm_category" => 12345,
 			));
-				
+
 	**/
 	function calc_price($o, $cur = null, $pricelist = false, $pricelist_params = array())
 	{

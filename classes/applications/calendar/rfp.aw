@@ -3,7 +3,7 @@
 // rfp.aw - Pakkumise saamise palve
 /*
 
-@classinfo syslog_type=ST_RFP relationmgr=yes no_comment=1 no_status=1 prop_cb=1 allow_rte=2
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1 allow_rte=2
 
 
 @tableinfo rfp index=aw_oid master_index=brother_of master_table=objects
@@ -1111,7 +1111,7 @@ class rfp extends class_base
 				{
 					$obj = obj($arr["request"]["reservation_oid"]);
 					$inst = $obj->instance();
-					
+
 					$args = array(
 						"request" => array(
 							"class" => "reservation",
@@ -1148,7 +1148,7 @@ class rfp extends class_base
 				break;
 
 			case "prices_tbl":
-				
+
 				$args = array(
 					"request" => array(
 						"class" => "reservation",
@@ -1260,7 +1260,7 @@ class rfp extends class_base
 				}
 				$prop["value"] = aw_unserialize($prop["value"]);
 				$props = $arr["obj_inst"]->get_property_list();
-				
+
 				$t = new aw_table();
 				$header = array_keys(reset($prop["value"]));
 				foreach($header as $field)
@@ -1335,7 +1335,7 @@ class rfp extends class_base
 			case "catering_for_main":
 				$data = aw_unserialize($prop["value"]);
 
-				
+
 				$t = new vcl_table();
 				$t->define_field(array(
 					"name" => "catering_type",
@@ -1368,7 +1368,7 @@ class rfp extends class_base
 			case "additional_functions":
 			case "search_result":
 				$data = aw_unserialize($prop["value"]);
-				
+
 				$t = new vcl_table();
 				$fun = "_gen_table_".$prop["name"];
 				$this->$fun($data, $t);
@@ -4138,7 +4138,7 @@ class rfp extends class_base
 	function delete_objects($arr)
 	{
 		$o = obj($arr["id"]);
-		if($arr["group"] == "final_prices")
+		if($arr["group"] === "final_prices")
 		{
 			// remove rooms
 			if(is_array($arr["room_sel"]) and count($arr["room_sel"]))
@@ -4423,7 +4423,7 @@ class rfp extends class_base
 		{
 			$res[$obj->id()] = $obj->name();
 		}
-		$j = get_instance("protocols/data/json");
+		$j = new json();
 		die($j->encode($res));
 	}
 }

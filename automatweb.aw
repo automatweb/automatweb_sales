@@ -1,5 +1,11 @@
 <?php
 
+/// DISPLAY STARTUP ERRORS
+//error_reporting(E_ALL | E_STRICT);
+//ini_set("display_errors", "1");
+//ini_set("display_startup_errors", "1");
+/// END DISPLAY STARTUP ERRORS
+
 // get aw directory and file extension
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
 $aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", dirname($__FILE__)) . "/";
@@ -146,7 +152,7 @@ class automatweb
 			self::start_session();
 		}
 
-		$request = new aw_request();
+		$request = new aw_request(); // autoload can't be used here!
 		$result = new aw_resource();
 		self::$instance_data[self::$current_instance_nr] = array(
 			"instance" => $aw,

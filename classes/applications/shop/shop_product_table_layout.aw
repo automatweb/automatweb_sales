@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_table_layout.aw,v 1.25 2009/07/28 09:38:19 markop Exp $
-// shop_product_table_layout.aw - Lao toodete tabeli kujundus 
+// shop_product_table_layout.aw - Lao toodete tabeli kujundus
 /*
 
-@classinfo syslog_type=ST_SHOP_PRODUCT_TABLE_LAYOUT relationmgr=yes no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -33,7 +32,7 @@ class shop_product_table_layout extends class_base
 		));
 	}
 
-	function get_property($arr)
+	function _get_property($arr)
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
@@ -45,25 +44,14 @@ class shop_product_table_layout extends class_base
 					"folder" => "applications/shop/shop_product_table_layout"
 				));
 				break;
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
 		}
 		return $retval;
-	}	
+	}
 
 	/** starts drawing a table
 
 		@comment
-	
+
 			$t - product_table_layout srtorage object
 			$oc - shop_order_center srtorage object
 	**/
@@ -79,7 +67,7 @@ class shop_product_table_layout extends class_base
 		}
 		$this->read_template($tpl);
 		$this->colrow_or_rowcol();
-		lc_site_load("shop_order_center", &$this);
+		lc_site_load("shop_order_center", $this);
 		$soce = new aw_array(aw_global_get("soc_err"));
 		$err = "";
 		foreach($soce->get() as $prid => $errmsg)
@@ -166,7 +154,7 @@ class shop_product_table_layout extends class_base
 						$this->r_template = "ROW1";
 					}
 				}
-				
+
 				$this->vars_safe(array(
 					"COL" => $this->t_str
 				));
@@ -191,7 +179,7 @@ class shop_product_table_layout extends class_base
 						$this->r_template = "ROW1";
 					}
 				}
-				
+
 				$this->vars_safe(array(
 					$this->r_template => $this->t_str
 				));
@@ -200,8 +188,8 @@ class shop_product_table_layout extends class_base
 				$this->r_cnt++;
 			}
 		}
-		
-	
+
+
 		$this->vars_safe(array(
 			"product" => $p_html
 		));
@@ -445,4 +433,3 @@ class shop_product_table_layout extends class_base
 		$this->row_inside_of_col = isset($this->v2_name_map["ROW"]) && substr($this->v2_name_map["ROW"], -7) === "COL.ROW";
 	}
 }
-?>
