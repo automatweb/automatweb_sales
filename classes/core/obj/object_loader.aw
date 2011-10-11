@@ -85,7 +85,7 @@ class object_loader
 	}
 }
 
-class _int_object_loader extends core
+class _int_object_loader
 {
 	// private variables, only object system classes can use these
 	var $ds; 					// data source
@@ -102,8 +102,6 @@ class _int_object_loader extends core
 
 	function _int_object_loader()
 	{
-		$this->init();
-
 		$this->__aw_acl_cache = array();
 
 		$this->all_ot_flds = array_flip(array(
@@ -611,7 +609,7 @@ class _int_object_loader extends core
 		if ($url != "")
 		{
 			aw_global_set("__from_raise_error", 1);
-			$this->do_orb_method_call(array(
+			core::do_orb_method_call(array(
 				"server" => $url,
 				"method" => "xmlrpc",
 				"class" => "object_cache_updater",
