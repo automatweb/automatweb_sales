@@ -1,6 +1,5 @@
 <?php
 /*
-@classinfo  maintainer=voldemar
 
 Class for parsing, editing and constructing URI-s. Type conversion to string is automatic. Currently supports only URL-s.
 
@@ -54,6 +53,15 @@ class aw_uri
 		}
 
 		return $this->string;
+	}
+
+	/** Returns only path part.
+	@attrib api=1
+	@returns string
+	**/
+	public function get_path()
+	{
+		return $this->get_string(false, false, false, false, false, true, false, false);
 	}
 
 	/**
@@ -444,4 +452,3 @@ class awex_uri_type extends awex_uri
 	const RESERVED_CHR = 1;
 }
 
-?>
