@@ -1042,7 +1042,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			$bill_sum = $bill->get_sum();
 			$payments = $bill->get_payments_sum();
 			$bill_rows = $bill->get_bill_rows_data();
-			$projects = $bill->get_project_ids();
+			$projects = $bill->get_projects()->ids();
 
 			if(sizeof($projects) < 2)//kui arve yhe projekti kohta
 			{

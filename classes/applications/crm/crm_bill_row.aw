@@ -56,6 +56,9 @@
 	@layout right_container type=vbox parent=main_container area_caption=Kommentaarid
 	@default parent=right_container
 		@property comment type=textbox size=67 table=objects field=comment
+		@caption Nimi
+
+		@property row_title type=textbox size=67 table=aw_crm_bill_rows field=aw_row_title
 		@caption Pealkiri
 
 		@property desc type=textarea rows=8 cols=52 resize_height=100 field=aw_desc
@@ -137,6 +140,7 @@ class crm_bill_row extends class_base
 				aw_unit varchar(100),
 				aw_has_tax tinyint,
 				aw_date varchar(255),
+				aw_row_title varchar(255),
 				aw_writeoff int
 			)");
 			return true;
@@ -172,6 +176,13 @@ class crm_bill_row extends class_base
 				$this->db_add_col($table, array(
 					"name" => $field,
 					"type" => "int"
+				));
+				return true;
+
+			case "aw_row_title":
+				$this->db_add_col($table, array(
+					"name" => "aw_row_title",
+					"type" => "varchar(255)"
 				));
 				return true;
 

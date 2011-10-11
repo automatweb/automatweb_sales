@@ -58,8 +58,39 @@ class unit_obj extends _int_object
 	public static function get_all_units()
 	{
 		return new object_list(array(
-			"class_id" => CL_UNIT,
+			"class_id" => self::CLID
 		));
+	}
+
+	/** Returns an array of selectable/active units data
+		@attrib api=1 params=pos
+		@param lang_id type=int default=0
+		@returns array
+			int unit_oid => string translated_name
+	**/
+	public static function get_selection($lang_id = 0)
+	{
+		if (0 === $lang_id) $lang_id = AW_REQUEST_UI_LANG_ID;
+
+		$units = new object_list(array(
+			"class_id" => self::CLID,
+			"status" => object::STAT_ACTIVE,
+			new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC))
+		));
+
+		$unit_names = array();
+		if($units->count())
+		{
+			$unit = $units->begin();
+
+			do
+			{
+				$unit_names[$unit->id()] = $unit->trans_get_val("name", $lang_id);
+			}
+			while ($unit = $units->next());
+		}
+
+		return $unit_names;
 	}
 
 	/** Returns form of unit name with value as specified in unit_name_morphology_spec

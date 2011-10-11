@@ -925,7 +925,7 @@ class crm_bill extends class_base
 	function _get_bill_mail_legend(&$arr)
 	{
 		$r = PROP_OK;
-		$arr["prop"]["value"] = nl2br(crm_bill_obj::get_mail_parse_legend());
+		$arr["prop"]["value"] = nl2br(crm_bill_obj::get_text_variables_legend());
 		return $r;
 	}
 
@@ -1570,6 +1570,7 @@ class crm_bill extends class_base
 		$ps->set_class_id(array(crm_company_customer_data_obj::CLID));
 		$ps->set_id($b->id());
 		$ps->set_reload_window();
+		$ps->set_search_properties(array("buyer.name" => t("Kliendi nimi")));
 		$ps->set_property("customer_relation");
 		$search_button = $ps->get_search_button();
 		$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
@@ -2008,7 +2009,7 @@ class crm_bill extends class_base
 		}
 
 		$o = obj($arr["id"]);
-		$props = array("name" , "comment", "date", "unit", "name_group_comment");
+		$props = array("name" , "comment", "row_title", "date", "unit", "name_group_comment");
 		foreach($props as $prop)
 		{
 			if(isset($arr[$prop]))
@@ -2292,6 +2293,7 @@ class crm_bill extends class_base
 						, name: document.getElementsByName('rows[".$id."][name]')[0].value
 						, name_group_comment: document.getElementsByName('rows[".$id."][name_group_comment]')[0].value
 						, comment: document.getElementsByName('rows[".$id."][comment]')[0].value
+						, row_title: document.getElementsByName('rows[".$id."][row_title]')[0].value
 						, prod: document.getElementsByName('rows[".$id."][prod]')[0].value
 						, unit: document.getElementsByName('rows[".$id."][unit]')[0].value
 						, has_tax: has_tax
@@ -2351,9 +2353,19 @@ class crm_bill extends class_base
 					"size" => 8
 				)) . ($row->is_writeoff() ? t("mahakantud") : "") .
 				html::linebreak() .
+				t("Nimi").
+				html::linebreak() .
 				html::textbox(array(
 					"name" => "rows[".$row->id()."][comment]",
 					"value" => $row->comment(),
+					"size" => 70
+				)) .
+				html::linebreak() .
+				t("Pealkiri").
+				html::linebreak() .
+				html::textbox(array(
+					"name" => "rows[".$row->id()."][row_title]",
+					"value" => $row->prop("row_title"),
 					"size" => 70
 				)) .
 				html::linebreak() .
@@ -2405,7 +2417,7 @@ class crm_bill extends class_base
 					"field1" => t("&Uuml;hik"),
 					"field2" => html::select(array(
 						"name" => "rows[$id][unit]",
-						"options" => $this->get_unit_selection(),
+						"options" => unit_obj::get_selection(),
 						"empty_option" =>  true,
 						"value" => $row->prop("unit"),
 					)),
@@ -2561,29 +2573,12 @@ class crm_bill extends class_base
 	**/
 	public function get_unit_selection()
 	{
-		$filter = array(
-			"class_id" => unit_obj::CLID
-		);
-
-		$t = new object_data_list(
-			$filter,
-			array(
-				unit_obj::CLID => array("oid", "name")
-			)
-		);
-
-		$names = $t->get_element_from_all("name");
-		$units = array();
-
-		foreach($names as $id => $name)
-		{
-			if($name)
-			{
-				$units[$this->get_unit_id($name)] = $name;
-			}
-		}
-
-		return $units;
+		$units = new object_list(array(
+			"class_id" => unit_obj::CLID,
+			"status" => object::STAT_ACTIVE,
+			new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC))
+		));
+		return $units->names();
 	}
 
 	private function get_unit_id($name)
@@ -2606,7 +2601,7 @@ class crm_bill extends class_base
 	/**
 		@attrib name=get_row_change_fields all_args=1
 	**/
-	function ajax_get_row_change_fields($arr)
+	public function ajax_get_row_change_fields($arr)
 	{
 		die(iconv(aw_global_get("charset"), "UTF-8", $this->get_row_change_fields($arr)));
 	}
@@ -2614,7 +2609,7 @@ class crm_bill extends class_base
 	/**
 		@attrib name=ajax_get_row_html all_args=1
 	**/
-	function ajax_get_row_html($arr)
+	public function ajax_get_row_html($arr)
 	{
 		die(iconv(aw_global_get("charset"), "UTF-8", $this->get_row_html($arr["id"] , $arr["field"])));
 	}
@@ -2677,6 +2672,7 @@ class crm_bill extends class_base
 					($row->ord() ? sprintf(t("# %s"), $row->ord()) . html::linebreak() : "").
 					($row->prop("date") ? $row->prop("date") . html::linebreak() : "").
 					($row->prop("comment") ? html::bold($row->prop("comment")) . html::linebreak() : "").
+					($row->prop("row_title") ? html::italic($row->prop("row_title")) . html::linebreak() : "").
 					($row->prop("desc") ? nl2br($row->prop("desc")) . html::linebreak() : "").
 					($row->prop("name_group_comment") ? html::hr().html::italic(nl2br(wordwrap($row->prop("name_group_comment"), 100, html::linebreak(), true))) : "").
 					"</div>";
@@ -3153,6 +3149,7 @@ class crm_bill extends class_base
 		$this->load_storage_object($arr);
 		$this_o = $this->awcb_ds_id;
 		$pdf = !empty($arr["pdf"]);
+		$return = !empty($arr["return"]);
 		$lang_id = $this_o->prop("language.aw_lang_id") ? $this_o->prop("language.aw_lang_id") : languages::LC_EST;
 		aw_translations::load("crm_bill", $lang_id);
 //XXX: TMP kuni p2ris pakkumuse klass korda ja valmis saab
@@ -3168,8 +3165,16 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 			$customer_relation = new object($this_o->prop("customer_relation"));
 		}
 		else
-		{
-			throw new awex_crm_bill("Customer relation not defined");
+		{ //TODO: parem lahendus
+			if ($return)
+			{
+				return t("Klient valimata!");
+			}
+			else
+			{
+				automatweb::$result->set_data(t("Klient valimata!"));
+				automatweb::$instance->http_exit();
+			}
 		}
 
 		$seller = $customer_relation->get_seller();
@@ -3354,7 +3359,7 @@ if (isset($heading_tpl)) $heading_tpl->set_var("late_fee", "");
 			}
 		}
 
-		if(!empty($arr["return"]))
+		if($return)
 		{
 			return $doc->render();
 		}
@@ -4314,7 +4319,7 @@ ENDSCRIPT;
 		try
 		{
 			$this_o = obj($arr["id"], array(), CL_CRM_BILL);
-			echo nl2br($this_o->parse_mail_text($arr["text"]));
+			echo nl2br($this_o->parse_text_variables($arr["text"]));
 		}
 		catch (Exception $e)
 		{
@@ -4375,8 +4380,7 @@ ENDSCRIPT;
 	{
 		if(!isset($this->crm_settings))
 		{
-			$seti = get_instance(CL_CRM_SETTINGS);
-			$this->crm_settings = $seti->get_current_settings();
+			$this->crm_settings = crm_settings_obj::get_active_instance();
 		}
 	}
 
@@ -4420,8 +4424,7 @@ ENDSCRIPT;
 		return $arr["post_ru"];
 	}
 
-
-	function _init_bill_task_list($t)
+	private function _init_bill_task_list($t)
 	{
 		$t->add_fields(array(
 			"br" => t("Arve rida"),
@@ -4817,8 +4820,8 @@ ENDSCRIPT;
 			}
 		}
 
-		$subject = $this_o->parse_mail_text($arr["bill_mail_subj"]);
-		$body = nl2br($this_o->parse_mail_text($arr["bill_mail_ct"]));
+		$subject = $this_o->parse_text_variables($arr["bill_mail_subj"]);
+		$body = nl2br($this_o->parse_text_variables($arr["bill_mail_ct"]));
 		$reminder = isset($arr["sendmail_attachments"]["r"]);
 		$appendix = isset($arr["sendmail_attachments"]["a"]);
 		$from = $arr["bill_mail_from"];

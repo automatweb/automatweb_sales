@@ -681,7 +681,7 @@ $x++;
 		}
 	}
 
-	function _init_bill_task_list_t(&$t, $proj)
+	private function _init_bill_task_list_t($t, $proj)
 	{
 		$t->define_field(array(
 			"caption" => t("Juhtumi nimi"),
@@ -817,7 +817,7 @@ $x++;
 		}
 
 
-		$co_stat_inst = get_instance("applications/crm/crm_company_stats_impl");
+		$co_stat_inst = new crm_company_stats_impl();
 		foreach($rows-> arr() as $row)
 		{
 			if($row->class_id() == CL_CRM_EXPENSE)
@@ -1070,7 +1070,7 @@ $x++;
 	function _get_bill_tb($arr)
 	{
 		$_SESSION["create_bill_ru"] = get_ru();
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_button(array(
 			'name' => 'new',
@@ -1118,7 +1118,7 @@ $x++;
 		if($_GET["sel"])
 		{
 			echo t("Valitud t&ouml;&ouml;d on teostatud erinevatele klientidele!");
-			
+
 			$t = new aw_table(array(
 				"layout" => "generic"
 			));
@@ -1188,7 +1188,7 @@ $x++;
 				</script></body></html>
 			");
 		}
-		
+
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -1961,7 +1961,7 @@ $x++;
 				$bill_data["payment_date"] = $payment_date;
 			}
 */
-			$project_leaders = $bill->project_leaders();
+			$project_leaders = $bill->get_project_leaders();
 			if($project_leaders->count())
 			{
 				$pl_array = array();

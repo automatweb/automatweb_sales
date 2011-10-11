@@ -146,6 +146,16 @@
             <type>textbox</type>
             <size>67</size>
             <field>comment</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>row_title</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <parent>right_container</parent>
+            <type>textbox</type>
+            <size>67</size>
+            <field>aw_row_title</field>
             <caption>Pealkiri</caption>
       </property>
       <property>

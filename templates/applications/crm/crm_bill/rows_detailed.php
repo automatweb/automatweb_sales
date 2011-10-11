@@ -32,11 +32,20 @@
 				<?foreach($row_group["rows"] as $row){?>
 				<tr>
 					<td class="descriptionText">
-						<div class="descriptionText">
-						<?=$row["desc"]?>
-						</div>
-						<span class="caption"><?=t("Kuup&auml;ev:", $lang_id)?></span> <?=$row["date"]?>
-						<span class="caption"><?=t("ID:", $lang_id)?></span> <?=$row["oid"]?>
+						<?if($row["row_title"]){?>
+						<p class="descriptionText caption">
+							<?=$row["row_title"]?>
+						</p>
+						<?}?>
+						<?if($row["desc"]){?>
+						<p class="descriptionText">
+							<?=$row["desc"]?>
+						</p>
+						<?}?>
+						<p class="descriptionText">
+							<span class="caption"><?=t("Kuup&auml;ev:", $lang_id)?></span> <?=$row["date"]?>
+							<span class="caption"><?=t("ID:", $lang_id)?></span> <?=$row["oid"]?>
+						</p>
 					</td>
 					<td class="nowrap"><?=$row["quantity_str"]?></td>
 					<td><?=$row["price"]?></td>

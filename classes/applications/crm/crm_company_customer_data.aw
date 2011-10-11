@@ -662,7 +662,7 @@ Aadress: %s
 				}
 			}
 
-			$project_leaders = $bill->project_leaders();
+			$project_leaders = $bill->get_project_leaders();
 			if($project_leaders->count())
 			{
 				$pl_array = array();
