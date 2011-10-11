@@ -7,5 +7,7 @@ abstract class aw_core_module
 		@comment
 		@returns void
 	**/
-	public static function construct();
+	public static function construct()
+	{
+	}
 }

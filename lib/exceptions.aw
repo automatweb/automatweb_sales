@@ -25,7 +25,7 @@ class awex_param extends aw_exception
 {
 	public $param_name;
 
-	public function set($param_name)
+	public function set($param_name, $given_value)
 	{
 		$this->param_name = $param_name;
 		return $this;

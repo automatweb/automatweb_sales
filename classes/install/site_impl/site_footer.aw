@@ -182,7 +182,7 @@ if (isset($_GET["TPL"]) and $_GET["TPL"] === "1")
 aw_shutdown();
 
 // do a cache clean every hour
-if (filectime(aw_ini_get("cache.page_cache")."/temp/lmod") < (time() - 3600))
+if (filectime(aw_ini_get("cache.page_cache")."temp/lmod") < (time() - 3600))
 {
 	$m = new maitenance();
 	$m->cache_update(array());

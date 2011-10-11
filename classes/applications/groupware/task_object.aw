@@ -303,21 +303,13 @@ class task_object extends _int_object
 		@attrib api=1
 		@returns object list
 	**/
-	function get_billable_expenses()
+	public function get_billable_expenses()
 	{
-		$ret = new object_list();
-		$conns = $this->connections_from(array(
-			"type" => "RELTYPE_EXPENSE",
+		$ret = new object_list(array(
+			"class_id" => CL_CRM_EXPENSE,
+			"CL_CRM_EXPENSE.RELTYPE_EXPENSE(CL_TASK)" => $this->id(),
+			"bill_id" => new obj_predicate_compare(obj_predicate_compare::IS_EMPTY)
 		));
-		$ti = get_instance(CL_TASK);
-		foreach($conns as $con)
-		{
-			$o = $con->to();
-			if(!$ti->can("view" , $o->prop("bill_id")))
-			{
-				$ret->add($o->id());
-			}
-		}
 		return $ret;
 	}
 
@@ -367,8 +359,7 @@ class task_object extends _int_object
 	**/
 	function if_can_set_billable()
 	{
-		$seti = get_instance(CL_CRM_SETTINGS);
-		$sts = $seti->get_current_settings();
+		$sts = crm_settings_obj::get_active_instance();
 		if ($sts && $sts->prop("billable_only_by_mrg"))
 		{
 			$u = get_instance(CL_USER);
@@ -688,11 +679,9 @@ class task_object extends _int_object
 	{
 		$ol = new object_list(array(
 			"class_id" =>  CL_CRM_PARTY,
-			"lang_id" => array(),
 			"participant.class_id" => CL_PROJECT,
-			"site_id" => array(),
 			"task" => $this->id(),
-			"limit" => 1,
+			"limit" => 1
 		));
 		$projects = array();
 		foreach($ol->arr() as $party)

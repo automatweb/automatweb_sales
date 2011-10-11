@@ -79,7 +79,7 @@ class object
 
 		if (is_array($param))
 		{
-			$this->oid = $GLOBALS["object_loader"]->load_new_object($param, $constructor_args);
+			$this->oid = object_loader::instance()->load_new_object($param, $constructor_args);
 		}
 		elseif (null !== $param)
 		{
@@ -87,7 +87,7 @@ class object
 		}
 		else
 		{
-			$this->oid = $GLOBALS["object_loader"]->load_new_object(null, $constructor_args);
+			$this->oid = object_loader::instance()->load_new_object(null, $constructor_args);
 		}
 	}
 
@@ -103,7 +103,7 @@ class object
 		if ($this->is_property($method))
 		{
 			$val = $this->prop($method);
-			if ($GLOBALS["object_loader"]->cache->can("view", $val))
+			if (object_loader::can("", $val))
 			{
 				return obj($val);
 			}
@@ -146,20 +146,15 @@ class object
 	**/
 	function load($param, $force_reload = false, $constructor_args = array())
 	{
-		if (!is_object($GLOBALS["object_loader"]))
-		{
-			throw new awex_obj("Object loader not found.");
-		}
-
 		$this->_check_lock_read();
 
-		$oid = $GLOBALS["object_loader"]->param_to_oid($param);
+		$oid = object_loader::instance()->param_to_oid($param);
 		if ($force_reload && is_oid($oid))
 		{
 			$GLOBALS["objects"][$oid] = null;
 		}
 
-		$this->oid = $GLOBALS["object_loader"]->load($oid, $constructor_args);
+		$this->oid = object_loader::instance()->load($oid, $constructor_args);
 
 		if (!empty($GLOBALS["TRACE_OBJ"]))
 		{
@@ -194,7 +189,7 @@ class object
 	function save($check_state = false)
 	{
 		self::lock();
-		$this->oid = $GLOBALS["object_loader"]->save($this->oid);
+		$this->oid = object_loader::instance()->save($this->oid);
 		self::unlock();
 		return $this->oid;
 	}
@@ -229,7 +224,7 @@ class object
 	function save_check_state($state_id = null)
 	{
 		self::lock();
-		return $this->oid = $GLOBALS["object_loader"]->save($this->oid, true, $state_id);
+		return $this->oid = object_loader::instance()->save($this->oid, true, $state_id);
 		self::unlock();
 		return $this->oid;
 	}
@@ -276,7 +271,7 @@ class object
 		$this->_check_lock_write();
 		try
 		{
-			return $GLOBALS["object_loader"]->save_new($this->oid);
+			return object_loader::instance()->save_new($this->oid);
 		}
 		catch (awex_obj_parent $e)
 		{
@@ -871,7 +866,7 @@ class object
 		$objdata = $GLOBALS["objects"][$this->oid]->get_object_data();
 		$objdata["class_id"] = $param;
 		$objdata["oid"] = $this->oid; // because _int_object doesn't know its own id before save
-		$GLOBALS["object_loader"]->load_new_object($objdata);
+		object_loader::instance()->load_new_object($objdata);
 		$GLOBALS["objects"][$this->oid]->set_class_id($param);
 		return $this;
 	}

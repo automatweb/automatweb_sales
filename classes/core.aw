@@ -1042,12 +1042,11 @@ class core extends acl_base
 		}
 		else
 		{
-			if ( not(is_file($arr["file"])) || not(is_readable($arr["file"])) )
+			if (!is_file($arr["file"]) || !is_readable($arr["file"]))
 			{
 				$retval = false;
 			}
-			else
-			if (!($fh = fopen($arr["file"],"r")))
+			elseif (!($fh = fopen($arr["file"],"r")))
 			{
 				$retval = false;
 			}

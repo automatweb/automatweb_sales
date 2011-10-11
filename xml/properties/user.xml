@@ -49,7 +49,7 @@
             <table>objects</table>
             <group>general</group>
             <field>created</field>
-            <type>date</type>
+            <type>text</type>
             <caption>Loodud</caption>
       </property>
       <property>
@@ -362,24 +362,16 @@
             <subtitle>1</subtitle>
             <store>no</store>
             <field>lg_hdl</field>
-            <caption>Keeleseaded</caption>
-      </property>
-      <property>
-            <name>set_ui_lang</name>
-            <table>users</table>
-            <group>settings_general</group>
-            <type>select</type>
-            <store>no</store>
-            <field>set_ui_lang</field>
-            <caption>Liidese keel</caption>
+            <caption>Keelte seaded</caption>
       </property>
       <property>
             <name>ui_language</name>
             <table>objects</table>
             <group>settings_general</group>
-            <type>hidden</type>
+            <type>select</type>
             <field>meta</field>
             <method>serialize</method>
+            <caption>Liidese keel</caption>
       </property>
       <property>
             <name>lg_hd</name>
@@ -570,6 +562,7 @@
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
             <chpwd>

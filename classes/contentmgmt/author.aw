@@ -1,13 +1,13 @@
 <?php
 /*
-@classinfo syslog_type=ST_AUTHOR no_status=1 no_comment=1 maintainer=dragut
+@classinfo no_status=1 no_comment=1
 
 @default table=objects
 @default group=general
 @default field=meta
 @default method=serialize
 
-@property limit type=textbox 
+@property limit type=textbox
 @caption Mitu viimast
 @comment Mitut viimast dokumenti n&auml;idata
 
@@ -53,15 +53,15 @@ class author extends class_base
 		$object_list_parameters = array(
 			"class_id" => CL_DOCUMENT,
 			"author" => $author,
-			"sort_by" => "objects.created DESC",
+			"sort_by" => "objects.created DESC"
 		);
-		
+
 		// is there set a limit, how many documents should be displayed?
 		if (!empty($limit) || $limit == "0")
 		{
 			$object_list_parameters['limit'] = $limit;
 		}
-		
+
 		// if is set, that documents only from active period should be displayed
 		if (!empty($only_active_period))
 		{
@@ -120,8 +120,6 @@ class author extends class_base
 	{
 		$filt = array(
 			"class_id" => CL_DOCUMENT,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"author" => $arr["author"],
 			"status" => STAT_ACTIVE,
 			new obj_predicate_sort(array("created" => "desc"))
@@ -142,7 +140,7 @@ class author extends class_base
 
 		if ($arr["date"])
 		{
-			$filt["doc_modified"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $arr["date"]);
+			$filt["doc_modified"] = new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, $arr["date"]);
 			// now I also have to figure out whether there is a document after this one
 		}
 
@@ -158,7 +156,7 @@ class author extends class_base
 		// date and going backwards. But this means that I'll have to use timestamps as dates,
 		// because otherwise I cannot give exact dates, can I?
 
-		//	get limit +1 items, leave the last one 
+		//	get limit +1 items, leave the last one
 
 		// if (int)$_REQUEST["date"] == $_REQUEST["date"] - use it as a timestamp then?
 
@@ -181,37 +179,39 @@ class author extends class_base
 					"docid" => $o->id(),
 					"mod" => $o->doc_modified,
 				);
-			};
-		};
+			}
+		}
 
 		$nav = array();
 
-		if ($arr["date"])
+		if (!empty($arr["date"]))
 		{
 			// nüüd on vaja teada, et kas järgmisi dokke on olemas või mitte ja kui on,
 			// sii on vaja leida viimane nendest
-			$filt["doc_modified"] = new obj_predicate_compare(OBJ_COMP_GREATER, $arr["date"]);
+			$filt["doc_modified"] = new obj_predicate_compare(obj_predicate_compare::GREATER, $arr["date"]);
 			$ol = new object_list($filt);
 			$max = $ol->count();
 			$last_mod = 0;
 			foreach($ol->arr() as $o)
 			{
 				$last_mod = $o->doc_modified;
-			};
+			}
+
 			if ($last_mod)
 			{
 				$has_next = $last_mod;
-			};
-		};
+			}
+		}
 
 		if ($has_prev)
 		{
 			$nav["prev"] = $has_prev;
-		};
+		}
+
 		if ($has_next)
 		{
 			$nav["next"] = $has_next;
-		};
+		}
 
 		if (sizeof($ids) > 0)
 		{
@@ -222,10 +222,8 @@ class author extends class_base
 			while($row = $this->db_next())
 			{
 				$ids[$row["board_id"]]["commcount"] = $row["cnt"];
-			};
-		};
+			}
+		}
 		return array($nav,$ids);
 	}
-
 }
-?>
