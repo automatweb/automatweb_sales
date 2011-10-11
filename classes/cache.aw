@@ -5,8 +5,44 @@
 	Class for caching data, cache is kept in the file system, in folder defined in ini file by variable cache.page_cache
 */
 
-class cache extends core
+class cache extends aw_core_module
 {
+	public static function construct()
+	{
+		// check_pagecache_folders
+		// folders are:
+		$flds = array(
+			"menu_area_cache",
+			"storage_search",
+			"storage_object_data",
+			"html",
+			"acl"
+		);
+
+		$pg = aw_ini_get("cache.page_cache");
+		foreach($flds as $f)
+		{
+			$fq = $pg.$f;
+			if (!is_dir($fq))
+			{
+				mkdir($fq, 0777);
+				chmod($fq, 0777);
+				for($i = 0; $i < 16; $i++)
+				{
+					$ffq = $fq ."/".($i < 10 ? $i : chr(ord('a') + ($i- 10)));
+					mkdir($ffq, 0777);
+					chmod($ffq, 0777);
+				}
+			}
+		}
+		if (!is_dir("{$pg}temp"))
+		{
+			mkdir("{$pg}temp", 0777);
+			chmod("{$pg}temp", 0777);
+			touch("{$pg}temp/lmod");
+		}
+	}
+
 	/** writes a page to the html page cache
 		@attrib params=pos api=1
 
@@ -127,21 +163,18 @@ class cache extends core
 	**/
 	public static function file_set($key,$value)
 	{
-		if (aw_ini_isset("cache.page_cache"))
+		$fname = aw_ini_get("cache.page_cache");
+		$hash = md5($key);
+		$fname .= $hash{0};
+		if (!is_dir($fname))
 		{
-			$fname = aw_ini_get("cache.page_cache");
-			$hash = md5($key);
-			$fname .= $hash{0};
-			if (!is_dir($fname))
-			{
-				mkdir($fname, 0777);
-				chmod($fname, 0777);
-			}
-
-			$fname .= "/{$key}";
-			self::put_file(array("file" => $fname, "content" => $value));
-			chmod($fname, 0666);
+			mkdir($fname, 0777);
+			chmod($fname, 0777);
 		}
+
+		$fname .= "/{$key}";
+		file_put_contents($fname, $value);
+		chmod($fname, 0666);
 	}
 
 	/** Reads a cached file from the main cache folder
@@ -168,38 +201,31 @@ class cache extends core
 	**/
 	public static function file_get($key)
 	{
-		if (!aw_ini_isset("cache.page_cache"))
-		{
-			return false;
-		}
-
-		return self::get_file(array(
-			"file" => self::get_fqfn($key)
-		));
+		$file = self::get_fqfn($key);
+		return file_exists($file) ? file_get_contents($file) : "";
 	}
 
 	public static function get_fqfn($key)
 	{
 		$hash = md5($key);
 
-		if ($key{0} == "/")
+		if ($key{0} === "/")
 		{
-			return aw_ini_get("cache.page_cache").$hash{0}.$key;
+			$file_name = aw_ini_get("cache.page_cache").$hash{0}.$key;
 		}
 		else
 		{
-			return aw_ini_get("cache.page_cache").$hash{0}."/".$key;
+			$file_name = aw_ini_get("cache.page_cache").$hash{0}."/".$key;
 		}
+
+		return $file_name;
 	}
 
 	/** Returns cache file modified time
 		@attrib params=pos api=1
-
-		@param key required type=string
+		@param key type=string
 			String that is used to set the filename in cache.
-		@errors
-			none
-
+		@errors none
 		@returns int
 			timestamp
 		@examples
@@ -210,36 +236,17 @@ class cache extends core
 	**/
 	public static function get_modified_time($key)
 	{
-		$hash = md5($key);
-		if ($key{0} === "/")
-		{
-			$file = aw_ini_get("cache.page_cache").$hash{0}.$key;
-		}
-		else
-		{
-			$file =  aw_ini_get("cache.page_cache").$hash{0}."/".$key;
-		}
-
-		if(is_readable($file))
-		{
-			return filectime($file);
-		}
-
-		return false;
+		$file = self::get_fqfn($key);
+		return file_exists($file) ? filectime($file) : 0;
 	}
 
 	/** Returns cache file contents if the cache is not older than the given time
 		@attrib params=pos api=1
-
-		@param key required type=string
+		@param key type=string
 			String that is used to set the filename in cache.
-
-		@param ts required type=int
+		@param ts type=int
 			Timestamp
-
-		@errors
-			none
-
+		@errors none
 		@returns
 			- Contents of the file in cache.
 			- false if the cache file does not exist
@@ -261,18 +268,13 @@ class cache extends core
 	**/
 	public static function file_get_ts($key, $ts)
 	{
-		if (!aw_ini_isset("cache.page_cache"))
-		{
-			return false;
-		}
-
 		$fqfn = self::get_fqfn($key);
-		if (file_exists($fqfn) && filemtime($fqfn) < $ts)
+		if (!file_exists($fqfn) or filemtime($fqfn) < $ts)
 		{
 			return false;
 		}
 
-		return self::get_file(array("file" => $fqfn));
+		return file_get_contents($fqfn);
 	}
 
 	/** Clears the given file from the cache
@@ -301,7 +303,7 @@ class cache extends core
 	public static function file_invalidate($key)
 	{
 		$file = self::get_fqfn($key);
-		if (aw_ini_isset("cache.page_cache") and file_exists($file))
+		if (file_exists($file))
 		{
 			unlink($file);
 		}
@@ -790,9 +792,7 @@ class cache extends core
 			// get the cache contents here, so we can check whether it is empty, cause for some weird reason
 			// cache files get to be empty sometimes, damned if I know why
 
-			$src = self::get_file(array(
-				"file" => $cachefile,
-			));
+			$src = file_get_contents($cachefile);
 		}
 
 		if (($source_mtime > $cache_mtime) || (strlen($src) < 1))
@@ -805,7 +805,7 @@ class cache extends core
 			if (is_object($clobj) && method_exists($clobj,$clmeth))
 			{
 				// 2) get the contents of the source file
-				$contents = self::get_file(array("file" => $fqfn));
+				$contents = file_get_contents($fqfn);
 				// 3) pass them to unserializer
 				$result = $clobj->$clmeth(array(
 					"fname" => $fqfn,
@@ -822,11 +822,8 @@ class cache extends core
 
 			if (is_writable($cachedir))
 			{
-				$ser_res = aw_serialize($result,SERIALIZE_PHP);
-				self::put_file(array(
-					"file" => $cachefile,
-					"content" => $ser_res,
-				));
+				$ser_res = aw_serialize($result, SERIALIZE_PHP);
+				file_put_contents($cachefile, $ser_res);
 				chmod($cachefile, 0666);
 			}
 			// Now I somehow need to retrieve the results of unserialization
@@ -937,3 +934,6 @@ class cache extends core
 		}
 	}
 }
+
+cache::construct();
+
