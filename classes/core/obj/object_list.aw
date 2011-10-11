@@ -6,13 +6,13 @@ class object_list extends _int_obj_container_base
 {
 	var $list = array();	// array of objects in the current list
 	var $list_names = array();
-	var $list_objdata = array();
 	var $iter_index = 0;
 	var $iter_lut = array();
 	var $iter_lut_count = 0;
 
 	public $ds_query_string = ""; // database query executed to retrieve list data. use for debugging only
 
+	protected $list_objdata = array();
 	protected $filter = array();
 	protected $object_id_property = "oid";
 
@@ -815,7 +815,7 @@ class object_list extends _int_obj_container_base
 		$ret = array();
 		foreach($this->list_objdata as $oid => $d)
 		{
-			$ret[$oid] = $d["jrk"];
+			$ret[$oid] = $d["ord"];
 		}
 		return $ret;
 	}
@@ -938,7 +938,7 @@ class object_list extends _int_obj_container_base
 					"{$this->object_id_property}.brother_of",
 					"{$this->object_id_property}.status",
 					"{$this->object_id_property}.class_id",
-					"{$this->object_id_property}.jrk"
+					"{$this->object_id_property}.ord"
 				);
 				$filter[aw_ini_get("classes.{$class_id}.def").".{$this->object_id_property}.status"] = new obj_predicate_not(object::STAT_DELETED);
 			}
@@ -985,7 +985,7 @@ class object_list extends _int_obj_container_base
 							"brother_of" => $objdata_extended[$oid]["{$this->object_id_property}.brother_of"],
 							"status" => $objdata_extended[$oid]["{$this->object_id_property}.status"],
 							"class_id" => $objdata_extended[$oid]["{$this->object_id_property}.class_id"],
-							"jrk" => $objdata_extended[$oid]["{$this->object_id_property}.jrk"]
+							"ord" => $objdata_extended[$oid]["{$this->object_id_property}.ord"]
 						);
 					}
 					else
@@ -1052,7 +1052,7 @@ class object_list extends _int_obj_container_base
 							"brother_of" => $objdata_extended[$oid]["{$this->object_id_property}.brother_of"],
 							"status" => $objdata_extended[$oid]["{$this->object_id_property}.status"],
 							"class_id" => $objdata_extended[$oid]["{$this->object_id_property}.class_id"],
-							"jrk" => $objdata_extended[$oid]["{$this->object_id_property}.jrk"]
+							"ord" => $objdata_extended[$oid]["{$this->object_id_property}.ord"]
 						);
 					}
 					else
