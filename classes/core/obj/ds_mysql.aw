@@ -1880,27 +1880,26 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						}
 					}
 				}
+				$this->quote($val);
 				$this->sby = " ORDER BY {$val} ";
 				continue;
 			}
 
 			if ("limit" === (string)($key))
 			{
+				$this->quote($val);
 				$this->limit = " LIMIT {$val} ";
 				continue;
 			}
-
-			if ("join_strategy" === (string)($key))
+			elseif ("join_strategy" === (string)($key))
 			{
 				continue;
 			}
-
-			if ("status" === (string)($key))
+			elseif ("status" === (string)($key))
 			{
 				$this->stat = true;
 			}
-
-			if ("lang_id" === (string)($key))
+			elseif ("lang_id" === (string)($key))
 			{
 				$this->has_lang_id = true;
 			}
@@ -1929,10 +1928,10 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 				$this->_add_s($tbl);
 				// replace unknown columns in fetch sql
-				$this->current_fetch_sql = str_replace("%%REPLACE($_okey)%%", $tbl.".`".$key."`", $this->current_fetch_sql);
+				$this->current_fetch_sql = str_replace("%%REPLACE({$_okey})%%", "{$tbl}.`{$key}`", $this->current_fetch_sql);
 			}
 
-			if (!$is_done && isset($this->properties[$key]) && $this->properties[$key]["store"] != "no")
+			if (!$is_done && isset($this->properties[$key]) && $this->properties[$key]["store"] !== "no")
 			{
 				$tbl = $this->properties[$key]["table"];
 				$fld = $this->properties[$key]["field"];
@@ -2051,7 +2050,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 									break;
 
 								case obj_predicate_compare::IS_EMPTY:
-									$comparator = " IS NULL OR "; arr(3);exit;
+									$comparator = " IS NULL OR ";
 									$v_data = "";
 									break;
 
@@ -2392,7 +2391,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 										break;
 
 									case obj_predicate_compare::IS_EMPTY:
-										$comparator = "ISNULL({$fld})"; arr(1);exit;
+										$comparator = "ISNULL({$fld})";
 										break;
 
 									default:
@@ -2486,10 +2485,8 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			}
 			if (!isset($GLOBALS["properties"][$clid]) || !isset($GLOBALS["tableinfo"][$clid]) || !isset($GLOBALS["relinfo"][$clid]))
 			{
-				$clss = aw_ini_get("classes");
-
 				list($GLOBALS["properties"][$clid], $GLOBALS["tableinfo"][$clid], $GLOBALS["relinfo"][$clid]) = $GLOBALS["object_loader"]->load_properties(array(
-					"file" => ($clid == CL_DOCUMENT ? "doc" : basename(isset($clss[$clid]) ? $clss[$clid]["file"] : "")),
+					"file" => $clid == CL_DOCUMENT ? "doc" : (aw_ini_isset("classes.{$clid}") ? basename(aw_ini_get("classes.{$clid}.file")) : ""),
 					"clid" => $clid
 				));
 			}
@@ -2608,7 +2605,6 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 		if (substr($filt[0], 0, 3) !== "CL_" && (is_array($params["class_id"]) || is_class_id($params["class_id"])))
 		{
-			$clss = aw_ini_get("classes");
 			if (is_array($params["class_id"]))
 			{
 				$m_clid = reset($params["class_id"]);
@@ -2617,7 +2613,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			{
 				$m_clid = $params["class_id"];
 			}
-			$key = $clss[$m_clid]["def"].".".$key;
+			$key = aw_ini_get("classes.{$m_clid}.def") . "." . $key;
 			$filt = explode(".", $key);
 			$clid = constant($filt[0]);
 		}
@@ -2642,7 +2638,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			// if the first part is a class id and there are only two parts then it is not a join
 			// then it is a specification on what class's property to search from
 			// UNLESS the second part begins with RELTYPE
-			if (count($filt) == 2)
+			if (count($filt) === 2)
 			{
 				if (substr($filt[1], 0, 7) !== "RELTYPE")
 				{
@@ -2651,6 +2647,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					{
 						$this->_do_add_class_id($clid);
 					}
+
 					if (isset($GLOBALS["properties"][$clid][$filt[1]]))
 					{
 						$prop = $GLOBALS["properties"][$clid][$filt[1]];
@@ -2664,6 +2661,9 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							case "oid":
 								return array("objects", "oid");
 
+							case "ord":
+								return array("objects", "jrk");
+
 							case "created":
 							case "createdby":
 							case "modified":
@@ -2673,13 +2673,12 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							case "lang_id":
 							case "comment":
 							case "period":
-							case "ord":
 							case "site_id":
 								return array("objects", $filt[1]);
 						}
 					}
 
-					if ($prop["store"] === "connect" || $prop["method"] === "serialize")	// need psecial handling, rewrite to undefined class filter
+					if ($prop["store"] === "connect" || $prop["method"] === "serialize")	// need special handling, rewrite to undefined class filter
 					{
 						return array("__rewrite_prop", $filt[1]);
 					}
@@ -2811,7 +2810,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$prev_al_name = $cur_al_name;
 				$ret = array(
 					$cur_al_name,
-					$rel_to_field,
+					$rel_to_field
 				);
 			}
 			else	// via prop
@@ -2860,7 +2859,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 //					$this->joins[] = $str;
 					$ret = array(
 						$tbl,
-						$join["field"],
+						$join["field"]
 					);
 
 					break;
@@ -2880,9 +2879,17 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					{
 						$__fld = "parent";
 					}
+					elseif ($join["prop"] === "oid")
+					{
+						$__fld = "oid";
+					}
 					elseif ($join["prop"] === "brother_of")
 					{
 						$__fld = "brother_of";
+					}
+					elseif ($join["prop"] === "ord")
+					{
+						$__fld = $filt[count($filt)-1] = "jrk";
 					}
 					else
 					{
@@ -3325,18 +3332,15 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					));
 			}
 		}
-		else
-		if (is_numeric($pn))
+		elseif (is_numeric($pn))
 		{
 			$pn = $resn;
 		}
-		else
-		if (substr($pn, 0, 5) === "meta.")
+		elseif (substr($pn, 0, 5) === "meta.")
 		{
 			$serialized_fields["objects.metadata"][] = substr($pn, 5);
 		}
-		else
-		if (strpos($pn, ".") !== false)
+		elseif (strpos($pn, ".") !== false)
 		{
 			// over-prop join fetch. we don't know the column name yet, so let it replace it in req_make_sql when we figure it out.
 			if (!isset($filter[$pn]))
@@ -3345,14 +3349,12 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$ret[$pn] = "%%REPLACE($pn)%% AS `$resn`"; //aliases___1063_26.target AS $resn ";
 			}
 		}
-		else
-		if (!isset($p[$pn]))
+		elseif (!isset($p[$pn]))
 		{
 			// assume obj table
 			$ret[$pn] = " objects.{$pn} AS `{$resn}` ";
 		}
-		else
-		if ($p[$pn]["method"] === "serialize")
+		elseif ($p[$pn]["method"] === "serialize")
 		{
 			if ($p[$pn]["table"] === "objects" && $p[$pn]["field"] === "meta")
 			{
@@ -3364,8 +3366,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$this->_add_s($p[$pn]["table"]);
 			}
 		}
-		else
-		if ($p[$pn]["store"] === "connect")
+		elseif ($p[$pn]["store"] === "connect")
 		{
 			// fetch value from aliases table
 			if (!isset($filter[$pn]))
@@ -3402,6 +3403,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		$ret = array();
 		$serialized_fields = array();
 		$multi_fields = array();
+
 		foreach($to_fetch as $clid => $props)
 		{
 			$p = ifset($GLOBALS, "properties", $clid);
@@ -3450,7 +3452,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$acld
 			";
 		}
-		$res =  $fetch_sql.join(",", $ret);
+		$res =  $fetch_sql . implode(",", $ret);
 		return array($res, array_keys($ret), $sf, $has_func, $multi_fields);
 	}
 
