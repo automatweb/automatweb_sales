@@ -626,7 +626,9 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 						{
 							if (!object_loader::can($aclid, $varvalue))
 							{
-								$this->raise_error("ERR_ACL", "ORB:Teil puudub $aclid-&otilde;igus objektile id-ga $varvalue!", true, false);
+								$auth = new auth_config();
+								echo $auth->show_login(array("login_msg" => t("Teil puudub $aclid-&otilde;igus objektile id-ga {$varvalue}!")));
+								exit;
 							}
 
 							if(isset($act["class_ids"][$varname]) && is_array($act["class_ids"][$varname]))
@@ -700,7 +702,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 
 		// do the call
-		if (!isset($method) || (isset($method) && ($method == "local")))
+		if (!isset($method) || (isset($method) && ($method === "local")))
 		{
 			// local call
 			$___folder = isset($orb_defs[$class]["___folder"]) ? $orb_defs[$class]["___folder"] : NULL;
@@ -749,7 +751,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 					}
 
 					$vartype = $orb_defs[$class][$action]["types"][$key];
-					if ($vartype == "int")
+					if ($vartype === "int")
 					{
 						if (!is_numeric($params[$key]))
 						{
@@ -768,7 +770,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 					$vartype = $orb_defs[$class][$action]["types"][$key];
 					if (!empty($params[$key]))
 					{
-						if ( ($vartype == "int") && ($params[$key] != sprintf("%d",$vars[$key])) )
+						if ( ($vartype === "int") && ($params[$key] != sprintf("%d",$vars[$key])) )
 						{
 							$this->raise_error("ERR_ORB_NINT",sprintf(E_ORB_NOT_INTEGER,$key),true,$this->silent);
 						}
