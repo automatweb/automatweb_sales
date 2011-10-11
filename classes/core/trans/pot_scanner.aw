@@ -545,7 +545,7 @@ class pot_scanner extends core
 	function get_langs()
 	{
 		$langs = array();
-		$dir = aw_ini_get("basedir")."/lang/trans";
+		$dir = aw_ini_get("basedir")."lang/trans";
 		if ($dh = @opendir($dir))
 		{
 			while (false !== ($file = readdir($dh)))

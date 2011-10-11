@@ -189,7 +189,11 @@ class cfgutils extends core
 
 			if (!$system)
 			{
-				load_class_translations($file);
+				$trans_fn = aw_ini_get("translations_dir") . AW_REQUEST_UI_LANG_CODE . "/aw/".basename($file).AW_FILE_EXT;
+				if (is_readable($trans_fn))
+				{
+					require_once($trans_fn);
+				}
 			}
 		}
 
@@ -679,25 +683,24 @@ class cfgutils extends core
 		}
 
 		$tft = 0;
-		$adm_ui_lc = aw_ini_get("user_interface.default_language");
-		$trans_fn = AW_DIR . "lang/trans/{$adm_ui_lc}/aw/{$file}" . AW_FILE_EXT;
+		$trans_fn = aw_ini_get("translations_dir").AW_REQUEST_UI_LANG_CODE."/aw/{$file}" . AW_FILE_EXT;
 		if (file_exists($trans_fn))
 		{
 			require_once($trans_fn);
 			$tft = filemtime($trans_fn);
 		}
 
-		$sc = ifset($GLOBALS, "cfg", "classes", $clid, "site_class");
-		if ($sc)
+		$is_site_class = aw_ini_isset("classes.{$clid}.site_class");
+		if ($is_site_class)
 		{
-			$ts = is_readable(aw_ini_get("site_basedir")."xml/properties/{$file}.xml") ? filemtime(aw_ini_get("site_basedir")."/xml/properties/{$file}.xml") : null;
+			$ts = is_readable(aw_ini_get("site_basedir")."xml/properties/{$file}.xml") ? filemtime(aw_ini_get("site_basedir")."xml/properties/{$file}.xml") : null;
 		}
 		else
 		{
-			$ts = is_readable(AW_DIR."xml/properties/{$file}.xml") ? filemtime(AW_DIR."/xml/properties/{$file}.xml") : null;
+			$ts = is_readable(AW_DIR."xml/properties/{$file}.xml") ? filemtime(AW_DIR."xml/properties/{$file}.xml") : null;
 		}
 
-		$args["adm_ui_lc"] = $adm_ui_lc;
+		$args["adm_ui_lc"] = AW_REQUEST_UI_LANG_CODE;
 		$key = md5(serialize($args));
 		$res = cache::file_get_ts($key, max($ts, $tft));
 		$cache_d = null;
@@ -706,7 +709,7 @@ class cfgutils extends core
 			$cache_d = aw_unserialize($res);
 		}
 
-		if (is_array($cache_d) && !$sc)
+		if (is_array($cache_d) && !$is_site_class)
 		{
 			foreach($cache_d as $k => $v)
 			{
@@ -752,8 +755,7 @@ class cfgutils extends core
 			}
 		}
 
-		$adm_ui_lc = aw_ini_get("user_interface.default_language");
-		$trans_fn = AW_DIR . "/lang/trans/{$adm_ui_lc}/aw/".basename($file) . AW_FILE_EXT;
+		$trans_fn = aw_ini_get("translations_dir") . AW_REQUEST_UI_LANG_CODE. "/aw/".basename($file) . AW_FILE_EXT;
 		if (file_exists($trans_fn))
 		{
 			require_once($trans_fn);
@@ -792,7 +794,7 @@ class cfgutils extends core
 					$val["name"] = "";
 				}
 				$objprops[$val["name"]] = $val;
-			};
+			}
 
 			// XXX: wtf?
 			$this->tableinfo = isset($result["properties"]["tableinfo"]) ? $result["properties"]["tableinfo"] : null;

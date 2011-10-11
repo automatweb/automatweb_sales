@@ -144,13 +144,22 @@ class users_user extends aw_template
 			$user_obj->save();
 		}
 
-		aw_session::set("user_adm_ui_lc", $user_obj->prop("ui_language"));
-
 		setcookie("nocache", 1);//XXX: mida t2hendab?
 		aw_session::set("uid", $uid);
 		aw_session::set("uid_oid", $u_oid);
 		aw_global_set("uid_oid", $u_oid);
 		aw_global_set("uid", $uid);
+
+		// load user preferences
+		/// language
+		// if user is logged in, get their personalized setting
+		$ui_lid = $user_obj->prop("ui_language");
+		if ($ui_lc = languages::lid2lc($ui_lid) and AW_REQUEST_UI_LANG_CODE !== $ui_lc) // set new only if need
+		{
+			languages::set_active_ui_lang($ui_lid, true); // set user prefered language even if it's inactive
+		}
+
+		///
 
 		if ($user_obj->prop("cfg_admin_mode") == 1)
 		{

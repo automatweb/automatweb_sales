@@ -383,17 +383,10 @@ class users extends users_user implements request_startup, orb_public_interface
 			$gidlist_oid[$nliug_o->id()] = $nliug_o->id();
 			$gidlist_pri_oid[(int)$nliug_o->id()] = (int)$nliug_o->prop("priority");
 		}
-		else
+		elseif ($u_oid)
 		{
-			$u_obj = obj($u_oid);
-			if (!$u_obj->is_a(user_obj::CLID))
-			{//XXX: miks peaks u_obj mitte kasutaja objekt olema yldse? throw exceptione?
-				$gl = array();
-			}
-			else
-			{
-				$gl = $u_obj->get_groups_for_user();
-			}
+			$u_obj = obj($u_oid, array(), user_obj::CLID);
+			$gl = $u_obj->get_groups_for_user();
 
 			foreach($gl as $g_oid => $g_obj)
 			{
@@ -411,7 +404,7 @@ class users extends users_user implements request_startup, orb_public_interface
 		aw_global_set("gidlist_oid", $gidlist_oid);
 	}
 
-	function request_startup()
+	public function request_startup()
 	{
 		if (isset($_GET["set_group"]) && object_loader::can("", $_GET["set_group"]))//XXX: mis see on?
 		{
@@ -956,11 +949,9 @@ class users extends users_user implements request_startup, orb_public_interface
 				$oid = $this->get_oid_for_uid($arr["uid"]);
 				aw_session_set("uid_oid", $oid);
 
-				if ($this->can("view", $oid))
+				if ($this->can("", $oid))
 				{
 					$o = obj($oid);
-					aw_session_set("user_adm_ui_lc", $o->prop("ui_language"));
-
 					$_SESSION["user_history_count"] = $o->prop("history_size") ? $o->prop("history_size") : 25;
 					$_SESSION["user_history_has_folders"] = $o->prop("history_has_folders");
 				}
@@ -977,10 +968,12 @@ class users extends users_user implements request_startup, orb_public_interface
 				{
 					$url = aw_ini_get("baseurl");
 				}
+
 				if ($url{0} === "/")
 				{
 					$url = aw_ini_get("baseurl").substr($url, 1);
 				}
+
 				post_message("MSG_USER_LOGIN", array("uid" => $arr["uid"]));
 				return $url;
 			}
@@ -1023,7 +1016,7 @@ class users extends users_user implements request_startup, orb_public_interface
 	{
 		$result="";
 		$encoding=mb_detect_encoding($str,"ASCII, UTF-8");
-		if ($encoding=="ASCII")
+		if ($encoding === "ASCII")
 		{
 			$result=mb_convert_encoding($str, "ISO-8859-1", "ASCII");
 		}

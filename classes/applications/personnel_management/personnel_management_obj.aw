@@ -25,7 +25,7 @@ class personnel_management_obj extends _int_object
 	**/
 	function notify_of_new_cv($arr)
 	{
-		$arr["lang"] = is_object($pm_obj) && is_oid($pm_obj->prop("notify_lang")) ? $pm_obj->prop("notify_lang.lang_acceptlang") : aw_ini_get("user_interface.default_language");
+		$arr["lang"] = is_object($pm_obj) && is_oid($pm_obj->prop("notify_lang")) ? $pm_obj->prop("notify_lang.lang_acceptlang") : languages::lid2acceptlang(AW_REQUEST_CT_LANG_ID);
 		$this->send_cv_by_email($arr);
 	}
 

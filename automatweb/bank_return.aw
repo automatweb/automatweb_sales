@@ -19,19 +19,12 @@ if ($_GET["set_ui_lang"] != "")
 	$_SESSION["user_adm_ui_lc"] = $_GET["set_ui_lang"];
 }
 
-lc_init();
-classload("defs");
-
 // you cannot aw_startup() here, it _will_ break things
 // reset aw_cache_* function globals
 $GLOBALS["__aw_cache"] = array();
 
-check_pagecache_folders();
-
 $u = new users;
 $u->request_startup();
-$l = new languages;
-$l->request_startup();
 
 if ($set_ct_lang_id)
 {
@@ -44,8 +37,8 @@ if ($set_ct_lang_id)
 
 $LC = aw_global_get("LC");
 
-@include(aw_ini_get("basedir")."/lang/" . $LC . "/errors.".aw_ini_get("ext"));
-@include(aw_ini_get("basedir")."/lang/" . $LC . "/common.".aw_ini_get("ext"));
+include(aw_ini_get("basedir")."/lang/" . $LC . "/errors.".aw_ini_get("ext"));
+include(aw_ini_get("basedir")."/lang/" . $LC . "/common.".aw_ini_get("ext"));
 
 $sf = new aw_template;
 $sf->db_init();
@@ -141,8 +134,3 @@ if(!$url)
 */
 header("Location:".$url);
 die();
-
-?>
-
-
-

@@ -14,9 +14,6 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	define("SERIALIZE_XMLRPC", 5);
 	define("SERIALIZE_PHP_FILE",6);
 
-	// used by t() functions for performance reasons
-	define("AW_DEFAULT_LANG_ID", aw_global_get("lang_id"));
-
 	/** registers a post-submit handler callback
 		@attrib api=1 params=pos
 
@@ -2255,11 +2252,11 @@ function eval_buffer($res)
 @attrib api=1 params=pos
 @param s type=string
 	String to translate
-@param lang_id type=string default=AW_DEFAULT_LANG_ID
+@param lang_id type=string default=AW_REQUEST_UI_LANG_ID
 	Default is current language
 @comment Translates the string to currently active or required language. Returns same string if translation not available.
 **/
-function t($s, $lang_id = AW_DEFAULT_LANG_ID)
+function t($s, $lang_id = AW_REQUEST_UI_LANG_ID)
 {
 	return isset($GLOBALS["TRANS"][$lang_id][$s]) ? $GLOBALS["TRANS"][$lang_id][$s] : $s;
 }
@@ -2268,11 +2265,11 @@ function t($s, $lang_id = AW_DEFAULT_LANG_ID)
 @attrib api=1 params=pos
 @param s type=string
 	String to translate
-@param lang_id type=string default=AW_DEFAULT_LANG_ID
+@param lang_id type=string default=AW_REQUEST_UI_LANG_ID
 	Default is current language
 @comment Translates the string to currently active or required language. Returns NULL if translation not available.
 **/
-function t2($s, $lang_id = AW_DEFAULT_LANG_ID)
+function t2($s, $lang_id = AW_REQUEST_UI_LANG_ID)
 {
 	return isset($GLOBALS["TRANS"][$lang_id][$s]) ? $GLOBALS["TRANS"][$lang_id][$s] : null;
 }

@@ -1,6 +1,13 @@
 <?php
 
-class languages implements request_startup, orb_public_interface
+/**
+languages core module class
+manages information about languages defined in system
+manages languages related system state
+
+**/
+
+class languages extends aw_core_module implements orb_public_interface
 {
 	const CACHE_KEY = "languages-cache-site_id-"; // internal cache file name/key
 
@@ -17,22 +24,18 @@ class languages implements request_startup, orb_public_interface
 	const LC_FRA = 6181;
 	const LC_SWE = 19235;
 
-
 	private $req;
-
-	private static $current_ui_lid = self::LC_EST;
-	private static $current_ui_lc = "est";
-	private static $current_ct_lid = self::LC_EST;
-	private static $current_ct_lc = "est";
-
+	private static $constructed = false;
 	private static $languages_data = array();
 	private static $languages_metadata = array(
 		"enabled_languages_count" => 0
 	);
-	private static $lc_lut = array(
+
+	private static $acceptlang2lid_lut = array(
 		"et" => self::LC_EST,
 		"en" => self::LC_ENG,
 		"es" => self::LC_SPA,
+		"de" => self::LC_DEU,
 		"fi" => self::LC_FIN,
 		"fr" => self::LC_FRA,
 		"lt" => self::LC_LIT,
@@ -40,9 +43,11 @@ class languages implements request_startup, orb_public_interface
 		"ru" => self::LC_RUS,
 		"sv" => self::LC_SWE
 	);
-	private static $lid_lut = array(
+
+	private static $lid2acceptlang_lut = array(
 		self::LC_EST => "et",
 		self::LC_ENG => "en",
+		self::LC_DEU => "de",
 		self::LC_SPA => "es",
 		self::LC_FIN => "fi",
 		self::LC_FRA => "fr",
@@ -51,6 +56,54 @@ class languages implements request_startup, orb_public_interface
 		self::LC_RUS => "ru",
 		self::LC_SWE => "sv"
 	);
+
+	private static $lid2lc_lut = array(
+		self::LC_EST => "est",
+		self::LC_ENG => "eng",
+		self::LC_DEU => "deu",
+		self::LC_SPA => "spa",
+		self::LC_FIN => "fin",
+		self::LC_FRA => "fr",
+		self::LC_LIT => "lit",
+		self::LC_LAV => "lav",
+		self::LC_RUS => "rus",
+		self::LC_SWE => "swe"
+	);
+
+	private static $lc2lid_lut = array(
+		"est" => self::LC_EST,
+		"eng" => self::LC_ENG,
+		"deu" => self::LC_DEU,
+		"spa" => self::LC_SPA,
+		"fin" => self::LC_FIN,
+		"fra" => self::LC_FRA,
+		"lit" => self::LC_LIT,
+		"lav" => self::LC_LAV,
+		"rus" => self::LC_RUS,
+		"swe" => self::LC_SWE
+	);
+
+	private static $lid2locale_lut = array(
+		self::LC_EST => array("et_EE", "et"),
+		self::LC_ENG => "en",
+		self::LC_DEU => array("de_DE@euro", "de_DE", "de", "ge"),
+		self::LC_SPA => "es",
+		self::LC_FIN => "fi",
+		self::LC_FRA => "fr",
+		self::LC_LIT => "lt",
+		self::LC_LAV => "lv",
+		self::LC_RUS => "ru",
+		self::LC_SWE => "sv"
+	);
+
+	public static function construct()
+	{
+		if (!self::$constructed)
+		{
+			self::init_cache();
+			self::$constructed = true;
+		}
+	}
 
 
 	/** Sets orb request to be processed by this object
@@ -272,7 +325,7 @@ class languages implements request_startup, orb_public_interface
 		}
 	}
 
-	/** Sets active language and redirects if requested.
+	/** Sets active content language and redirects if requested.
 		@attrib name=set_active
 		@param id required type=int
 			Language id to set
@@ -284,9 +337,9 @@ class languages implements request_startup, orb_public_interface
 
 		@returns void
 	**/
-	public static function _set_active($arr)
+	public static function set_active($arr)
 	{
-		$r = self::set_active($arr["id"]);
+		$r = self::_set_active_ct_lang($arr["id"]);
 
 		if ($r !== (int) $arr["id"])
 		{
@@ -306,178 +359,181 @@ class languages implements request_startup, orb_public_interface
 		}
 	}
 
-	/** Sets the active language to $id
+	/**
 		@attrib api=1 params=pos
-		@param id type=int
-			Language id (aw_lang_id property)
-		@param force_act type=bool default=FALSE
-			If TRUE and user has logged in then requested language will be set active regardless of its object status (excluding 'deleted')
+		@param lid type=int
+			AW language id
+		@param disregard_status type=bool default=FALSE
+			Set language active even if it isn't active
 		@comment
-		@returns int
-			returns set language id or 0 if failed
-		@errors none
+		@returns
+		@errors
 	**/
-	public static function set_active($id, $force_act = false)
+	public static function set_active_ct_lang($lid, $disregard_status = false)
 	{
-		$id = (int) $id;
+		$lid = (int) $lid;
 
-		if (!aw_ini_isset("languages.list.{$id}.lc"))
+		if (!aw_ini_isset("languages.list.{$lid}.lc"))
 		{
 			return 0;
 		}
 
-		$l = self::fetch($id);
-		if (($l["status"] != object::STAT_ACTIVE && !aw_global_get("uid")) && !$force_act)
+		$l = self::fetch($lid);
+		if ($l["status"] != object::STAT_ACTIVE && !$disregard_status)
 		{
 			return 0;
 		}
 
-		if (is_oid($l["oid"]) && !object_loader::can("", $l["oid"]))
+		if (!object_loader::can("", $l["oid"]))
 		{
 			return 0;
 		}
 
-		$q = "SELECT acceptlang, charset FROM languages l JOIN objects o ON o.oid=l.oid WHERE l.aw_lid = '{$id}' AND o.status > 0";
-		object_loader::ds()->db_query($q);
-		$row = object_loader::ds()->db_next();
-		if ($row)
-		{
-			aw_session::set("LC", $row["acceptlang"]);
-			aw_global_set("LC",$row["acceptlang"]);
-			aw_session::set("ct_lang_lc", $row["acceptlang"]);
-			aw_global_set("ct_lang_lc",$row["acceptlang"]);
-			aw_global_set("charset",$row["charset"]);
-		}
-
-		// save selected language to globals, session, cookie and user preferences
-		aw_global_set("lang_id", $id);
-
+		// save selected language to session and cookie
 		$cookie_name = self::get_ct_cookie_name();
-		aw_session::set($cookie_name, $id);
-		aw_cookie::set($cookie_name, $id, aw_ini_get("languages.cookie_lifetime"));
+		aw_session::set($cookie_name, $lid);
+		aw_cookie::set($cookie_name, $lid, aw_ini_get("languages.ct_cookie_lifetime"));
 
-		$uid = aw_global_get("uid");
-		if (!empty($uid))
-		{
-			object_loader::ds()->quote($uid);
-			object_loader::ds()->db_query("UPDATE users SET lang_id = '{$id}' WHERE uid = '{$uid}'");
-		}
-
-		//...
-		if (!is_admin())
-		{
-			// read the language from active lang
-			if (aw_ini_get("user_interface.use_site_lang"))
-			{
-				if (aw_ini_get("user_interface.full_content_trans"))
-				{
-					$_tmp = aw_global_get("ct_lang_lc");
-				}
-				else
-				{
-					$_tmp = aw_global_get("LC");
-				}
-
-				aw_ini_set("user_interface.default_language", $_tmp);
-			}
-		}
-		return $id;
-	}
-
-	/** Return active language id
-		@attrib api=1 params=pos
-		@comment
-		@returns int
-		@errors none
-	**/
-	public static function get_active()
-	{
-		$lang_id = aw_global_get("lang_id") or $lang_id = aw_session::get(self::get_ct_cookie_name()) or $lang_id = aw_cookie::get(self::get_ct_cookie_name());
-		return (int) $lang_id;
-	}
-
-	////
-	// !this tries to figure out the balance between the user's language preferences and the
-	// languages that are available. this will only return active languages.
-	private static function _find_best()
-	{
-		$langs = array();
-		$def = 0;
-		foreach(self::$languages_data as $row)
-		{
-			if ($row["status"] == 2 && (!is_oid($row["oid"]) || object_loader::can("view", $row["oid"])))
-			{
-				$langs[$row["acceptlang"]] = $row["aw_lid"];
-				if (!$def)
-				{
-					// pick the first active one from the list in case no matches exist for browser settings
-					$def = $row["aw_lid"];
-				}
-			}
-		}
-
-		// get all the user's preferences from the browser
-		$larr = explode(",",aw_global_get("HTTP_ACCEPT_LANGUAGE"));
-		reset($larr);
-		while (list(,$v) = each($larr))
-		{
-			$la = substr($v,0,strcspn($v,"-; "));
-			if (!empty($langs[$la]))
-			{
-				// and accept the first match, nobody uses the really fancy features anyway :P
-				return $langs[$la];
-			}
-		}
-
-		// if there were no matches then just pick the first one
-		if ($def)
-		{
-			return $def;
-		}
-
-		// if no languages are active, then get the first one.
-		if (count(self::$languages_data))
-		{
-			foreach (self::$languages_data as $row)
-			{
-				return $row["aw_lid"];
-			}
-		}
-
-		// if there are no languages defined in the site, we are fucked anyway, so just return a reasonable number
-		return self::LC_EST;
+		return $lid;
 	}
 
 	/**
 		@attrib api=1 params=pos
-		@param id type=int default=0
+		@param lid type=int
+			AW language id
+		@param disregard_status type=bool default=FALSE
+			Set language active even if it isn't active
+		@comment
+		@returns
+		@errors
+	**/
+	public static function set_active_ui_lang($lid, $disregard_status = false)
+	{
+		$lid = (int) $lid;
+
+		if (!aw_ini_isset("languages.list.{$lid}.lc"))
+		{
+			return 0;
+		}
+
+		$l = self::fetch($lid);
+		if ($l["status"] != object::STAT_ACTIVE && !$disregard_status)
+		{
+			return 0;
+		}
+
+		if (!object_loader::can("", $l["oid"]))
+		{
+			return 0;
+		}
+
+		// save selected language to session and cookie
+		$cookie_name = self::get_ui_cookie_name();
+		aw_session::set($cookie_name, $lid);
+		aw_cookie::set($cookie_name, $lid, aw_ini_get("languages.ui_cookie_lifetime"));
+
+		return $lid;
+	}
+
+	public static function get_active() { return self::get_active_ui_lang_id(); }
+
+	/** Return currently active user interface AW language id
+		@attrib api=1 params=pos
+		@comment
+		@returns int
+		@errors none
+	**/
+	public static function get_active_ui_lang_id()
+	{
+		defined("AW_REQUEST_UI_LANG_ID") and $lang_id = AW_REQUEST_UI_LANG_ID
+		or $lang_id = aw_session::get(self::get_ui_cookie_name())
+		or $lang_id = aw_cookie::get(self::get_ui_cookie_name())
+		;
+
+		return (int) $lang_id;
+	}
+
+	/** Return currently active content AW language id
+		@attrib api=1 params=pos
+		@comment
+		@returns int
+		@errors none
+	**/
+	public static function get_active_ct_lang_id()
+	{
+		defined("AW_REQUEST_CT_LANG_ID") and $lang_id = AW_REQUEST_CT_LANG_ID
+		or $lang_id = aw_global_get("lang_id")
+		or $lang_id = aw_session::get(self::get_ct_cookie_name())
+		or $lang_id = aw_cookie::get(self::get_ct_cookie_name())
+		;
+
+		return (int) $lang_id;
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param id type=int default=AW_REQUEST_CT_LANG_ID
 			Language id to get charset for. If not specified, current language charset returned
 		@comment
 		@returns string
 		@errors
 			throws awex_lang_na if no language data for $id found
 	**/
-	public static function get_charset($id = 0)
+	public static function get_charset($id = AW_REQUEST_CT_LANG_ID)
 	{
-		if (!$id)
-		{
-			$id = aw_global_get("lang_id");
-		}
 		$a = self::fetch($id);
 		return $a["charset"];
 	}
 
 	/**
 		@attrib api=1 params=pos
-		@param lid type=int default=0
-			Language id. Default means current language
+		@param lid type=int
+			AW language id.
 		@returns string
-			Default language code for language id. Empty string if id not found
+			ISO_639-3 language code for aw language id. Empty string if id not found
 		@errors none
 	**/
-	public static function get_default_code_for_id($lid)
+	public static function lid2lc($lid)
 	{
-		return isset(self::$lid_lut[$lid]) ? self::$lid_lut[$lid] : "";
+		return isset(self::$lid2lc_lut[$lid]) ? self::$lid2lc_lut[$lid] : "";
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param lid type=int
+			AW language id.
+		@param lang_id type=int default=AW_REQUEST_UI_LANG_ID
+			Language in which to get the name
+		@returns string
+			Language name. Empty string if id not found. Default value (most likely in Estonian) if translation not found
+		@errors none
+	**/
+	public static function lid2name($lid, $lang_id = AW_REQUEST_UI_LANG_ID)
+	{
+		try
+		{
+			$language = language_obj::get_by_lid($lid);
+			$name = $language->trans_get_val("name", $lang_id);
+		}
+		catch (Exception $e)
+		{
+			$name = aw_ini_isset("languages.list.{$lid}") ? aw_ini_get("languages.list.{$lid}.name") : "";
+		}
+
+		return $name;
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param lc type=int
+			ISO_639-3 language code
+		@returns int
+			AW language id for ISO_639-3 language code. 0 if language code not found
+		@errors none
+	**/
+	public static function lc2lid($lc)
+	{
+		return isset(self::$lc2lid_lut[$lc]) ? self::$lc2lid_lut[$lc] : 0;
 	}
 
 	/**
@@ -485,7 +541,33 @@ class languages implements request_startup, orb_public_interface
 		@param lid type=int
 			Language id
 		@returns string
-			Language code. Empty string if id not found
+			Default two letter acceptlang language code for language id. Empty string if id not found
+		@errors none
+	**/
+	public static function lid2acceptlang($lid)
+	{
+		return isset(self::$lid2acceptlang_lut[$lid]) ? self::$lid2acceptlang_lut[$lid] : "";
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param acceptlang type=string
+			Accept-lang language string code
+		@returns int
+			AW language id for language code. 0 if id not found
+		@errors none
+	**/
+	public static function acceptlang2lid($acceptlang)
+	{
+		return isset(self::$lid2acceptlang_lut[$acceptlang]) ? self::$lid2acceptlang_lut[$acceptlang] : "";
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param lid type=int
+			Language id
+		@returns string
+			Two letter acceptlang language code that is defined in database or default if not. Empty string if id not found
 		@errors none
 	**/
 	public static function get_code_for_id($lid)
@@ -502,24 +584,21 @@ class languages implements request_startup, orb_public_interface
 		return $lc;
 	}
 
-	//DEPRECATED. use get_code_for_id() or get_default_code_for_id()
+	//DEPRECATED. use get_code_for_id() or lid2acceptlang()
 	public static function get_langid($id = -1)
-	{ trigger_error("get_langid() is deprecated. use get_code_for_id() or get_default_code_for_id(). Called from " . get_caller_str(1), E_USER_DEPRECATED); if ($id == -1)  { $id = aw_global_get("lang_id"); }$a = self::fetch($id); return $a["acceptlang"]; }
+	{ trigger_error("get_langid() is deprecated. use get_code_for_id() or lid2acceptlang(). Called from " . get_caller_str(1), E_USER_DEPRECATED); if ($id == -1)  { $id = aw_global_get("lang_id"); }$a = self::fetch($id); return $a["acceptlang"]; }
 
-	/** Finds the language id for a language code (en, et, ...)
+	/** Finds the aw language id for an acceptlang language code (en, et, ...)
 		@attrib api=1 params=pos
-
 		@param lc required type=string
 			The code to find the language id for
-
 		@returns int
 			0 if no language for the code is defined in the system, language id (not language object id)
-
 		@errors none
 	**/
 	public static function get_id_for_code($lc)
 	{
-		return isset(self::$lc_lut[$lc]) ? self::$lc_lut[$lc] : 0;
+		return isset(self::$acceptlang2lid_lut[$lc]) ? self::$acceptlang2lid_lut[$lc] : 0;
 	}
 
 	/** Counts active languages
@@ -581,167 +660,6 @@ class languages implements request_startup, orb_public_interface
 		}
 	}
 
-	////
-	// !this will get called once in the beginning of the page, so that the class can initialize itself nicely
-	public function request_startup()
-	{
-		self::init_cache();
-		$lang_id = aw_global_get("lang_id");
-
-		// if we explicitly request language change, we get that, except if the language is not active
-		// and we are not logged in
-		if (($sl = aw_global_get("set_lang_id")))
-		{
-			// if language has not changed, don't waste time re-setting it
-			if ($sl != $lang_id)
-			{
-				if (($_l = self::set_active($sl)))
-				{
-					$lang_id = $_l;
-				}
-				// if request to change language is denied
-				// then we sould remain with the old one, methinks
-			}
-		}
-
-		if (aw_ini_get("menuedit.language_in_url"))
-		{
-			list($lang) = explode("/", aw_global_get("section"));
-			if (strlen($lang) == 2 && aw_global_get("ct_lang_lc") != $lang)
-			{
-				// set lang from url
-				$lang_id =  self::get_id_for_code($lang);
-				aw_session::set("ct_lang_id", $lang_id);
-				aw_session::set("ct_lang_lc", $lang);
-				aw_global_set("ct_lang_lc", $lang);
-				aw_global_set("ct_lang_id", $lang_id);
-				setcookie("ct_lang_id", $lang_id, time() + 3600, "/");
-				setcookie("ct_lang_lc", $lang, time() + 3600, "/");
-			}
-		}
-
-		if (!aw_global_get("ct_lang_id") && aw_ini_get("user_interface.full_content_trans") && ($ct_lc = aw_ini_get("user_interface.default_language")))
-		{
-			if (!empty($_COOKIE["ct_lang_id"]))
-			{
-				$ct_id = $_COOKIE["ct_lang_id"];
-				$ct_lc = $_COOKIE["ct_lang_lc"];
-			}
-			else
-			{
-				$ct_id = self::get_id_for_code($ct_lc);
-			}
-
-			aw_session::set("ct_lang_lc", $ct_lc);
-			aw_session::set("ct_lang_id", $ct_id);
-			aw_global_set("ct_lang_lc", $ct_lc);
-			aw_global_set("ct_lang_id", $ct_id);
-		}
-
-		if (!$lang_id && aw_ini_get("languages.default"))
-		{
-			$lang_id = aw_ini_get("languages.default");
-			try
-			{
-				$la = self::fetch($lang_id);
-			}
-			catch (awex_lang_na $e)
-			{
-				$la = self::fetch($lang_id, true);
-			}
-			self::set_active($lang_id, true);
-		}
-		else
-		{
-			// if at this point no language is active, then we must select one
-			if (!$lang_id)
-			{
-				// try to find one by looking at the preferences the user has set in his/her browser
-				$lang_id = self::_find_best();
-				// since find_best() pulls just about every trick in the book to try and find a
-				// suitable lang_id, we will just force it to be set active, since we can't do better anyway
-				self::set_active($lang_id, true);
-				$la = self::fetch($lang_id);
-			}
-			else
-			{
-				// if a language is active, we must check if perhaps someone kas de-activated it in the mean time
-				try
-				{
-					$la = self::fetch($lang_id, true);
-				}
-				catch (awex_lang_na $e)
-				{
-					// Backward compatibility, sort of...
-					setcookie("lang_id", $lang_id, time() - 3600);
-					$url = new aw_uri();
-					header("Location: " . $url->get());
-				}
-				if (!($la["status"] == 2 || ($la["status"] == 1 && aw_global_get("uid") != "")) || (is_oid($la["oid"]) && !object_loader::can("", $la["oid"])))
-				{
-					// if so, try to come up with a better one.
-					$lang_id = self::_find_best();
-					self::set_active($lang_id, true);
-					$la = self::fetch($lang_id);
-				}
-			}
-		}
-
-		// assign the correct language so we can find translations
-		$LC = $la["acceptlang"];
-		if ($LC == "")
-		{
-			$LC = "et";
-		}
-
-		aw_global_set("LC", $LC);
-
-           // if parallel trans is on, then read charset from trans lang
-		if (aw_ini_get("user_interface.full_content_trans") && aw_global_get("ct_lang_id") != $lang_id)
-		{
-			$t_la = self::fetch(aw_global_get("ct_lang_id"));
-			aw_global_set("charset", $t_la["charset"]);
-		}
-		else
-		{
-			aw_global_set("charset", $la["charset"]);
-		}
-
-		// oh yeah, we should only overwrite admin_lang_lc if it is not set already!
-		aw_global_set("admin_lang_lc", $LC);
-
-		aw_global_set("lang_oid", $la["oid"]);
-		// and we should be all done. if after this, lang_id will still be not set I won't be able to write the
-		// code that fixes it anyway.
-
-		// also, if we are in the site, not admin
-		// set the ui language to the active language
-		if (!is_admin())
-		{
-			// read the language from active lang
-			if (!empty($GLOBALS["cfg"]["user_interface"]["use_site_lang"]))
-			{
-				if (aw_ini_get("user_interface.full_content_trans"))
-				{
-					$_tmp = aw_global_get("ct_lang_lc");
-				}
-				else
-				{
-					$_tmp = aw_global_get("LC");
-				}
-
-				aw_ini_set("user_interface.default_language", $_tmp);
-			}
-		}
-
-		// define global constants
-		//TODO: aw globalsis pole neid vaja, sealt v2lja, kasutada ainult konstante
-		define("AW_LANGUAGES_DEFAULT_UI_LID", aw_global_get("lang_id"));
-		define("AW_LANGUAGES_DEFAULT_UI_LC", aw_global_get("LC"));
-		define("AW_LANGUAGES_DEFAULT_CT_LID", aw_global_get("lang_id"));
-		define("AW_LANGUAGES_DEFAULT_CT_LC", aw_global_get("LC"));
-	}
-
 	static function on_site_init($dbi, $site, &$ini_opts, &$log)
 	{
 		// no need to add languages if we are to use an existing database
@@ -773,7 +691,7 @@ class languages implements request_startup, orb_public_interface
 		die($_SESSION["user_adm_ui_lc"] != "" ? $_SESSION["user_adm_ui_lc"] : "et");
 	}
 
-	/** Returns AutomatWeb numeric code for ISO 639-3 three-letter language code
+	/** Returns AutomatWeb numeric code for ISO_639-3 three-letter language code
 		@attrib api=1 params=pos
 		@param code type=string
 		@comment
@@ -810,6 +728,9 @@ class languages implements request_startup, orb_public_interface
 		return "1" === $site_id ? "__aw-languages_ui_lid" : "__aw-languages_site-{$site_id}_ui_lid";
 	}
 }
+
+// call static constructor
+languages::construct();
 
 /** Generic language module exception **/
 class awex_lang extends aw_exception {}

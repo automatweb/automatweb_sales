@@ -6,6 +6,9 @@ if (!defined("AW_CONST_INC"))
 define("AW_CONST_INC", 1);
 // 1:42 PM 8/3/2008 - const.aw now contains only parts of old startup script that are to be moved to new appropriate files or deleted. const.aw file to be removed eventually.
 
+//UnWasted - set_magic_quotes_runtime is deprecated since php 5.3
+if (version_compare(PHP_VERSION, '5.3.0', '<')) set_magic_quotes_runtime(0);
+
 foreach ($GLOBALS["cfg"] as $key => $value)
 {
 	if (!is_array($value))
@@ -107,6 +110,14 @@ else
 				// if no section is in url, we assume that it is the first part of the url and so prepend section = to it
 				$pi = str_replace("?", "&", "section=".substr($pi, 1));
 			}
+		}
+
+		// support for links like http://bla/index.aw?291?lcb=117 ?424242?view=3&date=20
+		// this is a quick fix for a specific problem on june 22th 2010 with opera.ee site
+		// might have been a configuration error, for increase of tolerance in that case then
+		if (preg_match("/^\\?([0-9]+)\\?/", $pi, $section_info))
+		{
+			$section = $section_info[1];
 		}
 
 		if (($_pos = strpos($pi, "section=")) !== false)
@@ -290,63 +301,6 @@ function ifset(&$item_orig)
 		}
 	}
 	return $item;
-}
-
-// this is separate from ini parsing, because the session is not started yet, when ini file is parsed :(
-function lc_init()
-{
-	// see if user has an ui language pref
-	if (isset($_SESSION['user_adm_ui_lc']) && ($_tmp = $_SESSION["user_adm_ui_lc"]) != "")
-	{
-		$GLOBALS["cfg"]["user_interface"]["default_language"] = $_tmp;
-	}
-
-	// translate class names if it is so said
-	if (isset($GLOBALS["cfg"]["user_interface"]["default_language"]) && ($adm_ui_lc = $GLOBALS["cfg"]["user_interface"]["default_language"]) != "")
-	{
-		$trans_fn = $GLOBALS["cfg"]["basedir"]."lang/trans/$adm_ui_lc/aw/aw.ini.aw";
-		if (is_readable($trans_fn))
-		{
-			require_once($trans_fn);
-
-			foreach($GLOBALS["cfg"]["classes"] as $clid => $cld)
-			{
-				if (isset($cld["name"]) && ($_tmp = t2("Klassi ".$cld["name"]." ($clid) nimi")) != "")
-				{
-					$GLOBALS["cfg"]["classes"][$clid]["name"] = $_tmp;
-				}
-				if(isset($cld["prod_family"]) && ($_tmp = t2("Klassi tooteperekonna ".$cld["prod_family"]." ($clid) nimi")) != "")
-				{
-					$GLOBALS["cfg"]["classes"][$clid]["prod_family"] = $_tmp;
-				}
-			}
-
-			foreach($GLOBALS["cfg"]["classfolders"] as $clid => $cld)
-			{
-				if (($_tmp = t2("Klassi kataloogi ".$cld["name"]." ($clid) nimi")) != "")
-				{
-					$GLOBALS["cfg"]["classfolders"][$clid]["name"] = $_tmp;
-				}
-			}
-
-
-			foreach($GLOBALS["cfg"]["acl"]["names"] as $n => $cap)
-			{
-				if(($_tmp = t2("ACL tegevuse ".$cap." (".$n.") nimi")) != "")
-				{
-					$GLOBALS["cfg"]["acl"]["names"][$n] = $_tmp;
-				}
-			}
-
-			foreach($GLOBALS["cfg"]["languages"]["list"] as $laid => $ad)
-			{
-				if (($_tmp = t2("languages.list.".$ad["acceptlang"])) != "")
-				{
-					$GLOBALS["cfg"]["languages"]["list"][$laid]["name"] = $_tmp;
-				}
-			}
-		}
-	}
 }
 
 function aw_config_init_class($that)
@@ -614,20 +568,6 @@ function get_instance($class, $args = array(), $errors = true)
 	return $instance;
 }
 
-function load_class_translations($class)
-{
-	if (empty($GLOBALS["cfg"]["user_interface"]["default_language"]))
-	{
-		return;
-	}
-	$adm_ui_lc = $GLOBALS["cfg"]["user_interface"]["default_language"];
-	$trans_fn = AW_DIR."lang/trans/{$adm_ui_lc}/aw/".basename($class).AW_FILE_EXT;
-	if (is_readable($trans_fn))
-	{
-		require_once($trans_fn);
-	}
-}
-
 ////
 // !A neat little functional programming function
 function not($arg)
@@ -662,12 +602,6 @@ function aw_startup()
 	// reset aw_cache_* function globals
 	$GLOBALS["__aw_cache"] = array();
 
-	// check pagecache folders
-	check_pagecache_folders();
-
-	$l = new languages();
-	$l->request_startup();
-
 	// check multi-lang frontpage
 	if (is_array(aw_ini_get("frontpage")))
 	{
@@ -676,10 +610,6 @@ function aw_startup()
 		$GLOBALS["cfg"]["frontpage"] = $tmp[aw_global_get("lang_id")];
 	}
 
-	$LC = $GLOBALS["cfg"]["user_interface"]["full_content_trans"] ? aw_global_get("ct_lang_lc") : aw_global_get("LC");
-
-	include($GLOBALS["cfg"]["basedir"]."lang/" . $LC . "/errors.".$GLOBALS["cfg"]["ext"]);
-	include($GLOBALS["cfg"]["basedir"]."lang/" . $LC . "/common.".$GLOBALS["cfg"]["ext"]);
 	$p = new period();
 	$p->request_startup();
 
@@ -699,12 +629,60 @@ function aw_startup()
 
 	$m = new menuedit();
 	$m->request_startup();
+	/* TODO: vaadata kas vaja ning kas vaja paremini teostada
+	__init_aw_session_track();
+	*/
 }
 
 ////
 // !called just before the very end
 function aw_shutdown()
 {
+	/*
+	//TODO: vaadata yle kas vaja ning kas muuta teostust.
+	//this messenger thingie goes here
+	$i = get_instance("file");
+	if(isset($_SESSION["current_user_has_messenger"]) and $i->can("view", $_SESSION["current_user_has_messenger"]) and $i->can("view", $_SESSION["uid_oid"]))
+	{
+		$cur_usr = new object($_SESSION["uid_oid"]);
+		if (((time() - $_SESSION["current_user_last_m_check"]) > (5 * 60)) && $cur_usr->prop("notify") == 1)
+		{
+			$drv_inst = get_instance("protocols/mail/imap");
+			$drv_inst->set_opt("use_mailbox", "INBOX");
+
+			$inst = new object($_SESSION["current_user_has_messenger"]);
+			$conns = $inst->connections_from(array("type" => "RELTYPE_MAIL_SOURCE"));
+			list(,$_sdat) = each($conns);
+			$sdat = new object($_sdat->to());
+
+			$drv_inst->connect_server(array("obj_inst" => $_sdat->to()));
+			$emails = $drv_inst->get_folder_contents(array(
+				"from" => 0,
+				"to" => "*",
+			));
+
+			foreach($emails as $mail_id => $data)
+			{
+				if($data["seen"] == 0)
+				{
+					$new[] = $data["fromn"];
+				}
+			}
+
+			$count = count($new);
+			$new = join(", ", $new);
+			if(strlen($new))
+			{
+				$sisu = sprintf(t("Sul on %s lugemata kirja! (saatjad: %s)"), $count, $new);
+				$_SESSION["aw_session_track"]["aw"]["do_message"] = $sisu;
+			}
+
+			$_SESSION["current_user_last_m_check"] = time();
+		}
+
+	}
+	// end of that messenger new mail notifiaction crap
+	*/
 }
 
 function __get_site_instance()
@@ -801,41 +779,5 @@ function call_fatal_handler($str)
 }
 
 function incl_f($lib) { return; } //DEPRECATED
-
-function check_pagecache_folders()
-{
-	// folders are:
-	$flds = array(
-		"menu_area_cache",			// done
-		"storage_search",  			// done
-		"storage_object_data",		// done
-		"html",						// done
-		"acl"							// done
-	);
-
-	$pg = aw_ini_get("cache.page_cache");
-	foreach($flds as $f)
-	{
-		$fq = $pg.$f;
-		if (!is_dir($fq))
-		{
-			mkdir($fq, 0777);
-			chmod($fq, 0777);
-			for($i = 0; $i < 16; $i++)
-			{
-				$ffq = $fq ."/".($i < 10 ? $i : chr(ord('a') + ($i- 10)));
-				mkdir($ffq, 0777);
-				chmod($ffq, 0777);
-			}
-		}
-	}
-	if (!is_dir("{$pg}temp"))
-	{
-		mkdir("{$pg}temp", 0777);
-		chmod("{$pg}temp", 0777);
-		touch("{$pg}temp/lmod");
-	}
-}
-
 
 }

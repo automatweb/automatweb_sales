@@ -455,7 +455,7 @@ class user_manager extends class_base
 
 				foreach ($arr["request"] as $k => $v)
 				{
-					if (substr($k, 0, 9) == "rootmenu_" && is_oid($v))
+					if (substr($k, 0, 9) === "rootmenu_" && is_oid($v))
 					{
 						list(, $g_oid) = explode("_", $k);
 						// set rootmenu for group
@@ -477,7 +477,7 @@ class user_manager extends class_base
 						$o->set_prop('blocked', !$o->prop("blocked"));
 					}
 					$o->set_prop('rte_disabled', !$data["allow_rte"]);
-					$o->set_prop('ui_language', $data["set_ui_lang"]);
+					$o->set_prop('ui_language', $data["ui_language"]);
 					$o->save();
 				}
 				break;
@@ -598,9 +598,9 @@ class user_manager extends class_base
 			'action' => $copy_action,
 		));
 
-		$tooltip = "Ei saa asetada";
+		$tooltip = t("Ei saa asetada");
 		$disabled = true;
-		if($arr["request"]["group"] == "users")
+		if($arr["request"]["group"] === "users")
 		{
 			$cut_objects = safe_array(aw_global_get('user_management_cut_users'));
 			$copy_objects = safe_array(aw_global_get('user_management_copied_users'));
@@ -1136,7 +1136,7 @@ class user_manager extends class_base
 			);
 
 			$popup_menu = $this->get_user_popupmenu($o->id());
-			$i = get_instance("core/trans/pot_scanner");
+			$i = new pot_scanner();
 
 			$row = array(
 				'username' => $popup_menu->get_menu(array(
@@ -1164,7 +1164,7 @@ class user_manager extends class_base
 					"checked" => $o->prop('blocked'),
 				)),
 				"if_lang" => html::select(array(
-					"name" => "table_users[".$o->id()."][set_ui_lang]",
+					"name" => "table_users[".$o->id()."][ui_language]",
 					"options" => array("" => "") + $i->get_langs(),
 					"value" => $o->prop('ui_language'),
 				)),
