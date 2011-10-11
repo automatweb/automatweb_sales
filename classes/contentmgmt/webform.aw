@@ -1872,7 +1872,7 @@ class webform extends class_base
 	{
 		$object_type = obj($arr["ot"]);
 		$clf_type = $object_type->meta("clf_type");
-		$cfgform_i = get_instance(CL_CFGFORM);
+		$cfgform_i = new cfgform();
 		if (!is_admin())
 		{
 			$arr["site_lang"] = true;
@@ -2320,11 +2320,11 @@ class webform extends class_base
 
 			}
 			// strip tags because of hidden values
-			if ($pd["type"] == "text" && $pd["subtitle"] == 1 && trim(strip_tags($pd["value"])) == "")
+			if ($pd["type"] === "text" && $pd["subtitle"] == 1 && trim(strip_tags($pd["value"])) == "")
 			{
 				$pd["value"] = $pd["caption"];
 			}
-			if ($pd["type"] == "hidden" && isset($arr["reforb"][$pn]))
+			if ($pd["type"] === "hidden" && isset($arr["reforb"][$pn]))
 			{
 				$arr["reforb"][$pn] = $pd["value"];
 			}
@@ -2461,11 +2461,11 @@ class webform extends class_base
 					continue;
 				}
 				// goddamn conversion...
-				if($prplist[$key]["type"] == "date_select")
+				if($prplist[$key]["type"] === "date_select")
 				{
 					$val = mktime(0, 0, 0, $val["month"], $val["day"], $val["year"]);
 				}
-				if($prplist[$key]["type"] == "classificator")
+				if($prplist[$key]["type"] === "classificator")
 				{
 					$cls->process_vcl_property(array(
 						"obj_inst" => $o,
@@ -2478,7 +2478,7 @@ class webform extends class_base
 						"clid" => CL_REGISTER_DATA,
 					));
 				}
-				if($prplist[$key]["type"] == "releditor")
+				if($prplist[$key]["type"] === "releditor")
 				{
 					// fuck, this sucks, it should simply use classbase, but since
 					// there are some groovy things going on - like for example with
@@ -2493,7 +2493,7 @@ class webform extends class_base
 					));
 
 				}
-				if($prplist[$key]["type"] == "checkbox")
+				if($prplist[$key]["type"] === "checkbox")
 				{
 					$m = obj();
 					$m->set_class_id(CL_ML_MEMBER);
@@ -2511,7 +2511,7 @@ class webform extends class_base
 			$name = "";
 			foreach(safe_array($obj_inst->prop("obj_name")) as $key => $val)
 			{
-				if ($prplist[$key]["type"] == "date_select")
+				if ($prplist[$key]["type"] === "date_select")
 				{
 					if ($o->prop($key)  != -1)
 					{
@@ -2519,7 +2519,7 @@ class webform extends class_base
 					}
 				}
 				else
-				if ($prplist[$key]["type"] == "datetime_select")
+				if ($prplist[$key]["type"] === "datetime_select")
 				{
 					if ($o->prop($key)  != -1)
 					{
@@ -2544,11 +2544,11 @@ class webform extends class_base
 			// lets translate this stuff to real things
 			foreach($arr as $key => $val)
 			{
-				if($prplist[$key]["type"] == "date_select")
+				if($prplist[$key]["type"] === "date_select")
 				{
 					$arr[$key] = $val["day"].".".$val["month"].".".$val["year"];
 				}
-				if($prplist[$key]["type"] == "classificator")
+				if($prplist[$key]["type"] === "classificator")
 				{
 					if (!is_array($val) && $this->can("view", $val))
 					{
@@ -2567,7 +2567,7 @@ class webform extends class_base
 					}
 				}
 
-				if (substr($key, 0, 6) == "userim")
+				if (substr($key, 0, 6) === "userim")
 				{
 					if ($_FILES[$key]["name"]["file"] != "")
 					{
@@ -2581,7 +2581,7 @@ class webform extends class_base
 					}
 				}
 				else
-				if (substr($key, 0, 8) == "userfile")
+				if (substr($key, 0, 8) === "userfile")
 				{
 					if ($_FILES[$key]["name"]["file"] != "")
 					{
@@ -2828,13 +2828,13 @@ class webform extends class_base
 				"pdf_url" => aw_url_change_var("format", "pdf"),
 			));
 
-			if ($arr["format"] == "print")
+			if ($arr["format"] === "print")
 			{
 				die($this->parse());
 			}
-			if ($arr["format"] == "pdf")
+			elseif ($arr["format"] === "pdf")
 			{
-				$conv = get_instance("core/converters/html2pdf");
+				$conv = new html2pdf();
 				$conv->gen_pdf(array("source" => $this->parse()));
 			}
 			return $this->parse();
@@ -2859,7 +2859,7 @@ class webform extends class_base
 		$this->vars(array(
 			"text" => $rval,
 		));
-		return $this->parse()."<br />".html::href(array("url" => urldecode($arr["url"]), "caption" => t("Liigu edasi &raquo;")));
+		return $this->parse().html::linebreak().html::href(array("url" => urldecode($arr["url"]), "caption" => t("Liigu edasi &raquo;")));
 		//return "valleraa, siin on vorm";
 	}
 
@@ -2926,10 +2926,12 @@ class webform extends class_base
 				}
 			}
 		}
+
 		if($mail)
 		{
 			$arr["request"]["add_search_mail"] = $mail;
 		}
+
 		if($add = $arr["request"]["add_search_mail"])
 		{
 			$mails = explode(",", $add);
@@ -2964,8 +2966,8 @@ class webform extends class_base
 
 	function get_mails_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
-		$this->_init_mails_tbl(&$t);
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_mails_tbl($t);
 		$conn = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_EMAIL",
 		));
@@ -2987,7 +2989,7 @@ class webform extends class_base
 	**/
 	function mail_email_autocomplete_source($arr)
 	{
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 
 		$ol = new object_list(array(
@@ -3012,7 +3014,7 @@ class webform extends class_base
 	**/
 	function mail_name_autocomplete_source($arr)
 	{
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 
 		$ol = new object_list(array(
