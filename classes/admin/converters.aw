@@ -1428,7 +1428,11 @@ class converters extends aw_template implements orb_public_interface
 			));
 			if (!count($c))
 			{
-				$o->save();
+				// trigger message handler
+				$u = $o->instance();
+				$u->on_save_user(array(
+					"oid" => $o->id()
+				));
 				echo "added mail <br>\n";
 				flush();
 			}
