@@ -39,7 +39,7 @@ class _int_object
 	///////////////////////////////////////////
 	// public functions
 
-	function __construct($objdata = array())
+	public function __construct($objdata = array())
 	{
 		$this->obj = $objdata;
 
@@ -1537,7 +1537,7 @@ class _int_object
 		object_loader::instance()->handle_cache_update($this->id(), $this->site_id(), "originalize");
 	}
 
-	function trans_get_val($prop, $lang_id = false, $ignore_status = false)
+	function trans_get_val($prop, $lang_id = 0, $ignore_status = false)
 	{
 		// I wanna use object::trans_get_val("foo.name");
 		if(strpos($prop, "."))
@@ -1562,7 +1562,7 @@ class _int_object
 		}
 
 		// translate if language is given or contenttrans ini settings enabled and found language isn't same as original language
-		if (false === $lang_id)
+		if (0 === $lang_id)
 		{
 			if (aw_ini_get("user_interface.full_content_trans") or aw_ini_isset("user_interface.trans_classes." . $this->class_id()))
 			{
