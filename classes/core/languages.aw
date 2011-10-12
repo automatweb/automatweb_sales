@@ -586,7 +586,7 @@ class languages extends aw_core_module implements orb_public_interface
 
 	//DEPRECATED. use get_code_for_id() or lid2acceptlang()
 	public static function get_langid($id = -1)
-	{ trigger_error("get_langid() is deprecated. use get_code_for_id() or lid2acceptlang(). Called from " . get_caller_str(1), E_USER_DEPRECATED); if ($id == -1)  { $id = aw_global_get("lang_id"); }$a = self::fetch($id); return $a["acceptlang"]; }
+	{ trigger_error("get_langid() is deprecated. use get_code_for_id() or lid2acceptlang(). Called from " . get_caller_str(), E_USER_DEPRECATED); if ($id == -1)  { $id = aw_global_get("lang_id"); }$a = self::fetch($id); return $a["acceptlang"]; }
 
 	/** Finds the aw language id for an acceptlang language code (en, et, ...)
 		@attrib api=1 params=pos
