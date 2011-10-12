@@ -1915,7 +1915,7 @@ class crm_bill_obj extends _int_object
 				"choose" => $radio,
 				"user" => $o->prop("createdby"),
 				"time" => date("d.m.Y H:i" , $o->created()),
-				"text" =>  $o->comment(),
+				"text" =>  htmlspecialchars($o->comment(), ENT_COMPAT, AW_USER_CHARSET)
 			));
 		}
 		return $t->draw();
