@@ -1,4 +1,4 @@
-<form method="GET" name="searchform" action="orb.{VAR:ext}">
+<form method="GET" name="searchform" action="orb{VAR:ext}">
 {VAR:form}
 <table border=0 cellspacing=1 cellpadding=2>
 <tr>

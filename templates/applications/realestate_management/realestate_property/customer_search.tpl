@@ -1,4 +1,4 @@
-<form method="GET" action="orb.{VAR:ext}">
+<form method="GET" action="orb{VAR:ext}">
 <input type="hidden" name="id" value="{VAR:id}">
 <input type="hidden" name="manager" value="{VAR:manager}">
 <input type="hidden" name="client_type" value="{VAR:client_type}">

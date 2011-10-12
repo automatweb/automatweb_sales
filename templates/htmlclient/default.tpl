@@ -1,5 +1,5 @@
 <!-- SUB: SHOW_CHANGEFORM -->
-<form action="{VAR:handler}.{VAR:ext}" method="{VAR:method}" enctype="multipart/form-data" name="changeform" id="changeform" onsubmit="if(awcbChangeFormSubmitted){ return false; } submit_changeform('{VAR:action}', true);" style="margin-top: 0px;" {VAR:form_target}>
+<form action="{VAR:handler}{VAR:ext}" method="{VAR:method}" enctype="multipart/form-data" name="changeform" id="changeform" onsubmit="if(awcbChangeFormSubmitted){ return false; } submit_changeform('{VAR:action}', true);" style="margin-top: 0px;" {VAR:form_target}>
 
 <!-- END SUB: SHOW_CHANGEFORM -->
 <table id="{VAR:contenttbl_id}" width="100%" border="0" cellspacing="0" cellpadding="0"> <!-- aw06contenttable -->

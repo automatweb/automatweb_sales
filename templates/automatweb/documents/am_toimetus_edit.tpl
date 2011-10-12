@@ -1,4 +1,4 @@
-<form method="POST" action="reforb.{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
+<form method="POST" action="reforb{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
 
 <!--tabelraam-->
 <table width="100%" cellspacing="0" cellpadding="1">
@@ -50,7 +50,7 @@ target="_blank" href="{VAR:baseurl}/index.aw?section={VAR:id}">Eelvaade</a></td>
 <input type="submit" class='doc_button' value="Salvesta">
 <input class='doc_button' type="submit" value="Eelvaade" onClick="window.location.href='{VAR:preview}';return false;">
 <input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;">
-<input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index.{VAR:ext}?section={VAR:id}');return false;">
+<input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index{VAR:ext}?section={VAR:id}');return false;">
 -->
 
 <table border=0 cellspacing=1 cellpadding=2>

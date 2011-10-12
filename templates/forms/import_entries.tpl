@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' method=post enctype="multipart/form-data">
+<form action='reforb{VAR:ext}' method=post enctype="multipart/form-data">
 <input type='hidden' name='MAX_FILE_SIZE' value='10000000'>
 
 

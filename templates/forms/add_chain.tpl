@@ -6,7 +6,7 @@ function setLink(li,title)
 }
 </script>
 
-<form action='reforb.{VAR:ext}' method=post name='b88'>
+<form action='reforb{VAR:ext}' method=post name='b88'>
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 <tr>
 <td class="fform">{VAR:LC_FORMS_NAME}:</td><td colspan=2 class="fform"><input type='text' NAME='name' VALUE='{VAR:name}'></td>

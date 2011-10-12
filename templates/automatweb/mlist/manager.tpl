@@ -1,4 +1,4 @@
-<form action="reforb.{VAR:ext}" method=post name='foo'>
+<form action="reforb{VAR:ext}" method=post name='foo'>
 <!-- SUB: MGR -->
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 

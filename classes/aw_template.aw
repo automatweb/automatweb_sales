@@ -154,7 +154,7 @@ class aw_template extends core
 		// this comes from session.
 		$this->vars = array(
 			"self" => aw_global_get("PHP_SELF"),
-			"ext"  => aw_ini_get("ext"),
+			"ext"  => AW_FILE_EXT,
 			// not very random really
 			"rand" => time(),
 			"current_time" => time(),
@@ -163,7 +163,7 @@ class aw_template extends core
 			"baseurl_ssl" => str_replace("http", "https", aw_ini_get("baseurl")),
 			"cur_lang_id" => aw_global_get("lang_id"),
 			"current_url" => urlencode(get_ru()),
-			"charset" => aw_global_get("charset")
+			"charset" => AW_USER_CHARSET
 		);
 	}
 

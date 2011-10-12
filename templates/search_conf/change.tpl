@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' method='POST' name='b88'>
+<form action='reforb{VAR:ext}' method='POST' name='b88'>
 
 
 

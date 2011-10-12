@@ -1,4 +1,4 @@
-<form method="POST" action="reforb.{VAR:ext}" name='b88' enctype="multipart/form-data">
+<form method="POST" action="reforb{VAR:ext}" name='b88' enctype="multipart/form-data">
 	<table border="0" cellspacing="1" cellpadding="2" bgcolor="#CCCCCC">
 		<tr>
 			<td class="fcaption2" colspan=3>{VAR:image}</td>

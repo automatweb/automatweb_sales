@@ -7,7 +7,7 @@ function varv(vrv)
 
 function varvivalik() 
 {
-  aken=window.open("{VAR:baseurl}/automatweb/orb.{VAR:ext}?class=css&action=colorpicker","varvivalik","HEIGHT=220,WIDTH=310");
+  aken=window.open("{VAR:baseurl}/automatweb/orb{VAR:ext}?class=css&action=colorpicker","varvivalik","HEIGHT=220,WIDTH=310");
  	aken.focus();
 }
 
@@ -19,7 +19,7 @@ function setLink(li,title)
 </script>
 <table width="100%" cellpadding=1 cellspacing=0 border=0>
 
-<form action='reforb.{VAR:ext}' method=post name=ffrm>
+<form action='reforb{VAR:ext}' method=post name=ffrm>
 
 <tr>
 <td bgcolor="#FFFFFF">

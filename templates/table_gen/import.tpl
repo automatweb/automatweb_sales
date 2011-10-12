@@ -16,7 +16,7 @@
 <tr>
 
 
-<form action = 'reforb.{VAR:ext}' method=post enctype='multipart/form-data'>
+<form action = 'reforb{VAR:ext}' method=post enctype='multipart/form-data'>
 <input type='hidden' NAME='MAX_FILE_SIZE' VALUE='1000000'>
 
 

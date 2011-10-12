@@ -17,7 +17,7 @@ body {
 }
 </style>
 
-<form id="changeform" method="POST" action="{VAR:baseurl}/reforb.{VAR:ext}">
+<form id="changeform" method="POST" action="{VAR:baseurl}/reforb{VAR:ext}">
 <div style="background-color: #EEE; font-size: 14px; font-weight: bold; font-family: Arial,sans-serif; padding: 5px;">{VAR:failid}</div>
 
 <table border='0'>

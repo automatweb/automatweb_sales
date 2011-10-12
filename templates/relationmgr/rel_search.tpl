@@ -72,13 +72,13 @@ var clids = new Array();
 		if (cl == {VAR:def_fld_clid})
 		{
 			rel_type = reltype.options[reltype.selectedIndex].value;
-			window.location.href="orb.{VAR:ext}?class=" + clids[cl] + "&action=new&parent={VAR:def_parent}&period={VAR:period}&alias_to={VAR:id}&return_url={VAR:return_url}&reltype=" + rel_type;
+			window.location.href="orb{VAR:ext}?class=" + clids[cl] + "&action=new&parent={VAR:def_parent}&period={VAR:period}&alias_to={VAR:id}&return_url={VAR:return_url}&reltype=" + rel_type;
 		}
 		else
 		<!-- END SUB: HAS_DEF_FOLDER -->
 		{
 			rel_type = reltype.options[reltype.selectedIndex].value;
-			window.location.href="orb.{VAR:ext}?class=" + clids[cl] + "&action=new&parent={VAR:parent}&period={VAR:period}&alias_to={VAR:id}&return_url={VAR:return_url}&reltype=" + rel_type;
+			window.location.href="orb{VAR:ext}?class=" + clids[cl] + "&action=new&parent={VAR:parent}&period={VAR:period}&alias_to={VAR:id}&return_url={VAR:return_url}&reltype=" + rel_type;
 		};
 	};
 };

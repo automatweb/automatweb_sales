@@ -9,7 +9,7 @@
 
 
 
-<form action='reforb.{VAR:ext}' method=post NAME='q'>
+<form action='reforb{VAR:ext}' method=post NAME='q'>
 <input type='submit' NAME='save_table' VALUE='{VAR:LC_TABLE_SAVE}' class="formbutton">
 <table border=0 cellspacing=1 cellpadding=2>
 <tr>
@@ -46,7 +46,7 @@
 <br>
 <table hspace=0 vspace=0 cellpadding=3>
 	<tr>
-	<form action='orb.{VAR:ext}' method=get name='lv'>
+	<form action='orb{VAR:ext}' method=get name='lv'>
 		<td class="celltext"><b>
 			
 				<input type='hidden' NAME='class' VALUE='table'>
@@ -60,7 +60,7 @@
 		</form>
 		<td class="celltext">|</td>
 
-			<form action='orb.{VAR:ext}' method=get name='lr'>
+			<form action='orb{VAR:ext}' method=get name='lr'>
 		<td class="celltext">
 		<b>
 

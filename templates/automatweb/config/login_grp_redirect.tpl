@@ -1,6 +1,6 @@
 
 Sisesta aadressid kuhu suunatakse kui kasutaja sisse logib:
-<form action='reforb.{VAR:ext}' method='POST' name='b88'>
+<form action='reforb{VAR:ext}' method='POST' name='b88'>
 <table border="0" cellspacing="0" cellpadding="0" width=100%>
 <tr>
 <td bgcolor="#CCCCCC">

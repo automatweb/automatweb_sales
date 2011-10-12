@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' method=post>
+<form action='reforb{VAR:ext}' method=post>
 <table cellpadding=3 cellspacing=0 border=0>
 <tr class="aste01">
 <td class="celltext">{VAR:LC_FORMS_EMAIL}:</td>

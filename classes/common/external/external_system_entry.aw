@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_EXTERNAL_SYSTEM_ENTRY relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=voldemar
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo aw_ext_system_entries index=aw_oid master_table=objects master_index=brother_of
 

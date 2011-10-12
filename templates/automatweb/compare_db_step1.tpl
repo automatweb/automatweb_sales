@@ -1,4 +1,4 @@
-<form method="POST" action="/orb.{VAR:ext}">
+<form method="POST" action="/orb{VAR:ext}">
 Valige siit doonorserveri aadress:
 <p>
 <select name="donor">

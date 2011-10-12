@@ -3,6 +3,7 @@
       <property>
             <name>aw_lang_id</name>
             <table>languages</table>
+            <group>general</group>
             <type>hidden</type>
             <field>aw_lid</field>
             <caption>Keele ID</caption>

@@ -1,4 +1,4 @@
-<form method="POST" ACTION='{VAR:baseurl}/index.{VAR:ext}'>
+<form method="POST" ACTION='{VAR:baseurl}/index{VAR:ext}'>
 {VAR:error}
 <table border=0 cellspacing=1 cellpadding=2>
 <tr>

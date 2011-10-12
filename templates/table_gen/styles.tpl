@@ -2,38 +2,38 @@
 <script language="javascript">
 function exp_left(row,col)
 {
-	url = "orb.{VAR:ext}?class=table&action=exp_left&id={VAR:table_id}&row="+row+"&col="+col+"&cnt="+document.q.exp_count.value;
+	url = "orb{VAR:ext}?class=table&action=exp_left&id={VAR:table_id}&row="+row+"&col="+col+"&cnt="+document.q.exp_count.value;
 	window.location.href=url;
 }
 function exp_up(row,col)
 {
-	url = "orb.{VAR:ext}?class=table&action=exp_up&id={VAR:table_id}&row="+row+"&col="+col+"&cnt="+document.q.exp_count.value;
+	url = "orb{VAR:ext}?class=table&action=exp_up&id={VAR:table_id}&row="+row+"&col="+col+"&cnt="+document.q.exp_count.value;
 	window.location.href=url;
 }
 function exp_down(row,col)
 {
-	url = "orb.{VAR:ext}?class=table&action=exp_down&id={VAR:table_id}&row="+row+"&col="+col+"&cnt="+document.q.exp_count.value;
+	url = "orb{VAR:ext}?class=table&action=exp_down&id={VAR:table_id}&row="+row+"&col="+col+"&cnt="+document.q.exp_count.value;
 	window.location.href=url;
 }
 function exp_right(row,col)
 {
-	url = "orb.{VAR:ext}?class=table&action=exp_right&id={VAR:table_id}&row="+row+"&col="+col+"&cnt="+document.q.exp_count.value;
+	url = "orb{VAR:ext}?class=table&action=exp_right&id={VAR:table_id}&row="+row+"&col="+col+"&cnt="+document.q.exp_count.value;
 	window.location.href=url;
 }
 function split_ver(row,col)
 {
-	url = "orb.{VAR:ext}?class=table&action=split_ver&id={VAR:table_id}&row="+row+"&col="+col;
+	url = "orb{VAR:ext}?class=table&action=split_ver&id={VAR:table_id}&row="+row+"&col="+col;
 	window.location.href=url;
 }
 function split_hor(row,col)
 {
-	url = "orb.{VAR:ext}?class=table&action=split_hor&id={VAR:table_id}&row="+row+"&col="+col;
+	url = "orb{VAR:ext}?class=table&action=split_hor&id={VAR:table_id}&row="+row+"&col="+col;
 	window.location.href=url;
 }
 
 function pick_style(row,col)
 {
-	url = "orb.{VAR:ext}?class=table&action=pick_style&id={VAR:table_id}";
+	url = "orb{VAR:ext}?class=table&action=pick_style&id={VAR:table_id}";
 
 	aurl = "";
 	for (i=0; i < {VAR:rows}; i++)
@@ -71,7 +71,7 @@ function pick_style(row,col)
 	<td class="aste01">
 
 
-<form action='reforb.{VAR:ext}' method=post NAME='q'>
+<form action='reforb{VAR:ext}' method=post NAME='q'>
 <input type='submit' NAME='save_table' VALUE='{VAR:LC_TABLE_SAVE}' class="formbutton">
 <table border=0 cellspacing=1 cellpadding=2>
 <tr>
@@ -110,7 +110,7 @@ function pick_style(row,col)
 <br>
 <table hspace=0 vspace=0 cellpadding=3>
 	<tr>
-	<form action='orb.{VAR:ext}' method=get name='lv'>
+	<form action='orb{VAR:ext}' method=get name='lv'>
 		<td class="celltext">
 			<b>
 				<input type='hidden' NAME='class' VALUE='table'>
@@ -122,7 +122,7 @@ function pick_style(row,col)
 		</td>
 		</form>
 		<td class="celltext">|</td>
-		<form action='orb.{VAR:ext}' method=get name='lr'>
+		<form action='orb{VAR:ext}' method=get name='lr'>
 		<td class="celltext">
 			<b>
 				<input type='hidden' NAME='class' VALUE='table'>

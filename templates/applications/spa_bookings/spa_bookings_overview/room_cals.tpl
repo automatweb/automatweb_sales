@@ -1,5 +1,5 @@
 <table id="sisu" width="100%" ><tr><td>
-<form name="changeform" action="reforb.{VAR:ext}" method="POST">
+<form name="changeform" action="reforb{VAR:ext}" method="POST">
 {VAR:reforb}
 
 {VAR:picker}

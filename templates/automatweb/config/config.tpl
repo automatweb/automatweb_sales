@@ -6,7 +6,7 @@ function setLink(li,title)
 }
 </script>
 
-<form action='reforb.{VAR:ext}' method=post name="b88" enctype="multipart/form-data">
+<form action='reforb{VAR:ext}' method=post name="b88" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" VALUE="1000000">
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 <!-- SUB: AFTER_LOGIN -->

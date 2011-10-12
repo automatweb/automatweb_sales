@@ -1,5 +1,5 @@
 Sisesta aadressid kuhu suunatakse kui kasutajal pole sellele men&uuml;&uuml;le &otilde;igusi:
-<form action='reforb.{VAR:ext}' method='POST'>
+<form action='reforb{VAR:ext}' method='POST'>
 <table border="0" cellspacing="0" cellpadding="0" width=100%>
 <tr>
 <td bgcolor="#CCCCCC">

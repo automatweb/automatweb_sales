@@ -1,5 +1,5 @@
 <br><br><br><br>
- <form action='orb.{VAR:ext}' method=GET>
+ <form action='orb{VAR:ext}' method=GET>
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 <tr>
 <td class="fcaption">Vali form:</td>
@@ -20,7 +20,7 @@ T&auml;ida form:
 Otsingu tulemused: <Br>
 {VAR:entry}
 <br>
-<form action='reforb.{VAR:ext}' method="POST">
+<form action='reforb{VAR:ext}' method="POST">
 Kui oled tulemustega rahul, siis <input type='submit' value='vajuta siia'> aliase tegemiseks.
 {VAR:a_reforb}
 </form>

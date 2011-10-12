@@ -16,7 +16,7 @@ Vaadake see tabel hoolikalt üle, märgistage väljad, mida soovite ka lokaalsesse 
 nuppu "Process". <b><font color="red">Soovitav on enne teha varukoopia baasist</font></b>
 
 <table border="1" width="100%">
-<form method="POST" action="{VAR:baseurl}/orb.{VAR:ext}">
+<form method="POST" action="{VAR:baseurl}/orb{VAR:ext}">
 <!-- SUB: block -->
 <tr>
 <td bgcolor=#aaffcc>&nbsp;</td>

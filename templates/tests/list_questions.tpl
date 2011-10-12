@@ -21,7 +21,7 @@
 <!--<td class="fgtext">&nbsp;{VAR:raskus}&nbsp;</td>-->
 <!--<td class="fgtext2">&nbsp;<a href='{VAR:change}'>Muuda</a>&nbsp;</td>
 <td class="fgtext2">&nbsp;<a href="javascript:box2('Oled kindel, et soovid seda k&uuml;simust  kustutada?','{VAR:delete}')">Kustuta</a>&nbsp;</td>
-<td class="fgtext2">&nbsp;<a href='editacl.{VAR:ext}?oid={VAR:id}&file=question.xml'>ACL</a>
+<td class="fgtext2">&nbsp;<a href='editacl{VAR:ext}?oid={VAR:id}&file=question.xml'>ACL</a>
 &nbsp;</td>-->
 <!-- END SUB: LINE -->
 </tr>

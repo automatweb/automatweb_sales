@@ -14,7 +14,7 @@ function gp()
 	document.ua.genpwd.value = pwd;
 }
 </script>
-<form method="POST" ACTION='reforb.{VAR:ext}' name='ua'>
+<form method="POST" ACTION='reforb{VAR:ext}' name='ua'>
 {VAR:error}
 
 <style>

@@ -18,7 +18,7 @@
 <!-- END SUB: FOLDERS -->
 
 <!-- SUB: TABLE -->
-<form name="objlist" action="{VAR:baseurl}/orb.{VAR:ext}" method="POST">
+<form name="objlist" action="{VAR:baseurl}/orb{VAR:ext}" method="POST">
 <a name="table"></a>
 <table class="{VAR:table_css_class}" border="0" width="100%" cellpadding="3" cellspacing="0">
 	<tr bgcolor="{VAR:header_bgcolor}" {VAR:style_text}>

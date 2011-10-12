@@ -12,7 +12,7 @@
 
 
 <table border="0" cellspacing="5" cellpadding="0">
-	<form method="get" action="/index.{VAR:ext}" name="postsearch">
+	<form method="get" action="/index{VAR:ext}" name="postsearch">
 	<tr>
 		<td align="right" class="textmiddle">{VAR:LC_MSGBOARD_SEARCH_NAME}:&nbsp;</td>
 		<td><input type="msgboardtext" name="from" size="25" /></td>

@@ -1,5 +1,5 @@
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0 width="100%">
-<form action = 'reforb.{VAR:ext}' method=post>
+<form action = 'reforb{VAR:ext}' method=post>
 <tr>
 <td class="fgtitle">Vali olemasolev:</td></tr>
 <tr>

@@ -79,7 +79,7 @@ BACKGROUND: #eeeeee; COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT
 </style>
 </head>
 <body bgcolor="#FFFFFF" link="blue" vlink="blue" marginwidth=0 marginheight=0>
-<form name='subb' action='{VAR:baseurl}/orb.{VAR:ext}' method=GET>
+<form name='subb' action='{VAR:baseurl}/orb{VAR:ext}' method=GET>
 <table border="0" cellspacing="0" cellpadding="0" width=100%>
 <tr>
 <td bgcolor="#CCCCCC">

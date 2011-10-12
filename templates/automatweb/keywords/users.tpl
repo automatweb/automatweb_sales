@@ -22,7 +22,7 @@
 <td class="fgtext">&nbsp;{VAR:name}&nbsp;</td>
 <td class="fgtext">&nbsp;{VAR:email}&nbsp;</td>
 <td class="fgtext">&nbsp;{VAR:tm}&nbsp;</td>
-<td class="fgtext">&nbsp;<a href="{VAR:baseurl}/automatweb/orb.{VAR:ext}?class=users&action=change&id={VAR:uid}">Info</a></td>
+<td class="fgtext">&nbsp;<a href="{VAR:baseurl}/automatweb/orb{VAR:ext}?class=users&action=change&id={VAR:uid}">Info</a></td>
 <td class="fgtext" align="center">&nbsp;&nbsp;</td>
 </tr>
 <!-- END SUB: LINE -->

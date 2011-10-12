@@ -10,7 +10,7 @@
 </table>
 
 
-<form action='reforb.{VAR:ext}' method=post>
+<form action='reforb{VAR:ext}' method=post>
 {VAR:table}
 <table>
 <tr>

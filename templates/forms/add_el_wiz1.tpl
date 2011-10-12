@@ -49,7 +49,7 @@ function addItem(list, text,value,sel)
 	list.options[list.length] = new Option(text,""+value,false,sel);
 }
 </script>
-<form method=POST action='reforb.{VAR:ext}' name='f'>
+<form method=POST action='reforb{VAR:ext}' name='f'>
 <table border=0 cellspacing=1 cellpadding=2 bgcolor="#CCCCCC">
 <tr>
 	<td colspan=3 class="fform"><input checked type='radio' name='type' value='add'>&nbsp;{VAR:LC_FORMS_ADD_NEW_ELEMENT}</td>

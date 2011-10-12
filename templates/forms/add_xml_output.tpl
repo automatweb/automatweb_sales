@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' METHOD=post>
+<form action='reforb{VAR:ext}' METHOD=post>
 
 <table border="0" cellspacing="0" cellpadding="2" width="100%">
 <tr>

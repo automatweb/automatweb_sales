@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' method=post>
+<form action='reforb{VAR:ext}' method=post>
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 <tr>
 <td class="fcaption" colspan=2>Testi t&auml;itis {VAR:whodunit} @ {VAR:when}, raskusaste {VAR:raskus}, kysimusi {VAR:questions}.</td>

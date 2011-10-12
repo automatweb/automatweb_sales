@@ -1,4 +1,4 @@
-<form name="changeform" method="POST" action="orb.{VAR:ext}">
+<form name="changeform" method="POST" action="orb{VAR:ext}">
 <table border="0" width="100%" bgcolor="#efefef" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="2">{VAR:toolbar}</td>

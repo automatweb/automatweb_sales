@@ -179,7 +179,6 @@ class languages extends aw_core_module implements orb_public_interface
 			"in_use" => 0,
 			"name" => $language_data["name"],
 			"acceptlang" => $language_data["acceptlang"],
-			"charset" => $language_data["charset"],
 			"lang_code" => $language_data["lc"]
 		);
 		return $language_data;
@@ -339,7 +338,7 @@ class languages extends aw_core_module implements orb_public_interface
 	**/
 	public static function set_active($arr)
 	{
-		$r = self::_set_active_ct_lang($arr["id"]);
+		$r = self::set_active_ct_lang($arr["id"]);
 
 		if ($r !== (int) $arr["id"])
 		{
@@ -373,7 +372,7 @@ class languages extends aw_core_module implements orb_public_interface
 	{
 		$lid = (int) $lid;
 
-		if (!aw_ini_isset("languages.list.{$lid}.lc"))
+		if (!self::is_valid($lid))
 		{
 			return 0;
 		}
@@ -411,7 +410,7 @@ class languages extends aw_core_module implements orb_public_interface
 	{
 		$lid = (int) $lid;
 
-		if (!aw_ini_isset("languages.list.{$lid}.lc"))
+		if (!self::is_valid($lid))
 		{
 			return 0;
 		}
@@ -470,19 +469,19 @@ class languages extends aw_core_module implements orb_public_interface
 		return (int) $lang_id;
 	}
 
-	/**
+	//DEPRECATED. utf-8 is now default and only charset used
+	public static function get_charset($id = AW_REQUEST_CT_LANG_ID) { return AW_USER_CHARSET; }
+
+	/** Checks if language id is a valid AW lid
 		@attrib api=1 params=pos
-		@param id type=int default=AW_REQUEST_CT_LANG_ID
-			Language id to get charset for. If not specified, current language charset returned
-		@comment
-		@returns string
-		@errors
-			throws awex_lang_na if no language data for $id found
+		@param lid type=int
+			AW language id.
+		@returns bool
+		@errors none
 	**/
-	public static function get_charset($id = AW_REQUEST_CT_LANG_ID)
+	public static function is_valid($lid)
 	{
-		$a = self::fetch($id);
-		return $a["charset"];
+		return isset(self::$lid2lc_lut[$lid]);
 	}
 
 	/**
@@ -672,7 +671,7 @@ class languages extends aw_core_module implements orb_public_interface
 				{
 					$status = 2;
 				}
-				$dbi->db_query("INSERT INTO languages(id, name, charset, status, acceptlang, modified, modifiedby) values('$lid','$ldat[name]','$ldat[charset]',$status,'$ldat[acceptlang]','".time()."','".$site['site_obj']['default_user']."')");//FIXME
+				$dbi->db_query("INSERT INTO languages(id, name, status, acceptlang, modified, modifiedby) values('$lid','$ldat[name]',$status,'$ldat[acceptlang]','".time()."','".$site['site_obj']['default_user']."')");//FIXME
 				$log->add_line(array(//FIXME
 					"uid" => aw_global_get("uid"),
 					"msg" => t("Lisas keele"),

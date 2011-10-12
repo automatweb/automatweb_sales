@@ -1751,7 +1751,7 @@ class menu extends class_base implements main_subtemplate_handler
 		$replace_with = array("a","o","u","o","-","a","o","u","o");
 		$str = "!\"@#.¤$%&/()[]={}?\+-`'|,;:";
 		$name = str_replace(preg_split("//", $str, -1 , PREG_SPLIT_NO_EMPTY), "", $name);
-		$name = str_replace($to_replace, $replace_with, htmlentities($name, ENT_QUOTES, aw_global_get("charset")));
+		$name = str_replace($to_replace, $replace_with, htmlentities($name, ENT_QUOTES, AW_USER_CHARSET));
 		$name = str_replace("--", "-", $name);
 		return $this->_check_alias_name(strtolower(substr($name,0, 50)), $oid);
 	}
@@ -2574,7 +2574,7 @@ class menu extends class_base implements main_subtemplate_handler
 				$this->db_query("DELETE FROM aw_alias_trans WHERE menu_id = ".$o->id(). " AND lang_id = ".$lid);
 				$str = $arr["request"]["trans_".$lid."_alias"];
 				// No spaces in the end/beginning! -kaarel 6.02.2009
-				$nv = trim(iconv("UTF-8", $lang["charset"], $str));
+				$nv = trim($str);
 				$this->quote($nv);
 				$this->db_query("INSERT INTO aw_alias_trans(menu_id,lang_id,alias)
 					VALUES(".$o->id().", $lid, '$nv')");

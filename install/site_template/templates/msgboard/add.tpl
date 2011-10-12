@@ -2,7 +2,7 @@
 <tr><td class="msgboardcolor4">
 
 <table border="0" cellspacing="5" cellpadding="0">
-<form method="post" action="/reforb.{VAR:ext}" name="addpost">
+<form method="post" action="/reforb{VAR:ext}" name="addpost">
   <tr>
     <td align="right" class="textmiddle">{VAR:LC_MSGBOARD_NAME}:</td>
     <td class="textmiddle"><input type="text" size="40" NAME="name" value="{VAR:name}"></td>

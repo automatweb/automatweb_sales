@@ -1,9 +1,9 @@
-<form method="POST" action="reforb.{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
+<form method="POST" action="reforb{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
 <br>
 <table border=0 cellspacing=1 cellpadding=2 bgcolor="#CCCCCC">
 <tr>
 <td class="hele_hall_taust" colspan="2">
-<input type="submit" class='doc_button' value="Salvesta"> <input class='doc_button' type="submit" value="Eelvaade" onClick="window.location.href='{VAR:preview}';return false;"> <input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;"> <input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index.{VAR:ext}?section={VAR:id}');return false;"> </td>
+<input type="submit" class='doc_button' value="Salvesta"> <input class='doc_button' type="submit" value="Eelvaade" onClick="window.location.href='{VAR:preview}';return false;"> <input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;"> <input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index{VAR:ext}?section={VAR:id}');return false;"> </td>
 </tr>
 <tr>
 <td class="hele_hall_taust" COLSPAN=2>

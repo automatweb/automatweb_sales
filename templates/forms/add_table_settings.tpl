@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' method=post name="add" enctype="multipart/form-data">
+<form action='reforb{VAR:ext}' method=post name="add" enctype="multipart/form-data">
 <input type="hidden" name="MAX_FILE_SIZE" value="10000000">
 	<!--tabelraam-->
 	<table width="100%" cellspacing="0" cellpadding="1">

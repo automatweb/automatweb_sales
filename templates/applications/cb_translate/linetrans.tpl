@@ -5,7 +5,7 @@ body {
 }
 </style>
 <div style="background-color: #EEE; font-size: 14px; font-weight: bold; font-family: Arial,sans-serif; padding: 5px;">{VAR:title}</div>
-<form id="changeform" method="POST" action="{VAR:baseurl}/reforb.{VAR:ext}">
+<form id="changeform" method="POST" action="{VAR:baseurl}/reforb{VAR:ext}">
 <table border='1' width='100%'>
 {VAR:contents}
 <!-- SUB: SUB_TRANSLATE -->

@@ -1,5 +1,5 @@
 
-<form action='reforb.{VAR:ext}' METHOD=POST enctype='multipart/form-data' name="gallery">
+<form action='reforb{VAR:ext}' METHOD=POST enctype='multipart/form-data' name="gallery">
 
 <!--tabelraam-->
 <table width="100%" cellspacing="0" cellpadding="1">
@@ -120,7 +120,7 @@
 <table border=0 cellpadding=0 cellspacing=3>
 <tr>
 <Td class="celltext">
-<form action='orb.{VAR:ext}' METHOD=GET>
+<form action='orb{VAR:ext}' METHOD=GET>
 <input type='submit' VALUE='Add' class="formbutton"> <input type='text' NAME='rows' SIZE=2 class="formtext"> {VAR:LC_GALLERY_ROWS}.
 <input type='hidden' NAME='action' VALUE='add_row'>
 <input type='hidden' NAME='class' VALUE='gallery'>
@@ -129,7 +129,7 @@
 </form>
 </td>
 <Td class="celltext">
-<form action='orb.{VAR:ext}' METHOD=GET>
+<form action='orb{VAR:ext}' METHOD=GET>
 <input type='submit' VALUE='Add' class="formbutton"> <input type='text' NAME='cols' SIZE=2 class="formtext"> {VAR:LC_GALLERY_COLUMNS}.
 <input type='hidden' NAME='action' VALUE='add_col'>
 <input type='hidden' NAME='class' VALUE='gallery'>

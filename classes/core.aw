@@ -977,12 +977,6 @@ class core extends acl_base
 			}
 		}
 
-		if((aw_global_get("output_charset")) && (aw_global_get("charset") !== aw_global_get("output_charset")))
-		{
-			$path = iconv(aw_global_get("charset"), aw_global_get("output_charset"), $path);
-			$text = iconv(aw_global_get("charset"), aw_global_get("output_charset"), $text);
-		}
-
 		$GLOBALS["site_title"] = $path.$text;//XXX: milleks see on? iga kord kui mingi obj pathi kysitakse siis pannakse see saidi pealkirjaks?
 
 		return $path;
@@ -1218,7 +1212,7 @@ class core extends acl_base
 	//XXX: lib/defs.aw-s on ka selline funktsioon, erinev?
 	function lc_load($file, $arr_name, $lang_id = "")
 	{
-		trigger_error("lc_load and associated translation functionality implementation is deprecated!", E_USER_DEPRECATED);
+		trigger_error("lc_load and associated translation functionality implementation is deprecated! Called in " . get_caller_str(), E_USER_DEPRECATED);
 		if (empty($lang_id))
 		{
 			$admin_lang_lc = aw_global_get("admin_lang_lc");

@@ -1,4 +1,4 @@
-<form action=reforb.{VAR:ext} method=post>
+<form action=reforb{VAR:ext} method=post>
 <input class='small_sub' type='submit' NAME='save' VALUE='{VAR:LC_FORMS_SAVE}!'>&nbsp;&nbsp;&nbsp;
 <table border=0 bgcolor=#f0f0f0>
 <!-- SUB: ELEMENT -->

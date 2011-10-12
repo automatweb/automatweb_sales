@@ -105,7 +105,7 @@ src="/img/new/nool_hall.gif">&nbsp;&nbsp;<a href="#comments">Loe selle teema arv
 
 
 <img src='{VAR:baseurl}/img/trans.gif' width="1" height="5" alt="" border="0"><br>
-<form method="POST" name="commform" action="reforb.{VAR:ext}">
+<form method="POST" name="commform" action="reforb{VAR:ext}">
 
 <a name="comments"></a>
 

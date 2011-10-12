@@ -13,10 +13,10 @@
 <!-- END SUB: ACTIONS -->
 </tr>
 <tr>
-<td class="plain"><a href="javascript:box2('{VAR:LC_FORMS_ARE_YOU_SURE_DEL_ENT}?','forms.{VAR:ext}?type=delete_entry&id={VAR:form_id}&entry_id={VAR:entry_id}&parent={VAR:parent}&op_id={VAR:op_id}')">{VAR:LC_FORMS_DELETE}</a></td>
-<td class="plain"><a href='forms.{VAR:ext}?type=change_entry&id={VAR:form_id}&entry_id={VAR:entry_id}&parent={VAR:parent}&op_id={VAR:op_id}'>{VAR:LC_FORMS_CHANGE}</a></td>
+<td class="plain"><a href="javascript:box2('{VAR:LC_FORMS_ARE_YOU_SURE_DEL_ENT}?','forms{VAR:ext}?type=delete_entry&id={VAR:form_id}&entry_id={VAR:entry_id}&parent={VAR:parent}&op_id={VAR:op_id}')">{VAR:LC_FORMS_DELETE}</a></td>
+<td class="plain"><a href='forms{VAR:ext}?type=change_entry&id={VAR:form_id}&entry_id={VAR:entry_id}&parent={VAR:parent}&op_id={VAR:op_id}'>{VAR:LC_FORMS_CHANGE}</a></td>
 <!-- SUB: ACTION_LINE -->
-<td class="plain" align="center"><a href='forms.{VAR:ext}?type=move_filled&from={VAR:entry_id}&to={VAR:action_target}&id={VAR:form_id}&parent={VAR:parent}&entry_id={VAR:entry_id}&op_id={VAR:op_id}'>{VAR:action_target_name}</a></td>
+<td class="plain" align="center"><a href='forms{VAR:ext}?type=move_filled&from={VAR:entry_id}&to={VAR:action_target}&id={VAR:form_id}&parent={VAR:parent}&entry_id={VAR:entry_id}&op_id={VAR:op_id}'>{VAR:action_target_name}</a></td>
 <!-- END SUB: ACTION_LINE -->
 </tr>
 </table></td></tr></table>

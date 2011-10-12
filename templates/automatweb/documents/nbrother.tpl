@@ -3,14 +3,14 @@ function iremote(oid) {
  var windowprops = "toolbar=0,location=1,directories=0,status=0, "+
 "menubar=0,scrollbars=1,resizable=1,width=400,height=500";
 
-OpenWindow = window.open("images.{VAR:ext}?type=list&parent=" + oid, "remote", windowprops);
+OpenWindow = window.open("images{VAR:ext}?type=list&parent=" + oid, "remote", windowprops);
 }
 function remote2(url) {
 OpenWindow = window.open(url);
 }
 
 </script>
-<form method="POST" action="reforb.{VAR:ext}" name="doc">
+<form method="POST" action="reforb{VAR:ext}" name="doc">
 <br>
 <table border=0 cellspacing=1 cellpadding=2 bgcolor="#CCCCCC" width=100%>
 <tr>
@@ -20,7 +20,7 @@ OpenWindow = window.open(url);
 </tr>
 <tr>
 <td>
-<form action="reforb.{VAR:ext}" method=post>
+<form action="reforb{VAR:ext}" method=post>
 <table border=0 cellspacing=1 cellpadding=1 width=600>
 	<tr>
 		<td class="title">&nbsp;</td>

@@ -1,7 +1,7 @@
 {VAR:TABS}
 		
 <table width="100%" border="0" cellspacing="0" cellpadding="5">
-<form action="/reforb.{VAR:ext}" METHOD=POST name="addpost">
+<form action="/reforb{VAR:ext}" METHOD=POST name="addpost">
 <tr class="msgboardcolor3">
 
 <td class="textmiddle" nowrap height="24"><b>{VAR:LC_MSGBOARD_NEW_SUBJECT}</b></td>

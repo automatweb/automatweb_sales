@@ -6,7 +6,7 @@
 <br><br>
 <!-- END SUB: SHOW_CONTENT -->
 <table class="{VAR:webform_form}"{VAR:spacing}>
-<form action="{VAR:url_spec}orb.{VAR:ext}" method="post" name="changeform" {VAR:form_target} enctype='multipart/form-data'>
+<form action="{VAR:url_spec}orb{VAR:ext}" method="post" name="changeform" {VAR:form_target} enctype='multipart/form-data'>
 {VAR:reforb}
 {VAR:form}
 <script type="text/javascript">

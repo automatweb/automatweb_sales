@@ -1,4 +1,4 @@
-<form action="reforb.{VAR:ext}" METHOD="POST" name="fr" OnSubmit="return true;">
+<form action="reforb{VAR:ext}" METHOD="POST" name="fr" OnSubmit="return true;">
 {VAR:reforb}
 <input type="hidden" name="setfilt" id="setfilt">
 <input type="hidden" name="selt" id="selt" value="">

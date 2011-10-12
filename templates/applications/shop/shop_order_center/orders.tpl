@@ -1,4 +1,4 @@
-<form action="{VAR:baseurl}/reforb.{VAR:ext}" method="POST">
+<form action="{VAR:baseurl}/reforb{VAR:ext}" method="POST">
 Minu tellimused:
 <table border="0">
 <tr>

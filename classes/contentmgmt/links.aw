@@ -1,7 +1,7 @@
 <?php
 
 /*
-@classinfo no_status=1 syslog_type=ST_LINKS prop_cb=1
+@classinfo no_status=1 prop_cb=1
 @tableinfo extlinks index=id master_table=objects master_index=oid
 
 @default group=general
@@ -104,8 +104,6 @@ class links extends class_base
 			"clid" => CL_EXTLINK,
 		));
 
-		$this->lc_load("extlinks","lc_extlinks");
-
 		$this->trans_props = array(
 			"name", "url", "alt"
 		);
@@ -131,8 +129,6 @@ class links extends class_base
 
 		if ($s_name != "" || $s_content != "")
 		{
-
-			load_vcl("table");
 			$t = new aw_table(array(
 				"layout" => "generic"
 			));

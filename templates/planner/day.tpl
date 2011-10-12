@@ -1,5 +1,5 @@
 <h1>{VAR:LC_PLANNER_DAYPLAN}</h1>
-<form method="POST" action="/index.{VAR:ext}">
+<form method="POST" action="/index{VAR:ext}">
 {VAR:navigator}
 <table border=1 cellspacing=0 cellpadding=1 width="100%">
 <tr>
@@ -33,7 +33,7 @@
 <b><a href="{VAR:self}?class=planner&action=edit_event&id={VAR:id}">{VAR:title}</a></b> {VAR:stat}
 &nbsp;
 <!--
-<a href="/index.{VAR:ext}?class=messenger&action=write&attach={VAR:id}"><small>[saada]</small></a>
+<a href="/index{VAR:ext}?class=messenger&action=write&attach={VAR:id}"><small>[saada]</small></a>
 -->
 <br>
 <!-- END SUB: event -->

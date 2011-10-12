@@ -1,5 +1,5 @@
 <br>
-<form ACTION='reforb.{VAR:ext}' METHOD=POST>
+<form ACTION='reforb{VAR:ext}' METHOD=POST>
 <table border=0 cellspacing=1 cellpadding=2 bgcolor="#CCCCCC">
 <tr>
 <td class="fcaption" colspan=2>{VAR:LC_DOCUMENT_CHOOSE_FORM_ENTRY}:</td>

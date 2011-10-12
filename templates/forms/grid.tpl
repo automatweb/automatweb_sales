@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' METHOD=post>
+<form action='reforb{VAR:ext}' METHOD=post>
 <input class='small_sub' type='submit' NAME='save' VALUE='{VAR:LC_FORMS_SAVE}!'>
 <table border=0>
 <tr>
@@ -121,12 +121,12 @@
 {VAR:reforb}
 </form>
 
-<form action="reforb.{VAR:ext}" METHOD="POST">
+<form action="reforb{VAR:ext}" METHOD="POST">
 {VAR:addr_reforb}
 <input type="submit" class="small_sub" VALUE="{VAR:LC_FORMS_ADD}"> <input type="text" NAME="count" size=2> {VAR:LC_FORMS_ROW}
 </form>
 
-<form action="reforb.{VAR:ext}" METHOD="POST">
+<form action="reforb{VAR:ext}" METHOD="POST">
 {VAR:addc_reforb}
 <input type="submit" class="small_sub" VALUE="{VAR:LC_FORMS_ADD}"> <input type="text" NAME="count" size=2> {VAR:LC_FORMS_COLUMN} 
 </form>

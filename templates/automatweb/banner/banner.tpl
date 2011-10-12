@@ -1,4 +1,4 @@
-<form enctype="multipart/form-data" method=POST action='banner.{VAR:ext}'>
+<form enctype="multipart/form-data" method=POST action='banner{VAR:ext}'>
 <input type="hidden" name="MAX_FILE_SIZE" value="100000">
 <table border="0" cellspacing="0" cellpadding="0" width=100%>
 <tr>
@@ -8,7 +8,7 @@
 <tr>
 <td height="15" colspan="11" class="fgtitle">&nbsp;<b>PERIOOD: 
 <!-- SUB: PREV_ACT -->
-<a href='banner.{VAR:ext}?period=prev&op=banner'>Eelmine periood</a> |
+<a href='banner{VAR:ext}?period=prev&op=banner'>Eelmine periood</a> |
 <!-- END SUB: PREV_ACT -->
 
 <!-- SUB: PREV -->
@@ -16,7 +16,7 @@ Eelmine periood |
 <!-- END SUB: PREV -->
 
 <!-- SUB: CUR_ACT -->
-<a href='banner.{VAR:ext}?op=banner'>Aktiivne periood</a> |
+<a href='banner{VAR:ext}?op=banner'>Aktiivne periood</a> |
 <!-- END SUB: CUR_ACT -->
 
 <!-- SUB: CUR -->
@@ -24,7 +24,7 @@ Aktiivne periood |
 <!-- END SUB: CUR -->
 
 <!-- SUB: NEXT_ACT -->
-<a href='banner.{VAR:ext}?period=next&op=banner'>Järgmine periood</a>
+<a href='banner{VAR:ext}?period=next&op=banner'>Järgmine periood</a>
 <!-- END SUB: NEXT_ACT -->
 
 <!-- SUB: NEXT -->

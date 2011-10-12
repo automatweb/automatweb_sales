@@ -5,7 +5,7 @@
 </head>
 <body bgcolor="#FFFFFF">
 <table border="0" cellspacing="0" cellpadding="2" width="100%" bgcolor="#CCCCCC">
-<form method="GET" name="cform" action="orb.{VAR:ext}">
+<form method="GET" name="cform" action="orb{VAR:ext}">
 <tr>
 <td>
 	<table border="0" cellspacing="1" cellpadding="2" width="100%" bgcolor="#CCCCCC">

@@ -1,6 +1,6 @@
 <dl class="news"><dt>T&auml;itke enda kohta andmed:</dt></dl>
 
-<form action="{VAR:baseurl}/reforb.{VAR:ext}" method="POST">
+<form action="{VAR:baseurl}/reforb{VAR:ext}" method="POST">
 <table border="0" cellpadding="2" cellspacing="0">
 	<tr>
 		<td colspan="2"><b>{VAR:person} {VAR:person_rank} {VAR:person_mail} {VAR:person_phone} {VAR:person_address}</b></td>

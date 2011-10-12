@@ -1,4 +1,4 @@
-<form action="reforb.{VAR:ext}" method="POST">
+<form action="reforb{VAR:ext}" method="post">
 	<table>
 		<!-- SUB: TEXT_FOR_LOGIN -->
 		<tr>

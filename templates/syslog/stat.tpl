@@ -24,13 +24,13 @@ function ipexplorer(ip)
  var windowprops = "toolbar=0,location=1,directories=0,status=0, "+
 "menubar=0,scrollbars=1,resizable=1,width=400,height=500";
 
-OpenWindow = window.open("{VAR:baseurl}/ipexplorer.{VAR:ext}?ip=" + ip, "remote", windowprops);
+OpenWindow = window.open("{VAR:baseurl}/ipexplorer{VAR:ext}?ip=" + ip, "remote", windowprops);
 }
 function compare()
 {
  var wprops = "toolbar=0,location=1,directories=0,status=0,"+
  	"menubar=0,scrollbars=1,resizable=1,width=500,height=300";
-	CWindow = window.open("{VAR:baseurl}/orb.{VAR:ext}?class=stat&action=compare","compare",wprops);
+	CWindow = window.open("{VAR:baseurl}/orb{VAR:ext}?class=stat&action=compare","compare",wprops);
 }
 
 function show_today()
@@ -61,7 +61,7 @@ function show_thismonth()
 </head>
 <body bgcolor="#FFFFFF" marginwidth="0" marginheight="0">
 <table border="0" cellspacing="1" cellpadding="2" width="100%">
-<form name="stat" action="{VAR:baseurl}/orb.{VAR:ext}" method="GET">
+<form name="stat" action="{VAR:baseurl}/orb{VAR:ext}" method="GET">
 <tr>
 <td class="fgtitle">
 <b>

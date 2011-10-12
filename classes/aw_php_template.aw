@@ -14,14 +14,14 @@ class aw_php_template
 	private $tpl_file = "";
 	private $site_tpl_file = "";
 	private $default_tpl_file = "";
-	private $lang_id = AW_LANGUAGES_DEFAULT_UI_LID;
+	private $lang_id = AW_REQUEST_UI_LANG_ID;
 
 	private $vars = array();
 	private static $default_vars = array();
 
 	private $bound_templates = array();
 
-	public function __construct($class, $name, $lang_id = AW_LANGUAGES_DEFAULT_UI_LID)
+	public function __construct($class, $name, $lang_id = AW_REQUEST_UI_LANG_ID)
 	{
 		$path = class_index::get_class_path($class);
 		$file = "{$path}{$name}" . self::TEMPLATE_FILE_EXT;
@@ -59,7 +59,7 @@ class aw_php_template
 			"cur_lang_id" => aw_global_get("lang_id"),
 			"cur_lang_code" => aw_ini_get("user_interface.full_content_trans") ? aw_global_get("ct_lang_lc") : aw_global_get("LC"),
 			"current_url" => urlencode(get_ru()),
-			"charset" => aw_global_get("charset")
+			"charset" => AW_USER_CHARSET
 		) + $GLOBALS["cfg__default__short"];
 	}
 

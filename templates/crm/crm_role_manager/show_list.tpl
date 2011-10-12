@@ -1,4 +1,4 @@
-<form name="rolf" method="POST" action="orb.{VAR:ext}">
+<form name="rolf" method="POST" action="orb{VAR:ext}">
 <table border="0" width="100%">
 	<tr>
 		<td>{VAR:toolbar}</td>

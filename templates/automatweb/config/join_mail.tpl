@@ -1,5 +1,5 @@
 <br>
-<form action='reforb.{VAR:ext}' method=POST>
+<form action='reforb{VAR:ext}' method=POST>
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 <!-- SUB: LANG -->
 <tr bgcolor="#C9EFEF">

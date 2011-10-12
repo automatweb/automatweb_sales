@@ -2,7 +2,7 @@
 <tr>
 <td>
 <font face="Arial,Helvetica,sans-serif" size="+1">
-<a href="{VAR:baseurl}/index.{VAR:ext}/section={VAR:docid}">{VAR:title}</a>
+<a href="{VAR:baseurl}/index{VAR:ext}/section={VAR:docid}">{VAR:title}</a>
 </font>
 </td>
 </tr>

@@ -15,12 +15,12 @@
 </head>
 <body bgcolor="#FFFFFF">
 Vali sait, mille logi Dr. Online näitab<br>
-<a href="orb.{VAR:ext}?class=syslog">tagasi</a>
+<a href="orb{VAR:ext}?class=syslog">tagasi</a>
 <p>
 <table border="0" cellspacing="0" cellpadding="0" bgcolor="#CCCCCC">
 <tr>
 <td>
-	<form action="reforb.{VAR:ext}" method="POST">
+	<form action="reforb{VAR:ext}" method="POST">
 	<table border="1" cellspacing="2" cellpadding="2" bgcolor="#FFFFFF">
 	<tr>
 		<td colspan="3" class="header">Saidid</td>

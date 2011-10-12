@@ -6,7 +6,7 @@
 	<input type='hidden' name='MAX_FILE_SIZE' value='1000000' />
 </form>
 
-<form action="{VAR:baseurl}/reforb.{VAR:ext}" method="POST">
+<form action="{VAR:baseurl}/reforb{VAR:ext}" method="POST">
 	{VAR:table}
 	{VAR:reforb}
 	<input type="hidden" name="section" value="460">
