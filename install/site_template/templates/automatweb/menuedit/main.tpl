@@ -27,7 +27,7 @@
 
 <div class="wrapper">
 
-	<form method="get" id="otsing" action="{VAR:baseurl}/index.{VAR:ext}" name="search">
+	<form method="get" id="otsing" action="{VAR:baseurl}/index{VAR:ext}" name="search">
 		<input type="hidden" name="class" value="site_search_content" />
 		<input type="hidden" name="action" value="do_search" />
 		<input type="hidden" name="set_lang_id" value="{VAR:se_lang_id}" />
@@ -376,7 +376,7 @@ body { background: #ffffff; }
 <tr>
 <td>
 
-<form action='{VAR:baseurl}/reforb.{VAR:ext}' method="post">
+<form action='{VAR:baseurl}/reforb{VAR:ext}' method="post">
 <table border="0" cellspacing="1" cellpadding="2" class="logintable">
 	<tr>
 		<td colspan="2" class="logo">

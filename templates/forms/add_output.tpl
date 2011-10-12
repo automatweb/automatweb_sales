@@ -1,6 +1,6 @@
 
 
-<form action='reforb.{VAR:ext}' METHOD={VAR:meth}>
+<form action='reforb{VAR:ext}' METHOD={VAR:meth}>
 
 
 

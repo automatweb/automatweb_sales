@@ -10,6 +10,8 @@
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
 $aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", dirname($__FILE__)) . "/";
 $aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", $aw_dir);
+define("AW_USER_CHARSET", "UTF-8");
+define("AW_CODE_CHARSET", "us-ascii");
 define("AW_DIR", $aw_dir);
 define("AW_FILE_EXT", substr($__FILE__, strrpos($__FILE__, "automatweb") + 10)); // extension can't be 'automatweb'
 
@@ -311,16 +313,10 @@ class automatweb
 			$this->set_request($request);
 		}
 
-		// initiate data source manager
-		if (!aw_global_get("no_db_connection"))
-		{
-			$GLOBALS["object_loader"] = object_loader::instance();
-		}
-
 		if (self::$request instanceof aw_http_request)
 		{
 			self::$result = new aw_http_response();
-			self::$result->set_charset(aw_global_get("charset"));
+			self::$result->set_charset(AW_USER_CHARSET);
 		}
 
 		if ($this->bc)
@@ -362,7 +358,7 @@ class automatweb
 		}
 		elseif (strpos($request_uri, "/automatweb") === false)
 		{
-			// aw_redirect(new aw_uri(aw_ini_get("baseurl") . "/automatweb/"));
+			// aw_redirect(new aw_uri(aw_ini_get("baseurl") . "automatweb/"));
 
 /********************** XXX legacy site startup *************************/
 //TODO new site startup
@@ -736,7 +732,7 @@ aw_global_set("section", $section);
 		include AW_DIR . "const" . AW_FILE_EXT;
 		if (self::$result instanceof aw_http_response)
 		{
-			self::$result->set_charset(aw_global_get("charset"));
+			self::$result->set_charset(AW_USER_CHARSET);
 		}
 	}
 }

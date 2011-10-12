@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' method=post name=ffrm>
+<form action='reforb{VAR:ext}' method=post name=ffrm>
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 <tr class="aste01">
 <td class="celltext" colspan=3><strong>Kalender&lt;-&gt;sündmus relatsioon</strong></td>

@@ -1,5 +1,5 @@
 <!--
-<form method="GET" action="{VAR:baseurl}/index.{VAR:ext}">
+<form method="GET" action="{VAR:baseurl}/index{VAR:ext}">
 <table border=0 cellpadding=0 cellspacing=0>
 <tr>
 	<td class="text" colspan="2"><b>{VAR:LC_SEARCH_TOP}</b></td>

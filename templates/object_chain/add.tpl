@@ -15,7 +15,7 @@ function selall()
 	return false;
 }
 </script>
-<form method=POST action='reforb.{VAR:ext}' name="foo">
+<form method=POST action='reforb{VAR:ext}' name="foo">
 <table border=0 cellspacing=1 cellpadding=2 bgcolor="#CCCCCC">
 <tr>
 	<td class="fform">P&auml;rja nimi:</td>

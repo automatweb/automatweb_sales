@@ -5,7 +5,7 @@ function ss(li,title)
 	window.close();
 }
 </script>
-<form method="GET" action="orb.{VAR:ext}">
+<form method="GET" action="orb{VAR:ext}">
 <table border=0 cellspacing=0 cellpadding=0>
 <tr>
 <td class="aste01" colspan="2">

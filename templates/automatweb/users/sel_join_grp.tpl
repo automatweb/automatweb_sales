@@ -1,4 +1,4 @@
-<form action='orb.{VAR:ext}' method=GET>
+<form action='orb{VAR:ext}' method=GET>
 <table bgcolor="#DFE7EF" cellpadding=3 cellspacing=1 border=0>
 <tr>
 <td class="fcaption">Vali millist liitumisvormi kasutatakse:</td>

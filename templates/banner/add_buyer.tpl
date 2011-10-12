@@ -1,4 +1,4 @@
-<form method="POST" action="reforb.{VAR:ext}">
+<form method="POST" action="reforb{VAR:ext}">
 <table border="0" cellspacing="1" cellpadding="2" bgcolor="#CCCCCC">
 <tr>
 	<td class="fcaption2">{VAR:LC_BANNER_NAME}:</td>

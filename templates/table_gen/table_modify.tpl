@@ -9,7 +9,7 @@
 
 
 
-<form action='reforb.{VAR:ext}' method=post>
+<form action='reforb{VAR:ext}' method=post>
 <input type='submit' NAME='save_table' VALUE='{VAR:LC_TABLE_SAVE}' class="formbutton">
 <table border=0 cellspacing=2 cellpadding=2 width="100%" >
 <!-- SUB: extdata -->

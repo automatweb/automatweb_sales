@@ -2,19 +2,7 @@
 // siin imporditakse muutujad saidi raami sisse
 // ja v2ljastatakse see
 
-if (aw_ini_get("user_interface.full_content_trans"))
-{
-	$ld = languages::fetch(aw_global_get("ct_lang_id"));
-	$page_charset = $charset = $ld["charset"];
-}
-else
-{
-	$ld = languages::fetch(aw_global_get("lang_id"));
-	$page_charset = $charset = aw_global_get("charset");
-}
-
-$output_charset = aw_global_get("output_charset") ? aw_global_get("output_charset") : $charset;
-automatweb::$result->set_charset($output_charset);
+automatweb::$result->set_charset(AW_USER_CHARSET);
 
 $site_title = isset($GLOBALS["site_title"]) ? $GLOBALS["site_title"] : "AutomatWeb";
 $sf->read_template("index.tpl");
@@ -82,7 +70,7 @@ if (!$co)
 if (!empty($_GET["id"]) and $sf->can("view", $_GET["id"]))
 {
 	$cur_obj = obj($_GET["id"]);
-	$cur_obj_name = $cur_obj->prop_xml("name", $output_charset);
+	$cur_obj_name = $cur_obj->prop_xml("name");
 }
 else
 {
@@ -93,8 +81,9 @@ else
 // do not display the YAH bar, if site_title is empty
 $bmb = new popup_menu();
 $bmb->begin_menu("settings_pop");
-
+// arr(AW_REQUEST_CT_LANG_ID);exit;
 // language selection menu
+$ld = languages::fetch(AW_REQUEST_CT_LANG_ID);
 if (languages::count() > 1)
 {
 	$languages_menu = new popup_menu();
@@ -151,11 +140,11 @@ catch (aw_lock_exception $e)
 $sf->vars(array(
 	"prod_family" => $pf,
 	"prod_family_href" => $pf_url,
-	"cur_p_name" => $p->prop_xml("name", $output_charset),
+	"cur_p_name" => $p->prop_xml("name"),
 	"cur_p_url" => html::get_change_url($p->id(), array('return_url' => get_ru())),
 	"cur_co_url" => $co->is_saved() ? html::get_change_url($co->id(), array('return_url' => get_ru())) : "",
 	"cur_co_url_view" => $sf->mk_my_orb("view", array("id" => $co->id(), 'return_url' => get_ru()), CL_CRM_COMPANY),
-	"cur_co_name" => $co->prop_xml("name", $output_charset),
+	"cur_co_name" => $co->prop_xml("name"),
 	"cur_class" => $cur_class,
 	"cur_obj_name" => $cur_obj_name,
 	"site_title" => $site_title,
@@ -265,11 +254,6 @@ else
 	$shwy = true;
 }
 
-
-// if you set this global variable in your code, then the whole page will be converted and shown
-// in the requested charset. This will be handy for translation forms .. and hey .. perhaps one
-// day we are going to move to unicode for the whole interface
-
 // compose html title
 $html_title = aw_ini_get("stitle");
 $html_title_obj = (CL_ADMIN_IF == $cur_obj->class_id()) ? aw_global_get("site_title_path_obj_name") : $cur_obj_name;
@@ -287,7 +271,7 @@ if (!empty($html_title_obj))
 
 $sf->vars(array(
 	"content"	=> $content,
-	"charset" => $charset,
+	"charset" => AW_USER_CHARSET,
 	"title_action" => $ta,
 	"html_title" => $html_title,
 	"MINIFY_JS_AND_CSS" => minify_js_and_css::parse_admin_header($sf->parse("MINIFY_JS_AND_CSS")),
@@ -405,7 +389,7 @@ if (isset($_SESSION["user_history_count"]) and $_SESSION["user_history_count"] >
 	if (!$locked and !empty($bits["id"]))
 	{
 		$o = obj($bits["id"]);
-		$st = $o->prop_xml("name", $output_charset);
+		$st = $o->prop_xml("name");
 	}
 	else
 	{

@@ -7,69 +7,67 @@
 @tableinfo languages index=oid master_table=objects master_index=oid
 
 
-@property aw_lang_id table=languages type=hidden field=aw_lid
-@caption Keele ID
-
 @default table=objects
+
 @default group=general
+	@property aw_lang_id table=languages type=hidden field=aw_lid
+	@caption Keele ID
 
+	@property lang_name table=languages type=textbox field=name
+	@caption Nimi
 
-@property lang_name table=languages type=textbox field=name
-@caption Nimi
+	@property lang_status table=languages type=status field=status
+	@caption Aktiivne
 
-@property lang_status table=languages type=status field=status
-@caption Aktiivne
+	@property show_not_logged type=checkbox ch_value=1 prop_cb=1 table=languages field=show_not_logged
+	@caption N&auml;htav v&auml;lja loginud kasutajatele
 
-@property show_not_logged type=checkbox ch_value=1 prop_cb=1 table=languages field=show_not_logged
-@caption N&auml;htav v&auml;lja loginud kasutajatele
+	@property show_logged type=checkbox ch_value=1 prop_cb=1 table=languages field=show_logged
+	@caption N&auml;htav sisse loginud kasutajatele
 
-@property show_logged type=checkbox ch_value=1 prop_cb=1 table=languages field=show_logged
-@caption N&auml;htav sisse loginud kasutajatele
+	@property show_others type=checkbox ch_value=1 prop_cb=1 table=languages field=show_others
+	@caption N&auml;htav muudele applikatsioonidele
 
-@property show_others type=checkbox ch_value=1 prop_cb=1 table=languages field=show_others
-@caption N&auml;htav muudele applikatsioonidele
+	@property lang_sel_lang type=select table=languages field=lang_code
+	@caption Keel
 
-@property lang_sel_lang type=select table=languages field=lang_code
-@caption Keel
+	@property lang_acceptlang table=languages type=select field=acceptlang
+	@caption Keele kood
 
-@property lang_charset table=languages type=textbox field=charset editonly=1
-@caption Kooditabel
+	@property lang_site_id table=languages type=select multiple=1 field=site_id
+	@caption Saidid kus keel on valitav
 
-@property lang_acceptlang table=languages type=select field=acceptlang
-@caption Keele kood
+	@property lang_trans_msg table=languages type=textarea rows=5 cols=30 field=meta method=serialize
+	@caption T&otilde;lkimata sisu teade
 
-@property lang_site_id table=languages type=select multiple=1 field=site_id
-@caption Saidid kus keel on valitav
+	@property lang_img table=languages type=relpicker reltype=RELTYPE_IMAGE field=meta method=serialize
+	@caption Keele pilt
 
-@property lang_trans_msg table=languages type=textarea rows=5 cols=30 field=meta method=serialize
-@caption T&otilde;lkimata sisu teade
+	@property lang_img_act table=languages type=relpicker reltype=RELTYPE_IMAGE field=meta method=serialize
+	@caption Aktiivse keele pilt
 
-@property lang_img table=languages type=relpicker reltype=RELTYPE_IMAGE field=meta method=serialize
-@caption Keele pilt
+	@property fp_text table=languages type=textbox field=meta method=serialize
+	@caption Esilehe nimi
 
-@property lang_img_act table=languages type=relpicker reltype=RELTYPE_IMAGE field=meta method=serialize
-@caption Aktiivse keele pilt
+	@property lang_group table=languages type=textbox field=meta method=serialize
+	@caption Grupp
 
-@property fp_text table=languages type=textbox field=meta method=serialize
-@caption Esilehe nimi
+	@property temp_redir_url table=languages type=textbox field=meta method=serialize
+	@caption Ajutine AW-v&auml;line aadress sisse logimata kasutajatele
 
-@property lang_group table=languages type=textbox field=meta method=serialize
-@caption Grupp
-
-@property temp_redir_url table=languages type=textbox field=meta method=serialize
-@caption Ajutine AW-v&auml;line aadress sisse logimata kasutajatele
-
-@property langs type=table group=langs field=meta method=serialize store=no
-@caption Keeled
 
 
 @groupinfo langs caption="K&otilde;ik keeled"
+@default group=langs
+	@property langs type=table field=meta method=serialize store=no
+	@caption Keeled
+
 
 //DEPRECATED
 @groupinfo texts caption="Tekstid"
 @default group=texts
-//DEPRECATED
-@property texts type=table no_caption=1
+	//DEPRECATED
+	@property texts type=table no_caption=1
 
 
 @groupinfo transl caption=T&otilde;lgi
@@ -196,10 +194,6 @@ class language extends class_base
 				$retval = class_base::PROP_IGNORE;
 				break;
 
-			case "lang_charset":
-				$retval = class_base::PROP_IGNORE;
-				break;
-
 			case "lang_site_id":
 				$prop["value"] = join(",", array_values(is_array($prop["value"]) ? $prop["value"] : array()));
 				$arr["obj_inst"]->set_prop("lang_site_id", $prop["value"]);
@@ -207,7 +201,10 @@ class language extends class_base
 				break;
 
 			case "lang_sel_lang":
-				$arr["obj_inst"]->set_prop("aw_lang_id", $prop["value"]);
+				if ($arr["new"])
+				{
+					$arr["obj_inst"]->set_prop("aw_lang_id", $prop["value"]);
+				}
 				$retval = class_base::PROP_IGNORE;
 				break;
 
@@ -388,7 +385,7 @@ class language extends class_base
 			}
 		}
 
-		header("Content-type: text/html; charset=".aw_global_get("charset"));
+		header("Content-type: text/html; charset=".AW_USER_CHARSET);
 		if (aw_ini_get("user_interface.full_content_trans"))
 		{
 			$ld = languages::fetch(aw_global_get("ct_lang_id"));

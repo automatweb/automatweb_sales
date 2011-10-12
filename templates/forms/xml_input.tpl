@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' METHOD=post>
+<form action='reforb{VAR:ext}' METHOD=post>
 <!-- SUB: admin -->
 <span class="textsmall"><a href="{VAR:adminurl}">{VAR:LC_FORMS_ADMIN}</a></span>
 <!-- END SUB: admin -->

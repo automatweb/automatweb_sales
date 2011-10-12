@@ -1,4 +1,4 @@
-<form action = 'reforb.{VAR:ext}' method=post>
+<form action = 'reforb{VAR:ext}' method=post>
 <table border="0" cellpadding="5" cellspacing="0">
 <tr class="aste01">
 <td class="celltext">{VAR:LC_GALLERY_NAME}:</td><td class="aste01"><input type='text' NAME='name' VALUE='{VAR:name}' class="formtext"></td>

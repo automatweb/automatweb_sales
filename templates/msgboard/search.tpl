@@ -37,7 +37,7 @@
 <img src="/img/trans.gif" width="1" height="10" border="0" alt=""><br>
 
 <table align="center" border="0" cellspacing="4" cellpadding="0">
-	<form method="get" action="reforb.{VAR:ext}">
+	<form method="get" action="reforb{VAR:ext}">
 	<tr>
 		<td align="right" class="text">Nimi:&nbsp;</td>
 		<td><input type="text" name="from" size="25"></td>

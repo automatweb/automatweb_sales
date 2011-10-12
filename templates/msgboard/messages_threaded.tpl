@@ -40,7 +40,7 @@ Autor: <b>{VAR:from}</b>  ({VAR:created})<br>
 <!-- END SUB: TOPIC -->
 </table>
 
-<form method="POST" name="commform" action="reforb.{VAR:ext}">
+<form method="POST" name="commform" action="reforb{VAR:ext}">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 

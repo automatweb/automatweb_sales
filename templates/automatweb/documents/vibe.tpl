@@ -3,10 +3,10 @@ function iremote(oid) {
  var windowprops = "toolbar=0,location=1,directories=0,status=0, "+
 "menubar=0,scrollbars=1,resizable=1,width=400,height=500";
 
-OpenWindow = window.open("images.{VAR:ext}?type=list&parent=" + oid, "remote", windowprops);
+OpenWindow = window.open("images{VAR:ext}?type=list&parent=" + oid, "remote", windowprops);
 }
 </script>
-<form method="POST" action="reforb.{VAR:ext}">
+<form method="POST" action="reforb{VAR:ext}">
 <table border=0 cellspacing=1 cellpadding=2 bgcolor="#CCCCCC">
 <tr>
 <td class="fform" colspan="2">
@@ -69,7 +69,7 @@ OpenWindow = window.open("images.{VAR:ext}?type=list&parent=" + oid, "remote", w
 <tr>
 <td class="fcaption2">Aliased</td>
 <td class="fcaption2">
-{VAR:alilist} | <a href="pickobject.{VAR:ext}?docid={VAR:docid}&parent=0">Lisa uus objekt (alias) &gt;&gt;</a>
+{VAR:alilist} | <a href="pickobject{VAR:ext}?docid={VAR:docid}&parent=0">Lisa uus objekt (alias) &gt;&gt;</a>
 </td>
 </tr>
 <tr>

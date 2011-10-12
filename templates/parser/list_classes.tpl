@@ -12,7 +12,7 @@ function sel_all()
 	chk = !chk;
 }
 </script>
-<form name='boo' action="reforb.{VAR:ext}" method="POST">
+<form name='boo' action="reforb{VAR:ext}" method="POST">
 <table border=1>
 <tr>
 	<td>Nimi</td>

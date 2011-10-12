@@ -1,4 +1,4 @@
-<form method="post" action="{VAR:baseurl}/orb.{VAR:ext}">
+<form method="post" action="{VAR:baseurl}/orb{VAR:ext}">
 <table border='0' class="aw04contenttable" align="center" cellpadding="0" cellspacing="0" width="100%">
 {VAR:form}
 <!-- SUB: SUB_TITLE -->

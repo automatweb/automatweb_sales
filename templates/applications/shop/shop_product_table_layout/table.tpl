@@ -1,6 +1,6 @@
 
 
-<form action="{VAR:baseurl}/index.{VAR:ext}" method="GET" name="products_form">
+<form action="{VAR:baseurl}/index{VAR:ext}" method="GET" name="products_form">
 
 
 <div class="toimingud">

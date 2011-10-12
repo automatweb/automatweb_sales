@@ -7,7 +7,7 @@ function ss(title)
 }
 </script>
 
-<form method="GET" action="orb.{VAR:ext}">
+<form method="GET" action="orb{VAR:ext}">
 <table id="awcbContentTblDefault" width="100%" cellspacing="0" cellpadding="0" border="0">
 	<tr>
 		<td>

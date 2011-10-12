@@ -26,7 +26,7 @@ function add()
 	}
 	else
 	{
-		url = "orb.{VAR:ext}?class="+document.foo.type.options[document.foo.type.selectedIndex].value+"&action=new&parent={VAR:parent}&period={VAR:period}";
+		url = "orb{VAR:ext}?class="+document.foo.type.options[document.foo.type.selectedIndex].value+"&action=new&parent={VAR:parent}&period={VAR:period}";
 		window.location = url;
 	}
 }
@@ -65,14 +65,14 @@ function change(val)
 
 function go_add(cl)
 {
-	url = "orb.{VAR:ext}?class=" + cl + "&action=new&parent={VAR:parent}&period={VAR:period}";
+	url = "orb{VAR:ext}?class=" + cl + "&action=new&parent={VAR:parent}&period={VAR:period}";
 	document.location = url;
 }
 
 function go_change(cl,id,par)
 {
 	pare = par ? par : "{VAR:parent}";
-	url = "orb.{VAR:ext}?class=" + cl + "&action=change&parent=" + pare + "&period={VAR:period}&id=" + id ;
+	url = "orb{VAR:ext}?class=" + cl + "&action=change&parent=" + pare + "&period={VAR:period}&id=" + id ;
 	document.location = url;
 }
 
@@ -80,47 +80,47 @@ function go_change(cl,id,par)
 function go_view(cl,id,par)
 {
 	pare = par ? par : "{VAR:parent}";
-	url = "orb.{VAR:ext}?class=" + cl + "&action=view&parent=" + pare + "&period={VAR:period}&id=" + id ;
+	url = "orb{VAR:ext}?class=" + cl + "&action=view&parent=" + pare + "&period={VAR:period}&id=" + id ;
 	document.location = url;
 }
 
 function go_cut(id,par)
 {
 	pare = par ? par : "{VAR:parent}";
-	url = "orb.{VAR:ext}?class=menuedit&reforb=1&action=cut&parent=" + pare + "&id=" + id + "&sel[" + id + "]=1";
+	url = "orb{VAR:ext}?class=menuedit&reforb=1&action=cut&parent=" + pare + "&id=" + id + "&sel[" + id + "]=1";
 	document.location = url;
 }
 
 function go_copy(id,par)
 {
 	pare = par ? par : "{VAR:parent}";
-	url = "orb.{VAR:ext}?class=menuedit&reforb=1&action=copy&parent=" + pare + "&id=" + id + "&sel[" + id + "]=1";
+	url = "orb{VAR:ext}?class=menuedit&reforb=1&action=copy&parent=" + pare + "&id=" + id + "&sel[" + id + "]=1";
 	document.location = url;
 }
 
 function go_delete(id,par)
 {
 	pare = par ? par : "{VAR:parent}";
-	url = "orb.{VAR:ext}?class=menuedit&reforb=1&action=delete&parent=" + pare + "&id=" + id + "&sel[" + id + "]=1";
+	url = "orb{VAR:ext}?class=menuedit&reforb=1&action=delete&parent=" + pare + "&id=" + id + "&sel[" + id + "]=1";
 	document.location = url;
 }
 
 function go_open(id)
 {
-	url = "orb.{VAR:ext}?class=menuedit&action=right_frame&parent=" + id + "&period={VAR:period}";
+	url = "orb{VAR:ext}?class=menuedit&action=right_frame&parent=" + id + "&period={VAR:period}";
 	document.location = url;
 }
 
 function go_go(par,perio)
 {
 	perio = perio ? perio : "{VAR:period}";
-	url = "orb.{VAR:ext}?class=menuedit&action=right_frame&parent=" + par + "&period=" + perio;
+	url = "orb{VAR:ext}?class=menuedit&action=right_frame&parent=" + par + "&period=" + perio;
 	document.location = url;
 }
 
 function go_acl(id)
 {
-	url = "editacl.{VAR:ext}?file=default.xml&oid=" + id;
+	url = "editacl{VAR:ext}?file=default.xml&oid=" + id;
 	document.location = url;
 }
 // -->
@@ -128,7 +128,7 @@ function go_acl(id)
 
 
 <!-- begin ICONS table -->
-<form action='reforb.{VAR:ext}' method="post" name="foo" style="display: inline;">
+<form action='reforb{VAR:ext}' method="post" name="foo" style="display: inline;">
 {VAR:toolbar}
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">

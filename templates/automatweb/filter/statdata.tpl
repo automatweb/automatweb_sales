@@ -1,4 +1,4 @@
-<form action="reforb.{VAR:ext}" METHOD="POST" name="fr">
+<form action="reforb{VAR:ext}" METHOD="POST" name="fr">
 <script language="jAVAscrIPT">
 function sendcmd(blah)
 {

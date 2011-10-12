@@ -1,4 +1,4 @@
-<form action="reforb.{VAR:ext}" method="POST">
+<form action="reforb{VAR:ext}" method="POST">
 <table border="1">
 	<tr>
 		<td>Paketi nimi:</td>

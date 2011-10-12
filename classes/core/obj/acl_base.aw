@@ -369,7 +369,7 @@ class acl_base extends db_connector
 		$does = false;
 		try
 		{
-			$objdata = object_loader::instance()->ds->get_objdata($oid);
+			$objdata = object_loader::ds()->get_objdata($oid);
 			$does = !empty($objdata["oid"]);
 		}
 		catch (awex_obj_na $e)

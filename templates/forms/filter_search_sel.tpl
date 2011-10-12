@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' METHOD=post>
+<form action='reforb{VAR:ext}' METHOD=post>
 Lehek&uuml;lg: 
 <!-- SUB: PAGE -->
 <a href='{VAR:pageurl}'>{VAR:from} - {VAR:to}</a> |

@@ -1,4 +1,4 @@
-<form method="GET" action="{VAR:baseurl}/index.{VAR:ext}">
+<form method="GET" action="{VAR:baseurl}/index{VAR:ext}">
 <table border=0 cellpadding=0 cellspacing=0>
 <tr>
 	<td class="body">Mille hulgast:&nbsp;</td>
@@ -114,7 +114,7 @@ j&auml;rgi.<br><br>
 <!-- SUB: MATCH -->
 <table border=0 cellpadding=0 cellspacing=0 width=100%>
 	<tr>
-		<td class="sisupealkiri"><a href='{VAR:baseurl}/index.{VAR:ext}/section={VAR:section}'><b>{VAR:title}</b> </a>&nbsp;-&nbsp;<i>{VAR:modified}</i></td>
+		<td class="sisupealkiri"><a href='{VAR:baseurl}/index{VAR:ext}/section={VAR:section}'><b>{VAR:title}</b> </a>&nbsp;-&nbsp;<i>{VAR:modified}</i></td>
 	</tr>
 	<tr>
 		<td class="body">{VAR:content}</td>

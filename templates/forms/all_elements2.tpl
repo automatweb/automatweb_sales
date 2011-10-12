@@ -1,6 +1,6 @@
 <table width="100%" border=0 cellspacing=0 cellpadding=1>
 
-<form action='reforb.{VAR:ext}' method=POST>
+<form action='reforb{VAR:ext}' method=POST>
 
 <tr>
 <td bgcolor="#FFFFFF">

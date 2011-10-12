@@ -37,7 +37,7 @@ function ssrch()
 </script>
 
 <font color="red">{VAR:status_msg}</font>
-<form action='reforb.{VAR:ext}' method="POST" name='selsrch'>
+<form action='reforb{VAR:ext}' method="POST" name='selsrch'>
 {VAR:LC_FORMS_USE_NEW_SEARCH}: <input type="checkbox" name="use_new_search" value="1" {VAR:use_new_search}><br>
 Kas tulemustes on link csv failile: <input type="checkbox" name="show_csv_link" value="1" {VAR:show_csv_link}><br>
 N&auml;ita otsingutulemusi sisestusvormidena: <input type='checkbox' value='1' name='show_s_res_as_forms' {VAR:show_s_res_as_forms}>
@@ -115,7 +115,7 @@ st = !st;
 return false;
 }
 </script>
-<form action='reforb.{VAR:ext}' METHOD=post>
+<form action='reforb{VAR:ext}' METHOD=post>
 {VAR:LC_FORMS_PAGE}: 
 <!-- SUB: PAGE -->
 <a href='{VAR:pageurl}'>{VAR:from} - {VAR:to}</a> |

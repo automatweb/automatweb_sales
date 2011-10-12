@@ -2485,7 +2485,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			}
 			if (!isset($GLOBALS["properties"][$clid]) || !isset($GLOBALS["tableinfo"][$clid]) || !isset($GLOBALS["relinfo"][$clid]))
 			{
-				list($GLOBALS["properties"][$clid], $GLOBALS["tableinfo"][$clid], $GLOBALS["relinfo"][$clid]) = $GLOBALS["object_loader"]->load_properties(array(
+				list($GLOBALS["properties"][$clid], $GLOBALS["tableinfo"][$clid], $GLOBALS["relinfo"][$clid]) = object_loader::instance()->load_properties(array(
 					"file" => $clid == CL_DOCUMENT ? "doc" : (aw_ini_isset("classes.{$clid}") ? basename(aw_ini_get("classes.{$clid}.file")) : ""),
 					"clid" => $clid
 				));
@@ -3023,9 +3023,8 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		{
 			if (!isset($GLOBALS["properties"][$cur_clid]))
 			{
-				$classes = aw_ini_get("classes");
-				list($GLOBALS["properties"][$cur_clid], $GLOBALS["tableinfo"][$cur_clid], $GLOBALS["relinfo"][$cur_clid]) = $GLOBALS["object_loader"]->load_properties(array(
-					"file" => ($cur_clid == CL_DOCUMENT ? "doc" : basename(isset($classes[$cur_clid]["file"]) ? $classes[$cur_clid]["file"] : NULL)),
+				list($GLOBALS["properties"][$cur_clid], $GLOBALS["tableinfo"][$cur_clid], $GLOBALS["relinfo"][$cur_clid]) = object_loader::instance()->load_properties(array(
+					"file" => ($cur_clid == CL_DOCUMENT ? "doc" : basename(aw_ini_get("classes.{$cur_clid}.file"))),
 					"clid" => $cur_clid
 				));
 			}

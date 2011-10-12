@@ -1,4 +1,4 @@
-<form action="reforb.{VAR:ext}" method="post">
+<form action="reforb{VAR:ext}" method="post">
 <input class='small_sub' type='submit' NAME='save' VALUE='{VAR:LC_FORMS_SAVE}!'>&nbsp;&nbsp;&nbsp;
 <a href='{VAR:change}'>{VAR:LC_FORMS_OUTPUT_SETTINGS}</a> | 
 <!-- SUB: PREVIEW -->
@@ -113,11 +113,11 @@ Vali elementidele m&auml;&auml;ratav css stiil:<select name='setcss' class='smal
 &nbsp;&nbsp;<input type='submit' name='diliit' value='Kustuta' class='small_button'>
 {VAR:reforb}
 </form>
-<form action='reforb.{VAR:ext}' method=POST>
+<form action='reforb{VAR:ext}' method=POST>
 <input type='submit' class='small_sub' value='{VAR:LC_FORMS_ADD}'> <input type='text' name='nrows' size=3 class='small_button'> {VAR:LC_FORMS_ROW_ROW} 
 {VAR:addr_reforb}
 </form>
-<form action='reforb.{VAR:ext}' method=POST>
+<form action='reforb{VAR:ext}' method=POST>
 <input type='submit' class='small_sub' value='{VAR:LC_FORMS_ADD}'> <input type='text' name='ncols' size=3 class='small_button'> {VAR:LC_FORMS_COLUMN} 
 {VAR:addc_reforb}
 </form>

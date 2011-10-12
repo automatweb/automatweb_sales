@@ -2,7 +2,7 @@
 {VAR:error_msg}
 <!-- END SUB ERROR -->
 <table width="100%" border="0" cellspacing="0" cellpadding="1">
-<form method="post" action="reforb.{VAR:ext}">
+<form method="post" action="reforb{VAR:ext}">
   <tr>
     <td align="right" class="text2">Nimi:</td>
     <td class="text2"><input type="text" size="50" NAME="name" value="{VAR:name}"></td>

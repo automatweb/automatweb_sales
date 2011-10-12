@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' method=post name="languagesadd">
+<form action='reforb{VAR:ext}' method=post name="languagesadd">
 
 <!--tabelraam-->
 <table width="100%" cellspacing="0" cellpadding="1">

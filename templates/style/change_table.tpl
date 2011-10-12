@@ -7,12 +7,12 @@ function set_color(color)
 
 function pick_color() 
 {
-  win=window.open("{VAR:baseurl}/automatweb/orb.{VAR:ext}?class=css&action=colorpicker","colorpicker","HEIGHT=220,WIDTH=310")
+  win=window.open("{VAR:baseurl}/automatweb/orb{VAR:ext}?class=css&action=colorpicker","colorpicker","HEIGHT=220,WIDTH=310")
  	win.focus()
 }
 </script>
 
-<form action='reforb.{VAR:ext}' METHOD=post name="aa">
+<form action='reforb{VAR:ext}' METHOD=post name="aa">
 <!--tabelraam-->
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr><td class="tableborder">

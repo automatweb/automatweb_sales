@@ -22,7 +22,7 @@ line-height: 10px;
 }
 </style>
 
-<form action='/reforb.{VAR:ext}' method='POST' name='changeform' enctype='multipart/form-data'>
+<form action='/reforb{VAR:ext}' method='POST' name='changeform' enctype='multipart/form-data'>
 <span class="textred11">
 	{VAR:product_name_error}
 	{VAR:product_code_error}

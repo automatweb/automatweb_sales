@@ -6,7 +6,7 @@ document.add.submit();
 };
 </script>
 
-<form action='reforb.{VAR:ext}' method=post name="add">
+<form action='reforb{VAR:ext}' method=post name="add">
 <!--tabelraam-->
 {VAR:toolbar}
 

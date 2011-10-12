@@ -12,7 +12,7 @@ function box2(caption,url)
 <input type="checkbox" name="check[]" value="{VAR:id}" />
 <!-- END SUB: DELETE -->
 
-<form name="topicform" method="POST" action="/reforb.{VAR:ext}">
+<form name="topicform" method="POST" action="/reforb{VAR:ext}">
 <input type="hidden" name="act" value="" />
 
 

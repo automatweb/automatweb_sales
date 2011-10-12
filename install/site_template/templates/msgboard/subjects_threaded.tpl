@@ -9,7 +9,7 @@ function box2(caption,url)
 }
 </script>
 
-<form method="post" name="commform" action="/reforb.{VAR:ext}">
+<form method="post" name="commform" action="/reforb{VAR:ext}">
 
 
 
@@ -126,7 +126,7 @@ function box2(caption,url)
 <img src="{VAR:baseurl}/img/trans.gif" width="1" height="7" border="0" alt="" /><br />
 
 <table width="100%" border="0" cellspacing="0" cellpadding="5">
-<form action="/reforb.{VAR:ext}" method="post" name="addpost">
+<form action="/reforb{VAR:ext}" method="post" name="addpost">
 <tr class="msgboardcolor3">
 
 <td class="textmiddle" nowrap height="24"><b>{VAR:LC_MSGBOARD_ADD_NEW_COMM}</b></td>

@@ -7,7 +7,7 @@
 
 </form>
 
-<form action="{VAR:baseurl}/orb.{VAR:ext}" method="POST">
+<form action="{VAR:baseurl}/orb{VAR:ext}" method="POST">
 <!-- SUB: NO_ERROR -->
 {VAR:table}
 <!-- END SUB: NO_ERROR -->

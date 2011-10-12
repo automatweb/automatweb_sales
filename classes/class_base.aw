@@ -1099,8 +1099,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		if(!empty($GLOBALS["view_property"]))
 		{
-			$rv = iconv(aw_global_get("charset"), "UTF-8", $rv);
-			die($rv);
+			exit($rv);
 		}
 		else
 		{
@@ -1218,8 +1217,8 @@ class class_base extends aw_template implements orb_public_interface
 			$o = obj();
 			$o->set_class_id(constant("CL_".strtoupper($arr["class"])));
 		}
-		//return $o->draft($arr["prop"]);
-		die(iconv(aw_global_get("charset"), "UTF-8", $o->draft($arr["prop"])));
+
+		exit($o->draft($arr["prop"]));
 	}
 
 	/**
@@ -1236,7 +1235,6 @@ class class_base extends aw_template implements orb_public_interface
 	**/
 	function set_draft($arr)
 	{
-		$arr["value"] = iconv("UTF-8", aw_global_get("charset")."//IGNORE", $arr["value"]);
 		if(is_oid($arr["id"]))
 		{
 			$o = obj($arr["id"]);
@@ -1311,10 +1309,6 @@ class class_base extends aw_template implements orb_public_interface
 			return $this->submit_translations($args);
 		}
 
-		if (!empty($args["posted_by_js"]))
-		{
-			$args = iconv_array("utf-8", aw_global_get("charset"), $args);
-		}
 		$form_data = null;
 		// since submit should never change the return url, make sure we get at it later
 		$real_return_url = empty($args["return_url"]) ? "" : $args["return_url"];
@@ -5679,7 +5673,6 @@ class class_base extends aw_template implements orb_public_interface
 		$lid = $lang["id"];
 		$this->translation_lang_id = $lid;
 		$mod = false;
-		$target_charset = "{$lang["charset"]}//IGNORE";
 
 		foreach(safe_array($props_if) as $pi)
 		{
@@ -5690,10 +5683,9 @@ class class_base extends aw_template implements orb_public_interface
 		foreach($props as $p)
 		{
 			$nm = "trans_{$lid}_{$p}";
-
 			if (isset($arr[$nm]))
 			{
-				$nv = iconv("UTF-8", $target_charset, $arr[$nm]);
+				$nv = $arr[$nm];
 
 				if (!isset($all_vals[$lid][$p]) or $nv !== $all_vals[$lid][$p])
 				{
@@ -5738,9 +5730,6 @@ class class_base extends aw_template implements orb_public_interface
 		$o = $o->get_original();
 		$original_lang_id = $o->lang_id();
 		$original_lang_data = languages::fetch($original_lang_id);
-		$original_lang_charset = $original_lang_data["charset"];
-
-		aw_global_set("output_charset","UTF-8");
 
 		// get langs
 		$languages_in_use = languages::list_translate_targets();
@@ -5888,7 +5877,7 @@ class class_base extends aw_template implements orb_public_interface
 			$ret[$nm]["name"] = $nm;
 			$ret[$nm]["no_caption"] = "1";
 			$ret[$nm]["type"] = "text";
-			$ret[$nm]["value"] = iconv($original_lang_charset, "UTF-8", $original_value);
+			$ret[$nm]["value"] = $original_value;
 			$ret[$nm]["ord"] = ++$so;
 			$ret[$nm]["group"] = $this->use_group;
 			$ret[$nm]["parent"] = $original_layout;
@@ -5898,7 +5887,7 @@ class class_base extends aw_template implements orb_public_interface
 			$ret[$nm] = $ppl[$p];
 			$ret[$nm]["no_caption"] = "1";
 			$ret[$nm]["name"] = $nm;
-			$ret[$nm]["value"] = iconv($translation_target_lang_o->prop("lang_charset"), "UTF-8", $o->trans_get_val($p, $this->translation_lang_id, true));
+			$ret[$nm]["value"] = $o->trans_get_val($p, $this->translation_lang_id, true);
 			$ret[$nm]["ord"] = ++$so;
 			$ret[$nm]["group"] = $this->use_group;
 			$ret[$nm]["parent"] = $translation_layout;

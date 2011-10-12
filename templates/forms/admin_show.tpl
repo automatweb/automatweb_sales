@@ -4,7 +4,7 @@ function popup(id)
 {
 	self.name = "Image preview";
 	var wprops = "toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1,width=300,height=400";
-	openwindow = window.open("/showimg.{VAR:ext}?id="+id,"remote",wprops);
+	openwindow = window.open("/showimg{VAR:ext}?id="+id,"remote",wprops);
 	openwindow.location.reload();
 }
 </script>

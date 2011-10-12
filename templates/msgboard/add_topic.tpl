@@ -3,7 +3,7 @@
 
 
 
-<form action="reforb.{VAR:ext}" METHOD=POST>
+<form action="reforb{VAR:ext}" METHOD=POST>
 <span class="textpealkiri"><b>Uus teema</b></span>
 
 <table  border="0" cellspacing="0" cellpadding="4">

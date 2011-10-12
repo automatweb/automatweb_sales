@@ -15,7 +15,7 @@ function gp()
 }
 </script>
 
-<form action='reforb.{VAR:ext}' method=post name="ua">
+<form action='reforb{VAR:ext}' method=post name="ua">
 <font color="red">{VAR:error}</font>
 
 

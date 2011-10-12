@@ -354,7 +354,7 @@ src="{VAR:baseurl}/img/intranet/trans.gif" WIDTH="1" HEIGHT="1" BORDER=0 ALT="">
 
 <!-- SUB: SEARCH_SEL -->
 <table border="0" cellspacing="3" cellpadding="0">
-<form method="get" action="{VAR:baseurl}/index.{VAR:ext}">
+<form method="get" action="{VAR:baseurl}/index{VAR:ext}">
 <tr>
 <td><input type="text" size="13" class="formsearch2" name="str" value="{VAR:str}"></td>
 <td><input type="submit" value=" {VAR:LC_SEARCH_BTN} " class="formbutton"></td>

@@ -21,7 +21,7 @@ return (true);
     <!--begin KESKMISE TEKSTI OSA-->
 <span class="text">Soovita dokumenti "<a href='/{VAR:section}'>{VAR:doc_name}</a>"</span> <br><br>
 
-<FORM METHOD="post" ACTION="/reforb.{VAR:ext}" onSubmit="return Validator(this)" name="email">
+<FORM METHOD="post" ACTION="/reforb{VAR:ext}" onSubmit="return Validator(this)" name="email">
 
 <span class="text">
 

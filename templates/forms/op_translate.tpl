@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' method=post>
+<form action='reforb{VAR:ext}' method=post>
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 <tr>
 <td class="fform" colspan=10><input type='submit' VALUE='{VAR:LC_FORMS_SAVE}'></td>

@@ -51,7 +51,7 @@ kustutada?','{VAR:del_topic}')"><img src="{VAR:baseurl}/automatweb/images/blue/o
 </table>
 
 </td></tr>
-<form method="POST" name="commform" action="reforb.{VAR:ext}">
+<form method="POST" name="commform" action="reforb{VAR:ext}">
 </table>
 
 
@@ -111,12 +111,12 @@ onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('delete','','{VAR:bas
 
 														<!-- SUB: PAGE -->
 														<td class="tab"><IMG SRC="images/blue/tab_left_begin.gif" WIDTH="8" HEIGHT="20" BORDER=0 ALT=""></td>
-														<td nowrap background="{VAR:baseurl}/automatweb/images/blue/tab_taust.gif" class="tab" valign="bottom"><a href='/comments.{VAR:ext}?action=topics&page={VAR:pagenum}&forum_id={VAR:forum_id}'>{VAR:ltext}</a></td><td class="tab"><IMG SRC="images/blue/tab_right.gif" WIDTH="6" HEIGHT="20" BORDER=0 ALT=""></td>
+														<td nowrap background="{VAR:baseurl}/automatweb/images/blue/tab_taust.gif" class="tab" valign="bottom"><a href='/comments{VAR:ext}?action=topics&page={VAR:pagenum}&forum_id={VAR:forum_id}'>{VAR:ltext}</a></td><td class="tab"><IMG SRC="images/blue/tab_right.gif" WIDTH="6" HEIGHT="20" BORDER=0 ALT=""></td>
 														<!-- END SUB: PAGE -->
 
 														<!-- SUB: SEL_PAGE -->
 														<td class="tabsel"><IMG SRC="images/blue/tab_left_begin.gif" WIDTH="8" HEIGHT="20" BORDER=0 ALT=""></td>
-														<td nowrap background="{VAR:baseurl}/automatweb/images/blue/tab_taust.gif" class="tabsel" valign="bottom"><a href='/comments.{VAR:ext}?action=topics&page={VAR:pagenum}&forum_id={VAR:forum_id}'><b>{VAR:linktext}</b></a></td><td class="tabsel"><IMG SRC="images/blue/tab_right.gif" WIDTH="6" HEIGHT="20" BORDER=0 ALT=""></td>
+														<td nowrap background="{VAR:baseurl}/automatweb/images/blue/tab_taust.gif" class="tabsel" valign="bottom"><a href='/comments{VAR:ext}?action=topics&page={VAR:pagenum}&forum_id={VAR:forum_id}'><b>{VAR:linktext}</b></a></td><td class="tabsel"><IMG SRC="images/blue/tab_right.gif" WIDTH="6" HEIGHT="20" BORDER=0 ALT=""></td>
 														<!-- END SUB: SEL_PAGE -->
 														<td class="celltext">&nbsp;</td>
 													</tr>

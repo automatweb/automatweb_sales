@@ -1,5 +1,5 @@
 <!-- SUB: login -->
-<form action="{VAR:baseurl}/reforb.{VAR:ext}" method="POST">
+<form action="{VAR:baseurl}/reforb{VAR:ext}" method="POST">
 	<table>
 		<tr>
 			<td>UID:</td>

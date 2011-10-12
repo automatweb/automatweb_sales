@@ -1,4 +1,4 @@
-<form method="POST" action="/index.{VAR:ext}">
+<form method="POST" action="/index{VAR:ext}">
 <span style="font-family: Arial, Helvetica; font-size: 12px">
 <strong></strong>
 {VAR:LC_USER_ENTER}.<br><br>

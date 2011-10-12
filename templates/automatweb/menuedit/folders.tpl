@@ -2,7 +2,7 @@
 	<tr>
 		<td align="left">&nbsp;{VAR:uid} @ <span id="clock" style="font-family:monospace;"></span></td>
 	<!-- SUB: has_toolbar -->
-		<form action='orb.{VAR:ext}' method='get' name='pform'>
+		<form action='orb{VAR:ext}' method='get' name='pform'>
 		<td>{VAR:toolbar}</td>
 		</form>
 	<!-- END SUB: has_toolbar -->

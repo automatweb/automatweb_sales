@@ -150,9 +150,6 @@ class aw_http_request extends aw_request
 			}
 		}
 
-		// load language
-		$this->_autoload_language();
-
 		// parse special automatweb request variables
 		$AW_GET_VARS = array();
 		$pi = "";
@@ -209,6 +206,10 @@ class aw_http_request extends aw_request
 
 		// parse arguments
 		$this->parse_args();
+
+		// load system components
+		$this->_autoload_data_storage();
+		$this->_autoload_language();
 	}
 
 	private function update_uri()

@@ -1,4 +1,4 @@
-<form name="aa" action="reforb.{VAR:ext}" method="POST">
+<form name="aa" action="reforb{VAR:ext}" method="POST">
 <!--tabelraam-->
 <table width="100%" cellspacing="0" cellpadding="1">
 	<tr>

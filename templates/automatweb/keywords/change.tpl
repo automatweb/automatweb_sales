@@ -3,7 +3,7 @@
 <td bgcolor="#CCCCCC">
 
 <table border="0" cellspacing="1" cellpadding="0" width="100%">
-<form method="POST" action="reforb.{VAR:ext}">
+<form method="POST" action="reforb{VAR:ext}">
 <tr>
 <td class="fgtext">&nbsp;Võtmesõna:&nbsp;</td>
 <td class="fgtext"><input type="text" size="50" name="keyword" value="{VAR:keyword}"><td>

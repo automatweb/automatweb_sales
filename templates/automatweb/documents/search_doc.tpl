@@ -1,7 +1,7 @@
 <div id="pais"><!-- --></div>
 
 <div id="sisu">
-<form method="GET" action="orb.{VAR:ext}">
+<form method="GET" action="orb{VAR:ext}">
 
 <table width="100%" cellspacing="0" cellpadding="0" border="0" id="awcbContentTblDefault"> 
 <tr>

@@ -1,5 +1,5 @@
 <table bgcolor="#CCCCCC" border="0" cellspacing="1" cellpadding="1">
-<form method="POST" action="reforb.{VAR:ext}">
+<form method="POST" action="reforb{VAR:ext}">
 <tr>
 <td class="hele_hall_taust">Vali menüü</td>
 <td class="hele_hall_taust">

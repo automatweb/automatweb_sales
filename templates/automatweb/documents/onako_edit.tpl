@@ -1,4 +1,4 @@
-<form method="POST" action="reforb.{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
+<form method="POST" action="reforb{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
 
 
 
@@ -60,7 +60,7 @@ target="_blank" href="{VAR:baseurl}/index.aw?section={VAR:id}">Eelvaade</a></td>
 <td class="celltext" colspan="2">
 <input type="submit" class='doc_button' value="Salvesta">
 <input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;">
-<input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index.{VAR:ext}?section={VAR:id}');return false;">
+<input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index{VAR:ext}?section={VAR:id}');return false;">
 <input type="button" class="doc_button" value="Teavita liste" onClick="if (confirm('Teavitada liste?')) { window.location.href='{VAR:self}?class=keywords&action=notify&id={VAR:docid}';}">
 
 </td>
@@ -269,7 +269,7 @@ function format(what,opt)
 </tr>
 <!--<tr>
 <td class="celltext" colspan="2">
-<input type="submit" class='doc_button' value="Salvesta"><input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;"> <input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index.{VAR:ext}?section={VAR:id}');return false;"> <input type="button" class="doc_button" value="Teavita liste" onClick="if (confirm('Teavitada liste?')) { window.location.href='{VAR:self}?class=keywords&action=notify&id={VAR:docid}';}"</td>
+<input type="submit" class='doc_button' value="Salvesta"><input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;"> <input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index{VAR:ext}?section={VAR:id}');return false;"> <input type="button" class="doc_button" value="Teavita liste" onClick="if (confirm('Teavitada liste?')) { window.location.href='{VAR:self}?class=keywords&action=notify&id={VAR:docid}';}"</td>
 </td>
 </tr>-->
 </table>

@@ -1,4 +1,4 @@
-<form action="reforb.{VAR:ext}" method="POST">
+<form action="reforb{VAR:ext}" method="POST">
 	<table>
 		<tr>
 			<td>UID:</td>

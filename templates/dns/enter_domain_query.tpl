@@ -1,4 +1,4 @@
-<form method="GET" action="index.{VAR:ext}">
+<form method="GET" action="index{VAR:ext}">
 <b>Kas domeen on registreeritud?</b>
 <br>
 Sisesta domeeni nimi (.com,.org,.net,.ee):

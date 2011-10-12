@@ -16,7 +16,7 @@
 <tr>
 <td class="fgtext">&nbsp;{VAR:id}&nbsp;</td>
 <td align="center" class="fgtext">&nbsp;{VAR:title}&nbsp;</td>
-<td align="center" class="fgtext">&nbsp;<a href="orb.{VAR:ext}?class=document&action=change&id={VAR:id}">Ava</a>&nbsp;</td>
+<td align="center" class="fgtext">&nbsp;<a href="orb{VAR:ext}?class=document&action=change&id={VAR:id}">Ava</a>&nbsp;</td>
 </tr>
 <!-- END SUB: LINE -->
 </table>

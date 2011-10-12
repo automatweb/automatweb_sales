@@ -58,7 +58,7 @@ background-color: #478EB6;
 
 </style>
 
-<form method="GET" action="orb.{VAR:ext}" name="searchform">
+<form method="GET" action="orb{VAR:ext}" name="searchform">
 <!--tabelraam-->
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -114,7 +114,7 @@ function mk_group(text)
 function assign_config()
 {
 	document.resulttable.subaction.value='assign_config';
-	document.resulttable.action = '{VAR:baseurl}/automatweb/orb.{VAR:ext}';
+	document.resulttable.action = '{VAR:baseurl}/automatweb/orb{VAR:ext}';
 	document.resulttable.submit();
 }
 

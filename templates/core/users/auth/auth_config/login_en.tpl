@@ -78,7 +78,7 @@
 <tr><td>
 
 <table border="0" cellspacing="1" cellpadding="2" class="logintable">
-<form name=login method="POST" action="{VAR:baseurl}/index.{VAR:ext}">
+<form name=login method="POST" action="{VAR:baseurl}/index{VAR:ext}">
 	<tr>
 		<td colspan="2" class="logo">
 			<img src='http://www.struktuur.ee/img/aw_logo.gif' border='0'>

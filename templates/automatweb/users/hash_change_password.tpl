@@ -1,4 +1,4 @@
-<form method="POST" action="/index.{VAR:ext}">
+<form method="POST" action="/index{VAR:ext}">
 <table border="0">
 <tr style="font-family: Arial, Helvetica; font-size: 12px">
 <td colspan="2">{VAR:LC_USERNAME} <strong>{VAR:uid}</strong></td>

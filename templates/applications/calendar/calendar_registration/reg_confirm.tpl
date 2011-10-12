@@ -1,6 +1,6 @@
 <dl class="news"><dt>Registreerusite n&otilde;ustajaga kokkusaamisele!</dt></dl>
 
-<form action="{VAR:baseurl}/reforb.{VAR:ext}" method="POST">
+<form action="{VAR:baseurl}/reforb{VAR:ext}" method="POST">
 <table border="0"> 
 	<tr>
 		<td><b>N&otilde;ustaja andmed:</b></td>

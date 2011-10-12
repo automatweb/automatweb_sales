@@ -1,5 +1,5 @@
 <div class="forum">
-<form action="{VAR:baseurl}/reforb.{VAR:ext}" method="post">
+<form action="{VAR:baseurl}/reforb{VAR:ext}" method="post">
 <p class="h1">Lisa teema</p>
 <table class="add">
 <tr>

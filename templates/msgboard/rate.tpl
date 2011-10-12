@@ -1,5 +1,5 @@
 <table border="0" cellspacing="5" cellpadding="0">
-<form action="reforb.{VAR:ext}" method="POST">
+<form action="reforb{VAR:ext}" method="POST">
 <tr>
 <td class="celltext" valign="bottom">Hinne: {VAR:rating}</td>
 

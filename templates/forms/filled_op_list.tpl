@@ -10,7 +10,7 @@
 </tr>
 <!-- SUB: LINE -->
 <tr>
-<td class="plain"><a href='forms.{VAR:ext}?type=filled_forms&level=1&id={VAR:form_id}&op_id={VAR:op_id}'>{VAR:op_name}</a></td>
+<td class="plain"><a href='forms{VAR:ext}?type=filled_forms&level=1&id={VAR:form_id}&op_id={VAR:op_id}'>{VAR:op_name}</a></td>
 <td class="plain">{VAR:op_comment}</td>
 </tr>
 <!-- END SUB: LINE -->

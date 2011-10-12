@@ -1,4 +1,4 @@
-<form action="{VAR:baseurl}/index.{VAR:ext}" method="POST">
+<form action="{VAR:baseurl}/index{VAR:ext}" method="POST">
 Ostukorv:<br>
 
 <table border="0" width="100%">

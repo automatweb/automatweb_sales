@@ -1,5 +1,5 @@
 <table border="1" cellpadding="1" cellspacing="1">
-<form method="GET" action="orb.{VAR:ext}">
+<form method="GET" action="orb{VAR:ext}">
 <tr>
 	<td bgcolor="#DDDDDD" colspan="2">
 	<strong>Uus sait...</strong>

@@ -83,7 +83,7 @@
 <table id="wrapper">
 	<tr>
 		<td class="top">
-			<form name="login" method="post" action="{VAR:baseurl}/automatweb/reforb.{VAR:ext}">
+			<form name="login" method="post" action="{VAR:baseurl}/automatweb/reforb{VAR:ext}">
 			<table class="inner" cellpadding="0" cellspacing="0">
 				<tr>
 					<td colspan="2" class="client">

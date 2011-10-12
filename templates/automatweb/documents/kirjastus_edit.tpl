@@ -4,7 +4,7 @@ function iremote(oid) {
  var windowprops = "toolbar=0,location=1,directories=0,status=0, "+
 "menubar=0,scrollbars=1,resizable=1,width=400,height=500";
 
-OpenWindow = window.open("images.{VAR:ext}?type=list&parent=" + oid, "remote", windowprops);
+OpenWindow = window.open("images{VAR:ext}?type=list&parent=" + oid, "remote", windowprops);
 }
 function remote2(url) {
 OpenWindow = window.open(url);
@@ -21,7 +21,7 @@ function ch_link()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=links&action=change&parent={VAR:id}&id="+sel_link;
+	window.location="orb{VAR:ext}?class=links&action=change&parent={VAR:id}&id="+sel_link;
 	return true;
 }
 
@@ -34,7 +34,7 @@ function del_link()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=links&action=delete&parent={VAR:id}&id="+sel_link;
+	window.location="orb{VAR:ext}?class=links&action=delete&parent={VAR:id}&id="+sel_link;
 	return true;
 }
 
@@ -49,7 +49,7 @@ function ch_image()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=images&action=change&id="+sel_image;
+	window.location="orb{VAR:ext}?class=images&action=change&id="+sel_image;
 	return true;
 }
 
@@ -62,7 +62,7 @@ function del_image()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=images&action=delete&docid={VAR:id}&id="+sel_image;
+	window.location="orb{VAR:ext}?class=images&action=delete&docid={VAR:id}&id="+sel_image;
 	return true;
 }
 
@@ -77,7 +77,7 @@ function ch_table()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=table&action=change&id="+sel_table;
+	window.location="orb{VAR:ext}?class=table&action=change&id="+sel_table;
 	return true;
 }
 
@@ -90,7 +90,7 @@ function del_table()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_table;
+	window.location="orb{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_table;
 	return true;
 }
 
@@ -105,7 +105,7 @@ function ch_form()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=form&action=change&id="+sel_form;
+	window.location="orb{VAR:ext}?class=form&action=change&id="+sel_form;
 	return true;
 }
 
@@ -118,7 +118,7 @@ function del_form()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_form;
+	window.location="orb{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_form;
 	return true;
 }
 
@@ -133,7 +133,7 @@ function ch_file()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=file&action=change&doc={VAR:id}&id="+sel_file;
+	window.location="orb{VAR:ext}?class=file&action=change&doc={VAR:id}&id="+sel_file;
 	return true;
 }
 
@@ -146,7 +146,7 @@ function del_file()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_file;
+	window.location="orb{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_file;
 	return true;
 }
 
@@ -161,7 +161,7 @@ function ch_graph()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=graph&action=change&doc={VAR:id}&id="+sel_graph;
+	window.location="orb{VAR:ext}?class=graph&action=change&doc={VAR:id}&id="+sel_graph;
 	return true;
 }
 
@@ -174,7 +174,7 @@ function del_graph()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_graph;
+	window.location="orb{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_graph;
 	return true;
 }
 
@@ -189,7 +189,7 @@ function ch_gallery()
 		return true;
 	}
 
-	window.location="galerii.{VAR:ext}?type=content&id="+sel_gallery;
+	window.location="galerii{VAR:ext}?type=content&id="+sel_gallery;
 	return true;
 }
 
@@ -202,17 +202,17 @@ function del_gallery()
 		return true;
 	}
 
-	window.location="orb.{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_gallery;
+	window.location="orb{VAR:ext}?class=document&action=delete_alias&docid={VAR:id}&id="+sel_gallery;
 	return true;
 }
 
 </script>
-<form method="POST" action="reforb.{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
+<form method="POST" action="reforb{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
 <br>
 <table border=0 cellspacing=1 cellpadding=2 bgcolor="#CCCCCC">
 <tr>
 <td class="hele_hall_taust" colspan="2">
-<input type="submit" class='doc_button' value="Salvesta"> <input class='doc_button' type="submit" value="Eelvaade" onClick="window.location.href='{VAR:preview}';return false;"> <input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;"> <input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index.{VAR:ext}?section={VAR:id}');return false;"> 
+<input type="submit" class='doc_button' value="Salvesta"> <input class='doc_button' type="submit" value="Eelvaade" onClick="window.location.href='{VAR:preview}';return false;"> <input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;"> <input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index{VAR:ext}?section={VAR:id}');return false;"> 
 </td>
 </tr>
 <!-- SUB: DOC_BROS -->
@@ -412,7 +412,7 @@ function format(what,opt)
 </script>
 <!-- END SUB: IE -->
 <tr>
-<td class="hele_hall_taust" colspan=2><b>&nbsp;Objektid&nbsp;</b> <a href='pickobject.{VAR:ext}?docid={VAR:id}'>Lisa uus &gt;&gt;&gt;</a><br>
+<td class="hele_hall_taust" colspan=2><b>&nbsp;Objektid&nbsp;</b> <a href='pickobject{VAR:ext}?docid={VAR:id}'>Lisa uus &gt;&gt;&gt;</a><br>
 <table border=0 cellpadding=0 cellspacing=0 width=100%>
 	<tr>
 		<td><img src='{VAR:baseurl}/images/transa.gif' width=113 height=1 border=0></td>

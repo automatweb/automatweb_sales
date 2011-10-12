@@ -1,4 +1,4 @@
-<form action='reforb.{VAR:ext}' METHOD=post name="savexml">
+<form action='reforb{VAR:ext}' METHOD=post name="savexml">
 <table bgcolor="#CCCCCC" cellpadding=3 cellspacing=1 border=0>
 <tr>
 <td class="fcaption" colspan="5">

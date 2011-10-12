@@ -1,4 +1,4 @@
-<form action="orb.{VAR:ext}" method="GET" name="aa">
+<form action="orb{VAR:ext}" method="GET" name="aa">
 <table>
 <tr>
 	<td>Vali olemasolev sisestus:</td>

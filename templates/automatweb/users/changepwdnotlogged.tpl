@@ -1,5 +1,5 @@
 Te peate oma parooli muutma.
-<form action='/reforb.{VAR:ext}' method="POST">
+<form action='/reforb{VAR:ext}' method="POST">
 <span class="textred12">
 	{VAR:error}
 </span>

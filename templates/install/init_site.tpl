@@ -1,5 +1,5 @@
 <table border="1" cellspacing="1" cellpadding="1">
-<form method="POST" action="reforb.{VAR:ext}">
+<form method="POST" action="reforb{VAR:ext}">
 <tr>
 <td colspan="2" align="center" bgcolor="#CCCCCC">
 Saidi initsialiseerimine

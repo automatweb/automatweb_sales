@@ -21,7 +21,7 @@
 
 <!-- END SUB: COMMENT -->
 
-<form action='orb.{VAR:ext}' method="POST">
+<form action='orb{VAR:ext}' method="POST">
 	<table border="0" bgcolor="#CCCCCC"> 
 		<tr>
 			<td><span style="font-size: 12px; color: #FFFFFF">Pealkiri:</span></td>

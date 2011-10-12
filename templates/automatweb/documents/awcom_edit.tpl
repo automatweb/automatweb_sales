@@ -1,4 +1,4 @@
-<form method="POST" action="reforb.{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
+<form method="POST" action="reforb{VAR:ext}" name="doc" onSubmit="doSubmit();return true;">
 <!--tabelraam-->
 <table width="100%" cellspacing="0" cellpadding="1">
 <tr><td class="tableborder">
@@ -32,9 +32,9 @@ onClick="javascript:if (confirm('Teavitada liste?')) { window.location.href='{VA
 <td><IMG SRC="{VAR:baseurl}/images/trans.gif" WIDTH="10" HEIGHT="2" BORDER=0 ALT=""></td>
 
 
-<td align="center" class="icontext"><IMG SRC="{VAR:baseurl}/images/trans.gif" WIDTH="2" HEIGHT="2" BORDER=0 ALT=""><br><a href="orb.{VAR:ext}?class=document&action=archive&docid={VAR:id}" 
+<td align="center" class="icontext"><IMG SRC="{VAR:baseurl}/images/trans.gif" WIDTH="2" HEIGHT="2" BORDER=0 ALT=""><br><a href="orb{VAR:ext}?class=document&action=archive&docid={VAR:id}" 
 onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('archive','','{VAR:baseurl}/automatweb/images/blue/awicons/archive_over.gif',1)"><img name="archive" alt="Arhiiv" border="0" SRC="{VAR:baseurl}/automatweb/images/blue/awicons/archive.gif" width="25" height="25"></a><br><a
-href="orb.{VAR:ext}?class=document&action=archive&docid={VAR:id}">Arhiiv</a></td>
+href="orb{VAR:ext}?class=document&action=archive&docid={VAR:id}">Arhiiv</a></td>
 <td><IMG SRC="{VAR:baseurl}/images/trans.gif" WIDTH="10" HEIGHT="2" BORDER=0 ALT=""></td>
 -->
 
@@ -77,13 +77,13 @@ target="_blank" href="{VAR:baseurl}/index.aw?section={VAR:id}">Eelvaade</a></td>
 <!--<input type="submit" class='doc_button' value="Sektsioonid" onClick="window.location.href='{VAR:menurl}';return false;">-->
 
 
-<!--<input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index.{VAR:ext}?section={VAR:id}');return false;">-->
+<!--<input type="submit" class='doc_button' value="Webile" onClick="window.open('{VAR:baseurl}/index{VAR:ext}?section={VAR:id}');return false;">-->
 
 
 
 <!--<input type="button" class="doc_button" value="Teavita liste" onClick="if (confirm('Teavitada liste?')) { window.location.href='{VAR:self}?class=keywords&action=notify&id={VAR:docid}';}">-->
 
-<!--<input type="button" class="doc_button" value="Arhiiv" onClick="window.location.href='orb.{VAR:ext}?class=document&action=archive&docid={VAR:id}'">-->
+<!--<input type="button" class="doc_button" value="Arhiiv" onClick="window.location.href='orb{VAR:ext}?class=document&action=archive&docid={VAR:id}'">-->
 
 <!-- SUB: DOC_BROS -->
 <tr>
@@ -190,9 +190,9 @@ onClick="javascript:if (confirm('Teavitada liste?')) { window.location.href='{VA
 <td><IMG SRC="{VAR:baseurl}/images/trans.gif" WIDTH="10" HEIGHT="2" BORDER=0 ALT=""></td>
 
 
-<td align="center" class="icontext"><IMG SRC="{VAR:baseurl}/images/trans.gif" WIDTH="2" HEIGHT="2" BORDER=0 ALT=""><br><a href="orb.{VAR:ext}?class=document&action=archive&docid={VAR:id}" 
+<td align="center" class="icontext"><IMG SRC="{VAR:baseurl}/images/trans.gif" WIDTH="2" HEIGHT="2" BORDER=0 ALT=""><br><a href="orb{VAR:ext}?class=document&action=archive&docid={VAR:id}" 
 onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('archive2','','{VAR:baseurl}/automatweb/images/blue/awicons/archive_over.gif',1)"><img name="archive2" alt="Arhiiv" border="0" SRC="{VAR:baseurl}/automatweb/images/blue/awicons/archive.gif" width="25" height="25"></a><br><a
-href="orb.{VAR:ext}?class=document&action=archive&docid={VAR:id}">Arhiiv</a></td>
+href="orb{VAR:ext}?class=document&action=archive&docid={VAR:id}">Arhiiv</a></td>
 <td><IMG SRC="{VAR:baseurl}/images/trans.gif" WIDTH="10" HEIGHT="2" BORDER=0 ALT=""></td>
 -->
 </tr>

@@ -19,4 +19,3 @@ $GLOBALS["TRANS"]["Omaduse Ajutine AW-v&auml;line aadress sisse logimata kasutaj
 $GLOBALS["TRANS"]["Omaduse Ajutine AW-v&auml;line aadress sisse logimata kasutajatele (temp_redir_url) help"] = "väline aadress sisse logimata kasutajatele - kuhu suunata kasutajad, kes ei tohi ilma sisselogimata antud keelt näha";
 $GLOBALS["TRANS"]["Omaduse Keeled (langs) kommentaar"] = "Võimalikud keeled, kus Staatus märgib, kas see keel on antud saidis aktiivselt kasutusel (veebile ilmub selle keele valik lingi või pildina) ja Valitud märgib, millist keelt hetkel toimetatakse";
 $GLOBALS["TRANS"]["Omaduse Keeled (langs) help"] = "Võimalikud keeled, kus Staatus märgib, kas see keel on antud saidis aktiivselt kasutusel (veebile ilmub selle keele valik lingi või pildina) ja Valitud märgib, millist keelt hetkel toimetatakse";
-?>

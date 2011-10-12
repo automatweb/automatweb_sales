@@ -2,6 +2,13 @@
 
 //TODO: need peab defineerima ka siis kui ei kasutata autoloadi!!!
 // selleks tuleb _autoload_language viia lang() meetodisse
+//_autoload_language jagada kaheks -- requesti parsimine ja automatwebi setup vastavalt saadud keelele, viimane viia automatweb.aw-sse vms
+//!!!!!
+//TODO:
+// datasource ja keelte laadimine automatweb::set_request-i vms
+// siin laetakse request, seal t6lgendatakse seda...
+
+
 /**
 defines global constants
 
@@ -42,6 +49,7 @@ class aw_request
 		{
 			// load current/active request
 			$this->parse_args();
+			$this->_autoload_data_storage();
 			$this->_autoload_language();
 		}
 	}
@@ -63,6 +71,15 @@ class aw_request
 		}
 
 		return $request;
+	}
+
+	protected function _autoload_data_storage()
+	{//TODO: viia automatweb.aw-sse set_request meetodisse!!!
+		// initiate data source manager
+		if (!aw_global_get("no_db_connection"))
+		{
+			$GLOBALS["object_loader"] = object_loader::instance();
+		}
 	}
 
 	// - loads both content and ui active language variables from cookie and session
@@ -194,16 +211,6 @@ if (!aw_global_get("ct_lang_id") && aw_ini_get("user_interface.full_content_tran
 	aw_session::set("ct_lang_id", $ct_id);
 	aw_global_set("ct_lang_lc", $ct_lc1);
 	aw_global_set("ct_lang_id", $ct_id);
-}
-   // if parallel trans is on, then read charset from trans lang
-if (aw_ini_get("user_interface.full_content_trans") && aw_global_get("ct_lang_id") != $lang_id)
-{
-	$t_la = languages::fetch(aw_global_get("ct_lang_id"));
-	aw_global_set("charset", $t_la["charset"]);
-}
-else
-{
-	aw_global_set("charset", $la["charset"]);
 }
 ////////////////////////////
 

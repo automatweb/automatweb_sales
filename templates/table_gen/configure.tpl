@@ -9,7 +9,7 @@
 
 
 
-<form action='reforb.{VAR:ext}' method=post>
+<form action='reforb{VAR:ext}' method=post>
 <table border=0 cellspacing=1 cellpadding=2>
 <tr>
 <td class="celltext" align="right">Näita aliasi?</td>
