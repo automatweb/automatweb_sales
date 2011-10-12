@@ -12,14 +12,16 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 	const PS_WIDTH = 800;
 	const PS_HEIGHT = 500;
 
-	private $req;
-	private $clid = array();
+	protected $req;
+	protected $clid = array();
 
-	private $action;
-	private $property;
-	private $reload_property;
-	private $reload_layouts;
-	private $reload_window = false;
+	protected $action;
+	protected $property;
+	protected $reload_property;
+	protected $reload_layouts;
+	protected $reload_window = false;
+
+	protected $search_results_limit = 50;
 
 	public function __construct()
 	{
@@ -397,7 +399,6 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 		@param clid optional
 		@param s optional
 		@param append_html optional
-		@param tbl_props optional
 		@param no_submit optional
 		@param start_empty optional type=bool
 			If true, initially search results table is empty.
@@ -1033,42 +1034,42 @@ function aw_get_el(name,form)
 	}
 
 	//----------------- Marko teeb siia miskit uut varianti.... katsetab
-	function set_class_id($clid)
+	public function set_class_id($clid)
 	{
 		$this->clid = safe_array($clid);
 	}
 
-	function set_id($id)
+	public function set_id($id)
 	{
 		$this->oid = $id;
 	}
 
-	function set_reload_layout($layouts)
+	public function set_reload_layout($layouts)
 	{
 		$this->reload_layouts = $layouts;
 	}
 
-	function set_reload_window($value = true)
+	public function set_reload_window($value = true)
 	{
 		$this->reload_window = (bool) $value;
 	}
 
-	function set_reload_property($prop)
+	public function set_reload_property($prop)
 	{
 		$this->reload_property = $prop;
 	}
 
-	function set_property($prop)
+	public function set_property($prop)
 	{
 		$this->property = $prop;
 	}
 
-	function set_action($action)
+	public function set_action($action)
 	{
 		$this->action = $action;
 	}
 
-	function get_search_button()
+	public function get_search_button()
 	{
 		$ret = 	html::href(array(
 			"url" => "javascript:;",
@@ -1091,7 +1092,7 @@ function aw_get_el(name,form)
 			"clid" => $this->clid,
 			"action" => $this->action,
 			"property" => $this->property
-		));
+		), get_class($this));
 		return $url;
 	}
 
@@ -1104,14 +1105,13 @@ function aw_get_el(name,form)
 		@param reload_property optional type=string
 		@param reload_layout optional type=string
 		@param reload_window type=bool default=FALSE
-		@param tbl_props optional
 		@param no_submit optional
 		@param start_empty optional type=bool
 			If true, initially search results table is empty.
 		@returns
 			returns the html for search form & results
 	**/
-	function do_ajax_search($arr)
+	public function do_ajax_search($arr)
 	{
 		$_GET["in_popup"] = 1;
 		$form_html = $this->_get_search_form($arr);
@@ -1158,29 +1158,21 @@ function aw_get_el(name,form)
 		}
 	}
 
-	private function _get_search_form($arr)
+	protected function _get_search_form($arr)
 	{
 		$htmlc = new htmlclient();
 		$htmlc->start_output();
 
-		$htmlc->add_property(array(
-			"name" => "s[name]",
-			"type" => "textbox",
-			"value" => ifset($arr, "s", "name"),
-			"caption" => t("Nimi")
-		));
+		$property_dfns = $this->_get_search_form_property_definitions($arr);
+		foreach ($property_dfns as $name => $definition)
+		{
+			$htmlc->add_property($definition);
+		}
 
-		$htmlc->add_property(array(
-			"name" => "s[oid]",
-			"type" => "textbox",
-			"value" => ifset($arr, "s", "oid"),
-			"caption" => t("Objekti id")
-		));
-
-		$clid = empty($arr["clid"]) ? "" : (is_array($arr["clid"]) ? join("," , $arr["clid"]) : $arr["clid"]);
-		$reload_layout = isset($arr["reload_layout"]) ? "\nreload_layout: '".$arr["reload_layout"]."'," : "";
-		$reload_property = isset($arr["reload_property"]) ? "\nreload_property: '".$arr["reload_property"]."'," : "";
-		$reload_window = !empty($arr["reload_window"]) ? "\nreload_window: '1'," : "";
+		$clid = empty($arr["clid"]) ? "" : (is_array($arr["clid"]) ? implode("," , $arr["clid"]) : $arr["clid"]);
+		$reload_layout = isset($arr["reload_layout"]) ? "\nreload_layout: '".$arr["reload_layout"]."',\n" : "";
+		$reload_property = isset($arr["reload_property"]) ? "\nreload_property: '".$arr["reload_property"]."',\n" : "";
+		$reload_window = !empty($arr["reload_window"]) ? "\nreload_window: '1',\n" : "";
 
 		$htmlc->add_property(array(
 			"name" => "s[submit]",
@@ -1190,33 +1182,41 @@ function aw_get_el(name,form)
 		));
 
 		// attach loading function to button click and form submit event handlers
-		active_page_data::add_javascript("
-			$('#s_name_').focus();
-			$('#changeform').submit(function(event) {
-				var div = $('#result');
-				$.please_wait_window.show({
-					'target': div
-				});
-				var oids = document.getElementById('s_oid_');
-				var names = document.getElementById('s_name_');
-				javascript:$.get('/automatweb/orb.aw', {class: 'popup_search',
-					action: 'get_search_results',
-					id: '".(isset($arr["id"]) ? $arr["id"] : "0")."',
-					oid: oids.value,
-					name: names.value,
-					clid: '{$clid}',
-					{$reload_property}
-					{$reload_layout}
-					{$reload_window}
-					property: '{$arr["property"]}'
-				}, function (html) {
-					x=document.getElementById('result');
-					x.innerHTML=html;
-					$.please_wait_window.hide();
-				});
-				return false;
-			});
-		", "bottom");
+		$class = get_class($this);
+		$id = isset($arr["id"]) ? $arr["id"] : "0";
+		$search_params = "";
+		foreach ($property_dfns as $name => $data)
+		{
+			$search_params .= <<<PARAM
+{$name} : $("input[name='s[{$name}]']").val(),
+
+PARAM;
+		}
+
+		active_page_data::add_javascript(
+<<<ENDJS
+	$('#s_name_').focus();
+	$('#changeform').submit(function(event) {
+		var div = $('#result');
+		$.please_wait_window.show({
+			'target': div
+		});
+		javascript:$.get('/automatweb/orb.aw', {class: '{$class}',
+				action: 'get_search_results',
+				id: '{$id}',
+				{$search_params}
+				clid: '{$clid}',
+				{$reload_property}{$reload_layout}{$reload_window}
+				property: '{$arr["property"]}'
+			}, function (html) {
+			x=document.getElementById('result');
+			x.innerHTML=html;
+			$.please_wait_window.hide();
+		});
+		return false;
+	});
+ENDJS
+		, "bottom");
 
 		$data = array(
 			"id" => isset($arr["id"]) ? $arr["id"] : 0,
@@ -1240,8 +1240,26 @@ function aw_get_el(name,form)
 		return $html;
 	}
 
+	protected function _get_search_form_property_definitions(array $arr)
+	{
+		return array(
+			"name" => array(
+				"name" => "s[name]",
+				"type" => "textbox",
+				"value" => ifset($arr, "s", "name"),
+				"caption" => t("Nimi")
+			),
+			"oid" => array(
+				"name" => "s[oid]",
+				"type" => "textbox",
+				"value" => ifset($arr, "s", "oid"),
+				"caption" => t("Objekti id")
+			)
+		);
+	}
+
 	/**
-		@attrib name=get_search_results api=1
+		@attrib name=get_search_results orb=1
 		@param id optional
 		@param oid optional
 		@param name type=string default=""
@@ -1251,66 +1269,34 @@ function aw_get_el(name,form)
 		@param property type=string default=""
 		@param reload_layout type=string default=""
 		@param reload_window type=bool default=FALSE
-		@param tbl_props optional
 		@param no_submit optional
 		@param start_empty type=bool default=FALSE
 			If true, initially search results table is empty.
 		@returns
 			returns the html for search form & results
 	**/
-	function get_search_results($arr)
+	public function get_search_results($arr)
 	{
 		$this->read_template("table.tpl");
 
-		if(!empty($arr["clid"]))
+		if(empty($arr["clid"]))
 		{
-			if(!is_array($arr["clid"]))
-			{
-				$clid = explode("," , $arr["clid"]);
-			}
-			else
-			{
-				$clid = $arr["clid"];
-			}
+			$arr["clid"] = array();
+		}
+		elseif (!is_array($arr["clid"]))
+		{
+			$arr["clid"] = explode("," , $arr["clid"]);
 		}
 
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
 
-		$t->define_field(array(
-			"name" => "icon",
-			"caption" => t("&nbsp;")
-		));
-
-		$t->define_field(array(
-			"name" => "oid",
-			"caption" => t("OID")
-		));
-
-		$t->define_field(array(
-			"name" => "name",
-			"sortable" => 1,
-			"caption" => t("Nimi")
-		));
-
-		$t->define_field(array(
-			"name" => "parent",
-			"sortable" => 1,
-			"caption" => t("Asukoht")
-		));
-		$t->define_field(array(
-			"name" => "modifiedby",
-			"sortable" => 1,
-			"caption" => t("Muutja")
-		));
-		$t->define_field(array(
-			"name" => "modified",
-			"caption" => t("Muudetud"),
-			"sortable" => 1,
-			"format" => "d.m.Y H:i",
-			"type" => "time"
-		));
+		$search_results_fields = $this->_get_search_results_fields($arr);
+		foreach ($search_results_fields as $prop_name => $field_dfn)
+		{
+			$t->define_field($field_dfn);
+		}
 
 		$t->define_field(array(
 			"name" => "select_this",
@@ -1319,27 +1305,10 @@ function aw_get_el(name,form)
 
 		$t->set_default_sortby("name");
 
-		$filter = array(
-			"limit" => 100 //TODO: seadistatavaks
-		);
+		$filter = $this->_get_search_results_filter($arr);
 
-		if(!empty($arr["name"]))
+		if (count($filter))
 		{
-			$filter["name"] = "%".iconv("UTF-8",aw_global_get("charset"),  $arr["name"])."%";
-		}
-
-		if(!empty($arr["oid"]))
-		{
-			$filter["oid"] = $arr["oid"]."%";
-		}
-
-		if (count($filter) > 1 or empty($arr["start_empty"])) // don't show default search results if start_empty parameter true
-		{
-			if(!empty($arr["clid"]))
-			{
-				$filter["class_id"] = $clid;
-			}
-
 			$ol = new object_list($filter);
 			if($ol->count())
 			{
@@ -1347,26 +1316,33 @@ function aw_get_el(name,form)
 
 				do
 				{
-					$dat = array(
-						"oid" => $o->id(),
-						"name" => html::obj_change_url($o),
-						"parent" => $o->path_str(array("max_len" => 3)),
-						"modifiedby" => $o->modifiedby(),
-						"modified" => $o->modified(),
-						"select_this" => html::href(array(
+					$dat = array();
+					foreach ($search_results_fields as $prop_name => $field_dfn)
+					{
+						// add defined field values
+						$prop_getter = "_get_search_result_prop_{$prop_name}";
+						if (method_exists($this, $prop_getter))
+						{
+							$dat[$field_dfn["name"]] = $this->$prop_getter($o, $arr);
+						}
+						else
+						{
+							$dat[$field_dfn["name"]] = $o->prop_str($prop_name);
+						}
+
+						// add selecting field
+						$dat["select_this"] = html::href(array(
 							"url" => "javascript:void(0)",
 							"caption" => t("Vali see"),
 							"onclick" => "set_prop(\"".$o->id()."\")"
-						)),
-						"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
-					);
+						));
+					}
 
 					$t->define_data($dat);
 				}
 				while ($o = $ol->next());
 			}
 		}
-
 
 		if (!empty($arr["reload_window"]))
 		{
@@ -1379,7 +1355,6 @@ function aw_get_el(name,form)
 		else
 		{
 			$reload = "";
-
 			if (!empty($arr["reload_property"]))
 			{
 				$reload .= "window.opener.reload_property('".$arr["reload_property"]."');";
@@ -1391,10 +1366,11 @@ function aw_get_el(name,form)
 			}
 		}
 
+		$class = get_class($this);
 		$javascript = "<script language='javascript'>
 			function set_prop(value)
 			{
-				$.get('/automatweb/orb.aw', {class: 'popup_search',
+				$.get('/automatweb/orb.aw', {class: '{$class}',
 					action: 'ajax_set_property',
 					id: '".(!empty($arr["id"]) ? $arr["id"] : "0")."',
 					value: value,
@@ -1422,6 +1398,94 @@ function aw_get_el(name,form)
 		{
 			die(iconv(aw_global_get("charset"),"UTF-8",  $this->parse()));
 		}
+	}
+
+	protected function _get_search_results_filter(array $arr)
+	{
+		$filter = array();
+
+		if(!empty($arr["name"]))
+		{
+			$filter["name"] = "%".iconv("UTF-8",aw_global_get("charset"),  $arr["name"])."%";
+		}
+
+		if(!empty($arr["oid"]))
+		{
+			$filter["oid"] = $arr["oid"]."%";
+		}
+
+		if (count($filter) or empty($arr["start_empty"])) // don't show default search results if start_empty parameter true
+		{
+			if($arr["clid"])
+			{
+				$filter["class_id"] = $arr["clid"];
+			}
+
+			$filter[] = new obj_predicate_limit($this->search_results_limit);
+		}
+
+		return $filter;
+	}
+
+	/*
+	must return:
+	array(
+		property name => aw table field definition parameter array,
+		...
+	)
+	if this class contains a method _get_search_result_prop_PROPERTYNAME then
+	that method will be called to get search result table field value. otherwise
+	property name will be given directly as parameter to table row aw object prop_str method
+	*/
+	protected function _get_search_results_fields(array $arr)
+	{
+		return array(
+			"icon" => array(
+				"name" => "icon",
+				"caption" => t("&nbsp;")
+			),
+			"oid" => array(
+				"name" => "oid",
+				"caption" => t("OID")
+			),
+			"name" => array(
+				"name" => "name",
+				"sortable" => 1,
+				"caption" => t("Nimi")
+			),
+			"parent" => array(
+				"name" => "parent",
+				"sortable" => 1,
+				"caption" => t("Asukoht")
+			),
+			"modifiedby" => array(
+				"name" => "modifiedby",
+				"sortable" => 1,
+				"caption" => t("Muutja")
+			),
+			"modified" => array(
+				"name" => "modified",
+				"caption" => t("Muudetud"),
+				"sortable" => 1,
+				"format" => "d.m.Y H:i",
+				"type" => "time"
+			)
+		);
+	}
+
+	protected function _get_search_result_prop_name(object $o, array $arr)
+	{
+		return html::obj_change_url($o);
+	}
+
+	protected function _get_search_result_prop_parent(object $o, array $arr)
+	{
+		return $o->path_str(array("max_len" => 3));
+	}
+
+	protected function _get_search_result_prop_icon(object $o, array $arr)
+	{
+		return html::img(array("url" => icons::get_icon_url($o->class_id())));
 	}
 
 	//----------------------------------------------------------
