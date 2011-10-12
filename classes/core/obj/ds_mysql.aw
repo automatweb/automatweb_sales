@@ -2590,7 +2590,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		if (!defined($filt[0]))
 		{
 			$clid = $arr["params"]["class_id"];
-			if (is_array($clid))
+			if (is_array($clid) and count($clid) > 1)
 			{
 				error::raise(array(
 					"id" => "ERR_OL_PARAM_ERROR",
