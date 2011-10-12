@@ -1566,11 +1566,10 @@ class crm_bill extends class_base
 		$prop["value"] = $b->get_customer_name();
 
 		// add customer and customer relation edit, find and reload buttons
-		$ps = new popup_search();
-		$ps->set_class_id(array(crm_company_customer_data_obj::CLID));
+		$ps = new popup_search_customers();
+		$ps->set_self_oid($arr["obj_inst"]->prop("impl"));
 		$ps->set_id($b->id());
 		$ps->set_reload_window();
-		$ps->set_search_properties(array("buyer.name" => t("Kliendi nimi")));
 		$ps->set_property("customer_relation");
 		$search_button = $ps->get_search_button();
 		$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
