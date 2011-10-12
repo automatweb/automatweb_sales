@@ -179,7 +179,6 @@ class file extends class_base
 			"clid" => CL_FILE,
 			"tpldir" => "file"
 		));
-		$this->lc_load("file","lc_file");
 	}
 
 	function get_property($arr)
