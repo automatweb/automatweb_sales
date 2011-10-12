@@ -2093,7 +2093,7 @@ class _int_object
 		}
 
 		// log save
-		object_loader::instance()->_log($_is_new, $this->obj["oid"], (string)$this->name(), $this->obj["class_id"]);
+		// object_loader::instance()->_log($_is_new, $this->obj["oid"], (string)$this->name(), $this->obj["class_id"]);
 
 		// check cache
 		$this->_check_save_cache();
