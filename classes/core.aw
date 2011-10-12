@@ -1218,6 +1218,7 @@ class core extends acl_base
 	//XXX: lib/defs.aw-s on ka selline funktsioon, erinev?
 	function lc_load($file, $arr_name, $lang_id = "")
 	{
+		trigger_error("lc_load and associated translation functionality implementation is deprecated!", E_USER_DEPRECATED);
 		if (empty($lang_id))
 		{
 			$admin_lang_lc = aw_global_get("admin_lang_lc");
