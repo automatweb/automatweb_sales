@@ -63,15 +63,6 @@
             <caption>Keel</caption>
       </property>
       <property>
-            <name>lang_charset</name>
-            <table>languages</table>
-            <group>general</group>
-            <type>textbox</type>
-            <field>charset</field>
-            <editonly>1</editonly>
-            <caption>Kooditabel</caption>
-      </property>
-      <property>
             <name>lang_acceptlang</name>
             <table>languages</table>
             <group>general</group>
