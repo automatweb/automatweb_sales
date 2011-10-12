@@ -3,7 +3,7 @@
 // watercraft.aw - Veesõiduk
 /*
 
-@classinfo syslog_type=ST_WATERCRAFT relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo watercraft index=oid master_table=objects master_index=oid
 
 @default table=objects
@@ -1331,17 +1331,17 @@ class watercraft extends class_base
 	function do_db_upgrade($table, $field, $query, $error)
 	{
 
-		if (empty($field))
+		if ("watercraft" === $table and empty($field))
 		{
 			// db table doesn't exist, so lets create it:
-			$this->db_query('CREATE TABLE '.$table.' (
+			$this->db_query('CREATE TABLE `watercraft` (
 				oid INT PRIMARY KEY NOT NULL,
 
 				deal_type int,
 				watercraft_type int,
 				body_material int,
 				location int,
-				condition int,
+				`condition` int,
 				seller int,
 				visible int,
 				archived int,
@@ -1381,7 +1381,7 @@ class watercraft extends class_base
 				water_tank_sel int,
 				life_boat_sel int,
 
-				length double,
+				`length` double,
 				width double,
 				height double,
 				weight double,
@@ -1489,7 +1489,8 @@ class watercraft extends class_base
 					'name' => $field,
 					'type' => 'int'
 				));
-                                return true;
+				return true;
+
 			case 'length':
 			case 'width':
 			case 'height':
@@ -1501,7 +1502,8 @@ class watercraft extends class_base
 					'name' => $field,
 					'type' => 'double'
 				));
-                                return true;
+				return true;
+
 			case 'watercraft_type_other':
 			case 'manufacturer_other':
 			case 'body_material_other':
@@ -1557,7 +1559,7 @@ class watercraft extends class_base
 					'type' => 'text'
 				));
                                 return true;
-                }
+		}
 
 		return false;
 	}

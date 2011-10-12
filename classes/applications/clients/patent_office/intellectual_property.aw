@@ -2,7 +2,7 @@
 // intellectual_property.aw - Intellektuaalomand
 /*
 
-@classinfo syslog_type=ST_INTELLECTUAL_PROPERTY relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_trademark index=aw_oid master_table=objects master_index=brother_of
 
 
@@ -1023,7 +1023,6 @@ abstract class intellectual_property extends class_base
 			$data[$prop . "_value"] = implode(", ", $files);
 		}
 
-		classload("common/digidoc/ddoc_parser");
 		foreach($this->file_upload_vars as $var)
 		{
 			if(is_oid($o->prop($var)))
@@ -1098,7 +1097,6 @@ abstract class intellectual_property extends class_base
 	{
 		$file_inst = get_instance(CL_FILE);
 		$ddinst = get_instance(CL_DDOC);
-		classload("common/digidoc/ddoc_parser");
 		$fc = $file_inst->get_file_by_id($arr["oid"]);
 		$content = $fc["content"];
 		$o = obj($arr["oid"]);
@@ -1285,7 +1283,7 @@ abstract class intellectual_property extends class_base
 	/**
 		@attrib name=parse_alias is_public="1" caption="Change"
 	**/
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		enter_function("patent::parse_alias");
 
@@ -2252,7 +2250,7 @@ abstract class intellectual_property extends class_base
 
 	function _get_applicants_table()
 	{
-		
+
 		$t = new vcl_table(array(
 			"layout" => "generic",
 			"id" => "patent_requesters_registered",
@@ -2310,7 +2308,7 @@ abstract class intellectual_property extends class_base
 
 	function _get_authors_table()
 	{
-		
+
 		$t = new vcl_table(array(
 			"layout" => "generic",
 			"id" => "patent_author_registered",
@@ -4410,4 +4408,3 @@ abstract class intellectual_property extends class_base
 		return $xml_doc;
 	}
 }
-?>

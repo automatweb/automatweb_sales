@@ -1047,7 +1047,7 @@ class watercraft_search extends class_base
 	{
 		if (empty($field))
 		{
-			$this->db_query('CREATE TABLE '.$table.' (
+			$this->db_query('CREATE TABLE watercraft_search (
 				oid INT PRIMARY KEY NOT NULL,
 
 				results_on_page int,
@@ -1055,7 +1055,7 @@ class watercraft_search extends class_base
 				no_search_form int,
 				save_search int,
 				watercraft_type int,
-				condition int,
+				`condition` int,
 				body_material int,
 				location int,
 				length_from int,
@@ -1080,7 +1080,6 @@ class watercraft_search extends class_base
 				deal_type text,
 
 				additional_equipment varchar(255)
-
 			)');
 			return true;
 		}
