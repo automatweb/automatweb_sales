@@ -113,6 +113,7 @@ function get_caller($steps_back = 0)
 
 function get_caller_str($steps_back = 0, $file = false)
 {
+	++$steps_back;
 	list($class, $method, $line, $file_path) = get_caller($steps_back);
 	$file = $file ? " in {$file_path}" : "";
 	$class = $class ? $class . "::" : "";
