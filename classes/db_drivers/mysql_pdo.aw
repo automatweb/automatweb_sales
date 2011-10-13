@@ -44,6 +44,8 @@ class mysql_pdo
 		try
 		{
 			$this->dbh = new PDO($dsn, $username, $password);
+			$qr = $this->dbh->query("SET character_set_client=utf8; SET character_set_connection=utf8; SET character_set_results=utf8;");
+			$qr->fetchAll();
 		}
 		catch (Exception $e)
 		{
