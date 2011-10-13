@@ -100,7 +100,6 @@ class aw_request
 			{
 				/// if we explicitly request language change, we get that, except if the language is not active
 				/// and we are not logged in
-				$ct_lid = languages::set_active_ct_lang($set_lang_id);
 				if (!$ct_lid)
 				{
 					///TODO: startup error
@@ -127,7 +126,7 @@ class aw_request
 				// try request
 				if (!$ct_lid)
 				{
-					$ct_lid = self::lang();
+					$ct_lid = self::lang_id();
 				}
 
 				// try to find an active language
@@ -161,10 +160,6 @@ class aw_request
 				}
 			}
 
-			// since just about every trick in the book to try and find a
-			// suitable lang_id is exhausted, just force it to be set active
-			$ct_lid = languages::set_active_ct_lang($ct_lid, true);
-
 			if (!$ct_lid)
 			{
 				///TODO: startup error
@@ -172,6 +167,7 @@ class aw_request
 		}
 
 		$ct_lc = languages::lid2lc($ct_lid);
+		$this->set_lang_id($ct_lid);
 		// content language determined
 
 
@@ -223,9 +219,9 @@ aw_global_set("lang_oid", $la["oid"]);
 
 
 
-		putenv('LC_ALL=de_DE');
-		setlocale(LC_ALL, 'de_DE');
-		aw_global_set("lang_id", $ui_lid);
+		// putenv('LC_ALL=de_DE');
+		// setlocale(LC_ALL, 'de_DE');
+		aw_global_set("lang_id", $ct_lid);
 
 		// define global constants
 		define("AW_REQUEST_UI_LANG_ID", $ui_lid);
@@ -503,7 +499,7 @@ aw_global_set("lang_oid", $la["oid"]);
 	@returns string
 		Requested language aw id
 	**/
-	public function lang()
+	public function lang_id()
 	{
 		return $this->_lang_id;
 	}
@@ -516,7 +512,7 @@ aw_global_set("lang_oid", $la["oid"]);
 	@errors
 		throws awex_param if invalid language id given
 	**/
-	public function set_lang($lid)
+	public function set_lang_id($lid)
 	{
 		if (!languages::lid2lc($lid))
 		{
