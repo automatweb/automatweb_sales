@@ -264,6 +264,16 @@ class automatweb
 	{
 		self::$request = $request;
 		self::$instance_data[self::$current_instance_nr]["request"] = $request;
+		$ct_lid = $request->lang_id();
+		$ct_lid = languages::set_active_ct_lang($ct_lid);
+
+		if (!$ct_lid)
+		{
+			// since just about every trick in the book to try and find a
+			// suitable lang_id is exhausted, just force it to be set active
+			$ct_lid = languages::set_active_ct_lang($ct_lid, true);
+		}
+
 		$this->request_loaded = true;
 	}
 
