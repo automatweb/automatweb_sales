@@ -30,6 +30,8 @@ class aw_template extends core
 	private $v2_parent_map;
 	private $c_templates;
 
+	private static $loaded_template_files = array();
+
 	/** The derived class should always call this with the template folder as an argument
 		@attrib api=1 params=name
 		@param tpldir required type=string
@@ -117,36 +119,23 @@ class aw_template extends core
 	private function _find_site_template_dir()
 	{
 		static $dir;
-		if ($dir !== null)
+		if ($dir === null)
 		{
-			return $dir;
-		}
+			$dir = aw_ini_get("site_tpldir");
 
-		if (is_admin())
-		{
-			return $dir = aw_ini_get("site_tpldir");
-		}
-
-		if (!aw_global_get("aw_init_done"))
-		{
-			return aw_ini_get("tpldir");
-		}
-
-		$sect = aw_global_get("section");
-		if (!$this->can("view", $sect))
-		{
-			return aw_ini_get("tpldir");
-		}
-
-		$rv = aw_ini_get("tpldir");
-		foreach(obj($sect)->path() as $path_item)
-		{
-			if ($path_item->prop("tpl_dir_applies_to_all") && $path_item->prop("tpl_dir"))
+			if ($sect = aw_global_get("section") and $this->can("view", $sect))
 			{
-				$rv = aw_ini_get("site_basedir").$path_item->prop("tpl_dir")."/";
+				foreach(obj($sect)->path() as $path_item)
+				{
+					if ($path_item->prop("tpl_dir_applies_to_all") && $path_item->prop("tpl_dir"))
+					{
+						$dir = aw_ini_get("site_basedir").$path_item->prop("tpl_dir")."/";
+					}
+				}
 			}
 		}
-		return $dir = $rv;
+
+		return $dir;
 	}
 
 	function _init_vars()
@@ -254,7 +243,7 @@ class aw_template extends core
 		if (not(is_array($array)))
 		{
 			return false;
-		};
+		}
 
 		if (is_array($active))
 		{
@@ -338,7 +327,6 @@ class aw_template extends core
 			}
 			else
 			{
-				$this->_record_template_load($this->template_filename);
 				$retval = $this->read_tpl(file($this->template_filename));
 			}
 		}
@@ -408,7 +396,6 @@ class aw_template extends core
 
 		if (file_exists($this->template_filename))
 		{
-			$this->_record_template_load($this->template_filename);
 			$retval = $this->read_tpl(file($this->template_filename));
 		}
 		else
@@ -455,7 +442,6 @@ class aw_template extends core
 		$this->template_filename = $this->site_template_dir.$name;
 		if (file_exists($this->template_filename))
 		{
-			$this->_record_template_load($this->template_filename);
 			$retval = $this->read_tpl(file($this->template_filename));
 		}
 		else
@@ -502,7 +488,6 @@ class aw_template extends core
 		$this->template_filename = trim($this->template_filename);
 		if (file_exists($this->template_filename))
 		{
-			$this->_record_template_load($this->template_filename);
 			$retval = $this->read_tpl(file($this->template_filename));
 		}
 		else
@@ -510,7 +495,6 @@ class aw_template extends core
 			$this->template_filename = $this->adm_template_dir.$name;
 			if (file_exists($this->template_filename))
 			{
-				$this->_record_template_load($this->template_filename);
 				$retval = $this->read_tpl(file($this->template_filename));
 			}
 			else
@@ -961,15 +945,6 @@ class aw_template extends core
 	// !$arr - template content, array of lines of text
 	function read_tpl($arr)
 	{
-		if (isset($_GET["TPL"]) and "1" === $_GET["TPL"])
-		{
-			// this will add link to documentation
-			$pos = strpos($this->template_filename, aw_ini_get("tpldir"));
-			$tpl_doc_link = ($pos === false) ? str_replace(aw_ini_get('basedir')."templates/", "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename) :
-			str_replace(aw_ini_get("tpldir"), "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename);
-			aw_global_set("TPL=1", aw_global_get("TPL=1").'$_aw_tpl_equals_1["'.$this->template_filename.'"]=array("link"=>"'.$tpl_doc_link.'");$_aw_tpl_equals_1_counter[]="'.$this->template_filename.'";');
-		}
-
 		$this->tpl_reset();
 		if (is_array($arr))
 		{
@@ -978,6 +953,7 @@ class aw_template extends core
 			$this->req_read_tpl("MAIN","MAIN","");
 		}
 
+		$this->_record_template_load($this->template_filename);
 		return true;
 	}
 
@@ -1123,6 +1099,11 @@ class aw_template extends core
 		return isset($this->v2_templates[$tmp]) ? $this->v2_templates[$tmp] : "";
 	}
 
+	public static function list_loaded_template_files()
+	{
+		return self::$loaded_template_files;
+	}
+
 	private function _validate_pathname($path)
 	{
 		$pt = str_replace("\\", "/", realpath($path));
@@ -1138,8 +1119,11 @@ class aw_template extends core
 
 	private function _record_template_load($fn)
 	{
+		isset(self::$loaded_template_files[$this->template_filename]) ?
+			++self::$loaded_template_files[$this->template_filename] :
+			(self::$loaded_template_files[$this->template_filename] = 1)
+		;
 
-		return;
 		/*
 		if (strpos($fn, aw_ini_get("site_basedir")) !== false)
 		{

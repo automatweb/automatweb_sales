@@ -121,25 +121,15 @@ if (strpos($str, "var aw_flash_"))
 
 if (isset($_GET["TPL"]) and $_GET["TPL"] === "1")
 {
-	// fix for logged out users - dint show templates after page refresh
-	if (aw_global_get("uid")=="")
-	{
-		if (strlen(cache::file_get("tpl_equals_1_cache_".aw_global_get("section")))==0)
-		{
-			cache::file_set("tpl_equals_1_cache_".aw_global_get("section"), aw_global_get("TPL=1"));
-		}
-		else
-		{
-			aw_global_set("TPL=1", cache::file_get("tpl_equals_1_cache_".aw_global_get("section")));
-		}
-	}
-	else
-	{
-		cache::file_set("tpl_equals_1_cache_".aw_global_get("section"), aw_global_get("TPL=1"));
-	}
+	$loaded_templates = aw_template::list_loaded_template_files();
+			// this will add link to documentation
+			$pos = strpos($this->template_filename, aw_ini_get("site_tpldir"));
+			$tpl_doc_link = ($pos === false) ? str_replace(aw_ini_get('basedir')."templates/", "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename) :
+			str_replace(aw_ini_get("site_tpldir"), "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename);
+			aw_global_set("TPL=1", aw_global_get("TPL=1").'$_aw_tpl_equals_1["'.$this->template_filename.'"]=array("link"=>"'.$tpl_doc_link.'");$_aw_tpl_equals_1_counter[]="'.$this->template_filename.'";');
+
 
 	$sf->read_template("debug/tpl_equals_1.tpl");
-	eval (aw_global_get("TPL=1"));
 	$tmp = "";
 	foreach ($_aw_tpl_equals_1 as $key=>$var)
 	{
