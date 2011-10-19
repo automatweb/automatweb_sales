@@ -287,12 +287,13 @@ class crm_bill_row_obj extends _int_object
 	{
 		$prods = array();
 		$bill = $this->get_bill();
-		if($GLOBALS["object_loader"]->cache->can("view" , $bill))
+		if(object_loader::can("" , $bill))
 		{
 			$bill_obj = obj($bill);
 			$prods = $bill_obj->get_prod_selection();
 		}
-		if ($this->prop("prod") && !isset($prods[$this->prop("prod")]) && $GLOBALS["object_loader"]->cache->can("view", $this->prop("prod")))
+
+		if (!isset($prods[$this->prop("prod")]) && object_loader::can("", $this->prop("prod")))
 		{
 			$prodo = obj($this->prop("prod"));
 			$prods[$this->prop("prod")] = $prodo->name();
@@ -308,7 +309,7 @@ class crm_bill_row_obj extends _int_object
 	{
 		$projects = array();
 		$bill = $this->get_bill();
-		if($GLOBALS["object_loader"]->cache->can("view" , $bill))
+		if(object_loader::can("", $bill))
 		{
 			$bill_obj = obj($bill);
 			foreach($bill_obj->connections_from(array("type" => "RELTYPE_PROJECT")) as $c)
@@ -316,6 +317,7 @@ class crm_bill_row_obj extends _int_object
 				$projects[$c->prop("to")] = $c->prop("to.name");
 			}
 		}
+
 		if($this->prop("project"))
 		{
 			$projects[$this->prop("project")] = get_name($this->prop("project"));
@@ -331,12 +333,13 @@ class crm_bill_row_obj extends _int_object
 	{
 		$prods = array();
 		$bill = $this->get_bill();
-		if($GLOBALS["object_loader"]->cache->can("view" , $bill))
+		if(object_loader::can("" , $bill))
 		{
 			$bill_obj = obj($bill);
 			$prods = $bill_obj->get_unit_selection();
 		}
-		if ($this->prop("unit") && !isset($prods[$this->prop("unit")]) && $GLOBALS["object_loader"]->cache->can("view", $this->prop("unit")))
+
+		if (!isset($prods[$this->prop("unit")]) && object_loader::cancan("", $this->prop("unit")))
 		{
 			$prodo = obj($this->prop("unit"));
 			$prods[$this->prop("unit")] = $prodo->name();
@@ -349,7 +352,7 @@ class crm_bill_row_obj extends _int_object
 	{
 		$bill = $this->get_bill();
 		$ret = null;
-		if($GLOBALS["object_loader"]->cache->can("view" , $bill))
+		if(object_loader::can("" , $bill))
 		{
 			$bill_obj = obj($bill);
 			$ret = $bill_obj->get_bill_currency_id();
@@ -361,7 +364,7 @@ class crm_bill_row_obj extends _int_object
 	{
 		$bill = $this->get_bill();
 		$date = null;
-		if(object_loader::can("view" , $bill))
+		if(object_loader::can("" , $bill))
 		{
 			$bill_obj = obj($bill);
 			$date = $bill_obj->prop("bill_date");

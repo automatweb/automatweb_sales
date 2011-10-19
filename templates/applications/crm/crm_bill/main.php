@@ -15,7 +15,7 @@
 				<li><?=sprintf(t("Kmkr. nr.: %s", $lang_id), $seller_tax_reg_nr)?></li>
 				<?}?>
 
-				<?if($seller_bank_accounts[0]["account_nr"]){?>
+				<?if(!empty($seller_bank_accounts[0]["account_nr"])){?>
 				<li><?=sprintf(t("Arveldusarve: %s", $lang_id), $seller_bank_accounts[0]["account_nr"])?></li>
 				<?}?>
 
