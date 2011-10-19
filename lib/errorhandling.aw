@@ -2,6 +2,13 @@
 
 require_once AW_DIR . "lib/exceptions" . AW_FILE_EXT;
 
+if (version_compare(PHP_VERSION, '5.3.0', '<'))
+{
+	// define missing constants as E_USER_NOTICE
+	define("E_DEPRECATED", 1024);
+	define("E_USER_DEPRECATED", 1024);
+}
+
 // Returns true if the error is to be ignored
 // Please add a reason to every "return true;"!
 function aw_ignore_error($errno, $errstr, $errfile, $errline, $context)
@@ -314,93 +321,47 @@ function aw_fatal_error_handler($e = null)
 	}
 }
 
-if (version_compare(PHP_VERSION, '5.3.0', '>='))
+function aw_get_error_exception_class($error_type)
 {
-	function aw_get_error_exception_class($error_type)
-	{
-		static $errors = array(
-			E_NOTICE => "awex_php_notice",
-			E_STRICT => "awex_php_strict",
-			E_WARNING => "awex_php_warning",
-			E_USER_NOTICE => "awex_php_user_notice",
-			E_USER_WARNING => "awex_php_user_warning",
-			E_CORE_WARNING => "awex_php_core_warning",
-			E_COMPILE_WARNING => "awex_php_compile_warning",
-			E_PARSE => "awex_php_parse",
-			E_ERROR => "awex_php_error",
-			E_USER_ERROR => "awex_php_user_error",
-			E_USER_DEPRECATED => "awex_php_user_notice",
-			E_DEPRECATED => "awex_php_notice",
-			E_CORE_ERROR => "awex_php_core_error"
-		);
+	static $errors = array(
+		E_NOTICE => "awex_php_notice",
+		E_STRICT => "awex_php_strict",
+		E_WARNING => "awex_php_warning",
+		E_USER_NOTICE => "awex_php_user_notice",
+		E_USER_WARNING => "awex_php_user_warning",
+		E_CORE_WARNING => "awex_php_core_warning",
+		E_COMPILE_WARNING => "awex_php_compile_warning",
+		E_PARSE => "awex_php_parse",
+		E_ERROR => "awex_php_error",
+		E_USER_ERROR => "awex_php_user_error",
+		E_USER_DEPRECATED => "awex_php_user_notice",
+		E_DEPRECATED => "awex_php_notice",
+		E_CORE_ERROR => "awex_php_core_error"
+	);
 
-		if (isset($errors[$error_type]))
-		{
-			$class = $errors[$error_type];
-		}
-		else
-		{
-			$class = "awex_php_fatal";
-		}
-		return $class;
-	}
-
-	function aw_is_non_fatal_error($error_type)
+	if (isset($errors[$error_type]))
 	{
-		static $non_fatal_errors = array(
-			E_NOTICE => 1,
-			E_STRICT => 1,
-			E_DEPRECATED => 1,
-			E_WARNING => 1,
-			E_USER_NOTICE => 1,
-			E_USER_WARNING => 1,
-			E_USER_DEPRECATED => 1,
-			E_CORE_WARNING => 1,
-			E_COMPILE_WARNING => 1
-		);
-		return isset($non_fatal_errors[$error_type]);
+		$class = $errors[$error_type];
 	}
+	else
+	{
+		$class = "awex_php_fatal";
+	}
+	return $class;
 }
-else
+
+function aw_is_non_fatal_error($error_type)
 {
-	function aw_get_error_exception_class($error_type)
-	{
-		static $errors = array(
-			E_NOTICE => "awex_php_notice",
-			E_STRICT => "awex_php_strict",
-			E_WARNING => "awex_php_warning",
-			E_USER_NOTICE => "awex_php_user_notice",
-			E_USER_WARNING => "awex_php_user_warning",
-			E_CORE_WARNING => "awex_php_core_warning",
-			E_COMPILE_WARNING => "awex_php_compile_warning",
-			E_PARSE => "awex_php_parse",
-			E_ERROR => "awex_php_error",
-			E_USER_ERROR => "awex_php_user_error",
-			E_CORE_ERROR => "awex_php_core_error"
-		);
-
-		if (isset($errors[$error_type]))
-		{
-			$class = $errors[$error_type];
-		}
-		else
-		{
-			$class = "awex_php_fatal";
-		}
-		return $class;
-	}
-
-	function aw_is_non_fatal_error($error_type)
-	{
-		static $non_fatal_errors = array(
-			E_NOTICE => 1,
-			E_STRICT => 1,
-			E_WARNING => 1,
-			E_USER_NOTICE => 1,
-			E_USER_WARNING => 1,
-			E_CORE_WARNING => 1,
-			E_COMPILE_WARNING => 1
-		);
-		return isset($non_fatal_errors[$error_type]);
-	}
+	static $non_fatal_errors = array(
+		E_NOTICE => 1,
+		E_STRICT => 1,
+		E_DEPRECATED => 1,
+		E_WARNING => 1,
+		E_USER_NOTICE => 1,
+		E_USER_WARNING => 1,
+		E_USER_DEPRECATED => 1,
+		E_CORE_WARNING => 1,
+		E_COMPILE_WARNING => 1
+	);
+	return isset($non_fatal_errors[$error_type]);
 }
