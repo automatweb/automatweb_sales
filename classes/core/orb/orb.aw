@@ -69,7 +69,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		$this->check_login($class, $action);
 
 		// check access for this class. access is checked by the "add tree conf" object assigned to groups
-		if (!($class === "users"))
+		if (!($class === "users"))//XXX:miks?
 		{
 			$this->check_class_access($class);
 		}
@@ -1110,23 +1110,19 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 	static function check_class_access($class)
 	{
-		$conf = add_tree_conf_obj::get_active_configuration();
-		$access = true;
-
-		if (!$conf and "restrictive" === aw_ini_get("acl.policy"))
+		if (
+			"root" !== aw_global_get("uid") and
+			aw_ini_get("acl.check_prog") and
+			(
+				($conf = add_tree_conf_obj::get_active_configuration()) and !add_tree_conf::can_access_class($conf, $class) or // main class access check
+				"restrictive" === aw_ini_get("acl.policy")  // if atc not found, policy determines access
+			)
+		)
 		{
-			// by default you can add all types of objects
-			$access = false;
+			$auth = new auth_config();
+			print $auth->show_login(array("login_msg" => t("Teie kasutajal pole selle klassi kasutamiseks &otilde;igusi.")));
+			exit;
 		}
-		elseif ($conf and aw_ini_get("acl.check_prog"))
-		{
-			error::raise_if(!add_tree_conf::can_access_class($conf, $class),array(
-				"id" => "ERR_ACL",
-				"msg" => sprintf(t("orb::check_class_access(%s): no permissions to access the class! (denied by %s)"), $class, $conf)
-			));
-		}
-
-		return $access;
 	}
 
 	/** Creates orb links
