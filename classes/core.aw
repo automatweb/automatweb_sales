@@ -71,6 +71,7 @@ class core extends acl_base
 	////
 	// !Setter for object
 	//XXX: public?
+	//FIXME: tume-h2gune asi. kasutuselt v2lja
 	function set_opt($key,$val)
 	{
 		$this->$key = $val;
@@ -79,6 +80,7 @@ class core extends acl_base
 	////
 	// !Getter for object
 	//XXX: public?
+	//FIXME: tume-h2gune asi. kasutuselt v2lja
 	function get_opt($key)
 	{
 		return isset($this->$key) ? $this->$key : NULL;

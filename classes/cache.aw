@@ -8,7 +8,7 @@
 class cache extends aw_core_module
 {
 	public static function construct()
-	{
+	{//TODO: ei kontrolli igal p2ringul foldereid vaid errorexceptionid ning nende handlimine teha
 		// check_pagecache_folders
 		// folders are:
 		$flds = array(
@@ -35,6 +35,7 @@ class cache extends aw_core_module
 				}
 			}
 		}
+
 		if (!is_dir("{$pg}temp"))
 		{
 			mkdir("{$pg}temp", 0777);

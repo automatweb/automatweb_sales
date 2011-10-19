@@ -216,6 +216,6 @@ class _int_obj_ds_decorator
 
 	function __call($method, $arguments)
 	{
-		return call_user_func_array(array($this->contained, $method), $arguments)
+		return call_user_func_array(array($this->contained, $method), $arguments);
 	}
 }

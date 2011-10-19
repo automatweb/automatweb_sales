@@ -15,8 +15,6 @@ class document extends aw_template implements orb_public_interface
 		// see on selleks, kui on vaja perioodilisi dokumente naidata
 		$this->period = $period;
 
-		$this->lc_load("document","lc_document");
-
 		// this takes less than 0.1 seconds btw
 		$xml_def = $this->get_file(array("file" => aw_ini_get("basedir")."xml/documents/defaults.xml"));
 		if ($xml_def)
@@ -39,7 +37,6 @@ class document extends aw_template implements orb_public_interface
 
 		// nini. siia paneme nyt kirja v2ljad, mis dokumendi metadata juures kirjas on
 		$this->metafields = array("show_print","show_last_changed","show_real_pos","dcache");
-
 
 		lc_site_load("document", $this);
 
