@@ -607,7 +607,6 @@ aw_global_set("section", $section);
 						}
 						catch (Exception $e)
 						{
-							orb::check_class_access("admin_if");
 							// go to default admin interface
 							include(AW_DIR . "automatweb/admin_header" . AW_FILE_EXT);
 							$id = admin_if::find_admin_if_id();
