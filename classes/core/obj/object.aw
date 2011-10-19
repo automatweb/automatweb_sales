@@ -1703,7 +1703,7 @@ class object
 			$o = obj(1405);
 			echo $o->prop("customer.contact.linn.name");
 	**/
-	function prop($param)
+	public function prop($param)
 	{
 		$this->_check_lock_read();
 		$method = "awobj_get_{$param}";
@@ -1740,19 +1740,16 @@ class object
 		return $GLOBALS["objects"][$this->oid]->draft($param);
 	}
 
-	/** returns the value for the specified property for the current object, suitable for use directly in xml, html
+	/** returns the value for the specified property for the current object, suitable for displaying to the user directly in xml, html
 		@attrib api=1
 
 		@param param type=string
 			the name of the property whose value is to be returned
-
-		@param charset type=string default=""
-			Charset to return value in
 	**/
-	function prop_xml($param, $charset = "")
+	public function prop_xml($param)
 	{
 		$this->_check_lock_read();
-		return $GLOBALS["objects"][$this->oid]->prop_xml($param, $charset);
+		return $GLOBALS["objects"][$this->oid]->prop_xml($param);
 	}
 
 	/** returns the value for the specified property for the current object, suitable for displaying to the user
@@ -1777,7 +1774,7 @@ class object
 			- Will echo the name of the crm_company that is selected from the
 			relpicker property employee for the object 56.
 	**/
-	function prop_str($param, $is_oid = NULL)
+	public function prop_str($param, $is_oid = NULL)
 	{
 		$this->_check_lock_read();
 		$method = "awobj_str_{$param}";
