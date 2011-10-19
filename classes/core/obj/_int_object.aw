@@ -1240,16 +1240,9 @@ class _int_object
 		return $val;
 	}
 
-	public function prop_xml($name, $charset = "")
+	public function prop_xml($name)
 	{
-		if ("" === $charset)
-		{
-			return trim(htmlspecialchars($this->prop($name)));
-		}
-		else
-		{
-			return trim(htmlspecialchars(iconv($this->data_charset, $charset, $this->prop($name))));
-		}
+		return trim(htmlspecialchars($this->prop_str($name)));
 	}
 
 	function set_prop($key, $val)
