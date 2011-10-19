@@ -157,7 +157,6 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 		// ),
 		// ...
 	// )
-	$GLOBALS["__aw_cfg_meta__variable_dependencies"] = array();
 
 	$fd = file($file);
 	foreach($fd as $linenum => $line)
@@ -275,7 +274,7 @@ function _load_setting($var, $value, $raw_value, &$config, $return)
 		}
 
 		$setting_variable_pattern = "/\\$\{([A-z][A-z\_\.\"\'\[\]]+)\}/S";
-		$str = str_replace(".", "']['", $var) . "'] = " . preg_replace($setting_variable_pattern, "' . aw_ini_get('$1') . '", var_export($raw_value, true)) . ";";
+		$str = str_replace(".", "']['", $var) . "'] = " . preg_replace($setting_variable_pattern, "' . aw_ini_get('$1') . '", var_export($value, true)) . ";";
 
 		// load setting here
 		$setting = "\$GLOBALS['cfg']['{$str}";
@@ -318,18 +317,19 @@ function load_config ($files = array(), $cache_file = "")
 //TODO: allolev on ebakindel heuristika v6ibolla
 	// get directory depending on caller
 	// str_replace is for windows style paths
+	$parsing_default_cfg = false;
 	list($class, $method, $line, $file) = get_caller();
-	if ("automatweb" === $class and ("start" === $method or "load_config_files" === $method))
+	if ("automatweb" === $class and "start" === $method)
 	{
 		list($class, $method, $line, $file) = get_caller(1);
 		$GLOBALS["cfg"]["site_public_root_dir"] = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file))) . "/";
 		$GLOBALS["cfg"]["site_basedir"] = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file) . "/../")) . "/";
 		// $GLOBALS["cfg"]["site_basedir"] = empty($_SERVER["DOCUMENT_ROOT"]) ? AW_DIR . "files/" : str_replace(DIRECTORY_SEPARATOR, "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) . "/";
 		$parsing_default_cfg = true;
+		$GLOBALS["__aw_cfg_meta__variable_dependencies"] = array();
 	}
 	else
 	{
-		$parsing_default_cfg = false;
 		//TODO
 	}
 
