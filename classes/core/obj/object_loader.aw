@@ -128,7 +128,7 @@ class _int_object_loader
 		$this->ds = new $clname();
 
 		for ($i = 1; $i < count($dss); $i++)
-		{
+		{//TODO: ...
 			$clname = "_int_obj_ds_".$dss[$i];
 			$this->ds = new $clname($this->ds);
 		}
@@ -136,7 +136,8 @@ class _int_object_loader
 		$this->object_member_funcs = get_class_methods("object");
 		$this->cfgu = new cfgutils();
 
-		$this->cache = new cache();//DEPRECATED
+		// $this->cache = new cache();//DEPRECATED
+		$this->cache = $this->ds;//DEPRECATED
 
 		$fn = aw_ini_get("site_basedir")."files/obj_inherit_props.conf";
 		if (file_exists($fn) && is_readable($fn))
