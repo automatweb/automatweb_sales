@@ -13,7 +13,7 @@ class content_package_obj extends _int_object
 		if(!$this->can("edit", $this->prop("cp_ug")) || !is_oid($this->prop("cp_ug")))
 		{
 			// We'll make a usergroup for this content package. There has to be one for every content package.
-			$gid = get_instance(CL_GROUP)->add_group($this->id(), $this->name(), group_obj::TYPE_REGULAR, $this->prop("priority"));
+			$gid = get_instance(CL_GROUP)->add_group($this->id(), $this->name(), aw_groups::TYPE_REGULAR, $this->prop("priority"));
 			$sp->set_prop("priority", $this->prop("priority"));
 			$this->set_prop("cp_ug", $gid);
 		}

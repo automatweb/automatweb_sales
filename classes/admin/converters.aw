@@ -393,7 +393,7 @@ class converters extends aw_template implements orb_public_interface
 			$this->raise_error(ERR_NO_USERS_ROOT,"Kasutajate rootketaloog on m&auml;&auml;ramata!", true);
 		}
 		// now, get all top-level groups.
-		$this->db_query("SELECT gid,oid,type,search_form FROM groups WHERE (parent IS NULL or parent = 0) AND type IN(".group_obj::TYPE_REGULAR.",".group_obj::TYPE_DYNAMIC.")");
+		$this->db_query("SELECT gid,oid,type,search_form FROM groups WHERE (parent IS NULL or parent = 0) AND type IN(".aw_groups::TYPE_REGULAR.",".aw_groups::TYPE_DYNAMIC.")");
 		while($row = $this->db_next())
 		{
 			$this->save_handle();
@@ -495,7 +495,7 @@ class converters extends aw_template implements orb_public_interface
 
 	function _rec_groups_convert($pgid, $poid)
 	{
-		$this->db_query("SELECT gid,oid FROM groups WHERE parent = $pgid AND type IN(".group_obj::TYPE_REGULAR.",".group_obj::TYPE_DYNAMIC.")");
+		$this->db_query("SELECT gid,oid FROM groups WHERE parent = $pgid AND type IN(".aw_groups::TYPE_REGULAR.",".aw_groups::TYPE_DYNAMIC.")");
 		while($row = $this->db_next())
 		{
 			$this->save_handle();
@@ -1164,7 +1164,7 @@ class converters extends aw_template implements orb_public_interface
 		aw_ini_set("acl.no_check", 1);
 		// get list og groups that are not user groups
 		$gl = array();
-		$this->db_query("select gid FROM groups WHERE type IN (".group_obj::TYPE_REGULAR.",".group_obj::TYPE_DYNAMIC.")");
+		$this->db_query("select gid FROM groups WHERE type IN (".aw_groups::TYPE_REGULAR.",".aw_groups::TYPE_DYNAMIC.")");
 		while ($row = $this->db_next())
 		{
 			$gl[] = $row["gid"];
@@ -1297,7 +1297,7 @@ class converters extends aw_template implements orb_public_interface
 		");
 		while ($row = $this->db_next())
 		{
-			$skip = ($row["g_type"] == group_obj::TYPE_DEFAULT) && (strtolower($row["g_name"]) == strtolower($row["createdby"]) || $row["createdby"] == "");
+			$skip = ($row["g_type"] == aw_groups::TYPE_DEFAULT) && (strtolower($row["g_name"]) == strtolower($row["createdby"]) || $row["createdby"] == "");
 
 			if (true || !$skip)
 			{

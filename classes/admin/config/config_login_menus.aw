@@ -97,7 +97,7 @@ class config_login_menus extends class_base
 	{
 		$o_lm = $o->meta("lm");
 		
-		$gl = get_instance(CL_GROUP)->get_group_picker(array("type" => array(group_obj::TYPE_DYNAMIC, group_obj::TYPE_REGULAR)));
+		$gl = get_instance(CL_GROUP)->get_group_picker(array("type" => array(aw_groups::TYPE_DYNAMIC, aw_groups::TYPE_REGULAR)));
 
 		$lm = $this->_get_login_menus();
 
@@ -123,7 +123,7 @@ class config_login_menus extends class_base
 		// foreach group add relpicker
 		$ret = array();
 
-		$gl = get_instance(CL_GROUP)->get_group_picker(array("type" => array(group_obj::TYPE_DYNAMIC, group_obj::TYPE_REGULAR)));
+		$gl = get_instance(CL_GROUP)->get_group_picker(array("type" => array(aw_groups::TYPE_DYNAMIC, aw_groups::TYPE_REGULAR)));
 
 		$lm = $arr["obj_inst"]->meta("lm");
 

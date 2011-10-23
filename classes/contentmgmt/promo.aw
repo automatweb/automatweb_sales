@@ -214,13 +214,11 @@ class promo extends class_base implements main_subtemplate_handler
 			"clid" => CL_PROMO,
 			"tpldir" => "promo",
 		));
-		lc_load("definition");
-		$this->lc_load("promo","lc_promo");
+
 		$this->trans_props = array(
 			"name","comment","caption","link","link_caption"
 		);
 	}
-
 
 	function get_property($arr = array())
 	{
@@ -241,7 +239,7 @@ class promo extends class_base implements main_subtemplate_handler
 				break;
 
 			case "promo_tpl":
-				$tm = get_instance("templatemgr");
+				$tm = new templatemgr();
 				$prop["options"] = $tm->template_picker(array(
 					"folder" => "promo/doctemplates"
 				));
@@ -250,7 +248,7 @@ class promo extends class_base implements main_subtemplate_handler
 			case "tpl_lead":
 			case "tpl_lead_last":
 				// kysime infot lyhikeste templatede kohta
-				$tplmgr = get_instance("templatemgr");
+				$tplmgr = new templatemgr();
 				$prop["options"] = $tplmgr->get_template_list(array(
 					"type" => 1,
 					"def" => aw_ini_get("promo.default_tpl"),
@@ -283,7 +281,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 			case "groups":
 				$prop["options"] = get_instance(CL_GROUP)->get_group_picker(array(
-					"type" => array(group_obj::TYPE_REGULAR,group_obj::TYPE_DYNAMIC),
+					"type" => array(aw_groups::TYPE_REGULAR,aw_groups::TYPE_DYNAMIC),
 				));
 				break;
 
@@ -356,9 +354,9 @@ class promo extends class_base implements main_subtemplate_handler
 				$arr["obj_inst"]->set_meta("as_name",$arr["request"]["as_name"]);
 				$arr["obj_inst"]->set_meta("src_submenus",$this->make_keys($arr["request"]["src_submenus"]));
 				break;
-		};
-		return $retval;
+		}
 
+		return $retval;
 	}
 
 	function get_menus($arr)
@@ -559,7 +557,7 @@ class promo extends class_base implements main_subtemplate_handler
 	function callback_on_submit_relation_list($args = array())
 	{
 		// this is where we put data back into object metainfo, for backwards compatibility
-		$obj =& obj($args["id"]);
+		$obj = obj($args["id"]);
 
 		$oldaliases = $obj->connections_from(array(
 			"class" => CL_MENU
@@ -586,7 +584,7 @@ class promo extends class_base implements main_subtemplate_handler
 		if (sizeof($last_menus) == 0)
 		{
 			$last_menus = "";
-		};
+		}
 
 		$obj->set_meta("section",$section);
 		$obj->set_meta("last_menus",$last_menus);
@@ -613,7 +611,7 @@ class promo extends class_base implements main_subtemplate_handler
 			$this->read_template("default.tpl");
 		}
 
-		$ss = get_instance("contentmgmt/site_show");
+		$ss = new site_show();
 		$def = new aw_array($ss->get_default_document(array(
 			"obj" => obj($alias["target"])
 		)));
@@ -632,7 +630,7 @@ class promo extends class_base implements main_subtemplate_handler
 				"class_id" => array(CL_DOCUMENT, CL_PERIODIC_SECTION, CL_BROTHER_DOCUMENT),
 				"oid" => $def->get(),
 				"sort_by" => $_ob,
-				"lang_id" => array()
+				"site_id" => aw_ini_get("site_id")
 			));
 
 
@@ -661,7 +659,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 		if (!$ob->meta('use_fld_tpl'))
 		{
-			$mgr = get_instance("templatemgr");
+			$mgr = new templatemgr();
 			$parms["tpl"] = $mgr->get_template_file_by_id(array(
 				"id" => $ob->prop("tpl_lead")
 			));
@@ -710,7 +708,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$image_id = $ob->prop("image");
 		if ($image_id)
 		{
-			$i = get_instance(CL_IMAGE);
+			$i = new image();
 			$image_url = $i->get_url_by_id($image_id);
 			$image = $i->make_img_tag($image_url);
 		}
@@ -766,7 +764,7 @@ class promo extends class_base implements main_subtemplate_handler
 		return $this->parse();
 	}
 
-	function do_prev_next_links($docs, &$tpl)
+	function do_prev_next_links($docs, $tpl)
 	{
 		$s_prev = $s_next = "";
 
@@ -817,7 +815,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function on_get_subtemplate_content($args)
 	{
-		$d = get_instance("contentmgmt/promo_display");
+		$d = new promo_display();
 		return $d->on_get_subtemplate_content($args);
 	}
 
@@ -832,7 +830,9 @@ class promo extends class_base implements main_subtemplate_handler
 		// to do that
 		// make a list of all promo boxes
 		$boxes = new object_list(array(
-			"class_id" => CL_PROMO
+			"class_id" => CL_PROMO,
+			"lang_id" => AW_REQUEST_CT_LANG_ID,
+			"site_id" => aw_ini_get("site_id")
 		));
 
 		$o = $o->get_original();
@@ -841,7 +841,9 @@ class promo extends class_base implements main_subtemplate_handler
 		$path = $o->path();
 	 	// get brothers as well, causet they might be in boxes as well
 		$bros = new object_list(array(
-			"brother_of" => $o->brother_of()
+			"brother_of" => $o->brother_of(),
+			"lang_id" => AW_REQUEST_CT_LANG_ID,
+			"site_id" => aw_ini_get("site_id")
 		));
 		$paths = array();
 		foreach($bros->arr() as $bro)
@@ -892,8 +894,10 @@ class promo extends class_base implements main_subtemplate_handler
 
 					$filt = array(
 						"oid" => $ids,
+						"lang_id" => AW_REQUEST_CT_LANG_ID,
+						"site_id" => aw_ini_get("site_id")
 						"limit" => $limit > 0 ? $limit : null,
-						"status" => ($box->prop("show_inact") ? array(STAT_ACTIVE, STAT_NOTACTIVE) : STAT_ACTIVE),
+						"status" => ($box->prop("show_inact") ? array(object::STAT_ACTIVE, object::STAT_NOTACTIVE) : object::STAT_ACTIVE),
 						new object_list_filter(array("non_filter_classes" => CL_DOCUMENT))
 					);
 					$ob = $this->_get_ordby($box);
@@ -914,9 +918,7 @@ class promo extends class_base implements main_subtemplate_handler
 					}
 					// now we know the whole list, so just set that
 					$box->set_meta("content_documents", $this->make_keys($ids));
-					aw_disable_acl();
 					$box->save();
-					aw_restore_acl();
 					continue;
 				}
 				else
@@ -925,7 +927,7 @@ class promo extends class_base implements main_subtemplate_handler
 				}
 			}
 
-			if ($o->status() == STAT_NOTACTIVE && !$box->prop("show_inact"))
+			if ($o->status() == object::STAT_NOTACTIVE && !$box->prop("show_inact"))
 			{
 				$add_to_list = false;
 			}
@@ -940,7 +942,9 @@ class promo extends class_base implements main_subtemplate_handler
 					// need to reorder list
 					$filt = array(
 						"oid" => $mt,
-						"status" => ($box->prop("show_inact") ? array(STAT_ACTIVE, STAT_NOTACTIVE) : STAT_ACTIVE),
+						"lang_id" => AW_REQUEST_CT_LANG_ID,
+						"site_id" => aw_ini_get("site_id")
+						"status" => ($box->prop("show_inact") ? array(object::STAT_ACTIVE, object::STAT_NOTACTIVE) : object::STAT_ACTIVE),
 						new object_list_filter(array("non_filter_classes" => CL_DOCUMENT))
 					);
 					$ob = $this->_get_ordby($box);
@@ -953,9 +957,7 @@ class promo extends class_base implements main_subtemplate_handler
 				}
 
 				$box->set_meta("content_documents", $mt);
-				aw_disable_acl();
 				$box->save();
-				aw_restore_acl();
 			}
 		}
 	}
@@ -1024,7 +1026,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$o = obj($arr["oid"]);
 
 		// get list of docs for promo
-		$si = get_instance("contentmgmt/site_show");
+		$si = new site_show();
 
 		$dd = $si->get_default_document(array(
 			"obj" => $o
@@ -1052,10 +1054,8 @@ class promo extends class_base implements main_subtemplate_handler
 		// to do that
 		// make a list of all promo boxes
 		$ol = new object_list(array(
-			"class_id" => CL_PROMO,
-			"lang_id" => array(),
-			"site_id" => array()
-		));
+			"class_id" => CL_PROMO
+		));//TODO: k6ik objektid? arvestada et v6ib palju olla, teha ymber
 
 		$path = $o->path();
 
@@ -1078,7 +1078,7 @@ class promo extends class_base implements main_subtemplate_handler
 			if ($is_in_promo)
 			{
 				// get list of docs for promo
-				$si = get_instance("contentmgmt/site_show");
+				$si = new site_show();
 
 				$box->set_meta("content_documents", $this->make_keys($si->get_default_document(array(
 					"obj" => $box
@@ -1095,7 +1095,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function kw_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$pt = $arr["obj_inst"]->id();
 		if (aw_ini_get("config.keyword_folder"))
@@ -1113,7 +1113,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
@@ -1127,15 +1127,15 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function _get_sss_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
-		$ps = get_instance("vcl/popup_search");
+		$tb = $arr["prop"]["vcl_inst"];
+		$ps = new popup_search();
 		$tb->add_cdata($ps->get_popup_search_link(array("pn" => "_set_sss", "clid" => CL_MENU)));
 	}
 
 	function _get_lm_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
-		$ps = get_instance("vcl/popup_search");
+		$tb = $arr["prop"]["vcl_inst"];
+		$ps = new popup_search();
 		$tb->add_cdata($ps->get_popup_search_link(array("pn" => "_set_lm_sss", "clid" => CL_MENU)));
 	}
 
@@ -1148,7 +1148,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function callback_post_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_sss"], 1 /* RELTYPE_ASSIGNED_MENU */);
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_lm_sss"], 2 /* RELTYPE_DOC_SOURCE */);
 	}
@@ -1187,12 +1187,12 @@ class promo extends class_base implements main_subtemplate_handler
 			$linked_obj = obj($o->meta("linked_obj"));
 			if ($linked_obj->class_id() == CL_MENU)
 			{
-				$ss = get_instance("contentmgmt/site_show");
+				$ss = new site_show();
 				$link_str = $ss->make_menu_link($linked_obj);
 			}
 			else
 			{
-				$dd = get_instance("doc_display");
+				$dd = new doc_display();
 				$link_str = $dd->get_doc_link($linked_obj);
 			}
 		}

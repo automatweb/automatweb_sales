@@ -106,7 +106,7 @@ class crm_user_creator extends core
 			$grp->set_name($co->name());
 			$grp->set_prop("name", $grp->name());
 			$grp->set_prop("priority", 1200);
-			$grp->set_prop("type", group_obj::TYPE_REGULAR);
+			$grp->set_prop("type", aw_groups::TYPE_REGULAR);
 			$grp->set_prop("can_admin_interface", 1);
 			$grp->set_status(STAT_ACTIVE);
 			aw_allow_recursive_messages();
@@ -170,7 +170,7 @@ class crm_user_creator extends core
 				$grp->set_class_id(CL_GROUP);
 				$grp->set_name($o->name());
 				$grp->set_prop("priority", $parent->prop("priority", 100));
-				$grp->set_prop("type", group_obj::TYPE_REGULAR);
+				$grp->set_prop("type", aw_groups::TYPE_REGULAR);
 				$grp->set_prop("can_admin_interface", 1);
 				$grp->save();
 				// connect co to grp

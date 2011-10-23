@@ -44,7 +44,7 @@ class openhours extends class_base
 					"class_id" => CL_GROUP,
 					"lang_id" => array(),
 					"site_id" => array(),
-					"type" => group_obj::TYPE_REGULAR
+					"type" => aw_groups::TYPE_REGULAR
 				));
 				$data["options"] = array("" => t("--vali--")) + $ol->names();
 				break;

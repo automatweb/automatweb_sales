@@ -2,7 +2,7 @@
 // auth_server_nds.aw - Autentimisserver NDS
 /*
 
-@classinfo syslog_type=ST_AUTH_SERVER_NDS relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1
 
 @default table=objects
 @default group=general
@@ -96,18 +96,7 @@ class auth_server_nds extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		}
-		return $retval;
-	}
-
-	function check_auth($server, $credentials, &$conf)
+	public function check_auth($server, &$credentials, auth_config $conf)
 	{
 		if (!extension_loaded("ldap"))
 		{
@@ -337,4 +326,3 @@ class auth_server_nds extends class_base
 		// echo "kasutaja info: ".(dbg::dump($cred));
 	}
 }
-?>

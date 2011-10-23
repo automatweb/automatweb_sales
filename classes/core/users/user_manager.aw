@@ -1330,7 +1330,7 @@ class user_manager extends class_base
 				{
 					$cond = array(
 						"oid" => $ids,
-						"type" => group_obj::TYPE_DEFAULT,
+						"type" => aw_groups::TYPE_DEFAULT,
 					);
 					if($r["search_users_usergroups"] == 2)
 					{
@@ -1345,7 +1345,7 @@ class user_manager extends class_base
 				{
 					$cond = array(
 						"oid" => $ids,
-						"type" => new obj_predicate_not(group_obj::TYPE_DEFAULT),
+						"type" => new obj_predicate_not(aw_groups::TYPE_DEFAULT),
 					);
 					if($r["search_usergroups"] == 2)
 					{
@@ -1507,9 +1507,9 @@ class user_manager extends class_base
 				"type" => html::select(array(
 					"name" => "type[".$o->id()."]",
 					"options" => array(
-						group_obj::TYPE_REGULAR => t('Tavaline'),
-						group_obj::TYPE_DYNAMIC => t("D&uuml;naamiline"),
-						group_obj::TYPE_DEFAULT => t("Kasutaja")
+						aw_groups::TYPE_REGULAR => t('Tavaline'),
+						aw_groups::TYPE_DYNAMIC => t("D&uuml;naamiline"),
+						aw_groups::TYPE_DEFAULT => t("Kasutaja")
 					),
 					"value" => $o->type,
 				)),

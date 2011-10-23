@@ -113,7 +113,7 @@ class config extends aw_template
 
 		$ol = new object_list(array(
 			"class_id" => CL_GROUP,
-			"type" => new obj_predicate_not(group_obj::TYPE_DEFAULT),
+			"type" => new obj_predicate_not(aw_groups::TYPE_DEFAULT),
 			"join_strategy" => "data"
 		));
 

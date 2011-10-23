@@ -4,21 +4,6 @@ class group_obj extends _int_object
 {
 	const CLID = 37;
 
-	/** Ordinary, user added group **/
-	const TYPE_REGULAR = 0;
-
-	/** User's default group **/
-	const TYPE_DEFAULT = 1;
-
-	/** Dynamic group **/
-	const TYPE_DYNAMIC = 2;
-
-	/** Not logged in users' group. Special system group. Singular in site scope **/
-	const TYPE_NOT_LOGGED_IN = 3;
-
-	/** Group where all users are members always. Special system group. More than one may exist which means all users are added to all of them **/
-	const TYPE_ALL_USERS = 4;
-
 	function name()
 	{
 		$rv =  parent::name();
@@ -121,7 +106,7 @@ class group_obj extends _int_object
 
 	public function save($check_state = false)
 	{
-		if ($this->prop("type") == self::TYPE_NOT_LOGGED_IN)
+		if ($this->prop("type") == aw_groups::TYPE_NOT_LOGGED_IN)
 		{ // check if the system group already exists
 			$nli_group = user_manager_obj::get_not_logged_in_group(false);
 			if ($nli_group and $nli_group->id() !== $this->id())
@@ -136,7 +121,7 @@ class group_obj extends _int_object
 			$this->set_name(t("Sisselogimata kasutajad"));
 			return parent::save($check_state);
 		}
-		elseif ($this->prop("type") == self::TYPE_ALL_USERS)
+		elseif ($this->prop("type") == aw_groups::TYPE_ALL_USERS)
 		{ // check if the system group already exists
 			$all_users_group = user_manager_obj::get_all_users_group(false);
 			if ($all_users_group and $all_users_group->id() !== $this->id())
