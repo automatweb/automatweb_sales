@@ -126,8 +126,6 @@ class admin_if extends class_base
 
 	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["post_ru"] = post_ru();
-
 		if (isset($request["parent"]))
 		{
 			$arr["parent"] = $request["parent"];
@@ -406,7 +404,7 @@ class admin_if extends class_base
 
 			// shortcuts for the programs
 			$this->mk_admin_tree_new();
-		};
+		}
 
 		if (!isset($set_by_p))
 		{
@@ -432,7 +430,7 @@ class admin_if extends class_base
 			),
 			"request" => $arr
 		));
-		header("Content-type: text/html; charset=".aw_global_get("charset"));
+		header("Content-type: text/html; charset=" . languages::USER_CHARSET);
 		die($t->finalize_tree());
 	}
 
@@ -448,11 +446,10 @@ class admin_if extends class_base
 		{
 			$iconurl = icons::get_icon_url("brother","");
 		}
-		else
-		if ($adminf > 0)
+		elseif ($adminf > 0)
 		{
 			$iconurl = icons::get_feature_icon_url($adminf);
-		};
+		}
 
 		// if all else fails ..
 		$m["iconurl"] = $iconurl;
@@ -470,12 +467,12 @@ class admin_if extends class_base
 		else
 		{
 			$m["url"] = aw_url_change_var("parent", $m["oid"], $this->curl);
-		};
+		}
 
 		$m["name"] = parse_obj_name($this->_fake_trans_get_val_name($m));
 		if ($this->selp == $m["oid"])
 		{
-			$m["name"] = "<b>".$m["name"]."</b>";
+			$m["name"] = html::bold($m["name"]);
 		}
 
 		$m["id"] = $m["oid"];
@@ -2097,9 +2094,9 @@ class admin_if extends class_base
 			if (isset($m["translations"]))
 			{
 				$trs = $m["translations"];
-				if (isset($trs[$cur_lid]) && ($m["trans_".$cur_lid."_status"] == 1 || $ignore_status))
+				if (isset($trs[$cur_lid]) && ($m["trans_{$cur_lid}_status"] == 1 || $ignore_status))
 				{
-					if ($trs[$cur_lid]["name"] == "")
+					if (empty($trs[$cur_lid]["name"]))
 					{
 						return $val;
 					}

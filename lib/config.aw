@@ -1,5 +1,9 @@
 <?php
 
+/**
+Main configuration constants
+**/
+
 /** Returns aw configuration setting(s) identified by $var.
 	@attrib api=1
 	@param var required type=string
@@ -597,6 +601,8 @@ function _aw_global_init()
 	{
 		aw_global_set("request", $_REQUEST);
 	}
+
+	aw_global_set("charset", languages::USER_CHARSET);
 
 	$GLOBALS["__aw_globals_inited"] = true;
 }

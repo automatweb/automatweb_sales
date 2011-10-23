@@ -8,10 +8,8 @@
 
 // get aw directory and file extension
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
-$aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", dirname($__FILE__)) . "/";
+$aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", dirname($__FILE__)) . "/"; // replace to have it work on windows
 $aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", $aw_dir);
-define("AW_USER_CHARSET", "UTF-8");
-define("AW_CODE_CHARSET", "us-ascii");
 define("AW_DIR", $aw_dir);
 define("AW_FILE_EXT", substr($__FILE__, strrpos($__FILE__, "automatweb") + 10)); // extension can't be 'automatweb'
 

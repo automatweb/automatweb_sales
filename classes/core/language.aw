@@ -385,7 +385,7 @@ class language extends class_base
 			}
 		}
 
-		header("Content-type: text/html; charset=".AW_USER_CHARSET);
+		header("Content-type: text/html; charset=".languages::USER_CHARSET);
 		if (aw_ini_get("user_interface.full_content_trans"))
 		{
 			$ld = languages::fetch(aw_global_get("ct_lang_id"));
