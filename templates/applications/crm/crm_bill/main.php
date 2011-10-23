@@ -1,35 +1,35 @@
 <div id="container">
 	<div id="header">
 		<div id="logo">
-			<?=$seller_logo?>
+			<?php echo $seller_logo?>
 		</div>
 		<div id="contacts">
 			<ul>
-				<li class="caption"><?=$seller_name?></li>
+				<li class="caption"><?php echo $seller_name?></li>
 
-				<?if($seller_reg_nr){?>
-				<li><?=sprintf(t("Reg. nr.: %s", $lang_id), $seller_reg_nr)?></li>
-				<?}?>
+				<?php if($seller_reg_nr){?>
+				<li><?php echo sprintf(t("Reg. nr.: %s", $lang_id), $seller_reg_nr)?></li>
+				<?php }?>
 
-				<?if($seller_tax_reg_nr){?>
-				<li><?=sprintf(t("Kmkr. nr.: %s", $lang_id), $seller_tax_reg_nr)?></li>
-				<?}?>
+				<?php if($seller_tax_reg_nr){?>
+				<li><?php echo sprintf(t("Kmkr. nr.: %s", $lang_id), $seller_tax_reg_nr)?></li>
+				<?php }?>
 
-				<?if(!empty($seller_bank_accounts[0]["account_nr"])){?>
-				<li><?=sprintf(t("Arveldusarve: %s", $lang_id), $seller_bank_accounts[0]["account_nr"])?></li>
-				<?}?>
+				<?php if(!empty($seller_bank_accounts[0]["account_nr"])){?>
+				<li><?php echo sprintf(t("Arveldusarve: %s", $lang_id), $seller_bank_accounts[0]["account_nr"])?></li>
+				<?php }?>
 
-				<?if($seller_address){?>
-				<li><?=$seller_address?></li>
-				<?}?>
+				<?php if($seller_address){?>
+				<li><?php echo $seller_address?></li>
+				<?php }?>
 
-				<?if($seller_phone){?>
-				<li><?=$seller_phone?></li>
-				<?}?>
+				<?php if($seller_phone){?>
+				<li><?php echo $seller_phone?></li>
+				<?php }?>
 
-				<?if($seller_url){?>
-				<li><?=$seller_url?></li>
-				<?}?>
+				<?php if($seller_url){?>
+				<li><?php echo $seller_url?></li>
+				<?php }?>
 			</ul>
 		</div>
 	</div>
@@ -37,17 +37,17 @@
 	<div class="clear" />
 
 	<div class="title">
-		<h1><?=$document_name?></h1>
-		<?if ($title){?><h2><?=$title?></h2><?}?>
+		<h1><?php echo $document_name?></h1>
+		<?php if ($title){?><h2><?php echo $title?></h2><?php }?>
 	</div>
 
-	<?=$heading?>
+	<?php echo $heading?>
 
 	<div class="clear" />
 
-	<?=$content?>
+	<?php echo $content?>
 </div>
 
 <div class="clear" />
 
-<?=$footer?>
+<?php echo $footer?>
