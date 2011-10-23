@@ -19,11 +19,11 @@ class mysql_pdo
 	{
 		if ($base and $username)
 		{
-			$dsn = "mysql:host={$server};dbname={$base};charset=" . AW_USER_CHARSET;
+			$dsn = "mysql:host={$server};dbname={$base};charset=" . languages::USER_CHARSET;
 		}
 		elseif (db_connector::DEFAULT_CID_STR === $cid)
 		{
-			$dsn = "mysql:host=" . aw_ini_get("db.host") . ";dbname=" . aw_ini_get("db.base") . ";charset=" . AW_USER_CHARSET;
+			$dsn = "mysql:host=" . aw_ini_get("db.host") . ";dbname=" . aw_ini_get("db.base") . ";charset=" . languages::USER_CHARSET;
 			$username = aw_ini_get("db.user");
 			$password = aw_ini_get("db.pass");
 		}
@@ -31,7 +31,7 @@ class mysql_pdo
 		{
 			try
 			{
-				$dsn = "mysql:host=" . aw_ini_isset("db.connections.{$cid}.host") ? aw_ini_get("db.connections.{$cid}.host") : "localhost" . ";dbname=" . aw_ini_get("db.connections.{$cid}.base") . ";charset=" . AW_USER_CHARSET;
+				$dsn = "mysql:host=" . aw_ini_isset("db.connections.{$cid}.host") ? aw_ini_get("db.connections.{$cid}.host") : "localhost" . ";dbname=" . aw_ini_get("db.connections.{$cid}.base") . ";charset=" . languages::USER_CHARSET;
 				$username = aw_ini_get("db.connections.{$cid}.user");
 				$password = aw_ini_get("db.connections.{$cid}.pass");
 			}
