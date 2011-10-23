@@ -1751,7 +1751,7 @@ class menu extends class_base implements main_subtemplate_handler
 		$replace_with = array("a","o","u","o","-","a","o","u","o");
 		$str = "!\"@#.¤$%&/()[]={}?\+-`'|,;:";
 		$name = str_replace(preg_split("//", $str, -1 , PREG_SPLIT_NO_EMPTY), "", $name);
-		$name = str_replace($to_replace, $replace_with, htmlentities($name, ENT_QUOTES, AW_USER_CHARSET));
+		$name = str_replace($to_replace, $replace_with, htmlentities($name, ENT_QUOTES, languages::USER_CHARSET));
 		$name = str_replace("--", "-", $name);
 		return $this->_check_alias_name(strtolower(substr($name,0, 50)), $oid);
 	}
