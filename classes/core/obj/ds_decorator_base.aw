@@ -2,7 +2,7 @@
 
 class _int_obj_ds_decorator
 {
-	private $contained;	// the contained data source object
+	protected $contained;	// the contained data source object
 
 	function _int_obj_ds_decorator($contained)
 	{
