@@ -2510,7 +2510,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		}
 	}
 
-	function create_brother($arr)
+	public function create_brother($arr)
 	{
 		extract($arr);
 
@@ -2583,7 +2583,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	}
 
 	// $key, $val
-	function _do_proc_complex_param($arr)
+	private function _do_proc_complex_param($arr)
 	{
 		extract($arr);
 		$filt = explode(".", $key);

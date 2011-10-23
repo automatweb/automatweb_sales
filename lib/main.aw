@@ -1,9 +1,6 @@
 <?php
 
-if (!defined("AW_DIR"))
-{
-	exit;
-}
+defined("AW_DIR") or exit;
 
 // load libraries
 // required for startup

@@ -9,11 +9,11 @@ class promo_display implements main_subtemplate_handler
 	//	content_for - array of templates to get content for
 	function on_get_subtemplate_content($arr)
 	{
-		$inst =& $arr["inst"];
+		$inst = $arr["inst"];
 
 		if (aw_ini_get("document.use_new_parser"))
 		{
-			$doc = get_instance("doc_display");
+			$doc = new doc_display();
 		}
 		else
 		{
@@ -30,7 +30,7 @@ class promo_display implements main_subtemplate_handler
 		}
 
 		$filter = array();
-		$filter["status"] = STAT_ACTIVE;
+		$filter["status"] = object::STAT_ACTIVE;
 		$filter["class_id"] = CL_PROMO;
 
 		if (aw_ini_get("menuedit.lang_menus"))
@@ -70,7 +70,7 @@ class promo_display implements main_subtemplate_handler
 
 
 
-		$tplmgr = get_instance("templatemgr");
+		$tplmgr = new templatemgr();
 		$promos = array();
 		$gidlist = aw_global_get("gidlist");
 		$lang_id = aw_global_get("lang_id");
@@ -245,7 +245,7 @@ class promo_display implements main_subtemplate_handler
 
 				// right, here we need to check if the container does not order docs by random, cause if it does, we need to not rely on the saved docs list
 				$has_rand = false;
-				if ($o->prop("sort_by") == "RAND()" || $o->prop("sort_by2") == "RAND()" || $o->prop("sort_by3") == "RAND()")
+				if ($o->prop("sort_by") === "RAND()" || $o->prop("sort_by2") === "RAND()" || $o->prop("sort_by3") === "RAND()")
 				{
 					$has_rand = true;
 				}
@@ -446,7 +446,7 @@ class promo_display implements main_subtemplate_handler
 				$image_url = "";
 				if ($o->prop("image"))
 				{
-					$i = get_instance(CL_IMAGE);
+					$i = new image();
 					$image_url = $i->get_url_by_id($o->prop("image"));
 					$image = $i->make_img_tag($image_url);
 				}
@@ -560,7 +560,7 @@ class promo_display implements main_subtemplate_handler
 		$inst->vars_safe($promos);
 	}
 
-	function do_prev_next_links($docs, &$tpl)
+	function do_prev_next_links($docs, $tpl)
 	{
 		$s_prev = $s_next = "";
 
@@ -630,4 +630,3 @@ class promo_display implements main_subtemplate_handler
 		return $link_str;
 	}
 }
-?>
