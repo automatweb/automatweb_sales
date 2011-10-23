@@ -1,9 +1,5 @@
 <?php
 
-// settings required by this class
-// aw php templates use short open tags
-ini_set("short_open_tag", "1");
-
 // a static constructor
 aw_php_template::construct();
 
@@ -59,7 +55,7 @@ class aw_php_template
 			"cur_lang_id" => aw_global_get("lang_id"),
 			"cur_lang_code" => aw_ini_get("user_interface.full_content_trans") ? aw_global_get("ct_lang_lc") : aw_global_get("LC"),
 			"current_url" => urlencode(get_ru()),
-			"charset" => AW_USER_CHARSET
+			"charset" => languages::USER_CHARSET
 		) + $GLOBALS["cfg__default__short"];
 	}
 
