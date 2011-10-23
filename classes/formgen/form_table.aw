@@ -1704,7 +1704,7 @@ class form_table extends form_base
 			"has_pages_lb" => checked($this->table["has_pages_type"] == "lb"),
 			"has_user_entries" => checked($this->table["user_entries"]),
 			"records_per_page" => $this->table["records_per_page"],
-			"uee_grps" => $this->mpicker($this->table["user_entries_except_grps"], get_instance(CL_GROUP)->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR,group_obj::TYPE_DYNAMIC)))),
+			"uee_grps" => $this->mpicker($this->table["user_entries_except_grps"], get_instance(CL_GROUP)->get_group_picker(array("type" => array(aw_groups::TYPE_REGULAR,aw_groups::TYPE_DYNAMIC)))),
 			"skip_one_liners" => checked($this->table["skip_one_liners"]),
 			"skip_one_liners_col" => $this->picker($this->table["skip_one_liners_col"],$this->get_col_picker()),
 			"show_second_table" => checked($this->table["show_second_table"]),
@@ -2011,7 +2011,7 @@ class form_table extends form_base
 			{
 				$us = get_instance("users");
 				$this->vars(array(
-					"grps" => $this->mpicker($this->table["defs"][$col]["grps"], get_instance(CL_GROUP)->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR,group_obj::TYPE_DYNAMIC))))
+					"grps" => $this->mpicker($this->table["defs"][$col]["grps"], get_instance(CL_GROUP)->get_group_picker(array("type" => array(aw_groups::TYPE_REGULAR,aw_groups::TYPE_DYNAMIC))))
 				));
 				$coldata[$col][6] = $this->parse("SEL_GRPS");
 			}
@@ -3096,7 +3096,7 @@ class form_table extends form_base
 		$this->mk_path($this->table_parent, "Muuda formi tabelit");
 		$this->do_menu();
 
-		$grplist = get_instance(CL_GROUP)->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR,group_obj::TYPE_DYNAMIC)));
+		$grplist = get_instance(CL_GROUP)->get_group_picker(array("type" => array(aw_groups::TYPE_REGULAR,aw_groups::TYPE_DYNAMIC)));
 
 		$l = "";
 		if (is_array($this->table["grpsettings"]))

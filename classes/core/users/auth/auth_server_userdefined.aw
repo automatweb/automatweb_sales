@@ -2,7 +2,7 @@
 // auth_server_userdefined.aw - Autentimisserver kasutajadefineeritud
 /*
 
-@classinfo syslog_type=ST_AUTH_SERVER_USERDEFINED relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -28,12 +28,7 @@ class auth_server_userdefined extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
-	function check_auth($server, $credentials, &$conf)
+	public function check_auth($server, &$credentials, auth_config $conf)
 	{
 		$code = $server->prop("code");
 		eval($code);
@@ -48,4 +43,3 @@ class auth_server_userdefined extends class_base
 		return array(false, "", false);
 	}
 }
-?>

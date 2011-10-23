@@ -255,9 +255,9 @@ class group extends class_base
 
 			case "type":
 				$prop['options'] = array(
-					group_obj::TYPE_REGULAR => t('Tavaline'),
-					group_obj::TYPE_DYNAMIC => t("D&uuml;naamiline"),
-					group_obj::TYPE_DEFAULT => t("Kasutaja")//XXX: kas peaks saama seda valida?
+					aw_groups::TYPE_REGULAR => t('Tavaline'),
+					aw_groups::TYPE_DYNAMIC => t("D&uuml;naamiline"),
+					aw_groups::TYPE_DEFAULT => t("Kasutaja")//XXX: kas peaks saama seda valida?
 				);
 				break;
 
@@ -588,7 +588,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 		$id = $parm['id'];
 		if ($id === 'dyn_search')
 		{
-			if ($parm['obj_inst']->prop("type") != group_obj::TYPE_DYNAMIC)
+			if ($parm['obj_inst']->prop("type") != aw_groups::TYPE_DYNAMIC)
 			{
 				return false;
 			}
@@ -1177,7 +1177,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 			{
 				// create nlg group
 				$grpp = aw_ini_get("groups.tree_root");
-				$nlg_o = obj(self::add_group($grpp, "Sisse logimata kasutajad", group_obj::TYPE_REGULAR, 1));
+				$nlg_o = obj(self::add_group($grpp, "Sisse logimata kasutajad", aw_groups::TYPE_REGULAR, 1));
 				$c->set_simple_config("non_logged_in_users_group_oid", $nlg_o->id());
 				$nlg_oid = $nlg_o->id();
 			}

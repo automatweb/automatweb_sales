@@ -326,7 +326,7 @@ class form_element extends aw_template
 						"listbox_activity_value" => $this->arr["listbox_activity"][$b],
 						"num" => $b,
 						"user_entries_only" => checked($this->arr["user_entries_only"] == 1),
-						"user_entries_only_exclude" => $this->mpicker($this->arr["user_entries_only_exclude"], get_instance(CL_GROUP)->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR,group_obj::TYPE_DYNAMIC)))),
+						"user_entries_only_exclude" => $this->mpicker($this->arr["user_entries_only_exclude"], get_instance(CL_GROUP)->get_group_picker(array("type" => array(aw_groups::TYPE_REGULAR,aw_groups::TYPE_DYNAMIC)))),
 						"chain_entries_only" => checked($this->arr["chain_entries_only"] == 1),
 					));
 					$at = "";
