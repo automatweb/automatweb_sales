@@ -1413,11 +1413,10 @@ class document extends aw_template implements orb_public_interface
 			}
 			if (!count($lab))
 			{
-				$lab = unserialize($doc["lang_brothers"]);
+				$lab = utf_unserialize($doc["lang_brothers"]);
 			}
 			$langs = "";
-			$l = get_instance("languages");
-			$larr = $l->listall();
+			$larr = languages::listall();
 			reset($larr);
 			while (list(,$v) = each($larr))
 			{
@@ -1436,13 +1435,13 @@ class document extends aw_template implements orb_public_interface
 						if ($tm == "")
 						{
 							$tm = $this->db_fetch_field("SELECT tm FROM documents WHERE docid = ".$lab[$v["id"]],"tm");
-						};
-					};
-				};
+						}
+					}
+				}
 			}
 
 			$this->vars(array("LANG_BRO" => $langs));
-		}; // keeleseosed
+		} // keeleseosed
 
 		$this->do_subtpl_handlers($doc_o);
 

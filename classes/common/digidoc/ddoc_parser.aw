@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=tarvo
-*/
+
 ###########################################################################
 ###########################################################################
 ###########################################################################
@@ -13,7 +11,7 @@
  * @access       public
  * @package      DigiDoc
  * @todo         Lisada kõik funktsioonid, mis on seotud ddoc konteineriga
- * ja xml-i töötlusega selles koos failide lisamise eemaldamise 
+ * ja xml-i töötlusega selles koos failide lisamise eemaldamise
  * funktsioonidega
  */
 
@@ -51,21 +49,21 @@ class ddoc2_parser{
 	 * @access    private
 	 */
 	var $xmlarray;
-	
+
 	/**
-	 * Kõik XML failist leitud datafailide tagid.
+	 * K&otilde;ik XML failist leitud datafailide tagid.
 	 * @var       array
 	 * @access    private
 	 */
 	var $dataFilesXML;
-	
+
 	/**
-	 * Töökaust failide hoidmiseks
+	 * T&otilde;&otilde;kaust failide hoidmiseks
 	 * @var       string
 	 * @access    private
 	 */
 	var $_workPath;
-	
+
 
 	/**
 	 * Constructor.
@@ -78,13 +76,13 @@ class ddoc2_parser{
 		$this->xml = $xml;
 		$this->xmlarray = $xml?$this->Parse($this->xml):false;
 		$this->setDigiDocFormatAndVersion();
-		$this->workPath = aw_ini_get("basedir").'/classes/common/digidoc/data/';//DD_FILES;//.session_id().'/';
+		$this->workPath = aw_ini_get("basedir").'classes/common/digidoc/data/';//DD_FILES;//.session_id().'/';
 		if (!is_dir($this->workPath))
 			if(ddFile::DirMake($this->workPath) != DIR_ERR_OK)
 				die('Error accessing workpath:'.$this->workPath);
 	} // end func
 
-	
+
 	/**
 	 * Teisendab XML-i array kujule
 	 *
@@ -94,7 +92,7 @@ class ddoc2_parser{
 	 * @return    array
 	 */
 	function Parse($xml, $XMLPart=''){
-		
+
 		$us = new XML_Unserializer();
 		$us->unserialize($xml, FALSE);
 
@@ -103,7 +101,7 @@ class ddoc2_parser{
 
 		$body = $xml2['SOAP-ENV:Body'];
 
-		$body = @current($body);
+		$body = current($body);
 
 		if (isset($body['SignedDocInfo']['format']))
 			$this->format = $body['SignedDocInfo']['format'];
@@ -120,9 +118,9 @@ class ddoc2_parser{
 				#$xml = current($xml);
 				break;
 		} //switch
-		
+
 		return $xml2;
-	
+
 	} // end func
 
 	/**
@@ -158,7 +156,7 @@ class ddoc2_parser{
 		if ($xml=='')
 			$xml=$this->xml;
 		if ($xml) {
-			preg_match("'(\<SignedDoc.*\/SignedDoc\>)'Us", $xml, $match); 
+			preg_match("'(\<SignedDoc.*\/SignedDoc\>)'Us", $xml, $match);
 			$content = $match[1];
 			preg_match("'format=\"(.*)\"'Us", $content, $match);	$this->format = $match[1];
 			preg_match("'version=\"(.*)\"'Us", $content, $match);	$this->version = $match[1];
@@ -167,7 +165,7 @@ class ddoc2_parser{
 			$this->version = "";
 		}
 	}
-	
+
 
 	/**
 	 * Tagastab digidoc-s sisalduvad allkirjad
@@ -188,8 +186,8 @@ class ddoc2_parser{
 		return $ret;
 	} // end func
 
-	
-	
+
+
 	/**
 	 * Short description.
 	 *
@@ -203,7 +201,7 @@ class ddoc2_parser{
 		$files = $this->_getFilesXML($this->xml);
 		$nXML = $this->xml;
 		$func = $withLocalFiles ? 'file2hash' : 'hash2file';
-	
+
 		while(list(,$file) = each($files)){
 			$nXML = str_replace($file, $this->$func($file), $nXML);
 		} //while
@@ -211,7 +209,7 @@ class ddoc2_parser{
 		return $nXML;
 	} // end func
 
-	
+
 	/**
 	 * Teisendab Datafaile tagi filega kujult hash-koodiga kujule.
 	 *
@@ -245,7 +243,7 @@ class ddoc2_parser{
 		} //else
 	} // end func
 
-	
+
 	/**
 	 * Asendab Datafile tagides hash-koodid vastavate failidega
 	 *
@@ -257,19 +255,19 @@ class ddoc2_parser{
 	function hash2file($xml){
 		if( preg_match("'ContentType\=\"HASHCODE\"'s", $xml) ){
 			 preg_match("'Id=\"(.*)\"'Us", $xml, $match);		$Id = $match[1];
-			 $nXML = ddFile::readLocalFile($this->workPath.$_SESSION['doc_id'].'_'.$Id);			 
+			 $nXML = ddFile::readLocalFile($this->workPath.$_SESSION['doc_id'].'_'.$Id);
 			return $nXML;
 		} else {
 			return $xml;
 		} //else
 	} // end func
-	
-	
-	
+
+
+
 	/**
 	 * Tagastab faili kohta HASH koodi.
 	 *
-	 * Genereerib failile vajaliku XML tagi ja leiab selle HASH-koodi. 
+	 * Genereerib failile vajaliku XML tagi ja leiab selle HASH-koodi.
 	 * Saadud faili XML salvestatakse vastavasse sessioonikausta.
 	 * @param     array      $file          üleslaetud faili array
 	 * @param     string     $Id            Faili ID DigiDoc-s
@@ -289,7 +287,7 @@ class ddoc2_parser{
 		$ret['DigestValue'] = $sh;
 		return $ret;
 	} // end func
-	
+
 	/**
 	 * Tagastab kõik andmefaili konteinerid antud XML failist.
 	 *
@@ -342,7 +340,7 @@ class ddoc2_parser{
 	 * @return    string
 	 */
 	function getXMLtemplate($type){
-		
+
 		switch($type){
 		case 'file':
 				#File::VarDump('VER:'.$_SESSION['ddoc_version']);
@@ -353,7 +351,7 @@ class ddoc2_parser{
 	    		return '<DataFile'.($this->version=='1.3'?' xmlns="http://www.sk.ee/DigiDoc/v1.3.0#"':'').' ContentType="HASHCODE" Filename="%s" Id="%s" MimeType="%s" Size="%s" DigestType="sha1" DigestValue="%s"></DataFile>';
 	    		break;
 	    	default:
-	    		
+
 	    } //switch
 	} // end func
 
@@ -398,25 +396,25 @@ DEFINE ("DIR_ERR_EMKDIR_3",5);
 /**
  * Failide funktsioonid
  *
- * Klass sisaldab kõiki failidega seotud funktsioone, nagu üleslaadimine, 
+ * Klass sisaldab kõiki failidega seotud funktsioone, nagu üleslaadimine,
  * salvestamine, nimede genereerimine, kaustade loomine.
  *
  * @package      DigiDoc
  */
 class ddFile{
-	
-		
+
+
 	/**
 	 * constructor
 	 */
 	function ddFile(){
 	    return true;
 	} // end func
-	
+
 	/**
 	 * Kaustade/alamkaustade loomiseks
 	 *
-	 * Loob kausta etteantud kohta, vajadusel ka kogu kaustapuu, kui 
+	 * Loob kausta etteantud kohta, vajadusel ka kogu kaustapuu, kui
 	 * on õigused olemas selleks!
 	 * @param     string	$strPath	Kausta nimi
 	 * @access    public
@@ -444,11 +442,11 @@ class ddFile{
 		return $nRet;
 	}
 
-	
+
 	/**
 	 * Saadab antud faili brauserisse salvestamiseks
 	 *
-	 * Saadab etteantud faili brauserile salvestamiseks. Sunnib alati 
+	 * Saadab etteantud faili brauserile salvestamiseks. Sunnib alati
 	 * brauserit avama salvestamise akent, sõltumata saadetava faili
 	 * MIME-tüübist.
 	 * @param     string      $name      Salvestatava faili nimi
@@ -461,7 +459,7 @@ class ddFile{
 	function saveAs($name, $content, $MIME = 'text/plain', $charset = ''){
 		ob_clean();
 		$browser = ddFile::getBrowser();
-		if ($browser['BROWSER_AGENT'] == 'IE') {		
+		if ($browser['BROWSER_AGENT'] == 'IE') {
 			$susisevad = array("š","ž","Š","Ž");
 			$eisusise = array("sh","zh","Sh","Zh");
 			$name = str_replace($susisevad, $eisusise,$name);
@@ -478,7 +476,7 @@ class ddFile{
 		$browser = ddFile::getBrowser();
 #		File::VarDump($browser);
 		// IE need specific headers
-		if ($browser['BROWSER_AGENT'] == 'IE') {		
+		if ($browser['BROWSER_AGENT'] == 'IE') {
 			header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
 			header('Pragma:public');
 		} else {
@@ -486,7 +484,7 @@ class ddFile{
 			header('Pragma:no-cache');
 		}
 			header('Content-Disposition:attachment; filename="'.$name.'"');
-			Header("Content-Disposition-type: attachment"); 
+			Header("Content-Disposition-type: attachment");
 		    Header("Content-Transfer-Encoding: binary");
 //		echo utf8_decode( $content );
 		echo $content;
@@ -494,7 +492,7 @@ class ddFile{
 
 	} // end func
 
-	
+
 	/**
 	 * Leiab kasutaja brauseri ja Op.sļæ½steemi
 	 *
@@ -558,8 +556,8 @@ class ddFile{
 		return $res;
 	} //function
 
-	
-	
+
+
 	/**
 	 * ajutise faili nimi
 	 *
@@ -572,7 +570,7 @@ class ddFile{
 	    return date('Ymd_His').'$'.substr('000'.rand(0,999), -3).'.'.$ext;
 	} // end func
 
-	
+
 	/**
 	 * loeb kohalikult ketalt faili sisu
 	 *
@@ -591,11 +589,11 @@ class ddFile{
 		} //else
 	} // end func
 
-	
+
 	/**
 	 * Salvestab lokaalseks failiks
 	 *
-	 * Salvestab antud sisu antud nimega faili, kui ei õnnestu 
+	 * Salvestab antud sisu antud nimega faili, kui ei õnnestu
 	 * tagastatakse FALSE.
 	 * @param     string     $name     Failinimi
 	 * @param     string     $content  Faili sisu
@@ -614,11 +612,11 @@ class ddFile{
 		} //else
 	} // end func
 
-	
+
 	/**
 	 * Tagastab etteantud nimega väljalt üleslaetud faili
 	 *
-	 * Tagastab faili, mis saadeti parameetris näidatud nimega formi 
+	 * Tagastab faili, mis saadeti parameetris näidatud nimega formi
 	 * väljalt.
 	 * @param     string     $name     Formi välja nimi, millega fail saadeti
 	 * @access    public
@@ -648,19 +646,19 @@ class ddFile{
 		} else {
 			return FALSE;
 		} //else
-	    
+
 	} // end func
 
-	
+
 	/**
 	 * Short description.
 	 *
 	 * Detail description
-	 * @param     
+	 * @param
 	 * @since     1.0
 	 * @access    private
 	 * @return    void
-	 * @throws    
+	 * @throws
 	 */
 	function FixEstFileName($name){
 		//ļæ½ļæ½ļæ½ļæ½ ļæ½ļæ½ļæ½ļæ½
@@ -694,7 +692,7 @@ class ddFile{
 			$name = str_replace('ļæ½','#Auml;', $name);
 			$name = str_replace('ļæ½','#Ouml;', $name);
 			$name = str_replace('ļæ½','#Uuml;', $name);
-		} 
+		}
 		*/
 		return $nameX;
 	} // end func
@@ -718,5 +716,4 @@ class ddFile{
 	} //function
 
 
-} // end class
-?>
+}

@@ -1810,12 +1810,12 @@ class releditor extends core implements orb_public_interface
 
 		$cfgproplist = is_oid($arr["cfgform"]) ? get_instance(CL_CFGFORM)->get_cfg_proplist($arr["cfgform"]) : array();
 		$cfgcontroller_inst = get_instance(CL_CFGCONTROLLER);
-		$prev_dat = safe_array(unserialize(iconv("utf-8", aw_global_get("charset")."//IGNORE", $arr[$propn."_data"])));
+		$prev_dat = safe_array(unserialize($arr[$propn."_data"]));
 		foreach($arr[$propn][$num] as $k => $v)
 		{
 			if (!is_array($v))
 			{
-				$arr[$propn][$num][$k] = iconv("utf-8", aw_global_get("charset")."//IGNORE", $v);
+				$arr[$propn][$num][$k] = $v;
 			}
 		}
 
@@ -2269,7 +2269,7 @@ class releditor extends core implements orb_public_interface
 	function js_change_data($arr)
 	{
 		$releditor_name = $arr["releditor_name"];
-		$d = unserialize(iconv("utf-8", aw_global_get("charset")."//IGNORE", $arr[$releditor_name."_data"]));
+		$d = unserialize($arr[$releditor_name."_data"]);
 		$idx = $arr["edit_index"];
 		$main_clid = $arr["main_clid"];//CL_CALENDAR_EVENT;//CL_CRM_PERSON;
 
@@ -2369,7 +2369,7 @@ class releditor extends core implements orb_public_interface
 		$t = new aw_table();
 		$this->_init_js_rv_table($t, $clid, $propn, $arr["cfgform"]);
 
-		$prev_dat = safe_array(unserialize(iconv("utf-8", aw_global_get("charset")."//IGNORE", $arr[$propn."_data"])));
+		$prev_dat = safe_array(unserialize($arr[$propn."_data"]));
 		$cur_prop = $this->_get_js_cur_prop($clid, $propn);
 
 		if (is_oid($arr["id"]))
