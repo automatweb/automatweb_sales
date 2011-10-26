@@ -204,16 +204,19 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 						throw $e;
 					}
 				}
-				elseif (isset($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var]))
+
+				// add setting
+				_load_setting($var, $value, $config, $return);
+
+				// redefine other settings dependent on this setting's value
+				if (isset($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var]))
 				{
 					foreach ($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var] as $setting_using_reference => $ref_raw_value)
 					{
-						_load_setting($setting_using_reference, str_replace("\${{$var}}", $value, $ref_raw_value), $ref_raw_value, $config, $return);
+						_load_setting($setting_using_reference, $ref_raw_value, $config, $return);
 					}
 				}
 
-				// add setting
-				_load_setting($var, $value, $raw_value, $config, $return);
 			}
 			elseif ("include" === substr(trim($line), 0, 7))
 			{ // process config file include
@@ -243,7 +246,7 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 	return $config;
 }
 
-function _load_setting($var, $value, $raw_value, &$config, $return)
+function _load_setting($var, $value, &$config, $return)
 {
 	if ($return)
 	{
