@@ -1110,9 +1110,9 @@ class user_bookmarks extends class_base
 			$return_url = (isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"]) . $return_url;
 		}
 
-		if (false === strpos($return_url, aw_ini_get("baseurl")))
+		if (0 !== strpos($return_url, aw_ini_get("baseurl")))
 		{
-			$return_url = aw_ini_get("baseurl") . $return_url;
+			$return_url = aw_ini_get("baseurl") . ("/" ===  $return_url{0} ? substr($return_url, 1) : $return_url);
 		}
 
 		$this->show_success_text("Aadress lisatud j&auml;rjehoidjasse.");
