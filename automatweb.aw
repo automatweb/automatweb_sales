@@ -1,10 +1,5 @@
 <?php
 
-/// DISPLAY STARTUP ERRORS
-//error_reporting(E_ALL | E_STRICT);
-//ini_set("display_errors", "1");
-//ini_set("display_startup_errors", "1");
-/// END DISPLAY STARTUP ERRORS
 
 // get aw directory and file extension
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
@@ -61,11 +56,11 @@ class automatweb
 	public static $instance; // current aw instance. read-only.
 	public static $result; // aw_resource object. result of executing the request
 
-	private function __construct()
+	private function __construct($mode_id = self::MODE_PRODUCTION)
 	{
 		// initialize object lifetime
 		$this->start_time = microtime(true);
-		$this->mode(self::MODE_PRODUCTION);
+		$this->mode($mode_id);
 	}
 
 	/** Shortcut method for running a typical http www request
@@ -126,7 +121,7 @@ class automatweb
 	@errors
 		Throws aw_exception if Automatweb already running.
 	**/
-	public static function start()
+	public static function start($mode_id = self::MODE_PRODUCTION)
 	{
 		// load default cfg
 		if (self::$current_instance_nr)
@@ -143,7 +138,7 @@ class automatweb
 
 		// start aw
 		++self::$current_instance_nr;
-		$aw = new automatweb();
+		$aw = new automatweb($mode_id);
 		_aw_global_init();//TODO: viia aw instantsi sisse ___aw_globals
 		aw_cache::setup();//TODO: make aw thread safe
 
@@ -173,10 +168,6 @@ class automatweb
 			{
 				$aw->mode($mode_id);
 			}
-		}
-		else
-		{
-			$aw->mode(self::MODE_PRODUCTION);
 		}
 	}
 
@@ -305,6 +296,10 @@ class automatweb
 			$mode = constant($mode);
 			automatweb::$instance->mode($mode);
 		}
+
+		// call core modules constructors
+		//TODO: leida 6ige koht sellele
+		languages::construct();
 	}
 
 	/**
@@ -324,7 +319,7 @@ class automatweb
 		if (self::$request instanceof aw_http_request)
 		{
 			self::$result = new aw_http_response();
-			self::$result->set_charset(AW_USER_CHARSET);
+			self::$result->set_charset(languages::USER_CHARSET);
 		}
 
 		if ($this->bc)
@@ -739,7 +734,7 @@ aw_global_set("section", $section);
 		include AW_DIR . "const" . AW_FILE_EXT;
 		if (self::$result instanceof aw_http_response)
 		{
-			self::$result->set_charset(AW_USER_CHARSET);
+			self::$result->set_charset(languages::USER_CHARSET);
 		}
 	}
 }
