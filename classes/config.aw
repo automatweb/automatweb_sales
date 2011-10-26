@@ -1,11 +1,21 @@
 <?php
 
-class config extends aw_template
+class config extends aw_template implements orb_public_interface
 {
 	function config()
 	{
 		$this->init("automatweb/config");
 		$this->sub_merge = 1;
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	/** sets the value for a configuration key
