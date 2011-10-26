@@ -6,13 +6,13 @@ class object_list extends _int_obj_container_base
 {
 	var $list = array();	// array of objects in the current list
 	var $list_names = array();
+	var $list_objdata = array();
 	var $iter_index = 0;
 	var $iter_lut = array();
 	var $iter_lut_count = 0;
 
 	public $ds_query_string = ""; // database query executed to retrieve list data. use for debugging only
 
-	protected $list_objdata = array();
 	protected $filter = array();
 	protected $object_id_property = "oid";
 
