@@ -1745,7 +1745,7 @@ class inet
 
 function aw_html_entity_decode($string)
 {
-	return html_entity_decode($string, ENT_COMPAT, AW_USER_CHARSET);
+	return html_entity_decode($string, ENT_COMPAT, languages::USER_CHARSET);
 }
 
 
