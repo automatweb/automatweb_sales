@@ -1281,7 +1281,10 @@ function utf_unserialize($data)
 	{
 		$data = iconv("UTF-8", "ISO-8859-15", $data);
 		$value = unserialize($data);
-		$value = iconv_array("ISO-8859-15", "UTF-8", $value);
+		if (false !== $value)
+		{
+			$value = iconv_array("ISO-8859-15", "UTF-8", $value);
+		}
 	}
 	return $value;
 }
