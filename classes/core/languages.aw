@@ -730,11 +730,9 @@ class languages extends aw_core_module implements orb_public_interface
 	}
 }
 
-// call static constructor
-languages::construct();
-
 /** Generic language module exception **/
 class awex_lang extends aw_exception {}
 
 /** Language or language data not available **/
 class awex_lang_na extends awex_lang {}
+
