@@ -279,12 +279,5 @@
 			</function>
 		</action>
 
-		<action name="convert_database_charset_to_utf8_1">
-			<function name="convert_database_charset_to_utf8_1">
-				<arguments>
-				</arguments>
-			</function>
-		</action>
-
 	</class>
 </orb>

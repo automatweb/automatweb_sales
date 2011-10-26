@@ -232,7 +232,7 @@ class crm_company_employees_view extends class_base
 				$url->set_arg(self::REQVAR_NODE, $section->id());
 				$data[] = array(
 					"data" => array(
-						"title" => iconv(aw_global_get("charset"), "utf-8", $section->prop_str("name")),
+						"title" => $section->prop_str("name"),
 						"icon" => icons::get_icon_url($section->class_id())
 					),
 					"attr" => array(
@@ -256,7 +256,7 @@ class crm_company_employees_view extends class_base
 				$url->set_arg(self::REQVAR_NODE, $profession->id());
 				$data[] = array(
 					"data" => array(
-						"title" => iconv(aw_global_get("charset"), "utf-8", $profession->prop_str("name")),
+						"title" => $profession->prop_str("name"),
 						"icon" => icons::get_icon_url($profession->class_id())
 					),
 					"attr" => array(
@@ -275,7 +275,7 @@ class crm_company_employees_view extends class_base
 			$url->set_arg(self::REQVAR_NODE, $organization_o->id());
 			$data = array(array(
 				"data" => array(
-					"title" => iconv(aw_global_get("charset"), "utf-8", $organization_o->prop_str("name")),
+					"title" => $organization_o->prop_str("name"),
 					"icon" => icons::get_icon_url($organization_o->class_id())
 				),
 				"attr" => array(
@@ -290,7 +290,7 @@ class crm_company_employees_view extends class_base
 			$url->set_arg(self::REQVAR_NODE, self::REQVAL_ALL_SELECTION);
 			$data[] = array(
 				"data" => array(
-					"title" => iconv(aw_global_get("charset"), "utf-8", html_entity_decode(t("K&otilde;ik t&ouml;&ouml;tajad"))),
+					"title" => html_entity_decode(t("K&otilde;ik t&ouml;&ouml;tajad")),
 					"icon" => icons::get_std_icon_url("group")
 				),
 				"attr" => array(

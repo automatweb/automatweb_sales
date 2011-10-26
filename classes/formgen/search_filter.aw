@@ -1,8 +1,4 @@
 <?php
-// ~1220 rida jama:)
-/*
-@classinfo  maintainer=kristo
-*/
 
 class search_filter extends aw_template
 {
@@ -14,15 +10,15 @@ class search_filter extends aw_template
         }
 
 
-	/**  
-		
+	/**
+
 		@attrib name=new params=name default="0"
-		
+
 		@param parent required acl="add"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -46,18 +42,18 @@ class search_filter extends aw_template
 					"chainlist"=>$this->picker("",$chainlist),
 					"reforb" => $this->mk_reforb("submit_new",array("parent" => $parent))
 				));
-              
+
                 return $this->parse();
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_new params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -79,31 +75,31 @@ class search_filter extends aw_template
                         "stat_show" => 0,
                         "stat_data" => array(),
                 );
-                
+
                 // Nii nüüd tuleb vaatada kas keegi tahab otsida mitmest pärjast.
                 if (count($target_id_c)<2)
                 {
                         $this->data["target_id"]=$type=="form"?$target_id_f:$target_id_c[0];
-                } 
+                }
                 else
                 {
                         $this->data["target_id"]=serialize($target_id_c);
                         $this->data["multchain"]=1;
                 };
-                
+
                 $this->obj_set_meta(array("oid"=>$id,"meta"=>array("data"=>$this->data)));
                 return $this->mk_my_orb("change",array("id" => $id,"parent" => $parent));
         }
 
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_change params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -119,18 +115,18 @@ class search_filter extends aw_template
                 return $this->mk_my_orb("change",array("id" => $id));
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=change params=name default="0"
-		
+
 		@param id required acl="view;edit"
 		@param parent optional
 		@param change_part optional
 		@param is_change_part optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -162,7 +158,7 @@ class search_filter extends aw_template
                 "reforb_arr" => array("id" => $id),
                 "reforb"=>$this->mk_reforb("submit_change",array("id" => $id))
                 ));
-                
+
         }
 
         function __load_data()
@@ -212,7 +208,7 @@ class search_filter extends aw_template
                                         )
                                 )
                         ));
-                
+
                 $formids=array();
                 if ($this->data["type"]=="form")
                 {
@@ -221,14 +217,14 @@ class search_filter extends aw_template
                         {
                                 $formids=array();
                         };
-                } 
+                }
                 else
                 if ($this->data["type"]=="chain")
                 {
                         if ($this->data["multchain"])
                         {
-                                $idin=join(",",unserialize($this->data["target_id"]));
-                        } 
+                                $idin=join(",", utf_unserialize($this->data["target_id"]));
+                        }
                         else
                         {
                                 $idin=(int)$this->data["target_id"];
@@ -252,7 +248,7 @@ class search_filter extends aw_template
                         // form is in. so we check it here and remove all other chains from the search array
                         if ($GLOBALS["search_form"])
                         {
-                                // find the chain the form is in. 
+                                // find the chain the form is in.
                                 $_chid = $form2chain[$GLOBALS["search_form"]];
 
                                 // now remove all other forms
@@ -269,9 +265,9 @@ class search_filter extends aw_template
                                 $this->data["target_id"] = $_chid;
                         }
                 };
-                
+
                 $this->form=get_instance(CL_FORM);
-                
+
                 //Okay, let's build the array
                 foreach ($formids as $k => $fid)
                 {
@@ -280,10 +276,10 @@ class search_filter extends aw_template
                         {
                                 continue;
                         }
-                        
+
                         $this->db_query("SELECT objects.name FROM objects WHERE objects.oid='$fid'");
                         $r=$this->db_next();
-                        
+
                         $formname=str_replace(" ","_",$r["name"]);
                         $content=$this->form->get_form_elements(array("id" => $fid,"key" => "id"));
                         #echo("form title=$formname<br /><pre>");print_r($content);echo("</pre>");//dbg
@@ -295,12 +291,12 @@ class search_filter extends aw_template
                         if ($this->data["multchain"])
                         {
                                 $arr["real"]="*".$form2chain[$fid]."*form_".$fid."_entries";
-                        } 
+                        }
                         else
                         {
                                 $arr["real"]="form_".$fid."_entries";
                         };
-                        
+
                         //echo("content=><pre>");print_r($content);echo("</pre><br />");//dbg
                         foreach($content as $f_id => $edata)
                         {
@@ -314,7 +310,7 @@ class search_filter extends aw_template
                                                 break;
 
                                         case "radiobutton":
-                                        
+
                                                 $arr["fields"][$edata["name"]]["type"]=0;//string
                                                 $arr["fields"][$edata["name"]]["select"][$edata["text"]]=$edata["text"];
                                                 $arr["fields"][$edata["name"]]["select"][" (X) "]=" (X) ";
@@ -361,7 +357,7 @@ class search_filter extends aw_template
                                 };
 
                         };
-                
+
                         $this->master_array[$formname]=$arr;
                 };//of ($formids as $k => $fid)
 
@@ -393,15 +389,15 @@ class search_filter extends aw_template
         // see on selline func mis kudagi petab 2ra kliendi
         // See vist on obsolete kuna nüüd saab niigi otsinguformi filtriga siduda??
         // -->
-	/**  
-		
+	/**
+
 		@attrib name=tf_fulltext_search params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -419,16 +415,16 @@ class search_filter extends aw_template
                 return $html;
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=do_tf_fulltext_search params=name default="0"
-		
+
 		@param id required
 		@param true_fulltext optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -448,15 +444,15 @@ class search_filter extends aw_template
         }
         // <--
 
-	/**  
-		
+	/**
+
 		@attrib name=stat_select_submit params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -471,15 +467,15 @@ class search_filter extends aw_template
                 return $this->mk_my_orb("stat",array("id" => $filter_id));
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=stat_new_submit params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -490,7 +486,7 @@ class search_filter extends aw_template
                 $this->__load_data();
 
                 $tbl=get_instance(CL_TABLE);
-                
+
                 $arr["is_filter"]=1;
                 $arr["filter"]=$this->id;
                 $tbl->submit_add($arr);
@@ -505,15 +501,15 @@ class search_filter extends aw_template
         }
 
         // Sellega valitakse statistika andmed ehk funktsioonid siis
-	/**  
-		
+	/**
+
 		@attrib name=statdata params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -527,7 +523,7 @@ class search_filter extends aw_template
                 $name=$r["name"];
 
                 $this->read_template("statdata.tpl");
-                
+
                 $this->__load_data();
                 $this->build_master_array();
 
@@ -541,7 +537,7 @@ class search_filter extends aw_template
                                 $fieldarr[$tdata["real"].".".$fdata["real"]]="$tfakename.$ffakename";
                         };
                 };
-                
+
 
                 $statd="";
                 $fields=$this->picker("",$fieldarr);
@@ -575,15 +571,15 @@ class search_filter extends aw_template
                 return $this->make_upper_menu($arr,"statdata").$this->parse().$legend;
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_statdata params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -598,7 +594,7 @@ class search_filter extends aw_template
                 if ($subaction=="addpart")
                 {
                         $arr2["func"]=$func;
-                        
+
                         list($rtable,$rfield)=explode(".",$field);
                         $this->build_master_array();
 
@@ -622,8 +618,8 @@ class search_filter extends aw_template
                         $arr2["display"]="$func($ftable.$ffield)";
                         //print_r($arr2);//dbg
                         $this->data["statdata"][]=$arr2;
-                        
-                } 
+
+                }
                 else
                 if ($subaction=="delpart")
                 {
@@ -638,15 +634,15 @@ class search_filter extends aw_template
                 return $this->mk_my_orb("statdata",array("id"=>$id));
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=stat params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -658,7 +654,7 @@ class search_filter extends aw_template
                 $r=$this->db_next();
                 $parent=$r["parent"];
                 $name=$r["name"];
-                
+
                 $this->__load_data();
 
                 $tbl=get_instance(CL_TABLE);
@@ -669,16 +665,16 @@ class search_filter extends aw_template
                                 "is_filter"=>1,
                                 "filter"=>$id,
                                 ),"table")."' Style='width:100%;height:800;margin-left:-5;margin-top:0;' frameborder=0 id='ifr'></iframe></div>";
-                } 
+                }
                 else
                 {
                         // siia ka valik juba olemasoleva valimiseks
                         $parse2=$tbl->add(array("parent" => $parent,"name" => "stat_for_$name"));
-                        
+
                         $parse2=preg_replace("/name='class' value='(.+?)'/","name='class' value='search_filter'",$parse2);
                         $parse2=preg_replace("/name='action' value='(.+?)'/","name='action' value='stat_new_submit'",$parse2);
                         $parse2=preg_replace("/<input type='hidden' name='reforb'/","<input type='hidden' name='filter_id' value='$id'><input type='hidden' name='reforb'",$parse2);
-                        
+
 
 						$ol = new object_list(array(
 							"class_id" => CL_TABLE
@@ -699,17 +695,17 @@ class search_filter extends aw_template
         }
 
 
-	/**  
-		
+	/**
+
 		@attrib name=search params=name default="0"
-		
+
 		@param id required
 		@param get_csv_file optional
 		@param no_menu optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -726,7 +722,7 @@ class search_filter extends aw_template
                 $parent=$r["parent"];
                 $name=$r["name"];
                 $this->__load_data();
-                
+
                 if (!$no_menu)
                 $this->mk_path($parent,"Filter");
 
@@ -738,7 +734,7 @@ class search_filter extends aw_template
                 {
                         $this->__load_filter();
                 }
-                
+
                 $this->build_master_array();
                 $this->sql_filter->set_data($this->master_array);
 
@@ -756,7 +752,7 @@ class search_filter extends aw_template
                 $num_rec_found=0;
 
                 //Nii kuidas teha asja nii et töötaks chainide korral, formide korral ja mitme chaini korral??
-                
+
                 if ($this->data["type"]=="chain")
                 {
                         // kui on mitu chaini siis tuleb siin SEDA andmete näitamise osa korrata 1x iga chaini matchide jaoks
@@ -764,10 +760,10 @@ class search_filter extends aw_template
                         if (!$this->data["multchain"])
                         {
                                 $chainids[]=$this->data["target_id"];//All is good & easy
-                        } 
+                        }
                         else
                         {
-                                $chainids=unserialize($this->data["target_id"]);
+                                $chainids=utf_unserialize($this->data["target_id"]);
                         };
                         // et asi puusse ei paneks kuna ka mitte millestki võib midagi otsida eksole
                         if (is_array($chainids))
@@ -776,7 +772,7 @@ class search_filter extends aw_template
                                 {
                                         if ($GLOBALS["dbg_ft"]) echo "[searching in $chain_id]<br />";
                                         $eids = $this->perform_search($this->data["multchain"]?$chain_id:array());// Limit conditions to chain $chain_id
-                                        
+
                                         $this->ft->load_chain($chain_id);
 
                                         if ($GLOBALS["dbg_ft"]) {echo "eids=", var_dump($eids), "<br />";};//dbg
@@ -793,7 +789,7 @@ class search_filter extends aw_template
                                                         $joins.=" LEFT JOIN form_".$ch_fid."_entries ON form_".$ch_fid."_entries.chain_id = form_".$fid."_entries.chain_id ";
                                                 }
                                         }
-                                        
+
                                         $eids = join(",", $eids);
                                         // temporary workaround selle topelt entryte kala jaoks, kuigi see
                                         // kuradi distinct() peaks hoopis seda tegema vist
@@ -818,7 +814,7 @@ class search_filter extends aw_template
                                                         {
                                                                 foreach($this->data["statdata"] as $alias2 => $statd2)
                                                                 {
-                                                                        
+
                                                                         $v2=$row[$statd2["field"]];
                                                                         //echo($statd2["field"]." = ".$v2."<br />");//dbg
                                                                         switch($statd2["func"])
@@ -848,13 +844,13 @@ class search_filter extends aw_template
                                         };
                                 }; // of foreach ($chainids as $chain_id)
                         }
-                } 
+                }
                 else
                 {
                         //tavaline yhest formist otsimine oli hoopis
-                        
+
                         $fid=$this->data["target_id"];
-                        
+
                         $eids = $this->perform_search();
                         $eids=join(",",$eids);
                         if ($eids != "")
@@ -868,7 +864,7 @@ class search_filter extends aw_template
                                         {
                                                 foreach($this->data["statdata"] as $alias2 => $statd2)
                                                 {
-                                                        
+
                                                         $v2=$row[$statd2["field"]];
                                                         //echo($statd2["field"]." = ".$v2." ++".$statd2["func"]."<br />");//dbg
 
@@ -913,18 +909,18 @@ class search_filter extends aw_template
                         </form>
                         ";
                 };
-                
+
                 $parse.="Otsingu tulemusena leiti ".(int)$num_rec_found.((int)$num_rec_found==1?" kirje":" kirjet");
                 //siin teeb lingi csv outputile
                 if ($this_page)
                 {
                         $parse.="&nbsp;&nbsp;<a href='".$this_page."&get_csv_file=1' target=_blank>CSV</a><br />";
-                } 
+                }
                 else
                 {
                         $parse.="&nbsp;&nbsp;<a href='".$this->mk_my_orb("search",array("id"=>$id,"get_csv_file"=>1))."' target=_blank>CSV</a><br />";
                 };
-                
+
                 $parse.= $this->ft->finalize_table(array("no_form_tags" => $no_form_tags));
 
                 // Siin on juba joonistatud nüüd see andmete osa siis
@@ -965,14 +961,14 @@ class search_filter extends aw_template
                 return $parse;
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_select_forms params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -991,14 +987,14 @@ class search_filter extends aw_template
                 return $this->mk_my_orb("output",array("id" => $id));
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_select_fields params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1016,16 +1012,16 @@ class search_filter extends aw_template
                 $this->__save_data();
                 return $this->mk_my_orb("output",array("id" => $id));
         }
-        
-	/**  
-		
+
+	/**
+
 		@attrib name=output_use params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1036,7 +1032,7 @@ class search_filter extends aw_template
                 $this->db_query("SELECT name,parent FROM objects WHERE oid='$this->id'");
                 $r=$this->db_next();
                 $parent=$r["parent"];
-                
+
 				$ol = new object_list(array(
 					"class_id" => CL_FORM_TABLE
 				));
@@ -1051,15 +1047,15 @@ class search_filter extends aw_template
                 return $this->make_upper_menu($arr,"").$this->parse();
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_output_use params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1069,7 +1065,7 @@ class search_filter extends aw_template
                 $this->id=$id;
                 $this->__load_data();
                 $this->data["output_id"]=$use_ft;
-                                        
+
                 // Get rid of this s.it
                 unset($this->data["selected_forms"]);
                 unset($this->data["selected_fields"]);
@@ -1078,15 +1074,15 @@ class search_filter extends aw_template
         }
 
         // Jube! siin tuleb ymber teha kudagi
-	/**  
-		
+	/**
+
 		@attrib name=output params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1103,7 +1099,7 @@ class search_filter extends aw_template
 
                 $this->__load_data();
                 $this->__load_filter();
-                
+
                 $this->build_master_array();
                 $this->sql_filter->set_data($this->master_array);
 
@@ -1116,7 +1112,7 @@ class search_filter extends aw_template
                                 if (!$this->data["selected_fields"])
                                 {
                                         $this->read_template("select_fields.tpl");
-                                        $selforms=unserialize($this->hexbin($this->data["selected_forms"]));
+                                        $selforms=utf_unserialize($this->hexbin($this->data["selected_forms"]));
                                         $field_arr=array();
                                         foreach($this->master_array as $faketname => $fdata)
                                         {
@@ -1129,7 +1125,7 @@ class search_filter extends aw_template
                                                                 $field_arr["$faketname.$finame"]="$faketname.$finame";
                                                         };
                                                 };
-                                                        
+
                                         };
                                         $this->vars(array(
                                                 "field_list" => $this->multiple_option_list("",$field_arr),
@@ -1138,19 +1134,19 @@ class search_filter extends aw_template
                                                 ));
                                         $this->mk_path($parent,"Filter");
                                         return $this->make_upper_menu($arr,"output").$this->parse();
-                                        
-                                } 
+
+                                }
                                 else
                                 {
                                         //echo("oki, hakkan uut tegema");//dbg
-                                        $this->data["selected_forms"]=unserialize($this->hexbin($this->data["selected_forms"]));
+                                        $this->data["selected_forms"]=utf_unserialize($this->hexbin($this->data["selected_forms"]));
                                         //echo("self=<pre>");print_r($this->data["selected_forms"]);echo("</pre>");//dbg
                                         $num_cols=0;
                                         $form_ids=array();
                                         $names=array();
                                         $columns=array();
                                         $sortable=array();
-                                        $this->data["selected_fields"]=unserialize($this->hexbin($this->data["selected_fields"]));
+                                        $this->data["selected_fields"]=utf_unserialize($this->hexbin($this->data["selected_fields"]));
 
                                         if (is_array($this->master_array))
                                         foreach($this->master_array as $faketname => $tdata)
@@ -1159,7 +1155,7 @@ class search_filter extends aw_template
                                                 if ($faketname &&  (isset($this->data["selected_forms"][$faketname]) || $this->data["type"]!="chain"))
                                                 {
                                                         //echo("on olemas<br />");
-                                                        
+
                                                         list($a_,$form_id,$b_)=explode("_",$tdata["real"]);
                                                         $form_ids[]=$form_id;
                                                         //echo("faketname=$faketname form_id=$form_id<br />");//dbg
@@ -1167,7 +1163,7 @@ class search_filter extends aw_template
                                                         foreach($tdata["fields"] as $fakefname => $fdata)
                                                         {
                                                                 // CHeck if the field is selected
-                                                                
+
                                                                 if (isset($this->data["selected_fields"]["$faketname.$fakefname"]))
                                                                 {
                                                                         //echo("field=$fakefname<br />");//dbg
@@ -1198,7 +1194,7 @@ class search_filter extends aw_template
                                         $this->__save_data();
 
                                         //echo("second phase columns=<pre>");print_r($columns);echo("</pre>");//dbg
-                                        
+
                                         $arr=array_merge($arr,array(
                                                 "id" => $this->data["output_id"],
                                                 "columns" => $columns,
@@ -1209,12 +1205,12 @@ class search_filter extends aw_template
                                         $this->ft->submit($arr);
                                         //echo("f table id=".$this->data["output_id"]);//dbg
                                 };
-                        } 
+                        }
                         else
                         {
                                 //Vot siin tuleb nyyd valida formid, mida kasutada outputis
                                 $this->read_template("select_forms.tpl");
-                                
+
                                 $form_arr=array();
                                 foreach($this->master_array as $faketname => $fdata)
                                 {
@@ -1245,15 +1241,15 @@ class search_filter extends aw_template
                 return $this->make_upper_menu($arr,"output").$cparse;
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=output_submit params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1262,7 +1258,7 @@ class search_filter extends aw_template
                 extract($arr);
                 $this->ft=get_instance(CL_FORM_TABLE);
                 $this->ft->submit($arr);
-                
+
                 return $this->mk_my_orb("output",array("id" => $filter_id));
         }
 
@@ -1292,7 +1288,7 @@ class search_filter extends aw_template
                         };
                         $ft["nump"]=$numpee;
                         if ($GLOBALS["dbg_ft"]) {echo("!FILTERED!<pre>"); print_r($ft);echo("<pre>END LIMIT");};
-                } 
+                }
                 else
                 {
                         $ft=$this->filter;
@@ -1313,7 +1309,7 @@ class search_filter extends aw_template
                 }
 
                 if ($GLOBALS["dbg_ft"]) echo "<textarea cols=100 rows=1>$sqlw</textarea><br />";
-                
+
 
                 //Nii, nüüd tuleb see täistekstotsing ringi vahetada
                 $fulltextsearch=array();
@@ -1357,7 +1353,7 @@ class search_filter extends aw_template
                 if ($this->data["type"]=="chain")
                 {
                 // Oki, seda saab siiski teha yhe queryga:)
-                // nimelt tuleb chaini puhul kõik üksikud form_baah_entries joinida nii et 
+                // nimelt tuleb chaini puhul kõik üksikud form_baah_entries joinida nii et
                 // select id from form_chain_entries where chain_id='$target_id' and form_baah_entries.
                 // chain_id=form_chain_entries.id and baah.. and form_111_entries.chain_id=form_chain_entries.id
                 // ja siis pärast näitamisel valida lihtsalt ids form_chain_entries tablast ja seal on juba kirjas
@@ -1372,15 +1368,15 @@ class search_filter extends aw_template
                         $sqlw=$sqlw?$sqlw." AND ":" WHERE ";
                         $targetchain=is_array($limit_to_chain)?$this->data["target_id"]:$limit_to_chain;
                         $sql="SELECT DISTINCT(form_chain_entries.id) as id FROM form_chain_entries".join(" ",$leftjoin)." $sqlw form_chain_entries.chain_id='$targetchain'";
-                        
-                } 
+
+                }
                 else
                 {
 					// get the first table from the join list and join objtable on that
 					list($first_tbl,) = each($used_tables);
 					$sql="
 						SELECT DISTINCT(id) AS id
-						FROM ".join(",",array_keys($used_tables))." 
+						FROM ".join(",",array_keys($used_tables))."
 							LEFT JOIN objects ON objects.oid = $first_tbl.id
 						$sqlw AND objects.status != 0
 					";
@@ -1398,14 +1394,14 @@ class search_filter extends aw_template
         }
 
 
-	/**  
-		
+	/**
+
 		@attrib name=filter_edit_change_part params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1420,41 +1416,41 @@ class search_filter extends aw_template
                 return $this->mk_my_orb("change",array("change_part"=> $chgnum,"is_change_part"=>1, "id" => $id));
         }
 
-	/**  
-		
+	/**
+
 		@attrib name=filter_edit_add params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
         function orb_filter_edit_add($arr)
         {
                 extract($arr);
-                
+
                 $this->id=$id;
-                
+
                 $arr["filter"]=$this->__load_filter();
 
                 $this->filter=$this->sql_filter->do_filter_edit_add($arr);
 
                 $this->__save_filter();
-                
+
                 return $this->mk_my_orb("change",array("id" => $id));
         }
 
         // filtrile yhe tingimuse kustutamine
-	/**  
-		
+	/**
+
 		@attrib name=filter_edit_del params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1463,11 +1459,11 @@ class search_filter extends aw_template
                 extract($arr);
                 $this->id=$id;
                 $arr["filter"]=$this->__load_filter();
-                
+
                 $this->filter=$this->sql_filter->do_filter_edit_del($arr);
 
                 $this->__save_filter();
-                
+
                 return $this->mk_my_orb("change",array("id" => $id));
         }
 
@@ -1483,5 +1479,4 @@ class search_filter extends aw_template
                 $a.="</table>";
                 return $a;
         }
-};
-?>
+}

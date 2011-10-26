@@ -344,7 +344,7 @@ class cb_translate extends class_base
 		$this->_gen_tree($tree, $arr["clid"]);
 
 		/*
-		
+
 
 		if($arr["clid"] && is_numeric($arr["clid"]) && !$parent_is_folder)
 		{
@@ -1779,7 +1779,7 @@ class cb_translate extends class_base
 		{
 			$mod_lang[$lang["acceptlang"]] = $lang;
 		}
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "lang",
 			"caption" => t("Keel"),
@@ -1862,7 +1862,7 @@ class cb_translate extends class_base
 	{
 		// tell me someone how to make it work?:S
 		/*
-		$files = unserialize(core::get_cval("trans_applyed"));
+		$files = utf_unserialize(core::get_cval("trans_applyed"));
 		$files = join($files," ");
 		$ini = aw_ini_get("server.cvs");
 		chdir(aw_ini_get("basedir"));
@@ -1886,7 +1886,7 @@ class cb_translate extends class_base
 		/*
 		$this->read_template("commit.tpl");
 		$this->sub_merge = 1;
-		$arr = unserialize(stripslashes(core::get_cval("trans_applyed")));
+		$arr = utf_unserialize(stripslashes(core::get_cval("trans_applyed")));
 		if(is_array($arr) && count($arr) > 0)
 		{
 			foreach($arr as $file)
@@ -1957,7 +1957,7 @@ class cb_translate extends class_base
 
 		/* well, this jack shit actually sets the flag for files that are translated, but not yet commited. but because this commit stuff is really pain in the butt.. i ignore this right now
 		// reads peviously made changes from conf
-		$not_applyed = unserialize(stripslashes(core::get_cval("trans_applyed")));
+		$not_applyed = utf_unserialize(stripslashes(core::get_cval("trans_applyed")));
 		$not_applyed = array_merge($not_applyed, $files_to_commit);
 		$not_applyed = array_unique($not_applyed);
 		// writes into config, writes files to be commited

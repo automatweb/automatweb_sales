@@ -1,8 +1,6 @@
 <?php
 // aw_object_quickadd.aw - Generates javascript array of all objects one can add for "aw object quickadd" javascript
-/*
-@classinfo  maintainer=hannes
-*/
+
 class aw_object_quickadd extends class_base
 {
 
@@ -147,4 +145,3 @@ class aw_object_quickadd extends class_base
 		return implode  ( "",  $a_out);
 	}
 }
-?>

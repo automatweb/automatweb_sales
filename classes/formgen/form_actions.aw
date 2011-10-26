@@ -1,10 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/formgen/form_actions.aw,v 1.48 2008/08/14 13:04:44 tarvo Exp $
+
 // form_actions.aw - creates and executes form actions
-/*
-@classinfo  maintainer=kristo
-*/
-classload("formgen/form_base");
+
 class form_actions extends form_base
 {
 	function form_actions()
@@ -21,15 +18,15 @@ class form_actions extends form_base
 		);
 	}
 
-	/** listst the actions for form $id 
-		
+	/** listst the actions for form $id
+
 		@attrib name=list_actions params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -38,15 +35,15 @@ class form_actions extends form_base
 		extract($arr);
 		$this->if_init($id, "actions.tpl", LC_FORM_ACTIONS_FORM_ACTIONS);
 
-		$this->db_query("SELECT *,objects.name as name, objects.comment as comment 
+		$this->db_query("SELECT *,objects.name as name, objects.comment as comment
 										 FROM form_actions
-										 LEFT JOIN objects ON objects.oid = form_actions.id 
+										 LEFT JOIN objects ON objects.oid = form_actions.id
 										 WHERE objects.status != 0 AND form_actions.form_id = $id");
 		while ($row = $this->db_next())
 		{
 			$this->vars(array(
-				"action_id" => $row["id"], 
-				"action_name" => $row["name"], 
+				"action_id" => $row["id"],
+				"action_name" => $row["name"],
 				"action_comment" => $row["comment"],
 				"change"	=> $this->mk_orb("change_action", array("id" => $id, "aid" => $row["id"])),
 				"delete"	=> $this->mk_orb("delete_action", array("id" => $id, "aid" => $row["id"]))
@@ -57,15 +54,15 @@ class form_actions extends form_base
 		return $this->do_menu_return();
 	}
 
-	/** Generates the form for adding actions 
-		
+	/** Generates the form for adding actions
+
 		@attrib name=add_action params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -74,24 +71,24 @@ class form_actions extends form_base
 		extract($arr);
 		$this->if_init($id, "add_action.tpl", "<a href='".$this->mk_orb("list_actions", array("id" => $id)).LC_FORM_ACTIONS_ADD_ACTIONS);
 		$this->vars(array(
-			"name" => "", 
-			"comment" => "", 
-			"email_selected" => "checked", 
-			"move_filled_selected" => "", 
+			"name" => "",
+			"comment" => "",
+			"email_selected" => "checked",
+			"move_filled_selected" => "",
 			"action_id" => 0,
 			"reforb" => $this->mk_reforb("submit_action", array("id" => $id))
 		));
 		return $this->parse();
 	}
 
-	/** saves or adds the submitted action 
-		
+	/** saves or adds the submitted action
+
 		@attrib name=submit_action params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -121,7 +118,7 @@ class form_actions extends form_base
 						$data["text_only"] = $text_only;
 						$data["from_addr"] = $from_addr;
 						$data["from_name"] = $from_name;
-						
+
 						$la = get_instance("languages");
 						$ls = $la->listall();
 						foreach($ls as $ld)
@@ -215,17 +212,17 @@ class form_actions extends form_base
 		}
 	}
 
-	/** generates the html for changing action $aid of form $id , page $level 
-		
+	/** generates the html for changing action $aid of form $id , page $level
+
 		@attrib name=change_action params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param aid required
 		@param level optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		I would really really like to get rid of that stupid level 2 and settle with one
 		form for each page. But that then means that I have to somehow embed the
@@ -254,8 +251,8 @@ class form_actions extends form_base
 			));
 			$this->if_init($id, "add_action.tpl", "<a href='".$this->mk_orb("list_actions", array("id" => $id)).LC_FORM_ACTIONS_FORM_ACTIONS_CHANGE_ACTION);
 			$this->vars(array(
-				"name"							=> $row["name"], 
-				"comment"						=> $row["comment"], 
+				"name"							=> $row["name"],
+				"comment"						=> $row["comment"],
 				"email_selected"				=> checked($row["type"] == 'email'),
 				"move_filled_selected"			=> checked($row["type"] == 'move_filled'),
 				"join_list_selected"			=> checked($row["type"] == 'join_list'),
@@ -295,16 +292,16 @@ class form_actions extends form_base
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=delete_action params=name default="0"
-		
+
 		@param id required
 		@param aid required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -329,7 +326,7 @@ class form_actions extends form_base
 	{
 		extract($args);
 		$this->read_template("action_email.tpl");
-		$try = unserialize($row["data"]);
+		$try = utf_unserialize($row["data"]);
 		if (is_array($try))
 		{
 			$data = $try;
@@ -383,12 +380,12 @@ class form_actions extends form_base
 	{
 		extract($args);
 		$this->read_template("form_email.tpl");
-		$data = unserialize($row["data"]);
-				
+		$data = utf_unserialize($row["data"]);
+
 		$_ops = $this->get_op_list($id);
-			
+
 		$ops = array("0" => "-- plain text --");
-	
+
 		if (is_array($_ops[$id]))
 		{
 			$ops = $ops + $_ops[$id];
@@ -398,7 +395,7 @@ class form_actions extends form_base
 				"type" => FTYPE_ENTRY,
 				"subtype" => FSUBTYPE_EMAIL_ACTION,
 		));
-					
+
 		$els = $this->get_form_elements(array("id" => $id));
 		$sbt_binds = array("0" => "--all--");
 
@@ -431,7 +428,7 @@ class form_actions extends form_base
 							$srcnames[$fval["id"]] = $fval["name"];
 						}
 
-									
+
 
 					};
 				};
@@ -460,7 +457,7 @@ class form_actions extends form_base
 	{
 		extract($args);
 		$this->read_template("action_join_list.tpl");
-		$data = unserialize($row["data"]);
+		$data = utf_unserialize($row["data"]);
 
 		$finst = get_instance(CL_FORM);
 		$finst->load($id);
@@ -498,7 +495,7 @@ class form_actions extends form_base
 	{
 		extract($args);
 		$this->read_template("action_after_submit_controller.tpl");
-		$data = unserialize($row["data"]);
+		$data = utf_unserialize($row["data"]);
 
 		$ol = new object_list(array(
 			"class_id" => CL_FORM_CONTROLLER,
@@ -523,7 +520,7 @@ class form_actions extends form_base
 	{
 		extract($args);
 		$this->read_template("action_email_confirm.tpl");
-		$data = unserialize($row["data"]);
+		$data = utf_unserialize($row["data"]);
 
 		$this->vars(array(
 			"email_el" => $this->picker($data["email_el"], $this->get_elements_for_forms(array($id), false, true)),
@@ -572,7 +569,7 @@ class form_actions extends form_base
 				if (!$fc->eval_controller($ctr, $form->entry, $form))
 				{
 					$show = false;
-				} 
+				}
 			}
 
 			if ($show)
@@ -585,7 +582,7 @@ class form_actions extends form_base
 				{
 					$fname = "do_email_action";
 				}
-				
+
 				if ($fname != "" && method_exists($this, $fname))
 				{
 					$this->$fname($form, $data, $entry_id);
@@ -638,7 +635,7 @@ class form_actions extends form_base
 			if ($form->get_element_value($data["checkbox"], true) == 1 || $data["checkbox"] < 1)
 			{
 				$li->db_add_user(array(
-					"name" => $form->get_element_value($data["name_tb"]), 
+					"name" => $form->get_element_value($data["name_tb"]),
 					"email" => $form->get_element_value($data["textbox"])
 				));
 			}
@@ -687,12 +684,12 @@ class form_actions extends form_base
 		{
 			// warning, the following code has a very high
 			// suck factor. Some sites have a "update" link
-			// by each document. Clickin on that link opens 
+			// by each document. Clickin on that link opens
 			// a new document which contains a FG form that can
 			// be used to submit comments about the visited
 			// document. That form has an email action and
 			// the contents of that e-mail action should
-			// contain the referer, the link, from which 
+			// contain the referer, the link, from which
 			// the user clicked on the Update button.
 
 			// can this be done in some other way? if so,
@@ -802,8 +799,8 @@ class form_actions extends form_base
 		if ($data['link_to_change'])
 		{
 			$link_url ="\n".$this->mk_my_orb("show", array(
-				"id" => $form->get_id(), 
-				"entry_id" => $entry_id, 
+				"id" => $form->get_id(),
+				"entry_id" => $entry_id,
 				"section" => ($data["l_section"] > 0 ? $data["l_section"] : NULL)
 			), "form", false, false);
 		}
@@ -814,8 +811,8 @@ class form_actions extends form_base
 			{
 				$link_url ="\n".$this->mk_my_orb("show", array(
 					"id" => $form->get_chain_for_chain_entry($form->entry["chain_id"]),
-					"form_id" => $form->get_id(), 
-					"entry_id" => $form->entry["chain_id"], 
+					"form_id" => $form->get_id(),
+					"entry_id" => $form->entry["chain_id"],
 					"op_id" => $data["op_id"],
 					"section" => ($data["l_section"] > 0 ? $data["l_section"] : NULL)
 				), "form_chain", false, false);
@@ -823,8 +820,8 @@ class form_actions extends form_base
 			else
 			{
 				$link_url ="\n".$this->mk_my_orb("show_entry", array(
-					"id" => $form->get_id(), 
-					"entry_id" => $entry_id, 
+					"id" => $form->get_id(),
+					"entry_id" => $entry_id,
 					"op_id" => $data["op_id"],
 					"section" => ($data["l_section"] > 0 ? $data["l_section"] : NULL)
 				), "form", false, false);
@@ -838,8 +835,8 @@ class form_actions extends form_base
 		{
 			$subj = aw_global_get("fa_mail_subject");
 		}
-		
-		
+
+
 		if ($data['link_caption'] != '' || $data["send_html_mail"])
 		{
 			if ($data["from_email_el"])
@@ -858,7 +855,7 @@ class form_actions extends form_base
 				$froma = "automatweb@automatweb.com";
 				$fromn = "AutomatWeb";
 			}
-			
+
 			$awm = get_instance("protocols/mail/aw_mail");
 			$awm->create_message(array(
 				"froma" => $froma,
@@ -882,8 +879,8 @@ class form_actions extends form_base
 
 			$ll = get_instance("languages");
 			//$awm->set_header("Content-type","text/plain; charset=".$ll->get_charset());
-			
-	
+
+
 			$fname = "attachment.pdf";
 			if (aw_global_get("fa_mail_attach_name") != "")
 			{
@@ -915,7 +912,7 @@ class form_actions extends form_base
 				$ct = "Content-type: text/plain; charset=".$l->get_charset()."\n";
 				$from = $f->get_element_value($data["from_email_el"]);
 				$tmp_msg = strip_tags(/*preg_replace("/<script(.*)>(.*)<\/script>/imsU", "", */$msg_html/*)*/);
-				
+
 				mail($data["email"], $subj, $tmp_msg."\n".$app."\n".$link_url, "From: $from\n$ct");
 			}
 			else
@@ -937,21 +934,21 @@ class form_actions extends form_base
 					$froma = "automatweb@automatweb.com";
 					$fromn = "AutomatWeb";
 				}
-				
+
 				$fromstr = $froma;
 				if ($fromn != "")
 				{
 					$fromstr = $fromn." <".$froma.">";
 				}
-				
+
 				if ($data["text_only"])
 				{
 					$l = get_instance("languages");
 					$ct = "";/*"Content-type: text/plain; charset=".$l->get_charset()."\n";*/
 					$from = $f->get_element_value($data["from_email_el"]);
-					
+
 					$tmp_msg = strip_tags(/*preg_replace("/<script(.*)>(.*)<\/script>/imsU", "", */$msg_html/*)*/);
-					
+
 					mail($_to, $subj, $tmp_msg, "From: $fromstr\n$ct");
 				}
 				else
@@ -964,25 +961,25 @@ class form_actions extends form_base
 						"to" => $_to,
 						"body" => $msg.$app.$link_url,
 					));
-					
+
 					$app = $msg_html.'<br />'.$app_html.'<br />'.html::href(array(
 						'url' => $link_url,
 						'caption' => $data['link_caption']
 					));
-	
+
 					$awm->htmlbodyattach(array("data" => $app));
-	
+
 					if (aw_global_get("fa_mail_priority"))
 					{
 						$awm->set_header("X-Priority",aw_global_get("fa_mail_priority"));
 					}
-	
+
 					$fname = "attachment.pdf";
 					if (aw_global_get("fa_mail_attach_name") != "")
 					{
 						$fname = aw_global_get("fa_mail_attach_name");
 					}
-	
+
 					if ($data["add_pdf"])
 					{
 						$co = get_instance("core/converters/html2pdf");
@@ -999,7 +996,7 @@ class form_actions extends form_base
 							));
 						}
 					}
-	
+
 					$awm->gen_mail();
 				}
 			}
@@ -1044,4 +1041,3 @@ class form_actions extends form_base
 		send_mail($to,$data["subj"], $data["content"],"From: $data[from_name] <$data[from_addr]>\nContent-type: text/plain; charset=".$ll->get_charset()."\n");
 	}
 }
-?>

@@ -1238,7 +1238,7 @@ function aw_unserialize($str, $dequote = false, $native_with_php_bc = false)
 
 	if ($native_with_php_bc)
 	{
-		$retval = unserialize($str);
+		$retval = utf_unserialize($str);
 
 		if (false === $retval and "b:0;" !== $str) // track_errors $php_errormsg was null here when unserialize failed, serialize internal format string comparison used instead as a temporary(?) solution
 		{
@@ -1267,11 +1267,23 @@ function aw_unserialize($str, $dequote = false, $native_with_php_bc = false)
 		}
 		elseif (!empty($str))
 		{
-			$retval = unserialize($str);
+			$retval = utf_unserialize($str);
 		}
 	}
 
 	return $retval;
+}
+
+function utf_unserialize($data)
+{
+	$value = unserialize($data);
+	if (false === $value and "b:0;" !== $data)
+	{
+		$data = iconv("UTF-8", "ISO-8859-15", $data);
+		$value = unserialize($data);
+		$value = iconv_array("ISO-8859-15", "UTF-8", $value);
+	}
+	return $value;
 }
 
 /** read value from a memory cache

@@ -679,7 +679,7 @@ class mrp_schedule extends db_connector
 					$material_delivery_time = 0;
 					if ($this->parameter_plan_materials)
 					{ // get max material acquisition time
-						$meta = unserialize($job["meta"]);
+						$meta = utf_unserialize($job["meta"]);
 						foreach ($meta["used_materials"] as $product_id)
 						{
 							$material_delivery_time = max($material_data[$product_id]["delivery_time"], $material_delivery_time);

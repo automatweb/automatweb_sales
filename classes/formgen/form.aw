@@ -1,18 +1,8 @@
 <?php
 
 // form.aw - Class for creating forms
-/*
-@classinfo  maintainer=kristo
-*/
-
-/*
-
-
-*/
-
 // This class should be split in 2, one that handles editing of forms, and another that allows
 // filling them and processing the results. It's needed to complete our plan to take over the world.
-lc_load("automatweb");
 
 // constants for get_elements_for_row - specify wheter the return array is
 // element_name => element_value
@@ -26,8 +16,6 @@ define("RET_FIRST", 1);
 // it returns all elements with the name, return type is array
 define("RET_ALL", 2);
 
-classload("formgen/form_base");
-load_vcl("date_edit");
 class form extends form_base
 {
 	function form()
@@ -4658,9 +4646,9 @@ class form extends form_base
 	{
 		extract($arr);
 
-		$this->dequote(&$str);
+		$this->dequote($str);
 
-		$row = unserialize($str);
+		$row = utf_unserialize($str);
 		// basically, we create a new object and insert the stuff in the array right back in it.
 		$o = obj();
 		$o->set_parent($parent);
@@ -4996,7 +4984,7 @@ class form extends form_base
 		{
 			$this->save_handle();
 			echo "element ".$row["name"]." id ".$row["oid"]."<br />";
-			$fa = unserialize($row["forms"]);
+			$fa = utf_unserialize($row["forms"]);
 			if (is_array($fa))
 			{
 				foreach($fa as $fid)

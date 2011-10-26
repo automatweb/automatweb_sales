@@ -1,17 +1,15 @@
 <?php
 // poll.aw - Generic poll handling class
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/poll.aw,v 1.47 2009/01/13 21:04:49 instrumental Exp $
+
 session_register("poll_clicked");
 
-// poll.aw - it sucks more than my aunt jemimas vacuuming machine 
+// poll.aw - it sucks more than my aunt jemimas vacuuming machine
 //
-// latest version - all answer data is in metadata "answers"[lang_id][answer_id] array, poll_answers is just to count clicks. 
+// latest version - all answer data is in metadata "answers"[lang_id][answer_id] array, poll_answers is just to count clicks.
 
 /*
 
-@classinfo trans=1 maintainer=kristo
-@classinfo relationmgr=yes
-@classinfo syslog_type=ST_POLL
+@classinfo trans=1 relationmgr=yes
 
 @groupinfo clicks caption=Klikke
 
@@ -172,9 +170,9 @@ class poll extends class_base implements main_subtemplate_handler
 		}
 
 		$poll_id = $ap->id();
-	
+
 		$this->vars(array(
-			"poll_id" => $poll_id, 
+			"poll_id" => $poll_id,
 			"section" => $section,
 			"question" => ($namear[$lid] == "" ? $ap->name() : $namear[$lid]),
 			"set_lang_id" => $lid
@@ -208,13 +206,13 @@ class poll extends class_base implements main_subtemplate_handler
 		while (list($k,$v) = each($ans))
 		{
 			$o_l = $this->mk_my_orb("show", array("poll_id" => $poll_id, "c_set_answer_id" => $k, "section" => $section));
-			if ($def)	 
-			{	 
+			if ($def)
+			{
 				$au = "javascript:window.location.href='" . $this->mk_my_orb("show", array("poll_id" => $poll_id, "c_set_answer_id" => $k, "section" => $section)) . "'";
-			}	 
-			else	 
-			{	 
-				$au = "javascript:window.location.href='/?section=".$section."&poll_id=".$poll_id."&c_set_answer_id=".$k."&section=".$section . "'";	 
+			}
+			else
+			{
+				$au = "javascript:window.location.href='/?section=".$section."&poll_id=".$poll_id."&c_set_answer_id=".$k."&section=".$section . "'";
 			}
 			if (is_admin())
 			{
@@ -228,7 +226,7 @@ class poll extends class_base implements main_subtemplate_handler
 			$this->vars(array(
 				"answer_id" => $k,
 				"answer_id_uniq" => $GLOBALS["poll_disp_count"].$k,
-				"answer" => is_array($v) ? $v["answer"] : $v, 
+				"answer" => is_array($v) ? $v["answer"] : $v,
 				"click_answer" => str_replace("&", "&amp;", $au),
 				"click_answer_js" => $o_l,
 				"clicks" => $v["clicks"],
@@ -270,7 +268,7 @@ class poll extends class_base implements main_subtemplate_handler
 		{
 			return;
 		}
-	
+
 		$this->quote(&$aid);
 		$poll_id = $this->db_fetch_field("SELECT poll_id FROM poll_answers WHERE id = '$aid'", "poll_id");
 
@@ -290,16 +288,16 @@ class poll extends class_base implements main_subtemplate_handler
 		setcookie("polls_clicked", serialize($poa),time()+24*3600*1000,"/");
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=show params=name nologin="1" default="0"
-		
+
 		@param poll_id required type=int
 		@param answer_id optional type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -361,7 +359,7 @@ class poll extends class_base implements main_subtemplate_handler
 		{
 			$total += $v["clicks"];
 		}
-	
+
 		reset($answers);
 		while(list($k,$v) = each($answers))
 		{
@@ -411,8 +409,8 @@ class poll extends class_base implements main_subtemplate_handler
 						$_name = $ns[aw_global_get("lang_id")];
 					}
 					$this->vars(array(
-						"question" => $_name, 
-						"poll_id" => $o_id, 
+						"question" => $_name,
+						"poll_id" => $o_id,
 						"num_comments" => $t->get_num_comments($o_id),
 						"link" => $this->mk_my_orb("show", array("poll_id" => $o_id))
 					));
@@ -438,9 +436,9 @@ class poll extends class_base implements main_subtemplate_handler
 			"ANSWER" => $as,
 			"question" => ($na == "" ? $poll->name() : $na),
 			"date" => $this->time2date($poll->modified(),2),
-			"addcomment" => $t->add_comment(array("board" => $id)), 
-			"num_comments" => $t->get_num_comments($id), 
-			"poll_id" => $id, 
+			"addcomment" => $t->add_comment(array("board" => $id)),
+			"num_comments" => $t->get_num_comments($id),
+			"poll_id" => $id,
 			"QUESTION" => $p
 		));
 
@@ -451,10 +449,10 @@ class poll extends class_base implements main_subtemplate_handler
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=show_archive params=name nologin="1" default="0"
-		
+
 	**/
 	function show_archive($id)
 	{
@@ -484,8 +482,8 @@ class poll extends class_base implements main_subtemplate_handler
 				}
 
 				$this->vars(array(
-					"question" => $_name, 
-					"poll_id" => $o_id, 
+					"question" => $_name,
+					"poll_id" => $o_id,
 					"link" => $this->mk_my_orb("show", array("poll_id" => $o->id(), "section" => $section))
 				));
 				$p.=$this->parse("QUESTION");
@@ -841,7 +839,7 @@ class poll extends class_base implements main_subtemplate_handler
 			"class_id" => CL_POLL,
 			"site_id" => array(),
 			"sort_by" => "objects.oid desc"
-		));	
+		));
 		foreach($pl->arr() as $o)
 		{
 			$actcheck = checked($o->id() == $active);

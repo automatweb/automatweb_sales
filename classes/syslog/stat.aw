@@ -1,14 +1,12 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/syslog/stat.aw,v 1.6 2008/01/31 13:55:30 kristo Exp $
+
 // stat.aw - generating statictis from the syslog
 // klass, mille abil saab genereerida statistikat syslog tabelist
-/*
-@classinfo  maintainer=kristo
-*/
+
 class db_stat extends aw_template
 {
 	// konstruktor
-	function db_stat($params) 
+	function db_stat($params)
 	{
 		$this->init("syslog");
 		$month = $params["month"];
@@ -85,8 +83,8 @@ class db_stat extends aw_template
 		));
 		return $this->parse();
 	}
-	
-	// seab paika ajavahemiku, mille seest järgneva päringu abil 
+
+	// seab paika ajavahemiku, mille seest järgneva päringu abil
 	// andmeid küsitakse
 	function set_timeframe($start,$end)
 	{
@@ -98,7 +96,7 @@ class db_stat extends aw_template
 			$end = date("d-m-Y");
 		};
 
-		list($start_day,$start_mon,$start_year) = explode("-",$start);	
+		list($start_day,$start_mon,$start_year) = explode("-",$start);
 		list($end_day,$end_mon,$end_year) = explode("-",$end);
 
 		$this->tf["start"]["day"] = $start_day;
@@ -116,13 +114,13 @@ class db_stat extends aw_template
 		$this->end = $end;
 
 		$this->timeframe = "tm >= $this->from AND tm <= $this->to";
-		
+
 		$days_from = round(($this->from / (60 * 60 * 24)) + 0.5);
 		$days_to = round(($this->to / (60 * 60 * 24)) + 0.5);
 
 		// mitu päeva vahemikus on?
-		$this->days = $days_to - $days_from; 
-		
+		$this->days = $days_to - $days_from;
+
 	}
 
 	// loeb päringust koik andmed sisse ja leiab suurima väärtuse mingis väljas
@@ -132,7 +130,7 @@ class db_stat extends aw_template
 		$top = 0;
 		$total = 0;
 		$this->data = array();
-		while($row = $this->db_next()) 
+		while($row = $this->db_next())
 		{
 			$total += $row[$fld];
 			$this->data[] = $row;
@@ -141,7 +139,7 @@ class db_stat extends aw_template
 				$top = $row[$fld];
 			};
 		};
-		// salvestame koik fetchitud andmed sessiooni sisse, kui 
+		// salvestame koik fetchitud andmed sessiooni sisse, kui
 		// selleks soovi avaldati
 		if ($sess_id)
 		{
@@ -149,7 +147,7 @@ class db_stat extends aw_template
 		};
 		return array($top,$total);
 	}
-		
+
 	function prep_query($syslog_types)
 	{
 		$this->read_adm_template("parts.tpl");
@@ -170,12 +168,12 @@ class db_stat extends aw_template
 		};
 		$this->parts = $this->parse("selectors");
 	}
-		
+
 	// limit - mitut näitame
 	function _stat_by_hits($limit)
 	{
 		$this->read_adm_template("parts.tpl");
-		
+
 		if ($this->days <= 1)
 		{
 			// 1 päev, näitame väljavõtteid tundide kaupa
@@ -191,7 +189,7 @@ class db_stat extends aw_template
 		{
 			$fu = " AND uid = '".$GLOBALS["filter_uid"]."' ";
 		}
-		
+
 		if (aw_ini_get("syslog.has_site_id") == 1 && $this->syslog_site_id != -1)
 		{
 			$ss = " AND syslog.site_id = " . $this->syslog_site_id;
@@ -202,7 +200,7 @@ class db_stat extends aw_template
 			WHERE ($this->timeframe AND (type IN ('pageview','cachehit'))) $fu ".$this->mk_bipstr()."
 			$ss GROUP BY tm1";
 		$this->db_query($q);
-		
+
 		$c = "";
 		$cnt = 0;
 		list($top,$total) = $this->fetch_data("hits","hits");
@@ -236,7 +234,7 @@ class db_stat extends aw_template
 		{
 			$cnt++;
 			$this->vars(array("style" => ($cnt % 2) ? "fgtext2" : "fgtext"));
-			if ($this->days <= 1) 
+			if ($this->days <= 1)
 			{
 				$period = sprintf("%02d:00 - %02d:59",$row["tm1"],$row["tm1"]);
 				$hits = $row[hits];
@@ -255,7 +253,7 @@ class db_stat extends aw_template
 			));
 			$c .= $this->parse("hits_line");
 		};
-	
+
 		$this->vars(array(
 			"total" => $total,
 			"hits_line" => $c,
@@ -445,7 +443,7 @@ class db_stat extends aw_template
 		return $this->parse("menus");
 	}
 
-	// autentimisi (sisselogimisi) 
+	// autentimisi (sisselogimisi)
 	function stat_by_auth($limit)
 	{
 		if ($GLOBALS["filter_uid"] != "")
@@ -476,11 +474,11 @@ class db_stat extends aw_template
 			LIMIT $limit";
 		$this->db_query($q);
 	}
-		
+
 	function mk_bipstr()
 	{
 		// blokitud ipd tshekime ka v2lja
-		$blocked_ips = unserialize($this->get_cval("blockedip"));
+		$blocked_ips = utf_unserialize($this->get_cval("blockedip"));
 		$bips = join(",",map("'%s'",$blocked_ips));
 		if ($bips != "")
 		{
@@ -497,18 +495,18 @@ class stat extends db_stat
 		$this->db_stat($params);
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=show params=name default="1"
-		
+
 		@param from optional
 		@param to optional
 		@param month optional
 		@param day optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -541,15 +539,15 @@ class stat extends db_stat
 		return $c;
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=graph params=name default="0"
-		
+
 		@param id optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -564,14 +562,14 @@ class stat extends db_stat
 		die();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=compare params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -611,14 +609,14 @@ class stat extends db_stat
 		return $c;
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=cgraph params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -634,4 +632,3 @@ class stat extends db_stat
 		die();
 	}
 }
-?>
