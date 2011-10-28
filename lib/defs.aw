@@ -1277,9 +1277,9 @@ function aw_unserialize($str, $dequote = false, $native_with_php_bc = false)
 function utf_unserialize($data)
 {
 	$value = unserialize($data);
-	if (false === $value and "b:0;" !== $data)
+	if (false === $value and "b:0;" !== $data and $data and 0 !== strpos($data, "\$arr"))
 	{
-		$data = iconv("UTF-8", "ISO-8859-15", $data);
+		$data = iconv("UTF-8", "ISO-8859-15", trim($data));
 		$value = unserialize($data);
 		if (false !== $value)
 		{
