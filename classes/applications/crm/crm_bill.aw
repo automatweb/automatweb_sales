@@ -3292,6 +3292,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 		));
 
 		$sum = $this_o->get_bill_sum();
+		$discount = $this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX) - $this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX_WO_DISCOUNT);
 
 		try
 		{
@@ -3311,6 +3312,8 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 			"buyer_signer_profession" => $buyer_signer_profession,
 			"seller_signer_name" => $seller_signer_name,
 			"seller_signer_profession" => $seller_signer_profession,
+			"discount_pct" => $this_o->prop("disc"),
+			"discount" => number_format($discount, 2,".", " "),
 			"total_wo_tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2,".", " "),
 			"tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_TAX), 2,".", " "),
 			"total" => number_format($sum, 2, ".", " "),
