@@ -530,7 +530,7 @@ class crm_db extends class_base
 				$data[$od["RELTYPE_PHONE(CL_CRM_COMPANY).oid"]]["phone"][] = $od["name"];
 			}
 		}
-		
+
 		if (count($load_emails_for) > 0)
 		{
 			$odl = new object_data_list(
@@ -548,7 +548,7 @@ class crm_db extends class_base
 				$data[$od["RELTYPE_EMAIL(CL_CRM_COMPANY).oid"]]["e_mail"][] = $od["mail"];
 			}
 		}
-		
+
 		if (count($load_adresses_for) > 0)
 		{
 			$odl = new object_data_list(
@@ -566,7 +566,7 @@ class crm_db extends class_base
 				$data[$od["RELTYPE_ADDRESS(CL_CRM_COMPANY).oid"]]["address"][] = $od["name"];
 			}
 		}
-		
+
 		if (count($load_urls_for) > 0)
 		{
 			$odl = new object_data_list(
@@ -960,9 +960,9 @@ SCRIPT;
 					$parents += $sector_tree->ids();
 				}
 				$vars["parent"] = $parents;
-				if(strlen(automatweb::$request->arg("os_sector")) > 0)
+				if(automatweb::$request->arg("os_sector"))
 				{
-					$parents = $parents_tmp = automatweb::$request->arg("os_sector");
+					$parents = $parents_tmp = safe_array(automatweb::$request->arg("os_sector"));
 					while(count($parents_tmp) > 0)
 					{
 						$ol = new object_list(array(
@@ -1277,7 +1277,7 @@ SCRIPT;
 		@attrib name=get_customer_data_prompt all_args=1
 	**/
 	public function get_customer_data_prompt($arr)
-	{		
+	{
 		$company = obj(user::get_current_company(), array(), crm_company_obj::CLID);
 
 		$client_manager_caption = t("Kliendihaldur");
@@ -1333,7 +1333,7 @@ SCRIPT;
 						'url': '{$ajax_url}',
 						'async': true,
 						'data': function(n) {
-							return { 'node': n.attr ? n.attr('id') : -1 }; 
+							return { 'node': n.attr ? n.attr('id') : -1 };
 						}
 					}
 				},

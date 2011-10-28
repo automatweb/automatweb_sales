@@ -50,7 +50,7 @@ class awlc_date_en implements awlc_date
 	{
 		if (7 == $num)
 		{
-			trigger_error("Weekday index 7 is deprecated (for sunday use 0)", E_USER_NOTICE);
+			trigger_error("Weekday index 7 is deprecated (for sunday use 0). Called by " . get_caller_str(2), E_USER_DEPRECATED);
 		}
 
 		if (isset(self::$weekdays[$num]))
