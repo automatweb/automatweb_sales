@@ -568,47 +568,49 @@ class aw_object_search_if extends class_base
 		//nyyd object data listi peal asi
 		$data = $this->_search_mk_call($filt,$arr);
 
-		$clss = aw_ini_get("classes");
 		$t->set_caption(sprintf(t("Leiti %s objekti"), sizeof($data)));
 
 		foreach($data as $id => $d)
 		{
-			if($d["class_id"] == CL_USER)
+			if (aw_ini_isset("classes.{$d["class_id"]}"))
 			{
-				$this->u_oids[] = $id;
+				if($d["class_id"] == CL_USER)
+				{
+					$this->u_oids[] = $id;
+				}
+
+				$lang = languages::get_code_for_id($d["lang"]);
+
+				$t->define_data(array(
+					"oid" => $id,
+					"icon" => html::img(array(
+						"url" => icons::get_icon_url($d["class_id"], $d["name"]),
+						"alt" => sprintf(t("Objekti id on %s"), $id),
+						"title" => sprintf(t("Objekti id on %s"), $id),
+						"border" => 0
+					)),
+					"name" => html::href(array(
+						"caption" => $d["name"],
+						"url" => $this->mk_my_orb("change", array("id" => $d["oid"]), $d["class_id"])
+					)),
+					"lang" => $lang,
+					"class_id" => aw_ini_isset("classes.{$d["class_id"]}.name"),
+					"location" => isset($d["parent_name"]) ? $d["parent_name"] : "",
+					"created" => $d["created"],
+					"createdby" => $d["createdby"],
+					"modified" => $d["modified"],
+					"modifiedby" => $d["modifiedby"],
+					"oppnar" => html::href(array(
+						"url" => $this->mk_my_orb("redir", array("parent" => $id), "admin_if"),
+						"caption" => t("Ava")
+					))
+				));
 			}
-
-			$lang = languages::get_code_for_id($d["lang"]);
-
-			$t->define_data(array(
-				"oid" => $id,
-				"icon" => html::img(array(
-					"url" => icons::get_icon_url($d["class_id"], $d["name"]),
-					"alt" => sprintf(t("Objekti id on %s"), $id),
-					"title" => sprintf(t("Objekti id on %s"), $id),
-					"border" => 0
-				)),
-				"name" => html::href(array(
-					"caption" => $d["name"],
-					"url" => $this->mk_my_orb("change", array("id" => $d["oid"]), $d["class_id"])
-				)),
-				"lang" => $lang,
-				"class_id" => $clss[$d["class_id"]]["name"],
-				"location" => isset($d["parent_name"]) ? $d["parent_name"] : "",
-				"created" => $d["created"],
-				"createdby" => $d["createdby"],
-				"modified" => $d["modified"],
-				"modifiedby" => $d["modifiedby"],
-				"oppnar" => html::href(array(
-					"url" => $this->mk_my_orb("redir", array("parent" => $id), "admin_if"),
-					"caption" => t("Ava")
-				))
-			));
 		}
 
 		if (!empty($arr["request"]["login"]))
 		{
-			aw_ini_set("baseurl" , $old_bu);
+			aw_ini_set("baseurl", $old_bu);
 			$this->cfg["baseurl"] = $old_bu;
 		}
 		$t->set_default_sortby("name");
