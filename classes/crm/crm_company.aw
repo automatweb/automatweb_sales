@@ -2240,12 +2240,22 @@ class crm_company extends class_base
 
 			case "reg_nr":
 				// append link to go to thingie
-				$data["post_append_text"] = "<a href='#' onClick='win = window.open(); win.document.write(\"<form action=https://ar.eer.ee/lihtparing.py METHOD=POST name=liht><INPUT TYPE=text NAME=nimi><INPUT TYPE=text NAME=rkood><input type=submit><input type=hidden name=search value=1><input type=hidden name=lang value=est></form>\" );win.document.liht.nimi.value = document.changeform.name.value;win.document.liht.rkood.value = document.changeform.reg_nr.value;win.document.liht.submit();'>" . t("&Auml;riregistri p&auml;ring") . "</a>";
+				$link_title = t("KrediidiInfo p&auml;ring");
+				$window_title = t("KrediidiInfo Firmap&auml;ring");
+				$window_url = "http://firmaparing.krediidiinfo.ee/";
+				$data["post_append_text"] = <<<END
+ <a href="#" onclick="win = window.open('{$window_url}', '{$window_title}', 'location=1, status=1, scrollbars=1, width=800, height=500')">{$link_title}</a>
+END;
 				break;
 
 			case "tax_nr":
 				// append link to go to thingie
-				$data["post_append_text"] = "<a href='#' onClick='win = window.open(); win.document.write(\"<form action=https://apps.emta.ee/e-service/doc/a0003.xsql METHOD=POST name=kraaks><INPUT TYPE=text NAME=p_kkood><input type=hidden name=p_submit value=Otsi><input type=hidden name=p_isikukood ><input type=hidden name=p_tegevus ><input type=hidden name=p_context ><input type=hidden name=p_tagasi ><input type=hidden name=p_mode value=1><input type=hidden name=p_queryobject></form>\" );win.document.kraaks.p_kkood.value = document.changeform.reg_nr.value;win.document.kraaks.submit();'>" . t("Maksuameti p&auml;ring") . "</a>";
+				$link_title = t("Maksuameti p&auml;ring");
+				$window_title = t("KMKR p&auml;ring");
+				$window_url = "https://apps.emta.ee/e-service/doc/a0003.xsql";
+				$data["post_append_text"] = <<<END
+<a href="#" onclick="win = window.open('', '{$window_title}', 'location=1, status=1, scrollbars=1, width=800, height=500'); win.document.write('<form action=&quot;{$window_url}&quot; method=&quot;post&quot; name=&quot;kraaks&quot;><input type=&quot;text&quot; name=&quot;p_kkood&quot; /><input type=&quot;hidden&quot; name=&quot;p_submit&quot; value=&quot;Otsi&quot; /><input type=&quot;hidden&quot; name=&quot;p_isikukood&quot; /><input type=&quot;hidden&quot; name=&quot;p_tegevus&quot; /><input type=&quot;hidden&quot; name=&quot;p_context&quot; /><input type=&quot;hidden name=&quot;p_tagasi&quot; /><input type=&quot;hidden name=&quot;p_mode&quot; value=&quot;1&quot; /><input type=&quot;hidden&quot; name=&quot;p_queryobject&quot; /></form>'); win.document.kraaks.p_kkood.value = document.changeform.reg_nr.value; win.document.kraaks.submit();">{$link_title}</a>
+END;
 				break;
 
 			case "contact_person":
