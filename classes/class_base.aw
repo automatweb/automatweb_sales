@@ -4210,9 +4210,13 @@ class class_base extends aw_template implements orb_public_interface
 					$prefix = $args["prefix"];
 					$propvalues[$prefix][$name]["error"] = $argblock["prop"]["error"];
 				}
-				else
+				elseif (isset($argblock["prop"]["error"]))
 				{
 					$propvalues[$name]["error"] = $argblock["prop"]["error"];
+				}
+				else
+				{
+					$propvalues[$name]["error"] = t("Tundmatu viga");
 				}
 
 				foreach($realprops as $k => $v)

@@ -1129,7 +1129,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 
 		@param to optional type=int default=time()
 
-		@param id optional type=int/array
+		@param id required type=int/array
 			If not set the OID of current object will be used.
 
 		@returns Array of planned hours by resource if parameter id is array, planned hours as int otherwise.
@@ -1137,7 +1137,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	**/
 	public static function get_planned_hours($arr)
 	{
-		$arr["id"] = !empty($arr["id"]) ? $arr["id"] : $this->id();
+		$arr["id"] = !empty($arr["id"]) ? $arr["id"] : "";
 		$resource_ids = implode(",", (array)$arr["id"]);
 		$from = isset($arr["from"]) ? (int)$arr["from"] : 0;
 		$to = isset($arr["to"]) ? (int)$arr["to"] : time();

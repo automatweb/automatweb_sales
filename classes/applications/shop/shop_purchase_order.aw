@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_SHOP_PURCHASE_ORDER relationmgr=yes no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 @tableinfo aw_shop_purcahse_orders master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_shop_purcahse_orders
@@ -24,7 +24,7 @@
 @caption T&ouml;&ouml;
 
 @property related_orders type=relpicker multiple=1 reltype=RELTYPE_SELL_ORDER store=connect
-@caption Seotud m&uuml;&uuml;gitellimused			
+@caption Seotud m&uuml;&uuml;gitellimused
 
 @property date type=date_select field=aw_date
 @caption Kuup&auml;ev
@@ -135,16 +135,18 @@ class shop_purchase_order extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr, $request)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["post_ru"] = post_ru();
-		$arr["add_rows"] = $request["add_rows"];
-		if($request["action"] == "new")
+		if (isset($request["add_rows"])) $arr["add_rows"] = $request["add_rows"];
+
+		if($request["action"] === "new")
 		{
 			return;
 		}
+
 		$arr["add_art"] = 0;
-		if($arr["id"])
+
+		if(!empty($arr["id"]))
 		{
 			$conn = obj($arr["id"])->connections_from(array(
 				"type" => "RELTYPE_ROW",
@@ -159,12 +161,10 @@ class shop_purchase_order extends class_base
 
 	function callback_post_save($arr)
 	{
-		if(($add = $arr["request"]["add_rows"]) && $arr["request"]["group"] != "articles")
+		if(!empty($arr["request"]["add_rows"]) && $this->use_group !== "articles")
 		{
-			$this->_add_extra_rows($add, $arr["obj_inst"]);
+			$this->_add_extra_rows($arr["request"]["add_rows"], $arr["obj_inst"]);
 		}
-		
-		
 	}
 
 	function _add_extra_rows($add, $obj)
@@ -198,7 +198,8 @@ class shop_purchase_order extends class_base
 				$cfg = obj($cfgid);
 			}
 		}
-		if(!$cfg)
+
+		if(empty($cfg))
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_WAREHOUSE_CONFIG,
@@ -206,6 +207,7 @@ class shop_purchase_order extends class_base
 			));
 			$cfg = $ol->begin();
 		}
+
 		$ml_type = $cfg->prop("purchase_order_mail");
 		$cfgi = get_instance(CL_SHOP_WAREHOUSE_CONFIG);
 		if($ml_type == SEND_AW_MAIL)
@@ -222,6 +224,7 @@ class shop_purchase_order extends class_base
 			{
 			}
 		}
+
 		$tb->add_button(array(
 			"img" => "mail_send.gif",
 			"url" => $mail_url,
@@ -265,7 +268,7 @@ class shop_purchase_order extends class_base
 
 	function _get_warehouse($arr)
 	{
-		if ($arr["request"]["warehouse"])
+		if (!empty($arr["request"]["warehouse"]))
 		{
 			$arr["prop"]["value"] = $arr["request"]["warehouse"];
 			$arr["prop"]["options"][$arr["request"]["warehouse"]] = obj($arr["request"]["warehouse"])->name();
@@ -282,17 +285,17 @@ class shop_purchase_order extends class_base
 		));
 		$tb->add_save_button();
 		$tb->add_delete_button();
-		
-		
+
+
 		$url = $this->mk_my_orb("do_search", array("pn" => "order_rows_to", "clid" => array(CL_CRM_BILL)), "popup_search");
 		$tb->add_button(array(
 			"name" => "rows_to_bill",
 			"tooltip" => t("Tellimusread arvele"),
 			"url" => "javascript:aw_popup_scroll('$url','".t("Otsi")."',550,500)"
 		));
-		
-		
-		
+
+
+
 		/*
 		 * @TODO make buttons and some action for them
 		$url = $this->mk_my_orb("do_search", array("pn" => "order_rows_to", "clid" => array(CL_CRM_BILL), "s" => "bill"), "popup_search");
@@ -301,7 +304,7 @@ class shop_purchase_order extends class_base
 			"tooltip" => t("Tellimusread saatelehele"),
 			"url" => "javascript:aw_popup_scroll('$url','".t("Otsi")."',550,500)"
 		));
-		
+
 		$url = $this->mk_my_orb("do_search", array("pn" => "order_rows_to", "clid" => array(CL_CRM_BILL), "s" => "bill"), "popup_search");
 		$tb->add_button(array(
 			"name" => "rows_to_back",
@@ -309,12 +312,12 @@ class shop_purchase_order extends class_base
 			"url" => "javascript:aw_popup_scroll('$url','".t("Otsi")."',550,500)"
 		));
 		*/
-		
+
 	}
 
 	function _set_articles(&$arr)
 	{
-		$tmp = $arr["request"]["add_art"];
+		$tmp = isset($arr["request"]["add_art"]) ? $arr["request"]["add_art"] : "";
 		if($tmp)
 		{
 			$arts = explode(",", $tmp);
@@ -323,22 +326,23 @@ class shop_purchase_order extends class_base
 				$this->add_art_row($art, $arr);
 			}
 		}
-		$rows = $arr["request"]["rows"];
-		if(is_array($rows))
+
+		if(isset($arr["request"]["rows"]) and is_array($arr["request"]["rows"]))
 		{
+			$rows = $arr["request"]["rows"];
 			foreach($rows as $id => $row)
 			{
 				$ro = null;
 				if(isset($row["prodname"]))
 				{
 					$n = $row["prodname"];
-					$c = $row["prodcode"];
+					$c = isset($row["prodcode"]) ? $row["prodcode"] : null;
 					$prodid = null;
-					if($this->can("view", $n))
+					if($this->can("", $n))
 					{
 						$prodid = $n;
 					}
-					elseif($this->can("view", $c))
+					elseif($this->can("", $c))
 					{
 						$prodid = $c;
 					}
@@ -398,13 +402,18 @@ class shop_purchase_order extends class_base
 			"type" => "RELTYPE_ROW",
 		));
 		$units = get_instance(CL_UNIT)->get_unit_list(true);
-		$data["units"] = $units;
+		$data = array(
+			"units" => $units,
+			"o" => null
+		);
 		for($i = 0; $i < 10; $i++)
 		{
 			$t->define_data($this->get_art_row_data($data, $i));
 		}
-		if($ar = $arr["request"]["add_rows"])
+
+		if(!empty($arr["request"]["add_rows"]))
 		{
+			$ar = $arr["request"]["add_rows"];
 			$rows = explode(";", $ar);
 			foreach($rows as $row)
 			{
@@ -414,9 +423,11 @@ class shop_purchase_order extends class_base
 					"unit" => $data[2],
 					"amount" => $data[1],
 					"units" => $units,
+					"o" => null
 				), $i++));
 			}
 		}
+
 		foreach($conn as $c)
 		{
 			$o = $c->to();
@@ -459,7 +470,7 @@ class shop_purchase_order extends class_base
 		}
 		else
 		{
-			if($product && $this->can("view", $product))
+			if(isset($product) && $this->can("", $product))
 			{
 				$po = obj($product);
 				$data["add"] = t("Lisa read");
@@ -468,6 +479,7 @@ class shop_purchase_order extends class_base
 			}
 			else
 			{
+				$name_val = "";
 				$data["add"] = t("Lisa uus");
 			}
 			$url = $this->mk_my_orb("do_search", array(
@@ -494,9 +506,10 @@ class shop_purchase_order extends class_base
 			)).$s;
 			$data["add_num"] = $id;
 		}
+
 		$data["amount"] = html::textbox(array(
 			"name" => "rows[".$id."][amount]",
-			"value" => $o?$o->prop("amount"):($amount ? $amount : ''),
+			"value" => $o?$o->prop("amount"):(isset($amount) ? $amount : ''),
 			"size" => 3,
 		));
 		$data["required"] = html::textbox(array(
@@ -507,16 +520,16 @@ class shop_purchase_order extends class_base
 		$data["unit"] = html::select(array(
 			"name" => "rows[".$id."][unit]",
 			"options" => $units,
-			"value" => $o?$o->prop("unit"):($unit ? $unit : ''),
+			"value" => $o?$o->prop("unit"):(isset($unit) ? $unit : ''),
 		));
 		$data["unit_price"] = html::textbox(array(
 			"name" => "rows[".$id."][price]",
 			"value" => $o?$o->prop("price"):'',
 			"size" => 3,
 		));
-		$data["sum"] = $sum;
-		$data["taxsum"] = $taxsum;
-		$data["tax_rate"] = $tax;
+		$data["sum"] = isset($sum) ? $sum : "";
+		$data["taxsum"] = isset($taxsum) ? $taxsum : "";
+		$data["tax_rate"] = isset($tax) ? $tax : "";
 		$data["comment"] = html::textbox(array(
 			"name" => "rows[".$id."][comment]",
 			"value" => $o?$o->prop("comment"):'',
@@ -619,5 +632,3 @@ class shop_purchase_order extends class_base
 		return PROP_OK;
 	}
 }
-
-?>

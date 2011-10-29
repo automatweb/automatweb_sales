@@ -98,7 +98,7 @@
             <name>starttime</name>
             <group>grp_general</group>
             <table>mrp_case</table>
-            <type>datetime_select</type>
+            <type>datepicker</type>
             <field>starttime</field>
             <caption>Alustamisaeg (materjalide saabumine)</caption>
       </property>
@@ -106,7 +106,7 @@
             <name>due_date</name>
             <group>grp_general</group>
             <table>mrp_case</table>
-            <type>datetime_select</type>
+            <type>datepicker</type>
             <field>due_date</field>
             <caption>Valmimist&amp;amp;auml;htaeg</caption>
       </property>
@@ -601,12 +601,10 @@
             <store>no</store>
       </property>
       <classinfo>
-            <syslog_type>ST_MRP_CASE</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
             <confirm_save_data>1</confirm_save_data>
-            <maintainer>voldemar</maintainer>
       </classinfo>
       <groupinfo>
             <grp_general>

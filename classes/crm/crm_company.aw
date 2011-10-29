@@ -7397,18 +7397,12 @@ END;
 			$arr["stats_s_proj"] = $arr["project"];
 		}
 
-		$arr["stats_s_cust"] = iconv("UTF-8",aw_global_get("charset"),  $arr["stats_s_cust"]);
-
 		$ol = new object_list(array(
 			"class_id" => array(CL_PROJECT),
 			"name" => $arr["stats_s_proj"]."%",
 			"CL_PROJECT.RELTYPE_ORDERER.name" => $arr["stats_s_cust"]."%"
 		));
 		$autocomplete_options =  $ol->names();
-		foreach($autocomplete_options as $key=>$val)
-		{
-			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-		}
 		exit ($cl_json->encode($option_data));
 	}
 
@@ -7434,7 +7428,6 @@ END;
 			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
 		);
 
-		$co = iconv("UTF-8",aw_global_get("charset"),  $co);
 		$orgs = new object_list(array(
 			"class_id" => array(CL_CRM_COMPANY),
 			"name" => $co."%",
@@ -7447,11 +7440,6 @@ END;
 			$autocomplete_options = $secs->names();
 		}
 
-		//$autocomplete_options = $orgs->names();
-		foreach($autocomplete_options as $key=>$val)
-		{
-			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-		}
 		exit ($cl_json->encode($option_data));
 	}
 
@@ -7476,7 +7464,7 @@ END;
 			"options" => &$autocomplete_options,// required
 			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
 		);
-		$co = iconv("UTF-8",aw_global_get("charset"),  $co);
+
 		$orgs = new object_list(array(
 			"class_id" => array(CL_CRM_COMPANY),
 			"name" => $co."%",
@@ -7487,12 +7475,7 @@ END;
 		{
 			$autocomplete_options = $org->get_worker_selection();
 		}
-//$autocomplete_options = $orgs->names();
-		//$autocomplete_options = $orgs->names();
-		foreach($autocomplete_options as $key=>$val)
-		{
-			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-		}
+
 		exit ($cl_json->encode($option_data));
 	}
 
@@ -7537,10 +7520,6 @@ END;
 				new obj_predicate_limit(50)//TODO: konfitavaks
 			));
 			$autocomplete_options = $ol->names();
-			foreach($autocomplete_options as $key=>$val)
-			{
-				$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-			}
 		}
 
 		ob_start("ob_gzhandler");
@@ -9584,7 +9563,7 @@ Bank accounts: yksteise all
 			{
 				$value = $o->prop_xml("name");
 				$info = "";
-				$results[] = array("id" => $o->id(), "value" => iconv("iso-8859-4", "UTF-8", $value), "info" => $info);//FIXME charsets
+				$results[] = array("id" => $o->id(), "value" => $value, "info" => $info);//FIXME charsets
 			}
 			while ($o = $list->next());
 			$choices["results"] = $results;

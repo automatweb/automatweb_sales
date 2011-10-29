@@ -1142,6 +1142,7 @@ class awex_bad_file_path extends aw_exception
 
 	function __construct($path)
 	{
+		$this->message = "Invalid file path: '{$path}'";
 		$this->path = $path;
 	}
 }
