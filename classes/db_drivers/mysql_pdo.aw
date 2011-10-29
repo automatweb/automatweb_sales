@@ -312,7 +312,8 @@ class mysql_pdo
 	function db_get_table($name)
 	{
 		$ret = array('name' => $name,'fields' => array());
-		$fID = @mysql_list_fields($this->db_base, $name, $this->dbh);
+		$fID = $this->dbh->query("SHOW COLUMNS FROM table LIKE '{$name}'");
+
 		if (!$fID)
 		{
 			return false;
@@ -726,7 +727,7 @@ class mysql_pdo
 						preg_match("/INSERT INTO (.+) \(/imsU", $q, $mt_a);
 					}
 					$mt[2] = $mt[1];
-					$mt[1] = $mt_a[1];
+					$mt[1] = isset($mt_a[1]) ? $mt_a[1] : "";
 				}
 			}
 

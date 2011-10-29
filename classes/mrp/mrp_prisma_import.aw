@@ -2,7 +2,7 @@
 // mrp_prisma_import.aw - Prisma import
 /*
 
-@classinfo syslog_type=ST_MRP_PRISMA_IMPORT relationmgr=yes no_status=1 maintainer=voldemar
+@classinfo relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -51,28 +51,6 @@ class mrp_prisma_import extends class_base
 			"tmp2" => "PaperOrderInfo"
 		);
 
-	}
-
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		}
-		return $retval;
 	}
 
 	/** sync prisma and cur db
@@ -173,7 +151,7 @@ class mrp_prisma_import extends class_base
 		return $ws->get_first_obj_by_reltype("RELTYPE_MRP_OWNER");
 	}
 
-	function &_get_conn()
+	function _get_conn()
 	{
 		if (!aw_ini_get("prisma.db_server"))
 		{
@@ -358,7 +336,6 @@ class mrp_prisma_import extends class_base
 
 	function _imp_proj($db, $co)
 	{
-		classload("core/date/date_calc");
 		// get db
 		$proj = array();
 		$db->db_query("
@@ -381,13 +358,13 @@ class mrp_prisma_import extends class_base
 			}
 
 			// if date is at 00:00 hrs, make it 16:00 hrs
-			if ((get_day_start($row["T".chr(246).chr(246)."Algus"]) - $row["T".chr(246).chr(246)."Algus"]) < 120)
+			if ((date_calc::get_day_start($row["T".chr(246).chr(246)."Algus"]) - $row["T".chr(246).chr(246)."Algus"]) < 120)
 			{
-				$row["T".chr(246).chr(246)."Algus"] = get_day_start($row["T".chr(246).chr(246)."Algus"]) + 16 * 3600;
+				$row["T".chr(246).chr(246)."Algus"] = date_calc::get_day_start($row["T".chr(246).chr(246)."Algus"]) + 16 * 3600;
 			}
-			if ((get_day_start($row["TellimuseT".chr(228)."htaeg"]) - $row["TellimuseT".chr(228)."htaeg"]) < 120)
+			if ((date_calc::get_day_start($row["TellimuseT".chr(228)."htaeg"]) - $row["TellimuseT".chr(228)."htaeg"]) < 120)
 			{
-				$row["TellimuseT".chr(228)."htaeg"] = get_day_start($row["TellimuseT".chr(228)."htaeg"]) + 16 * 3600;
+				$row["TellimuseT".chr(228)."htaeg"] = date_calc::get_day_start($row["TellimuseT".chr(228)."htaeg"]) + 16 * 3600;
 			}
 			$proj[$row["TellimuseNr"]] = $row;
 		}
@@ -395,7 +372,7 @@ class mrp_prisma_import extends class_base
 		// get existing
 		$ol = new object_list(array(
 			"class_id" => CL_MRP_CASE,
-			"extern_id" => new obj_predicate_compare(OBJ_COMP_GREATER, 0)
+			"extern_id" => new obj_predicate_compare(obj_predicate_compare::GREATER, 0)
 		));
 		$existing = $ol->arr();
 
@@ -510,13 +487,11 @@ class mrp_prisma_import extends class_base
 		$o->set_name($dat["TellimuseNr"]);
 		foreach($this->prj_flds as $p => $f)
 		{
-//			echo "set prop $p => ".$dat[$f]." <br>";
-			if ($p == "comment")
+			if ($p === "comment")
 			{
 				$o->set_comment($dat[$f]);
 			}
-			else
-			if ($p == "tmp1" || $p == "tmp2")
+			elseif ($p === "tmp1" || $p === "tmp2")
 			{
 				$o->set_meta($p, $dat[$f]);
 			}
@@ -537,13 +512,13 @@ class mrp_prisma_import extends class_base
 		$sets = array();
 		foreach($this->prj_flds as $prop => $fld)
 		{
-			if ($fld == "prioriteet")
+			if ($fld === "prioriteet")
 			{
 				continue;
 			}
 			$val = $o->prop($prop);
-			$this->quote(&$val);
-			if ($fld == "T".chr(246).chr(246)."Algus" || $fld == "TellimuseT".chr(228)."htaeg")
+			$this->quote($val);
+			if ($fld == "T".chr(246).chr(246)."Algus" || $fld === "TellimuseT".chr(228)."htaeg")
 			{
 				// conv to date
 				$val = " FROM_UNIXTIME($val) ";
@@ -563,7 +538,7 @@ class mrp_prisma_import extends class_base
 			WHERE
 				TellimuseNr = ".$o->prop("extern_id");
 
-		$db =& $this->_get_conn();
+		$db = $this->_get_conn();
 		if ($db)
 		{
 			//$db->db_query($sql);
@@ -576,7 +551,7 @@ class mrp_prisma_import extends class_base
 		aw_disable_messages();
 
 		// get from db
-		$db =& $this->_get_conn();
+		$db = $this->_get_conn();
 		$co = $this->_get_co();
 
 		$dat = $db->db_fetch_row("
@@ -598,15 +573,14 @@ class mrp_prisma_import extends class_base
 			$dat["TellimuseT".chr(228)."htaeg"] = -1;
 		}
 
-		classload("core/date/date_calc");
 		// if date is at 00:00 hrs, make it 16:00 hrs
-		if ((get_day_start($dat["T".chr(246).chr(246)."Algus"]) - $dat["T".chr(246).chr(246)."Algus"]) < 120)
+		if ((date_calc::get_day_start($dat["T".chr(246).chr(246)."Algus"]) - $dat["T".chr(246).chr(246)."Algus"]) < 120)
 		{
-			$dat["T".chr(246).chr(246)."Algus"] = get_day_start($dat["T".chr(246).chr(246)."Algus"]) + 16 * 3600;
+			$dat["T".chr(246).chr(246)."Algus"] = date_calc::get_day_start($dat["T".chr(246).chr(246)."Algus"]) + 16 * 3600;
 		}
-		if ((get_day_start($dat["TellimuseT".chr(228)."htaeg"]) - $dat["TellimuseT".chr(228)."htaeg"]) < 120)
+		if ((date_calc::get_day_start($dat["TellimuseT".chr(228)."htaeg"]) - $dat["TellimuseT".chr(228)."htaeg"]) < 120)
 		{
-			$dat["TellimuseT".chr(228)."htaeg"] = get_day_start($dat["TellimuseT".chr(228)."htaeg"]) + 16 * 3600;
+			$dat["TellimuseT".chr(228)."htaeg"] = date_calc::get_day_start($dat["TellimuseT".chr(228)."htaeg"]) + 16 * 3600;
 		}
 
 		// check if we got it
@@ -692,7 +666,7 @@ class mrp_prisma_import extends class_base
 
 	function _imp_new_cust($co, $id)
 	{
-		$db =& $this->_get_conn();
+		$db = $this->_get_conn();
 		$dat = $db->db_fetch_row("SELECT * FROM kliendid WHERE KliendiID = '$id'");
 		if (!$dat)
 		{
@@ -728,25 +702,24 @@ class mrp_prisma_import extends class_base
 			case "trykise_ehitus":
 				if (!$prop["value"])
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				// read from their table. damn.
-				$c =& $this->_get_conn();
+				$c = $this->_get_conn();
 				if (!$c)
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				$prop["value"] = $c->db_fetch_field("SELECT Tr".chr(252)."kiseEhitus as e FROM `trykise_ehitus` WHERE EhitusID = '$prop[value]'", "e");
-				return PROP_OK;
+				return class_base::PROP_OK;
 				break;
 
 			default:
 				if ($prop["value"] == "")
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 }
-?>

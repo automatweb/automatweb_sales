@@ -217,7 +217,7 @@ class mrp_resource extends class_base
 		$this->resource_states = array(
 			0 => "M&auml;&auml;ramata",
 			mrp_resource_obj::STATE_AVAILABLE => t("Vaba"),
-			mrp_resource_obj::STATE_PROCESSING => t("Kasutusel"),
+			mrp_resource_obj::STATE_UNAVAILABLE => t("Kasutusel"),
 			mrp_resource_obj::STATE_OUTOFSERVICE => t("Suletud"),
 			mrp_resource_obj::STATE_INACTIVE => t("Arhiveeritud")
 		);
@@ -328,7 +328,7 @@ class mrp_resource extends class_base
 			case "out_of_service":
 				switch ($this_object->prop("state"))
 				{
-					case mrp_resource_obj::STATE_PROCESSING:
+					case mrp_resource_obj::STATE_UNAVAILABLE:
 						$prop["disabled"] = true;
 						break;
 
@@ -400,7 +400,7 @@ class mrp_resource extends class_base
 		$available = $resource->is_available();
 		if (!$available)
 		{
-			return array(mrp_resource_obj::STATE_PROCESSING, $max_jobs);
+			return array(mrp_resource_obj::STATE_UNAVAILABLE, $max_jobs);
 		}
 		return array(mrp_resource_obj::STATE_AVAILABLE, $max_jobs-$available);
 	}
@@ -563,7 +563,7 @@ class mrp_resource extends class_base
 			case "out_of_service":
 				switch ($this_object->prop("state"))
 				{
-					case mrp_resource_obj::STATE_PROCESSING:
+					case mrp_resource_obj::STATE_UNAVAILABLE:
 						if ($prop["value"] == 1)
 						{
 							$prop["error"] = t("Ressurss on kasutusel. Ei saa hooldusse panna. ");
