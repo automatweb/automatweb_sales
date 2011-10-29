@@ -99,21 +99,15 @@ class object_list extends _int_obj_container_base
 		{
 			echo "object_list::filter(".join(",", map2('%s => %s', $param)).") <br>";
 		}
+
 		if (!is_array($param))
 		{
-			error::raise(array(
-				"id" => ERR_PARAM,
-				"msg" => t("object_list::filter(): parameter must be an array!")
-			));
+			throw new awex_obj_param("Parameter must be an array");
 		}
 
 		if (isset($param["oid"]) && is_array($param["oid"]) && sizeof($param["oid"]) == 0)
 		{
-			error::raise(array(
-				"id" => ERR_PARAM,
-				"msg" => t("object_list::filter(): oid parameter cannot be an empty array!")
-			));
-
+			throw new awex_obj_param("OID parameter cannot be an empty array");
 		}
 
 		// check if param is an array of connection objects. if so, then get the object id's from that
