@@ -706,6 +706,7 @@ class mysql_pdo
 
 	function _proc_error($q, $error_info)
 	{
+		automatweb::$result->sysmsg("Processing a database query error");
 		$errstr = $error_info[2];
 
 		if (strpos($errstr, "Unknown column") !== false)
@@ -739,7 +740,7 @@ class mysql_pdo
 			$clss = aw_ini_get("classes");
 			$upgrade_result = null;
 
-			if (empty($mt[1]) && !empty($mt[2]))
+			if (!empty($mt[2]))
 			{
 				// find property with field given and table in the error query
 				foreach($clss as $clid => $inf)
@@ -749,7 +750,7 @@ class mysql_pdo
 					$pl = $o->get_property_list();
 					foreach($pl as $prop_item)
 					{
-						if ($prop_item["field"] == $mt[2] && strpos($q, $prop_item["table"]) !== false)
+						if ($prop_item["field"] === $mt[2] and (empty($mt[1]) and strpos($q, $prop_item["table"]) !== false or !empty($mt[1]) and  strpos($mt[1], $prop_item["table"]) === 0))
 						{
 							$mt[1] = $prop_item["table"];
 							break;
@@ -760,10 +761,6 @@ class mysql_pdo
 
 			foreach($clss as $clid => $inf)
 			{
-				if (!is_class_id($clid))
-				{
-					continue;
-				}
 				$o = obj();
 				$o->set_class_id($clid);
 				$ti = $o->get_tableinfo();
