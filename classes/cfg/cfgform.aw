@@ -879,7 +879,6 @@ class cfgform extends class_base
 
 	function _trans_tbl($arr)
 	{
-		aw_global_set("output_charset", "utf-8");
 		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"]);
 		$lid = $ld["acceptlang"];
@@ -891,15 +890,14 @@ class cfgform extends class_base
 		foreach($ps as $pn => $pd)
 		{
 			$capt = $pd["type"] === "text" ? (isset($pd["value"]) ? $pd["value"] : "") : $pd["caption"];
-			$capt = iconv($ld["charset"], "utf-8", $capt);
-			$comm = iconv($ld["charset"], "utf-8", isset($pd["comment"]) ? $pd["comment"] : "");
-			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn]);
+			$comm = isset($pd["comment"]) ? $pd["comment"] : "";
+			$v = $trans[$lid][$pn];
 			$v2 = "";
 
 			if (trim($v) === "" and isset($trans[$lid][$pn]))
 			{
-				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn]);
-				$v2 = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn."_comment"]);
+				$v = $trans[$lid][$pn];
+				$v2 = $trans[$lid][$pn."_comment"];
 			}
 
 			$t->define_data(array(
@@ -930,12 +928,12 @@ class cfgform extends class_base
 		$ps = $arr["obj_inst"]->meta("cfg_groups");
 		foreach($ps as $pn => $pd)
 		{
-			$capt = iconv($ld["charset"], "utf-8", $pd["caption"]);
-			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn]);
+			$capt = $pd["caption"];
+			$v = $trans[$lid][$pn];
 
 			if (trim($v) == "")
 			{
-				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn]);
+				$v = $trans[$lid][$pn];
 			}
 
 			$t->define_data(array(
@@ -960,12 +958,12 @@ class cfgform extends class_base
 		$ps = $arr["obj_inst"]->meta("cfg_layout");
 		foreach($ps as $pn => $pd)
 		{
-			$capt = iconv($ld["charset"], "utf-8", $pd["area_caption"]);
-			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn]);
+			$capt = $pd["area_caption"];
+			$v = $trans[$lid][$pn];
 
 			if (trim($v) == "")
 			{
-				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn]);
+				$v = $trans[$lid][$pn];
 			}
 
 			$t->define_data(array(
@@ -991,12 +989,12 @@ class cfgform extends class_base
 		$ps = $arr["obj_inst"]->meta("cfg_proplist");
 		foreach($ps as $pn => $pd)
 		{
-			$capt = iconv($ld["charset"], "utf-8", isset($pd["emb_tbl_caption"]) ? $pd["emb_tbl_caption"] : "");
-			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn."_tbl_capt"]);
+			$capt = isset($pd["emb_tbl_caption"]) ? $pd["emb_tbl_caption"] : "";
+			$v = $trans[$lid][$pn."_tbl_capt"];
 
 			if (trim($v) == "")
 			{
-				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn."_tbl_capt"]);
+				$v = $trans[$lid][$pn."_tbl_capt"];
 			}
 
 			$t->define_data(array(
@@ -1351,7 +1349,7 @@ class cfgform extends class_base
 					$ld = $l->fetch($l->get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
-						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
+						$ldat[$pn] = $c;
 					}
 					$trans[$lid] = $ldat;
 				}
@@ -1359,14 +1357,13 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_grps":
-				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("grp_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_id_for_code($lid), false);
+					$ld = languages::fetch(languages::get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
-						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
+						$ldat[$pn] = $c;
 					}
 					$trans[$lid] = $ldat;
 				}
@@ -1374,14 +1371,13 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_lays":
-				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("layout_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_id_for_code($lid), false);
+					$ld = languages::fetch(languages::get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
-						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
+						$ldat[$pn] = $c;
 					}
 					$trans[$lid] = $ldat;
 				}
@@ -1389,14 +1385,13 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_table_capts":
-				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("tbl_capt_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_id_for_code($lid), false);
+					$ld = languages::fetch(languages::get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
-						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
+						$ldat[$pn] = $c;
 					}
 					$trans[$lid] = $ldat;
 				}
@@ -1478,8 +1473,7 @@ class cfgform extends class_base
 		}
 		if (!isset($this->lang_inf))
 		{
-			$l = new languages();
-			$tmp = $l->get_list(array("ignore_status" => 1));
+			$tmp = languages::get_list(array("ignore_status" => 1));
 			unset($tmp[$arr["obj_inst"]->lang_id()]);
 			$this->lang_inf = array(
 				"ids" => array_keys($tmp),

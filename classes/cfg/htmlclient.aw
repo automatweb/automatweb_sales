@@ -1350,7 +1350,7 @@ class htmlclient extends aw_template
 			$html = $this->parse_layouts($lkey);
 			if($this->view_layout && $this->view_layout == $lkey)
 			{
-				die(mb_convert_encoding($html, "UTF-8", "ISO-8859-1"));
+				exit($html);
 			}
 			$sub_layouts[$lkey] = $html;
 
