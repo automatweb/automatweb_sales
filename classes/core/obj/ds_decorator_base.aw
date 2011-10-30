@@ -118,9 +118,14 @@ class _int_obj_ds_decorator
 		return $this->contained->delete_multiple_objects($oid_list);
 	}
 
-	function dequote(&$dat)
+	function dequote(&$value)
 	{
-		$this->contained->dequote($dat);
+		$this->contained->dequote($value);
+	}
+
+	function quote(&$value)
+	{
+		$this->contained->quote($value);
 	}
 
 	function create_brother($arr)
