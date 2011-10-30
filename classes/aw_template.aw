@@ -85,7 +85,7 @@ class aw_template extends core
 			{
 				$this->template_dir = $site_basedir.$basedir;
 				$this->adm_template_dir = AW_DIR . $basedir;
-				$this->site_template_dir = $site_basedir.$basedir;
+				$this->site_template_dir = $this->template_dir;
 			}
 			else
 			{
@@ -123,7 +123,7 @@ class aw_template extends core
 		{
 			$dir = aw_ini_get("site_tpldir");
 
-			if ($sect = aw_global_get("section") and $this->can("view", $sect))
+			if ($sect = aw_global_get("section"))
 			{
 				foreach(obj($sect)->path() as $path_item)
 				{
