@@ -2254,7 +2254,7 @@ END;
 				$window_title = t("KMKR p&auml;ring");
 				$window_url = "https://apps.emta.ee/e-service/doc/a0003.xsql";
 				$data["post_append_text"] = <<<END
-<a href="#" onclick="win = window.open('', '{$window_title}', 'location=1, status=1, scrollbars=1, width=800, height=500'); win.document.write('<form action=&quot;{$window_url}&quot; method=&quot;post&quot; name=&quot;kraaks&quot;><input type=&quot;text&quot; name=&quot;p_kkood&quot; /><input type=&quot;hidden&quot; name=&quot;p_submit&quot; value=&quot;Otsi&quot; /><input type=&quot;hidden&quot; name=&quot;p_isikukood&quot; /><input type=&quot;hidden&quot; name=&quot;p_tegevus&quot; /><input type=&quot;hidden&quot; name=&quot;p_context&quot; /><input type=&quot;hidden name=&quot;p_tagasi&quot; /><input type=&quot;hidden name=&quot;p_mode&quot; value=&quot;1&quot; /><input type=&quot;hidden&quot; name=&quot;p_queryobject&quot; /></form>'); win.document.kraaks.p_kkood.value = document.changeform.reg_nr.value; win.document.kraaks.submit();">{$link_title}</a>
+ <a href="#" onclick="win = window.open('', '{$window_title}', 'location=1, status=1, scrollbars=1, width=800, height=500'); win.document.write('<form action=&quot;{$window_url}&quot; method=&quot;post&quot; name=&quot;kraaks&quot;><input type=&quot;text&quot; name=&quot;p_kkood&quot; /><input type=&quot;hidden&quot; name=&quot;p_submit&quot; value=&quot;Otsi&quot; /><input type=&quot;hidden&quot; name=&quot;p_isikukood&quot; /><input type=&quot;hidden&quot; name=&quot;p_tegevus&quot; /><input type=&quot;hidden&quot; name=&quot;p_context&quot; /><input type=&quot;hidden name=&quot;p_tagasi&quot; /><input type=&quot;hidden name=&quot;p_mode&quot; value=&quot;1&quot; /><input type=&quot;hidden&quot; name=&quot;p_queryobject&quot; /></form>'); win.document.kraaks.p_kkood.value = document.changeform.reg_nr.value; win.document.kraaks.submit();">{$link_title}</a>
 END;
 				break;
 
@@ -2274,7 +2274,7 @@ END;
 				// read from rel
 				if (($rel = $this->get_cust_rel($arr["obj_inst"])))
 				{
-					if ($arr["request"]["action"] == "view")
+					if ($arr["request"]["action"] === "view")
 					{
 						$data["value"] = $rel->prop_str($data["name"]);
 					}
