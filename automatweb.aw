@@ -18,7 +18,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 require_once(AW_DIR . "lib/main" . AW_FILE_EXT);
 
 // set required configuration
-register_shutdown_function("aw_fatal_error_handler");
+set_error_handler (array("aw_errorhandler", "handle_error"));
 ini_set("track_errors", "1");
 
 /*
@@ -44,7 +44,7 @@ class automatweb
 	const MODE_DBG_EXTENDED = 16;
 	const MODE_DBG_CONSOLE = 32;
 
-	private $mode; // current mode
+	private $mode = 0; // current mode
 	private $request_loaded = false; // whether request is loaded or only empty initialized
 	private $start_time; // float unix timestamp + micro when current aw server instance was started
 	private static $instance_data = array(); // aw instance stack
@@ -656,63 +656,60 @@ aw_global_set("section", $section);
 	{
 		if (self::MODE_PRODUCTION === $id)
 		{
-			if (self::MODE_DBG === $this->mode or self::MODE_DBG_EXTENDED === $this->mode)
+			if (0 !== $this->mode and self::MODE_PRODUCTION !== $this->mode)
 			{
-				self::$result->sysmsg("Switching away from debug mode\n");
+				self::$result->sysmsg("Switching to production mode\n");
 			}
 
 			error_reporting(0);
 			ini_set("display_errors", "0");
 			ini_set("display_startup_errors", "0");
-			set_exception_handler("aw_exception_handler");
-			set_error_handler ("aw_error_handler");
+			aw_errorhandler::set_exception_handler("handle_exception");
 			$this->mode = self::MODE_PRODUCTION;
 		}
 		elseif (self::MODE_DBG === $id)
 		{
-			error_reporting(E_ALL | E_STRICT);
+			error_reporting(-1);
 			ini_set("display_errors", "1");
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			ini_set("mysql.trace_mode", "1");
 			aw_ini_set("debug_mode", "1");
-			set_exception_handler("aw_dbg_exception_handler");
-			set_error_handler ("aw_dbg_error_handler");
+			aw_errorhandler::set_exception_handler("handle_exception_dbg");
 			$this->mode = $id;
 		}
 		elseif (self::MODE_DBG_CONSOLE === $id)
 		{
-			error_reporting(E_ALL | E_STRICT);
+			error_reporting(-1);
 			ini_set("display_errors", "1");
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			ini_set("mysql.trace_mode", "1");
 			aw_ini_set("debug_mode", "1");
+			aw_errorhandler::set_exception_handler("handle_exception_dbg");
 			//TODO: tekitada konsool uude aknasse siin
 			$this->mode = $id;
 		}
 		elseif (self::MODE_DBG_EXTENDED === $id)
 		{
-			error_reporting(E_ALL | E_STRICT);
+			error_reporting(-1);
 			ini_set("display_errors", "1");
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			ini_set("mysql.trace_mode", "1");
 			aw_ini_set("debug_mode", "1");
 			aw_global_set("debug.db_query", "1");
-			set_exception_handler("aw_dbg_exception_handler");
-			set_error_handler ("aw_dbg_error_handler");
+			aw_errorhandler::set_exception_handler("handle_exception_dbg");
 			$this->mode = $id;
 		}
 		elseif(self::MODE_REASONABLE === $id)
 		{
-			error_reporting(E_ALL | E_STRICT);
+			error_reporting(E_ALL ^ E_NOTICE);
 			ini_set("display_errors", "1");
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			aw_ini_set("debug_mode", "1");
-			set_exception_handler("aw_dbg_exception_handler");
-			set_error_handler ("aw_reasonable_error_handler");
+			aw_errorhandler::set_exception_handler("handle_exception_dbg");
 			$this->mode = $id;
 		}
 		else
