@@ -1274,16 +1274,20 @@ function aw_unserialize($str, $dequote = false, $native_with_php_bc = false)
 	return $retval;
 }
 
+// a function to recover serialized data that has been corrupted by conversion to utf8 in database
+// (string variable lengths are changed when converting from single byte to multibyte encoding)
 function utf_unserialize($data)
 {
 	$value = unserialize($data);
 	if (false === $value and "b:0;" !== $data and $data and 0 !== strpos($data, "\$arr"))
 	{
-		$data = iconv("UTF-8", "ISO-8859-15", trim($data));
+		// try to convert to latin1 as it has been the default charset in databases
+		// then unserialize and convert back to UTF-8
+		$data = iconv("UTF-8", "latin1", trim($data));
 		$value = unserialize($data);
 		if (false !== $value)
 		{
-			$value = iconv_array("ISO-8859-15", "UTF-8", $value);
+			$value = iconv_array("latin1", "UTF-8", $value);
 		}
 	}
 	return $value;
