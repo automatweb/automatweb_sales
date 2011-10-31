@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/ows_bron/ows_bron.aw,v 1.52 2009/05/06 13:12:00 markop Exp $
-// ows_bron.aw - OWS Broneeringukeskus 
+
+// ows_bron.aw - OWS Broneeringukeskus
 /*
 
-@classinfo syslog_type=ST_OWS_BRON relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -45,7 +45,7 @@
 	@groupinfo mail_cc_bcc caption="CC kinnituse BCC" parent=mail_settings
 
 @groupinfo bank_settings caption="Panga seaded"
-		
+
 @groupinfo promo_settings caption="Promokoodi seaded"
 @default group=promo_settings
 	@property promo_settings type=table store=no no_caption=1
@@ -196,7 +196,7 @@ class ows_bron extends class_base
 			//-- set_property --//
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
@@ -230,7 +230,7 @@ class ows_bron extends class_base
 		}
 		return $this->parse();
 	}
-	
+
 	function get_web_language_id($lc)
 	{
 		return 2;
@@ -357,7 +357,7 @@ class ows_bron extends class_base
 		}
 		$return = $this->_call_GetRateDetails($parameters);
 		$rate = $return['GetRateDetailsResult'];
-		
+
 		if($rate["ResultCode"] != 'Success')
 		{
 			$ru =  $this->mk_my_orb("show_available_rooms", array(
@@ -685,7 +685,7 @@ class ows_bron extends class_base
 					"hb_arrival_2_sel" => "checked"
 				));
 			}
-			
+
 			if ($arr["ct_country"] == "EE")
 			{
 				if (date("d.m.Y", $arrival) != date("d.m.Y") || date("Hi", (time() - 70*60)) < "1145")
@@ -955,7 +955,7 @@ class ows_bron extends class_base
 
 		$bp = get_instance(CL_BANK_PAYMENT);
 
-		
+
 		//genereerib uue bookingu id et saaks seda kasutada makse logimisel
 		$parameters = array(
 			"partnerWebsiteGuid" => $arr["partnerWebsiteGuid"],
@@ -974,7 +974,7 @@ class ows_bron extends class_base
 		$o = obj();
 		$o->set_parent(aw_ini_get("ows.bron_folder"));
 		$o->set_class_id(CL_OWS_RESERVATION);
-		$o->set_name(sprintf(t("OWS Bron %s %s @ %s"), 
+		$o->set_name(sprintf(t("OWS Bron %s %s @ %s"),
 			$arr["ct"]["firstname"], $arr["ct"]["lastname"], date("d.m.Y H:i")
 		));
 		$o->set_prop("ows_bron", $arr["ow_bron"]);
@@ -1183,7 +1183,7 @@ if(aw_global_get("uid") == "struktuur"){ arr($rn);}//33685 , 215250
 			"display_main" => $arr["display_confirm"] ? "none" : "display",
 			"act_main" => $arr["display_confirm"] ? "" : "class=\"active\"",
 			"accept_terms" => checked($arr["accept_terms"]),
-			
+
                        "ex_zip" => $arr["ex_zip"],
                        "ex_adr_2" => $arr["ex_adr_2"],
                        "ex_adr_1" => $arr["ex_adr_1"],
@@ -1349,7 +1349,7 @@ if(aw_global_get("uid") == "struktuur"){ arr($rn);}//33685 , 215250
                                        "ex_adr_2" => $arr["ex_adr_2"],
                                        "ex_zip" => $arr["ex_zip"]
                        ), false, $arr["r_url"]);
- 
+
                        // if extranet user, all fields are required
                        if ($arr["ct2"]["pay_type"] != "cash")
                        {
@@ -1594,9 +1594,9 @@ if(aw_global_get("uid") == "struktuur"){ arr($rn);}//33685 , 215250
 				return aw_url_change_var("error", 4, $arr["r_url"]);
 			}
 
-			$number = trim($arr["confirm_card_number"]); 
-			$number = eregi_replace("[[:space:]]+", "", $number); 
-			$number = eregi_replace("-+", "", $number); 
+			$number = trim($arr["confirm_card_number"]);
+			$number = eregi_replace("[[:space:]]+", "", $number);
+			$number = eregi_replace("-+", "", $number);
 			if (!$this->validate_cc_num($number))
 			{
 				//return aw_url_change_var("error", 5, $arr["r_url"]);
@@ -1682,7 +1682,7 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 			{
 				return aw_url_change_var("error", 5, $arr["r_url"]);
 			}
-	
+
 			if ($return["MakeBookingExWithBirthdayResult"]["ResultCode"] != "Success")
 			{
 				//die("webservice error: ".dbg::dump($return));
@@ -1700,7 +1700,7 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 				$o->set_parent(aw_ini_get("ows.bron_folder"));
 			}
 			$o->set_class_id(CL_OWS_RESERVATION);
-			$o->set_name(sprintf(t("OWS Bron %s %s @ %s"), 
+			$o->set_name(sprintf(t("OWS Bron %s %s @ %s"),
 				$params["guestFirstName"], $params["guestLastName"], date("d.m.Y H:i")
 			));
 			$o->set_prop("is_confirmed", 1);
@@ -1765,7 +1765,7 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 	{
 		$this->is_mail = 1;
 		$html = $this->display_final_page(array("ows_rvs_id" => $o->prop("confirmation_code")));
-	
+
 		$m = $o->meta();
 
 		$is_cancelled = $o->prop("cancel_type") != "" ? true : false;
@@ -1890,15 +1890,15 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 		return $html;
 	}
 
-	function validate_cc_num($number) 
-	{ 
-		$number = trim($number); 
-		$number = eregi_replace("[[:space:]]+", "", $number); 
-		$number = eregi_replace("-+", "", $number); 
-	
+	function validate_cc_num($number)
+	{
+		$number = trim($number);
+		$number = eregi_replace("[[:space:]]+", "", $number);
+		$number = eregi_replace("-+", "", $number);
+
 		# Pass 1
 		$j = 0;
-		for ($i = strlen($number) - 1; $i + 1; $i--) 
+		for ($i = strlen($number) - 1; $i + 1; $i--)
 		{
 			if ((string)(($number[$i] * 2)/2)!= "$number[$i]")
 			{
@@ -1907,21 +1907,21 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 			}
 			$num2 .= is_int($j++/2)? $number[$i] : $number[$i] * 2;
 		}
-	
+
 		# Pass 2
 		$i = 0;
-		while ($i < strlen($num2)) 
+		while ($i < strlen($num2))
 		{
 			$total += $num2[$i++];
 		}
-	
+
 		# Evaluate
-		if ($total % 10) 
+		if ($total % 10)
 		{
 			return false;
 		}
 		return true;
-	} 
+	}
 
 	private function final_page_from_ows($arr)
 	{
@@ -1975,7 +1975,7 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 			"guest_phone" => iconv("utf-8", aw_global_get("charset")."//IGNORE", $rvs_data["GuestPhone"]),
 			"confirmation_number" => htmlentities($arr["ows_rvs_id"]),
 			"cancel_url" => str_replace("/orb.aw?", "/?", $this->mk_my_orb("show_cancel_page", array(
-					"confirmation_number" => $arr["ows_rvs_id"], 
+					"confirmation_number" => $arr["ows_rvs_id"],
 					"last_name" => iconv("utf-8", aw_global_get("charset")."//IGNORE", $rvs_data["GuestLastName"])
 				))),
 			"checkin" => date("d.m.Y", $this->parse_date_int($rvs_data["ArrivalDate"])),
@@ -2130,7 +2130,7 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 
 		$cancel_url = $this->mk_my_orb("show_cancel_page", array("confirmation_number" => $o->prop("confirmation_code")));
 		$cancel_url = str_replace("/orb.aw?", "/?", str_replace("automatweb/", "", $cancel_url));
-	
+
 		$nb_url = $this->mk_my_orb("show_available_rooms", array(
 			"i_location" => $o->prop("hotel_id"),
 			"i_checkin" => date("d.m.Y", time()),
@@ -2253,7 +2253,7 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 
 		// if cc data exists, then let the user see it.
 		if ($o->prop("guarantee_cc_exp_date") > 100)
-		{ 
+		{
 			$this->vars(array("HAS_CC_DATA" => $this->parse("HAS_CC_DATA")));
 		}
 		// if payment was by cc, then write that
@@ -2323,7 +2323,7 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 
 		$checkindata = $arr["i_checkin"];
 		$checkindata2 = explode('.', $checkindata);
-		$checkin = 
+		$checkin =
 			sprintf("%04d",$checkindata2[2]).'-'.
 			sprintf("%02d",$checkindata2[1]).'-'.
 			sprintf("%02d",$checkindata2[0]).'T00:00:00';
@@ -2352,7 +2352,7 @@ if(aw_global_get("uid") == "struktuur") {arr($params); arr($return);arr($arr);}
 				));
 
 				$this->_insert_hotel_list($arr["i_location"]);
-		
+
 				$this->vars(array(
 					"i_rooms_".$arr["i_rooms"] => "SELECTED",
 					"i_adult1_".$arr["i_adult1"] => "SELECTED",
@@ -2614,8 +2614,8 @@ enter_function("ws:GetAvailableRates");
 		$return = $this->_call_GetAvailableRates($parameters);
 if ($_GET["debug"] == 1)
 {
-	echo "parameters = ".dbg::dump($parameters);	
-	echo "return = ".dbg::dump($return);	
+	echo "parameters = ".dbg::dump($parameters);
+	echo "return = ".dbg::dump($return);
 }
 
 exit_function("ws:GetAvailableRates");
@@ -2681,7 +2681,7 @@ echo date("d.m.Y H:i:s");*/
 			{
 				continue;
 			}
-			$fetch_ows_codes[] = $hotel["OwsHotelCode"]."-".$rate["OwsRoomTypeCode"];		
+			$fetch_ows_codes[] = $hotel["OwsHotelCode"]."-".$rate["OwsRoomTypeCode"];
 		}
 		$room_desc_list = new object_list(array(
 			"class_id" => CL_DOCUMENT,
@@ -2997,7 +2997,7 @@ $rate_ids = array();
 				"ERR_".$_GET["error"] => $this->parse("ERR_".$_GET["error"])
  			));
 		}
-		
+
 		$tmp = "";
 		for ($i=0;$i<10;$i++)
 		{
@@ -3046,11 +3046,11 @@ $rate_ids = array();
 					"F" => "low",
 					"G" => "low"
 				);
-		
+
 				$from = date("Y").'-'.date("m").'-'.date("d").'T00:00:00';
 				$to = time() + 180*86400;
 				$to = date("Y", $to).'-'.date("m", $to).'-'.date("d", $to).'T00:00:00';
-		
+
 				$parameters = array();
 				$parameters["Resort"] = $resort;
 				$parameters["FirstDate"] = $from;
@@ -3063,24 +3063,24 @@ $rate_ids = array();
 					"method" => "soap",
 					"server" => "http://195.250.171.36/RevalORSService/RRCServices.asmx"
 				));
-		
+
 				if (isset($return["GetRoomsDayTypesResult"]["RoomsDayTypeClass"]))
 				{
 					$result = $return["GetRoomsDayTypesResult"]["RoomsDayTypeClass"];
-		
+
 					$js_array = array();
-		
+
 					foreach ($result as $data)
 					{
 						$date = explode("-", $data["DayTypeDate"], 3);
 						$date = $date[0] . "-" . (int) $date[1] . "-" . (int) substr($date[2], 0, 2);
 						$colour = $colour_index[$data["RoomsDayType"]];
-		
+
 						$js_array[] = "'" . $date . "': '" . $colour . "'";
 					}
-		
+
 					$js_array = "var predefDateBG = {\n" . implode(",\n", $js_array) . "\n};";
-		
+
 					// write to cache
 					$cache->file_set($key, serialize($js_array));
 				}
@@ -3127,7 +3127,7 @@ die(dbg::dump($return));
 			"server" => "http://195.250.171.36/RevalServices/BookingService.asmx"
 		));
 die(dbg::dump($return));
-	
+
 	$ol = new object_list(array(
 		"class_id" => CL_OWS_RESERVATION,
 		"confirmation_code" => $_GET["finder"]
@@ -3363,7 +3363,7 @@ die(dbg::dump($return));
 		$return = $this->_call_GetRateDetails($parameters);
 
 		$rate = $return['GetRateDetailsResult'];
-		
+
 		if(false && $rate["ResultCode"] != 'Success')
 		{
 			die(dbg::dump($parameters).dbg::dump($return));
@@ -3411,7 +3411,7 @@ die(dbg::dump($return));
 		if (empty($arr["confirmation_number"]) || empty($arr["last_name"]) || empty($arr["reason"]))
 		{
 			return $this->mk_my_orb("show_cancel_page", array(
-				"err" => 1, 
+				"err" => 1,
 				"confirmation_number" => $arr["confirmation_number"],
 				"last_name" => $arr["last_name"],
 				"section" => $arr["section"],
@@ -3440,7 +3440,7 @@ die(dbg::dump($return));
 		if (strcasecmp(trim($lastname),trim($arr["last_name"])) !== 0)
 		{
 			return $this->mk_my_orb("show_cancel_page", array(
-				"err" => 1, 
+				"err" => 1,
 				"confirmation_number" => $arr["confirmation_number"],
 				"last_name" => $arr["last_name"],
 				"section" => $arr["section"],
@@ -3507,7 +3507,7 @@ die(dbg::dump($return));
 		{
 			$this->proc_ws_error($parameters, $return);
 		}
-	
+
 		$obj->set_prop("cancel_type", $arr["reason"]);
 		$obj->set_prop("cancel_other", $arr["cancel_other"]);
 		aw_disable_acl();
@@ -3569,7 +3569,7 @@ die(dbg::dump($return));
 		$rate = $rate["RateDetails"];*/
 
 		$this->vars($o->properties());
-		
+
 		$this->vars(array(
 			"guest_email" => iconv("utf-8", aw_global_get("charset"),urldecode($o->prop("guest_email"))),
 			"confirmation_number" => $o->prop("confirmation_code"),
@@ -3589,7 +3589,7 @@ die(dbg::dump($return));
 		));
 
 		$html = $this->parse();
-	
+
 		$awm = get_instance("protocols/mail/aw_mail");
 		$awm->create_message(array(
 			"froma" => "sales@revalhotels.com",
@@ -3633,12 +3633,12 @@ die();
 		// list hotels
 		$parameters = array();
 		$parameters["webLanguageId"] = $lang;
-		$parameters["arrivalDate"] = 
+		$parameters["arrivalDate"] =
 			sprintf("%04d",date("Y")).'-'.
 			sprintf("%02d",date("m")).'-'.
 			sprintf("%02d",date("d")).'T00:00:00';
 		$tm = time() + 5*24*3600;
-		$parameters["departureDate"] = 
+		$parameters["departureDate"] =
 			sprintf("%04d",date("Y", $tm)).'-'.
 			sprintf("%02d",date("m", $tm)).'-'.
 			sprintf("%02d",date("d", $tm)).'T00:00:00';
@@ -3921,7 +3921,7 @@ echo dbg::dump($return);
 
 		$bank_ol = new object_list($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_BANK_PAYMENT")));
 		$bank_picker = array("" => t("--vali--")) + $bank_ol->names();
-		
+
 		$sets = $arr["obj_inst"]->meta("bank_settings");
 		foreach($this->hotel_list as $hotel_id => $hotel_name)
 		{
@@ -4087,10 +4087,10 @@ echo dbg::dump($return);
 		$arr["obj_inst"]->set_meta("hotel_cc_bcc", $arr["request"]["bcc"]);
 		$arr["obj_inst"]->set_meta("hotel_cc_bcc_titles", $arr["request"]["subj"]);
 	}
-	
+
 	function detect_hotel()
 	{
-		$o = obj(aw_global_get("section")); 
+		$o = obj(aw_global_get("section"));
 		foreach($o->path() as $path_item)
 		{
 				if ($path_item->prop("color"))
@@ -4242,5 +4242,4 @@ if ($_GET["debug"] == 1)
                die(json_encode($rv));
        }
 
-}//seda ei tohi salvestada------------------------
-?>
+}

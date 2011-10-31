@@ -2,7 +2,7 @@
 // site_search_content.aw - Saidi sisu otsing
 /*
 
-@classinfo syslog_type=ST_SITE_SEARCH_CONTENT relationmgr=yes
+@classinfo relationmgr=yes
 
 @default table=objects
 @default field=meta
@@ -939,11 +939,11 @@ class site_search_content extends class_base
 		$arr["str"] = str_replace(chr(0xa6), "&#0352;", $arr["str"]);
 		$arr["str"] = str_replace("%A6", "&#0352;", $arr["str"]);
 		*/
-		$arr["str"] = mb_strtolower($arr["str"], "iso-8859-15");
-		$arr["str"] = str_replace(chr(166), chr(168), $arr["str"]);
-		$str2 = mb_strtoupper($arr["str"], "iso-8859-15");
+		$arr["str"] = mb_strtolower($arr["str"], languages::USER_CHARSET);
+		$str2 = mb_strtoupper($arr["str"], languages::USER_CHARSET);
 		$this->quote($str2);
 		extract($arr);
+		$this->quote($str);
 
 		// init variables
 		$ret = array();
@@ -972,7 +972,6 @@ class site_search_content extends class_base
 
 		if (aw_ini_get("site_search_content.has_fulltext_index") == 1)
 		{
-			$this->quote($str);
 			$fts = "MATCH(title,content) AGAINST('\"$str\"')";
 			$fulltext = ", ".$fts;
 			$ob = " ORDER BY {$fts} DESC ";
@@ -1005,8 +1004,6 @@ class site_search_content extends class_base
 		{
 			$lim = " LIMIT ".((int)$arr["opts"]["limit"]);
 		}
-
-		$this->quote($str);
 
 		$content_s = $this->_get_sstring($str, $opts["str"], "content",true,$arr["s_seatch_word_part"]);
 		$content_s2 = $this->_get_sstring($str2, $opts["str"], "content",true,$arr["s_seatch_word_part"]);
@@ -1059,7 +1056,7 @@ class site_search_content extends class_base
 		$ret = array(); //$res;
 		foreach($res as $i)
 		{
-			if ($opts["str"] == S_OPT_ANY_WORD || $opts["str"] == S_OPT_ALL_WORDS || strpos(mb_strtolower($i["content"], "iso-8859-15"), mb_strtolower($str, "iso-8859-15")) !== false)
+			if ($opts["str"] == S_OPT_ANY_WORD || $opts["str"] == S_OPT_ALL_WORDS || strpos(mb_strtolower($i["content"], languages::USER_CHARSET), mb_strtolower($str, languages::USER_CHARSET)) !== false)
 			{
 				$ret[] = $i;
 			}
@@ -1107,7 +1104,7 @@ class site_search_content extends class_base
 		}
 
 		$lid_s = " o.lang_id = '".aw_global_get("lang_id")."' AND ";
-		$opts["str"] = mb_strtolower($opts["str"], "iso-8859-15");
+		$opts["str"] = mb_strtolower($opts["str"], languages::USER_CHARSET);
 		$this->quote($str);
 		$joiner = "LEFT JOIN documents d ON o.brother_of = d.docid";
 		if (aw_ini_get("user_interface.full_content_trans") &&

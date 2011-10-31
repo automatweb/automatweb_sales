@@ -393,7 +393,7 @@ class converters extends aw_template implements orb_public_interface
 			$this->raise_error(ERR_NO_USERS_ROOT,"Kasutajate rootketaloog on m&auml;&auml;ramata!", true);
 		}
 		// now, get all top-level groups.
-		$this->db_query("SELECT gid,oid,type,search_form FROM groups WHERE (parent IS NULL or parent = 0) AND type IN(".group_obj::TYPE_REGULAR.",".group_obj::TYPE_DYNAMIC.")");
+		$this->db_query("SELECT gid,oid,type,search_form FROM groups WHERE (parent IS NULL or parent = 0) AND type IN(".aw_groups::TYPE_REGULAR.",".aw_groups::TYPE_DYNAMIC.")");
 		while($row = $this->db_next())
 		{
 			$this->save_handle();
@@ -495,7 +495,7 @@ class converters extends aw_template implements orb_public_interface
 
 	function _rec_groups_convert($pgid, $poid)
 	{
-		$this->db_query("SELECT gid,oid FROM groups WHERE parent = $pgid AND type IN(".group_obj::TYPE_REGULAR.",".group_obj::TYPE_DYNAMIC.")");
+		$this->db_query("SELECT gid,oid FROM groups WHERE parent = $pgid AND type IN(".aw_groups::TYPE_REGULAR.",".aw_groups::TYPE_DYNAMIC.")");
 		while($row = $this->db_next())
 		{
 			$this->save_handle();
@@ -1164,7 +1164,7 @@ class converters extends aw_template implements orb_public_interface
 		aw_ini_set("acl.no_check", 1);
 		// get list og groups that are not user groups
 		$gl = array();
-		$this->db_query("select gid FROM groups WHERE type IN (".group_obj::TYPE_REGULAR.",".group_obj::TYPE_DYNAMIC.")");
+		$this->db_query("select gid FROM groups WHERE type IN (".aw_groups::TYPE_REGULAR.",".aw_groups::TYPE_DYNAMIC.")");
 		while ($row = $this->db_next())
 		{
 			$gl[] = $row["gid"];
@@ -1297,7 +1297,7 @@ class converters extends aw_template implements orb_public_interface
 		");
 		while ($row = $this->db_next())
 		{
-			$skip = ($row["g_type"] == group_obj::TYPE_DEFAULT) && (strtolower($row["g_name"]) == strtolower($row["createdby"]) || $row["createdby"] == "");
+			$skip = ($row["g_type"] == aw_groups::TYPE_DEFAULT) && (strtolower($row["g_name"]) == strtolower($row["createdby"]) || $row["createdby"] == "");
 
 			if (true || !$skip)
 			{
@@ -2432,7 +2432,7 @@ echo "mod ".$con["to.name"]."<br>";
 			{
 				if ($data["metadata"])
 				{
-					$meta = unserialize($data["metadata"]);
+					$meta = utf_unserialize($data["metadata"]);
 					if (!empty($meta["translations"]))
 					{
 						$found_lang_ids = array_merge($found_lang_ids, array_keys($meta["translations"]));
@@ -2470,7 +2470,7 @@ echo "mod ".$con["to.name"]."<br>";
 				if ($data["metadata"])
 				{
 					$oid = $data["oid"];
-					$meta = unserialize($data["metadata"]);
+					$meta = utf_unserialize($data["metadata"]);
 					$changed = false;
 
 					if (isset($meta["translations"][$from_lid]))
@@ -2509,439 +2509,6 @@ echo "mod ".$con["to.name"]."<br>";
 			}
 		}
 		while ($qcount === $limit);
-		automatweb::http_exit();
-	}
-
-	/**
-		@attrib name=convert_database_charset_to_utf8_1
-	**/
-	function convert_database_charset_to_utf8_1($arr)
-	{
-		$ascii_tables = array(
-			"acl",
-			"aliases",
-			"aw_account_balances",
-			"aw_administrative_unit",
-			"aw_admin_object_importer",
-			"aw_authorizations",
-			"aw_budgeting_account",
-			"aw_budgeting_tax_term",
-			"aw_budgeting_transfers",
-			"aw_budgets",
-			"aw_bug_comments",
-			"aw_cb_form_chain_entries",
-			"aw_class",
-			"aw_content_item",
-			"aw_content_package",
-			"aw_content_package_price_conditions",
-			"aw_crm_bank",
-			"aw_crm_bank_account",
-			"aw_crm_bill_payment",
-			"aw_crm_cash_cow",
-			"aw_crm_category",
-			"aw_crm_company_cfgform_configurator",
-			"aw_crm_company_customer_data_generator",
-			"aw_crm_company_roles",
-			"aw_crm_customer_data",
-			"aw_crm_deal",
-			"aw_crm_document",
-			"aw_crm_expense_spot",
-			"aw_crm_expense_spot_row",
-			"aw_crm_memo",
-			"aw_crm_offer",
-			"aw_crm_offer_row",
-			"aw_crm_offer_sent",
-			"aw_crm_offer_template",
-			"aw_crm_offer_type",
-			"aw_crm_party",
-			"aw_crm_person_add_education",
-			"aw_crm_person_required_wh_entry",
-			"aw_crm_person_wh_table",
-			"aw_crm_person_wh_table_entry",
-			"aw_crm_person_wh_table_entry_row",
-			"aw_crm_person_work_relation",
-			"aw_crm_sales_price_component",
-			"aw_crm_section",
-			"aw_crm_settings",
-			"aw_crm_tax_rate",
-			"aw_customer_import",
-			"aw_da_callers",
-			"aw_da_classes",
-			"aw_da_func_attribs",//attrib_value is utf
-			"aw_da_funcs",
-			"aw_discount",
-			"aw_event_time",
-			"aw_ext_systems",
-			"aw_group_membership",
-			"aw_infrastructure_import",
-			"aw_link_collection",
-			"aw_material_expense",
-			"aw_material_expense_condition",
-			"aw_material_movement_relation",
-			"aw_ml_membership_manager",
-			"aw_mrp_order",
-			"aw_mrp_order_center",
-			"aw_mrp_order_cover",
-			"aw_mrp_order_print",
-			"aw_mrp_order_print_format",
-			"aw_mrp_order_print_web_interface",
-			"aw_mrp_order_requested_material",
-			"aw_mrp_order_sent",
-			"aw_mrp_pricelist",
-			"aw_mrp_pricelist_row",
-			"aw_mrp_resource_ability",
-			"aw_mrp_resource_format_applies",
-			"aw_mrp_resource_operator",
-			"aw_otv_ds_pp_cache_file2folder",
-			"aw_package_client",
-			"aw_package_site_relation",
-			"aw_packages",
-			"aw_person_has_skill",
-			"aw_person_skill_manager",
-			"aw_personnel_management_job_offer_condition",
-			"aw_practice",
-			"aw_practices",
-			"aw_prices",
-			"aw_procurements",
-			"aw_procurement_criteria",
-			"aw_procurement_offer_rows",
-			"aw_procurement_offers",
-			"aw_procurement_priorities",
-			"aw_products_show",
-			"aw_proj_analysis",
-			"aw_project_analysis_ws",
-			"aw_project_risk_eval_ws",
-			"aw_project_strat_goal_eval_ws",
-			"aw_properties",
-			"aw_purchase",
-			"aw_questionnaire_answer",
-			"aw_reklamatsioon",
-			"aw_reklamatsioon_row",
-			"aw_remote_object_include",
-			"aw_risk_evals",
-			"aw_room",
-			"aw_rostering",
-			"aw_rostering_payment_type",
-			"aw_rostering_scenario",
-			"aw_rostering_schedule",
-			"aw_rostering_work_entry",
-			"aw_rostering_workplace",
-			"aw_rss_reader",
-			"aw_shop_amount_limit",
-			"aw_shop_delivery_method",
-			"aw_shop_delivery_method_conditions",
-			"aw_shop_delivery_note",
-			"aw_shop_delivery_note_row",
-			"aw_shop_item_prices",
-			"aw_shop_material_type",
-			"aw_shop_order_center",
-			"aw_shop_order_rows",
-			"aw_shop_order_rows_amount",
-			"aw_shop_orderer_data_site_show",
-			"aw_shop_orders",
-			"aw_shop_payment_type",
-			"aw_shop_payment_type_conditions",
-			"aw_shop_price_list_condition",
-			"aw_shop_price_list_condition_type",
-			"aw_shop_price_list_customer_discount",
-			"aw_shop_product_purveyance",
-			"aw_shop_product_single",
-			"aw_shop_unit_formula",
-			"aw_shop_warehouse_amount",
-			"aw_shop_warehouse_config",
-			"aw_shop_warehouse_movement",
-			"aw_shop_warehouse_return",
-			"aw_shop_warehouse_return_row",
-			"aw_shop_warehouses",
-			"aw_site_class_prop_stats",
-			"aw_site_copy",
-			"calendar2event",
-			"calendar2form_relations",
-			"calendar2forms",
-			"calendar2object",
-			"calendar2recurrence",
-			"calendar2timedef",
-			"crm_building_management_management_estimaters_workbench",
-			"crm_building_management_unit",
-			"crm_insurance",
-			"crm_personal_id",
-			"crm_skill_level",
-			"crm_transport_management",
-			"crm_transport_management_car_type",
-			"crm_transport_management_carriage",
-			"crm_transport_management_carriage_order",
-			"crm_transport_management_route",
-			"crm_transport_management_trailer",
-			"crm_transport_management_truck",
-			"ipaddresses",
-			"kliendibaas_telefon",
-			"layer_states",
-			"shop_warehouse_favor",
-			"shop_warehouse_inventory",
-			"shop_warehouse_product_group",
-			"shop_warehouse_purchase_bill",
-			"shop_warehouse_purchase_order",
-			"shop_warehouse_purchase_sheet",
-			"shop_warehouse_selling_order",
-			"shop_warehouse_selling_sheet",
-			"tax",
-			"user_bookmarks",
-			"watercraft_add",
-			"watercraft_management",
-		);
-
-		$utf8_tables = array(
-			"aw_address",
-			"aw_alias_trans",
-			"aw_aw_spec_use_case",
-			"aw_aw_spec_version",
-			"aw_budgeting_tax",
-			"aw_budgeting_tax_relation",
-			"aw_bugs",
-			"aw_class_list",
-			"aw_crm_bill",
-			"aw_crm_bill_rows",
-			"aw_crm_day_report",
-			"aw_crm_doc_actions",
-			"aw_crm_mails",
-			"aw_customer_feedback",
-			"aw_da_func_data",
-			"aw_dev_orders",
-			"aw_draft",
-			"aw_eesti_ehitusturg_raw_companies",
-			"aw_eesti_ehitusturg_raw_emtak",
-			"aw_eesti_ehitusturg_raw_owners",
-			"aw_eesti_ehitusturg_raw_revenue",
-			"aw_eesti_ehitusturg_raw_sectors",
-			"aw_ext_system_entries",
-			"aw_orders_item",
-			"aw_otv_ds_pp_cache",
-			"aw_ows_reservations",
-			"aw_package_server",
-			"aw_person_skill",
-			"aw_problem_tickets",
-			"aw_procurement_requirement_solution",
-			"aw_project_goals",
-			"aw_project_risks",
-			"aw_projects",
-			"aw_register_data",
-			"aw_room_reservations",
-			"aw_rostering_shift",
-			"aw_sent_mails",
-			"aw_server_list",
-			"aw_shop_brand",
-			"aw_shop_colour",
-			"aw_shop_customer_cards",
-			"aw_shop_material",
-			"aw_shop_packaging",
-			"aw_shop_packets",
-			"aw_shop_price_list",
-			"aw_shop_product_category",
-			"aw_shop_products",
-			"aw_shop_purcahse_orders",
-			"aw_shop_sell_orders",
-			"aw_site_copy_client",
-			"aw_site_copy_site",
-			"aw_site_copy_todo",
-			"aw_site_diff",
-			"aw_site_list",
-			"aw_site_notification_rule",
-			"aw_site_notification_sent",
-			"aw_site_object_stats",
-			"aw_smart_post",
-			"aw_spa_bookings",
-			"aw_spec_class",
-			"aw_spec_layouts",
-			"aw_spec_properties",
-			"aw_spec_relations",
-			"aw_strat_evals",
-			"aw_tables",
-			"aw_target_audience",
-			"aw_task_rows",
-			"aw_timing_stats",
-			"aw_trademark",
-			"aw_trademark_status",
-			"aw_warehouse",
-			"aw_wf_entities",
-			"aw_wf_entity_types",
-			"aw_wf_transitions",
-			"banner_clicks",
-			"banner_clients",
-			"banner_ids",
-			"banner_views",
-			"banners",
-			"bugtrack_errors",
-			"comments",
-			"config",
-			"cv_hits",
-			"doc_ct_content",
-			"documents",
-			"documents_versions",
-			"dronline_bg_status",
-			"element2form",
-			"export_content",
-			"export_filelist",
-			"export_folders",
-			"export_log",
-			"export_url2filename",
-			"external_reference",
-			"extlinks",
-			"feedback",
-			"files",
-			"form2chain",
-			"form_actions",
-			"form_chain_entries",
-			"form_chains",
-			"form_controller2element",
-			"form_elements",
-			"form_entries",
-			"form_output",
-			"form_relations",
-			"form_table2form",
-			"form_tables",
-			"forms",
-			"forum_comments",
-			"forum_topics",
-			"forum_track",
-			"g_img_rel",
-			"galleries",
-			"gallery_conf2menu",
-			"graphs",
-			"groupmembers",
-			"groups",
-			"hits",
-			"image_verification",
-			"images",
-			"ip2country",
-			"keyword2menu",
-			"keywordcategories",
-			"keywordrelations",
-			"keywords",
-			"keywords2objects",
-			"kliendibaas_address",
-			"kliendibaas_amet",
-			"kliendibaas_ettevotlusvorm",
-			"kliendibaas_firma",
-			"kliendibaas_firma_versions",
-			"kliendibaas_haridus",
-			"kliendibaas_isik",
-			"kliendibaas_keeleoskus",
-			"kliendibaas_kohtumine",
-			"kliendibaas_korvaltegevus",
-			"kliendibaas_linn",
-			"kliendibaas_maakond",
-			"kliendibaas_organisatoorne_kuuluvus",
-			"kliendibaas_oskus",
-			"kliendibaas_riik",
-			"kliendibaas_sugulusside",
-			"kliendibaas_tegevusala",
-			"kliendibaas_toode",
-			"languages",
-			"livelink_files",
-			"livelink_folders",
-			"logtrail",
-			"menu",
-			"messages",
-			"ml_mails",
-			"ml_member2form_entry",
-			"ml_queue",
-			"ml_sent_mails",
-			"ml_users",
-			"mp3",
-			"mrp_case",
-			"mrp_case_schedule",
-			"mrp_job",
-			"mrp_job_progress",
-			"mrp_job_rows",
-			"mrp_log",
-			"mrp_schedule",
-			"mrp_stats",
-			"objects",
-			"orders",
-			"orders_order",
-			"otto_imp_t_codes",
-			"otto_imp_t_p2p",
-			"otto_imp_t_prices",
-			"otto_imp_t_prod",
-			"otto_prod_img",
-			"output2form",
-			"pank",
-			"pank_account",
-			"pank_transaction",
-			"periods",
-			"personnel_management_job_offer",
-			"personnel_management_job_wanted",
-			"pk_list",
-			"pk_revisions",
-			"planner",
-			"planner_repeaters",
-			"poll_answers",
-			"poll_clicks",
-			"procuremnent_requirements",
-			"properties",
-			"quickmessages",
-			"rate2clid",
-			"rate2menu",
-			"rating_sum",
-			"ratings",
-			"realestate_property",
-			"recurrence",
-			"register",
-			"reminders",
-			"remote_logins",
-			"rfp",
-			"room",
-			"scala_import",
-			"scm_location",
-			"searches",
-			"selection",
-			"site_file_index",
-			"static_content",
-			"styles",
-			"survey",
-			"syslog",
-			"syslog_archive",
-			"syslog_archive_sessions",
-			"syslog_current",
-			"template",
-			"user2rating",
-			"user_hashes",
-			"users",
-			"vastuv6tt_avaldus",
-			"vastuv6tt_sisseastuja",
-			"watercraft",
-			"watercraft_search"
-		);
-
-		$i = 0;
-		foreach ($utf8_tables as $table)
-		{
-			$convert_query = "ALTER TABLE `{$table}` COLLATE='utf8_general_ci', CONVERT TO CHARSET utf8;";
-			$r = object_loader::ds()->db_query($convert_query);
-			automatweb::$result->sysmsg("Converting table '{$table}' to UTF-8. Result: " . var_export($r, true));
-			if ($r) $i++;
-		}
-
-		$c = count($utf8_tables);
-		automatweb::$result->sysmsg("Converted {$i} out of {$c} tables to UTF-8.");
-
-		$i = 0;
-		foreach ($ascii_tables as $table)
-		{
-			$convert_query = "ALTER TABLE `{$table}` COLLATE='ascii_general_ci', CONVERT TO CHARSET ascii;";
-			$r = object_loader::ds()->db_query($convert_query);
-			automatweb::$result->sysmsg("Converting table '{$table}' to ascii. Result: " . var_export($r, true));
-			if ($r) $i++;
-		}
-
-		$c = count($ascii_tables);
-		automatweb::$result->sysmsg("Converted {$i} out of {$c} tables to ascii.");
-
-		// special cases. convert individual columns
-		$q = "ALTER TABLE `aw_da_func_attribs`  CHANGE COLUMN `attrib_value` `attrib_value` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci'";
-		$r = object_loader::ds()->db_query($q);
-
-		automatweb::$result->sysmsg("Exiting.");
 		automatweb::http_exit();
 	}
 }

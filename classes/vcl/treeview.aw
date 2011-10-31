@@ -1596,7 +1596,7 @@ features = array()
 				"name" => $oname.($show_num_child ? " (".$num_child.")" : "").($add_change_url ? html::obj_change_url($oid, t(" (M)")) : ""),
 				"id" => $oid,
 				"iconurl" => $icon,
-				"checkbox_status" => $checkbox_status,
+				"checkbox" => $checkbox_status
 			);
 			if($use_reload)
 			{

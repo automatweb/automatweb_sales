@@ -2,7 +2,7 @@
 // reval_customer.aw - Reval Klienditsoon
 /*
 
-@classinfo syslog_type=ST_REVAL_CUSTOMER relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -156,7 +156,7 @@ class reval_customer extends class_base
 				));
 				$s2 .= $this->parse("USED_FREE_NIGHT");
 			}
-			
+
 			$this->vars(array(
 				"USED_FREE_NIGHT" => $s2,
 				"AVAILABLE_FREE_NIGHT" => $s,
@@ -364,7 +364,7 @@ class reval_customer extends class_base
 				$this->vars(array(
 					"view_booking" => $this->mk_my_orb("display_final_page", array("ows_rvs_id" => $booking["ConfirmationCode"], "section" => 107220 /*aw_global_get("section")*/), CL_OWS_BRON),
 				));
-			
+
 			$this->vars(array(
 				"booking_id" => $this->_f($booking["ConfirmationCode"]),
 				"booking_status" => $this->_f($booking["Status"]),
@@ -598,12 +598,12 @@ class reval_customer extends class_base
 	private function _get_language_options()
 	{
 		return array(
-			"" => t("--vali--"), 
-			1 => t("Eesti"), 
-			2 => t("L&auml;ti"), 
-			3 => t("Leedu"), 
-			6 => t("Inglise"), 
-			7 => t("Vene"), 
+			"" => t("--vali--"),
+			1 => t("Eesti"),
+			2 => t("L&auml;ti"),
+			3 => t("Leedu"),
+			6 => t("Inglise"),
+			7 => t("Vene"),
 			8 => t("Saksa"),
 			9 => t("Soome")
 		);
@@ -681,7 +681,7 @@ class reval_customer extends class_base
 		}
 		else
 		{
-			// list cities and let user select one	
+			// list cities and let user select one
 			$city_list = $this->do_call("GetCities", array(
 				"languageId" => $this->_get_web_language_id()
 			), "Customers");
@@ -966,7 +966,7 @@ if (aw_global_get("uid") == "diamond@hotmail.com")
 		{
 			$this->vars(array("DONE" => $this->parse("DONE")));
 		}
-		
+
 		$user = "";
 		if(aw_global_get("uid"))
 		{
@@ -1002,7 +1002,7 @@ if (aw_global_get("uid") == "diamond@hotmail.com")
 		@attrib name=submit_edit_password nologin="1"
 	**/
 	function submit_edit_password($arr)
-	{	
+	{
 		if (!$this->get_cust_id())
 		{
 			return $this->_disp_login();
@@ -1096,7 +1096,7 @@ if (aw_global_get("uid") == "diamond@hotmail.com")
 		$this->_do_errors();
 
 		return $this->parse();
-	}		
+	}
 
 	private function _ci_data($booking, $customer)
 	{
@@ -1393,7 +1393,7 @@ if (aw_global_get("uid") == "diamond@hotmail.com")
 			$this->read_template("forgot_password.tpl");
 			lc_site_load("reval_customer", $this);
 			$this->_do_errors();
-		
+
 			$this->vars(array(
 				"reforb" => $this->mk_reforb("submit_forgot_password", array("section" => aw_global_get("section")))
 			));
@@ -1448,7 +1448,7 @@ if (aw_global_get("uid") == "diamond@hotmail.com")
 	{
 			$this->read_template("password_remind_mail.tpl");
 			lc_site_load("reval_customer", $this);
-		
+
 			$this->vars(array(
 				"first_name" => $rv["FirstName"],
 				"last_name" => $rv["LastName"],
@@ -1506,7 +1506,7 @@ if (aw_global_get("uid") == "diamond@hotmail.com")
 			"server" => "http://195.250.171.36/RevalServices/CustomerService.asmx" // REPL
 		));
 
-		if (is_array($return["GetCustomerUnusedComplimentaryNightsResult"]["ComplimentaryNights"]["ComplimentaryNightCount"]) && 
+		if (is_array($return["GetCustomerUnusedComplimentaryNightsResult"]["ComplimentaryNights"]["ComplimentaryNightCount"]) &&
 				count($return["GetCustomerUnusedComplimentaryNightsResult"]["ComplimentaryNights"]["ComplimentaryNightCount"]))
 		{
 			foreach($return["GetCustomerUnusedComplimentaryNightsResult"]["ComplimentaryNights"]["ComplimentaryNightCount"] as $row)
@@ -1526,5 +1526,3 @@ if (aw_global_get("uid") == "diamond@hotmail.com")
 		return $this->parse();
 	}
 }
-
-?>

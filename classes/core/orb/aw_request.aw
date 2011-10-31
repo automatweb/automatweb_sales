@@ -224,10 +224,10 @@ aw_global_set("lang_oid", $la["oid"]);
 		aw_global_set("lang_id", $ct_lid);
 
 		// define global constants
-		define("AW_REQUEST_UI_LANG_ID", $ui_lid);
-		define("AW_REQUEST_UI_LANG_CODE", $ui_lc);
-		define("AW_REQUEST_CT_LANG_ID", $ct_lid);
-		define("AW_REQUEST_CT_LANG_CODE", $ct_lc);
+		if (!defined("AW_REQUEST_UI_LANG_ID")) define("AW_REQUEST_UI_LANG_ID", $ui_lid);
+		if (!defined("AW_REQUEST_UI_LANG_CODE")) define("AW_REQUEST_UI_LANG_CODE", $ui_lc);
+		if (!defined("AW_REQUEST_CT_LANG_ID")) define("AW_REQUEST_CT_LANG_ID", $ct_lid);
+		if (!defined("AW_REQUEST_CT_LANG_CODE")) define("AW_REQUEST_CT_LANG_CODE", $ct_lc);
 	}
 
 	/**

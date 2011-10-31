@@ -1,7 +1,7 @@
 <?php
 /*
 
-@classinfo syslog_type=ST_MRP_WORKSPACE relationmgr=yes no_status=1 prop_cb=1 maintainer=voldemar
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 @groupinfo general caption="Seaded"
 	@groupinfo grp_settings_def caption="Seaded" parent=general confirm_save_data=1
@@ -770,6 +770,11 @@ class mrp_workspace extends class_base
 		MRP_STATUS_RESOURCE_OUTOFSERVICE,
 		MRP_STATUS_RESOURCE_INUSE
 	);
+
+	private $hours = array();
+	private $hours_person = array();
+	private $hours_resource = array();
+	private $hours_report_time_format = 0;
 
 	function mrp_workspace()
 	{
@@ -1907,7 +1912,7 @@ class mrp_workspace extends class_base
 						unset($labels[$k]);
 					}
 				}
-				$labels[0] = sprintf(t("(M&Auml;&Auml;RAMATA) (%u)"), $data[0]);
+				$labels[0] = sprintf(t("(M&Auml;&Auml;RAMATA) (%u)"), (isset($data[0]) ? $data[0] : 0));
 				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_PIE_3D);
 				$c->set_size(array(
@@ -2507,7 +2512,23 @@ class mrp_workspace extends class_base
 		foreach($t->get_item_ids() as $id)
 		{
 			$item = $t->get_item($id);
-			$param = strlen($item["reload"]["params"]["cat"]) ? $item["reload"]["params"]["cat"] : (strlen($item["reload"]["params"]["cust"]) ? $item["reload"]["params"]["cust"] : $item["reload"]["params"]["alph"]);
+			if (isset($item["reload"]["params"]["cat"]) and strlen($item["reload"]["params"]["cat"]))
+			{
+				$param = $item["reload"]["params"]["cat"];
+			}
+			elseif (isset($item["reload"]["params"]["cust"]) && strlen($item["reload"]["params"]["cust"]))
+			{
+				$param = $item["reload"]["params"]["cust"];
+			}
+			elseif (isset($item["reload"]["params"]["alph"]))
+			{
+				$param = $item["reload"]["params"]["alph"];
+			}
+			else
+			{
+				$param = "";
+			}
+
 			$item["reload"] = array(
 				"layouts" => array("charts_right"),
 				"params" => array("clientspan" => $param),
@@ -3091,7 +3112,7 @@ class mrp_workspace extends class_base
 
 	public function _get_resource_time_chart($arr)
 	{
-		if(isset($arr["request"]["mrp_tree_active_item"]) && $this->can("view", $arr["request"]["mrp_tree_active_item"]))
+		if(isset($arr["request"]["mrp_tree_active_item"]) && $this->can("", $arr["request"]["mrp_tree_active_item"]))
 		{
 			$resources_folder = $arr["request"]["mrp_tree_active_item"];
 		}
@@ -3110,7 +3131,7 @@ class mrp_workspace extends class_base
 			$resource_tree_filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_MRP_RESOURCE.oid" => $this->get_my_resources(),
+					"CL_MRP_RESOURCE.oid" => $this->get_my_resources($arr["obj_inst"]),
 					"class_id" => CL_MENU,
 				)
 			));
@@ -3615,11 +3636,14 @@ class mrp_workspace extends class_base
 					$clid = CL_MRP_RESOURCE;
 
 					// Additionnal data
-					$planned = mrp_resource_obj::get_planned_hours(array(
-						"from" => $from,
-						"to" => $to,
-						"id" => $data_prms["resource"],
-					));
+					if ($data_prms["resource"])
+					{
+						$planned = mrp_resource_obj::get_planned_hours(array(
+							"from" => $from,
+							"to" => $to,
+							"id" => $data_prms["resource"]
+						));
+					}
 					break;
 			}
 			$data["name"] = array();
@@ -4576,7 +4600,7 @@ class mrp_workspace extends class_base
 		}
 
 		### gantt chart start selection
-		if ($arr["request"]["chart_start_date"])
+		if (!empty($arr["request"]["chart_start_date"]))
 		{
 			$month = (int) $arr["request"]["chart_start_date"]["month"];
 			$day = (int) $arr["request"]["chart_start_date"]["day"];
@@ -4586,12 +4610,13 @@ class mrp_workspace extends class_base
 		}
 
 		### gantt chart project hilight
-		if ($arr["request"]["chart_project_hilight"])
+		if (!empty($arr["request"]["chart_project_hilight"]))
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_MRP_CASE,
 				"name" => $arr["request"]["chart_project_hilight"]
 			));
+
 			if ($ol->count())
 			{
 				$tmp = $ol->begin();
@@ -4600,24 +4625,24 @@ class mrp_workspace extends class_base
 			$arr["args"]["chart_project_hilight"] = $arr["request"]["chart_project_hilight"];
 		}
 
-		if ($arr["request"]["chart_customer"])
+		if (!empty($arr["request"]["chart_customer"]))
 		{
 			$arr["args"]["chart_customer"] = $arr["request"]["chart_customer"];
 		}
 
 		### gantt chart start move to project start
-		if ($arr["request"]["chart_project_hilight_gotostart"])
+		if (!empty($arr["request"]["chart_project_hilight_gotostart"]))
 		{
 			$project_id = false;
 
-			if (is_oid ($arr["args"]["mrp_hilight"]))
+			if (!empty($arr["args"]["mrp_hilight"]))
 			{
 				$project_id = $arr["args"]["mrp_hilight"];
 			}
 
-			if ($project_id)
+			if (object_loader::can("", $project_id))
 			{
-				$project = obj ($project_id);
+				$project = obj($project_id);
 
 				switch ($project->prop ("state"))
 				{
@@ -4655,19 +4680,19 @@ class mrp_workspace extends class_base
 			}
 		}
 
-		$_SESSION["mrp"]["ps_project"] = $arr["request"]["ps_project"];
+		if(isset($arr["request"]["ps_project"])) $_SESSION["mrp"]["ps_project"] = $arr["request"]["ps_project"];
 	}
 
 	function callback_pre_save ($arr)
 	{
-		if (is_oid (aw_global_get ("mrp_printer_aborted")))
+		if (object_loader::can("", aw_session::get("mrp_printer_aborted")))
 		{
 			$minstart= mktime (0, 0, 0, $arr["request"]["pj_minstart"]["month"], $arr["request"]["pj_minstart"]["day"], $arr["request"]["pj_minstart"]["year"]);
-			$job = obj (aw_global_get ("mrp_printer_aborted"));
+			$job = obj (aw_session::get("mrp_printer_aborted"));
 			$job->set_prop ("remaining_length", (int) ($arr["request"]["pj_remaining_length"]*3600));
 			$job->set_prop ("minstart", (int) ($minstart));
 			$job->save ();
-			aw_session_del ("mrp_printer_aborted");
+			aw_session::del("mrp_printer_aborted");
 		}
 	}
 
@@ -4681,14 +4706,15 @@ class mrp_workspace extends class_base
 		}
 	}
 
-	private function get_my_resources()
+	private function get_my_resources($this_object)
 	{
 		$filter = array();
 		$filter["class_id"] = CL_MRP_RESOURCE_OPERATOR;
 		$person = get_current_person();
 		if(is_object($person))
 		{
-			$filter["profession"] = array_keys($person->get_profession_selection());
+			$ws_owner_company = $this_object->prop("owner");
+			$filter["profession"] = array_keys($person->get_profession_selection($ws_owner_company));
 		}
 		else
 		{
@@ -4716,7 +4742,7 @@ class mrp_workspace extends class_base
 		}
 	}
 
-	function create_resources_tree ($arr = array(), $attrb = "mrp_tree_active_item")
+	function create_resources_tree ($arr = array(), $attrib = "mrp_tree_active_item")
 	{
 		$this_object = $arr["obj_inst"];
 		$applicable_states = array(
@@ -4792,7 +4818,7 @@ class mrp_workspace extends class_base
 			),
 			"root_item" => obj ($resources_folder),
 			"ot" => $resource_tree,
-			"var" => $attrb,
+			"var" => $attrib,
 			"node_actions" => array (
 				CL_MRP_RESOURCE => "change",
 			),
@@ -4894,19 +4920,17 @@ class mrp_workspace extends class_base
 		$table->set_default_sorder("asc");
 
 		$res_filter = array(
-			"class_id" => CL_MRP_RESOURCE,
-			"parent" => $parent,
+			"class_id" => mrp_resource_obj::CLID,
+			"parent" => $parent
 		);
 
-		if($my)
+		if($my and $my_resource_ids = $this->get_my_resources($this_object))
 		{
-			$res_filter["oid"] = $this->get_my_resources();
+			$res_filter["oid"] = $my_resource_ids;
 		}
 
 		$object_list = new object_list($res_filter);
-
 		$resources = $object_list->arr();
-
 		$res2p = $this->get_workers_for_resources($object_list->ids());
 
 		foreach ($resources as $resource)
@@ -4967,27 +4991,27 @@ class mrp_workspace extends class_base
 			"return_url" => get_ru(),
 			"mrp_workspace" => $this_object->id (),
 			"mrp_parent" => $parent,
-			"parent" => $parent,
+			"parent" => $parent
 		), "mrp_resource");
 		$add_category_url = $this->mk_my_orb("new", array(
 			"return_url" => get_ru(),
-			"parent" => $parent,
+			"parent" => $parent
 		), "menu");
 
 		$toolbar->add_menu_button(array(
 			"name" => "add",
 			"img" => "new.gif",
-			"tooltip" => t("Lisa uus"),
+			"tooltip" => t("Lisa uus")
 		));
 		$toolbar->add_menu_item(array(
 			"parent" => "add",
 			"text" => t("Ressurss"),
-			"link" => $add_resource_url,
+			"link" => $add_resource_url
 		));
 		$toolbar->add_menu_item(array(
 			"parent" => "add",
 			"text" => t("Ressurssikategooria"),
-			"link" => $add_category_url,
+			"link" => $add_category_url
 		));
 
 		$toolbar->add_separator();
@@ -4996,14 +5020,14 @@ class mrp_workspace extends class_base
 			"name" => "cut",
 			"tooltip" => t("L&otilde;ika"),
 			"action" => "cut_resources",
-			"img" => "cut.gif",
+			"img" => "cut.gif"
 		));
 
 		$toolbar->add_button(array(
 			"name" => "copy",
 			"tooltip" => t("Kopeeri"),
 			"action" => "copy_resources",
-			"img" => "copy.gif",
+			"img" => "copy.gif"
 		));
 
 		if (
@@ -5084,7 +5108,7 @@ class mrp_workspace extends class_base
 				"sp_starttime" => NULL,
 				"sp_customer" => NULL,
 				"sp_due_date" => NULL,
-				"sp_status" => NULL,
+				"sp_status" => NULL
 			),
 		);
 
@@ -5870,7 +5894,7 @@ class mrp_workspace extends class_base
 
 			while ($job = $this->db_next())
 			{
-				if ($this->can("view", $job["oid"]))
+				if ($this->can("", $job["oid"]))
 				{
 					$metadata = aw_unserialize ($job["metadata"]);
 					$job["paused_times"] = $metadata["paused_times"];
@@ -5914,7 +5938,7 @@ class mrp_workspace extends class_base
 
 			while ($job = $this->db_next())
 			{
-				if ($this->can("view", $job["oid"]))
+				if ($this->can("", $job["oid"]))
 				{
 					$metadata = aw_unserialize ($job["metadata"]);
 					$job["paused_times"] = isset($metadata["paused_times"]) ? $metadata["paused_times"] : array();
@@ -5955,7 +5979,7 @@ class mrp_workspace extends class_base
 
 			while ($job = $this->db_next())
 			{
-				if ($this->can("view", $job["oid"]))
+				if ($this->can("", $job["oid"]))
 				{
 					$metadata = aw_unserialize ($job["metadata"]);
 					$job["paused_times"] = $metadata["paused_times"];
@@ -6019,7 +6043,7 @@ class mrp_workspace extends class_base
 
 			while ($job = $this->db_next())
 			{
-				if ($this->can("view", $job["oid"]))
+				if ($this->can("", $job["oid"]))
 				{
 					$metadata = aw_unserialize ($job["metadata"]);
 					$job["paused_times"] = $metadata["paused_times"];
@@ -6030,12 +6054,12 @@ class mrp_workspace extends class_base
 
 		foreach ($jobs as $job)
 		{
-			if (!$this->can("view", $job["project"]))
+			if (!$this->can("", $job["project"]))
 			{
 				continue;
 			}
 
-			$project = obj ($job["project"]);
+			$project = obj($job["project"]);
 
 			### project states that are shown in chart
 			$applicable_states = array (
@@ -8863,7 +8887,7 @@ class mrp_workspace extends class_base
 		$arr["request"]["sp_search"] = 1;
 
 		$this->_sp_result($arr);
-		print iconv(aw_global_get("charset"), "UTF-8", $t->get_html());
+		print $t->get_html();
 		die("Test");
 	}
 
@@ -9579,7 +9603,7 @@ END ajutine
 		$arr["prop"] = array("vcl_inst" => $t);
 		$fun = "_get_".$property;
 		$this->$fun($arr);
-		print iconv(aw_global_get("charset"), "UTF-8", $t->get_html());
+		print $t->get_html();
 		die();
 	}
 

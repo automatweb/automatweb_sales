@@ -1,49 +1,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?=$lang?>" xml:lang="<?=$lang?>">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $lang?>" xml:lang="<?php echo $lang?>">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?=$charset?>" />
-<title><?=$title?></title>
-<?if ($meta_description){?><meta name="description" content="<?=$meta_description?>" /><?}?>
-<?if ($meta_keywords){?><meta name="keywords" content="<?=$meta_keywords?>" /><?}?>
-<?if ($meta_abstract){?><meta name="abstract" content="<?=$meta_abstract?>" /><?}?>
-<?if ($meta_author){?><meta name="author" content="<?=$meta_author?>" /><?}?>
-<?if ($meta_copyright){?><meta name="copyright" content="<?=$meta_copyright?>" /><?}?>
-<?if ($meta_revisit_after){?><meta name="revisit-after" content="<?=$meta_revisit_after?>" /><?}?>
-<?if ($meta_distribution){?><meta name="distribution" content="<?=$meta_distribution?>" /><?}?>
-<?if ($meta_robots){?><meta name="robots" content="<?=$meta_robots?>" /><?}?>
-<?if ($meta_rating){?><meta name="rating" content="<?=$meta_rating?>" /><?}?>
-<?if ($meta_generator){?><meta name="generator" content="<?=$meta_generator?>" /><?}?>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset?>" />
+<title><?php echo $title?></title>
+<?php if ($meta_description){?><meta name="description" content="<?php echo $meta_description?>" /><?php }?>
+<?php if ($meta_keywords){?><meta name="keywords" content="<?php echo $meta_keywords?>" /><?php }?>
+<?php if ($meta_abstract){?><meta name="abstract" content="<?php echo $meta_abstract?>" /><?php }?>
+<?php if ($meta_author){?><meta name="author" content="<?php echo $meta_author?>" /><?php }?>
+<?php if ($meta_copyright){?><meta name="copyright" content="<?php echo $meta_copyright?>" /><?php }?>
+<?php if ($meta_revisit_after){?><meta name="revisit-after" content="<?php echo $meta_revisit_after?>" /><?php }?>
+<?php if ($meta_distribution){?><meta name="distribution" content="<?php echo $meta_distribution?>" /><?php }?>
+<?php if ($meta_robots){?><meta name="robots" content="<?php echo $meta_robots?>" /><?php }?>
+<?php if ($meta_rating){?><meta name="rating" content="<?php echo $meta_rating?>" /><?php }?>
+<?php if ($meta_generator){?><meta name="generator" content="<?php echo $meta_generator?>" /><?php }?>
 
-<?if ($meta_content_language){?><meta http-equiv="content-language" content="<?=$meta_content_language?>" /><?}?>
-<?if ($meta_pragma){?><meta http-equiv="pragma" content="<?=$meta_pragma?>" /><?}?>
-<?if ($meta_refresh){?><meta http-equiv="refresh" content="<?=$meta_refresh?>" /><?}?>
-<?if ($meta_expires){?><meta http-equiv="expires" content="<?=$meta_expires?>" /><?}?>
-<?if ($meta_window_target){?><meta http-equiv="window-target" content="<?=$meta_window_target?>" /><?}?>
+<?php if ($meta_content_language){?><meta http-equiv="content-language" content="<?php echo $meta_content_language?>" /><?php }?>
+<?php if ($meta_pragma){?><meta http-equiv="pragma" content="<?php echo $meta_pragma?>" /><?php }?>
+<?php if ($meta_refresh){?><meta http-equiv="refresh" content="<?php echo $meta_refresh?>" /><?php }?>
+<?php if ($meta_expires){?><meta http-equiv="expires" content="<?php echo $meta_expires?>" /><?php }?>
+<?php if ($meta_window_target){?><meta http-equiv="window-target" content="<?php echo $meta_window_target?>" /><?php }?>
 
-<?foreach ($style_files as $file){?><link href="<?=$file?>" rel="stylesheet" type="text/css" /><?}?>
-<?if ($style){?>
+<?php foreach ($style_files as $file){?><link href="<?php echo $file?>" rel="stylesheet" type="text/css" /><?php }?>
+<?php if ($style){?>
 <style type="text/css">
-<?=$style?>
+<?php echo $style?>
 </style>
-<?}?>
-<?foreach ($javascript_files_header as $file){?>
-<script language="Javascript" type="text/javascript" src="<?=$file?>"></script>
-<?}?>
-<?if ($javascript_header){?>
+<?php }?>
+<?php foreach ($javascript_files_header as $file){?>
+<script language="Javascript" type="text/javascript" src="<?php echo $file?>"></script>
+<?php }?>
+<?php if ($javascript_header){?>
 <script language="Javascript" type="text/javascript">
-<?=$javascript_header?>
+<?php echo $javascript_header?>
 </script>
-<?}?>
+<?php }?>
 </head>
 
 <body>
-<?=$content?>
+<?php echo $content?>
 </body>
 
-<?if ($javascript_footer){?>
+<?php if ($javascript_footer){?>
 <script language="Javascript" type="text/javascript">
-<?=$javascript_footer?>
+<?php echo $javascript_footer?>
 </script>
-<?}?>
+<?php }?>
 
 </html>

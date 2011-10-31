@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_MRP_RESOURCE_SETTING relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_mrp_resource_setting master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_mrp_resource_setting
@@ -30,33 +30,8 @@ class mrp_resource_setting extends class_base
 		));
 	}
 
-	function get_property($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 		$arr["search_res"] = "0";
 	}
 
@@ -119,9 +94,7 @@ class mrp_resource_setting extends class_base
 
 	function callback_post_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["search_res"], "RELTYPE_APPLIES_RESOURCE");
 	}
 }
-
-?>

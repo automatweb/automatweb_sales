@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CB_SEARCH relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1 no_comment=1
 
 @default table=objects
 @default group=general
@@ -36,7 +36,7 @@
 @groupinfo mktbl caption="Koosta tulemuste tabel"
 @default group=mktbl
 
-@property sform_tbl type=table store=no no_caption=1 
+@property sform_tbl type=table store=no no_caption=1
 
 
 @groupinfo parents caption="Kataloogid"
@@ -197,7 +197,7 @@ class cb_search extends class_base
 		return $retval;
 	}
 
-	private function _init_prop_table(&$t)
+	private function _init_prop_table($t)
 	{
 		$t->define_field(array(
 			"name" => "classn",
@@ -327,12 +327,12 @@ class cb_search extends class_base
 		{
 			$relin = $relx[$o->prop("next_connection")];
 			$tgt = $relin["clid"][0];
-			
+
 			$tmp = $cfgx->load_class_properties(array(
 				"clid" => $tgt,
 			));
 			$cl2 = $clinf[$tgt]["name"];
-			
+
 			foreach($tmp as $item)
 			{
 				if ($item["type"] == "textbox" || $item["type"] == "textarea")
@@ -382,7 +382,7 @@ class cb_search extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_gen_search($arr)
 	{
@@ -585,7 +585,7 @@ class cb_search extends class_base
 
 		if ($this->__tdata["__defaultsort"])
 		{
-			$t->set_default_sortby($this->__tdata["__defaultsort"]);	
+			$t->set_default_sortby($this->__tdata["__defaultsort"]);
 			$t->set_default_sorder("asc");
 		}
 		else
@@ -639,7 +639,7 @@ class cb_search extends class_base
 							{
 								continue;
 							}
-	
+
 							$t_cond[$t_pn] = "%".$val."%";
 						}
 
@@ -717,7 +717,7 @@ class cb_search extends class_base
 
 				// if there are any criteria for search from folder, add them to the filter
 				$this->_add_parent_filter($arr["obj_inst"], $sdata);
-			
+
 				$sdata["limit"] = ($_t = $arr["obj_inst"]->prop("max_results"))?$_t:500;
 				$sdata["join_strategy"] = "data";
 				$sdata["site_id"] = array();
@@ -798,7 +798,7 @@ class cb_search extends class_base
 
 		$t->sort_by();
 	}
-				
+
 	private function _prepare_form_data($arr)
 	{
 		if ($this->prepared)
@@ -869,11 +869,11 @@ class cb_search extends class_base
 		/*
 		$relin = $relx[$o->prop("next_connection")];
 		$tgt = $relin["clid"][0];
-		
+
 		$tmp = $cfgx->load_class_properties(array(
 			"clid" => $tgt,
 		));
-		
+
 		foreach($tmp as $iname => $item)
 		{
 			$xname = $tgt . "/" . $item["name"];
@@ -1134,7 +1134,7 @@ class cb_search extends class_base
 			$request["ft_page"] = $GLOBALS["ft_page"];
 		}
 		list($props, $clid, $relinfo) = $this->get_props_from_obj($ob);
-		
+
 		$props = $this->callback_gen_search(array(
 			"obj_inst" => $ob,
 			"request" => $request
@@ -1173,10 +1173,10 @@ class cb_search extends class_base
 				$errmsg = $sv_ctr->prop("errmsg");
 			}
 		}
-		
+
 		if ($show_results)
 		{
-			
+
 			$t = new aw_table(array(
 				"layout" => "generic"
 			));
@@ -1250,7 +1250,7 @@ class cb_search extends class_base
 		}
 
 		list($props, $clid, $relinfo) = $this->get_props_from_obj($ob);
-		
+
 		$tmp = $this->callback_gen_search(array(
 			"obj_inst" => $ob,
 			"request" => $request
@@ -1289,7 +1289,7 @@ class cb_search extends class_base
 
 		@param id required
 		@param return_url required
-	**/	
+	**/
 	function delete_obj($arr)
 	{
 		$o = obj($arr["id"]);
@@ -1297,7 +1297,7 @@ class cb_search extends class_base
 		return $arr["return_url"];
 	}
 
-	/** 
+	/**
 
 		sdata is list object list filter parameter
 		get the synonyms from rels and insert or clauses
@@ -1337,7 +1337,7 @@ class cb_search extends class_base
 				{
 					$v = $this->proc_perm_str($o, $v, $syns);
 				}
-				
+
 				$sdata[$k] = $v;
 			}
 		}
@@ -1553,7 +1553,7 @@ class cb_search extends class_base
 		$o = obj($arr["id"]);
 		$c = get_instance(CL_CFGCONTROLLER);
 		$rv = $c->check_property(
-			$o->prop("submit_handler_controller"), 
+			$o->prop("submit_handler_controller"),
 			$o,
 			$o,
 			$arr,
@@ -1581,4 +1581,3 @@ class cb_search extends class_base
 		}
 	}
 }
-?>

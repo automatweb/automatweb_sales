@@ -19,11 +19,11 @@ class mysql_pdo
 	{
 		if ($base and $username)
 		{
-			$dsn = "mysql:host={$server};dbname={$base};charset=" . AW_USER_CHARSET;
+			$dsn = "mysql:host={$server};dbname={$base};charset=" . languages::USER_CHARSET;
 		}
 		elseif (db_connector::DEFAULT_CID_STR === $cid)
 		{
-			$dsn = "mysql:host=" . aw_ini_get("db.host") . ";dbname=" . aw_ini_get("db.base") . ";charset=" . AW_USER_CHARSET;
+			$dsn = "mysql:host=" . aw_ini_get("db.host") . ";dbname=" . aw_ini_get("db.base") . ";charset=" . languages::USER_CHARSET;
 			$username = aw_ini_get("db.user");
 			$password = aw_ini_get("db.pass");
 		}
@@ -31,7 +31,7 @@ class mysql_pdo
 		{
 			try
 			{
-				$dsn = "mysql:host=" . aw_ini_isset("db.connections.{$cid}.host") ? aw_ini_get("db.connections.{$cid}.host") : "localhost" . ";dbname=" . aw_ini_get("db.connections.{$cid}.base") . ";charset=" . AW_USER_CHARSET;
+				$dsn = "mysql:host=" . aw_ini_isset("db.connections.{$cid}.host") ? aw_ini_get("db.connections.{$cid}.host") : "localhost" . ";dbname=" . aw_ini_get("db.connections.{$cid}.base") . ";charset=" . languages::USER_CHARSET;
 				$username = aw_ini_get("db.connections.{$cid}.user");
 				$password = aw_ini_get("db.connections.{$cid}.pass");
 			}
@@ -312,7 +312,8 @@ class mysql_pdo
 	function db_get_table($name)
 	{
 		$ret = array('name' => $name,'fields' => array());
-		$fID = @mysql_list_fields($this->db_base, $name, $this->dbh);
+		$fID = $this->dbh->query("SHOW COLUMNS FROM table LIKE '{$name}'");
+
 		if (!$fID)
 		{
 			return false;
@@ -706,6 +707,7 @@ class mysql_pdo
 
 	function _proc_error($q, $error_info)
 	{
+		automatweb::$result->sysmsg("Processing a database query error");
 		$errstr = $error_info[2];
 
 		if (strpos($errstr, "Unknown column") !== false)
@@ -725,7 +727,7 @@ class mysql_pdo
 						preg_match("/INSERT INTO (.+) \(/imsU", $q, $mt_a);
 					}
 					$mt[2] = $mt[1];
-					$mt[1] = $mt_a[1];
+					$mt[1] = isset($mt_a[1]) ? $mt_a[1] : "";
 				}
 			}
 
@@ -739,7 +741,7 @@ class mysql_pdo
 			$clss = aw_ini_get("classes");
 			$upgrade_result = null;
 
-			if (empty($mt[1]) && !empty($mt[2]))
+			if (!empty($mt[2]))
 			{
 				// find property with field given and table in the error query
 				foreach($clss as $clid => $inf)
@@ -749,7 +751,7 @@ class mysql_pdo
 					$pl = $o->get_property_list();
 					foreach($pl as $prop_item)
 					{
-						if ($prop_item["field"] == $mt[2] && strpos($q, $prop_item["table"]) !== false)
+						if ($prop_item["field"] === $mt[2] and (empty($mt[1]) and strpos($q, $prop_item["table"]) !== false or !empty($mt[1]) and  strpos($mt[1], $prop_item["table"]) === 0))
 						{
 							$mt[1] = $prop_item["table"];
 							break;
@@ -760,10 +762,6 @@ class mysql_pdo
 
 			foreach($clss as $clid => $inf)
 			{
-				if (!is_class_id($clid))
-				{
-					continue;
-				}
 				$o = obj();
 				$o->set_class_id($clid);
 				$ti = $o->get_tableinfo();

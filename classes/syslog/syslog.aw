@@ -1,10 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/syslog/syslog.aw,v 1.9 2008/03/12 21:24:21 kristo Exp $
 // syslog.aw - syslog management
 // syslogi vaatamine ja analüüs
-/*
-@classinfo  maintainer=kristo
-*/
+
 class db_syslog extends aw_template
 {
 	function db_syslog()
@@ -68,14 +65,14 @@ class syslog extends db_syslog
 		$this->db_syslog();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=block params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -83,7 +80,7 @@ class syslog extends db_syslog
 	{
 		extract($arr);
 		$this->read_adm_template("block.tpl");
-		$old = unserialize($this->get_cval("blockedip"));
+		$old = utf_unserialize($this->get_cval("blockedip"));
 		$c = "";
 		while(list($k,$v) = each($old))
 		{
@@ -101,21 +98,21 @@ class syslog extends db_syslog
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=saveblock params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
 	function saveblock($arr)
 	{
 		extract($arr);
-		$old = unserialize($this->get_cval("blockedip"));
+		$old = utf_unserialize($this->get_cval("blockedip"));
 		$store = array();
 		if (is_array($check))
 		{
@@ -136,14 +133,14 @@ class syslog extends db_syslog
 	}
 
 
-	/**  
-		
+	/**
+
 		@attrib name=convert_syslog params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -160,7 +157,7 @@ class syslog extends db_syslog
 			$row2 = $this->db_next();
 			$site_id = (int)$site_id;
 			// just in case, avoid writing to the table while we are reading
-			// from it. 
+			// from it.
 			$ids[$row["oid"]] = (int)$row2["site_id"];
 			$this->restore_handle();
 		};
@@ -176,4 +173,3 @@ class syslog extends db_syslog
 		};
 	}
 }
-?>

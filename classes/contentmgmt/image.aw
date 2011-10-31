@@ -2285,45 +2285,52 @@ SVGOBJECT;
 	**/
 	function make_img_tag_wl($id, $alt = NULL, $has_big_alt = NULL, $size = array(), $arr = array())
 	{
-		static $that;//XXX: milleks?
-		if (!$that)
+		try
 		{
-			$that = new image();
-		}
-		$u = $that->get_url_by_id($id);
-
-		$o = obj($id);
-
-		if ($alt === NULL)
-		{
-			$alt = $o->name();
-		}
-
-		if ($o->prop("file2") != "")
-		{
-			$file2 = basename($o->prop("file2"));
-			$file2 = aw_ini_get("file.site_files_dir").$file2{0}."/".$file2;
-			if ($has_big_alt !== NULL)
+			static $that;//XXX: milleks?
+			if (!$that)
 			{
-				$alt = $has_big_alt;
+				$that = new image();
 			}
-			$imagetag = image::make_img_tag($u, $alt, $size, $arr);
+			$u = $that->get_url_by_id($id);
 
-			$size = getimagesize($file2);
+			$o = obj($id, array(), image_obj::CLID);
 
-			$bi_show_link = $that->mk_my_orb("show_big", array("id" => $id), "image");
-			$bi_link = "window.open(\"$bi_show_link\",\"popup\",\"width=".($size[0]).",height=".($size[1])."\");";
+			if ($alt === NULL)
+			{
+				$alt = $o->name();
+			}
 
-			$imagetag = html::href(array(
-				"url" => "javascript:void(0)",
-				"onClick" => $bi_link,
-				"caption" => $imagetag,
-				"title" => $alt
-			));
+			if ($o->prop("file2") != "")
+			{
+				$file2 = basename($o->prop("file2"));
+				$file2 = aw_ini_get("file.site_files_dir").$file2{0}."/".$file2;
+				if ($has_big_alt !== NULL)
+				{
+					$alt = $has_big_alt;
+				}
+				$imagetag = image::make_img_tag($u, $alt, $size, $arr);
+
+				$size = getimagesize($file2);
+
+				$bi_show_link = $that->mk_my_orb("show_big", array("id" => $id), "image");
+				$bi_link = "window.open(\"$bi_show_link\",\"popup\",\"width=".($size[0]).",height=".($size[1])."\");";
+
+				$imagetag = html::href(array(
+					"url" => "javascript:void(0)",
+					"onClick" => $bi_link,
+					"caption" => $imagetag,
+					"title" => $alt
+				));
+			}
+			else
+			{
+				$imagetag = image::make_img_tag($u, $alt, $size, $arr);
+			}
 		}
-		else
+		catch (Exception $e)
 		{
-			$imagetag = image::make_img_tag($u, $alt, $size, $arr);
+			$imagetag = "";
 		}
 
 		return $imagetag;

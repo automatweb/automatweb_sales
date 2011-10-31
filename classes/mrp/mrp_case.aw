@@ -4,7 +4,7 @@
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_change)
 
-@classinfo syslog_type=ST_MRP_CASE relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1 maintainer=voldemar
+@classinfo relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
 
 @tableinfo mrp_case index=oid master_table=objects master_index=oid
 @tableinfo mrp_case_schedule index=oid master_table=objects master_index=oid
@@ -42,10 +42,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 	@property state type=text group=grp_case_schedule_gantt,grp_general,grp_case_workflow,grp_case_materials,grp_case_data editonly=1 parent=general_info
 	@caption Staatus
 
-	@property starttime type=datetime_select
+	@property starttime type=datepicker
 	@caption Alustamisaeg (materjalide saabumine)
 
-	@property due_date type=datetime_select
+	@property due_date type=datepicker
 	@caption Valmimist&auml;htaeg
 
 	@property project_priority type=textbox maxlength=10
@@ -355,11 +355,11 @@ class mrp_case extends class_base
 		}
 	}
 
-	function callback_mod_reforb ($arr)
+	function callback_mod_reforb (&$arr, $request)
 	{
-		if (isset($arr["request"]["mrp_workspace"]))
+		if (isset($request["mrp_workspace"]))
 		{
-			$arr["mrp_workspace"] = $arr["request"]["mrp_workspace"];
+			$arr["mrp_workspace"] = $request["mrp_workspace"];
 		}
 
 		if ($this->workspace)
@@ -436,7 +436,7 @@ class mrp_case extends class_base
 				break;
 
 			case "state":
-				$prop["value"] = empty($this->states[$prop["value"]]) ? t("M&auml;&auml;ramata") : $this->states[$prop["value"]];
+				$prop["value"] = isset($prop["value"]) && empty($this->states[$prop["value"]]) ? t("M&auml;&auml;ramata") : $this->states[$prop["value"]];
 				if(isset($arr["request"]["group"]) and in_array($arr["request"]["group"], $txt_grps))
 				{
 					$prop["caption"] .= ":";
@@ -511,11 +511,11 @@ class mrp_case extends class_base
 				break;
 
 			case "resource_tree":
-				$this->create_resource_tree ($arr);
+				$this->create_resource_tree($arr);
 				break;
 
 			case "workflow_toolbar":
-				$this->create_workflow_toolbar ($arr);
+				$this->create_workflow_toolbar($arr);
 				break;
 
 			case "workflow_table":
@@ -645,7 +645,7 @@ class mrp_case extends class_base
 
 	function _get_materials_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$odl = new object_data_list(
 			array(
@@ -1067,10 +1067,11 @@ class mrp_case extends class_base
 		}
 	}
 
-	function set_property($arr = array())
+	function set_property(&$arr = array())
 	{
 		if ($this->mrp_error)
 		{
+			$arr["prop"]["error"] = $this->mrp_error;
 			return PROP_FATAL_ERROR;
 		}
 
@@ -1187,8 +1188,7 @@ class mrp_case extends class_base
 	{
 		$arr["obj_inst"]->set_prop("workspace", obj($arr["request"]["mrp_workspace"]));
 
-		if (is_string ($arr["request"]["mrp_resourcetree_data"]))
-		//!!! data_var argument changed in treeview. this here not to be updated until treeview updated in mail.prismaprint.ee
+		if (!empty($arr["request"]["mrp_resourcetree_data"]))
 		{
 			### create new jobs based on resources chosen from tree
 			$added_resources = explode (",", $arr["request"]["mrp_resourcetree_data"]);
@@ -1619,7 +1619,7 @@ class mrp_case extends class_base
 			"root_item" => obj ($resources_folder),
 			"ot" => $resource_tree,
 			"var" => "mrp_resource_tree_active_item",
-			"checkbox_class_filter" => array (CL_MRP_RESOURCE),
+			"checkbox_class_filter" => array(mrp_resource_obj::CLID),
 			"no_root_item" => true
 		));
 		$tree->set_only_one_level_opened(1);
@@ -2001,7 +2001,7 @@ class mrp_case extends class_base
 		foreach ($connections as $connection)
 		{
 			$job = $connection->to ();
-			$jobs[$job->prop ("exec_order")] = $job->id ();
+			$jobs[(int) $job->prop("exec_order")] = $job->id ();
 
 			### add non-changeable jobs to workflow
 			if (in_array ($job->prop ("state"), $applicable_states))
@@ -2034,8 +2034,10 @@ class mrp_case extends class_base
 								foreach ($prerequisites_userdata as $prerequisite)
 								{
 									settype ($prerequisite, "integer");
-									$job_id = $jobs[$prerequisite];
-									$prerequisites[] = (int) $job_id;
+									if (!empty($jobs[$prerequisite]))
+									{
+										$prerequisites[] = (int) $jobs[$prerequisite];
+									}
 								}
 
 								$workflow[$job->id ()] = $prerequisites;
@@ -3187,7 +3189,9 @@ class mrp_case extends class_base
 
 	function callback_generate_scripts($arr)
 	{
-		return '
+		if (!empty($arr["request"]["id"]))
+		{
+			return '
 function add_material(mid, jid)
 {
 	$("div[name=\'materials_table\']").children().children().children().children().each(function()
@@ -3203,8 +3207,7 @@ function add_material(mid, jid)
 		});
 	});
 }
-		';
+';
+		}
 	}
 }
-
-?>

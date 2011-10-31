@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_MRP_ORDER_PRINT_FORMAT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_mrp_order_print_format master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_mrp_order_print_format
@@ -35,33 +35,8 @@ class mrp_order_print_format extends class_base
 		));
 	}
 
-	function get_property($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 		$arr["search_res"] = "0";
 	}
 
@@ -145,8 +120,6 @@ class mrp_order_print_format extends class_base
 
 		$ol = new object_list(array(
 			"class_id" => CL_MRP_RESOURCE_FORMAT_APPLIES,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"format" => $arr["obj_inst"]->id()
 		));
 		$u = get_instance(CL_USER);
@@ -163,13 +136,11 @@ class mrp_order_print_format extends class_base
 
 	function callback_post_save($arr)
 	{
-		$val = $arr["request"]["search_res"];
-		if ($val != "")
+		$val = isset($arr["request"]["search_res"]) ? $arr["request"]["search_res"] : "";
+		if ($val)
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_MRP_RESOURCE_FORMAT_APPLIES,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"format" => $arr["obj_inst"]->id()
 			));
 			$ex = array();
@@ -189,10 +160,8 @@ class mrp_order_print_format extends class_base
 					$t->set_prop("format", $arr["obj_inst"]->id());
 					$t->set_prop("resource", $item);
 					$t->save();
-				}	
+				}
 			}
 		}
 	}
 }
-
-?>

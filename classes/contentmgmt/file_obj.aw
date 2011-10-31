@@ -92,7 +92,7 @@ class file_obj extends _int_object
 		{
 			$name = $this->name();
 		}
-		$retval = str_replace("automatweb/","",$GLOBALS["object_loader"]->mk_my_orb("preview", array("id" => $this->id()),"file", false,true,"/"))."/".urlencode(str_replace("/","_",$name));
+		$retval = str_replace("automatweb/", "", core::mk_my_orb("preview", array("id" => $this->id()),"file", false,true,"/"))."/".urlencode(str_replace("/","_",$name));
 //		$retval = $this->mk_my_orb("preview", array("id" => $id),"file", false,true);
 		return $retval;
 	}

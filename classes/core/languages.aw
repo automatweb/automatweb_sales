@@ -9,7 +9,8 @@ manages languages related system state
 
 class languages extends aw_core_module implements orb_public_interface
 {
-	const CACHE_KEY = "languages-cache-site_id-"; // internal cache file name/key
+	const USER_CHARSET = "UTF-8"; // charset for all user data in automatweb
+	const CODE_CHARSET = "us-ascii"; // charset for automatweb program code files
 
 	// language code constant names correspond to ISO_639-3 codes
 	// values can be calculated by languages::get_aw_lc()
@@ -30,6 +31,7 @@ class languages extends aw_core_module implements orb_public_interface
 	private static $languages_metadata = array(
 		"enabled_languages_count" => 0
 	);
+	private static $_cache_key = "languages-cache-site_id-"; // internal cache file name/key
 
 	private static $acceptlang2lid_lut = array(
 		"et" => self::LC_EST,
@@ -470,7 +472,7 @@ class languages extends aw_core_module implements orb_public_interface
 	}
 
 	//DEPRECATED. utf-8 is now default and only charset used
-	public static function get_charset($id = AW_REQUEST_CT_LANG_ID) { return AW_USER_CHARSET; }
+	public static function get_charset($id = AW_REQUEST_CT_LANG_ID) { return languages::USER_CHARSET; }
 
 	/** Checks if language id is a valid AW lid
 		@attrib api=1 params=pos
@@ -616,7 +618,7 @@ class languages extends aw_core_module implements orb_public_interface
 	{
 		if ($force_read || !($_it = aw_global_get("lang_cache_init")))
 		{
-			$cf_name = self::CACHE_KEY . aw_ini_get("site_id");
+			$cf_name = self::$_cache_key . aw_ini_get("site_id");
 			$meta_cf_name = $cf_name . "-meta";
 
 			// now try the file cache thingie - maybe it's faster :) I mean, yeah, ok,
@@ -728,11 +730,9 @@ class languages extends aw_core_module implements orb_public_interface
 	}
 }
 
-// call static constructor
-languages::construct();
-
 /** Generic language module exception **/
 class awex_lang extends aw_exception {}
 
 /** Language or language data not available **/
 class awex_lang_na extends awex_lang {}
+

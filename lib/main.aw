@@ -1,9 +1,6 @@
 <?php
 
-if (!defined("AW_DIR"))
-{
-	exit;
-}
+defined("AW_DIR") or exit;
 
 // load libraries
 // required for startup
@@ -79,7 +76,7 @@ function get_include_contents($filename)
 	return $r;
 }
 
-function array_union_recursive($array1 = array(), $array2 = array())
+function array_union_recursive(array $array1 = array(), array $array2 = array())
 {
 	if (!is_array($array1) or !is_array($array1))
 	{

@@ -48,7 +48,7 @@
 
 
 @layout content_bit type=vbox closeable=1 area_caption=Sisu
-	@property content type=textarea cols=180 rows=30 field=description table=planner parent=content_bit no_caption=1
+	@property content type=textarea cols=100 rows=10 resize_height=-1 field=description table=planner parent=content_bit no_caption=1 width=100%
 	@caption Sisu
 
 
@@ -124,7 +124,7 @@ caption Tunnihind
 	@caption Valuuta
 
 @layout deal_price_layout type=hbox no_caption=1
-caption Kokkuleppehind
+@caption Kokkuleppehind
 
 	@property deal_unit type=textbox size=5 table=planner parent=hr_price_layout
 	@caption &Uuml;hik
@@ -141,7 +141,7 @@ caption Kokkuleppehind
 @property bill_no type=text table=planner
 @caption Arve number
 
-@property code type=hidden size=5 table=planner field=code
+@property code type=hidden table=planner field=code
 @caption Kood
 
 @property participants type=popup_search multiple=1 table=objects field=meta method=serialize clid=CL_CRM_PERSON
@@ -1232,17 +1232,17 @@ class task extends class_base
 				if ($cal && !($daystart > 0))
 				{
 					$calo = obj($cal);
-					if ($data["name"] == "end" && (!is_object($arr["obj_inst"]) || !is_oid($arr["obj_inst"]->id())))
+					if ($data["name"] === "end" && (!is_object($arr["obj_inst"]) || !is_oid($arr["obj_inst"]->id())))
 					{
 						$data["value"] = time() + $calo->prop("event_def_len")*60;
 					}
 				}
-				else
-				if ($arr["new"])
+				elseif ($arr["new"])
 				{
 					$data["value"] = time() + 900;
-					if($day = $arr["request"]["date"])
+					if(!empty($arr["request"]["date"]))
 					{
+						$day = $arr["request"]["date"];
 						$da = explode("-", $day);
 						$data["value"] = mktime(date('h',$data["value"]), date('i', $data["value"]), 0, $da[1], $da[0], $da[2]);
 					}
@@ -3934,7 +3934,6 @@ class task extends class_base
 	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["predicates"] = 0;
-		$arr["post_ru"] = post_ru();
 		$arr["participants_h"] = 0;
 		$arr["orderer_h"] = isset($request["alias_to_org"]) ? $request["alias_to_org"] : 0;
 		$arr["project_h"] = isset($request["set_proj"]) ? $request["set_proj"] : 0;
@@ -3956,7 +3955,7 @@ class task extends class_base
 		{
 			if ($dat["parent"] === $parent)
 			{
-				$folders[$fldo->id().":".$dat["id"]] = str_repeat("&nbsp;&nbsp;&nbsp;", $this->_lv).iconv("utf-8", aw_global_get("charset")."//IGNORE", $dat["name"]);
+				$folders[$fldo->id().":".$dat["id"]] = str_repeat("&nbsp;&nbsp;&nbsp;", $this->_lv).$dat["name"];
 				$this->_req_get_s_folders($fld, $fldo, $folders, $dat["id"]);
 			}
 		}

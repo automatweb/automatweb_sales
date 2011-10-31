@@ -297,7 +297,7 @@ class acl_base extends db_connector
 		}
 		elseif ($operation_id)
 		{
-			if ("root" === aw_global_get("uid"))
+			if (aw_users::ROOT_UID === aw_global_get("uid"))
 			{
 				$can = self::_object_exists_and_not_deleted($object_id);
 			}
@@ -352,7 +352,7 @@ class acl_base extends db_connector
 				}
 			}
 		}
-		elseif ("" === $operation_id or "root" === aw_global_get("uid"))
+		elseif ("" === $operation_id or aw_users::ROOT_UID === aw_global_get("uid"))
 		{ // check if object record exists and state isn't 'deleted'
 			$can = self::_object_exists_and_not_deleted($object_id);
 		}
@@ -568,7 +568,7 @@ class acl_base extends db_connector
 			return false;
 		}
 
-		if (!aw_ini_get("acl.check_prog") or "root" === $uid)
+		if (!aw_ini_get("acl.check_prog") or aw_users::ROOT_UID === $uid)
 		{
 			return true;
 		}

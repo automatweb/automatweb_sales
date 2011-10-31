@@ -103,11 +103,13 @@
             <table>planner</table>
             <group>general</group>
             <type>textarea</type>
-            <cols>180</cols>
-            <rows>30</rows>
+            <cols>100</cols>
+            <rows>10</rows>
+            <resize_height>-1</resize_height>
             <field>description</field>
             <parent>content_bit</parent>
             <no_caption>1</no_caption>
+            <width>100%</width>
             <caption>Sisu</caption>
       </property>
       <property>
@@ -420,7 +422,6 @@
             <table>planner</table>
             <group>general</group>
             <type>hidden</type>
-            <size>5</size>
             <field>code</field>
             <caption>Kood</caption>
       </property>
@@ -918,6 +919,7 @@
                   <no_caption>1</no_caption>
                   <group>general</group>
                   <area_caption></area_caption>
+                  <caption>Kokkuleppehind</caption>
             </deal_price_layout>
             <predicates_l>
                   <type>hbox</type>

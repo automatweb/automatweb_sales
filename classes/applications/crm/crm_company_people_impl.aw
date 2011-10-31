@@ -1,5 +1,7 @@
 <?php
 
+
+
 define("CRM_ALL_PERSONS_CAT",  -1);
 
 class crm_company_people_impl extends class_base
@@ -279,7 +281,7 @@ class crm_company_people_impl extends class_base
 			$this->hr_tbl_return_url = $arr["caller_ru"];
 		}
 
-		$cat = isset($arr["request"]["cat"]) ? (int) $arr["request"]["cat"] : 0;
+		$cat = isset($arr["request"]["cat"]) ? (int) $arr["request"]["cat"] : null;
 		$u = new user();
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_human_resources_table($t, isset($arr["prop"]["fields"]) ? $arr["prop"]["fields"] : false);
@@ -321,12 +323,18 @@ class crm_company_people_impl extends class_base
 		}
 
 		//----------------------- teatud ameti inimesed--------------------------------
-		if($cat !== crm_company::REQVAL_ALL_SELECTION)
+		if($cat and $cat !== crm_company::REQVAL_ALL_SELECTION)
 		{
-			$tmp_obj = obj($cat, array(), CL_CRM_PROFESSION);
-			$worker_ol = $arr["obj_inst"]->get_employees("all", $tmp_obj);
-			$persons = $worker_ol->ids();
-			$professions = array($cat);
+			try
+			{
+				$tmp_obj = obj($cat, array(), CL_CRM_PROFESSION);
+				$worker_ol = $arr["obj_inst"]->get_employees("all", $tmp_obj);
+				$persons = $worker_ol->ids();
+				$professions = array($cat);
+			}
+			catch (Exception $e)
+			{
+			}
 		}
 
 		//------------------------- ainult olulisteks m2rgitud inimesed-------------------

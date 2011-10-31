@@ -679,7 +679,7 @@ class mrp_schedule extends db_connector
 					$material_delivery_time = 0;
 					if ($this->parameter_plan_materials)
 					{ // get max material acquisition time
-						$meta = unserialize($job["meta"]);
+						$meta = utf_unserialize($job["meta"]);
 						foreach ($meta["used_materials"] as $product_id)
 						{
 							$material_delivery_time = max($material_data[$product_id]["delivery_time"], $material_delivery_time);
@@ -866,7 +866,7 @@ class mrp_schedule extends db_connector
 		if (count($this->project_schedule) or count($this->job_schedule))
 		{
 // /* timing */ timing ("save schedule data - projects", "start");
-			$tmpname = tempnam(aw_ini_get("server.tmpdir"), "mrpschedule");
+			$tmpname = tempnam(aw_ini_get("server.tmpdir"), "aw_mrpschedule_");
 			$tmp = fopen ($tmpname, "w");
 
 			foreach ($this->project_schedule as $project_id => $project_data)
@@ -901,7 +901,8 @@ class mrp_schedule extends db_connector
 // /* timing */ timing ("save schedule data - load projectdata to DB", "start");
 // $tmpname = str_replace("\\", "/", $tmpname);
 			### load local file into db. LOCAL is slower but used because dbserver might be on another machine. Subject to change if speed is primary concern.
-			$query = "LOAD DATA LOCAL INFILE '{$tmpname}' REPLACE INTO TABLE mrp_case_schedule";
+			// $query = "LOAD DATA LOCAL INFILE '{$tmpname}' REPLACE INTO TABLE `mrp_case_schedule`";
+			$query = "LOAD DATA INFILE '{$tmpname}' REPLACE INTO TABLE `mrp_case_schedule`";
 			// $query = "LOAD DATA LOCAL INFILE '{$tmpname}' REPLACE INTO TABLE mrp_case_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' (oid,planned_length,starttime)";
 			// $query = "LOAD DATA INFILE '{$tmpname}' REPLACE INTO TABLE mrp_case_schedule";
 			// $query = "LOAD DATA INFILE '{$tmpname}' REPLACE INTO TABLE mrp_case_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' (oid,planned_length,starttime)";
@@ -956,7 +957,8 @@ class mrp_schedule extends db_connector
 			}
 
 			### load local file into db. LOCAL is slower but used because dbserver might be on another machine. Subject to change if speed is primary concern.
-			$query = "LOAD DATA LOCAL INFILE '{$tmpname}' REPLACE INTO TABLE mrp_schedule";
+			// $query = "LOAD DATA LOCAL INFILE '{$tmpname}' REPLACE INTO TABLE mrp_schedule";
+			$query = "LOAD DATA INFILE '{$tmpname}' REPLACE INTO TABLE `mrp_schedule`";
 			// $query = "LOAD DATA LOCAL INFILE '{$tmpname}' REPLACE INTO TABLE mrp_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' (oid,planned_length,starttime)";
 			// $query = "LOAD DATA INFILE '{$tmpname}' REPLACE INTO TABLE mrp_schedule";
 			// $query = "LOAD DATA INFILE '{$tmpname}' REPLACE INTO TABLE mrp_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' (oid,planned_length,starttime)";

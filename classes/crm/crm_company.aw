@@ -2240,12 +2240,22 @@ class crm_company extends class_base
 
 			case "reg_nr":
 				// append link to go to thingie
-				$data["post_append_text"] = "<a href='#' onClick='win = window.open(); win.document.write(\"<form action=https://ar.eer.ee/lihtparing.py METHOD=POST name=liht><INPUT TYPE=text NAME=nimi><INPUT TYPE=text NAME=rkood><input type=submit><input type=hidden name=search value=1><input type=hidden name=lang value=est></form>\" );win.document.liht.nimi.value = document.changeform.name.value;win.document.liht.rkood.value = document.changeform.reg_nr.value;win.document.liht.submit();'>" . t("&Auml;riregistri p&auml;ring") . "</a>";
+				$link_title = t("KrediidiInfo p&auml;ring");
+				$window_title = t("KrediidiInfo Firmap&auml;ring");
+				$window_url = "http://firmaparing.krediidiinfo.ee/";
+				$data["post_append_text"] = <<<END
+ <a href="#" onclick="win = window.open('{$window_url}', '{$window_title}', 'location=1, status=1, scrollbars=1, width=800, height=500')">{$link_title}</a>
+END;
 				break;
 
 			case "tax_nr":
 				// append link to go to thingie
-				$data["post_append_text"] = "<a href='#' onClick='win = window.open(); win.document.write(\"<form action=https://apps.emta.ee/e-service/doc/a0003.xsql METHOD=POST name=kraaks><INPUT TYPE=text NAME=p_kkood><input type=hidden name=p_submit value=Otsi><input type=hidden name=p_isikukood ><input type=hidden name=p_tegevus ><input type=hidden name=p_context ><input type=hidden name=p_tagasi ><input type=hidden name=p_mode value=1><input type=hidden name=p_queryobject></form>\" );win.document.kraaks.p_kkood.value = document.changeform.reg_nr.value;win.document.kraaks.submit();'>" . t("Maksuameti p&auml;ring") . "</a>";
+				$link_title = t("Maksuameti p&auml;ring");
+				$window_title = t("KMKR p&auml;ring");
+				$window_url = "https://apps.emta.ee/e-service/doc/a0003.xsql";
+				$data["post_append_text"] = <<<END
+ <a href="#" onclick="win = window.open('', '{$window_title}', 'location=1, status=1, scrollbars=1, width=800, height=500'); win.document.write('<form action=&quot;{$window_url}&quot; method=&quot;post&quot; name=&quot;kraaks&quot;><input type=&quot;text&quot; name=&quot;p_kkood&quot; /><input type=&quot;hidden&quot; name=&quot;p_submit&quot; value=&quot;Otsi&quot; /><input type=&quot;hidden&quot; name=&quot;p_isikukood&quot; /><input type=&quot;hidden&quot; name=&quot;p_tegevus&quot; /><input type=&quot;hidden&quot; name=&quot;p_context&quot; /><input type=&quot;hidden name=&quot;p_tagasi&quot; /><input type=&quot;hidden name=&quot;p_mode&quot; value=&quot;1&quot; /><input type=&quot;hidden&quot; name=&quot;p_queryobject&quot; /></form>'); win.document.kraaks.p_kkood.value = document.changeform.reg_nr.value; win.document.kraaks.submit();">{$link_title}</a>
+END;
 				break;
 
 			case "contact_person":
@@ -2264,7 +2274,7 @@ class crm_company extends class_base
 				// read from rel
 				if (($rel = $this->get_cust_rel($arr["obj_inst"])))
 				{
-					if ($arr["request"]["action"] == "view")
+					if ($arr["request"]["action"] === "view")
 					{
 						$data["value"] = $rel->prop_str($data["name"]);
 					}
@@ -7391,18 +7401,12 @@ class crm_company extends class_base
 			$arr["stats_s_proj"] = $arr["project"];
 		}
 
-		$arr["stats_s_cust"] = iconv("UTF-8",aw_global_get("charset"),  $arr["stats_s_cust"]);
-
 		$ol = new object_list(array(
 			"class_id" => array(CL_PROJECT),
 			"name" => $arr["stats_s_proj"]."%",
 			"CL_PROJECT.RELTYPE_ORDERER.name" => $arr["stats_s_cust"]."%"
 		));
 		$autocomplete_options =  $ol->names();
-		foreach($autocomplete_options as $key=>$val)
-		{
-			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-		}
 		exit ($cl_json->encode($option_data));
 	}
 
@@ -7428,7 +7432,6 @@ class crm_company extends class_base
 			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
 		);
 
-		$co = iconv("UTF-8",aw_global_get("charset"),  $co);
 		$orgs = new object_list(array(
 			"class_id" => array(CL_CRM_COMPANY),
 			"name" => $co."%",
@@ -7441,11 +7444,6 @@ class crm_company extends class_base
 			$autocomplete_options = $secs->names();
 		}
 
-		//$autocomplete_options = $orgs->names();
-		foreach($autocomplete_options as $key=>$val)
-		{
-			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-		}
 		exit ($cl_json->encode($option_data));
 	}
 
@@ -7470,7 +7468,7 @@ class crm_company extends class_base
 			"options" => &$autocomplete_options,// required
 			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
 		);
-		$co = iconv("UTF-8",aw_global_get("charset"),  $co);
+
 		$orgs = new object_list(array(
 			"class_id" => array(CL_CRM_COMPANY),
 			"name" => $co."%",
@@ -7481,12 +7479,7 @@ class crm_company extends class_base
 		{
 			$autocomplete_options = $org->get_worker_selection();
 		}
-//$autocomplete_options = $orgs->names();
-		//$autocomplete_options = $orgs->names();
-		foreach($autocomplete_options as $key=>$val)
-		{
-			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-		}
+
 		exit ($cl_json->encode($option_data));
 	}
 
@@ -7531,10 +7524,6 @@ class crm_company extends class_base
 				new obj_predicate_limit(50)//TODO: konfitavaks
 			));
 			$autocomplete_options = $ol->names();
-			foreach($autocomplete_options as $key=>$val)
-			{
-				$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-			}
 		}
 
 		ob_start("ob_gzhandler");
@@ -9578,7 +9567,7 @@ Bank accounts: yksteise all
 			{
 				$value = $o->prop_xml("name");
 				$info = "";
-				$results[] = array("id" => $o->id(), "value" => iconv("iso-8859-4", "UTF-8", $value), "info" => $info);//FIXME charsets
+				$results[] = array("id" => $o->id(), "value" => $value, "info" => $info);//FIXME charsets
 			}
 			while ($o = $list->next());
 			$choices["results"] = $results;

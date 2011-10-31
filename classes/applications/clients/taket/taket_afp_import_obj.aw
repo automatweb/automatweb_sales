@@ -15,7 +15,7 @@ class taket_afp_import_obj extends _int_object
 	private $controller_id;
 
 	// this is a cache class, i use it to make db queries
-	private $db_obj; 
+	private $db_obj;
 
 	private function init_vars()
 	{
@@ -28,11 +28,11 @@ class taket_afp_import_obj extends _int_object
 		// controller for short product codes ...
 		if($this->controller_id = $this->prop("code_ctrl"))
 		{
-			$this->controller_inst = get_instance(CL_CFGCONTROLLER);	
+			$this->controller_inst = get_instance(CL_CFGCONTROLLER);
 		}
 
 		$this->db_obj = $GLOBALS["object_loader"]->ds;
-		
+
 		$this->warehouses = $this->get_warehouses();
 
 		$this->prod_fld = $this->get_products_folder();
@@ -199,8 +199,8 @@ class taket_afp_import_obj extends _int_object
 		$obj_base['name'] = addslashes($data['product_name']);
 		$obj_base['comment'] = addslashes($data['product_code']);
 		$sql = "
-			INSERT INTO 
-				objects 
+			INSERT INTO
+				objects
 			VALUES (".implode(',', map('"%s"', $obj_base)).");
 		";
 
@@ -212,8 +212,8 @@ class taket_afp_import_obj extends _int_object
 		$this->db_obj->db_query("UPDATE objects set brother_of = ".$oid." WHERE oid = ".$oid);
 
 		$sql = "
-			INSERT INTO 
-				aw_shop_products 
+			INSERT INTO
+				aw_shop_products
 			SET
 				aw_oid = ".$oid.",
 				code = '".addslashes($data['product_code'])."',
@@ -229,7 +229,7 @@ class taket_afp_import_obj extends _int_object
 	private function update_product_sql($oid, $data)
 	{
 		$sql = "
-			UPDATE 
+			UPDATE
 				objects
 			SET
 				name = '".addslashes($data['product_name'])."',
@@ -337,20 +337,20 @@ class taket_afp_import_obj extends _int_object
 		$obj_base['name'] = sprintf(t("%s tarnetingimus"), addslashes($arr['product_name']));
 
 		$sql = "
-			INSERT INTO 
-				objects 
+			INSERT INTO
+				objects
 			VALUES (".implode(',', map('"%s"', $obj_base)).");
 		";
 
 		$this->db_obj->db_query($sql);
 
 		$oid = $this->db_obj->db_last_insert_id();
-		
+
 		// brother_of value has to be the same as oid
 		$this->db_obj->db_query("UPDATE objects set brother_of = ".$oid." WHERE oid = ".$oid);
 
 		$sql = "
-			INSERT INTO 
+			INSERT INTO
 				aw_shop_product_purveyance
 			SET
 				aw_oid = ".$oid.",
@@ -365,7 +365,7 @@ class taket_afp_import_obj extends _int_object
 	private function update_purveyance_sql($oid, $data)
 	{
 		$sql = "
-			UPDATE 
+			UPDATE
 				objects
 			SET
 				name = '".addslashes($data['product_name'])."',
@@ -386,7 +386,7 @@ class taket_afp_import_obj extends _int_object
 				aw_oid = ".$oid."
 		";
 		$this->db_obj->db_query($sql);
-	
+
 	}
 
 	private function delete_purveyance_sql($oid)
@@ -396,14 +396,14 @@ class taket_afp_import_obj extends _int_object
 
 		$sql = "DELETE FROM aw_shop_product_purveyance WHERE aw_oid = ".$oid;
 		$this->db_obj->db_query($sql);
-	
+
 	}
 
 	private function check_tables()
 	{
 /*		$sql = "DROP TABLE `products`;";
 		$res = $this->db->db_query($sql);
-		$this->print_line("Droppis tabeli");		
+		$this->print_line("Droppis tabeli");
 */
 		$sql = "CREATE TABLE IF NOT EXISTS `products` (
 			id INT NOT NULL AUTO_INCREMENT,
@@ -425,7 +425,7 @@ class taket_afp_import_obj extends _int_object
 /*		$sql = "CREATE INDEX product_search ON products(short_code,short_term);";
 		$res = $this->db->db_query($sql);
 *//*
-		$this->print_line("yritas uut toodete tabelit luua");	
+		$this->print_line("yritas uut toodete tabelit luua");
 
 		$sql = "CREATE INDEX code_index ON products(code);";
 		$res = $this->db->db_query($sql);
@@ -439,7 +439,7 @@ class taket_afp_import_obj extends _int_object
 		$res = $this->db->db_query($sql);
 		$sql = "CREATE INDEX term_index ON products(short_term);";
 		$res = $this->db->db_query($sql);
-		$this->print_line("Indeks valmis");	
+		$this->print_line("Indeks valmis");
 */
 
 
@@ -506,10 +506,10 @@ class taket_afp_import_obj extends _int_object
 	//		$this->do_delivery_import($whd);
 
 	//		$this->do_discounts_import($whd);
-		//	$this->do_users_import($wd); 
+		//	$this->do_users_import($wd);
 		}
 	//	$this->do_afp_users_import($whd);
-	
+
 	//	$this->do_amounts_import($whd);
 
 	}
@@ -651,7 +651,7 @@ class taket_afp_import_obj extends _int_object
 
 		$taket = obj(aw_ini_get("taket_co"));
 
-//-------------------- organisatsioonid ------------------ 
+//-------------------- organisatsioonid ------------------
 
 		$orgs = array();
 		$gud = file("http://84.50.96.150:8080/xmlrpc/index.php?get_users_data=1");
@@ -742,7 +742,7 @@ class taket_afp_import_obj extends _int_object
 
 /*		$cl_user_creator = new crm_user_creator();
 
-		
+
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
 		));
@@ -868,7 +868,7 @@ else {$cnt++;arr($o->name());arr($cl_user_creator->get_uid_for_person($o , true)
 		$this->print_line('L2hev toodete importi tegema');
 
 		$dest_fld = aw_ini_get('site_basedir').'/files/warehouse_import/products.csv';
-		
+
 		$url = new aw_uri($wh["info"].'/index.php');
 		$url->set_arg('create_products_file', 1);
 
@@ -913,7 +913,7 @@ else {$cnt++;arr($o->name());arr($cl_user_creator->get_uid_for_person($o , true)
 				$rep_code = "";
 			}*/
 			$short_term = $this->short_code($rowdata[3]);
-			$short_code = $this->short_code($rowdata[0]);	
+			$short_code = $this->short_code($rowdata[0]);
 
 			if(!array_key_exists($code , $this->product_codes)) //kui ei ole olemas toodet,siis lisab selle
 			{
@@ -926,13 +926,13 @@ else {$cnt++;arr($o->name());arr($cl_user_creator->get_uid_for_person($o , true)
 			}
 			else
 			{
-				$sql = "UPDATE products 
+				$sql = "UPDATE products
 					SET price='".$this->fuck_number($rowdata[6])."', special_price='".$this->fuck_number($rowdata[7])."', search_term='".$this->fuck($rowdata[3])."',
 					short_term='".$short_term."'
 					WHERE id='".$this->product_codes[$code]."';";
 			}
 			$res = $this->db->db_query($sql);
-/* v'ljade pikkused		*/	
+/* v'ljade pikkused		*/
 /*			foreach($rowdata as $key => $val)
 			{
 
@@ -1007,12 +1007,12 @@ $count = 0;
 			if(!array_key_exists($prodid , $amounts)) //kui ei ole olemas toodet,siis lisab selle
 			{
 				$sql = "INSERT INTO amounts (id, code, warehouse, amount)
-				VALUES ('".$prodid."','".$code."', '".$wh["id"]."', '".$this->fuck($rowdata[1])."') 
+				VALUES ('".$prodid."','".$code."', '".$wh["id"]."', '".$this->fuck($rowdata[1])."')
 				;";
 			}
 			else
 			{
-				$sql = "UPDATE amounts 
+				$sql = "UPDATE amounts
 					SET amount='".$this->fuck_number($rowdata[1])."'
 					WHERE id='".$prodid."' AND warehouse='".$wh["id"]."';";
 			}
@@ -1050,7 +1050,7 @@ $count = 0;
 					if(!isset($discounts[ord($res["KAT_KOODI"])]))
 					{
 						$sql = "INSERT INTO discount (code, customer, discount)
-						VALUES ('".ord($res["KAT_KOODI"])."', '".$x."', '".$res["KAT_ALE".$x]."') 
+						VALUES ('".ord($res["KAT_KOODI"])."', '".$x."', '".$res["KAT_ALE".$x]."')
 						;";
 					}
 					else
@@ -1088,7 +1088,7 @@ $count = 0;
 	{
 		$ret = $code;
 		$ret = str_ireplace(array(" ","-","."), array("","",""), $ret);
-		return $this->fuck($ret);	
+		return $this->fuck($ret);
 	}
 
 	private function warehouse_list()
@@ -1105,7 +1105,7 @@ $count = 0;
 			$port = $psd[0];
 			unset($psd[0]);
 			$wh = array(
-					"name" => $o->name(),	
+					"name" => $o->name(),
 					"host" => str_replace("/" , "" , $asd[1]),
 					"port" => $port,
 					"path" => "/".join("/", $psd).(sizeof($psd) ? "/" : "")."index.php",
@@ -1135,7 +1135,7 @@ $count = 0;
 			select
 				aw_oid,
 				code
-			from 
+			from
 				aw_shop_products
 		";
 		$this->db_obj->db_query($sql);
@@ -1153,7 +1153,7 @@ $count = 0;
 			flush();
 			$this->update_amounts($oid, $products_lut, $that);
 		}
-	
+
 		exit();
 	}
 
@@ -1184,7 +1184,7 @@ $count = 0;
 		{
 			$existing_amounts_data[$r['product']] = $r;
 		}
-		
+
 		$wh_obj = new object($warehouse_oid);
 		$amounts_data = file($wh_obj->comment()."/amounts.csv");
 		$total = count($amounts_data);
@@ -1196,7 +1196,7 @@ $count = 0;
 			{
 				continue;
 			}
-			
+
 			if (empty($existing_amounts_data[$product_oid]))
 			{
 				// we don't have the amount object for this product in current warehouse
@@ -1211,7 +1211,7 @@ $count = 0;
 			}
 			else
 			{
-			
+
 				$this->update_amount_sql($existing_amounts_data[$product_oid]['aw_oid'], array(
 					'product_code' => $items[0],
 					'product_oid' => $product_oid,
@@ -1220,7 +1220,7 @@ $count = 0;
 					'warehouse_oid' => $warehouse_oid
 				));
 				echo "UPDATE: ".$wh_obj->name()." - ".$items[0]." - ".$product_oid." - ".$items[1]."<br />\n";
-			
+
 			}
 			flush();
 
@@ -1232,7 +1232,7 @@ $count = 0;
 					$that->_end_import_from_flag("amounts");
 					die("stopped for flag");
 				}
-			} 
+			}
 		}
 	}
 
@@ -1255,8 +1255,8 @@ $count = 0;
 		$obj_base['name'] = addslashes($name);
 
 		$sql = "
-			INSERT INTO 
-				objects 
+			INSERT INTO
+				objects
 			VALUES (".implode(',', map('"%s"', $obj_base)).");
 		";
 
@@ -1268,7 +1268,7 @@ $count = 0;
 		$this->db_obj->db_query("UPDATE objects set brother_of = ".$oid." WHERE oid = ".$oid);
 
 		$sql = "
-			INSERT INTO 
+			INSERT INTO
 				aw_shop_warehouse_amount
 			SET
 				aw_oid = ".$oid.",
@@ -1277,7 +1277,7 @@ $count = 0;
 				product = ".$data['product_oid']."
 		";
 		$this->db_obj->db_query($sql);
-	
+
 	}
 
 	////
@@ -1290,7 +1290,7 @@ $count = 0;
 	{
 		$name = sprintf(t("Toote %s laoseis %s laos"), $data['product_code'], $data['warehouse_name']);
 		$sql = "
-			UPDATE 
+			UPDATE
 				objects
 			SET
 				name = '".addslashes($name)."',
@@ -1368,7 +1368,7 @@ $count = 0;
 					'price' => $prices['price']
 				));
 				echo "Update price ".$prices['price']." to product ".$code." (".$prod_oid.")<br />\n";
-			
+
 			}
 
 			if ((++$counter % 100) == 1)
@@ -1379,7 +1379,7 @@ $count = 0;
 					$that->_end_import_from_flag("prices");
 					die("stopped for flag");
 				}
-			} 
+			}
 		}
 	}
 
@@ -1397,8 +1397,8 @@ $count = 0;
 		$obj_base['acldata'] = '';
 
 		$sql = "
-			INSERT INTO 
-				objects 
+			INSERT INTO
+				objects
 			VALUES (".implode(',', map('"%s"', $obj_base)).");
 		";
 
@@ -1410,7 +1410,7 @@ $count = 0;
 		$this->db_obj->db_query("UPDATE objects set brother_of = ".$oid." WHERE oid = ".$oid);
 
 		$sql = "
-			INSERT INTO 
+			INSERT INTO
 				aw_shop_item_prices
 			SET
 				aw_oid = ".$oid.",
@@ -1418,7 +1418,7 @@ $count = 0;
 				product = ".$data['product_oid']."
 		";
 		$this->db_obj->db_query($sql);
-	
+
 	}
 
 	////
@@ -1433,7 +1433,7 @@ $count = 0;
 		$obj_base['name'] = addslashes($name);
 
 		$sql = "
-			UPDATE 
+			UPDATE
 				objects
 			SET
 				name = '".addslashes($name)."',
@@ -1468,7 +1468,7 @@ $count = 0;
 	{
 		$data_file = $this->get_products_file();
 		$lines = file($data_file);
-		
+
 		unset($lines[0]);
 
 		$result = array();
@@ -1490,7 +1490,7 @@ $count = 0;
 			select
 				aw_oid,
 				code
-			from 
+			from
 				aw_shop_products
 		";
 		$this->db_obj->db_query($sql);
@@ -1539,7 +1539,7 @@ $count = 0;
 	// and the personnel import can make persons and stuff out of this data (hopefully)
 	public function get_users_data($arr)
 	{
-		$whs = $this->get_warehouses();	
+		$whs = $this->get_warehouses();
 		$wh = new object(reset($whs));
 		$adr = $wh->comment();
 		$data = file_get_contents($adr.'/index.php?get_users_data=1');
@@ -1566,7 +1566,7 @@ $count = 0;
 		}
 		return $r;
 
-		
+
 	}
 
 	function parallel_url_fetch($d)
@@ -1585,10 +1585,10 @@ $count = 0;
 
 		$running = null;
 		//execute the handles
-		do 
+		do
 		{
 		    curl_multi_exec( $mh, $running );
-		} 
+		}
 		while ( $running > 0 );
 
 		$rv = array();
@@ -1619,5 +1619,3 @@ $count = 0;
 		flush();
 	}
 }
-
-?>

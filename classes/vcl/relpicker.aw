@@ -356,6 +356,7 @@ class relpicker extends core implements orb_public_interface
 			}
 			else
 			{
+				$prop["options"] = array();
 				if ($arr["id"])
 				{
 					$o = obj($arr["id"]);
@@ -891,12 +892,7 @@ class relpicker extends core implements orb_public_interface
 			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
 		);
 
-
 		$autocomplete_options = $ol->names();
-		foreach($autocomplete_options as $key=>$val)
-		{
-			$autocomplete_options[$key] = iconv(aw_global_get("charset"),"UTF-8",  $autocomplete_options[$key]);
-		}
 
 		ob_start("ob_gzhandler");
 		header("Content-Type: application/json");

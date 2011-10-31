@@ -19,7 +19,7 @@ class auth_server_local extends class_base
 		));
 	}
 
-	function check_auth($server, $credentials)
+	public function check_auth($server, &$credentials, auth_config $conf = null)
 	{
 		// by default eeldame, et kasutaja on jobu ja ei saa
 		// sisse logida

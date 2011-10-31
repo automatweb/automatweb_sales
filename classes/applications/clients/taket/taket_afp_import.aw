@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_TAKET_AFP_IMPORT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_taket_afp_import master_index=brother_of master_table=objects index=aw_oid
 
 @default group=general
@@ -68,7 +68,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 	function _get_main_tb($arr)
 	{
 		$tb = &$arr["prop"]["vcl_inst"];
-		
+
 		$tb->add_button(array(
 			"name" => "import_button",
 			"action" => "import_data",
@@ -188,7 +188,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		$this->print_line("Creating products file ... ", false);
 		$result = file_get_contents($url->get());
 		$this->print_line('['.$result.']');
-		
+
 
 		$adr = new aw_uri($whd["info"]."/prods.csv");
 		$dest_fld = aw_ini_get('site_basedir').'/files/warehouse_import/products.csv';
@@ -197,7 +197,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 
 		$this->print_line("Download products file ... ", false);
 		shell_exec($wget_command);
-	
+
 		$this->print_line("[done]");
 
 		$this->print_line("Generate prods XML file ... ", false);
@@ -220,7 +220,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		$path = aw_ini_get('site_basedir').'/files/warehouse_import/products.csv';
 		$lines = file($path);
 
-	
+
 		$keys = explode("\t", trim($lines[0]));
 		unset($lines[0]);
 
@@ -240,7 +240,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		}
 
 		$xml = new SimpleXMLElement("<?xml version='1.0'?><products></products>");
-		
+
 		foreach ($prods as $code => $data)
 		{
 			if (++$counter >= 1000)
@@ -322,12 +322,12 @@ class taket_afp_import extends class_base implements warehouse_import_if
 
 		$amounts_data = file($url."/amounts.csv");
 		$total = count($amounts_data);
-			
-		$xml = new SimpleXMLElement("<amounts />");	
+
+		$xml = new SimpleXMLElement("<amounts />");
 
 		foreach ($amounts_data as $line)
 		{
-			$items = explode("\t", $line);	
+			$items = explode("\t", $line);
 			$p = $xml->addChild("product");
 			$p->addChild("product_code", trim($items[0]));
 			$p->addChild("amount", trim($items[1]));
@@ -355,14 +355,14 @@ class taket_afp_import extends class_base implements warehouse_import_if
 
 		$this->print_line("Download products file ... ", false);
 //		shell_exec($wget_command);
-	
+
 		$this->print_line("[done]");
 
 
 		$lines = file($dest_fld);
 		unset($lines[0]);
 
-		$xml = new SimpleXMLElement("<amounts />");	
+		$xml = new SimpleXMLElement("<amounts />");
 
 		$result = array();
 		foreach ($lines as $line)
@@ -413,13 +413,13 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		fclose($f);
 
 		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp.csv", "r");
-			
-		$xml = new SimpleXMLElement("<dnotes />");	
+
+		$xml = new SimpleXMLElement("<dnotes />");
 
 		$first = true;
 		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
 		{
-//			$items = explode("\t", $line);	
+//			$items = explode("\t", $line);
 			if ($first)
 			{
 				$first = false;
@@ -451,7 +451,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 			{
 				$p->addChild("state", 1);
 			}
-	
+
 
 			$p->addChild("from_warehouse", 6411);
 			$p->addChild("impl", 131);
@@ -465,7 +465,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 				$xr->addChild("warehouse", 6411);
 				$xr->addChild("amount", trim($row[10]));
 			}
-				
+
 		}
 		return $xml->asXML();
 	}
@@ -506,8 +506,8 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		fclose($f);*/
 
 		$f = fopen(aw_ini_get("cache.page_cache")."/taket_btemp.csv", "r");
-			
-		$xml = new SimpleXMLElement("<bills />");	
+
+		$xml = new SimpleXMLElement("<bills />");
 
 		$first = true;
 		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
@@ -522,7 +522,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 			$deld = mktime(0, 0, 0, $m, $d, $y);
 
 			$p = $xml->addChild("bill");
-			
+
 			$p->addChild("name", trim($items[0]));
 			$p->addChild("bill_no", trim($items[0]));
 			$p->addChild("impl", 131);
@@ -547,7 +547,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 				$xr->addChild("price", trim($row[11]));
 				$xr->addChild("desc", trim($row[10]));
 			}
-				
+
 		}
 		return $xml->asXML();
 	}
@@ -590,8 +590,8 @@ class taket_afp_import extends class_base implements warehouse_import_if
 
 
 		$f = fopen(aw_ini_get("cache.page_cache")."/taket_otemp.csv", "r");
-			
-		$xml = new SimpleXMLElement("<orders />");	
+
+		$xml = new SimpleXMLElement("<orders />");
 
 		$first = true;
 		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
@@ -605,7 +605,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 			$deld = mktime(0, 0, 0, $m, $d, $y);
 
 			$p = $xml->addChild("order");
-			
+
 			$p->addChild("name", trim($items[0]));
 			$p->addChild("number", trim($items[0]));
 			$p->addChild("date", $deld);
@@ -626,10 +626,8 @@ class taket_afp_import extends class_base implements warehouse_import_if
 				$xr->addChild("amount", trim($row[8]));
 				$xr->addChild("prod_name", trim($row[6]));
 			}
-				
+
 		}
 		return $xml->asXML();
 	}
 }
-
-?>

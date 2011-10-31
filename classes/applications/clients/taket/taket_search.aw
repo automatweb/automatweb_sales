@@ -1,9 +1,10 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_search.aw,v 1.6 2009/05/05 13:50:21 dragut Exp $
-// taket_search.aw - Taketi Otsing 
+
+// taket_search.aw - Taketi Otsing
 /*
 
-@classinfo syslog_type= relationmgr=yes maintainer=robert
+@classinfo relationmgr=yes
+
 //groupinfo blocked caption=Piirangud
 
 @default table=objects
@@ -53,7 +54,7 @@ class taket_search extends class_base implements main_subtemplate_handler
 {
 	function taket_search()
 	{
-		// change this to the folder under the templates folder, where this classes templates will be, 
+		// change this to the folder under the templates folder, where this classes templates will be,
 		// if they exist at all. Or delete it, if this class does not use templates
 		$this->init(array(
 			"tpldir" => "taket/taket_search",
@@ -77,17 +78,17 @@ class taket_search extends class_base implements main_subtemplate_handler
 	function show($arr)
 	{
 		$ob = new object($arr["id"]);
-		$this->read_template("show.tpl");	
+		$this->read_template("show.tpl");
 		$this->vars(array(
 			"name" => $ob->prop("name"),
 		));
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=parse_submit_info params=name default="0"
-		
+
 		@param tootekood optional
 		@param asendustooted optional
 		@param otsitunnus optional
@@ -101,10 +102,10 @@ class taket_search extends class_base implements main_subtemplate_handler
 		@param asukoht optional
 		@param wvat optional
 		@param osaline optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -160,7 +161,7 @@ class taket_search extends class_base implements main_subtemplate_handler
 
 		exit_function("taket_search::parse_submit_info:2:1");
 		enter_function("taket_search::parse_submit_info:2:2");
-		
+
 		$hidden["orderBy"] = $arr["orderBy"];
 		if($arr['direction'] == 'desc')
 		{
@@ -242,7 +243,7 @@ class taket_search extends class_base implements main_subtemplate_handler
 		//so i have to some pattern matching here because i can't
 		//extract the info from the query/results
 		//build patterns:
-		
+
 		exit_function("taket_search::parse_submit_info:2:3");
 
 		enter_function("taket_search::parse_submit_info:2:4");
@@ -261,7 +262,7 @@ class taket_search extends class_base implements main_subtemplate_handler
 
 		$prs = $this->parallel_price_fetch($urls);
 	//	$prices = $prs[0];
-		
+
 		$prices = array();
 		foreach ($prs[0] as $price_data)
 		{
@@ -397,7 +398,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 		enter_function("taket_search::parse_submit_info:4");
 		$this->vars(array('productParsed' => $content));
 		$data = '';
-			
+
 		//make column label bold if it was used to sort
 		$tmpArr = array(
 			'cssstaatus' => 'listTitle',
@@ -427,7 +428,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			$this->vars(array('ebasket_list_items' => $tmp));
 			$this->vars(array('ebasket_list_value' => $this->parse('ebasket_list')));
 		}
-		
+
 
 		//assign hidden values
 		$this->vars($hidden);
@@ -459,7 +460,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 		{
 			$this->vars(array('numbersPart' => $this->parse('numbersPart')));
 		}
-		
+
 		//simple var assignments
 		$this->vars(array(
 			'otsisin' => $arr['tootekood'].' '.$arr['otsitunnus'],
@@ -525,7 +526,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			$find = array("-", " ", "O", "(", ")");
 			$replace = array("", "", "0", "", "");
 			$tk = str_replace($find, $replace, $arr["tootekood"]);
-		
+
 			$param[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -567,9 +568,9 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			FROM
 				aw_shop_products
 			WHERE
-				code like '%".$param['tootekood']."%' or 
-				short_code like '%".$param['tootekood']."%' or 
-				search_term like '%".$param['tootekood']."%' 
+				code like '%".$param['tootekood']."%' or
+				short_code like '%".$param['tootekood']."%' or
+				search_term like '%".$param['tootekood']."%'
 			LIMIT 0,200
 		";
 		$sql = "
@@ -578,9 +579,9 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			FROM
 				aw_shop_products
 			WHERE
-				code like '%".$param['tootekood']."%' or 
-				short_code like '%".$param['tootekood']."%' or 
-				search_term like '%".$param['tootekood']."%' 
+				code like '%".$param['tootekood']."%' or
+				short_code like '%".$param['tootekood']."%' or
+				search_term like '%".$param['tootekood']."%'
 			LIMIT 0,200
 		";
 
@@ -641,14 +642,14 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			);
 			$replacements = $repl_odl->arr();
 		}
-		exit_function("get_products::4");	
+		exit_function("get_products::4");
 		return $products + $replacements;
 /*
 		$prods = array();
 
 		// in this loop, the replacement product are collected
 		// but i definitely need to solve it somehow more elegantly and optimaly
-	
+
 		foreach($ol->arr() as $oid => $o)
 		{
 			if(count($prods) == 200)
@@ -675,11 +676,11 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 				}
 			}
 		}
-		
+
 		$numOfRows = count($prods);
 
 		$ol = new object_list();
-		
+
 		if(count($prods))
 		{
 			$ol = new object_list(array(
@@ -770,7 +771,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 		),
 		array(
 			CL_SHOP_PRODUCT_PURVEYANCE => array(
-				"product" => "product", 
+				"product" => "product",
 				"warehouse" => "warehouse",
 				"date1" => "date1",
 				"date2" => "date2",
@@ -795,9 +796,9 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 	function on_get_subtemplate_content($arr)
 	{
 		$inst = $arr['inst'];
-	
+
 		//h6mm main.tpl'i subi TAKET_SEARCH peax vist ikkagi
-		//n2itama antud klassi show.tpl'i	
+		//n2itama antud klassi show.tpl'i
 		$this->read_template('show.tpl');
 		//reforb
 		$asukoht = !$_REQUEST["asukoht"] ? 0 : $_REQUEST["asukoht"];
@@ -806,20 +807,20 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			case -1:
 				$name = "lis_sel";
 				break;
-			
+
 			case 1:
 				$name = "lis_sel1";
 				break;
 			case 2:
 				$name = "lis_sel2";
 				break;
-			case 3: 
+			case 3:
 				$name = "lis_sel3";
 				break;
-			case 4: 
+			case 4:
 				$name = "lis_sel4";
 				break;
-			case 5: 
+			case 5:
 				$name = "lis_sel5";
 				break;
 			default:
@@ -844,7 +845,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			$wvat = 0;
 		}
 		setcookie("wvat", $wvat, (3600*24*365*5));
-		
+
 		$this->vars(array(
 			'reforb'=>$this->mk_reforb('parse_submit_info', array('no_reforb'=>true)),
 			$name => "selected",
@@ -852,16 +853,16 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 		$inst->vars(array(
 			'taket_search_content'=>$this->parse()
 		));
-		
+
 		$inst->vars(array(
 			'TAKET_SEARCH' => $inst->parse("TAKET_SEARCH")
-		));	
+		));
 	}
 	////
 	// supplier_id - Supplier id
 	function _get_date_by_supplier_id($supplier_times)
 	{
-		// JC (supplier_id == 179) 
+		// JC (supplier_id == 179)
 		// teisip2eva 6htust on ylej2rgmine esmasp2ev v6imalik
 //		$supplier_times = $this->db_fetch_array("select * from taket_times where supplier_id='".$arr['supplier_id']."'");
 		if (empty($supplier_times) || ($supplier_times['date1'] < 1 && $supplier_times['date2'] < 1 && !$supplier_times['day1'] && !$supplier_times['days']))
@@ -874,7 +875,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 		if ($supplier_times['date1'] < 1 && $supplier_times['date2'] < 1)
 		{
 			// this is for strtotime, just to get the eng. day according to the number
-			// i cant save the days like this in database, cause i need to do some 
+			// i cant save the days like this in database, cause i need to do some
 			// comparison with day numbers
 			$days = array(
 				"0" => "Sun",
@@ -918,7 +919,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			if ($supplier_times['date1'] >= (time() + $supplier_times['days'] * 86400))
 			{
 				$date = $supplier_times['date1'];
-			} 
+			}
 			else
 			{
 				$date = $supplier_times['date2'];
@@ -927,10 +928,10 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 
 		return $date;
 	}
-	
+
 	/**
 
-		@attrib name=give_me_times 
+		@attrib name=give_me_times
 
 	**/
 	function give_me_times($arr)
@@ -1021,7 +1022,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			"suppliers" => $suppliers,
 			"reforb" => $this->mk_reforb("save_give_me_times", array("no_reforb" => true)),
 		));
-		
+
 
 		return $this->parse();
 	}
@@ -1047,16 +1048,16 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			}
 			else
 			{
-				$this->db_query("update taket_times set 
+				$this->db_query("update taket_times set
 					day1='".$arr['suppliers'][$old_supplier['supplier_id']]['day1']."',
 					days='".$arr['suppliers'][$old_supplier['supplier_id']]['days']."',
 					day2='".$arr['suppliers'][$old_supplier['supplier_id']]['day2']."',
 					date1='".$date1."',
-					date2='".$date2."' 
+					date2='".$date2."'
 					where id=".$old_supplier['id']
 				);
 			}
-			
+
 		}
 
 		if (!empty($arr['suppliers']['new']['supplier_id']))
@@ -1064,7 +1065,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 			$date1 = mktime(0,0,0,$arr['suppliers']['new']['date1']['month'], $arr['suppliers']['new']['date1']['day'], $arr['suppliers']['new']['date1']['year']);
 			$date2 = mktime(0,0,0,$arr['suppliers']['new']['date2']['month'], $arr['suppliers']['new']['date2']['day'], $arr['suppliers']['new']['date2']['year']);
 			$days = (empty($arr['suppliers']['new']['days'])) ? 0 : $arr['suppliers']['new']['days'];
-			$this->db_query("insert into taket_times set 
+			$this->db_query("insert into taket_times set
 				supplier_id='".$arr['suppliers']['new']['supplier_id']."',
 				day1='".$arr['suppliers']['new']['day1']."',
 				days=".$days.",
@@ -1108,4 +1109,3 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 		return $rv;
 	}
 }
-?>

@@ -1,9 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
-class search_conf extends aw_template 
+class search_conf extends aw_template
 {
 	var $per_page = 10;
 	function search_conf()
@@ -20,7 +17,7 @@ class search_conf extends aw_template
 		$SITE_ID = $this->cfg["site_id"];
 
 		$c = get_instance("config");
-		$conf = unserialize($c->get_simple_config("search_conf"));
+		$conf = utf_unserialize($c->get_simple_config("search_conf"));
 
 		if (!$level)
 		{
@@ -69,7 +66,7 @@ class search_conf extends aw_template
 		}
 
 		$c = get_instance("config");
-		$conf = unserialize($c->get_simple_config("search_conf"));
+		$conf = utf_unserialize($c->get_simple_config("search_conf"));
 
 		if (!$level)
 		{
@@ -115,10 +112,10 @@ class search_conf extends aw_template
 		return $m->get_search_list(&$default);
 	}
 
-	/** shows the search form 
-		
+	/** shows the search form
+
 		@attrib name=search params=name nologin="1" default="0"
-		
+
 		@param s_parent optional
 		@param s_parent_arr optional
 		@param s_keywords optional
@@ -139,10 +136,10 @@ class search_conf extends aw_template
 		@param section optional
 		@param search_all optional
 		@param max_results optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -192,7 +189,7 @@ class search_conf extends aw_template
 			"month" => "",
 			"day" => ""
 		));
-		
+
 		$date_from = date_edit::get_timestamp($date_from);
 		$date_to = date_edit::get_timestamp($date_to);
 
@@ -203,7 +200,7 @@ class search_conf extends aw_template
 			$max_results = 50;
 		}
 
-				
+
 		$sstring_title = trim($sstring_title);
 		$sstring_author = trim($sstring_author);
 		$sstring = trim($sstring);
@@ -401,7 +398,7 @@ class search_conf extends aw_template
 
 			// search from files and tables here. ugh. ugly. yeah. I know.
 
-			// oh crap. siin peab siis failide seest ka otsima. 
+			// oh crap. siin peab siis failide seest ka otsima.
 			if ($q_fcons2 != "")
 			{
 				$mtfiles = array();
@@ -469,7 +466,7 @@ class search_conf extends aw_template
 
 			// get all the parents under what the document can be
 			$p_arr = $this->get_parent_arr($s_parent, $s_parent_arr);
-			
+
 			$_tpstr = join(",",$p_arr);
 			if ($_tpstr != "")
 			{
@@ -492,7 +489,7 @@ class search_conf extends aw_template
 				$plist = $pei->period_list(0,false,1);
 				$perstr = ($q_cons != "" ? " AND " : "")." objects.period IN (".join(",", array_keys($plist)).")";
 			}
-						
+
 			$sid = " AND site_id = ".aw_ini_get("site_id")." AND objects.lang_id = ".aw_global_get("lang_id");
 
 			// make pageselector
@@ -517,7 +514,7 @@ class search_conf extends aw_template
 				{
 					continue;
 				}
-		
+
 				$fld = "content";
 				if (aw_ini_get("search_conf.show_in_results") != "")
 				{
@@ -719,15 +716,15 @@ class search_conf extends aw_template
 		{
 			$prev = $this->parse("PREVIOUS");
 		}
-		
+
 		if (((int)$page) < ($num_pages-1))
 		{
 			$nxt = $this->parse("NEXT");
 		}
 		$this->vars(array(
-			"PREVIOUS" => $prev, 
+			"PREVIOUS" => $prev,
 			"NEXT" => $nxt,
-			"PAGE" => $pg, 
+			"PAGE" => $pg,
 			"SEL_PAGE" => ""
 		));
 		return $this->parse("PAGESELECTOR");
@@ -742,7 +739,7 @@ class search_conf extends aw_template
 
 		$this->menucache = array();
 		$this->db_query("SELECT objects.oid as oid, objects.parent as parent,objects.last as last,objects.status as status
-										 FROM objects 
+										 FROM objects
 										 WHERE objects.class_id = 1 AND objects.status = 2 $ss");
 		while ($row = $this->db_next())
 		{
@@ -755,11 +752,11 @@ class search_conf extends aw_template
 		$this->darr = array();
 
 		// $parent is the id of the menu group, not the parent menu
-		// so now we figure out the parent menus and do rec_list for all of them 
+		// so now we figure out the parent menus and do rec_list for all of them
                 if (!is_array($s_parent_arr))
                 {
                         $s_parent_arr =array($parent);
-                }		
+                }
 
                 $this->marr = array();
                 foreach($s_parent_arr as $parent)
@@ -802,10 +799,10 @@ class search_conf extends aw_template
 	}
 
 	// updates documents timestamp from document::tm and objects::modified to documents::modified
-	/**  
-		
+	/**
+
 		@attrib name=upd_dox params=name nologin="1" default="0"
-		
+
 		@param s_parent optional
 		@param s_keywords optional
 		@param sstring_title optional
@@ -817,10 +814,10 @@ class search_conf extends aw_template
 		@param t_type optional
 		@param c_type optional
 		@param sortby optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -849,14 +846,14 @@ class search_conf extends aw_template
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=change params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -892,34 +889,34 @@ class search_conf extends aw_template
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_conf params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
 	function submit_conf($arr)
 	{
 		extract($arr);
-		
+
 		$this->set_cval("search::default_group", $act_search);
 		return $this->mk_my_orb("change");
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=change_grp params=name default="0"
-		
+
 		@param id optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -932,8 +929,8 @@ class search_conf extends aw_template
 
 		$f = get_instance(CL_FORM);
 		$flist = $f->get_flist(array(
-			"type" => FTYPE_SEARCH, 
-			"addempty" => true, 
+			"type" => FTYPE_SEARCH,
+			"addempty" => true,
 			"addfolders" => true,
 			"sort" => true
 		));
@@ -959,14 +956,14 @@ class search_conf extends aw_template
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_change_grp params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -987,7 +984,7 @@ class search_conf extends aw_template
 		$grps[$id]["menus"] = $this->make_keys($menus);
 		$grps[$id]["search_form"] = $search_form;
 		$grps[$id]["search_elements"] = $this->make_keys($search_elements);
-		
+
 		$this->save_grps($grps);
 
 		return $this->mk_my_orb("change_grp", array("id" => $id));
@@ -1028,15 +1025,15 @@ class search_conf extends aw_template
 		return $m->get_groups($no_strip);
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=delete_grp params=name default="0"
-		
+
 		@param id optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1055,14 +1052,14 @@ class search_conf extends aw_template
 		return $grps[$gp]["menus"];
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=search_log params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1184,4 +1181,3 @@ class search_conf extends aw_template
 		return $this->parse();
 	}
 }
-?>

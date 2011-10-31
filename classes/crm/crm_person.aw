@@ -1873,9 +1873,9 @@ class crm_person extends class_base
 				break;
 
 			case "org_section":
-				if(!is_array($data["value"]) && is_array(unserialize($data["value"])))
+				if(!is_array($data["value"]) && is_array(utf_unserialize($data["value"])))
 				{
-					$data["value"] = unserialize($data["value"]);
+					$data["value"] = utf_unserialize($data["value"]);
 				}
 				break;
 
