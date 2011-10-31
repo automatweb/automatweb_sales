@@ -3351,7 +3351,7 @@ class crm_company extends class_base
 		$company = obj($arr["company"], array(), crm_company_obj::CLID);
 		unset($arr["company"]);
 		$customer = $company->create_customer($arr);
-		return $customer;
+		return $customer->json();
 	}
 
 	/**
@@ -3364,7 +3364,11 @@ class crm_company extends class_base
 	public function delete_customer($arr)
 	{
 		$company = obj($arr["id"], array(), crm_company_obj::CLID);
-		$company->delete_customer($company->get_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, obj($arr["customer"])));
+		$customer_relation = $company->get_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, obj($arr["customer"]));
+		if ($customer_relation)
+		{
+			$company->delete_customer($customer_relation);
+		}
 	}
 
 	/**
