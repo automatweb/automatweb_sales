@@ -517,7 +517,7 @@ class cfgform extends class_base
 				break;
 
 			case "ctype":
-				
+
 				$clid = $arr["obj_inst"]->prop("subclass");
 				$iu = html::img(array(
 					"url" => icons::get_icon_url($clid,""),
@@ -879,7 +879,6 @@ class cfgform extends class_base
 
 	function _trans_tbl($arr)
 	{
-		aw_global_set("output_charset", "utf-8");
 		$t = $arr["prop"]["vcl_inst"];
 		$ld = $this->_init_trans_tbl($t, $arr["obj_inst"], $arr["request"]);
 		$lid = $ld["acceptlang"];
@@ -891,15 +890,14 @@ class cfgform extends class_base
 		foreach($ps as $pn => $pd)
 		{
 			$capt = $pd["type"] === "text" ? (isset($pd["value"]) ? $pd["value"] : "") : $pd["caption"];
-			$capt = iconv($ld["charset"], "utf-8", $capt);
-			$comm = iconv($ld["charset"], "utf-8", isset($pd["comment"]) ? $pd["comment"] : "");
-			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn]);
+			$comm = isset($pd["comment"]) ? $pd["comment"] : "";
+			$v = $trans[$lid][$pn];
 			$v2 = "";
 
 			if (trim($v) === "" and isset($trans[$lid][$pn]))
 			{
-				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn]);
-				$v2 = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn."_comment"]);
+				$v = $trans[$lid][$pn];
+				$v2 = $trans[$lid][$pn."_comment"];
 			}
 
 			$t->define_data(array(
@@ -930,12 +928,12 @@ class cfgform extends class_base
 		$ps = $arr["obj_inst"]->meta("cfg_groups");
 		foreach($ps as $pn => $pd)
 		{
-			$capt = iconv($ld["charset"], "utf-8", $pd["caption"]);
-			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn]);
+			$capt = $pd["caption"];
+			$v = $trans[$lid][$pn];
 
 			if (trim($v) == "")
 			{
-				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn]);
+				$v = $trans[$lid][$pn];
 			}
 
 			$t->define_data(array(
@@ -960,12 +958,12 @@ class cfgform extends class_base
 		$ps = $arr["obj_inst"]->meta("cfg_layout");
 		foreach($ps as $pn => $pd)
 		{
-			$capt = iconv($ld["charset"], "utf-8", $pd["area_caption"]);
-			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn]);
+			$capt = $pd["area_caption"];
+			$v = $trans[$lid][$pn];
 
 			if (trim($v) == "")
 			{
-				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn]);
+				$v = $trans[$lid][$pn];
 			}
 
 			$t->define_data(array(
@@ -991,12 +989,12 @@ class cfgform extends class_base
 		$ps = $arr["obj_inst"]->meta("cfg_proplist");
 		foreach($ps as $pn => $pd)
 		{
-			$capt = iconv($ld["charset"], "utf-8", isset($pd["emb_tbl_caption"]) ? $pd["emb_tbl_caption"] : "");
-			$v = iconv($ld["charset"], "utf-8", $trans[$lid][$pn."_tbl_capt"]);
+			$capt = isset($pd["emb_tbl_caption"]) ? $pd["emb_tbl_caption"] : "";
+			$v = $trans[$lid][$pn."_tbl_capt"];
 
 			if (trim($v) == "")
 			{
-				$v = iconv(aw_global_get("charset"), "utf-8", $trans[$lid][$pn."_tbl_capt"]);
+				$v = $trans[$lid][$pn."_tbl_capt"];
 			}
 
 			$t->define_data(array(
@@ -1351,7 +1349,7 @@ class cfgform extends class_base
 					$ld = $l->fetch($l->get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
-						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
+						$ldat[$pn] = $c;
 					}
 					$trans[$lid] = $ldat;
 				}
@@ -1359,14 +1357,13 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_grps":
-				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("grp_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_id_for_code($lid), false);
+					$ld = languages::fetch(languages::get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
-						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
+						$ldat[$pn] = $c;
 					}
 					$trans[$lid] = $ldat;
 				}
@@ -1374,14 +1371,13 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_lays":
-				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("layout_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_id_for_code($lid), false);
+					$ld = languages::fetch(languages::get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
-						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
+						$ldat[$pn] = $c;
 					}
 					$trans[$lid] = $ldat;
 				}
@@ -1389,14 +1385,13 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_table_capts":
-				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("tbl_capt_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
-					$ld = $l->fetch($l->get_id_for_code($lid), false);
+					$ld = languages::fetch(languages::get_id_for_code($lid), false);
 					foreach(safe_array($ldat) as $pn => $c)
 					{
-						$ldat[$pn] = iconv("utf-8", $ld["charset"], $c);
+						$ldat[$pn] = $c;
 					}
 					$trans[$lid] = $ldat;
 				}
@@ -1478,8 +1473,7 @@ class cfgform extends class_base
 		}
 		if (!isset($this->lang_inf))
 		{
-			$l = new languages();
-			$tmp = $l->get_list(array("ignore_status" => 1));
+			$tmp = languages::get_list(array("ignore_status" => 1));
 			unset($tmp[$arr["obj_inst"]->lang_id()]);
 			$this->lang_inf = array(
 				"ids" => array_keys($tmp),
@@ -2448,7 +2442,7 @@ class cfgform extends class_base
 				foreach (safe_array($properties) as $property)
 				{
 					$cnt++;
-					$prpdata = $this->all_props[$property["name"]];
+					$prpdata = isset($this->all_props[$property["name"]]) ? $this->all_props[$property["name"]] : array();
 
 					if (!$prpdata)
 					{
@@ -2501,13 +2495,13 @@ class cfgform extends class_base
 							case "textarea":
 								$this->vars(array(
 									"richtext_caption" => t("RTE"),
-									"richtext_checked" => checked($property["richtext"] == 1),
-									"richtext" => $property["richtext"],
+									"richtext_checked" => checked(isset($property["richtext"]) and $property["richtext"] == 1),
+									"richtext" => !empty($property["richtext"]),
 									"rows_caption" => t("K&otilde;rgus"),
 									"rows" => $property["rows"],
 									"cols_caption" => t("Laius"),
 									"cols" => $property["cols"],
-									"maxlength" => $property["maxlength"],
+									"maxlength" => isset($property["maxlength"]) ? $property["maxlength"] : "",
 									"maxlength_caption" => t("T&auml;hem&auml;rkide piirang"),
 									"prp_key" => $property["name"],
 								));
@@ -2658,13 +2652,13 @@ class cfgform extends class_base
 								$this->vars(array(
 									"prp_key" => $property["name"],
 									"dayselect_caption" => t("P&auml;ev: select"),
-									"dayselect_ch" => ("select" === $property["day"] or empty($property["day"])) ? ' checked="1"' : "",
+									"dayselect_ch" => (empty($property["day"]) or "select" === $property["day"]) ? ' checked="1"' : "",
 									"daytext_caption" => t("textbox"),
-									"daytext_ch" => ("text" === $property["day"]) ? ' checked="1"' : "",
+									"daytext_ch" => (isset($property["day"]) and "text" === $property["day"]) ? ' checked="1"' : "",
 									"monthselect_caption" => t("Kuu: select"),
-									"monthselect_ch" => ("select" === $property["month"] or empty($property["month"])) ? ' checked="1"' : "",
+									"monthselect_ch" => (empty($property["month"]) or "select" === $property["month"]) ? ' checked="1"' : "",
 									"monthtext_caption" => t("textbox"),
-									"monthtext_ch" => ("text" === $property["month"]) ? ' checked="1"' : "",
+									"monthtext_ch" => (isset($property["month"]) and "text" === $property["month"]) ? ' checked="1"' : "",
 								));
 								$property["cfgform_additional_options"] = $this->parse("datetime_select_options");
 								$this->vars(array("datetime_select_options" => ""));
@@ -3636,7 +3630,7 @@ class cfgform extends class_base
 
 		$subclass = $cf->prop("subclass");
 		// XXX: can be removed once doc and document are merged
-		$inst_name = ($subclass == document_obj::CLID) ? "doc" : $subclass;
+		$inst_name = ($subclass == doc_obj::CLID) ? "doc" : $subclass;
 		$class_i = get_instance($inst_name);
 		$tmp = $class_i->load_from_storage(array(
 			"id" => $cf->id()
@@ -3919,7 +3913,7 @@ class cfgform extends class_base
 			)
 		);
 
-		$this->cff_init_from_class($form, document_obj::CLID);
+		$this->cff_init_from_class($form, doc_obj::CLID);
 
 		$this->cff_remove_all_props($form);
 
@@ -3957,7 +3951,7 @@ class cfgform extends class_base
 		$this->_init_properties($clid);
 		$cfgu = new cfgutils();
 
-		if ($clid == document_obj::CLID)
+		if ($clid == doc_obj::CLID)
 		{
 			$def = join("",file(aw_ini_get("basedir") . "/xml/documents/def_cfgform.xml"));
 			list($proplist,$grplist, $layout) = $cfgu->parse_cfgform(array("xml_definition" => $def), true);
@@ -4701,7 +4695,7 @@ class cfgform extends class_base
 		{
 			if (in_array($data["type"], $focusable_prop_types))
 			{
-				$props_by_grp[$data["group"]][$name] = $data["caption"];
+				$props_by_grp[$data["group"]][$name] = isset($data["caption"]) ? $data["caption"] : "";
 			}
 
 			if ("submit" === $data["type"] and !empty($data["group"]))

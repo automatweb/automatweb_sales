@@ -1,4 +1,4 @@
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset={VAR:charset}">
+<meta http-equiv="content-type" content="text/html; charset={VAR:charset}">
 <script type="text/javascript" src="{VAR:baseurl}/automatweb/js/aw.js"></script>
 <script type="text/javascript">
 

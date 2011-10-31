@@ -2,7 +2,7 @@
 
 class _int_obj_ds_decorator
 {
-	private $contained;	// the contained data source object
+	protected $contained;	// the contained data source object
 
 	function _int_obj_ds_decorator($contained)
 	{
@@ -118,9 +118,14 @@ class _int_obj_ds_decorator
 		return $this->contained->delete_multiple_objects($oid_list);
 	}
 
-	function dequote(&$dat)
+	function dequote(&$value)
 	{
-		$this->contained->dequote($dat);
+		$this->contained->dequote($value);
+	}
+
+	function quote(&$value)
+	{
+		$this->contained->quote($value);
 	}
 
 	function create_brother($arr)

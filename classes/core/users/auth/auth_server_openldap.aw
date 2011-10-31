@@ -108,7 +108,7 @@ class auth_server_openldap extends class_base
 		return $retval;
 	}
 
-	function check_auth($server, &$credentials, &$conf)
+	function check_auth($server, &$credentials, auth_config $conf)
 	{
 		if (!extension_loaded("ldap"))
 		{

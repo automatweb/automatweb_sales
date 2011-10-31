@@ -1783,7 +1783,7 @@ class doc extends class_base
 
 		$key = $this->_get_simultaneous_key(obj($arr["oid"]));
 
-		$data = unserialize($this->get_cval($key));
+		$data = utf_unserialize($this->get_cval($key));
 
 		if (isset($data[aw_global_get("uid")]))
 		{

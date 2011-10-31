@@ -6,13 +6,13 @@ class object_list extends _int_obj_container_base
 {
 	var $list = array();	// array of objects in the current list
 	var $list_names = array();
+	var $list_objdata = array();
 	var $iter_index = 0;
 	var $iter_lut = array();
 	var $iter_lut_count = 0;
 
 	public $ds_query_string = ""; // database query executed to retrieve list data. use for debugging only
 
-	protected $list_objdata = array();
 	protected $filter = array();
 	protected $object_id_property = "oid";
 
@@ -99,21 +99,15 @@ class object_list extends _int_obj_container_base
 		{
 			echo "object_list::filter(".join(",", map2('%s => %s', $param)).") <br>";
 		}
+
 		if (!is_array($param))
 		{
-			error::raise(array(
-				"id" => ERR_PARAM,
-				"msg" => t("object_list::filter(): parameter must be an array!")
-			));
+			throw new awex_obj_param("Parameter must be an array");
 		}
 
 		if (isset($param["oid"]) && is_array($param["oid"]) && sizeof($param["oid"]) == 0)
 		{
-			error::raise(array(
-				"id" => ERR_PARAM,
-				"msg" => t("object_list::filter(): oid parameter cannot be an empty array!")
-			));
-
+			throw new awex_obj_param("OID parameter cannot be an empty array");
 		}
 
 		// check if param is an array of connection objects. if so, then get the object id's from that

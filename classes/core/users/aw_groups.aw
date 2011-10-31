@@ -1,23 +1,27 @@
 <?php
 
-class user_manager_obj extends _int_object
+class aw_groups extends aw_core_module
 {
-	const CLID = 1003;
+	/** Ordinary, user added group **/
+	const TYPE_REGULAR = 0;
 
-	private $active_user = "";
+	/** User's default group **/
+	const TYPE_DEFAULT = 1;
 
-	public static function add_user($uid)
+	/** Dynamic group **/
+	const TYPE_DYNAMIC = 2;
+
+	/** Not logged in users' group. Special system group. Singular in site scope **/
+	const TYPE_NOT_LOGGED_IN = 3;
+
+	/** Group where all users are members always. Special system group. More than one may exist which means all users are added to all of them **/
+	const TYPE_ALL_USERS = 4;
+
+	public static function add(object $group)
 	{
-		try
-		{
-			$user = obj(null, array(), $uid);
-		}
-		catch (Exception $e)
-		{
-		}
 	}
 
-	public static function delete_user()
+	public static function delete(object $group)
 	{
 	}
 
@@ -29,7 +33,7 @@ class user_manager_obj extends _int_object
 		@errors
 			throws awex_obj_invalid_count if more than one active not logged in users' group found
 	**/
-	public static function get_not_logged_in_group($create = true)
+	public static function get_not_logged_in_group($create = true, $site_id = 0)
 	{
 		static $group;
 		if (null === $group)
@@ -87,7 +91,7 @@ class user_manager_obj extends _int_object
 			throws awex_obj_invalid_count if more than one active all users' group found
 			throws awex_users_cfg if all users' groups found but none of them are defined active
 	**/
-	public static function get_all_users_group($create = true)
+	public static function get_all_users_group($create = true, $site_id = 0)
 	{
 		static $group;
 		if ($group === null)
@@ -139,10 +143,3 @@ class user_manager_obj extends _int_object
 		return $group;
 	}
 }
-
-/** Generic users management exception **/
-class awex_users extends awex_obj {}
-
-/** Users management configuration error **/
-class awex_users_cfg extends awex_users {}
-

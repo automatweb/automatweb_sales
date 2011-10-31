@@ -1312,11 +1312,6 @@ class vcalendar extends aw_template
 			}
 
 			$wn = date("w",$reals);
-			if ($wn == 0)
-			{
-				$wn = 7;
-			}
-
 			$dt = date("d",$reals);
 			$mn = aw_locale::get_lc_month(date("m",$reals));
 			$mn2 = $mn . " " . date("H:i",$reals);

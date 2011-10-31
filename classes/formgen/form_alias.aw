@@ -1,10 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/formgen/form_alias.aw,v 1.14 2008/08/27 07:56:15 kristo Exp $
-/*
-@classinfo  maintainer=kristo
-*/
 
-classload("formgen/form");
 class form_alias extends form_base
 {
 	function form_alias()
@@ -12,10 +7,10 @@ class form_alias extends form_base
 		$this->form_base();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=new params=name default="0"
-		
+
 		@param return_url required
 		@param parent optional
 		@param alias_to optional
@@ -23,10 +18,10 @@ class form_alias extends form_base
 		@param entry_id optional
 		@param form_submit optional
 		@param id optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -34,10 +29,10 @@ class form_alias extends form_base
 	{
 		return $this->new_entry_alias($arr);
 	}
-	/**  
-		
+	/**
+
 		@attrib name=new_entry_alias params=name default="0"
-		
+
 		@param return_url required
 		@param parent optional
 		@param alias_to optional
@@ -45,10 +40,10 @@ class form_alias extends form_base
 		@param entry_id optional
 		@param form_submit optional
 		@param id optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -107,14 +102,14 @@ class form_alias extends form_base
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_entry_alias params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -144,29 +139,29 @@ class form_alias extends form_base
 		return $return_url;
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=change_entry_alias params=name default="0"
-		
+
 		@param id required
 		@param return_url required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
-	/**  
-		
+	/**
+
 		@attrib name=change params=name default="0"
-		
+
 		@param id required
 		@param return_url required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -194,7 +189,7 @@ class form_alias extends form_base
 	{
 		extract($args);
 		$GLOBALS["cur_process_alias"] = $alias["from"];
-		$alias_data = unserialize($alias["data"]);
+		$alias_data = utf_unserialize($alias["data"]);
 		$fo = get_instance(CL_FORM);
 
 		aw_global_set("fg_cur_processing_alias_data", array(
@@ -202,7 +197,7 @@ class form_alias extends form_base
 			"entry_id" => $alias["target"],
 			"op_id" => $alias_data["output"]
 		));
-		
+
 		if ($alias_data["type"] == "show")
 		{
 			$replacement = $fo->show(array(
@@ -239,4 +234,3 @@ class form_alias extends form_base
 	}
 
 }
-?>

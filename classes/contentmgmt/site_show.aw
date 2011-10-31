@@ -2916,11 +2916,9 @@ class site_show extends aw_template
 						}
 
 						$link .= join("/",$alp);
-// /*~AWdbg*/ dbg::d("12", $link);
 						if (isset($tmp) && sizeof($tmp) > 0)
 						{
 							$link .= "/";
-// /*~AWdbg*/ dbg::d("13", $link);
 						}
 					}
 					else
@@ -2930,12 +2928,10 @@ class site_show extends aw_template
 						if(!strlen(trim(($use_trans ? $o->trans_get_val("alias") : $o->alias()))))
 						{
 							$link .= $o->id();
-// /*~AWdbg*/ dbg::d("14", $link);
 						}
 						else
 						{
 							$link .= str_replace("%2F", "/", urlencode(($use_trans ? $o->trans_get_val("alias") : $o->alias())));
-// /*~AWdbg*/ dbg::d("15", $link);
 						}
 					}
 				}
@@ -2944,13 +2940,11 @@ class site_show extends aw_template
 					if (($o->is_brother() || $this->brother_level_from) /*&& !aw_ini_get("menuedit.show_real_location")*/)
 					{
 						$link .= "?section=".$o->id()."&path=".join(",", $this->_cur_menu_path);
-// /*~AWdbg*/ dbg::d("16", $link);
 					}
 					else
 					{
 						$oid = ($o->class_id() == 39 || aw_ini_get("menuedit.show_real_location")) ? $o->brother_of() : $o->id();
 						$link .= $oid;
-// /*~AWdbg*/ dbg::d("17", $link);
 					}
 				}
 			}
@@ -2964,9 +2958,8 @@ class site_show extends aw_template
 			$su = aw_url_change_var("clear_doc_content_type", null, $su);
 			$su = aw_url_change_var("docid", null, $su);
 			$link = aw_url_change_var("set_doc_content_type", $sdct, $su);
-// /*~AWdbg*/ dbg::d("18", $link);
 		}
-// /*~AWdbg*/ arr("xxx");
+
 		return $link;
 	}
 
@@ -2981,8 +2974,8 @@ class site_show extends aw_template
 
 		$fn = cache::get_fqfn("compiled_menu_template-".$str_part."-".aw_global_get("lang_id"));
 
-		if ($tpl{0} !== "/")
-		{//FIXME: windowsis teisiti v6ib path alata
+		if ("unix" === aw_ini_get("server.platform") and $tpl{0} !== "/" or "win32" === aw_ini_get("server.platform") and substr($tpl, 1, 2) !== ":/")
+		{
 			$tpl = aw_ini_get("site_basedir").$tpl;
 		}
 

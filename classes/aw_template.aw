@@ -85,7 +85,7 @@ class aw_template extends core
 			{
 				$this->template_dir = $site_basedir.$basedir;
 				$this->adm_template_dir = AW_DIR . $basedir;
-				$this->site_template_dir = $site_basedir.$basedir;
+				$this->site_template_dir = $this->template_dir;
 			}
 			else
 			{
@@ -123,7 +123,7 @@ class aw_template extends core
 		{
 			$dir = aw_ini_get("site_tpldir");
 
-			if ($sect = aw_global_get("section") and $this->can("view", $sect))
+			if ($sect = aw_global_get("section"))
 			{
 				foreach(obj($sect)->path() as $path_item)
 				{
@@ -152,7 +152,7 @@ class aw_template extends core
 			"baseurl_ssl" => str_replace("http", "https", aw_ini_get("baseurl")),
 			"cur_lang_id" => aw_global_get("lang_id"),
 			"current_url" => urlencode(get_ru()),
-			"charset" => AW_USER_CHARSET
+			"charset" => languages::USER_CHARSET
 		);
 	}
 
@@ -1142,6 +1142,7 @@ class awex_bad_file_path extends aw_exception
 
 	function __construct($path)
 	{
+		$this->message = "Invalid file path: '{$path}'";
 		$this->path = $path;
 	}
 }

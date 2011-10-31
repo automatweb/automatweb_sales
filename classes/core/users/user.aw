@@ -684,7 +684,7 @@ class user extends class_base
 	private function get_group_membership($o, $id)
 	{
 		$group = new group();
-		$gl = $group->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR, group_obj::TYPE_DYNAMIC)));
+		$gl = $group->get_group_picker(array("type" => array(aw_groups::TYPE_REGULAR, aw_groups::TYPE_DYNAMIC)));
 
 		// get all groups this user is member of
 		$groups = $o->get_groups_for_user();
@@ -706,7 +706,7 @@ class user extends class_base
 				$can_edit = false;
 			}
 
-			if ($go->prop("type") == group_obj::TYPE_DYNAMIC)
+			if ($go->prop("type") == aw_groups::TYPE_DYNAMIC)
 			{
 				$gd["type"] = t("D&uuml;naamiline");
 				$gd["is_member"] = (isset($groups[$g_oid]) ? t("Jah") : t("Ei"));
@@ -746,7 +746,7 @@ class user extends class_base
 
 		// get a list of all groups, so we can throw out the dynamic groups
 		$group = new group();
-		$gl = $group->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR, group_obj::TYPE_DYNAMIC)));
+		$gl = $group->get_group_picker(array("type" => array(aw_groups::TYPE_REGULAR, aw_groups::TYPE_DYNAMIC)));
 
 
 		// now, go over both lists and get rid of the dyn groups
@@ -755,7 +755,7 @@ class user extends class_base
 		foreach($_tm->get() as $g_oid => $is)
 		{
 			$go = obj($g_oid);
-			if ($go->prop("type") != group_obj::TYPE_DYNAMIC)
+			if ($go->prop("type") != aw_groups::TYPE_DYNAMIC)
 			{
 				$_member[$g_oid] = $is;
 			}
@@ -765,7 +765,7 @@ class user extends class_base
 		$_groups = array();
 		foreach($groups as $g_oid => $go)
 		{
-			if ($go->prop("type") != group_obj::TYPE_DYNAMIC)
+			if ($go->prop("type") != aw_groups::TYPE_DYNAMIC)
 			{
 				$_groups[$g_oid] = true;
 			}
@@ -2115,7 +2115,7 @@ EOF;
 		if ($no_user_grp)
 		{
 			$tmp = $groups->begin();
-			if ($tmp->prop("type") == group_obj::TYPE_DEFAULT)
+			if ($tmp->prop("type") == aw_groups::TYPE_DEFAULT)
 			{
 				$rv = $groups->next();
 				$cache[$uid][$no_user_grp] = $rv;
@@ -2345,7 +2345,7 @@ EOF;
 				"link" => html::get_change_url($u->id(), array("group" => $gn, "return_url" => $arr["url"]))
 			));
 		}
-		header("Content-type: text/html; charset=".AW_USER_CHARSET);
+		header("Content-type: text/html; charset=".languages::USER_CHARSET);
 		die($pm->get_menu(array(
 			"text" => '<img src="/automatweb/images/aw06/ikoon_seaded.gif" alt="seaded" width="17" height="17" border="0" align="left" style="margin: -1px 5px -3px -2px" />'.t("Seaded").' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
 		)));
@@ -2392,7 +2392,7 @@ EOF;
 				));
 			}
 		}
-		header("Content-type: text/html; charset=".AW_USER_CHARSET);
+		header("Content-type: text/html; charset=".languages::USER_CHARSET);
 		die($pm->get_menu(array(
 			"text" => '<img src="/automatweb/images/aw06/ikoon_ajalugu.gif" alt="" width="13" height="13" border="0" class="ikoon" />'.t("Ajalugu").' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
 		)));

@@ -164,7 +164,8 @@ class site_cache extends aw_template
 		if (strpos($res,"[ss") !== false)
 		{
 			$res = preg_replace("/\[ss(\d+)\]/e","md5(time().\$_SERVER[\"REMOTE_ADDR\"].\"\\1\")",$res);
-		};
+		}
+
 		if (strpos($res,"[bloc") !== false)
 		{
 			preg_match_all("/\[bloc(\d+)\]/",$res, $mt);
@@ -173,12 +174,13 @@ class site_cache extends aw_template
 				$bn = get_instance(CL_BANNER);
 				$res = $bn->put_banners_in_html($res, $mt);
 			}
-		};
+		}
+
 		if (strpos($res,"[document_statistics") !== false)
 		{
 			$ds = get_instance(CL_DOCUMENT_STATISTICS);
 			$res = preg_replace("/\[document_statistics(\d+)\]/e", "\$ds->show(array('id' => \\1))", $res);
-		};
+		}
 
 		// if the template contains php tags, eval it.
 		if (strpos($res, "<?php") !== false)

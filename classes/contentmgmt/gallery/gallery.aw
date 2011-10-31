@@ -1,9 +1,5 @@
 <?php
 // gallery.aw - gallery management
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/gallery/gallery.aw,v 1.10 2008/01/31 13:52:27 kristo Exp $
-/*
-@classinfo  maintainer=kristo
-*/
 
 class gallery extends aw_template
 {
@@ -27,17 +23,17 @@ class gallery extends aw_template
 		$this->load($alias["target"],$page);
 		return $this->show(array("page" => $page,"section" => $section));
 	}
-		
-	/** generates the form for adding a gallery 
-		
+
+	/** generates the form for adding a gallery
+
 		@attrib name=new params=name default="0"
-		
+
 		@param parent required acl="add"
 		@param alias_to optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -53,15 +49,15 @@ class gallery extends aw_template
 		return $this->parse();
 	}
 
-	/** generates the form for changing a gallery 
-		
+	/** generates the form for changing a gallery
+
 		@attrib name=change params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -73,7 +69,7 @@ class gallery extends aw_template
 		$this->mk_path($o->parent(),LC_GALLERY_CHANGE_GAL);
 
 		$this->vars(array(
-			"name" => $o->name(), 
+			"name" => $o->name(),
 			"comment" => $o->comment(),
 			"reforb" => $this->mk_reforb("submit", array("id" => $id)),
 			"content" => $this->mk_orb("admin", array("id" => $id, "page" => "0"))
@@ -82,14 +78,14 @@ class gallery extends aw_template
 		return $this->parse();
 	}
 
-	/** saves or creates the gallery 
-		
+	/** saves or creates the gallery
+
 		@attrib name=submit params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -138,8 +134,8 @@ class gallery extends aw_template
 			$this->raise_error(ERR_GAL_NOGAL,sprintf(t("load_gallery(%s): no such gallery!"), $id), true);
 		}
 
-		$this->arr = unserialize($row["content"]);
-		$this->name = $row["name"]; 
+		$this->arr = utf_unserialize($row["content"]);
+		$this->name = $row["name"];
 		$this->parent = $row["parent"];
 		$this->id = $id;
 		$this->comment = $row["comment"];
@@ -162,16 +158,16 @@ class gallery extends aw_template
 		}
 	}
 
-	/** generates the form for uploading pictures for gallery $id, page $page 
-		
+	/** generates the form for uploading pictures for gallery $id, page $page
+
 		@attrib name=admin params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -185,7 +181,7 @@ class gallery extends aw_template
 		$this->read_template("grid.tpl");
 		$this->load($id,$page);
 		$this->mk_path($this->parent, "<a href='".$this->mk_orb("change", array("id" => $id))."'>Muuda</a> / Sisu");
-		
+
 		for ($pg = 0; $pg < $this->arr["pages"]; $pg++)
 		{
 			$this->vars(array(
@@ -202,7 +198,7 @@ class gallery extends aw_template
 			}
 		}
 		$this->vars(array(
-			"PAGE" => $p, 
+			"PAGE" => $p,
 			"SEL_PAGE" => "",
 			"add_page" => $this->mk_orb("add_page", array("id" => $id)),
 			"del_page" => $this->mk_orb("del_page", array("id" => $id))
@@ -217,8 +213,8 @@ class gallery extends aw_template
 			{
 				$cell = $this->arr[$page]["content"][$row][$col];
 				$this->vars(array(
-					"imgurl" => image::check_url($cell["tnurl"]), 
-					"caption" => $cell["caption"], 
+					"imgurl" => image::check_url($cell["tnurl"]),
+					"caption" => $cell["caption"],
 					"bigurl" => image::check_url($cell["bigurl"]),
 					"col" => $col,
 					"date" => $cell["date"],
@@ -253,17 +249,17 @@ class gallery extends aw_template
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=add_row params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
 		@param rows optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -277,17 +273,17 @@ class gallery extends aw_template
 		die();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=add_col params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
 		@param cols optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -301,16 +297,16 @@ class gallery extends aw_template
 		die();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=del_col params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -328,16 +324,16 @@ class gallery extends aw_template
 		die();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=del_row params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -362,14 +358,14 @@ class gallery extends aw_template
 		$this->db_query($q);
 	}
 
-	/** saves the uploaded pictures for gallery $id, on page $page 
-		
+	/** saves the uploaded pictures for gallery $id, on page $page
+
 		@attrib name=c_submit params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -457,16 +453,16 @@ class gallery extends aw_template
 		return $this->mk_orb("admin", array("id" => $id, "page" => $page));
 	}
 
-	/** adds a page to the gallery and returns to grid 
-		
+	/** adds a page to the gallery and returns to grid
+
 		@attrib name=add_page params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -489,20 +485,20 @@ class gallery extends aw_template
 		return ($a["ord"] < $b["ord"]) ? -1 : 1;
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=show params=name nologin="1" default="0"
-		
+
 		@param id optional
 		@param page optional
 		@param col optional
 		@param row optional
 		@param section optional
 		@param nr optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -563,8 +559,8 @@ class gallery extends aw_template
 			$cell = $this->arr[$page]["content"][$row][$col];
 			$bigurl = image::check_url($cell["bigurl"]);
 			$this->vars(array(
-				"bigurl" => $bigurl, 
-				"caption" => $cell["caption"], 
+				"bigurl" => $bigurl,
+				"caption" => $cell["caption"],
 				"date" => $cell["date"]
 			));
 		}
@@ -612,7 +608,7 @@ class gallery extends aw_template
 				$tnurls[$cnt] = $tnurl;
 				$ius[$cnt++] = $bigurl;
 			}
-		
+
 			$this->read_template("show_slideshow.tpl");
 			$bigurl = $ius[$nr];
 			$cap = $caps[$nr];
@@ -627,7 +623,7 @@ class gallery extends aw_template
 			$gurl = $this->mk_my_orb("show",array(
 				"id" => $id,
 				"col" => (string)($cols[$nr]),
-				"row" => (string)($rows[$nr]), 
+				"row" => (string)($rows[$nr]),
 				"page" => $pages[$nr],
 				"show_big" => 1
 			),"gallery",false,true,"/");
@@ -677,7 +673,7 @@ class gallery extends aw_template
 						$target="target=\"_blank\"";
 					}
 					else
-					{	
+					{
 						$gurl = $this->mk_my_orb("show", array(
 							"id" => $this->id,
 							"col" => $col,
@@ -691,8 +687,8 @@ class gallery extends aw_template
 					// strip the beginning of a posible absolute url
 					$tnurl = image::check_url($cell["tnurl"]);
 					$this->vars(array(
-						"tnurl" => $tnurl, 
-						"caption" => $cell["caption"], 
+						"tnurl" => $tnurl,
+						"caption" => $cell["caption"],
 						"date" => $cell["date"],
 						"url" => $url,
 						"target" => $target,
@@ -700,7 +696,7 @@ class gallery extends aw_template
 					));
 					if ($cell["tnurl"] != "")
 					{
-						if ($cell["bigurl"] != "" || !$this->is_template("NOLINK_IMAGE")) 
+						if ($cell["bigurl"] != "" || !$this->is_template("NOLINK_IMAGE"))
 						{
 							$_tpl = "IMAGE";
 						}
@@ -755,11 +751,11 @@ class gallery extends aw_template
 		}
 
 		$this->vars(array(
-			"PAGE_SEL" => "", 
+			"PAGE_SEL" => "",
 			"LINE" => $l,
 			"PAGE" => $p,
 			"sel_page" => $page,
-			"PREVIOUS" => $pr, 
+			"PREVIOUS" => $pr,
 			"NEXT" => $nx,
 		));
 
@@ -774,16 +770,16 @@ class gallery extends aw_template
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=del_page params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -797,4 +793,3 @@ class gallery extends aw_template
 		die();
 	}
 }
-?>

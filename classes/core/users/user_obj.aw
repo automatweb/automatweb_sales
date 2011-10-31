@@ -192,7 +192,7 @@ class user_obj extends _int_object
 		$this->save();
 
 		// create default group
-		$gid = obj(get_instance(group_obj::CLID)->add_group(1, $this->prop("uid"), group_obj::TYPE_DEFAULT, USER_GROUP_PRIORITY));
+		$gid = obj(get_instance(group_obj::CLID)->add_group(1, $this->prop("uid"), aw_groups::TYPE_DEFAULT, USER_GROUP_PRIORITY));
 
 		if ("root" !== $this->prop("uid"))
 		{
@@ -244,7 +244,7 @@ class user_obj extends _int_object
 		$ol = new object_list(array(
 			"class_id" => group_obj::CLID,
 			"name" => $this->name(),
-			"type" => group_obj::TYPE_DEFAULT
+			"type" => aw_groups::TYPE_DEFAULT
 		));
 		if ($ol->count())
 		{
@@ -272,7 +272,7 @@ class user_obj extends _int_object
 		$ol = new object_list(array(
 			"class_id" => group_obj::CLID,
 			"name" => $this->name(),
-			"type" => group_obj::TYPE_DEFAULT
+			"type" => aw_groups::TYPE_DEFAULT
 		));
 		if ($ol->count())
 		{

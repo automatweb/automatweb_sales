@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=tarvo
-*/
 
 ###########################################################################
 ###########################################################################
@@ -9,9 +6,9 @@
 /**
  * DigiDoc klass
  *
- * Klass DigiDoc teenuse kasutamiseks. Sisaldab vajalikke meetodeid 
+ * Klass DigiDoc teenuse kasutamiseks. Sisaldab vajalikke meetodeid
  * infovahetuse pidamiseks DigiDoc teenust pakkuva serveriga.
- * 
+ *
  * @category	SOAP
  * @package		DigiDoc
  * @version		1.0.0
@@ -62,7 +59,7 @@ class digidoc {
 				ddFile::saveLocalFile( DD_WSDL_FILE, "<?php\n".$wcode."\n?".">");
 			}
 	}
-	
+
 	/**
 	 * Constructor
 	 */
@@ -70,15 +67,15 @@ class digidoc {
 		//session_start();
 		$connection = $this->getConnect();
 		$this->Client = new SOAP_Client ( DD_WSDL, TRUE, FALSE, $connection);
-		
+
 		if(!class_exists("WebService_DigiDocService_DigiDocService"))
 		{
 			return false;
 		}
 		$this->WSDL = new WebService_DigiDocService_DigiDocService();
-				
+
 		$this->browser = ddFile::getBrowser();
-		
+
 		$this->NS = $this->Client->_wsdl->definition['targetNamespace'];
 	} //function
 
@@ -97,7 +94,7 @@ class digidoc {
 	 * $x = array('SessionCode' => '123423423234', 'testVar'=>'muutuja');
 	 * $dd->addHeader($x);
 	 * </code>
-	 * 
+	 *
 	 * @param     mixed    $var     Päisesse lisatavad parameetrid
 	 * @param     mixed    $value   ühe muutuja lisamisel, selle väärtus
 	 * @access    public
@@ -124,7 +121,7 @@ class digidoc {
 		} //else
 	}
 
-	
+
 	/**
 	 * Tagastab vastuvõetud DigiDoci formaadi ja versiooni
 	 * @return	array
@@ -144,7 +141,7 @@ class digidoc {
 		return preg_replace("'[TZ]'"," ",$date);
 	} //function
 
-	
+
 	/**
 	 * Sertifikaadi salvestamine
 	 */
@@ -164,7 +161,7 @@ class digidoc {
 		ddFile::SaveAs($filename, $content, 'application/notary-ocsp', 'utf-8');
 	} //function
 
-	
+
 	/**
 	 * Tagastab ddociga kaasas olnud andmefailid array-na
 	 */
@@ -174,7 +171,7 @@ class digidoc {
 	} //function
 
 
-	
+
 	/**
 	 * Tagastab ddociga kaasas olnud allkirjad array-na
 	 */
@@ -183,7 +180,7 @@ class digidoc {
 		return $res;
 	} //function
 
-	
+
 	/**
 	 * Tagastame brauseri ja OS/i info stringina
 	 */
@@ -193,7 +190,7 @@ class digidoc {
 		$br = $browser['BROWSER_AGENT'] == 'IE' ? 'IE' : 'MOZILLA';
 		return $os.'-'.$br;
 	} //function
-	
+
 	/**
 	 * ühenduse/proksi parameetrite vektor
 	 *
@@ -211,8 +208,6 @@ class digidoc {
 		return $ret;
 	} // end func
 
-	
-	
+
+
 } //class
-
-

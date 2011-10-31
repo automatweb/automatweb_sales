@@ -15,7 +15,14 @@ class _int_object
 
 	var $obj = array(
 		"properties" => array(),
-		"class_id" => null,
+		"class_id" => 0,
+		"subclass" => 0,
+		"jrk" => 0,
+		"period" => 0,
+		"flags" => 0,
+		"alias" => "",
+		"comment" => "",
+		"periodic" => false,
 		"meta" => null
 	);			// actual object data. $this->objdata["__obj_load_parameter"] -- special element for storing constructor parameter
 	protected $_create_new_version = 0;
@@ -1741,8 +1748,8 @@ class _int_object
 			return;
 		}
 
-		object_loader::instance()->add_acl_group_to_obj($group->prop("gid"), $this->obj["oid"]);
-		object_loader::instance()->save_acl(
+		object_loader::ds()->add_acl_group_to_obj($group->prop("gid"), $this->obj["oid"]);
+		object_loader::ds()->save_acl(
 			$this->obj["oid"],
 			$group->prop("gid"),
 			$acl

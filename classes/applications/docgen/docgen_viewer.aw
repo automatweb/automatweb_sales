@@ -1027,7 +1027,7 @@ class docgen_viewer extends class_base
 	{
 		echo $this->finish_with_style("");
 		$obj = new object($arr['id']);
-		$data = unserialize($obj->meta('properties_data'));
+		$data = utf_unserialize($obj->meta('properties_data'));
 
 		if(isset($data->options[$arr['option']]))
 		{
@@ -1822,7 +1822,7 @@ class docgen_viewer extends class_base
 	{
 		$tree = $arr['tree'];
 		$obj = new object($arr['id']);
-		$data = unserialize($obj->meta('properties_data'));
+		$data = utf_unserialize($obj->meta('properties_data'));
 
 		if(!$data)
 		{

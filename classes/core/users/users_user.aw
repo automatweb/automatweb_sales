@@ -96,11 +96,12 @@ class users_user extends aw_template
 				$auth_id = $auth->has_config();
 				if (is_oid($auth_id))
 				{
-					list($success, $msg) = $auth->check_auth($auth_id, array(
+					$credentials = array(
 						"uid" => &$uid,
 						"password" => $password,
 						"server" => $server
-					));
+					);
+					list($success, $msg) = $auth->check_auth($auth_id, $credentials);
 
 					if ($success && !empty($server))
 					{
@@ -110,10 +111,11 @@ class users_user extends aw_template
 				else
 				{
 					$auth = new auth_server_local();
-					list($success, $msg) = $auth->check_auth(NULL, array(
+					$credentials = array(
 						"uid" => $uid,
 						"password" => $password
-					));
+					);
+					list($success, $msg) = $auth->check_auth(NULL, $credentials);
 				}
 			}
 		}

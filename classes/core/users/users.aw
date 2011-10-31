@@ -594,15 +594,15 @@ class users extends users_user implements request_startup, orb_public_interface
 			flush();
 
 			$grp_i = new group();
-			$aug = obj($grp_i->add_group($ini_opts["groups.tree_root"],"K&otilde;ik kasutajad", group_obj::TYPE_REGULAR, 1000));
+			$aug = obj($grp_i->add_group($ini_opts["groups.tree_root"],"K&otilde;ik kasutajad", aw_groups::TYPE_REGULAR, 1000));
 			$ini_opts["groups.all_users_grp"] = $aug->prop("gid");
 
-			$admg = $grp_i->add_group($ini_opts["groups.tree_root"],"Administraatorid", group_obj::TYPE_REGULAR,10000);
+			$admg = $grp_i->add_group($ini_opts["groups.tree_root"],"Administraatorid", aw_groups::TYPE_REGULAR,10000);
 			echo "Administraatorid <br>\n";
 			flush();
 			$osi_vars["groups.admins"] = $admg;
 
-			$nlg = obj($grp_i->add_group($ini_opts["groups.tree_root"], "Sisse logimata kasutajad", group_obj::TYPE_REGULAR, 1));
+			$nlg = obj($grp_i->add_group($ini_opts["groups.tree_root"], "Sisse logimata kasutajad", aw_groups::TYPE_REGULAR, 1));
 			$this->set_cval("non_logged_in_users_group", $nlg->prop("gid"));
 			$osi_vars["groups.not_logged"] = $nlg->id();
 
@@ -624,7 +624,7 @@ class users extends users_user implements request_startup, orb_public_interface
 			$admo->set_prop("can_admin_interface", 1);
 			$admo->save();
 
-			$editors = $grp_i->add_group($ini_opts["groups.tree_root"],"Toimetajad", group_obj::TYPE_REGULAR,5000);
+			$editors = $grp_i->add_group($ini_opts["groups.tree_root"],"Toimetajad", aw_groups::TYPE_REGULAR,5000);
 			echo "Toimetajad <br>\n";
 			flush();
 			$osi_vars["groups.editors"] = $editors;

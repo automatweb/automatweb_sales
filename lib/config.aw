@@ -1,5 +1,9 @@
 <?php
 
+/**
+Main configuration constants
+**/
+
 /** Returns aw configuration setting(s) identified by $var.
 	@attrib api=1
 	@param var required type=string
@@ -145,6 +149,7 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 		"site_basedir",
 		"site_public_root_dir"
 	);
+	$default_settings_overloaded = array(); // container for default_autoloaded_settings that are found overwritten by user. dependencies for those are processed. for the rest, dependent settings have to be rewritten after processing done.
 
 	// __aw_cfg_meta__variable_dependencies is for altering/reloading ini settings defined using reference variables (e.g. default cfg
 	// sets pagecache_dir=${site_basedir}pagecache and a configuration file loaded later
@@ -175,9 +180,17 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 
 				// some variables are determined automatically when loading aw default cfg
 				// these are not to be overwritten by settings from default aw.ini
-				if ($parsing_default_cfg and in_array($var, $default_autoloaded_settings))
+				// but if aren't defined in user ini, have to be processed afterwards
+				if (in_array($var, $default_autoloaded_settings))
 				{
-					continue;
+					if ($parsing_default_cfg)
+					{
+						continue;
+					}
+					else
+					{
+						$default_settings_overloaded[] = $var;
+					}
 				}
 
 				$raw_value = $value = ltrim($data[1]);
@@ -186,7 +199,7 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 				if (preg_match($setting_variable_pattern, $raw_value, $m))
 				{
 					$referenced_setting_name = $m[1];
-					$GLOBALS["__aw_cfg_meta__variable_dependencies"][$referenced_setting_name][$var] = $raw_value;
+					$GLOBALS["cfg"]["__aw_cfg_meta__variable_dependencies"][$referenced_setting_name][$var] = $raw_value;
 
 					try
 					{
@@ -200,16 +213,19 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 						throw $e;
 					}
 				}
-				elseif (isset($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var]))
+
+				// add setting
+				_load_setting($var, $value, $config, $return);
+
+				// redefine other settings dependent on this setting's value
+				if (isset($GLOBALS["cfg"]["__aw_cfg_meta__variable_dependencies"][$var]))
 				{
-					foreach ($GLOBALS["__aw_cfg_meta__variable_dependencies"][$var] as $setting_using_reference => $ref_raw_value)
+					foreach ($GLOBALS["cfg"]["__aw_cfg_meta__variable_dependencies"][$var] as $setting_using_reference => $ref_raw_value)
 					{
-						_load_setting($setting_using_reference, str_replace("\${{$var}}", $value, $ref_raw_value), $ref_raw_value, $config, $return);
+						_load_setting($setting_using_reference, $ref_raw_value, $config, $return);
 					}
 				}
 
-				// add setting
-				_load_setting($var, $value, $raw_value, $config, $return);
 			}
 			elseif ("include" === substr(trim($line), 0, 7))
 			{ // process config file include
@@ -236,10 +252,29 @@ function parse_config($file, $return = false, $parsing_default_cfg = false)
 		}
 	}
 
+	$reload_dependencies = array_diff($default_autoloaded_settings, $default_settings_overloaded);
+	foreach ($reload_dependencies as $var)
+	{
+		if (isset($GLOBALS["cfg"]["__aw_cfg_meta__variable_dependencies"][$var]))
+		{
+			foreach ($GLOBALS["cfg"]["__aw_cfg_meta__variable_dependencies"][$var] as $setting_using_reference => $ref_raw_value)
+			{
+				_load_setting($setting_using_reference, $ref_raw_value, $config, $return);
+			}
+		}
+	}
+
+	if (empty($GLOBALS["cfg"]["server.platform"])) //TODO: viia kuskile kus environment laetakse.
+	{ // autodetermine server OS platform type
+		$os = strtolower(php_uname("s"));
+		$os = strpos($os, "windows") !== false ? "win32" : "unix";
+		_load_setting("server.platform", $os, $config, $return);
+	}
+
 	return $config;
 }
 
-function _load_setting($var, $value, $raw_value, &$config, $return)
+function _load_setting($var, $value, &$config, $return)
 {
 	if ($return)
 	{
@@ -326,7 +361,7 @@ function load_config ($files = array(), $cache_file = "")
 		$GLOBALS["cfg"]["site_basedir"] = str_replace(DIRECTORY_SEPARATOR, "/", realpath(dirname($file) . "/../")) . "/";
 		// $GLOBALS["cfg"]["site_basedir"] = empty($_SERVER["DOCUMENT_ROOT"]) ? AW_DIR . "files/" : str_replace(DIRECTORY_SEPARATOR, "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) . "/";
 		$parsing_default_cfg = true;
-		$GLOBALS["__aw_cfg_meta__variable_dependencies"] = array();
+		$GLOBALS["cfg"]["__aw_cfg_meta__variable_dependencies"] = array();
 	}
 	else
 	{
@@ -412,6 +447,7 @@ function load_config ($files = array(), $cache_file = "")
 
 	if ($cache_success)
 	{ // load cached configuration
+		// cfg itself
 		$GLOBALS["cfg"] = array_union_recursive($cfg, $GLOBALS["cfg"]);
 	}
 	else
@@ -475,6 +511,7 @@ function load_config ($files = array(), $cache_file = "")
 			}
 
 			$cfg["__aw_ini_cache_meta_cached_files"] = $files;
+			$cfg["__aw_cfg_meta__variable_dependencies"] = $GLOBALS["cfg"]["__aw_cfg_meta__variable_dependencies"];
 			$cfg = serialize($cfg);
 			$bytes = file_put_contents($cache_file, $cfg, LOCK_EX);
 
@@ -597,6 +634,8 @@ function _aw_global_init()
 	{
 		aw_global_set("request", $_REQUEST);
 	}
+
+	aw_global_set("charset", languages::USER_CHARSET);
 
 	$GLOBALS["__aw_globals_inited"] = true;
 }

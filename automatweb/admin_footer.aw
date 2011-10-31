@@ -2,7 +2,7 @@
 // siin imporditakse muutujad saidi raami sisse
 // ja v2ljastatakse see
 
-automatweb::$result->set_charset(AW_USER_CHARSET);
+automatweb::$result->set_charset(languages::USER_CHARSET);
 
 $site_title = isset($GLOBALS["site_title"]) ? $GLOBALS["site_title"] : "AutomatWeb";
 $sf->read_template("index.tpl");
@@ -271,7 +271,7 @@ if (!empty($html_title_obj))
 
 $sf->vars(array(
 	"content"	=> $content,
-	"charset" => AW_USER_CHARSET,
+	"charset" => languages::USER_CHARSET,
 	"title_action" => $ta,
 	"html_title" => $html_title,
 	"MINIFY_JS_AND_CSS" => minify_js_and_css::parse_admin_header($sf->parse("MINIFY_JS_AND_CSS")),

@@ -1,17 +1,10 @@
 <?php
 
-/// DISPLAY STARTUP ERRORS
-//error_reporting(E_ALL | E_STRICT);
-//ini_set("display_errors", "1");
-//ini_set("display_startup_errors", "1");
-/// END DISPLAY STARTUP ERRORS
 
 // get aw directory and file extension
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
-$aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", dirname($__FILE__)) . "/";
+$aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", dirname($__FILE__)) . "/"; // replace to have it work on windows
 $aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", $aw_dir);
-define("AW_USER_CHARSET", "UTF-8");
-define("AW_CODE_CHARSET", "us-ascii");
 define("AW_DIR", $aw_dir);
 define("AW_FILE_EXT", substr($__FILE__, strrpos($__FILE__, "automatweb") + 10)); // extension can't be 'automatweb'
 
@@ -25,7 +18,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 require_once(AW_DIR . "lib/main" . AW_FILE_EXT);
 
 // set required configuration
-register_shutdown_function("aw_fatal_error_handler");
+set_error_handler (array("aw_errorhandler", "handle_error"));
 ini_set("track_errors", "1");
 
 /*
@@ -51,7 +44,7 @@ class automatweb
 	const MODE_DBG_EXTENDED = 16;
 	const MODE_DBG_CONSOLE = 32;
 
-	private $mode; // current mode
+	private $mode = 0; // current mode
 	private $request_loaded = false; // whether request is loaded or only empty initialized
 	private $start_time; // float unix timestamp + micro when current aw server instance was started
 	private static $instance_data = array(); // aw instance stack
@@ -63,11 +56,11 @@ class automatweb
 	public static $instance; // current aw instance. read-only.
 	public static $result; // aw_resource object. result of executing the request
 
-	private function __construct()
+	private function __construct($mode_id = self::MODE_PRODUCTION)
 	{
 		// initialize object lifetime
 		$this->start_time = microtime(true);
-		$this->mode(self::MODE_PRODUCTION);
+		$this->mode($mode_id);
 	}
 
 	/** Shortcut method for running a typical http www request
@@ -128,7 +121,7 @@ class automatweb
 	@errors
 		Throws aw_exception if Automatweb already running.
 	**/
-	public static function start()
+	public static function start($mode_id = self::MODE_PRODUCTION)
 	{
 		// load default cfg
 		if (self::$current_instance_nr)
@@ -145,7 +138,7 @@ class automatweb
 
 		// start aw
 		++self::$current_instance_nr;
-		$aw = new automatweb();
+		$aw = new automatweb($mode_id);
 		_aw_global_init();//TODO: viia aw instantsi sisse ___aw_globals
 		aw_cache::setup();//TODO: make aw thread safe
 
@@ -175,10 +168,6 @@ class automatweb
 			{
 				$aw->mode($mode_id);
 			}
-		}
-		else
-		{
-			$aw->mode(self::MODE_PRODUCTION);
 		}
 	}
 
@@ -307,6 +296,10 @@ class automatweb
 			$mode = constant($mode);
 			automatweb::$instance->mode($mode);
 		}
+
+		// call core modules constructors
+		//TODO: leida 6ige koht sellele
+		languages::construct();
 	}
 
 	/**
@@ -326,7 +319,7 @@ class automatweb
 		if (self::$request instanceof aw_http_request)
 		{
 			self::$result = new aw_http_response();
-			self::$result->set_charset(AW_USER_CHARSET);
+			self::$result->set_charset(languages::USER_CHARSET);
 		}
 
 		if ($this->bc)
@@ -663,63 +656,60 @@ aw_global_set("section", $section);
 	{
 		if (self::MODE_PRODUCTION === $id)
 		{
-			if (self::MODE_DBG === $this->mode or self::MODE_DBG_EXTENDED === $this->mode)
+			if (0 !== $this->mode and self::MODE_PRODUCTION !== $this->mode)
 			{
-				self::$result->sysmsg("Switching away from debug mode\n");
+				self::$result->sysmsg("Switching to production mode\n");
 			}
 
 			error_reporting(0);
 			ini_set("display_errors", "0");
 			ini_set("display_startup_errors", "0");
-			set_exception_handler("aw_exception_handler");
-			set_error_handler ("aw_error_handler");
+			aw_errorhandler::set_exception_handler("handle_exception");
 			$this->mode = self::MODE_PRODUCTION;
 		}
 		elseif (self::MODE_DBG === $id)
 		{
-			error_reporting(E_ALL | E_STRICT);
+			error_reporting(-1);
 			ini_set("display_errors", "1");
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			ini_set("mysql.trace_mode", "1");
 			aw_ini_set("debug_mode", "1");
-			set_exception_handler("aw_dbg_exception_handler");
-			set_error_handler ("aw_dbg_error_handler");
+			aw_errorhandler::set_exception_handler("handle_exception_dbg");
 			$this->mode = $id;
 		}
 		elseif (self::MODE_DBG_CONSOLE === $id)
 		{
-			error_reporting(E_ALL | E_STRICT);
+			error_reporting(-1);
 			ini_set("display_errors", "1");
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			ini_set("mysql.trace_mode", "1");
 			aw_ini_set("debug_mode", "1");
+			aw_errorhandler::set_exception_handler("handle_exception_dbg");
 			//TODO: tekitada konsool uude aknasse siin
 			$this->mode = $id;
 		}
 		elseif (self::MODE_DBG_EXTENDED === $id)
 		{
-			error_reporting(E_ALL | E_STRICT);
+			error_reporting(-1);
 			ini_set("display_errors", "1");
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			ini_set("mysql.trace_mode", "1");
 			aw_ini_set("debug_mode", "1");
 			aw_global_set("debug.db_query", "1");
-			set_exception_handler("aw_dbg_exception_handler");
-			set_error_handler ("aw_dbg_error_handler");
+			aw_errorhandler::set_exception_handler("handle_exception_dbg");
 			$this->mode = $id;
 		}
 		elseif(self::MODE_REASONABLE === $id)
 		{
-			error_reporting(E_ALL | E_STRICT);
+			error_reporting(E_ALL ^ E_NOTICE);
 			ini_set("display_errors", "1");
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			aw_ini_set("debug_mode", "1");
-			set_exception_handler("aw_dbg_exception_handler");
-			set_error_handler ("aw_reasonable_error_handler");
+			aw_errorhandler::set_exception_handler("handle_exception_dbg");
 			$this->mode = $id;
 		}
 		else
@@ -741,7 +731,7 @@ aw_global_set("section", $section);
 		include AW_DIR . "const" . AW_FILE_EXT;
 		if (self::$result instanceof aw_http_response)
 		{
-			self::$result->set_charset(AW_USER_CHARSET);
+			self::$result->set_charset(languages::USER_CHARSET);
 		}
 	}
 }

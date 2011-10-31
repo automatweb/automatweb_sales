@@ -566,8 +566,27 @@ class _int_object_loader
 	function on_shutdown_update_cache()
 	{
 		// go over all the registered cache updates and if they are for another site, then propagate them to that one
-		$sl = new site_list();
-		$f = fopen(aw_ini_get("site_basedir")."files/updlog.txt", "a");
+		try
+		{
+			$sl = new site_list();
+			$f = fopen(aw_ini_get("client.directories.logs")."updlog.txt", "a");
+		}
+		catch (ErrorException $e)
+		{ // assume that logs directory doesn't exist and attempt to create it
+			try
+			{
+				mkdir(aw_ini_get("client.directories.logs"), 0777, true);
+				$f = fopen(aw_ini_get("client.directories.logs")."updlog.txt", "a");
+			}
+			catch (Exception $e)
+			{
+				//TODO: ......... logida, n2idata, ...?
+			}
+		}
+		catch (Exception $e)
+		{
+				//TODO: ......... logida, n2idata, ...?
+		}
 
 		try // shutdown functions can't throw exceptions
 		{
@@ -603,7 +622,7 @@ class _int_object_loader
 		fclose($f);
 	}
 
-	function _do_repl_call($url, $data, $f, $site_id)
+	private function _do_repl_call($url, $data, $f, $site_id)
 	{
 		fwrite($f, "call {$site_id} => ".dbg::dump($data)." from site {$url}\n\n");
 		fflush($f);

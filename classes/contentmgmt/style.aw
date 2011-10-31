@@ -151,7 +151,7 @@ class style extends aw_template
 		extract($arr);
 		$this->read_template("change_table.tpl");
 
-		$style = unserialize($this->style["style"]);
+		$style = utf_unserialize($this->style["style"]);
 
 		$sel = $this->get_select(0,ST_CELL);
 		$sel_css = $this->get_select(0,ST_CELL, false, true);
@@ -191,7 +191,7 @@ class style extends aw_template
 
 		$fontstyles = array('normal' => "Tavaline", 'bold' => "Bold",'italic' => "Italic", 'underline' => "Underline");
 
-		$style = unserialize($this->style["style"]);
+		$style = utf_unserialize($this->style["style"]);
 
 		$this->read_template("change_cell.tpl");
 		$this->vars(array(
@@ -702,7 +702,7 @@ class style extends aw_template
 		else
 		{
 			$st = $this->get($id);
-			$stl = unserialize($st["style"]);
+			$stl = utf_unserialize($st["style"]);
 			$stl["name"] = $st["name"];
 			$stl["class_id"] = $st["class_id"];
 			$stl["oid"] = $st["oid"];
@@ -842,7 +842,7 @@ class style extends aw_template
 	{
 		extract($arr);
 
-		$row = unserialize($str);
+		$row = utf_unserialize($str);
 		// basically, we create a new object and insert the stuff in the array right back in it.
 		$o = obj();
 		$o->set_parent($parent);

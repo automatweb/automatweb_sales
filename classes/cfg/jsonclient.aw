@@ -2,10 +2,6 @@
 
 // jsonclient - generates JSON output for cb
 
-/*
-@classinfo  maintainer=voldemar
-*/
-
 class jsonclient extends htmlclient
 {
 	protected $properties = array();
@@ -52,5 +48,3 @@ class jsonclient extends htmlclient
 		return $this->data;
 	}
 }
-
-?>

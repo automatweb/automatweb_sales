@@ -1238,7 +1238,7 @@ function aw_unserialize($str, $dequote = false, $native_with_php_bc = false)
 
 	if ($native_with_php_bc)
 	{
-		$retval = unserialize($str);
+		$retval = utf_unserialize($str);
 
 		if (false === $retval and "b:0;" !== $str) // track_errors $php_errormsg was null here when unserialize failed, serialize internal format string comparison used instead as a temporary(?) solution
 		{
@@ -1267,11 +1267,30 @@ function aw_unserialize($str, $dequote = false, $native_with_php_bc = false)
 		}
 		elseif (!empty($str))
 		{
-			$retval = unserialize($str);
+			$retval = utf_unserialize($str);
 		}
 	}
 
 	return $retval;
+}
+
+// a function to recover serialized data that has been corrupted by conversion to utf8 in database
+// (string variable lengths are changed when converting from single byte to multibyte encoding)
+function utf_unserialize($data)
+{
+	$value = unserialize($data);
+	if (false === $value and "b:0;" !== $data and $data and 0 !== strpos($data, "\$arr"))
+	{
+		// try to convert to latin1 as it has been the default charset in databases
+		// then unserialize and convert back to UTF-8
+		$data = iconv("UTF-8", "latin1", trim($data));
+		$value = unserialize($data);
+		if (false !== $value)
+		{
+			$value = iconv_array("latin1", "UTF-8", $value);
+		}
+	}
+	return $value;
 }
 
 /** read value from a memory cache
@@ -1745,7 +1764,7 @@ class inet
 
 function aw_html_entity_decode($string)
 {
-	return html_entity_decode($string, ENT_COMPAT, AW_USER_CHARSET);
+	return html_entity_decode($string, ENT_COMPAT, languages::USER_CHARSET);
 }
 
 
