@@ -746,6 +746,10 @@ class mysql_pdo
 				// find property with field given and table in the error query
 				foreach($clss as $clid => $inf)
 				{
+					if (!is_class_id($clid))
+					{
+						continue;
+					}
 					$o = obj();
 					$o->set_class_id($clid);
 					$pl = $o->get_property_list();
@@ -762,6 +766,10 @@ class mysql_pdo
 
 			foreach($clss as $clid => $inf)
 			{
+				if (!is_class_id($clid))
+				{
+					continue;
+				}
 				$o = obj();
 				$o->set_class_id($clid);
 				$ti = $o->get_tableinfo();
