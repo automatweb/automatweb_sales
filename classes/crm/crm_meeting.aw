@@ -365,13 +365,13 @@ class crm_meeting extends task
 		}
 	}
 
-	function get_property($arr)
+	function get_property(&$arr)
 	{
 		if (is_object($arr["obj_inst"]) && $arr["obj_inst"]->prop("is_personal") && aw_global_get("uid") != $arr["obj_inst"]->createdby())
 		{
 			if (!($arr["prop"]["name"] === "start1" || $arr["prop"]["name"] === "end" || $arr["prop"]["name"] === "deadline"))
 			{
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 			}
 		}
 
@@ -449,10 +449,10 @@ class crm_meeting extends task
 			case "deal_price":
 			case "deal_has_tax":
 			case "promoter":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 
 			case "controller_disp":
-				$cs = get_instance(CL_CRM_SETTINGS);
+				$cs = new crm_settings();
 				$pc = $cs->get_meeting_controller($cs->get_current_settings());
 				if ($this->can("view", $pc))
 				{
@@ -462,7 +462,7 @@ class crm_meeting extends task
 				}
 				else
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				break;
 
@@ -472,11 +472,13 @@ class crm_meeting extends task
 					$data["value"] = $this->mail_data["subject"];
 					break;
 				}
-				if($arr["new"] && $arr["request"]["title"])
+
+				if($arr["new"] && !empty($arr["request"]["title"]))
 				{
 					$data["value"] = $arr["request"]["title"];
 				}
 				break;
+
 			case "content":
 				$data["style"] = "width: 100%";
 				if(!empty($this->mail_data))
@@ -491,6 +493,7 @@ class crm_meeting extends task
 					);
 				}
 				break;
+
 			case "start1":
 			case "end":
 				$p = new planner();
@@ -499,38 +502,35 @@ class crm_meeting extends task
 				{
 					$calo = obj($cal);
 					$data["minute_step"] = $calo->prop("minute_step");
-					if ($data["name"] == "end" && (!is_object($arr["obj_inst"]) || !is_oid($arr["obj_inst"]->id())))
+					if ($data["name"] === "end" && (!is_object($arr["obj_inst"]) || !is_oid($arr["obj_inst"]->id())))
 					{
 						$data["value"] = time() + $calo->prop("event_def_len")*60;
 					}
 				}
-				else
-				if ($data["name"] == "end" && $arr["new"])
-				{
-					$data["value"] = time() + 900;
-				}
+
 				if ($arr["new"])
 				{
+					$data["value"] = ("end" === $data["name"]) ?  time() + 900 :  time();
 					if($day = $arr["request"]["date"])
 					{
 						$da = explode("-", $day);
-						$data["value"] = mktime(date('h',$data["value"]), date('i', $data["value"]), 0, $da[1], $da[0], $da[2]);
+						$data["value"] = mktime(date('h', $data["value"]), date('i', $data["value"]), 0, $da[1], $da[0], $da[2]);
 					}
 				}
 				break;
 
 			case "sel_resources":
-				$t = get_instance(CL_TASK);
+				$t = new task();
 				$t->_get_sel_resources($arr);
 				break;
 
 			case "project":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 				$nms = array();
 				if ($this->can("view",$arr["request"]["alias_to_org"]))
 				{
 					$ol = new object_list(array(
-						"class_id" => CL_PROJECT,
+						"class_id" => project_obj::CLID,
 						"CL_PROJECT.RELTYPE_PARTICIPANT" => $arr["request"]["alias_to_org"],
 						"lang_id" => array(),
 						"site_id" => array()
@@ -540,7 +540,7 @@ class crm_meeting extends task
 				if (is_object($arr["obj_inst"]) && !$arr["new"] && $this->can("view", $arr["obj_inst"]->prop("customer")))
 				{
 					$ol = new object_list(array(
-						"class_id" => CL_PROJECT,
+						"class_id" => project_obj::CLID,
 						"CL_PROJECT.RELTYPE_PARTICIPANT" => $arr["obj_inst"]->prop("customer"),
 						"lang_id" => array(),
 						"site_id" => array()
@@ -549,7 +549,7 @@ class crm_meeting extends task
 				}
 				else
 				{
-					$i = get_instance(CL_CRM_COMPANY);
+					$i = new crm_company();
 					$prj = $i->get_my_projects();
 					if (!count($prj))
 					{
@@ -586,8 +586,8 @@ class crm_meeting extends task
 				break;
 
 			case "customer":
-				return PROP_IGNORE;
-				$i = get_instance(CL_CRM_COMPANY);
+				return class_base::PROP_IGNORE;
+				$i = new crm_company();
 				$cst = $i->get_my_customers();
 				if (!count($cst))
 				{
@@ -601,9 +601,9 @@ class crm_meeting extends task
 				if ($this->can("view", $arr["request"]["alias_to_org"]))
 				{
 					$ao = obj($arr["request"]["alias_to_org"]);
-					if ($ao->class_id() == CL_CRM_PERSON)
+					if ($ao->class_id() == crm_person_obj::CLID)
 					{
-						$u = get_instance(CL_USER);
+						$u = new user();
 						$data["value"] = $u->get_company_for_person($ao->id());
 					}
 					else
@@ -628,18 +628,18 @@ class crm_meeting extends task
 
 			case "participants":
 
-				if($arr["new"] && $arr["request"]["participants"])
+				if($arr["new"] && !empty($arr["request"]["participants"]))
 				{
 					$_SESSION["event"]["participants"] = explode("," , $arr["request"]["participants"]);
 				}
 				//if(aw_global_get("uid") == "marko")arr($arr);
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 				$opts = array();
 				$p = array();
 				if ($this->can("view", $arr["request"]["alias_to_org"]))
 				{
 					$ao = obj($arr["request"]["alias_to_org"]);
-					if ($ao->class_id() == CL_CRM_PERSON)
+					if ($ao->class_id() == crm_person_obj::CLID)
 					{
 						$p[$ao->id()] = $ao->id();
 					}
@@ -668,7 +668,7 @@ class crm_meeting extends task
 					$opts[$oid] = $o->name();
 				}
 
-				$i = get_instance(CL_CRM_COMPANY);
+				$i = new crm_company();
 				uasort($opts, array($i, "__person_name_sorter"));
 
 				$data["options"] = array("" => t("--Vali--")) + $opts;
@@ -728,7 +728,7 @@ class crm_meeting extends task
 				break;
 
 			case "search_contact_results":
-				$p = get_instance(CL_PLANNER);
+				$p = new planner();
 				$data["value"] = $p->do_search_contact_results_tbl($arr["request"]);
 				break;
 
@@ -739,7 +739,7 @@ class crm_meeting extends task
 					$conns = $arr['obj_inst']->connections_to(array());
 					foreach($conns as $conn)
 					{
-						if($conn->prop('from.class_id')==CL_CRM_PERSON)
+						if($conn->prop('from.class_id') == crm_person_obj::CLID)
 						{
 							$pers = $conn->from();
 							// get profession
@@ -758,7 +758,6 @@ class crm_meeting extends task
 							}
 						}
 					}
-
 				}
 				break;
 		}
@@ -778,38 +777,31 @@ class crm_meeting extends task
 	function set_property($arr)
 	{
 		$data = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($data["name"])
 		{
 			case "hrs_table":
 				$this->save_add_clauses($arr);
 				break;
+
 			case "parts_table":
 				$this->save_parts_table($arr);
 				break;
+
 			case "co_table":
 				$this->_save_co_table($arr);
 				break;
+
 			case "end":
 				if(date_edit::get_timestamp($arr["request"]["start1"]) > date_edit::get_timestamp($data["value"]))
 				{
-
 					$data["value"] = $arr["request"]["start1"];
 					$arr["request"]["end"] = $arr["request"]["start1"];
-				}
-			case "start1":
-				if($data["value"]["hour"] == "---")
-				{
-					$arr["request"][$data["name"]]["hour"] = "0";
-				}
-				if($data["value"]["minute"] == "---")
-				{
-					$arr["request"][$data["name"]]["minute"] = "0";
 				}
 				break;
 
 			case "add_clauses":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 				$this->save_add_clauses($arr);
 				break;
 
@@ -820,18 +812,14 @@ class crm_meeting extends task
 //			case "send_bill":
 			case "is_work":
 			case "promoter":
-				return PROP_IGNORE;
-
-			case "transl":
-				$this->trans_save($arr, $this->trans_props);
-				break;
+				return class_base::PROP_IGNORE;
 
 			case "sel_resources":
 				parent::_set_resources($arr);
 				break;
 
 			case "project":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 				if (isset($_POST["project"]))
 				{
 					$data["value"] = $_POST["project"];
@@ -852,15 +840,14 @@ class crm_meeting extends task
 				break;
 
 			case "participants":
-
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 				if (!is_oid($arr["obj_inst"]->id()))
 				{
 					$this->post_save_add_parts = safe_array($data["value"]);
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				$prop["value"] = $_POST["participants"];
-				$pl = get_instance(CL_PLANNER);
+				$pl = new planner();
 				foreach(safe_array($data["value"]) as $person)
 				{
 					$p = obj($person);
@@ -1093,7 +1080,7 @@ class crm_meeting extends task
 		$output_form = $cform_obj->prop("use_output");
 		if (is_oid($output_form))
 		{
-			$t = get_instance(CL_CFGFORM);
+			$t = new cfgform();
 			$props = $t->get_props_from_cfgform(array("id" => $output_form));
 		}
 		else
@@ -1101,7 +1088,7 @@ class crm_meeting extends task
 			$props = $this->load_defaults();
 		}
 
-		$htmlc = get_instance("cfg/htmlclient",array("template" => "webform.tpl"));
+		$htmlc = new htmlclient(array("template" => "webform.tpl"));
 		$htmlc->start_output();
 
 		$this->vars(array(
@@ -1117,9 +1104,9 @@ class crm_meeting extends task
 				if ($value == -1)
 				{
 					continue;
-				};
+				}
 				$value = date("d-m-Y H:i", $value);
-			};
+			}
 
 			if ($has_tpl)
 			{
@@ -1132,6 +1119,7 @@ class crm_meeting extends task
 					echo "property $propname => ".nl2br($value)." <br>";
 				}
 			}
+
 			if (!empty($value))
 			{
 			   $htmlc->add_property(array(
@@ -1177,7 +1165,7 @@ class crm_meeting extends task
 	**/
 	function save_participant_search_results($arr)
 	{
-		$p = get_instance(CL_PLANNER);
+		$p = new planner();
 		return $p->save_participant_search_results($arr);
 	}
 
@@ -1211,18 +1199,17 @@ class crm_meeting extends task
 
 	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["post_ru"] = post_ru();
 		$arr["participants_h"] = 0;
 		$arr["orderer_h"] = isset($request["alias_to_org"]) ? $request["alias_to_org"] : 0;
 		$arr["project_h"] = isset($request["set_proj"]) ? $request["set_proj"] : 0;
 		$arr["files_h"] = 0;
-		if ($request["action"] == "new")
+		if ($request["action"] === "new")
 		{
-			$arr["add_to_cal"] = $request["add_to_cal"];
-			$arr["alias_to_org"] = $request["alias_to_org"];
-			$arr["reltype_org"] = $request["reltype_org"];
-			$arr["set_pred"] = $request["set_pred"];
-			$arr["set_resource"] = $request["set_resource"];
+			if(isset($request["add_to_cal"])) $arr["add_to_cal"] = $request["add_to_cal"];
+			if(isset($request["alias_to_org"])) $arr["alias_to_org"] = $request["alias_to_org"];
+			if(isset($request["reltype_org"])) $arr["reltype_org"] = $request["reltype_org"];
+			if(isset($request["set_pred"])) $arr["set_pred"] = $request["set_pred"];
+			if(isset($request["set_resource"])) $arr["set_resource"] = $request["set_resource"];
 		}
 	}
 /*
@@ -1866,7 +1853,7 @@ class crm_meeting extends task
 				}
 			}
 
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = $u->get_current_person();
 
 			$o->add_participant($p);
@@ -1874,8 +1861,8 @@ class crm_meeting extends task
 			$res = "<script language='javascript'>window.close();</script>";
 			die($res);
 		}
-		$co_inst = get_instance(CL_CRM_COMPANY);
-		$htmlc = get_instance("cfg/htmlclient");
+		$co_inst = new crm_company();
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 
 		$htmlc->add_property(array(

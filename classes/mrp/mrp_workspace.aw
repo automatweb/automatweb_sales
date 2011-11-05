@@ -766,9 +766,9 @@ class mrp_workspace extends class_base
 	);
 
 	var $active_resource_states = array(
-		MRP_STATUS_RESOURCE_AVAILABLE,
-		MRP_STATUS_RESOURCE_OUTOFSERVICE,
-		MRP_STATUS_RESOURCE_INUSE
+		mrp_resource_obj::STATE_AVAILABLE,
+		mrp_resource_obj::STATE_OUTOFSERVICE,
+		mrp_resource_obj::STATE_UNAVAILABLE
 	);
 
 	private $hours = array();
@@ -796,10 +796,10 @@ class mrp_workspace extends class_base
 
 		$this->resource_states = array(
 			0 => "M&auml;&auml;ramata",
-			MRP_STATUS_RESOURCE_AVAILABLE => t("Vaba"),
-			MRP_STATUS_RESOURCE_INUSE => t("Kasutusel"),
-			MRP_STATUS_RESOURCE_OUTOFSERVICE => t("Suletud"),
-			MRP_STATUS_RESOURCE_INACTIVE => t("Arhiveeritud")
+			mrp_resource_obj::STATE_AVAILABLE => t("Vaba"),
+			mrp_resource_obj::STATE_UNAVAILABLE => t("Kasutusel"),
+			mrp_resource_obj::STATE_OUTOFSERVICE => t("Suletud"),
+			mrp_resource_obj::STATE_INACTIVE => t("Arhiveeritud")
 		);
 
 		$this->states = array (
@@ -895,7 +895,7 @@ class mrp_workspace extends class_base
 
 		$arr["prop"]["vcl_inst"]->set_root_url(aw_url_change_var("res_fld", null));
 		$arr["prop"]["vcl_inst"]->set_root_name($arr["obj_inst"]->name());
-		$arr["prop"]["vcl_inst"]->set_root_icon(icons::get_icon_url(CL_MENU));
+		$arr["prop"]["vcl_inst"]->set_root_icon(icons::get_icon_url(menu_obj::CLID));
 	}
 
 	private function _req_res_settings_tree($t, $pto, $pt)
@@ -909,7 +909,7 @@ class mrp_workspace extends class_base
 					"id" => $o->id(),
 					"name" => $o->name(),
 					"url" => aw_url_change_var("res_fld", $o->id()),
-					"icon" => icons::get_icon_url($o->class_id() == CL_MRP_RESOURCE_SETTING_CATEGORY ? CL_MENU : $o->class_id())
+					"icon" => icons::get_icon_url($o->class_id() == CL_MRP_RESOURCE_SETTING_CATEGORY ? menu_obj::CLID : $o->class_id())
 				));
 				$this->_req_res_settings_tree($t, $o, $o->id());
 			}
@@ -951,7 +951,7 @@ class mrp_workspace extends class_base
 
 		$arr["prop"]["vcl_inst"]->set_root_url(aw_url_change_var("res_fld", null));
 		$arr["prop"]["vcl_inst"]->set_root_name($arr["obj_inst"]->name());
-		$arr["prop"]["vcl_inst"]->set_root_icon(icons::get_icon_url(CL_MENU));
+		$arr["prop"]["vcl_inst"]->set_root_icon(icons::get_icon_url(menu_obj::CLID));
 	}
 
 	private function _req_res_format_tree($t, $pto, $pt)
@@ -959,13 +959,13 @@ class mrp_workspace extends class_base
 		foreach($pto->connections_from(array("type" => "RELTYPE_RESOURCE_FORMAT")) as $c)
 		{
 			$o = $c->to();
-			if ($o->class_id() == CL_MRP_RESOURCE_FORMAT_CATEGORY)
+			if ($o->class_id() == mrp_resource_format_category_obj::CLID)
 			{
 				$t->add_item($pt, array(
 					"id" => $o->id(),
 					"name" => $o->name(),
 					"url" => aw_url_change_var("res_fld", $o->id()),
-					"icon" => icons::get_icon_url($o->class_id() == CL_MRP_RESOURCE_FORMAT_CATEGORY ? CL_MENU : $o->class_id())
+					"icon" => icons::get_icon_url($o->class_id() == CL_MRP_RESOURCE_FORMAT_CATEGORY ? menu_obj::CLID : $o->class_id())
 				));
 				$this->_req_res_format_tree($t, $o, $o->id());
 			}
@@ -2736,7 +2736,7 @@ class mrp_workspace extends class_base
 
 	public function _get_resource_deviation_chart($arr)
 	{
-		if(isset($arr["request"]["mrp_tree_active_item"]) && $this->can("view", $arr["request"]["mrp_tree_active_item"]) && obj($arr["request"]["mrp_tree_active_item"])->class_id() == CL_MRP_RESOURCE)
+		if(isset($arr["request"]["mrp_tree_active_item"]) && $this->can("view", $arr["request"]["mrp_tree_active_item"]) && obj($arr["request"]["mrp_tree_active_item"])->class_id() == mrp_resource_obj::CLID)
 		{
 			$id = $arr["request"]["mrp_tree_active_item"];
 
@@ -3123,16 +3123,16 @@ class mrp_workspace extends class_base
 
 		$resource_tree_filter = array(
 			"parent" => $resources_folder,
-			"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+			"class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
 			"sort_by" => "objects.jrk",
 		);
-		if($arr["request"]["group"] == "my_resources")
+		if ("my_resources" === $this->use_group)
 		{
 			$resource_tree_filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
 					"CL_MRP_RESOURCE.oid" => $this->get_my_resources($arr["obj_inst"]),
-					"class_id" => CL_MENU,
+					"class_id" => menu_obj::CLID
 				)
 			));
 		}
@@ -3161,7 +3161,7 @@ class mrp_workspace extends class_base
 		$inst = new mrp_resource();
 		foreach(array_merge($resource_tree->to_list()->arr(), array(obj($resources_folder))) as $o)
 		{
-			if($o->class_id() == CL_MRP_RESOURCE)
+			if($o->class_id() == mrp_resource_obj::CLID)
 			{
 				$res["free"][$o->id()] = 100;
 				$res["name"][$o->id()] = $o->name();
@@ -3360,7 +3360,7 @@ class mrp_workspace extends class_base
 		if(count($ids) > 0)
 		{
 			$ol = new object_list(array(
-				"class_id" => CL_MRP_RESOURCE,
+				"class_id" => mrp_resource_obj::CLID,
 				"oid" => $ids,
 				"lang_id" => array(),
 				"site_id" => array(),
@@ -3508,7 +3508,7 @@ class mrp_workspace extends class_base
 			if(isset($arr["request"]["resource_span"]) && $this->can("view", $arr["request"]["resource_span"]))
 			{
 				$p = obj($arr["request"]["resource_span"]);
-				if($p->class_id() == CL_MRP_RESOURCE)
+				if($p->class_id() == mrp_resource_obj::CLID)
 				{
 					return $arr["request"]["resource_span"];
 				}
@@ -3522,7 +3522,7 @@ class mrp_workspace extends class_base
 				$parent = $arr["obj_inst"]->prop("resources_folder");
 			}
 			$object_list = new object_tree(array(
-				"class_id" => array(CL_MRP_RESOURCE, CL_MENU),
+				"class_id" => array(mrp_resource_obj::CLID, menu_obj::CLID),
 				"parent" => $parent,
 			));
 
@@ -3552,7 +3552,7 @@ class mrp_workspace extends class_base
 			case "resource":
 				$data_prms["resource"] = $this->get_hours_resource($arr);
 				$data = mrp_job_obj::get_resource_hours($data_prms);
-				$clid = CL_MRP_RESOURCE;
+				$clid = mrp_resource_obj::CLID;
 				break;
 		}
 
@@ -3633,7 +3633,7 @@ class mrp_workspace extends class_base
 				case "resource":
 					$data_prms["resource"] = $this->get_hours_resource($arr);
 					$data = mrp_job_obj::get_resource_hours($data_prms);
-					$clid = CL_MRP_RESOURCE;
+					$clid = mrp_resource_obj::CLID;
 
 					// Additionnal data
 					if ($data_prms["resource"])
@@ -3724,7 +3724,7 @@ class mrp_workspace extends class_base
 				"id" => $id,
 				"name" => $name,
 				"url" => "javascript:$('[name=material]').val('".$id."');update_material_table();",
-				"iconurl" => icons::get_icon_url(CL_MENU),
+				"iconurl" => icons::get_icon_url(menu_obj::CLID),
 			));
 			$this->add_cat_leaf($t , $id);
 		}
@@ -3747,7 +3747,7 @@ class mrp_workspace extends class_base
 				"name" => $name,
 				"id" => $id."",
 				"url" => "javascript:$('[name=material]').val('".$id."'); update_material_table();",
-				"iconurl" => icons::get_icon_url(CL_MENU),
+				"iconurl" => icons::get_icon_url(menu_obj::CLID),
 			));
 			$this->add_cat_leaf($tv , $id);
 		}
@@ -3869,7 +3869,7 @@ class mrp_workspace extends class_base
 	{
 		$this_object = $arr["obj_inst"];
 		$applicable_states = array(
-			MRP_STATUS_RESOURCE_INACTIVE,
+			mrp_resource_obj::STATE_INACTIVE,
 		);
 
 		### resource tree
@@ -3897,7 +3897,7 @@ class mrp_workspace extends class_base
 
 			$filter = array(
 				"parent" => $resources_folder,
-				"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+				"class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
 				"sort_by" => "objects.jrk",
 				new object_list_filter(array(
 					"logic" => "OR",
@@ -3912,7 +3912,7 @@ class mrp_workspace extends class_base
 		{
 			$filter = array(
 				"parent" => $resources_folder,
-				"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+				"class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
 				"sort_by" => "objects.jrk",
 				// "CL_MRP_RESOURCE.state" => new obj_predicate_not(array($applicable_states)), // archived res removal std version
 			);
@@ -3943,7 +3943,7 @@ class mrp_workspace extends class_base
 			"ot" => $resource_tree,
 			"var" => "mrp_tree_active_item",
 			"node_actions" => array (
-				CL_MRP_RESOURCE => "change",
+				mrp_resource_obj::CLID => "change",
 			),
 		);
 
@@ -4700,7 +4700,7 @@ class mrp_workspace extends class_base
 //	function cb_remove_inactive_res(&$o, $parent)
 	function cb_remove_inactive_res(object $o)
 	{
-		if (CL_MRP_RESOURCE == $o->class_id() and MRP_STATUS_RESOURCE_INACTIVE == $o->prop("state"))
+		if (mrp_resource_obj::CLID == $o->class_id() and mrp_resource_obj::STATE_INACTIVE == $o->prop("state"))
 		{
 			$this->mrp_remove_resources_from_tree[] = $o->id();
 		}
@@ -4746,7 +4746,7 @@ class mrp_workspace extends class_base
 	{
 		$this_object = $arr["obj_inst"];
 		$applicable_states = array(
-			MRP_STATUS_RESOURCE_INACTIVE,
+			mrp_resource_obj::STATE_INACTIVE,
 		);
 
 		### resource tree
@@ -4774,7 +4774,7 @@ class mrp_workspace extends class_base
 
 			$filter = array(
 				"parent" => $resources_folder,
-				"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+				"class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
 				"sort_by" => "objects.jrk",
 				new object_list_filter(array(
 					"logic" => "OR",
@@ -4789,7 +4789,7 @@ class mrp_workspace extends class_base
 		{
 			$filter = array(
 				"parent" => $resources_folder,
-				"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+				"class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
 				"sort_by" => "objects.jrk",
 				// "CL_MRP_RESOURCE.state" => new obj_predicate_not(array($applicable_states)), // archived res removal std version
 			);
@@ -4820,7 +4820,7 @@ class mrp_workspace extends class_base
 			"ot" => $resource_tree,
 			"var" => $attrib,
 			"node_actions" => array (
-				CL_MRP_RESOURCE => "change",
+				mrp_resource_obj::CLID => "change",
 			),
 			"reload" => array(
 				"layouts" => array(
@@ -4861,7 +4861,7 @@ class mrp_workspace extends class_base
 		{
 			$active_item = obj ($arr["request"]["mrp_tree_active_item"]);
 
-			if ($active_item->class_id () != CL_MENU)
+			if ($active_item->class_id () != menu_obj::CLID)
 			{
 				if($arr["request"]["group"] == "grp_resources_load" || $arr["request"]["group"] == "grp_resources")
 				{
@@ -4973,7 +4973,7 @@ class mrp_workspace extends class_base
 		{
 			$active_item = obj ($arr["request"]["mrp_tree_active_item"]);
 
-			if ($active_item->class_id () != CL_MENU)
+			if ($active_item->class_id () != menu_obj::CLID)
 			{
 				$parent = $active_item->parent ();
 			}
@@ -5770,7 +5770,7 @@ class mrp_workspace extends class_base
 
 		### add row dfn-s, resource names
 		$toplevel_categories = new object_list (array (
-			"class_id" => CL_MENU,
+			"class_id" => menu_obj::CLID,
 			"parent" => $this_object->prop ("resources_folder"),
 		));
 		$toplevel_categories->add(new object($this_object->prop ("resources_folder")));
@@ -5792,7 +5792,7 @@ class mrp_workspace extends class_base
 
 			$resource_tree = new object_tree(array(
 				"parent" => $id,
-				"class_id" => array (CL_MRP_RESOURCE),
+				"class_id" => array (mrp_resource_obj::CLID),
 				"sort_by" => "objects.jrk",
 			));
 			$resources = $resource_tree->to_list();
@@ -6323,7 +6323,7 @@ class mrp_workspace extends class_base
 
 			for ($o = $ol->begin (); !$ol->end (); $o = $ol->next ())
 			{
-				if (CL_MRP_RESOURCE == $o->class_id() and MRP_STATUS_RESOURCE_INUSE != $o->prop("state"))
+				if (mrp_resource_obj::CLID == $o->class_id() and mrp_resource_obj::STATE_UNAVAILABLE != $o->prop("state"))
 				{
 					$applicable_states = array(
 						MRP_STATUS_DONE
@@ -6699,14 +6699,14 @@ class mrp_workspace extends class_base
 
 		$resource_tree = new object_tree(array(
 			"parent" => $arr["obj_inst"]->prop ("resources_folder"),
-			"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+			"class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
 			"sort_by" => "objects.jrk",
 		));
 		$l = $resource_tree->to_list();
 		$resources = array("" => "");
 		foreach($l->arr() as $o)
 		{
-			if ($o->class_id() == CL_MRP_RESOURCE)
+			if ($o->class_id() == mrp_resource_obj::CLID)
 			{
 				$resources[$o->id()] = $o->name();
 			}
@@ -7452,7 +7452,7 @@ class mrp_workspace extends class_base
 	{
 		$resource_tree_filter = array(
 			"parent" => $id,
-			"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+			"class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
 			"sort_by" => "objects.jrk",
 		);
 		$resource_tree = new object_tree($resource_tree_filter);
@@ -8038,7 +8038,7 @@ class mrp_workspace extends class_base
 				{
 					// return all resources
 					$ol = new object_list(array(
-						"class_id" => CL_MRP_RESOURCE,
+						"class_id" => mrp_resource_obj::CLID,
 						"lang_id" => array(),
 						"site_id" => array()
 					));
@@ -8987,13 +8987,13 @@ class mrp_workspace extends class_base
 		{
 			$resource_tree = new object_tree (array (
 				"parent" => $this_object->prop ("resources_folder"),
-				"class_id" => array (CL_MENU, CL_MRP_RESOURCE),
+				"class_id" => array (menu_obj::CLID, mrp_resource_obj::CLID),
 				"sort_by" => "objects.jrk",
 			));
 			$list = $resource_tree->to_list ();
 			$list->filter (array (
-				"class_id" => CL_MRP_RESOURCE,
-				"type" => MRP_RESOURCE_SUBCONTRACTOR,
+				"class_id" => mrp_resource_obj::CLID,
+				"type" => mrp_resource_obj::TYPE_SUBCONTRACTOR
 			));
 			$this->subcontractor_resource_ids = $list->ids ();
 		}
@@ -9695,7 +9695,7 @@ END ajutine
 		if(isset($arr["request"]["resource"]) && $this->can("view" , $arr["request"]["resource"]))
 		{
 			$mat = obj($arr["request"]["resource"]);
-			if($mat->class_id() == CL_MRP_RESOURCE)
+			if($mat->class_id() == mrp_resource_obj::CLID)
 			{
 				$filter["resource"] = $arr["request"]["resource"];
 			}
@@ -9932,7 +9932,7 @@ END ajutine
 		// $resources_folder = $this_object->prop ("resources_folder");
 		// $resource_tree = new object_tree(array(
 			// "parent" => $resources_folder,
-			// "class_id" => array(CL_MENU, CL_MRP_RESOURCE),
+			// "class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
 			// "sort_by" => "objects.jrk",
 		// ));
 	// $list = new object_list (array (
@@ -9957,16 +9957,16 @@ END ajutine
 
 	// $list = $resource_tree->to_list();
 	// $list->filter (array (
-		// "class_id" => CL_MRP_RESOURCE,
+		// "class_id" => mrp_resource_obj::CLID,
 	// ));
 	// $list = $list->arr();
 
 	// foreach ($list as $res_id => $r)
 	// {
 		// echo "res id: " . $res_id ."<br>";
-		// $r->set_prop("state", MRP_STATUS_RESOURCE_AVAILABLE);
+		// $r->set_prop("state", mrp_resource_obj::STATE_AVAILABLE);
 		// $r->save();
-		// echo "state set to: [" . MRP_STATUS_RESOURCE_AVAILABLE . "]<br><br>";
+		// echo "state set to: [" . mrp_resource_obj::STATE_AVAILABLE . "]<br><br>";
 	// }
 // }
 // /* dbg */

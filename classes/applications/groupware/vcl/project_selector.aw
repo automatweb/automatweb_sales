@@ -1,8 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/groupware/vcl/project_selector.aw,v 1.15 2009/04/28 14:03:56 robert Exp $
-/*
-@classinfo maintainer=kristo
-*/
+
 class project_selector extends core
 {
 	function project_selector()
@@ -22,7 +19,7 @@ class project_selector extends core
 		foreach($olist->arr() as $o)
 		{
 			$xlist[$o->parent()] = 1;
-		};
+		}
 		$all_props = array();
 		$prop = $arr["prop"];
 
@@ -32,29 +29,32 @@ class project_selector extends core
 		// create a list of projects sorted by parent for better overview
 		// default behaviour is to show all projects the current user participiates in
 		// or if all_project is set then all project in the system
-		if (1 == $prop["all_projects"])
+		if (isset($prop["all_projects"]) and 1 == $prop["all_projects"])
 		{
 			$olist = new object_list(array(
-				"class_id" => CL_PROJECT,
+				"class_id" => project_obj::CLID,
 			));
-		
+
 			foreach($olist->arr() as $o)
 			{
-				$pr = new object($o->parent());
-				$id = $o->id();
+				if (object_loader::can("", $o->parent()))
+				{
+					$pr = new object($o->parent());
+					$id = $o->id();
 
-				$by_parent[$pr->id()][$o->id()] = $o->name();
-			};
+					$by_parent[$pr->id()][$o->id()] = $o->name();
+				}
+			}
 
 			$all_props = array();
 
 		}
 		else
 		{
-			$users = get_instance("users");
+			$users = new users();
 			$user = new object(aw_global_get("uid_oid"));
 			$conns = $user->connections_to(array(
-				"from.class_id" => CL_PROJECT,
+				"from.class_id" => project_obj::CLID,
 				"sort_by" => "from.name",
 			));
 
@@ -63,17 +63,17 @@ class project_selector extends core
 			{
 				$from = $conn->from();
 				$by_parent[$from->parent()][$from->id()] = $from->name();
-			};
-		};
+			}
+		}
 
 		$tree = aw_ini_get("project.tree");
-		
+
 		if (1 == aw_ini_get("project.tree"))
 		{
 			$c = new connection();
 			$conns = $c->find(array(
-				"from.class_id" => CL_PROJECT,
-				"to.class_id" => CL_PROJECT,
+				"from.class_id" => project_obj::CLID,
+				"to.class_id" => project_obj::CLID,
 				"type" => 1,
 			));
 
@@ -81,9 +81,8 @@ class project_selector extends core
 			foreach($conns as $conn)
 			{
 				$links[$conn["from"]] = $conn["to"];
-			};
-			
-		};
+			}
+		}
 
 		// now put together a nice layout
 		foreach ($by_parent as $parent_id => $items)
@@ -100,20 +99,19 @@ class project_selector extends core
 			{
 				$name = $propname . $item_id;
 				$item = new object($item_id);
-				$color = ($links[$item_id]) ? "black" : "red";
+				$color = !empty($links[$item_id]) ? "black" : "red";
 				$all_props[$propname . $item_id] = array(
 					"type" => "checkbox",
 					"name" => $propname . "[" . $item_id . "]",
 					"caption" => is_admin() ? html::href(array(
-						"url" => $this->mk_my_orb("change",array("id" => $item_id),CL_PROJECT),
-						"caption" => 
+						"url" => $this->mk_my_orb("change", array("id" => $item_id), "project"),
+						"caption" =>
 							"<font color='$color'>" . $item->name() . "</font>",
 					)) : $item->name(),
 					"ch_value" => isset($xlist[$item_id]) ? $xlist[$item_id] : 0,
 					"value" => 1,
 				);
-			};
-
+			}
 		}
 		return $all_props;
 	}
@@ -125,7 +123,7 @@ class project_selector extends core
 		// 2) remove those that were not explicitly checked in the form
 		// 3) create new connections which did not exist before
 		$orig = $arr["obj_inst"]->get_original();
-		
+
 		// figure out all current brothers
 		$olist = new object_list(array(
 			"brother_of" => $orig->id(),
@@ -142,17 +140,17 @@ class project_selector extends core
 		{
 			// hm, originaali n2idatakse aga listi ei panda. Ongi nii v6i?
 			$p_o = new object($o->parent());
-			if ($p_o->class_id() != CL_PROJECT)
+			if ($p_o->class_id() != project_obj::CLID)
 			{
 				continue;
-			};
+			}
 
 			if ($o->id() != $o->brother_of())
 			{
 				//$xlist[$o->id()] = $o->parent();
 				$xlist[$o->parent()] = $o->id();
-			};
-		};
+			}
+		}
 
 		// now, how do I know which projects are on the lowest level?
 
@@ -172,18 +170,18 @@ class project_selector extends core
 				//print "deleting $obj_id<br>";
 				$bo = new object($obj_id);
 				$bo->delete();
-			};
+			}
 			unset($new_ones[$folder_id]);
-		};
+		}
 
 		if (1 == aw_ini_get("project.tree"))
 		{
 			$real_parent = $orig->parent();
-			
+
 			$c = new connection();
 			$conns = $c->find(array(
-				"from.class_id" => CL_PROJECT,
-				"to.class_id" => CL_PROJECT,
+				"from.class_id" => project_obj::CLID,
+				"to.class_id" => project_obj::CLID,
 				"type" => 1,
 			));
 
@@ -191,10 +189,10 @@ class project_selector extends core
 			foreach($conns as $conn)
 			{
 				$links[$conn["from"]] = $conn["to"];
-			};
-			
+			}
+
 			$olist = new object_list(array(
-				"class_id" => CL_PROJECT,
+				"class_id" => project_obj::CLID,
 			));
 
 			$parentcount = 0;
@@ -204,14 +202,14 @@ class project_selector extends core
 				{
 					$parentcount++;
 					$new_parent = $new_id;
-				};
-			};
+				}
+			}
 
 			if ($parentcount > 1)
 			{
-				$arr["prop"]["error"] = "S&uuml;ndmus ei saa korraga olla mitmes viimase taseme projektis!";	
-				return PROP_ERROR;
-			};
+				$arr["prop"]["error"] = "S&uuml;ndmus ei saa korraga olla mitmes viimase taseme projektis!";
+				return class_base::PROP_ERROR;
+			}
 
 			if ($new_parent)
 			{
@@ -229,29 +227,22 @@ class project_selector extends core
 					$event_obj->set_parent($new_parent);
 					$event_obj->save();
 
-				};
-				
+				}
+
 				// do not create a brother if there is an object there already
 				unset($new_ones[$new_parent]);
-
-				//print "duh?";
-			};
+			}
 
 			// so now, what do I have to do?
 
 			// change the parent of the original
 			// create brothers under all others
-
-
-		};
+		}
 
 		foreach($new_ones as $new_id => $whatever)
 		{
 			//print "creating brother under $new_id<br>";
 			$event_obj->create_brother($new_id);
-		};
-
-
+		}
 	}
-};
-?>
+}

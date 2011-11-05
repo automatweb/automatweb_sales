@@ -1590,11 +1590,11 @@ class mrp_case extends class_base
 			return;
 		}
 
-		// don't display MRP_STATUS_RESOURCE_INACTIVE resources. objtree allows currently only simple filtering
+		// don't display mrp_resource_obj::STATE_INACTIVE resources. objtree allows currently only simple filtering
 		$applicable_states = array(
-				MRP_STATUS_RESOURCE_INUSE,
-				MRP_STATUS_RESOURCE_AVAILABLE,
-				MRP_STATUS_RESOURCE_OUTOFSERVICE
+				mrp_resource_obj::STATE_UNAVAILABLE,
+				mrp_resource_obj::STATE_AVAILABLE,
+				mrp_resource_obj::STATE_OUTOFSERVICE
 		);
 		function mrp_filter_resource_tree($o, $param)
 		{

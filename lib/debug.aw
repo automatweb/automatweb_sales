@@ -251,7 +251,7 @@ class dbg
 
 			$msg_item .= $fnm2." with arguments ";
 
-			$awa = new aw_array($bt[$i]["args"]);
+			$awa = isset($bt[$i]["args"]) ? new aw_array($bt[$i]["args"]) : new aw_array();
 			$str = array();
 			foreach($awa->get() as $e)
 			{
