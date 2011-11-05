@@ -895,7 +895,7 @@ class promo extends class_base implements main_subtemplate_handler
 					$filt = array(
 						"oid" => $ids,
 						"lang_id" => AW_REQUEST_CT_LANG_ID,
-						"site_id" => aw_ini_get("site_id")
+						"site_id" => aw_ini_get("site_id"),
 						"limit" => $limit > 0 ? $limit : null,
 						"status" => ($box->prop("show_inact") ? array(object::STAT_ACTIVE, object::STAT_NOTACTIVE) : object::STAT_ACTIVE),
 						new object_list_filter(array("non_filter_classes" => CL_DOCUMENT))
@@ -943,7 +943,7 @@ class promo extends class_base implements main_subtemplate_handler
 					$filt = array(
 						"oid" => $mt,
 						"lang_id" => AW_REQUEST_CT_LANG_ID,
-						"site_id" => aw_ini_get("site_id")
+						"site_id" => aw_ini_get("site_id"),
 						"status" => ($box->prop("show_inact") ? array(object::STAT_ACTIVE, object::STAT_NOTACTIVE) : object::STAT_ACTIVE),
 						new object_list_filter(array("non_filter_classes" => CL_DOCUMENT))
 					);
