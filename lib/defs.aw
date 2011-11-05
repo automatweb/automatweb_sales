@@ -1281,13 +1281,26 @@ function utf_unserialize($data)
 	$value = unserialize($data);
 	if (false === $value and "b:0;" !== $data and $data and 0 !== strpos($data, "\$arr"))
 	{
-		// try to convert to latin1 as it has been the default charset in databases
-		// then unserialize and convert back to UTF-8
-		$data = iconv("UTF-8", "latin1", trim($data));
-		$value = unserialize($data);
-		if (false !== $value)
+		try
 		{
-			$value = iconv_array("latin1", "UTF-8", $value);
+			// try to convert to latin1 as it has been the default charset in databases
+			// then unserialize and convert back to UTF-8
+			$data = iconv("UTF-8", "latin1", trim($data));
+			$value = unserialize($data);
+			if (false !== $value)
+			{
+				$value = iconv_array("latin1", "UTF-8", $value);
+			}
+		}
+		catch (ErrorException $e)
+		{
+			// try another automatweb's commonly used encoding
+			$data = iconv("UTF-8", "iso-8859-15", trim($data));
+			$value = unserialize($data);
+			if (false !== $value)
+			{
+				$value = iconv_array("iso-8859-15", "UTF-8", $value);
+			}
 		}
 	}
 	return $value;
