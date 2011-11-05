@@ -5,7 +5,7 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_GROUP, on_create_group)
 HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_USER_MANAGER, on_popup_search_change)
 
-@classinfo syslog_type=ST_USER_MANAGER relationmgr=yes no_comment=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 prop_cb=1
 
 
 @default table=objects
@@ -50,7 +50,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_USER_MANAGER, on_popup_sear
 					@caption Isiku nimi
 
 					@property search_groups type=textbox size=20 store=no parent=vbox_users_search_s1 captionside=top
-					@caption Grupid (komandega eraldatult)
+					@caption Grupid (komaga eraldatult)
 
 					@property search_active_time type=textbox size=4 store=no parent=vbox_users_search_s1 captionside=top
 					@caption Viimati aktiivne (p&auml;eva tagasi)
@@ -278,23 +278,23 @@ class user_manager extends class_base
 			case "usergroups_tb":
 			case 'users_tb':
 				$this->do_users_toolbar($prop['toolbar'], $arr);
-			break;
+				break;
 			case 'table_selected_groups':
 				$this->do_table_selected_groups($prop['vcl_inst'], $arr);
-			break;
+				break;
 			case 'table_usergroups':
 				$this->do_table_groups($prop['vcl_inst'], $arr);
-			break;
+				break;
 			case 'table_users':
 				$arr['type'] = 'grouprelated';
 			case 'table_inactive':
 				$arr['type'] = $arr['type'] ? $arr['type'] : 'inactive';
-				if($arr["request"]["search_button_pressed"])
+				if(!empty($arr["request"]["search_button_pressed"]))
 				{
 					$arr['type'] = "search";
 				}
 				$this->do_table_users($prop['vcl_inst'], $arr);
-			break;
+				break;
 			case "usergroups_tree":
 				$prop['vcl_inst']->start_tree(array(
 					'root_name' => $this->parent != "root" ? t("Juurkaustad/-grupid") : "<b>".t("Juurkaustad/-grupid")."</b>",
@@ -310,7 +310,7 @@ class user_manager extends class_base
 					return PROP_ERROR;
 				}
 				$this->do_groups_tree($prop['vcl_inst'], $parent, 0);
-			break;
+				break;
 			case 'default_loginmenu':
 				if ($arr["new"])
 				{
@@ -346,8 +346,8 @@ class user_manager extends class_base
 					}
 					$prop['options'] = $list;
 				}
+				break;
 
-			break;
 			case 'inactive_period':
 				$prop['options'] = array (
 					1 => '1 ' . t('p&auml;ev'),
@@ -358,7 +358,7 @@ class user_manager extends class_base
 					183 => '6 ' . t('kuud'),
 					365 => '1 ' . t('aasta'),
 				);
-			break;
+				break;
 		}
 		return $retval;
 	}
@@ -546,10 +546,10 @@ class user_manager extends class_base
 		}
 
 		$tb->add_button(array(
-            "name" => "save",
-            "img" => "save.gif",
-            "action" => "",
-            "tooltip" => t("Salvesta"),
+			"name" => "save",
+			"img" => "save.gif",
+			"action" => "",
+			"tooltip" => t("Salvesta"),
 			"onClick" => "aw_get_el('search_button_pressed').value = ".$arr["request"]["search_button_pressed"].";",
         ));
 
@@ -1845,9 +1845,11 @@ class user_manager extends class_base
 
 	function get_user_popupmenu($oid)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu($oid);
 		$gl = aw_global_get("gidlist_oid");
+		$dyc = array();
+		$can_adm_max = 0;
 		foreach($gl as $g_oid)
 		{
 			$o = obj($g_oid);
@@ -1873,14 +1875,16 @@ class user_manager extends class_base
 
 		foreach($gl as $gn => $d)
 		{
-			if ($gn == "userdef")
+			if ($gn === "userdef")
 			{
 				continue;
 			}
-			if ($dyc && !$dyc[$gn])
+
+			if ($dyc and empty($dyc[$gn]))
 			{
 				continue;
 			}
+
 			$pm->add_item(array(
 				"text" => $d["caption"],
 				"link" => html::get_change_url($u->id(), array("group" => $gn, "return_url" => get_ru()))

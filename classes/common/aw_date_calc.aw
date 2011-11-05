@@ -115,7 +115,7 @@ class date_calc
 		if (empty($type))
 		{
 			$type = "day";
-		};
+		}
 
 		$diff = 0;
 
@@ -154,9 +154,6 @@ class date_calc
 				// special flag - fullweeks, if set we return dates from
 				// the first monday of the month to the last sunday of the month
 
-
-
-
 				// siin on next ja prev-i arvutamine monevorra special
 				// kui p2ev on suurem, kui j2rgmises kuus p2evi kokku
 				// j2rgmise kuu viimase p2eva. Sama kehtib eelmise kohta
@@ -170,7 +167,7 @@ class date_calc
 				else
 				{
 					$next = mktime(0,0,0,$m+1,$d,$y);
-				};
+				}
 
 				if ($d > $prev_mon)
 				{
@@ -179,7 +176,7 @@ class date_calc
 				else
 				{
 					$prev = mktime(0,0,0,$m-1,$d,$y);
-				};
+				}
 				break;
 
 			case "year":
@@ -199,7 +196,7 @@ class date_calc
 			case "week":
 				$next = mktime(0,0,0,$m,$d+7,$y);
 				$prev = mktime(0,0,0,$m,$d-7,$y);
-				$daycode = convert_wday(date("w",$timestamp));
+				$daycode = self::convert_wday(date("w",$timestamp));
 				// aga meil siin algab n2dal siiski esmasp2evast
 				$monday = $d - $daycode + 1;
 				$start_ts = mktime(0,0,0,$m,$monday,$y);
@@ -221,7 +218,7 @@ class date_calc
 					else
 					{
 						$d2 = $d;
-					};
+					}
 					$start_ts = mktime(0,0,0,$m,$d,$y);
 					$end_ts = mktime(0,0,0,$m,$d2,$y);
 				}
@@ -234,14 +231,14 @@ class date_calc
 					else
 					{
 						$d2 = $d;
-					};
+					}
 					$end_ts = mktime(0,0,0,$m,$d,$y);
 					$start_ts = mktime(0,0,0,$m,$d2,$y-1);
 				}
 				else
 				{
 					$start_ts = mktime(0,0,0,1,1,2003);
-				};
+				}
 
 				if (empty($end_ts))
 				{
@@ -271,10 +268,10 @@ class date_calc
 				$next = $end_ts + 1;
 				$prev = $start_ts - 1;
 				break;
-		};
+		}
 
-		$start_wd = convert_wday(date("w",$start_ts));
-		$end_wd = convert_wday(date("w",$end_ts));
+		$start_wd = self::convert_wday(date("w",$start_ts));
+		$end_wd = self::convert_wday(date("w",$end_ts));
 
 		if (isset($args["fullweeks"]) and $args["fullweeks"] == 1)
 		{
@@ -282,13 +279,13 @@ class date_calc
 			{
 				$tambov = $start_wd - 1;
 				$start_ts = $start_ts - ($tambov * 86400);
-			};
+			}
 
 			if ($end_wd < 7)
 			{
 				$tambov = 7 - $end_wd;
 				$end_ts = $end_ts + ($tambov * 86400);
-			};
+			}
 		}
 
 		$arr = array(
@@ -298,7 +295,7 @@ class date_calc
 			"end_wd" => $end_wd,
 			"m" => $m,
 			"y" => $y,
-			"wd" => convert_wday(date("w",$timestamp)),
+			"wd" => self::convert_wday(date("w",$timestamp)),
 			"prev" => date("d-m-Y",$prev),
 			"next" => date("d-m-Y",$next),
 			"timestamp" => $timestamp,

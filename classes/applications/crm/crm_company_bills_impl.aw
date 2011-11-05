@@ -199,7 +199,7 @@ class crm_company_bills_impl extends class_base
 	{
 		if ($arr["request"]["proj"] || $arr["request"]["cust"])
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 
 	//-----------------------konvertimise algoritm
@@ -393,7 +393,7 @@ $x++;
 			"send_bill" => 1,
 			"lang_id" => array(),
 			"brother_of" => new obj_predicate_prop("id"),
-			"deal_price" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
+			"deal_price" => new obj_predicate_compare(obj_predicate_compare::GREATER, 0),
 		));
 		$this->deal_tasks = $deal_task_ol->ids();
 		foreach($deal_task_ol->arr() as $row)
@@ -410,7 +410,7 @@ $x++;
 //--------------list all task rows that are not billed yet
 		$rows_filter = array(
 			"class_id" => CL_TASK_ROW,
-			"bill_id" => new obj_predicate_compare(OBJ_COMP_EQUAL, ''),
+			"bill_id" => new obj_predicate_compare(obj_predicate_compare::EQUAL, ''),
 			"on_bill" => 1,
 			"done" => 1,
 //			new object_list_filter(array(
@@ -422,7 +422,7 @@ $x++;
 //					"CL_TASK_ROW.task(CL_CRM_CALL).send_bill" => 1,
 //				)
 //			)),
-			"date" => new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $this->search_start, $this->search_end),
+			"date" => new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, $this->search_start, $this->search_end),
 		);
 		$rowsres = array(
 			CL_TASK_ROW => array(
@@ -608,14 +608,12 @@ $x++;
 		return;
 
 		// get all open tasks
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		//$proj = $i->get_my_projects();
-		$proj_i = get_instance(CL_PROJECT);
+		$proj_i = new project();
 		$ol = new object_list(array(
-			"class_id" => CL_PROJECT,
-			"site_id" => array(),
-			"lang_id" => array()
-		));
+			"class_id" => project_obj::CLID
+		));//FIXME: k6ik projektid???
 
 		foreach($ol->ids() as $p)
 		{
@@ -633,7 +631,7 @@ $x++;
 			$evt_ol = new object_list(array(
 				"class_id" => CL_TASK,
 				"oid" => array_keys($events),
-				"bill_no" => new obj_predicate_compare(OBJ_COMP_EQUAL, ""),
+				"bill_no" => new obj_predicate_compare(obj_predicate_compare::EQUAL, ""),
 				"send_bill" => 1
 			));
 			if (!$evt_ol->count())
@@ -641,7 +639,7 @@ $x++;
 				continue;
 			}
 			$sum = 0;
-			$task_i = get_instance(CL_TASK);
+			$task_i = new task();
 			$has_rows = false;
 			foreach($evt_ol->arr() as $evt)
 			{
@@ -1014,10 +1012,10 @@ $x++;
 		return;
 		if ($arr["request"]["cust"])
 		{
-			$i = get_instance(CL_CRM_COMPANY);
+			$i = new crm_company();
 			$arr["request"]["proj"] = $i->get_projects_for_customer(obj($arr["request"]["cust"]));
 		}
-		$proj_i = get_instance(CL_PROJECT);
+		$proj_i = new project();
 		$events = array();
 		$awa = new aw_array($arr["request"]["proj"]);
 		foreach($awa->get() as $p)
@@ -1031,7 +1029,7 @@ $x++;
 			));
 		}
 
-		$task_i = get_instance(CL_TASK);
+		$task_i = new task();
 		foreach($events as $evt)
 		{
 			$o = obj($evt["id"]);
@@ -1168,6 +1166,7 @@ $x++;
 			return $t->draw();
 
 		}
+
 		if($_GET["bill_id"])
 		{
 			$_SESSION["bill_id"] = $_GET["bill_id"];
@@ -1609,38 +1608,40 @@ $x++;
 					"from" => mktime(0,0,0, date("m")-2, 0, date("Y")),
 					"to" => mktime(0,0,0, date("m")-1, 0, date("Y")),
 				);
-			break;
+				break;
 			case "period_last":
 				$filt["bill_date_range"] = array(
 					"from" => mktime(0,0,0, date("m")-1, 0, date("Y")),
 					"to" => mktime(0,0,0, date("m"), 0, date("Y")),
 				);
-			break;
+				break;
 			case "period_current":
 				$filt["bill_date_range"] = array(
 					"from" => mktime(0,0,0, date("m"), 0, date("Y")),
 					"to" => mktime(0,0,0, date("m")+1, 0, date("Y")),
 				);
-			break;
+				break;
 			case "period_next":
 				$filt["bill_date_range"] = array(
 					"from" => mktime(0,0,0, date("m")+1, 0, date("Y")),
 					"to" => mktime(0,0,0, date("m")+2, 0, date("Y")),
 				);
-			break;
+				break;
 			case "period_year":
 				$filt["bill_date_range"] = array(
 					"from" => mktime(0,0,0, 1, 1, date("Y")),
 					"to" => mktime(0,0,0, 1, 1, date("Y")+1),
 				);
-			break;
+				break;
 			case "period_lastyear":
 				$filt["bill_date_range"] = array(
 					"from" => mktime(0,0,0, 1, 1, date("Y")-1),
 					"to" => mktime(0,0,0,1 , 1, date("Y")),
 				);
-			break;
-			default :return null;
+				break;
+
+			default:
+				return null;
 		}
 		return $filt["bill_date_range"];
 	}
@@ -3534,7 +3535,7 @@ d)
 		$t = new object_data_list(
 			$filter,
 			array(
-				CL_CRM_BILL => array(
+				crm_bill_obj::CLID => array(
 					"impl","state","customer"
 				),
 			)
@@ -3567,14 +3568,14 @@ d)
 	public function all_project_managers()
 	{
 		$filter = array(
-			"class_id" => CL_PROJECT,
-			"CL_PROJECT.proj_mgr" =>  new obj_predicate_compare(OBJ_COMP_GREATER, 0),
+			"class_id" => project_obj::CLID,
+			"CL_PROJECT.proj_mgr" =>  new obj_predicate_compare(obj_predicate_compare::, 0),
 		);
 
 		$t = new object_data_list(
 			$filter,
 			array(
-				CL_PROJECT=>  array(new obj_sql_func(OBJ_SQL_UNIQUE, "project_manager", "aw_projects.aw_proj_mgr"))
+				project_obj::CLID=>  array(new obj_sql_func(OBJ_SQL_UNIQUE, "project_manager", "aw_projects.aw_proj_mgr"))
 			)
 		);
 
@@ -3587,14 +3588,14 @@ d)
 	private function all_bill_customers()
 	{
 		$filter = array(
-			"class_id" => CL_CRM_BILL,
-			"CL_CRM_BILL.customer" =>  new obj_predicate_compare(OBJ_COMP_GREATER, 0)
+			"class_id" => crm_bill_obj::CLID,
+			"CL_CRM_BILL.customer" =>  new obj_predicate_compare(obj_predicate_compare::GREATER, 0)
 		);
 
 		$t = new object_data_list(
 			$filter,
 			array(
-				CL_CRM_BILL => array(new obj_sql_func(OBJ_SQL_UNIQUE, "customer", "aw_crm_bill.aw_customer"))
+				crm_bill_obj::CLID => array(new obj_sql_func(OBJ_SQL_UNIQUE, "customer", "aw_crm_bill.aw_customer"))
 			)
 		);
 
@@ -3641,7 +3642,7 @@ d)
 			"tree_id" => "quality_bills_tree",
 		));
 
-		$bills_inst = get_instance(CL_CRM_BILL);
+		$bills_inst = new crm_bill();
 		$states = $bills_inst->states;
 
 		$menu = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_QUALITY_MENU");
@@ -3661,7 +3662,7 @@ d)
 			{
 				if($arr["request"][$var] == $id)
 				{
-					$name = "<b>".$name."</b>";
+					$name = html::bold($name);
 				}
 				$tv->add_item($menu->id(),array(
 					"name" => $name,

@@ -82,13 +82,13 @@ class automatweb
 
 		try
 		{
-			automatweb::start();
+			self::start();
 		}
 		catch (Exception $e)
 		{
 			try
 			{
-				automatweb::shutdown();
+				self::shutdown();
 			}
 			catch (Exception $e)
 			{
@@ -102,15 +102,13 @@ class automatweb
 			echo "Server Error";
 		}
 
-		automatweb::$instance->bc();
+		self::$instance->bc();
 		$cfg_cache_file = dirname($cfg_file) .  "/pagecache/ini.cache";
-		automatweb::$instance->load_config_files(array($cfg_file), $cfg_cache_file);
+		self::$instance->load_config_files(array($cfg_file), $cfg_cache_file);
 		$request = aw_request::autoload();
-		automatweb::$instance->set_request($request);
-		automatweb::$instance->exec();
-		automatweb::$result->send();
-		automatweb::shutdown();
-		automatweb::http_exit();
+		self::$instance->set_request($request);
+		self::$instance->exec();
+		self::http_exit();
 	}
 
 	/**
@@ -235,9 +233,9 @@ class automatweb
 	**/
 	public static function http_exit($status = http::STATUS_OK)
 	{
-		automatweb::$result->set_status($status);
-		automatweb::$result->send();
-		automatweb::shutdown();
+		self::$result->set_status($status);
+		self::$result->send();
+		self::shutdown();
 		exit;
 	}
 

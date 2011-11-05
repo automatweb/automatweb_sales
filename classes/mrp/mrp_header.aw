@@ -6,11 +6,6 @@ included in all mrp files except operator and import.
 
 /* ALL CONSTANTS HERE ARE TO BE DEPRECATED! USE THOSE DEFINED IN CLASSES */
 
-### resource types
-define ("MRP_RESOURCE_SCHEDULABLE", 1);
-define ("MRP_RESOURCE_NOT_SCHEDULABLE", 2);
-define ("MRP_RESOURCE_SUBCONTRACTOR", 3);
-
 ### states
 define ("MRP_STATUS_NEW", 1);
 define ("MRP_STATUS_PLANNED", 2);
@@ -24,11 +19,6 @@ define ("MRP_STATUS_ONHOLD", 9);
 define ("MRP_STATUS_ARCHIVED", 10);
 define ("MRP_STATUS_VIRTUAL_PLANNED", 11);
 define ("MRP_STATUS_SHIFT_CHANGE", 12);
-
-define ("MRP_STATUS_RESOURCE_AVAILABLE", 10);
-define ("MRP_STATUS_RESOURCE_INUSE", 11);
-define ("MRP_STATUS_RESOURCE_OUTOFSERVICE", 12);
-define ("MRP_STATUS_RESOURCE_INACTIVE", 13);
 
 ### misc
 define ("MRP_DATE_FORMAT", "j/m/Y H.i");

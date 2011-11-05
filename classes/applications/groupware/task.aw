@@ -966,7 +966,7 @@ class task extends class_base
 				break;
 
 			case "rows_oe":
-				$on_bill_str = $_SESSION["task"]["__bill_filt_comp"][1];
+				$on_bill_str = isset($_SESSION["task"]["__bill_filt_comp"][1]) ? $_SESSION["task"]["__bill_filt_comp"][1] : "";
 				unset($_SESSION["task"]["__bill_filt_comp"]);
 				if($arr["new"])
 				{
@@ -993,10 +993,13 @@ class task extends class_base
 				$stats_inst = new crm_company_stats_impl();
 				$cu_name = "";
 				$sum = 0;
+				$there_are_oe = false;
+
 				if(is_oid($arr["obj_inst"]->prop("hr_price_currency")))
 				{
 					$co_cu = obj($arr["obj_inst"]->prop("hr_price_currency"));
 				}
+
 				foreach ($cs as $key => $ro)
 				{
 					$ob = $ro->to();
@@ -1053,7 +1056,7 @@ class task extends class_base
 						{
 							$a = t("arve nr"). " ";
 						}
-						$there_are_oe = 1;
+						$there_are_oe = true;
 						$data["value"].= $ob->name().", ". $ob->prop("cost") . " " .$c. ", " . $d. ", " .$w . ", " . $onbill."\n<br>";
 					}
 	//			$nr++;
@@ -2244,15 +2247,13 @@ class task extends class_base
 	function _init_rows_t($t, $impl_filt = NULL)
 	{
 		$selected = "";
-		if(!$this->no_default_on_bill)
+
+		$settings_inst = new crm_settings();
+		$sts = $settings_inst->get_current_settings();
+		if ($sts && $sts->prop("default_task_rows_bills_filter"))
 		{
-			$seti = get_instance(CL_CRM_SETTINGS);
-			$sts = $seti->get_current_settings();
-			if ($sts && $sts->prop("default_task_rows_bills_filter"))
-			{
-				$settings_inst = get_instance("applications/crm/crm_settings");
-				$selected = $settings_inst->bills_filter_options[$sts->prop("default_task_rows_bills_filter")];
-			}
+			$settings_inst = new crm_settings();
+			$selected = $settings_inst->bills_filter_options[$sts->prop("default_task_rows_bills_filter")];
 		}
 
 /*		$t->define_field(array(
@@ -2469,6 +2470,7 @@ class task extends class_base
 		$cs = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_ROW",
 		));
+		$data = $data_done = array();
 		foreach ($cs as $key => $ro)
 		{
 			$ob = $ro->to();
@@ -2625,7 +2627,7 @@ class task extends class_base
 					"id" => $idx,
 					"s_action" => "start",
 					"type" => t("Toimetus"),
-					"name" => $data["value"]
+					"name" => isset($data["value"]) ? $data["value"] : ""
 				));
 				$stopper = " <a href='#' onClick='aw_popup_scroll(\"$url\",\"aw_timers\",320,400)'>".t("Stopper")."</a>";
 			}
@@ -2782,8 +2784,12 @@ class task extends class_base
 
 	function __ord_format($val)
 	{
-		$this->visible_rows_sum += $val["sum_val"];
-		if($val["date_val"])
+		if (!empty($val["sum_val"]))
+		{
+			$this->visible_rows_sum += $val["sum_val"];
+		}
+
+		if(!empty($val["date_val"]))
 		{
 			return html::textbox(array(
 						"name" => "rows[".$val["idx"]."][ord]",
@@ -2796,13 +2802,14 @@ class task extends class_base
 
 	function __time_format($val)
 	{
-		if($val["result_sum"])
+		if(!empty($val["result_sum"]))
 		{
 			if(is_oid($val["task_object"]->prop("hr_price_currency")))
 			{
 				$sad = obj($val["task_object"]->prop("hr_price_currency"));
 				$curr = $sad->name();
 			}
+
 			if($val["task_object"]->prop("deal_price"))
 			{
 				$sum = $val["task_object"]->prop("deal_amount");
@@ -2823,9 +2830,9 @@ class task extends class_base
 
 	function __date_format($val)
 	{
-		if($val["date_val"])
+		if(!empty($val["date_val"]))
 		{
-			if($this->can("view" , $val["bill_id"]))
+			if(isset($val["bill_id"]) and $this->can("view", $val["bill_id"]))
 			{
 				return $val["date_val"];
 			}
@@ -3080,7 +3087,7 @@ class task extends class_base
 			"action" => "cut_task_rows"
 		));
 
-		if($_SESSION["task_rows"])
+		if(aw_session::get("task_rows"))
 		{
 			$tb->add_button(array(
 				"name" => "paste",
