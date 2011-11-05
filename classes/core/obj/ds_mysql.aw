@@ -2412,36 +2412,10 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			}
 			elseif (is_array($val) or $val instanceof aw_array)
 			{
-				if (is_object($val))
+				$store = isset($this->properties[$key]["store"]) ? $this->properties[$key]["store"] : "";
+				if ($str = self::_parse_array_param_value($val, $key, $tf, $store))
 				{
-					$val = $val->get();
-				}
-				$str = array();
-
-				foreach($val as $v)
-				{
-					if ($v === "")
-					{
-						continue;
-					}
-
-					$this->quote($v);
-					if (isset($this->properties[$key]["store"]) && $this->properties[$key]["store"] === "connect")
-					{
-						$str[] = " aliases_{$key}.target = '{$v}' ";
-					}
-					elseif (strpos($v, "%") !== false)
-					{
-						$str[] = "{$tf} LIKE '{$v}'";
-					}
-					else
-					{
-						$str[] = "{$tf} = '{$v}'";
-					}
-				}
-				$str = join(" OR ", $str);
-				if ($str != "")
-				{
+					$str = implode(" OR ", $str);
 					$sql[] = " ( {$str} ) ";
 				}
 			}
@@ -2468,6 +2442,43 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			}
 		}
 		return join(" {$logic} ", $sql);
+	}
+
+	private function _parse_array_param_value($val, $key, $tf, $store)
+	{
+		if ($val instanceof aw_array)
+		{
+			$val = $val->get();
+		}
+		$str = array();
+		foreach($val as $v)
+		{
+			if ($v === "")
+			{
+				continue;
+			}
+
+			if ($store === "connect")
+			{
+				$this->quote($v);
+				$str[] = " aliases_{$key}.target = '{$v}' ";
+			}
+			elseif (is_array($v) or $v instanceof aw_array)
+			{
+				$str = array_merge($str, self::_parse_array_param_value($v, $key, $tf, $store));
+			}
+			elseif (strpos($v, "%") !== false)
+			{
+				$this->quote($v);
+				$str[] = "{$tf} LIKE '{$v}'";
+			}
+			else
+			{
+				$this->quote($v);
+				$str[] = "{$tf} = '{$v}'";
+			}
+		}
+		return $str;
 	}
 
 	function _do_add_class_id($clids, $add_table = false)
