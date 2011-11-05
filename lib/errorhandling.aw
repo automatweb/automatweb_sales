@@ -92,20 +92,7 @@ class aw_errorhandler
 	// all errors and exceptions are channeled to exception handlers
 	public static function handle_exception($e)
 	{
-		if ($e instanceof ErrorException)
-		{
-			// generate and throw exception when fatal error occurs. ignore all other errors
-			if (E_USER_WARNING === $errno)
-			{
-				error::raise(array(
-					"id" => "USER WARNING",
-					"msg" => $errstr,
-					"fatal" => false,
-					"show" => false
-				));
-			}
-		}
-		elseif ($e instanceof aw_lock_exception and "object" === $e->object_class)
+		if ($e instanceof aw_lock_exception and "object" === $e->object_class)
 		{
 			$blocked_object = new object($e->object_id);
 			$obj_str = $blocked_object->is_saved() ? aw_ini_get("classes." . $blocked_object->class_id() . "name") . ' "' . $blocked_object->name() . '"'  : $e->object_id;
@@ -177,6 +164,7 @@ class aw_errorhandler
 	{
 		if(!self::ignore_error($errno, $errstr, $errfile, $errline))
 		{
+			// generate and throw exception when fatal or significant error occurs. ignore all other errors
 			$e = new ErrorException($errstr, 0, $errno, $errfile, $errline);
 			if (
 				!isset(self::$non_fatal_errors[$errno]) or // throw exception on fatal errors
@@ -192,18 +180,30 @@ class aw_errorhandler
 			{
 				throw $e;
 			}
-			else
+			elseif (ini_get("display_errors"))
 			{
 				self::display_handled_exception($e);
 			}
+			elseif (E_USER_WARNING === $errno)
+			{
+				//TODO: meili saatimseks. teha see ymnber
+				error::raise(array(
+					"id" => "USER WARNING",
+					"msg" => $errstr,
+					"fatal" => false,
+					"show" => false
+				));
+			}
 		}
+
+		return true;
 	}
 
 	private static function display_exception($e)
 	{
 		$file = $e->getFile();
 		$line = $e->getLine();
-		$trace = nl2br($e->getTraceAsString());
+		$trace = dbg::process_backtrace($e->getTrace(), -1, true, true, true);
 
 		echo "<h3>Exception</h3>\n";
 		echo "<em>Class:</em> " . get_class($e) . "<br />\n";
