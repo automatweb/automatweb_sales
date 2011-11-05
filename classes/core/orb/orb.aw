@@ -853,7 +853,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 	// !handles a rpc call - ie decodes the request and calls the right function, encodes returned data and returns the encoded data
 	// params:
 	//	method - request method, currently only xmlrpc is supported
-	function handle_rpc_call($arr)
+	public function handle_rpc_call($arr)
 	{
 		extract($arr);
 
@@ -869,6 +869,11 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 		// decode request
 		$request = $inst->decode_request();
+
+		if (empty($request["class"]))
+		{
+			$inst->handle_error(1, "No class given");
+		}
 
 		// do the method calling thing
 		$orb_defs = $this->try_load_class($request["class"]);
@@ -888,7 +893,8 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 
 		if (strlen($output))
 		{
-			$this->raise_error("ERR_RPC_OUTPUT", "Output generated during RPC call! content: '$output'", true, false);
+			$output = htmlentities($output);
+			$inst->handle_error(2, "Output generated during RPC call! content: '{$output}'");
 		}
 
 		return $inst->encode_return_data($ret);
@@ -1016,7 +1022,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		extract($args);
 		$orbclass = new orb();
 		$orb_defs = $orbclass->load_xml_orb_def($id);
-//		echo "id = $id , action = $action , orb_defs = <pre>", var_dump($orb_defs),"</pre> <br />";
+
 		if ($action === "default")
 		{
 			$action = $orb_defs[$id]["default"];
