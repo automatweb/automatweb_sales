@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class xmlrpc extends aw_template
 {
 	var $allowed = array("I4","BOOLEAN","STRING", "DOUBLE","DATETIME.ISO8601","BASE64", "STRUCT", "ARRAY");
@@ -18,7 +16,7 @@ class xmlrpc extends aw_template
 		$xml = $this->make_request_xml($arr);
 		if (aw_global_get("xmlrpc_dbg"))
 		{
-			echo "sending request = <pre>", htmlspecialchars($xml),"</pre> <br />";
+			// /*~AWdbg*/ echo "sending request = <pre>", htmlspecialchars($xml),"</pre> <br />";
 		}
 
 		$this->no_errors = !empty($arr["no_errors"]);
@@ -32,8 +30,8 @@ class xmlrpc extends aw_template
 		));
 		if (aw_global_get("xmlrpc_dbg"))
 		{
-			echo "got response = <pre>", htmlspecialchars($resp),"</pre> <br />";
-		};
+			// /*~AWdbg*/ echo "got response = <pre>", htmlspecialchars($resp),"</pre> <br />";
+		}
 		$rv = $this->decode_response($resp);
 		return $rv;
 	}
@@ -76,7 +74,7 @@ class xmlrpc extends aw_template
 	{
 		if (aw_global_get("xmlrpc_dbg"))
 		{
-			echo "resp xml = <pre>", htmlspecialchars($xml),"</pre> <br />---------------------------<br/>";
+			// /*~AWdbg*/ echo "resp xml = <pre>", htmlspecialchars($xml),"</pre> <br />---------------------------<br/>";
 		}
 		$result = array();
 		$parser = xml_parser_create();
@@ -91,22 +89,22 @@ class xmlrpc extends aw_template
 			else
 			{
 				$lines = explode("\n", $xml);
-				echo htmlspecialchars($lines[xml_get_current_line_number($parser)-1])." <br>";
-				$this->raise_error(ERR_XML_PARSER_ERROR,sprintf(t("Viga XML-RPC p2ringu vastuse dekodeerimisel: %s on line %s! %s"), xml_error_string($err),xml_get_current_line_number($parser), $xml), true,false);
+				// echo htmlspecialchars($lines[xml_get_current_line_number($parser)-1])." <br>";
+				$this->raise_error("ERR_XML_PARSER_ERROR",sprintf(t("Viga XML-RPC p2ringu vastuse dekodeerimisel: %s on line %s! %s"), xml_error_string($err),xml_get_current_line_number($parser), $xml), true,false);
 			}
 		}
 		xml_parser_free($parser);
 
 		foreach($this->vals as $k => $v)
 		{
-			$this->vals[$k]["value"] = isset($v["value"]) ? iconv("utf-8", aw_global_get("charset")."//IGNORE", $v["value"]) : "";
+			$this->vals[$k]["value"] = isset($v["value"]) ? $v["value"] : "";
 		}
 
 		reset($this->vals);
 		list(, $tmp) = each($this->vals);
 //		echo "expect methodresponse open got $tmp[tag] $tmp[type] <br />";
 		list(, $is_err) = each($this->vals);
-		if ($is_err["tag"] == "FAULT")
+		if ($is_err["tag"] === "FAULT")
 		{
 //			echo "in fault: got $tmp[tag] $tmp[type] <br />";
 			list(, $tmp) = each($this->vals);	// value open
@@ -190,10 +188,10 @@ class xmlrpc extends aw_template
 	function send_request($args = array())
 	{
 		extract($args);
-		if (substr($server,0,7) == "http://" || substr($server,0,8) == "https://")
+		if (substr($server,0,7) === "http://" || substr($server,0,8) === "https://")
 		{
 			$server = substr($server,7);
-		};
+		}
 
 		$fp = fsockopen($server, $port, $this->errno, $this->errstr,5);
 		$op = "POST $handler HTTP/1.0\r\n";
@@ -231,14 +229,19 @@ class xmlrpc extends aw_template
 	// params - array of parameters for request
 	function decode_request($arr = array())
 	{
-		if (empty($arr["xml"]))
+		if (empty($arr["xml"]) and !empty($GLOBALS["HTTP_RAW_POST_DATA"]))
 		{
 			$xml = $GLOBALS["HTTP_RAW_POST_DATA"];
 		}
-		else
+		elseif (!empty($arr["xml"]))
 		{
 			$xml = $arr["xml"];
-		};
+		}
+		else
+		{
+			return "";//TODO: mida siin?
+		}
+
 		$result = array();
 
 		$parser = xml_parser_create();
@@ -264,7 +267,7 @@ class xmlrpc extends aw_template
 		{
 			$token = $values[$this->i++];
 
-			if (($token["tag"] == "methodName") && ($token["type"] == "complete"))
+			if (($token["tag"] === "methodName") && ($token["type"] === "complete"))
 			{
 				if (strpos($token["value"],"::"))
 				{
@@ -276,11 +279,11 @@ class xmlrpc extends aw_template
 				};
 			};
 
-			if ($in_value && ($token["type"] == "complete") )
+			if ($in_value && ($token["type"] === "complete") )
 			{
 				$result["params"][$name] = $token["value"];
 				$in_value = false;
-			};
+			}
 
 			if ($in_value && ($token["tag"] == "struct") )
 			{
@@ -293,51 +296,51 @@ class xmlrpc extends aw_template
 				else
 				{
 					$result["params"][$name] = $tmp["params"];
-				};
-			};
+				}
+			}
 
-			if (($token["tag"] == "base64") && ($token["type"] == "complete"))
+			if (($token["tag"] === "base64") && ($token["type"] === "complete"))
 			{
 				$result["params"][$name] = base64_decode($token["value"]);
-			};
+			}
 
-			if (($token["tag"] == "struct") && ($token["type"] == "close"))
+			if (($token["tag"] === "struct") && ($token["type"] === "close"))
 			{
 				return $result;
-			};
+			}
 
-			if ($token["tag"] == "member")
+			if ($token["tag"] === "member")
 			{
-				if ($token["type"] == "open")
+				if ($token["type"] === "open")
 				{
 					//print "w00p!";
-				};
-			};
+				}
+			}
 
-			if (($token["tag"] == "name") && ($token["type"] == "complete"))
+			if (($token["tag"] === "name") && ($token["type"] === "complete"))
 			{
 				$name = $token["value"];
-			};
+			}
 
-			if (($token["tag"] == "value") && ($token["type"] == "complete"))
+			if (($token["tag"] === "value") && ($token["type"] === "complete"))
 			{
 				$result["params"][$name] = $token["value"];
-			};
+			}
 
-			if (($token["tag"] == "value") && ($token["type"] == "open"))
+			if (($token["tag"] === "value") && ($token["type"] === "open"))
 			{
 				$in_value = true;
-			};
+			}
 
 			$continue = $this->i < sizeof($values);
-		};
+		}
 
 		return $result;
 	}
 
 	function encode_return_data($dat)
 	{
-		$xml  = "<?xml version=\"1.0\" encoding=\"".aw_global_get("charset")."\"?>\n";
+		$xml  = "<?xml version=\"1.0\" encoding=\"".languages::USER_CHARSET."\"?>\n";
 		$xml .= "<methodResponse>\n";
 		$xml .= "\t<params>\n";
 		$xml .= "\t\t<param>\n";
@@ -359,7 +362,8 @@ class xmlrpc extends aw_template
 		$xml .= "\t\t</value>\n";
 		$xml .= "\t</fault>\n";
 		$xml .= "</methodResponse>\n";
-		die($xml);
+		automatweb::$result->set_data($xml);
+		automatweb::http_exit(http::STATUS_BAD_REQUEST);
 	}
 
 	function xmlrpc_serialize($val, $level = 0)
@@ -461,7 +465,7 @@ class xmlrpc extends aw_template
 					do {
 						list(, $tmp) = each($this->vals);
 						$cont = false;
-						if ($tmp["type"] == "cdata" && $tmp["tag"] == "STRING")
+						if ($tmp["type"] === "cdata" && $tmp["tag"] === "STRING")
 						{
 							$str.=$tmp["value"];
 							$cont = true;
@@ -495,7 +499,7 @@ class xmlrpc extends aw_template
 						$this->_expect("VALUE");  // value close
 						$this->_expect("MEMBER"); // member close
 						$mem_o = $this->_expect(); // try member open
-						if ($mem_o["tag"] != "MEMBER")
+						if ($mem_o["tag"] !== "MEMBER")
 						{
 							// we just ate struct close tag, so no need to rewind
 							$is_mem = false;
@@ -511,7 +515,7 @@ class xmlrpc extends aw_template
 					$in_ar = true;
 					do {
 						list(, $tmp) = each($this->vals); // try open value
-						if ($tmp["tag"] == "VALUE")
+						if ($tmp["tag"] === "VALUE")
 						{
 							// got data close, that means end of array
 							$in_ar = false;
@@ -535,20 +539,22 @@ class xmlrpc extends aw_template
 	// if $tag is specified, complains if the tag does not match
 	function _expect($tag = false, $return_cdata = false)
 	{
-		do {
+		do
+		{
 			list($k, $tmp) = each($this->vals);
-			$is_sp = $tmp["type"] == "cdata" && trim($tmp["value"]) == "";
+			$is_sp = $tmp["type"] === "cdata" && trim($tmp["value"]) == "";
 			if ($return_cdata)
 			{
 				$is_sp = $is_sp && in_array($tmp["tag"], $this->allowed);
 			}
-		} while ($is_sp);
+		}
+		while ($is_sp);
+
 		if ($tag && $tmp["tag"] != $tag)
 		{
-			echo "error! _expected $tag, got $tmp[tag] ,k = $k tmp = <pre>",var_dump($tmp),"</pre>";
+			// /*~AWdbg*/ echo "error! _expected $tag, got $tmp[tag] ,k = $k tmp = <pre>",var_dump($tmp),"</pre>";
 			die();
 		}
 		return $tmp;
 	}
 }
-?>
