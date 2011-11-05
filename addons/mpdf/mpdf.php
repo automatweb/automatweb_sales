@@ -2773,7 +2773,15 @@ function AddFont($family,$style='') {
 	$smp = false;
 	$haskerninfo = false;
 	$BMPselected = false;
-	@include(_MPDF_TTFONTDATAPATH.$fontkey.'.mtx.php');
+
+	try
+	{
+		include(_MPDF_TTFONTDATAPATH.$fontkey.'.mtx.php');
+	}
+	catch (ErrorException $e)
+	{
+		//TODO: mida teha kui seda fondi cache faili pole?
+	}
 
 	$ttffile = '';
 	if (defined('_MPDF_SYSTEM_TTFONTS')) {
@@ -2855,10 +2863,17 @@ function AddFont($family,$style='') {
 			$fh = fopen(_MPDF_TTFONTDATAPATH.$fontkey.'.cw.dat',"wb");
 			fwrite($fh,$cw,strlen($cw));
 			fclose($fh);
-			@unlink(_MPDF_TTFONTDATAPATH.$fontkey.'.cgm');
-			@unlink(_MPDF_TTFONTDATAPATH.$fontkey.'.z');
-			@unlink(_MPDF_TTFONTDATAPATH.$fontkey.'.cw127.php');
-			@unlink(_MPDF_TTFONTDATAPATH.$fontkey.'.cw');
+			try
+			{
+				unlink(_MPDF_TTFONTDATAPATH.$fontkey.'.cgm');
+				unlink(_MPDF_TTFONTDATAPATH.$fontkey.'.z');
+				unlink(_MPDF_TTFONTDATAPATH.$fontkey.'.cw127.php');
+				unlink(_MPDF_TTFONTDATAPATH.$fontkey.'.cw');
+			}
+			catch (ErrorException $e)
+			{
+				//TODO:. ...
+			}
 		}
 		else if ($this->debugfonts) { $this->Error('Cannot write to the font caching directory - '._MPDF_TTFONTDATAPATH); }
 		unset($ttf);
