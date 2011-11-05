@@ -1,18 +1,7 @@
 <?php
 // mrp_schedule.aw - Ressursiplaneerija
-/*
-
-@classinfo relationmgr=yes
-
-@default table=objects
-@default group=general
-@default field=meta
-@default method=serialize
-
-*/
 
 require_once "mrp_header.aw";
-ini_set ("max_execution_time", "600");
 
 class mrp_schedule extends db_connector
 {
@@ -212,14 +201,14 @@ class mrp_schedule extends db_connector
 		### get schedulable resources
 		#### shcedulable resource types
 		$applicable_types = array (
-			MRP_RESOURCE_SCHEDULABLE,
-			MRP_RESOURCE_SUBCONTRACTOR,
+			mrp_resource_obj::TYPE_SCHEDULABLE,
+			mrp_resource_obj::TYPE_SUBCONTRACTOR
 		);
 
 		$resources_folder = $workspace->prop ("resources_folder");
 		$resource_tree = new object_tree (array (
 			"parent" => $resources_folder,
-			"class_id" => array (CL_MRP_RESOURCE,CL_MENU),
+			"class_id" => array (CL_MRP_RESOURCE, CL_MENU),
 			"type" => $applicable_types,
 		));
 		$resource_list = $resource_tree->to_list ();
@@ -891,6 +880,7 @@ class mrp_schedule extends db_connector
 			}
 
 			fclose($tmp);
+			chmod($tmpname, 0666);
 
 			if ($win32)
 			{
@@ -950,6 +940,7 @@ class mrp_schedule extends db_connector
 // /* timing */ timing ("save schedule data - jobs", "end");
 // /* timing */ timing ("save schedule data - load jobdata to DB", "start");
 			fclose($tmp);
+			chmod($tmpname, 0666);
 
 			if ($win32)
 			{
@@ -1890,7 +1881,7 @@ class mrp_schedule extends db_connector
 			$resources = array();
 			foreach($resource_list->arr() as $resource)
 			{
-				if ($resource->class_id() == CL_MRP_RESOURCE && $resource->prop("type") != MRP_RESOURCE_NOT_SCHEDULABLE)
+				if ($resource->class_id() == CL_MRP_RESOURCE && $resource->prop("type") != mrp_resource_obj::TYPE_NOT_SCHEDULABLE)
 				{
 					$resources[] = $resource->id();
 				}
