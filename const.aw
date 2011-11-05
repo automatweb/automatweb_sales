@@ -167,6 +167,11 @@ else
 			}
 		}
 	}
+
+	if (aw_ini_get("menuedit.language_in_url"))
+	{
+		$section = substr(strstr($section, "/"), 1);
+	}
 }
 
 $GLOBALS["section"] = $section;
