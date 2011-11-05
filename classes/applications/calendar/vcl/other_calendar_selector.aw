@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
+
 class other_calendar_selector extends aw_template
 {
 	function other_calendar_selector()
@@ -33,8 +31,7 @@ class other_calendar_selector extends aw_template
 
 		$tm = mktime(0,0,0,$m,$d,$y);
 
-		classload("core/date/date_calc");
-		$range = get_date_range(array(
+		$range = date_calc::get_date_range(array(
 			"time" => $tm,
 			"type" => "day",
 		));
@@ -82,9 +79,9 @@ class other_calendar_selector extends aw_template
 						{
 							$evstr .= $ev_obj->name() . "<br>";
 							$free = false;
-						};
-					};
-				};
+						}
+					}
+				}
 
 				$this->vars(array(
 					"event" => $evstr,
@@ -108,8 +105,7 @@ class other_calendar_selector extends aw_template
 				}
 
 				$cells .= $this->parse("cell");
-
-			};
+			}
 
 			$this->vars(array(
 				"cell" => $cells,
@@ -118,9 +114,9 @@ class other_calendar_selector extends aw_template
 			$tc .= $this->parse("one_calendar_content");
 
 			$first = false;
-		};
-		
-		// 
+		}
+
+		//
 
 		$this->vars(array(
 			"one_calendar" => $tt,
@@ -132,8 +128,8 @@ class other_calendar_selector extends aw_template
 			"type" => "text",
 			"name" => $arr["prop"]["name"],
 			"value" => $this->parse(),
-			"caption" => $arr["prop"]["caption"],
-			"no_caption" => $arr["prop"]["no_caption"],
+			"caption" => isset($arr["prop"]["caption"]) ? $arr["prop"]["caption"] : "",
+			"no_caption" => !empty($arr["prop"]["no_caption"])
 		);
 
 		return $all_props;
@@ -160,5 +156,4 @@ class other_calendar_selector extends aw_template
 		}
 		return $cals;
 	}
-};
-?>
+}
