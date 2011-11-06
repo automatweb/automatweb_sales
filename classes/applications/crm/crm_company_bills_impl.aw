@@ -3569,7 +3569,7 @@ d)
 	{
 		$filter = array(
 			"class_id" => project_obj::CLID,
-			"CL_PROJECT.proj_mgr" =>  new obj_predicate_compare(obj_predicate_compare::, 0),
+			"CL_PROJECT.proj_mgr" =>  new obj_predicate_compare(obj_predicate_compare::GREATER, 0),
 		);
 
 		$t = new object_data_list(

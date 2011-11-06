@@ -2568,7 +2568,7 @@ class crm_bill_obj extends _int_object
 			$id = $f->create_file_from_string(array(
 				"parent" => $this->id(),
 				"content" => $content,
-				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr_%s_detailid", $lang_id) : t("arve_nr_%s_aruanne", $lang_id)), $this->prop("bill_no")) . ".pdf",
+				"name" => sprintf(($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr_%s_detailid", $lang_id) : t("arve_nr_%s_seletuskiri", $lang_id)), $this->prop("bill_no")) . ".pdf",
 				"type" => "application/pdf"
 			));
 			$this->set_meta("crm_bill_attachments_tmp_appendix_pdf_oid", $id);

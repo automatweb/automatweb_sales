@@ -3225,9 +3225,9 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 		{
 			$view_type = "descriptions";
 			$content_tpl = new aw_php_template("crm_bill", "rows_detailed", $lang_id);
-			$view_type_name = t("aruanne", $lang_id);
+			$view_type_name = t("seletuskiri", $lang_id);
 			$main_tpl->set_var("heading", "");
-			$document_name = sprintf(t("Arve nr. %s aruanne", $lang_id), $this_o->prop("bill_no"));
+			$document_name = sprintf(t("Arve nr. %s seletuskiri", $lang_id), $this_o->prop("bill_no"));
 			$document_title = $this_o->trans_get_val("title", $lang_id);
 			$intro_text = nl2br($this_o->trans_get_val("bill_appendix_comment", $lang_id));
 			$rows_data = $this_o->get_bill_rows_data(true);
@@ -3241,7 +3241,8 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 				{
 					if (!empty($row["name_group_comment"]))
 					{ // add name group comment ant its separator prefix only if there is one
-						$rows[$row["comment"]]["name_group_comment"] .= html::linebreak(2) . $row["name_group_comment"];
+						$prefix = empty($rows[$row["comment"]]["name_group_comment"]) ? "" : html::linebreak(2);
+						$rows[$row["comment"]]["name_group_comment"] .= $prefix . $row["name_group_comment"];
 					}
 					$rows[$row["comment"]]["rows"][] = $row;
 				}
@@ -3332,6 +3333,10 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 		$doc->set_title(sprintf(t("Arve nr. %s %s", $lang_id), $this_o->prop("bill_no"), $view_type_name));
 		$doc->add_stylesheet(style::get_url("crm_bill", "invoice_main"));
 
+		$footer_tpl->add_vars(array(
+			"page_number" => t("{PAGENO} / {nb}", $lang_id)
+		));
+
 //XXX: TMP kuni p2ris pakkumuse klass korda ja valmis saab
 if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state"))
 {
@@ -3390,8 +3395,8 @@ $GLOBALS["TRANS"][5147]["Arve nr."] = "Proposal nr.";
 $GLOBALS["TRANS"][5147]["Makset&auml;htp&auml;ev"] = "Valid until";
 $GLOBALS["TRANS"][5147]["Kuup&auml;ev"] = "Due date";
 $GLOBALS["TRANS"][5147]["Arve kuup&auml;ev"] = "Date";
-$GLOBALS["TRANS"][5147]["Arve nr. %s aruanne"] = "Proposal nr. %s details";
-$GLOBALS["TRANS"][5147]["aruanne"] = "details";
+$GLOBALS["TRANS"][5147]["Arve nr. %s seletuskiri"] = "Proposal nr. %s details";
+$GLOBALS["TRANS"][5147]["seletuskiri"] = "details";
 $GLOBALS["TRANS"][5147]["Kliendi kontaktisik:"] = "Customer contact:";
 $GLOBALS["TRANS"][5147]["pakkumus_nr_%s"] = "proposal_nr_%s";
 $GLOBALS["TRANS"][5147]["pakkumuse_nr_%s_detailid"] = "proposal_nr_%s_details";
@@ -3402,8 +3407,8 @@ $GLOBALS["TRANS"][51920]["Arve nr."] = "Pakkumuse nr.";
 $GLOBALS["TRANS"][51920]["Makset&auml;htp&auml;ev"] = "Kehtivus";
 $GLOBALS["TRANS"][51920]["Kuup&auml;ev"] = "T&auml;htp&auml;ev";
 $GLOBALS["TRANS"][51920]["Arve kuup&auml;ev"] = "Kuup&auml;ev";
-$GLOBALS["TRANS"][51920]["Arve nr. %s aruanne"] = "Pakkumuse nr. %s n&otilde;uded";
-$GLOBALS["TRANS"][51920]["aruanne"] = "n&otilde;uded";
+$GLOBALS["TRANS"][51920]["Arve nr. %s seletuskiri"] = "Pakkumuse nr. %s n&otilde;uded";
+$GLOBALS["TRANS"][51920]["seletuskiri"] = "n&otilde;uded";
 }
 //END TMP kuni p2ris pakkumuse klass korda ja valmis saab
 
