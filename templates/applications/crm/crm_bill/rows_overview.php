@@ -13,7 +13,7 @@
 					<th class="caption"><?php echo t("Kogus", $lang_id)?></td>
 					<th class="caption"><?php echo t("Hind", $lang_id)?></td>
 					<th class="caption"><?php echo t("Summa", $lang_id)?></td>
-					<th class="caption"><?php echo t("K&auml;ibemaks", $lang_id)?></td>
+					<th class="caption"><?php echo t("KM", $lang_id)?></td>
 				</tr>
 			</thead>
 

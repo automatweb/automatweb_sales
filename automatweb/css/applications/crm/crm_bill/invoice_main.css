@@ -5,7 +5,7 @@
 
 	body { font-family: Tahoma, Arial, Helvetica, sans-serif; text-align: center; padding-top: 1.6em; }
 
-	h1 { font-size: 1em; color: #0977D2; padding: 1em 0 0 0; font-weight: bold; }
+	h1 { font-size: 1em; color: #0977D2; font-weight: bold; }
 	h2 { font-size: 0.9em; color: #666; padding: 0.3em 0 0 0; }
 	.caption { font-weight: bold; color: #666; }
 	.nowrap { white-space: nowrap; }
@@ -28,7 +28,7 @@
 	/* top right contact data */
 	div#contacts
 	{
-		float: right; padding-right: 1em; border-right: 0.1em solid #FF9400; color: #666; width: 22em;
+		float: right; padding-right: 1em; border-right: 0.1em solid #CC0404; color: #666; width: 22em;
 	}
 
 	div#contacts li
@@ -54,12 +54,12 @@
 
 	div.customerInfo dl dt
 	{
-		clear: left; float: left; width: 10em; padding: 0.25em; font-weight: bold;  white-space: nowrap; text-align: left;
+		clear: left; float: left; width: 10em; padding: 0.1em 0.25em 0.1em 0.25em; font-weight: bold;  white-space: nowrap; text-align: left;
 	}
 
 	div.customerInfo dl dd
 	{
-		float: left; width: 20em; padding: 0.2em 1em 0.2em 0.2em; white-space: nowrap; text-align: left;
+		float: left; width: 20em; padding: 0.1em 1em 0.1em 0.2em; white-space: nowrap; text-align: left;
 	}
 
 	div.customerInfo dl dd.first
@@ -85,7 +85,7 @@
 	/* content */
 	div#content
 	{
-		 font-size: 0.8em;  text-align: left; padding-top: 2em;
+		 font-size: 0.8em;  text-align: left; padding-top: 1.4em;
 	}
 
 	div#content p
@@ -94,7 +94,7 @@
 
 	p#documentComment
 	{
-		margin-bottom: 2em;
+		margin-bottom: 1.8em;
 	}
 
 	/* invoice rows table */
@@ -106,13 +106,28 @@
 	table#rows td,
 	table#rows th
 	{
-		border-bottom: 0.07em solid #AAAAAA; padding: 0.3em; vertical-align: top; text-align: left;
+		border-bottom: 0.07em solid #A0A0A0; padding: 0.3em; vertical-align: top; text-align: left;
+	}
+
+	table#rows tr.descriptionRow td
+	{
+		border: none;
+	}
+
+	table#rows tr.headerRow td
+	{
+		border: none;
+	}
+
+	table#rows tr.titleRow td
+	{
+		border-top: 0.07em solid #A0A0A0; border-bottom: 0.07em solid #A0A0A0;
 	}
 
 	/*header row*/
 	table#rows th
 	{
-		background-color: #AAAAAA; color: #FFFFFF;
+		background-color: #A0A0A0; color: #FFFFFF;
 	}
 
 	table#rows td.sumcaption
@@ -122,12 +137,12 @@
 
 	td.rowgroup h3
 	{
-		padding: 1em 0 0.6em 0;
+		padding: 0.1em 0 0.1em 0; font-size: 1.8em; font-weight: normal;
 	}
 
 	td.rowgroup p
 	{
-		padding: 0.6em 0 0.6em 0;
+		padding: 0 0 0.6em 0;
 	}
 
 	td.descriptionText
@@ -158,7 +173,7 @@
 
 	div.signer h4
 	{
-		padding-bottom: 2em;
+		padding-bottom: 0.8em;
 	}
 
 	div.signer p
@@ -168,26 +183,48 @@
 
 	p.signature
 	{
-		font-size: 0.9em; height: 100%; float:left; width: 100%; border-bottom: 0.07em solid #AAAAAA; padding-top: 4em;
+		font-size: 0.9em; height: 100%; float:left; width: 100%; border-bottom: 0.07em solid #A0A0A0; padding-top: 4em;
 	}
 
 	/* footer */
 	div#footer
 	{
-		border-top: 0.07em solid #AAAAAA; text-align: center; color: #666; height: 3em; margin: 6em 0 1em 0;
+		border-top: 0.07em solid #A0A0A0; text-align: center; color: #666; height: 3em; margin: 6em 0 1em 0; padding-top: 0.4em;
 	}
 
 	div#footer p
 	{
-		margin-top: 1em; font-size: 0.7em;
+		font-size: 0.7em; padding-top: 0.3em;
+	}
+
+	p.pageNumber
+	{
+		text-align: right;
 	}
 }
 
 @media print
 {
-	body
+	div#contacts ul
 	{
-		margin: 3em 3em 3em 3em;
+		margin-bottom: 0; padding-bottom: 0;
+	}
+
+	div.title h1,
+	div.title h2
+	{
+		padding-top: -0.6em;
+	}
+
+	div.customerInfo,
+	div#content
+	{
+		padding-top: 0; margin-top: 0;
+	}
+
+	p#documentComment
+	{
+		margin-bottom: 1em;
 	}
 
 	/* rows table */
@@ -195,6 +232,11 @@
 	table#rows td
 	{
 		font-size: 0.8em;
+	}
+
+	h3.caption
+	{
+		font-size: 1.8em; font-weight: normal;
 	}
 
 	td.descriptionText
@@ -209,14 +251,15 @@
 		border: none;
 	}
 
-	tr.headerrow
+	tr.headerRow
 	{
 		page-break-after: avoid;
 	}
 
+	/* printspacers are used to set margins and paddings in pdf print visual layout because for unknown reasons mpdf doesn't understand css in rows table */
 	.printspacer
 	{
-		display: block;
+		display: block; font-size: 0.4em;
 	}
 
 	/* signature and footer */
@@ -227,18 +270,28 @@
 
 	p.signature
 	{
-		font-size: 0.7em; height: auto;
+		font-size: 0.7em; height: auto; margin-top: 3em;
 	}
 
-	div.signer p,
-	div.signer h4
+	div.signer h4,
+	div.signer p
 	{
-		padding: auto; font-size: 0.8em;
+		font-size: 0.8em;
+	}
+
+	div.signer p
+	{
+		padding-top: -1em;
 	}
 
 	div#footer
 	{
-		height: auto; margin: auto;
+		height: auto; margin: auto; padding-top: 0.3em;
+	}
+
+	div#footer p
+	{
+		margin: 0; padding: 0.3em 0 0 0;
 	}
 }
 

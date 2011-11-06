@@ -13,44 +13,54 @@
 					<th class="caption"><?php echo t("Kogus", $lang_id)?></td>
 					<th class="caption"><?php echo t("Hind", $lang_id)?></td>
 					<th class="caption"><?php echo t("Summa", $lang_id)?></td>
-					<th class="caption"><?php echo t("K&auml;ibemaks", $lang_id)?></td>
+					<th class="caption"><?php echo t("KM", $lang_id)?></td>
 				</tr>
 			</thead>
 
 			<?php foreach($rows as $row_group){?>
 			<tbody class="rows">
-				<tr class="headerrow">
-					<td colspan="7" class="rowgroup">
-						<p class="printspacer">&nbsp;</p>
+				<tr class="headerRow">
+					<td colspan="5" class="rowgroup">
+						<?php /* printspacers are used to set margins and paddings in pdf print visual layout because for unknown reasons mpdf doesn't understand css here */ ?>
+						<?php if(isset($first_rowgroup_rendered)){ ?><p class="printspacer">&nbsp;</p><?php } else { $first_rowgroup_rendered = true; }?>
+						<?php if($row_group["name"]){?>
 						<h3 class="caption"><?php echo $row_group["name"]?></h3>
+						<?php }?>
 						<?php if($row_group["name_group_comment"]){?>
-						<p><?php echo $row_group["name_group_comment"]?></p>
+						<p class="printspacer">&nbsp;</p>
+						<p class="nameGroupComment"><?php echo $row_group["name_group_comment"]?></p>
 						<?php }?>
 					</td>
 				</tr>
 
 				<?php foreach($row_group["rows"] as $row){?>
-				<tr>
-					<td class="descriptionText">
+				<tr class="titleRow">
+					<td>
 						<?php if($row["row_title"]){?>
-						<p class="descriptionText caption">
+						<p class="caption">
 							<?php echo $row["row_title"]?>
 						</p>
 						<?php }?>
-						<?php if($row["desc"]){?>
-						<p class="descriptionText">
-							<?php echo $row["desc"]?>
-						</p>
-						<?php }?>
-						<p class="descriptionText">
-							<span class="caption"><?php echo t("Kuup&auml;ev:", $lang_id)?></span> <?php echo $row["date"]?>
-							<span class="caption"><?php echo t("ID:", $lang_id)?></span> <?php echo $row["oid"]?>
-						</p>
 					</td>
 					<td class="nowrap"><?php echo $row["quantity_str"]?></td>
 					<td><?php echo $row["price"]?></td>
 					<td><?php echo $row["sum"]?></td>
 					<td><?php echo $row["tax_sum"]?></td>
+				</tr>
+				<tr class="descriptionRow">
+					<td class="descriptionText">
+						<?php if($row["desc"]){?>
+						<p class="descriptionText">
+							<?php echo $row["desc"]?>
+						</p>
+						<?php }?>
+						<p class="printspacer">&nbsp;</p>
+						<p class="descriptionText">
+							<span class="caption"><?php echo t("Kuup&auml;ev:", $lang_id)?></span> <?php echo $row["date"]?>
+							<span class="caption"><?php echo t("ID:", $lang_id)?></span> <?php echo $row["oid"]?>
+						</p>
+					</td>
+					<td colspan="4"></td>
 				</tr>
 				<?php }?>
 			</tbody>
