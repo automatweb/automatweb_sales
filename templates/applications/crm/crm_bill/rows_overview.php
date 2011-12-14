@@ -30,7 +30,7 @@
 			</tbody>
 
 			<tbody class="sum">
-				<?php if($discount) { ?>
+				<?php if($discount_pct) { ?>
 				<tr>
 					<td colspan="3" class="caption sumcaption"><?php echo sprintf(t("Soodushindlus %s%%:", $lang_id), $discount_pct)?></td>
 					<td><?php echo $discount?> <?php echo $currency_name?></td>

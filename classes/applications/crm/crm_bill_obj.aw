@@ -1568,6 +1568,7 @@ class crm_bill_obj extends _int_object
 					"persons" =>
 					"has_task_row" => bool
 					"task_rows" =>
+					"quantity_str" => string row item quantity with unit
 				),
 				...
 			)
@@ -1606,15 +1607,6 @@ class crm_bill_obj extends _int_object
 					}
 				}
 
-				try
-				{
-					$unit = obj((int) $row->prop("unit"), array(), unit_obj::CLID);
-				}
-				catch (Exception $e)
-				{
-					$unit = obj(null, array(), unit_obj::CLID);
-				}
-
 				$row_sum = $row->prop("amt") * $row->prop("price");
 				$tax_sum = $row_sum / 100 * $row->get_row_tax();
 				$rd = array(
@@ -1645,7 +1637,17 @@ class crm_bill_obj extends _int_object
 				if ("comment" === $combine_by)
 				{
 					// combined key to not combine rows by comment that have different units or other not combinable properties
-					$key = $rd["comment"] . $rd["prod"] . $rd["km_code"] . $rd["unit"] . $rd["has_tax"] . $rd["tax"] . $rd["price"];
+					/// group/combine if rows have
+					$key =
+						$rd["comment"] . // same title
+						$rd["prod"] . // same product
+						$rd["km_code"] .  // same VAT code
+						$rd["unit"] . // same quantity unit
+						$rd["has_tax"] . // same tax setting
+						$rd["tax"] .  // same tax pct
+						// $rd["price"] . // same price
+						""
+					;
 
 					if (isset($rows_data[$key]))
 					{
@@ -1672,6 +1674,15 @@ class crm_bill_obj extends _int_object
 			//TODO: api peaks andma raw data. viia see konverteerimine v2lja, liideseklassi
 			foreach ($rows_data as $key => $rd)
 			{
+				try
+				{
+					$unit = obj((int) $rd["unit"], array(), unit_obj::CLID);
+				}
+				catch (Exception $e)
+				{
+					$unit = obj(null, array(), unit_obj::CLID);
+				}
+
 				$quantity = $rd["amt"] == (int) $rd["amt"] ? (int) $rd["amt"] : number_format($rd["amt"], 2, ".", " ");
 				$rd["amt"] = $quantity;
 				$rd["quantity_str"] = $unit->get_string_for_value($quantity, $lang_id);
