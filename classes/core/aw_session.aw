@@ -84,7 +84,8 @@ class aw_session
 		}
     	}
 
-	function _destroy($ses_id) {
+	function _destroy($ses_id)
+	{
 		$session_sql = "DELETE FROM " . $this->ses_table
 		     . " WHERE session_id = '$ses_id'";
 		$session_res = @mysql_query ($session_sql);
@@ -98,16 +99,16 @@ class aw_session
 	function _gc($life)
 	{
 		$ses_life = strtotime("-5 minutes");
+		$session_sql = "DELETE FROM {$this->ses_table} WHERE session_time < {$ses_life}";
+		$session_res = mysql_query ($session_sql);
 
-		$session_sql = "DELETE FROM " . $this->ses_table
-		     . " WHERE session_time < $ses_life";
-		$session_res = @mysql_query ($session_sql);
-
-
-		if (!$session_res) {
-		    return FALSE;
-		}         else {
-		    return TRUE;
+		if (!$session_res)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
 		}
     }
 
