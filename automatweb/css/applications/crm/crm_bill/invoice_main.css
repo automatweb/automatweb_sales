@@ -309,4 +309,9 @@
 	{
 		border-bottom-width: 1px;
 	}
+
+	p.pageNumber
+	{
+		display: none;
+	}
 }
