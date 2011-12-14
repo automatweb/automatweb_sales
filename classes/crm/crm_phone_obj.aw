@@ -101,7 +101,7 @@ class crm_phone_obj extends _int_object
 			$cs = connection::find(array(
 				"from" => array(),
 				"to" => $wrids,
-				"from.class_id" => CL_CRM_PERSON,
+				"from.class_id" => crm_person_obj::CLID,
 			));
 			foreach($cs as $c)
 			{
@@ -112,7 +112,7 @@ class crm_phone_obj extends _int_object
 			"from" => array(),
 			"to" => $arr["id"],
 			"type" => "RELTYPE_PHONE",
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 		));
 		foreach($cs as $c)
 		{
@@ -120,24 +120,6 @@ class crm_phone_obj extends _int_object
 		}
 
 		return $ret;
-	}
-
-	function prop($k)
-	{
-		if($k === "is_public" && is_numeric(parent::prop("conn_id")))
-		{
-			try
-			{
-				$c = new connection();
-				$c->load(parent::prop("conn_id"));
-				return $c->prop("data");
-			}
-			catch (Exception $e)
-			{
-				return parent::prop($k);
-			}
-		}
-		return parent::prop($k);
 	}
 
 	public function set_name($v)
@@ -149,6 +131,23 @@ class crm_phone_obj extends _int_object
 	public function awobj_set_name($name)
 	{
 		return $this->set_name($name);
+	}
+
+	public function awobj_get_is_public()
+	{
+		if(is_numeric(parent::prop("conn_id")))
+		{
+			try
+			{
+				$c = new connection();
+				$c->load(parent::prop("conn_id"));
+				return $c->prop("data");
+			}
+			catch (Exception $e)
+			{
+			}
+		}
+		return $this->prop("is_public");
 	}
 
 	public function awobj_set_is_public($v)
@@ -273,7 +272,7 @@ class crm_phone_obj extends _int_object
 	private function parent_save($conn_ids)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_PHONE,
+			"class_id" => self::CLID,
 			"name" => parent::prop("name"),
 			"limit" => 1
 		));

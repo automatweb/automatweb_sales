@@ -116,6 +116,18 @@ class site_show extends aw_template
 		$this->sel_section_real = $this->sel_section;
 		$this->sel_section_obj = $this->sel_section ? new object($this->sel_section) : obj(null, array(), CL_MENU);
 
+		//redirect to frontpage if inactive menu
+		if (
+			aw_global_get("section") == $this->sel_section &&
+			$this->sel_section_obj &&
+			$this->sel_section_obj->status() != object::STAT_ACTIVE &&
+			!aw_global_get("uid") &&
+			empty($_GET["class"])) //TODO: muul viisil. kalevatravelis menyys item "otsing", mitteaktiivne. see on sectioniks otsingul, mida ei n2ita kui siinset rida pole.
+		{
+			header("Location: " . aw_ini_get("baseurl"));
+			exit;
+		}
+
 		$this->site_title = $this->sel_section_obj->trans_get_val("name");
 
 		// read the left/right pane props from the sel menu
@@ -359,15 +371,19 @@ class site_show extends aw_template
 				// find the first submenu with the correct context
 				$ol = new object_list(array(
 					"parent" => $this->sel_section,
+					"site_id" => aw_ini_get("site_id"),
+					"lang_id" => AW_REQUEST_CT_LANG_ID,
 					"class_id" => menu_obj::CLID,
 					"CL_MENU.RELTYPE_CTX.name" => $use_ctx,
-					"limit" => 1,
+					"limit" => 1
 				));
 				if (!$ol->count())
 				{
 					// get the first submenu
 					$ol = new object_list(array(
 						"class_id" => menu_obj::CLID,
+						"site_id" => aw_ini_get("site_id"),
+						"lang_id" => AW_REQUEST_CT_LANG_ID,
 						"parent" => $this->sel_section,
 						"sort_by" => "objects.jrk",
 						"limit" => 1
@@ -634,6 +650,8 @@ class site_show extends aw_template
 			{
 				$ol = new object_list(array(
 					"class_id" => CL_DOCUMENT,
+					"site_id" => aw_ini_get("site_id"),
+					"lang_id" => AW_REQUEST_CT_LANG_ID,
 					"oid" => $docid,
 					"doc_content_type" => $_SESSION["doc_content_type"]
 				));
@@ -659,6 +677,8 @@ class site_show extends aw_template
 				{
 					$ol = new object_list(array(
 						"class_id" => CL_DOCUMENT,
+						"site_id" => aw_ini_get("site_id"),
+						"lang_id" => AW_REQUEST_CT_LANG_ID,
 						"oid" => $docid,
 						"target_audience" => $ta_list->ids()
 					));
@@ -705,7 +725,7 @@ class site_show extends aw_template
 			$start_ndocs = $cur_page * $obj->prop("docs_per_page");
 		}
 
-		$filt_lang_id = aw_global_get("lang_id");
+		$filt_lang_id = AW_REQUEST_CT_LANG_ID;
 		$filter = array();
 		// no default, show list
 		if ($docid < 1)
@@ -726,6 +746,8 @@ class site_show extends aw_template
 			{
 				$ot = new object_tree(array(
 					"class_id" => menu_obj::CLID,
+					"site_id" => aw_ini_get("site_id"),
+					"lang_id" => AW_REQUEST_CT_LANG_ID,
 					"parent" => $obj->id(),
 					"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 					"sort_by" => "objects.parent"
@@ -775,6 +797,8 @@ class site_show extends aw_template
 							// include submenus in document sources
 							$ot = new object_tree(array(
 								"class_id" => menu_obj::CLID,
+								"site_id" => aw_ini_get("site_id"),
+								"lang_id" => AW_REQUEST_CT_LANG_ID,
 								"parent" => $_sm,
 								"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 								"sort_by" => "objects.parent"
@@ -786,7 +810,7 @@ class site_show extends aw_template
 				else
 				{
 					$sections = array($obj->id());
-				};
+				}
 
 				foreach($ilm as $ilm_item)	// ilm contains menus that the user wants not to get docs from
 				{
@@ -859,6 +883,8 @@ class site_show extends aw_template
 					{
 						$ot = new object_tree(array(
 							"class_id" => menu_obj::CLID,
+							"site_id" => aw_ini_get("site_id"),
+							"lang_id" => AW_REQUEST_CT_LANG_ID,
 							"parent" => $gm_id,
 							"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 							"sort_by" => "objects.parent"
@@ -880,6 +906,8 @@ class site_show extends aw_template
 					{
 						$ot = new object_tree(array(
 							"class_id" => menu_obj::CLID,
+							"site_id" => aw_ini_get("site_id"),
+							"lang_id" => AW_REQUEST_CT_LANG_ID,
 							"parent" => $gm_id,
 							"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 							"sort_by" => "objects.parent"
@@ -1121,9 +1149,9 @@ class site_show extends aw_template
 					}
 				}
 				$documents = $doc_ol;
-                                $filter[] = new object_list_filter(array(
-                                        "non_filter_classes" => CL_DOCUMENT
-                                ));
+				$filter[] = new object_list_filter(array(
+					"non_filter_classes" => CL_DOCUMENT
+				));
 			}
 			else
 			{
@@ -1246,7 +1274,7 @@ class site_show extends aw_template
 
 	function _int_show_documents($docid)
 	{
-		$d = get_instance(CL_DOCUMENT);
+		$d = new document();
 		$d->set_opt("parent", $this->sel_section);
 		aw_register_default_class_member("document", "parent", $this->sel_section);
 		$ct = "";
@@ -1269,7 +1297,7 @@ class site_show extends aw_template
 			aw_register_default_class_member("document", "cnt_documents", sizeof($docid));
 
 			$template = $template == "" ? "plain.tpl" : $template;
-			$template2 = file_exists(aw_ini_get("tpldir")."automatweb/documents/".$template."2") ? $template."2" : $template;
+			$template2 = file_exists(aw_ini_get("site_tpldir")."automatweb/documents/".$template."2") ? $template."2" : $template;
 
 			$this->vars(array("DOCUMENT_LIST" => $this->parse("DOCUMENT_LIST")));
 			$this->_is_in_document_list = 1;
@@ -1698,8 +1726,7 @@ class site_show extends aw_template
 		$ss = get_instance(CL_SITE_STYLES);
 		$ol = new object_list(array(
 			"class_id" => CL_SITE_STYLES,
-			"status" => STAT_ACTIVE,
-			"lang_id" => "%",
+			"status" => STAT_ACTIVE
 		));
 		$ar = $ol->arr();
 		$style_ord = $ss->selected_style_ord(array(
@@ -1777,17 +1804,17 @@ class site_show extends aw_template
 				if (sizeof($alias_path) == 0)
 				{
 					$use_aliases = true;
-				};
+				}
 
 				if ($use_aliases)
 				{
 					array_push($alias_path,$ref->alias());
-				};
+				}
 
 				if ($use_aliases)
 				{
 					$linktext = join("/",$alias_path);
-				};
+				}
 
 				if (aw_ini_get("user_interface.full_content_trans"))
 				{
@@ -1933,25 +1960,17 @@ class site_show extends aw_template
 
 	function make_langs()
 	{
-		$lang_id = aw_global_get("lang_id");
-		$var = "set_lang_id";
-		if (aw_ini_get("user_interface.full_content_trans"))
-		{
-			$var = "set_ct_lang_id";
-			$lang_id = aw_global_get("ct_lang_id");
-		}
-		$langs = get_instance("languages");
-		$lar = $langs->listall();
-
+		$lang_id = AW_REQUEST_CT_LANG_ID;
+		$lar = languages::listall();
 		$l = array();
 		$uid = aw_global_get("uid");
 		if (count($lar) < 2)
 		{
 			// crap, we need to insert the sel lang acharset here at least!
-			$sel_lang = $langs->fetch($lang_id);
+			$sel_lang = languages::fetch($lang_id);
 			$this->vars(array(
-				"sel_charset" => $sel_lang["charset"],
-				"charset" => $sel_lang["charset"],
+				"sel_charset" => languages::USER_CHARSET,
+				"charset" => languages::USER_CHARSET,
 				"se_lang_id" => $lang_id,
 				"lang_code" => $sel_lang["acceptlang"]
 			));
@@ -2082,8 +2101,7 @@ class site_show extends aw_template
 
 		if (empty($sel_lang))
 		{
-			$ll = get_instance("languages");
-			$sel_lang = $ll->fetch(aw_global_get("lang_id"),true);
+			$sel_lang = languages::fetch(AW_REQUEST_CT_LANG_ID, true);
 		}
 
 		foreach($l as $_grp => $_l)
@@ -2096,6 +2114,7 @@ class site_show extends aw_template
 				"LANG".$app."_BEGIN" => ""
 			));
 		}
+
 		$this->vars(array(
 			"sel_charset" => $sel_lang["charset"],
 			"charset" => $sel_lang["charset"],
@@ -2158,19 +2177,11 @@ class site_show extends aw_template
 		return (array_search($oid, $this->path_ids) !== false || array_search($oid, $this->path_brothers) !== false);
 	}
 
-//	function _helper_is_in_url($oid)
-//	{
-//			arr(!($_GET["group"] != $_SESSION["menu_item_tab"] && $_SESSION["menu_item_tab"] != $_GET["openedtab"])); arr($_SESSION["menu_item_tab"]);
-//		if($_GET["group"] != $_SESSION["menu_item_tab"] && $_SESSION["menu_item_tab"] != $_GET["openedtab"]) return false;
-//
-//		return true;
-//	}
-
 	////
 	// !returns the number of levels that are in the path
 	// for the menu area beginning at $parent
 	function _helper_get_levels_in_path_for_area($parent)
-	{//arr("_helper_get_levels_in_path_for_area");
+	{
 		// why is this here you ask? well, if the user has no access to the area rootmenu
 		// then the rootmenu will get rewritten to the group's rootmenu, therefore
 		// we need to rewrite it in the path checker functions as well
@@ -2262,7 +2273,7 @@ class site_show extends aw_template
 		if (!$filename)
 		{
 			error::raise(array(
-				"id" => ERR_NO_COMPILED,
+				"id" => "ERR_NO_COMPILED",
 				"msg" => t("site_show::do_draw_menus(): no compiled filename set!")
 			));
 		}
@@ -2273,8 +2284,9 @@ class site_show extends aw_template
 		$menu_defaults = aw_ini_get("menuedit.menu_defaults");
 		if (aw_ini_get("menuedit.lang_defs"))
 		{
-			$menu_defaults = $menu_defaults[aw_global_get("lang_id")];
+			$menu_defaults = $menu_defaults[AW_REQUEST_CT_LANG_ID];
 		}
+
 		if (is_array($menu_defaults) && aw_global_get("section") == aw_ini_get("frontpage"))
 		{
 			foreach($menu_defaults as $_mar => $_mid)
@@ -2508,8 +2520,6 @@ class site_show extends aw_template
 			if (count(safe_array($this->properties["images"])))
 			{
 				$ol = new object_list(array(
-					"lang_id" => array(),
-					"site_id" => array(),
 					"oid" => safe_array($this->properties["images"])
 				));
 				$ol->arr();	// preload at once
@@ -2596,7 +2606,7 @@ class site_show extends aw_template
 			if ($this->is_template("MENUEDIT_ACCESS"))
 			{
 				// check menuedit access
-				if ($this->prog_acl("view", PRG_MENUEDIT))
+				if (acl_base::prog_acl("view", PRG_MENUEDIT))
 				{
 					// so if this is the only document shown and the user has edit right
 					// to it, parse and show the CHANGEDOCUMENT sub
@@ -2953,7 +2963,7 @@ class site_show extends aw_template
 		$sdct = $o->prop("set_doc_content_type");
 		if ($this->can("view", $sdct))
 		{
-			$so = obj(aw_global_get("section"));
+			$so = new object(aw_global_get("section"));
 			$su = (aw_ini_get("frontpage") == aw_global_get("section") || $so->class_id() == CL_DOCUMENT  ? $link : aw_global_get("REQUEST_URI"));
 			$su = aw_url_change_var("clear_doc_content_type", null, $su);
 			$su = aw_url_change_var("docid", null, $su);
@@ -2972,7 +2982,7 @@ class site_show extends aw_template
 		$what_to_replace = array('/','.','\\',':');
 		$str_part = str_replace($what_to_replace, '_', $tpl);
 
-		$fn = cache::get_fqfn("compiled_menu_template-".$str_part."-".aw_global_get("lang_id"));
+		$fn = cache::get_fqfn("compiled_menu_template-".$str_part."-".AW_REQUEST_CT_LANG_ID);
 
 		if ("unix" === aw_ini_get("server.platform") and $tpl{0} !== "/" or "win32" === aw_ini_get("server.platform") and substr($tpl, 1, 2) !== ":/")
 		{
@@ -3004,7 +3014,7 @@ class site_show extends aw_template
 
 	function do_show_template($arr)
 	{
-		$tpldir = str_replace(aw_ini_get("site_basedir"), "", aw_ini_get("tpldir"));
+		$tpldir = str_replace(aw_ini_get("site_basedir"), "", aw_ini_get("site_tpldir"));
 		$tpldir = str_replace(aw_ini_get("site_basedir"), "", $tpldir)."/automatweb/menuedit/";
 
 		if (!empty($arr["tpldir"]))
@@ -3021,9 +3031,6 @@ class site_show extends aw_template
 			$this->compiled_filename = $this->cache_compile_template($tpldir, $arr["template"]);
 		}
 		$this->read_template($arr["template"]);
-
-		// import language constants
-		lc_site_load("menuedit",$this);
 
 		$this->do_sub_callbacks(isset($arr["sub_callbacks"]) ? $arr["sub_callbacks"] : array());
 
@@ -3198,10 +3205,10 @@ class site_show extends aw_template
 					continue;
 				}
 				$o = obj($id);if(aw_global_get("uid") == "markop") arr($o);
-				foreach($o->connections_to(array("type" => 5, "to.lang_id" => aw_global_get("lang_id"))) as $c)
+				foreach($o->connections_to(array("type" => 5, "to.lang_id" => AW_REQUEST_CT_LANG_ID)) as $c)
 				{
 					$samenu = $c->from();
-					if ($samenu->status() != STAT_ACTIVE || $samenu->lang_id() != aw_global_get("lang_id"))
+					if ($samenu->status() != STAT_ACTIVE || $samenu->lang_id() != AW_REQUEST_CT_LANG_ID)
 					{
 						continue;
 					}
@@ -3233,7 +3240,7 @@ class site_show extends aw_template
 
 	function __helper_menu_edit($menu)
 	{
-		if (!$this->prog_acl() || !empty($_SESSION["no_display_site_editing"]))
+		if (!acl_base::prog_acl() || !empty($_SESSION["no_display_site_editing"]))
 		{
 			return;
 		}
@@ -3310,7 +3317,7 @@ class site_show extends aw_template
 
 	function _get_empty_doc_menu()
 	{
-		if (!$this->prog_acl() || !aw_ini_get("config.site_editing") || !empty($_SESSION["no_display_site_editing"]))
+		if (!acl_base::prog_acl() || !aw_ini_get("config.site_editing") || !empty($_SESSION["no_display_site_editing"]))
 		{
 			return;
 		}

@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/persons_webview.aw,v 1.58 2009/07/20 12:58:29 markop Exp $
-// persons_webview.aw - Kliendihaldus 
+
+// persons_webview.aw - Kliendihaldus
 /*
 
-@classinfo syslog_type=ST_PERSONS_WEBVIEW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -66,7 +66,7 @@ property columns type=textbox
 caption Tulpade arv
 
 -- read ametinimetuste alusel (markeruut) - sama ametinimega isikuid yritatakse sama rea peale paigutada
-property rows_by type=checkbox ch_value=1 
+property rows_by type=checkbox ch_value=1
 caption Read ametinimetuse alusel
 
 -- min tulpade arv (tekstikast) - erineva tasemega ametinimetusele vastavad isikud v6ib ka k6rvuti panna, kui min tulpade arv mingis reas ei ole saavutatud.
@@ -87,25 +87,25 @@ class persons_webview extends class_base
 			"tpldir" => "crm/persons_webview",
 			"clid" => CL_PERSONS_WEBVIEW
 		));
-	
+
 		$this->persons_sort_order = array(
 			0 => "",
 			"last_name" => t("perenimi"),
 			"profession" => t("ametinimetuse jrk"),
 			"jrk" => t("isiku jrk"),
 		);
-		
+
 		$this->department_sort_order = array(
 			0 => "",
 			"jrk" => t("osakonna jrk"),
 			"name" => t("osakonna nimi"),
 		);
-	
+
 		$this->order = array (
 			"ASC" => t("Kasvav"),
 			"DESC" => t("Kahanev"),
 		);
-		
+
 		$this->education["options"] = array(
 			0 => t("-- vali --"),
 			1 => t("p&otilde;hi"),
@@ -113,9 +113,9 @@ class persons_webview extends class_base
 			3 => t("kesk-eri"),
 			4 => t("k&otilde;rgem"),
 		);
-		
+
 		$this->phone_types = array("phone" => "");//see on selleks, et lihtsalt telefoni tyybid kirja panna ja jargmistel inimestel vastavad muutujad ara nullida, muidu v6tab eelmiselt isikult
-		
+
 		$this->help = nl2br(htmlentities(t("
 			Osakondade tasemed, mida n&auml;idataks, saab m&auml;rkida kujul '1,2,3' v&otilde;i '1-2' v&otilde;i '3'
 			juhul , kui on vaja kuvada inimesi &uuml;ksteise k&otilde;rval, siis teplates peaks olema subid umbes kujul:
@@ -137,13 +137,13 @@ class persons_webview extends class_base
 			<!-- END SUB: LINE -->
 			</table>
 			<!-- SUB: DEPARTMENT -->
-			
+
 			kui igal real on 1 inimene, siis v&otilde;ib SUB: LINE vahelt &auml;ra j&auml;tta
-			
+
 			Kui viimaseks vaateks on &uuml;ks konkreetne isik, siis template sees &uuml;htegi SUBi ei tohiks olla, kasutada saab samu muutujaid, mis muidu sub'is worker
-			
+
 			endine variant ka igaks juhuks t&ouml;&ouml;tab veel
-			
+
 			juhul kui miski taseme osakonda oleks vaja teistmoodi n&auml;idata, siis tuleks <!-- SUB: DEPARTMENT --> sisse teha <!-- SUB: LEVEL4DEPARTMENT --> (vastavalt taseme numbrile) , mis oleks muidu sama struktuuriga nagu DEPARTMENT
 
 			muutujad mida saab kasutada:
@@ -177,9 +177,9 @@ class persons_webview extends class_base
 				break;
 			case "departments":
 				if(is_oid($arr["obj_inst"]->prop("company")) && $this->can("view" , $arr["obj_inst"]->prop("company")))
-				{;
+				{
 					$company = obj($arr["obj_inst"]->prop("company"));
-					$comp = get_instance("crm/crm_company");
+					$comp = new crm_company();
 					foreach($comp->get_all_org_sections($company) as $section_id)
 					{
 						$section = obj($section_id);
@@ -187,7 +187,7 @@ class persons_webview extends class_base
 					}
 				}
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -219,14 +219,14 @@ class persons_webview extends class_base
 		if($count > 0 && !$principe[$count-1]["principe"])$count--;
 		if($count > 0 && !$principe[$count-1]["principe"])$count--;
 		$ret = array();
-		
+
 		for($i = 0; $i < $count+1; $i++)
 		{
 			$nm = "persons_principe[".$i."][principe]";
 			$ret[$nm] = array(
 				"name" => $nm,
 				"caption" => ($i + 1).". ".t("Isikute j&auml;rjestamisprintsiip"),
-				"type" => "text", 
+				"type" => "text",
 				"value" => html::select(array(
 					"name" => "persons_principe[".$i."][principe]",
 					"options" => $this->persons_sort_order,
@@ -245,7 +245,7 @@ class persons_webview extends class_base
 		}
 		return $ret;
 	}
-	
+
 	function callback_get_grouping_principe($arr)
 	{
 		$principe = $arr["obj_inst"]->meta("grouping_principe");
@@ -275,7 +275,7 @@ class persons_webview extends class_base
 		}
 		return $ret;
 	}
-	
+
 	function callback_get_view_table($arr)
 	{
 		$view = $arr["obj_inst"]->meta("view");
@@ -283,8 +283,7 @@ class persons_webview extends class_base
 		if($count > 0 && !$view[$count-1]["template"])$count--;
 		if($count > 0 && !$view[$count-1]["template"])$count--;
 		$ret = array();
-		
-		load_vcl("table");
+
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -363,11 +362,6 @@ class persons_webview extends class_base
 		);
 		return $ret;
 	}
-	
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
 
 	function get_folders_as_object_list($o, $level, $parent)
 	{
@@ -391,10 +385,9 @@ class persons_webview extends class_base
 		}
 		return $ol;
 	}
-	
+
 	function make_menu_link($o, $ref = NULL)
 	{
-		
 		return $this->mk_my_orb("parse_alias",
 			array(
 				"id" => $_SESSION["persons_webview"],
@@ -420,7 +413,7 @@ class persons_webview extends class_base
 				break;
 			case "profession":
 				foreach($workers as $worker)
-				{	
+				{
 					$jrk = 0;
 					if(is_oid($worker["worker"]->prop("rank")))
 					{
@@ -453,7 +446,7 @@ class persons_webview extends class_base
 		}
 		return $workers;
 	}*/
-	
+
 	function do_person_sort($a, $b)
 	{
 		foreach($this->principe as $key => $val)
@@ -494,6 +487,7 @@ class persons_webview extends class_base
 						return -$res;
 					}
 					continue;
+
 				case "jrk":
 					$res = $a["jrk"] - $b["jrk"];
 					if($res)
@@ -505,8 +499,6 @@ class persons_webview extends class_base
 						return -$res;
 					}
 					continue;
-				default:
-					;
 			}
 		}
 		return 0;
@@ -540,7 +532,6 @@ class persons_webview extends class_base
 
 	function person_sort($workers)
 	{
-		enter_function("person_webview::person_sort");
 		$this->principe = $this->view_obj->prop("persons_principe");
 		uasort($workers, array(&$this, "do_person_sort"));
 
@@ -557,16 +548,13 @@ class persons_webview extends class_base
 			}
 			$count--;
 		}
-*/		exit_function("person_webview::person_sort");
-//if(aw_global_get("uid") == "struktuur"){foreach($workers as $worker){arr($worker["worker"]->name()); arr($worker["jrk"]); }}
+*/
 		return ($workers);
 	}
 	function sort_sections($sections)
 	{
-		enter_function("person_webview::section_sort");
 		if(sizeof($sections) < 2)
 		{
-			exit_function("person_webview::section_sort");
 			return $sections;
 		}
 		$principe = $this->view_obj->prop("grouping_principe");
@@ -583,7 +571,7 @@ class persons_webview extends class_base
 			}
 			$count--;
 		}
-		exit_function("person_webview::section_sort");
+
 		return ($sections);
 	}
 
@@ -605,7 +593,7 @@ class persons_webview extends class_base
  				}
  				break;
 		}
-	
+
 		foreach ($sections_tmp as $key => $row) {
 			$data[$key]  = $row['data'];
 			$sort[$key] = $row['sort'];
@@ -621,7 +609,7 @@ class persons_webview extends class_base
 		return $sections;
 	}
 
-	//tekitab nimekirja tasemetest mida n2idatakse... 
+	//tekitab nimekirja tasemetest mida n2idatakse...
 	function set_levels($level)
 	{
 		$levels = $this->view["department_levels"];
@@ -648,7 +636,7 @@ class persons_webview extends class_base
 		}
 		$this->levels = $levels;
 	}
-	
+
 	//seda vist siiski ei l2he vaja seekord
 	function request_execute ($this_object)
 	{
@@ -656,13 +644,13 @@ class persons_webview extends class_base
 			"alias" => array("to" => $this_object->id()),
 		));
 	}
-	
-	/** parse alias 
+
+	/** parse alias
 		@attrib name=parse_alias is_public="1" nologin="1"
 	**/
 	function parse_alias($arr)
 	{
-		extract($_GET); 
+		extract($_GET);
 		//global $view , $id, $section, $level, $company_id, $section_id;
 		if(is_oid($id) && is_oid($section_o)) // juhul kui asi pole dokumendi sees vaid tulev kuskiklt urlist
 		{
@@ -679,13 +667,13 @@ class persons_webview extends class_base
 		$this->view_no = $view;
 		if($view)
 		{
-			$this->view = $this->meta["view"][$view]; // juhul kui tuleb kuskilt urlist miski tase,... 
+			$this->view = $this->meta["view"][$view]; // juhul kui tuleb kuskilt urlist miski tase,...
 		}
 		else
 		{
-			 $this->view = $this->meta["view"][0]; // algul paneb siis metasse esimese (default) taseme vaate,... 
+			 $this->view = $this->meta["view"][0]; // algul paneb siis metasse esimese (default) taseme vaate,...
 		}
-		
+
 		if($this->can("view" , $section_o)){
 			$section_obj = obj($section_o);
 			if($section_obj->class_id() == CL_CRM_PERSON)
@@ -727,7 +715,7 @@ class persons_webview extends class_base
 
 		return $this->parse_company($company);
 	}
-	
+
 	function parse_company($company)
 	{
 		$departments = $this->view_obj->prop("departments");
@@ -783,7 +771,6 @@ class persons_webview extends class_base
 
 	function parse_section($section)
 	{
-		enter_function("person_webview::parse_section");
 		$secvars = array(
 			"department_name" => $section->trans_get_val("name"),
 			"document" => $section->prop("link_document"),
@@ -828,7 +815,7 @@ class persons_webview extends class_base
 		{
 			$secvars["fax"] = $fax_obj->name();
 		}
-		
+
 		$secvars["next_level_link"] = $this->mk_my_orb("parse_alias",
 			array(
 				"id" => $this->view_obj->id(),
@@ -838,17 +825,15 @@ class persons_webview extends class_base
 				"company_id"	=> $this->company->id(),
 		),
 		CL_PERSONS_WEBVIEW);
-		
+
 		$secvars["address"] = $section->prop("contact.name");
 		//if(aw_global_get("uid") == "struktuur"){ arr($secvars);arr($phone_obj);}
 		$this->vars_safe($secvars);
-		exit_function("person_webview::parse_section");
 	}
 
 
 	function get_workers($section)
 	{
-		enter_function("person_webview::get_workers");
 		$workers_list = $section->get_workers();
 		//------------------------sorteerib k6vemad vennad ette;
 		foreach($workers_list->arr() as $worker)
@@ -876,13 +861,12 @@ class persons_webview extends class_base
 		{
 			$workers = $this->person_sort($workers);
 		}
-		exit_function("person_webview::get_workers");
+
 		return $workers;
 	}
 
 	function get_sections($args)
 	{
-		enter_function("person_webview::get_sections");
 		extract($args);
 		$sections = array();
 		$section_list = new object_list($section->connections_from (array (
@@ -898,13 +882,11 @@ class persons_webview extends class_base
 			$sections = array_merge($sections , $this->get_sections(array("section" => $sec, "jrk" => ($jrk+1))));
 			$this->jrks[$sec->id()] = $jrk + 1;
 		}
-		exit_function("person_webview::get_sections");
 		return $sections;
 	}
 
 	function parse_profession($worker)
 	{
-		enter_function("persons_webview::parse_profession");
 		$profession = $directive = "";
 		$profession_obj = $worker->get_first_obj_by_reltype("RELTYPE_RANK");
 		//k6ik ametid mis tyybil on
@@ -947,7 +929,7 @@ class persons_webview extends class_base
 		$profession_with_directive = $profession;
 		if(is_oid($directive) && $this->can("view" , $directive ))
 		{
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			$directive_obj = obj($directive);
 			$directive_obj->trans_get_val("name");
 			$profession_with_directive = '<a href ="'.$file_inst->get_url($directive , $directive_obj->trans_get_val("name")).'"  target=_new> '. $profession_with_directive.' </a>';
@@ -958,9 +940,7 @@ class persons_webview extends class_base
 			$profession_with_directive = '<a href ="'.$directive_link.'"  target=_new> '. $profession.' </a>';
 		}
 
-		enter_function("persons_webview::get_person_section_professions");
 		$professions = join (", " , $worker->get_profession_selection($this->company->id() , ($this->section ? array($this->section->id()) : null)));
-		exit_function("persons_webview::get_person_section_professions");
 
 		$this->vars_safe(array(
 			"profession" => $profession,
@@ -969,12 +949,10 @@ class persons_webview extends class_base
 			"profession_with_directive" => $profession_with_directive,
 			"rank" => $profession,
 		));
-		exit_function("persons_webview::parse_profession");
 	}
 
 	function parse_persons($workers)
 	{
-		enter_function("person_webview::parse_persons");
 		$this->count = 0;
 		$col = 0;
 		$this->max_col = $col_num = $max_col = $this->view["columns"];
@@ -993,7 +971,7 @@ class persons_webview extends class_base
 				{
 					if(!$this->order_array) $this->make_order_array($workers);
 					if(!$this->calculated) $col_num = $this->get_cols_num($row_num);
-				} 
+				}
 				$c = "";
 				if($this->is_template("worker"))
 				{
@@ -1046,7 +1024,7 @@ class persons_webview extends class_base
 				{
 					if(!$this->order_array) $this->make_order_array($workers);
 					if(!$this->calculated) $col_num = $this->get_cols_num($row_num);
-				} 
+				}
 
 				if($this->is_template("WORKER"))
 				{
@@ -1100,12 +1078,10 @@ class persons_webview extends class_base
 				"WORKER" => $c,
 			));
 		}
-		exit_function("person_webview::parse_persons");
 	}
 
 	function parse_worker($worker)
 	{
-		enter_function("person_webview::parse_worker");
 		if(!$this->section && !$this->view_obj->prop("department_grouping"))
 		{
 			$this->section = $worker->get_first_obj_by_reltype("RELTYPE_SECTION");
@@ -1131,7 +1107,7 @@ class persons_webview extends class_base
 		);
 
 		//pilt                $photo="";
-		$image_inst = get_instance(CL_IMAGE);
+		$image_inst = new image();
 		if(false && is_oid($worker->prop("picture")) && $this->can("view", $worker->prop("picture")))
 		{
 			$photo = $image_inst->make_img_tag_wl($worker->prop("picture"), NULL, NULL, array(), array("show_title" => false));
@@ -1147,13 +1123,13 @@ class persons_webview extends class_base
 			}
 		}
 
-		
+
 		//igast telefoninumbrid
 		$phone_array = $this->phone_types;
 		$phone = $phone_obj = $phones= $home_phone= $work_phone=$short_phone=$cell_phone=$in_phone=$skype="";
-		
+
 		$phone_obj = $worker->get_first_obj_by_reltype("RELTYPE_PHONE");
-		
+
 		if(is_object($phone_obj))
 		{
 			$phone = $phone_obj->name();
@@ -1198,7 +1174,7 @@ class persons_webview extends class_base
 			if(strlen($urls) > 0 ) $urls .= $url_obj->prop("url");
 		}
 
-		//mail	
+		//mail
 		$email = $email_obj = $emails = "";
 		$email_obj = $worker->prop("email");
 		if(!is_object($email_obj))
@@ -1251,7 +1227,7 @@ class persons_webview extends class_base
 		}
 		$company = $this->company->name();
 
-		$person_inst = get_instance(CL_CRM_PERSON);
+		$person_inst = new crm_person();
 		$contact = $person_inst->get_short_description($worker->id());
 
 
@@ -1277,7 +1253,7 @@ class persons_webview extends class_base
 				"teadustekandidaat" => t("Teaduste kandidaat"),
 			);
 
-			$ed_inst = get_instance(CL_CRM_PERSON_EDUCATION);
+			$ed_inst = new crm_person_education();
 			$education_list = new object_list($worker->connections_from (array (
 				"type" => "RELTYPE_EDUCATION",
 			)));
@@ -1356,7 +1332,7 @@ class persons_webview extends class_base
 		//cv
 		if($worker->prop("cv_doc"))
 		{
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			$vars["cv_doc"] = $file_inst->get_url($worker->prop("cv_doc"), $worker->prop("cv_doc.name"));
 		}
 		$vars["cv_link"] = $worker->prop("cv_link");
@@ -1403,7 +1379,6 @@ class persons_webview extends class_base
 		$this->vars_safe(array(
 			"EDU_SUB" => $this->parse("EDU_SUB")
 		));
-		exit_function("person_webview::parse_worker");
 	}
 
 	function get_cols_num($row)
@@ -1413,7 +1388,7 @@ class persons_webview extends class_base
 		return sizeof($this->order_array[$row]);
 	}
 
-	//hull keemia.... 
+	//hull keemia....
 	function make_order_array($workers)
 	{
 		$this->order_array = array();
@@ -1489,7 +1464,4 @@ class persons_webview extends class_base
 		));
 		return $this->parse();
 	}
-
-//-- methods --//
 }
-?>

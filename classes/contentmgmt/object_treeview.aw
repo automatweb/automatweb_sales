@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview.aw,v 1.53 2008/01/31 13:52:14 kristo Exp $
 
 /*
 
-@classinfo syslog_type=ST_OBJECT_ relationmgr=yes maintainer=kristo
+@classinfo relationmgr=yes
 
 @groupinfo folders caption=Kaustad
 @groupinfo clids caption=Objektit&uuml;&uuml;bid
@@ -22,51 +21,51 @@
 @property folders type=text store=no group=folders callback=callback_get_menus
 @caption Kataloogid
 
-@property show_folders type=checkbox ch_value=1 
+@property show_folders type=checkbox ch_value=1
 @caption N&auml;ita katalooge
 
-@property show_add type=checkbox ch_value=1 
+@property show_add type=checkbox ch_value=1
 @caption N&auml;ita toolbari
 
 @property tree_type type=chooser default=1
 @caption Puu n&auml;itamise meetod
 
-@property groupfolder_acl type=checkbox ch_value=1 
+@property groupfolder_acl type=checkbox ch_value=1
 @caption &Otilde;igused piiratud grupi kataloogide j&auml;rgi
 
-@property show_notact type=checkbox ch_value=1 
+@property show_notact type=checkbox ch_value=1
 @caption N&auml;ita mitteaktiivseid objekte
 
-@property sort_by type=select 
+@property sort_by type=select
 @caption Objekte sorteeritakse
 
-@property tree_on_left type=checkbox ch_value=1 
+@property tree_on_left type=checkbox ch_value=1
 @caption Puu vasakul
 
 @property clids type=callback callback=get_clids group=clids store=no
 @caption Klassid
 
 @default group=styles
-@property style_donor type=relpicker reltype=RELTYPE_STYLE_DONOR 
+@property style_donor type=relpicker reltype=RELTYPE_STYLE_DONOR
 @caption Stiilide doonor
 
-@property title_bgcolor type=colorpicker 
+@property title_bgcolor type=colorpicker
 @caption Pealkirja taustav&auml;rv
 
-@property even_bgcolor type=colorpicker 
+@property even_bgcolor type=colorpicker
 @caption Paaris rea taustav&auml;rv
 
-@property odd_bgcolor type=colorpicker 
+@property odd_bgcolor type=colorpicker
 @caption Paaritu rea taustav&auml;rv
 
-@property header_css type=relpicker reltype=RELTYPE_CSS 
+@property header_css type=relpicker reltype=RELTYPE_CSS
 @caption Pealkirja stiil
 
-@property line_css type=relpicker reltype=RELTYPE_CSS 
+@property line_css type=relpicker reltype=RELTYPE_CSS
 @caption a stiil
 
 @default group=columns
-@property columns type=callback callback=callback_get_columns 
+@property columns type=callback callback=callback_get_columns
 @caption Tulbad
 
 @reltype FOLDER value=1 clid=CL_MENU,CL_SERVER_FOLDER
@@ -121,15 +120,15 @@ class object_treeview extends class_base
 		return $this->show(array('id' => $args['alias']['target']));
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=show params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -186,7 +185,7 @@ class object_treeview extends class_base
 		{
 			$od = obj($oid);
 			$target = "";
-			
+
 			if ($od->class_id() == CL_EXTLINK)
 			{
 				$li = get_instance("contentmgmt/links_display");
@@ -230,7 +229,7 @@ class object_treeview extends class_base
 					$fileSizeBytes = number_format(@filesize($fqfn),0);
 					$fileSizeKBytes = number_format(@filesize($fqfn)/(1024),2);
 					$fileSizeMBytes = number_format(@filesize($fqfn)/(1024*1024),2);
-				
+
 					$fowner = posix_getpwuid(fileowner($fqfn));
 
 					$act = "";
@@ -239,7 +238,7 @@ class object_treeview extends class_base
 						$act = html::href(array(
 							"url" => $this->mk_my_orb("change_file", array(
 								"fid" => $fid,
-								"section" => $section, 
+								"section" => $section,
 							), "server_folder"),
 							"caption" => html::img(array(
 								"border" => 0,
@@ -286,7 +285,7 @@ class object_treeview extends class_base
 				}
 				$act .= html::href(array(
 					"url" => $this->mk_my_orb("change", array(
-						"id" => $od->id(), 
+						"id" => $od->id(),
 						"section" => $od->parent(),
 						"cfgform" => $class2cfgform[$od->class_id()]
 					), $fl),
@@ -371,16 +370,10 @@ class object_treeview extends class_base
 		return $res;
 	}
 
-	/**  
-		
-		@attrib name=submit_show params=name 
-		
-		
+	/**
+		@attrib name=submit_show params=name
 		@returns
-		
-		
 		@comment
-
 	**/
 	function submit_show($arr)
 	{
@@ -542,9 +535,9 @@ class object_treeview extends class_base
 
 	function _get_folders($ob)
 	{
-		// go over all related menus and add subtree id's together if the user has so said. 
+		// go over all related menus and add subtree id's together if the user has so said.
 		$ret = array();
-		
+
 		$sub = $ob->meta("include_submenus");
    		$igns = $ob->meta("ignoreself");
 
@@ -564,7 +557,7 @@ class object_treeview extends class_base
 		{
 			return;
 		}
-		
+
 		$adm_c = $ob->connections_from(array(
 			"type" => "RELTYPE_ALL_ACSS_GRP"
 		));
@@ -590,7 +583,7 @@ class object_treeview extends class_base
 			{
 				$this->first_folder = $c_o->id();
 			}
-			
+
 			$cur_ids = array();
 
 			if ($sub[$c_o->id()])
@@ -649,7 +642,7 @@ class object_treeview extends class_base
 			return;
 		}
 
-		
+
 		// use treeview widget
 		$tv = get_instance("vcl/treeview");
 		$tv->start_tree(array(
@@ -699,18 +692,18 @@ class object_treeview extends class_base
 		$pms = array();
 		// here's the trick. if the treeview is set to show_as_treeview for any section and we got here via an orb action in the url
 		// then show the tree from the current section
-		// 
+		//
 		// hehe, heuristics rule ;)
 		$t_c = $ob->connections_to(array(
 			"type" => 8,	// RELTYPE_OBJ_ from menu
 			"from.class_id" => CL_MENU
 		));
-		
+
 		if (isset($GLOBALS["class"]) && count($t_c) > 0)
 		{
 			$pms["rootnode"] = aw_global_get("section");
 		}
-		
+
 		$tmp = $tv->finalize_tree($pms);
 		return $tmp;
 	}
@@ -843,7 +836,7 @@ class object_treeview extends class_base
 				)),
 			));
 		};
-		
+
 		$nodes[$prop["name"]] = array(
 			"type" => "text",
 			"caption" => $prop["caption"],
@@ -904,16 +897,16 @@ class object_treeview extends class_base
 		return $tb->get_toolbar();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=delete params=name default="0"
-		
+
 		@param id required
 		@param return_url required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -926,11 +919,11 @@ class object_treeview extends class_base
 
 		$o = obj($arr["id"]);
 		$o->delete();
-	
+
 		return $arr["return_url"];
 	}
 
-	function get_folders_as_object_list($object)
+	public function get_folders_as_object_list($object)
 	{
 		$t_id = $object->prop("show_object_tree");
 		$first_level = true;
@@ -954,7 +947,6 @@ class object_treeview extends class_base
 		}
 
 		$this->tree_ob = obj($t_id);
-	
 		$ol = new object_list();
 
 		$folders = $this->_get_folders($this->tree_ob);
@@ -966,7 +958,7 @@ class object_treeview extends class_base
 			{
 				$parent = $i_o->parent();
 			}
-			
+
 			if ($first_level)
 			{
 				if ($parent == 0)
@@ -1163,10 +1155,9 @@ class object_treeview extends class_base
 				"FILE_".$colid => $str
 			));
 		}
-		
+
 		$this->cnt++;
 
 		return $this->parse("FILE");
 	}
 }
-?>

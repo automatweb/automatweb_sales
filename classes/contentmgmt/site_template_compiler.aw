@@ -97,10 +97,12 @@ class site_template_compiler extends aw_template
 		$this->no_use_ma_cache = $no_cache;
 		//echo "compiling \$this->read_template($tpl,true)<br>";
 		$success = $this->read_template($tpl);
+
 		if (!$success)
 		{
 			return false;
 		}
+
 		$this->tplhash = md5($path.$tpl);
 		$this->parse_template_parts($mdefs);
 		$this->compile_template_parts();
@@ -144,7 +146,7 @@ class site_template_compiler extends aw_template
 		{
 			$parts = explode("_", $tpl);
 			$area = $parts[1];
-			if ($parts[2] == "SEEALSO")
+			if ($parts[2] === "SEEALSO")
 			{
 				continue;
 			}
@@ -155,12 +157,12 @@ class site_template_compiler extends aw_template
 				continue;
 			}
 
-			if ($parts[3] == "GRP")
+			if ($parts[3] === "GRP")
 			{
 				$this->menu_areas[$area]["grps"][$level] = $parts[4];
 				continue;
 			}
-			elseif($parts[3] == "AUTOGRP")
+			elseif($parts[3] === "AUTOGRP")
 			{
 				$this->menu_areas[$area]["autogrps"][$level] = $parts[4];
 				continue;
@@ -221,7 +223,7 @@ class site_template_compiler extends aw_template
 					$parent_tpl = reset($parent_tpls);
 				}
 
-				if (substr($parent_tpl, 0, 5) == "MENU_")
+				if (substr($parent_tpl, 0, 5) === "MENU_")
 				{
 					$parts = explode("_", $parent_tpl);
 					$parent_area = $parts[1];
@@ -238,13 +240,13 @@ class site_template_compiler extends aw_template
 					);
 				}
 				else
-				if (substr($parent_tpl, 0, strlen("HAS_SUBITEMS")) == "HAS_SUBITEMS" || substr($parent_tpl, 0, strlen("NO_SUBITEMS")) == "NO_SUBITEMS")
+				if (substr($parent_tpl, 0, strlen("HAS_SUBITEMS")) === "HAS_SUBITEMS" || substr($parent_tpl, 0, strlen("NO_SUBITEMS")) === "NO_SUBITEMS")
 				{
 					// fetch the parent templates for that and try again
 					$parent_tpls2 = $this->get_parent_templates($parent_tpl);
 					foreach($parent_tpls2 as $parent_tpl2)
 					{
-						if (substr($parent_tpl2, 0, 5) == "MENU_")
+						if (substr($parent_tpl2, 0, 5) === "MENU_")
 						{
 							$parts = explode("_", $parent_tpl2);
 							$parent_area = $parts[1];
@@ -308,7 +310,7 @@ class site_template_compiler extends aw_template
 			$level = substr($parts[3], 1)+1;
 
 
-			if ($has_inside && $parts[count($parts)-1] != "AFTER")
+			if ($has_inside && $parts[count($parts)-1] !== "AFTER")
 			{
 				$this->menu_areas[$area]["levels"][$level]["has_subitems_sel_check"] = true;
 				$this->menu_areas[$area]["levels"][$level]["has_subitems_sel_check_tpl"] = $tpl;
@@ -357,7 +359,7 @@ class site_template_compiler extends aw_template
 
 			$level = substr($parts[3], 1)+1;
 
-			if ($has_inside && $parts[count($parts)-1] != "AFTER")
+			if ($has_inside && $parts[count($parts)-1] !== "AFTER")
 			{
 				$this->menu_areas[$area]["levels"][$level]["no_subitems_sel_check"] = true;
 				$this->menu_areas[$area]["levels"][$level]["no_subitems_sel_check_tpl"] = $tpl;
@@ -408,7 +410,7 @@ class site_template_compiler extends aw_template
 
 		foreach($this->menu_areas as $area => $adat)
 		{
-			if ($area == "LOGGED")
+			if ($area === "LOGGED")
 			{
 				$adat["a_parent_p_fn"] = "\$this->_helper_get_login_menu_id()";
 			}
@@ -603,7 +605,7 @@ class site_template_compiler extends aw_template
 					);
 					$no_display_item |= !empty($params["no_display_item"]);
 				}
-				if ($tpl_opt == "SEL")
+				if ($tpl_opt === "SEL")
 				{
 					$has_sel = true;
 				}
@@ -1151,7 +1153,8 @@ class site_template_compiler extends aw_template
 
 		if ($arr["level"] > 1)
 		{
-			$ret .= $this->_gi()."\"parent_section\" => is_object(\$o_".$arr["a_parent"]."_".($arr["level"]-1).") ? \$o_".$arr["a_parent"]."_".($arr["level"]-1)."->".$this->id_func."() : ".$o_name."->parent(),\n";
+			$obj_name = "\$o_".$arr["a_parent"]."_".($arr["level"]-1);
+			$ret .= $this->_gi()."\"parent_section\" => (isset({$obj_name}) and is_object({$obj_name})) ? {$obj_name}->{$this->id_func}() : {$o_name}->parent(),\n";
 		}
 
 		$ret .= $this->_gi()."\"colour\" => ".$o_name."->prop(\"color\"),\n";
@@ -1174,7 +1177,7 @@ class site_template_compiler extends aw_template
 		// do menu images
 		$n_img = aw_ini_get("menuedit.num_menu_images");
 
-		$ret .= $this->_gi()."if (empty(\$mmi_cnt) && \$this->can(\"view\", ".$o_name."->prop(\"images_from_menu\")))\n";
+		$ret .= $this->_gi()."if (empty(\$mmi_cnt) && acl_base::can(\"view\", ".$o_name."->prop(\"images_from_menu\")))\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
 		$ret .= $this->_gi()."\$tmp = obj(".$o_name."->prop(\"images_from_menu\"));\n";
@@ -1389,7 +1392,8 @@ class site_template_compiler extends aw_template
 
 		$ret  .= $this->_gi()."\$__list_filter = array(\n";
 		$this->brace_level++;
-		$ret .= $this->_gi()."\"parent\" => \$parent_obj->".($this->id_func == "id" ? "brother_of" : $this->id_func)."(),\n";
+		$ret .= $this->_gi()."new obj_predicate_acl(),\n"; // add authorization filter to exclude menu items not accessible to current user
+		$ret .= $this->_gi()."\"parent\" => \$parent_obj->".($this->id_func === "id" ? "brother_of" : $this->id_func)."(),\n";
 		$ret .= $this->_gi()."\"class_id\" => array(CL_MENU,CL_BROTHER),\n";
 		if (aw_ini_get("user_interface.full_content_trans"))
 		{
@@ -1453,7 +1457,7 @@ class site_template_compiler extends aw_template
 
 		$ret .= $this->_gi()."$list_name = new object_list(\$__list_filter);\n";
 
-		$ret .= $this->_gi()."$inst_name =& \$this;\n";
+		$ret .= $this->_gi()."$inst_name = \$this;\n";
 		$ret .= $this->_gi()."$fun_name = \"make_menu_link\";\n";
 		return $ret;
 	}
@@ -1509,7 +1513,7 @@ class site_template_compiler extends aw_template
 				$ret .= $this->_gi()."}\n";
 			}
 
-			$ret .= $this->_gi()."if (is_object(".$o_name.") && ".$o_name."->is_brother() && (!\$this->brother_level_from || \$this->brother_level_from == ".$arr["level"]."))\n";
+			$ret .= $this->_gi()."if (isset({$o_name}) && is_object({$o_name}) && {$o_name}->is_brother() && (!\$this->brother_level_from || \$this->brother_level_from == ".$arr["level"]."))\n";
 			$ret .= $this->_gi()."{\n";
 			$this->brace_level++;
 				$ret .= $this->_gi()."\$this->brother_level_from = ".$arr["level"].";\n";
@@ -1526,10 +1530,10 @@ class site_template_compiler extends aw_template
 				$ret .= $this->_gi()."}\n";
 			$this->brace_level--;
 			$ret .= $this->_gi()."}\n";
-			$ret .= $this->_gi()."if (".$this_is_from_obj_name."[".$o_name."->parent()])\n";
+			$ret .= $this->_gi()."if (!empty({$this_is_from_obj_name}[{$o_name}->parent()]))\n";
 			$ret .= $this->_gi()."{\n";
 			$this->brace_level++;
-			$ret .= $this->_gi().$this_is_from_obj_name."[".$o_name."->id()] = ".$this_is_from_obj_name."[".$o_name."->parent()];\n";
+			$ret .= $this->_gi()."{$this_is_from_obj_name}[{$o_name}->id()] = {$this_is_from_obj_name}[{$o_name}->parent()];\n";
 			$this->brace_level--;
 			$ret .= $this->_gi()."}\n";
 
@@ -2005,10 +2009,10 @@ class site_template_compiler extends aw_template
 		$cache_name = $dat["cache_name"];
 		$p_v_name = "\$ot_".$arr["a_parent"]."_".$arr["level"];
 
-		$ret .= $this->_gi()."\$o_treeview = get_instance(\"contentmgmt/object_treeview\");\n";
+		$ret .= $this->_gi()."\$o_treeview = new object_treeview();\n";
 		$ret .= $this->_gi().$list_name." = \$o_treeview->get_folders_as_object_list(\$parent_obj);\n";
 
-		$ret .= $this->_gi()."$inst_name =& \$o_treeview;\n";
+		$ret .= $this->_gi()."$inst_name = \$o_treeview;\n";
 		$ret .= $this->_gi()."$fun_name = \"make_menu_link\";\n";
 		$ret .= $this->_gi().$p_v_name." = true;\n";
 		$ret .= $this->_gi().$cache_name." = false;\n";
@@ -2070,14 +2074,14 @@ class site_template_compiler extends aw_template
 		$ret .= $this->_gi()."\$this->menu_levels_visible[".$arr["a_parent"]."][".$arr["level"]."] = 1;\n";
 		if ($arr["level"] == 1)
 		{
-			$ret .= $this->_gi()."if (\$this->can(\"view\", ".$arr["a_parent_p_fn"]."))\n";
+			$ret .= $this->_gi()."if (acl_base::can(\"view\", ".$arr["a_parent_p_fn"]."))\n";
 			$ret .= $this->_gi()."{\n";
 			$this->brace_level++;
 			$ret .= $this->_gi()."\$parent_obj = new object(".$arr["a_parent_p_fn"].");\n";
 			$this->brace_level--;
 			$ret .= $this->_gi()."}\n";
 			$ret .= $this->_gi()."else\n";
-			$ret .= $this->_gi()."if (\$this->can(\"view\", aw_ini_get(\"rootmenu\")))\n";
+			$ret .= $this->_gi()."if (acl_base::can(\"view\", aw_ini_get(\"rootmenu\")))\n";
 			$ret .= $this->_gi()."{\n";
 			$this->brace_level++;
 			$ret .= $this->_gi()."\$parent_obj = new object(aw_ini_get(\"rootmenu\"));\n";
@@ -2103,7 +2107,7 @@ class site_template_compiler extends aw_template
 			}
 			else
 			{
-				$ret .= $this->_gi()."if (\$this->can(\"view\", \$this->_helper_find_parent(".$arr["a_parent"].",".$arr["level"].")))\n";
+				$ret .= $this->_gi()."if (acl_base::can(\"view\", \$this->_helper_find_parent(".$arr["a_parent"].",".$arr["level"].")))\n";
 				$ret .= $this->_gi()."{\n";
 				$this->brace_level++;
 
@@ -2201,7 +2205,7 @@ class site_template_compiler extends aw_template
 
 		$parent_is_from_obj_name = $dat["parent_is_from_obj_name"];
 
-		$ret .= $this->_gi()."if (\$this->can(\"view\", \$parent_obj->prop(\"submenus_from_menu\")))\n";
+		$ret .= $this->_gi()."if (acl_base::can(\"view\", \$parent_obj->prop(\"submenus_from_menu\")))\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
 		$ret .= $this->_gi()."\$parent_obj = obj(\$parent_obj->prop(\"submenus_from_menu\"));\n";
@@ -2213,13 +2217,13 @@ class site_template_compiler extends aw_template
 		$ret .= $this->_gi()."if (\$parent_obj->prop(\"submenus_from_cb\"))\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
-		$ret .= $this->_gi()."$inst_name =& \$parent_obj->instance();\n";
+		$ret .= $this->_gi()."$inst_name = \$parent_obj->instance();\n";
 		$ret .= $this->_gi().$fun_name."_cb = 1;\n";
 		$ret .= $this->_gi()."$fun_name = \"make_menu_item\";\n";
 		$this->brace_level--;
 		$ret .= $this->_gi()."}\n";
 
-		$ret .= $this->_gi()."elseif (\$this->can(\"view\", \$parent_obj->prop(\"submenus_from_obj\")) || !empty(".$parent_is_from_obj_name."[\$parent_obj->id()]))\n";
+		$ret .= $this->_gi()."elseif (acl_base::can(\"view\", \$parent_obj->prop(\"submenus_from_obj\")) || !empty(".$parent_is_from_obj_name."[\$parent_obj->id()]))\n";
 
 		return $ret;
 	}
@@ -2247,7 +2251,7 @@ class site_template_compiler extends aw_template
 		$ret .= $this->_gi()."else\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
-		$ret .= $this->_gi()."if (\$this->can(\"view\", \$parent_obj->prop(\"submenus_from_obj\")))\n";
+		$ret .= $this->_gi()."if (acl_base::can(\"view\", \$parent_obj->prop(\"submenus_from_obj\")))\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
 		$ret .= $this->_gi()."\$tmp = obj(\$parent_obj->prop(\"submenus_from_obj\"));\n";
@@ -2262,14 +2266,14 @@ class site_template_compiler extends aw_template
 		$ret .= $this->_gi()."if (method_exists(\$o_obj_from, \"make_menu_link\"))\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
-		$ret .= $this->_gi()."$inst_name =& \$o_obj_from;\n";
+		$ret .= $this->_gi()."$inst_name = \$o_obj_from;\n";
 		$ret .= $this->_gi()."$fun_name = \"make_menu_link\";\n";
 		$this->brace_level--;
 		$ret .= $this->_gi()."}\n";
 		$ret .= $this->_gi()."else\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
-		$ret .= $this->_gi()."$inst_name =& \$this;\n";
+		$ret .= $this->_gi()."$inst_name = \$this;\n";
 		$ret .= $this->_gi()."$fun_name = \"make_menu_link\";\n";
 		$this->brace_level--;
 		$ret .= $this->_gi()."}\n\n";
@@ -2277,21 +2281,21 @@ class site_template_compiler extends aw_template
 		$ret .= $this->_gi()."if (method_exists(\$o_obj_from, \"make_menu_item\"))\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
-		$ret .= $this->_gi()."$inst_name =& \$o_obj_from;\n";
+		$ret .= $this->_gi()."$inst_name = \$o_obj_from;\n";
 		$ret .= $this->_gi()."$fun_name = \"make_menu_item\";\n";
 		$this->brace_level--;
 		$ret .= $this->_gi()."}\n";
 		$ret .= $this->_gi()."else\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
-		$ret .= $this->_gi().$list_name." = \$o_obj_from->get_folders_as_object_list(\$tmp,".$arr["level"]." - ".$parent_is_from_obj_start_level.",".$prev_o_name.");\n"; //\$parent_obj);\n";
+		$ret .= $this->_gi().$list_name." = \$o_obj_from->get_folders_as_object_list(\$tmp,".$arr["level"]." - ".$parent_is_from_obj_start_level.", (isset({$prev_o_name}) ? {$prev_o_name} : null));\n"; //\$parent_obj);\n";
 		$this->brace_level--;
 		$ret .= $this->_gi()."}\n\n";
 
 		$ret .= $this->_gi()."if (\$parent_obj->prop(\"submenus_from_cb\"))\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
-		$ret .= $this->_gi()."$inst_name =& \$parent_obj->instance();\n";
+		$ret .= $this->_gi()."$inst_name = \$parent_obj->instance();\n";
 		$ret .= $this->_gi().$fun_name."_cb = 1;\n";
 		$ret .= $this->_gi()."$fun_name = \"make_menu_item\";\n";
 		$this->brace_level--;

@@ -1,36 +1,36 @@
 <?php
 /*
-@classinfo syslog_type=ST_BANK_PAYMENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default field=meta
 @default method=serialize
 
 @default group=general
-	
+
 	@layout general_l type=hbox width=40%:60%
 	@layout general_left type=vbox closeable=1 area_caption=N&otilde;utavad v&nbsp;&auml;&auml;rtused parent=general_l
 
 		@property name type=textbox field=name method=none parent=general_left
 		@caption Nimi
-	
+
 		@property cancel_url type=textbox parent=general_left
 		@caption Url, kuhu tagasi tulla eba&otilde;nnestunud makse puhul
-	
+
 	@layout general_right type=vbox closeable=1 area_caption=&nbsp; parent=general_l
-		
+
 		@property default_unit_sum type=textbox parent=general_right size=6
 		@caption Vaikimisi &uuml;hiku summa
-	
+
 		@property template type=select parent=general_right
 		@caption Pangavormide template
 
 		@property private_key type=relpicker reltype=RELTYPE_KEY parent=general_right
 		@caption Privaatv&otilde;ti
-	
+
 		@property nordea_private_key type=textbox parent=general_right
 		@caption Nordea privaatv&otilde;ti
-	
+
 		@property bank_return_url type=textbox parent=general_right
 		@caption Url, kuhu tagasi tulla eduka makse puhul
 
@@ -73,13 +73,13 @@
 @default group=log
 	@property find_date_start type=date_select store=no
 	@caption Alates
-	
+
 	@property find_date_end type=date_select store=no
 	@caption Kuni
 
 	@property find_name type=textbox store=no
 	@caption Maksja nimi
-	
+
 	@property find_ref type=textbox store=no
 	@caption viide
 
@@ -88,12 +88,12 @@
 
 	@property do_find type=submit no_caption=1
 	@caption Otsi
-	
+
 	@property log type=text store=no no_caption=1
 
 @groupinfo doc caption="Teadmiseks" submit=no
 @default group=doc
-	
+
 	@property doc type=text store=no no_caption=1
 	@caption Dokumentatsioon
 
@@ -158,11 +158,11 @@ class bank_payment extends class_base
 		"credit_card"		=> "Kaardikeskus (krediitkaart)",
 		"snoras"		=> "AB bankas SNORAS"
 	);
-	
+
 	var $different_accounts = array(
 		"hansapank", "seb", "krediidipank" , "sampopank" ,"hansapank_lv" , "hansapank_lt" ,"snoras","nordeapank"
 	);
-	
+
 	//koikidele pankadele yhine info
 	var $for_all_banks = array(
 		"amount"	=> "Summa",
@@ -198,7 +198,7 @@ class bank_payment extends class_base
 		"0002" => "nordeapank",
 		"SNORLT22" => "snoras",
 	);
-	
+
 	var $public_key_files = array(
 		"seb" => "EYP_pub.pem",
 		"hansapank" => "HP_pub.pem",
@@ -208,7 +208,7 @@ class bank_payment extends class_base
 		"hansapank_lt" => "HP_lt_pub.pem",
 		"snoras" => "SNORLT22_pub.pem",
 	);
-	
+
 	var $default_banks = array(
 		"hansapank",
 		"seb",
@@ -244,7 +244,7 @@ class bank_payment extends class_base
 		"nordeapank" => "SOLOPMT_RETURN_REF",
 		"snoras" => "VK_REF",
 	);
-		
+
 	var $cur = array(
 		"seb" => "VK_CURR",
 		"hansapank" => "VK_CURR",
@@ -288,7 +288,7 @@ class bank_payment extends class_base
 		),
 	);
 
-	/** 
+	/**
 		@attrib api=1
 
  	**/
@@ -298,10 +298,10 @@ class bank_payment extends class_base
 			"tpldir" => "common/bank_payment",
 			"clid" => CL_BANK_PAYMENT
 		));
-		
+
 	}
 
-	/** 
+	/**
 		@attrib name=form_test_case nologin=1 is_public=1 all_args=1
 
  	**/
@@ -315,11 +315,11 @@ class bank_payment extends class_base
 			</form>'
 		);
 	}
-	
+
 	/**
 		@attrib name=bank_forms api=1 default=1 nologin=1 is_public=1 all_args=1
 	@param id optional type=oid
-		bank_payment object ID 
+		bank_payment object ID
 	@param amount optional type=int
 		Amount to be paid. Max length=17
 	@param units optional type=int
@@ -335,7 +335,7 @@ class bank_payment extends class_base
 	@param expl optional type=string
 		Explanation of payment order. Max length=70
 	@param return_url optional type=string
-		URL to which response is sent in performing the transaction. Max length=60. 
+		URL to which response is sent in performing the transaction. Max length=60.
 	@param cancel_url optional type=string default=$return_url
 		URL to which response is sent when the transaction is unsuccessful. Max length=60
 	@param lang optional type=string default="EST"
@@ -353,17 +353,28 @@ class bank_payment extends class_base
 	**/
 	function bank_forms($arr = array())
 	{
-		$data = $_GET+$_POST+$arr;
+		$data = $_GET + $_POST + $arr + array(
+			"service"	=> null,
+			"lang" 		=> null,
+			"amount"	=> 0,
+			"reference_nr"	=> 0,
+			"expl"		=> null,
+			"priv_key" 	=> null,
+			"cancel_url"	=> "",
+			"return_url"	=> ""
+		);
+
 		if($arr["id"])
 		{
 			$data["id"] = $arr["id"];
 		}
+
 		$payment = $this->_get_payment_object($data);
 		if(!is_object($payment))
 		{
 			return "";
 		}
-		
+
 		if($payment->prop("template"))
 		{
 			$tpl = $payment->prop("template");
@@ -372,21 +383,19 @@ class bank_payment extends class_base
 		{
 			$tpl = "bank_forms.tpl";
 		}
-		
+
 		if(!$this->read_template($tpl, $silent=1))
 		{
-			return "Makse templeit puudu";	
+			return "Makse templeit puudu";
 		}
-		
-		lc_site_load("bank_payment", &$this);
-		
+
 		//tegelt neid 2 j'rgmist pole vaja, sest iga panga puhul tulevad need va lisamised paratamatult uuesti
 		//votab objekti seest moningad puuduvad vaartused
 //		$data = $this->_add_object_data($payment,$data);
 		//lisab puuduvad default vaartused
 //		$data = $this->_add_default_data($data);
 		//paneb panga crapi templatesse
-		$this->_init_banks($payment,$data);
+		$this->_init_banks($payment, $data);
 
 		$this->vars(array(
 			"go_to_cc_url" => $this->mk_my_orb("redir_to_cc", array("id" => $arr["id"]))
@@ -431,7 +440,7 @@ class bank_payment extends class_base
 		{
 			$data["expl"] = $payment->prop("expl")." ".$data["expl"];
 		}
-		
+
 		if($this->can("view" , $payment->prop("expl_controller")))
 		{
 			$pco = obj($payment->prop("expl_controller"));
@@ -453,7 +462,7 @@ class bank_payment extends class_base
 			"data" => $data,
 		));
 
-		if($data["test"] &&  $this->test_link[$data["bank_id"]])
+		if(!empty($data["test"]) &&  $this->test_link[$data["bank_id"]])
 		{
 			if($payment->prop("test_priv_key"))
 			{
@@ -484,6 +493,7 @@ class bank_payment extends class_base
 		{
 			//$data["return_url"] = $payment->prop("return_url");
 		}
+
 		if(!$data["cancel_url"])
 		{
 			$c = $payment->prop("cancel_url");
@@ -494,36 +504,36 @@ class bank_payment extends class_base
 			$data["cancel_url"] = $c;
 			$_SESSION["bank_payment"]["cancel"] = $c;
 		}
-		
-		if(!$data["amount"] && $data["units"] && $payment->prop("default_unit_sum"))
+
+		if(empty($data["amount"]) && !empty($data["units"]) && $payment->prop("default_unit_sum"))
 		{
 			$data["amount"] = $data["units"]*$payment->prop("default_unit_sum");
 		}
-		
+
 		$payment_data = $payment->meta("bank");
 		$data["sender_id"] = $payment_data[$data["bank_id"]]["sender_id"];
 		$data["stamp"] =  substr(($data["reference_nr"].time()), 0, 20);
 //		$data["stamp"] =  substr($payment_data[$data["bank_id"]]["stamp"], 0, 20);
-		if(strlen($payment_data[$data["bank_id"]]["stamp"]) > 5 && $payment_data[$data["bank_id"]]["rec_name"])
+		if(strlen($payment_data[$data["bank_id"]]["stamp"]) > 5 && !empty($payment_data[$data["bank_id"]]["rec_name"]))
 		{
 			$data["service"] = "1001";
 			$data["acc"] = $payment_data[$data["bank_id"]]["stamp"];
 			$data["name"] = $payment_data[$data["bank_id"]]["rec_name"];
 		}
-		
-		if($data["units"])
+
+		if(!empty($data["units"]))
 		{
 			$data["amount"] = $data["units"]*$payment->prop("default_unit_sum");
 		}
 		return $data;
 	}
-	
+
 	private function _add_default_data($data)
 	{
 		return $data;
 	}
 
-	private function _init_banks($payment,$data)
+	private function _init_banks($payment, $data)
 	{
 		$bank_data = $payment->meta("bank");
 		foreach($this->banks as $bank => $name)
@@ -575,12 +585,12 @@ class bank_payment extends class_base
 	private function _get_payment_object($arr)
 	{
 		extract($arr);
-				
+
 		if(is_oid($id) && $this->can("view" , $id))
 		{
 			$payment_object = obj($id);
 		}
-		else 
+		else
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_BANK_PAYMENT,
@@ -715,14 +725,14 @@ class bank_payment extends class_base
 							"url" => $pc_url,
 							"caption" => t("(Makse info)"),
 						));
-					}	
+					}
 
 					$log_data[$val["timestamp"]]["good"] = $val["good"];
 					if($val["actiontext"])
 					{
 						$log_data[$val["timestamp"]]["msg"].= " (".$val["actiontext"].")";
 					}
-					
+
 					//objektile klikitav viitenumber
 					$id = substr($log_data[$val["timestamp"]]["ref"], 0, -1);
 					if(!$o->prop("not_clickable_ref") && is_oid($id) && $this->can("view" , $id))
@@ -747,7 +757,7 @@ class bank_payment extends class_base
 	private function get_log(&$arr)
 	{
 		$log_data = $this->get_log_data($arr["obj_inst"]);
-		
+
 		$t = new vcl_table;
 		$this->init_log($t);
 		$sum = 0;
@@ -772,7 +782,7 @@ class bank_payment extends class_base
 			"sum" => $sum,
 			"payer" => t("Kokku:"),
 		));
-		
+
 		return $this->get_fs_string().$t->draw();
 	}
 
@@ -787,7 +797,7 @@ class bank_payment extends class_base
 		{
 			$fs_string = t("Mingine jama on failiga"). " " . $GLOBALS["site_dir"]."/bank_log.txt" . " " . t("Kas pole &otilde;igusi, v&otilde; faili");
 		}
-		return $fs_string; 
+		return $fs_string;
 	}
 
 	function get_property($arr)
@@ -953,13 +963,13 @@ class bank_payment extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
-	
+
 	function submit_meta($arr = array())
 	{
 		$meta = $arr["request"]["meta"];
@@ -969,7 +979,7 @@ class bank_payment extends class_base
 			$arr["obj_inst"]->save();
 		};
 	}
-	
+
 	function _get_bank($arr)
 	{
 	//	$props = $this->callback_bank($arr);
@@ -988,7 +998,7 @@ class bank_payment extends class_base
 				"caption" => $caption,
 			));
 		}
-			
+
 		foreach($this->banks as $key => $val)
 		{
 			$data = array();
@@ -1017,7 +1027,7 @@ class bank_payment extends class_base
 			$t->define_data($data);
 		}
 	}
-	
+
 	/**
 	@attrib api=1 params=name
 	@param bank_id required type=string
@@ -1029,11 +1039,11 @@ class bank_payment extends class_base
 	@param reference_nr optional type=int
 		Reference number of payment order. Max length=19
 	@param payment_id optional type=oid
-		if set, takes sender_id,explanation and ...  data from bank payment object	
+		if set, takes sender_id,explanation and ...  data from bank payment object
 	@param service optional type=int default=1002
 		Number of service. Length=4
 	@param version optional type=int default=008
-		Encryption algorithm used. Length=3	
+		Encryption algorithm used. Length=3
 	@param sender_id optional type=string
 		ID of compiler of query (merchant's ID). Max length=10
 	@param stamp optional type=string
@@ -1057,16 +1067,16 @@ class bank_payment extends class_base
 	@param cntr optional type=string
 		bank country code
 		if set and exists bank id named "bank_id + _ + cntr" , then uses it
-		
+
 	@returns bank web page, or string/html form
-	
+
 	@comment
 		Calculates the reference number and digital signature VK_MAC
 		Directs to the bank payment site or returns correct form.
 		amount, reference_nr must be set.
 		payment_id or (expl , sender_id) must be set
 		Have to set $_SESSION["bank_payment"]["url"] if you want to get response from the bank to unusual url (aw_ini_get("baseurl")."/automatweb/bank_return.aw" is default), return_url is only for url with no parameters.
-	
+
 	@example
 		$bank_payment = get_instance(CL_BANK_PAYMENT);
 		$oc = obj($o->parent())
@@ -1078,7 +1088,7 @@ class bank_payment extends class_base
 			"expl"		=> $o->name(),
 		));
 
-	**/	
+	**/
 	function do_payment($arr)
 	{
 		if(is_oid($arr["payment_id"]))
@@ -1089,7 +1099,7 @@ class bank_payment extends class_base
 		if(!$arr["reference_nr"])
 		{
 			$arr["reference_nr"] = time();
-			if($payment && !$_SESSION["bank_payment"]["url"])
+			if($payment && empty($_SESSION["bank_payment"]["url"]))
 			{
 				//kui pole viitenumber miski id , ega tagasip88rdumise urli m22ratud, siis v6tab selle ise objekti juurest
 				$_SESSION["bank_payment"]["url"] = $payment->prop("bank_return_url");
@@ -1101,7 +1111,7 @@ class bank_payment extends class_base
 		{
 			$bank_data = $payment->meta("bank");
 
-			if($arr["cntr"])
+			if(!empty($arr["cntr"]))
 			{
 				if($bank_data[$arr["bank_id"]."_".$arr["cntr"]])
 				{
@@ -1118,17 +1128,15 @@ class bank_payment extends class_base
 				}
 				$ref_object->set_meta("bank_payment_id" , $arr["payment_id"]);//hiljem saaks logis kasutada
 				$ref_object->set_meta("bank_is_test" , $payment->meta("test"));//selle jargi voiks testimise sertifikaadikontrolli toole panna
-				aw_disable_acl();
 				$ref_object->save();
-				aw_restore_acl();
 			}
 /*			if($bank_data[$arr["bank_id"]."_".$_SESSION["ct_lang_lc"]]["sender_id"])
 			{
 				$arr["bank_id"] = $arr["bank_id"]."_".$_SESSION["ct_lang_lc"];
 			}
-*/		
+*/
 		}
-		
+
 		switch($arr["bank_id"]) {
 			case "seb":
 				$arr = $this->check_args($arr);
@@ -1147,7 +1155,7 @@ class bank_payment extends class_base
 				return $this->hansa($arr);
 				break;
 			case "sampopank":
-				$arr = $this->check_args($arr);		
+				$arr = $this->check_args($arr);
 				return $this->sampo($arr);
 				break;
 			case "nordeapank":
@@ -1168,8 +1176,8 @@ class bank_payment extends class_base
 				break;
 		}
 	}
-	
-	
+
+
 	private function check_args($arr)
 	{
 		if(is_oid($arr["payment_id"]))
@@ -1178,9 +1186,9 @@ class bank_payment extends class_base
 			$arr = $this->_add_object_data($payment , $arr);
 			$payment_data = $payment->meta("bank");
 		}
-		if(!$arr["service"]) $arr["service"] = "1002";
-		if(!$arr["version"]) $arr["version"] = "008";
-		if(!$arr["curr"]) $arr["curr"] = "EEK";
+		if(empty($arr["service"])) $arr["service"] = "1002";
+		if(empty($arr["version"])) $arr["version"] = "008";
+		if(empty($arr["curr"])) $arr["curr"] = "EEK";
 		$arr["expl"] =  trim($arr["expl"]);
 		if(array_key_exists($arr["lang"] , $this->languages["hansa"]))
 		{
@@ -1190,7 +1198,7 @@ class bank_payment extends class_base
 		{
 			$arr["lang"] = "ENG";
 		}
-/*	
+/*
 		if($arr["lang"] == "et")
 		{
 			$arr["lang"] = "EST";
@@ -1205,22 +1213,26 @@ class bank_payment extends class_base
 		if(!$arr["return_url"]) $arr["return_url"] = aw_ini_get("baseurl")."/automatweb/bank_return.aw";
 		if(!$arr["priv_key"])
 		{
-			if($arr["test"] && $this->test_priv_keys[$arr["bank_id"]])
+			if(!empty($arr["test"]) && $this->test_priv_keys[$arr["bank_id"]])
 			{
-				$file = $this->test_priv_keys[$arr["bank_id"]];
+				$file = aw_ini_get("site_basedir")."pank/" . $this->test_priv_keys[$arr["bank_id"]];
 			}
 			else
 			{
-				$file = "privkey.pem";
+				$file = aw_ini_get("site_basedir")."pank/privkey.pem";
 			}
-			$fp = fopen($this->cfg["site_basedir"]."/pank/".$file, "r");
-			$arr["priv_key"] = fread($fp, 8192);
-			fclose($fp);
+
+			if (file_exists($file))
+			{
+				$fp = fopen($file, "r");
+				$arr["priv_key"] = fread($fp, 8192);
+				fclose($fp);
+			}
 		}
-		$arr["reference_nr"].= (string)$this->viitenr_kontroll_731($arr["reference_nr"]);
+		$arr["reference_nr"] .= (string)$this->viitenr_kontroll_731($arr["reference_nr"]);
 		return($arr);
 	}
-		
+
 	//if form = 1, returns hrml input tags in form.
 	private function submit_bank_info($args)
 	{
@@ -1250,9 +1262,9 @@ class bank_payment extends class_base
 			}
 			WindowOnload(pform);
 		</script>';
-		die();	
+		die();
 	}
-	
+
 	private function snoras($args)
 	{
 		extract($args);
@@ -1266,8 +1278,11 @@ class bank_payment extends class_base
 		$VK_message.= sprintf("%03d",strlen($expl)).$expl;
 		$VK_signature = "";
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($VK_message, $VK_signature, $pkeyid);
-		openssl_free_key($pkeyid);
+		if ($pkeyid)
+		{
+			openssl_sign($VK_message, $VK_signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
 		$VK_MAC = base64_encode( $VK_signature);
 
 		$link = $this->bank_link["snoras"];
@@ -1304,7 +1319,7 @@ class bank_payment extends class_base
 	}
 
 
-	private function hansa($args) 
+	private function hansa($args)
 	{
 		extract($args);
 		$VK_message = sprintf("%03d",strlen($service)).$service;
@@ -1322,9 +1337,12 @@ class bank_payment extends class_base
 		$VK_message.= sprintf("%03d",strlen($expl)).$expl;
 		$VK_signature = "";
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($VK_message, $VK_signature, $pkeyid);
-		openssl_free_key($pkeyid);
-		$VK_MAC = base64_encode( $VK_signature);
+		if ($pkeyid)
+		{
+			openssl_sign($VK_message, $VK_signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
+		$VK_MAC = base64_encode($VK_signature);
 
 		$http = get_instance("protocols/file/http");
 		$link = "https://www.hanza.net/cgi-bin/hanza/pangalink.jsp";
@@ -1347,13 +1365,13 @@ class bank_payment extends class_base
 		{
 			$params["VK_ACC"] = $acc;
 			$params["VK_NAME"] = $name;
-		
+
 		}
 		return $this->submit_bank_info(array("params" => $params , "link" => $link , "form" => $form));
 	//	return $http->post_request($link, $handler, $params, $port = 80);
 	}
 
-	private function hansa_lv($args) 
+	private function hansa_lv($args)
 	{
 		$args["lang"] = "ENG";
 		extract($args);
@@ -1372,8 +1390,11 @@ class bank_payment extends class_base
 		$VK_message.= sprintf("%03d",strlen($expl)).$expl;
 		$VK_signature = "";
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($VK_message, $VK_signature, $pkeyid);
-		openssl_free_key($pkeyid);
+		if ($pkeyid)
+		{
+			openssl_sign($VK_message, $VK_signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
 		$VK_MAC = base64_encode( $VK_signature);
 
 		$http = get_instance("protocols/file/http");
@@ -1397,14 +1418,14 @@ class bank_payment extends class_base
 		{
 			$params["VK_ACC"] = $acc;
 			$params["VK_NAME"] = $name;
-		
+
 		}
 		return $this->submit_bank_info(array("params" => $params , "link" => $link , "form" => $form));
 	//	return $http->post_request($link, $handler, $params, $port = 80);
-		
+
 	}
 
-	private function hansa_lt($args) 
+	private function hansa_lt($args)
 	{
 		$args["lang"] = "ENG";
 		extract($args);
@@ -1423,8 +1444,11 @@ class bank_payment extends class_base
 		$VK_message.= sprintf("%03d",strlen($expl)).$expl;
 		$VK_signature = "";
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($VK_message, $VK_signature, $pkeyid);
-		openssl_free_key($pkeyid);
+		if ($pkeyid)
+		{
+			openssl_sign($VK_message, $VK_signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
 		$VK_MAC = base64_encode( $VK_signature);
 
 		$http = get_instance("protocols/file/http");
@@ -1448,7 +1472,7 @@ class bank_payment extends class_base
 		{
 			$params["VK_ACC"] = $acc;
 			$params["VK_NAME"] = $name;
-		
+
 		}
 		return $this->submit_bank_info(array("params" => $params , "link" => $link , "form" => $form));
 	//	return $http->post_request($link, $handler, $params, $port = 80);
@@ -1458,7 +1482,7 @@ class bank_payment extends class_base
 	{
 		extract($args);
 		$link = "https://www.seb.ee/cgi-bin/unet3.sh/un3min.r";
-		if($test)
+		if(!empty($test))
 		{
 			 $link = "https://www.seb.ee/cgi-bin/dv.sh/un3min.r";
 			$sender_id = "testvpos";
@@ -1479,8 +1503,11 @@ class bank_payment extends class_base
 		$VK_message.= sprintf("%03d",strlen($expl)).$expl;
 		$VK_signature = "";
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($VK_message, $VK_signature, $pkeyid);
-		openssl_free_key($pkeyid);
+		if ($pkeyid)
+		{
+			openssl_sign($VK_message, $VK_signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
 		$VK_MAC = base64_encode($VK_signature);
 		$http = get_instance("protocols/file/http");
 		$handler = "https://www.seb.ee/cgi-bin/unet3.sh/un3min.r";
@@ -1502,7 +1529,7 @@ class bank_payment extends class_base
 		{
 			$params["VK_ACC"] = $acc;
 			$params["VK_NAME"] = $name;
-		
+
 		}
 		return $this->submit_bank_info(array("params" => $params , "link" => $link , "form" => $form));
 	//	return $http->post_request($link, $handler, $params, $port = 80);
@@ -1526,8 +1553,11 @@ class bank_payment extends class_base
 		$VK_message.= sprintf("%03d",strlen($expl)).$expl;
 		$VK_signature = "";
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($VK_message, $VK_signature, $pkeyid);
-		openssl_free_key($pkeyid);
+		if ($pkeyid)
+		{
+			openssl_sign($VK_message, $VK_signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
 		$VK_MAC = base64_encode( $VK_signature);
 
 		$http = get_instance("protocols/file/http");
@@ -1551,7 +1581,7 @@ class bank_payment extends class_base
 		{
 			$params["VK_ACC"] = $acc;
 			$params["VK_NAME"] = $name;
-		
+
 		}
 		return $this->submit_bank_info(array("params" => $params , "link" => $link , "form" => $form));
 	//	return $http->post_request($link, $handler, $params, $port = 80);
@@ -1575,8 +1605,11 @@ class bank_payment extends class_base
 		$VK_message.= sprintf("%03d",strlen($expl)).$expl;
 		$VK_signature = "";
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($VK_message, $VK_signature, $pkeyid);
-		openssl_free_key($pkeyid);
+		if ($pkeyid)
+		{
+			openssl_sign($VK_message, $VK_signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
 		$VK_MAC = base64_encode( $VK_signature);
 
 		$http = get_instance("protocols/file/http");
@@ -1600,11 +1633,11 @@ class bank_payment extends class_base
 		{
 			$params["VK_ACC"] = $acc;
 			$params["VK_NAME"] = $name;
-		
+
 		}
 		return $this->submit_bank_info(array("params" => $params , "link" => $link , "form" => $form));
 	//	return $http->post_request($link, $handler, $params, $port = 80);
-	}	
+	}
 
 	function check_nordea_args($arr)
 	{
@@ -1614,24 +1647,33 @@ class bank_payment extends class_base
 			$arr = $this->_add_object_data($payment , $arr);
 			$arr["priv_key"] = $payment->prop("nordea_private_key");
 		}
+
 		if(!$arr["priv_key"])
 		{
-			$fp = fopen($this->cfg["site_basedir"]."/pank/nordea.mac", "r");
-			$arr["priv_key"] = fread($fp, 8192);
-			fclose($fp);
+			try
+			{
+				$file = aw_ini_get("site_basedir")."/pank/nordea.mac";
+				$fp = fopen($file, "r");
+				$arr["priv_key"] = fread($fp, 8192);
+				fclose($fp);
+			}
+			catch (ErrorException $e)
+			{
+				// file not readable
+			}
 		}
 
-		if(!$arr["service"]) $arr["service"] = "0002";
-		if(!$arr["version"]) $arr["version"] = "0001";
-		if(!$arr["curr"]) $arr["curr"] = "EEK";
-		if(!$arr["confirm"]) $arr["confirm"] = "YES";
-		if(!$arr["acc"]) $arr["acc"] = "";
-		if(!$arr["name"]) $arr["name"] = "";
-		if(!$arr["recieve_id"]) $arr["recieve_id"] = "10354213";
-		if(!$arr["date"]) $arr["date"] = 'EXPRESS';
-		if(!$arr["cancel_url"]) $arr["cancel_url"] = aw_ini_get("baseurl")."/automatweb/bank_return.aw";
+		if(empty($arr["service"])) $arr["service"] = "0002";
+		if(empty($arr["version"])) $arr["version"] = "0001";
+		if(empty($arr["curr"])) $arr["curr"] = "EEK";
+		if(empty($arr["confirm"])) $arr["confirm"] = "YES";
+		if(empty($arr["acc"])) $arr["acc"] = "";
+		if(empty($arr["name"])) $arr["name"] = "";
+		if(empty($arr["recieve_id"])) $arr["recieve_id"] = "10354213";
+		if(empty($arr["date"])) $arr["date"] = 'EXPRESS';
+		if(empty($arr["cancel_url"])) $arr["cancel_url"] = aw_ini_get("baseurl")."/automatweb/bank_return.aw";
 //		if(!substr_count("http" , $arr["cancel_url"]))$arr["cancel_url"] = aw_ini_get("baseurl").$arr["cancel_url"];
-		if(!$arr["return_url"]) $arr["return_url"] = aw_ini_get("baseurl")."/automatweb/bank_return.aw";
+		if(empty($arr["return_url"])) $arr["return_url"] = aw_ini_get("baseurl")."/automatweb/bank_return.aw";
 		$arr["reference_nr"].= (string)$this->viitenr_kontroll_731($arr["reference_nr"]);
 		if(array_key_exists($arr["lang"] , $this->languages["nordea"]))
 		{
@@ -1718,10 +1760,17 @@ class bank_payment extends class_base
 		if(!$arr["return_url"]) $arr["return_url"] = aw_ini_get("baseurl")."/automatweb/bank_return.aw";
 		if(!$arr["priv_key"])
 		{
-			$file = "privkey.pem";
-			$fp = fopen($this->cfg["site_basedir"]."/pank/".$file, "r");
-			$arr["priv_key"] = fread($fp, 8192);
-			fclose($fp);
+			try
+			{
+				$file = "privkey.pem";
+				$fp = fopen(aw_ini_get("site_basedir")."/pank/".$file, "r");
+				$arr["priv_key"] = fread($fp, 8192);
+				fclose($fp);
+			}
+			catch (ErrorException $e)
+			{
+				// file not found
+			}
 		}
 		$arr["reference_nr"].= (string)$this->viitenr_kontroll_731($arr["reference_nr"]);
 		$arr["amount"] = $arr["amount"]*100; //sentides
@@ -1730,7 +1779,7 @@ class bank_payment extends class_base
 		if(!$arr["version"]) $arr["version"] = "002";
 		return($arr);
 	}
-	
+
 	private function credit_card($args)
 	{
 		extract($args);
@@ -1748,12 +1797,13 @@ class bank_payment extends class_base
 		$eamount=sprintf("%012s", "$amount");
 		$data = $ver . $id . $ecuno . $eamount . $cur . $datetime;
 		$signature=sha1($data);
-	//	echo "signatuur: <pre>$data</pre><br>";
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($data, $signature, $pkeyid);
-		openssl_free_key($pkeyid);
+		if ($pkeyid)
+		{
+			openssl_sign($data, $signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
 		$mac=bin2hex($signature);
-		//echo "https://pos.estcard.ee/webpos/servlet/iPAYServlet?action=$action&amp;ver=$ver&amp;id=$idnp&amp;ecuno=$ecuno&amp;eamount=$eamount&amp;cur=$cur&amp;datetime=$datetime&amp;mac=$mac&amp;lang=en";
 		//testi lopp
 		$VK_message = $version;
 		$VK_message.= sprintf("%-10s", $sender_id);
@@ -1764,14 +1814,13 @@ class bank_payment extends class_base
 
 		$signature=sha1($VK_message);
 		$pkeyid = openssl_get_privatekey($priv_key);
-		openssl_sign($data, $VK_signature, $pkeyid);
-		openssl_free_key($pkeyid);
+		if ($pkeyid)
+		{
+			openssl_sign($data, $VK_signature, $pkeyid);
+			openssl_free_key($pkeyid);
+		}
 		$VK_MAC = bin2hex($VK_signature);//base64_encode( $VK_signature);/
-//		if(aw_global_get("uid") == "struktuur")
-//		{
-//			echo "https://pos.estcard.ee/webpos/servlet/iPAYServlet?action=$action&amp;ver=$version&amp;id=$sender_id&amp;ecuno=$reference_nr&amp;eamount=$amount&amp;cur=$curr&amp;datetime=$datetime&amp;mac=$VK_MAC&amp;lang=en";
-//			die();
-//		}
+
 		$link = $this->bank_link["credit_card"];
 		if($test)
 		{
@@ -1787,9 +1836,7 @@ class bank_payment extends class_base
 			"datetime"	=> $datetime,		//AAAAKKPPTTmmss 	Tehingu kuupaev,kellaaeg
 			"mac" 		=> $VK_MAC,		//Sonumi signatuur (MAC)*
 			"lang" 		=> $lang,		//et,en . Systeemis kasutatav keel. et - Eesti, en - Inglise
-		);//		if(aw_global_get("uid") == "struktuur")
-		//{arr($params); die();
-		//}
+		);
 
 		return $this->submit_bank_info(array("params" => $params , "link" => $link , "form" => $form));
 	}
@@ -1803,7 +1850,7 @@ class bank_payment extends class_base
 		$fp = fopen($this->cfg["site_basedir"]."/pank/nordea.mac", "r");
 		$priv_key = fread($fp, 8192);
 		fclose($fp);
-		 
+
 		$service = $version = "0001";
 		$stamp = date("YmdHis" , time())."0001";
 		$o = obj($id);
@@ -1828,12 +1875,12 @@ class bank_payment extends class_base
 		$params = array(
 			"SOLOPMT_VERSION"     => $service,
 			"SOLOPMT_TIMESTMP"    => $stamp,
-			"SOLOPMT_RCV_ID"      => $sender_id, 
+			"SOLOPMT_RCV_ID"      => $sender_id,
 			"SOLOPMT_LANGUAGE"    => 3,//$SOLOPMT_MAC,
 			"SOLOPMT_RESPTYPE"    => $type,
 			"SOLOPMT_STAMP"       => $val["SOLOPMT_RETURN_STAMP"],
 			"SOLOPMT_REF"         => $val["SOLOPMT_RETURN_REF"],//$SOLOPMT_MAC,
-			"SOLOPMT_KEYVERS"     => $version,// 17.   Key Version    
+			"SOLOPMT_KEYVERS"     => $version,// 17.   Key Version
 			"SOLOPMT_ALG"         => $alg,
 			"SOLOPMT_MAC"         => $SOLOPMT_MAC,
 		);//arr($params);arr($val);die();
@@ -1854,16 +1901,16 @@ class bank_payment extends class_base
 // 					     // I know, it works. No need to send 'em anymore for testing purposes.
 //  		$mobi_answer = file_get_contents($link, false, $context);
 // 		//arr($link);
-// 
+//
 // $headers=array("Content-Type: application/xml");
-// 
+//
 // $curl = curl_init();
 // curl_setopt($curl, CURLOPT_URL, $link);
 // curl_setopt($curl, CURLOPT_HEADER, $headers);
 // curl_setopt($curl, CURLOPT_POST, 1);
 // curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 // $myResponse = curl_exec ($curl);
-// curl_close ($curl);die(); 
+// curl_close ($curl);die();
 // //die($myResponse);
 // $result = curl_exec ($curl);
 //		die($mobi_answer);
@@ -1871,7 +1918,7 @@ class bank_payment extends class_base
 	}
 
 	private function nordea($args)
-	{//arr($args); die();
+	{
 		extract($args);
 		$SOLOPMT_MAC      = '';
 		$VK_message       = $service.'&';
@@ -1885,28 +1932,28 @@ class bank_payment extends class_base
 		//arr($VK_message);die();
 		//$VK_message = "0003&1998052212254471&12345678&570,00&55&EXPRESS&EUR&LEHTI&";
 		$SOLOPMT_MAC      = strtoupper(md5( $VK_message ));
-		
+
 		$http = get_instance("protocols/file/http");
 		$link = $this->bank_link["nordeapank"];
 		$params = array(
 			"SOLOPMT_VERSION"     => $service,// 1.    Payment Version   SOLOPMT_VERSION   "0002"   AN 4  M
-			"SOLOPMT_STAMP"       => $stamp,// 2.    Payment Specifier    SOLOPMT_STAMP  Code specifying the payment   N 20  M 
-			"SOLOPMT_RCV_ID"      => $sender_id, // 3.    Service Provider ID  SOLOPMT_RCV_ID    Customer ID (in Nordea's register)  AN 15    M 
+			"SOLOPMT_STAMP"       => $stamp,// 2.    Payment Specifier    SOLOPMT_STAMP  Code specifying the payment   N 20  M
+			"SOLOPMT_RCV_ID"      => $sender_id, // 3.    Service Provider ID  SOLOPMT_RCV_ID    Customer ID (in Nordea's register)  AN 15    M
 			"SOLOPMT_RCV_ACCOUNT" => $acc,// 4.    Service Provider's Account    SOLOPMT_RCV_ACCOUNT  Other than the default account   AN 15    O
-			"SOLOPMT_RCV_NAME"    => $name,//5.    Service Provider's Name    SOLOPMT-RCV_NAME  Other than the default name   AN 30    O 
-			"SOLOPMT_LANGUAGE"    => $lang,// 6.    Payment Language  SOLOPMT_LANGUAGE  1 = Finnish 2 = Swedish 3 = English    N 1   O 
-			"SOLOPMT_AMOUNT"      => $amount,// 7.    Payment Amount    SOLOPMT_AMOUNT    E.g. 990.00    AN 19    M 
-			"SOLOPMT_REF"         => $reference_nr,// 8.    Payment Reference Number   SOLOPMT_REF    Standard reference number  AN 20    M 
-			"SOLOPMT_DATE"        => $date,// 9.    Payment Due Date  SOLOPMT_DATE   "EXPRESS" or "DD.MM.YYYY"  AN 10    M 
-			"SOLOPMT_MSG"         => $expl,// 10.   Payment Message   SOLOPMT_MSG    Service user's message  AN 234   O 
-			"SOLOPMT_RETURN"      => $return_url,// 11.   Return Address    SOLOPMT_RETURN    Return address following payment    AN 60    M 
-			"SOLOPMT_CANCEL"      => $cancel_url,// 12.   Cancel Address    SOLOPMT_CANCEL    Return address if payment is cancelled    AN 60    M 
-			"SOLOPMT_REJECT"      => $cancel_url,// 13.   Reject Address    SOLOPMT_REJECT    Return address for rejected payment    AN 60    M 
-							// 14.   Solo Button OR Solo Symbol    SOLOPMT_ BUTTON SOLOPMT_IMAGE    Constant    Constant    O       // $SOLOPMT_ BUTTON SOLOPMT_IMAGE   Constant    Constant    O 			
-			"SOLOPMT_MAC"         => $SOLOPMT_MAC,  // 15.   Payment MAC    SOLOPMT_MAC    MAC   AN 32    O 
-			"SOLOPMT_CONFIRM"     => $confirm,// 16.   Payment Confirmation    SOLOPMT_CONFIRM   YES or NO   A 3   O 
-			"SOLOPMT_KEYVERS"     => $version,// 17.   Key Version    SOLOPMT_KEYVERS   E.g. 0001   N 4   O 
-			"SOLOPMT_CUR"         => $curr,// 18.   Currency Code  SOLOPMT_CUR    EUR   A 3   O 
+			"SOLOPMT_RCV_NAME"    => $name,//5.    Service Provider's Name    SOLOPMT-RCV_NAME  Other than the default name   AN 30    O
+			"SOLOPMT_LANGUAGE"    => $lang,// 6.    Payment Language  SOLOPMT_LANGUAGE  1 = Finnish 2 = Swedish 3 = English    N 1   O
+			"SOLOPMT_AMOUNT"      => $amount,// 7.    Payment Amount    SOLOPMT_AMOUNT    E.g. 990.00    AN 19    M
+			"SOLOPMT_REF"         => $reference_nr,// 8.    Payment Reference Number   SOLOPMT_REF    Standard reference number  AN 20    M
+			"SOLOPMT_DATE"        => $date,// 9.    Payment Due Date  SOLOPMT_DATE   "EXPRESS" or "DD.MM.YYYY"  AN 10    M
+			"SOLOPMT_MSG"         => $expl,// 10.   Payment Message   SOLOPMT_MSG    Service user's message  AN 234   O
+			"SOLOPMT_RETURN"      => $return_url,// 11.   Return Address    SOLOPMT_RETURN    Return address following payment    AN 60    M
+			"SOLOPMT_CANCEL"      => $cancel_url,// 12.   Cancel Address    SOLOPMT_CANCEL    Return address if payment is cancelled    AN 60    M
+			"SOLOPMT_REJECT"      => $cancel_url,// 13.   Reject Address    SOLOPMT_REJECT    Return address for rejected payment    AN 60    M
+							// 14.   Solo Button OR Solo Symbol    SOLOPMT_ BUTTON SOLOPMT_IMAGE    Constant    Constant    O       // $SOLOPMT_ BUTTON SOLOPMT_IMAGE   Constant    Constant    O
+			"SOLOPMT_MAC"         => $SOLOPMT_MAC,  // 15.   Payment MAC    SOLOPMT_MAC    MAC   AN 32    O
+			"SOLOPMT_CONFIRM"     => $confirm,// 16.   Payment Confirmation    SOLOPMT_CONFIRM   YES or NO   A 3   O
+			"SOLOPMT_KEYVERS"     => $version,// 17.   Key Version    SOLOPMT_KEYVERS   E.g. 0001   N 4   O
+			"SOLOPMT_CUR"         => $curr,// 18.   Currency Code  SOLOPMT_CUR    EUR   A 3   O
 		);
 		if(!($name && $acc))
 		{
@@ -1914,7 +1961,7 @@ class bank_payment extends class_base
 			unset($params["SOLOPMT_RCV_ACCOUNT"]);
 		}
 		return $this->submit_bank_info(array("params" => $params , "link" => $link , "form" => $form));
-	//	return $http->post_request($link, $handler, $params, $port = 80);	
+	//	return $http->post_request($link, $handler, $params, $port = 80);
 	}
 
 	private function viitenr_kontroll_731($nr)
@@ -1933,7 +1980,7 @@ class bank_payment extends class_base
 		}
 		return (10 - ($sum%10))%10;
 	}
-	
+
 	/**
 	@attrib name=pay_site is_public="1" caption="Change" no_login=1 api=1 params=name
 	@param die optional type=bool
@@ -1943,7 +1990,7 @@ class bank_payment extends class_base
 		makes a list of supported banks with correct forms
 		before calling this function you should fill $_SESSION["bank_payment"]
 		uses template file bank_pay_site.tpl, if it exists , then every sub gets vars:
-			"data" - hidden input fields needed in form 
+			"data" - hidden input fields needed in form
 			"link" - url to banklink
 	@example
 		$targ = obj($arr["alias"]["target"]);
@@ -1963,7 +2010,7 @@ class bank_payment extends class_base
 				//	))
 			"reference_nr"	=> $_SESSION["realestate_input_data"]["realestate_id"],//Reference number of payment order. Max length=19
 			"url" 		=> post_ru(),//optional
-			"cancel"	=> post_ru(),//optional 
+			"cancel"	=> post_ru(),//optional
 		);
 		$bank_payment = get_instance(CL_BANK_PAYMENT);
 		$ret.= '<a href="';
@@ -2001,7 +2048,7 @@ class bank_payment extends class_base
 				{
 					if($test && $this->test_link[$bank]) $link = $this->test_link[$bank];
 					else $link = $this->bank_link[$bank];
-					
+
 					$this->vars(array(
 						"data" => $bank_form,
 						"link" => $link,
@@ -2026,7 +2073,7 @@ class bank_payment extends class_base
 		if($die) die($ret);
 		return $ret;
 	}
-	
+
 	//mones kohas akki tahab kuskile objekti ka salvestada infot makse kohta... naiteks broneeringu juures..
 	//niiet paneb koik selle kama sessiooni selgemalt kirja... votab sessioonist $_SESSION["bank_return"]["data"] kyljest koik
 	function get_payment_info($val)
@@ -2135,20 +2182,20 @@ class bank_payment extends class_base
 		{
 			echo "good";
 		}
-		elseif ($ok == 0) 
+		elseif ($ok == 0)
 		{
 			echo "bad";
 		}
 		else {
 			echo "ugly, error checking signature";
-		}	
+		}
 	}
-	
+
 	function hex2str($hex) {
 		for($i=0;$i<strlen($hex);$i+=2) $str.=chr(hexdec(substr($hex,$i,2)));
 		return $str;
 	}
-	
+
 	private function check_cc_response()
 	{
 		extract($_SESSION["bank_return"]["data"]);
@@ -2187,19 +2234,19 @@ class bank_payment extends class_base
 		$t.= "\n<br>\n<br>";
 		$t.= t("Alustamiseks:");
 		$t.= "\n<br>";
-		
+
 		$t.= "1.";
 		$t.= t("Vaja s&otilde;lmida pangalingi leping pankadega - ilma ei juhtu midagi...");
 		$t.= "\n<br>\n<br>";
-		
+
 		$t.= "2.";
 		$t.= t("Vaja tekitada kaupmehele privaatv&otilde;ti ja sertifikaadi p&auml;ring");
 		$t.= "\n<br>openssl req -newkey 1024 -nodes -out ./cert_req.pem\n<br>\n<br>";
-		
+
 		$t.= "3.";
 		$t.= t("privkey.pem on tekkinud privaatv&otilde;ti mis peab saama asukohaks");
 		$t.= " ".$this->cfg["site_basedir"]."/pank/privkey.pem\n<br>\n<br>";
-		
+
 		$t.= "4.";
 		$t.= t("cert_req.pem on tekkinud sertifikaadip&auml;ring mis tuleb saata pankadele");
 		$banks = array();
@@ -2207,7 +2254,7 @@ class bank_payment extends class_base
 		$banks[] = $this->banks["credit_card"];
 		$t.= ":\n<br>".join(", " , $banks);
 		$t.= "\n<br>\n<br>";
-		
+
 		$t.= "5.";
 		$t.= t("Vastu saadakse avalikud v&otilde;tmed, mis peavad j&otilde;udma kataloogi");
 		$t.= " ".$this->cfg["site_basedir"]."/pank/\n<br>";
@@ -2220,25 +2267,25 @@ class bank_payment extends class_base
 		$t.= "6.";
 		$t.= t("Tab'i \"Pankade info\" alla pangalt saadud kaupmehe ID, \n<br>kui kindlale arvele vaja raha saata, siis oleks vaja m&auml;rkida ka arve number ja saaja nimi (toimib pankadel millel on ka selline v&otilde;imalus olemas)");
 		$t.= "\n<br>\n<br>";
-	
+
 		$t.= "7.";
 		$t.= t("Kontrolli , et kataloogis ").$this->cfg["site_basedir"].t(" oleks olemas ja kirjutamis&otilde;igustega fail nimega bank_log.txt");
 		$t.= "\n<br>\n<br>";
-	
+
 		$t.= "8.";
 		$t.= t("Lihtsamal juhul peaks n&uuml;&uuml;d maksmine toimima, keerulisemal on vaja templeitides v&ouml;i koodis mudida");
 		$t.= "\n<br>\n<br>";
-	
+
 		$t.= "Nordea. ";
 		$t.= t("Kasutab lihtsalt &uuml;ht MAC v&otilde;tit, mis peaks asuma v&otilde;tmete kataloogis nimega nordea.mac");
 		$t.= "\n<br>\n<br>";
-	
+
 		$t.= "Kaardikeskus. ";
 		$t.= t("Neile vaja saata tagasiside url, milleks on");
 		$t.= ":\n<br>".aw_ini_get("baseurl")."/automatweb/bank_return.aw\n<br>";
 		$t.= t("Vaja teha veel testv&otilde;ti ja sertifikaadi p&auml;ring testimiseks(seal tuleb enne katsetada testkeskkonnas ja vastavad tegelased (Kaardikeskusest) peaks saama &uuml;le vaadata kas k&otilde;ik on nagu peab)");
 		$t.= "\n<br>\n<br>";
-	
+
 		$t.= "Test. ";
 		$t.= t("Toimib vaid Krediitkaardi , SEB &uuml;hispanga ja Nordea'ga")."\n<br>";
 		$t.= t("Nordea puhul peab pangast saama testkasutaja andmed &uuml;hekordsete testmaksete jaoks (k&otilde;ik toimib nagu p&auml;riselt, lihtsalt raha ei tule arvele)\n<br>");
@@ -2246,21 +2293,21 @@ class bank_payment extends class_base
 		$t.= t("SEB puhul peab lisama testprivaatv&ouml;tmeks SEB testkaupmehe privaatv&otilde;tme")."\n<br>";
 		$t.= t("Nii krediitkaardi kui ka SEB puhul on eraldi testkeskkond, kus saab tegutseda pangalt saadud testkasutajaga.. et suunamine sinna toimuks, vaja m&auml;rkida testrezhiim linnuke");
 		$t.= "\n<br>\n<br>";
-	
+
 		$t.= t("Kaupluse avaleht")."\n<br>";
 		$t.= t("Kauluse avalehel tahavad pangad n&auml;ha viidet selle kohta, et saidil saab maksta nende pangalingiga.. selleks peaks olema avalehel vastav ikoon. Neid saab :")."\n<br>";
 		$t.= aw_ini_get("baseurl").'/automatweb/images/pank/"'.t("panga kood").'".gif'." v&ouml;i panga kodulehelt\n<br>";
 		$t.= t("Maksmisele minnes tuleks &uuml;ldjuhul kasutada ka pankade poolt antud ikoone. Neid saab :")."\n<br>";
 		$t.= aw_ini_get("baseurl").'/automatweb/images/pank/"'.t("panga kood").'"_pay.gif v&ouml;i panga kodulehelt';
 		$t.= "\n<br>\n<br>";
-	
+
 		$t.= t("Panga koodid").":\n<br>";
 		$t.= t("(Neid l&auml;heb vaja templeitide valmistamisel m&otilde;nel juhul)");
 		$banks = array();
 		foreach($this->banks as $b => $fn){$banks[] = $fn. " - ".$b;}
 		$t.= "\n<br>".join("\n<br>" , $banks);
 		$t.= "\n<br>\n<br>";
-	
+
 		return $t;
 	}
 
@@ -2326,7 +2373,7 @@ class bank_payment extends class_base
 				}
 			}
 		}
-		
+
 		return $imap;
 	}
 
@@ -2403,7 +2450,7 @@ class bank_payment extends class_base
 					if(method_exists($ecuno_object,"payment_marked"))
 					{
 						$payment_marked = $ecuno_object->payment_marked();
-				
+
 					}
 					elseif(method_exists($ecuno_inst,"payment_marked"))
 					{
@@ -2468,5 +2515,3 @@ class bank_payment extends class_base
 		die();
 	}
 }
-
-?>

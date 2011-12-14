@@ -1160,12 +1160,12 @@ EOS;
       @param id required type=int acl=view
       @param phone_id optional type=int acl=view
 	**/
-	function start($arr)
+	public function start($arr)
 	{
-		$this_o = new object($arr["id"]);
-
 		try
 		{
+			$this_o = obj($arr["id"], array(), crm_call_obj::CLID);
+
 			if (!empty($arr["phone_id"]))
 			{
 				$phone = obj($arr["phone_id"], array(), CL_CRM_PHONE);
@@ -1179,7 +1179,7 @@ EOS;
 		catch (awex_mrp_resource_unavailable $e)
 		{
 			$list = new object_list(array(
-				"class_id" => array(CL_CRM_CALL, CL_CRM_PRESENTATION, CL_TASK, CL_CRM_MEETING),//!!! task classes. teha korralikult
+				"class_id" => array(crm_call_obj::CLID, CL_CRM_PRESENTATION, CL_TASK, CL_CRM_MEETING),//!!! task classes. teha korralikult
 				"hr_schedule_job" => $e->processed_jobs
 			));
 
@@ -1196,6 +1196,10 @@ EOS;
 
 			$this->show_error_text(sprintf(t("Teie kasutajal on pooleli tegevus(ed) %s. Uut k&otilde;net ei saa alustada."), $unfinished_task_list));
 		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Viga."));
+		}
 
 		$return_url = !empty($arr["post_ru"]) ? aw_url_change_var("phone_id", null, $arr["post_ru"]) : $this->mk_my_orb("change", array("id" => $arr["id"]), "crm_call");
 		return $return_url;
@@ -1206,7 +1210,7 @@ EOS;
       @param id required type=int acl=view
       // @param id required type=int acl=view
 	**/
-	function end($arr)
+	public function end($arr)
 	{
 		$this_o = new object($arr["id"]);
 		$r = $this->submit($arr);

@@ -635,7 +635,7 @@ class languages extends aw_core_module implements orb_public_interface
 				// we must re-read from the db and write the cache
 				object_loader::ds()->db_query("SELECT l.*, o.comment as comment FROM languages l JOIN objects o ON l.oid = o.oid WHERE o.status > 0 GROUP BY o.oid ORDER BY o.jrk");
 				$c = 0;
-				while ($row = object_loader::ds()->db_next())
+				while ($row = object_loader::ds()->db_next() and isset($row["aw_lid"]))
 				{
 					$row["meta"] = aw_unserialize($row["meta"]);
 					$row["id"] = $row["aw_lid"]; // BC
