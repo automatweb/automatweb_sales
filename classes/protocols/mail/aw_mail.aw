@@ -36,7 +36,7 @@ class aw_mail
 	private $mimeparts = array(); // siin hoiame teate MIME osasid
 	private $is_multipart_html = false;
 	private $body_replacements;
-	private $charset = "";
+	private $charset = languages::USER_CHARSET;
 	private $method = "phpmail"; // phpmail | mimemessage
 	private $mimemessage; // mimemessage class email object
 
@@ -46,8 +46,6 @@ class aw_mail
 	// method(string) - mis meetodi abil meili saadame?
 	public function aw_mail($args = array())
 	{
-		$ll = new languages();
-		$this->charset = $ll->get_charset();
 		return $this->clean($args);
 	}
 
@@ -406,7 +404,7 @@ class aw_mail
 
 	private function _mimemessage_create($args)
 	{
-		// $this->mimemessage->default_charset = aw_global_get("charset");
+		$this->mimemessage->default_charset = $this->charset;
 		$this->mimemessage->mailer = $args["X-Mailer"];
 		$this->mimemessage->SetHeader("To", $args["to"]);
 
@@ -506,7 +504,7 @@ class aw_mail
 				// $this->headers["Content-Disposition"] = $disp;
 			}
 
-			$pref = "Content-Type: text/plain; charset=ISO-8859-1" . self::CRLF;
+			$pref = "Content-Type: text/plain; charset={$this->charset}" . self::CRLF;
 			$pref .= "Content-Transfer-Encoding: 8bit";
 
 
