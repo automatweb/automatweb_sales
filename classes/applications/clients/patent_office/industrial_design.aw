@@ -2,7 +2,7 @@
 // industrial_design.aw - T88stusdisainilahendus
 /*
 
-@classinfo syslog_type=ST_INDUSTRIAL_DESIGN relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @extends applications/clients/patent_office/intellectual_property
 
 
@@ -211,13 +211,13 @@ class industrial_design extends intellectual_property
 		return $patent;
 	}
 
-	public function get_payment_sum()
+	public function get_payment_sum($float = false)
 	{
-		$sum = $this->get_request_fee() + $this->get_add_fee();
-		return $sum;
+		$sum = $this->get_request_fee(true) + $this->get_add_fee(true);
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
-	public function get_request_fee()
+	public function get_request_fee($float = false)
 	{
 		$is_corporate = false;
 
@@ -230,18 +230,18 @@ class industrial_design extends intellectual_property
 			}
 		}
 
-		$sum = $is_corporate ? 1600 : 400;
-		return $sum;
+		$sum = $is_corporate ? 102.25 : 25.56;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
-	public function get_add_fee()
+	public function get_add_fee($float = false)
 	{
 		$sum = 0;
 		if(!empty($_SESSION["patent"]["industrial_design_variant_count"]) and 2 < $_SESSION["patent"]["industrial_design_variant_count"])
 		{
-			$sum = ($_SESSION["patent"]["industrial_design_variant_count"] - 2) * 400;
+			$sum = ($_SESSION["patent"]["industrial_design_variant_count"] - 2) * 25.56;
 		}
-		return $sum;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
 	function get_vars($arr)
@@ -336,7 +336,13 @@ class industrial_design extends intellectual_property
 						}
 					}
 
-					if(count($file_data["name"]) < 2)
+					if (!empty($_SESSION["patent"]["id"]))
+					{
+						$this_o = new object($_SESSION["patent"]["id"]);
+						$existing_repros = $this_o->connections_from(array("type" => "RELTYPE_DOC_REPRO"));
+					}
+
+					if(count($file_data["name"]) < 2 and !count($existing_repros))
 					{
 						$err.= t("Reproduktsioon peab olema lisatud")."\n<br>";
 					}
@@ -493,7 +499,7 @@ class industrial_design extends intellectual_property
 		$root->insertBefore($el, $despg);
 
 		// priority
-		if($o->prop("prio_convention_date") !== "-1" or $o->prop("prio_convention_nr"))
+		if($o->prop("prio_convention_date") !== "-1" and $o->prop("prio_convention_nr"))
 		{
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRICP", $o->prop("prio_convention_country")));
@@ -507,5 +513,3 @@ class industrial_design extends intellectual_property
 		return $xml;
 	}
 }
-
-?>

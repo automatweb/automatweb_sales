@@ -20,15 +20,12 @@ class intellectual_property_obj extends _int_object
 
 	public function check_and_set_authorized_codes_user_access()
 	{
-		$u = get_instance(CL_USER);
-		$p = obj($u->get_current_person()); //!!! ei t88ta id kaardiga?
-		$pid = $p->prop("personal_id");
-		$already_set = $this->meta("set_authorized_codes_user_access2");
-		if (true and empty($already_set[$pid]))
+		$pid = aw_global_get("uid_oid");
+		$already_set = $this->meta("set_authorized_codes_user_access4");
+		if (!$pid or empty($already_set[$pid]) or $already_set[$pid] < $this->modified())
 		{
-			aw_disable_acl();
 			// set access for persons in authorized_codes
-			$user =  new object(aw_global_get("uid_oid"));
+			$user =  new object($pid);
 			$grp = new object($user->get_default_group());
 
 			if ($grp instanceof object)
@@ -101,9 +98,13 @@ class intellectual_property_obj extends _int_object
 					$co->acl_set($grp, $attachment_access);
 				}
 			}
-			aw_restore_acl();
-			$already_set[$pid] = 1;
-			$this->set_meta("set_authorized_codes_user_access2", $already_set);
+
+			$already_set[$pid] = time();
+			$this->set_meta("set_authorized_codes_user_access4", $already_set);
+			if (is_oid($this->id()))
+			{
+				$this->save();
+			}
 		}
 	}
 }

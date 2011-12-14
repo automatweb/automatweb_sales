@@ -91,4 +91,3 @@ class trademark_status extends class_base
 	}
 }
 
-?>

@@ -2,7 +2,7 @@
 // patent_patent.aw - Patent
 /*
 
-@classinfo syslog_type=ST_PATENT_PATENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @extends applications/clients/patent_office/intellectual_property
 
 @default group=general
@@ -317,19 +317,19 @@ class patent_patent extends intellectual_property
 		return $patent;
 	}
 
-	public function get_payment_sum()
+	public function get_payment_sum($float = false)
 	{
-		$sum = $this->get_request_fee() + $this->get_add_fee();
+		$sum = $this->get_request_fee(true) + $this->get_add_fee(true);
 
 		if (!empty($_SESSION["patent"]["fee_copies_info"]))
 		{
 			$sum += patent_patent_obj::COPIES_FEE;
 		}
 
-		return $sum;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
-	public function get_request_fee()
+	public function get_request_fee($float = false)
 	{
 		$is_corporate = false;
 
@@ -342,18 +342,18 @@ class patent_patent extends intellectual_property
 			}
 		}
 
-		$sum = $is_corporate ? 3500 : 875;
-		return $sum;
+		$sum = $is_corporate ? 223.69 : 55.92;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
-	public function get_add_fee()
+	public function get_add_fee($float = false)
 	{
 		$sum = 0;
 		if(!empty($_SESSION["patent"]["attachment_demand_points"]) and 10 < $_SESSION["patent"]["attachment_demand_points"])
 		{
-			$sum = ($_SESSION["patent"]["attachment_demand_points"] - 10) * 200;
+			$sum = ($_SESSION["patent"]["attachment_demand_points"] - 10) * 12.78;
 		}
-		return $sum;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
 	function get_vars($arr)
@@ -568,6 +568,7 @@ class patent_patent extends intellectual_property
 
 		//
 		$types = array(
+			patent_patent_obj::APPLICANT_REG_AUTHOR => 1,
 			patent_patent_obj::APPLICANT_REG_AUTHOR_SUCCESOR => 2,
 			patent_patent_obj::APPLICANT_REG_EMPLOYEE => 3,
 			patent_patent_obj::APPLICANT_REG_OTHER_CONTRACT => 4
@@ -579,7 +580,7 @@ class patent_patent extends intellectual_property
 		$root->insertBefore($el, $despg);
 
 		// priority
-		if($o->prop("prio_convention_date") !== "-1" or $o->prop("prio_convention_nr"))
+		if($o->prop("prio_convention_date") !== "-1" and $o->prop("prio_convention_nr"))
 		{ // Pariisi konventsiooni vm. kokkuleppe taotluse alusel
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRICP", $o->prop("prio_convention_country")));
@@ -589,7 +590,7 @@ class patent_patent extends intellectual_property
 			$root->insertBefore($el, $despg);
 		}
 
-		if($o->prop("prio_prevapplicationsep_date") !== "-1" or $o->prop("prio_prevapplicationsep_nr"))
+		if($o->prop("prio_prevapplicationsep_date") !== "-1" and $o->prop("prio_prevapplicationsep_nr"))
 		{ // Varasema patenditaotluse alusel sellest eraldatud patenditaotluse puhul
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd",$o->prop("prio_prevapplicationsep_date"))));
@@ -598,7 +599,7 @@ class patent_patent extends intellectual_property
 			$root->insertBefore($el, $despg);
 		}
 
-		if($o->prop("prio_prevapplicationadd_date") !== "-1" or $o->prop("prio_prevapplicationadd_nr"))
+		if($o->prop("prio_prevapplicationadd_date") !== "-1" and $o->prop("prio_prevapplicationadd_nr"))
 		{ // Varasema patenditaotluse paranduste ja t&auml;ienduste alusel
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd",$o->prop("prio_prevapplicationadd_date"))));
@@ -607,7 +608,7 @@ class patent_patent extends intellectual_property
 			$root->insertBefore($el, $despg);
 		}
 
-		if($o->prop("prio_prevapplication_date") !== "-1" or $o->prop("prio_prevapplication_nr"))
+		if($o->prop("prio_prevapplication_date") !== "-1" and $o->prop("prio_prevapplication_nr"))
 		{ // Varasema taotluse alusel
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd",$o->prop("prio_prevapplication_date"))));
@@ -639,5 +640,3 @@ class patent_patent extends intellectual_property
 		return $xml;
 	}
 }
-
-?>
