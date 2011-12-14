@@ -237,13 +237,13 @@ class crm_phone extends class_base
 					"type" => "int"
 				));
 				return true;
+
 			case "aw_phone_type":
 				$this->db_add_col($tbl, array(
 					"name" => $field,
 					"type" => "char(25)"
 				));
 
-				aw_restore_acl();
 				// Now let's fill this property for all existing phones.
 				$ol = new object_list(array(
 					"class_id" => CL_CRM_PHONE,
@@ -274,7 +274,6 @@ class crm_phone extends class_base
 					"type" => "char(50)"
 				));
 
-				aw_restore_acl();
 				// Now let's fill this property for all existing phones.
 				$ol = new object_list(array(
 					"class_id" => CL_CRM_PHONE,
@@ -299,11 +298,6 @@ class crm_phone extends class_base
 		}
 
 		return false;
-	}
-
-	function callback_get_transl($arr)
-	{
-		return $this->trans_callback($arr, $this->trans_props);
 	}
 
 	function callback_mod_retval(&$arr)

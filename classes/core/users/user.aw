@@ -1510,7 +1510,7 @@ EOF;
 		if (!$retval)
 		{
 			$u = obj(aw_global_get("uid_oid"));
-			$i = new user;
+			$i = new user();
 			$retval = $i->get_person_for_user($u);
 		}
 		return $retval;
@@ -1570,7 +1570,7 @@ EOF;
 		{
 			// create new person next to user
 			$p = obj();
-			$p->set_class_id(CL_CRM_PERSON);
+			$p->set_class_id(crm_person_obj::CLID);
 			$p->set_parent($u->id());
 
 			$rn = $u->prop("real_name");
@@ -1597,7 +1597,7 @@ EOF;
 			$p->set_prop("lastname", $ln);
 			$p->save();
 
-			if ($uid == aw_global_get("uid"))
+			if ($uid === aw_global_get("uid"))
 			{
 				// set acl to the given user
 				$p->acl_set(

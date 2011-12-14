@@ -4,7 +4,7 @@
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_CRM_PROFESSION, on_connect_to_profession)
 
-@classinfo syslog_type=ST_REALESTATE_MANAGER relationmgr=yes prop_cb=1 maintainer=voldemar
+@classinfo relationmgr=yes prop_cb=1
 
 @groupinfo grp_settings caption="Seaded" parent=general
 @groupinfo grp_users_tree caption="Kasutajad" parent=general
@@ -805,7 +805,7 @@ class realestate_manager extends class_base
 							}
 
 							$gid = $this->usr_mgr_profession_group->prop("gid");
-							$acl_current_settings = $this->get_acl_for_oid_gid(
+							$acl_current_settings = acl_base::get_acl_for_oid_gid(
 								$connection->prop ("from"), $gid
 							);
 
@@ -978,7 +978,7 @@ class realestate_manager extends class_base
 
 							$connected_unit = obj ($connection->prop ("from"));
 							$gid = $this->usr_mgr_profession_group->prop("gid");
-							$acl_current_settings = $this->get_acl_for_oid_gid(
+							$acl_current_settings = acl_base::get_acl_for_oid_gid(
 								$connected_unit->id (), $gid
 							);
 
@@ -1459,7 +1459,7 @@ class realestate_manager extends class_base
 			{
 				// $folder = obj ($this_object->prop ($folder_name . "_folder"));
 				$gid = $this->usr_mgr_profession_group->prop ("gid");
-				$acl_current_settings = $this->get_acl_for_oid_gid ($this_object->prop ($folder_name . "_folder"), $gid);
+				$acl_current_settings = acl_base::get_acl_for_oid_gid ($this_object->prop ($folder_name . "_folder"), $gid);
 
 				$can_view = (int)(bool) $acl_current_settings["can_view"];
 				$can_add = (int)(bool) $acl_current_settings["can_add"];
@@ -3645,4 +3645,3 @@ class realestate_manager extends class_base
 	}
 /*} END PUBLIC METHODS */
 }
-?>

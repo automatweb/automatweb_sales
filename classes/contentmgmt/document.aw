@@ -1396,7 +1396,7 @@ class document extends aw_template implements orb_public_interface
 		$this->vars_safe(array(
 			"SHOW_TITLE" 	=> ($doc["show_title"] == 1 && $doc["title"] != "") ? $this->parse("SHOW_TITLE") : "",
 			"SHOW_TITLE2" 	=> ($doc["show_title"] == 1 && $doc["title"] != "") ? $this->parse("SHOW_TITLE2") : "",
-			"EDIT" 		=> ($this->prog_acl("view",PRG_MENUEDIT)) ? $this->parse("EDIT") : "",
+			"EDIT" 		=> (acl_base::prog_acl("view",PRG_MENUEDIT)) ? $this->parse("EDIT") : "",
 			"SHOW_MODIFIED" => ($doc["show_modified"]) ? $this->parse("SHOW_MODIFIED") : "",
 			"COPYRIGHT"	=> !empty($doc["copyright"]) ? $this->parse("COPYRIGHT") : "",
 			"logged" => (aw_global_get("uid") != "" ? $this->parse("logged") : ""),

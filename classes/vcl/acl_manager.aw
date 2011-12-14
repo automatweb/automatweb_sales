@@ -1,13 +1,23 @@
 <?php
 
-class acl_manager extends aw_template
+class acl_manager extends aw_template implements orb_public_interface
 {
 	function acl_manager()
 	{
 		$this->init("vcl/acl_manager");
 	}
 
-	function init_vcl_property($arr)
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
+	}
+
+	public function init_vcl_property($arr)
 	{
 		$tp = $arr["prop"];
 		$tp["type"] = "text";
@@ -29,7 +39,7 @@ class acl_manager extends aw_template
 		return array($tp["name"] => $tp);
 	}
 
-	function process_vcl_property($arr)
+	public function process_vcl_property($arr)
 	{
 	}
 
@@ -296,13 +306,13 @@ class acl_manager extends aw_template
 			}
 			// if there is an acl relation for this group, then save the data
 			// if not and there are some thingies set, then create it
-			if (isset($acl[$o->id()]) && !$arr["set_acl"][$o->id()])
+			if (isset($acl[$o->id()]) && empty($arr["set_acl"][$o->id()]))
 			{
 				$obj->acl_del($o);
 			}
 			elseif (isset($acl[$o->id()]) || isset($arr["acl_matrix"][$o->id()]) && count($arr["acl_matrix"][$o->id()]) || !empty($arr["set_acl"][$o->id()]))
 			{
-				$obj->acl_set($o, safe_array($arr["acl_matrix"][$o->id()]));
+				$obj->acl_set($o, isset($arr["acl_matrix"][$o->id()])  ? safe_array($arr["acl_matrix"][$o->id()]) : array());
 			}
 
 			if (!empty($arr["is_rootmenu"][$oid]))

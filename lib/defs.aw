@@ -85,9 +85,10 @@ function get_current_person()
 		{
 			$tmp = null;
 		}
-		if (is_oid($tmp) && !$i->can("view", $tmp))
+
+		if (is_oid($tmp) && !acl_base::can("view", $tmp))
 		{
-			$i->create_obj_access($tmp);
+			acl_base::create_obj_access($tmp);
 		}
 		$curp = obj($tmp);
 	}
@@ -1577,8 +1578,7 @@ function __aw_int_do_switch_user($uid)
 	$us = new users();
 	$us->request_startup();
 	// also, flush acl cache !
-	aw_cache_flush("aclcache");
-	aw_cache_flush("__aw_acl_cache");
+	acl_base::flush_acl_cache();
 }
 
 /** restores the original username the request was running under

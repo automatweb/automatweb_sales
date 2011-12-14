@@ -63,7 +63,7 @@ class object_loader
 	**/
 	public static function can($operation_id, $object_id, $user_oid = null)
 	{
-		return false === self::$instance ? false : self::$instance->ds->can($operation_id, $object_id, $user_oid);
+		return acl_base::can($operation_id, $object_id, $user_oid);
 	}
 
 	/**
@@ -91,9 +91,6 @@ class _int_object_loader
 	var $ds; 					// data source
 	var $object_member_funcs;	// names of all object class member functions
 	var $cfgu;					// cfgutilities instance
-	var $__aw_acl_cache;		// acl memory cache
-
-
 	var $cache;//DEPRECATED!!!
 
 	private static $tmp_id_count = 0;
@@ -102,8 +99,6 @@ class _int_object_loader
 
 	function _int_object_loader()
 	{
-		$this->__aw_acl_cache = array();
-
 		$this->all_ot_flds = array_flip(array(
 			"parent", "name", "class_id",
 			"modified", "created", "status", "lang_id",
@@ -251,7 +246,7 @@ class _int_object_loader
 
 	////
 	// !returns temp id for new object
-	public function load_new_object($objdata = array(), $constructor_args = array())
+	public function load_new_object(array $objdata = array(), array $constructor_args = array())
 	{
 		// get tmp oid
 		if (!isset($objdata["oid"]))
@@ -279,7 +274,7 @@ class _int_object_loader
 		return $oid;
 	}
 
-	public function load($oid, $constructor_args = array())
+	public function load($oid, array $constructor_args = array())
 	{
 		if (!is_oid($oid))
 		{
@@ -650,18 +645,6 @@ class _int_object_loader
 		cache::file_clear_pt("menu_area_cache");
 		cache::file_clear_pt("storage_search");
 		cache::file_clear_pt("storage_object_data");
-	}
-
-	public function set___aw_acl_cache($oid = NULL, $v = array())
-	{
-		if(isset($oid))
-		{
-			$this->__aw_acl_cache[$oid] = $v;
-		}
-		else
-		{
-			$this->__aw_acl_cache = $v;
-		}
 	}
 }
 

@@ -189,21 +189,18 @@ class user_obj extends _int_object
 		$o->set_prop("type", menu_obj::TYPE_HOME_FOLDER);
 		$hfid = $o->save();
 		$this->set_prop("home_folder", $hfid);
-		$this->save();
 
 		// create default group
 		$gid = obj(get_instance(group_obj::CLID)->add_group(1, $this->prop("uid"), aw_groups::TYPE_DEFAULT, USER_GROUP_PRIORITY));
 
 		if ("root" !== $this->prop("uid"))
 		{
-			$i = new menu();
-
 			// give all access to the home folder for this user
-			$i->create_obj_access($hfid,$this->prop("uid"));
+			acl_base::create_obj_access($hfid,$this->prop("uid"));
 			// and remove all access from everyone else
-			$i->deny_obj_access($hfid);
+			acl_base::deny_obj_access($hfid);
 			// user has all access to itself
-			$i->create_obj_access($this->id(),$this->prop("uid"));
+			acl_base::create_obj_access($this->id(),$this->prop("uid"));
 		}
 	}
 

@@ -709,8 +709,8 @@ class aw_site extends class_base
 
 				$dbi->save_handle();
 				// access to root menu
-				$dbi->add_acl_group_to_obj($row["gid"], $ini_opts["admin_rootmenu2"]);
-				$dbi->save_acl($ini_opts["admin_rootmenu2"], $row["gid"], $osi_vars["groups.admins"] == $row["oid"] ? $acls : $no_acc);
+				acl_base::add_acl_group_to_obj($row["gid"], $ini_opts["admin_rootmenu2"]);
+				acl_base::save_acl($ini_opts["admin_rootmenu2"], $row["gid"], $osi_vars["groups.admins"] == $row["oid"] ? $acls : $no_acc);
 
 				// also, acl rel
 				aw_disable_messages();
@@ -722,8 +722,8 @@ class aw_site extends class_base
 				aw_restore_messages();
 
 				// access to users folder
-				$dbi->add_acl_group_to_obj($row["gid"], $osi_vars["users"]);
-				$dbi->save_acl($osi_vars["users"], $row["gid"], $acls);
+				acl_base::add_acl_group_to_obj($row["gid"], $osi_vars["users"]);
+				acl_base::save_acl($osi_vars["users"], $row["gid"], $acls);
 
 				// also, acl rel
 				aw_disable_messages();

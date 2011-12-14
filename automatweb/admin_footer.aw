@@ -179,56 +179,56 @@ $sf->vars(array(
 
 if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 {
-	if ($sf->prog_acl("view", "disp_person"))
+	if (acl_base::prog_acl("view", "disp_person"))
 	{
 		$sf->vars(array(
 			"SHOW_CUR_P" => $sf->parse("SHOW_CUR_P")
 		));
 	}
 
-	if ($sf->prog_acl("view", "disp_person_view") and !$sf->prog_acl("view", "disp_person"))
+	if (acl_base::prog_acl("view", "disp_person_view") and !acl_base::prog_acl("view", "disp_person"))
 	{
 		$sf->vars(array(
 			"SHOW_CUR_P_VIEW" => $sf->parse("SHOW_CUR_P_VIEW")
 		));
 	}
 
-	if ($sf->prog_acl("view", "disp_person_text") and !$sf->prog_acl("view", "disp_person") and !$sf->prog_acl("view", "disp_person_view"))
+	if (acl_base::prog_acl("view", "disp_person_text") and !acl_base::prog_acl("view", "disp_person") and !acl_base::prog_acl("view", "disp_person_view"))
 	{
 		$sf->vars(array(
 			"SHOW_CUR_P_TEXT" => $sf->parse("SHOW_CUR_P_TEXT")
 		));
 	}
 
-	if ($sf->prog_acl("view", "disp_co_edit"))
+	if (acl_base::prog_acl("view", "disp_co_edit"))
 	{
 		$sf->vars(array(
 			"SHOW_CUR_CO" => $sf->parse("SHOW_CUR_CO")
 		));
 	}
 
-	if ($sf->prog_acl("view", "disp_co_view") && !$sf->prog_acl("view", "disp_co_edit"))
+	if (acl_base::prog_acl("view", "disp_co_view") && !acl_base::prog_acl("view", "disp_co_edit"))
 	{
 		$sf->vars(array(
 			"SHOW_CUR_CO_VIEW" => $sf->parse("SHOW_CUR_CO_VIEW")
 		));
 	}
 
-	if ($sf->prog_acl("view", "disp_co_text") && !$sf->prog_acl("view", "disp_co_edit") && !$sf->prog_acl("view", "disp_co_view"))
+	if (acl_base::prog_acl("view", "disp_co_text") && !acl_base::prog_acl("view", "disp_co_edit") && !acl_base::prog_acl("view", "disp_co_view"))
 	{
 		$sf->vars(array(
 			"SHOW_CUR_CO_TEXT" => $sf->parse("SHOW_CUR_CO_TEXT")
 		));
 	}
 
-	if ($sf->prog_acl("view", "disp_object_type"))
+	if (acl_base::prog_acl("view", "disp_object_type"))
 	{
 		$sf->vars(array(
 			"SHOW_CUR_CLASS" => $sf->parse("SHOW_CUR_CLASS")
 		));
 	}
 
-	if ($sf->prog_acl("view", "disp_object_link"))
+	if (acl_base::prog_acl("view", "disp_object_link"))
 	{
 		$sf->vars(array(
 			"SHOW_CUR_OBJ" => $sf->parse("SHOW_CUR_OBJ")

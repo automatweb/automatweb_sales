@@ -1136,7 +1136,7 @@ class doc_display extends aw_template
 
 	private function _get_edit_menu($menu)
 	{
-		if (!$this->prog_acl() || !empty($_SESSION["no_display_site_editing"]))
+		if (!acl_base::prog_acl() || !empty($_SESSION["no_display_site_editing"]))
 		{
 			return;
 		}
