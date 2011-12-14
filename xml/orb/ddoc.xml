@@ -23,8 +23,8 @@
 			</function>
 		</action>
 
-		<action name="get_file" all_args="1">
-			<function name="get_file">
+		<action name="get_ddoc_file" all_args="1">
+			<function name="get_ddoc_file">
 				<arguments>
 				</arguments>
 			</function>

@@ -7,7 +7,7 @@
 	@default method=serialize
 	@default group=general
 
-	@classinfo trans=1 syslog_type=ST_MENU_TREE
+	@classinfo trans=1
 	@property children_only type=checkbox ch_value=1 trans=1 prop_cb=1
 	@caption Ainult alammen&uuml;&uuml;d
 
@@ -401,11 +401,11 @@ class menu_tree extends class_base
 			}
 		}
 
-		$hu = aw_ini_get("user_interface.hide_untranslated");
+		$hu = $hide_untranslated = aw_ini_get("user_interface.hide_untranslated");
 		$filt = array(
 			"class_id" => menu_obj::CLID,
 			"parent" => $parents,
-			"status" => $hu && aw_ini_get("languages.default") != aw_global_get("ct_lang_id") ? array(STAT_ACTIVE, STAT_NOTACTIVE) : STAT_ACTIVE,
+			"status" => $hide_untranslated && aw_ini_get("languages.default") != aw_global_get("ct_lang_id") ? array(STAT_ACTIVE, STAT_NOTACTIVE) : STAT_ACTIVE,
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -430,7 +430,7 @@ class menu_tree extends class_base
 		$lid = aw_global_get("ct_lang_id");
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
-			if ($hu && (!$o->prop_is_translated("name") || ($lid == $o->lang_id() && $o->status() == STAT_NOTACTIVE)))
+			if ($hide_untranslated && (!$o->prop_is_translated("name") || ($lid == $o->lang_id() && $o->status() == STAT_NOTACTIVE)))
 			{
 				continue;
 			}
@@ -580,13 +580,13 @@ class menu_tree extends class_base
 		else
 		{
 			$parent = 0;
-		};
+		}
 
 		$slice = $this->object_list[$parent];
 		if (!is_array($slice))
 		{
 			return false;
-		};
+		}
 
 		if ($this->mt_obj->prop("num_levels") > 0 && $this->mt_obj->prop("num_levels") < $this->rec_level)
 		{
@@ -696,10 +696,7 @@ class menu_tree extends class_base
 			}
 
 			$item = false;
-			if (strpos($url, "&amp;") === false || true)
-			{
-				$url = str_replace("&", "&amp;", $url);
-			}
+			$url = str_replace("&", "&amp;", $url);
 
 			if ($this->children_only && $v->id() == $this->start_from)
 			{

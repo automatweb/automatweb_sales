@@ -497,7 +497,7 @@ class doc extends class_base
 		if(in_array($data["name"], array("content", "lead")) && !empty($data["richtext"]))
 		{
 			$cb_nobreaks = $arr["obj_inst"]->meta("cb_nobreaks");
-			if(empty($cb_nobreaks[$data["name"]]))
+			if(empty($cb_nobreaks[$data["name"]]) and isset($data["value"]))
 			{
 				$data["value"] = nl2br($data["value"]);
 			}

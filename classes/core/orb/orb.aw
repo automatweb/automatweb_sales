@@ -954,10 +954,8 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 				if (sizeof($pm)  > 0)
 				{
 					$pclasses = $pclasses + $pm;
-				};
-
+				}
 			}
-
 		}
 
 		return $pclasses;
@@ -978,7 +976,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			if (is_array($val) && isset($val[$flag]))
 			{
 				$caption = isset($val["caption"]) ? $val["caption"] : $val["function"];
-				$methods[(($no_id) ? "" : ($id . "/")) . $key] = $name . " / " . $caption;
+				$methods[(empty($no_id) ? "{$id}/" : "") . $key] = $name . " / " . $caption;
 			}
 		}
 

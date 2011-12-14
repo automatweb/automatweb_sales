@@ -2,7 +2,7 @@
 // ddoc.aw - DigiDoc
 /*
 
-@classinfo syslog_type=ST_DDOC relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=tarvo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -73,14 +73,22 @@ class ddoc extends class_base
 		$this->warns = array(
 			"DDOC_WARN_DDOC" => "ddoc::%s warning!. %s",
 		);
-		foreach($this->errors as $k => $v)
+
+		if (!defined("AW_DIGIDOC_CONST_INIT_DONE"))
 		{
-			define($k, $v);
+			define("AW_DIGIDOC_CONST_INIT_DONE", 1);
+
+			foreach($this->errors as $k => $v)
+			{
+				define($k, $v);
+			}
+
+			foreach($this->warns as $k => $v)
+			{
+				define($k, $v);
+			}
 		}
-		foreach($this->warns as $k => $v)
-		{
-			define($k, $v);
-		}
+
 
 		/*
 		$loc = aw_ini_get("basedir")."/classes/common/digidoc/conf.php";
@@ -130,7 +138,7 @@ class ddoc extends class_base
 			case "name":
 				$prop["value"] = html::href(array(
 					"caption" => $prop["value"],
-					"url" => $this->mk_my_orb("get_file", array(
+					"url" => $this->mk_my_orb("get_ddoc_file", array(
 						"oid" => $arr["obj_inst"]->id(),
 					)),
 				));
@@ -538,14 +546,13 @@ class ddoc extends class_base
 //-- methods --//
 
 	/**
-		@attrib name=get_file params=name all_args=1 api=1
+		@attrib name=get_ddoc_file params=name all_args=1 api=1
 		@comment
 			saves the ddoc file (browser save popup)
 	**/
-	function get_file($arr)
+	function get_ddoc_file($arr)
 	{
 		$content = $this->get_ddoc($arr["oid"]);
-		//if(aw_global_get("uid") == "struktuur")arr($content);
 		$o = obj($arr["oid"]);
 		$this->do_init();
 		$name = (substr($o->name(), -4, 4) == ".ddoc")?$o->name():$o->name().".ddoc";
@@ -697,9 +704,14 @@ class ddoc extends class_base
 			));
 		}
 		$o = obj($oid);
-		$p = $o->prop("signatures");
-		$sign = strlen($p)?count(aw_unserialize($p)):0;
-		return $sign > 0?true:false;
+		$signatures = $o->prop("signatures");
+		if (strlen($signatures))
+		{
+			$signatures = aw_unserialize($signatures);
+		}
+
+		$signatures_count = is_array($signatures) ? count($signatures) : 0;
+		return (bool) $signatures_count;
 	}
 
 	/** removes all the signatures from given ddoc.
@@ -1881,4 +1893,3 @@ class ddoc extends class_base
 	}
 
 }
-?>

@@ -1410,8 +1410,10 @@ ENDJAVASCRIPT
 			$url = "javascript:void(0)";
 			$onClick = " onclick=\"{$onclick}\"";
 		}
+
 		// We use double quotes in HTML, so we need to escape those in the url.
-		$url = str_replace("\"", "\\\"", $url);
+		// also since using xhtml, replace ampersands
+		$url = str_replace(array("&", "\""), array("&amp;", "\\\""), $url);
 
 		return "<a href=\"{$url}\"{$target}{$title}{$onClick}{$onMouseOver}{$onMouseOut}{$ti}{$textsize}{$class}{$id}{$name}{$rel}{$style}>{$caption}</a>";
 	}
