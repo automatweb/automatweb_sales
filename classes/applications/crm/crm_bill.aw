@@ -458,7 +458,6 @@ class crm_bill extends class_base
 
 	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["post_ru"] = post_ru();
 		$arr["add_bug"] = "";
 		$arr["aggregate_total"] = -1;
 		$arr["new_payment"] = "";
@@ -3332,10 +3331,6 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 
 		$doc->set_title(sprintf(t("Arve nr. %s %s", $lang_id), $this_o->prop("bill_no"), $view_type_name));
 		$doc->add_stylesheet(style::get_url("crm_bill", "invoice_main"));
-
-		$footer_tpl->add_vars(array(
-			"page_number" => t("{PAGENO} / {nb}", $lang_id)
-		));
 
 //XXX: TMP kuni p2ris pakkumuse klass korda ja valmis saab
 if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state"))
