@@ -15,4 +15,3 @@ class trademark_status_obj extends _int_object
 	}
 }
 
-?>

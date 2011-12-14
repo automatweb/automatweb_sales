@@ -14,5 +14,3 @@ class euro_patent_et_desc_obj extends intellectual_property_obj
 		parent::set_prop("epat_date", $value);
 	}
 }
-
-?>

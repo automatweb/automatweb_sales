@@ -2,7 +2,7 @@
 // patent.aw - Trademark
 /*
 
-@classinfo syslog_type=ST_PATENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @extends applications/clients/patent_office/intellectual_property
 @tableinfo aw_trademark index=aw_oid master_table=objects master_index=brother_of
 
@@ -122,6 +122,7 @@ class patent extends intellectual_property
 		$this->date_vars = array_merge($this->date_vars, array("exhibition_date", "convention_date"));
 		$this->file_upload_vars = array_merge($this->file_upload_vars, array("reproduction" , "g_statues","c_statues"));
 		$this->save_fee_vars = array_merge($this->save_fee_vars, array("classes_fee"));
+		// $this->chooser_vars = array("type", "trademark_type");
 		$this->text_area_vars = array_merge($this->text_area_vars, array("colors" , "trademark_character", "element_translation"));
 		$this->text_vars = array_merge($this->text_vars, array("undefended_parts" , "word_mark", "convention_nr"  , "convention_country", "exhibition_name" , "exhibition_country" , "classes_fee"));
 		$this->datafromobj_vars = array_merge($this->datafromobj_vars, array("undefended_parts" , "word_mark", "convention_nr"  , "convention_country", "exhibition_name" , "exhibition_country", "classes_fee"));
@@ -135,11 +136,11 @@ class patent extends intellectual_property
 		switch($prop["name"])
 		{
 			case "type":
-				$prop["options"] = $this->types;
+				$prop["options"] = $arr["obj_inst"]->get_type_options();
 				break;
 
 			case "trademark_type":
-				$prop["options"] = $this->trademark_types;
+				$prop["options"] = $arr["obj_inst"]->get_trademark_type_options();
 				break;
 
 			case "products_and_services_tbl":
@@ -171,8 +172,7 @@ class patent extends intellectual_property
 
 	function _get_products_and_services_tbl(&$arr)
 	{
-		
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "class",
@@ -198,18 +198,17 @@ class patent extends intellectual_property
 
 	function get_results_table()
 	{
-		if($_SESSION["patent"]["delete"])
+		if(!empty($_SESSION["patent"]["delete"]))
 		{
 			unset($_SESSION['patent']['products'][$_SESSION["patent"]["delete"]]);
 			$_SESSION["patent"]["delete"] = null;
 		}
 
-		if(!is_array($_SESSION["patent"]["prod_selection"]) && !is_array($_SESSION["patent"]["products"]))
+		if(!isset($_SESSION["patent"]["prod_selection"]) and !isset($_SESSION["patent"]["products"]) or !is_array($_SESSION["patent"]["prod_selection"]) and !is_array($_SESSION["patent"]["products"]))
 		{
 			return;
 		}
 
-		
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));
@@ -229,7 +228,7 @@ class patent extends intellectual_property
 
 
 		$classes = array();
-		if(is_array($_SESSION["patent"]["prod_selection"]))
+		if(isset($_SESSION["patent"]["prod_selection"]) and is_array($_SESSION["patent"]["prod_selection"]))
 		{
 			foreach($_SESSION["patent"]["prod_selection"] as $prod)
 			{
@@ -246,13 +245,14 @@ class patent extends intellectual_property
 		}
 
 
-		if(is_array($_SESSION["patent"]["products"]))
+		if(isset($_SESSION["patent"]["products"]) and is_array($_SESSION["patent"]["products"]))
 		{
 			foreach($_SESSION["patent"]["products"] as $key=> $val)
 			{
 				$classes[$key][] = $val;
 			}
 		}
+
 		ksort($classes);
 		foreach($classes as $class => $prods)
 		{
@@ -281,79 +281,78 @@ class patent extends intellectual_property
 		$data = parent::get_vars($arr);
 		$_SESSION["patent"]["classes_fee_info"] = $this->get_classes_fee();
 		$data["classes_fee_info"] = $_SESSION["patent"]["classes_fee_info"];
+		$patent_type = isset($_SESSION["patent"]["type"]) ? (int) $_SESSION["patent"]["type"] : 0;
 
-		if(sizeof($_SESSION["patent"]["applicants"]) == 1)
+		if(isset($_SESSION["patent"]["applicants"]) and sizeof($_SESSION["patent"]["applicants"]) == 1)
 		{
 			$_SESSION["patent"]["representer"] = reset(array_keys($_SESSION["patent"]["applicants"]));
 		}
 
-		$data["type_text"] = $this->types_disp[$_SESSION["patent"]["type"]];
+		$data["type_text"] = isset($this->types_disp[$patent_type]) ? $this->types_disp[$patent_type] : "";
 		//$data["products_value"] = $this->_get_products_and_services_tbl();
 		$data["type"] = t("S&otilde;nam&auml;rk ").html::radiobutton(array(
 				"value" => 0,
-				"checked" => !$_SESSION["patent"]["type"],
+				"checked" => 0 === $patent_type,
 				"name" => "type",
-				"onclick" => 'document.getElementById("wordmark_row").style.display = "";
-				document.getElementById("reproduction_row").style.display = "none";
-				document.getElementById("color_row").style.display = "none";
-			document.getElementById("colors").value = "";
-
-				document.getElementById("wordmark_caption").innerHTML = "* Kaubam&auml;rk";
-				document.getElementById("foreignlangelements_row").style.display = "";
-				 ',
+				"onclick" => "
+					document.getElementById('wordmark_row').style.display = '';
+					document.getElementById('reproduction_row').style.display = 'none';
+					document.getElementById('color_row').style.display = 'none';
+					document.getElementById('colors').value = '';
+					document.getElementById('wordmark_caption').innerHTML = '* Kaubam&auml;rk';
+					document.getElementById('foreignlangelements_row').style.display = '';
+					 ",
 			)).t("&nbsp;&nbsp;&nbsp;&nbsp; Kujutism&auml;rk ").html::radiobutton(array(
 				"value" => 1,
-		 		"checked" => ($_SESSION["patent"]["type"] == 1) ? 1 : 0,
+		 		"checked" => 1 === $patent_type,
 				"name" => "type",
-				"onclick" => '
-				document.getElementById("wordmark_row").style.display = "none";
-			document.getElementById("word_mark").value = "";
-				document.getElementById("foreignlangelements_row").style.display = "none";
-			document.getElementById("element_translation").value = "";
-
-
-				document.getElementById("reproduction_row").style.display = "";
-				document.getElementById("color_row").style.display = "";'
+				"onclick" => "
+					document.getElementById('wordmark_row').style.display = 'none';
+					document.getElementById('word_mark').value = '';
+					document.getElementById('foreignlangelements_row').style.display = 'none';
+					document.getElementById('element_translation').value = '';
+					document.getElementById('reproduction_row').style.display = '';
+					document.getElementById('color_row').style.display = '';"
 			)).t("&nbsp;&nbsp;&nbsp;&nbsp; Kombineeritud m&auml;rk ").html::radiobutton(array(
 				"value" => 2,
-				"checked" => ($_SESSION["patent"]["type"] == 2) ? 1 : 0,
+				"checked" => 2 === $patent_type,
 				"name" => "type",
-				"onclick" => '
-				document.getElementById("color_row").style.display = "";
-				document.getElementById("reproduction_row").style.display = "";
-      				document.getElementById("wordmark_row").style.display = "none";
-			document.getElementById("word_mark").value = "";
-				document.getElementById("foreignlangelements_row").style.display = "";',
+				"onclick" => "
+					document.getElementById('color_row').style.display = '';
+					document.getElementById('reproduction_row').style.display = '';
+					document.getElementById('wordmark_row').style.display = 'none';
+					document.getElementById('word_mark').value = '';
+					document.getElementById('foreignlangelements_row').style.display = '';",
 			)).t("&nbsp;&nbsp;&nbsp;&nbsp; Ruumiline m&auml;rk ").html::radiobutton(array(
 				"value" => 3,
-				"checked" => ($_SESSION["patent"]["type"] == 3) ? 1 : 0,
+				"checked" => 3 === $patent_type,
 				"name" => "type",
-				"onclick" => '
-				document.getElementById("color_row").style.display = "";
-				document.getElementById("reproduction_row").style.display = "";
-				document.getElementById("wordmark_row").style.display = "none";
-			document.getElementById("word_mark").value = "";
-				document.getElementById("foreignlangelements_row").style.display = "";',
+				"onclick" => "
+					document.getElementById('color_row').style.display = '';
+					document.getElementById('reproduction_row').style.display = '';
+					document.getElementById('wordmark_row').style.display = 'none';
+					document.getElementById('word_mark').value = '';
+					document.getElementById('foreignlangelements_row').style.display = '';",
 			));
 
-		$data["wm_caption"] = ($_SESSION["patent"]["type"]  ? t("S&otilde;naline osa:") : t("Kaubam&auml;rk:"));
+		$data["wm_caption"] = $patent_type ? t("S&otilde;naline osa:") : t("Kaubam&auml;rk:");
 
 		$data["trademark_type"] = t("(kui taotlete kollektiivkaubam&auml;rki)").html::checkbox(array(
 			"value" => 1,
-			"checked" => $_SESSION["patent"]["co_trademark"],
+			"checked" => !empty($_SESSION["patent"]["co_trademark"]),
 			"name" => "co_trademark",
-			"onclick" => 'document.getElementById("c_statues_row").style.display = "";'
+			"onclick" => "document.getElementById('c_statues_row').style.display = '';"
 			)).'<a href="javascript:;" onClick="MM_openBrWindow(\'16340\',\'\',\'width=720,height=540\')"><img src="/img/lk/ikoon_kysi.gif" border="0" /></a><br>'.
 
 			t("(kui taotlete garantiikaubam&auml;rki)").html::checkbox(array(
 				"value" => 1,
-				"checked" => $_SESSION["patent"]["guaranty_trademark"],
+				"checked" => !empty($_SESSION["patent"]["guaranty_trademark"]),
 				"name" => "guaranty_trademark",
-				"onclick" => 'document.getElementById("g_statues_row").style.display = "";'
-			)).'<a href="javascript:;" onClick="MM_openBrWindow(\'16341\',\'\',\'width=720,height=540\')"><img src="/img/lk/ikoon_kysi.gif" border="0" />';
-		$data["trademark_type_text"] = ($_SESSION["patent"]["co_trademark"]) ? t("Kollektiivkaubam&auml;rk") : "";
+				"onclick" => "document.getElementById('g_statues_row').style.display = '';"
+			)).'<a href="javascript:;" onclick="MM_openBrWindow(\'16341\',\'\',\'width=720,height=540\')"><img src="/img/lk/ikoon_kysi.gif" border="0" />';
+		$data["trademark_type_text"] = !empty($_SESSION["patent"]["co_trademark"]) ? t("Kollektiivkaubam&auml;rk") : "";
 		$data["trademark_type_text"].= " ";
-		$data["trademark_type_text"].= ($_SESSION["patent"]["guaranty_trademark"]) ? t("Garantiim&auml;rk") : "";
+		$data["trademark_type_text"].= !empty($_SESSION["patent"]["guaranty_trademark"]) ? t("Garantiim&auml;rk") : "";
 
 		$data["find_products"] = html::href(array(
 			"caption" => t("Sisene klassifikaatorisse") ,
@@ -364,8 +363,8 @@ class patent extends intellectual_property
 		$_SESSION["patent"]["prod_ru"] = get_ru();
 		$data["results_table"] = $this->get_results_table();
 
-		$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => $_SESSION["patent"]["trademark_id"], "add_obj" => $arr["alias"]["to"]))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800')";
-		$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , 	"id" => $_SESSION["patent"]["id"], "add_obj" => $arr["alias"]["to"]) , CL_PATENT);
+		$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => isset($_SESSION["patent"]["trademark_id"]) ? $_SESSION["patent"]["trademark_id"] : "", "add_obj" => $arr["alias"]["to"]))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800')";
+		$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , 	"id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]) , CL_PATENT);
 		return $data;
 	}
 
@@ -375,7 +374,7 @@ class patent extends intellectual_property
 	**/
 	function find_products($arr)
 	{
-		if($_POST["do_post"])
+		if(!empty($_POST["do_post"]))
 		{
 			$_SESSION["patent"]["prod_selection"] =  $_POST["oid"];
 			die("
@@ -387,7 +386,7 @@ class patent extends intellectual_property
 			);
 		}
 
-		if($arr["product"] || $arr["prodclass"])
+		if(!empty($arr["product"]) || !empty($arr["prodclass"]))
 		{
 			if($arr["prodclass"])
 			{
@@ -399,7 +398,7 @@ class patent extends intellectual_property
 			}
 			$tpl = "products_res.tpl";
 			$is_tpl = $this->read_template($tpl,1);
-			
+
 			$t = new vcl_table(array(
 				"layout" => "generic",
 			));
@@ -591,42 +590,42 @@ class patent extends intellectual_property
 		return $patent;
 	}
 
-	public function get_payment_sum()
+	public function get_payment_sum($float = false)
 	{
 		$sum = 0;
-		if(is_array($_SESSION["patent"]["products"]) && sizeof($_SESSION["patent"]["products"]))
+		if(isset($_SESSION["patent"]["products"]) && is_array($_SESSION["patent"]["products"]) && count($_SESSION["patent"]["products"]))
 		{
-			$classes_fee = $this->get_classes_fee();
-			$sum = $this->get_request_fee() + $classes_fee;
+			$classes_fee = $this->get_classes_fee(true);
+			$sum = $this->get_request_fee(true) + $classes_fee;
 		}
-		return $sum;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
-	public function get_request_fee()
+	public function get_request_fee($float = false)
 	{
 		$sum = 0;
-		if(is_array($_SESSION["patent"]["products"]) && sizeof($_SESSION["patent"]["products"]))
+		if(isset($_SESSION["patent"]["products"]) && is_array($_SESSION["patent"]["products"]) && count($_SESSION["patent"]["products"]))
 		{
 			if($_SESSION["patent"]["co_trademark"] || $_SESSION["patent"]["guaranty_trademark"])
 			{
-				$sum = 3000;
+				$sum = 191.73;
 			}
 			else
 			{
-				$sum = 2200;
+				$sum = 140.60;
 			}
 		}
-		return $sum;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
-	public function get_classes_fee()
+	public function get_classes_fee($float = false)
 	{
 		$sum = 0;
-		if(is_array($_SESSION["patent"]["products"]) && sizeof($_SESSION["patent"]["products"]))
+		if(isset($_SESSION["patent"]["products"]) && is_array($_SESSION["patent"]["products"]) && count($_SESSION["patent"]["products"]))
 		{
-			$sum = (sizeof($_SESSION["patent"]["products"]) - 1 )*700;
+			$sum = (sizeof($_SESSION["patent"]["products"]) - 1 )*44.73;
 		}
-		return $sum;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
 	function fill_session($id)
@@ -639,6 +638,7 @@ class patent extends intellectual_property
 		{
 			$_SESSION["patent"]["co_trademark"] = 1;
 		}
+
 		if(isset($_SESSION["patent"]["trademark_type"][1]))
 		{
 			$_SESSION["patent"]["guaranty_trademark"] = 1;
@@ -646,6 +646,8 @@ class patent extends intellectual_property
 
 		$_SESSION["patent"]["products"] = $patent->meta("products");
 		$_SESSION["patent"]["representer"] = $patent->prop("applicant");
+		$_SESSION["patent"]["type"] = $patent->prop("type");
+		$_SESSION["patent"]["trademark_type"] = $patent->prop("trademark_type");
 	}
 
 	function get_data_from_object($id)
@@ -660,9 +662,9 @@ class patent extends intellectual_property
 		return $data;
 	}
 
-	function get_js($arr)
+	function get_js()
 	{
-		$js2 = parent::get_js($arr);
+		$js2 = parent::get_js();
 		$js = "";
 
 		if($_GET["data_type"] == 1)
@@ -942,5 +944,3 @@ class patent extends intellectual_property
 		return $xml;
 	}
 }
-
-?>

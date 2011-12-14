@@ -239,13 +239,13 @@ class utility_model extends intellectual_property
 		return $patent;
 	}
 
-	public function get_payment_sum()
+	public function get_payment_sum($float = false)
 	{
-		$sum = $this->get_request_fee();
-		return $sum;
+		$sum = $this->get_request_fee(true);
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
-	public function get_request_fee()
+	public function get_request_fee($float = false)
 	{
 		$sum = 0;
 		$is_corporate = false;
@@ -259,8 +259,8 @@ class utility_model extends intellectual_property
 			}
 		}
 
-		$sum = $is_corporate ? 1600 : 400;
-		return $sum;
+		$sum = $is_corporate ? 102.25 : 25.56;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
 	function get_vars($arr)
@@ -459,6 +459,7 @@ class utility_model extends intellectual_property
 
 		//
 		$types = array(
+			patent_patent_obj::APPLICANT_REG_AUTHOR => 1,
 			patent_patent_obj::APPLICANT_REG_AUTHOR_SUCCESOR => 2,
 			patent_patent_obj::APPLICANT_REG_EMPLOYEE => 3,
 			patent_patent_obj::APPLICANT_REG_OTHER_CONTRACT => 4
@@ -470,7 +471,7 @@ class utility_model extends intellectual_property
 		$root->insertBefore($el, $despg);
 
 		// priority
-		if($o->prop("prio_convention_date") !== "-1" or $o->prop("prio_convention_nr"))
+		if($o->prop("prio_convention_date") !== "-1" and $o->prop("prio_convention_nr"))
 		{ // Pariisi konventsiooni vm. kokkuleppe taotluse alusel
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRICP", $o->prop("prio_convention_country")));
@@ -480,7 +481,7 @@ class utility_model extends intellectual_property
 			$root->insertBefore($el, $despg);
 		}
 
-		if($o->prop("prio_prevapplicationsep_date") !== "-1" or $o->prop("prio_prevapplicationsep_nr"))
+		if($o->prop("prio_prevapplicationsep_date") !== "-1" and $o->prop("prio_prevapplicationsep_nr"))
 		{ // Esitatud patenditaotluse p&otilde;hjal
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd",$o->prop("prio_prevapplicationsep_date"))));
@@ -489,7 +490,7 @@ class utility_model extends intellectual_property
 			$root->insertBefore($el, $despg);
 		}
 
-		if($o->prop("prio_prevapplication_date") !== "-1" or $o->prop("prio_prevapplication_nr"))
+		if($o->prop("prio_prevapplication_date") !== "-1" and $o->prop("prio_prevapplication_nr"))
 		{ // Varasema taotluse alusel (seaduse &#0167;10 l&otilde;ige 3)
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd",$o->prop("prio_prevapplication_date"))));
@@ -502,5 +503,3 @@ class utility_model extends intellectual_property
 		return $xml;
 	}
 }
-
-?>

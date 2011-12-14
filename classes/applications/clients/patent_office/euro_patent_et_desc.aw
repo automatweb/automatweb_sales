@@ -2,7 +2,7 @@
 // euro_patent_et_desc.aw - Patent
 /*
 
-@classinfo syslog_type=ST_EURO_PATENT_ET_DESC relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @extends applications/clients/patent_office/intellectual_property
 
 
@@ -139,16 +139,16 @@ class euro_patent_et_desc extends intellectual_property
 		return $patent;
 	}
 
-	public function get_payment_sum()
+	public function get_payment_sum($float = false)
 	{
-		$sum = $this->get_request_fee();
-		return $sum;
+		$sum = $this->get_request_fee(true);
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
-	public function get_request_fee()
+	public function get_request_fee($float = false)
 	{
-		$sum = 700;
-		return $sum;
+		$sum = 44.73;
+		return $float ? $sum : number_format($sum, 2, ",", "");
 	}
 
 	function get_vars($arr)
@@ -237,5 +237,3 @@ class euro_patent_et_desc extends intellectual_property
 		return $xml;
 	}
 }
-
-?>
