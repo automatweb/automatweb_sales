@@ -11,9 +11,7 @@ and acquisition contracts are represented in separate customer relation objects
 @default table=objects
 @default group=general
 
-	// @property name type=text table=objects field=name store=no
-	//TODO: ...
-	@property name type=textbox table=objects field=name
+	@property name type=text table=objects field=name store=no
 	@caption Nimi
 
 	@property buyer type=relpicker reltype=RELTYPE_BUYER table=aw_crm_customer_data field=aw_buyer
@@ -320,6 +318,32 @@ class crm_company_customer_data extends class_base
 				break;
 		}
 		return $retval;
+	}
+
+	public function _get_name(&$arr)
+	{
+		$name_str = $this->awcb_ds_id->name();
+		if ($name_str)
+		{
+			$name = explode(crm_company_customer_data_obj::PARTY_NAME_SEPARATOR, $name_str);
+
+			if (count($name) === 2)
+			{ // correct and default
+				$arr["prop"]["value"] = sprintf(t("Kliendisuhe m&uuml;&uuml;ja %s ja ostja %s vahel"), $name[0], $name[1]);
+			}
+			else
+			{ // fallback
+				$arr["prop"]["value"] = $name_str;
+			}
+
+			$r = class_base::PROP_OK;
+		}
+		else
+		{ // seller/buyer not set yet
+			$r = class_base::PROP_IGNORE;
+		}
+
+		return $r;
 	}
 
 	function _get_sales_customer_info(&$arr)
