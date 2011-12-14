@@ -14,6 +14,8 @@ class crm_company_customer_data_obj extends _int_object
 	const SALESSTATE_ONHOLD = 8;
 	// new sales state constants also have to be added to self::$sales_state_names array in self::sales_state_names() method
 
+	const PARTY_NAME_SEPARATOR = " => ";
+
 	public static $customer_class_ids = array(CL_CRM_COMPANY, CL_CRM_PERSON);
 
 	private static $sales_state_names = array();
@@ -32,6 +34,16 @@ class crm_company_customer_data_obj extends _int_object
 		}
 		$this->set_prop("sales_state", $state);
 	}
+
+/* TODO: kui korra on osapooled kinnitatud siis muuta enam ei saa
+	public function awobj_set_seller($oid)
+	{
+	}
+
+	public function awobj_set_buyer($oid)
+	{
+	}
+ */
 
 	/** Customer's sales state names or name
 	@attrib api=1 params=pos
@@ -301,8 +313,11 @@ class crm_company_customer_data_obj extends _int_object
 			{
 				$this->set_prop("cust_contract_date", time());
 			}
+		}
 
-			$this->set_name($this->prop_str("seller.name") . " => " . $this->prop_str("buyer.name"));
+		if (!$this->name() and $this->prop("seller") and $this->prop("buyer"))
+		{
+			$this->set_name($this->prop_str("seller.name") . crm_company_customer_data_obj::PARTY_NAME_SEPARATOR . $this->prop_str("buyer.name"));
 		}
 
 		$r = parent::save($check_state);
