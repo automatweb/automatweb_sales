@@ -899,7 +899,8 @@ class cache extends aw_core_module
 			return;
 		}
 
-		$cache_dir = realpath(aw_ini_get("cache.page_cache"));
+		$cache_dir = str_replace(DIRECTORY_SEPARATOR, "/", realpath(aw_ini_get("cache.page_cache")));
+		if (substr($cache_dir, -1) !== "/") $cache_dir .= "/";
 
 		// just in case, check if root directory or other necessary thing isn't deleted
 		$count = count_chars($cache_dir, 1);
