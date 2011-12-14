@@ -9,19 +9,19 @@
 	@default field=meta
 	@default method=serialize
 
-	@property topicsonpage type=select 
+	@property topicsonpage type=select
 	@caption Teemasid lehel
 
         @property comments type=checkbox ch_value=1
         @caption Kommenteeritav
-	
-	@property onpage type=select 
+
+	@property onpage type=select
 	@caption Kommentaare lehel
-        
+
 	@property rated type=checkbox ch_value=1
         @caption Hinnatav
 
-	@property template type=select 
+	@property template type=select
 	@caption Template
 
 	@property preview type=text store=no editonly=1
@@ -36,7 +36,7 @@
 	@property addresslist type=text store=no group=rates
 	@caption E-posti aadressid
 
-	@property language callback=callback_get_languages group=languages 
+	@property language callback=callback_get_languages group=languages
 	@caption Keel
 
 	@groupinfo rates caption=Hinded
@@ -57,10 +57,10 @@ class forum extends class_base
 		));
 		// $this->sub_merge = 1;
 		// to keep track of how many topics we have already drawn
-		$this->topic_count = 0; 
+		$this->topic_count = 0;
 
 		if ($this->embedded)
-		{	
+		{
 			global $section;
 			// remember the section id to keep the layout
 			if ($section)
@@ -83,7 +83,7 @@ class forum extends class_base
 	function init_forum_display($args = array())
 	{
 		$forum_obj = new object($args["id"]);
-		if ($forum_obj->prop("language") != "") 
+		if ($forum_obj->prop("language") != "")
 		{
 			$this->lc_load("msgboard","lc_msgboard",$forum_obj->prop("language"));
 
@@ -165,16 +165,16 @@ class forum extends class_base
 		return $retval;
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=notify_list params=name default="0"
-		
+
 		@param id required type=int
 		@param sortby optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -183,8 +183,8 @@ class forum extends class_base
 		extract($args);
 		$this->read_template("notify_list.tpl");
 		$this->mk_path(0,"Muuda foorumit");
-	
-		load_vcl("table");	
+
+		load_vcl("table");
 		$t = new aw_table(array(
 			"prefix" => "nforum",
 			"tbgcolor" => "#C3D0DC",
@@ -242,14 +242,14 @@ class forum extends class_base
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_notify_list params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -273,7 +273,7 @@ class forum extends class_base
 				"address" => $newaddress,
 			);
 		};
-		
+
 		$tmp->set_meta("notifylist",$nflist);
 		return $this->mk_my_orb("notify_list",array("id" => $id));
 	}
@@ -291,7 +291,7 @@ class forum extends class_base
 	}
 
 	////
-	// !Displays tabs 
+	// !Displays tabs
 	function tabs($args = array(),$active = "")
 	{
 		// et mitte koiki seniseid saite katki teha
@@ -309,7 +309,7 @@ class forum extends class_base
 		{
 			array_push($args,"configure");
 		};
-		
+
 		$tabs = array(
 			"newtopic" => $this->mk_my_orb("add_topic",array("id" => $id,"_alias" => "forum","section" => $this->section)),
 			"configure" => $this->mk_my_orb("change",array("id" => $id,"_alias" => "forum","section" => $this->section)),
@@ -413,7 +413,7 @@ class forum extends class_base
 				"flat_link" => $this->mk_my_orb("topics",array("id" => $id, "_alias" => $alias,"section" => $this->section, "from" => $from)),
 			));
 		}
-		
+
 		if ($board)
 		{
 			$b_obj = new object($board);
@@ -434,16 +434,16 @@ class forum extends class_base
 		};
 	}
 
-	/** Kuvab uue topicu lisamise vormi 
-		
+	/** Kuvab uue topicu lisamise vormi
+
 		@attrib name=add_topic params=name nologin="1" default="0"
-		
+
 		@param id required type=int
 		@param section optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -496,14 +496,14 @@ topic");
 		return $this->parse();
 	}
 
-	/** Lisab uue topicu 
-		
+	/** Lisab uue topicu
+
 		@attrib name=submit_topic params=name nologin="1" default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -517,7 +517,7 @@ topic");
 			$parent_obj = new object($id);
 			if ($parent_obj->class_id() ==CL_FORUM)
 			{
-			
+
 				aw_disable_acl();
 				$o = obj();
 				$o->set_parent($id);
@@ -542,16 +542,16 @@ topic");
 		return $retval;
 	}
 
-	/** Shows a flat list of messages 
-		
+	/** Shows a flat list of messages
+
 		@attrib name=show params=name nologin="1" default="0"
-		
+
 		@param board required type=int
 		@param section optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -582,8 +582,8 @@ topic");
 
 		$content = "";
 
-	
-		$tabs = $this->tabs(array("flat","addcomment","flatcomments","threadedcomments","threadedsubjects","no_response","search","details"),"flatcomments");	
+
+		$tabs = $this->tabs(array("flat","addcomment","flatcomments","threadedcomments","threadedsubjects","no_response","search","details"),"flatcomments");
 		if ($addcomment)
 		{
 			$tabs = $this->tabs(array("flat","addcomment","flatcomments","threadedcomments","threadedsubjects","no_response","search","details"),"addcomment");
@@ -637,7 +637,7 @@ topic");
 		{
 			$id = $forum_obj->id();
 		};
-		
+
 		$author = $this->get_author($board);
 		if (empty($author))
 		{
@@ -667,9 +667,9 @@ topic");
 		));
 
 		$voteblock = "";
-	
+
 		if ($forum_obj->meta("rated") != "")
-		{	
+		{
 			// lets calculate vote count for this forum
 			if ($board_obj->meta("voters") == 0)
 			{
@@ -684,7 +684,7 @@ topic");
 				"vote_reforb" => $this->mk_reforb("submit_vote",array("board" => $board)),
 				"rate" => sprintf("%0.2f",$rate),
 			));
-		
+
 			global $forum_votes;
 			if ($forum_votes[$board])
 			{
@@ -697,7 +697,7 @@ topic");
 		};
 
 		$this->vars(array(
-			"CHANGE_TOPIC" => ($this->prog_acl("view", PRG_MENUEDIT) ? $this->parse("CHANGE_TOPIC") : "")
+			"CHANGE_TOPIC" => (acl_base::prog_acl("view", PRG_MENUEDIT) ? $this->parse("CHANGE_TOPIC") : "")
 		));
 
 
@@ -707,11 +707,11 @@ topic");
 			"VOTE_FOR_TOPIC" => $voteblock,
 			"TOPIC" => $this->parse("TOPIC"),
 		));
-		if ($this->prog_acl("view", PRG_MENUEDIT))
+		if (acl_base::prog_acl("view", PRG_MENUEDIT))
 		{
 			$actions = $this->parse("actions");
 		}
-	
+
 		if ($this->comm_count > 0)
 		{
 			$this->vars(array(
@@ -729,14 +729,14 @@ topic");
 
 	}
 
-	/** Submits a vote to a topic 
-		
+	/** Submits a vote to a topic
+
 		@attrib name=submit_vote params=name nologin="1" default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -758,19 +758,19 @@ topic");
 		return $this->mk_my_orb("show",array("board" => $board));
 	}
 
-	/** Shows a threaded list of messages 
-		
+	/** Shows a threaded list of messages
+
 		@attrib name=show_threaded params=name nologin="1" default="0"
-		
+
 		@param board required type=int
 		@param section optional
 		@param cid optional type=int
 		@param from optional type=int
 		@param no_comments optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -795,14 +795,14 @@ topic");
 		$this->forum_id = $forum_obj->id();
 		$this->board = $board;
 		$this->section = isset($section) ? $section : "";
-		
-	
+
+
 		$rated = "";
 		if (!empty($meta["rated"]))
 		{
 			$rated = $this->_draw_ratings($meta["rates"],$board_meta);
 		};
-	
+
 		if (!empty($no_comments))
 		{
 			$tabs = $this->tabs(array("flat","addcomment","flatcomments","threadedcomments","threadedsubjects","no_response","search","details"),"threadedsubjects");
@@ -901,7 +901,7 @@ topic");
 			"text" => nl2br(create_links($board_obj->comment())),
 		));
 
-		if ($this->prog_acl("view", PRG_MENUEDIT))
+		if (acl_base::prog_acl("view", PRG_MENUEDIT))
 		{
 			$actions = $this->parse("actions");
 		}
@@ -944,14 +944,14 @@ topic");
 
 		return $retval;
 	}
-	/** Submits a message list 
-		
+	/** Submits a message list
+
 		@attrib name=submit_messages params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -960,8 +960,8 @@ topic");
 		extract($args);
 		if (is_array($check))
 		{
-			// unfortunately, it's not so simple. 
-			// we gotta delete the comments below the to-be-deleted ones as well, so that 
+			// unfortunately, it's not so simple.
+			// we gotta delete the comments below the to-be-deleted ones as well, so that
 			// we can do the comment count quickly later
 			foreach($check as $delid)
 			{
@@ -1006,7 +1006,7 @@ topic");
 				$c .= $this->parse("rate");
 			}
 		};
-	
+
 		if ($board_meta["voters"] > 0)
 		{
 			$ratings = sprintf("%0.02f",$board_meta["votesum"] / $board_meta["voters"]);
@@ -1085,7 +1085,7 @@ topic");
 			//	if ($this->level1comments_done == ($this->to) + 1) // xxx why was that so ? --dragut
 				if ($this->level1comments_done == $this->to)
 				{
-					return;	
+					return;
 				};
 			};
 			$this->level++;
@@ -1119,18 +1119,18 @@ topic");
 			$this->level--;
 		};
 	}
-			
 
-	/** displays a reply form 
-		
+
+	/** displays a reply form
+
 		@attrib name=reply params=name nologin="1" default="0"
-		
+
 		@param parent required type=int
 		@param section optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1256,7 +1256,7 @@ topic");
 			$this->vars(array("SHOW_COMMENT" => $this->parse("SHOW_COMMENT")));
 		};
 
-		if ( ($this->prog_acl("view", PRG_MENUEDIT)) || ($this->members[aw_global_get("uid")]))
+		if ( (acl_base::prog_acl("view", PRG_MENUEDIT)) || ($this->members[aw_global_get("uid")]))
 		{
 			$del = $this->parse("KUSTUTA");
 			$repl = $this->parse("REPLY");
@@ -1289,10 +1289,10 @@ topic");
 			$reply = "";
 		};
 		$this->section = $section;
-		$cnt = $this->db_fetch_field("SELECT count(*) AS cnt 
+		$cnt = $this->db_fetch_field("SELECT count(*) AS cnt
 			FROM comments WHERE board_id = '$board'","cnt");
 		$this->mk_links(array("board" => $board));
-		
+
 		if ($subj && not(preg_match("/Re:/i",$args["subj"])))
 		{
 			$subj = "Re: " . $subj;
@@ -1302,8 +1302,8 @@ topic");
 		if (isset($_SESSION['aw_mb_error']) && is_array($_SESSION['aw_mb_error']))
 		{
 /*
-				'name' => 
-				'comment' => (strlen($comment) > 1) ? '' : 
+				'name' =>
+				'comment' => (strlen($comment) > 1) ? '' :
 				'image_verification' => ($image_verification_result === true) ? '' : D
 */
 			if ($_SESSION['aw_mb_error']['error']['name'] == 1)
@@ -1359,19 +1359,19 @@ topic");
 
 	function get_num_comments($board)
 	{
-		$cnt = $this->db_fetch_field("SELECT count(*) AS cnt 
+		$cnt = $this->db_fetch_field("SELECT count(*) AS cnt
 		FROM comments WHERE board_id = '$board'","cnt");
 		return $cnt;
 	}
 
-	/** Submits comment to a topic 
-		
+	/** Submits comment to a topic
+
 		@attrib name=submit_comment params=name nologin="1" default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1413,7 +1413,7 @@ topic");
 			$image_verification_inst = get_instance( CL_IMAGE_VERIFICATION );
 			$image_verification_result =  $image_verification_inst->validate($args['ver_code']); // returns true or false
 		}
-		
+
 		unset($_SESSION['aw_mb_error']);
 
 		if ( (strlen($name) > 0) && (strlen($comment) > 1) && ($image_verification_result === true) )
@@ -1428,7 +1428,7 @@ topic");
 						"From: $name <$email>");
 				}
 			};
-			
+
 			$name = strip_tags($name);
 			$email = strip_tags($email);
 			$comment = strip_tags($comment);
@@ -1476,7 +1476,7 @@ topic");
 		}
 		else
 		{
-			$_SESSION['aw_mb_error'] = array( 
+			$_SESSION['aw_mb_error'] = array(
 				'error' => array(
 					'name' => (strlen($name) > 0) ? 0 : 1,
 					'comment' => (strlen($comment) > 1) ? 0 : 1,
@@ -1490,7 +1490,7 @@ topic");
 		{
 			$act = "show_threaded";
 		};
-		
+
 		$alias = false;
 		if ($section)
 		{
@@ -1499,7 +1499,7 @@ topic");
 			{
 				$alias = true;
 			}
-		} 
+		}
 
 		if ($alias && aw_ini_get("user_interface.full_content_trans") && aw_ini_get("user_interface.content_trans"))
 		{
@@ -1521,7 +1521,7 @@ topic");
 	}
 
 	/** Exports forum contents as XML
-		@attrib name=export_xml 
+		@attrib name=export_xml
 		@param id required tye=int
 
 	**/
@@ -1584,18 +1584,18 @@ topic");
 		*/
 	}
 
-	/** Shows a list of topics for a forum 
-		
+	/** Shows a list of topics for a forum
+
 		@attrib name=topics params=name nologin="1" default="0"
-		
+
 		@param id required type=int
 		@param from optional type=int
 		@param section optional
 		@param archive optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		id(int) - forum id
 
@@ -1654,7 +1654,7 @@ topic");
 
 
 		$this->vars(array(
-			"actions" => ($this->prog_acl("view",PRG_MENUEDIT) ? $this->parse("actions") : ""),
+			"actions" => (acl_base::prog_acl("view",PRG_MENUEDIT) ? $this->parse("actions") : ""),
 			"TABS" => $tabs,
 			"TOPIC" => $content,
 			"TOPIC_EVEN" => $content,
@@ -1662,18 +1662,18 @@ topic");
 		return $this->parse();
 	}
 
-	/** Displays a detailed list of topics 
-		
+	/** Displays a detailed list of topics
+
 		@attrib name=topics_detail params=name nologin="1" default="0"
-		
+
 		@param id required type=int
 		@param from optional type=int
 		@param cid optional type=int
 		@param section optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1690,7 +1690,7 @@ topic");
 		$this->topicsonpage = ($o->prop("topicsonpage") != "") ? $o->prop("topicsonpage") : 5;
 		$tabs = $this->tabs(array("flat","details","newtopic","mark_all_read","archive","search"),"details");
 		$this->read_template("list_topics_detail.tpl");
-		
+
 		global $HTTP_COOKIE_VARS;
 		$aw_mb_last = unserialize(stripslashes($HTTP_COOKIE_VARS["aw_mb_last"]));
 		$this->last_read = $aw_mb_last;
@@ -1700,13 +1700,13 @@ topic");
 			"id" => $id,
 			"details" => 1,
 		));
-		
+
 		$this->mk_links(array(
 			"id" => $id,
 			"board" => $id,
 			"from" => $from,
 		));
-		
+
 		$this->vars(array(
 			"TOPIC" => $content,
 			"TOPIC_EVEN" => $content,
@@ -1716,14 +1716,14 @@ topic");
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_topics params=name nologin="1" default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1753,17 +1753,17 @@ topic");
 	}
 
 
-	/** Shows the search form 
-		
+	/** Shows the search form
+
 		@attrib name=search params=name nologin="1" default="0"
-		
+
 		@param id optional type=int
 		@param board optional type=int
 		@param section optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1794,14 +1794,14 @@ topic");
 		return $this->parse();
 	}
 
-	/** Performs the actual search 
-		
+	/** Performs the actual search
+
 		@attrib name=submit_search params=name nologin="1" all_args="1" default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1832,7 +1832,7 @@ topic");
 			$this->forum_id = $forum_obj->id();
 		}
 		else
-		{	
+		{
 			$status = ($in_archive) ? "" : " AND status = 2";
 			$q = "SELECT * FROM objects WHERE parent = '$board' $status AND class_id = " . CL_MSGBOARD_TOPIC;
 			$this->db_query($q);
@@ -1873,7 +1873,7 @@ topic");
 		$q = "SELECT * FROM comments WHERE
 			name LIKE '%$from%' AND
 			email LIKE '%$email%' AND
-			subj LIKE '%$subj%' AND	
+			subj LIKE '%$subj%' AND
 			comment LIKE '%$comment%' AND
 			board_id IN ($bjlist)
 			ORDER BY time DESC";
@@ -1903,16 +1903,16 @@ topic");
 
 	}
 
-	/** Marks all the boards in the current forum as read 
-		
+	/** Marks all the boards in the current forum as read
+
 		@attrib name=mark_all_read params=name nologin="1" default="0"
-		
+
 		@param id required type=int
 		@param section optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1975,7 +1975,7 @@ topic");
 		{
 			return false;
 		};
-		
+
 		// check the length too, otherwise we get a nasty mysql error
 		if (sizeof($boards) == 0)
 		{
@@ -1983,7 +1983,7 @@ topic");
 		};
 		$comments = array();
 		$q = sprintf("SELECT board_id,count(*) AS cnt FROM comments
-				WHERE board_id IN (%s) 
+				WHERE board_id IN (%s)
 				GROUP BY board_id",join(",",$boards));
 		$this->db_query($q);
 		while($row = $this->db_next())
@@ -1992,7 +1992,7 @@ topic");
 		};
 		return $comments;
 	}
-			
+
 	////
 	// !Draws a list of all topics under a forum
 	function _draw_all_topics($args = array())
@@ -2022,7 +2022,7 @@ topic");
 			{
 				if ($args["details"])
 				{
-					// this is a tad ineffective, because we query 
+					// this is a tad ineffective, because we query
 					// for each topic, instead of getting the comments
 					// as a batch
 					$this->_query_comments(array("board" => $o->id()));
@@ -2052,7 +2052,7 @@ topic");
 		$this->topic_count++;
 
 		$alias = ($this->embedded) ? "forum" : "";
-		
+
 		$this->use_orb_for_links = 1;
 		#if ($this->use_orb_for_links)
 		#{
@@ -2078,8 +2078,8 @@ topic");
 			$row = $this->db_next();
 
 			$read_msgs = $row["cnt"];
-			
-			
+
+
 			$total_msgs = (int)$this->comments[$args["oid"]];
 
 			if ($read_msgs < $total_msgs)
@@ -2125,14 +2125,14 @@ topic");
 			"threaded_topic_link2" => $threaded_topic_link2,
 			"NEW_MSGS" => $mark,
 			"rate" => (floor(($rate*10)+0.5)/10),
-			"DELETE" => ($this->prog_acl("view",PRG_MENUEDIT) ? $this->parse("DELETE") : ""),
-			"DEL_TOPIC" => ($this->prog_acl("view",PRG_MENUEDIT) ? $this->parse("DELETE") : "")
+			"DELETE" => (acl_base::prog_acl("view",PRG_MENUEDIT) ? $this->parse("DELETE") : ""),
+			"DEL_TOPIC" => (acl_base::prog_acl("view",PRG_MENUEDIT) ? $this->parse("DELETE") : "")
 		));
 		$even = ($this->topic_count % 2);
 		if ($this->is_template("TOPIC_EVEN"))
 		{
 			// if TOPIC_EVEN template exitsts then we assume that TOPIC_ODD also exists
-			// actually we should check for it 
+			// actually we should check for it
 			$tpl_to_parse = ($even) ? "TOPIC_EVEN" : "TOPIC_ODD";
 		}
 		else
@@ -2146,7 +2146,7 @@ topic");
 		));
 		return $retval;
 	}
-	
+
 	////
 	// !Performs a query to get comments matching a certain criteria
 	function _query_comments($args = array())
@@ -2218,7 +2218,7 @@ topic");
 	// requires a loaded template and PAGES, PAGE and SEL_PAGE subtemplates to be defined
 	// total(int) - how many items do we have?
 	// onpage(int) - how many items on a page?
-	// active(int) - what item are we showing at the moment? 
+	// active(int) - what item are we showing at the moment?
 	function _draw_pager($args = array())
 	{
 		extract($args);
@@ -2286,16 +2286,16 @@ topic");
 
 	///
 	// !deletes a topic from the board. What about the comments though?
-	/**  
-		
+	/**
+
 		@attrib name=delete_topic params=name default="0"
-		
+
 		@param forum_id required type=int
 		@param board required type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2319,15 +2319,15 @@ topic");
 
 	}
 
-	/** Allows to change the topic 
-		
+	/** Allows to change the topic
+
 		@attrib name=change_topic params=name default="0"
-		
+
 		@param board required type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2349,14 +2349,14 @@ topic");
 	}
 
 
-	/** Submits the changed topic 
-		
+	/** Submits the changed topic
+
 		@attrib name=save_topic params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2384,17 +2384,17 @@ topic");
 		return $retval;
 	}
 
-	/** Deletes a message from a board 
-		
+	/** Deletes a message from a board
+
 		@attrib name=del_msg params=name default="0"
-		
+
 		@param comment required type=int
 		@param board required type=int
 		@param section optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/

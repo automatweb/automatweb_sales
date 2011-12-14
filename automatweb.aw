@@ -563,11 +563,10 @@ aw_global_set("section", $section);
 			{
 				$u = new users();
 				$u->request_startup();
-				$t = new aw_template();
-				$t->init("");
-				if (!$t->prog_acl_auth("view", "PRG_MENUEDIT"))
+
+				if (!acl_base::prog_acl_auth("view", "PRG_MENUEDIT"))
 				{
-					$t->auth_error();
+					self::http_exit(http::STATUS_UNAUTHORIZED);
 				}
 				else
 				{

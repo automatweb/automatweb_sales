@@ -14,6 +14,7 @@ class _int_object
 	// private variables
 
 	var $obj = array(
+		"oid" => 0,
 		"properties" => array(),
 		"class_id" => 0,
 		"subclass" => 0,
@@ -32,7 +33,6 @@ class _int_object
 	protected $props_loaded = false;
 	protected $props_modified = array();
 	protected $ot_modified = array("modified" => 1);
-	protected $data_charset = "UTF-8";
 
 	protected static $global_save_count = 0;
 	protected static $cache_off = false;
@@ -46,9 +46,9 @@ class _int_object
 	///////////////////////////////////////////
 	// public functions
 
-	public function __construct($objdata = array())
+	public function __construct(array $objdata = array())
 	{
-		$this->obj = $objdata;
+		$this->obj = $objdata + $this->obj;
 
 		if (isset($objdata["__obj_load_parameter"]))
 		{
@@ -517,12 +517,7 @@ class _int_object
 
 	function can($param)
 	{
-		return object_loader::can($param, $this->id());
-	}
-
-	function init_acl()
-	{
-		object_loader::instance()->set___aw_acl_cache();
+		return acl_base::can($param, $this->id());
 	}
 
 	public function is_property($param)
@@ -552,7 +547,7 @@ class _int_object
 		// also, check parent object and set site_id according to these rules:
 		// - if parent is client type menu, then do nothing
 		// - else set site_id same as parent's
-		if (is_oid($parent) && object_loader::can("", $parent))
+		if (is_oid($parent) && acl_base::can("", $parent))
 		{
 			if (isset($GLOBALS["objects"][$parent]) && is_object($GLOBALS["objects"][$parent]))
 			{
@@ -1256,7 +1251,8 @@ class _int_object
 	{
 		if (!$this->_int_is_property($key))
 		{
-			throw new awex_obj_prop("Property {$key} not defined for current object (id: " . $this->obj["oid"] . ", clid: " . $this->obj["class_id"] . ")");
+			$oid = isset($this->obj["oid"]) ? $this->obj["oid"] : "UNDEFINED";
+			throw new awex_obj_prop(sprintf("Property %s not defined for current object (id: %s, clid: %s)", $key, $oid, $this->obj["class_id"]));
 		}
 
 		$prev = $this->_int_get_prop($key);
@@ -1537,7 +1533,7 @@ class _int_object
 		object_loader::instance()->handle_cache_update($this->id(), $this->site_id(), "originalize");
 	}
 
-	function trans_get_val($prop, $lang_id = 0, $ignore_status = false)
+	function trans_get_val($prop, $lang_id = AW_REQUEST_CT_LANG_ID, $ignore_status = false)
 	{
 		// I wanna use object::trans_get_val("foo.name");
 		if(strpos($prop, "."))
@@ -1561,19 +1557,6 @@ class _int_object
 			}
 		}
 
-		// translate if language is given or contenttrans ini settings enabled and found language isn't same as original language
-		if (0 === $lang_id)
-		{
-			if (aw_ini_get("user_interface.full_content_trans") or aw_ini_isset("user_interface.trans_classes." . $this->class_id()))
-			{
-				$lang_id = aw_global_get(aw_ini_get("user_interface.full_content_trans") ? "ct_lang_id" : "lang_id");
-			}
-			elseif (aw_ini_get("user_interface.content_trans"))
-			{
-				$lang_id = aw_global_get("lang_id");
-			}
-		}
-
 		// get trans_val
 		if ("status" === $prop)
 		{ // check transl status
@@ -1581,8 +1564,8 @@ class _int_object
 		}
 		elseif (
 			(aw_ini_empty("classes.{$this->obj["class_id"]}.ct_lang_sensitive") or $lang_id !== $this->lang_id())and
-			!empty($this->obj["meta"]["translations"][$lang_id][$prop]) and
-			(!empty($this->obj["meta"]["trans_{$lang_id}_status"]) or $ignore_status)
+			ifset($this->obj, "meta", "translations", $lang_id, $prop) and
+			(ifset($this->obj, "meta", "trans_{$lang_id}_status") or $ignore_status)
 		)
 		{ // get translation
 			$val = $this->obj["meta"]["translations"][$lang_id][$prop];
@@ -1682,7 +1665,7 @@ class _int_object
 			case "oid":
 				if (is_oid($val))
 				{
-					if (object_loader::can("", $val))
+					if (acl_base::can("", $val))
 					{
 						$tmp = new object($val);
 						$val = $tmp->trans_get_val("name");
@@ -1700,7 +1683,7 @@ class _int_object
 					{
 						if (is_oid($k))
 						{
-							if (object_loader::can("", $k))
+							if (acl_base::can("", $k))
 							{
 								$tmp = new object($k);
 								$vals[] = $tmp->trans_get_val("name");
@@ -1711,6 +1694,7 @@ class _int_object
 				}
 				break;
 		}
+
 		if ($val === "0" || $val === 0)
 		{
 			$val = "";
@@ -1721,7 +1705,7 @@ class _int_object
 	public function acl_del($g_oid)
 	{
 		$group = obj($g_oid);
-		object_loader::instance()->remove_acl_group_from_obj($group, $this->obj["oid"]);
+		acl_base::remove_acl_group_from_obj($group, $this->obj["oid"]);
 		$this->disconnect(array(
 			"from" => $group->id(),
 			"type" => RELTYPE_ACL
@@ -1730,7 +1714,7 @@ class _int_object
 
 	public function acl_get()
 	{
-		return object_loader::instance()->get_acl_groups_for_obj($this->obj["oid"]);
+		return acl_base::get_acl_groups_for_obj($this->obj["oid"]);
 	}
 
 	public function acl_set($group, $acl)
@@ -1748,14 +1732,14 @@ class _int_object
 			return;
 		}
 
-		object_loader::ds()->add_acl_group_to_obj($group->prop("gid"), $this->obj["oid"]);
-		object_loader::ds()->save_acl(
+		acl_base::add_acl_group_to_obj($group->prop("gid"), $this->obj["oid"]);
+		acl_base::save_acl(
 			$this->obj["oid"],
 			$group->prop("gid"),
 			$acl
 		);
 
-		$this->init_acl();
+		acl_base::flush_acl_cache();
 	}
 
 	public function get_first_conn_by_reltype($type = NULL)
@@ -1891,16 +1875,6 @@ class _int_object
 		if ($oid !== $this->obj["oid"])
 		{
 			$GLOBALS["objects"][$this->obj["oid"]] = $this;
-		}
-
-		// load meta info
-		try
-		{ //TODO: keele id-d universaalseks
-			$this->data_charset = $this->lang_id() ? languages::get_charset($this->lang_id()) : aw_global_get("charset");
-		}
-		catch (awex_lang_na $e)
-		{
-			$this->data_charset = aw_global_get("charset");//TODO: paremast kohast v6tta
 		}
 	}
 

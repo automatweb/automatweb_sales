@@ -4,30 +4,27 @@ class group_obj extends _int_object
 {
 	const CLID = 37;
 
-	function name()
+	/** Overrides name function to allow setting name only once in object lifetime
+		@attrib api=1 params=pos
+		@param v type=string
+		@returns string
+		@errors throws awex_group_name when trying to change name of a saved group
+	**/
+	public function set_name($v)
 	{
-		$rv =  parent::name();
-		if ($rv == "")
+		if ($this->is_saved())
 		{
-			$rv = parent::prop("gp_name");
+			throw new awex_group_name("Name cannot be changed after it is saved");
 		}
-		return $rv;
+		else
+		{
+			return parent::set_name($v);
+		}
 	}
 
-	function set_prop($k, $v)
+	public function awobj_set_name($v)
 	{
-		if ($k === "name" || $k === "gp_name")
-		{
-			$this->set_name($v);
-		}
-		return parent::set_prop($k, $v);
-	}
-
-	function set_name($v)
-	{
-		parent::set_prop("name", $v);
-		parent::set_prop("gp_name", $v);
-		return parent::set_name($v);
+		return $this->set_name($v);
 	}
 
 	/** Returns member count
@@ -148,3 +145,9 @@ class group_obj extends _int_object
 		return parent::delete();
 	}
 }
+
+/** Generic group exception **/
+class awex_group extends awex_obj {}
+
+/** Group name exception **/
+class awex_group_name extends awex_group {}

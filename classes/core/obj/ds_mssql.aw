@@ -325,7 +325,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 
 
 		// create all access for the creator
-		$this->create_obj_access($oid);
+		acl_base::create_obj_access($oid);
 
 
 		// hits
@@ -1155,7 +1155,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 		//$oid = $this->db_last_insert_id();
 
 		// create all access for the creator
-		$this->create_obj_access($oid);
+		acl_base::create_obj_access($oid);
 
 		// hits
 		$this->db_query("INSERT INTO hits(oid,hits,cachehits) VALUES($oid, 0, 0 )");

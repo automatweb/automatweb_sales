@@ -28,17 +28,12 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_GROUP, on_remove_alias
 @tableinfo groups index=oid master_table=objects master_index=oid
 
 @default table=groups
-
-
 @default group=general
-
 	@property gid field=gid type=text
 	@caption Grupi ID
 
 	@property name field=name type=textbox table=objects
 	@caption Nimi
-
-	@property gp_name field=name type=hidden
 
 	@property priority field=priority type=textbox size=15 warning=0
 	@caption Prioriteet
@@ -386,13 +381,13 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 			$ea = $arr["request"]["edit_acl"];
 			if ($ea)
 			{
-				$a = $this->acl_list_acls();
+				$a = acl_base::acl_list_acls();
 				$acl = array();
 				foreach($a as $a_bp => $a_name)
 				{
 					$acl[$a_name] = $arr["request"]["acl_".$a_bp];
 				}
-				$this->save_acl($ea, $gid, $acl);
+				acl_base::save_acl($ea, $gid, $acl);
 			}
 		}
 		else
@@ -424,7 +419,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 
 			// now set the real acl from the connection
 			$grp = $c->to();
-			$this->save_acl($c->prop("from"), $grp->prop("gp_gid"), $da);
+			acl_base::save_acl($c->prop("from"), $grp->prop("gp_gid"), $da);
 		}
 		else
 		{
@@ -443,7 +438,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 	function _get_objects($gid)
 	{
 		// now, get all the folders that have access set for these groups
-		$dat = $this->acl_get_acls_for_groups(array("grps" => array($gid)));
+		$dat = acl_base::acl_get_acls_for_groups(array("grps" => array($gid)));
 
 		$t = $this->_init_obj_table(array(
 			"exclude" => array("grp_name")
@@ -554,9 +549,9 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 			);
 
 			// get active acl
-			$act_acl = $this->get_acl_for_oid_gid($ea, $arr["obj_inst"]->prop("gid"));
+			$act_acl = acl_base::get_acl_for_oid_gid($ea, $arr["obj_inst"]->prop("gid"));
 
-			$a = $this->acl_list_acls();
+			$a = acl_base::acl_list_acls();
 			foreach($a as $a_bp => $a_name)
 			{
 				$rt = "acl_".$a_bp;
@@ -814,7 +809,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 
 			// now get the real acl from the connection
 			$grp = $c->to();
-			$acld = $this->get_acl_for_oid_gid($c->prop("from"), $grp->prop("gp_gid"));
+			$acld = acl_base::get_acl_for_oid_gid($c->prop("from"), $grp->prop("gp_gid"));
 			$aclids = aw_ini_get("acl.ids");
 			$da = array();
 			foreach($aclids as $aclid)
@@ -863,8 +858,8 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 			$grp = $arr["connection"]->to();
 			$gid = $grp->prop("gp_gid");
 
-			$this->add_acl_group_to_obj($gid, $from->id());
-			$this->save_acl($from->id(), $gid, $grp->meta("default_acl"));
+			acl_base::add_acl_group_to_obj($gid, $from->id());
+			acl_base::save_acl($from->id(), $gid, $grp->meta("default_acl"));
 		}
 	}
 
@@ -875,7 +870,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 			// handle acl add
 			$from = $arr["connection"]->from();
 			$grp = $arr["connection"]->to();
-			$this->remove_acl_group_from_obj($grp, $from->id());
+			acl_base::remove_acl_group_from_obj($grp, $from->id());
 		}
 	}
 

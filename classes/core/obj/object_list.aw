@@ -16,6 +16,9 @@ class object_list extends _int_obj_container_base
 	protected $filter = array();
 	protected $object_id_property = "oid";
 
+	private $__filter_by_user_access_uid = "";
+	private $__filter_by_user_access_action = "";
+
 	/** creates the object list, can also initialize it with objects
 		@attrib api=1
 
@@ -915,6 +918,14 @@ class object_list extends _int_obj_container_base
 		$this->filter = $filter;
 		$this->_int_init_empty();
 
+		foreach ($filter as $constraint)
+		{
+			if ($constraint instanceof obj_predicate_acl)
+			{
+				$this->__filter_by_user_access_action = $constraint->get_action();
+			}
+		}
+
 		if ($this->object_id_property !== "oid")
 		{
 			if (empty($filter["class_id"]))
@@ -969,6 +980,12 @@ class object_list extends _int_obj_container_base
 		{
 			foreach($oids as $oid => $oname)
 			{
+				// perform authorization check if requested
+				if ($this->__filter_by_user_access_action and !acl_base::can($this->__filter_by_user_access_action, $oid))
+				{
+					continue;
+				}
+
 				if ($this->object_id_property !== "oid")
 				{
 					if (isset($objdata_extended[$oid][$this->object_id_property]))
@@ -1004,6 +1021,7 @@ class object_list extends _int_obj_container_base
 							"msg" => sprintf(t("object_list::filter(%s => %s): can not complex searches on metadata fields!"), $mf_k, $mf_v)
 						));
 					}
+
 					if ($mf_v{0} === "%")
 					{
 						error::raise(array(
@@ -1018,6 +1036,7 @@ class object_list extends _int_obj_container_base
 						$tmp = (int)$tmp;
 						$mf_v = (int)$mf_v;
 					}
+
 					if ($tmp != $mf_v)
 					{
 						$add = false;
@@ -1036,6 +1055,12 @@ class object_list extends _int_obj_container_base
 		{
 			foreach($oids as $oid => $oname)
 			{
+				// perform authorization check if requested
+				if ($this->__filter_by_user_access_action and !acl_base::can($this->__filter_by_user_access_action, $oid))
+				{
+					continue;
+				}
+
 				if ($this->object_id_property !== "oid")
 				{
 					if (isset($objdata_extended[$oid][$this->object_id_property]))
@@ -1148,7 +1173,6 @@ class object_list extends _int_obj_container_base
 				return -1;
 			}
 		}
-
 	}
 
 	protected function _int_add_to_list($oid_arr)

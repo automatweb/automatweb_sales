@@ -87,7 +87,7 @@ class object
 		}
 		else
 		{
-			$this->oid = object_loader::instance()->load_new_object(null, $constructor_args);
+			$this->oid = object_loader::instance()->load_new_object(array(), $constructor_args);
 		}
 	}
 
@@ -1979,25 +1979,8 @@ class object
 		return $GLOBALS["objects"][$this->oid]->brother_of();
 	}
 
-	/** returns an instance of the class that is registered to handle this type of object
-		@attrib api=1
-
-		@errors
-			- if no class id is set, error is thrown
-
-		@returns
-			instance of the class that holds the properties for the current object
-
-		@examples
-			$o =& obj(5);
-			$instance = $o->instance();
-			$instance->show($o);
-	**/
-	function &instance()
-	{
-		$tmp = $GLOBALS["objects"][$this->oid]->instance();
-		return $tmp;
-	}
+	//DEPRECATED
+	function instance() { $tmp = $GLOBALS["objects"][$this->oid]->instance(); return $tmp; }
 
 	/** creates a brother to the current object
 		@attrib api=1
@@ -2275,13 +2258,13 @@ class object
 	/** Return the translation of the property
 		@attrib name=trans_get_val api=1 params=pos
 
-		@param property required type=string
+		@param prop type=string
 			The name of the property the translation is asked for
 
-		@param language_id optional type=boolean
+		@param lang_id type=boolean default=AW_REQUEST_CT_LANG_ID
 			The language id the translation is asked for, default is current language id
 
-		@param ignore_status optional type=boolean default=false
+		@param ignore_status type=boolean default=FALSE
 			If true, the status of the translation is ignored.
 
 		@errors
@@ -2293,7 +2276,7 @@ class object
 		@examples
 
 	**/
-	function trans_get_val($prop, $lang_id = false, $ignore_status = false)
+	function trans_get_val($prop, $lang_id = AW_REQUEST_CT_LANG_ID, $ignore_status = false)
 	{
 		$this->_check_lock_read();
 		return $GLOBALS["objects"][$this->oid]->trans_get_val($prop, $lang_id, $ignore_status);

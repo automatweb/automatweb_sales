@@ -5,7 +5,7 @@
 
 EMIT_MESSAGE(MSG_USER_JOINED)
 
-@classinfo syslog_type=ST_JOIN_SITE relationmgr=yes no_comment=1 no_status=1
+@classinfo relationmgr=yes no_comment=1 no_status=1
 
 @groupinfo general_sub parent=general caption="&Uuml;ldine"
 @groupinfo general_ctrl parent=general caption="Kontrollerid"
@@ -1567,7 +1567,7 @@ class join_site extends class_base
 			$o = obj(null, array(), $clid);
 			$o->set_parent($obj->prop("obj_folder"));
 			$o_id = $o->save();
-			$this->create_obj_access($o_id, $u_o->prop("uid"));
+			acl_base::create_obj_access($o_id, $u_o->prop("uid"));
 
 			$u_o->connect(array(
 				"to" => $o_id,

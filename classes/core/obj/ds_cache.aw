@@ -296,7 +296,7 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 	function delete_object($oid)
 	{
 		$ret = $this->contained->delete_object($oid);
-		aw_cache_flush("__aw_acl_cache");
+		acl_base::flush_acl_cache();
 		$this->delete_object_cache_update($oid);
 		return $ret;
 	}

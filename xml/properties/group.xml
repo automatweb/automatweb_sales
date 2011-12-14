@@ -17,13 +17,6 @@
             <caption>Nimi</caption>
       </property>
       <property>
-            <name>gp_name</name>
-            <table>groups</table>
-            <group>general</group>
-            <field>name</field>
-            <type>hidden</type>
-      </property>
-      <property>
             <name>priority</name>
             <table>groups</table>
             <group>general</group>

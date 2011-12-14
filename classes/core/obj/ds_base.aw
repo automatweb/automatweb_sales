@@ -4,7 +4,7 @@
 // all of them should derive from this one. if php5 would
 // be here, this would be an abstract class
 //TODO: see on interface. teha selleks
-class _int_obj_ds_base extends acl_base
+class _int_obj_ds_base extends db_connector
 {
 	function init($args = array())
 	{
@@ -171,4 +171,7 @@ class _int_obj_ds_base extends acl_base
 			"msg" => t("called abstract function ds_base::fetch_list")
 		));
 	}
+
+	// for backward compatibility
+	public function can($a, $o) { return acl_base::can($a, $o); }
 }

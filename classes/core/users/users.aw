@@ -267,17 +267,14 @@ class users extends users_user implements request_startup, orb_public_interface
 		if (!(is_valid("uid",$uid)))
 		{
 			$this->read_adm_template("hash_results.tpl");
-			lc_site_load("users", $this);
 			$this->vars(array(
 				"msg" => t("Vigane kasutajanimi"),
 			));
 			return $this->parse();
-		};
+		}
 
 		$filt = array(
 			"class_id" => CL_USER,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"blocked" => new obj_predicate_not(1),
 			"uid" => $uid
 		);
@@ -285,7 +282,6 @@ class users extends users_user implements request_startup, orb_public_interface
 		if (!$ol->count())
 		{
 			$this->read_adm_template("hash_results.tpl");
-			lc_site_load("users", $this);
 			$this->vars(array(
 				"msg" => t("Sellist kasutajat pole registreeritud"),
 			));
@@ -298,7 +294,6 @@ class users extends users_user implements request_startup, orb_public_interface
 		if ($pwhash != $key)
 		{
 			$this->read_adm_template("hash_results.tpl");
-			lc_site_load("users", $this);
 			$this->vars(array(
 				"msg" => t("Sellist v&otilde;tit pole v&auml;ljastatud"),
 			));
@@ -311,7 +306,6 @@ class users extends users_user implements request_startup, orb_public_interface
 		if (($ts + (3600*24*400)) < time())
 		{
 			$this->read_adm_template("hash_results.tpl");
-			lc_site_load("users", $this);
 			$this->vars(array(
 				"msg" => t("See v&otilde;ti on juba aegunud")." <a href='".$this->mk_my_orb('send_hash')."'>".t("Telli uusi v&otilde;ti")."</a>"
 			));
@@ -319,7 +313,6 @@ class users extends users_user implements request_startup, orb_public_interface
 		}
 
 		$this->read_adm_template("hash_change_password.tpl");
-		lc_site_load("users", $this);
 		$this->vars(array(
 			"uid" => $uid,
 			"reforb" => $this->mk_reforb("submit_password_hash",array("uid" => $uo->id(),"pwhash" => $pwhash)),
@@ -612,7 +605,7 @@ class users extends users_user implements request_startup, orb_public_interface
 				"to" => $nlg->id(),
 				"reltype" => RELTYPE_ACL,
 			));
-			$this->save_acl($o->id(), $nlg->prop("gid"), array());
+			acl_base::save_acl($o->id(), $nlg->prop("gid"), array());
 
 			echo "Sisse logimata kasutajad <br>\n";
 			flush();

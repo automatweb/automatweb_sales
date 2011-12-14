@@ -1670,9 +1670,9 @@ class user_manager extends class_base
 			{
 				return;
 			}
-			$o_i = $o->instance();
+
  			$gid = $o->prop("gid");
-			$a = $o_i->acl_list_acls();
+			$a = acl_base::acl_list_acls();
 
 			$acl = array();
 			// Create ACL settings array
@@ -1689,7 +1689,7 @@ class user_manager extends class_base
 					'reltype' => RELTYPE_ACL,
 				));
 				$s->save();
-				$o_i->add_acl_group_to_obj($gid, $id, $acl);
+				acl_base::add_acl_group_to_obj($gid, $id, $acl);
 			}
 		}
 	}

@@ -1170,11 +1170,11 @@ class converters extends aw_template implements orb_public_interface
 			$gl[] = $row["gid"];
 		}
 
-		$us = get_instance("users");
+		$us = new users();
 
 		$gs = join(",", $gl);
 		echo "got groups as $gs <br>";
-		$this->db_query("SELECT *,".$this->sql_unpack_string()." FROM acl WHERE gid IN ($gs)");
+		$this->db_query("SELECT *,".acl_base::sql_unpack_string()." FROM acl WHERE gid IN ($gs)");
 		while ($row = $this->db_next())
 		{
 			$this->save_handle();

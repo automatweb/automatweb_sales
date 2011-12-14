@@ -12,102 +12,6 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		$this->init();
 	}
 
-	/** Tells if user can perform operation on object
-		@attrib api=1 params=pos
-		@param operation_id type=string
-		@param object_id type=oid
-		@param user_oid type=oid default=0
-			Defaults to current user if not specified
-		@param return type=bool default=TRUE
-			If false, throws exceptions, otherwise returns boolean
-		@comment
-		@returns bool|void
-		@errors
-			throws awex_obj_na if object doesn't exist and $return is FALSE
-			throws awex_obj_acl if no access and $return is FALSE
-			throws awex_obj_deleted if deleted and $return is FALSE
-	**/
-	public function can_new($operation_id, $object_id, $user_oid = 0, $return = true)
-	{
-		$operation_id = "can_{$operation_id}";
-
-		if (!is_oid($object_id))
-		{
-			if ($return)
-			{
-				return false;
-			}
-			else
-			{
-				throw new awex_obj_na("Invalid object id '{$object_id}'");
-			}
-		}
-
-		$uid = aw_global_get("uid");
-		//TODO: teostada variant kui antakse root kasutaja user_oid
-		if (!$user_oid and (aw_ini_get("acl.no_check") or "root" === $uid))
-		{ // check if object record exists and state isn't 'deleted'
-			$this->db_query();
-			try
-			{
-				$objdata = object_loader::instance()->ds->get_objdata($object_id);
-				return !empty($objdata["oid"]);
-			}
-			catch (awex_obj_na $e)
-			{
-				return false;
-			}
-			catch (awex_obj_acl $e)
-			{
-				return false;
-			}
-		}
-
-		$can = false;
-		$this->save_handle();
-
-		$user_oid = $user_oid ? $user_oid : aw_global_get("uid_oid");
-
-			if (!isset($this->__aw_acl_cache[$object_id]) || !($max_acl = $this->__aw_acl_cache[$object_id]))
-			{
-				$fn = "acl-{$object_id}-uoid-{$user_oid}";
-				$fn .= "-nliug-".(isset($_SESSION["nliug"]) ? $_SESSION["nliug"] : "");//TODO: mitte sessioonist
-
-				if (!object_loader::opt("no_cache") && ($str_max_acl = cache::file_get_pt_oid("acl", $object_id, $fn)) != false)
-				{
-					$max_acl = aw_unserialize($str_max_acl, false, true);
-				}
-
-				if (!isset($max_acl))
-				{
-					$max_acl = $this->_calc_max_acl($object_id);
-					if (0 === $max_acl)
-					{
-						$max_acl = array_combine($this->acl_ids, array_fill(0, count($this->acl_ids), false));
-					}
-
-					if (!object_loader::opt("no_cache"))
-					{
-						cache::file_set_pt_oid("acl", $object_id, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
-					}
-				}
-
-				$this->__aw_acl_cache[$object_id] = $max_acl;
-			}
-
-			if (!isset($max_acl["can_view"]) && !$user_oid)
-			{
-				$can = aw_ini_get("acl.default.{$operation_id}") === aw_ini_get("acl.allowed");
-			}
-			else
-			{
-				$can = isset($max_acl[$operation_id]) ? (bool) $max_acl[$operation_id] : false;
-			}
-
-		$this->restore_handle();
-		return $can;
-	}
-
 	public function is_deleted($oid)
 	{
 		$this->quote($oid);
@@ -802,7 +706,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			$g_d = $uo->get_default_group();
 
 			$n_acl_data = array(
-				$g_d => $this->get_acl_value_n($this->acl_get_default_acl_arr())
+				$g_d => acl_base::get_acl_value_n(acl_base::acl_get_default_acl_arr())
 			);
 
 			$acld_fld = ",acldata";
@@ -863,7 +767,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		if (!aw_ini_get("acl.use_new_acl_final"))
 		{
 			// create all access for the creator
-			$this->create_obj_access($oid);
+			acl_base::create_obj_access($oid);
 		}
 		// set brother to self if not specified.
 		if (empty($objdata["brother_of"]))
@@ -2545,7 +2449,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			$g_d = $uo->get_default_group();
 			$acld_fld = ",acldata";
 			$acld_val = aw_serialize(array(
-				$g_d => $this->get_acl_value_n($this->acl_get_default_acl_arr())
+				$g_d => acl_base::get_acl_value_n(acl_base::acl_get_default_acl_arr())
 			), SERIALIZE_NATIVE);
 			$this->quote($acld_val);
 			$acld_val = ",'".$acld_val."'";
@@ -2574,7 +2478,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		if (!aw_ini_get("acl.use_new_acl_final"))
 		{
 			// create all access for the creator
-			$this->create_obj_access($oid);
+			acl_base::create_obj_access($oid);
 		}
 
 		// hits

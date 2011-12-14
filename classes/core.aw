@@ -7,7 +7,7 @@ define("STAT_NOTACTIVE", 1);
 define("STAT_ACTIVE", 2);
 //// END DEPRECATED
 
-class core extends acl_base
+class core extends db_connector
 {
 	var $errmsg;//TODO: scope?
 
@@ -924,7 +924,7 @@ class core extends acl_base
 		$path = "";
 		$nt = true;
 		// check if there is a default text
-		$dyc = $this->prog_acl("", "default_yah_ct");
+		$dyc = acl_base::prog_acl("", "default_yah_ct");
 
 		if (true !== $dyc and strlen($dyc))
 		{
@@ -1412,4 +1412,7 @@ class core extends acl_base
 		$obj = obj($args['id']);
 		return $obj->name();
 	}
+
+	// for backward compatibility
+	public function can($a, $o) { return acl_base::can($a, $o); }
 }
