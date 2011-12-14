@@ -206,7 +206,7 @@ class menuedit extends aw_template implements request_startup
 		if (substr($section,-1) === "/")
 		{
 			$section = substr($section,0,-1);
-		};
+		}
 
 		// if the baseurl is site.ee/foo/bla, then cut that out from section
 		$bits = parse_url(aw_ini_get("baseurl"));
@@ -252,7 +252,7 @@ class menuedit extends aw_template implements request_startup
 			$c->get_sitemap();
 		}
 
-		if($section === 'robots.txt')
+		if ($section === 'robots.txt')
 		{
 			echo "Sitemap: ".aw_ini_get("baseurl")."sitemap.gz";
 			die();
@@ -261,7 +261,7 @@ class menuedit extends aw_template implements request_startup
 		// sektsioon ei olnud numbriline
 		if (!is_oid($section))
 		{
-			if ($this->cfg['recursive_aliases'])
+			if (aw_ini_get("menuedit.recursive_aliases"))
 			{
 				// first I have to check whether the alias contains /-s and if so, split
 				// the url into pieces
@@ -608,31 +608,19 @@ class menuedit extends aw_template implements request_startup
 
 		// neat :), kui objekti ei leita, siis saadame 404 koodi
 		$r404 = aw_ini_get("menuedit.404redir");
-		if (is_array($r404))
+		if (is_array($r404) and !empty($r404[AW_REQUEST_CT_LANG_CODE]))
 		{
-			if (aw_ini_get("user_interface.full_content_trans"))
-			{
-				$r404 = $r404[aw_global_get("ct_lang_lc")];
-				if ($r404 == "")
-				{
-					$r404 = $r404["en"];
-				}
-			}
-			else
-			{
-				$r404 = $r404[aw_global_get("lang_id")];
-			}
+			$r404 = $r404[AW_REQUEST_CT_LANG_CODE];
 		}
 
 		if ($r404 && "/".$GLOBALS["section"] != $r404)
 		{
 			header("Location: " . $r404);
+			exit;
 		}
 		else
 		{
-			header ("HTTP/1.1 404 Not Found");
-			printf(t("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"> <html><head><title>404</title><meta name=\"robots\" content=\"noindex, nofollow\"></head><body><h1>404 Sellist sektsiooni pole</h1></body></html>"));
+			automatweb::http_exit(http::STATUS_NOT_FOUND);
 		}
-		exit;
 	}
 }
