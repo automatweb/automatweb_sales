@@ -64,33 +64,36 @@ class unit_obj extends _int_object
 
 	/** Returns an array of selectable/active units data
 		@attrib api=1 params=pos
-		@param lang_id type=int default=0
+		@param lang_id type=int default=AW_REQUEST_UI_LANG_ID
 		@returns array
 			int unit_oid => string translated_name
 	**/
-	public static function get_selection($lang_id = 0)
+	public static function get_selection($lang_id = AW_REQUEST_UI_LANG_ID)
 	{
-		if (0 === $lang_id) $lang_id = AW_REQUEST_UI_LANG_ID;
+		static $unit_names = array();
 
-		$units = new object_list(array(
-			"class_id" => self::CLID,
-			"status" => object::STAT_ACTIVE,
-			new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC))
-		));
-
-		$unit_names = array();
-		if($units->count())
+		if (!isset($unit_names[$lang_id]))
 		{
-			$unit = $units->begin();
+			$units = new object_list(array(
+				"class_id" => self::CLID,
+				"status" => object::STAT_ACTIVE,
+				new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC))
+			));
 
-			do
+			$unit_names[$lang_id] = array();
+			if($units->count())
 			{
-				$unit_names[$unit->id()] = $unit->trans_get_val("name", $lang_id);
+				$unit = $units->begin();
+
+				do
+				{
+					$unit_names[$lang_id][$unit->id()] = $unit->trans_get_val("name", $lang_id);
+				}
+				while ($unit = $units->next());
 			}
-			while ($unit = $units->next());
 		}
 
-		return $unit_names;
+		return $unit_names[$lang_id];
 	}
 
 	/** Returns form of unit name with value as specified in unit_name_morphology_spec
