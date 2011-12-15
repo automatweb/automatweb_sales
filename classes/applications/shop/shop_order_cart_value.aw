@@ -1,12 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_order_cart_value.aw,v 1.9 2009/08/31 11:04:05 dragut Exp $
-// shop_order_cart_value.aw - Poe ostukorvi v&auml;&auml;rtus 
+
+// shop_order_cart_value.aw - Poe ostukorvi v22rtus
 /*
 
-@classinfo syslog_type=ST_SHOP_ORDER_CART_VALUE relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
-
-@default table=objects
-@default group=general
+@classinfo relationmgr=yes no_status=1 no_comment=1
 
 */
 
@@ -19,31 +16,6 @@ class shop_order_cart_value extends class_base
 			"clid" => CL_SHOP_ORDER_CART_VALUE
 		));
 	}
-	/*
-
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		}
-		return $retval;
-	}
-	
-	*/
 
 	function parse_alias($arr = array())
 	{
@@ -54,7 +26,6 @@ class shop_order_cart_value extends class_base
 	// !shows the object
 	function show($arr)
 	{
-		enter_function("cart_value::show");
 		$soc = get_instance(CL_SHOP_ORDER_CART);
 
 		$count = 0;
@@ -69,7 +40,7 @@ class shop_order_cart_value extends class_base
 
 		list($t1, $t2) = $soc->get_cart_value(true);
 		$this->read_template("show.tpl");
-lc_site_load("shop", &$this);
+
 		$this->vars(array(
 			"value" => number_format($t1, 2),
 			"prod_value" => number_format($t2, 2),
@@ -89,8 +60,6 @@ lc_site_load("shop", &$this);
 			));
 		}
 		$ret = $this->parse();
-		exit_function("cart_value::show");
 		return $ret;
 	}
 }
-?>

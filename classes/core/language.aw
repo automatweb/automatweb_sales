@@ -34,6 +34,10 @@
 	@property lang_acceptlang table=languages type=select field=acceptlang
 	@caption Keele kood
 
+	@property url_code table=languages type=select field=url_code
+	@comment Kui on seadistatud menuedit.language_in_url siis selle keele kood m&auml;&auml;ratakse siin
+	@caption Keele kood URL-is
+
 	@property lang_site_id table=languages type=select multiple=1 field=site_id
 	@caption Saidid kus keel on valitav
 
@@ -52,6 +56,7 @@
 	@property lang_group table=languages type=textbox field=meta method=serialize
 	@caption Grupp
 
+	//XXX: milleks see prop?
 	@property temp_redir_url table=languages type=textbox field=meta method=serialize
 	@caption Ajutine AW-v&auml;line aadress sisse logimata kasutajatele
 
@@ -416,6 +421,11 @@ class language extends class_base
 			elseif ("lang_code" === $f)
 			{
 				$this->db_add_col("languages", array("name" => "lang_code", "type" => "char(3)"));
+				$r = true;
+			}
+			elseif ("url_code" === $f)
+			{
+				$this->db_add_col("languages", array("name" => "url_code", "type" => "char(16)"));
 				$r = true;
 			}
 		}

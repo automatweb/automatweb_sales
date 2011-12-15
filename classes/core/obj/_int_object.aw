@@ -15,6 +15,7 @@ class _int_object
 
 	var $obj = array(
 		"oid" => 0,
+		"brother_of" => 0,
 		"properties" => array(),
 		"class_id" => 0,
 		"subclass" => 0,
@@ -158,7 +159,7 @@ class _int_object
 			}
 
 			// use a different code path for not saved objects
-			if (!isset($this->obj["oid"]) or !is_oid($this->obj["oid"]))
+			if (!is_oid($this->obj["oid"]))
 			{
 				// object is not saved, therefore we cannot create
 				// the actual connection, so remember the data
@@ -167,7 +168,7 @@ class _int_object
 			}
 			else
 			{
-				if (!empty($this->obj["brother_of"]) && object_loader::can("", $this->obj["brother_of"]) && object_loader::can("", $oid))
+				if ($this->obj["brother_of"] && acl_base::can("", $this->obj["brother_of"]) && acl_base::can("", $oid))
 				{
 					$c = new connection();
 					$param["from"] = $this->obj["brother_of"];
@@ -223,7 +224,7 @@ class _int_object
 
 	function connections_from($param = NULL)
 	{
-		if (empty($this->obj["oid"]))
+		if (!$this->obj["oid"])
 		{
 			return array();
 		}
@@ -299,7 +300,7 @@ class _int_object
 				"acldata" => $c_d["to.acldata"],
 				"parent" => $c_d["to.parent"]
 			);
-			if (object_loader::can("", $c_d["to"]))
+			if (acl_base::can("", $c_d["to"]))
 			{
 				$ret[$c_id] = new connection($c_d);
 			}
@@ -324,7 +325,7 @@ class _int_object
 
 	function connections_to($param = NULL)
 	{
-		if (empty($this->obj["oid"]))
+		if (!$this->obj["oid"])
 		{
 			return array();
 		}
@@ -410,7 +411,7 @@ class _int_object
 				"acldata" => $c_d["to.acldata"],
 				"parent" => $c_d["to.parent"]
 			);
-			if (object_loader::can("", $c_d["from"]))
+			if (acl_base::can("", $c_d["from"]))
 			{
 				$ret[] = new connection($c_d);
 			}
@@ -725,7 +726,7 @@ class _int_object
 	// id is null until object is saved
 	public function id()
 	{
-		return isset($this->obj["oid"]) ? $this->obj["oid"] : null;
+		return $this->obj["oid"] ? $this->obj["oid"] : null;
 	}
 
 	public function createdby()
@@ -807,17 +808,12 @@ class _int_object
 
 	public function is_brother()
 	{
-		if (!isset($this->obj["oid"]))
-		{
-			return NULL;
-		}
-
 		return ($this->obj["oid"] != $this->obj["brother_of"]);
 	}
 
 	public function has_brother($parent)
 	{//XXX: mida see tagastab? peab tagastama?
-		if (!isset($this->obj["oid"]))
+		if (!$this->obj["oid"])
 		{
 			return NULL;
 		}
@@ -835,7 +831,7 @@ class _int_object
 
 	public function brothers()
 	{
-		if (isset($this->obj["oid"]))
+		if ($this->obj["oid"])
 		{
 			$args = array(
 				"class_id" => $this->obj["class_id"],
@@ -854,7 +850,7 @@ class _int_object
 	public function get_original()
 	{
 		$ib = $this->is_brother();
-		$cv = object_loader::can("", $this->obj["brother_of"]);
+		$cv = acl_base::can("", $this->obj["brother_of"]);
 		if ($ib && $cv)
 		{
 			$rv =  new object($this->obj["brother_of"]);
@@ -1100,7 +1096,7 @@ class _int_object
 					$cur_v = reset($cur_v);
 				}
 
-				if (!object_loader::can("", $cur_v))
+				if (!acl_base::can("", $cur_v))
 				{
 					if ($idx == (count($bits)-1))
 					{
@@ -1189,7 +1185,7 @@ class _int_object
 			case "oid":
 				if (is_oid($val))
 				{
-					if (object_loader::can("", $val))
+					if (acl_base::can("", $val))
 					{
 						$tmp = new object($val);
 						$val = $tmp->name();
@@ -1206,7 +1202,7 @@ class _int_object
 					{
 						if (is_oid($k))
 						{
-							if (object_loader::can("", $k))
+							if (acl_base::can("", $k))
 							{
 								$tmp = new object($k);
 								$tmp = $tmp->name();
@@ -1251,7 +1247,7 @@ class _int_object
 	{
 		if (!$this->_int_is_property($key))
 		{
-			$oid = isset($this->obj["oid"]) ? $this->obj["oid"] : "UNDEFINED";
+			$oid = $this->obj["oid"] ? $this->obj["oid"] : "UNDEFINED";
 			throw new awex_obj_prop(sprintf("Property %s not defined for current object (id: %s, clid: %s)", $key, $oid, $this->obj["class_id"]));
 		}
 
@@ -1290,7 +1286,7 @@ class _int_object
 				// connect to all selected ones
 				foreach(safe_array($tval) as $_idx => $connect_to)
 				{
-					if (is_oid($connect_to) && object_loader::can("", $connect_to))
+					if (is_oid($connect_to) && acl_base::can("", $connect_to))
 					{
 						$this->connect(array(
 							"to" => $connect_to,
@@ -1316,7 +1312,7 @@ class _int_object
 						}
 					}
 				}
-				if (is_oid($val) && object_loader::can("", $val))
+				if (is_oid($val) && acl_base::can("", $val))
 				{
 					$this->connect(array(
 						"to" => $val,
@@ -1416,7 +1412,7 @@ class _int_object
 
 	public function brother_of()
 	{
-		return isset($this->obj["brother_of"]) ? $this->obj["brother_of"] : null;
+		return $this->obj["brother_of"] ? $this->obj["brother_of"] : null;
 	}
 
 	function instance()
@@ -1442,14 +1438,14 @@ class _int_object
 			throw new awex_obj_param(sprintf("Invalid parent parameter %s", var_export($parent, true)));
 		}
 
-		if (empty($this->obj["oid"]))
+		if (!$this->obj["oid"])
 		{
 			$this->obj["_create_brothers"][] = $parent;
 			return;
 		}
 
 		// make sure brothers are only created for original objects, no n-level brothers!
-		if ($this->obj["brother_of"] != $this->obj["oid"])
+		if (!$this->is_brother())
 		{
 			$o = obj($this->obj["brother_of"]);
 			return $o->create_brother($parent);
@@ -1490,7 +1486,7 @@ class _int_object
 		$GLOBALS["object2version"][$oid] = $v;
 
 		// check access rights to object
-		if (!object_loader::can("", $oid))
+		if (!acl_base::can("", $oid))
 		{
 			$e = new awex_obj_acl("No view access object with id '{$oid}'.");
 			$e->awobj_id = $oid;
@@ -1541,18 +1537,18 @@ class _int_object
 			$i = strrpos($prop, ".");
 			$foo = substr($prop, 0, $i);
 			$foo_prop = substr($prop, $i + 1);
-			if(is_oid($this->prop($foo)) && object_loader::can("", $this->prop($foo)))
+			if(is_oid($this->prop($foo)) && acl_base::can("", $this->prop($foo)))
 			{
 				$foo_obj = obj($this->prop($foo));
 				return $foo_obj->trans_get_val($foo_prop, $lang_id);
 			}
 		}
 
-		if (isset($this->obj["oid"]) and $this->obj["oid"] != $this->obj["brother_of"])
-		{//XXX: ei saa aru selle eesm2rgist
+		if ($this->is_brother())
+		{
 			$tmp = $this->get_original();
 			if ($tmp->id() != $this->obj["oid"]) // if no view access for original, bro can return the same object
-			{
+			{ //XXX: mis m6ttes kui originaali id ei v6rdu brotheri id-ga? milleks siinne?
 				return $tmp->trans_get_val($prop, $lang_id);
 			}
 		}
@@ -1613,7 +1609,7 @@ class _int_object
 
 	function trans_get_val_str($param)
 	{
-		if (isset($this->obj["oid"]) and $this->obj["oid"] != $this->obj["brother_of"])
+		if ($this->is_brother())
 		{
 			$tmp = $this->get_original();
 			return $tmp->trans_get_val_str($prop);
@@ -1808,7 +1804,7 @@ class _int_object
 
 	public function is_saved()
 	{
-		return isset($this->obj["oid"]) and is_oid($this->obj["oid"]);
+		return is_oid($this->obj["oid"]);
 	}
 
 	public function implements_interface ($name)
@@ -1974,7 +1970,7 @@ class _int_object
 		}
 
 		$_is_new = false;
-		if (empty($this->obj["oid"]))
+		if (!$this->obj["oid"])
 		{
 			$this->_int_init_new();
 			$this->_int_do_inherit_new_props();
@@ -1985,7 +1981,8 @@ class _int_object
 				"properties" => $GLOBALS["properties"][$this->obj["class_id"]],
 				"tableinfo" => $GLOBALS["tableinfo"][$this->obj["class_id"]]
 			));
-			if (empty($this->obj["brother_of"]))
+
+			if (!$this->obj["brother_of"])
 			{
 				$this->obj["brother_of"] = $this->obj["oid"];
 			}
@@ -2055,7 +2052,7 @@ class _int_object
 		$this->_int_do_obj_inherit_props();
 
 		// if this is a brother object, we should save the original as well
-		if ($this->obj["oid"] != $this->obj["brother_of"])
+		if ($this->is_brother())
 		{
 			// first, unload the object
 			// of course, we will lose data here if it is modified, but this is a race condition anyway.
@@ -2102,7 +2099,7 @@ class _int_object
 				{
 					if ($r_ihd["to_class"] == $this->obj["class_id"] && (!is_array($r_ihd["only_to_objs"]) || count($r_ihd["only_to_objs"]) == 0))
 					{
-						if (object_loader::can("", $from_oid))
+						if (acl_base::can("", $from_oid))
 						{
 							$orig = obj($from_oid);
 							$this->_int_set_prop_mod($r_ihd["to_prop"], $this->obj["properties"][$r_ihd["to_prop"]], $orig->prop($r_ihd["from_prop"]));
@@ -2198,7 +2195,7 @@ class _int_object
 // /* dbg */ if ($GLOBALS["gdg"] == 1)
 // /* dbg */ echo "loop with $parent <br>\n";
 
-			if (object_loader::can("", $parent))
+			if (acl_base::can("", $parent))
 			{
 				unset($t);
 				$__from_raise_error = aw_global_get("__from_raise_error");
@@ -2245,7 +2242,7 @@ class _int_object
 		if ($add && !aw_global_get("__is_install"))
 		{
 			$rm = reset($rootmenu);
-			if (object_loader::can("", $rm))
+			if (acl_base::can("", $rm))
 			{
 				$ret[] = obj($rm);
 			}
@@ -2272,9 +2269,9 @@ class _int_object
 		if (isset($this->obj["parent"]) and $this->obj["parent"] > 0 and isset($clid) and $clid > 0)
 		{
 			// check if object or its parent exist and aren't deleted
-			if (!empty($this->obj["oid"]))
+			if ($this->obj["oid"])
 			{
-				if (object_loader::can("", $this->obj["oid"]))
+				if (acl_base::can("", $this->obj["oid"]))
 				{
 					return true;
 				}
@@ -2285,7 +2282,7 @@ class _int_object
 			}
 			else
 			{
-				if (object_loader::can("", $this->obj["parent"]))
+				if (acl_base::can("", $this->obj["parent"]))
 				{
 					return true;
 				}
@@ -2296,12 +2293,12 @@ class _int_object
 			}
 		}
 
-		throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, needed properties are not set (parent, class_id)", (isset($this->obj["oid"]) ? $this->obj["oid"] : "NULL")));
+		throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, needed properties are not set (parent, class_id)", $this->obj["oid"]));
 
 		// security checks
 		if (aw_ini_isset("classes.{$clid}.has_server_access") and aw_ini_get("classes.{$clid}.has_server_access") and aw_ini_get("acl.restrict_server_access"))
 		{
-			throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, server access restriction enabled", (isset($this->obj["oid"]) ? $this->obj["oid"] : "NULL")));
+			throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, server access restriction enabled", $this->obj["oid"]));
 		}
 	}
 
@@ -2356,7 +2353,7 @@ class _int_object
 		$todelete = array();
 
 		// if this object is a brother to another object, just delete it.
-		if ($obj["brother_of"] != $oid)
+		if ($this->is_brother())
 		{
 			$todelete[] = $oid;
 		}
@@ -2372,7 +2369,7 @@ class _int_object
 
 		foreach($todelete as $oid)
 		{
-			if (!object_loader::can("", $oid))
+			if (!acl_base::can("", $oid))
 			{
 				continue;
 			}
@@ -2633,7 +2630,7 @@ class _int_object
 						$cur_v = reset($cur_v);
 					}
 
-					if (!object_loader::can("", $cur_v))
+					if (!acl_base::can("", $cur_v))
 					{
 						if ($idx == (count($bits)-1))
 						{
@@ -2705,7 +2702,7 @@ class _int_object
 	{
 		$this->_int_load_properties();
 
-		if (!isset($this->obj["oid"]) or !is_oid($this->obj["oid"]))
+		if (!is_oid($this->obj["oid"]))
 		{
 			// do not try to read an empty object
 			return;
@@ -2751,7 +2748,7 @@ class _int_object
 	{
 		try
 		{
-			if (isset($this->obj["oid"]) and aw_locker::is_locked("object", $this->obj["oid"]))
+			if ($this->obj["oid"] and aw_locker::is_locked("object", $this->obj["oid"]))
 			{
 				aw_locker::unlock("object", $this->obj["oid"], aw_locker::SCOPE_PROCESS);
 			}
@@ -2765,7 +2762,7 @@ class _int_object
 	// returns object reference container (object class object) to be used by calls to other objects
 	protected function ref()
 	{
-		if (!empty($this->obj["oid"]))
+		if ($this->obj["oid"])
 		{ // existing object reference container
 			return new object($this->obj["oid"]);
 		}

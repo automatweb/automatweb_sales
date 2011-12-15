@@ -45,29 +45,6 @@ class core extends db_connector
 		$this->req = $request;
 	}
 
-	/** deprecated - use config::get_simple_config instead **/
-	function get_cval($ckey)
-	{
-		$q = sprintf("SELECT content FROM config WHERE ckey = '%s'",$ckey);
-		return $this->db_fetch_field($q,"content");
-	}
-
-	/** deprecated - use config::set_simple_config instead **/
-	function set_cval($ckey,$val)
-	{
-		$ret = $this->db_fetch_row("SELECT content FROM config WHERE ckey = '$ckey'");
-		if (!is_array($ret))
-		{
-			// create key if it does not exist
-			$this->db_query("INSERT INTO config(ckey, content, modified, modified_by) VALUES('$ckey','$val',".time().",'".aw_global_get("uid")."')");
-		}
-		else
-		{
-			$this->db_query("UPDATE config SET content = '$val', modified = '".time()."', modified_by = '".aw_global_get("uid")."' WHERE ckey = '$ckey' ");
-		}
-		return $val;
-	}
-
 	////
 	// !Setter for object
 	//XXX: public?
@@ -1415,4 +1392,8 @@ class core extends db_connector
 
 	// for backward compatibility
 	public function can($a, $o) { return acl_base::can($a, $o); }
+	/** deprecated - use config::get_simple_config instead **/
+	function get_cval($ckey) { return config::get_simple_config($ckey); }
+	/** deprecated - use config::set_simple_config instead **/
+	function set_cval($ckey,$val) { config::set_simple_config($ckey, $val); }
 }

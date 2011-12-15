@@ -45,12 +45,13 @@ interface main_subtemplate_handler
 class site_show extends aw_template
 {
 	var $path;				// the path to the selected section
+	private $section;		// requested section
+	var $section_obj;		// the object instance for $section
 	var $sel_section;		// the MENU that is selected - section can point to any object below it
 	var $sel_section_real;	// the MENU that is selected - section can point to any object below it -
 							// this is the real object if translation is active - damn, it seems I can't make the translation
 							// thing COMPLETELY transparent after all :((((((((
 	var $sel_section_obj;	// the MENU OBJECT that is selected - section can point to any object below it
-	var $section_obj;		// the object instance for $section
 	var $properties;		// the properties gathered from menus in the path
 	var $left_pane;			// whether to show LEFT_PANE sub
 	var $right_pane;		// whether to show RIGHT_PANE sub
@@ -96,14 +97,14 @@ class site_show extends aw_template
 			return $this->_show_type($arr);
 		}
 
-		if (!empty($_GET["set_doc_content_type"]))
+		if (automatweb::$request->arg("set_doc_content_type"))
 		{
-			$_SESSION["doc_content_type"] = $_GET["set_doc_content_type"];
+			aw_session::set("doc_content_type", automatweb::$request->arg("set_doc_content_type"));
 		}
 
-		if (!empty($_GET["clear_doc_content_type"]))
+		if (automatweb::$request->arg("clear_doc_content_type"))
 		{
-			unset($_SESSION["doc_content_type"]);
+			aw_session::del("doc_content_type");
 		}
 
 		// init left pane/right pane
@@ -112,17 +113,19 @@ class site_show extends aw_template
 
 		$this->_init_path_vars($arr);
 		// figure out the menu that is active
-		$this->sel_section = $this->_get_sel_section(aw_global_get("section"));
+		$this->sel_section = $this->_get_sel_section();
 		$this->sel_section_real = $this->sel_section;
 		$this->sel_section_obj = $this->sel_section ? new object($this->sel_section) : obj(null, array(), CL_MENU);
 
 		//redirect to frontpage if inactive menu
 		if (
-			aw_global_get("section") == $this->sel_section &&
+			$this->section == $this->sel_section &&
 			$this->sel_section_obj &&
+			!$this->sel_section_obj->is_frontpage() &&
 			$this->sel_section_obj->status() != object::STAT_ACTIVE &&
 			!aw_global_get("uid") &&
-			empty($_GET["class"])) //TODO: muul viisil. kalevatravelis menyys item "otsing", mitteaktiivne. see on sectioniks otsingul, mida ei n2ita kui siinset rida pole.
+			!automatweb::$request->arg("class") //TODO: muul viisil. kalevatravelis menyys item "otsing", mitteaktiivne. see on sectioniks otsingul, mida ei n2ita kui !class rida pole.
+		)
 		{
 			header("Location: " . aw_ini_get("baseurl"));
 			exit;
@@ -150,15 +153,15 @@ class site_show extends aw_template
 		return $rv;
 	}
 
-	function _show_type($arr)
+	private function _show_type($arr)
 	{
 		switch($arr["type"])
 		{
 			case "rss":
-				$rss = get_instance("output/xml/rss");
+				$rss = new rss();
 				return $rss->gen_rss_feed(array(
 					"period" => aw_global_get("act_per_id"),
-					"parent" => aw_global_get("section")
+					"parent" => $this->section
 				));
 		}
 	}
@@ -188,7 +191,7 @@ class site_show extends aw_template
 		$p->on_site_show_import_vars(array("inst" => &$this));
 	}
 
-	function _get_sel_section($sect)
+	private function _get_sel_section()
 	{
 		$last_menu = 0;
 		$cnt = count($this->path);
@@ -360,7 +363,7 @@ class site_show extends aw_template
 				$use_ctx = $_SESSION["menu_context"];
 			}
 			else
-			if (is_oid($_ctx = $this->sel_section_obj->prop("default_ctx")) && $this->can("view", $_ctx))
+			if (is_oid($_ctx = $this->sel_section_obj->prop("default_ctx")) && acl_base::can("view", $_ctx))
 			{
 				$_ctx = obj($_ctx);
 				$use_ctx = $_ctx->name();
@@ -421,7 +424,7 @@ class site_show extends aw_template
 			$has_ip = false;
 			foreach($allowed as $ipid => $t)
 			{
-				if (is_oid($ipid) && $this->can("view", $ipid))
+				if (is_oid($ipid) && acl_base::can("view", $ipid))
 				{
 					$has_ip = true;
 					$ipo = obj($ipid);
@@ -449,7 +452,7 @@ class site_show extends aw_template
 			$has_ip = false;
 			foreach($denied as $ipid => $t)
 			{
-				if (is_oid($ipid) && $this->can("view", $ipid))
+				if (is_oid($ipid) && acl_base::can("view", $ipid))
 				{
 					$ipo = obj($ipid);
 					$has_ip = true;
@@ -735,9 +738,9 @@ class site_show extends aw_template
 				$filt_lang_id = array();
 			}
 
-			if ($obj->class_id() == CL_PROMO && $obj->prop("docs_from_current_menu") && $this->can("view", aw_global_get("section")))
+			if ($obj->class_id() == CL_PROMO && $obj->prop("docs_from_current_menu") && acl_base::can("view", menu_obj::get_active_section_id()))
 			{
-				$so = obj(aw_global_get("section"));
+				$so = new object(menu_obj::get_active_section_id());
 				$sections = array(
 					$so->class_id() == menu_obj::CLID ? $so->id() : $so->parent()
 				);
@@ -820,7 +823,7 @@ class site_show extends aw_template
 				$no_in_promo = 1;
 
 				// get kws from promo
-				if ($this->can("view", ifset($_GET, "set_kw")))
+				if (acl_base::can("view", ifset($_GET, "set_kw")))
 				{
 					$filter["CL_DOCUMENT.RELTYPE_KEYWORD"] = $_GET["set_kw"];
 				}
@@ -1201,7 +1204,7 @@ class site_show extends aw_template
 				{
 					// oh. damn. this is sneaky. what if the brother is not active - we gits to check for that and if it is, then
 					// use the brother
-					if ($o->class_id() != CL_DOCUMENT && $this->can("view", $o->brother_of()))
+					if ($o->class_id() != CL_DOCUMENT && acl_base::can("view", $o->brother_of()))
 					{
 						$bo = obj($o->brother_of());
 						if ($bo->status() != STAT_ACTIVE)
@@ -1855,7 +1858,7 @@ class site_show extends aw_template
 				}
 			}
 
-			if (is_oid($ref->prop("submenus_from_obj")) && $this->can("view", $ref->prop("submenus_from_obj")))
+			if (is_oid($ref->prop("submenus_from_obj")) && acl_base::can("view", $ref->prop("submenus_from_obj")))
 			{
 				$sfo = $ref->prop("submenus_from_obj");
 			}
@@ -1958,32 +1961,40 @@ class site_show extends aw_template
 		}
 	}
 
-	function make_langs()
+	private function make_langs()
 	{
 		$lang_id = AW_REQUEST_CT_LANG_ID;
 		$lar = languages::listall();
 		$l = array();
 		$uid = aw_global_get("uid");
+
+		if (!($sel_lang = languages::fetch(AW_REQUEST_CT_LANG_ID)))
+		{
+			$sel_lang = languages::fetch(AW_REQUEST_CT_LANG_ID, true);
+		}
+
 		if (count($lar) < 2)
 		{
 			// crap, we need to insert the sel lang acharset here at least!
-			$sel_lang = languages::fetch($lang_id);
 			$this->vars(array(
 				"sel_charset" => languages::USER_CHARSET,
 				"charset" => languages::USER_CHARSET,
-				"se_lang_id" => $lang_id,
-				"lang_code" => $sel_lang["acceptlang"]
+				"se_lang_id" => AW_REQUEST_CT_LANG_ID,
+				"lang_code" => AW_REQUEST_CT_LANG_CODE
 			));
 			return "";
 		}
-		$num = 0;
 
+		$num = 0;
 		foreach($lar as $row)
 		{
-			if (is_oid($row["oid"]) && !$this->can("view", $row["oid"]))
+			if (is_oid($row["oid"]) && !acl_base::can("view", $row["oid"]))
 			{
 				continue;
 			}
+
+			$lang_code = languages::lid2lc($row["id"]);
+
 			$num++;
 			$grp = isset($row["meta"]["lang_group"]) ? $row["meta"]["lang_group"] : null;
 			$grp_spec = $grp;
@@ -1992,9 +2003,9 @@ class site_show extends aw_template
 				$grp_spec = "_".$grp;
 			}
 
-			$sel_img_url = "";
-			$img_url = "";
 			// if the language has an image
+			$sel_img_url = ""; // image for when language is active
+			$img_url = ""; // language image
 			if (!empty($row["meta"]["lang_img"]))
 			{
 				if ($lang_id == $row["id"] && $row["meta"]["lang_img_act"])
@@ -2005,45 +2016,50 @@ class site_show extends aw_template
 				$img_url = $this->image->get_url_by_id($row["meta"]["lang_img"]);
 			}
 
-			$url = aw_ini_get("baseurl") . "?".$var."=$row[id]";
-			if (!empty($row["meta"]["temp_redir_url"]) && $uid == "")
+			// get language change url
+			if (aw_ini_get("menuedit.language_in_url"))
 			{
-				$url = $row["meta"]["temp_redir_url"];
-			}
-
-			if (aw_ini_get("user_interface.full_content_trans"))
-			{
-				// get the current url.
-				// check if it has the language set in it
-				// if it does, then replace it with the new one
-				$cur_url = get_ru();
-				$bits = parse_url($cur_url);
-				$new_url = null;
-				if (strlen($bits["path"]) > 1 && $bits["path"][0] == "/")
-				{
-					list($_lang_bit, $_rest) = explode("/", substr($bits["path"], 1), 2);
-					if ($_lang_bit == aw_global_get("ct_lang_lc"))
-					{
-						$new_path = "/".$row["acceptlang"]."/".$_rest;
-						$new_url = str_replace($bits["path"], $new_path, $cur_url);
-					}
-				}
-				// else
 				// make the url
-				if ($new_url === null)
+				if (substr(automatweb::$request->arg("class"), 0, 4) === "shop")
 				{
-					$new_url = $this->make_menu_link($this->section_obj, $row["acceptlang"]);
-				}
-				$url = $new_url;
-				if (substr(ifset($_GET, "class"), 0, 4) === "shop")
-				{
-					$url = aw_url_change_var("section", $row["acceptlang"]."/".aw_global_get("section"));
+					$url = aw_url_change_var("section", "{$lang_code}/" . menu_obj::get_active_section_id());
 				}
 				else
 				{
-					$url = $this->make_menu_link($this->section_obj, $row["acceptlang"]);
+					// get the current url.
+					// check if it has the language set in it
+					// if it does, then replace it with the new one
+					$cur_url = get_ru();
+					$bits = parse_url($cur_url);
+					$url = "";
+					if (strlen($bits["path"]) > 1 && $bits["path"][0] === "/")
+					{
+						list($_lang_bit, $_rest) = explode("/", substr($bits["path"], 1), 2);
+						if (AW_REQUEST_CT_LANG_CODE === $_lang_bit)
+						{
+							$new_path = "/{$lang_code}/{$_rest}";
+							$url = str_replace($bits["path"], $new_path, $cur_url);
+						}
+					}
+
+					if (!$url)
+					{
+						$url = $this->make_menu_link($this->section_obj, $lang_code);
+					}
 				}
 			}
+			elseif (!empty($row["meta"]["temp_redir_url"]) && $uid == "")
+			{ //XXX: milleks?
+				$url = $row["meta"]["temp_redir_url"];
+			}
+			else
+			{ // link to languages module active language change method
+				$url = core::mk_my_orb("set_active", array(
+					"id" => $row["id"],
+					"return_url" => get_ru() ? aw_ini_get("baseurl") : get_ru()
+				), "languages");
+			}
+
 			$this->vars(array(
 				"name" => $row["name"],
 				"lang_id" => $row["id"],
@@ -2055,6 +2071,7 @@ class site_show extends aw_template
 				"sel_img_url" => $sel_img_url,
 				"fp_text" => isset($row["meta"]["fp_text"]) ? $row["meta"]["fp_text"] : null
 			));
+
 			if (!isset($l[$grp]))
 			{
 				$l[$grp] = "";
@@ -2066,8 +2083,7 @@ class site_show extends aw_template
 				{
 					$l[$grp].=$this->parse("SEL_LANG".$grp_spec."_END");
 				}
-				else
-				if ($this->is_template("SEL_LANG".$grp_spec."_BEGIN") && $l[$grp] == "")
+				elseif ($this->is_template("SEL_LANG".$grp_spec."_BEGIN") && $l[$grp] == "")
 				{
 					$l[$grp].=$this->parse("SEL_LANG".$grp_spec."_BEGIN");
 				}
@@ -2087,8 +2103,7 @@ class site_show extends aw_template
 				{
 					$l[$grp].=$this->parse("LANG".$grp_spec."_END");
 				}
-				else
-				if ($this->is_template("LANG".$grp_spec."_BEGIN") && $l[$grp] == "")
+				elseif ($this->is_template("LANG".$grp_spec."_BEGIN") && $l[$grp] == "")
 				{
 					$l[$grp].=$this->parse("LANG".$grp_spec."_BEGIN");
 				}
@@ -2097,11 +2112,6 @@ class site_show extends aw_template
 					$l[$grp].=$this->parse("LANG".$grp_spec);
 				}
 			}
-		}
-
-		if (empty($sel_lang))
-		{
-			$sel_lang = languages::fetch(AW_REQUEST_CT_LANG_ID, true);
 		}
 
 		foreach($l as $_grp => $_l)
@@ -2116,10 +2126,10 @@ class site_show extends aw_template
 		}
 
 		$this->vars(array(
-			"sel_charset" => $sel_lang["charset"],
-			"charset" => $sel_lang["charset"],
-			"se_lang_id" => $lang_id,
-			"lang_code" => $sel_lang["acceptlang"]
+			"sel_charset" => languages::USER_CHARSET,
+			"charset" => languages::USER_CHARSET,
+			"se_lang_id" => AW_REQUEST_CT_LANG_ID,
+			"lang_code" => AW_REQUEST_CT_LANG_CODE
 		));
 	}
 
@@ -2135,12 +2145,12 @@ class site_show extends aw_template
 	// and we get here only if that returns true
 	function _helper_find_parent($a_parent, $level)
 	{
-		if (!$this->can("view", $a_parent))
+		if (!acl_base::can("view", $a_parent))
 		{
 			$a_parent = aw_ini_get("rootmenu");
 		}
 
-		if($this->can("view" , $a_parent))
+		if(acl_base::can("view" , $a_parent))
 		{
 			$parent_obj = obj($a_parent);
 			if($parent_obj->class_id() == menu_obj::CLID && $parent_obj->prop("submenus_from_cb"))
@@ -2185,7 +2195,7 @@ class site_show extends aw_template
 		// why is this here you ask? well, if the user has no access to the area rootmenu
 		// then the rootmenu will get rewritten to the group's rootmenu, therefore
 		// we need to rewrite it in the path checker functions as well
-		if (!$this->can("view", $parent))
+		if (!acl_base::can("view", $parent))
 		{
 			$parent = aw_ini_get("rootmenu");
 		}
@@ -2193,7 +2203,7 @@ class site_show extends aw_template
 		$pos = array_search($parent, $this->path_ids);
 
 		//umm... peab miski valusa h2ki vahele kirjutama selle jaoks, kui menyyst v6etakse omadus, et tabid tuleks adminniliidese tabidest
-		if($this->can("view" , $parent))
+		if(acl_base::can("view" , $parent))
 		{
 			$parent_obj = obj($parent);
 			if($parent_obj->class_id() == menu_obj::CLID && $parent_obj->prop("submenus_from_cb"))
@@ -2254,7 +2264,7 @@ class site_show extends aw_template
 				cache::file_set("objlastmod", $last_mod);
 			}
 			// also compiled menu template
-			$last_mod = max($last_mod, @filemtime($this->compiled_filename));
+			$last_mod = max($last_mod, filemtime($this->compiled_filename));
 		}
 		return $last_mod;
 	}
@@ -2287,11 +2297,11 @@ class site_show extends aw_template
 			$menu_defaults = $menu_defaults[AW_REQUEST_CT_LANG_ID];
 		}
 
-		if (is_array($menu_defaults) && aw_global_get("section") == aw_ini_get("frontpage"))
+		if (is_array($menu_defaults) && menu_obj::get_active_section_id() == aw_ini_get("frontpage"))
 		{
 			foreach($menu_defaults as $_mar => $_mid)
 			{
-				if ($this->can("view", $_mid))
+				if (acl_base::can("view", $_mid))
 				{
 					$tmp = obj($_mid);
 					$this->path = $tmp->path();
@@ -2452,7 +2462,7 @@ class site_show extends aw_template
 		$site_title_yah = " / ".join(" / ", safe_array($this->title_yah_arr));
 
 		$adt = "";
-		if (is_oid($this->active_doc) && $this->can("view", $this->active_doc))
+		if (is_oid($this->active_doc) && acl_base::can("view", $this->active_doc))
 		{
 			$adt_o = obj($this->active_doc);
 			$adt = $adt_o->trans_get_val("title");
@@ -2488,7 +2498,7 @@ class site_show extends aw_template
 			"site_title_yah" => $site_title_yah,
 			"active_document_title" => $adt,
 			"current_period" => aw_global_get("current_period"),
-			"cur_section" => aw_global_get("section"),
+			"cur_section" => $this->section,
 			"section_name" => $this->section_obj->name(),
 			"meta_description" => $this->section_obj->trans_get_val("description"),
 			"meta_keywords" => $this->properties["keywords"], //$this->section_obj->trans_get_val("keywords"), // hell i know if this is the right solution !?!
@@ -2583,7 +2593,7 @@ class site_show extends aw_template
 			}
 
 			$cd = $cd2 = "";
-			if ($this->can("edit",$section) && $this->active_doc)
+			if (acl_base::can("edit",$section) && $this->active_doc)
 			{
 				$cd = $this->parse("CHANGEDOCUMENT");
 				$cd2 = $this->parse("CHANGEDOCUMENT2");
@@ -2594,7 +2604,7 @@ class site_show extends aw_template
 			));
 
 			$cd = "";
-			if ($this->can("add",$section))
+			if (acl_base::can("add",$section))
 			{
 				$cd = $this->parse("ADDDOCUMENT");
 			};
@@ -2745,7 +2755,7 @@ class site_show extends aw_template
 		$this->skip = false;
 		$link = "";
 		$link_str = $o->trans_get_val("link");
-		if ($this->can("view", $o->meta("linked_obj")) && $o->meta("linked_obj") != $o->id())
+		if (acl_base::can("view", $o->meta("linked_obj")) && $o->meta("linked_obj") != $o->id())
 		{
 			$linked_obj = obj($o->meta("linked_obj"));
 			if ($linked_obj->class_id() == menu_obj::CLID)
@@ -2754,7 +2764,7 @@ class site_show extends aw_template
 			}
 			else
 			{
-				$dd = get_instance("doc_display");
+				$dd = new doc_display();
 				$link_str = $dd->get_doc_link($linked_obj);
 			}
 		}
@@ -2781,15 +2791,18 @@ class site_show extends aw_template
 					"obj" => (!empty($pobject) ? $pobject : false),
 					"pgroup" =>  (!empty($pgroup) ? $pgroup : false),
 				));
+
 				// check acl
-				if ($_act === "new" && !$this->can("add", $meth["values"]["parent"]))
+				if ($_act === "new" && isset($meth["values"]["parent"]) && acl_base::can("add", $meth["values"]["parent"]))
 				{
 					$this->skip = true;
 				}
-				if ($_act == "change" && !$this->can("edit", ifset($meth, "values", "id")))
+
+				if ($_act == "change" && isset($meth["values"]["id"]) && !acl_base::can("edit", $meth["values"]["id"]))
 				{
 					$this->skip = true;
 				}
+
 				$values = array();
 				$err = false;
 				if ($_act === "change")
@@ -2821,7 +2834,7 @@ class site_show extends aw_template
 
 				if ($_cl === "menu")
 				{
-					$values["parent"] = aw_global_get("section");
+					$values["parent"] = $this->section;
 					if ($_act === "change")
 					{
 						$values["id"] = $this->sel_section_obj->id();
@@ -2866,7 +2879,7 @@ class site_show extends aw_template
 		{
 			if ($lc === null)
 			{
-				$lc = aw_global_get("ct_lang_lc");
+				$lc = AW_REQUEST_CT_LANG_CODE;
 				$use_trans = true;
 			}
 			else
@@ -2961,10 +2974,10 @@ class site_show extends aw_template
 		}
 
 		$sdct = $o->prop("set_doc_content_type");
-		if ($this->can("view", $sdct))
+		if (acl_base::can("view", $sdct))
 		{
-			$so = new object(aw_global_get("section"));
-			$su = (aw_ini_get("frontpage") == aw_global_get("section") || $so->class_id() == CL_DOCUMENT  ? $link : aw_global_get("REQUEST_URI"));
+			$so = new object(menu_obj::get_active_section_id());
+			$su = ($so->is_frontpage() || $so->class_id() == CL_DOCUMENT  ? $link : aw_global_get("REQUEST_URI"));
 			$su = aw_url_change_var("clear_doc_content_type", null, $su);
 			$su = aw_url_change_var("docid", null, $su);
 			$link = aw_url_change_var("set_doc_content_type", $sdct, $su);
@@ -3071,9 +3084,10 @@ class site_show extends aw_template
 
 	function _init_path_vars(&$arr)
 	{
-		if ($this->can("view", aw_global_get("section")))
+		$this->section = menu_obj::get_active_section_id();
+		if (acl_base::can("view", $this->section))
 		{
-			$this->section_obj = obj(aw_global_get("section"));
+			$this->section_obj = new object($this->section);
 		}
 		else
 		{
@@ -3081,9 +3095,7 @@ class site_show extends aw_template
 			$this->section_obj->set_class_id(menu_obj::CLID);
 		}
 
-		$clss = aw_ini_get("classes");
-
-		if ($this->section_obj->class_id() && isset($clss[$this->section_obj->class_id()]) && empty($_GET["class"]))
+		if (aw_ini_isset("classes." . $this->section_obj->class_id()) && !automatweb::$request->arg("class"))
 		{
 			if ($this->section_obj->class_id() != menu_obj::CLID) // menu is a large class and this is what it is 99% of the time and it has no handler. so don't load
 			{
@@ -3096,7 +3108,7 @@ class site_show extends aw_template
 		}
 
 		$content_from_obj = $this->section_obj->prop("get_content_from");
-		if (is_oid($content_from_obj) && $this->can("view", $content_from_obj))
+		if (is_oid($content_from_obj) && acl_base::can("view", $content_from_obj))
 		{
 			$content_obj = obj($content_from_obj);
 			$content_obj_inst = $content_obj->instance();
@@ -3120,13 +3132,13 @@ class site_show extends aw_template
 		}
 
 		//if (is_object($this->section_obj))
-		if (!empty($_GET["path"]))
+		if (automatweb::$request->arg("path"))
 		{
-			$p_ids = explode(",", $_GET["path"]);
+			$p_ids = explode(",", automatweb::$request->arg("path"));
 			$this->path = array();
 			foreach($p_ids as $p_id)
 			{
-				if ($this->can("view", $p_id))
+				if (acl_base::can("view", $p_id))
 				{
 					$this->path[] = obj($p_id);
 				}
@@ -3155,7 +3167,7 @@ class site_show extends aw_template
 			if ($pfp && $p_obj->id() == $pfp && !$_REQUEST["class"] && $this->section_obj->class_id() != CL_DOCUMENT)
 			{
 				// uh-oh. we are in shop menu but not in shop mode. redirect
-				$url = $this->mk_my_orb("show_items", array("section" => aw_global_get("section"), "id" => aw_ini_get("shop.prod_fld_path_oc")), "shop_order_center");
+				$url = $this->mk_my_orb("show_items", array("section" => menu_obj::get_active_section_id(), "id" => aw_ini_get("shop.prod_fld_path_oc")), "shop_order_center");
 				header("Location: $url");
 				die();
 			}
@@ -3192,7 +3204,7 @@ class site_show extends aw_template
 	{
 		foreach(safe_array(aw_ini_get("menuedit.menu_defs")) as $id => $_name)
 		{
-			if (!$this->can("view", $id))
+			if (!acl_base::can("view", $id))
 			{
 				continue;
 			}
@@ -3244,16 +3256,16 @@ class site_show extends aw_template
 		{
 			return;
 		}
-		if (!$this->can("admin", $menu->id()) &&
-			!$this->can("add", $menu->id()) &&
-			!$this->can("edit", $menu->id())
+		if (!acl_base::can("admin", $menu->id()) &&
+			!acl_base::can("add", $menu->id()) &&
+			!acl_base::can("edit", $menu->id())
 		)
 		{
 			return;
 		}
 		$pm = new popup_menu();
 		$pm->begin_menu("site_edit_".$menu->id());
-		if ($this->can("add", $menu->parent()))
+		if (acl_base::can("add", $menu->parent()))
 		{
 			$url = $this->mk_my_orb("new", array("parent" => $menu->parent(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), menu_obj::CLID, true);
 			$pm->add_item(array(
@@ -3263,7 +3275,7 @@ class site_show extends aw_template
 			));
 		}
 
-		if ($this->can("add", $menu->id()))
+		if (acl_base::can("add", $menu->id()))
 		{
 			$url = $this->mk_my_orb("new", array("parent" => $menu->id(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), menu_obj::CLID, true);
 			$pm->add_item(array(
@@ -3273,7 +3285,7 @@ class site_show extends aw_template
 			));
 		}
 
-		if ($this->can("change", $menu->id()))
+		if (acl_base::can("change", $menu->id()))
 		{
 			$url = $this->mk_my_orb("change", array("id" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), menu_obj::CLID, true);
 			$pm->add_item(array(
@@ -3283,7 +3295,7 @@ class site_show extends aw_template
 			));
 		}
 
-		if ($this->can("admin", $menu->id()))
+		if (acl_base::can("admin", $menu->id()))
 		{
 			$url = $this->mk_my_orb("disp_manager", array("id" => $menu->id()), "acl_manager", true);
 			$pm->add_item(array(
@@ -3293,7 +3305,7 @@ class site_show extends aw_template
 			));
 		}
 
-		if ($this->can("edit", $menu->id()))
+		if (acl_base::can("edit", $menu->id()))
 		{
 			$pm->add_item(array(
 				"text" => t("Peida"),
@@ -3305,7 +3317,7 @@ class site_show extends aw_template
 			));
 		}
 
-		if (isset($_SESSION["site_admin"]["cut_menu"]) && $this->can("view", $_SESSION["site_admin"]["cut_menu"]))
+		if (isset($_SESSION["site_admin"]["cut_menu"]) && acl_base::can("view", $_SESSION["site_admin"]["cut_menu"]))
 		{
 			$pm->add_item(array(
 				"text" => t("Kleebi"),
@@ -3324,7 +3336,7 @@ class site_show extends aw_template
 		$pm = new popup_menu();
 		$pm->begin_menu("site_edit_new");
 
-		if ($this->can("add", $this->sel_section))
+		if (acl_base::can("add", $this->sel_section))
 		{
 			$url = $this->mk_my_orb("new", array("parent" => $this->sel_section, "return_url" => get_ru(), "is_sa" => 1), CL_DOCUMENT, true);
 			$pm->add_item(array(
@@ -3337,7 +3349,7 @@ class site_show extends aw_template
 		{
 			return;
 		}
-		if (isset($_SESSION["site_admin"]["cut_doc"]) && $this->can("view", $_SESSION["site_admin"]["cut_doc"]))
+		if (isset($_SESSION["site_admin"]["cut_doc"]) && acl_base::can("view", $_SESSION["site_admin"]["cut_doc"]))
 		{
 			$pm->add_item(array(
 				"text" => t("Kleebi"),
