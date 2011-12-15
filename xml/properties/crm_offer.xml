@@ -34,7 +34,27 @@
             <type>textbox</type>
             <field>name</field>
             <parent>general_info</parent>
-            <caption>Nimi</caption>
+            <caption>Pakkumuse nimi</caption>
+      </property>
+      <property>
+            <name>date</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>datepicker</type>
+            <time>0</time>
+            <field>aw_date</field>
+            <parent>general_info</parent>
+            <caption>Kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>validity_period</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_validity_period</field>
+            <size>5</size>
+            <parent>general_info</parent>
+            <caption>Kehtivus (p&amp;amp;auml;evi)</caption>
       </property>
       <property>
             <name>state</name>
@@ -116,16 +136,6 @@
             <field>template_name</field>
       </property>
       <property>
-            <name>salesman</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>objpicker</type>
-            <clid>CL_CRM_PERSON</clid>
-            <field>aw_salesman</field>
-            <parent>general_sales</parent>
-            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja nimi</caption>
-      </property>
-      <property>
             <name>customer_relation</name>
             <table>aw_crm_offer</table>
             <group>general</group>
@@ -146,6 +156,46 @@
             <field>aw_customer</field>
             <parent>general_client</parent>
             <caption>Kliendi nimi</caption>
+      </property>
+      <property>
+            <name>salesman</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_PERSON</clid>
+            <field>aw_salesman</field>
+            <parent>general_sales</parent>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja nimi</caption>
+      </property>
+      <property>
+            <name>responsible_company</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_COMPANY</clid>
+            <field>aw_responsible_company</field>
+            <parent>general_responsibility</parent>
+            <caption>Vastutav organisatsioon</caption>
+      </property>
+      <property>
+            <name>responsible_section</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_SECTION</clid>
+            <field>aw_responsible_section</field>
+            <parent>general_responsibility</parent>
+            <caption>Vastutav &amp;amp;uuml;ksus</caption>
+      </property>
+      <property>
+            <name>responsible_person</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_PERSON</clid>
+            <field>aw_responsible_person</field>
+            <parent>general_responsibility</parent>
+            <caption>Vastutav isik</caption>
       </property>
       <property>
             <name>contracts</name>
@@ -209,16 +259,6 @@
             <no_caption>1</no_caption>
             <store>no</store>
             <field>content_table</field>
-      </property>
-      <property>
-            <name>content_total_price_components</name>
-            <table>aw_crm_offer</table>
-            <group>content</group>
-            <type>table</type>
-            <editonly>1</editonly>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>content_total_price_components</field>
       </property>
       <property>
             <name>preview</name>
@@ -418,6 +458,7 @@
       <groupinfo>
             <content>
                   <caption>Sisu</caption>
+                  <submit>no</submit>
             </content>
             <preview>
                   <caption>Eelvaade</caption>
@@ -481,13 +522,6 @@
                   <group>general</group>
                   <area_caption></area_caption>
             </general_right>
-            <general_sales>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>M&amp;amp;uuml;&amp;amp;uuml;gi&amp;amp;nbsp;andmed</area_caption>
-                  <parent>general_right</parent>
-                  <group>general</group>
-            </general_sales>
             <general_client>
                   <type>vbox</type>
                   <closeable>1</closeable>
@@ -495,6 +529,20 @@
                   <parent>general_right</parent>
                   <group>general</group>
             </general_client>
+            <general_sales>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>M&amp;amp;uuml;&amp;amp;uuml;gi&amp;amp;nbsp;andmed</area_caption>
+                  <parent>general_right</parent>
+                  <group>general</group>
+            </general_sales>
+            <general_responsibility>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Vastutav&amp;amp;nbsp;t&amp;amp;auml;ideviija</area_caption>
+                  <parent>general_right</parent>
+                  <group>general</group>
+            </general_responsibility>
             <general_contracts>
                   <type>vbox</type>
                   <closeable>1</closeable>

@@ -255,9 +255,9 @@ aw_restore_acl();
 	**/
 	public function get_category_menu($cat)
 	{
-		$category = obj($cat);
+		$category = obj($cat, array(), shop_product_category_obj::CLID);
 		$ol = new object_list(array(
-			"class_id" => CL_PRODUCTS_SHOW,
+			"class_id" => products_show_obj::CLID,
 			"CL_PRODUCTS_SHOW.RELTYPE_CATEGORY" => $cat,
 			"limit" => 1,
 		));

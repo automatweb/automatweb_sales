@@ -1,6 +1,14 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="crm_offer" folder="applications/crm/sales" extends="class_base">
+		<action name="submit_content_table">
+			<function name="submit_content_table">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="data" type="array" />
+				</arguments>
+			</function>
+		</action>
 		<action name="confirm" nologin="1">
 			<function name="confirm">
 				<arguments>

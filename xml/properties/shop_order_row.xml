@@ -1,6 +1,15 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>order</name>
+            <group>general</group>
+            <table>aw_shop_order_rows</table>
+            <type>objpicker</type>
+            <clid>CL_SHOP_SELL_ORDER</clid>
+            <field>aw_order</field>
+            <caption>Tellimus</caption>
+      </property>
+      <property>
             <name>prod_name</name>
             <group>general</group>
             <table>aw_shop_order_rows</table>
@@ -110,6 +119,40 @@
             <ch_value>1</ch_value>
             <field>aw_reservation</field>
             <caption>Broneering</caption>
+      </property>
+      <property>
+            <name>buyer_rep</name>
+            <group>general</group>
+            <table>aw_shop_order_rows</table>
+            <type>objpicker</type>
+            <clid>CL_CRM_PERSON</clid>
+            <field>aw_buyer_rep</field>
+            <caption>Tellija esindaja</caption>
+      </property>
+      <property>
+            <name>purveyance_company_section</name>
+            <group>general</group>
+            <table>aw_shop_order_rows</table>
+            <type>objpicker</type>
+            <clid>CL_CRM_SECTION</clid>
+            <field>aw_purveyance_company_section</field>
+            <caption>Tarniv &amp;amp;uuml;ksus</caption>
+      </property>
+      <property>
+            <name>planned_date</name>
+            <group>general</group>
+            <table>aw_shop_order_rows</table>
+            <type>date_select</type>
+            <field>aw_planned_date</field>
+            <caption>Planeeritud saatmise kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>planned_time</name>
+            <group>general</group>
+            <table>aw_shop_order_rows</table>
+            <type>timepicker</type>
+            <field>aw_planned_time</field>
+            <caption>Planeeritud saatmise kellaaeg</caption>
       </property>
       <classinfo>
             <syslog_type>ST_SHOP_ORDER_ROW</syslog_type>

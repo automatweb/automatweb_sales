@@ -2202,7 +2202,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		if (self::CUSTOMER_TYPE_BUYER === $type)
 		{
 			$customer_relations = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"class_id" => crm_company_customer_data_obj::CLID,
 				"buyer" => $customer->id(),
 				"seller" => $this->id()
 				//TODO: arvestada suhte alguse ja l6puga, ainult aktiivsed kliendid
@@ -2211,7 +2211,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		else
 		{
 			$customer_relations = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"class_id" => crm_company_customer_data_obj::CLID,
 				"buyer" => $this->id(),
 				"seller" => $customer->id()
 				//TODO: arvestada suhte alguse ja l6puga, ainult aktiivsed kliendid
@@ -2295,7 +2295,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		$customer->save();
 
-		$this->create_customer_relation(self::CUSTOMER_TYPE_BUYER, $customer);
+		$this->get_customer_relation(self::CUSTOMER_TYPE_BUYER, $customer, true);
 
 		return $customer;
 	}
@@ -2713,6 +2713,20 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			throw new awex_obj_param("Invalid format ({$format}) given");
 		}
 		return $company_forms;
+	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json()
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->get_title(),
+		);
+
+		$json = new json();
+		return $json->encode($data, aw_global_get("charset"));
 	}
 }
 

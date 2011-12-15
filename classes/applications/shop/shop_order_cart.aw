@@ -345,7 +345,7 @@ class shop_order_cart extends class_base
 				$oc = obj();
 			}
 		}
-		$this->vars(array("section" => aw_global_get("section")));
+
 		if(!empty($arr["template"]))
 		{
 			$this->read_template($arr["template"]);
@@ -359,6 +359,19 @@ class shop_order_cart extends class_base
 			$this->read_template("show.tpl");
 		}
 		lc_site_load("shop", $this);
+
+		$this->vars(array(
+			"cart.id" => $cart_o->id(),
+		));
+
+		$order = $cart_o->get_sell_order();
+		$this->__parse_sell_order($order);
+
+		return $this->parse();
+
+		// THE REST IS OLD CODE, SOON TO BE HISTORY!
+
+		$this->vars(array("section" => aw_global_get("section")));
 
 		$this->add_cart_vars();
 		$this->add_product_vars();
@@ -679,13 +692,6 @@ class shop_order_cart extends class_base
 			$postal_price =  $cart_o->prop("postal_price");
 		}
 
-		if(aw_global_get("uid") == "struktuur.markop")
-		{
-//$this->cart_sum =$this->cart_sum * 0.9;
-		}
-
-
-
 		$this->vars($delivery_vars + array(
 			"cart_total" => number_format($this->cart_sum , 2, "." , ""),
 			"unformated_cart_total" => $this->cart_sum,
@@ -773,6 +779,100 @@ class shop_order_cart extends class_base
 		}
 
 		return $this->parse();
+	}
+
+	private function __parse_sell_order(object $order)
+	{
+		//	This is hopefully just temporarily here, until I form an understanding how to solve it more elegantly:
+		$this->__parse_sell_order_purchaser($order);
+
+		$ROW = "";
+		$rows = $order->get_rows();
+		$row_count = $order->get_rows_count();
+
+		$parsed_count = 0;
+		foreach ($rows as $row)
+		{
+			$ROW .= $this->__parse_sell_order_row($order, $row, $row_count, $parsed_count++);
+		}
+
+		$this->vars(array(
+			"shop_sell_order.json" => $order->json()
+		));
+
+		$this->vars_safe(array(
+			"ROW" => $ROW
+		));
+	}
+
+	private function __parse_sell_order_row(object $order, object $row, $row_count, $parsed_count)
+	{
+		$this->vars(array(
+			"id" => $row->id(),
+			"item" => $row->prop("prod"),
+			"item.name" => $row->prop("prod_name"),
+			"amount" => $row->prop("items"),
+			"price" => $row->prop("price"),
+		));
+
+		$SUB = "ROW";
+		if ($parsed_count === 0 and $this->is_template("{$SUB}_BEGIN"))
+		{
+			$SUB .= "_BEGIN";
+		}
+		elseif ($parsed_count === $row_count - 1 and $this->is_template("{$SUB}_END"))
+		{
+			$SUB .= "_END";
+		}
+
+		return $this->parse($SUB);
+	}
+
+	private function __parse_sell_order_purchaser(object $order)
+	{
+		$PURCHASER_CUSTOMER = "";
+		$purchaser = obj($order->prop("purchaser"));
+		$customers = new object_list();
+		if (!$purchaser->is_saved())
+		{
+			$__purchaser_id = users::is_logged_in() ? user::get_current_person() : null;
+			$purchaser = obj($__purchaser_id, array(), crm_person_obj::CLID);
+		}
+		if ($purchaser->is_a(crm_person_obj::CLID) and $purchaser->is_saved())
+		{
+			$customers = $purchaser->company()->get_customers_by_customer_data_objs(crm_person_obj::CLID);
+		}
+		elseif ($purchaser->is_a(crm_company_obj::CLID) and $purchaser->is_saved())
+		{
+			$customers = $purchaser->get_customers_by_customer_data_objs(crm_person_obj::CLID);
+		}
+		$customer_count = $customers->count();
+		if ($customer_count > 0)
+		{
+			$customer = $customers->begin();
+			$parsed_count = 0;
+			do
+			{
+				$this->vars(array(
+					"id" => $customer->id(),
+					"name" => $customer->name(),
+				));
+				$SUB = "PURCHASER.CUSTOMER";
+				if ($parsed_count === 0 and $this->is_template("{$SUB}_BEGIN"))
+				{
+					$SUB .= "_BEGIN";
+				}
+				if ($parsed_count === $customer_count - 1 and $this->is_template("{$SUB}_END"))
+				{
+					$SUB .= "_END";
+				}
+				$PURCHASER_CUSTOMER .= $this->parse($SUB);
+				$parsed_count++;
+			} while ($customer = $customers->next());
+		}
+		$this->vars_safe(array(
+			"PURCHASER.CUSTOMER" => $PURCHASER_CUSTOMER,
+		));
 	}
 
 	function add_bank_vars($oc, $uta)
@@ -2084,7 +2184,7 @@ class shop_order_cart extends class_base
 						"is_err" => ($soce_arr[$iid]["is_err"] ? "class=\"selprod\"" : "")
 					))
 				));
-				$total += ($quant["items"] * $this->_format_calc_price($price));
+				$total += ($quant["items"] * $this->__format_calc_price($price));
 				$str .= $this->parse("PROD");
 			}
 		}
@@ -2656,7 +2756,7 @@ class shop_order_cart extends class_base
 		}
 	}
 
-	/**
+	/**	DEPRECATED
 		@attrib name=add_prod_to_cart nologin="1"
 		@param oc required type=int acl=view
 		@param add_to_cart optional
@@ -2687,7 +2787,7 @@ class shop_order_cart extends class_base
 		die();
 	}
 
-	/**
+	/**	DEPRECATED
 		@attrib name=add_product nologin="1"
 		@param oc required type=int acl=view
 		@param product optional
@@ -2712,6 +2812,28 @@ class shop_order_cart extends class_base
 			"add_to_cart" => array($arr["product"] => $arr["amount"])
 		));
 		die($url);
+	}
+
+	/**	Add an item to a temporary CL_SHOP_SELL_ORDER object and stores it in the session. If no temporary CL_SHOP_SELL_ORDER object exists, one will be created. TODO: Enable saving (i.e. make temporary objects permanent) unfinished orders for users.
+		@attrib name=add_to_cart params=name
+		@param cart required type=int
+		@param item required type=int
+		@param amount optional type=real default=1
+		@comment
+			This method uses a temporary CL_SHOP_SELL_ORDER object stored in the session.
+			shop_order_cart::add_prod_to_cart() and shop_order_cart::add_product() are deprecated and will be removed at one point!
+	**/
+	public function add_to_cart($arr)
+	{
+		$cart = obj($arr["cart"], array(), shop_order_cart_obj::CLID);
+		$order = $cart->get_sell_order();
+		$order->add_row(array(
+			"product" => $arr["item"],
+			"amount" => isset($arr["amount"]) ? $arr["amount"] : 1,
+		));
+
+		// TODO: Come up with some elegant way of informing about success of failure, and perhaps return something?
+		die("SUCCESS");
 	}
 
 	/**
@@ -3382,8 +3504,27 @@ class shop_order_cart extends class_base
 		die();
 	}
 
+	/**
+		@attrib name=submit_order api=1
+		@param id required type=int
+			The OID of the CL_SHOP_ORDER_CART object the order is submitted to
+		@param order required type=array
+			Data of the order to be submitted
+		@param confirm optional type=bool default=false
+			If set to true, order will be confirmed after submitting
+	**/
+	public function submit_order($arr)
+	{
+		$cart = obj($arr["id"], array(), shop_order_cart_obj::CLID);
+		$cart->submit_order($arr["order"]);
+		if (!empty($arr["confirm"]))
+		{
+			$cart->confirm_order();
+		}
+		die("SUCCESS");
+	}
 
-	private function _format_calc_price($p)
+	private function __format_calc_price($p)
 	{
 		return (double)str_replace(",", "", $p);
 	}

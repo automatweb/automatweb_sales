@@ -9,6 +9,16 @@ class shop_purveyors_webview_obj extends _int_object
 		$tpl = parent::prop("template");
 		return $tpl ? $tpl : "show.tpl";
 	}
+
+	public function get_purveyors()
+	{
+		$categories = $this->prop("categories");
+		//	TODO: This should probably ask the purveyors from shop_warehouse_obj or smth. -kaarel
+		return count($categories) > 0 ? new object_list(array(
+			"class_id" => crm_company_obj::CLID,
+			"CL_CRM_COMPANY.RELTYPE_PURVEYOR(CL_SHOP_PRODUCT_CATEGORY).id" => $categories
+		)) : new object_list();
+	}
 }
 
 /** Generic shop_purveyors_webview_obj exception **/

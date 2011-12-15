@@ -44,6 +44,28 @@ class shop_purveyors_webview extends class_base
 		$webview = obj($arr["id"], array(), shop_purveyors_webview_obj::CLID);
 
 		$this->read_template($webview->prop("template"));
+		$PURVEYOR = "";
+
+		$purveyors = $webview->get_purveyors();
+		if($purveyors->count() > 0)
+		{
+			$purveyor = $purveyors->begin();
+			do
+			{
+				$this->vars(array(
+					"title" => $purveyor->get_title(),
+					"comment" => $purveyor->comment(),
+					"logo.url" => $purveyor->prop("logo.url"),
+					"address" => $purveyor->get_address_string(),
+				));
+
+				$PURVEYOR .= $this->parse("PURVEYOR");
+			} while ( $purveyor = $purveyors->next() );
+		}
+
+		$this->vars_safe(array(
+			"PURVEYOR" => $PURVEYOR,
+		));
 
 		return $this->parse();
 	}

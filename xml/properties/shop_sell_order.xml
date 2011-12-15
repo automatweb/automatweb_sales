@@ -62,6 +62,14 @@
             <caption>Planeeritud saatmise kuup&amp;amp;auml;ev</caption>
       </property>
       <property>
+            <name>planned_time</name>
+            <table>aw_shop_sell_orders</table>
+            <group>general</group>
+            <type>timepicker</type>
+            <field>aw_planned_time</field>
+            <caption>Planeeritud saatmise kellaaeg</caption>
+      </property>
+      <property>
             <name>buyer_rep</name>
             <table>aw_shop_sell_orders</table>
             <group>general</group>
@@ -78,6 +86,15 @@
             <reltype>RELTYPE_OUR_REP</reltype>
             <field>aw_our_rep</field>
             <caption>Meie esindaja</caption>
+      </property>
+      <property>
+            <name>purveyance_company_section</name>
+            <table>aw_shop_sell_orders</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_SECTION</clid>
+            <field>aw_purveyance_company_section</field>
+            <caption>Tarniv &amp;amp;uuml;ksus</caption>
       </property>
       <property>
             <name>trans_cost</name>

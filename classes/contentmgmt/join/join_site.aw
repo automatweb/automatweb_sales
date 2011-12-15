@@ -26,7 +26,7 @@ EMIT_MESSAGE(MSG_USER_JOINED)
 	@caption Kas kasutaja logitakse automaatselt sisse liitumisel
 
 	@property send_join_mail type=checkbox ch_value=1 field=meta method=serialize
-	@caption Kas 7.05.2009saadetakse meil
+	@caption Kas saadetakse meil
 
 	@property users_blocked_by_default type=checkbox ch_value=1 field=meta method=serialize
 	@caption Kasutajad vaikimisi blokeeritud
@@ -783,7 +783,8 @@ class join_site extends class_base
 			$fill_msg = $lang_errs["next_filled"][$lang_id];
 		}
 
-		list($ue_class, $ue_el) = explode("_", $ob->prop("username_element"), 2);
+		$username_elements = explode("_", $ob->prop("username_element"), 2);
+		$ue_el = count($username_elements) > 1 ? $username_elements[1] : $username_elements[0];
 
 		$htmlc = new htmlclient();
 		$htmlc->start_output();
@@ -800,7 +801,7 @@ class join_site extends class_base
 				$first = $clid;
 			}
 
-			if ($ob->prop("join_sep_pages") && !($_GET["join_tab"] == $clid || (!$_GET["join_tab"] && $first == $clid)))
+			if ($ob->prop("join_sep_pages") && !(automatweb::$request->arg("join_tab") == $clid || !automatweb::$request->arg_isset("join_tab") && $first === $clid))
 			{
 				continue;
 			}
@@ -814,7 +815,7 @@ class join_site extends class_base
 			foreach($props as $pid => $prop)
 			{
 				$prop["ds"] = $this->__get_datasource_for_clid($clid);
-				if ($visible[$clid][$prop["name"]])
+				if (!empty($visible[$clid][$prop["name"]]))
 				{
 					if (isset($cf_sd[$prop["name"]]))
 					{
@@ -906,18 +907,21 @@ class join_site extends class_base
 			));
 
 			//miskid valikud tsekituks, kui on liitumise objektis nii m22ratud
-			foreach($selected as $clid => $stuff)
+			if (!empty($selected) and is_array($selected))
 			{
-				foreach($stuff as $id => $value)
+				foreach($selected as $clid => $stuff)
 				{
-					if($value)
+					foreach($stuff as $id => $value)
 					{
-						if(is_array($xp["typo_".$clid."_".$id]["options"]))
+						if($value)
 						{
-							$value = array_keys($xp["typo_".$clid."_".$id]["options"]);
-							foreach($value as $asd)
+							if(is_array($xp["typo_".$clid."_".$id]["options"]))
 							{
-								$xp["typo_".$clid."_".$id]["value"][$asd] = $asd;
+								$value = array_keys($xp["typo_".$clid."_".$id]["options"]);
+								foreach($value as $asd)
+								{
+									$xp["typo_".$clid."_".$id]["value"][$asd] = $asd;
+								}
 							}
 						}
 					}
@@ -948,8 +952,7 @@ class join_site extends class_base
 					//$htmlc->add_property($errp);
 					$klomp[$errp["name"]] = $errp;
 				}
-				else
-				if ($je["prop"][$clid][$oldn])
+				elseif (!empty($je["prop"][$clid][$oldn]))
 				{
 					$ermsg = "<font color='#FF0000'>".$fill_msg."</font>";
 					if ($this->is_template("ERROR_MESSAGE"))
@@ -1001,7 +1004,7 @@ class join_site extends class_base
 						$xprop["options"][$_k] = $_v."<br>";
 					}
 				}
-				if (is_array($xprop["options"]) && $arr["add_empty_vals"])
+				if (isset($xprop["options"]) and is_array($xprop["options"]) && !empty($arr["add_empty_vals"]))
 				{
 					$xprop["options"] = array("" => "") + $xprop["options"];
 				}
@@ -1035,7 +1038,7 @@ class join_site extends class_base
 		}
 		$htmlc->finish_output(array());
 
-		$html .= $htmlc->get_result(array(
+		$html = $htmlc->get_result(array(
 			"raw_output" => 1
 		));
 
@@ -1073,7 +1076,7 @@ class join_site extends class_base
 
 		$htmlc->finish_output(array());
 
-		$html .= $htmlc->get_result(array(
+		$html = $htmlc->get_result(array(
 			"raw_output" => 1
 		));
 
@@ -1160,7 +1163,7 @@ class join_site extends class_base
 			)),
 			"join_but_text" => $tx,
 			"cancel_but_text" => $cb,
-			"reforb" => $this->mk_reforb("submit_join_form", array("id" => $arr["id"], "add" => $add, "section" => aw_global_get("section")))
+			"reforb" => $this->mk_reforb("submit_join_form", array("id" => $arr["id"], "section" => aw_global_get("section")))
 		));
 
 		return $this->parse();
@@ -1488,9 +1491,8 @@ class join_site extends class_base
 			return $rv;
 		}
 		aw_session_set("join_err", $nf);
-		if ($arr["err_return_url"])
+		if (!empty($arr["err_return_url"]))
 		{
-
 			return $arr["err_return_url"];
 		}
 
@@ -1516,11 +1518,11 @@ class join_site extends class_base
 
 		$sessd = aw_global_get("site_join_status");
 
-		if(is_oid($obj->prop("obj_folder")) && $this->can("add", $obj->prop("obj_folder")))
+		if ($this->can("", $obj->prop("obj_folder")))
 		{
 			$user = new user();
 			$p_id = $user->get_person_for_user($u_o);
-			if(is_oid($p_id) && $this->can("change", $p_id))
+			if(is_oid($p_id) && $this->can("edit", $p_id))
 			{
 				$person = obj($p_id);
 				$person->set_parent($obj->prop("obj_folder"));
@@ -1530,11 +1532,11 @@ class join_site extends class_base
 			{
 				$first_name = isset($sessd["typo_".crm_person_obj::CLID]["firstname"]) ? $sessd["typo_".crm_person_obj::CLID]["firstname"] : null;
 				$last_name = isset($sessd["typo_".crm_person_obj::CLID]["lastname"]) ? $sessd["typo_".crm_person_obj::CLID]["lastname"] : null;
-				$real_name = "{$first_name} {$last_name}";
 
 				$person = obj(null, array(), crm_person_obj::CLID);
 				$person->set_parent($obj->prop("obj_folder"));
-				$person->set_name($real_name);
+				$person->set_prop("firstname", $first_name);
+				$person->set_prop("lastname", $last_name);
 				$p_id = $person->save();
 
 				$u_o->connect(array(
@@ -1722,7 +1724,8 @@ class join_site extends class_base
 				else
 				if ($clid == crm_person_obj::CLID)
 				{
-					$c = reset($u_o->connections_from(array("type" => "RELTYPE_PERSON")));
+					$__cs = $u_o->connections_from(array("type" => "RELTYPE_PERSON"));
+					$c = reset($__cs);
 					if ($c)
 					{
 						$data_o = $c->to();
@@ -1731,7 +1734,8 @@ class join_site extends class_base
 				else
 				if ($clid == crm_company_obj::CLID)
 				{
-					$c = reset($u_o->connections_from(array("type" => "RELTYPE_PERSON")));
+					$__cs = $u_o->connections_from(array("type" => "RELTYPE_PERSON"));
+					$c = reset($__cs);
 					if ($c)
 					{
 						$tmp = $c->to();
@@ -1748,7 +1752,7 @@ class join_site extends class_base
 			$ttp = array();
 			foreach($props as $pid => $prop)
 			{
-				if ($visible[$clid][$pid])
+				if (!empty($visible[$clid][$pid]))
 				{
 					if ($prop["name"] == "phone" || $prop["name"] == "fax")
 					{
@@ -1758,14 +1762,9 @@ class join_site extends class_base
 				}
 			}
 
-			$adr = $ttp["address"];
 			$class_inst = get_instance($clid);
 			$class_inst->init_class_base();
 			$ttp = $class_inst->parse_properties(array("properties" => $ttp, "obj_inst" => $data_o));
-			if ($adr)
-			{
-				$ttp["address"] = $adr;
-			}
 			foreach($ttp as $pid => $prop)
 			{
 				$cpn = $prop["name"];
@@ -1773,9 +1772,11 @@ class join_site extends class_base
 				{
 					$cpn = substr($cpn, 0, strpos($cpn, "["));
 				}*/
-				if ($visible[$clid][$cpn])
+				if (!empty($visible[$clid][$cpn]))
 				{
-					$oldn = str_replace($wn."[", "", str_replace("]", "", $prop["name"]));
+					// FIXME: What the **** is $wn? Is it allowed to be not set at this point?
+					$wn = isset($wn) ? $wn : null;	// To avoid PHP Notices.
+					$oldn = str_replace(array($wn."[", "]"), "", $prop["name"]);
 					if ($clid == crm_person_obj::CLID && $pid == "address")
 					{
 						// address has: * Street address: * City: * Zip code: * Country:
@@ -1918,7 +1919,8 @@ class join_site extends class_base
 					else
 					if ($oldn == "email")
 					{
-						$c = reset($u_o->connections_from(array("type" => "RELTYPE_PERSON")));
+						$__cs = $u_o->connections_from(array("type" => "RELTYPE_PERSON"));
+						$c = reset($__cs);
 						if ($c)
 						{
 							$tdata_o = $c->to();
@@ -2146,7 +2148,8 @@ class join_site extends class_base
 			}
 			elseif ($clid == crm_company_obj::CLID)
 			{
-				$c = reset($u_o->connections_from(array("type" => "RELTYPE_PERSON")));
+				$__cs = $u_o->connections_from(array("type" => "RELTYPE_PERSON"));
+				$c = reset($__cs);
 				if (!$c)
 				{
 					// create person
@@ -2214,9 +2217,9 @@ class join_site extends class_base
 		$reli = $cu->get_relinfo();
 		foreach($props as $pid => $prop)
 		{
-			if ($visible[$clid][$prop["name"]])
+			if (!empty($visible[$clid][$prop["name"]]))
 			{
-				$oldn = str_replace($wn."[", "", str_replace("]", "", $prop["name"]));
+				$oldn = str_replace(array($wn."[", "]"), "", $prop["name"]);
 				$wn = "typo_".$clid;
 				$cf_sd = $data[$wn];
 				if ($clid == user_obj::CLID)
@@ -2312,13 +2315,13 @@ class join_site extends class_base
 	function __prop_sorter($a, $b)
 	{
 		$a_diff = 0;
-		if ($a["sort_by"] != "")
+		if (!empty($a["sort_by"]))
 		{
 			$a = $this->__sort_tp[$a["sort_by"]];
 			$a_diff = -1;
 		}
 		$b_diff = 0;
-		if ($b["sort_by"] != "")
+		if (!empty($b["sort_by"]))
 		{
 			$b = $this->__sort_tp[$b["sort_by"]];
 			$b_diff = -1;
@@ -2512,9 +2515,15 @@ class join_site extends class_base
 		$jms = $arr["obj"]->meta("jm_texts");
 
 		$lid = aw_ini_get("user_interface.full_content_trans") ? aw_global_get("ct_lang_id") : aw_global_get("lang_id");
-		$from = $jms[$lid]["from"];
-		$subj = $jms[$lid]["subj"];
-		$text = $jms[$lid]["text"];
+
+		// FIXME: There should be some default values for these:
+		$from = $subj = $text = "";
+		if (!empty($jms[$lid]) and is_array($jms[$lid]))
+		{
+			$from = $jms[$lid]["from"];
+			$subj = $jms[$lid]["subj"];
+			$text = $jms[$lid]["text"];
+		}
 
 		$us = new users();
 		$cp = $us->get_change_pwd_hash_link($arr["u_obj"]->id());
@@ -2523,7 +2532,7 @@ class join_site extends class_base
 		$text = str_replace("#kasutaja#", $arr["uid"], $text);
 		$text = str_replace("#pwd_hash#", $cp, $text);
 
-		send_mail($arr["email"],$subj,$text,"From: ".$from);
+		send_mail($arr["email"], $subj, $text, "From: ".$from);
 	}
 
 	function _do_send_confirm_mail($arr)

@@ -1,5 +1,4 @@
 <?php
-// shop_order_row.aw - Tellimuse rida
 /*
 
 @classinfo syslog_type=ST_SHOP_ORDER_ROW relationmgr=yes no_comment=1 no_status=1 prop_cb=1
@@ -9,44 +8,61 @@
 @default group=general
 @default table=aw_shop_order_rows
 
-@property prod_name type=textbox field=aw_prod_name
-@caption Toote nimi
+	@property order type=objpicker clid=CL_SHOP_SELL_ORDER field=aw_order
+	@caption Tellimus
 
-@property prod type=relpicker reltype=RELTYPE_PRODUCT field=aw_product
-@caption Toode
+	@property prod_name type=textbox field=aw_prod_name
+	@caption Toote nimi
 
-@property warehouse type=relpicker reltype=RELTYPE_WAREHOUSE field=aw_warehouse
-@caption Ladu
+	@property prod type=relpicker reltype=RELTYPE_PRODUCT field=aw_product
+	@caption Toode
 
-@property date type=datetime_select field=aw_date
-@caption Aeg
+	@property warehouse type=relpicker reltype=RELTYPE_WAREHOUSE field=aw_warehouse
+	@caption Ladu
 
-@property unit type=relpicker reltype=RELTYPE_UNIT
-@caption &Uuml;hik
+	@property date type=datetime_select field=aw_date
+	@caption Aeg
 
-@property price type=textbox field=aw_prod_price
-@caption &Uuml;hiku hind
+	@property unit type=relpicker reltype=RELTYPE_UNIT
+	@caption &Uuml;hik
 
-@property items type=textbox field=aw_items
-@caption Kogus t&uuml;kkides
+	@property price type=textbox field=aw_prod_price
+	@caption &Uuml;hiku hind
 
-@property required type=textbox
-@caption Vajadus
+	@property items type=textbox field=aw_items
+	@caption Kogus t&uuml;kkides
 
-@property amount type=textbox datatype=int table=aw_shop_order_rows_amount
-@caption Kogus
+	@property required type=textbox
+	@caption Vajadus
 
-@property real_amount type=text datatype=int
-@caption Reaalne kogus
+	@property amount type=textbox datatype=int table=aw_shop_order_rows_amount
+	@caption Kogus
 
-@property tax_rate type=relpicker reltype=RELTYPE_TAX_RATE
-@caption Maksum&auml;&auml;r
+	@property real_amount type=text datatype=int
+	@caption Reaalne kogus
 
-@property other_code type=textbox
-@caption Teine artiklikood
+	@property tax_rate type=relpicker reltype=RELTYPE_TAX_RATE
+	@caption Maksum&auml;&auml;r
 
-@property reservation type=checkbox ch_value=1 field=aw_reservation
-@caption Broneering
+	@property other_code type=textbox
+	@caption Teine artiklikood
+
+	@property reservation type=checkbox ch_value=1 field=aw_reservation
+	@caption Broneering
+
+	@property buyer_rep type=objpicker clid=CL_CRM_PERSON field=aw_buyer_rep
+	@caption Tellija esindaja
+
+	@property purveyance_company_section type=objpicker clid=CL_CRM_SECTION field=aw_purveyance_company_section
+	@caption Tarniv &uuml;ksus
+
+	@property planned_date type=date_select field=aw_planned_date
+	@caption Planeeritud saatmise kuup&auml;ev
+
+	@property planned_time type=timepicker field=aw_planned_time
+	@caption Planeeritud saatmise kellaaeg
+
+### RELTYPES
 
 @reltype PRODUCT value=1 clid=CL_SHOP_PRODUCT
 @caption Toode
@@ -64,32 +80,18 @@ class shop_order_row extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "applications/shop/shop_order_row",
-			"clid" => CL_SHOP_ORDER_ROW
+			"clid" => shop_order_row_obj::CLID
 		));
 	}
 
-	function get_property($arr)
+	public function _get_order()
 	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
+		return PROP_IGNORE;
 	}
 
-	function set_property($arr = array())
+	public function _set_order()
 	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
+		return PROP_IGNORE;
 	}
 
 	function callback_mod_reforb($arr)
@@ -126,7 +128,12 @@ class shop_order_row extends class_base
 						"type" => "VARCHAR(255)"
 					));
 					return true;
-					break;
+
+				case "aw_purveyance_company_section":
+				case "aw_planned_date":
+				case "aw_planned_time":
+				case "aw_buyer_rep":
+				case "aw_order":
 				case "aw_product":
 				case "aw_items":
 				case "unit":
@@ -139,7 +146,7 @@ class shop_order_row extends class_base
 						"type" => "int"
 					));
 					return true;
-					break;
+
 				case "aw_prod_price":
 				case "amount":
 				case "real_amount":
@@ -148,7 +155,6 @@ class shop_order_row extends class_base
 						"type" => "double"
 					));
 					return true;
-					break;
 			}
 		}
 		elseif($table == "aw_shop_order_rows_amount")
@@ -174,4 +180,3 @@ class shop_order_row extends class_base
 		}
 	}
 }
-?>

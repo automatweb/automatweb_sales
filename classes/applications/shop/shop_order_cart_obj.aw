@@ -27,7 +27,6 @@ class shop_order_cart_obj extends _int_object
 	**/
 	public function delivery_methods($arr = array())
 	{
-		enter_function("shop_order_center_obj::delivery_mehtods");
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_DELIVERY_METHOD,
 			"CL_SHOP_DELIVERY_METHOD.RELTYPE_DELIVERY_METHOD(CL_SHOP_ORDER_CART)" => $this->id(),
@@ -60,7 +59,6 @@ class shop_order_cart_obj extends _int_object
 				}
 			}
 		}
-		exit_function("shop_order_center_obj::delivery_mehtods");
 		return $ol;
 	}
 
@@ -93,9 +91,7 @@ class shop_order_cart_obj extends _int_object
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_ORDER_CENTER,
-				"lang_id" => array(),
 				"cart" => $this->id(),
-				"site_id" => array(),
 			));
 			$ids = $ol->ids();
 			$this->oc = obj(reset($ids));
@@ -103,8 +99,6 @@ class shop_order_cart_obj extends _int_object
 			{
 				$ol = new object_list(array(
 					"class_id" => CL_SHOP_ORDER_CENTER,
-					"lang_id" => array(),
-					"site_id" => array(),
 				));
 				$ids = $ol->ids();
 				$this->oc = obj(reset($ids));
@@ -198,9 +192,9 @@ class shop_order_cart_obj extends _int_object
 	**/
 	public function reset_cart()
 	{
-		if(!empty($_SESSION["cart"]))
+		if(!empty($_SESSION["shop_order_cart.shop_sell_order"]))
 		{
-			unset($_SESSION["cart"]);
+			unset($_SESSION["shop_order_cart.shop_sell_order"]);
 		}
 	}
 
@@ -482,6 +476,53 @@ class shop_order_cart_obj extends _int_object
 		return $address;
 	}
 
+	/**
+		@attrib api=1
+	**/
+	public function submit_order($data)
+	{
+		$order = $this->get_sell_order();
+		foreach ($order->get_rows() as $row)
+		{
+			if (empty($data["rows"][$row->id()]))
+			{
+				$order->remove_row($row->id());
+			}
+			else
+			{
+				$row_data = $data["rows"][$row->id()];
+				foreach ($row_data as $key => $value)
+				{
+					if (!in_array($key, array("id", "parent", "class_id")) and $row->is_property($key))
+					{
+						$row->set_prop($key, $value);
+					}
+				}
+				/* Remove from the list of rows to deal with */
+				unset($data["rows"][$row->id()]);
+				$row->save();
+			}
+		}
+
+		/* Create new row objects for rows created via JS */
+		foreach ($data["rows"] as $row_data)
+		{
+			$row = $order->add_row(array(
+				"product" => $row_data["item"],
+				"amount" => $row_data["amount"],
+			));
+			foreach ($row_data as $key => $value)
+			{
+				if (!in_array($key, array("id", "parent", "class_id")) and $row->is_property($key))
+				{
+					$row->set_prop($key, $value);
+				}
+			}
+			$row->save();
+		}
+		$order->save();
+	}
+
 	public function confirm_order()
 	{
 		if ($this->awobj_get_result_clid() === crm_offer_obj::CLID)
@@ -500,27 +541,21 @@ class shop_order_cart_obj extends _int_object
 	**/
 	private function __confirm_crm_offer()
 	{
+		$order = $this->get_sell_order();
+
 		$sales = obj($this->prop("crm_sales"), array(), crm_sales_obj::CLID);
 		
-		$customer = $this->_get_person($this->get_order_data());
+		$customer = obj($order->prop("purchaser"), array(), crm_person_obj::CLID);
 		$salesman = obj($this->prop("salesman"), array(), crm_person_obj::CLID);
 
 		$order_center = $this->get_oc();
 		$currency = obj($order_center->prop("default_currency"), array(), currency_obj::CLID);
 
-		$cart_data = $this->get_cart();
-		$items = array();
-		if (!empty($cart_data["items"]))
+		foreach ($order->get_rows() as $row)
 		{
-			foreach ($cart_data["items"] as $item_id => $item_rows)
+			if ($row->prop("amount") > 0)
 			{
-				foreach ($item_rows as $item_row)
-				{
-					if($item_row["items"] > 0)
-					{
-						$items[] = array(obj($item_id), $item_row["items"]);
-					}
-				}
+				$items[] = array(obj($row->prop("prod")), $row->prop("amount"));
 			}
 		}
 
@@ -533,20 +568,11 @@ class shop_order_cart_obj extends _int_object
 	**/
 	private function __confirm_shop_sell_order()
 	{
-		$order = $this->create_order();
-		$this->set_oc();
-		$order_obj = obj($order);
-		$order_obj->set_prop("order_status" , "5");
-		$order_obj->save();
+		$order = $this->get_sell_order();
+		$order->set_prop("order_status", shop_sell_order_obj::STATUS_WORKING);
+		$order->save();
 
-		if($this->can("view", $this->prop("finish_handler")))
-		{
-			$ctrl = new form_controller();
-			$ctrl->eval_controller($this->prop("finish_handler"), $order_obj, $this);
-		}
-
-		$this->oc->send_confirm_mail($order);
-		return $order_obj;
+		return $order;
 	}
 
 	public function get_pay_form()
@@ -588,7 +614,41 @@ class shop_order_cart_obj extends _int_object
 		$this->set_cart($cart);
 	}
 
+	/**	Returns a temporary CL_SHOP_SELL_ORDER object, if no order exists, creates one.
+		@attrib api=1
+	**/
+	public function get_sell_order()
+	{
+		static $order;
+		if (!isset($order))
+		{
+			if (!empty($_SESSION["shop_order_cart.shop_sell_order"]) and is_oid($_SESSION["shop_order_cart.shop_sell_order"]))
+			{
+				$order = obj($_SESSION["shop_order_cart.shop_sell_order"], array(), shop_sell_order_obj::CLID);
+			}
+			else
+			{
+				$order = $this->__create_new_sell_order();
+				$_SESSION["shop_order_cart.shop_sell_order"] = $order->id();
+			}
+		}
+		return $order;
+	}
 
+	private function __create_new_sell_order()
+	{
+		$order_center = $this->get_oc();
+		$warehouse_id = $order_center->prop("warehouse");
+
+		$order = obj(null, array(), shop_sell_order_obj::CLID);
+		$order->set_parent($order_center->id());
+		$order->set_name(t("M&uuml;&uuml;gitellimus")." ".date("d.m.Y H:i"));
+		$order->set_prop("warehouse", $warehouse_id);
+		$order->set_prop("currency", $order_center->get_currency());
+		$order->set_prop("channel", $this->prop("channel"));
+		$order->set_prop("date", time());
+		$order->save();
+
+		return $order;
+	}
 }
-
-?>
