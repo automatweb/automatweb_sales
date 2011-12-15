@@ -20,7 +20,7 @@ class aw_http_request extends aw_request
 		}
 	}
 
-	public function lang()
+	public function lang_id()
 	{
 		if (!$this->_client_lang_parsed)
 		{
@@ -28,7 +28,7 @@ class aw_http_request extends aw_request
 			$this->_client_lang_parsed = true;
 		}
 
-		return $this->_lang_id;
+		return parent::lang_id();
 	}
 
 	private function _get_client_language()
@@ -38,20 +38,19 @@ class aw_http_request extends aw_request
 		/// language from url. usu. in the form http://myserver/eng/somedocument...
 		if (aw_ini_get("menuedit.language_in_url"))
 		{
-			$lang = explode("/", $this->_uri->get_path());
-			$lc0 = $lang[0];
-			$lc1 = $lang[1];
+			$lang = explode(" ", trim(str_replace("/", " ", $this->_uri->get_path())));
 
-			!empty($lc0) and
-			"automatweb" !== $lc0 and
-			aw_ini_isset("menuedit.language_table.{$lc0}") and
-			$lid = languages::lc2lid(aw_ini_get("menuedit.language_table.{$lc0}"))
-			or
-			!empty($lc1) and
-			"automatweb" !== $lc1 and
-			aw_ini_isset("menuedit.language_table.{$lc1}") and
-			$lid = languages::lc2lid(aw_ini_get("menuedit.language_table.{$lc1}"))
-			;
+			if (!empty($lang[0]))
+			{
+				if ("automatweb" !== $lang[0])
+				{
+					$lid = languages::lc2lid($lang[0]);
+				}
+				elseif (!empty($lang[1]))
+				{
+					$lid = languages::lc2lid($lang[1]);
+				}
+			}
 		}
 
 		/// try browser acceptlang header
@@ -86,7 +85,10 @@ class aw_http_request extends aw_request
 			}
 		}
 
-		$this->set_lang($lid);
+		if ($lid)
+		{
+			$this->set_lang_id($lid);
+		}
 	}
 
 	/**

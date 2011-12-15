@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CONFIG_LOGIN_MENUS relationmgr=yes
+@classinfo relationmgr=yes
 @classinfo no_status=1
 
 @default table=objects
@@ -91,12 +91,12 @@ class config_login_menus extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	private function _set_active_menus($o)
 	{
 		$o_lm = $o->meta("lm");
-		
+
 		$gl = get_instance(CL_GROUP)->get_group_picker(array("type" => array(aw_groups::TYPE_DYNAMIC, aw_groups::TYPE_REGULAR)));
 
 		$lm = $this->_get_login_menus();
@@ -110,12 +110,9 @@ class config_login_menus extends class_base
 		}
 
 		$data = aw_serialize($lm);
-		$this->quote($data);
-		$this->set_cval("login_menus_".aw_ini_get("site_id"),$data);
+		config::set_simple_config("login_menus_".aw_ini_get("site_id"), $data);
 
-		// clear cache 
-		$c = get_instance("cache");
-		$c->full_flush();		
+		cache::full_flush();
 	}
 
 	function callback_get_login_menus($arr)
@@ -172,12 +169,12 @@ class config_login_menus extends class_base
 	{
 		// this is supposed to return a list of all active polls
 		// to let the user choose the active one
-		$table = &$arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 		$table->parse_xml_def("activity_list");
 
 		$pl = new object_list(array(
 			"class_id" => CL_CONFIG_LOGIN_MENUS
-		));	
+		));
 		for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
 		{
 			$actcheck = checked($o->flag(OBJ_FLAG_IS_SELECTED));
@@ -188,7 +185,7 @@ class config_login_menus extends class_base
 		};
 	}
 
-	/**  
+	/**
 		@attrib name=find_active_edit params=name default="0"
 	**/
 	function find_active_edit($arr)
@@ -206,7 +203,7 @@ class config_login_menus extends class_base
 		return $this->mk_my_orb("change", array("id" => $o->id()));
 	}
 
-	function on_site_init(&$dbi, &$site, &$ini_opts, &$log, $vars)
+	function on_site_init($dbi, &$site, &$ini_opts, &$log, $vars)
 	{
 		// we are using the new db as the default, so we can create objects
 		$oid = $dbi->db_fetch_field("SELECT oid FROM objects WHERE class_id = ".CL_CONFIG_LOGIN_MENUS, "oid");
@@ -234,7 +231,7 @@ class config_login_menus extends class_base
 		{
 			$data[$lid][2]["menu"] = $vars["logged_admins"];
 			$data[$lid][2]["pri"] = 1000;
-	
+
 			$data[$lid][1]["menu"] = $vars["logged_users"];
 			$data[$lid][1]["pri"] = 100;
 
@@ -282,7 +279,7 @@ class config_login_menus extends class_base
 					}
 				}
 			}
-		};
+		}
 
 		if (!is_array($data))
 		{
@@ -295,7 +292,7 @@ class config_login_menus extends class_base
 		if (!is_array($gids))
 		{
 			return;
-		};
+		}
 
 		foreach($gids as $gid)
 		{
@@ -304,7 +301,7 @@ class config_login_menus extends class_base
 				$cur_pri = $data[$gid]["pri"];
 				$cur_menu = $data[$gid]["menu"];
 			}
-		};
+		}
 
 		return $cur_menu;
 	}
@@ -312,17 +309,18 @@ class config_login_menus extends class_base
 	private function _get_login_menus($args = array())
 	{
 		$sid = aw_ini_get("site_id");
-		$res = $this->get_cval("login_menus_".$sid);
+		$res = config::get_simple_config("login_menus_".$sid);
 		if (!$res)
 		{
-			$res = $this->get_cval("login_menus");
+			$res = config::get_simple_config("login_menus");
 		}
+
 		return aw_unserialize($res);
 	}
 
 	/** Sets the login menu for the given group
 		@attrib api=1 params=pos
-	
+
 		@param group_id required type=int
 			The gid of the group to set menus for
 
@@ -336,8 +334,7 @@ class config_login_menus extends class_base
 		$lm[aw_global_get("lang_id")][$grp_id]["menu"] = $menu_id;
 
 		$str = aw_serialize($lm);
-		$this->quote($str);
-		$this->set_cval("login_menus_".aw_ini_get("site_id"),$str);
+		config::set_simple_config("login_menus_".aw_ini_get("site_id"), $str);
 	}
 
 	public function show_login_menu()
@@ -356,7 +353,7 @@ class config_login_menus extends class_base
 					}
 				}
 			}
-		};
+		}
 
 		if (!is_array($data))
 		{
@@ -369,7 +366,7 @@ class config_login_menus extends class_base
 		if (!is_array($gids))
 		{
 			return true;
-		};
+		}
 
 		$show = true;
 		foreach($gids as $gid)
@@ -379,7 +376,7 @@ class config_login_menus extends class_base
 				$cur_pri = $data[$gid]["pri"];
 				$show = !isset($data[$gid]["show"]) || !empty($data[$gid]["show"]);
 			}
-		};
+		}
 		return $show;
 	}
 }

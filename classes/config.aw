@@ -34,34 +34,25 @@ class config extends aw_template implements orb_public_interface
 			config::set_simple_config("default_field", "allah");
 			echo config::get_simple_config("default_field"); // echoes allah
 	**/
-	function set_simple_config($ckey,$value)
+	public static function set_simple_config($ckey, $value)
 	{
-		if (!is_object($this))//XXX: ?
-		{
-			$i = new core();
-			$i->init();
-		}
-		else
-		{
-			$i = $this;
-		}
 		// 1st, check if the necessary key exists
-		$i->quote($value);
-		$ret = $i->db_fetch_field("SELECT COUNT(*) AS cnt FROM config WHERE ckey = '$ckey'","cnt");
-		if ($ret == false)
-		{
-			// no such key, so create it
-			$i->quote($value);
-			$i->db_query("INSERT INTO config VALUES('$ckey','$value',".time().",'".aw_global_get("uid")."')");
-		}
-		else
-		{
-			$i->quote($content);
-			$q = "UPDATE config
-				SET content = '$value'
-				WHERE ckey = '$ckey'";
-			$i->db_query($q);
-		}
+		$uid = aw_global_get("uid");
+		object_loader::ds()->quote($uid);
+		object_loader::ds()->quote($ckey);
+		object_loader::ds()->quote($value);
+		$time = time();
+		$sql = <<<SQL
+INSERT INTO `config`
+	(`ckey`, `content`, `modified`, `modified_by`)
+VALUES
+	('{$ckey}', '{$value}', {$time}, '{$uid}')
+ON DUPLICATE KEY UPDATE
+	`content` = '{$value}',
+	`modified` = {$time},
+	`modified_by` = '{$uid}'
+SQL;
+		object_loader::ds()->db_query($sql);
 	}
 
 	/** gets the value for a configuration key
@@ -77,25 +68,11 @@ class config extends aw_template implements orb_public_interface
 			config::set_simple_config("default_field", "allah");
 			echo config::get_simple_config("default_field"); // echoes allah
 	**/
-	function get_simple_config($ckey)
+	public static function get_simple_config($ckey)
 	{
-		if (!is_object($this))//XXX: ?
-		{
-			$i = new core();
-			$i->init();
-		}
-		else
-		{
-			$i = $this;
-		}
-
-		$q = "SELECT content FROM config WHERE ckey = '$ckey'";
-		if (aw_global_get("__install_db"))
-		{
-			return aw_global_get("__install_db")->db_fetch_field($q,"content");
-		}
-		$q = "SELECT content FROM config WHERE ckey = '$ckey'";
-		return $i->db_fetch_field($q,"content");
+		object_loader::ds()->quote($ckey);
+		$q = "SELECT content FROM config WHERE ckey = '{$ckey}'";
+		return object_loader::ds()->db_fetch_field($q,"content");
 	}
 
 	function get_grp_redir()

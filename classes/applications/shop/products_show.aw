@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_PRODUCTS_SHOW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=smeedia
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_products_show master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_products_show
@@ -10,7 +10,7 @@
 	@caption Paketid
 	@comment Paketid, mida kuvatakse
 
-	@property categories type=relpicker multiple=1 store=connect reltype=RELTYPE_CATEGORY 
+	@property categories type=relpicker multiple=1 store=connect reltype=RELTYPE_CATEGORY
 	@caption Tootekategooriad
 	@comment Tootekategooriad millesse toode peaks kuuluma, et teda kuvataks
 
@@ -189,7 +189,7 @@ class products_show extends class_base
 					"type" => "varchar(63)"
 				));
 				return true;
-			
+
 			case "aw_columns":
 			case "type":
 			case "oc":
@@ -237,7 +237,6 @@ class products_show extends class_base
 		if(file_exists($master_cache))
 		{
 			$cache = file($master_cache);
-//	DBG		return join ("" , $cache);
 		}
 
 		$ob = new object($arr["id"]);
@@ -261,13 +260,11 @@ class products_show extends class_base
 			"currency" => get_name($oc->get_currency()),
 		));
 
-		lc_site_load("shop", &$this);
-
 		//	The products will be ordered by products_show_obj::get_web_items()
 		$products = $ob->get_web_items();
 
 		$GLOBALS["order_center"] = $oc->id();
-		
+
 		$ROW = "";
 		$PARSED_SUBS = array(
 			"PRODUCT" => "",
@@ -275,7 +272,7 @@ class products_show extends class_base
 			"PACKAGING" => "",
 		);
 		$HAS_SUBS = array();
-		
+
 		$max = 4;	//default, TODO: This should be configurable:
 		$per_page = 16;	//default products per page
 
@@ -432,13 +429,17 @@ class products_show extends class_base
 				{
 					$PARSED_SUBS[$SUB] .= ($count_all === 1 and $this->is_template("{$SUB}_BEGIN")) ? $this->parse("{$SUB}_BEGIN") : $this->parse($SUB);
 				}
-			} while ($product = $products->next());
+			}
+			while ($product = $products->next());
 		}
+
+		$SUB = $this->__warehouse_item_sub_name(new object());//TODO: $SUB oli siin defineerimata, kontrollida kas default "PRODUCT" on sobiv
 		$this->vars_safe($PARSED_SUBS + array(
 			"{$SUB}_BEGIN" => "",
 			"{$SUB}_END" => "",
 			"ROW" => $ROW
 		));
+
 		foreach ($HAS_SUBS as $HAS_SUB)
 		{
 			$this->vars_safe(array(
@@ -463,7 +464,7 @@ class products_show extends class_base
 			}
 
 			$page_str = "";
-			
+
 			$x = max(array(0,$page - 2));
 			$y = 0;
 			if($x+$y > 1)
@@ -480,7 +481,7 @@ class products_show extends class_base
 				$this->vars(array("pager_url" => aw_url_change_var("page", ($x+$y))));
 				$this->vars(array("pager_nr" => ($x + $y + 1)));
 
-				
+
 				if($x+$y == $page)
 				{
 					$page_str.= $this->parse("PAGE_SEL");
@@ -579,7 +580,7 @@ class products_show extends class_base
 			));
 		}
 		$data["{$prefix}min_special_price_without_zeroes"] = $this->woz(isset($data["{$prefix}min_special_price"]) ? $data["{$prefix}min_special_price"] : 0);
-		$data["{$prefix}min_price_without_zeroes"] = $this->woz($data["{$prefix}min_price"]); 
+		$data["{$prefix}min_price_without_zeroes"] = $this->woz($data["{$prefix}min_price"]);
 		if ($this->is_template("checkbox"))
 		{
 			$data["{$prefix}checkbox"] = html::checkbox(array(

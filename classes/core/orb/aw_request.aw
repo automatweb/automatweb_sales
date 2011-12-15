@@ -88,9 +88,16 @@ class aw_request
 	{
 		// determine and set up content language
 		// look if set_lang_id request made then if active is defined and finally find best if not
-		if ($ct_lid = languages::get_active_ct_lang_id())
+		$ct_lid = 0;
+		if (aw_ini_get("menuedit.language_in_url")) //TODO: viia inurl mujale
 		{
-			aw_global_set("lang_id", $ct_lid);
+			$ct_lid = $this->lang_id();
+		}
+
+		if (!$ct_lid)
+		{
+			$ct_lid = languages::get_active_ct_lang_id();
+			if ($ct_lid) aw_global_set("lang_id", $ct_lid); //XXX: miks siin vaja?
 		}
 
 		if ($set_lang_id = (int) automatweb::$request->arg("set_lang_id"))
@@ -114,19 +121,19 @@ class aw_request
 			// try to figure out the balance between the user's language preferences and the
 			// languages that are available.
 			// places checked:
-			// 1 ini languages.default setting
-			// 2 request (browser acceptlang etc.)
+			// 1 request (browser acceptlang etc.)
+			// 2 ini languages.default setting
 			// 3 first active language found
 			// 4 any defined language
 			// 5 a hard coded default
 			{
-				// try ini
-				$ct_lid = languages::lc2lid(aw_ini_get("languages.default"));
-
 				// try request
+				$ct_lid = $this->lang_id();
+
+				// try ini
 				if (!$ct_lid)
 				{
-					$ct_lid = self::lang_id();
+					$ct_lid = languages::lc2lid(aw_ini_get("languages.default"));
 				}
 
 				// try to find an active language
@@ -516,7 +523,7 @@ aw_global_set("lang_oid", $la["oid"]);
 	{
 		if (!languages::lid2lc($lid))
 		{
-			throw new awex_param("Invalid language id {$lid}");
+			throw new awex_param("Invalid language id '{$lid}'");
 		}
 		$this->_lang_id = (int) $lid;
 	}
@@ -569,16 +576,21 @@ aw_global_set("lang_oid", $la["oid"]);
 		}
 	}
 
+	// Magic methods are experimentally used to encapsulate this class's functionality from its descendants, in addition to give an easier access interface
+
 	public function __isset($name)
 	{
-		$name = "_{$name}";
+		if ("_" !== $name{0})
+		{
+			$name = "_{$name}";
+		}
 		return isset($this->$name);
 	}
 
 	public function __get($name)
 	{
 		$name = "_{$name}";
-		return $this->$name;
+		return isset($this->$name) ? $this->$name : "";
 	}
 
 	public function __set($name, $value)

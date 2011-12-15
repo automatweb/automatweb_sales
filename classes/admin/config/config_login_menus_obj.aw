@@ -1,9 +1,5 @@
 <?php
 
-/**
-	@aclassinfo maintainer=kristo
-**/
-
 class config_login_menus_obj extends _int_object
 {
 	const CLID = 251;
@@ -15,8 +11,7 @@ class config_login_menus_obj extends _int_object
 		parent::delete($full_delete);
 		if ($is_act)
 		{
-			$c = get_instance(CL_FILE);
-			$c->set_cval("login_menus_".aw_ini_get("site_id"), "");
+			config::set_simple_config("login_menus_".aw_ini_get("site_id"), "");
 		}
 	}
 }
