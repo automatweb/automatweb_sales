@@ -19,6 +19,24 @@
 	@property amount type=textbox field=aw_amount
 	@caption Kogus
 
+	@property customer type=objpicker clid=CL_CRM_COMPANY,CL_CRM_PERSON field=aw_customer
+	@caption Kliendi nimi
+
+	@property responsible_company type=objpicker clid=CL_CRM_COMPANY field=aw_responsible_company
+	@caption Vastutav organisatsioon
+
+	@property responsible_section type=objpicker clid=CL_CRM_SECTION field=aw_responsible_section
+	@caption Vastutav &uuml;ksus
+
+	@property responsible_person type=objpicker clid=CL_CRM_PERSON field=aw_responsible_person
+	@caption Vastutav isik
+				
+	@property date type=datepicker time=0 field=aw_date
+	@caption Kuup&auml;ev
+				
+	@property date type=timepicker field=aw_time
+	@caption Kellaaeg
+
 	#	Price components are stored in separate database table and are not stored as objects.
 	@property price_components type=table store=no
 	@caption Hinnakomponendid
@@ -63,6 +81,12 @@ class crm_offer_row extends class_base
 			case "aw_offer":
 			case "aw_object":
 			case "aw_unit":
+			case "aw_responsible_company":
+			case "aw_responsible_section":
+			case "aw_responsible_person":
+			case "aw_customer":
+			case "aw_date":
+			case "aw_time":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "int(11)"
@@ -81,13 +105,6 @@ class crm_offer_row extends class_base
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "decimal(19,4)"
-				));
-				return true;
-
-			case "":
-				$this->db_add_col($t, array(
-					"name" => $f,
-					"type" => ""
 				));
 				return true;
 		}

@@ -35,6 +35,53 @@
             <caption>Kogus</caption>
       </property>
       <property>
+            <name>customer</name>
+            <table>aw_crm_offer_row</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>
+                  <num_0>CL_CRM_COMPANY</num_0>
+                  <num_1>CL_CRM_PERSON</num_1>
+            </clid>
+            <field>aw_customer</field>
+            <caption>Kliendi nimi</caption>
+      </property>
+      <property>
+            <name>responsible_company</name>
+            <table>aw_crm_offer_row</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_COMPANY</clid>
+            <field>aw_responsible_company</field>
+            <caption>Vastutav organisatsioon</caption>
+      </property>
+      <property>
+            <name>responsible_section</name>
+            <table>aw_crm_offer_row</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_SECTION</clid>
+            <field>aw_responsible_section</field>
+            <caption>Vastutav &amp;amp;uuml;ksus</caption>
+      </property>
+      <property>
+            <name>responsible_person</name>
+            <table>aw_crm_offer_row</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_PERSON</clid>
+            <field>aw_responsible_person</field>
+            <caption>Vastutav isik</caption>
+      </property>
+      <property>
+            <name>date</name>
+            <table>aw_crm_offer_row</table>
+            <group>general</group>
+            <type>timepicker</type>
+            <field>aw_time</field>
+            <caption>Kellaaeg</caption>
+      </property>
+      <property>
             <name>price_components</name>
             <table>aw_crm_offer_row</table>
             <group>general</group>

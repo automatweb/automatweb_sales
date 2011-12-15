@@ -435,8 +435,12 @@ class products_show extends class_base
 
 		$SUB = $this->__warehouse_item_sub_name(new object());//TODO: $SUB oli siin defineerimata, kontrollida kas default "PRODUCT" on sobiv
 		$this->vars_safe($PARSED_SUBS + array(
-			"{$SUB}_BEGIN" => "",
-			"{$SUB}_END" => "",
+			"PRODUCT_BEGIN" => "",
+			"PRODUCT_END" => "",
+			"PACKET_BEGIN" => "",
+			"PACKET_END" => "",
+			"PACKAGING_BEGIN" => "",
+			"PACKAGING_END" => "",
 			"ROW" => $ROW
 		));
 
@@ -519,6 +523,7 @@ class products_show extends class_base
 
 		}
 		$data["oc"] = $oc->id();
+		$data["cart"] = $oc->prop("cart");
 
 		$data["submit"] = html::submit(array(
 			"value" => t("Lisa tooted korvi"),
@@ -593,8 +598,11 @@ class products_show extends class_base
 
 		$category = $o->get_first_category_id();
 
+		if (is_oid($category))
+		{
 		$data["{$prefix}menu"] = $products_show->get_category_menu($category);
 		$data["{$prefix}menu_name"] = get_name($data["{$prefix}menu"]);
+		}
 
 		$data["{$prefix}price"] = $this->number_format($data["{$prefix}price"]);
 		$data["{$prefix}special_price"] = $this->number_format($data["{$prefix}special_price"]);

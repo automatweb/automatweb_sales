@@ -12,125 +12,129 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 
 @default group=general_general
 
-	@layout gen_split type=hbox
+	@layout gen_split type=hbox width=50%:50%
 
 		@layout gen_left type=vbox parent=gen_split
 
-		@layout gen_gen type=vbox area_caption=&Uuml;ldine closeable=1 parent=gen_left
+			@layout gen_gen type=vbox area_caption=&Uuml;ldine closeable=1 parent=gen_left
 
-			@property name type=textbox parent=gen_gen
-			@caption Nimi
-			@comment Objekti nimi
+				@property name type=textbox parent=gen_gen
+				@caption Nimi
+				@comment Objekti nimi
 
-			@property status_edit type=chooser parent=gen_gen table=objects field=status
-			@caption Staatus
+				@property status_edit type=chooser parent=gen_gen table=objects field=status
+				@caption Staatus
 
-			@property comment type=textbox parent=gen_gen
-			@caption Kommentaar
-			@comment Vabas vormis tekst objekti kohta
+				@property comment type=textbox parent=gen_gen
+				@caption Kommentaar
+				@comment Vabas vormis tekst objekti kohta
 
-			@property status type=status default=1 parent=gen_gen
-			@caption Aktiivne
-			@comment Kas objekt on aktiivne
+				@property status type=status default=1 parent=gen_gen
+				@caption Aktiivne
+				@comment Kas objekt on aktiivne
 
-			@property jrk type=textbox size=5 table=objects field=jrk parent=gen_gen
-			@caption J&auml;rjekord
-			@comment Objekti j&auml;rjekord
+				@property jrk type=textbox size=5 table=objects field=jrk parent=gen_gen
+				@caption J&auml;rjekord
+				@comment Objekti j&auml;rjekord
+				
+				@property short_description type=textarea cols=40 rows=5 table=aw_shop_products field=aw_short_description parent=gen_gen
+				@caption L&uuml;hikirjeldus
 
-			@property description type=textarea cols=40 rows=5 table=aw_shop_products parent=gen_gen
-			@caption Kirjeldus
-			@comment Toote kirjeldus
+				@property content_package type=checkbox ch_value=1 parent=gen_gen disabled=1 table=aw_shop_products
+				@caption Sisupaketi tooteobjekt
 
-			@property content_package type=checkbox ch_value=1 parent=gen_gen disabled=1 table=aw_shop_products
-			@caption Sisupaketi tooteobjekt
+				@property short_name type=textbox table=aw_shop_products field=aw_short_name parent=gen_gen
+				@caption L&uuml;hinimetus
 
-			@property short_name type=textbox table=aw_shop_products field=aw_short_name parent=gen_gen
-			@caption L&uuml;hinimetus
+				@property item_type type=relpicker reltype=RELTYPE_ITEM_TYPE table=aw_shop_products field=aw_type_id parent=gen_gen
+				@caption Toote t&uuml;&uuml;p
 
-			@property item_type type=relpicker reltype=RELTYPE_ITEM_TYPE table=aw_shop_products field=aw_type_id parent=gen_gen
-			@caption Toote t&uuml;&uuml;p
+			@layout gen_prices type=vbox area_caption=Hinnad closeable=1 parent=gen_left
 
-		@layout gen_prices type=vbox area_caption=Hinnad closeable=1 parent=gen_left
+				@layout gen_prices_prop type=hbox parent=gen_prices
 
-			@layout gen_prices_prop type=hbox parent=gen_prices
+					@layout gen_prices_prop_left type=vbox parent=gen_prices_prop
 
-				@layout gen_prices_prop_left type=vbox parent=gen_prices_prop
+						@property price_settings type=relpicker automatic=1 table=objects field=meta method=serialize reltype=RELTYPE_PRICE_SETTINGS parent=gen_prices_prop_left
+						@caption Hinnakujundus
 
-					@property price_settings type=relpicker automatic=1 table=objects field=meta method=serialize reltype=RELTYPE_PRICE_SETTINGS parent=gen_prices_prop_left
-					@caption Hinnakujundus
+						@property tax_rate type=relpicker automatic=1 table=objects field=meta method=serialize reltype=RELTYPE_TAX_RATE parent=gen_prices_prop_left
+						@caption Maksum&auml;&auml;r
 
-					@property tax_rate type=relpicker automatic=1 table=objects field=meta method=serialize reltype=RELTYPE_TAX_RATE parent=gen_prices_prop_left
-					@caption Maksum&auml;&auml;r
+					@layout gen_prices_prop_right type=vbox parent=gen_prices_prop
 
-				@layout gen_prices_prop_right type=vbox parent=gen_prices_prop
+						@property price type=textbox table=aw_shop_products field=price size=10 parent=gen_prices_prop_right
+						@caption Hind
+						@comment M&uuml;&uuml;gi hind
 
-					@property price type=textbox table=aw_shop_products field=price size=10 parent=gen_prices_prop_right
-					@caption Hind
-					@comment M&uuml;&uuml;gi hind
+						@property special_price type=textbox table=aw_shop_products field=aw_special_price size=10 parent=gen_prices_prop_right
+						@caption Erihind
 
-					@property special_price type=textbox table=aw_shop_products field=aw_special_price size=10 parent=gen_prices_prop_right
-					@caption Erihind
+						@property purchase_price type=textbox table=aw_shop_products field=purchase_price size=10 parent=gen_prices_prop_right
+						@caption Ostu hind
 
-					@property purchase_price type=textbox table=aw_shop_products field=purchase_price size=10 parent=gen_prices_prop_right
-					@caption Ostu hind
+				@layout gen_prices_tbl type=vbox parent=gen_prices
 
-			@layout gen_prices_tbl type=vbox parent=gen_prices
+					@property prev_sales_price_tbl type=table store=no parent=gen_prices_tbl no_caption=1
 
-				@property prev_sales_price_tbl type=table store=no parent=gen_prices_tbl no_caption=1
+					@property prev_purchase_price_tbl type=table store=no no_caption=1 parent=gen_prices_tbl
 
-				@property prev_purchase_price_tbl type=table store=no no_caption=1 parent=gen_prices_tbl
+					@property price_cur type=table store=no parent=gen_prices_tbl no_caption=1
 
-				@property price_cur type=table store=no parent=gen_prices_tbl no_caption=1
+			@layout gen_data type=vbox area_caption=Andmed closeable=1 parent=gen_left
+
+				@property code type=textbox table=aw_shop_products field=code parent=gen_data
+				@caption Kood
+
+				@property short_code type=textbox table=aw_shop_products field=short_code parent=gen_data
+				@caption L&uuml;hikood
+
+				@property barcode type=textbox table=aw_shop_products field=barcode parent=gen_data
+				@caption Ribakood
+
+				@property type_code type=textbox table=aw_shop_products field=type_code parent=gen_data
+				@caption T&uuml;&uuml;bi kood
+
+				@property brand type=relpicker reltype=RELTYPE_BRAND store=connect  parent=gen_data multiple=1
+				@caption Brand
+
+				@property brand_series type=text store=no parent=gen_data
+				@caption Brandisarjad
+
+			@layout gen_wh type=vbox area_caption=Lao&nbsp;andmed closeable=1 parent=gen_left
+
+				@layout gen_wh_split type=hbox parent=gen_wh
+
+				@layout gen_wh_left type=vbox parent=gen_wh_split
+
+				@property min_order_amt type=textbox table=aw_shop_products field=aw_min_order_amt parent=gen_wh_left size=5 captionside=top
+				@caption Minimaalne tellimiskogus
+
+				@property max_order_amt type=textbox table=aw_shop_products field=aw_max_order_amt parent=gen_wh_left size=5 captionside=top
+				@caption Maksimaalne tellimiskogus
+
+				@property must_order_num type=textbox table=aw_shop_products field=must_order_num size=5 parent=gen_wh_left captionside=top
+				@caption Mitu peab korraga tellima
+
+				@layout gen_wh_right type=vbox parent=gen_wh_split
+
+				@property min_wh_order_amt type=textbox table=aw_shop_products field=aw_min_wh_order_amt parent=gen_wh_right size=5 captionside=top
+				@caption Minimaalne sisseostu kogus
+
+				@property serial_number_based type=chooser table=aw_shop_products field=aw_serial_number_based parent=gen_wh_right captionside=top
+				@caption Seerianumbrip&otilde;hine arvestus
+
+				@property order_based type=chooser table=aw_shop_products field=aw_order_based parent=gen_wh_right captionside=top
+				@caption Partiip&otilde;hine arvestus
+
+				@property units_tbl type=table store=no no_caption=1 parent=gen_wh
 
 		@layout gen_right type=vbox parent=gen_split
 
-		@layout gen_data type=vbox area_caption=Andmed closeable=1 parent=gen_right
+			@layout gen_description type=vbox area_caption=Toote&nbsp;kirjeldus parent=gen_right
 
-			@property code type=textbox table=aw_shop_products field=code parent=gen_data
-			@caption Kood
-
-			@property short_code type=textbox table=aw_shop_products field=short_code parent=gen_data
-			@caption L&uuml;hikood
-
-			@property barcode type=textbox table=aw_shop_products field=barcode parent=gen_data
-			@caption Ribakood
-
-			@property type_code type=textbox table=aw_shop_products field=type_code parent=gen_data
-			@caption T&uuml;&uuml;bi kood
-
-			@property brand type=relpicker reltype=RELTYPE_BRAND store=connect  parent=gen_data multiple=1
-			@caption Brand
-
-			@property brand_series type=text store=no parent=gen_data
-			@caption Brandisarjad
-
-		@layout gen_wh type=vbox area_caption=Lao&nbsp;andmed closeable=1 parent=gen_right
-
-			@layout gen_wh_split type=hbox parent=gen_wh
-
-			@layout gen_wh_left type=vbox parent=gen_wh_split
-
-			@property min_order_amt type=textbox table=aw_shop_products field=aw_min_order_amt parent=gen_wh_left size=5 captionside=top
-			@caption Minimaalne tellimiskogus
-
-			@property max_order_amt type=textbox table=aw_shop_products field=aw_max_order_amt parent=gen_wh_left size=5 captionside=top
-			@caption Maksimaalne tellimiskogus
-
-			@property must_order_num type=textbox table=aw_shop_products field=must_order_num size=5 parent=gen_wh_left captionside=top
-			@caption Mitu peab korraga tellima
-
-			@layout gen_wh_right type=vbox parent=gen_wh_split
-
-			@property min_wh_order_amt type=textbox table=aw_shop_products field=aw_min_wh_order_amt parent=gen_wh_right size=5 captionside=top
-			@caption Minimaalne sisseostu kogus
-
-			@property serial_number_based type=chooser table=aw_shop_products field=aw_serial_number_based parent=gen_wh_right captionside=top
-			@caption Seerianumbrip&otilde;hine arvestus
-
-			@property order_based type=chooser table=aw_shop_products field=aw_order_based parent=gen_wh_right captionside=top
-			@caption Partiip&otilde;hine arvestus
-
-			@property units_tbl type=table store=no no_caption=1 parent=gen_wh
+				@property description type=textarea width=100% rows=50 table=aw_shop_products parent=gen_description no_caption=1
+				@caption Kirjeldus
 
 	@property balance type=hidden table=aw_account_balances field=aw_balance
 
@@ -608,7 +612,7 @@ class shop_product extends shop_warehouse_item
 		));
 
 		$this->trans_props = array(
-			"name","comment", "userta1"
+			"name","comment","short_description","description"
 		);
 	}
 
@@ -2351,6 +2355,7 @@ class shop_product extends shop_warehouse_item
 				));
 				return true;
 
+			case "aw_short_description":
 			case "description":
 				$this->db_add_col($t, array(
 					"name" => $f,

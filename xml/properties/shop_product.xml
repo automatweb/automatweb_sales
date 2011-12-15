@@ -70,16 +70,15 @@
             <comment>Objekti j&amp;amp;auml;rjekord</comment>
       </property>
       <property>
-            <name>description</name>
+            <name>short_description</name>
             <table>aw_shop_products</table>
             <group>general_general</group>
             <type>textarea</type>
             <cols>40</cols>
             <rows>5</rows>
+            <field>aw_short_description</field>
             <parent>gen_gen</parent>
-            <field>description</field>
-            <caption>Kirjeldus</caption>
-            <comment>Toote kirjeldus</comment>
+            <caption>L&amp;amp;uuml;hikirjeldus</caption>
       </property>
       <property>
             <name>content_package</name>
@@ -327,6 +326,18 @@
             <no_caption>1</no_caption>
             <parent>gen_wh</parent>
             <field>units_tbl</field>
+      </property>
+      <property>
+            <name>description</name>
+            <table>aw_shop_products</table>
+            <group>general_general</group>
+            <type>textarea</type>
+            <width>100%</width>
+            <rows>50</rows>
+            <parent>gen_description</parent>
+            <no_caption>1</no_caption>
+            <field>description</field>
+            <caption>Kirjeldus</caption>
       </property>
       <property>
             <name>balance</name>
@@ -1656,6 +1667,7 @@
       <layout>
             <gen_split>
                   <type>hbox</type>
+                  <width>50%:50%</width>
                   <group>general_general</group>
                   <area_caption></area_caption>
             </gen_split>
@@ -1703,24 +1715,18 @@
                   <group>general_general</group>
                   <area_caption></area_caption>
             </gen_prices_tbl>
-            <gen_right>
-                  <type>vbox</type>
-                  <parent>gen_split</parent>
-                  <group>general_general</group>
-                  <area_caption></area_caption>
-            </gen_right>
             <gen_data>
                   <type>vbox</type>
                   <area_caption>Andmed</area_caption>
                   <closeable>1</closeable>
-                  <parent>gen_right</parent>
+                  <parent>gen_left</parent>
                   <group>general_general</group>
             </gen_data>
             <gen_wh>
                   <type>vbox</type>
                   <area_caption>Lao&amp;amp;nbsp;andmed</area_caption>
                   <closeable>1</closeable>
-                  <parent>gen_right</parent>
+                  <parent>gen_left</parent>
                   <group>general_general</group>
             </gen_wh>
             <gen_wh_split>
@@ -1741,6 +1747,18 @@
                   <group>general_general</group>
                   <area_caption></area_caption>
             </gen_wh_right>
+            <gen_right>
+                  <type>vbox</type>
+                  <parent>gen_split</parent>
+                  <group>general_general</group>
+                  <area_caption></area_caption>
+            </gen_right>
+            <gen_description>
+                  <type>vbox</type>
+                  <area_caption>Toote&amp;amp;nbsp;kirjeldus</area_caption>
+                  <parent>gen_right</parent>
+                  <group>general_general</group>
+            </gen_description>
             <gentms_main>
                   <type>hbox</type>
                   <group>general_time_settings</group>
@@ -1762,3 +1780,4 @@
             </buffer>
       </layout>
 </properties>
+

@@ -1,4 +1,4 @@
-<?php
+f<?php
 /*
 Pakett koondab tooteid
 Toode koondab pakendeid
@@ -139,7 +139,7 @@ class shop_packet extends shop_warehouse_item
 		));
 
 		$this->trans_props = array(
-			"name","comment"
+			"name","comment","description"
 		);
 	}
 

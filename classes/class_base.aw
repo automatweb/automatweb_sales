@@ -5654,13 +5654,13 @@ class class_base extends aw_template implements orb_public_interface
 
 		// get language if exists
 		$lang = languages::fetch($arr[$this->translation_lang_var_name]);
-		if (empty($lang["id"]))
+		if (empty($lang["aw_lid"]))
 		{
 			$this->show_error_text(t("T&otilde;lke keelt ei leitud"));
 			return self::PROP_FATAL_ERROR;
 		}
 
-		if ($lang["id"] === $o->lang_id())
+		if ($lang["aw_lid"] === $o->lang_id())
 		{
 			$this->show_msg_text(t("T&otilde;lke keel ei saa olla sama, mis algkeel"));
 			return self::PROP_IGNORE;
@@ -5674,7 +5674,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		$all_vals = safe_array($o->meta("translations"));
 		$time = time();
-		$lid = $lang["id"];
+		$lid = $lang["aw_lid"];
 		$this->translation_lang_id = $lid;
 		$mod = false;
 

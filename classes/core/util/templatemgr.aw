@@ -71,7 +71,7 @@ class templatemgr extends aw_template
 				$def_n = $tpl["name"];
 			}
 		};
-		if ($def_n != "")
+		if (!empty($def_n))
 		{
 			$result["0"] = t("Vaikimisi: ").$def_n;
 		}

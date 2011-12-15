@@ -27,11 +27,17 @@
 	@property planned_date type=date_select field=aw_planned_send_date
 	@caption Planeeritud saatmise kuup&auml;ev
 
+	@property planned_time type=timepicker field=aw_planned_time
+	@caption Planeeritud saatmise kellaaeg
+
 	@property buyer_rep type=relpicker reltype=RELTYPE_BUYER_REP field=aw_buyer_rep
 	@caption Tellija esindaja
 
 	@property our_rep type=relpicker reltype=RELTYPE_OUR_REP field=aw_our_rep
 	@caption Meie esindaja
+
+	@property purveyance_company_section type=objpicker clid=CL_CRM_SECTION field=aw_purveyance_company_section
+	@caption Tarniv &uuml;ksus
 
 	@property trans_cost type=textbox field=aw_trans_cost
 	@caption Transpordikulu
@@ -142,12 +148,12 @@ class shop_sell_order extends class_base
 		get_instance(CL_SHOP_PURCHASE_ORDER);
 
 		$this->states = array(
-			ORDER_STATUS_INPROGRESS => t("Koostamisel"),
-			ORDER_STATUS_CONFIRMED => t("Kinnitatud"),
-			ORDER_STATUS_CANCELLED => t("Katkestatud"),
-			ORDER_STATUS_SENT => t("Saadetud"),
-			ORDER_STATUS_CLOSED => t("T&auml;idetud"),
-			ORDER_STATUS_WORKING => t("T&ouml;&ouml;tlemisel"),
+			shop_sell_order_obj::STATUS_INPROGRESS => t("Koostamisel"),
+			shop_sell_order_obj::STATUS_CONFIRMED => t("Kinnitatud"),
+			shop_sell_order_obj::STATUS_CANCELLED => t("Katkestatud"),
+			shop_sell_order_obj::STATUS_SENT => t("Saadetud"),
+			shop_sell_order_obj::STATUS_CLOSED => t("T&auml;idetud"),
+			shop_sell_order_obj::STATUS_WORKING => t("T&ouml;&ouml;tlemisel"),
 		);
 
 	}
@@ -314,7 +320,7 @@ class shop_sell_order extends class_base
 		$arr["prop"]["options"] = $this->states;
 		if(!$arr["prop"]["value"])
 		{
-			$arr["prop"]["value"] = ORDER_STATUS_INPROGRESS;
+			$arr["prop"]["value"] = shop_sell_order_obj::STATUS_INPROGRESS;
 		}
 	}
 
@@ -332,17 +338,21 @@ class shop_sell_order extends class_base
 					"name" => $f,
 					"type" => "VARCHAR(127)"
 				));
-				break;
+				return true;
+
 			case "aw_customs_cost":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "double"
 				));
 				return true;
-				break;
+
+			case "aw_purveyance_company_section":
 			case "aw_deferred_payment_count":
 			case "aw_job":
 			case "aw_deal_date":
+			case "aw_planned_send_date":
+			case "aw_planned_time":
 			case "aw_status":
 			case "aw_delivery":
 			case "aw_channel":
@@ -355,7 +365,6 @@ class shop_sell_order extends class_base
 					"type" => "int"
 				));
 				return true;
-				break;
 		}
 	}
 

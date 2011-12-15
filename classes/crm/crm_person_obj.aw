@@ -2002,4 +2002,19 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 		return parent::prop_str($k, $is_oid);
 	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json()
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->name(),
+			"birthday" => $this->prop("birthday"),
+		);
+
+		$json = new json();
+		return $json->encode($data, aw_global_get("charset"));
+	}
 }

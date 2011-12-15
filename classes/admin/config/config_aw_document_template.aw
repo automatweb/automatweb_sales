@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CONFIG_AW_DOCUMENT_TEMPLATE no_status=1 maintainer=kristo
+@classinfo no_status=1
 @tableinfo template index=obj_id master_table=objects master_index=brother_of
 
 @default table=objects
@@ -46,7 +46,7 @@ class config_aw_document_template extends class_base
 					"2" => t("Vaatamine")
 				);
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -62,7 +62,7 @@ class config_aw_document_template extends class_base
 
 			case "t_id":
 			case "t_site_id":
-				$prop["value"] = (int)$prop["value"];
+				$prop["value"] = isset($prop["value"]) ? (int)$prop["value"] : 0;
 				break;
 		}
 		return $retval;
@@ -79,4 +79,3 @@ class config_aw_document_template extends class_base
 		}
 	}
 }
-?>

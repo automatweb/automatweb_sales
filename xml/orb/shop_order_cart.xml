@@ -90,6 +90,16 @@
 			</function>
 		</action>
 
+		<action name="add_to_cart" nologin="1">
+			<function name="add_to_cart">
+				<arguments>
+					<required name="cart" type="int" />
+					<required name="item" type="int" />
+					<optional name="amount" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="show_product" nologin="1">
 			<function name="show_product">
 				<arguments>
@@ -145,6 +155,16 @@
 			<function name="confirm_order">
 				<arguments>
 					<required name="cart" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_order" nologin="1">
+			<function name="submit_order">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="order" />
+					<optional name="confirm" type="bool" />
 				</arguments>
 			</function>
 		</action>
