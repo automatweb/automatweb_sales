@@ -859,7 +859,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 			$gid = $grp->prop("gp_gid");
 
 			acl_base::add_acl_group_to_obj($gid, $from->id());
-			acl_base::save_acl($from->id(), $gid, $grp->meta("default_acl"));
+			acl_base::save_acl($from->id(), $gid, safe_array($grp->meta("default_acl")));
 		}
 	}
 

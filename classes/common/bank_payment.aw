@@ -288,6 +288,8 @@ class bank_payment extends class_base
 		),
 	);
 
+	private $bank_log_file = "bank_log.txt";
+
 	/**
 		@attrib api=1
 
@@ -299,6 +301,7 @@ class bank_payment extends class_base
 			"clid" => CL_BANK_PAYMENT
 		));
 
+		$this->bank_log_file = aw_ini_get("client.directories.logs") . $this->bank_log_file;
 	}
 
 	/**
@@ -414,12 +417,12 @@ class bank_payment extends class_base
 		$amt = $o->prop("alias_amount");
 		$desc = $o->prop("alias_desc");
 
-		if ($this->can("view", $o->prop("alias_amount_ctr")))
+		if (acl_base::can("view", $o->prop("alias_amount_ctr")))
 		{
 			$i = get_instance(CL_CFGCONTROLLER);
 			$amt = $i->check_property($o->prop("alias_amount_ctr"), $o->id(), $arr);
 		}
-		if ($this->can("view", $o->prop("alias_desc_ctr")))
+		if (acl_base::can("view", $o->prop("alias_desc_ctr")))
 		{
 			$i = get_instance(CL_CFGCONTROLLER);
 			$desc = $i->check_property($o->prop("alias_desc_ctr"), $o->id(), $arr);
@@ -441,7 +444,7 @@ class bank_payment extends class_base
 			$data["expl"] = $payment->prop("expl")." ".$data["expl"];
 		}
 
-		if($this->can("view" , $payment->prop("expl_controller")))
+		if(acl_base::can("view" , $payment->prop("expl_controller")))
 		{
 			$pco = obj($payment->prop("expl_controller"));
 			$pci = $pco->instance();
@@ -586,7 +589,7 @@ class bank_payment extends class_base
 	{
 		extract($arr);
 
-		if(is_oid($id) && $this->can("view" , $id))
+		if(is_oid($id) && acl_base::can("view" , $id))
 		{
 			$payment_object = obj($id);
 		}
@@ -628,19 +631,25 @@ class bank_payment extends class_base
 
 	private function get_log_data($o)
 	{
-		classload("core/date/date_calc");
 		$filter = $o->meta("search_data");
 		$o->set_meta("search_data" , null);
-		$myFile = $GLOBALS["site_dir"]."/bank_log.txt";
-		$fh = fopen($myFile, 'r');
-		$theData = fread($fh, filesize($myFile));
-		fclose($fh);
-		$log_array = explode("\n" , $theData);
-		//arr($log_array);
+
+		if (file_exists($this->bank_log_file))
+		{
+			$fh = fopen($this->bank_log_file, "r");
+			$theData = fread($fh, filesize($this->bank_log_file));
+			fclose($fh);
+			$log_array = explode("\n" , $theData);
+		}
+		else
+		{
+			$log_array = array();
+		}
+
 		$log_data = array();
 		$done = array();
-		$from = date_edit::get_timestamp($_SESSION["bank_payment"]["find_date_start"]);
-		$to = date_edit::get_timestamp($_SESSION["bank_payment"]["find_date_end"]);
+		$from = isset($_SESSION["bank_payment"]["find_date_start"]) ? date_edit::get_timestamp($_SESSION["bank_payment"]["find_date_start"]) : 0;
+		$to = isset($_SESSION["bank_payment"]["find_date_end"]) ? date_edit::get_timestamp($_SESSION["bank_payment"]["find_date_end"]) : 0;
 		if(!($to > 100)) $to = time();
 		if(!($from > 100)) $from = time() - 3600*24*31;
 		$log_array = array_reverse($log_array);
@@ -661,31 +670,33 @@ class bank_payment extends class_base
 				{
 					$bank_id = $this->merchant_id[$val["SOLOPMT_RETURN_VERSION"]];
 				}
+
 				if($from > 1 && !($from == $to) && $from > $val["timestamp"])
 				{
 					continue;
 				}
+
 				if($to > 1 && !($from == $to) && $to < $val["timestamp"])
 				{
 					continue;
 				}
+
 				if($filter["find_name"] && !(substr_count(strtoupper($val[$this->payer_name[$bank_id]]) ,strtoupper($filter["find_name"]))))
 				{
 					continue;
 				}
+
 				if($filter["find_ref"] && !(substr_count($val[$this->ref[$bank_id]] , $filter["find_ref"])))
 				{
 					continue;
 				}
+
 				if(!array_key_exists("find_one" , $_SESSION["bank_payment"]) || ($filter["find_one"]))/*  && ($val["VK_SERVICE"] == 1101 || $val["Respcode"] == "000" || $val["SOLOPMT-RETURN-VERSION"])))*/
 				{
 					if(array_key_exists($val[$this->ref[$bank_id]] ,  $done)) continue;
 					$done[$val[$this->ref[$bank_id]]] = $val[$this->ref[$bank_id]];
 				}
-/*				if(aw_global_get("uid") == "markop"){arr($val);
- 					$_SESSION["bank_return"]["data"] = $val;
- 					arr($val["good"] = $this->check_response($val));
- 				}*/
+
 				if($val["timestamp"])
 				{
 					$log_data[$val["timestamp"]]["payer"] = $val["VK_SND_NAME"];
@@ -695,19 +706,23 @@ class bank_payment extends class_base
 					$log_data[$val["timestamp"]]["sum"] = $val["VK_AMOUNT"];
 					$log_data[$val["timestamp"]]["bank"] = $bank_id;
 					$log_data[$val["timestamp"]]["acc"] = $val["VK_REC_ACC"];
+
 					if($val["eamount"])
 					{
 						$log_data[$val["timestamp"]]["sum"] = $val["eamount"]/100;
 					}
+
 					if($val["ecuno"])
 					{
 						$log_data[$val["timestamp"]]["ref"] = $val["ecuno"];
 						$log_data[$val["timestamp"]]["msg"] = substr($val["ecuno"], 0, -1);
 					}
+
 					if($val["msgdata"])
 					{
 						$log_data[$val["timestamp"]]["payer"] = $val["msgdata"];
 					}
+
 					if($val["VK_SERVICE"] == 1101 || $val["respcode"] == "000" || $val["SOLOPMT_RETURN_PAID"])
 					{
 						$log_data[$val["timestamp"]]["ok"] = 1;
@@ -735,7 +750,7 @@ class bank_payment extends class_base
 
 					//objektile klikitav viitenumber
 					$id = substr($log_data[$val["timestamp"]]["ref"], 0, -1);
-					if(!$o->prop("not_clickable_ref") && is_oid($id) && $this->can("view" , $id))
+					if(!$o->prop("not_clickable_ref") && is_oid($id) && acl_base::can("view" , $id))
 					{
 						$log_data[$val["timestamp"]]["ref"] = html::obj_change_url($id , $log_data[$val["timestamp"]]["ref"]);
 					}
@@ -750,6 +765,7 @@ class bank_payment extends class_base
 				//$log_data[] = array("msg" => $log);
 			}
 		}
+
 		krsort($log_data);
 		return $log_data;
 	}
@@ -758,7 +774,7 @@ class bank_payment extends class_base
 	{
 		$log_data = $this->get_log_data($arr["obj_inst"]);
 
-		$t = new vcl_table;
+		$t = new vcl_table();
 		$this->init_log($t);
 		$sum = 0;
 		foreach($log_data as $key => $val)
@@ -788,14 +804,14 @@ class bank_payment extends class_base
 
 	private function get_fs_string()
 	{
-		$fs = filesize($GLOBALS["site_dir"]."/bank_log.txt");
+		$fs = file_exists($this->bank_log_file) ? filesize($this->bank_log_file) : false;
 		if($fs)
 		{
 			$fs_string = t("Logifaili suurus on hetkel") . " " . $fs . " " .t("baiti") . "\n<br>" ;
 		}
-		if($fs = FALSE)
+		else
 		{
-			$fs_string = t("Mingine jama on failiga"). " " . $GLOBALS["site_dir"]."/bank_log.txt" . " " . t("Kas pole &otilde;igusi, v&otilde; faili");
+			$fs_string = t("Logifaili ei eksisteeri v&otilde;i puuduvad &otilde;igused");
 		}
 		return $fs_string;
 	}
@@ -1006,8 +1022,8 @@ class bank_payment extends class_base
 				"name" => "meta[".$key."][use]",
 				"type" => "chechbox" ,
 				"ch_value" => 1 ,
-				"value" => $meta["key"],
-				"caption" => $val,
+				"value" => (int) !empty($meta["key"]),
+				"caption" => $val
 			);
 			$data["name"] = $val;
 			foreach($this->bank_props as $prop => $caption)
@@ -1018,10 +1034,8 @@ class bank_payment extends class_base
 				}
 				$data[$prop] = html::textbox(array(
 					"name" => "meta[".$key."][".$prop."]",
-//					"type" => "textbox",
-					"value" => $meta[$key][$prop],
-					"size" => 35,
-//					"caption" => $caption
+					"value" => isset($meta[$key][$prop]) ? $meta[$key][$prop] : "",
+					"size" => 35
 				));
 			}
 			$t->define_data($data);
@@ -1119,7 +1133,7 @@ class bank_payment extends class_base
 				}
 			}
 			//siia paneb krapi mida peaks makselt tagasi tulles kuskilt katte saama... parim on ikka see objekt mida maksma minnakse
-			if(is_oid($arr["reference_nr"]) && $this->can("view" , $arr["reference_nr"]))
+			if(is_oid($arr["reference_nr"]) && acl_base::can("view" , $arr["reference_nr"]))
 			{
 				$ref_object = obj($arr["reference_nr"]);
 				if($arr["cntr"])
@@ -2157,7 +2171,7 @@ class bank_payment extends class_base
 
 		//vaike hakk siis teiste riikide samade pankade jaoks
 		$id = substr($VK_REF ,0 , -1 );
-		if(is_oid($id) && $this->can("view" , $id))
+		if(is_oid($id) && acl_base::can("view" , $id))
 		{
 			$ref_object = obj($id);
 			$cntr = $ref_object->meta("bank_cntr");
@@ -2257,7 +2271,7 @@ class bank_payment extends class_base
 
 		$t.= "5.";
 		$t.= t("Vastu saadakse avalikud v&otilde;tmed, mis peavad j&otilde;udma kataloogi");
-		$t.= " ".$this->cfg["site_basedir"]."/pank/\n<br>";
+		$t.= " ".aw_ini_get("site_basedir")."pank/\n<br>";
 		$banks = array();
 		foreach($this->public_key_files as $b=> $fn){$banks[] = $this->banks[$b]. " - ".$fn;}
 		$t.= t("failide nimed peaksid olema vastavalt pankadele:");
@@ -2269,7 +2283,7 @@ class bank_payment extends class_base
 		$t.= "\n<br>\n<br>";
 
 		$t.= "7.";
-		$t.= t("Kontrolli , et kataloogis ").$this->cfg["site_basedir"].t(" oleks olemas ja kirjutamis&otilde;igustega fail nimega bank_log.txt");
+		$t.= sprintf(t("Kontrolli , et oleks olemas ja kirjutamis&otilde;igustega fail '%s'"), $this->bank_log_file);
 		$t.= "\n<br>\n<br>";
 
 		$t.= "8.";
@@ -2282,7 +2296,7 @@ class bank_payment extends class_base
 
 		$t.= "Kaardikeskus. ";
 		$t.= t("Neile vaja saata tagasiside url, milleks on");
-		$t.= ":\n<br>".aw_ini_get("baseurl")."/automatweb/bank_return.aw\n<br>";
+		$t.= ":\n<br>".aw_ini_get("baseurl")."automatweb/bank_return.aw\n<br>";
 		$t.= t("Vaja teha veel testv&otilde;ti ja sertifikaadi p&auml;ring testimiseks(seal tuleb enne katsetada testkeskkonnas ja vastavad tegelased (Kaardikeskusest) peaks saama &uuml;le vaadata kas k&otilde;ik on nagu peab)");
 		$t.= "\n<br>\n<br>";
 
@@ -2317,12 +2331,12 @@ class bank_payment extends class_base
 		$amt = $o->prop("alias_amount");
 		$desc = $o->prop("alias_desc");
 
-		if ($this->can("view", $o->prop("alias_amount_ctr")))
+		if (acl_base::can("view", $o->prop("alias_amount_ctr")))
 		{
 			$i = get_instance(CL_CFGCONTROLLER);
 			$amt = $i->check_property($o->prop("alias_amount_ctr"), $o->id(), $arr);
 		}
-		if ($this->can("view", $o->prop("alias_desc_ctr")))
+		if (acl_base::can("view", $o->prop("alias_desc_ctr")))
 		{
 			$i = get_instance(CL_CFGCONTROLLER);
 			$desc = $i->check_property($o->prop("alias_desc_ctr"), $o->id(), $arr);
@@ -2343,7 +2357,7 @@ class bank_payment extends class_base
 	function bank_return($arr)
 	{
 		$o = obj($arr["id"]);
-		if ($this->can("view", $o->prop("alias_return_ctr")))
+		if (acl_base::can("view", $o->prop("alias_return_ctr")))
 		{
 			$i = get_instance(CL_CFGCONTROLLER);
 			$desc = $i->check_property($o->prop("alias_return_ctr"), $o->id(), $arr);
@@ -2353,7 +2367,7 @@ class bank_payment extends class_base
 	function get_cc_check_imap($id)
 	{
 		$imap = null;
-		if($this->can("view" , $id))
+		if(acl_base::can("view" , $id))
 		{
 			$bp = obj($id);
 			$imap = $bp->prop("imap");
@@ -2386,7 +2400,7 @@ class bank_payment extends class_base
 	function mutafuggah($arr)
 	{
 		$imap_id = $this->get_cc_check_imap($arr["id"]);
-		if(!$this->can("view" , $imap_id))
+		if(!acl_base::can("view" , $imap_id))
 		{
 			die(t("Ei suutnud imap seadistust leida"));
 		}
@@ -2442,7 +2456,7 @@ class bank_payment extends class_base
 			$count = 0;
 			foreach($ecunos as $ecuno => $data)
 			{
-				if($this->can("view" , $ecuno))
+				if(acl_base::can("view" , $ecuno))
 				{
 					$ecuno_object = obj($ecuno);
 					$ecuno_inst = $ecuno_object->instance();
@@ -2472,8 +2486,7 @@ class bank_payment extends class_base
 						$loga["msgdata"] = $data[6]." ".$data[7];
 						$loga["action"] = "afb";
 						$loga["respcode"] = "000";
-						$myFile = $site_dir."/bank_log.txt";
-						$fh = fopen($myFile, 'a');
+						$fh = fopen($this->bank_log_file, "a");
 						fwrite($fh, serialize($loga)."\n");
 						fclose($fh);
 						$ecuno_count++;
