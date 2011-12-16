@@ -1596,7 +1596,7 @@ class crm_person extends class_base
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_RECOMMENDATION")) as $conn)
 		{
 			$rec = $conn->to();
-			if($this->can("", $rec->prop("person")))
+			if(acl_base::can("", $rec->prop("person")))
 			{
 				$p_obj = obj($rec->prop("person"));
 				$phones = "";
@@ -1649,7 +1649,7 @@ class crm_person extends class_base
 			$arr["prop"]["value"] = $rel->prop($arr["prop"]["name"]);
 		}
 
-		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("", $arr["prop"]["value"]))
+		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && acl_base::can("", $arr["prop"]["value"]))
 		{
 			$v = obj($arr["prop"]["value"]);
 			$arr["prop"]["options"][$arr["prop"]["value"]] = $v->name();
@@ -1667,7 +1667,7 @@ class crm_person extends class_base
 			$arr["prop"]["value"] = $rel->prop($arr["prop"]["name"]);
 		}
 
-		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("", $arr["prop"]["value"]))
+		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && acl_base::can("", $arr["prop"]["value"]))
 		{
 			$v = obj($arr["prop"]["value"]);
 			$arr["prop"]["options"][$arr["prop"]["value"]] = $v->name();
@@ -2118,11 +2118,11 @@ class crm_person extends class_base
 				break;
 
 			case "code":
-				if (empty($data["value"]) && is_oid($ct = $arr["obj_inst"]->prop("address")) && $this->can("", $ct))
+				if (empty($data["value"]) && is_oid($ct = $arr["obj_inst"]->prop("address")) && acl_base::can("", $ct))
 				{
 					$ct = obj($ct);
 					$rk = $ct->prop("riik");
-					if (is_oid($rk) && $this->can("", $rk))
+					if (is_oid($rk) && acl_base::can("", $rk))
 					{
 						$rk = obj($rk);
 						$code = substr(trim($rk->ord()), 0, 1);
@@ -2160,7 +2160,7 @@ class crm_person extends class_base
 				{
 					$data["value"] = $u->get_current_person();
 				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("", $data["value"]))
+				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && acl_base::can("", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$data["value"]] = $tmp->name();
@@ -2183,7 +2183,7 @@ class crm_person extends class_base
 				//through sections, relpicker obviously doesn't cover that
 				//maybe i made design flaw and should have done what i did
 				//a bit differently?
-				if($this->can("", $arr["obj_inst"]->id()))
+				if(acl_base::can("", $arr["obj_inst"]->id()))
 				{
 					$company = $this->get_work_contacts($arr);
 				}
@@ -2521,7 +2521,7 @@ class crm_person extends class_base
 						$data["value"] = $rel->prop($data["name"]);
 					}
 				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("", $data["value"]))
+				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && acl_base::can("", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$data["value"]] = $tmp->name();
@@ -2540,7 +2540,7 @@ class crm_person extends class_base
 						$data["value"] = $rel->prop($data["name"]);
 					}
 				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("", $data["value"]))
+				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && acl_base::can("", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$data["value"]] = $tmp->name();
@@ -2819,7 +2819,7 @@ class crm_person extends class_base
 	{
 		$org_fixed = 0;
 		$query = $this->parse_url_parse_query($arr["request"]["return_url"]);
-		if($query["class"] === "crm_company" && $this->can("", $query["id"]))
+		if($query["class"] === "crm_company" && acl_base::can("", $query["id"]))
 		{
 			$org_fixed = $query["id"];
 		}
@@ -2853,7 +2853,7 @@ class crm_person extends class_base
 			}
 
 			$sec_options = array();
-			if($this->can("", $orgid))
+			if(acl_base::can("", $orgid))
 			{
 				$org_obj = new object($orgid);
 				if(empty($sec_options[$orgid]) or !is_array($sec_options[$orgid]))
@@ -2871,7 +2871,7 @@ class crm_person extends class_base
 				}
 			}
 			$pro_options = array();
-			if($this->can("", $secid))
+			if(acl_base::can("", $secid))
 			{
 				$sec_obj = obj($secid);
 				foreach($sec_obj->connections_from(array("type" => 3)) as $pro_conn)
@@ -3990,7 +3990,7 @@ class crm_person extends class_base
 
 	function callback_pre_edit($arr)
 	{
-		if(isset($arr["request"]["job_offer_id"]) && $this->can("view", $arr["request"]["job_offer_id"]))
+		if(isset($arr["request"]["job_offer_id"]) && acl_base::can("view", $arr["request"]["job_offer_id"]))
 		{
 //			print $arr["request"]["job_offer_id"];
 			aw_session_set("job_offer_obj_id_for_candidate", $arr["request"]["job_offer_id"]);
@@ -3999,7 +3999,7 @@ class crm_person extends class_base
 
 	function callback_post_save($arr)
 	{
-		if($this->can("view", $arr["obj_inst"]->id()) && $this->can("view", aw_global_get("job_offer_obj_id_for_candidate")))
+		if(acl_base::can("view", $arr["obj_inst"]->id()) && acl_base::can("view", aw_global_get("job_offer_obj_id_for_candidate")))
 		{
 			$candidate = obj();
 			$candidate->set_class_id(CL_PERSONNEL_MANAGEMENT_CANDIDATE);
@@ -4074,14 +4074,14 @@ class crm_person extends class_base
 				}
 			}
 
-			if (isset($arr["request"]["add_to_task"]) and $this->can("view", $arr["request"]["add_to_task"]))
+			if (isset($arr["request"]["add_to_task"]) and acl_base::can("view", $arr["request"]["add_to_task"]))
 			{
 				$task = obj($arr["request"]["add_to_task"]);
 				$cc = $task->instance();
 				$cc->add_participant($task, $arr["obj_inst"]);
 			}
 
-			if (isset($arr["request"]["add_to_co"]) and $this->can("view", $arr["request"]["add_to_co"]))
+			if (isset($arr["request"]["add_to_co"]) and acl_base::can("view", $arr["request"]["add_to_co"]))
 			{
 				$arr["obj_inst"]->add_work_relation(array("org" => $arr["request"]["add_to_co"]));
 			}
@@ -4090,11 +4090,11 @@ class crm_person extends class_base
 		// gen code if not done
 		if ($arr["obj_inst"]->prop("code") == "")
 		{
-			if ($this->can("view", ($ct = $arr["obj_inst"]->prop("address"))))
+			if (acl_base::can("view", ($ct = $arr["obj_inst"]->prop("address"))))
 			{
 				$ct = obj($ct);
 				$rk = $ct->prop("riik");
-				if (is_oid($rk) && $this->can("view", $rk))
+				if (is_oid($rk) && acl_base::can("view", $rk))
 				{
 					$rk = obj($rk);
 					$code = substr(trim($rk->ord()), 0, 1);
@@ -4137,7 +4137,7 @@ class crm_person extends class_base
 			}
 		}
 
-		if($this->can("view", $arr["obj_inst"]->meta("temp_ofr_id")))
+		if(acl_base::can("view", $arr["obj_inst"]->meta("temp_ofr_id")))
 		{
 			$o = obj($arr["obj_inst"]->meta("temp_ofr_id"));
 			$p = $arr["obj_inst"];
@@ -4174,11 +4174,11 @@ class crm_person extends class_base
 	{
 		if ($o->prop("code") == "")
 		{
-			if ($this->can("view", ($ct = $o->prop("address"))))
+			if (acl_base::can("view", ($ct = $o->prop("address"))))
 			{
 				$ct = obj($ct);
 				$rk = $ct->prop("riik");
-				if (is_oid($rk) && $this->can("view", $rk))
+				if (is_oid($rk) && acl_base::can("view", $rk))
 				{
 					$rk = obj($rk);
 					$code = substr(trim($rk->ord()), 0, 1);
@@ -4652,7 +4652,7 @@ class crm_person extends class_base
 		if (count($res))
 		{
 			$tmp = reset($res);
-			if ($this->can("view", $tmp["from"]))
+			if (acl_base::can("view", $tmp["from"]))
 			{
 				return obj($tmp["from"]);
 			}
@@ -4817,7 +4817,7 @@ class crm_person extends class_base
 			$arr["ofr_id"] = $request["ofr_id"];
 		}
 
-		if(isset($request["job_offer_id"]) && $this->can("view", $request["job_offer_id"]))
+		if(isset($request["job_offer_id"]) && acl_base::can("view", $request["job_offer_id"]))
 		{
 			aw_session_set("job_offer_obj_id_for_candidate", $request["job_offer_id"]);
 		}
@@ -4987,7 +4987,7 @@ fnCallbackAddNew = function()
 			$usecase = CRM_PERSON_USECASE_CLIENT;
 		}
 		else
-		if ($this->can("view", $arr["obj_inst"]->company_id()))
+		if (acl_base::can("view", $arr["obj_inst"]->company_id()))
 		{
 			// customer employee
 			$usecase = CRM_PERSON_USECASE_CLIENT_EMPLOYEE;
@@ -5034,7 +5034,7 @@ fnCallbackAddNew = function()
 			}
 		}
 		else
-		if ($this->can("view", $arr["obj_inst"]->company_id()))
+		if (acl_base::can("view", $arr["obj_inst"]->company_id()))
 		{
 			// customer employee cfgform
 			$s = get_instance(CL_CRM_SETTINGS);
@@ -5087,7 +5087,7 @@ fnCallbackAddNew = function()
 		if ($settings)
 		{
 			$gal_conf = $settings->prop("person_img_settings");
-			if ($this->can("view", $gal_conf))
+			if (acl_base::can("view", $gal_conf))
 			{
 				$img_i = $img_o->instance();
 				$img_i->do_resize_image(array(
@@ -5429,11 +5429,11 @@ fnCallbackAddNew = function()
 			"cur_org_position" => $ob->prop_str("rank"),
 			"cur_org_time" => $time,
 			"picture_url" => $img_inst->get_url_by_id($ob->prop("picture")),
-			"company_logo" => $this->can("view",$logo)?$img_inst->get_url_by_id($logo):"",
+			"company_logo" => acl_base::can("view",$logo)?$img_inst->get_url_by_id($logo):"",
 		));
 
 		// Don't want anything broken, so I leave it exactly as it is and add my share here. -kaarel
-		if($this->can("view", $arr["id"]))
+		if(acl_base::can("view", $arr["id"]))
 		{
 			$o = obj($arr["id"]);
 		}
@@ -5492,7 +5492,7 @@ fnCallbackAddNew = function()
 			"charset" => $charset,
 		));
 
-		if($this->can("view", $arr["cfgform"]))
+		if(acl_base::can("view", $arr["cfgform"]))
 		{
 			$proplist = $cff_inst->get_cfg_proplist($arr["cfgform"]);
 		}
@@ -5651,7 +5651,7 @@ fnCallbackAddNew = function()
 	///////////////////////// END USERDEFINED STUFF
 
 		// SUB: CRM_PERSON.PICTURE
-		if($this->can("view", $o->prop("picture")) && (array_key_exists("picture", $proplist) || count($proplist) == 0))
+		if(acl_base::can("view", $o->prop("picture")) && (array_key_exists("picture", $proplist) || count($proplist) == 0))
 		{
 			$this->vars(array(
 				"crm_person.picture" => $img_inst->view(array("id" => $o->prop("picture"))),
@@ -5736,7 +5736,7 @@ fnCallbackAddNew = function()
 		//		END SUB: CRM_PERSON.GENDER
 
 		//		SUB: CRM_PERSON.NATIONALITY
-		if($this->can("view", $o->prop("nationality")) && (array_key_exists("nationality", $proplist) || count($proplist) == 0))
+		if(acl_base::can("view", $o->prop("nationality")) && (array_key_exists("nationality", $proplist) || count($proplist) == 0))
 		{
 			$this->vars(array(
 				"crm_person.nationality" => $o->prop("nationality.name"),
@@ -5749,7 +5749,7 @@ fnCallbackAddNew = function()
 		//		END SUB: CRM_PERSON.NATIONALITY
 
 		//		SUB: CRM_PERSON.MLANG
-		if($this->can("view", $o->prop("mlang")) && (array_key_exists("mlang", $proplist) || count($proplist) == 0))
+		if(acl_base::can("view", $o->prop("mlang")) && (array_key_exists("mlang", $proplist) || count($proplist) == 0))
 		{
 			$this->vars(array(
 				"crm_person.mlang" => $o->prop("mlang.name"),
@@ -5833,7 +5833,7 @@ fnCallbackAddNew = function()
 		//		END SUB: CRM_PERSON.CHILDREN1
 
 		//		SUB: CRM_PERSON.CV_FILE
-		if($this->can("view", $o->prop("cv_file")) && (array_key_exists("cv_file", $proplist) || count($proplist) == 0))
+		if(acl_base::can("view", $o->prop("cv_file")) && (array_key_exists("cv_file", $proplist) || count($proplist) == 0))
 		{
 			$cv_file = obj($o->prop("cv_file"));
 			$this->vars(array(
@@ -7550,7 +7550,7 @@ fnCallbackAddNew = function()
 		$CRM_RECOMMENDATION = "";
 
 		unset($rol);
-		if($this->can("view", $arr["job_offer"]))
+		if(acl_base::can("view", $arr["job_offer"]))
 		{
 			$c_ol = new object_list(array(
 				"class_id" => CL_PERSONNEL_MANAGEMENT_CANDIDATE,
@@ -7633,7 +7633,7 @@ fnCallbackAddNew = function()
 
 		foreach($rol->arr() as $ro)
 		{
-			if(!$this->can("view", $ro->prop("person")))
+			if(!acl_base::can("view", $ro->prop("person")))
 			{
 				continue;
 			}
@@ -7886,7 +7886,7 @@ fnCallbackAddNew = function()
 		else
 		{
 			$query = $this->parse_url_parse_query($arr["request"]["return_url"]);
-			if($query["class"] == "crm_company" && $this->can("view", $query["id"]))
+			if($query["class"] == "crm_company" && acl_base::can("view", $query["id"]))
 			{
 				$org_fixed = $query["id"];
 			}
@@ -7912,7 +7912,7 @@ fnCallbackAddNew = function()
 			$cwrs[$orgid]["professions"][$cou] = $to->prop("profession");
 			foreach($to->connections_from(array("type" => 8)) as $cn)		// RELTYPE_PHONE
 			{
-				if($this->can("view", $cn->conn["to"]))
+				if(acl_base::can("view", $cn->conn["to"]))
 				{
 					$ph_obj = $cn->to();
 					$ph_obj->conn_id = $cn->id();
@@ -7921,14 +7921,14 @@ fnCallbackAddNew = function()
 			}
 			foreach($to->connections_from(array("type" => 9)) as $cn)		// RELTYPE_EMAIL
 			{
-				if($this->can("view", $cn->conn["to"]))
+				if(acl_base::can("view", $cn->conn["to"]))
 				{
 					$cwrs[$orgid]["emails"][$cn->conn["to"]] = $cn->conn["to.name"];
 				}
 			}
 			foreach($to->connections_from(array("type" => 10)) as $cn)		// RELTYPE_FAX
 			{
-				if($this->can("view", $cn->conn["to"]))
+				if(acl_base::can("view", $cn->conn["to"]))
 				{
 					$cwrs[$orgid]["faxes"][$cn->conn["to"]] = $cn->conn["to.name"];
 				}
@@ -7937,7 +7937,7 @@ fnCallbackAddNew = function()
 			$cou++;
 		}
 		$ret = $p_href;
-		$ph_inst = get_instance(CL_CRM_PHONE);
+		$ph_inst = new crm_phone();
 		$phone_types = $ph_inst->phone_types;
 		foreach($p->connections_from(array("type" => "RELTYPE_PHONE")) as $cn)
 		{
@@ -7962,7 +7962,7 @@ fnCallbackAddNew = function()
 				$ret .= "<br />";
 			}
 
-			if($this->can("view", $org_id))
+			if(acl_base::can("view", $org_id))
 			{
 				$ret .= html::obj_change_url($org_id);
 			}
@@ -7975,7 +7975,7 @@ fnCallbackAddNew = function()
 			{
 				foreach($data["professions"] as $prof)
 				{
-					if(!$this->can("view", $prof))
+					if(!acl_base::can("view", $prof))
 					{
 						continue;
 					}
@@ -8298,7 +8298,7 @@ fnCallbackAddNew = function()
 			$impl = $check = $bs = $bn = "";
 			$b = null;
 			$agreement = array();
-			if ($this->can("view", $o->prop("bill_id")))
+			if (acl_base::can("view", $o->prop("bill_id")))
 			{
 				$b = obj($o->prop("bill_id"));
 				//$bs = sprintf(t("Arve nr %s"), $b->prop("bill_no"));
@@ -8751,9 +8751,7 @@ fnCallbackAddNew = function()
 		));
 
 		$country_options = new object_list(array(
-			"class_id" => CL_CRM_COUNTRY,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"class_id" => CL_CRM_COUNTRY
 		));
 
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_CITIZENSHIP")) as $conn)
@@ -9013,7 +9011,7 @@ fnCallbackAddNew = function()
 
 		$o = obj($id);
 		$wr = obj();
-		$wr->set_class_id(CL_CRM_PERSON_WORK_RELATION);
+		$wr->set_class_id(crm_person_work_relation_obj::CLID);
 		$wr->set_parent($id);
 
 		$url = parse_url($post_ru);
@@ -9022,11 +9020,11 @@ fnCallbackAddNew = function()
 		$qry2 = parse_str($url2["query"], $res2);
 		if($res2["class"] === "crm_company")
 		{
-			if($this->can("view", $res2["id"]))
+			if(acl_base::can("view", $res2["id"]))
 			{
 				$wr->employer = $res2["id"];
 			}
-			if($this->can("view", $res2["unit"]))
+			if(acl_base::can("view", $res2["unit"]))
 			{
 				$wr->section = $res2["unit"];
 			}
@@ -9044,7 +9042,7 @@ fnCallbackAddNew = function()
 	**/
 	function cut_docs($arr)
 	{
-		return get_instance(CL_CRM_COMPANY)->cut_docs($arr);
+		return get_instance(crm_company_obj::CLID)->cut_docs($arr);
 	}
 
 	/**
@@ -9052,7 +9050,7 @@ fnCallbackAddNew = function()
 	**/
 	function submit_paste_docs($arr)
 	{
-		return get_instance(CL_CRM_COMPANY)->submit_paste_docs($arr);
+		return get_instance(crm_company_obj::CLID)->submit_paste_docs($arr);
 	}
 
 	public function get_drivers_licence_original_categories()

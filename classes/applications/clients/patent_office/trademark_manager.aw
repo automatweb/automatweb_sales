@@ -664,7 +664,7 @@ class trademark_manager extends class_base
  			{
  				$to = time()*66;
  			}
- 		 	$filter["created"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, ($from - 1), ($to + 1));
+ 		 	$filter["created"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, ($from - 1), ($to + 1));
  		}
 		$ol = new object_list($filter);
 		return $ol;
@@ -672,6 +672,9 @@ class trademark_manager extends class_base
 
 	function _objects_tbl($arr)
 	{
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_objects_tbl($t);
+
 		$p_id = isset($arr["request"]["p_id"]) ? $arr["request"]["p_id"] : "";
 		$verified = ($p_id === "verified") ? 1 : null;
 		$cl = isset($arr["request"]["p_cl"]) ? $arr["request"]["p_cl"] : "";
@@ -679,14 +682,14 @@ class trademark_manager extends class_base
 
 		if ($p_id === "archive")
 		{ // applications verified before spec time or verified and having no verifying time set
-			$date_constraint1 = new obj_predicate_compare(OBJ_COMP_LESS, $archive_age);
-			$date_constraint2 = new obj_predicate_compare(OBJ_COMP_NULL);
+			$date_constraint1 = new obj_predicate_compare(obj_predicate_compare::LESS, $archive_age);
+			$date_constraint2 = new obj_predicate_compare(obj_predicate_compare::IS_NULL);
 			$sent_constraint = null;
 			$verified = 1;
 		}
 		elseif ("verified" === $p_id)
 		{ // recently verified
-			$date_constraint1 = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $archive_age);
+			$date_constraint1 = new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, $archive_age);
 			$date_constraint2 = null;
 			$sent_constraint = null;
 			$verified = 1;
@@ -695,8 +698,8 @@ class trademark_manager extends class_base
 		{ // only sent applications. those that have a number
 			$date_constraint1 = null;
 			$date_constraint2 = null;
-			$sent_constraint = new obj_predicate_compare(OBJ_COMP_GREATER, 1);
-			$verified = new obj_predicate_compare(OBJ_COMP_LESS, 1);
+			$sent_constraint = new obj_predicate_compare(obj_predicate_compare::GREATER, 1);
+			$verified = new obj_predicate_compare(obj_predicate_compare::LESS, 1);
 		}
 		else
 		{

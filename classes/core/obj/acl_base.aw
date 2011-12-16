@@ -176,7 +176,7 @@ class acl_base extends aw_core_module
 		cache::file_clear_pt_oid_fn("storage_object_data", $oid, "objdata-".$oid);
 	}
 
-	public static function save_acl($oid,$gid,$aclarr, $invd = true)
+	public static function save_acl($oid, $gid, $aclarr, $invd = true)
 	{
 		if ($gid < 1 || !is_numeric($gid))
 		{

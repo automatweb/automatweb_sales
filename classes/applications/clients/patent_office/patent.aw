@@ -604,9 +604,9 @@ class patent extends intellectual_property
 	public function get_request_fee($float = false)
 	{
 		$sum = 0;
-		if(isset($_SESSION["patent"]["products"]) && is_array($_SESSION["patent"]["products"]) && count($_SESSION["patent"]["products"]))
+		if (isset($_SESSION["patent"]["products"]) && is_array($_SESSION["patent"]["products"]) && count($_SESSION["patent"]["products"]))
 		{
-			if($_SESSION["patent"]["co_trademark"] || $_SESSION["patent"]["guaranty_trademark"])
+			if (!empty($_SESSION["patent"]["co_trademark"]) || !empty($_SESSION["patent"]["guaranty_trademark"]))
 			{
 				$sum = 191.73;
 			}
@@ -655,9 +655,9 @@ class patent extends intellectual_property
 		$data = parent::get_data_from_object($id);
 		$o = obj($id);
 		$tr = $o->prop("trademark_type");
-		$data["trademark_type_text"] = $tr[0]? $this->trademark_types[0]:"";
+		$data["trademark_type_text"] = !empty($tr[0]) ? $this->trademark_types[0] : "";
 		$data["trademark_type_text"].= " ";
-		$data["trademark_type_text"].= $tr[1]? $this->trademark_types[1]:"";
+		$data["trademark_type_text"].= !empty($tr[1]) ? $this->trademark_types[1] : "";
 		$data["type_text"] = $this->types[$o->prop("type")];
 		return $data;
 	}
@@ -677,6 +677,7 @@ class patent extends intellectual_property
 				$js.='document.getElementById("wordmark_caption").innerHTML = "* Kaubam&auml;rk";';
 				$js.='document.getElementById("foreignlangelements_row").style.display = "";';
 			}
+
 			if($_SESSION["patent"]["type"] == 1)
 			{
 				$js.='document.getElementById("wordmark_row").style.display = "none";';
@@ -684,13 +685,15 @@ class patent extends intellectual_property
 				$js.='document.getElementById("reproduction_row").style.display = "";';
 				$js.='document.getElementById("color_row").style.display = "";';
 			}
-      			if($_SESSION["patent"]["type"] == 2)
+
+			if($_SESSION["patent"]["type"] == 2)
 			{
 				$js.='document.getElementById("wordmark_row").style.display = "none";';
 				$js.='document.getElementById("color_row").style.display = "";';
 				$js.='document.getElementById("reproduction_row").style.display = "";';
 				$js.='document.getElementById("foreignlangelements_row").style.display = "";';
-     			}
+     		}
+
 			if($_SESSION["patent"]["type"] == 3)
 			{
 				$js.='document.getElementById("wordmark_row").style.display = "none";';
@@ -698,11 +701,13 @@ class patent extends intellectual_property
 				$js.='document.getElementById("reproduction_row").style.display = "";';
 				$js.='document.getElementById("foreignlangelements_row").style.display = "";';
 			}
-			if(!$_SESSION["patent"]["guaranty_trademark"])
+
+			if (empty($_SESSION["patent"]["guaranty_trademark"]))
 			{
 				$js.='document.getElementById("g_statues_row").style.display = "none";';
 			}
-			if(!$_SESSION["patent"]["co_trademark"])
+
+			if (empty($_SESSION["patent"]["co_trademark"]))
 			{
 				$js.='document.getElementById("c_statues_row").style.display = "none";';
 			}

@@ -384,7 +384,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							$prop['field'] = "metadata";
 						}
 
-						$unser = aw_unserialize($ret[$prop["field"]], false, true);
+						$unser = isset($ret[$prop["field"]]) ? aw_unserialize($ret[$prop["field"]], false, true) : null;
 						$ret[$prop["name"]] = isset($unser[$prop["name"]]) ? $unser[$prop["name"]] : null;
 					}
 
