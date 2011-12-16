@@ -5,14 +5,20 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
 @classinfo trans=1 no_comment=1 relationmgr=yes r2=1
 
+@tableinfo documents index=docid master_table=objects master_index=brother_of
+@tableinfo planner index=id master_table=objects master_index=brother_of
+
 @default table=documents
 @default group=general
 
-	@property navtoolbar type=toolbar no_caption=1 store=no trans=1
+	@property navtoolbar type=toolbar no_caption=1 store=no
 	@caption Toolbar
 
 	@property brother_warning type=text store=no no_caption=1
 	@property simultaneous_warning type=text store=no no_caption=1
+
+	@property status type=status default=0
+	@caption Aktiivne
 
 	@property title type=textbox size=60 trans=1
 	@caption Pealkiri
@@ -47,62 +53,62 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@property moreinfo type=textarea richtext=1 cols=60 rows=5 trans=1
 	@caption Lisainfo
 
-	@property link_text type=textbox size=60 trans=1
+	@property link_text type=textbox size=60
 	@caption URL
 
-	@property is_forum type=checkbox ch_value=1 trans=1
+	@property is_forum type=checkbox ch_value=1
 	@caption Foorum
 
-	@property showlead type=checkbox ch_value=1 default=1 trans=1
+	@property showlead type=checkbox ch_value=1 default=1
 	@caption N&auml;ita leadi
 
-	@property show_modified type=checkbox ch_value=1 trans=1 default=1
+	@property show_modified type=checkbox ch_value=1 default=1
 	@caption N&auml;ita muutmise kuup&auml;eva
 
-	@property doc_modified type=hidden table=documents field=modified trans=1
+	@property doc_modified type=hidden table=documents field=modified
 	@caption Dok. modified
 
-	@property clear_styles type=checkbox ch_value=1 store=no trans=1
+	@property clear_styles type=checkbox ch_value=1 store=no
 	@caption T&uuml;hista stiilid
 
-	@property link_keywords type=checkbox ch_value=1 store=no trans=1
+	@property link_keywords type=checkbox ch_value=1 store=no
 	@caption Lingi v&otilde;tmes&otilde;nad
 
 	@property link_keywords2 type=checkbox ch_value=1 field=meta method=serialize table=objects default=1
 	@caption V&otilde;tmes&otilde;nad lingina
 
-	@property frontpage_left type=checkbox ch_value=1 trans=1
+	@property frontpage_left type=checkbox ch_value=1
 	@caption Esilehel tulbas
 
-	@property frontpage_right type=checkbox ch_value=1 trans=1
+	@property frontpage_right type=checkbox ch_value=1
 	@caption Esilehel tulbas paremal
 
-	@property frontpage_center type=checkbox ch_value=1 trans=1
+	@property frontpage_center type=checkbox ch_value=1
 	@caption Esilehel keskel
 
-	@property esilehel type=checkbox ch_value=1 trans=1
+	@property esilehel type=checkbox ch_value=1
 	@caption Esilehel
 
-	@property jrk1 type=textbox size=5 ch_value=1 trans=1
+	@property jrk1 type=textbox size=5
 	@caption Jrk1
 
-	@property esilehel_uudis type=checkbox ch_value=1 trans=1
+	@property esilehel_uudis type=checkbox ch_value=1
 	@caption Esilehel uudis
 
-	@property jrk2 type=textbox size=5 ch_value=1 trans=1
+	@property jrk2 type=textbox size=5
 	@caption Jrk2
 
-	@property dcache type=checkbox store=no trans=1
+	@property dcache type=checkbox store=no
 	@caption Cache otsingu jaoks
 
 	@property dcache_content type=hidden field=dcache
 	@property rating type=hidden
 	@property num_ratings type=hidden
 
-	@property show_title type=checkbox ch_value=1 default=1 trans=1
+	@property show_title type=checkbox ch_value=1 default=1
 	@caption N&auml;ita pealkirja
 
-	@property no_search type=checkbox ch_value=1 trans=1
+	@property no_search type=checkbox ch_value=1
 	@caption J&auml;ta otsingust v&auml;lja
 
 	@property cite type=textarea cols=60 rows=10 trans=1
@@ -111,10 +117,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@property tm type=textbox size=20 trans=1
 	@caption Kuup&auml;ev
 
-	@property show_print type=checkbox ch_value=1 table=objects field=meta method=serialize default=1 trans=1
+	@property show_print type=checkbox ch_value=1 table=objects field=meta method=serialize default=1
 	@caption 'Prindi' nupp
 
-	@property createdby table=objects field=createdby type=text trans=1
+	@property createdby table=objects field=createdby type=text
 	@caption Kes tegi
 
 	@property user1 table=documents type=textbox size=60 trans=1
@@ -208,13 +214,13 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@property uservar3 type=classificator field=aw_varuser3 reltype=RELTYPE_VARUSER3 store=connect
 	@caption User-defined var 3
 
-	@property language type=text type=text store=no trans=1
+	@property language type=text type=text store=no
 	@caption Keel
 
-	@property gen_static type=checkbox store=no trans=1
+	@property gen_static type=checkbox store=no
 	@caption Genereeri staatiline
 
-	@property sbt type=submit value=Salvesta store=no trans=1
+	@property sbt type=submit value=Salvesta store=no
 
 	@property nobreaks type=hidden table=documents
 
@@ -235,28 +241,28 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@property show_to_country type=textbox
 	@caption N&auml;htav vaid nendest riikidest tulijatele
 
-	@property no_right_pane type=checkbox ch_value=1 trans=1
+	@property no_right_pane type=checkbox ch_value=1
 	@caption Ilma parema paanita
 
-	@property no_left_pane type=checkbox ch_value=1 trans=1
+	@property no_left_pane type=checkbox ch_value=1
 	@caption Ilma vasaku paanita
 
-	@property title_clickable type=checkbox ch_value=1 trans=1 default=1
+	@property title_clickable type=checkbox ch_value=1 default=1
 	@caption Pealkiri klikitav
 
-	@property esilehel type=checkbox ch_value=1 trans=1
+	@property esilehel type=checkbox ch_value=1
 	@caption Esilehel
 
-	@property dcache_save type=checkbox ch_value=1 table=objects field=meta method=serialize trans=1
+	@property dcache_save type=checkbox ch_value=1 table=objects field=meta method=serialize
 	@caption Cache otsingu jaoks (salvestub)
 
-	@property no_last type=checkbox ch_value=1 trans=1
+	@property no_last type=checkbox ch_value=1
 	@caption &Auml;ra arvesta muutmist
 
-	@property show_last_changed type=checkbox ch_value=1 trans=1 table=objects field=meta method=serialize
+	@property show_last_changed type=checkbox ch_value=1 table=objects field=meta method=serialize
 	@caption Muutmise kuupaev dokumendi sees
 
-	@property no_show_in_promo type=checkbox ch_value=1 trans=1 table=documents field=no_show_in_promo method=
+	@property no_show_in_promo type=checkbox ch_value=1 table=documents field=no_show_in_promo method=
 	@caption &Auml;ra n&auml;ita konteineris
 
 	@property show_in_iframe type=checkbox ch_value=1 table=objects field=meta method=serialize
@@ -270,18 +276,18 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
 @default group=relationmgr
 
-	@property aliasmgr type=aliasmgr store=no editonly=1 trans=1
+	@property aliasmgr type=aliasmgr store=no editonly=1
 	@caption Aliastehaldur
 
 @default group=calendar
 
-	@property start type=date_select table=planner trans=1
+	@property start type=date_select table=planner
 	@caption Algab (kp)
 
-	@property start1 type=datetime_select field=start table=planner trans=1
+	@property start1 type=datetime_select field=start table=planner
 	@caption Algab
 
-	@property duration type=time_select field=end table=planner trans=1
+	@property duration type=time_select field=end table=planner
 	@caption Kestab
 
 @default group=kws
@@ -291,44 +297,43 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@property kws type=keyword_selector store=no reltype=RELTYPE_KEYWORD
 	@caption V&otilde;tmes&otilde;nad
 
-@default group=versions
 
+@default group=versions
 	@property versions_tb type=toolbar store=no no_caption=1
 	@property versions type=table store=no no_caption=1
 
-@groupinfo timing caption="Ajaline aktiivsus"
-@default group=timing
 
+@default group=timing
 	@property timing type=timing store=no
 	@caption Ajaline aktiivsus
 
+
 @default group=transl
-
-	@property trans_tb type=toolbar no_caption=1 store=no
-
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
-@default group=comments
 
+@default group=comments
 	@property comments_tb type=toolbar store=no no_caption=1 no_rte_button=1
 	@property comments_tbl type=table store=no no_caption=1
+
+
+@default group=acl
+	@property acl type=acl_manager store=no
+	@caption &Otilde;igused
+
 
 @groupinfo calendar caption=Kalender
 @groupinfo settings caption=Seadistused icon=archive.gif
 @groupinfo comments caption=Kommentaarid submit=no
 @groupinfo kws caption="V&otilde;tmes&otilde;nad"
 @groupinfo versions caption="Versioonid"
+@groupinfo timing caption="Ajaline aktiivsus"
 @groupinfo transl caption=T&otilde;lgi
 @groupinfo relationmgr caption=Seostehaldur submit=no
 @groupinfo acl caption=&Otilde;igused
-@default group=acl
 
-	@property acl type=acl_manager store=no
-	@caption &Otilde;igused
 
-@tableinfo documents index=docid master_table=objects master_index=brother_of
-@tableinfo planner index=id master_table=objects master_index=brother_of
 
 @reltype TIMING value=20 clid=CL_TIMING
 @caption Aeg
@@ -338,7 +343,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
 @reltype LANG_REL value=22 clid=CL_DOCUMENT
 @caption Keeleseos
-
 
 @reltype VARUSER1 value=23 clid=CL_META hidden=1
 @caption kasutajadefineeritud muutuja 1
@@ -375,7 +379,7 @@ class doc extends class_base
 			"tpldir" => "automatweb/documents",
 		));
 		$this->trans_props = array(
-			"alias", "title","lead","content","user7"
+			"alias", "title", "lead", "content", "user7"
 		);
 	}
 

@@ -3960,7 +3960,7 @@ class cfgform extends class_base
 
 		if ($clid == doc_obj::CLID)
 		{
-			$def = join("",file(aw_ini_get("basedir") . "/xml/documents/def_cfgform.xml"));
+			$def = join("",file(aw_ini_get("basedir") . "/xml/documents/cfgform_default.xml"));
 			list($proplist,$grplist, $layout) = $cfgu->parse_cfgform(array("xml_definition" => $def), true);
 			$this->cfg_proplist = $proplist;
 			$this->cfg_groups = $grplist;

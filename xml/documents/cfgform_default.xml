@@ -1,0 +1,139 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>navtoolbar</name>
+            <group>general</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <caption>Toolbar</caption>
+      </property>
+      <property>
+            <name>brother_warning</name>
+            <group>general</group>
+            <type>text</type>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>simultaneous_warning</name>
+            <group>general</group>
+            <type>text</type>
+            <no_caption>1</no_caption>
+      </property>
+	<property>
+		<name>status</name>
+		<group>general</group>
+		<caption>Aktiivne</caption>
+	</property>
+      <property>
+            <name>tm</name>
+            <group>general</group>
+            <type>textbox</type>
+            <size>20</size>
+            <caption>Kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>title</name>
+            <group>general</group>
+            <type>textbox</type>
+            <size>60</size>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>subtitle</name>
+            <group>general</group>
+            <type>textbox</type>
+            <size>60</size>
+            <caption>Alapealkiri</caption>
+      </property>
+	<property>
+		<name>lead</name>
+		<group>general</group>
+		<type>textarea</type>
+		<richtext>0</richtext>
+		<cols>60</cols>
+		<rows>10</rows>
+		<caption>Sissejuhatus</caption>
+	</property>
+	<property>
+		<name>content</name>
+		<group>general</group>
+		<type>textarea</type>
+		<richtext>1</richtext>
+		<cols>60</cols>
+		<rows>30</rows>
+		<caption>Sisu</caption>
+	</property>
+	<property>
+		<name>sbt</name>
+		<group>general</group>
+		<type>submit</type>
+		<value>Salvesta</value>
+	</property>
+      <property>
+            <name>aliasmgr</name>
+            <group>general</group>
+            <type>aliasmgr</type>
+            <caption>Aliastehaldur</caption>
+      </property>
+
+
+	<property>
+		<name>showlead</name>
+		<group>settings</group>
+		<type>checkbox</type>
+		<caption>N&amp;amp;auml;ita sissejuhatust</caption>
+	</property>
+	<property>
+		<name>show_modified</name>
+		<group>settings</group>
+		<type>checkbox</type>
+		<caption>N&amp;amp;auml;ita muutmise kuup&amp;amp;auml;eva</caption>
+	</property>
+	<property>
+		<name>show_title</name>
+		<group>settings</group>
+		<type>checkbox</type>
+		<caption>N&amp;amp;auml;ita pealkirja</caption>
+	</property>
+	<property>
+		<name>show_print</name>
+		<group>settings</group>
+		<type>checkbox</type>
+		<caption>'Prindi' nupp</caption>
+	</property>
+
+
+	<property>
+		<name>transl</name>
+		<group>transl</group>
+		<type>callback</type>
+		<callback>callback_get_transl</callback>
+		<caption>T&amp;amp;otilde;lgi</caption>
+	</property>
+
+
+	<classinfo>
+		<allow_rte>0</allow_rte>
+		<no_comment>1</no_comment>
+		<relationmgr>yes</relationmgr>
+	</classinfo>
+
+	<groupinfo>
+		<general>
+			<caption>&amp;Uuml;ldine</caption>
+			<icon>edit</icon>
+		</general>
+		<settings>
+			<caption>Seadistused</caption>
+			<icon>settings</icon>
+		</settings>
+		<transl>
+			<caption>T&amp;amp;otilde;lgi</caption>
+		</transl>
+		<relationmgr>
+			<caption>Seostehaldur</caption>
+			<submit>no</submit>
+			<icon>connectionmanager</icon>
+		</relationmgr>
+	</groupinfo>
+</properties>
