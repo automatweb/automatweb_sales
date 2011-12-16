@@ -1386,11 +1386,8 @@ class menu extends class_base implements main_subtemplate_handler
 					$arr["obj_inst"]->set_prop("submenus_from_obj" , $cfgo->id());
 					$arr["obj_inst"]->connect(array("to"=> $cfgo->id(), "type" => "RELTYPE_SUBMENUS"));
 				}
-				break;*/
-			case "transl":
-				$this->write_trans_aliases($arr);
-				$this->trans_save($arr, $this->trans_props);
 				break;
+*/
 
 			// grkeywords just triggers an action, nothing should
 			// be saved into the objects table
@@ -2310,15 +2307,6 @@ class menu extends class_base implements main_subtemplate_handler
 		}
 	}
 
-	function callback_mod_tab($arr)
-	{
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
-		{
-			return false;
-		}
-		return true;
-	}
-
 	private function kw_tb($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -2555,14 +2543,19 @@ class menu extends class_base implements main_subtemplate_handler
 		}
 	}
 
+	protected function trans_save($arr, $props, $props_if = array())
+	{
+		$this->write_trans_aliases($arr);
+		parent::trans_save($arr, $props, $props_if);
+	}
+
 	/**
 		@attrib api=1
 	**/
 	public function write_trans_aliases($arr)
 	{
 		$o = $arr["obj_inst"];
-		$l = new languages();
-		$ll = $l->get_list(array("all_data" => true, "set_for_user" => true));
+		$ll = languages::get_list(array("all_data" => true, "set_for_user" => true));
 		foreach($ll as $lid => $lang)
 		{
 			if ($lid == $o->lang_id())

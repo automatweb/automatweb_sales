@@ -2414,7 +2414,7 @@ class cfgform extends class_base
 		foreach($by_group as $key => $proplist)
 		{
 			$grp_id = str_replace("_", "-", $key);
-			$caption = $this->cfg_groups[$key]["caption"]." ($key)";
+			$caption = isset($this->cfg_groups[$key]) ? $this->cfg_groups[$key]["caption"]." ($key)" : "";
 
 			$this->vars(array(
 				"grp_caption" => empty($this->cfg_groups[$key]["parent"]) ? "<b>" . $caption . "</b>" : $caption,

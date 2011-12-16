@@ -468,4 +468,30 @@ class date_calc
 		$wday = $wd_lut[date("w",$timestamp )];
 		return mktime(0,0,0, date("m",$timestamp ), date("d",$timestamp )-$wday, date("Y",$timestamp ));
 	}
+
+	/** Attempts to convert a date(time) string representation to UNIX timestamp
+		@attrib api=1 params=pos
+		@param value type=string
+			Any textual date(time) representation
+		@comment
+			This method accepts similar arguments as PHP strtotime() function
+		@returns int
+			Returns 0 if all attempts fail according to programmed assessment
+		@errors none
+	**/
+	public function string2time($value)
+	{
+		$time = 0;
+		$t = strtotime($value);
+		if (false === $t)
+		{
+			//TODO
+		}
+		else
+		{
+			$time = $t;
+		}
+
+		return $time;
+	}
 }

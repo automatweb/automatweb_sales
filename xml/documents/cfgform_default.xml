@@ -1,50 +1,43 @@
 <?xml version='1.0'?>
 <properties>
-      <property>
-            <name>navtoolbar</name>
-            <group>general</group>
-            <type>toolbar</type>
-            <no_caption>1</no_caption>
-            <caption>Toolbar</caption>
-      </property>
-      <property>
-            <name>brother_warning</name>
-            <group>general</group>
-            <type>text</type>
-            <no_caption>1</no_caption>
-      </property>
-      <property>
-            <name>simultaneous_warning</name>
-            <group>general</group>
-            <type>text</type>
-            <no_caption>1</no_caption>
-      </property>
+	<property>
+		<name>navtoolbar</name>
+		<group>general</group>
+		<type>toolbar</type>
+		<no_caption>1</no_caption>
+		<caption>Toolbar</caption>
+	</property>
+	<property>
+		<name>brother_warning</name>
+		<group>general</group>
+		<type>text</type>
+		<no_caption>1</no_caption>
+	</property>
+	<property>
+		<name>simultaneous_warning</name>
+		<group>general</group>
+		<type>text</type>
+		<no_caption>1</no_caption>
+	</property>
 	<property>
 		<name>status</name>
 		<group>general</group>
 		<caption>Aktiivne</caption>
 	</property>
-      <property>
-            <name>tm</name>
-            <group>general</group>
-            <type>textbox</type>
-            <size>20</size>
-            <caption>Kuup&amp;amp;auml;ev</caption>
-      </property>
-      <property>
-            <name>title</name>
-            <group>general</group>
-            <type>textbox</type>
-            <size>60</size>
-            <caption>Pealkiri</caption>
-      </property>
-      <property>
-            <name>subtitle</name>
-            <group>general</group>
-            <type>textbox</type>
-            <size>60</size>
-            <caption>Alapealkiri</caption>
-      </property>
+	<property>
+		<name>tm</name>
+		<group>general</group>
+		<type>textbox</type>
+		<size>20</size>
+		<caption>Kuup&amp;amp;auml;ev</caption>
+	</property>
+	<property>
+		<name>title</name>
+		<group>general</group>
+		<type>textbox</type>
+		<size>60</size>
+		<caption>Pealkiri</caption>
+	</property>
 	<property>
 		<name>lead</name>
 		<group>general</group>
