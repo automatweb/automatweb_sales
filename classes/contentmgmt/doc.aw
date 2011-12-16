@@ -379,7 +379,7 @@ class doc extends class_base
 			"tpldir" => "automatweb/documents",
 		));
 		$this->trans_props = array(
-			"alias", "title", "lead", "content", "user7"
+			"title", "lead", "content", "user7"
 		);
 	}
 
@@ -482,10 +482,6 @@ class doc extends class_base
 				$this->_versions_tb($arr);
 				break;
 
-			case "trans_tb":
-				$this->_trans_tb($arr);
-				break;
-
 			case "simultaneous_warning":
 				return $this->_get_simultaneous_warning($arr);
 
@@ -518,17 +514,6 @@ class doc extends class_base
 
 		switch($data["name"])
 		{
-			case "transl":
-				$i = new menu();
-				$i->write_trans_aliases($args);
-				$this->trans_save($args, $this->trans_props, array("user1", "user3", "user5", "userta2", "userta4","userta3", "userta5", "userta6"));
-				$this->funnel_ct_content($args);
-				break;
-
-			case "create_new_version":
-
-				break;
-
 			case "link_calendars":
 				$this->update_link_calendars($arg);
 				break;
@@ -558,21 +543,35 @@ class doc extends class_base
 
 			case "tm":
 				$modified = time();
-				list($_date, $_time) = explode(" ", $data["value"]);
-				list($hour, $min) = explode(":", $_time);
-				$hour = (int)$hour;
-				$min = (int)$min;
+				if (false !== strpos($data["value"], " "))
+				{
+					list($_date, $_time) = explode(" ", $data["value"], 2);
+				}
+				else
+				{
+					$_date = $_time = "";
+				}
+
+				if (false !== strpos($_time, ":"))
+				{
+					list($hour, $min) = explode(":", $_time, 2);
+					$hour = (int) $hour;
+					$min = (int) $min;
+				}
+				else
+				{
+					$hour = $min = 0;
+				}
 
 				$try = explode("/",$_date);
 				if (count($try) < 3)
 				{
 					$ts = 0;
 				}
-				else
+				elseif (false !== strpos($_date, "/"))
 				{
-					list($day,$mon,$year) = explode("/",$_date);
-
-					$ts = mktime($hour,$min,0,$mon,$day,$year);
+					list($day, $mon, $year) = explode("/",$_date, 3);
+					$ts = mktime($hour, $min, 0, $mon, $day, $year);
 				}
 
 				if ($ts > (3600*24*400))
@@ -586,16 +585,21 @@ class doc extends class_base
 					{
 						$_date = $data["value"];
 					}
-					list($day,$mon,$year) = explode(".",$_date);
-					$ts = mktime($hour,$min,0,$mon,$day,$year);
+
+					if (false !== strpos($_date, "."))
+					{
+						list($day, $mon, $year) = explode(".", $_date, 3);
+						$ts = mktime($hour,$min,0,$mon,$day,$year);
+					}
+
 					if ($ts)
 					{
 						$modified = $ts;
 					}
-					else
+					elseif (false !== strpos($_date, "-"))
 					{
-						// 2kki on hoopis - 'ga eraldatud?
-						list($day,$mon,$year) = explode("-",$_date);
+						// 2kki on hoopis sidekriipsuga eraldatud?
+						list($day,$mon,$year) = explode("-", $_date, 3);
 						$ts = mktime($hour,$min,0,$mon,$day,$year);
 						if ($ts)
 						{
@@ -861,6 +865,14 @@ class doc extends class_base
 				}
 			}
 		}
+	}
+
+	protected function trans_save($arr, $props, $props_if = array())
+	{
+		$i = new menu();
+		$i->write_trans_aliases($arr);
+		parent::trans_save($arr, $props, array("user1", "user3", "user5", "userta2", "userta4","userta3", "userta5", "userta6"));
+		$this->funnel_ct_content($arr);
 	}
 
 	private function _doc_strip_tags($arg)
@@ -1331,18 +1343,16 @@ class doc extends class_base
 				$this->db_query($q);
 				$this->db_query("DELETE FROM documents_versions WHERE docid = '".$arr["obj_inst"]->id()."' AND version_id = '$sav'");
 
-
-				$c = get_instance("cache");
-				$c->file_clear_pt("storage_object_data");
-				$c->file_clear_pt("storage_search");
-				$c->file_clear_pt("html");
+				cache::file_clear_pt("storage_object_data");
+				cache::file_clear_pt("storage_search");
+				cache::file_clear_pt("html");
 			}
 		}
 	}
 
 	private function _versions_tb($arr)
 	{
-		$toolbar = &$arr["prop"]["vcl_inst"];
+		$toolbar = $arr["prop"]["vcl_inst"];
 		$toolbar->add_button(array(
 			"name" => "delete",
 			"tooltip" => t("Kustuta"),
@@ -1451,67 +1461,6 @@ class doc extends class_base
 			}
 		}
 		return $arr["post_ru"];
-	}
-
-	function callback_get_transl($arr)
-	{
-		$pl = $arr["obj_inst"]->get_property_list();
-		$cfgform_id = $this->get_cfgform_for_object(array(
-			"obj_inst" => $arr["obj_inst"],
-			"args" => $arr["request"],
-		));
-		if (acl_base::can("", $cfgform_id))
-		{
-			$cf = get_instance(CL_CFGFORM);
-			$pl = $cf->get_props_from_cfgform(array("id" => $cfgform_id));
-		}
-
-		$val = '<div id="floatlayerk" style="left: 800px; top: 200px; width: 250px; border:solid black 1px;padding:5px; background: #dddddd;overflow: -moz-scrollbars-vertical;">'.
-			"<b>".$pl["title"]["caption"].":</b> ".$arr["obj_inst"]->prop("title")."<br><br>".
-			"<b>".$pl["lead"]["caption"].":</b> ".$arr["obj_inst"]->prop("lead")."<br><br>".
-			"<b>".$pl["content"]["caption"].":</b> ".$arr["obj_inst"]->prop("content").
-			'</div>';
-		$val .= '<script language="javascript">el=document.getElementById(\'floatlayerk\');if (el) {el.style.position=\'absolute\';el.style.left=800;el.style.top=200;}</script>';
-
-
-		$rv = $this->trans_callback($arr, $this->trans_props, array("user1", "user3", "user5", "userta2", "userta3", "userta4", "userta5", "userta6"));
-		$rvv = array();
-		$nm = "origt";
-		$rvv[$nm] = array(
-			"name" => $nm,
-			"no_caption" => 1,
-			"type" => "text",
-			"value" => $val,
-		);
-
-		return $rvv + $rv;
-	}
-
-	private function _trans_tb($arr)
-	{
-		$tb = $arr["prop"]["vcl_inst"];
-		$tb->add_menu_button(array(
-			"name" => "preview",
-			"tooltip" => t("Eelvaade"),
-			"img" => "preview.gif"
-		));
-
-		$ll = languages::get_list(array(/*"ignore_status" => true,*/ "all_data" => true));
-
-		$dd = get_instance("doc_display");
-		foreach($ll as $lid => $lang)
-		{
-			if ($lid == $arr["obj_inst"]->lang_id())
-			{
-				continue;
-			}
-			$tb->add_menu_item(array(
-				"parent" => "preview",
-				"text" => t($lang["name"]),
-				"url" => $dd->get_doc_link($arr["obj_inst"], $lang["acceptlang"]),
-				"target" => "_blank"
-			));
-		}
 	}
 
 	private function _comments_tb($arr)
