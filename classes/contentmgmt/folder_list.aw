@@ -126,7 +126,7 @@ class folder_list extends class_base
 		));
 
 		$ssh = get_instance("contentmgmt/site_show");
-		$d = get_instance(CL_DOCUMENT);
+		$d = new document();
 
 		$fls = "";
 		for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())

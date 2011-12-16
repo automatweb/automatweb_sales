@@ -126,7 +126,7 @@ class pullout extends class_base
 			return "";
 		}
 
-		$do = get_instance(CL_DOCUMENT);
+		$do = new document();
 		if ($o->meta("template") == "" || $o->meta("template") == "0")
 		{
 			if ($GLOBALS["print"] == 1)

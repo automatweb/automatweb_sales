@@ -17,7 +17,7 @@ class promo_display implements main_subtemplate_handler
 		}
 		else
 		{
-			$doc = get_instance(CL_DOCUMENT);
+			$doc = new document();
 		}
 
 		if (aw_ini_get("menuedit.promo_lead_only"))

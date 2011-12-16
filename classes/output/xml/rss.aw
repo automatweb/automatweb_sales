@@ -103,7 +103,7 @@ class rss extends aw_template
 		$m = get_instance("contentmgmt/site_show");
 
 		// loome sisu
-		$d = get_instance(CL_DOCUMENT);
+		$d = new document();
 
 		if ($periodic)
 		{

@@ -80,8 +80,7 @@ class admin_if extends class_base
 		$this->change_url_template = str_replace("__", "%s", $this->mk_my_orb("change", array(
 			"id" => "__",
 			"parent" => "__",
-			"period" => "__",
-			"group" => "__"
+			"period" => "__"
 		), "__",true,true));
 
 
@@ -664,7 +663,6 @@ class admin_if extends class_base
 		$containers = get_container_classes();
 		$clss = aw_ini_get("classes");
 		$sel_objs = $this->get_cutcopied_objects();
-		$trans = aw_ini_get("user_interface.full_content_trans") ? true : false;
 
 		$filt = $this->_get_object_list_filter($parent, $period);
 		$ob_cnt = new object_data_list(
@@ -705,18 +703,13 @@ class admin_if extends class_base
 			}
 			else
 			{
-				$grp = null;
-				if ($trans && aw_global_get("ct_lang_id") != $row_d["lang_id"])
-				{
-					$grp = "transl";
-				}
 				if ($can_change)
 				{
-					$chlink = $this->mk_my_orb("change", array("id" => $row_d["oid"], "period" => $period, "group" => $grp),$row_d["class_id"]);
+					$chlink = $this->mk_my_orb("change", array("id" => $row_d["oid"], "period" => $period),$row_d["class_id"]);
 				}
 				else
 				{
-					$chlink = $this->mk_my_orb("view", array("id" => $row_d["oid"], "period" => $period, "group" => $grp),$row_d["class_id"]);
+					$chlink = $this->mk_my_orb("view", array("id" => $row_d["oid"], "period" => $period),$row_d["class_id"]);
 				}
 			}
 
@@ -878,20 +871,13 @@ class admin_if extends class_base
 			"link" => aw_url_change_var("parent", $id)
 		));
 
-		$grp = null;
-		if (aw_ini_get("user_interface.full_content_trans")  && aw_global_get("ct_lang_id") != $obj["lang_id"])
-		{
-			$grp = "transl";
-		}
-
-
 		try
 		{
 			$class = basename(aw_ini_get("classes.{$clid}.file"));
 			if ($this->can("edit", $id))
 			{
 				$this->pm->add_item(array(
-					"link" => sprintf($this->change_url_template, $class, $id, $parent, $period, $grp).$this->post_ru_append,
+					"link" => sprintf($this->change_url_template, $class, $id, $parent, $period).$this->post_ru_append,
 					"text" => t("Muuda")
 				));
 

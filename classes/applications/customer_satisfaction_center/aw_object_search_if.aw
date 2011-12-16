@@ -594,7 +594,7 @@ class aw_object_search_if extends class_base
 						"url" => $this->mk_my_orb("change", array("id" => $d["oid"]), $d["class_id"])
 					)),
 					"lang" => $lang,
-					"class_id" => aw_ini_isset("classes.{$d["class_id"]}.name"),
+					"class_id" => aw_ini_isset("classes.{$d["class_id"]}.name") ? aw_ini_get("classes.{$d["class_id"]}.name") : t("[M&auml;&auml;ramata]"),
 					"location" => isset($d["parent_name"]) ? $d["parent_name"] : "",
 					"created" => $d["created"],
 					"createdby" => $d["createdby"],

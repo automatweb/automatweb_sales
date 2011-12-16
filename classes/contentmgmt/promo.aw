@@ -648,7 +648,7 @@ class promo extends class_base implements main_subtemplate_handler
 			return "";
 		}
 		$content = "";
-		$doc = get_instance(CL_DOCUMENT);
+		$doc = new document();
 
 		$parms = array(
 			"leadonly" => 1,

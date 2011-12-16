@@ -23,7 +23,7 @@ class contents extends class_base
 		));
 
 		$this->mned = get_instance("contentmgmt/site_show");
-		$this->doc = get_instance(CL_DOCUMENT);
+		$this->doc = new document();
 		$this->per = get_instance(CL_PERIOD);
 	}
 

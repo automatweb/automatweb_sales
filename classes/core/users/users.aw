@@ -9,10 +9,6 @@ class users extends users_user implements request_startup, orb_public_interface
 	function users()
 	{
 		$this->init("automatweb/users");
-		if (!defined("USR_LOGGED_IN"))
-		{
-			lc_site_load("users", $this);
-		}
 	}
 
 	/** Sets orb request to be processed by this object
@@ -96,13 +92,14 @@ class users extends users_user implements request_startup, orb_public_interface
 			list($success, $error) = $auth->check_auth(NULL, array(
 				"uid" =>  $uo->prop("uid"),
 				"password" => $old_pass,
-				"pwdchange" => 1,
+				"pwdchange" => 1
 			));
 			if(!$success)
 			{
 				$error = t("Vana parool on vale");
 			}
 		}
+
 		if($error)
 		{
 			return $this->mk_my_orb("change_password_not_logged", array(
@@ -110,8 +107,7 @@ class users extends users_user implements request_startup, orb_public_interface
 				"uid" => $username,
 			), "users");
 		}
-		else
-		if ($success)
+		elseif ($success)
 		{
 			$user_obj = obj($username);
 			$logins = $user_obj->prop("logins") + 1;
@@ -158,7 +154,7 @@ class users extends users_user implements request_startup, orb_public_interface
 		}
 
 		$this->_log(ST_USERS, SA_CHANGE_PWD, $o->prop("uid"));
-		header("Refresh: 2;url=".$this->cfg["baseurl"]);
+		header("Refresh: 2;url=".aw_ini_get("baseurl"));
 		die(t("Parool on edukalt vahetatud"));
 	}
 
@@ -170,11 +166,10 @@ class users extends users_user implements request_startup, orb_public_interface
 		if (!aw_ini_get("auth.md5_passwords"))
 		{
 			return t("<font color=red>This site does not use encrypted passwords and therefore this function does not work</font>");
-		};
+		}
 
 		$this->read_template("send_hash.tpl");
 
-		lc_site_load("users", $this);
 		$this->vars(array(
 			"webmaster" => aw_ini_get("users.webmaster_mail"),
 			"reforb" => $this->mk_reforb("submit_send_hash",array("section" => aw_global_get("section"))),
@@ -227,7 +222,6 @@ class users extends users_user implements request_startup, orb_public_interface
 			};
 
 			$this->read_template("hash_send.tpl");
-			lc_site_load("users", $this);
 			$this->vars(array(
 				"churl" => $this->get_change_pwd_hash_link($o->id()),
 				"email" => aw_ini_get("users.webmaster_mail"),
@@ -286,7 +280,7 @@ class users extends users_user implements request_startup, orb_public_interface
 				"msg" => t("Sellist kasutajat pole registreeritud"),
 			));
 			return $this->parse();
-		};
+		}
 
 		$uo = $ol->begin();
 
@@ -298,7 +292,7 @@ class users extends users_user implements request_startup, orb_public_interface
 				"msg" => t("Sellist v&otilde;tit pole v&auml;ljastatud"),
 			));
 			return $this->parse();
-		};
+		}
 
 		$ts = $uo->meta("password_hash_timestamp");
 

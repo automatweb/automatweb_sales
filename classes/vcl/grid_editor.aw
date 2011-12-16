@@ -1440,7 +1440,7 @@ class grid_editor extends aw_template
 		}
 		$table .= "{$rs}</table>";
 
-		$d = get_instance(CL_DOCUMENT);
+		$d = new document();
 		$d->create_relative_links($table);
 
 		$al = new alias_parser();

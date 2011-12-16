@@ -3,7 +3,7 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_DOCUMENT, on_save_document)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
-@classinfo trans=1 no_comment=1 relationmgr=yes syslog_type=ST_DOCUMENT r2=1
+@classinfo trans=1 no_comment=1 relationmgr=yes r2=1
 
 @default table=documents
 @default group=general
@@ -392,7 +392,7 @@ class doc extends class_base
 			}
 		}
 		$data = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 
 		if (empty($data["name"]))
 		{
@@ -432,7 +432,7 @@ class doc extends class_base
 				break;
 
 			case "name":
-				$retval = PROP_IGNORE;
+				$retval = class_base::PROP_IGNORE;
 				break;
 
 			case "tm":
@@ -510,7 +510,8 @@ class doc extends class_base
 	{
 		$data = &$args["prop"];
 		$retval = class_base::PROP_OK;
-		$data["value"] = html_entity_decode($data["value"], ENT_COMPAT, aw_global_get("charset"));
+		$data["value"] = html_entity_decode($data["value"], ENT_COMPAT, languages::USER_CHARSET);//XXX: milleks?
+
 		switch($data["name"])
 		{
 			case "transl":
@@ -606,21 +607,20 @@ class doc extends class_base
 			case "dcache":
 				if (aw_ini_get("document.use_dcache"))
 				{
-					//print "generating preview<br>";
-					$dcx = get_instance(CL_DOCUMENT);
+					$dcx = new document();
 					$preview = $dcx->gen_preview(array("docid" => $args["obj_inst"]->id()));
 					$this->quote($preview);
 					$this->_preview = $preview;
-				};
+				}
 				break;
 
 			case "gen_static":
 				if (!empty($data["value"]) && is_oid($args["obj_inst"]->id()))
 				{
-					$dcx = get_instance(CL_DOCUMENT);
+					$dcx = new document();
 					// but this dies anyway
 					$dcx->gen_static_doc($args["obj_inst"]->id());
-				};
+				}
 				break;
 
 			case "clear_styles":
@@ -640,10 +640,10 @@ class doc extends class_base
 				if ($args["request"]["content"]["cb_breaks"] == 0)
 				{
 					$args["obj_inst"]->set_prop("nobreaks",0);
-				};
+				}
 				// also, if the cfgform says that you are using fck editor, then
 				// set the nobreaker
-				if ($this->can("view", $args["request"]["cfgform"]))
+				if (acl_base::can("view", $args["request"]["cfgform"]))
 				{
 					$cff = obj($args["request"]["cfgform"]);
 					if ($cff->prop("classinfo_allow_rte") == 2)
@@ -740,7 +740,7 @@ class doc extends class_base
 			$obj_inst->set_prop("moreinfo",$this->_doc_strip_tags($obj_inst->prop("moreinfo")));
 		}
 
-		if ($this->can("view", $args["request"]["cfgform"]))
+		if (acl_base::can("view", $args["request"]["cfgform"]))
 		{
 			$cff = obj($args["request"]["cfgform"]);
 			if ($cff->prop("classinfo_allow_rte") == 2)
@@ -792,7 +792,7 @@ class doc extends class_base
 	{
 		if ($args["obj_inst"]->prop("dcache_save") == 1)
 		{
-			$dcx = get_instance(CL_DOCUMENT);
+			$dcx = new document();
 			$preview = $dcx->gen_preview(array(
 				"docid" => $args["obj_inst"]->id()
 			));
@@ -907,7 +907,7 @@ class doc extends class_base
 
 		if (is_object($arr["obj_inst"]) && $arr["obj_inst"]->id())
 		{
-			$dd = get_instance("doc_display");
+			$dd = new doc_display();
 			$url = $dd->get_doc_link($arr["obj_inst"]);
 			if($arr["obj_inst"]->prop("alias"))
 			{
@@ -937,7 +937,7 @@ class doc extends class_base
 	function show($args)
 	{
 		extract($args);
-		$d = get_instance(CL_DOCUMENT);
+		$d = new document();
 		return $d->gen_preview(array("docid" => $args["id"]));
 	}
 
@@ -1022,8 +1022,7 @@ class doc extends class_base
 
 	function callback_mod_reforb(&$args, $request)
 	{
-		$args["post_ru"] = post_ru();
-		if (!empty($request["edit_version"]))
+		if (isset($request["edit_version"]))
 		{
 			$args["edit_version"] = $request["edit_version"];
 		}
@@ -1090,7 +1089,7 @@ class doc extends class_base
 
 				$p_o->set_meta("active_documents", $docs);
 				$p_o->set_meta("active_documents_p", $docs_p);
-				if ($save && $p_o->class_id() && $p_o->parent() && $this->can("edit", $p_o->id()))
+				if ($save && $p_o->class_id() && $p_o->parent() && acl_base::can("edit", $p_o->id()))
 				{
 					$p_o->save();
 				}
@@ -1439,7 +1438,7 @@ class doc extends class_base
 	**/
 	function delete_comments($arr)
 	{
-		if($this->can("edit", $arr["id"]))
+		if(acl_base::can("edit", $arr["id"]))
 		{
 			foreach($arr["sel"] as $oid)
 			{
@@ -1457,16 +1456,16 @@ class doc extends class_base
 			"obj_inst" => $arr["obj_inst"],
 			"args" => $arr["request"],
 		));
-		if ($this->can("view", $cfgform_id))
+		if (acl_base::can("", $cfgform_id))
 		{
 			$cf = get_instance(CL_CFGFORM);
 			$pl = $cf->get_props_from_cfgform(array("id" => $cfgform_id));
 		}
 
 		$val = '<div id="floatlayerk" style="left: 800px; top: 200px; width: 250px; border:solid black 1px;padding:5px; background: #dddddd;overflow: -moz-scrollbars-vertical;">'.
-			("<b>".iconv(aw_global_get("charset"), "UTF-8", $pl["title"]["caption"]).":</b>")." ".iconv(aw_global_get("charset"), "UTF-8", $arr["obj_inst"]->prop("title"))."<br><br>".
-			("<b>".iconv(aw_global_get("charset"), "UTF-8", $pl["lead"]["caption"]).":</b>")." ".iconv(aw_global_get("charset"), "UTF-8", $arr["obj_inst"]->prop("lead"))."<br><br>".
-			("<b>".iconv(aw_global_get("charset"), "UTF-8", $pl["content"]["caption"]).":</b>")." ".iconv(aw_global_get("charset"), "UTF-8", $arr["obj_inst"]->prop("content")).
+			"<b>".$pl["title"]["caption"].":</b> ".$arr["obj_inst"]->prop("title")."<br><br>".
+			"<b>".$pl["lead"]["caption"].":</b> ".$arr["obj_inst"]->prop("lead")."<br><br>".
+			"<b>".$pl["content"]["caption"].":</b> ".$arr["obj_inst"]->prop("content").
 			'</div>';
 		$val .= '<script language="javascript">el=document.getElementById(\'floatlayerk\');if (el) {el.style.position=\'absolute\';el.style.left=800;el.style.top=200;}</script>';
 
@@ -1492,8 +1491,8 @@ class doc extends class_base
 			"tooltip" => t("Eelvaade"),
 			"img" => "preview.gif"
 		));
-		$l = get_instance("languages");
-		$ll = $l->get_list(array(/*"ignore_status" => true,*/ "all_data" => true));
+
+		$ll = languages::get_list(array(/*"ignore_status" => true,*/ "all_data" => true));
 
 		$dd = get_instance("doc_display");
 		foreach($ll as $lid => $lang)
