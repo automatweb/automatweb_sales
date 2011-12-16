@@ -12,8 +12,6 @@ class cfgutils extends core
 	function cfgutils($args = array())
 	{
 		$this->init("");
-		$this->fbasedir = $this->fbasedir;
-		$this->f_site_basedir = $this->f_site_basedir;
 	}
 
 	private function _init_clist()
@@ -37,9 +35,6 @@ class cfgutils extends core
 			// exists.
 			$this->clist[$key] = $fl;
 		}
-
-		// XXX: remove this after document class has been converted
-		$this->clist[7] = "doc";
 
 		$this->clist_init_done = true;
 	}
@@ -81,10 +76,6 @@ class cfgutils extends core
 			$fname = basename($cldat[$args['clid']]["file"]);
 		}
 
-		if ($fname === "document")
-		{
-			return true;
-		}
 		$retval = false;
 		if ($fname)
 		{
@@ -170,7 +161,7 @@ class cfgutils extends core
 		// since storage really doesn't care. so why should property loader?
 
 		// you can also directly parse XML, in which case we do not cache anything.
-		// the only sad user of this feature is document class and it's def_cfgform.xml functionality,
+		// the only sad user of this feature is doc class and it's cfgform_default.xml functionality,
 		// which really should die.
 		if (empty($args['source']))
 		{
@@ -667,11 +658,6 @@ class cfgutils extends core
 				//!!! mis on  default? mis saab kui siia satutakse
 			}
 
-			if ($clid == 7)
-			{
-				$file = "doc";
-			}
-
 			if (empty($file))
 			{
 				throw new aw_exception("No valid file or class id given.");
@@ -746,8 +732,6 @@ class cfgutils extends core
 			{
 				$file = basename($clinf[$clid]["file"]);
 			}
-
-			if ($clid == 7) $file = "doc";
 
 			if (empty($file))
 			{

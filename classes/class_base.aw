@@ -21,7 +21,7 @@
 	// translated objects have their own status fields .. they don't
 	// have to sync with the original .. allthu .. I do feel that
 	// we need to do this in a different way
-	@property status type=status trans=1 default=1
+	@property status type=status default=1
 	@caption Aktiivne
 
 	@property needs_translation type=checkbox field=flags method=bitmask ch_value=2 // OBJ_NEEDS_TRANSLATION
@@ -5319,7 +5319,7 @@ class class_base extends aw_template implements orb_public_interface
 	function load_from_file()
 	{
 		$cfgu = new cfgutils();
-		$def = $this->get_file(array("file" => (aw_ini_get("basedir") . "xml/documents/def_cfgform.xml")));
+		$def = $this->get_file(array("file" => (aw_ini_get("basedir") . "xml/documents/cfgform_default.xml")));
 		$rv = $cfgu->parse_cfgform(array("xml_definition" => $def));
 		if (!is_array($this->classinfo))
 		{

@@ -7,7 +7,6 @@
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <trans>1</trans>
             <field>navtoolbar</field>
             <caption>Toolbar</caption>
       </property>
@@ -151,7 +150,6 @@
             <group>general</group>
             <type>textbox</type>
             <size>60</size>
-            <trans>1</trans>
             <field>link_text</field>
             <caption>URL</caption>
       </property>
@@ -161,7 +159,6 @@
             <group>general</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>is_forum</field>
             <caption>Foorum</caption>
       </property>
@@ -172,7 +169,6 @@
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <default>1</default>
-            <trans>1</trans>
             <field>showlead</field>
             <caption>N&amp;amp;auml;ita leadi</caption>
       </property>
@@ -182,7 +178,6 @@
             <group>general</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <default>1</default>
             <field>show_modified</field>
             <caption>N&amp;amp;auml;ita muutmise kuup&amp;amp;auml;eva</caption>
@@ -193,7 +188,6 @@
             <group>general</group>
             <type>hidden</type>
             <field>modified</field>
-            <trans>1</trans>
             <caption>Dok. modified</caption>
       </property>
       <property>
@@ -203,7 +197,6 @@
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <store>no</store>
-            <trans>1</trans>
             <field>clear_styles</field>
             <caption>T&amp;amp;uuml;hista stiilid</caption>
       </property>
@@ -214,7 +207,6 @@
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <store>no</store>
-            <trans>1</trans>
             <field>link_keywords</field>
             <caption>Lingi v&amp;amp;otilde;tmes&amp;amp;otilde;nad</caption>
       </property>
@@ -235,7 +227,6 @@
             <group>general</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>frontpage_left</field>
             <caption>Esilehel tulbas</caption>
       </property>
@@ -245,7 +236,6 @@
             <group>general</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>frontpage_right</field>
             <caption>Esilehel tulbas paremal</caption>
       </property>
@@ -255,7 +245,6 @@
             <group>general</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>frontpage_center</field>
             <caption>Esilehel keskel</caption>
       </property>
@@ -265,7 +254,6 @@
             <group>settings</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>esilehel</field>
             <caption>Esilehel</caption>
       </property>
@@ -275,8 +263,6 @@
             <group>general</group>
             <type>textbox</type>
             <size>5</size>
-            <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>jrk1</field>
             <caption>Jrk1</caption>
       </property>
@@ -286,7 +272,6 @@
             <group>general</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>esilehel_uudis</field>
             <caption>Esilehel uudis</caption>
       </property>
@@ -296,8 +281,6 @@
             <group>general</group>
             <type>textbox</type>
             <size>5</size>
-            <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>jrk2</field>
             <caption>Jrk2</caption>
       </property>
@@ -307,7 +290,6 @@
             <group>general</group>
             <type>checkbox</type>
             <store>no</store>
-            <trans>1</trans>
             <field>dcache</field>
             <caption>Cache otsingu jaoks</caption>
       </property>
@@ -339,7 +321,6 @@
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <default>1</default>
-            <trans>1</trans>
             <field>show_title</field>
             <caption>N&amp;amp;auml;ita pealkirja</caption>
       </property>
@@ -349,7 +330,6 @@
             <group>general</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>no_search</field>
             <caption>J&amp;amp;auml;ta otsingust v&amp;amp;auml;lja</caption>
       </property>
@@ -383,7 +363,6 @@
             <field>meta</field>
             <method>serialize</method>
             <default>1</default>
-            <trans>1</trans>
             <caption>'Prindi' nupp</caption>
       </property>
       <property>
@@ -392,7 +371,6 @@
             <group>general</group>
             <field>createdby</field>
             <type>text</type>
-            <trans>1</trans>
             <caption>Kes tegi</caption>
       </property>
       <property>
@@ -687,7 +665,6 @@
             <group>general</group>
             <type>text</type>
             <store>no</store>
-            <trans>1</trans>
             <field>language</field>
             <caption>Keel</caption>
       </property>
@@ -697,7 +674,6 @@
             <group>general</group>
             <type>checkbox</type>
             <store>no</store>
-            <trans>1</trans>
             <field>gen_static</field>
             <caption>Genereeri staatiline</caption>
       </property>
@@ -708,21 +684,7 @@
             <type>submit</type>
             <value>Salvesta</value>
             <store>no</store>
-            <trans>1</trans>
             <field>sbt</field>
-      </property>
-      <property>
-            <name>cb_part</name>
-            <table>documents</table>
-            <group>
-                  <num_0>general</num_0>
-                  <num_1>settings</num_1>
-            </group>
-            <type>hidden</type>
-            <value>1</value>
-            <store>no</store>
-            <field>cb_part</field>
-            <caption>cb_part</caption>
       </property>
       <property>
             <name>nobreaks</name>
@@ -783,7 +745,6 @@
             <group>settings</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>no_right_pane</field>
             <caption>Ilma parema paanita</caption>
       </property>
@@ -793,7 +754,6 @@
             <group>settings</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>no_left_pane</field>
             <caption>Ilma vasaku paanita</caption>
       </property>
@@ -803,7 +763,6 @@
             <group>settings</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <default>1</default>
             <field>title_clickable</field>
             <caption>Pealkiri klikitav</caption>
@@ -816,7 +775,6 @@
             <ch_value>1</ch_value>
             <field>meta</field>
             <method>serialize</method>
-            <trans>1</trans>
             <caption>Cache otsingu jaoks (salvestub)</caption>
       </property>
       <property>
@@ -825,7 +783,6 @@
             <group>settings</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>no_last</field>
             <caption>&amp;amp;Auml;ra arvesta muutmist</caption>
       </property>
@@ -835,7 +792,6 @@
             <group>settings</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>meta</field>
             <method>serialize</method>
             <caption>Muutmise kuupaev dokumendi sees</caption>
@@ -846,7 +802,6 @@
             <group>settings</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <trans>1</trans>
             <field>no_show_in_promo</field>
             <caption>&amp;amp;Auml;ra n&amp;amp;auml;ita konteineris</caption>
       </property>
@@ -889,7 +844,6 @@
             <type>aliasmgr</type>
             <store>no</store>
             <editonly>1</editonly>
-            <trans>1</trans>
             <field>aliasmgr</field>
             <caption>Aliastehaldur</caption>
       </property>
@@ -898,7 +852,6 @@
             <table>planner</table>
             <group>calendar</group>
             <type>date_select</type>
-            <trans>1</trans>
             <field>start</field>
             <caption>Algab (kp)</caption>
       </property>
@@ -908,7 +861,6 @@
             <group>calendar</group>
             <type>datetime_select</type>
             <field>start</field>
-            <trans>1</trans>
             <caption>Algab</caption>
       </property>
       <property>
@@ -917,7 +869,6 @@
             <group>calendar</group>
             <type>time_select</type>
             <field>end</field>
-            <trans>1</trans>
             <caption>Kestab</caption>
       </property>
       <property>
@@ -967,15 +918,6 @@
             <caption>Ajaline aktiivsus</caption>
       </property>
       <property>
-            <name>trans_tb</name>
-            <table>documents</table>
-            <group>transl</group>
-            <type>toolbar</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>trans_tb</field>
-      </property>
-      <property>
             <name>transl</name>
             <table>documents</table>
             <group>transl</group>
@@ -1017,14 +959,9 @@
             <trans>1</trans>
             <no_comment>1</no_comment>
             <relationmgr>yes</relationmgr>
-            <syslog_type>ST_DOCUMENT</syslog_type>
             <r2>1</r2>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
-            <timing>
-                  <caption>Ajaline aktiivsus</caption>
-            </timing>
             <calendar>
                   <caption>Kalender</caption>
             </calendar>
@@ -1042,6 +979,9 @@
             <versions>
                   <caption>Versioonid</caption>
             </versions>
+            <timing>
+                  <caption>Ajaline aktiivsus</caption>
+            </timing>
             <transl>
                   <caption>T&amp;amp;otilde;lgi</caption>
             </transl>
