@@ -414,7 +414,7 @@ class class_base extends aw_template implements orb_public_interface
 			{
 				// this is a relation!
 				$this->is_rel = true;
-				$def = $this->_ct[$this->clid]["def"];
+				$def = aw_ini_get("classes.{$this->clid}.def");
 				$meta = $this->obj_inst->meta("values");
 				$this->values = $meta[$def];
 				$this->values["name"] = $this->obj_inst->name();
@@ -804,15 +804,10 @@ class class_base extends aw_template implements orb_public_interface
 			}
 		}
 
-		$orb_class = $this->_ct[$this->clid]["file"];
+		$orb_class = aw_ini_get("classes.{$this->clid}.file");
 		if (empty($orb_class))
 		{
 			$orb_class = $this->clfile;
-		}
-
-		if (basename($orb_class) === "document")
-		{
-			$orb_class = "doc";
 		}
 
 		$argblock = array(
@@ -840,7 +835,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		// class_base should not rely on storage, because this seriosly
 		// limits it's functionality!
-		if (isset($this->request["object_type"]) && is_oid($this->request["object_type"]) && $this->can("view",$this->request["object_type"]))
+		if (isset($this->request["object_type"]) && is_oid($this->request["object_type"]) && acl_base::can("view",$this->request["object_type"]))
 		{
 			$ot_obj = new object($this->request["object_type"]);
 			if ($ot_obj->class_id() == CL_OBJECT_TYPE)
@@ -962,20 +957,6 @@ class class_base extends aw_template implements orb_public_interface
 		}
 
 		// find help data for current tab
-		$cls = aw_ini_get("classes");
-		$__a_class = $argblock["orb_class"];
-		if ($__a_class == "doc")
-		{
-			$__a_class = "document";
-		}
-		foreach($cls as $clid => $cl)
-		{
-			if(isset($cl["file"]) && basename($cl["file"]) == $__a_class)
-			{
-				$current_clid = $clid;
-				break;
-			}
-		}
 		$po_loc = aw_ini_get("basedir")."lang/trans/".aw_global_get("LC")."/po/".$argblock["orb_class"].".po";
 		$cfgu = new cfgutils();
 		$groups = $cfgu->get_groupinfo();
@@ -1042,7 +1023,7 @@ class class_base extends aw_template implements orb_public_interface
 		{
 			foreach(safe_array(warning_prop()) as $oid => $properties)
 			{
-				if(!$this->can("view", $oid))
+				if(!acl_base::can("view", $oid))
 				{
 					continue;
 				}
@@ -1454,7 +1435,7 @@ class class_base extends aw_template implements orb_public_interface
 				}
 			}
 
-			if (isset($request["cfgform"]) and $this->can("view", $request["cfgform"]))
+			if (isset($request["cfgform"]) and acl_base::can("view", $request["cfgform"]))
 			{
 				$cfgform_o = obj($request["cfgform"]);
 				if (!is_admin() and $cfgform_o->trans_get_val("cfgview_ru" . ($this->new ? "" : "_change")))
@@ -1466,7 +1447,7 @@ class class_base extends aw_template implements orb_public_interface
 					}
 				}
 
-				if(!is_admin() && is_oid($cfgform_o->prop("cfgview_ru_cntrl")) && $this->can("view", $cfgform_o->prop("cfgview_ru_cntrl")))
+				if(!is_admin() && is_oid($cfgform_o->prop("cfgview_ru_cntrl")) && acl_base::can("view", $cfgform_o->prop("cfgview_ru_cntrl")))
 				{
 					$i = get_instance(CL_CFGCONTROLLER);
 					$retval = $i->check_property($cfgform_o->prop("cfgview_ru_cntrl"), $this->id, null, $request, $retval, obj($this->id));
@@ -1653,7 +1634,7 @@ class class_base extends aw_template implements orb_public_interface
 			$cfid = $this->callback_get_cfgform(array(
 				"obj_inst" => $args["obj_inst"],
 			));
-			if ($this->can("view", $cfid))
+			if (acl_base::can("view", $cfid))
 			{
 				return $cfid;
 			}
@@ -1666,7 +1647,7 @@ class class_base extends aw_template implements orb_public_interface
 			$cgid = $args["args"]["cfgform"];
 			// I need to check whether that config form is really
 			// a config form with correct subclass
-			if ($this->can("view", $cgid))
+			if (acl_base::can("view", $cgid))
 			{
 				return $cgid;
 			}
@@ -1679,7 +1660,7 @@ class class_base extends aw_template implements orb_public_interface
 			asort($gl);
 			foreach($gl as $id => $pri)
 			{
-				if($this->can("view" , $id))
+				if(acl_base::can("view" , $id))
 				{
 					$groupobj = obj($id);
 					foreach($groupobj->connections_from(array(
@@ -1704,7 +1685,7 @@ class class_base extends aw_template implements orb_public_interface
 		if (($action === "change") && is_oid($args["obj_inst"]->meta("cfgform_id")))
 		{
 			$cgid = $args["obj_inst"]->meta("cfgform_id");
-			if (!$this->can("view", $cgid))
+			if (!acl_base::can("view", $cgid))
 			{
 				//!!! cfgf on defineeritud ja peaks m6juma kuid talle pole 6igusi.
 			}
@@ -1721,7 +1702,7 @@ class class_base extends aw_template implements orb_public_interface
 		{
 			// I should be able to override this from the doc class somehow
 			$def_cfgform = aw_ini_get("document.default_cfgform");
-			if (!empty($def_cfgform) && $this->can("view",$def_cfgform))
+			if (!empty($def_cfgform) && acl_base::can("",$def_cfgform))
 			{
 				return $cgid;
 			}
@@ -1775,7 +1756,6 @@ class class_base extends aw_template implements orb_public_interface
 	// environment if so.
 	function init_class_base()
 	{
-		$_ct = aw_ini_get("classes");
 		// only classes which have defined properties
 		// can use class_base
 
@@ -1787,7 +1767,7 @@ class class_base extends aw_template implements orb_public_interface
 		// create an instance of the class servicing the object ($this->inst)
 		// set $this->clid and $this->clfile
 		$cfgu = new cfgutils();
-		$orb_class = $_ct[$this->clid]["file"];
+		$orb_class = aw_ini_get("classes.{$this->clid}.file");
 		if (empty($orb_class) && is_object($this->orb_class))
 		{
 			$orb_class = get_class($this->orb_class);
@@ -1801,11 +1781,6 @@ class class_base extends aw_template implements orb_public_interface
 		if (isset($this->orb_class) && is_object($this->orb_class))
 		{
 			$orb_class = get_class($this->orb_class);
-		}
-
-		if ($orb_class === "document")
-		{
-			$orb_class = "doc";
 		}
 
 		$has_properties = $cfgu->has_properties(array("file" => $orb_class));
@@ -1822,13 +1797,7 @@ class class_base extends aw_template implements orb_public_interface
 		{
 			$clid = $this->orb_class->get_opt("clid");
 		}
-		$clfile = $_ct[$clid]["file"];
-
-		// temporary - until we switch document editing back to new interface
-		if ($clid == 7)
-		{
-			$clfile = "doc";
-		}
+		$clfile = aw_ini_get("classes.{$clid}.file");
 
 		if (empty($clfile))
 		{
@@ -1840,7 +1809,6 @@ class class_base extends aw_template implements orb_public_interface
 		}
 
 		$this->clid = $clid;
-		$this->_ct = $_ct;
 
 		// get an instance of the class that handles this object type
 		// fuck me plenty! .. orb.aw sets $this->orb_class
@@ -1858,7 +1826,7 @@ class class_base extends aw_template implements orb_public_interface
 
 	function gen_output($args = array())
 	{
-		$classname = $this->_ct[$this->clid]["name"];
+		$classname = aw_ini_get("classes.{$this->clid}.name");
 		if (is_object($this->obj_inst))
 		{
 			$name = $this->obj_inst->name();
@@ -1972,7 +1940,7 @@ class class_base extends aw_template implements orb_public_interface
 		$tab_callback = (method_exists($this->inst,"callback_mod_tab")) ? true : false;
 
 		$hide_tabs = isset($this->classinfo["hide_tabs"]);
-		if($this->can("view" , aw_global_get("section")))
+		if(acl_base::can("view" , aw_global_get("section")))
 		{
 			$sec_obj = obj(aw_global_get("section"));
 			if($sec_obj->prop("submenus_from_cb"))
@@ -1998,7 +1966,7 @@ class class_base extends aw_template implements orb_public_interface
  					$cfgform_i = get_instance(CL_CFGFORM);
  					$cfgform = $subcb->meta("cfgform_id");
  					$cfgform_i->cff_init_from_class($subcb, $subcb->class_id(), false);
- 					if(is_oid($cfgform) && $this->can("view", $cfgform))
+ 					if(is_oid($cfgform) && acl_base::can("view", $cfgform))
  					{
  						$cfgform_i->get_cfg_groups($cfgform);
  					}
@@ -2219,7 +2187,7 @@ class class_base extends aw_template implements orb_public_interface
 		$ret = "";
 		$parsed_url = parse_url($ru);
 		parse_str($parsed_url["query"], $output);
-		if(is_oid($output["id"]) && $this->can("view" , $output["id"]))
+		if(is_oid($output["id"]) && acl_base::can("view" , $output["id"]))
 		{
 			$pa_obj = obj($output["id"]);
 			$ret.= " > ".html::href(array(
@@ -2231,7 +2199,7 @@ class class_base extends aw_template implements orb_public_interface
 				$cfgform_i = get_instance(CL_CFGFORM);
 				$cfgform = $pa_obj->meta("cfgform_id");
 				$cfgform_i->cff_init_from_class($pa_obj, $pa_obj->class_id(), false);
-				if(is_oid($cfgform) && $this->can("view", $cfgform))
+				if(is_oid($cfgform) && acl_base::can("view", $cfgform))
 				{
 					$cfgform_i->get_cfg_groups($cfgform);
 				}
@@ -3294,7 +3262,7 @@ class class_base extends aw_template implements orb_public_interface
 				// fuck me plenty
 				if ($this->view && isset($val["orig_type"]) && $val["orig_type"] === "select" && isset($val["value"]) && is_oid($val["value"]) && !$val["view_element"])
 				{
-					if (!$this->can("view", $val["value"]))
+					if (!acl_base::can("view", $val["value"]))
 					{
 						$val["value"] = "";
 					}
@@ -3754,7 +3722,7 @@ class class_base extends aw_template implements orb_public_interface
 	//This function returns all submit controllers current configform has.
 	function get_all_controllers($config_id)
 	{
-		if (!$this->can("view", $config_id))
+		if (!acl_base::can("view", $config_id))
 		{
 			return false;
 		}
@@ -3784,7 +3752,7 @@ class class_base extends aw_template implements orb_public_interface
 	{
 		if (empty($arr["props"]))
 		{
-			if (is_oid($arr["cfgform_id"]) && $this->can("view", $arr["cfgform_id"]))
+			if (is_oid($arr["cfgform_id"]) && acl_base::can("view", $arr["cfgform_id"]))
 			{
 				$cf = get_instance(CL_CFGFORM);
 				$props = $cf->get_props_from_cfgform(array("id" => $arr["cfgform_id"]));
@@ -3794,12 +3762,12 @@ class class_base extends aw_template implements orb_public_interface
 				$props = $this->load_defaults(array(
 					"clid" => $this->clid,
 				));
-			};
+			}
 		}
 		else
 		{
 			$props = &$arr["props"];
-		};
+		}
 
 		if (!$arr["cfgform_id"] && is_object($arr["obj_inst"]) && $arr["obj_inst"]->class_id() == CL_DOCUMENT && aw_ini_get("document.default_cfgform"))
 		{
@@ -3807,7 +3775,7 @@ class class_base extends aw_template implements orb_public_interface
 		}
 
 		$controllers = array();
-		if (is_oid($arr["cfgform_id"]) && $this->can("view", $arr["cfgform_id"]) )
+		if (is_oid($arr["cfgform_id"]) && acl_base::can("view", $arr["cfgform_id"]) )
 		{
 			$controller_inst = get_instance(CL_CFGCONTROLLER);
 			$controllers = $this->get_all_controllers($arr["cfgform_id"]);
@@ -3994,7 +3962,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		$this->awcb_data_sources["id"] = $this->obj_inst;
 
-		if (isset($args["_object_type"]) and $this->can("", $args["_object_type"]))
+		if (isset($args["_object_type"]) and acl_base::can("", $args["_object_type"]))
 		{//XXX: kahtlane! cfgform salvestati ka metasse, pole hea
 			$ot_obj = new object($args["_object_type"]);
 			$this->obj_inst->set_meta("object_type",$args["_object_type"]);
@@ -4431,7 +4399,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		if ($this->is_rel && is_array($values) && sizeof($values) > 0)
 		{//XXX: mis siin?
-			$def = $this->_ct[$this->clid]["def"];
+			$def = aw_ini_get("classes.{$this->clid}.def");
 			$_tmp = new object($this->id);
 			$old = $_tmp->meta("values");
 
@@ -4654,7 +4622,7 @@ class class_base extends aw_template implements orb_public_interface
 		// call post save controller from cfgform object if defined
 		$cfgform_id = $filter["cfgform_id"];
 
-		if (is_oid($cfgform_id) and $this->can("view", $cfgform_id))
+		if (is_oid($cfgform_id) and acl_base::can("view", $cfgform_id))
 		{
 			$cfgform_o = new object($cfgform_id);
 			$cfg_cntrl = (array) $cfgform_o->prop("post_save_controllers");
@@ -4693,7 +4661,7 @@ class class_base extends aw_template implements orb_public_interface
 
 	function _change_init($args, $classname, $tpl = "")
 	{
-		if (!$this->can("edit", $args["id"]))
+		if (!acl_base::can("edit", $args["id"]))
 		{
 			error::raise(array(
 				"id" => ERR_ACL,
@@ -4838,16 +4806,11 @@ class class_base extends aw_template implements orb_public_interface
 		$cfg_props = $all_properties;
 		$tmp = array();
 
-		if (!empty($arr["cfgform_id"]) && $this->can("view", $arr["cfgform_id"]) && !$force_mgr)
+		if (!empty($arr["cfgform_id"]) && acl_base::can("view", $arr["cfgform_id"]) && !$force_mgr)
 		{
 			$cfg_props = $this->load_from_storage(array(
 				"id" => $arr["cfgform_id"],
 			));
-
-			if ($this->cfg_debug)
-			{
-				print "loading from " . $arr["cfgform_id"] . "<br>";
-			}
 			// if there is a bug in config form which caused the groupdata
 			// to be empty, then this is the place where we should fix it.
 		}
@@ -4857,24 +4820,14 @@ class class_base extends aw_template implements orb_public_interface
 			if ($arr["clid"] == CL_DOCUMENT && !$force_mgr)
 			{
 				$def_cfgform = aw_ini_get("document.default_cfgform");
-				if ($this->can("view",$def_cfgform))
+				if (acl_base::can("",$def_cfgform))
 				{
 					$cfg_props = $this->load_from_storage(array(
 						"id" => $def_cfgform,
 					));
-
-					if ($this->cfg_debug)
-					{
-						print "loading cfgform $def_cfgform specified by document.default_cfgform";
-					}
 				}
 				else
 				{
-					if ($this->cfg_debug)
-					{
-						print "loading the most basic document template";
-					}
-
 					list($cfg_props,$grplist) = $this->load_from_file();
 
 					if (empty($this->groupinfo) || !empty($grplist))
@@ -4883,8 +4836,7 @@ class class_base extends aw_template implements orb_public_interface
 					}
 				}
 			}
-			else
-			if (is_oid($this->inst->cfgmanager))
+			elseif (is_oid($this->inst->cfgmanager))
 			{
 				// load a configuration manager if a class uses it
 				$cfg_loader = new object($this->inst->cfgmanager);
@@ -4906,24 +4858,18 @@ class class_base extends aw_template implements orb_public_interface
 						{
 							$found_form = $forms[$grp_oid];
 							$this->tmp_cfgform = $found_form;
-						};
-					};
+						}
+					}
 				}
 
 				// gruppides ei muutu mitte midagi
 
 				// use it, if we found one, otherwise fall back to defaults
-				if ($this->can("view",$found_form))
+				if (acl_base::can("", $found_form))
 				{
 					$cfg_props = $this->load_from_storage(array(
 						"id" => $found_form,
 					));
-
-					if ($this->cfg_debug)
-					{
-						print "loading default cfgform " . $found_form;
-						print "<br>";
-					}
 				}
 			}
 			else
@@ -6217,7 +6163,7 @@ class class_base extends aw_template implements orb_public_interface
 		{
 			extract($_GET);
 			$cfgform_i = get_instance(CL_CFGFORM);
-			if(is_oid($id) && $this->can("view" , $id))
+			if(is_oid($id) && acl_base::can("view" , $id))
 			{
 				$this->object = $o = obj($id);
 
@@ -6231,7 +6177,7 @@ class class_base extends aw_template implements orb_public_interface
 				}
 
 				$cfgform_i->cff_init_from_class($o, $o->class_id(), false);
-				if(is_oid($cfgform) && $this->can("view", $cfgform))
+				if(is_oid($cfgform) && acl_base::can("view", $cfgform))
 				{
 
 					$props2 = $cfgform_i->get_props_from_cfgform(array("id" => $cfgform));

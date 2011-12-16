@@ -187,7 +187,7 @@ class html_popup extends class_base
 			$show_obj = new object($o->prop("show_obj"));
 			if (CL_DOCUMENT == $show_obj->class_id())
 			{
-				$t = get_instance(CL_DOCUMENT);
+				$t = new document();
 				$content = $t->gen_preview(array(
 					"docid" => $show_obj->id(),
 					"tpl_auto" => 1,
@@ -239,7 +239,7 @@ class html_popup extends class_base
 		$show_obj = new object($o->prop("show_obj"));
 		if (CL_DOCUMENT == $show_obj->class_id())
 		{
-			$t = get_instance(CL_DOCUMENT);
+			$t = new document();
 			$content = $t->gen_preview(array(
 				"docid" => $show_obj->id(),
 				"tpl_auto" => 1,

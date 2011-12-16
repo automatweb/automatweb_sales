@@ -148,7 +148,7 @@ class layout extends class_base
 			$tmp .= $h_tmp;
 		}
 
-		$d = get_instance(CL_DOCUMENT);
+		$d = new document();
 		$d->create_relative_links($tmp);
 		if (strpos($tmp, "<a") !== false || strpos($tmp, "< a") !== false || strpos($tmp, "<A") !== false)
 		{
@@ -209,7 +209,7 @@ class layout extends class_base
 				{
 					$tmp .= nl2br($arr['obj_inst']->prop("footer"));
 				}
-				$d = get_instance(CL_DOCUMENT);
+				$d = new document();
 				$d->create_relative_links($tmp);
 				if (strpos($tmp, "<a") !== false)
 				{

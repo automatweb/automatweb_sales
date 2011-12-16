@@ -1017,12 +1017,10 @@ class _int_object
 
 	function get_group_list()
 	{
-		$clid = isset($this->obj["class_id"]) ? $this->obj["class_id"] : null; //!!! return default kui clid null
-		$classes = aw_ini_get("classes");
+		$clid = isset($this->obj["class_id"]) ? $this->obj["class_id"] : null; //TODO: return default kui clid null
 		$inf = object_loader::instance()->load_properties(array(
-			"file" => ($clid == doc_obj::CLID ? "doc" : basename($classes[$clid]["file"])),
+			"file" => basename(aw_ini_get("classes.{$clid}.file")),
 			"clid" => $clid
-
 		));
 		return $inf[4];
 	}
@@ -1900,9 +1898,8 @@ class _int_object
 				$GLOBALS["properties"][$cl_id],
 				$GLOBALS["tableinfo"][$cl_id],
 				$GLOBALS["relinfo"][$cl_id],
-				$GLOBALS["classinfo"][$cl_id],
-			) =
-			object_loader::instance()->load_properties(array(
+				$GLOBALS["classinfo"][$cl_id]
+			) = object_loader::instance()->load_properties(array(
 				"file" => $file,
 				"clid" => $cl_id
 		));
@@ -2385,19 +2382,6 @@ class _int_object
 			$tmpo = obj($oid);
 			// get object's class info
 			$clid = $tmpo->class_id();
-			if ($clid == 7)
-			{
-				$type = ST_DOCUMENT;
-			}
-			elseif (isset($GLOBALS["classinfo"][$clid]["syslog_type"]["text"]) and defined($GLOBALS["classinfo"][$clid]["syslog_type"]["text"]))
-			{
-				$type = defined($GLOBALS["classinfo"][$clid]["syslog_type"]["text"]) ? constant($GLOBALS["classinfo"][$clid]["syslog_type"]["text"]) : NULL;
-			}
-			else
-			{
-				$type = 10000;
-			}
-
 			$nm = $tmpo->name();
 
 			if ($full_delete)

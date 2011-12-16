@@ -76,7 +76,6 @@
 		</relationmgr>
 	</groupinfo>
 	<classinfo>
-		<fixed_toolbar>1</fixed_toolbar>
 		<allow_rte>0</allow_rte>
 	</classinfo>
 </properties>

@@ -90,7 +90,7 @@ class document extends aw_template implements orb_public_interface
 		{
 			$retval = $docobj->fetch();
 			$retval["docid"] = $retval["oid"];
-		};
+		}
 		$retval["title"] = $docobj->trans_get_val("title"); // fix condition when brother has a different name
 		return $retval;
 	}
@@ -195,7 +195,7 @@ class document extends aw_template implements orb_public_interface
 		if (!isset($doc))
 		{
 			return false;
-		};
+		}
 
 		$oid = aw_global_get("oid");
 		if ($oid)

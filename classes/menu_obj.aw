@@ -119,7 +119,7 @@ class menu_obj extends _int_object
 			{
 				$_SERVER["REQUEST_URI"] = $request_uri;
 
-				if ($path_info)
+				if (strlen($path_info) > 1)
 				{
 					if (($_pos = strpos($path_info, "section=")) === false)
 					{
@@ -165,8 +165,7 @@ class menu_obj extends _int_object
 								{
 									$_tpos = $_tpos2;
 								}
-								else
-								if ($_tpos2 === false)
+								elseif ($_tpos2 === false)
 								{
 									$_tpos = $_tpos1;
 								}
@@ -201,6 +200,10 @@ class menu_obj extends _int_object
 					{
 						$section = preg_replace("|^" . AW_REQUEST_CT_LANG_CODE . "/|", "", $section);
 					}
+				}
+				elseif ("/" === $path_info)
+				{
+					$section = aw_ini_get("frontpage");
 				}
 			}
 		}

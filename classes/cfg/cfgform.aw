@@ -296,6 +296,8 @@
 */
 class cfgform extends class_base
 {
+	var $all_props;
+
 	public $cfg_proplist;
 	/*
 	Format: array(
@@ -517,13 +519,18 @@ class cfgform extends class_base
 				break;
 
 			case "ctype":
-
 				$clid = $arr["obj_inst"]->prop("subclass");
 				$iu = html::img(array(
 					"url" => icons::get_icon_url($clid,""),
 				));
-				$tmp = aw_ini_get("classes");
-				$data["value"] = $iu . " " . $tmp[$clid]["name"] . " [" . basename($tmp[$clid]["file"]) . "]";
+				try
+				{
+					$data["value"] = $iu . " " . aw_ini_get("classes.{$clid}.name") . " [" . basename(aw_ini_get("classes.{$clid}.file")) . "]";
+				}
+				catch (Exception $e)
+				{
+					$this->show_error_text(t("Klassi, millele seadete vorm kehtib, ei leidunud."));
+				}
 				break;
 
 			case "navtoolbar":
@@ -1183,21 +1190,16 @@ class cfgform extends class_base
 
 	function _init_properties($class_id)
 	{
-		error::raise_if(empty($class_id),(array(
-			"id" => "ERR_ABSTRACT",
-			"msg" => t("this is not a valid config form - class_id not specified")
-		)));
-
-		$tmp = aw_ini_get("classes");
-		$fl = $tmp[$class_id]["file"];
-
-		if (basename($fl) == "document")
+		if (aw_ini_isset("classes.{$class_id}.file"))
 		{
-			$fl = "doc";
+			$fl = aw_ini_get("classes.{$class_id}.file");
+			$inst = get_instance($fl);
+			$this->all_props = $inst->get_all_properties();//XXX: get_all_properties on deprecated meetod
 		}
-
-		$inst = get_instance($fl);
-		$this->all_props = $inst->get_all_properties();//XXX: get_all_properties on deprecated meetod
+		else
+		{
+			//TODO: vigane v6i vana clid, veateade, ...
+		}
 	}
 
 	function set_property($arr)
@@ -1228,7 +1230,7 @@ class cfgform extends class_base
 
 			case "add_grp_name":
 			case "add_grp_caption":
-				$retval = PROP_IGNORE;
+				$retval = class_base::PROP_IGNORE;
 				break;
 			// END add grp form props
 
@@ -1496,7 +1498,6 @@ class cfgform extends class_base
 
 	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["post_ru"] = get_ru();
 		$arr["cfgform_add_grp"] = isset($request["cfgform_add_grp"]) ? $request["cfgform_add_grp"] : "";
 	}
 
@@ -2406,6 +2407,10 @@ class cfgform extends class_base
 
 		$c = "";
 		$cnt = 0;
+		$property_defaults = array(
+			"type" => ""
+		);
+
 		foreach($by_group as $key => $proplist)
 		{
 			$grp_id = str_replace("_", "-", $key);
@@ -2448,6 +2453,8 @@ class cfgform extends class_base
 					{
 						continue;
 					}
+
+					$property += $property_defaults;
 
 					if (empty($property["cfgf_property_editing_disabled"]))
 					{

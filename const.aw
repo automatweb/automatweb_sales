@@ -439,11 +439,6 @@ function get_instance($class, $args = array(), $errors = true)
 		throw new aw_exception("Can't load class when no name given.");
 	}
 
-	if (!empty($GLOBALS["TRACE_INSTANCE"]))
-	{
-		echo "get_instance $class from ".dbg::short_backtrace()." <br>";
-	}
-
 	$site = $designed = false;
 	if (is_numeric($class))
 	{

@@ -189,11 +189,11 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 			- poll
 		*/
 		$show_links_table = false;
-		$document_inst = get_instance(CL_DOCUMENT);
+		$document_inst = new document();
 
 		if (!empty($this->custom_design_document_object))
 		{
-			$document_inst = get_instance(CL_DOCUMENT);
+			$document_inst = new document();
 			$document_content = $document_inst->gen_preview(array(
 				"docid" => $this->custom_design_document_object->id(),
 			));
