@@ -5,7 +5,7 @@
 	<title>{VAR:html_title} {VAR:title_action}</title>
 	<link rel="shortcut icon" href="{VAR:baseurl}automatweb/images/aw06/favicon.ico" />
 
-	<link href="{VAR:baseurl}automatweb/css/style-min.css" rel="stylesheet" type="text/css" />
+	<link href="{VAR:baseurl}automatweb/css/style.css" rel="stylesheet" type="text/css" />
 	{VAR:css_styles_head}
 
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/js-min.js"></script>
@@ -45,11 +45,12 @@ function aw_keyhandler_init(event)
 		<div class="icon"><img src="/automatweb/images/aw06/blank.gif" width="40" alt="" /></div>\
 		<div class="selected_object_name"></div>\
 		<input type="text" id="aw_object_quickadd_input" class="text" /></div>\
-		<div id="aw_object_quickadd_results" style="display: none;" ></div>';
+		<div id="aw_object_quickadd_results" style="display: none;" ></div>\
+	';
+
 	$("body").append(html);
 
-	$.get("{VAR:baseurl}automatweb/orb.aw?class=shortcut_manager&action=parse_shortcuts_from_xml", {}, function (d)
-		{
+	$.get("{VAR:baseurl}automatweb/orb.aw?class=shortcut_manager&amp;action=parse_shortcuts_from_xml", {}, function (d){
 			eval(d);
 			// fetch items on demand
 			$("#aw_object_quickadd").aw_object_quickadd(null, options);
@@ -57,7 +58,7 @@ function aw_keyhandler_init(event)
 			jQuery.hotkeys.add('Ctrl+Shift+a', function(){
 				desc = prompt("Kirjeldus", "nimetu");
 				if(desc){
-					aw_popup_scroll("{VAR:stop_pop_url_add}&name=" + desc, "quick_task_entry", 800,600);
+					aw_popup_scroll("{VAR:stop_pop_url_add}&amp;name=" + desc, "quick_task_entry", 800,600);
 				}
 			});
 
@@ -70,8 +71,7 @@ function aw_keyhandler_init(event)
 			});
 
 			$(window).unbind("keydown", aw_keyhandler_rec);
-			for(var i = 0; i < recKp.length; i++)
-			{
+			for(var i = 0; i < recKp.length; i++){
 				$(window).trigger("keydown", recKp[i]);
 			}
 		}
@@ -168,19 +168,20 @@ function cfEditClickGroup(group, oid)
 	{VAR:content}
 
 <!-- //sisu -->
+
 <!-- jalus -->
 <!-- SUB: YAH2 -->
-	<div id="jalus">
-		{VAR:footer_l1} <br />
-		{VAR:footer_l2} <a href="http://www.struktuur.ee">Struktuur Varahaldus</a>, <a href="http://www.automatweb.com/">AutomatWeb</a>.
-	</div>
+<div id="jalus">
+	{VAR:footer_l1} <br />
+	{VAR:footer_l2} <a href="http://www.struktuur.ee">Struktuur Varahaldus</a>, <a href="http://www.automatweb.com/">AutomatWeb</a>.
+</div>
 <!-- END SUB: YAH2 -->
 <!--//jalus -->
 
 <!-- SUB: POPUP_MENUS -->
 <!-- END SUB: POPUP_MENUS -->
 
-	<div id="ajaxLoader" style="display: none;">
+<div id="ajaxLoader" style="display: none;">
 	<img src="/automatweb/images/ajax-loader2.gif" width="220" height="19" alt="" />
 	<div>{VAR:ajax_loader_msg}</div>
 </div>
