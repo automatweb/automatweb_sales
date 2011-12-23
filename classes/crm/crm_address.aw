@@ -913,9 +913,12 @@ class crm_address extends class_base
 	**/
 	function get_country_by_code($code, $parent,$use_ex = null)
 	{
-		$countrys = $this->get_country_list();
-		$name = $countrys[$code];
-		if(!$name)
+		$countries = $this->get_country_list();
+		if(isset($countries[$code]))
+		{
+			$name = $countries[$code];
+		}
+		else
 		{
 			return null;
 		}
@@ -960,8 +963,8 @@ class crm_address extends class_base
 		{
 			return "";
 		}
-		$countrys = $this->get_country_list();
-		return array_search($o->name(), $countrys);
+		$countries = $this->get_country_list();
+		return array_search($o->name(), $countries);
 	}
 
 	function get_phone_ext_list_as_js_array()

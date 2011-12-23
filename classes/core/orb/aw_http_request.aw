@@ -104,6 +104,16 @@ class aw_http_request extends aw_request
 		return clone $this->_uri;
 	}
 
+	/**
+	@attrib api=1 params=pos
+	@returns string
+		Request method name. "POST" | "GET" ...
+	**/
+	public function get_method()
+	{
+		return $this->_method;
+	}
+
 	private function _autoload()
 	{
 		if (!empty($_SERVER["REQUEST_METHOD"]))

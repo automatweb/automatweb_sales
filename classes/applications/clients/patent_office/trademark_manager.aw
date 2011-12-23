@@ -158,7 +158,7 @@ class trademark_manager extends class_base
 				break;
 			case "exp_link":
 				$prop["value"] = html::href(array(
-					"url" =>  $this->mk_my_orb("nightly_export"),
+					"url" =>  $this->mk_my_orb("nightly_export", array(), "trademark_manager"),
 					"caption" => t("EKSPORDI!")
 				));
 		}
@@ -212,7 +212,7 @@ class trademark_manager extends class_base
 	public function _get_procurators_toolbar($arr)
 	{
 		$return = PROP_OK;
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$procurators_folder = $arr["obj_inst"]->prop("procurators_folder");
 		if ($this->can("view", $procurators_folder))
@@ -423,7 +423,7 @@ class trademark_manager extends class_base
 				"id" => $arr["obj_inst"]->id(),
 				"group" => "applications",
 				"p_id" => "verified",
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(1, array(
 			"id" => 11,
@@ -433,7 +433,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "verified",
 				"p_cl" => "tm"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(1, array(
 			"id" => 12,
@@ -443,7 +443,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "verified",
 				"p_cl" => "pat"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(1, array(
 			"id" => 13,
@@ -453,7 +453,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "verified",
 				"p_cl" => "um"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(1, array(
 			"id" => 14,
@@ -463,7 +463,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "verified",
 				"p_cl" => "ind"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(1, array(
 			"id" => 15,
@@ -473,7 +473,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "verified",
 				"p_cl" => "epat"
-			)),
+			), "trademark_manager"),
 		));
 
 		$arr["prop"]["vcl_inst"]->add_item(0, array(
@@ -483,7 +483,7 @@ class trademark_manager extends class_base
 				"id" => $arr["obj_inst"]->id(),
 				"group" => "applications",
 				"p_id" => "archive",
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(2, array(
 			"id" => 21,
@@ -493,7 +493,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "archive",
 				"p_cl" => "tm"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(2, array(
 			"id" => 22,
@@ -503,7 +503,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "archive",
 				"p_cl" => "pat"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(2, array(
 			"id" => 23,
@@ -513,7 +513,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "archive",
 				"p_cl" => "um"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(2, array(
 			"id" => 24,
@@ -523,7 +523,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "archive",
 				"p_cl" => "ind"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(2, array(
 			"id" => 25,
@@ -533,7 +533,7 @@ class trademark_manager extends class_base
 				"group" => "applications",
 				"p_id" => "archive",
 				"p_cl" => "epat"
-			)),
+			), "trademark_manager"),
 		));
 		$arr["prop"]["vcl_inst"]->add_item(0, array(
 			"id" => 3,
@@ -542,7 +542,7 @@ class trademark_manager extends class_base
 				"id" => $arr["obj_inst"]->id(),
 				"group" => "applications",
 				"p_id" => "not_verified",
-			)),
+			), "trademark_manager"),
 		));
 
 		$sel = "0";
@@ -1107,7 +1107,7 @@ class trademark_manager extends class_base
 							"popup" => 1,
 							"sel" => array($o->id() => $o->id()),
 							"id" => $arr["obj_inst"]->id(),
-						))
+						), "trademark_manager")
 					.'","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
 				)),
 			));

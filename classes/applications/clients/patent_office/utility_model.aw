@@ -2,7 +2,7 @@
 // utility_model.aw - Kasulik mudel
 /*
 
-@classinfo syslog_type=ST_UTILITY_MODEL relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @extends applications/clients/patent_office/intellectual_property
 @tableinfo aw_trademark index=aw_oid master_table=objects master_index=brother_of
 
@@ -223,7 +223,7 @@ class utility_model extends intellectual_property
 
 	protected function get_object()
 	{
-		if(is_oid($_SESSION["patent"]["id"]))
+		if(!empty($_SESSION["patent"]["id"]))
 		{
 			$patent = obj($_SESSION["patent"]["id"]);
 		}
@@ -250,12 +250,15 @@ class utility_model extends intellectual_property
 		$sum = 0;
 		$is_corporate = false;
 
-		foreach($_SESSION["patent"]["applicants"] as $val)
+		if (isset($_SESSION["patent"]["applicants"]))
 		{
-			if($val["applicant_type"])
+			foreach(safe_array($_SESSION["patent"]["applicants"]) as $val)
 			{
-				$is_corporate = true;
-				break;
+				if($val["applicant_type"])
+				{
+					$is_corporate = true;
+					break;
+				}
 			}
 		}
 
@@ -267,19 +270,19 @@ class utility_model extends intellectual_property
 	{
 		$data = parent::get_vars($arr);
 
-		if(isset($_SESSION["patent"]["delete_author"]))
+		if (isset($_SESSION["patent"]["delete_author"]))
 		{
 			unset($_SESSION["patent"]["authors"][$_SESSION["patent"]["delete_author"]]);
 			unset($_SESSION["patent"]["delete_author"]);
 		}
 
-		if($_SESSION["patent"]["add_new_author"])
+		if (!empty($_SESSION["patent"]["add_new_author"]))
 		{
 			$_SESSION["patent"]["add_new_author"] = null;
 			$_SESSION["patent"]["change_author"] = null;
 			$_SESSION["patent"]["author_id"] = null;
 		}
-		elseif(strlen(trim(($_SESSION["patent"]["author_id"]))))
+		elseif (isset($_SESSION["patent"]["author_id"]) and strlen(trim($_SESSION["patent"]["author_id"])))
 		{
 			$this->_get_author_data();
 			$data["change_author"] = $_SESSION["patent"]["author_id"];
@@ -288,7 +291,7 @@ class utility_model extends intellectual_property
 		}
 		else
 		{
-			$data["author_no"] = sizeof($_SESSION["patent"]["authors"]) + 1;
+			$data["author_no"] = isset($_SESSION["patent"]["authors"]) ? count($_SESSION["patent"]["authors"]) + 1 : 1;
 		}
 		//nendesse ka siis see tingumus, et muuta ei saa
 
@@ -300,7 +303,7 @@ class utility_model extends intellectual_property
 				"name" => "add_new_author",
 		));
 
-		if(is_array($_SESSION["patent"]["authors"]) && sizeof($_SESSION["patent"]["authors"]))
+		if (isset($_SESSION["patent"]["authors"]) && is_array($_SESSION["patent"]["authors"]) && sizeof($_SESSION["patent"]["authors"]))
 		{
 			$data["authors_table"] = $this->_get_authors_table();
 		}
@@ -345,12 +348,12 @@ class utility_model extends intellectual_property
 				}
 			}
 
-			if(!is_oid($_SESSION["patent"]["attachment_invention_description"]) and empty($_FILES["attachment_invention_description_upload"]["tmp_name"]))
+			if (empty($_SESSION["patent"]["attachment_invention_description"]) and empty($_FILES["attachment_invention_description_upload"]["tmp_name"]))
 			{
 				$err.= t("Leiutiskirjeldus peab olema lisatud")."\n<br>";
 			}
 
-			if(empty($err))
+			if (empty($err))
 			{
 				$_SESSION["patent"]["checked"]["14"] = "14";
 			}

@@ -123,7 +123,7 @@ class euro_patent_et_desc extends intellectual_property
 
 	protected function get_object()
 	{
-		if(is_oid($_SESSION["patent"]["id"]))
+		if(!empty($_SESSION["patent"]["id"]))
 		{
 			$patent = obj($_SESSION["patent"]["id"]);
 		}
@@ -155,9 +155,10 @@ class euro_patent_et_desc extends intellectual_property
 	{
 		$data = parent::get_vars($arr);
 
-		if(sizeof($_SESSION["patent"]["applicants"]) == 1)
+		if(isset($_SESSION["patent"]["applicants"]) and count($_SESSION["patent"]["applicants"]) == 1)
 		{
-			$_SESSION["patent"]["representer"] = reset(array_keys($_SESSION["patent"]["applicants"]));
+			$keys = array_keys($_SESSION["patent"]["applicants"]);
+			$_SESSION["patent"]["representer"] = reset($keys);
 		}
 
 		return $data;
@@ -188,7 +189,7 @@ class euro_patent_et_desc extends intellectual_property
 				}
 			}
 
-			$date = mktime(0, 0, 0, $_POST["epat_date"]["month"], $_POST["epat_date"]["day"], $_POST["epat_date"]["year"]);
+			$date = mktime(0, 0, 0, (int) $_POST["epat_date"]["month"], (int) $_POST["epat_date"]["day"], (int) $_POST["epat_date"]["year"]);
 			if(1025470800 > $date) // July 1st 2002
 			{
 				$err.= t("Kuup&auml;ev peab olema suurem kui 1. juuli 2002")."\n<br>";

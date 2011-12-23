@@ -62,7 +62,7 @@ class trademark_add extends class_base
 	**/
 	function parse_alias($arr = array())
 	{
-		$tm_inst = get_instance(CL_PATENT);
+		$tm_inst = new patent();
 		return $tm_inst->parse_alias($arr);
 	}
 

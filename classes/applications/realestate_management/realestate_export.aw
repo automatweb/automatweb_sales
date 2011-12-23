@@ -182,9 +182,9 @@ class realestate_export extends class_base
 					"url" => aw_url_change_var("company", $o->id()),
 				));
 
-				$treeview = get_instance(CL_TREEVIEW);
+				$treeview = new treeview();
 				$treeview->init_vcl_property ($arr);
-				$arr["prop"]["vcl_inst"] =& $treeview;
+				$arr["prop"]["vcl_inst"] = $treeview;
 				$this->_delegate_co_v($arr, "_get_unit_listing_tree", $o);
 				$trees[$o->id ()] = $arr["prop"]["vcl_inst"];
 			}
@@ -285,8 +285,6 @@ class realestate_export extends class_base
 
 	function callback_mod_reforb($arr, $request)
 	{
-		$arr["post_ru"] = post_ru();
-
 		if ($request["unit"])
 		{
 			$arr["realestate_unit"] = $request["unit"];
@@ -412,5 +410,3 @@ class realestate_export extends class_base
 		exit;
 	}
 }
-
-?>

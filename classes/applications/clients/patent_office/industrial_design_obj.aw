@@ -86,5 +86,3 @@ class industrial_design_obj extends intellectual_property_obj
 		}
 	}
 }
-
-?>
