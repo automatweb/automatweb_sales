@@ -113,9 +113,27 @@ class patent extends intellectual_property
 			4 => "fee_tm",
 			5 => "check_tm"
 		);
-		$this->types = array(t("S&otilde;nam&auml;rk"),t("Kujutism&auml;rk"),t("Kombineeritud m&auml;rk"),t("Ruumiline m&auml;rk"));
-		$this->types_disp = array(t("(541) S&otilde;nam&auml;rk"),t("(546) Kujutism&auml;rk"),t("(546) Kombineeritud m&auml;rk"),t("(554) Ruumiline m&auml;rk"));
-		$this->trademark_types = array(t("Kollektiivkaubam&auml;rk"),t("Garantiim&auml;rk"));
+
+		$this->types = array(
+			"" => t("M&auml;&auml;ramata"),
+			0 => t("S&otilde;nam&auml;rk"),
+			1 => t("Kujutism&auml;rk"),
+			2 => t("Kombineeritud m&auml;rk"),
+			3 => t("Ruumiline m&auml;rk")
+		);
+
+		$this->types_disp = array(
+			0 => t("(541) S&otilde;nam&auml;rk"),
+			1 => t("(546) Kujutism&auml;rk"),
+			2 => t("(546) Kombineeritud m&auml;rk"),
+			3 => t("(554) Ruumiline m&auml;rk")
+		);
+
+		$this->trademark_types = array(
+			0 => t("Kollektiivkaubam&auml;rk"),
+			1 => t("Garantiim&auml;rk")
+		);
+
 		$this->pdf_file_name = "Kaubamargitaotlus";
 		$this->show_template = "show_tm.tpl";
 		$this->show_sent_template = "show_sent_tm.tpl";
@@ -198,13 +216,13 @@ class patent extends intellectual_property
 
 	function get_results_table()
 	{
-		if(!empty($_SESSION["patent"]["delete"]))
+		if (!empty($_SESSION["patent"]["delete"]))
 		{
 			unset($_SESSION['patent']['products'][$_SESSION["patent"]["delete"]]);
 			$_SESSION["patent"]["delete"] = null;
 		}
 
-		if(!isset($_SESSION["patent"]["prod_selection"]) and !isset($_SESSION["patent"]["products"]) or !is_array($_SESSION["patent"]["prod_selection"]) and !is_array($_SESSION["patent"]["products"]))
+		if ((!isset($_SESSION["patent"]["prod_selection"]) or !is_array($_SESSION["patent"]["prod_selection"])) and (!isset($_SESSION["patent"]["products"]) or !is_array($_SESSION["patent"]["products"])))
 		{
 			return;
 		}
@@ -285,7 +303,8 @@ class patent extends intellectual_property
 
 		if(isset($_SESSION["patent"]["applicants"]) and sizeof($_SESSION["patent"]["applicants"]) == 1)
 		{
-			$_SESSION["patent"]["representer"] = reset(array_keys($_SESSION["patent"]["applicants"]));
+			$applicant_ids = array_keys($_SESSION["patent"]["applicants"]);
+			$_SESSION["patent"]["representer"] = reset($applicant_ids);
 		}
 
 		$data["type_text"] = isset($this->types_disp[$patent_type]) ? $this->types_disp[$patent_type] : "";
@@ -357,14 +376,14 @@ class patent extends intellectual_property
 		$data["find_products"] = html::href(array(
 			"caption" => t("Sisene klassifikaatorisse") ,
 			"url"=> "javascript:void(0);",
-			"onclick" => 'javascript:window.open("'.$this->mk_my_orb("find_products", array("ru" => get_ru(), "print" => 1)).'","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
+			"onclick" => 'javascript:window.open("'.$this->mk_my_orb("find_products", array("ru" => get_ru(), "print" => 1),  "patent").'","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
 		));
 
 		$_SESSION["patent"]["prod_ru"] = get_ru();
 		$data["results_table"] = $this->get_results_table();
 
-		$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => isset($_SESSION["patent"]["trademark_id"]) ? $_SESSION["patent"]["trademark_id"] : "", "add_obj" => $arr["alias"]["to"]))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800')";
-		$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , 	"id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]) , CL_PATENT);
+		$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]),  "patent")."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800')";
+		$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , 	"id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]), "patent");
 		return $data;
 	}
 
@@ -386,6 +405,7 @@ class patent extends intellectual_property
 			);
 		}
 
+		$result_list = "";
 		if(!empty($arr["product"]) || !empty($arr["prodclass"]))
 		{
 			if($arr["prodclass"])
@@ -424,7 +444,7 @@ class patent extends intellectual_property
 			}
 			$parents = new object_list(array(
 				"comment" => "%".$arr["prodclass"]."%",
-				"class_id" => CL_MENU ,
+				"class_id" => CL_MENU,
 				"lang_id" => array(),
 				"limit" => $limit,
 			));
@@ -438,9 +458,9 @@ class patent extends intellectual_property
 				$prod_list = new object_list(array(
 					"userta1" => "%".$arr["product"]."%",
 					"parent" => $id,
-					"class_id" => CL_SHOP_PRODUCT ,
+					"class_id" => CL_SHOP_PRODUCT,
 					"lang_id" => array(),
-					"limit" => $limit,
+					"limit" => $limit
 				));
 
 				foreach($prod_list->arr() as $p)
@@ -468,7 +488,7 @@ class patent extends intellectual_property
 					$parent = obj($prod->parent());
 					if($prod->prop("userch10"))
 					{
-						$p = "<b>".$prod->prop("userta1")."</b>";
+						$p = html::bold($prod->prop("userta1"));
 					}
 					else
 					{
@@ -667,9 +687,9 @@ class patent extends intellectual_property
 		$js2 = parent::get_js();
 		$js = "";
 
-		if($_GET["data_type"] == 1)
+		if (automatweb::$request->arg("data_type") == 1)
 		{
-			if(!$_SESSION["patent"]["type"])
+			if (empty($_SESSION["patent"]["type"]))
 			{
 				$js.='document.getElementById("reproduction_row").style.display = "none";';
 				$js.='document.getElementById("color_row").style.display = "none";';
@@ -677,24 +697,21 @@ class patent extends intellectual_property
 				$js.='document.getElementById("wordmark_caption").innerHTML = "* Kaubam&auml;rk";';
 				$js.='document.getElementById("foreignlangelements_row").style.display = "";';
 			}
-
-			if($_SESSION["patent"]["type"] == 1)
+			elseif ($_SESSION["patent"]["type"] == 1)
 			{
 				$js.='document.getElementById("wordmark_row").style.display = "none";';
 				$js.='document.getElementById("foreignlangelements_row").style.display = "none";';
 				$js.='document.getElementById("reproduction_row").style.display = "";';
 				$js.='document.getElementById("color_row").style.display = "";';
 			}
-
-			if($_SESSION["patent"]["type"] == 2)
+			elseif ($_SESSION["patent"]["type"] == 2)
 			{
 				$js.='document.getElementById("wordmark_row").style.display = "none";';
 				$js.='document.getElementById("color_row").style.display = "";';
 				$js.='document.getElementById("reproduction_row").style.display = "";';
 				$js.='document.getElementById("foreignlangelements_row").style.display = "";';
      		}
-
-			if($_SESSION["patent"]["type"] == 3)
+			elseif ($_SESSION["patent"]["type"] == 3)
 			{
 				$js.='document.getElementById("wordmark_row").style.display = "none";';
 				$js.='document.getElementById("color_row").style.display = "";';
@@ -718,8 +735,9 @@ class patent extends intellectual_property
 	function check_fields()
 	{
 		$err = parent::check_fields();
+		$requested_data_type = automatweb::$request->arg("data_type");
 
-		if($_GET["data_type"] === "2")
+		if($requested_data_type === "2")
 		{
 			if(!is_array($_POST["products"]) && !is_array($_SESSION["patent"]["prod_selection"]) && !(is_array($_SESSION["patent"]["products"] && sizeof($_SESSION["patent"]["products"]))))
 			{
@@ -727,7 +745,7 @@ class patent extends intellectual_property
 			}
 		}
 
-		if($_GET["data_type"] === "1")
+		if($requested_data_type === "1")
 		{
 			if($_POST["type"] == 0 && !isset($_POST["word_mark"]))
 			{
@@ -751,19 +769,23 @@ class patent extends intellectual_property
 			}
 		}
 
-		if($_GET["data_type"] === "3" and ($_POST["convention_date"]["day"] || $_POST["exhibition_date"]["day"]))
+		if($requested_data_type === "3" and ($_POST["convention_date"]["day"] || $_POST["exhibition_date"]["day"]))
 		{
-			if(
+			if (
 				(
-						$_POST["convention_nr"] && mktime(0,0,0,$_POST["convention_date"]["month"],$_POST["convention_date"]["day"],$_POST["convention_date"]["year"]) <
-						mktime(0,0,0,date("m" , time())-6, date("j" , time())-5,date("Y" , time()))
+					$_POST["convention_nr"] &&
+					mktime(0,0,0,$_POST["convention_date"]["month"],$_POST["convention_date"]["day"],$_POST["convention_date"]["year"])
+						<
+					mktime(0,0,0,date("m" , time())-6, date("j" , time())-5,date("Y" , time()))
 				)
 				//time() - (30*6+5)*24*3600)
 				||
-
-					(
-						$_POST["exhibition_name"] && mktime(0,0,0,$_POST["exhibition_date"]["month"], $_POST["exhibition_date"]["day"],$_POST["exhibition_date"]["year"]) <   mktime(0,0,0,date("m" , time())-6, date("j" , time())-5,date("Y" , time()))
-					)
+				(
+					$_POST["exhibition_name"] &&
+					mktime(0,0,0,$_POST["exhibition_date"]["month"], $_POST["exhibition_date"]["day"],$_POST["exhibition_date"]["year"])
+						<
+					mktime(0,0,0,date("m" , time())-6, date("j" , time())-5,date("Y" , time()))
+				)
 				//time() - (30*6 + 5)*24*3600 )
 			 )
 			{
@@ -773,11 +795,11 @@ class patent extends intellectual_property
 
 		if(empty($err))
 		{
-			$_SESSION["patent"]["checked"][$_GET["data_type"]] = $_GET["data_type"];
+			$_SESSION["patent"]["checked"][$requested_data_type] = $requested_data_type;
 		}
 		else
 		{
-			unset($_SESSION["patent"]["checked"][$_GET["data_type"]]);
+			unset($_SESSION["patent"]["checked"][$requested_data_type]);
 		}
 
 		return $err;

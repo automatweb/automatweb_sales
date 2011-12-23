@@ -275,8 +275,8 @@ class patent_patent extends intellectual_property
 
 	protected function save_invention($patent)
 	{
-		$patent->set_prop("invention_name_et" , $_SESSION["patent"]["invention_name_et"]);
-		$patent->set_prop("invention_name_en" , $_SESSION["patent"]["invention_name_en"]);
+		$patent->set_prop("invention_name_et", $_SESSION["patent"]["invention_name_et"]);
+		$patent->set_prop("invention_name_en", $_SESSION["patent"]["invention_name_en"]);
 		$patent->save();
 	}
 
@@ -288,20 +288,20 @@ class patent_patent extends intellectual_property
 
 	protected function save_other_data($patent)
 	{
-		$patent->set_prop("other_first_application_data_date" , $_SESSION["patent"]["other_first_application_data_date"]);
-		$patent->set_prop("other_first_application_data_country" , $_SESSION["patent"]["other_first_application_data_country"]);
-		$patent->set_prop("other_first_application_data_nr" , $_SESSION["patent"]["other_first_application_data_nr"]);
-		$patent->set_prop("other_bio_nr" , $_SESSION["patent"]["other_bio_nr"]);
-		$patent->set_prop("other_bio_date" , $_SESSION["patent"]["other_bio_date"]);
-		$patent->set_prop("other_bio_inst" , $_SESSION["patent"]["other_bio_inst"]);
-		$patent->set_prop("other_datapub_date" , $_SESSION["patent"]["other_datapub_date"]);
-		$patent->set_prop("other_datapub_data" , $_SESSION["patent"]["other_datapub_data"]);
+		$patent->set_prop("other_first_application_data_date" , isset($_SESSION["patent"]["other_first_application_data_date"]) ? $_SESSION["patent"]["other_first_application_data_date"] : "");
+		$patent->set_prop("other_first_application_data_country" , isset($_SESSION["patent"]["other_first_application_data_country"]) ? $_SESSION["patent"]["other_first_application_data_country"] : "");
+		$patent->set_prop("other_first_application_data_nr" , isset($_SESSION["patent"]["other_first_application_data_nr"]) ? $_SESSION["patent"]["other_first_application_data_nr"] : "");
+		$patent->set_prop("other_bio_nr" , isset($_SESSION["patent"]["other_bio_nr"]) ? $_SESSION["patent"]["other_bio_nr"] : "");
+		$patent->set_prop("other_bio_date" , isset($_SESSION["patent"]["other_bio_date"]) ? $_SESSION["patent"]["other_bio_date"] : "");
+		$patent->set_prop("other_bio_inst" , isset($_SESSION["patent"]["other_bio_inst"]) ? $_SESSION["patent"]["other_bio_inst"] : "");
+		$patent->set_prop("other_datapub_date" , isset($_SESSION["patent"]["other_datapub_date"]) ? $_SESSION["patent"]["other_datapub_date"] : "");
+		$patent->set_prop("other_datapub_data" , isset($_SESSION["patent"]["other_datapub_data"]) ? $_SESSION["patent"]["other_datapub_data"] : "");
 		$patent->save();
 	}
 
 	protected function get_object()
 	{
-		if(is_oid($_SESSION["patent"]["id"]))
+		if (!empty($_SESSION["patent"]["id"]))
 		{
 			$patent = obj($_SESSION["patent"]["id"]);
 		}
@@ -333,12 +333,15 @@ class patent_patent extends intellectual_property
 	{
 		$is_corporate = false;
 
-		foreach($_SESSION["patent"]["applicants"] as $key => $val)
+		if (isset($_SESSION["patent"]["applicants"]))
 		{
-			if($val["applicant_type"])
+			foreach(safe_array($_SESSION["patent"]["applicants"]) as $key => $val)
 			{
-				$is_corporate = true;
-				break;
+				if($val["applicant_type"])
+				{
+					$is_corporate = true;
+					break;
+				}
 			}
 		}
 
@@ -349,7 +352,7 @@ class patent_patent extends intellectual_property
 	public function get_add_fee($float = false)
 	{
 		$sum = 0;
-		if(!empty($_SESSION["patent"]["attachment_demand_points"]) and 10 < $_SESSION["patent"]["attachment_demand_points"])
+		if (!empty($_SESSION["patent"]["attachment_demand_points"]) and 10 < $_SESSION["patent"]["attachment_demand_points"])
 		{
 			$sum = ($_SESSION["patent"]["attachment_demand_points"] - 10) * 12.78;
 		}
@@ -363,19 +366,19 @@ class patent_patent extends intellectual_property
 		$_SESSION["patent"]["add_fee_info"] = $this->get_add_fee();
 		$data["add_fee_info"] = $_SESSION["patent"]["add_fee_info"];
 
-		if(isset($_SESSION["patent"]["delete_author"]))
+		if (isset($_SESSION["patent"]["delete_author"]))
 		{
 			unset($_SESSION["patent"]["authors"][$_SESSION["patent"]["delete_author"]]);
 			unset($_SESSION["patent"]["delete_author"]);
 		}
 
-		if($_SESSION["patent"]["add_new_author"])
+		if (!empty($_SESSION["patent"]["add_new_author"]))
 		{
 			$_SESSION["patent"]["add_new_author"] = null;
 			$_SESSION["patent"]["change_author"] = null;
 			$_SESSION["patent"]["author_id"] = null;
 		}
-		elseif(strlen(trim(($_SESSION["patent"]["author_id"]))))
+		elseif(isset($_SESSION["patent"]["author_id"]) and strlen(trim($_SESSION["patent"]["author_id"])))
 		{
 			$this->_get_author_data();
 			$data["change_author"] = $_SESSION["patent"]["author_id"];
@@ -384,7 +387,7 @@ class patent_patent extends intellectual_property
 		}
 		else
 		{
-			$data["author_no"] = sizeof($_SESSION["patent"]["authors"]) + 1;
+			$data["author_no"] = isset($_SESSION["patent"]["authors"]) ? count($_SESSION["patent"]["authors"]) + 1 : 1;
 		}
 
 		$data["P_ADDRESS"] = $this->parse("P_ADDRESS");
@@ -395,7 +398,7 @@ class patent_patent extends intellectual_property
 				"name" => "add_new_author",
 		));
 
-		if(is_array($_SESSION["patent"]["authors"]) && sizeof($_SESSION["patent"]["authors"]))
+		if (isset($_SESSION["patent"]["authors"]) && is_array($_SESSION["patent"]["authors"]) && count($_SESSION["patent"]["authors"]))
 		{
 			$data["authors_table"] = $this->_get_authors_table();
 		}
@@ -440,12 +443,12 @@ class patent_patent extends intellectual_property
 				}
 			}
 
-			if(!is_oid($_SESSION["patent"]["attachment_invention_description"]) and empty($_FILES["attachment_invention_description_upload"]["tmp_name"]))
+			if (empty($_SESSION["patent"]["attachment_invention_description"]) and empty($_FILES["attachment_invention_description_upload"]["tmp_name"]))
 			{
 				$err.= t("Leiutiskirjeldus peab olema lisatud")."\n<br>";
 			}
 
-			if(empty($err))
+			if (empty($err))
 			{
 				$_SESSION["patent"]["checked"]["14"] = "14";
 			}
@@ -465,7 +468,7 @@ class patent_patent extends intellectual_property
 			"value" => 1,
 			"name" => "fee_copies_info",
 			"onclick" => "addCopyFee();",
-			"checked" => $_SESSION["patent"]["fee_copies_info"]
+			"checked" => !empty($_SESSION["patent"]["fee_copies_info"])
 		);
 		$data["fee_copies_info"] = html::checkbox($el_cfg);
 		return $data;
@@ -473,7 +476,7 @@ class patent_patent extends intellectual_property
 
 	function fill_session($id)
 	{
-		$address_inst = get_instance(CL_CRM_ADDRESS);
+		$address_inst = new crm_address();
 		$patent = obj($id);
 		parent::fill_session($id);
 		$author_disallow_disclose = (array) $patent->meta("author_disallow_disclose");

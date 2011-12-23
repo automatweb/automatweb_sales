@@ -966,13 +966,13 @@ class file extends class_base
 			$fs = $this->_put_fs(array(
 				"type" => $arr["type"],
 				"content" => $arr["content"],
-				"fs_folder_to_save_to" => $arr["fs_folder_to_save_to"],
+				"fs_folder_to_save_to" => isset($arr["fs_folder_to_save_to"]) ? $arr["fs_folder_to_save_to"] : "",
 				"name" => $arr["name"]
 			));
 		}
 
 		// now if we need to create a new object, do so
-		if (!$file_id)
+		if (empty($file_id))
 		{
 			$o = obj();
 			$o->set_parent($parent);

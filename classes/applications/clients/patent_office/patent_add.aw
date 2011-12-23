@@ -2,7 +2,7 @@
 // patent_add.aw - Patenditaotluse veebist lisamine
 /*
 
-@classinfo syslog_type=ST_PATENT_ADD relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -46,11 +46,6 @@ class patent_add extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	/** this will get called whenever this object needs to get shown in the website, via alias in document **/
 	function show($arr)
 	{
@@ -63,11 +58,11 @@ class patent_add extends class_base
 	}
 
 	/**
-		@attrib name=parse_alias is_public="1" caption="Change"
+		@attrib name=parse_alias is_public=1 caption="Change"
 	**/
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
-		$tm_inst = get_instance(CL_PATENT_PATENT);
+		$tm_inst = new patent_patent();
 		return $tm_inst->parse_alias($arr);
 	}
 
@@ -158,9 +153,9 @@ class patent_add extends class_base
 
 	function make_menu_link($o, $ref = NULL)
 	{
-		if($this->can("view" , $_SESSION["patent"]["id"]))
+		if (isset($_SESSION["patent"]["id"]) and acl_base::can("view" , $_SESSION["patent"]["id"]))
 		{
-			$tr_inst = get_instance(CL_PATENT_PATENT);
+			$tr_inst = new patent_patent();
 			$res = $tr_inst->is_signed($_SESSION["patent"]["id"]);
 
 			if($res["status"] == 1)
@@ -182,7 +177,7 @@ class patent_add extends class_base
 		{
 			$url = $_SERVER["SCRIPT_URI"]."?data_type=0" . (!empty($_GET["section"]) ? ("&section=".$_GET["section"]) : "");
 		}
-		elseif (in_array($item, $_SESSION["patent"]["checked"]))
+		elseif (isset($_SESSION["patent"]["checked"]) and in_array($item, $_SESSION["patent"]["checked"]))
 		{
 			$url = aw_url_change_var("data_type", $item);
 			$url = aw_url_change_var("new_application" , null , $url);
@@ -197,4 +192,3 @@ class patent_add extends class_base
 		return $url;
 	}
 }
-?>

@@ -2,7 +2,7 @@
 // trademark_status.aw - Trademark status
 /*
 
-@classinfo syslog_type=ST_TRADEMARK_STATUS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_trademark_status index=aw_oid master_table=objects master_index=brother_of
 
 @default group=general
@@ -42,11 +42,6 @@ class trademark_status extends class_base
 	public function _get_verified_date($arr)
 	{
 		$arr["prop"]["value"] = date("d.M. Y", $arr["prop"]["value"]);
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	/** this will get called whenever this object needs to get shown in the website, via alias in document **/
@@ -90,4 +85,3 @@ class trademark_status extends class_base
 		return false;
 	}
 }
-

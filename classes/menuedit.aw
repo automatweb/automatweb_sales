@@ -20,31 +20,28 @@ class menuedit extends aw_template implements request_startup
 			$section = (int)$section;
 		}
 
-		$set_lang_id = false;
-		$set_ct_lang_id = isset($_GET["set_ct_lang_id"]) ? $_GET["set_ct_lang_id"] : null;
 		if (aw_ini_get("menuedit.language_in_url"))
 		{
 			if (strlen($section) > 2 && $section[2] == "%")
 			{
 				$section = urldecode($section);
 			}
+
 			if (strlen($section) == 2)
 			{
-				$tmp = languages::get_id_for_code($section);
-				if ($tmp)
+				$fp = aw_ini_get("lang_frontpage");
+				if (is_array($fp))
 				{
-					$fp = aw_ini_get("ini_frontpage");
-					if (is_array($fp))
-					{
-						$fp = $fp[$tmp];
-					}
-					if (!$fp)
-					{
-						$fp = aw_ini_get("frontpage");
-					}
-					$section = $section."/".$fp;
+					$fp = $fp[AW_REQUEST_CT_LANG_CODE];
 				}
+
+				if (!$fp)
+				{
+					$fp = aw_ini_get("frontpage");
+				}
+				$section = $section."/".$fp;
 			}
+
 			$tmp = explode("/", $section, 2);
 			if (isset($tmp[1]))
 			{
@@ -56,39 +53,26 @@ class menuedit extends aw_template implements request_startup
 				$lc = $section;
 				$section_a = "";
 			}
+
 			if (strlen($lc) > 2)
 			{
 				$section_a = $section;
-				$lc = aw_global_get("ct_lang_lc");
 			}
+
 			if ($section_a == "" && substr($section, -1) != "/")
 			{
-				$lc = aw_global_get("ct_lang_lc");
 				$section_a = $section;
 			}
-			else
-			if ($section_a == "")
+			elseif ($section_a == "")
 			{
 				$section_a = aw_ini_get("frontpage");
 			}
 
-			if ($lc != "" && $section_a != "")
-			{
-				// switch to lang
-				if (aw_ini_get("user_interface.full_content_trans"))
-				{
-					$set_ct_lang_id = languages::get_id_for_code($lc);
-				}
-				else
-				{
-					$set_lang_id = languages::get_id_for_code($lc);
-				}
-			}
 			$section = $section_a;
 		}
 
 		$realsect = $this->check_section($section);
-		if ($this->can("view",$realsect))
+		if (acl_base::can("view", $realsect))
 		{
 			$_obj = obj($realsect);
 			// if the section is a menu and has a link, then redirect the user to that link
@@ -119,75 +103,16 @@ class menuedit extends aw_template implements request_startup
 			}
 
 			$class_id = $_obj->class_id();
-
-			if ($class_id == CL_MENU)
+			// we do document hit count logging here, because
+			// we know if it's a document or not here
+			if (aw_ini_get("document_statistics.use") && $realsect != aw_ini_get("frontpage") && ($class_id == CL_DOCUMENT || $class_id == CL_BROTHER_DOCUMENT || $class_id == CL_PERIODIC_SECTION))
 			{
-				if (!($_obj->prop("type") == MN_CLIENT) && !$set_lang_id && !$set_ct_lang_id )
-				{
-					$set_lang_id = $_obj->lang_id();
-				};
-			}
-			else
-			if ($class_id != CL_EXTLINK)
-			{
-				if ($class_id == CL_DOCUMENT && $this->can("view", $_obj->parent()))
-				{
-					$pt = obj($_obj->parent());
-					if (!($pt->prop("content_all_langs") && $pt->prop("type") == MN_CLIENT) && !$set_lang_id && !$set_ct_lang_id)
-					{
-						$set_lang_id = $_obj->lang_id();
-					}
-				}
-				else
-				if (!$set_ct_lang_id)
-				{
-					$set_lang_id = $_obj->lang_id();
-				}
-
-				// we do document hit count logging here, because
-				// we know if it's a document or not here
-				if (1 == aw_ini_get("document_statistics.use") && $realsect != aw_ini_get("frontpage") && ($class_id == CL_DOCUMENT || $class_id == CL_BROTHER_DOCUMENT || $class_id == CL_PERIODIC_SECTION))
-				{
-					$dt = get_instance(CL_DOCUMENT_STATISTICS);
-					$dt->add_hit($realsect);
-				}
+				$dt = new document_statistics();
+				$dt->add_hit($realsect);
 			}
 		}
 
-		if ($set_ct_lang_id)
-		{
-			$_SESSION["ct_lang_id"] = $set_ct_lang_id;
-			$_SESSION["ct_lang_lc"] = languages::get_langid($set_ct_lang_id);
-			aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
-			aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
-			//$_COOKIE["ct_lang_id"] = $set_ct_lang_id;
-			//$_COOKIE["ct_lang_lc"] = $_SESSION["ct_lang_lc"];
-			setcookie("ct_lang_id", $set_ct_lang_id, time() + 3600, "/");
-			setcookie("ct_lang_lc", $_SESSION["ct_lang_lc"], time() + 3600, "/");
-		}
-
-		if ($set_lang_id && aw_global_get("lang_id") != $set_lang_id)
-		{
-			if (!languages::set_active($set_lang_id))
-			{
-				$realsect = $this->cfg["frontpage"];
-			}
-			else
-			{
-				$GLOBALS["objects"] = array();
-				// we must reset the objcache here, because
-				// it already contains the section obj
-				// and after the language switch it contains the old language
-				// anyway, tyhis does not add much overhead,
-				// because here we should only have the section object loaded
-			}
-			if (is_array(aw_ini_get("ini_frontpage")))
-        		{
-				$tmp = aw_ini_get("ini_frontpage");
-				$GLOBALS["cfg"]["frontpage"] = $tmp[aw_global_get("lang_id")];
-			}
-		}
-		aw_global_set("section",$realsect);
+		aw_global_set("section", $realsect);
 	}
 
 	function check_section($section, $show_errors = true)
@@ -356,7 +281,7 @@ class menuedit extends aw_template implements request_startup
 						}
 						foreach ($rows as $row)
 						{
-							if (!$this->can("view", $row["menu_id"]))
+							if (!acl_base::can("view", $row["menu_id"]))
 							{
 								continue;
 							}
@@ -405,7 +330,7 @@ class menuedit extends aw_template implements request_startup
 							}
 
 							$obj = new object($cand_id);
-							if ($obj->id() != $obj->brother_of() && $this->can("view", $obj->brother_of()))
+							if ($obj->id() != $obj->brother_of() && acl_base::can("view", $obj->brother_of()))
 							{
 								$obj = obj($obj->brother_of());
 							}
@@ -443,7 +368,7 @@ class menuedit extends aw_template implements request_startup
 						}
 					}
 
-					if ($this->can("view", $menu_id))
+					if (acl_base::can("view", $menu_id))
 					{
 						$obj = obj($menu_id);
 					}
@@ -484,7 +409,7 @@ class menuedit extends aw_template implements request_startup
 		else
 		{
 			// mingi kontroll, et kui sektsioon ei eksisteeri, siis n?tame esilehte
-			if (!$this->can("view", $section))
+			if (!acl_base::can("view", $section))
 			{
 				$ns = $_SERVER["REQUEST_URI"];
 				if ($show_errors)

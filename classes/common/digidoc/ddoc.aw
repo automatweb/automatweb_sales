@@ -1377,7 +1377,11 @@ class ddoc extends class_base
 	**/
 	function sign_url($arr)
 	{
-		if(!$this->can("view", $arr["ddoc_oid"]) && !$this->can("view", $arr["file_oid"]) && !$this->can("view", $arr["other_oid"]))
+		if (
+			(!isset($arr["ddoc_oid"]) or !$this->can("view", $arr["ddoc_oid"])) &&
+			(!isset($arr["file_oid"]) or !$this->can("view", $arr["file_oid"])) &&
+			(!isset($arr["other_oid"]) or !$this->can("view", $arr["other_oid"]))
+		)
 		{
 			return t("#");
 		}

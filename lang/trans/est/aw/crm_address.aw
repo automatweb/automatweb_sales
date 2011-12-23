@@ -176,4 +176,3 @@ $GLOBALS["TRANS"]["South Africa"] = "Lõuna-Aafrika";
 $GLOBALS["TRANS"]["Zambia"] = "Sambia";
 $GLOBALS["TRANS"]["Zaire"] = "Zair";
 $GLOBALS["TRANS"]["Zimbabwe"] = "Zimbabwe";
-?>

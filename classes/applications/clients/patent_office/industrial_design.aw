@@ -195,7 +195,7 @@ class industrial_design extends intellectual_property
 
 	protected function get_object()
 	{
-		if(is_oid($_SESSION["patent"]["id"]))
+		if(!empty($_SESSION["patent"]["id"]))
 		{
 			$patent = obj($_SESSION["patent"]["id"]);
 		}
@@ -221,12 +221,15 @@ class industrial_design extends intellectual_property
 	{
 		$is_corporate = false;
 
-		foreach($_SESSION["patent"]["applicants"] as $key => $val)
+		if (isset($_SESSION["patent"]["applicants"]))
 		{
-			if($val["applicant_type"])
+			foreach(safe_array($_SESSION["patent"]["applicants"]) as $key => $val)
 			{
-				$is_corporate = true;
-				break;
+				if($val["applicant_type"])
+				{
+					$is_corporate = true;
+					break;
+				}
 			}
 		}
 
@@ -251,24 +254,25 @@ class industrial_design extends intellectual_property
 		$_SESSION["patent"]["add_fee_info"] = $this->get_add_fee();
 		$data["add_fee_info"]= $_SESSION["patent"]["add_fee_info"];
 
-		if(sizeof($_SESSION["patent"]["applicants"]) == 1)
+		if (isset($_SESSION["patent"]["applicants"]) and count($_SESSION["patent"]["applicants"]) == 1)
 		{
-			$_SESSION["patent"]["representer"] = reset(array_keys($_SESSION["patent"]["applicants"]));
+			$keys = array_keys($_SESSION["patent"]["applicants"]);
+			$_SESSION["patent"]["representer"] = reset($keys);
 		}
 
-		if(isset($_SESSION["patent"]["delete_author"]))
+		if (isset($_SESSION["patent"]["delete_author"]))
 		{
 			unset($_SESSION["patent"]["authors"][$_SESSION["patent"]["delete_author"]]);
 			unset($_SESSION["patent"]["delete_author"]);
 		}
 
-		if($_SESSION["patent"]["add_new_author"])
+		if (!empty($_SESSION["patent"]["add_new_author"]))
 		{
 			$_SESSION["patent"]["add_new_author"] = null;
 			$_SESSION["patent"]["change_author"] = null;
 			$_SESSION["patent"]["author_id"] = null;
 		}
-		elseif(strlen(trim(($_SESSION["patent"]["author_id"]))))
+		elseif(isset($_SESSION["patent"]["author_id"]) and strlen(trim($_SESSION["patent"]["author_id"])))
 		{
 			$this->_get_author_data();
 			$data["change_author"] = $_SESSION["patent"]["author_id"];
@@ -277,7 +281,7 @@ class industrial_design extends intellectual_property
 		}
 		else
 		{
-			$data["author_no"] = sizeof($_SESSION["patent"]["authors"]) + 1;
+			$data["author_no"] = isset($_SESSION["patent"]["authors"]) ? count($_SESSION["patent"]["authors"]) + 1 : 1;
 		}
 		//nendesse ka siis see tingumus, et muuta ei saa
 
@@ -289,7 +293,7 @@ class industrial_design extends intellectual_property
 				"name" => "add_new_author",
 		));
 
-		if(is_array($_SESSION["patent"]["authors"]) && sizeof($_SESSION["patent"]["authors"]))
+		if (isset($_SESSION["patent"]["authors"]) && is_array($_SESSION["patent"]["authors"]) && sizeof($_SESSION["patent"]["authors"]))
 		{
 			$data["authors_table"] = $this->_get_authors_table();
 		}

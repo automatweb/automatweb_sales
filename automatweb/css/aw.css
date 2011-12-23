@@ -218,38 +218,41 @@ background: #DBE8EE;
 }
 
 
-.icontext {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: normal;
-	color: #000000;
-	text-decoration: none;
+.icontext
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #000000;
+    text-decoration: none;
 }
 
 
-.formselect {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
-color: #001A8B;
-font-weight: bold;
-text-decoration: none;
-background-color: #DBE8EE;
-height: 22px
-border-style: solid;
-border-width: 1px;
-border-color: #000000;
+.formselect
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #001A8B;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #DBE8EE;
+    height: 22px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
 }
 
-.formselect2 {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 11px;
-color: #000000;
-text-decoration: none;
-background: #FFFFFF;
-height: 22px
-border-style: solid;
-border-color: #D9D9D9;
-border-width: 1px;
+.formselect2
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #000000;
+    text-decoration: none;
+    background: #FFFFFF;
+    height: 22px;
+    border-style: solid;
+    border-color: #D9D9D9;
+    border-width: 1px;
 }
 
 .formtext21 {
@@ -368,16 +371,20 @@ border-width: 1px;
 	background: #cccccc;
 }
 
-.plain {
+.plain
+{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 0.6em;
 	background: #FFFFFF;
 }
-.selected {
-	font-family: Verdana,Arial,Helvetica,sans-serif;
+
+.selected
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 0.6em;
 	background: #FFCCCC;
-};
+}
+
 .fform {
         font-family: Verdana,Arial,Helvetica,sans-serif;
         font-size: 8pt;
@@ -1617,7 +1624,7 @@ text-decoration:underline;
 #teiste_paev {
 	font-size: 11px;
 
-} 
+}
 
 #column_head {
 	background-color: #91DA52;
