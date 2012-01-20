@@ -1,32 +1,41 @@
 <?php
 /*
-@classinfo syslog_type=ST_SHOP_PRODUCT_CATEGORY relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_shop_product_category master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_shop_product_category
+
 @default group=general
+	@property desc type=textarea rows=10 cols=50 field=aw_desc
+	@caption Kirjeldus
 
-@property desc type=textarea rows=10 cols=50 field=aw_desc
-@caption Kirjeldus
+	@property code type=textbox
+	@caption Kood
 
-@property code type=textbox
-@caption Kood
+	@property images type=relpicker reltype=RELTYPE_IMAGE multiple=1 store=connect
+	@caption Pildid
 
-@property images type=relpicker reltype=RELTYPE_IMAGE multiple=1 store=connect
-@caption Pildid
+	@property unit_formula type=relpicker reltype=RELTYPE_UNIT_FORMULA store=connect multiple=1
+	@caption &Uuml;hikute valemid
 
-@property unit_formula type=relpicker reltype=RELTYPE_UNIT_FORMULA store=connect multiple=1
-@caption &Uuml;hikute valemid
+	@property types type=relpicker reltype=RELTYPE_CATEGORY_TYPES store=connect multiple=1
+	@caption Seotud kategooriate t&uuml;&uuml;bid
 
-@property types type=relpicker reltype=RELTYPE_CATEGORY_TYPES store=connect multiple=1
-@caption Seotud kategooriate t&uuml;&uuml;bid
+	@property doc type=relpicker reltype=RELTYPE_DOC field=aw_doc
+	@caption Dokument
 
-@property doc type=relpicker reltype=RELTYPE_DOC field=aw_doc
-@caption Dokument
+	@property folders_tb type=toolbar store=no no_caption=1
 
-@property folders_tb type=toolbar store=no no_caption=1
+	@property folders type=table store=no no_caption=1
 
-@property folders type=table store=no no_caption=1
+
+@default group=transl
+	@property transl type=callback callback=callback_get_transl store=no
+	@caption T&otilde;lgi
+
+
+@groupinfo transl caption=T&otilde;lgi
+
 
 @reltype IMAGE value=1 clid=CL_IMAGE
 @caption Pilt
@@ -62,11 +71,12 @@ class shop_product_category extends class_base
 			"tpldir" => "applications/shop/shop_product_category",
 			"clid" => CL_SHOP_PRODUCT_CATEGORY
 		));
+
+		$this->trans_props = array("name", "desc");
 	}
 
 	function callback_mod_reforb($arr)
 	{
-		$arr["post_ru"] = post_ru();
 		$arr["add_folder"] = 0;
 	}
 
@@ -90,7 +100,7 @@ class shop_product_category extends class_base
 
 	function _get_folders_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_search_button(array(
 			"pn" => "add_folder",
 			"clid" => CL_MENU,
@@ -112,7 +122,7 @@ class shop_product_category extends class_base
 		{
 			return PROP_IGNORE;
 		}
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "display",
 			"caption" => t("Kuvamise kaust"),
@@ -266,5 +276,3 @@ class shop_product_category extends class_base
 		$arr["obj_inst"]->save();
 	}
 }
-
-?>
