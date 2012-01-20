@@ -108,7 +108,7 @@ class shop_product_packaging_obj extends shop_product_obj
 			return $prices;
 		}
 	}
-	
+
 	/** To handle the transition from regular price property to price object I make a function which returns the price value from object. If there is no price object, then it returns price property value instead
 		@attrib name=get_price_value api=1
 	**/
@@ -127,7 +127,7 @@ class shop_product_packaging_obj extends shop_product_obj
 		}
 
 		return (float)$value;
-	
+
 	}
 
 	/** Get new price value as float. An packaging can have two prices: One regular and the new one is usually discount price.
@@ -181,11 +181,41 @@ class shop_product_packaging_obj extends shop_product_obj
 
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT,
-			"CL_SHOP_PRODUCT.RELTYPE_PACKAGING" => $id,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"CL_SHOP_PRODUCT.RELTYPE_PACKAGING" => $id
 		));
 		return $ol->ids();
 	}
 
+	public function get_data($args = array())
+	{
+		$data = parent::get_data($args);
+
+		$purveyance = $this->get_purveyances()->begin();
+		if ($purveyance)
+		{
+			// add prefix if requested
+			$prefix = isset($args["prefix"]) ? $args["prefix"] : "";
+
+			// add supplier info
+			$data["{$prefix}supplier_name"] = $purveyance->prop("company.name");
+
+			$supplier_section = acl_base::can("", $purveyance->prop("company_section")) ? new object($purveyance->prop("company_section")) : null;
+			$supplier = acl_base::can("", $purveyance->prop("company")) ? new object($purveyance->prop("company")) : null;
+
+			if ($supplier_section and $address = $supplier_section->get_address_string())
+			{ // supplying company unit if specified and has address
+				$data["{$prefix}supplier_address"] = $address;
+			}
+			elseif ($supplier and $address = $supplier->get_address_string())
+			{ // company general business address
+				$data["{$prefix}supplier_address"] = $address;
+			}
+			else
+			{
+				$data["{$prefix}supplier_address"] = "";
+			}
+		}
+
+		return $data;
+	}
 }

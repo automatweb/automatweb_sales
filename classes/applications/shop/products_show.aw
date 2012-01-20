@@ -63,7 +63,7 @@ class products_show extends class_base
 	public function _get_categories($arr)
 	{
 		$arr["prop"]["value"] = $arr["obj_inst"]->prop("categories");
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	/** returns products showing template selection
@@ -71,7 +71,7 @@ class products_show extends class_base
 	**/
 	public function templates()
 	{
-		$tm = get_instance("templatemgr");
+		$tm = new templatemgr();
 		$ret = $tm->template_picker(array(
 			"folder" => "applications/shop/products_show/"
 		));
@@ -83,7 +83,7 @@ class products_show extends class_base
 	**/
 	public function product_templates()
 	{
-		$tm = get_instance("templatemgr");
+		$tm = new templatemgr();
 		$ret = array();
 
 		$dir = "applications/shop/shop_packet";
@@ -114,12 +114,12 @@ class products_show extends class_base
 				$prop["options"] = $this->templates();
 				if(sizeof($prop["options"]) < 2)
 				{
-					$prop["caption"].= "<br>".t("templates/applications/shop/products_show/");
+					$prop["caption"].= html::linebreak().t("templates/applications/shop/products_show/");
 				}
 				break;
 
 			case "product_template":
-				$tm = get_instance("templatemgr");
+				$tm = new templatemgr();
 				$prop["options"] = array();
 				foreach ($arr["obj_inst"]->prop("type") as $type)
 				{
@@ -137,6 +137,7 @@ class products_show extends class_base
 							$dir = "applications/shop/shop_product_packaging";
 							break;
 					}
+
 					if(!empty($dir))
 					{
 						$prop["options"] += $tm->template_picker(array(
@@ -152,24 +153,6 @@ class products_show extends class_base
 		}
 
 		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	function do_db_upgrade($t, $f)
@@ -233,6 +216,7 @@ class products_show extends class_base
 	{
 		$cache_dir = aw_ini_get("cache.page_cache")."product_show";
 		$master_cache = $cache_dir.$_SERVER["REQUEST_URI"].".tpl";
+		aw_translations::load("products_show.tpl.show");
 
 		if(file_exists($master_cache))
 		{
@@ -240,14 +224,15 @@ class products_show extends class_base
 		}
 
 		$ob = new object($arr["id"]);
-		if(!empty($_GET["product"]) && $this->can("view" , $_GET["product"]))
+		$product_oid = isset($arr["product"]) ? (int) $arr["product"] : 0;
+		if($this->can("view" , $product_oid))
 		{
-			$show_product = obj($_GET["product"]);
+			$show_product = obj($product_oid);
 			$instance = get_instance($show_product->class_id());
 			$instance->template = $ob->prop("product_template");
 			$ret = $instance->show(array(
-				"id" => (int)$_GET["product"],
-				"oc" => (int)$_GET["oc"],
+				"id" => $product_oid,
+				"oc" => (int)$arr["oc"],
 			));
 			$this->set_cache($ret);
 			return $ret;
@@ -276,7 +261,7 @@ class products_show extends class_base
 		$max = 4;	//default, TODO: This should be configurable:
 		$per_page = 16;	//default products per page
 
-		$page = empty($_GET["page"]) ? 0 : $_GET["page"];
+		$page = empty($arr["page"]) ? 0 : $arr["page"];
 		if($oc->prop("per_page"))
 		{
 			$per_page = $oc->prop("per_page");
@@ -590,18 +575,18 @@ class products_show extends class_base
 		{
 			$data["{$prefix}checkbox"] = html::checkbox(array(
 				"name" => "add_to_cart[".$data["{$prefix}product_id"]."]",
-				"value" => 1,
+				"value" => 1
 			));
 		}
 
-		$data["{$prefix}product_link"] = aw_global_get("baseurl")."/".aw_global_get("section")."?product=".$data["{$prefix}id"]."&oc=".$oc->id();
+		$data["{$prefix}product_link"] = aw_global_get("baseurl").aw_global_get("section")."?product=".$data["{$prefix}id"]."&oc=".$oc->id();
 
 		$category = $o->get_first_category_id();
 
 		if (is_oid($category))
 		{
-		$data["{$prefix}menu"] = $products_show->get_category_menu($category);
-		$data["{$prefix}menu_name"] = get_name($data["{$prefix}menu"]);
+			$data["{$prefix}menu"] = $products_show->get_category_menu($category);
+			$data["{$prefix}menu_name"] = get_name($data["{$prefix}menu"]);
 		}
 
 		$data["{$prefix}price"] = $this->number_format($data["{$prefix}price"]);

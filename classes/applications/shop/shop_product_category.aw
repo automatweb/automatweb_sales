@@ -245,7 +245,7 @@ class shop_product_category extends class_base
 
 			if($po->class_id() == CL_SHOP_PRODUCT_CATEGORY)
 			{
-				if(empty($arr["request"]["def_fld"]) && is_oid($po->meta("def_fld")) && $this->can("view", $po->meta("def_fld")))
+				if(empty($arr["request"]["def_fld"]) && acl_base::can("", $po->meta("def_fld")))
 				{
 					$arr["obj_inst"]->set_meta("def_fld", $po->meta("def_fld"));
 					$arr["obj_inst"]->connect(array(

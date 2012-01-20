@@ -266,9 +266,7 @@ class shop_product_packaging extends shop_warehouse_item
 			case "inherit_aml_from":
 				$ol = new object_list(array(
 					"class_id" => array(CL_SHOP_PRODUCT, CL_SHOP_PRODUCT_PACKAGING),
-					"aml_inheritable" => 1,
-					"lang_id" => array(),
-					"site_id" => array(),
+					"aml_inheritable" => 1
 				));
 				$data["options"] = array("" => t("--vali--")) + $ol->names();
 				break;
@@ -298,7 +296,7 @@ class shop_product_packaging extends shop_warehouse_item
 
 	function _get_amount_limits_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -324,9 +322,7 @@ class shop_product_packaging extends shop_warehouse_item
 		$odl = new object_data_list(
 			array(
 				"class_id" => CL_GROUP,
-				"parent" => array(),
-				"lang_id" => array(),
-				"site_id" => array(),
+				"parent" => array()
 			),
 			array(
 				CL_GROUP => array("name"),
@@ -682,9 +678,7 @@ class shop_product_packaging extends shop_warehouse_item
 
 		$ol = new object_list(array(
 			"class_id" => CL_CURRENCY,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"sort_by" => "name asc",
+			"sort_by" => "name asc"
 		));
 		$prs = $arr["obj_inst"]->meta("cur_prices");
 		foreach($ol->arr() as $cur)
@@ -826,11 +820,7 @@ class shop_product_packaging extends shop_warehouse_item
 					"type" => "int"
 				));
 				$ol = new object_list(array(
-					"class_id" => CL_SHOP_PRODUCT_PACKAGING,
-					"lang_id" => array(),
-					"site_id" => array(),
-					"parent" => array(),
-					"status" => array(),
+					"class_id" => CL_SHOP_PRODUCT_PACKAGING
 				));
 				foreach($ol->arr() as $o)
 				{

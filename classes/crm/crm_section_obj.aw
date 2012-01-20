@@ -243,4 +243,27 @@ class crm_section_obj extends _int_object
 		}
 		return $r;
 	}
+
+	/** Returns default address as a string
+		@attrib api=1
+	**/
+	public function get_address_string()
+	{
+		$address_str = "";
+		$address = $this->get_first_obj_by_reltype("RELTYPE_LOCATION");
+
+		if ($address)
+		{
+			$address_str = $address->name();
+		}
+		else
+		{
+			$address_id = parent::prop("contact");
+			if (acl_base::can("", $address_id))
+			{
+				$address_str = obj($address_id)->name();
+			}
+		}
+		return $address_str;
+	}
 }
