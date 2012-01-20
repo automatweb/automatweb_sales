@@ -232,7 +232,16 @@
             <field>meta</field>
             <method>serialize</method>
             <type>textbox</type>
-            <caption>Leiutise nimetus</caption>
+            <caption>Leiutise nimetus eesti keeles</caption>
+      </property>
+      <property>
+            <name>invention_name_en</name>
+            <table>objects</table>
+            <group>invention</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Leiutise nimetus inglise keeles</caption>
       </property>
       <property>
             <name>childtitle110</name>
@@ -383,7 +392,22 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Leiutise olemuse l&amp;amp;uuml;hikokkuv&amp;amp;otilde;te</caption>
+            <caption>Leiutise olemuse l&amp;amp;uuml;hikokkuv&amp;amp;otilde;te eesti keeles</caption>
+      </property>
+      <property>
+            <name>attachment_summary_en</name>
+            <table>objects</table>
+            <group>attachments</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>fileupload</type>
+            <reltype>RELTYPE_ATTACHMENT_SUMMARY_EN</reltype>
+            <form>
+                  <num_0>add</num_0>
+                  <num_1>edit</num_1>
+                  <num_2>emb</num_2>
+            </form>
+            <caption>Leiutise olemuse l&amp;amp;uuml;hikokkuv&amp;amp;otilde;te inglise keeles</caption>
       </property>
       <property>
             <name>attachment_dwgs</name>
@@ -398,7 +422,7 @@
                   <num_1>edit</num_1>
                   <num_2>emb</num_2>
             </form>
-            <caption>Illustratsioonid</caption>
+            <caption>Joonised</caption>
       </property>
       <property>
             <name>attachment_fee</name>
@@ -476,12 +500,10 @@
             <caption>Muu</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_UTILITY_MODEL</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <priority>

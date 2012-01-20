@@ -1,8 +1,5 @@
 <?php
 
-###########################################################################
-###########################################################################
-###########################################################################
 /**
  * DigiDoc klass
  *
@@ -16,75 +13,90 @@
  * @since		2004.05.01
  * @access		public
  */
-class digidoc {
+class digidoc
+{
+	/**
+	 * WSDL classi lokaalse faili ja klassi nimi
+	 *
+	 * Selles hoitakse WSDL-i alusel genereeritud PHP classi,
+	 * et ei peaks iga kord seda serverist uuesti p2rima.
+	 * Kui WSDL faili aadressi muuta, tuleb ka see fail 2ra kustutada, kuna
+	 * selles hoitakse ka serveri aadressi, mis p2rast muutmist enam ei yhti
+	 * 6ige aadressiga!
+	 */
+	const WSDL_CLASS_NAME = "webservice_digidocservice";
 
 	/**
-	 * Soap kliendi ühenduse objekt
+	 * Soap kliendi yhenduse objekt
 	 */
 	var $Client;
 
 	/**
-	 * WSDL faili põhjal genereeritud liides
+	 * WSDL faili p6hjal genereeritud liides
 	 */
-	var $WSDL;
+	public $WSDL;
 
 	/**
 	 * Brauseri ja OS-i andmed
 	 */
 	var $browser;
 
-
-	/*
-	 * funktsioon class WebService_DigiDocService_DigiDocService definitsiooni
-	 * laadimiseks _enne_ sessiooni alustamist et oleks võimalik Base_DigiDoc
-	 * sessiooni salvestada
-	 */
-	function load_WSDL()
+	/** Loads and compiles WSDL connection class
+		@attrib api=1 params=pos
+		@comment
+			* klassi digidoc::WSDL_CLASS_NAME definitsiooni
+			* laadimie _enne_ sessiooni alustamist et oleks v6imalik Base_DigiDoc
+			* sessiooni salvestada
+		@returns void
+		@errors
+			throws awex_ddoc_wsdl on wsdl errors
+	**/
+	public function __construct()
 	{
-			if(is_readable( DD_WSDL_FILE ) && filesize( DD_WSDL_FILE ) > 32){
-				include_once DD_WSDL_FILE;
-			} else {
-				$wsdl = new SOAP_WSDL( DD_WSDL, $connection );
-				$wcode = $wsdl->generateProxyCode();
-				if(!class_exists("webservice_digidocservice_digidocservice"))
-				{
-					eval( $wcode );
-				}
-				if(PEAR::isError($wcode))
-				{
-					$ddoc = get_instance(CL_DDOC);
-					$ddoc->sign_err(DDOC_ERR_DIGIDOC, "load_WSDL", "Error in recived code.[wsdl:".$wsdl."][conn:".$connection."]", $this->getMessage());
-					return false;
-				}
-				ddFile::saveLocalFile( DD_WSDL_FILE, "<?php\n".$wcode."\n?".">");
+		$wsdl_file = aw_ini_get("digidoc.data_dir") . self::WSDL_CLASS_NAME . AW_FILE_EXT;
+		if (is_readable($wsdl_file) && filesize($wsdl_file) > 32)
+		{
+			require_once $wsdl_file;
+		}
+		else
+		{
+			$connection = self::getConnect();
+			$wsdl = new SOAP_WSDL(aw_ini_get("digidoc.service_uri"), $connection);
+			$wcode = $wsdl->generateProxyCode("", self::WSDL_CLASS_NAME);
+
+			if ($wcode instanceof Pear_Error)
+			{
+				throw new awex_ddoc_wsdl($wcode->getMessage() . ". Connection: ".print_r($connection, true));
 			}
+			elseif (!class_exists(self::WSDL_CLASS_NAME, false))
+			{
+				$r = file_put_contents($wsdl_file, "<?php\n{$wcode}\n");
+				require_once $wsdl_file;
+			}
+		}
+
+		$connection = self::getConnect();
+		$this->Client = new SOAP_Client(aw_ini_get("digidoc.service_uri"), TRUE, FALSE, $connection);
+		$wsdl_class = self::WSDL_CLASS_NAME;
+
+		if (class_exists($wsdl_class, false))
+		{
+			$this->WSDL = new $wsdl_class();
+			$this->browser = ddFile::getBrowser();
+			$this->NS = $this->Client->_wsdl->definition['targetNamespace'];
+		}
+		else
+		{
+			throw new awex_ddoc_wsdl("Couldn't find WSDL proxy class.");
+		}
 	}
 
-	/**
-	 * Constructor
-	 */
-	function digidoc() {
-		//session_start();
-		$connection = $this->getConnect();
-		$this->Client = new SOAP_Client ( DD_WSDL, TRUE, FALSE, $connection);
-
-		if(!class_exists("WebService_DigiDocService_DigiDocService"))
-		{
-			return false;
-		}
-		$this->WSDL = new WebService_DigiDocService_DigiDocService();
-
-		$this->browser = ddFile::getBrowser();
-
-		$this->NS = $this->Client->_wsdl->definition['targetNamespace'];
-	} //function
-
 
 	/**
-	 * Lisab vastava parameetri ja väärtuse SOAP headerisse
+	 * Lisab vastava parameetri ja v22rtuse SOAP headerisse
 	 *
-	 * Parameetri lisamiseks SOAP serverile saadetavatesse XML päringuisse.
-	 * Antud juhul enamasti sessiooni koodi lisamiseks, et tuvastada õige
+	 * Parameetri lisamiseks SOAP serverile saadetavatesse XML p2ringuisse.
+	 * Antud juhul enamasti sessiooni koodi lisamiseks, et tuvastada 6ige
 	 * digidoc failiga tegelemist.
 	 *
 	 * <code>
@@ -95,119 +107,54 @@ class digidoc {
 	 * $dd->addHeader($x);
 	 * </code>
 	 *
-	 * @param     mixed    $var     Päisesse lisatavad parameetrid
-	 * @param     mixed    $value   ühe muutuja lisamisel, selle väärtus
+	 * @param     mixed    $var     P2isesse lisatavad parameetrid
+	 * @param     mixed    $value   yhe muutuja lisamisel, selle v22rtus
 	 * @access    public
 	 * @return    array
 	 */
-	function addHeader($var, $value=null){
-		if(is_array($var)){
-			while(list($key, $val) = each($var)){
+	function addHeader($var, $value=null)
+	{
+		if(is_array($var))
+		{
+			while(list($key, $val) = each($var))
+			{
 				$hr = new SOAP_Header($key, NULL, $val, FALSE, FALSE);
 				$hr->namespace = $this->NS;
 				if(isset($hr->attributes['SOAP-ENV:actor'])) unset($hr->attributes['SOAP-ENV:actor']);
 				if(isset($hr->attributes['SOAP-ENV:mustUnderstand'])) unset($hr->attributes['SOAP-ENV:mustUnderstand']);
 				$this->WSDL->addHeader($hr);
-			} //while
+			}
 			return TRUE;
-		} elseif($var && $value) {
+		}
+		elseif($var && $value)
+		{
 			$hr = new SOAP_Header($var, NULL, $value, FALSE, FALSE);
 			$hr->namespace = $this->NS;
 			if(isset($hr->attributes['SOAP-ENV:actor'])) unset($hr->attributes['SOAP-ENV:actor']);
 			if(isset($hr->attributes['SOAP-ENV:mustUnderstand'])) unset($hr->attributes['SOAP-ENV:mustUnderstand']);
 			$this->WSDL->addHeader($hr);
-		} else {
+		}
+		else
+		{
 			return FALSE;
-		} //else
+		}
 	}
 
-
 	/**
-	 * Tagastab vastuvõetud DigiDoci formaadi ja versiooni
-	 * @return	array
-	 */
-	function getDigiDocArray(){
-		$us = new XML_Unserializer();
-		$us->unserialize($this->WSDL->xml, FALSE);
-		$xml = $us->getUnserializedData();
-		return $xml;
-	} //function
-
-	/**
-	 * Puhastab saadetud kuupäeva ülearustest sümbolitest
-	 * @access	private
-	 */
-	function cleanDateString($date){
-		return preg_replace("'[TZ]'"," ",$date);
-	} //function
-
-
-	/**
-	 * Sertifikaadi salvestamine
-	 */
-	function saveCertAs($file){
-		$filename = uniqid('certificate').'.cer';
-		$content = "-----BEGIN CERTIFICATE-----\n".$file."\n-----END CERTIFICATE-----\n";
-		ddFile::SaveAs($filename, $content, 'application/certificate', 'utf-8');
-	} //function
-
-
-	/**
-	 * Kehtivuskinnituse salvestamine
-	 */
-	function saveNotaryAs($file){
-		$filename = uniqid('ocsp').'.ocsp';
-		$content = base64_decode($file);
-		ddFile::SaveAs($filename, $content, 'application/notary-ocsp', 'utf-8');
-	} //function
-
-
-	/**
-	 * Tagastab ddociga kaasas olnud andmefailid array-na
-	 */
-	function getDataFiles($result){
-		$res = array();
-		return $res;
-	} //function
-
-
-
-	/**
-	 * Tagastab ddociga kaasas olnud allkirjad array-na
-	 */
-	function getSignatures($result){
-		$res = array();
-		return $res;
-	} //function
-
-
-	/**
-	 * Tagastame brauseri ja OS/i info stringina
-	 */
-	function getBrowserStr(){
-		$browser = $this->browser;
-		$os = $browser['OS']=='Win'?'WIN32':'LINUX';
-		$br = $browser['BROWSER_AGENT'] == 'IE' ? 'IE' : 'MOZILLA';
-		return $os.'-'.$br;
-	} //function
-
-	/**
-	 * ühenduse/proksi parameetrite vektor
+	 * yhenduse/proksi parameetrite vektor
 	 *
 	 * Detail description
 	 * @access    public
 	 * @return    array
 	 */
-	function getConnect(){
+	private static function getConnect()
+	{
 		$ret=array();
-		if(defined('DD_PROXY_HOST') && DD_PROXY_HOST) $ret['proxy_host'] = DD_PROXY_HOST;
-		if(defined('DD_PROXY_PORT') && DD_PROXY_PORT) $ret['proxy_port'] = DD_PROXY_PORT;
-		if(defined('DD_PROXY_USER') && DD_PROXY_USER) $ret['proxy_user'] = DD_PROXY_USER;
-		if(defined('DD_PROXY_PASS') && DD_PROXY_PASS) $ret['proxy_pass'] = DD_PROXY_PASS;
-		if(defined('DD_TIMEOUT') && DD_TIMEOUT) $ret['timeout'] = DD_TIMEOUT;
+		if(aw_ini_get("digidoc.proxy.host")) $ret['proxy_host'] = aw_ini_get("digidoc.proxy.host");
+		if(aw_ini_get("digidoc.proxy.port")) $ret['proxy_port'] = aw_ini_get("digidoc.proxy.port");
+		if(aw_ini_get("digidoc.proxy.user")) $ret['proxy_user'] = aw_ini_get("digidoc.proxy.user");
+		if(aw_ini_get("digidoc.proxy.password")) $ret['proxy_pass'] = aw_ini_get("digidoc.proxy.password");
+		if(aw_ini_get("digidoc.connect.timeout")) $ret['timeout'] = aw_ini_get("digidoc.connect.timeout");
 		return $ret;
-	} // end func
-
-
-
-} //class
+	}
+}

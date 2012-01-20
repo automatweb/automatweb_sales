@@ -1175,7 +1175,7 @@ class site_template_compiler extends aw_template
 		}
 
 		// do menu images
-		$n_img = aw_ini_get("menuedit.num_menu_images");
+		$n_img = aw_ini_get("menu.num_menu_images");
 
 		$ret .= $this->_gi()."if (empty(\$mmi_cnt) && acl_base::can(\"view\", ".$o_name."->prop(\"images_from_menu\")))\n";
 		$ret .= $this->_gi()."{\n";
@@ -1854,7 +1854,7 @@ class site_template_compiler extends aw_template
 
 			$ares = "";
 
-			$ni = aw_ini_get("menuedit.num_menu_images");
+			$ni = aw_ini_get("menu.num_menu_images");
 			foreach($adat["levels"] as $level => $ldat)
 			{
 				$has_vars = false;

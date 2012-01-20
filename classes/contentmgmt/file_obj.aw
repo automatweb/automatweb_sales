@@ -4,6 +4,8 @@ class file_obj extends _int_object
 {
 	const CLID = 41;
 
+	private $_file_content = false;
+
 	////
 	// !returns file by id
 	function get_file($fetch_file = true)
@@ -97,7 +99,24 @@ class file_obj extends _int_object
 		return $retval;
 	}
 
-	function delete($full_delete = false)
+	/** Set file content. Overwrites old file if exists
+		@attrib api=1 params=pos
+		@param content type=string
+		@comment
+		@returns void
+		@errors
+	**/
+	public function set_content($content)
+	{
+		if (!is_string($content))
+		{
+			throw new awex_param_type("Invalid content parameter");
+		}
+
+		$this->_file_content = $content;
+	}
+
+	public function delete($full_delete = false)
 	{
 		$r = parent::delete($full_delete);
 
@@ -111,5 +130,16 @@ class file_obj extends _int_object
 		}
 
 		return $r;
+	}
+
+	public function save($check_state = false)
+	{
+		if (false !== $this->_file_content)
+		{
+			// save file data
+			//TODO
+		}
+
+		return parent::save();
 	}
 }

@@ -104,6 +104,7 @@ class site_base extends aw_template
 		{
 			$arr["vars"] = $this->on_page();
 		}
+
 		$arr["text"] = $ret;
 		if (isset($arr["sub_callbacks"]) && is_array($arr["sub_callbacks"]))
 		{

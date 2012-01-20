@@ -567,7 +567,7 @@ class users extends users_user implements request_startup, orb_public_interface
 					)
 				)
 			));
-			//echo "users::on_site_init got opts = <pre>", var_dump($opts),"</pre> <br />";
+
 			$ini_opts["groups.tree_root"] = $opts["groups.tree_root"];
 			$ini_opts["groups.all_users_grp"] = $opts["groups.all_users_grp"];
 			$ini_opts["auth.md5_passwords"] = $opts["auth.md5_passwords"];
@@ -750,7 +750,7 @@ class users extends users_user implements request_startup, orb_public_interface
 		// well.. this is a nice ocsp check. this checks wheater the user's certificate is valid at current point or not
 		// when this feature is turned off(ocsp service is provided as a priced service(in id-card situation at least)), the function returs 'all okay'
 		$ocsp = new ocsp();
-		$ocsp_retval = $ocsp->OCSP_check($_SERVER["_SSL_CLIENT_CERT"], $_SERVER["SSL_CLIENT_I_DN_CN"]);
+		$ocsp_retval = $ocsp->OCSP_check($_SERVER["SSL_CLIENT_CERT"], $_SERVER["SSL_CLIENT_I_DN_CN"]);
 		if($ocsp_retval !== 1)
 		{
 			return aw_ini_get("baseurl");
@@ -997,27 +997,30 @@ class users extends users_user implements request_startup, orb_public_interface
 
 	/**
 		@comment
-			converts certificates subject value to ISO-8859-1
+			converts certificates subject value to current system character encoding
 	**/
-	private function certstr2utf8($str)
+	private function convert_cert_string($str)
 	{
-		$result="";
-		$encoding=mb_detect_encoding($str,"ASCII, UTF-8");
-		if ($encoding === "ASCII")
+		$str = preg_replace("/\\\\x([0-9ABCDEF]{1,2})/e", "chr(hexdec('\\1'))", $str);
+		$result = "";
+		$encoding = mb_detect_encoding($str,"ASCII, UCS2, UTF8");
+
+		if ("ASCII" === $encoding)
 		{
-			$result=mb_convert_encoding($str, "ISO-8859-1", "ASCII");
+			$result = mb_convert_encoding($str, languages::USER_CHARSET, "ASCII");
 		}
 		else
 		{
-			if (substr_count($str,chr(0))>0)
+			if (substr_count($str, chr(0)) > 0)
 			{
-				$result=mb_convert_encoding($str, "ISO-8859-1", "UCS2");
+				$result = mb_convert_encoding($str, languages::USER_CHARSET, "UCS2");
 			}
 			else
 			{
-				$result=$str;
+				$result = $str;
 			}
 		}
+
 		return $result;
 	}
 
@@ -1033,19 +1036,19 @@ class users extends users_user implements request_startup, orb_public_interface
 	private function returncertdata($cert)
 	{
 		$data = array();
-		$certstructure=openssl_x509_parse($cert);
+		$certstructure = openssl_x509_parse($cert);
 
 		if (strpos($_SERVER["SSL_VERSION_LIBRARY"],"0.9.6")===false)
 		{
-			$data['f_name'] = $this->certstr2utf8($certstructure["subject"]["GN"]);
-			$data['l_name'] = $this->certstr2utf8($certstructure["subject"]["SN"]);
+			$data['f_name'] = $this->convert_cert_string($certstructure["subject"]["GN"]);
+			$data['l_name'] = $this->convert_cert_string($certstructure["subject"]["SN"]);
 			$data['pid'] = $certstructure["subject"]["serialNumber"];
 		}
 		else
 		{
 			$data['f_name'] = $certstructure["subject"]["SN"];
-			$data['l_name'] = $this->certstr2utf8($certstructure["subject"]["G"]);
-			$data['pid'] = $this->certstr2utf8($certstructure["subject"]["S"]);
+			$data['l_name'] = $this->convert_cert_string($certstructure["subject"]["G"]);
+			$data['pid'] = $this->convert_cert_string($certstructure["subject"]["S"]);
 		}
 		return $data;
 	}

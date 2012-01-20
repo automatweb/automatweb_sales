@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapAbstract.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: BootstrapAbstract.php 24394 2011-08-21 13:57:08Z padraic $
  */
 
 /**
@@ -28,7 +28,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Application_Bootstrap_BootstrapAbstract
@@ -95,7 +95,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      *
      * @param  Zend_Application|Zend_Application_Bootstrap_Bootstrapper $application
      * @return void
-     * @throws Zend_Application_Bootstrap_Exception When invalid applicaiton is provided
+     * @throws Zend_Application_Bootstrap_Exception When invalid application is provided
      */
     public function __construct($application)
     {
@@ -163,7 +163,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     public function hasOption($key)
     {
-        return in_array($key, $this->_optionKeys);
+        return in_array(strtolower($key), $this->_optionKeys);
     }
 
     /**
@@ -349,9 +349,12 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
                 if (0 === strcasecmp($resource, $pluginName)) {
                     return $this->_pluginResources[$pluginName];
                 }
+                continue;
             }
 
-            if (class_exists($plugin)) { //@SEE ZF-7550
+            if (class_exists($plugin)
+            && is_subclass_of($plugin, 'Zend_Application_Resource_Resource')
+            ) { //@SEE ZF-7550
                 $spec = (array) $spec;
                 $spec['bootstrap'] = $this;
                 $instance = new $plugin($spec);
@@ -413,7 +416,8 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     {
         if ($this->_pluginLoader === null) {
             $options = array(
-                'Zend_Application_Resource' => 'Zend/Application/Resource'
+                'Zend_Application_Resource'  => 'Zend/Application/Resource',
+                'ZendX_Application_Resource' => 'ZendX/Application/Resource'
             );
 
             $this->_pluginLoader = new Zend_Loader_PluginLoader($options);
@@ -433,6 +437,9 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
         if (($application instanceof Zend_Application)
             || ($application instanceof Zend_Application_Bootstrap_Bootstrapper)
         ) {
+            if ($application === $this) {
+                throw new Zend_Application_Bootstrap_Exception('Cannot set application to same object; creates recursion');
+            }
             $this->_application = $application;
         } else {
             throw new Zend_Application_Bootstrap_Exception('Invalid application provided to bootstrap constructor (received "' . get_class($application) . '" instance)');
@@ -755,6 +762,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
                 if (0 === strpos($className, $prefix)) {
                     $pluginName = substr($className, strlen($prefix));
                     $pluginName = trim($pluginName, '_');
+                    break;
                 }
             }
         }

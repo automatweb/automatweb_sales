@@ -60,7 +60,7 @@ class _int_object
 	// DEPRECATED! use self::__construct() instead
 	// function _int_object($objdata) { $this->__construct($objdata); }
 
-	function save($check_state = false)
+	public function save($check_state = false)
 	{
 		$this->_int_can_save();
 		$tmp =  $this->_int_do_save($check_state);

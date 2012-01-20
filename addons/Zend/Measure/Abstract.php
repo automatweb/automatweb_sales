@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Measure
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version   $Id: Abstract.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -40,7 +40,7 @@ require_once 'Zend/Locale/Format.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Abstract
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Measure_Abstract
@@ -74,9 +74,9 @@ abstract class Zend_Measure_Abstract
     /**
      * Zend_Measure_Abstract is an abstract class for the different measurement types
      *
-     * @param  $value  mixed  - Value as string, integer, real or float
-     * @param  $type   type   - OPTIONAL a measure type f.e. Zend_Measure_Length::METER
-     * @param  $locale locale - OPTIONAL a Zend_Locale Type
+     * @param  mixed       $value  Value as string, integer, real or float
+     * @param  int         $type   OPTIONAL a measure type f.e. Zend_Measure_Length::METER
+     * @param  Zend_Locale $locale OPTIONAL a Zend_Locale Type
      * @throws Zend_Measure_Exception
      */
     public function __construct($value, $type = null, $locale = null)
@@ -237,7 +237,6 @@ abstract class Zend_Measure_Abstract
         if (empty($this->_type)) {
             $this->_type = $type;
         } else {
-
             // Convert to standard value
             $value = $this->_value;
             if (is_array($this->_units[$this->getType()][0])) {
@@ -245,7 +244,7 @@ abstract class Zend_Measure_Abstract
                     switch ($key) {
                         case "/":
                             if ($found != 0) {
-                                $value = @call_user_func(Zend_Locale_Math::$div, $value, $found, 25);
+                                $value = call_user_func(Zend_Locale_Math::$div, $value, $found, 25);
                             }
                             break;
                         case "+":
@@ -278,18 +277,18 @@ abstract class Zend_Measure_Abstract
                             break;
                         default:
                             if ($found != 0) {
-                                $value = @call_user_func(Zend_Locale_Math::$div, $value, $found, 25);
+                                $value = call_user_func(Zend_Locale_Math::$div, $value, $found, 25);
                             }
                             break;
                     }
                 }
             } else {
-                $value = @call_user_func(Zend_Locale_Math::$div, $value, $this->_units[$type][0], 25);
+                $value = call_user_func(Zend_Locale_Math::$div, $value, $this->_units[$type][0], 25);
             }
 
             $slength = strlen($value);
             $length  = 0;
-            for($i = 1; $i <= 25; ++$i) {
+            for($i = 1; $i <= $slength; ++$i) {
                 if ($value[$slength - $i] != '0') {
                     $length = 26 - $i;
                     break;

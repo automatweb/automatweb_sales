@@ -91,7 +91,7 @@ SQL;
 	}
 
 	/** lets the user set it so that different groups get redirected to diferent pages when logging in
-		@attrib name=grp_redirect params=name default="0"
+		@attrib name=grp_redirect params=name
 	**/
 	function grp_redirect($arr)
 	{
@@ -125,7 +125,7 @@ SQL;
 	}
 
 	/**
-		@attrib name=submit_grp_redirect params=name default="0"
+		@attrib name=submit_grp_redirect params=name
 	**/
 	function submit_grp_redirect($arr)
 	{
@@ -148,7 +148,7 @@ SQL;
 	}
 
 	/**
-		@attrib name=favicon params=name nologin="1" default="0"
+		@attrib name=favicon params=name nologin="1"
 	**/
 	function show_favicon($arr)
 	{
@@ -157,11 +157,11 @@ SQL;
 	}
 
 	/**
-		@attrib name=config params=name default="0"
+		@attrib name=config params=name
 	**/
 	function gen_config()
 	{
-		$this->mk_path(0,LC_CONFIG_SITE);
+		$this->mk_path(0, t("Saidi seaded"));
 		$this->read_template("config.tpl");
 
 		$al = $this->get_simple_config("after_login");
@@ -170,7 +170,7 @@ SQL;
 		$al = $this->get_simple_config("useradd::autologin");
 		$ipp = $this->get_cval("ipaddresses::default_folder");
 
-		$us = get_instance("users");
+		$us = new users();
 		$li = languages::get_list(array("all_data" => true));
 		$r_al = "";
 		foreach($li as $lid => $ld)
@@ -221,7 +221,7 @@ SQL;
 		}
 
 		$fvi = "";
-		if ($this->get_simple_config("favicon") != "")
+		if ($this->get_simple_config("favicon"))
 		{
 			$fvi = "<img src='".$this->mk_my_orb("favicon", array(),"config", false,true)."'>";
 		}
@@ -236,11 +236,12 @@ SQL;
 			"autologin" => checked($al),
 			"ipp" => $this->picker($ipp, $this->get_menu_list())
 		));
+		automatweb::$request->set_arg("in_popup", "1");
 		return $this->parse();
 	}
 
 	/**
-		@attrib name=submit_loginaddr params=name default="0"
+		@attrib name=submit_loginaddr params=name
 	**/
 	function submit_loaginaddr($arr)
 	{
@@ -281,7 +282,7 @@ SQL;
 	}
 
 	/**
-		@attrib name=join_mail params=name default="0"
+		@attrib name=join_mail params=name
 	**/
 	function join_mail($arr)
 	{
@@ -312,7 +313,7 @@ SQL;
 	}
 
 	/**
-		@attrib name=submit_join_mail params=name default="0"
+		@attrib name=submit_join_mail params=name
 	**/
 	//XXX: mis see? miks siin? mida t2hendab default 0 orbi definitsioonis?
 	function submit_join_mail($arr)

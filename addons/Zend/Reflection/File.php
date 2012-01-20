@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: File.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Reflection/Function.php';
 /**
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Reflection_File implements Reflector
@@ -109,7 +109,8 @@ class Zend_Reflection_File implements Reflector
      */
     public static function findRealpathInIncludePath($fileName)
     {
-        $includePaths = explode(PATH_SEPARATOR, get_include_path());
+        require_once 'Zend/Loader.php';
+        $includePaths = Zend_Loader::explodeIncludePath();
         while (count($includePaths) > 0) {
             $filePath = array_shift($includePaths) . DIRECTORY_SEPARATOR . $fileName;
 

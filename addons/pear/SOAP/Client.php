@@ -35,7 +35,7 @@ require_once PEAR_PATH.'SOAP/Parser.php';
 // NOTE: Overload SEGFAULTS ON PHP4 + Zend Optimizer
 // these two are BC/FC handlers for call in PHP4/5
 
-if (!class_exists('SOAP_Client_Overload', false)) {
+if (!class_exists('SOAP_Client_Overload')) {
     if (substr(phpversion(), 0, 1) == 5) {
         class SOAP_Client_Overload extends SOAP_Base {
             function __call($method, $args)
@@ -326,7 +326,24 @@ class SOAP_Client extends SOAP_Client_Overload
         $transport_options = array_merge_recursive($this->__proxy_params,
                                                    $this->__options);
 
-       $this->xml = $this->_soap_transport->send($soap_data, $transport_options);
+		/*
+		echo "<pre>";
+		print_r($soap_data);
+		exit;
+		*/
+
+                /*
+                xdebug_break();
+                file_put_contents('/var/www/html/test_files/soap.txt', $soap_data);
+		echo "<pre>";
+                echo htmlentities($soap_data);
+		//print_r($soap_data);
+		exit;
+                */
+		//file_put_contents('/var/www/html/ddservice/data/soap_templiga_allkiri_htmlescaped.ddoc.txt', $soap_data);
+       
+
+		$this->xml = $this->_soap_transport->send($soap_data, $transport_options);
 
         // Save the wire information for debugging.
         if ($this->__options['trace'] > 0) {
@@ -348,7 +365,6 @@ class SOAP_Client extends SOAP_Client_Overload
         }
 
         $result = &$this->__parse($this->xml, $this->__result_encoding, $this->__attachments);
-
         return $result;
     }
 

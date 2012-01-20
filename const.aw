@@ -474,11 +474,11 @@ function get_instance($class, $args = array(), $errors = true)
 	{
 		$clinf = $GLOBALS['cfg']['classes'][$clid];
 		$rs = isset($clinf["is_remoted"]) ? $clinf["is_remoted"] : null;
-	};
+	}
 	// check if the class is remoted. if it is, then create proxy class instance, not real class instance
 	if ($rs != "")
 	{
-		if ($rs != $GLOBALS["cfg"]["baseurl"])
+		if ($rs != aw_ini_get("baseurl"))
 		{
 			$proxy_file = $GLOBALS["cfg"]["basedir"]."classes/core/proxy_classes/".$lib.".aw";
 			$proxy_class = "__aw_proxy_".$lib;

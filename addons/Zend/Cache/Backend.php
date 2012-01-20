@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Backend.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Backend.php 23800 2011-03-10 20:52:08Z mabe $
  */
 
 
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend
@@ -200,7 +200,7 @@ class Zend_Cache_Backend
     /**
      * Verify if the given temporary directory is readable and writable
      *
-     * @param $dir temporary directory
+     * @param string $dir temporary directory
      * @return boolean true if the directory is ok
      */
     protected function _isGoodTmpDir($dir)
@@ -226,24 +226,20 @@ class Zend_Cache_Backend
         if (!isset($this->_directives['logging']) || !$this->_directives['logging']) {
             return;
         }
-        try {
-            /**
-             * @see Zend_Log
-             */
-            require_once 'Zend/Log.php';
-        } catch (Zend_Exception $e) {
-            Zend_Cache::throwException('Logging feature is enabled but the Zend_Log class is not available', $e);
-        }
+
         if (isset($this->_directives['logger'])) {
             if ($this->_directives['logger'] instanceof Zend_Log) {
                 return;
-            } else {
-                Zend_Cache::throwException('Logger object is not an instance of Zend_Log class.');
             }
+            Zend_Cache::throwException('Logger object is not an instance of Zend_Log class.');
         }
+
         // Create a default logger to the standard output stream
+        require_once 'Zend/Log.php';
         require_once 'Zend/Log/Writer/Stream.php';
+        require_once 'Zend/Log/Filter/Priority.php';
         $logger = new Zend_Log(new Zend_Log_Writer_Stream('php://output'));
+        $logger->addFilter(new Zend_Log_Filter_Priority(Zend_Log::WARN, '<='));
         $this->_directives['logger'] = $logger;
     }
 

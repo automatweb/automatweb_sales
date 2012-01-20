@@ -146,13 +146,13 @@ abstract class intellectual_property extends class_base
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($prop["name"])
 		{
 			case "signed":
 				if(!aw_ini_get("file.ddoc_support"))
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				$ddoc_inst = get_instance(CL_DDOC);
 				$res = $this->is_signed($arr["obj_inst"]->id());
@@ -214,12 +214,12 @@ abstract class intellectual_property extends class_base
 			case "signatures":
 				if(!aw_ini_get("file.ddoc_support"))
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				$re = $this->is_signed($arr["obj_inst"]->id());
 				if($re["status"] != 1)
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				$ddoc_inst = get_instance(CL_DDOC);
 				$signs = $ddoc_inst->get_signatures($re["ddoc"]);
@@ -235,11 +235,11 @@ abstract class intellectual_property extends class_base
 				if($status->prop("exported"))
 				{
 					$prop["type"] = "text";
-					$prop["value"] = date("j:m:Y h:i" , $prop["value"]);
+					$prop["value"] = isset($prop["value"]) ? date("j:m:Y h:i" , $prop["value"]) : "";
 				}
 				else
 				{
-					$retval = PROP_IGNORE;
+					$retval = class_base::PROP_IGNORE;
 				}
 				break;
 
@@ -252,7 +252,7 @@ abstract class intellectual_property extends class_base
 				}
 				else
 				{
-					$retval = PROP_IGNORE;
+					$retval = class_base::PROP_IGNORE;
 				}
 				break;
 		}
@@ -360,8 +360,8 @@ abstract class intellectual_property extends class_base
 			case "attachment_summary_en":
 			case "attachment_bio":
 			case "attachment_other":
-				$image_inst = get_instance(CL_IMAGE);
-				$file_inst = get_instance(CL_FILE);
+				$image_inst = new image();
+				$file_inst = new file();
 				if(array_key_exists($prop["name"] , $_FILES))
 				{
 					if($_FILES[$prop["name"]]['tmp_name'])
@@ -379,7 +379,7 @@ abstract class intellectual_property extends class_base
 						$arr["obj_inst"]->save();
 					}
 				}
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 		}
 		return $retval;
 	}
@@ -1076,7 +1076,7 @@ abstract class intellectual_property extends class_base
 	**/
 	function show_payment_order($arr)
 	{
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		$mm_type="application/octet-stream";
 		$fc = $file_inst->get_file_by_id($arr["id"]);
 		header("Cache-Control: public, must-revalidate");
@@ -1092,21 +1092,20 @@ abstract class intellectual_property extends class_base
 		print $buffer;
 	}
 
-	/**
-		@attrib name=get_file params=name all_args=1 api=1
-		@comment
-			saves the ddoc file (browser save popup)
+	/** Saves file (browser save popup)
+		@attrib name=get_file
+		@param oid required type=oid acl=view
 	**/
 	public static function get_file($arr)
 	{
-		$file_inst = get_instance(CL_FILE);
-		$ddinst = get_instance(CL_DDOC);
+		$o = obj($arr["oid"], array(), file_obj::CLID);
+		$name = $o->name();
+
+		$file_inst = new file();
 		$fc = $file_inst->get_file_by_id($arr["oid"]);
 		$content = $fc["content"];
-		$o = obj($arr["oid"]);
-		$ddinst->do_init();
-		$name = $o->name();
-		ddFile::saveAs($name, $content,'jpg');
+
+		automatweb::$result->set_send_file_contents($content, $name);
 	}
 
 	function fill_session($id)
@@ -1206,19 +1205,19 @@ abstract class intellectual_property extends class_base
 				$_SESSION["patent"]["applicants"][$key]["code"] = $o->prop("personal_id");
 			}
 
-			if(acl_base::can("view" , $address))
+			if(acl_base::can("" , $address))
 			{
 				$address_obj = obj($address);
 				$_SESSION["patent"]["applicants"][$key]["street"] = $address_obj->prop("aadress");
 				$_SESSION["patent"]["applicants"][$key]["index"] = $address_obj->prop("postiindeks");
 
-				if(acl_base::can("view" , $address_obj->prop("linn")))
+				if(acl_base::can("" , $address_obj->prop("linn")))
 				{
 					$city = obj($address_obj->prop("linn"));
 					$_SESSION["patent"]["applicants"][$key]["city"] = $city->name();
 				}
 
-				if(acl_base::can("view" , $address_obj->prop("maakond")))
+				if(acl_base::can("" , $address_obj->prop("maakond")))
 				{
 					$county = obj($address_obj->prop("maakond"));
 					$_SESSION["patent"]["applicants"][$key]["county"] = $county->name();
@@ -1235,7 +1234,7 @@ abstract class intellectual_property extends class_base
 				}
 			}
 
-			if(acl_base::can("view" , $correspond_address))
+			if(acl_base::can("" , $correspond_address))
 			{
 				$correspond_address_obj = obj($correspond_address);
 				$_SESSION["patent"]["applicants"][$key]["correspond_street"] = $correspond_address_obj->prop("aadress");
@@ -1248,13 +1247,13 @@ abstract class intellectual_property extends class_base
 				$_SESSION["patent"]["applicants"][$key]["correspond_phone"] = $correspond_address_obj->meta("phone");
 				$_SESSION["patent"]["applicants"][$key]["correspond_email	"] = $correspond_address_obj->meta("email");
 
-				if(acl_base::can("view" , $correspond_address_obj->prop("linn")))
+				if(acl_base::can("" , $correspond_address_obj->prop("linn")))
 				{
 					$city = obj($correspond_address_obj->prop("linn"));
 					$_SESSION["patent"]["applicants"][$key]["correspond_city"] = $city->name();
 				}
 
-				if(acl_base::can("view" , $correspond_address_obj->prop("maakond")))
+				if(acl_base::can("" , $correspond_address_obj->prop("maakond")))
 				{
 					$county = obj($correspond_address_obj->prop("maakond"));
 					$_SESSION["patent"]["applicants"][$key]["correspond_county"] = $county->name();
@@ -2380,8 +2379,8 @@ abstract class intellectual_property extends class_base
 
 		if ($arr["data_type"] === "1")
 		{
-			$_SESSION["patent"]["co_trademark"] = $_POST["co_trademark"];
-			$_SESSION["patent"]["guaranty_trademark"] = $_POST["guaranty_trademark"];
+			$_SESSION["patent"]["co_trademark"] = isset($_POST["co_trademark"]) ? $_POST["co_trademark"] : "";
+			$_SESSION["patent"]["guaranty_trademark"] = isset($_POST["guaranty_trademark"]) ? $_POST["guaranty_trademark"] : "";
 			//co_trademark 'guaranty_trademark
 		}
 
@@ -2942,6 +2941,7 @@ abstract class intellectual_property extends class_base
 				if(!$type) $applicant->set_prop("phone" , $phone->id());
 				else $applicant->set_prop("phone_id" , $phone->id());
 			}
+
 			if($val["email"])
 			{
 				$email = new object();
@@ -2954,6 +2954,7 @@ abstract class intellectual_property extends class_base
 				if(!$type) $applicant->set_prop("email" , $email->id());
 				else $applicant->set_prop("email_id" , $email->id());
 			}
+
 			if($val["fax"])
 			{
 				$phone = new object();
@@ -3221,7 +3222,7 @@ abstract class intellectual_property extends class_base
 								"can_edit" => 0,
 								"can_admin" => 0,
 								"can_delete" => 0,
-								"can_view" => 1,
+								"can_view" => 1
 							));
 						}
 					}

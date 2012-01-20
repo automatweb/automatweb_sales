@@ -22,14 +22,13 @@ class site_list_updater extends aw_template implements orb_public_interface
 	}
 
 	/**
-		@attrib api=1
-
+		@attrib api=1 params=name
 		@param uid required
 	**/
 	function on_login($arr)
 	{
 		// if the remote connection is turned off, then bail out
-		if(aw_ini_get("server.no_remote_conn") == 1)
+		if(aw_ini_get("server.no_remote_conn"))
 		{
 			return;
 		}
@@ -40,6 +39,7 @@ class site_list_updater extends aw_template implements orb_public_interface
 		{
 			return;
 		}
+
 		// no go to background
 		$url = str_replace("/automatweb", "", $this->mk_my_orb("bg_do_update", array("uid" => $arr["uid"]), "site_list_updater", false, true, "&", false));
 
@@ -48,6 +48,9 @@ class site_list_updater extends aw_template implements orb_public_interface
 			$http = new http();
 			$http->get($url);
 		}
+		// catch (awex_http_redirect $e)
+		// {
+		// }
 		catch (awex_socket $e)
 		{
 		}
@@ -101,7 +104,7 @@ class site_list_updater extends aw_template implements orb_public_interface
 
 		// send it to the register
 		$this->_do_update($data);
-		exit; // TODO: tmp solution to headers sent error later from aw_response. send headers through aw_response
+		self::http_exit(); // TODO: tmp solution to headers sent error later from aw_response. send headers through aw_response
 	}
 
 	function _get_last_update_time()

@@ -30,7 +30,7 @@ class aw_request
 	private $_action = ""; // requested class action. one of aw_class.actions
 	private $_is_fastcall = false; // boolean
 	private $_application; // object
-	private static $_application_classes = array( //!!! tmp. teha n2iteks interface-ga. implements application
+	private static $_application_classes = array( //TODO tmp. teha n2iteks interface-ga. implements application
 		"crm_sales",
 		"crm_company",
 		"realestate_manager",
@@ -62,7 +62,7 @@ class aw_request
 	{
 		// determine request type and create instance
 		if (!empty($_SERVER["SERVER_PROTOCOL"]) and substr_count(strtolower($_SERVER["SERVER_PROTOCOL"]), "http") > 0)
-		{ //!!! check if SERVER_PROTOCOL always set and 'http' when http request. A rumoured case that empty when https on some specific server/machine.
+		{ //TODO check if SERVER_PROTOCOL always set and 'http' when http request. A rumoured case that empty when https on some specific server/machine.
 			$request = new aw_http_request(true);
 		}
 		else
@@ -395,7 +395,7 @@ aw_global_set("lang_oid", $la["oid"]);
 	{
 		if (!is_object($this->_application))
 		{
-			if (in_array($this->_class, self::$_application_classes)) //!!! tmp solution
+			if (in_array($this->_class, self::$_application_classes)) //TODO tmp solution
 			{
 				if (isset($this->_args["id"]) and is_oid($this->_args["id"]))
 				{
@@ -406,7 +406,7 @@ aw_global_set("lang_oid", $la["oid"]);
 					}
 					catch (Exception $e)
 					{
-						$application = new object(); //!!! mis on default?
+						$application = new object(); //TODO mis on default?
 					}
 				}
 				elseif ("admin_if" === $this->_class)
@@ -423,7 +423,7 @@ aw_global_set("lang_oid", $la["oid"]);
 				}
 				else
 				{
-					$application = new object(); //!!! mis on default?
+					$application = new object(); //TODO mis on default?
 				}
 			}
 			elseif (is_oid(aw_global_get("aw_request_application_object_oid")))
@@ -434,12 +434,12 @@ aw_global_set("lang_oid", $la["oid"]);
 				}
 				catch (Exception $e)
 				{
-					$application = new object(); //!!! mis on default?
+					$application = new object(); //TODO mis on default?
 				}
 			}
 			else
 			{
-				$application = new object(); //!!! mis on default?
+				$application = new object(); //TODO mis on default?
 			}
 
 			$this->_application = $application;
@@ -554,7 +554,7 @@ aw_global_set("lang_oid", $la["oid"]);
 	}
 
 	public function parse_args()
-	{ //!!! "restore previous application" on vaja ka teaostada, sest n2iteks kui k2iakse teises applicationis ja minnakse tagasi eelmisest avatud allobjektile, on application vale
+	{ //TODO "restore previous application" on vaja ka teaostada, sest n2iteks kui k2iakse teises applicationis ja minnakse tagasi eelmisest avatud allobjektile, on application vale
 		if (!empty($this->_args["fastcall"]))
 		{
 			$this->_is_fastcall = true;

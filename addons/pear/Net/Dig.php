@@ -16,7 +16,7 @@
 // | Author: Colin Viebrock <colin@easyDNS.com>                           |
 // +----------------------------------------------------------------------+
 //
-// $Id: Dig.php,v 1.1 2006/11/16 13:02:05 tarvo Exp $
+// $Id: Dig.php,v 1.1 2007/04/05 12:11:45 gen Exp $
 //
 // A nice friendly OO interface to dig
 //

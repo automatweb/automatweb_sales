@@ -1,5 +1,5 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 // +-----------------------------------------------------------------------+
 // | Copyright (c) 2002-2003  Richard Heyes                                |
 // | Copyright (c) 2003-2005  The PHP Group                                |
@@ -35,9 +35,7 @@
 // |         Tomas V.V.Cox <cox@idecnet.com> (port to PEAR)                |
 // +-----------------------------------------------------------------------+
 //
-// $Id: mime.php,v 1.2 2005/12/29 12:03:47 ahti Exp $
 
-#require_once('PEAR.php');
 require_once('mimePart.php');
 
 /**
@@ -706,7 +704,7 @@ class Mail_mime
         }
     }
 
-    
+
 
 } // End of class
 ?>

@@ -24,7 +24,7 @@
             <type>hidden</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>asukoht</caption>
+            <caption>Asukoht</caption>
       </property>
       <property>
             <name>files_tb</name>
@@ -86,13 +86,35 @@
             <field>meta</field>
             <method>serialize</method>
       </property>
+      <property>
+            <name>digidoc_format</name>
+            <table>objects</table>
+            <group>signatures</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+      </property>
+      <property>
+            <name>digidoc_version</name>
+            <table>objects</table>
+            <group>signatures</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+      </property>
+      <property>
+            <name>digidoc_encoding</name>
+            <table>objects</table>
+            <group>signatures</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+      </property>
       <classinfo>
-            <syslog_type>ST_DDOC</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>tarvo</maintainer>
       </classinfo>
       <groupinfo>
             <files>

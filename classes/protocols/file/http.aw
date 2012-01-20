@@ -12,7 +12,7 @@ class http implements protocol_interface
 	const STATUS_PARTIAL_CONTENT = 206;
 	const STATUS_MULTIPLE_CHOICES = 300;
 	const STATUS_MOVED_PERMANENTLY = 301;
-	const STATUS_FOUND = 302;
+	const STATUS_FOUND = 302; // originally "Moved Temporarily"
 	const STATUS_SEE_OTHER = 303;
 	const STATUS_NOT_MODIFIED = 304;
 	const STATUS_TEMPORARY_REDIRECT = 307;
@@ -168,10 +168,8 @@ class http implements protocol_interface
 			{
 				$max_len = $mt[1];
 			}
-			if (strpos($data, "Connection: close") !== false)
-			{
-				$close_on_len = true;
-			}
+
+			$close_on_len = (strpos($data, "Connection: close") !== false);
 
 			list($tmp_headers,$tmp_data) = explode("\r\n\r\n",$ipd,2);
 			if ($close_on_len && $max_len && strlen($tmp_data) >= $max_len)
@@ -179,6 +177,7 @@ class http implements protocol_interface
 				break;
 			}
 		}
+
 		list($headers,$data) = explode("\r\n\r\n",$ipd,2);
 		$this->last_request_headers = $headers;
 
@@ -187,12 +186,18 @@ class http implements protocol_interface
 			if (preg_match("/Location: (.*)$/imsU", $headers, $mt))
 			{
 				$loc = trim($mt[1]);
+
+				if ($loc === $url)
+				{
+					throw new awex_http_redirect("The server '{$host}' responded with an invalid redirection status (requested to redirect '{$url}' to '{$loc}').", 1);
+				}
+
 				// make full url from location
-				if ($loc[0] === "/")
+				if ($loc{0} === "/")
 				{
 					$loc = "http://".$host.$loc;
 				}
-				elseif ($loc[0] === "?")
+				elseif ($loc{0} === "?")
 				{
 					$tmp = $url;
 					$qpos = strpos($url, "?");
@@ -202,6 +207,11 @@ class http implements protocol_interface
 					}
 
 					$loc = $tmp.$loc;
+				}
+
+				if ($loc === $url)
+				{
+					throw new awex_http_redirect("The server '{$host}' responded with an invalid redirection status (requested to redirect '{$url}' to '{$loc}').", 2);
 				}
 
 				$pu = parse_url($loc);
@@ -216,6 +226,12 @@ class http implements protocol_interface
 						$loc = dirname($url)."/".$loc;
 					}
 				}
+
+				if ($loc === $url)
+				{
+					throw new awex_http_redirect("The server '{$host}' responded with an invalid redirection status (requested to redirect '{$url}' to '{$loc}').", 3);
+				}
+
 				return $this->get($loc, $sess, $cook_name);
 			}
 		}
@@ -679,3 +695,9 @@ class http implements protocol_interface
 		return $str;
 	}
 }
+
+/** Generic http exception **/
+class awex_http extends aw_exception {}
+
+/** Redirection errors **/
+class awex_http_redirect extends awex_http {}

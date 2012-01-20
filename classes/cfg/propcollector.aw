@@ -628,19 +628,20 @@ class propcollector extends aw_template
 		return $fields;
 	}
 
-	private function _parse_file ($name)
+	// @param name type=string
+	// @param mode type=string default="child"
+	// in what mode to parse given file:
+	// main - view itself, class that is being parsed
+	// parent - if view extends another view then this mode is for parsing those parent files
+	private function _parse_file ($name, $mode = "main")
 	{
 		$cname = substr(basename($name),0,-3);
 		$this->currentclass = $cname;
 
-		if (!class_index::is_instantiable($cname))
-		{
-			return false;
-		}
-
-		$tmp = new $this->currentclass();
-		// properties are generated for cb extensions only
-		if (!$tmp instanceof class_base)
+		if (
+			!class_index::is_extension_of($this->currentclass, "class_base") or // properties are generated for cb extensions only
+			"main" === $mode and !class_index::is_instantiable($cname) // main "end usable" class must not be abstract, parents though can be
+		)
 		{
 			return false;
 		}
@@ -697,7 +698,7 @@ class propcollector extends aw_template
 							touch ($parent);
 						}
 
-						$parent_modified = $this->_parse_file ($parent);
+						$parent_modified = $this->_parse_file ($parent, "parent");
 					}
 				}
 			}
