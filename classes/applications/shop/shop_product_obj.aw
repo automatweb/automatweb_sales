@@ -350,7 +350,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 			'class_id' => CL_SHOP_PRODUCT,
 			'type_code' => $this->prop('type_code'),
 		));
-		
+
 		// add replacement products via connections
 		$conns = $this->connections_from(array(
 			'type' => 'RELTYPE_REPLACEMENT_PROD'
@@ -359,7 +359,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		{
 			$ol->add($conn->to());
 		}
-		return $ol->arr();	
+		return $ol->arr();
 	}
 
 	/**
@@ -672,7 +672,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 				$special_price_obj = new object($data['special_price_object']);
 				$data["special_price"] = $special_price_obj->prop('price');
 			}
-		}	
+		}
 		else
 		{
 			$data["code"] =  $this->prop("code");
@@ -684,6 +684,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 			$data["brand_name"] = $packet->get_brand();
 		}
 
+		// add prefix if requested
 		if(isset($args["prefix"]))
 		{
 			foreach($data as $k => $v)
@@ -737,7 +738,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 
 	private function get_purveyance_comment()
 	{
-		return t("Tarneinfo puudub");
+		return t("Tarneinfo puudub", AW_REQUEST_CT_LANG_ID);
 
 		// FIXME: this is broken after making purveyance universal - e.g. no reltype, only one objpicker.
 		$ret = array();
@@ -750,9 +751,9 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		{
 			$o = obj($conn["from"]);
 			return $o->comment();
-		}				
+		}
 
-		return t("Tarneinfo puudub");
+		return t("Tarneinfo puudub", AW_REQUEST_CT_LANG_ID);
 	}
 
 	public function get_packet_name()
@@ -838,7 +839,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 			return "";
 		}
 	}
-	
+
 	public function get_product_image_url()
 	{
 		$product = $this->get_product();
@@ -875,7 +876,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		$product = $this->get_product();
 		$pic = $product->get_first_obj_by_reltype("RELTYPE_IMAGE");
 		if(is_object($pic))
-		{ 
+		{
 			return $pic->get_on_click_js();
 
 		}

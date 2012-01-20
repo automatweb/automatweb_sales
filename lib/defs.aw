@@ -747,8 +747,12 @@ function localparse($src = "", $vars = array())
 	// "e" regexpi lopus tahendab seda, et teist parameetrit ksitletakse php koodina,
 	// mis eval-ist lbi lastakse.
 	$src = preg_replace("/{VAR:(.+?)}/e","(isset(\$vars[\"\\1\"]) ? \$vars[\"\\1\"] : '')",$src);
-	$src = preg_replace("/{LC:(.+?)}/S","\".(t(\$1)).\"", $src);
 	$src = preg_replace("/{DATE:(.+?)\|(.+?)}/e","((isset(\$vars[\"\\1\"]) && is_numeric(\$vars[\"\\1\"]) && \$vars[\"\\1\"] > 1 )? date(\"\\2\",\$vars[\"\\1\"]) : \"\")",$src);
+	$src = preg_replace(
+		"/{LC:([^|}]+)([|]([^|}]+))?}/Se",
+		"(sprintf(t(stripslashes(<<<ENDAWTRANSSTRING\n\$1\nENDAWTRANSSTRING\n), AW_REQUEST_CT_LANG_ID), <<<ENDAWTRANSSTRING\n\$3\nENDAWTRANSSTRING\n))",
+		$src
+	);
 	//XXX: kasutuselt v2lja sest ei oma suurt m6tet ja raiskavad iga kord regex peale aega
 	// $src = preg_replace("/{INI:(.+?)}/e","aw_ini_get(\"\\1\")",$src);
 

@@ -57,20 +57,28 @@ class aw_translations extends aw_core_module
 		@attrib api=1 params=pos
 		@param set_name type=string default=""
 			Translations set name to load
-		@param lang_id type=int default=AW_LANGUAGES_DEFAULT_UI_LID
+		@param lang_id type=int default=AW_REQUEST_UI_LANG_ID
 		@comment
 			If translation set not found, loads nothing.
 		@returns void
 		@errors
 	**/
-	public static function load($set_name, $lang_id = AW_LANGUAGES_DEFAULT_UI_LID)
+	public static function load($set_name, $lang_id = AW_REQUEST_UI_LANG_ID)
 	{
 		$lc = languages::lid2lc($lang_id);
 		$set_name = basename($set_name);
-		$trans_fn = aw_ini_get("translations_dir") . "{$lc}/aw/{$set_name }" . AW_FILE_EXT;
+		$trans_fn = aw_ini_get("site_translations_dir") . "{$lc}/aw/{$set_name }" . AW_FILE_EXT;
 		if (file_exists($trans_fn))
 		{
 			require_once($trans_fn);
+		}
+		else
+		{
+			$trans_fn = aw_ini_get("translations_dir") . "{$lc}/aw/{$set_name }" . AW_FILE_EXT;
+			if (file_exists($trans_fn))
+			{
+				require_once($trans_fn);
+			}
 		}
 	}
 

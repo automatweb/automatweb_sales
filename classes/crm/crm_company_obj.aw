@@ -2499,7 +2499,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		else
 		{
 			$address_id = parent::prop("contact");
-			if ($GLOBALS["object_loader"]->cache->can("view", $address_id))
+			if (acl_base::can("", $address_id))
 			{
 				$address_str = obj($address_id)->name();
 			}

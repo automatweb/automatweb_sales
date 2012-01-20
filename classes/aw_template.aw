@@ -1017,7 +1017,12 @@ class aw_template extends core
 			$xsrc = str_replace("\"","\\\"",$cur_src);
 			$xsrc = preg_replace("/{VAR:(.+?)}/S","\".(isset(\$vars['\$1']) ? \$vars['\$1'] : null).\"",$xsrc);
 			$xsrc = preg_replace("/{DATE:(.+?)\|(.+?)}/e","((isset(\$vars[\"\\1\"]) && is_numeric(\$vars[\"\\1\"]) && \$vars[\"\\1\"] > 1 )? date(\"\\2\",\$vars[\"\\1\"]) : \"\")", $xsrc);
-			$this->c_templates[$fq_name] = preg_replace("/{LC:(.+?)}/S","\".(t(\$1)).\"", $xsrc);
+			$xsrc = preg_replace(
+				"/{LC:([^|}]+)([|]([^|}]+))?}/Se",
+				"(sprintf(t(stripslashes(<<<ENDAWTRANSSTRING\n\$1\nENDAWTRANSSTRING\n), AW_REQUEST_CT_LANG_ID), <<<ENDAWTRANSSTRING\n\$3\nENDAWTRANSSTRING\n))",
+				$xsrc
+			);
+			$this->c_templates[$fq_name] = $xsrc;
 		}
 
 		$this->templates[$cur_name] = $cur_src;	// ugh, this line for aliasmanager and image_inplace compatibility :(
