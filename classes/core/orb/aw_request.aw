@@ -100,11 +100,12 @@ class aw_request
 			if ($ct_lid) aw_global_set("lang_id", $ct_lid); //XXX: miks siin vaja?
 		}
 
-		if ($set_lang_id = (int) automatweb::$request->arg("set_lang_id"))
+		if ($set_lang_id = (int) $this->arg("set_ct_lang_id") or $set_lang_id = (int) $this->arg("set_lang_id"))
 		{
 			/// if language has not changed, don't waste time re-setting it
 			if ($set_lang_id !== $ct_lid)
 			{
+				$ct_lid = $set_lang_id;
 				/// if we explicitly request language change, we get that, except if the language is not active
 				/// and we are not logged in
 				if (!$ct_lid)

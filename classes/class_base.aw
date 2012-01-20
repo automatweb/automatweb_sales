@@ -5488,7 +5488,7 @@ class class_base extends aw_template implements orb_public_interface
 				do
 				{
 					$lang_id = $o->prop("aw_lang_id");
-					if ($lang_id !== $this->obj_inst->lang_id())
+					if ($lang_id != $this->obj_inst->lang_id())
 					{
 						$id = $this->translation_lang_var_name . $lang_id;
 						$rv[$id] = array(
