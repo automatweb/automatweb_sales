@@ -995,17 +995,18 @@ class admin_if extends class_base
 			{
 				foreach($coldat as $oid => $oval)
 				{
-					$val = $new[$column][$oid];
-					if ($column == "status" && $val == 0)
+					$val = isset($new[$column][$oid]) ? $new[$column][$oid] : 0;
+					if ($column === "status" && $val == 0)
 					{
 						$val = 1;
 					}
+
 					if ($val != $oval)
 					{
 						if ($this->can("edit", $oid) && $this->can("view", $oid))
 						{
 							$o = obj($oid);
-							if ($column == "jrk")
+							if ($column === "jrk")
 							{
 								$o->set_ord((int)$val);
 							}
@@ -1013,13 +1014,22 @@ class admin_if extends class_base
 							{
 								$o->set_prop($column, $val);
 							}
-							if($all_trans_status != 0 && $column == "status")
+
+							if($all_trans_status != 0 && $column === "status")
 							{
-								$langs = aw_ini_get("languages");
-								foreach(array_keys($langs["list"]) as $lid)
+								$languages_in_use = languages::list_translate_targets();
+								if($languages_in_use->count())
 								{
-									$o->set_meta("trans_".$lid."_status", ($val - 1));
+									$lang_o = $languages_in_use->begin();
+
+									do
+									{
+										$lid = $lang_o->prop("aw_lang_id");
+										$o->set_meta("trans_".$lid."_status", ($val - 1));
+									}
+									while ($lang_o = $languages_in_use->next());
 								}
+								$langs = aw_ini_get("languages");
 								/*
 								foreach($o->meta("translations") as $lid => $ldata)
 								{

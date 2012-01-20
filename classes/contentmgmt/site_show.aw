@@ -714,7 +714,6 @@ class site_show extends aw_template
 		$skipfirst = 0;
 
 		$get_inact = false;
-
 		$no_in_promo = false;
 
 		$ndocs = $obj->prop("ndocs");
@@ -1042,7 +1041,12 @@ class site_show extends aw_template
 			}
 
 			$filter["class_id"] = array(CL_DOCUMENT, CL_PERIODIC_SECTION, CL_BROTHER_DOCUMENT);
-			$filter["lang_id"] = $filt_lang_id;
+
+			if (!aw_ini_get("user_interface.full_content_trans") and empty($arr["all_langs"]))
+			{
+				$filter["lang_id"] = $filt_lang_id;
+			}
+
 			$filter["sort_by"] = $ordby;
 
 			// if target audience is to be used, then limid docs by that
@@ -1057,11 +1061,6 @@ class site_show extends aw_template
 				{
 					$filter["target_audience"] = $ta_list->ids();
 				}
-			}
-
-			if (!empty($arr["all_langs"]))
-			{
-				$filter["lang_id"] = array();
 			}
 
 			if ($no_in_promo)
