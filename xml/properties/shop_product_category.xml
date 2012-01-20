@@ -78,14 +78,27 @@
             <no_caption>1</no_caption>
             <field>folders</field>
       </property>
+      <property>
+            <name>transl</name>
+            <table>aw_shop_product_category</table>
+            <group>transl</group>
+            <type>callback</type>
+            <callback>callback_get_transl</callback>
+            <store>no</store>
+            <field>transl</field>
+            <caption>T&amp;amp;otilde;lgi</caption>
+      </property>
       <classinfo>
-            <syslog_type>ST_SHOP_PRODUCT_CATEGORY</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>kristo</maintainer>
       </classinfo>
+      <groupinfo>
+            <transl>
+                  <caption>T&amp;amp;otilde;lgi</caption>
+            </transl>
+      </groupinfo>
       <tableinfo>
             <aw_shop_product_category>
                   <master_index>brother_of</master_index>
