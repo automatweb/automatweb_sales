@@ -165,7 +165,6 @@ class aw_errorhandler
 		if(!self::ignore_error($errno, $errstr, $errfile, $errline))
 		{
 			// generate and throw exception when fatal or significant error occurs. ignore all other errors
-			$e = new ErrorException($errstr, 0, $errno, $errfile, $errline);
 			if (
 				!isset(self::$non_fatal_errors[$errno]) or // throw exception on fatal errors
 				(E_WARNING === $errno and (
@@ -178,10 +177,12 @@ class aw_errorhandler
 				))
 			)
 			{
+				$e = new ErrorException($errstr, 0, $errno, $errfile, $errline);
 				throw $e;
 			}
 			elseif (ini_get("display_errors"))
 			{
+				$e = new ErrorException($errstr, 0, $errno, $errfile, $errline);
 				self::display_handled_exception($e);
 			}
 			elseif (E_USER_WARNING === $errno)
@@ -208,6 +209,8 @@ class aw_errorhandler
 		echo "<h3>Exception</h3>\n";
 		echo "<em>Class:</em> " . get_class($e) . "<br />\n";
 		echo "<em>Message:</em> " . $e->getMessage() . "<br />\n";
+		if ($e instanceof ErrorException) echo "<em>Severity:</em> " . (isset(self::$error_severity_names[$e->getSeverity()]) ? self::$error_severity_names[$e->getSeverity()] : "UNKNOWN ERROR") . "<br />\n";
+		echo "<em>Code:</em> " . $e->getCode() . "<br />\n";
 		echo "<em>File:</em> " . $file . "<br />\n";
 		echo "<em>Line:</em> " . $line . "<br />\n";
 		echo "<em>Stack trace:</em> <br />\n";
@@ -242,7 +245,7 @@ class aw_errorhandler
 			$errfile = $e->getFile();
 			$errline = $e->getLine();
 			$err = isset(self::$error_severity_names[$errno]) ? self::$error_severity_names[$errno] : "UNKNOWN ERROR";
-			echo "<p>[{$err}] <strong>{$errstr}</strong> in {$errfile} on line {$errline}</p>\n\n"; //!!! aw_response objekti ja sealt footerite kaudu templatesse
+			echo "<p>[{$err}] <strong>{$errstr}</strong> in {$errfile} on line {$errline}</p>\n\n"; //TODO: aw_response objekti ja sealt footerite kaudu templatesse
 			if (false !== strpos($errstr, "EXPLAIN"))
 			{
 				echo dbg::process_backtrace(debug_backtrace(), -1, true);

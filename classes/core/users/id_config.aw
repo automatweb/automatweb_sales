@@ -3,7 +3,7 @@
 // id_config.aw - ID-Kaardi konfiguratsioon
 /*
 
-@classinfo syslog_type=ST_ID_CONFIG relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -47,45 +47,11 @@ class id_config extends class_base
 		));
 	}
 
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- get_property --//
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- set_property --//
-		}
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function callback_pre_save($arr)
 	{
 		// add new entries
 		$this->add_into_safelist($arr["id"], $arr["request"]["entries"]);
-
-		// add new searched persons
-		//arr($arr["request"]);
 	}
-
-	////////////////////////////////////
-	// the next functions are optional - delete them if not needed
-	////////////////////////////////////
 
 	/** this will get called whenever this object needs to get shown in the website, via alias in document **/
 	function show($arr)
@@ -98,13 +64,11 @@ class id_config extends class_base
 		return $this->parse();
 	}
 
-//-- methods --//
-
 	function _get_activity($arr)
 	{
 		// this is supposed to return a list of all active polls
 		// to let the user choose the active one
-		$table = &$arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 		$table->parse_xml_def("activity_list");
 
 		$pl = new object_list(array(
@@ -144,8 +108,8 @@ class id_config extends class_base
 	function _get_safelist_tbl($arr)
 	{
 		//$this->set_safelist($arr["obj_inst"]->id(), array());
-		$t = &$arr["prop"]["vcl_inst"];
-		$this->_init_safelist_tbl(&$t);
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_safelist_tbl($t);
 		$list = array_values($this->get_safelist($arr["obj_inst"]->id()));
 		for($i = count($list); $i < (count($list)+3); $i++)
 		{
@@ -162,7 +126,7 @@ class id_config extends class_base
 				)),
 			));
 		}
-		
+
 		foreach($list as $k => $el)
 		{
 			$name = t("-");
@@ -230,14 +194,14 @@ class id_config extends class_base
 
 	function _get_safelist_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "add_person",
 			"tooltip" => t("Lisa isik"),
 			"img" => "new.gif",
 			"url" => "#",
 		));
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 		$search_butt = $popup_search->get_popup_search_link(array(
 			"pn" => "search_result_persons",
 			"clid" => CL_CRM_PERSON,
@@ -252,7 +216,7 @@ class id_config extends class_base
 	**/
 	function get_safelist($oid)
 	{
-		if(!$this->can("view", $oid))
+		if(!acl_base::can("view", $oid))
 		{
 			return false;
 		}
@@ -269,7 +233,7 @@ class id_config extends class_base
 	**/
 	function set_safelist($oid, $list)
 	{
-		if(!$this->can("view", $oid))
+		if(!acl_base::can("view", $oid))
 		{
 			return false;
 		}
@@ -288,7 +252,7 @@ class id_config extends class_base
 	**/
 	function add_into_safelist($oid, $list)
 	{
-		if(!$this->can("view", $oid))
+		if(!acl_base::can("view", $oid))
 		{
 			return false;
 		}
@@ -317,16 +281,18 @@ class id_config extends class_base
 		$pl = new object_list(array(
 			"class_id" => CL_ID_CONFIG,
 		));
+
 		for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
 		{
 			if($o->flag(OBJ_FLAG_IS_SELECTED))
 			{
 				break;
 			}
-		};
+		}
+
 		if(!$pl->count())
 		{
-			$gr = get_instance(CL_GROUP);
+			$gr = new group();
 			$o = new object();
 			$o->set_class_id(CL_ID_CONFIG);
 			$o->set_name(t("ID-kaardi Konfiguratsioon"));
@@ -348,6 +314,7 @@ class id_config extends class_base
 			));
 			$o->save();
 		}
+
 		if(!$o->flag(OBJ_FLAG_IS_SELECTED))
 		{
 			$o->set_flag(OBJ_FLAG_IS_SELECTED, true);
@@ -364,6 +331,7 @@ class id_config extends class_base
 				break;
 			}
 		}
+
 		if(!$is)
 		{
 			$new_group = new object();
@@ -395,7 +363,6 @@ class id_config extends class_base
 	**/
 	function use_safelist()
 	{
-
 		$o = $this->get_active();
 		if($o->prop("use_safelist"))
 		{
@@ -409,7 +376,5 @@ class id_config extends class_base
 		$a = $this->get_active();
 		$ugr = $a->prop("id_ugroup");
 		return $ugr;
-
 	}
 }
-?>

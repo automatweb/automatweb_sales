@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Sendmail.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Sendmail.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 
@@ -33,7 +33,7 @@ require_once 'Zend/Mail/Transport/Abstract.php';
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
@@ -69,11 +69,19 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
     /**
      * Constructor.
      *
-     * @param  string $parameters OPTIONAL (Default: null)
+     * @param  string|array|Zend_Config $parameters OPTIONAL (Default: null)
      * @return void
      */
     public function __construct($parameters = null)
     {
+        if ($parameters instanceof Zend_Config) {
+            $parameters = $parameters->toArray();
+        }
+
+        if (is_array($parameters)) {
+            $parameters = implode(' ', $parameters);
+        }
+
         $this->parameters = $parameters;
     }
 
@@ -83,26 +91,43 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
      *
      * @access public
      * @return void
+     * @throws Zend_Mail_Transport_Exception if parameters is set
+     *         but not a string
      * @throws Zend_Mail_Transport_Exception on mail() failure
      */
     public function _sendMail()
     {
-        set_error_handler(array($this, '_handleMailErrors'));
         if ($this->parameters === null) {
+            set_error_handler(array($this, '_handleMailErrors'));
             $result = mail(
                 $this->recipients,
                 $this->_mail->getSubject(),
                 $this->body,
                 $this->header);
+            restore_error_handler();
         } else {
+            if(!is_string($this->parameters)) {
+                /**
+                 * @see Zend_Mail_Transport_Exception
+                 *
+                 * Exception is thrown here because
+                 * $parameters is a public property
+                 */
+                require_once 'Zend/Mail/Transport/Exception.php';
+                throw new Zend_Mail_Transport_Exception(
+                    'Parameters were set but are not a string'
+                );
+            }
+
+            set_error_handler(array($this, '_handleMailErrors'));
             $result = mail(
                 $this->recipients,
                 $this->_mail->getSubject(),
                 $this->body,
                 $this->header,
                 $this->parameters);
+            restore_error_handler();
         }
-        restore_error_handler();
 
         if ($this->_errstr !== null || !$result) {
             /**

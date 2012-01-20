@@ -226,7 +226,7 @@ class site_show extends aw_template
 			"keywords" => "",
 		);
 
-		$ni = aw_ini_get("menuedit.num_menu_images");
+		$ni = aw_ini_get("menu.num_menu_images");
 		$cnt = count($this->path);
 		for ($i = $cnt-1; $i > -1; $i--)
 		{
@@ -620,7 +620,7 @@ class site_show extends aw_template
 			{
 				if ($con["from.class_id"] == CL_DOCUMENT)
 				{
-					if ($con["from.status"] == STAT_ACTIVE && $con["reltype"] == 28)
+					if ($con["from.status"] == object::STAT_ACTIVE && $con["reltype"] == 28)
 					{
 						$docid[$con["from"]] = $con["from"];
 					}
@@ -640,7 +640,7 @@ class site_show extends aw_template
 				));
 				foreach($doclist as $con)
 				{
-					if ($con["from.status"] == STAT_ACTIVE)
+					if ($con["from.status"] == object::STAT_ACTIVE)
 					{
 						$docid[$con["from"]] = $con["from"];
 					}
@@ -826,8 +826,7 @@ class site_show extends aw_template
 				{
 					$filter["CL_DOCUMENT.RELTYPE_KEYWORD"] = $_GET["set_kw"];
 				}
-				else
-				if ($obj->prop("use_menu_keywords") && $this->sel_section_obj)
+				elseif ($obj->prop("use_menu_keywords") && $this->sel_section_obj)
 				{
 					//$promo_kws = $this->sel_section_obj->connections_from(array("to.class_id" => CL_KEYWORD, "type" => "RELTYPE_KEYWORD"));
 					$mi = get_instance(menu_obj::CLID);
@@ -849,6 +848,7 @@ class site_show extends aw_template
 						}
 					}
 				}
+
 				if (count($kwns))
 				{
 					// limit by objs with those kws
@@ -1068,10 +1068,12 @@ class site_show extends aw_template
 			{
 				$filter["no_show_in_promo"] = new obj_predicate_not(1);
 			}
+
 			if ($obj->prop("auto_period") == 1)
 			{
 				$filter["period"] = aw_global_get("act_per_id");
 			}
+
 			if ($has_rand)
 			{
 				$noc_val = obj_set_opt("no_cache", 1);
@@ -1093,8 +1095,7 @@ class site_show extends aw_template
 					$s_tm = $s_tm === false ? -1 : $s_tm;
 					$filter["doc_modified"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, $s_tm-1, $s_tm+24*3600*7);
 				}
-				else
-				if ($df["month"])
+				elseif ($df["month"])
 				{
 					$s_tm = mktime(0, 0, 0, $df["month"], 1, $df["year"]);
 					$e_tm = mktime(0, 0, 0, $df["month"]+1, 1, $df["year"]);
@@ -1102,8 +1103,7 @@ class site_show extends aw_template
 					$e_tm = $e_tm === galse ? -1 : $e_tm;
 					$filter["doc_modified"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, $s_tm-1, $e_tm);
 				}
-				else
-				if ($df["year"])
+				elseif ($df["year"])
 				{
 					$s_tm = mktime(0, 0, 0, 1, 1, $df["year"]);
 					$e_tm = mktime(0, 0, 0, 1, 1, $df["year"]+1);
@@ -1692,7 +1692,7 @@ class site_show extends aw_template
 				"NO_SEL_MENU_COMMENT" => ""
 			));
 		}
-		for($i = 0; $i < aw_ini_get("menuedit.num_menu_images"); $i++)
+		for($i = 0; $i < aw_ini_get("menu.num_menu_images"); $i++)
 		{
 			if (!empty($sius[$i]))
 			{

@@ -143,11 +143,40 @@ class aw_http_request extends aw_request
 		}
 
 		// load uri
-		if (!empty($_SERVER["REQUEST_URI"]))
+		/// load host part
+		if (!empty($_SERVER["SCRIPT_URI"]))
 		{
+			$url = $_SERVER["SCRIPT_URI"];
+		}
+		elseif (!empty($_SERVER["HTTP_HOST"]))
+		{
+			$scheme = empty($_SERVER["HTTPS"]) || "off" !== $_SERVER["HTTPS"] ? "http" : "https";// "off" check is for IIS
+			$url = "{$scheme}://{$_SERVER["HTTP_HOST"]}/";
+		}
+		elseif (!empty($_SERVER["SERVER_NAME"]))
+		{
+			$scheme = empty($_SERVER["HTTPS"]) && "off" !== $_SERVER["HTTPS"] ? "http" : "https"; // "off" check is for IIS
+			$url = "{$scheme}://{$_SERVER["SERVER_NAME"]}/";
+		}
+		else
+		{
+			$url = aw_ini_get("baseurl");
+		}
+
+		/// create uri object
+		if (empty($_SERVER["REQUEST_URI"]))
+		{
+			$this->_uri = new aw_uri($url);
+			$request_uri = "";
+		}
+		else
+		{
+			$request_uri = $_SERVER["REQUEST_URI"];
+
 			try
 			{
-				$this->_uri = new aw_uri($_SERVER["REQUEST_URI"]);
+				$uri = $url . (1 === strpos($request_uri, "/") ? substr($request_uri, 1) : $request_uri);
+				$this->_uri = new aw_uri($url);
 
 				// try to get request variables from uri, assuming that those must prevail over $_GET
 				$uri_args = $this->_uri->get_args();
@@ -164,43 +193,19 @@ class aw_http_request extends aw_request
 
 		// parse special automatweb request variables
 		$AW_GET_VARS = array();
-		$pi = "";
-		$PATH_INFO = "";
-		$QUERY_STRING = "";
-		$REQUEST_URI = "";
-		$PATH_INFO = "";
+		$pi = empty($_SERVER["PATH_INFO"]) ? "" : preg_replace("|\?automatweb=[^&]*|","", $_SERVER["PATH_INFO"]);
+		$query_string = empty($_SERVER["QUERY_STRING"]) ? "" : preg_replace("|\?automatweb=[^&]*|","", $_SERVER["QUERY_STRING"]);
 
-		if (!empty($_SERVER["PATH_INFO"]))
+		if (!$query_string and !$pi and $request_uri)
 		{
-			$PATH_INFO = preg_replace("|\?automatweb=[^&]*|","", $_SERVER["PATH_INFO"]);
+			$query_string = str_replace(array("xmlrpc.aw", "index.aw", "orb.aw", "login.aw", "reforb.aw"), "", $request_uri);
 		}
 
-		if (!empty($_SERVER["QUERY_STRING"]))
+		if (strlen($query_string) > 0)
 		{
-			$QUERY_STRING = preg_replace("|\?automatweb=[^&]*|","", $_SERVER["QUERY_STRING"]);
+			$pi .= "?{$query_string}";
 		}
 
-		if (!empty($_SERVER["REQUEST_URI"]))
-		{
-			$REQUEST_URI = $_SERVER["REQUEST_URI"];
-		}
-
-		if (empty($QUERY_STRING) and empty($PATH_INFO) and !empty($REQUEST_URI))
-		{
-			$QUERY_STRING = str_replace(array("xmlrpc.aw", "index.aw", "orb.aw", "login.aw", "reforb.aw"), "", $REQUEST_URI);
-		}
-
-		if (strlen($PATH_INFO) > 0)
-		{
-			$pi = $PATH_INFO;
-		}
-
-		if (strlen($QUERY_STRING) > 0)
-		{
-			$pi .= "?".$QUERY_STRING;
-		}
-
-		$REQUEST_URI = preg_replace("|\?automatweb=[^&]*|","", $REQUEST_URI);
 		$pi = preg_replace("|\?automatweb=[^&]*|ims", "", $pi);
 
 		if ($pi)
@@ -210,7 +215,7 @@ class aw_http_request extends aw_request
 			{
 				// expand and import PATH_INFO
 				// replace ? and / with & in $pi and output the result to AW_GET_VARS
-				parse_str(str_replace("?","&",str_replace("/","&",$pi)),$AW_GET_VARS);
+				parse_str(str_replace(array("?", "/"), "&", $pi), $AW_GET_VARS);
 			}
 		}
 
@@ -220,7 +225,7 @@ class aw_http_request extends aw_request
 		$this->parse_args();
 
 		// load system components
-		$this->_autoload_data_storage();
+		$this->_autoload_data_storage();//TODO: cfg laadimise juurde viia
 		$this->_autoload_language();
 	}
 

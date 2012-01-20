@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Markup
  * @subpackage Parser
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Bbcode.php 20573 2010-01-24 16:37:48Z kokx $
+ * @version    $Id: Bbcode.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -34,7 +34,7 @@ require_once 'Zend/Markup/Parser/ParserInterface.php';
  * @category   Zend
  * @package    Zend_Markup
  * @subpackage Parser
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Markup_Parser_Bbcode implements Zend_Markup_Parser_ParserInterface
@@ -125,6 +125,11 @@ class Zend_Markup_Parser_Bbcode implements Zend_Markup_Parser_ParserInterface
             'type'     => self::TYPE_SINGLE,
             'stoppers' => array(),
         ),
+        'code' => array(
+            'type'         => self::TYPE_DEFAULT,
+            'stoppers'     => array('[/code]', '[/]'),
+            'parse_inside' => false
+        )
     );
 
     /**
@@ -290,7 +295,7 @@ class Zend_Markup_Parser_Bbcode implements Zend_Markup_Parser_ParserInterface
                     break;
                 case self::STATE_PARSEVALUE:
                     $matches = array();
-                    $regex   = '#\G((?<quote>"|\')(?<valuequote>[^\\2]*)\\2|(?<value>[^\]\s]+))#';
+                    $regex   = '#\G((?<quote>"|\')(?<valuequote>.*?)\\2|(?<value>[^\]\s]+))#';
                     if (!preg_match($regex, $this->_value, $matches, null, $this->_pointer)) {
                         $this->_state = self::STATE_SCANATTRS;
                         break;
@@ -365,6 +370,16 @@ class Zend_Markup_Parser_Bbcode implements Zend_Markup_Parser_ParserInterface
                         ));
                     } elseif (isset($token['name']) && ($token['name'][0] == '/')) {
                         // this is a stopper, add it as a empty token
+                        $this->_current->addChild(new Zend_Markup_Token(
+                            $token['tag'],
+                            Zend_Markup_Token::TYPE_NONE,
+                            '',
+                            array(),
+                            $this->_current
+                        ));
+                    } elseif (isset($this->_tags[$this->_current->getName()]['parse_inside'])
+                        && !$this->_tags[$this->_current->getName()]['parse_inside']
+                    ) {
                         $this->_current->addChild(new Zend_Markup_Token(
                             $token['tag'],
                             Zend_Markup_Token::TYPE_NONE,

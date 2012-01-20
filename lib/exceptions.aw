@@ -17,8 +17,11 @@ class aw_exception extends Exception
 }
 
 /////////////////// general purpose classes for common exception conditions ///////////////////
+
 /** Indicates that instruction has already been carried out **/
-class awex_redundant_instruction extends aw_exception {}
+class awex_redundant_instruction extends aw_exception
+{
+}
 
 /** Function or method parameter error **/
 class awex_param extends aw_exception
@@ -43,4 +46,9 @@ class awex_param_type extends awex_param
 		$this->given_value = $given_value;
 		return $this;
 	}
+}
+
+/** Feature is not available in given conditions **/
+class awex_not_available extends aw_exception
+{
 }

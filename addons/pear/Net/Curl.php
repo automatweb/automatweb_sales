@@ -16,7 +16,7 @@
 // | Author: Sterling Hughes <sterling@php.net>                           |
 // +----------------------------------------------------------------------+
 //
-// $Id: Curl.php,v 1.2 2008/05/07 10:50:06 kristo Exp $
+// $Id: Curl.php,v 1.1 2007/04/05 12:11:45 gen Exp $
 //
 // A nice friendly OO interface for CURL
 //
@@ -356,8 +356,7 @@ class Net_Curl extends PEAR
 		
 			$ret = curl_setopt($ch, CURLOPT_COOKIE, $cookie_data);
 		}
-		curl_setopt($ch, CURLOPT_SESSIONTIMEOUT, 3600);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 3600);
+		
 		$ret = curl_exec($ch);
 		if (!$ret) {
 			$errObj = new PEAR_Error(curl_error($ch), curl_errno($ch));

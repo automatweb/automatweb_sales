@@ -22,7 +22,10 @@
 @groupinfo invention caption="Leiutise nimetus"
 @default group=invention
 	@property invention_name type=textbox
-	@caption Leiutise nimetus
+	@caption Leiutise nimetus eesti keeles
+
+	@property invention_name_en type=textbox
+	@caption Leiutise nimetus inglise keeles
 
 
 @default group=priority
@@ -65,10 +68,13 @@
 	@caption Kasuliku mudeli n&otilde;udlus, n&otilde;udluspunkti
 
  	@property attachment_summary_et type=fileupload reltype=RELTYPE_ATTACHMENT_SUMMARY_ET form=+emb
-	@caption Leiutise olemuse l&uuml;hikokkuv&otilde;te
+	@caption Leiutise olemuse l&uuml;hikokkuv&otilde;te eesti keeles
+
+ 	@property attachment_summary_en type=fileupload reltype=RELTYPE_ATTACHMENT_SUMMARY_EN form=+emb
+	@caption Leiutise olemuse l&uuml;hikokkuv&otilde;te inglise keeles
 
  	@property attachment_dwgs type=multifile_upload reltype=RELTYPE_ATTACHMENT_DWGS form=+emb
-	@caption Illustratsioonid
+	@caption Joonised
 
  	@property attachment_fee type=fileupload reltype=RELTYPE_ATTACHMENT_FEE form=+emb
 	@caption Riigil&otilde;ivu tasumist t&otilde;endav dokument
@@ -158,13 +164,13 @@ class utility_model extends intellectual_property
 		$this->show_sent_template = "show_sent_um.tpl";
 		$this->date_vars = array_merge($this->date_vars, array("prio_convention_date", "prio_prevapplicationsep_date", "prio_prevapplication_date"
 ));
-		$this->file_upload_vars = array_merge($this->file_upload_vars, array("attachment_invention_description", "attachment_seq", "attachment_demand", "attachment_summary_et", "attachment_fee", "attachment_warrant", "attachment_prio", "attachment_prio_trans", "attachment_other"));
-		$this->text_vars = array_merge($this->text_vars, array("invention_name","prio_convention_country","prio_convention_nr","prio_prevapplicationsep_nr","prio_prevapplication_nr","attachment_demand_points"));
+		$this->file_upload_vars = array_merge($this->file_upload_vars, array("attachment_invention_description", "attachment_seq", "attachment_demand", "attachment_summary_et", "attachment_summary_en", "attachment_fee", "attachment_warrant", "attachment_prio", "attachment_prio_trans", "attachment_other"));
+		$this->text_vars = array_merge($this->text_vars, array("invention_name", "invention_name_en", "prio_convention_country", "prio_convention_nr", "prio_prevapplicationsep_nr", "prio_prevapplication_nr", "attachment_demand_points"));
 		$this->checkbox_vars = array_merge($this->checkbox_vars, array("author_disallow_disclose"));
 		$this->chooser_vars = array_merge($this->chooser_vars, array("applicant_reg"));
 		$this->multifile_upload_vars = array_merge($this->multifile_upload_vars, array("attachment_dwgs"));
 
-		$this->datafromobj_vars = array_merge($this->datafromobj_vars, array("invention_name", "prio_convention_date", "prio_convention_country", "prio_convention_nr", "prio_prevapplicationsep_date", "prio_prevapplicationsep_nr", "prio_prevapplication_date", "prio_prevapplication_nr", "attachment_invention_description", "attachment_demand", "attachment_demand_points", "attachment_summary_et", "attachment_dwgs", "attachment_fee", "attachment_warrant", "attachment_prio", "attachment_prio_trans", "applicant_reg", "attachment_other"));
+		$this->datafromobj_vars = array_merge($this->datafromobj_vars, array("invention_name", "invention_name_en", "prio_convention_date", "prio_convention_country", "prio_convention_nr", "prio_prevapplicationsep_date", "prio_prevapplicationsep_nr", "prio_prevapplication_date", "prio_prevapplication_nr", "attachment_invention_description", "attachment_demand", "attachment_demand_points", "attachment_summary_et", "attachment_summary_en", "attachment_dwgs", "attachment_fee", "attachment_warrant", "attachment_prio", "attachment_prio_trans", "applicant_reg", "attachment_other"));
 		$this->datafromobj_del_vars = array("name_value" , "email_value" , "phone_value" , "fax_value" , "code_value" ,"email_value" , "street_value" ,"index_value" ,"country_code_value","city_value","county_value","correspond_street_value", "correspond_index_value" , "correspond_country_code_value" , "correspond_county_value","correspond_city_value", "name", "applicant_reg", "author_disallow_disclose");
 	}
 
@@ -212,6 +218,7 @@ class utility_model extends intellectual_property
 	protected function save_invention($patent)
 	{
 		$patent->set_prop("invention_name" , $_SESSION["patent"]["invention_name"]);
+		$patent->set_prop("invention_name_en" , $_SESSION["patent"]["invention_name_en"]);
 		$patent->save();
 	}
 

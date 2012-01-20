@@ -13,50 +13,20 @@ require_once AW_DIR . "lib/core/obj/object" . AW_FILE_EXT;
 require_once AW_DIR . "lib/debug" . AW_FILE_EXT;
 require_once AW_DIR . "lib/site_file_index" . AW_FILE_EXT;
 
-if (function_exists("spl_autoload_register"))
-{
-	spl_autoload_register(array("class_index", "load_class"));
-	spl_autoload_register("zend_autoload");
-}
-else
-{
-	function __autoload($class_name)
-	{
-		if (0 === strpos($class_name, "Zend"))
-		{
-			$class_file = AW_DIR . "addons/" . str_replace("_", "/", $class_name) . ".php";
+spl_autoload_register("zend_autoload");
+spl_autoload_register(array("class_index", "load_class"));
 
-			if (file_exists($class_file))
-			{
-				require_once $class_file;
-			}
-
-			if (!class_exists($class_name, false) and !interface_exists($class_name, false))
-			{
-				debug_print_backtrace();
-				exit("Fatal classload error. Tried to load Zend framework class '" . $class_name . "'");//!!! tmp
-			}
-		}
-		else
-		{
-			class_index::load_class($class_name);
-		}
-	}
-}
 
 function zend_autoload($class_name)
 {
-	$class_file = AW_DIR . "addons/" . str_replace("_", "/", $class_name) . ".php";
-
-	if (file_exists($class_file))
+	if (0 === strpos($class_name, "Zend_"))
 	{
-		require_once $class_file;
-	}
+		$class_file = AW_DIR . "addons/" . str_replace("_", "/", $class_name) . ".php";
 
-	if (!class_exists($class_name, false) and !interface_exists($class_name, false))
-	{
-		debug_print_backtrace();
-		exit("Fatal classload error. Tried to load Zend framework class '" . $class_name . "'");//!!! tmp
+		if (file_exists($class_file))
+		{
+			require_once $class_file;
+		}
 	}
 }
 

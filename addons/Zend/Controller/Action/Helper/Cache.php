@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Cache.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -37,7 +37,7 @@ require_once 'Zend/Cache/Manager.php';
 /**
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Action_Helper_Cache
@@ -66,6 +66,13 @@ class Zend_Controller_Action_Helper_Cache
     protected $_tags = array();
 
     /**
+     * Indexed map of Extensions by Controller and Action
+     *
+     * @var array
+     */
+    protected $_extensions = array();
+
+    /**
      * Track output buffering condition
      */
     protected $_obStarted = false;
@@ -78,7 +85,7 @@ class Zend_Controller_Action_Helper_Cache
      * @param array $tags
      * @return void
      */
-    public function direct(array $actions, array $tags = array())
+    public function direct(array $actions, array $tags = array(), $extension = null)
     {
         $controller = $this->getRequest()->getControllerName();
         $actions = array_unique($actions);
@@ -98,6 +105,14 @@ class Zend_Controller_Action_Helper_Cache
                 foreach ($tags as $tag) {
                     $this->_tags[$controller][$action][] = $tag;
                 }
+            }
+        }
+        if ($extension) {
+            if (!isset($this->_extensions[$controller])) {
+                $this->_extensions[$controller] = array();
+            }
+            foreach ($actions as $action) {
+                $this->_extensions[$controller][$action] = $extension;
             }
         }
     }
@@ -166,11 +181,15 @@ class Zend_Controller_Action_Helper_Cache
             && !empty($this->_tags[$controller][$action])) {
                 $tags = array_unique($this->_tags[$controller][$action]);
             }
+            $extension = null;
+            if (isset($this->_extensions[$controller][$action])) {
+                $extension = $this->_extensions[$controller][$action];
+            }
             $this->getCache(Zend_Cache_Manager::PAGECACHE)
-                ->start($this->_encodeCacheId($reqUri), $tags);
+                ->start($this->_encodeCacheId($reqUri), $tags, $extension);
         }
     }
-    
+
     /**
      * Encode a Cache ID as hexadecimal. This is a workaround because Backend ID validation
      * is trapped in the Frontend classes. Will try to get this reversed for ZF 2.0
@@ -204,7 +223,7 @@ class Zend_Controller_Action_Helper_Cache
      */
     public function getManager()
     {
-        if (!is_null($this->_manager)) {
+        if ($this->_manager !== null) {
             return $this->_manager;
         }
         $front = Zend_Controller_Front::getInstance();

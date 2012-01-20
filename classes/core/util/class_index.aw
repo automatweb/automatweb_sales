@@ -485,8 +485,8 @@ class class_index
 			return false;
 		}
 
-		$crm_company_reflection = new ReflectionClass("crm_company");
-		return $crm_company_reflection->isSubclassOf($parent);
+		$class = new ReflectionClass($name);
+		return $class->isSubclassOf($parent);
 	}
 
 	private static function clean_up($classes)
@@ -574,7 +574,6 @@ class class_index
 	public static function is_instantiable($class)
 	{
 		$class = new ReflectionClass($class);
-
 		return $class->isInstantiable();
 	}
 

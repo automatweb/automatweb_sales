@@ -21,6 +21,7 @@
  * @license    http://www.php.net/license/2_02.txt  PHP License 2.02
  * @link       http://pear.php.net/package/SOAP
  */
+
 require_once PEAR_PATH.'SOAP/Base.php';
 require_once PEAR_PATH.'SOAP/Fault.php';
 require_once PEAR_PATH.'HTTP/Request.php';
@@ -865,7 +866,6 @@ class SOAP_WSDL extends SOAP_Base
         }
         return array($this->namespaces[$nsPrefix], $arrayType, 0);
     }
-
 }
 
 class SOAP_WSDL_Cache extends SOAP_Base

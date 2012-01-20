@@ -18,7 +18,7 @@
 // |         Stephan Schmidt <schst@php-tools.net>                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: Parser.php,v 1.1 2006/11/16 13:02:16 tarvo Exp $
+// $Id: Parser.php,v 1.1 2007/04/05 12:11:45 gen Exp $
 
 /**
  * XML Parser class.

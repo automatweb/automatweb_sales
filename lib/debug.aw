@@ -12,6 +12,9 @@
 	@param see_html type=bool default=FALSE
 		If set to true, the value displayed is fed through htmlspecialchars, so you can see the html tags in yer browser
 
+	@param return type=bool default=FALSE
+		If set to true, the value displayed is returned, otherwise displayed
+
 	@comment
 		Use this to output any value to the user in a pretty way, basically wraps print_r. The value is printed directly to the browser, not returned. Does nothing when in automatweb::MODE_PRODUCTION mode
 
@@ -22,13 +25,10 @@ function arr($arr = null, $die=false, $see_html=false)
 	{
 		return;
 	}
-	// elseif (isset(automatweb::$instance) and automatweb::MODE_DBG_CONSOLE === automatweb::$instance->mode())
-	// {
-	// }
 	else
 	{
 		echo "<hr/>\n";
-		$tmp = '';
+		$tmp = "";
 		ob_start();
 		print_r($arr);
 		$tmp = ob_get_contents();
@@ -259,7 +259,7 @@ class dbg
 				{
 					if ($show_long_args)
 					{
-						$e = var_export($e, true);
+						$e = print_r($e, true);
 					}
 					else
 					{
@@ -272,7 +272,7 @@ class dbg
 				{
 					if ($show_long_args)
 					{
-						$e = var_export($e, true);
+						$e = print_r($e, true);
 					}
 					else
 					{

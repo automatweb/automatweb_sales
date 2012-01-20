@@ -16,8 +16,8 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Cookie
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Cookie.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Cookie.php 23775 2011-03-01 17:25:24Z ralph $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -41,7 +41,7 @@ require_once 'Zend/Uri/Http.php';
  *
  * @category   Zend
  * @package    Zend_Http
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Cookie
@@ -87,6 +87,13 @@ class Zend_Http_Cookie
      * @var boolean
      */
     protected $secure;
+
+    /**
+     * Whether the cookie value has been encoded/decoded
+     *
+     * @var boolean
+     */
+    protected $encodeValue;
 
     /**
      * Cookie object constructor
@@ -258,7 +265,10 @@ class Zend_Http_Cookie
      */
     public function __toString()
     {
-        return $this->name . '=' . urlencode($this->value) . ';';
+        if ($this->encodeValue) {
+            return $this->name . '=' . urlencode($this->value) . ';';
+        }
+        return $this->name . '=' . $this->value . ';';
     }
 
     /**
@@ -266,14 +276,16 @@ class Zend_Http_Cookie
      * (for example the value of the Set-Cookie HTTP header)
      *
      * @param string $cookieStr
-     * @param Zend_Uri_Http|string $ref_uri Reference URI for default values (domain, path)
+     * @param Zend_Uri_Http|string $refUri Reference URI for default values (domain, path)
+     * @param boolean $encodeValue Whether or not the cookie's value should be
+     *                             passed through urlencode/urldecode
      * @return Zend_Http_Cookie A new Zend_Http_Cookie object or false on failure.
      */
-    public static function fromString($cookieStr, $ref_uri = null)
+    public static function fromString($cookieStr, $refUri = null, $encodeValue = true)
     {
         // Set default values
-        if (is_string($ref_uri)) {
-            $ref_uri = Zend_Uri_Http::factory($ref_uri);
+        if (is_string($refUri)) {
+            $refUri = Zend_Uri_Http::factory($refUri);
         }
 
         $name    = '';
@@ -290,12 +302,14 @@ class Zend_Http_Cookie
         // Get the name and value of the cookie
         list($name, $value) = explode('=', trim(array_shift($parts)), 2);
         $name  = trim($name);
-        $value = urldecode(trim($value));
+        if ($encodeValue) {
+            $value = urldecode(trim($value));
+        }
 
         // Set default domain and path
-        if ($ref_uri instanceof Zend_Uri_Http) {
-            $domain = $ref_uri->getHost();
-            $path = $ref_uri->getPath();
+        if ($refUri instanceof Zend_Uri_Http) {
+            $domain = $refUri->getHost();
+            $path = $refUri->getPath();
             $path = substr($path, 0, strrpos($path, '/'));
         }
 
@@ -342,7 +356,9 @@ class Zend_Http_Cookie
         }
 
         if ($name !== '') {
-            return new self($name, $value, $domain, $expires, $path, $secure);
+            $ret = new self($name, $value, $domain, $expires, $path, $secure);
+            $ret->encodeValue = ($encodeValue) ? true : false;
+            return $ret;
         } else {
             return false;
         }
@@ -379,7 +395,7 @@ class Zend_Http_Cookie
 
         // Check for either exact match or suffix match
         return ($cookieDomain == $host ||
-                preg_match("/\.$cookieDomain$/", $host));
+                preg_match('/\.' . preg_quote($cookieDomain) . '$/', $host));
     }
 
     /**

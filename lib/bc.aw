@@ -34,6 +34,6 @@ function aw_redirect(aw_uri $url)
 	else
 	{
 		header("Location: {$content}");
-		exit;
+		automatweb::http_exit(http::STATUS_SEE_OTHER);
 	}
 }

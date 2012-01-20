@@ -594,7 +594,7 @@ class patent extends intellectual_property
 
 	protected function get_object()
 	{
-		if(is_oid($_SESSION["patent"]["id"]))
+		if(!empty($_SESSION["patent"]["id"]))
 		{
 			$patent = obj($_SESSION["patent"]["id"]);
 		}
@@ -739,7 +739,11 @@ class patent extends intellectual_property
 
 		if($requested_data_type === "2")
 		{
-			if(!is_array($_POST["products"]) && !is_array($_SESSION["patent"]["prod_selection"]) && !(is_array($_SESSION["patent"]["products"] && sizeof($_SESSION["patent"]["products"]))))
+			if(
+				(empty($_POST["products"]) or !is_array($_POST["products"])) and
+				(empty($_SESSION["patent"]["prod_selection"]) or !is_array($_SESSION["patent"]["prod_selection"])) and
+				(empty($_SESSION["patent"]["products"]) or !is_array($_SESSION["patent"]["products"]))
+			)
 			{
 				$err.= t("Kohustuslik v&auml;hemalt &uuml;he klassi lisamine")."\n<br>";
 			}

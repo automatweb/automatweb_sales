@@ -201,7 +201,7 @@ class menu_obj extends _int_object
 						$section = preg_replace("|^" . AW_REQUEST_CT_LANG_CODE . "/|", "", $section);
 					}
 				}
-				elseif ("/" === $path_info)
+				elseif ("/" === $path_info or empty($path_info))
 				{
 					$section = aw_ini_get("frontpage");
 				}

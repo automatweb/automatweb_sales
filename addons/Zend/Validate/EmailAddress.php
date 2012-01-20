@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EmailAddress.php 20358 2010-01-17 19:03:49Z thomas $
+ * @version    $Id: EmailAddress.php 24304 2011-07-30 01:12:35Z adamlundrigan $
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Validate/Hostname.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
@@ -51,11 +51,11 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID            => "Invalid type given, value should be a string",
+        self::INVALID            => "Invalid type given. String expected",
         self::INVALID_FORMAT     => "'%value%' is no valid email address in the basic format local-part@hostname",
         self::INVALID_HOSTNAME   => "'%hostname%' is no valid hostname for email address '%value%'",
         self::INVALID_MX_RECORD  => "'%hostname%' does not appear to have a valid MX record for the email address '%value%'",
-        self::INVALID_SEGMENT    => "'%hostname%' is not in a routable network segment. The email address '%value%' should not be resolved from public network.",
+        self::INVALID_SEGMENT    => "'%hostname%' is not in a routable network segment. The email address '%value%' should not be resolved from public network",
         self::DOT_ATOM           => "'%localPart%' can not be matched against dot-atom format",
         self::QUOTED_STRING      => "'%localPart%' can not be matched against quoted-string format",
         self::INVALID_LOCAL_PART => "'%localPart%' is no valid local part for email address '%value%'",
@@ -362,8 +362,8 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
                 }
 
                 $segmentData = array(
-                    'network'   => (int)$this->_binaryToIp(str_pad(substr($binaryHost, 0, $host[1]), 32, 0)),
-                    'broadcast' => (int)$this->_binaryToIp(str_pad(substr($binaryHost, 0, $host[1]), 32, 1))
+                    'network'   => (int)$this->_toIp(str_pad(substr($binaryHost, 0, $host[1]), 32, 0)),
+                    'broadcast' => (int)$this->_toIp(str_pad(substr($binaryHost, 0, $host[1]), 32, 1))
                 );
 
                 for ($j = $i; $j < 4; $j++) {
@@ -441,10 +441,11 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      */
     private function _validateMXRecords()
     {
-        $result = true;
         $mxHosts = array();
-        getmxrr($this->_hostname, $mxHosts);
-        if ($this->_options['deep'] && function_exists('checkdnsrr')) {
+        $result = getmxrr($this->_hostname, $mxHosts);
+        if (!$result) {
+            $this->_error(self::INVALID_MX_RECORD);
+        } else if ($this->_options['deep'] && function_exists('checkdnsrr')) {
             $validAddress = false;
             $reserved     = true;
             foreach ($mxHosts as $hostname) {

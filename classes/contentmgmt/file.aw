@@ -1170,7 +1170,7 @@ class file extends class_base
 			else
 			{
 				$this->dequote($ret["content"]);
-			};
+			}
 		}
 
 		if (aw_ini_get("user_interface.content_trans") == 1 && ($cur_lid = aw_global_get("lang_id")) != $tmpo->lang_id())

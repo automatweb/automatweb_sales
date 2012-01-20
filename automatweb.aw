@@ -252,7 +252,11 @@ class automatweb
 		self::$request = $request;
 		self::$instance_data[self::$current_instance_nr]["request"] = $request;
 		$ct_lid = $request->lang_id();
-		$ct_lid = languages::set_active_ct_lang($ct_lid);
+
+		if (!$request->is_fastcall())
+		{
+			$ct_lid = languages::set_active_ct_lang($ct_lid);
+		}
 
 		if (!$ct_lid)
 		{
@@ -340,6 +344,13 @@ class automatweb
 		ini_set("max_execution_time", "2000");
 		$baseurl = aw_ini_get("baseurl");
 		$request_uri = $_SERVER["REQUEST_URI"];
+
+		if (aw_ini_get("menuedit.require_ssl") and "https" !== self::$request->get_uri()->get_scheme())
+		{ // redirect to https
+			$redirect_url = self::$request->get_uri();
+			$redirect_url->set_scheme("https");
+			aw_redirect($redirect_url);
+		}
 
 		// execute fastcall if requested
 		if (self::$request->is_fastcall())

@@ -575,12 +575,14 @@ class _int_object_loader
 			}
 			catch (Exception $e)
 			{
+				$f = false;
 				//TODO: ......... logida, n2idata, ...?
 			}
 		}
 		catch (Exception $e)
 		{
-				//TODO: ......... logida, n2idata, ...?
+			$f = false;
+			//TODO: ......... logida, n2idata, ...?
 		}
 
 		try // shutdown functions can't throw exceptions
@@ -614,7 +616,11 @@ class _int_object_loader
 			}
 			$this->_do_repl_call($url, $data, $f, $site_id);
 		}
-		fclose($f);
+
+		if ($f)
+		{
+			fclose($f);
+		}
 	}
 
 	private function _do_repl_call($url, $data, $f, $site_id)

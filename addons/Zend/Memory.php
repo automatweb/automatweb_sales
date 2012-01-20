@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Memory.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Memory.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /** Zend_Memory_Exception */
@@ -34,7 +34,7 @@ require_once 'Zend/Cache.php';
 /**
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Memory
@@ -53,10 +53,18 @@ class Zend_Memory
             return new Zend_Memory_Manager();
         }
 
-        // because lowercase will fail
-        $backend = @ucfirst(strtolower($backend));
+        // Look through available backendsand
+        // (that allows to specify it in any case)
+        $backendIsFound = false;
+        foreach (Zend_Cache::$standardBackends as $zendCacheBackend) {
+            if (strcasecmp($backend, $zendCacheBackend) == 0) {
+                $backend = $zendCacheBackend;
+                $backendIsFound = true;
+                break;
+            }
+        }
 
-        if (!in_array($backend, Zend_Cache::$availableBackends)) {
+        if (!$backendIsFound) {
             require_once 'Zend/Memory/Exception.php';
             throw new Zend_Memory_Exception("Incorrect backend ($backend)");
         }

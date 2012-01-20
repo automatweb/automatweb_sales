@@ -1607,7 +1607,7 @@ class menu extends class_base implements main_subtemplate_handler
 				$img[$nm] = $imd["id"];
 			}
 		}
-		$num_menu_images = $this->cfg["num_menu_images"];
+		$num_menu_images = aw_ini_get("menu.num_menu_images");
 		$t = new image();
 
 		for ($i=0; $i < $num_menu_images; $i++)
