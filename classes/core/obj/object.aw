@@ -2300,10 +2300,10 @@ class object
 		return $GLOBALS["objects"][$this->oid]->trans_set_val($prop, $value, $lang_id);
 	}
 
-	public function set_translation_status($lang_id, $status)
+	public function set_translation_status($lang_id, $active)
 	{
 		$this->_check_lock_write();
-		$GLOBALS["objects"][$this->oid]->set_translation_status($lang_id, $status);
+		$GLOBALS["objects"][$this->oid]->set_translation_status($lang_id, $active);
 	}
 
 	public function get_translated_langs()

@@ -2376,16 +2376,20 @@ class shop_order_center extends class_base
 				{
 					if($o->prop("type"))
 					{
-						$data["types"] = $show_inst->types[$o->prop("type")];
+						$type = is_array($o->prop("type")) ? reset($o->prop("type")) : $o->prop("type");
+						$data["types"] = isset($show_inst->types[$type]) ? $show_inst->types[$type] : null;
 					}
+
 					if($o->prop("template"))
 					{
 						$data["template"] = $o->prop("template");
 					}
+
 					if($o->prop("product_template"))
 					{
 						$data["product_template"] = $o->prop("product_template");
 					}
+
 					$cats = array();
 					foreach($o->get_categories()->arr() as $cat)
 					{
@@ -2395,6 +2399,7 @@ class shop_order_center extends class_base
 							"caption" => html::img(array("url" => $this->imgbase."/delete.gif")),
 						));
 					}
+
 					if($document = $o->get_document())
 					{
 						$data["name"] = html::href(array(
@@ -2484,7 +2489,7 @@ class shop_order_center extends class_base
 
 	function _get_appearance_toolbar($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$roots = $arr["obj_inst"]->prop("root_menu");
 
