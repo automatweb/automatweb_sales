@@ -986,7 +986,7 @@ class _int_object
 	public function set_meta($param, $value = null)
 	{
 		if (is_array($param))
-		{
+		{//TODO: ohutuse m6ttes tuleks see variant 2ra kaotada
 			$prev = $this->obj["meta"];
 			$this->_int_set_ot_mod("metadata", $prev, $param);
 			$this->obj["meta"] = $param;
@@ -1579,7 +1579,11 @@ class _int_object
 
 	public function trans_set_val($prop, $value, $lang_id = AW_REQUEST_CT_LANG_ID)
 	{
+		$prev = isset($this->obj["meta"]["translations"][$lang_id][$prop]) ? $this->obj["meta"]["translations"][$lang_id][$prop] : "";
 		$this->obj["meta"]["translations"][$lang_id][$prop] = $value;
+		$this->_int_set_ot_mod("metadata", $prev, $value);
+		$this->_int_do_implicit_save();
+		return $prev;
 	}
 
 	public function prop_is_translated($prop)
@@ -1612,7 +1616,11 @@ class _int_object
 
 	public function set_translation_status($lang_id, $active)
 	{
-		$this->obj["meta"]["trans_{$lang_id}_status"] = (bool) $active;
+		$prev = isset($this->obj["meta"]["trans_{$lang_id}_status"]) ? (bool) $this->obj["meta"]["trans_{$lang_id}_status"] : false;
+		$this->obj["meta"]["trans_{$lang_id}_status"] = (int)(bool) $active;
+		$this->_int_set_ot_mod("metadata", $prev, $active);
+		$this->_int_do_implicit_save();
+		return $prev;
 	}
 
 	public function get_translation_status($lang_id)
@@ -1877,11 +1885,13 @@ class _int_object
 	{
 		$cv1 = $oldval;
 		$cv2 = $newval;
+
 		if (is_array($cv1) || is_array($cv2))
 		{
 			$cv1 = serialize($cv1);
 			$cv2 = serialize($cv2);
 		}
+
 		if ($cv1 != $cv2 && isset(object_loader::instance()->all_ot_flds[$fld]))
 		{
 			$this->ot_modified[$fld] = 1;

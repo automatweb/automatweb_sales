@@ -241,7 +241,7 @@ class products_show extends class_base
 		$oc = $ob->get_oc();
 		$this->read_template($ob->get_template());
 		$this->vars(array(
-			"name" => $ob->prop("name"),
+			"name" => $ob->trans_get_val("name"),
 			"currency" => get_name($oc->get_currency()),
 		));
 
@@ -496,15 +496,15 @@ class products_show extends class_base
 		}
 
 		$data = array();
-		$cart_inst = get_instance(CL_SHOP_ORDER_CART);
+		$cart_inst = new shop_order_cart();
  		$data["submit_url"] = $this->mk_my_orb("submit_add_cart", array(
 			"oc" => $oc->id(),
 			"id" => $oc->prop("cart"),
-		),CL_SHOP_ORDER_CART,false,false,"&amp;");
+		), CL_SHOP_ORDER_CART, false, false, "&amp;");
 
 		if(!substr_count("orb.aw" ,$data["submit_url"] ))
 		{
-			$data["submit_url"] = str_replace(aw_ini_get("baseurl")."/" ,aw_ini_get("baseurl")."/orb.aw" , $data["submit_url"]);
+			$data["submit_url"] = str_replace(aw_ini_get("baseurl"), aw_ini_get("baseurl")."orb.aw", $data["submit_url"]);
 
 		}
 		$data["oc"] = $oc->id();

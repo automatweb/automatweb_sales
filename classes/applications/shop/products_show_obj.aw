@@ -144,11 +144,11 @@ class products_show_obj extends _int_object
 		{
 			return obj($this->prop("oc"));
 		}
-aw_disable_acl();
+
 		$ol = new object_list(array(
 //			"limit" => 1,
-			"class_id" => CL_SHOP_ORDER_CENTER, "lang_id" => array(), "site_id" => array()));
-aw_restore_acl();
+			"class_id" => CL_SHOP_ORDER_CENTER
+		));
 		$oc = $ol->begin();
 		if(is_oid($oc))
 		{
@@ -163,7 +163,7 @@ aw_restore_acl();
 	**/
 	public function get_categories()
 	{
-		$ol = new object_list();	
+		$ol = new object_list();
 		if(is_array($this->prop("categories")))
 		{
 			foreach($this->prop("categories") as $category)
