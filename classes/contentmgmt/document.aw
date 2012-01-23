@@ -38,8 +38,6 @@ class document extends aw_template implements orb_public_interface
 		// nini. siia paneme nyt kirja v2ljad, mis dokumendi metadata juures kirjas on
 		$this->metafields = array("show_print","show_last_changed","show_real_pos","dcache");
 
-		lc_site_load("document", $this);
-
 		if (isset($GLOBALS["lc_document"]) && is_array($GLOBALS["lc_document"]))
 		{
 			$this->vars($GLOBALS["lc_document"]);
@@ -65,7 +63,7 @@ class document extends aw_template implements orb_public_interface
 	**/
 	function fetch($docid, $no_acl_checks = false)
 	{
-		if (!$this->can("view",$docid))
+		if (!acl_base::can("view",$docid))
 		{
 			//	and why is this commented out?
 			$this->data = false;
@@ -91,6 +89,7 @@ class document extends aw_template implements orb_public_interface
 			$retval = $docobj->fetch();
 			$retval["docid"] = $retval["oid"];
 		}
+
 		$retval["title"] = $docobj->trans_get_val("title"); // fix condition when brother has a different name
 		return $retval;
 	}
@@ -151,7 +150,7 @@ class document extends aw_template implements orb_public_interface
 			$doc["title_clickable"] = 0;
 		}
 
-		if ($this->cfg["show_real_location"] == 1)
+		if (aw_ini_get("menuedit.show_real_location"))
 		{
 			$doc["docid"] = $doc_o->brother_of();
 			$docid = $doc_o->brother_of();
@@ -167,15 +166,16 @@ class document extends aw_template implements orb_public_interface
 			$row = $this->db_next();
 			if ($row)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$fl = $fi->get_file_by_id($_t_oid);
 				return $fl["content"];
-			};
+			}
 		}
+
 		if (!$params["tpl"])
 		{
 			// do template autodetect from parent
-			$tplmgr = get_instance("templatemgr");
+			$tplmgr = new templatemgr();
 			if ($leadonly > -1)
 			{
 				$tpl = $tplmgr->get_lead_template($doc["parent"]);
@@ -213,7 +213,7 @@ class document extends aw_template implements orb_public_interface
 				$doc["meta"]["show_print"] = 1;
 				$this->vars(array("page_title" => strip_tags($fl["comment"])));
 				$pagetitle = strip_tags($fl["comment"]);
-			};
+			}
 		}
 
 
@@ -389,15 +389,13 @@ class document extends aw_template implements orb_public_interface
 		// import charset for print
 		if ($this->template_has_var("charset"))
 		{
-			$_langs = new languages();
-			$_ld = $_langs->fetch($lang_id);
+			$_ld = languages::fetch($lang_id);
 			$this->vars(array(
 				"charset" => $_ld["charset"]
 			));
-		};
+		}
 
 		// load localization settings and put them in the template
-		lc_site_load("document", $this);
 		if (isset($GLOBALS["lc_doc"]) && is_array($GLOBALS["lc_doc"]))
 		{
 			$this->vars($GLOBALS["lc_doc"]);
@@ -414,17 +412,17 @@ class document extends aw_template implements orb_public_interface
 		if (false !== strpos($doc["content"],"#code#"))
 		{
 		       $doc["content"] = preg_replace("/(#code#)(.+?)(#\/code#)/esm","\"<pre>\".str_replace('#','&#35;',htmlspecialchars(stripslashes('\$2'))).\"</pre>\"",$doc["content"]);
-		};
+		}
 
 		if (false !== strpos($doc["content"],"#noparse#"))
 		{
 		       $doc["content"] = preg_replace("/(#noparse#)(.+?)(#\/noparse#)/esm","str_replace('#','&#35;','\$2')",$doc["content"]);
-		};
+		}
 
 		if (false !== strpos($doc["content"],"#php#"))
 		{
 		       $doc["content"] = preg_replace("/(#php#)(.+?)(#\/php#)/esm","highlight_string(stripslashes('<'.'?php'.'\$2'.'?'.'>'),true)",$doc["content"]);
-		};
+		}
 
 
 		if(aw_ini_get("document.parse_keywords") && $doc_o->prop("link_keywords2"))
@@ -469,14 +467,14 @@ class document extends aw_template implements orb_public_interface
 				else
 				{
 					$def = t("<br /><B>Edasi loe ajakirjast!</b></font>");//XXX: midagi vana, kaotada, muuta...
-				};
+				}
 				$doc["content"] = substr($doc["content"],0,$pp).$def;
 			}
 			else
 			{
 				$doc["content"]  = str_replace("#poolita#","",$doc["content"]);
-			};
-		};
+			}
+		}
 
 		// vaatame kas vaja poolitada - kui urlis on show_all siis n2itame tervet, muidu n2itame kuni #edasi# linkini
 		if (!empty($GLOBALS["show_all"]))

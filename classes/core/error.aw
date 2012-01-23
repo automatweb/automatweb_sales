@@ -2,9 +2,6 @@
 
 // simple error class to replace core::raise_error. why? well, because this will have a *static* method
 // that can throw errors, so you can throw errors from objects that do not derive from core
-/*
-@classinfo  maintainer=kristo
-*/
 
 class error
 {
@@ -133,13 +130,10 @@ class error
 	**/
 	public static function view_check($oid)
 	{
-		$t = new acl_base;
-		$t->init();
-		if (!$t->can("view", $oid))
+		if (!acl_base::can("view", $oid))
 		{
-			$i = get_instance("menuedit");
+			$i = new menuedit();
 			$i->do_error_redir($oid);
 		}
 	}
 }
-?>

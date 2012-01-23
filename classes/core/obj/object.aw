@@ -2294,6 +2294,24 @@ class object
 		return $GLOBALS["objects"][$this->oid]->prop_is_translated($prop);
 	}
 
+	public function trans_set_val($prop, $value, $lang_id = AW_REQUEST_CT_LANG_ID)
+	{
+		$this->_check_lock_write();
+		return $GLOBALS["objects"][$this->oid]->trans_set_val($prop, $value, $lang_id);
+	}
+
+	public function set_translation_status($lang_id, $status)
+	{
+		$this->_check_lock_write();
+		$GLOBALS["objects"][$this->oid]->set_translation_status($lang_id, $status);
+	}
+
+	public function get_translated_langs()
+	{
+		$this->_check_lock_read();
+		return $GLOBALS["objects"][$this->oid]->get_translated_langs();
+	}
+
 	public function __toString()
 	{
 		return "AutomatWeb " . ($this->class_id() ? aw_ini_get("classes.".$this->class_id().".def") : "new") . " object '".(string)$this->oid . "'";

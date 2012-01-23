@@ -998,7 +998,7 @@ class doc extends class_base
 		return $retval;
 	}
 
-	function callback_mod_retval($args = array()) //TODO:FIXME: siin on midagi valesti.
+	function callback_mod_retval(&$args)
 	{
 		$request = &$args["request"];
 		$new = $args["new"];

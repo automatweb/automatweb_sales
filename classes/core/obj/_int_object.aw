@@ -1577,7 +1577,12 @@ class _int_object
 		return $val;
 	}
 
-	function prop_is_translated($prop)
+	public function trans_set_val($prop, $value, $lang_id = AW_REQUEST_CT_LANG_ID)
+	{
+		$this->obj["meta"]["translations"][$lang_id][$prop] = $value;
+	}
+
+	public function prop_is_translated($prop)
 	{
 		$trans = false;
 		$cur_lid = false;
@@ -1603,6 +1608,26 @@ class _int_object
 			return false;
 		}
 		return true;
+	}
+
+	public function set_translation_status($lang_id, $status)
+	{
+		$this->obj["meta"]["trans_{$lang_id}_status"] = (bool) $status;
+	}
+
+	public function get_translated_langs()
+	{
+		$translated_langs = array();
+		$languages_in_use = languages::list_translate_targets();
+		for ($o = $languages_in_use->begin(); !$languages_in_use->end(); $o = $languages_in_use->next())
+		{
+			$lang_id = $o->prop("aw_lang_id");
+			if (!empty($this->obj["meta"]["trans_{$lang_id}_status"]))
+			{
+				$translated_langs[] = $lang_id;
+			}
+		}
+		return $translated_langs;
 	}
 
 	function trans_get_val_str($param)
