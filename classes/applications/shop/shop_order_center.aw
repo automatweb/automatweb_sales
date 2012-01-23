@@ -2462,7 +2462,7 @@ class shop_order_center extends class_base
 			$js.= "
 				function make_new_struct()
 				{
-					var ansa = confirm('" . t("Kataloogistruktuuri ehitamine l6hub seni toiminud toodete n2itamise seaded. Oled kindel et luua uus struktuur?") . "');
+					var ansa = confirm('" . t("Kataloogistruktuuri ehitamine l&otilde;hub seni toiminud toodete n&auml;itamise seaded. Oled kindel et luua uus struktuur?") . "');
 					if (ansa)
 					{
 						alert('kui sa nyyd OK vajutad siis k6ik on kadunud....ja peab ametit vahetama...');

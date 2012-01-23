@@ -30,7 +30,7 @@ class site_cache extends aw_template
 		elseif (($content = $this->get_cached_content($arr)))
 		{
 			$this->ip_access($arr);
-			return $this->do_final_content_checks($content);
+			// return $this->do_final_content_checks($content);
 		}
 
 		// okey, now

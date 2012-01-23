@@ -1021,10 +1021,14 @@ class class_base extends aw_template implements orb_public_interface
 		$u = $u->get_obj_for_uid(aw_global_get("uid"));
 		if (!empty($u))
 		{
-			$ulev = !strlen($_t = ($u->prop("warning_notification")))?0:$_t;
+			$cur_user_warnings_display_level = !strlen($_t = ($u->prop("warning_notification"))) ? 0 : $_t;
+		}
+		else
+		{
+			$cur_user_warnings_display_level = 0;
 		}
 
-		if($ulev)
+		if($cur_user_warnings_display_level)
 		{
 			foreach(safe_array(warning_prop()) as $oid => $properties)
 			{
@@ -1039,7 +1043,7 @@ class class_base extends aw_template implements orb_public_interface
 				foreach($properties as $prop => $level)
 				{
 					// level check
-					if($level < $ulev)
+					if($level < $cur_user_warnings_display_level)
 					{
 						continue;
 					}
@@ -1050,6 +1054,7 @@ class class_base extends aw_template implements orb_public_interface
 					}
 
 				}
+
 				if(count($wprops))
 				{
 					$url = $this->mk_my_orb("change", array(
@@ -1064,17 +1069,18 @@ class class_base extends aw_template implements orb_public_interface
 			$final_warns = array();
 			foreach(safe_array(warning()) as $level => $warns)
 			{
-				if($level < $ulev)
+				if($level < $cur_user_warnings_display_level)
 				{
 					continue;
 				}
 				$warns = array_unique($warns);
-				$final_warns[] = join("<br/>", $warns);
+				$final_warns[] = join(html::linebreak(), $warns);
 			}
 			$final_warns = array_unique($final_warns);
 			// LETS STOP ROKKIN'
 			$this->cli->config = count($final_warns)?($this->cli->config + array( "warn" => join("<br/>", $final_warns))):$this->cli->config;
 		}
+
 		$rv = $this->gen_output(array(
 			"parent" => $this->parent,
 			"content" => isset($content) ? $content : "",
@@ -4329,7 +4335,6 @@ class class_base extends aw_template implements orb_public_interface
 				$argblock["prop"] = &$property;
 				//$target_reltype = $this->relinfo[$property["reltype"]];
 				//$argblock["prop"]["reltype"] = $target_reltype;
-				//var_dump($this->relinfo);
 				$argblock["prop"]["relinfo"] = $this->relinfo[$property["reltype"]];
 
 				$vcl_inst = new relmanager();

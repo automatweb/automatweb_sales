@@ -1004,17 +1004,10 @@ class htmlclient extends aw_template
 				));
 			}
 
-			if ($this->in_popup_mode)
+			if (!$this->in_popup_mode)
 			{
 				$tp->vars_safe(array(
 					"NOT_POPUP" => $tp->parse("NOT_POPUP")
-				));
-			}
-
-			if (aw_ini_get("site_id") == 155)
-			{
-				$tp->vars_safe(array(
-					"NEWIF" => $tp->parse("NEWIF"),
 				));
 			}
 

@@ -1050,7 +1050,6 @@ class user extends class_base
 		}
 	}
 
-
 	function callback_mod_retval(&$arr)
 	{
 		if (!empty($arr["request"]["edit_acl"]))
@@ -2010,7 +2009,7 @@ EOF;
 		}
 		$groups_list = new object_list();
 		$tmp = $this->users->get_oid_for_uid($uid);
-		if ($this->can("view", $tmp))
+		if (acl_base::can("", $tmp))
 		{
 			$user_obj = obj($tmp);
 			if(aw_ini_get("users.use_group_membership") == 1)

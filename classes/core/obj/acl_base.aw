@@ -649,10 +649,6 @@ class acl_base extends aw_core_module
 			$can_adm_oid = 0;
 
 			$gl = aw_global_get("gidlist_oid");
-			// turn off acl checks for this
-			//XXX: miks?
-			$tmp = $GLOBALS["cfg"]["acl"]["no_check"];
-			$GLOBALS["cfg"]["acl"]["no_check"] = 1;
 			foreach($gl as $g_oid)
 			{
 				$o = obj($g_oid);
@@ -679,7 +675,6 @@ class acl_base extends aw_core_module
 					}
 				}
 			}
-			$GLOBALS["cfg"]["acl"]["no_check"] = $tmp;
 
 			if ($can_adm_max == 0 && $progid !== "can_admin_interface")
 			{

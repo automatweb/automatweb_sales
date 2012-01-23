@@ -243,6 +243,7 @@ class user_obj extends _int_object
 			"name" => $this->name(),
 			"type" => aw_groups::TYPE_DEFAULT
 		));
+
 		if ($ol->count())
 		{
 			$mg = $ol->begin();

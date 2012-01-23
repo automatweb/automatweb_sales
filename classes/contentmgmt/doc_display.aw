@@ -77,7 +77,7 @@ class doc_display extends aw_template
 		$this->create_relative_links($text);
 		$text_no_aliases = preg_replace("/#(\w+?)(\d+?)(v|k|p|)#/i","",$text);
 
-		$al = get_instance("alias_parser");
+		$al = new alias_parser();
 		$mt = $doc->meta();
 
 		if ($this->template_has_var("text"))
@@ -116,7 +116,6 @@ class doc_display extends aw_template
 			);
 		}
 
-		lc_site_load("document",$this);
 		$this->vars(array("image_inplace" => ""));
 		$this->vars($al->get_vars());
 		$docmod = $doc->prop("doc_modified");
@@ -199,8 +198,7 @@ class doc_display extends aw_template
 		$this->vars($al->get_vars());
 
 		$lang_id = aw_global_get("lang_id");
-		$l = get_instance("languages");
-		$sel_lang = $l->fetch($lang_id);
+		$sel_lang = languages::fetch($lang_id);
 
 		$title = $doc->trans_get_val("title");
 		$tmp = $arr;
@@ -293,7 +291,7 @@ class doc_display extends aw_template
 			$cs = aw_global_get("charset");
 			if (aw_ini_get("user_interface.full_content_trans"))
 			{
-				$ld = $l->fetch(aw_global_get("ct_lang_id"));
+				$ld = languages::fetch(aw_global_get("ct_lang_id"));
 				$cs = $ld["charset"];
 			}
 			header("Content-type: text/html; charset=".$cs);
@@ -334,8 +332,7 @@ class doc_display extends aw_template
 			$cs = aw_global_get("charset");
 			if (aw_ini_get("user_interface.full_content_trans"))
 			{
-				$l = new languages();
-				$ld = $l->fetch(aw_global_get("ct_lang_id"));
+				$ld = languages::fetch(aw_global_get("ct_lang_id"));
 				$cs = $ld["charset"];
 			}
 			header("Content-type: text/html; charset=".$cs);
@@ -457,7 +454,7 @@ class doc_display extends aw_template
 
 		if (strpos($text, "#login#") !== false)
 		{
-			if (aw_global_get("uid") == "")
+			if (!aw_global_get("uid"))
 			{
 				if (($port = aw_ini_get("auth.display_over_ssl_port")) > 0)
 				{
@@ -468,7 +465,7 @@ class doc_display extends aw_template
 						die();
 					}
 				}
-				$li = get_instance("aw_template");
+				$li = new aw_template();
 				$li->init();
 				lc_site_load("login", $li);
 				$li->read_template("login.tpl");
@@ -506,7 +503,7 @@ class doc_display extends aw_template
 			$lead = $sps["lead"];
 		}
 
-		if (trim(strtolower($lead)) == "<br>")
+		if (trim(strtolower($lead)) === "<br>")
 		{
 			$lead = "";
 		}
