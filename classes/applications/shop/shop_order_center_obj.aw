@@ -633,6 +633,7 @@ class shop_order_center_obj extends _int_object
 				foreach ($category->get_translated_langs() as $lang_id)
 				{
 					$menu->trans_set_val("name", $category->trans_get_val("name", $lang_id), $lang_id);
+					$menu->set_translation_status($lang_id, true);
 				}
 
 				$menu->set_prop("status", $category->status());

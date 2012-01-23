@@ -1610,9 +1610,14 @@ class _int_object
 		return true;
 	}
 
-	public function set_translation_status($lang_id, $status)
+	public function set_translation_status($lang_id, $active)
 	{
-		$this->obj["meta"]["trans_{$lang_id}_status"] = (bool) $status;
+		$this->obj["meta"]["trans_{$lang_id}_status"] = (bool) $active;
+	}
+
+	public function get_translation_status($lang_id)
+	{
+		return (bool) $this->obj["meta"]["trans_{$lang_id}_status"];
 	}
 
 	public function get_translated_langs()
