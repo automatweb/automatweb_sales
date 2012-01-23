@@ -187,7 +187,7 @@ class aw_errorhandler
 			}
 			elseif (E_USER_WARNING === $errno)
 			{
-				//TODO: meili saatimseks. teha see ymnber
+				//TODO: meili saatmiseks. teha see ymber
 				error::raise(array(
 					"id" => "USER WARNING",
 					"msg" => $errstr,

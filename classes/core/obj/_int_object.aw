@@ -1443,7 +1443,7 @@ class _int_object
 		}
 
 		// make sure brothers are only created for original objects, no n-level brothers!
-		if (!$this->is_brother())
+		if ($this->is_brother())
 		{
 			$o = obj($this->obj["brother_of"]);
 			return $o->create_brother($parent);

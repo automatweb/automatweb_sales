@@ -109,7 +109,6 @@
 @caption Staatus
 
 */
-
 abstract class intellectual_property extends class_base
 {
 	public $ip_classes = array(
@@ -525,15 +524,11 @@ abstract class intellectual_property extends class_base
 			$ddoc_inst = get_instance(CL_DDOC);
 			if($status["status"] > 0)
 			{
-				$url = $ddoc_inst->sign_url(array(
-					"ddoc_oid" =>$status["ddoc"],
-				));
+				$url = core::mk_my_orb("sign", array("id" => $status["ddoc"]), "ddoc");
 			}
 			else
 			{
-				$url = $ddoc_inst->sign_url(array(
-					"other_oid" =>$arr["id"],
-				));
+				$url = core::mk_my_orb("create_and_sign", array("id" => $arr["id"]), get_class($this));
 			}
 			$data["sign"] = "<input type='button' value='".t("Allkirjasta")."' class='nupp' onclick='javascript:window.open(\"".$url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>";
 		}
@@ -2104,20 +2099,16 @@ abstract class intellectual_property extends class_base
 		//
 		if(is_oid($patent_id))
 		{
-			$ddoc_inst = get_instance(CL_DDOC);
+			$ddoc_inst = new ddoc();
 			$status = $this->is_signed($patent_id);
 
 			if($status["status"] > 0)
 			{
-				$url = $ddoc_inst->sign_url(array(
-					"ddoc_oid" =>$status["ddoc"],
-				));
+				$url = core::mk_my_orb("sign", array("id" => $status["ddoc"]), "ddoc");
 			}
 			else
 			{
-				$url = $ddoc_inst->sign_url(array(
-					"other_oid" => $patent_id
-				));
+				$url = core::mk_my_orb("create_and_sign", array("id" => $patent_id), get_class($this));
 			}
 
 			if($status["status"] > 0)
@@ -3426,18 +3417,14 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-			        	if($re["status"] == 1)
-			        	{
-			        		$sign_url = $ddoc_inst->sign_url(array(
-							"ddoc_oid" => $re["ddoc"]
-						));
-			        	}
-			        	else
-			        	{
-				        	$sign_url = $ddoc_inst->sign_url(array(
-							"other_oid" =>$patent->id()
-						));
-			          }
+					if($re["status"] == 1)
+					{
+						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
+					}
+					else
+					{
+						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
+					}
 			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
 				}
 				else
@@ -3608,19 +3595,15 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-			        	if($re["status"] == 1)
-			        	{
-			        		$sign_url = $ddoc_inst->sign_url(array(
-							"ddoc_oid" => $re["ddoc"],
-						));
-			        	}
-			        	else
-			        	{
-				        	$sign_url = $ddoc_inst->sign_url(array(
-							"other_oid" =>$patent->id(),
-						));
-			                }
-			                $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
+					if($re["status"] == 1)
+					{
+						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
+					}
+					else
+					{
+						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
+					}
+					$sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
 				}
 				else
 				{
@@ -3796,19 +3779,15 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-			        	if($re["status"] == 1)
-			        	{
-			        		$sign_url = $ddoc_inst->sign_url(array(
-							"ddoc_oid" => $re["ddoc"],
-						));
-			        	}
-			        	else
-			        	{
-				        	$sign_url = $ddoc_inst->sign_url(array(
-							"other_oid" =>$patent->id(),
-						));
-			                }
-			                $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
+					if($status["status"] == 1)
+					{
+						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
+					}
+					else
+					{
+						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
+					}
+					$sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
 				}
 				else
 				{
@@ -3983,18 +3962,14 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-			        	if($re["status"] == 1)
-			        	{
-			        		$sign_url = $ddoc_inst->sign_url(array(
-							"ddoc_oid" => $re["ddoc"],
-						));
-			        	}
-			        	else
-			        	{
-				        	$sign_url = $ddoc_inst->sign_url(array(
-							"other_oid" =>$patent->id(),
-						));
-			          }
+					if($status["status"] == 1)
+					{
+						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
+					}
+					else
+					{
+						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
+					}
 			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
 				}
 				else
@@ -4170,18 +4145,14 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-			        	if($re["status"] == 1)
-			        	{
-			        		$sign_url = $ddoc_inst->sign_url(array(
-							"ddoc_oid" => $re["ddoc"],
-						));
-			        	}
-			        	else
-			        	{
-				        	$sign_url = $ddoc_inst->sign_url(array(
-							"other_oid" =>$patent->id(),
-						));
-			          }
+					if($re["status"] == 1)
+					{
+						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
+					}
+					else
+					{
+						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
+					}
 			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
 				}
 				else
@@ -4401,5 +4372,44 @@ abstract class intellectual_property extends class_base
 		$xml_doc->encoding = trademark_manager::XML_OUT_ENCODING;
 
 		return $xml_doc;
+	}
+
+	/**
+		@attrib params=name name=create_and_sign
+		@param id required type=oid acl=view
+			This object id
+	**/
+	public function create_and_sign($arr)
+	{
+		try
+		{
+			$this_object = new object($arr["id"]);
+			if (!$this_object->is_a(CL_INTELLECTUAL_PROPERTY))
+			{
+				throw new awex_obj_type("Invalid class");
+			}
+
+			$digidoc = obj(null, array(), CL_DDOC);
+			$digidoc->set_parent($this_object->id());
+			$digidoc->set_name(sprintf("DigiDoc '%s'", $this_object->name()));
+			$digidoc->save();
+			$digidoc->sk_start_session();
+			$digidoc->sk_create_digidoc();
+			$digidoc->sk_add_file($this_object->name(), $this_object->get_xml(), "text/xml");
+			return core::mk_my_orb("sign", array("id" => $digidoc->id()), "ddoc");
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Viga"));
+			$_GET["in_popup"] = 1;
+			$htmlc = new htmlclient();
+			$htmlc->in_popup_mode(true);
+			$htmlc->start_output();
+			$htmlc->finish_output(array(
+				"data" => array(),
+				"submit" => "no"
+			));
+			return $htmlc->get_result();
+		}
 	}
 }

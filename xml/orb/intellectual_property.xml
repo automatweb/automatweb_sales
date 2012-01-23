@@ -9,6 +9,14 @@
 			</function>
 		</action>
 
+		<action name="create_and_sign">
+			<function name="create_and_sign">
+				<arguments>
+					<required name="id" type="oid" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="show_payment_ordermake" all_args="1">
 			<function name="show_payment_order">
 				<arguments>

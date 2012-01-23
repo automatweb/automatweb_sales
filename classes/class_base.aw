@@ -793,7 +793,12 @@ class class_base extends aw_template implements orb_public_interface
 		// the links in the toolbar .. augh, how the hell do I do that?
 		if ($this->view)
 		{
-			$cli->view_mode = 1;
+			$cli->in_view_mode(true);
+		}
+
+		if (!empty($args["in_popup"]))
+		{
+			$cli->in_popup_mode(true);
 		}
 
 		foreach($resprops as $_k => $val)

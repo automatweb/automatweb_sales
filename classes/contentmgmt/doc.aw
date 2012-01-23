@@ -927,7 +927,7 @@ class doc extends class_base
 			$url = $dd->get_doc_link($arr["obj_inst"]);
 			if($arr["obj_inst"]->prop("alias"))
 			{
-				$ss = get_instance("contentmgmt/site_show");
+				$ss = new site_show();
 				$url = $ss->make_menu_link($arr["obj_inst"]);
 			}
 			if (ifset($arr, "request", "edit_version") != "")
@@ -1167,7 +1167,7 @@ class doc extends class_base
 		}
 	}
 
-	private function _init_versions_t(&$t)
+	private function _init_versions_t($t)
 	{
 		$t->define_field(array(
 			"name" => "ver",

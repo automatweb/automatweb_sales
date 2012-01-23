@@ -11,7 +11,6 @@ class htmlclient extends aw_template
 	var $embedded;
 	var $tabpanel;
 	var $error = "";
-	var $view_mode;
 	var $style;
 
 	public $object_id = 0;
@@ -21,6 +20,8 @@ class htmlclient extends aw_template
 
 	private $has_property_help = false;
 	private $ui_messages = array();
+	private $in_view_mode = false;
+	private $in_popup_mode = false;
 
 	function htmlclient($arr = array())
 	{
@@ -75,6 +76,26 @@ class htmlclient extends aw_template
 		{
 			$this->tp = new tabpanel();
 		}
+	}
+
+	/** Sets if in popup mode or not
+		@attrib api=1 params=pos
+		@param value type=bool
+		@returns void
+	**/
+	public function in_view_mode($value)
+	{
+		$this->in_view_mode = (bool) $value;
+	}
+
+	/** Sets if in view mode or not
+		@attrib api=1 params=pos
+		@param value type=bool
+		@returns void
+	**/
+	public function in_popup_mode($value)
+	{
+		$this->in_popup_mode = (bool) $value;
 	}
 
 	function set_layout($arr)
@@ -652,9 +673,8 @@ class htmlclient extends aw_template
 		}
 
 
-		if ($this->submit_done || $this->view_mode == 1)
+		if ($this->submit_done || $this->in_view_mode)
 		{
-
 		}
 		elseif (empty($submit) || $submit !== "no")
 		{
@@ -984,7 +1004,7 @@ class htmlclient extends aw_template
 				));
 			}
 
-			if (!automatweb::$request->arg("in_popup"))
+			if ($this->in_popup_mode)
 			{
 				$tp->vars_safe(array(
 					"NOT_POPUP" => $tp->parse("NOT_POPUP")
