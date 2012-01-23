@@ -5666,7 +5666,6 @@ class class_base extends aw_template implements orb_public_interface
 		// save if modified
 		if ($mod)
 		{
-			$o->set_meta("trans_{$lid}_modified", $time);
 			$o->set_meta("translations", $all_vals);
 			$o->save();
 		}
