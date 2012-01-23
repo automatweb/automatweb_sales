@@ -48,7 +48,12 @@ class awex_param_type extends awex_param
 	}
 }
 
-/** Feature is not available in given conditions **/
+/** Feature is not available **/
 class awex_not_available extends aw_exception
+{
+}
+
+/** Feature is not implemented **/
+class awex_not_implemented extends aw_exception
 {
 }

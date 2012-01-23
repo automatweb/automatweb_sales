@@ -13,13 +13,13 @@ class obj_xml_gen
 			new_rels
 			no_header
 	**/
-	function gen($oid, $options)
+	public function gen($oid, $options)
 	{
 		$o = obj($oid);
 
 		$obj_list = $this->_gather_objects($o, $options);
 
-		$xml = $options["no_header"] ? "<obj id=\"{$oid}\">\n" : "<?xml version='1.0' encoding='".aw_global_get("charset")."'?>\n<obj id=\"{$oid}\">\n";
+		$xml = !empty($options["no_header"]) ? "<obj id=\"{$oid}\">\n" : "<?xml version='1.0' encoding='".aw_global_get("charset")."'?>\n<obj id=\"{$oid}\">\n";
 		$xml .= "<start_object>$oid</start_object>\n";
 		$xml .= "<objects>\n";
 		list($obj_xml, $id_map) = $this->_ser_objects($o, $obj_list);
@@ -35,45 +35,42 @@ class obj_xml_gen
 
 	function _gather_objects($o, $options)
 	{
-		$copy_subobjects = isset($options["copy_subobjects"]) ? $options["copy_subobjects"] : true;
-		$copy_subfolders = isset($options["copy_subfolders"]) ? $options["copy_subfolders"] : false;
-		$copy_subdocs = isset($options["copy_subdocs"]) ? $options["copy_subdocs"] : false;
-		$copy_rels = isset($options["copy_rels"]) ? $options["copy_rels"] : true;
-		$new_rels = isset($options["new_rels"]) ? $options["new_rels"] : false;
+		$copy_subobjects = isset($options["copy_subobjects"]) ? (bool) $options["copy_subobjects"] : true;
+		$copy_subfolders = isset($options["copy_subfolders"]) ? (bool) $options["copy_subfolders"] : false;
+		$copy_subdocs = isset($options["copy_subdocs"]) ? (bool) $options["copy_subdocs"] : false;
+		$copy_rels = isset($options["copy_rels"]) ? (bool) $options["copy_rels"] : true;
+		$new_rels = isset($options["new_rels"]) ? (bool) $options["new_rels"] : false;
 
 		$other_objs = array();
 		if ($copy_subobjects)
 		{
 			$other_objs = $this->_fetch_subobjs($o);
 		}
-		else
-		if ($copy_subfolders)
+		elseif ($copy_subfolders)
 		{
 			$other_objs = $this->_fetch_subobjs($o, CL_MENU);
 		}
-		else
-		if ($copy_subdocs)
+		elseif ($copy_subdocs)
 		{
 			$other_objs = $this->_fetch_subobjs($o, array(CL_MENU,CL_DOCUMENT));
 		}
 
 		$obj_list =  array($o) + $other_objs;
 
-		$clss = aw_ini_get("classes");
-
 		if ($new_rels)
 		{
 			foreach($obj_list as $idx => $o)
 			{
-				if ($clss[$o->class_id()]["no_copy"] == 1)
+				if (!aw_ini_empty("classes." . $o->class_id() . ".no_copy"))
 				{
 					unset($obj_list[$idx]);
 					continue;
 				}
+
 				foreach($o->connections_from() as $c)
 				{
 					$to = $c->to();
-					if ($clss[$to->class_id()]["no_copy"] == 1)
+					if (!aw_ini_empty("classes." . $to->class_id() . ".no_copy"))
 					{
 						continue;
 					}
@@ -88,7 +85,6 @@ class obj_xml_gen
 
 	function _req_read_rel_objs($o, &$obj_list)
 	{
-		$clss = aw_ini_get("classes");
 		foreach($o->connections_from() as $c)
 		{
 			if (isset($obj_list[$c->prop("to")]))
@@ -96,7 +92,7 @@ class obj_xml_gen
 				continue; // break cyclic rels
 			}
 			$to = $c->to();
-			if ($clss[$to->class_id()]["no_copy"] == 1)
+			if (!aw_ini_empty("classes." . $to->class_id() . ".no_copy"))
 			{
 				continue;
 			}
@@ -108,6 +104,7 @@ class obj_xml_gen
 	function _ser_objects($start, $other_objects)
 	{
 		$id_map = array();
+		$xml = "";
 		foreach($other_objects as $o)
 		{
 			list($o_xml, $new_id) = $this->_ser_one_obj($o, $id_map);
@@ -131,13 +128,13 @@ class obj_xml_gen
 		$xml .= "\t\t<ot_flds>\n";
 		foreach($flds as $fld => $t)
 		{
-			if ($fld == "cachedirty")
+			if ($fld === "cachedirty")
 			{
 				continue;
 			}
-			$fld = $fld == "jrk" ? "ord" : ($fld == "periodic" ? "is_periodic" : ($fld == "metadata" ? "meta" : $fld));
+			$fld = $fld === "jrk" ? "ord" : ($fld === "periodic" ? "is_periodic" : ($fld === "metadata" ? "meta" : $fld));
 			$val = $o->$fld();
-			if (false && $fld == "parent")
+			if (false && $fld === "parent")
 			{
 				$val = $id_map[$val];
 			}
@@ -200,7 +197,6 @@ class obj_xml_gen
 	{
 		$copy_rels = isset($options["copy_rels"]) ? $options["copy_rels"] : true;
 		$new_rels = isset($options["new_rels"]) ? $options["new_rels"] : false;
-		$clss = aw_ini_get("classes");
 		$xml = "";
 		if ($copy_rels || $new_rels)
 		{
@@ -210,7 +206,7 @@ class obj_xml_gen
 				foreach($o->connections_from() as $c)
 				{
 					$to = $c->to();
-					if ($clss[$to->class_id()]["no_copy"] == 1)
+					if (!aw_ini_empty("classes." . $to->class_id() . ".no_copy"))
 					{
 						continue;
 					}
@@ -249,20 +245,18 @@ class obj_xml_gen
 		$parser = xml_parser_create();
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		//xml_parse_into_struct($parser,$xml,&$keys,&$values);
-		xml_set_element_handler($parser, array(&$this, "_start_el"), array(&$this, "_end_el"));
-		xml_set_character_data_handler($parser, array(&$this, "_chard"));
+		xml_set_element_handler($parser, array($this, "_start_el"), array($this, "_end_el"));
+		xml_set_character_data_handler($parser, array($this, "_chard"));
 		$res = xml_parse($parser, $xml, true);
 		if (!$res)
 		{
-echo xml_error_string  (xml_get_error_code($parser))."<br>";
-		echo 	sprintf('XML error at line %d column %d',
-                    xml_get_current_line_number($parser),
-                    xml_get_current_column_number($parser));
-echo "<pre>".htmlentities($xml)."</pre>";
+			echo xml_error_string  (xml_get_error_code($parser))."<br>";
+			echo sprintf('XML error at line %d column %d',      xml_get_current_line_number($parser), xml_get_current_column_number($parser));
+			echo "<pre>".htmlentities($xml)."</pre>";
 		}
 		xml_parser_free($parser);
+
 		// create objects
-//echo dbg::dump($this->objects);
 
 		$oid = $this->_crea_obj($this->objects[$this->start_object], $parent);
 		unset($this->objects[$this->start_object]);
@@ -359,7 +353,7 @@ echo "<pre>".htmlentities($xml)."</pre>";
 			}
 
 			// we need to skip metadata props, because they are serialized and we didn't do that here
-			if ($o->is_property($k) && $pl[$k]["field"] != "metadata" && $pl[$k]["table"] != "objects")
+			if ($o->is_property($k) && $pl[$k]["field"] !== "metadata" && $pl[$k]["table"] !== "objects")
 			{
 				$v = html_entity_decode($v);
 				$o->set_prop($k, $v);

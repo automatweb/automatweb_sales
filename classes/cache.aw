@@ -414,37 +414,40 @@ class cache extends aw_core_module
 	/** Sets cache content for parent folder and function
 		@attrib params=pos api=1
 
-		@param pt required type=string
+		@param pt type=string
 			Folder under $site/pagecache
-		@param subf required type=string
+		@param subf type=string
 			Folder under the folder specified by $pt parameter
-		@param fn required type=string
+		@param fn type=string
 			Filename containing cached data
-		@param cont required type=string
+		@param content type=string
 			Data to be cached
+
 		@errors
-			Throws error when file cannot be opened for writing
+			throws ErrorException when file cannot be opened for writing
 
-		@returns
-			none
-
-		@comment
-			none
+		@returns void
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set_pt('foo', 'asd', 'bar', 'Hello World');
+			cache::file_set_pt('foo', 'asd', 'bar', 'Hello World');
 			// creates into folder $site/pagecache/foo/asd/ file bar which contains 'Hello World'
 	**/
-	public static function file_set_pt($pt, $subf, $fn, $cont)
+	public static function file_set_pt($pt, $subf, $fn, $content)
 	{
-		$fq = aw_ini_get("cache.page_cache")."{$pt}/{$subf}/{$fn}";
-		$f = is_writable($fq) ? fopen($fq, "w") : false;
+		$dir = aw_ini_get("cache.page_cache")."{$pt}/{$subf}/";
+		if (!is_dir($dir))
+		{
+			mkdir($dir, 0777, true);
+			chmod($dir, 0777);
+		}
+
+		$fq = $dir . $fn;
+		$f = fopen($fq, "w");
 		if (!$f)
 		{
 			return;
 		}
-		fwrite($f, $cont);
+		fwrite($f, $content);
 		fclose($f);
 		chmod($fq, 0666);
 	}
@@ -460,11 +463,11 @@ class cache extends aw_core_module
 			Filename containing cached data
 
 		@errors
-			none
+			throws ErrorException if file cannot be opened for reading
 
 		@returns
 			- file content
-			- false if file does no exist in cache or cannot be opened for reading
+			- false if file does no exist in cache
 
 
 		@comment
@@ -480,18 +483,7 @@ class cache extends aw_core_module
 	public static function file_get_pt($pt, $subf, $fn)
 	{
 		$fq = aw_ini_get("cache.page_cache")."{$pt}/{$subf}/{$fn}";
-		if (!file_exists($fq))
-		{
-			return false;
-		}
-		$f = fopen($fq, "r");
-		if (!$f)
-		{
-			return false;
-		}
-		$ret = fread($f, filesize($fq));
-		fclose($f);
-		return $ret;
+		return file_exists($fq) ? file_get_contents($fq) : false;
 	}
 
 	/** Returns cache content for parent folder function if it is not older than the given timestamp

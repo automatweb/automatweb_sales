@@ -2102,25 +2102,25 @@ class object
 		return $GLOBALS["objects"][$this->oid]->acl_del($g_oid);
 	}
 
-	/** returns the object's data in xml
+	/** Returns the object's data in xml format
 		@attrib api=1 params=name
 
-		@param copy_subobjects optional type=bool
+		@param copy_subobjects type=bool default=true
 			If true, all subobjects are also in the xml
 
-		@param copy_subfolders optional type=bool
+		@param copy_subfolders type=bool default=false
 			If true, all subfolders are in the xml as well
 
-		@param copy_subdocs optional type=bool
+		@param copy_subdocs type=bool default=false
 			If true, all documnents under the current object are in the xml as well
 
-		@param copy_rels optional type=bool
+		@param copy_rels type=bool default=true
 			If true, connections for the object are copied, but not the objects they point to
 
-		@param new_rels optional type=bool
+		@param new_rels type=bool default=false
 			If true, connections from the objects are copied, and the objects they point to, are also copied
 
-		@param no_header optional type=bool
+		@param no_header type=bool default=false
 			If true, returned xml string will not have xml header. Default false.
 
 		@errors
@@ -2138,7 +2138,7 @@ class object
 
 			$new_obj = object::from_xml($xml, 6); // copies all objects and their relations from object 1 to object 6
 	**/
-	function get_xml($options)
+	function get_xml(array $options = array())
 	{
 		$this->_check_lock_read();
 		return $GLOBALS["objects"][$this->oid]->get_xml($options);

@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <orb>
-	<class name="ddoc" folder="www/dev/terryf/automatweb_dev/classes/common/digidoc" extends="class_base">
+	<class name="ddoc" extends="class_base">
 		<action name="rem_sig" all_args="1">
 			<function name="rem_sig">
 				<arguments>
@@ -30,14 +30,10 @@
 			</function>
 		</action>
 
-		<action name="sign" all_args="1">
+		<action name="sign">
 			<function name="sign">
 				<arguments>
-					<optional name="step" type="string" />
-					< name="ddoc_oid" />
-					< name="file_oid" />
-					< name="doc_oid" />
-					<optional name="check" type="array" />
+					<required name="id" type="oid" acl="view" />
 				</arguments>
 			</function>
 		</action>

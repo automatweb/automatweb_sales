@@ -103,7 +103,7 @@ class users_user extends aw_template
 					);
 					list($success, $msg) = $auth->check_auth($auth_id, $credentials);
 
-					if ($success && !empty($server))
+					if ($success && $server)
 					{
 						$uid .= ".".$server;
 					}
@@ -165,7 +165,7 @@ class users_user extends aw_template
 
 		if ($user_obj->prop("cfg_admin_mode") == 1)
 		{
-			$_SESSION["cfg_admin_mode"] = 1;
+			aw_session::set("cfg_admin_mode", "1");
 		}
 
 		// init acl

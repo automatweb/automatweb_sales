@@ -1422,20 +1422,72 @@ class ddoc extends class_base
 	}
 
 	/**
-		@attrib params=name name=sign all_args=1
-		@param step type=string default="PREPARE"
-			Signing procedure step: PREPARE, FINALIZE or END
-		@param ddoc_oid
-		@param file_oid
-		@param doc_oid
-		@param check optional type=array
-			array(
-				personal_id,
-			)
-			if these are'nt correct signing will not be allowed
+		@attrib params=name name=sign
+		@param id required type=oid acl=view
 	**/
 	public function sign($arr)
 	{
+		$ddoc_o = obj($arr["id"], array(), ddoc_obj::CLID);
+		$signature = new ddoc_sk_signature();
+		$signature->read_request(automatweb::$request);
+		$ddoc_o->sk_sign($signature);
+
+		if ($signature->modules_loaded)
+		{ // show form
+			if (ddoc_sk_signature::PHASE_PREPARE === $signature->phase)
+			{
+				$this->read_template("sign_prepare.tpl");
+				$this->vars(array(
+					"ddoc_name" => $ddoc_o->name(),
+					"HTML_HEAD_HTML" => $signature->get_html_modules("HTML-HEAD"),
+					"HTML_FORM_BEGIN_HTML" => $signature->get_html_modules("HTML-FORM-BEGIN"),
+					"HTML_FORM_END_HTML" => $signature->get_html_modules("HTML-FORM-END"),
+					"HTML_BODY_HTML" => $signature->get_html_modules("HTML-BODY"),
+					"reforb" => $this->mk_reforb("sign", array("id" => $ddoc_o->id()), "ddoc")
+				));
+			}
+			elseif (ddoc_sk_signature::PHASE_FINALIZE === $signature->phase)
+			{
+				$this->read_template("sign_finalize.tpl");
+				$this->vars(array(
+					"ddoc_name" => $ddoc_o->name(),
+					"HTML_HEAD_HTML" => $signature->get_html_modules("HTML-HEAD"),
+					"HTML_FORM_BEGIN_HTML" => $signature->get_html_modules("HTML-FORM-BEGIN"),
+					"HTML_FORM_END_HTML" => $signature->get_html_modules("HTML-FORM-END"),
+					"HTML_BODY_HTML" => $signature->get_html_modules("HTML-BODY"),
+					"reforb" => $this->mk_reforb("sign", array(
+						"SignatureId" => $signature->id,
+						"SignedInfoDigest" => $signature->signed_info_digest,
+						"id" => $ddoc_o->id()
+					), "ddoc")
+				));
+			}
+			else
+			{
+				$this->read_template("sign_finalize.tpl");
+				$this->vars(array(
+					"ddoc_name" => $ddoc_o->name(),
+					"message" => t("S&uuml;steemi t&ouml;&ouml;s esines viga.")
+				));
+				trigger_error(sprintf("Invalid phase '%s' signing DDOC id %s with modules loaded", $signature->phase, $ddoc_o->id()), E_USER_WARNING);
+			}
+
+			automatweb::$result->set_data($this->parse());
+			automatweb::http_exit();
+		}
+		elseif (ddoc_sk_signature::PHASE_DONE === $signature->phase)
+		{
+			$this->read_template("sign_end.tpl");
+			$this->vars(array(
+				"ddoc_name" => $ddoc_o->name()
+			));
+			automatweb::$result->set_data($this->parse());
+			automatweb::http_exit();
+		}
+		else
+		{ // redirect after processing data
+			return $this->mk_my_orb("sign", array("id" => $ddoc_o->id()), "ddoc");
+		}
 	}
 
 	function sign_old($arr)

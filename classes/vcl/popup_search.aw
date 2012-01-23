@@ -347,6 +347,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 					$htmlc = new htmlclient(array(
 						'template' => "default",
 					));
+					$htmlc->in_popup_mode(true);
 					$htmlc->start_output();
 					$htmlc->add_property(array(
 						"caption" => t("Vali eemaldatavad objektid"),
@@ -411,7 +412,6 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 	**/
 	function do_search($arr)
 	{
-		$_GET["in_popup"] = 1;
 		$form_html = $this->_get_form($arr);
 		$res_html = $this->_get_results($arr);
 		return $form_html.html::linebreak().$res_html;
@@ -492,6 +492,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 	{
 		$htmlc = new htmlclient();
 		$htmlc->start_output();
+		$htmlc->in_popup_mode(true);
 
 		$this->_insert_form_props($htmlc, $arr);
 
@@ -1113,7 +1114,6 @@ function aw_get_el(name,form)
 	**/
 	public function do_ajax_search($arr)
 	{
-		$_GET["in_popup"] = 1;
 		$form_html = $this->_get_search_form($arr);
 		$arr["return"] = 1;
 		$res_html = html::div(array("id" => "result" , "content" => $this->get_search_results($arr)));
@@ -1162,6 +1162,7 @@ function aw_get_el(name,form)
 	{
 		$htmlc = new htmlclient();
 		$htmlc->start_output();
+		$htmlc->in_popup_mode(true);
 
 		$property_dfns = $this->_get_search_form_property_definitions($arr);
 		foreach ($property_dfns as $name => $definition)
@@ -1396,7 +1397,7 @@ ENDJS
 		}
 		else
 		{
-			die(iconv(aw_global_get("charset"),"UTF-8",  $this->parse()));
+			die($this->parse());
 		}
 	}
 
@@ -1406,7 +1407,7 @@ ENDJS
 
 		if(!empty($arr["name"]))
 		{
-			$filter["name"] = "%".iconv("UTF-8",aw_global_get("charset"),  $arr["name"])."%";
+			$filter["name"] = "%".$arr["name"]."%";
 		}
 
 		if(!empty($arr["oid"]))

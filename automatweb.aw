@@ -1,6 +1,5 @@
 <?php
 
-
 // get aw directory and file extension
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
 $aw_dir = str_replace(DIRECTORY_SEPARATOR, "/", dirname($__FILE__)) . "/"; // replace to have it work on windows
