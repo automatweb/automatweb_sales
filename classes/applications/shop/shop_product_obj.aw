@@ -654,7 +654,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 	**/
 	public function get_data($args = array())
 	{
-		$data = $this->properties();
+		$data = $this->properties_translated();
 		$data["size"] = isset($data["size"]) ? str_replace('"' , '' , $data["size"]) : null;
 		$data["id"] = $this->id();
 		$data["image"] = $this->get_product_image();
@@ -664,7 +664,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		if($this->class_id() == CL_SHOP_PRODUCT_PACKAGING)
 		{
 			$product = $this->get_product();
-			$data["description"] = $product->prop("description");
+			$data["description"] = $product->trans_get_val("description");
 			$data["color"] =  str_replace('"' , "" , $product->get_color_name());
 			$data["code"] =  $product->prop("code");
 			if (!empty($data['special_price_object']))
@@ -680,7 +680,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		$packet = $this->get_packet();
 		if(is_object($packet))
 		{
-			$data["packet_name"] = $packet->name();
+			$data["packet_name"] = $packet->trans_get_val("name");
 			$data["brand_name"] = $packet->get_brand();
 		}
 
@@ -811,7 +811,6 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		elseif($this->class_id() == CL_SHOP_PRODUCT_PACKAGING)
 		{
 			$ol = new object_list(array(
-				"lang_id" => array(),
 				"class_id" => CL_SHOP_PRODUCT,
 				"CL_SHOP_PRODUCT.RELTYPE_PACKAGING" => $this->id(),
 			));
@@ -847,7 +846,6 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		if(is_object($pic))
 		{
 			return $pic->get_url();
-
 		}
 		else
 		{
@@ -863,7 +861,6 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		if(is_object($pic))
 		{
 			return $pic->get_big_url();
-
 		}
 		else
 		{
@@ -904,7 +901,6 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 	{
 		$product = $this->get_product();
 		$ol = $product->get_packets_for_id($product->id());
-//		var_dump($product->id(), $ol);
 		return $ol->begin();
 	}
 
@@ -913,13 +909,12 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		$product = $this->get_product();
 		$ol = $product->get_packets_for_id($product->id());
 		$ids = $ol->ids();
-//		var_dump($product->id(), $ol);
 		return reset($ids);
 	}
 
 	protected function delete_product_show_cache()
 	{
-		$cache_dir = aw_ini_get("cache.page_cache")."/product_show/";
+		$cache_dir = aw_ini_get("cache.page_cache")."product_show/";
 		foreach(glob(sprintf($cache_dir."*product=%u&*.tpl*", $this->id())) as $file)
 		{
 			unlink($file);

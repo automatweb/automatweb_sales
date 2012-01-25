@@ -27,6 +27,7 @@ class shop_order_cart_value extends class_base
 	function show($arr)
 	{
 		$this->read_template("show.tpl");
+		aw_translations::load("shop_order_cart_value.tpl.show");
 
 		lc_site_load("shop", $this);
 		$cart_id = isset($arr["cart"]) ? $arr["cart"] : automatweb::$request->arg("cart");
