@@ -196,19 +196,7 @@ class ddoc_obj extends _int_object
 		}
 		else
 		{
-			list($status, $modules) = array_values($this->sk_digidoc_service_soap_client->GetSignatureModules(
-					$this->sk_session_code,
-					$signature->client_platform,
-					$signing_phase,
-					$return_type
-				));
-
-			if ("OK" !== $status)
-			{
-				throw new awex_ddoc_wsdl(sprintf("Error getting signature modules to sign object '%s'. Service status: %s", $this->id(), $status));
-			}
-
-			$signature->modules = $modules;
+			$signature->modules = true;
 		}
 
 		$this->digidoc_changed = true;

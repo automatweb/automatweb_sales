@@ -11,14 +11,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
 <meta http-equiv="imagetoolbar" content="false" />
 
-{VAR:HTML_HEAD_HTML}
+<script type="text/javascript">
+var pluginLanguage = '{VAR:plugin_language}';
+var LC_ErrorCode = '{LC:Veakood}';
+var LC_Error = '{LC:Viga}';
+</script>
+
+<script type="text/javascript" src="{VAR:applets_dir}idCard.js"></script>
+<script type="text/javascript" src="{VAR:applets_dir}signingHelpers.js"></script>
 
 </head>
+
+<body onload="loadPlugin();getCert();">
+<div id="pluginLocation"></div>
+<div style="color: red" id="error"></div>
+
 <body>
 
-	<form method="post" action="" enctype="multipart/form-data" name="xmlsrc">
-	{VAR:HTML_FORM_BEGIN_HTML}
+	<form method="post" action="" enctype="multipart/form-data">
+		<p>
 		<table>
+			<tr>
+				<td colspan="2" class="title">{LC:Allkirjastamise asukoht (valikuline)}</td>
+			</tr>
 			<tr>
 				<td>{LC:Linn}</td>
 				<td><input type="text" name="city"/></td>
@@ -40,11 +55,11 @@
 				<td><input type="text" name="role"/></td>
 			</tr>
 		</table>
-	{VAR:reforb}
-	{VAR:HTML_FORM_END_HTML}
+		</p>
+
+		{VAR:reforb}
+
+		<input type="submit" value="{LC:Alusta allkirjastamist}" class="button">
 	</form>
-
-{VAR:HTML_BODY_HTML}
-
 </body>
 </html>

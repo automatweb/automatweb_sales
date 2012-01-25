@@ -11,17 +11,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
 <meta http-equiv="imagetoolbar" content="false" />
 
-{VAR:HTML_HEAD_HTML}
+<script type="text/javascript">
+var pluginLanguage = '{VAR:plugin_language}';
+var LC_ErrorCode = '{LC:Veakood}';
+var LC_Error = '{LC:Viga}';
+</script>
+
+<script type="text/javascript" src="{VAR:applets_dir}idCard.js"></script>
+<script type="text/javascript" src="{VAR:applets_dir}signingHelpers.js"></script>
 
 </head>
-<body>
 
-	<form method="post" action="" enctype="multipart/form-data" name="xmlsrc">
-	{VAR:HTML_FORM_BEGIN_HTML}
+<body onload="loadPlugin();">
+<div id="pluginLocation"></div>
+<div style="color: red" id="error"></div>
+
+	<form method="post" action="" enctype="multipart/form-data">
 	{VAR:reforb}
-	{VAR:HTML_FORM_END_HTML}
+	<input type="submit" value="{LC:Allkirjasta}" class="button">
 	</form>
-	{VAR:HTML_BODY_HTML}
 
 </body>
 </html>
