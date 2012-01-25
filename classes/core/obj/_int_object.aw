@@ -1371,7 +1371,7 @@ class _int_object
 
 	public function properties_translated($lang_id = AW_REQUEST_CT_LANG_ID)
 	{
-		if (ifset($this->obj, "meta", "trans_{$lang_id}_status"))
+		if ($lang_id !== $this->lang_id() and ifset($this->obj, "meta", "trans_{$lang_id}_status"))
 		{
 			$properties = $this->obj["meta"]["translations"][$lang_id] + $this->properties();
 		}
