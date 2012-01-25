@@ -361,12 +361,12 @@ class site_show extends aw_template
 			{
 				$use_ctx = $_SESSION["menu_context"];
 			}
-			else
-			if (is_oid($_ctx = $this->sel_section_obj->prop("default_ctx")) && acl_base::can("view", $_ctx))
+			elseif (is_oid($_ctx = $this->sel_section_obj->prop("default_ctx")) && acl_base::can("view", $_ctx))
 			{
 				$_ctx = obj($_ctx);
 				$use_ctx = $_ctx->name();
 			}
+
 			if ($use_ctx)
 			{
 				// check if we need to redirect, based on current context

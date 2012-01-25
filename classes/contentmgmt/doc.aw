@@ -645,7 +645,7 @@ class doc extends class_base
 				break;
 
 			case "content":
-				if ($args["request"]["content"]["cb_breaks"] == 0)
+				if (empty($args["request"]["content"]["cb_breaks"]))
 				{
 					$args["obj_inst"]->set_prop("nobreaks",0);
 				}
@@ -943,7 +943,7 @@ class doc extends class_base
 			));
 
 			$toolbar->add_separator();
-		};
+		}
 	}
 
 	/**

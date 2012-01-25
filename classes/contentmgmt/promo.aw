@@ -347,7 +347,8 @@ class promo extends class_base implements main_subtemplate_handler
 				break;
 
 			case "section_noshow":
-				$arr["obj_inst"]->set_meta("section_no_include_submenus",$arr["request"]["include_no_submenus"]);
+				$value = isset($arr["request"]["include_no_submenus"]) ? $arr["request"]["include_no_submenus"] : "";
+				$arr["obj_inst"]->set_meta("section_no_include_submenus", $value);
 				break;
 
 			case "ndocs":
@@ -517,7 +518,7 @@ class promo extends class_base implements main_subtemplate_handler
 				"src_submenus" => html::checkbox(array(
 					"name" => "src_submenus[]",
 					"value" => $c_id,
-					"checked" => ($ssm[$c_id] == $c_id)
+					"checked" => isset($ssm[$c_id]) and ($ssm[$c_id] == $c_id)
 				))
 			));
 		}
@@ -619,10 +620,10 @@ class promo extends class_base implements main_subtemplate_handler
 		if ($ob->prop("sort_by"))
 		{
 			$_ob = $ob->prop("sort_by")." ".$ob->prop("sort_ord");
-			if ($ob->prop("sort_by") == "documents.modified")
+			if ($ob->prop("sort_by") === "documents.modified")
 			{
 				$_ob .= " ,objects.created DESC";
-			};
+			}
 		}
 		if (($_ob != "") && (sizeof($def->get()) > 0))
 		{
@@ -696,7 +697,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 		if ($as_name && $ob->meta("caption") == "")
 		{
-			if ($this->can("view",$as_name))
+			if (acl_base::can("view",$as_name))
 			{
 				$as_n_o = obj($as_name);
 				$ob->set_prop('caption',$as_n_o->name());
@@ -1013,7 +1014,7 @@ class promo extends class_base implements main_subtemplate_handler
 			{
 				$ordby .= " ".$box->meta("sort_ord");
 			}
-			if ($box->meta("sort_by") == "documents.modified")
+			if ($box->meta("sort_by") === "documents.modified")
 			{
 				$ordby .= ", objects.created DESC";
 			};
@@ -1111,20 +1112,6 @@ class promo extends class_base implements main_subtemplate_handler
 		$tb->closed = 1;
 	}
 
-	function callback_mod_tab($arr)
-	{
-		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
-		{
-			return false;
-		}
-		return true;
-	}
-
-	function callback_get_transl($arr)
-	{
-		return $this->trans_callback($arr, $this->trans_props);
-	}
-
 	function _get_sss_tb($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -1139,7 +1126,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$tb->add_cdata($ps->get_popup_search_link(array("pn" => "_set_lm_sss", "clid" => CL_MENU)));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["_set_sss"] = "0";
 		$arr["_set_lm_sss"] = "0";
@@ -1149,20 +1136,20 @@ class promo extends class_base implements main_subtemplate_handler
 	function callback_post_save($arr)
 	{
 		$ps = new popup_search();
-		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_sss"], 1 /* RELTYPE_ASSIGNED_MENU */);
-		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_lm_sss"], 2 /* RELTYPE_DOC_SOURCE */);
+		if (isset($arr["request"]["_set_sss"])) $ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_sss"], 1 /* RELTYPE_ASSIGNED_MENU */);
+		if (isset($arr["request"]["_set_lm_sss"])) $ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_lm_sss"], 2 /* RELTYPE_DOC_SOURCE */);
 	}
 
 	function _get_linker(&$p, $o)
 	{
 		$ps = new ct_linked_obj_search();
 		$p["post_append_text"] = "";
-		if ($this->can("view", $o->meta("linked_obj")))
+		if (acl_base::can("view", $o->meta("linked_obj")))
 		{
 			$p["post_append_text"] = sprintf(t("Valitud objekt: %s /"), html::obj_change_url($o->meta("linked_obj")));
 			$p["post_append_text"] .= " ".html::href(array(
 				"url" => $this->mk_my_orb("remove_linked", array("id" => $o->id(), "ru" => get_ru()), "menu"),
-				"caption" => html::img(array("url" => aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif", "border" => 0))
+				"caption" => html::img(array("url" => aw_ini_get("baseurl")."automatweb/images/icons/delete.gif", "border" => 0))
 			))." / ";
 		}
 		$p["post_append_text"] .= t(" Otsi uus objekt: ").$ps->get_popup_search_link(array(
@@ -1173,7 +1160,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function callback_pre_save($arr)
 	{
-		if ($this->can("view", $arr["request"]["link_pops"]))
+		if (isset($arr["request"]["link_pops"]) and acl_base::can("view", $arr["request"]["link_pops"]))
 		{
 			$arr["obj_inst"]->set_meta("linked_obj", $arr["request"]["link_pops"]);
 		}
@@ -1182,7 +1169,7 @@ class promo extends class_base implements main_subtemplate_handler
 	function get_promo_link($o)
 	{
 		$link_str = $o->trans_get_val("link");
-		if ($this->can("view", $o->meta("linked_obj")))
+		if (acl_base::can("view", $o->meta("linked_obj")))
 		{
 			$linked_obj = obj($o->meta("linked_obj"));
 			if ($linked_obj->class_id() == CL_MENU)

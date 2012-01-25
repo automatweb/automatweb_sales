@@ -35,7 +35,7 @@ class promo_display implements main_subtemplate_handler
 
 		if (aw_ini_get("menuedit.lang_menus"))
 		{
-			$filter["lang_id"] = aw_global_get("lang_id");
+			$filter["lang_id"] = AW_REQUEST_CT_LANG_ID;
 		}
 
 		$list = new object_list($filter);
@@ -69,11 +69,9 @@ class promo_display implements main_subtemplate_handler
 		}
 
 
-
 		$tplmgr = new templatemgr();
 		$promos = array();
 		$gidlist = aw_global_get("gidlist");
-		$lang_id = aw_global_get("lang_id");
 		$rootmenu = aw_ini_get("rootmenu");
 		$default_tpl_filename = aw_ini_get("promo.default_tpl");
 		$tpldir = aw_ini_get("tpldir");
@@ -86,7 +84,7 @@ class promo_display implements main_subtemplate_handler
 		{
 ///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>"; }
 
-			if ($o->lang_id() != $lang_id && !$o->prop("content_all_langs"))
+			if ($o->lang_id() !== AW_REQUEST_CT_LANG_ID && !$o->prop("content_all_langs") && !$o->prop("trans_all_langs"))
 			{
 				continue;
 			}
@@ -612,8 +610,7 @@ class promo_display implements main_subtemplate_handler
 	function get_promo_link($o)
 	{
 		$link_str = $o->trans_get_val("link");
-		$i = new file();
-		if ($i->can("view", $o->meta("linked_obj")))
+		if (acl_base::can("view", $o->meta("linked_obj")))
 		{
 			$linked_obj = obj($o->meta("linked_obj"));
 			if ($linked_obj->class_id() == CL_MENU)

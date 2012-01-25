@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CONTENTS relationmgr=yes no_status=1  maintainer=kristo
+@classinfo relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -27,9 +27,9 @@ class contents extends class_base
 		$this->per = get_instance(CL_PERIOD);
 	}
 
-	/**  
+	/**
 		@attrib name=show params=name nologin="1" is_public="1" caption="Show" default="1"
-		
+
 		@param leadonly optional type=int
 		@param max optional type=int
 		@param tpl optional
@@ -49,16 +49,16 @@ class contents extends class_base
 		$this->read_template($tpl);
 
 		$this->d_tpl = isset($d_tpl) && $d_tpl != "" ? basename($d_tpl) : "lead.tpl";
-		
+
 		$this->period = aw_global_get("act_per_id");
 		if ($this->period < 2)
 		{
 			$this->period = 0;
 		}
-		
+
 		$this->count = 0;
 		$this->max_count = $arr["max"];
-		
+
 		if (!isset($arr["leadonly"]))
 		{
 			$this->leadonly = "1";
@@ -76,7 +76,7 @@ class contents extends class_base
 			//foreach($mareas as $pid => $an)
 			foreach($morder as $order => $mname)
 			{
-				// now find the id from the menu_defs 
+				// now find the id from the menu_defs
 				$pid = array_search($mname, $mareas);
 				$this->req_menus($pid);
 			}
@@ -112,14 +112,14 @@ class contents extends class_base
 		{
 			$ol = new object_list(array(
 				"class_id" => array(CL_DOCUMENT, CL_PERIODIC_SECTION, CL_BROTHER_DOCUMENT),
-				"period" => $this->period, 
+				"period" => $this->period,
 				"parent" => $ld,
 				"status" => array(STAT_ACTIVE),
 			));
 			if ($ol->count() > 0)
 			{
 				$o = $ol->begin();
-				
+
 				$this->vars(array(
 					"last_doc" => $this->doc->gen_preview(array(
 						"docid" => $o->id(),
@@ -129,7 +129,7 @@ class contents extends class_base
 				));
 			}
 		}
-		
+
 		$act_per = $this->per->get($this->period);
 
 		if (!empty($act_per["data"]["image"]))
@@ -146,7 +146,7 @@ class contents extends class_base
 		$this->vars(array(
 			"act_per_comment" => $act_per["comment"],
 			"act_per_name" => $act_per["name"],
-			"act_per_image_url" => $imgurl, 
+			"act_per_image_url" => $imgurl,
 			"MENU" => $this->l,
 			"charset" => aw_global_get("charset")
 		));
@@ -221,4 +221,3 @@ class contents extends class_base
 		}
 	}
 }
-?>

@@ -6,7 +6,7 @@ class language_obj extends _int_object
 
 	public function save($check_state = false)
 	{
-		$aw_lid = $this->prop("aw_lang_id");
+		$aw_lid = $this->awobj_get_aw_lang_id();
 		if (!languages::lid2lc($aw_lid))
 		{
 			throw new awex_obj_state("Can't save language object that isn't based on any valid language");
@@ -47,5 +47,10 @@ class language_obj extends _int_object
 		if (!$list->count()) throw new awex_obj_na("Language for {$lid} not found");
 
 		return $list->begin();
+	}
+
+	public function awobj_get_aw_lang_id()
+	{
+		return (int) $this->prop("aw_lang_id");
 	}
 }
