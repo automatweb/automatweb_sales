@@ -75,38 +75,46 @@ class ddoc_sk_signature
 
 		if ("modules" === $name)
 		{
-			$applets_directory = aw_ini_get("digidoc.applets_dir") . $this->_get_lib_modules_subdir();
-			$cache_html_modules = array();
-			foreach ($value->Modules as $key => $data)
-			{
-				$content = "BASE64" === $data->ContentType ? base64_decode($data->Content) : $data->Content;
-				if ("LIBDIR" === $data->Location and "FILE" === $data->Type)
+			if (is_object($value))
+			{// old version sign applet module loading
+				$applets_directory = aw_ini_get("digidoc.applets_dir") . $this->_get_lib_modules_subdir();
+				if (!is_dir($applets_directory))
 				{
-					$r = file_put_contents($data->Name, $content);
-					if (!$r)
-					{
-						throw new awex_ddoc("Writing module '{$data->Name}' failed");
-					}
+					mkdir($applets_directory, 0755, true);
 				}
-				elseif ("HTML" === $data->Type)
-				{
-					$key = $this->_get_html_modules_key();
-					if (isset($cache_html_modules[$key][$data->Location]))
-					{
-						$cache_html_modules[$key][$data->Location] .= $content;
-					}
-					else
-					{
-						$cache_html_modules[$key][$data->Location] = $content;
-					}
-				}
-			}
 
-			foreach ($cache_html_modules as $key => $modules)
-			{
-				foreach ($modules as $location => $content)
+				$cache_html_modules = array();
+				foreach ($value->Modules as $key => $data)
 				{
-					cache::file_set_pt(self::CACHE_SUBDIR, $key, $location, $content);
+					$content = "BASE64" === $data->ContentType ? base64_decode($data->Content) : $data->Content;
+					if ("LIBDIR" === $data->Location and "FILE" === $data->Type)
+					{
+						$r = file_put_contents($applets_directory . $data->Name, $content);
+						if (!$r)
+						{
+							throw new awex_ddoc("Writing module '{$applets_directory}{$data->Name}' failed");
+						}
+					}
+					elseif ("HTML" === $data->Type)
+					{
+						$key = $this->_get_html_modules_key();
+						if (isset($cache_html_modules[$key][$data->Location]))
+						{
+							$cache_html_modules[$key][$data->Location] .= $content;
+						}
+						else
+						{
+							$cache_html_modules[$key][$data->Location] = $content;
+						}
+					}
+				}
+
+				foreach ($cache_html_modules as $key => $modules)
+				{
+					foreach ($modules as $location => $content)
+					{
+						cache::file_set_pt(self::CACHE_SUBDIR, $key, $location, $content);
+					}
 				}
 			}
 
@@ -120,11 +128,11 @@ class ddoc_sk_signature
 
 	public function read_request(aw_request $request)
 	{
-		$this->_id = $request->arg("SignatureId");
-		$this->_value = $request->arg("signValueHex");
-		$this->_signed_info_digest = $request->arg("SignedInfoDigest");
-		$this->_signer_token_id = $request->arg("signCertId");
-		$this->_signer_certificate = $request->arg("signCertHex");
+		$this->_id = $request->arg("signatureId");
+		$this->_value = $request->arg("signatureHex");
+		$this->_signed_info_digest = $request->arg("hashHex");
+		$this->_signer_token_id = $request->arg("certId");
+		$this->_signer_certificate = $request->arg("certHex");
 		$this->_role = $request->arg("role");
 		$this->_city = $request->arg("city");
 		$this->_state = $request->arg("state");
@@ -147,7 +155,7 @@ class ddoc_sk_signature
 
 	private function _get_lib_modules_subdir()
 	{
-		return $this->client_platform . "/";
+		return $this->client_platform . "/" . $this->_phase . "/";
 	}
 
 	private function _get_html_modules_key()

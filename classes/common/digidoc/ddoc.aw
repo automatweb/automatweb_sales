@@ -1434,16 +1434,22 @@ class ddoc extends class_base
 
 		if ($signature->modules_loaded)
 		{ // show form
+			$applets_dir = aw_ini_get("digidoc.applets_url");
+			$lc = strtolower(AW_REQUEST_UI_LANG_CODE);
+			$plugin_language = in_array($lc, array("est", "eng", "rus")) ? $lc : "eng";// check if aw ui lang is supported by id sign applet
+
 			if (ddoc_sk_signature::PHASE_PREPARE === $signature->phase)
 			{
 				$this->read_template("sign_prepare.tpl");
 				$this->vars(array(
 					"ddoc_name" => $ddoc_o->name(),
-					"HTML_HEAD_HTML" => $signature->get_html_modules("HTML-HEAD"),
-					"HTML_FORM_BEGIN_HTML" => $signature->get_html_modules("HTML-FORM-BEGIN"),
-					"HTML_FORM_END_HTML" => $signature->get_html_modules("HTML-FORM-END"),
-					"HTML_BODY_HTML" => $signature->get_html_modules("HTML-BODY"),
-					"reforb" => $this->mk_reforb("sign", array("id" => $ddoc_o->id()), "ddoc")
+					"applets_dir" => $applets_dir,
+					"plugin_language" => $plugin_language,
+					"reforb" => $this->mk_reforb("sign", array(
+						"certId" => "",
+						"certHex" => "",
+						"id" => $ddoc_o->id()
+					), "ddoc")
 				));
 			}
 			elseif (ddoc_sk_signature::PHASE_FINALIZE === $signature->phase)
@@ -1451,13 +1457,13 @@ class ddoc extends class_base
 				$this->read_template("sign_finalize.tpl");
 				$this->vars(array(
 					"ddoc_name" => $ddoc_o->name(),
-					"HTML_HEAD_HTML" => $signature->get_html_modules("HTML-HEAD"),
-					"HTML_FORM_BEGIN_HTML" => $signature->get_html_modules("HTML-FORM-BEGIN"),
-					"HTML_FORM_END_HTML" => $signature->get_html_modules("HTML-FORM-END"),
-					"HTML_BODY_HTML" => $signature->get_html_modules("HTML-BODY"),
+					"applets_dir" => $applets_dir,
+					"plugin_language" => $plugin_language,
 					"reforb" => $this->mk_reforb("sign", array(
-						"SignatureId" => $signature->id,
-						"SignedInfoDigest" => $signature->signed_info_digest,
+						"certId" => $signature->signer_token_id,
+						"signatureId" => $signature->id,
+						"hashHex" => $signature->signed_info_digest,
+						"signatureHex" => "",
 						"id" => $ddoc_o->id()
 					), "ddoc")
 				));
