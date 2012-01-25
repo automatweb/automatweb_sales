@@ -1356,7 +1356,7 @@ class _int_object
 		return $prev;
 	}
 
-	function properties()
+	public function properties()
 	{
 		// make sure props are loaded
 		$this->_int_get_prop(NULL);
@@ -1367,6 +1367,19 @@ class _int_object
 		$ret["created"] = $this->created();
 		$ret["modified"] = $this->modified();
 		return $ret;
+	}
+
+	public function properties_translated($lang_id = AW_REQUEST_CT_LANG_ID)
+	{
+		if (ifset($this->obj, "meta", "trans_{$lang_id}_status"))
+		{
+			$properties = $this->obj["meta"]["translations"][$lang_id] + $this->properties();
+		}
+		else
+		{
+			$properties = $this->properties();
+		}
+		return $properties;
 	}
 
 	function fetch()
@@ -1557,9 +1570,9 @@ class _int_object
 			$val = empty($this->obj["meta"]["trans_{$lang_id}_status"]) ? object::STAT_NOTACTIVE : object::STAT_ACTIVE;
 		}
 		elseif (
-			(aw_ini_empty("classes.{$this->obj["class_id"]}.ct_lang_sensitive") or $lang_id !== $this->lang_id())and
-			ifset($this->obj, "meta", "translations", $lang_id, $prop) and
-			(ifset($this->obj, "meta", "trans_{$lang_id}_status") or $ignore_status)
+			($lang_id !== $this->lang_id()) and // object language isn't the same as requested lang
+			ifset($this->obj, "meta", "translations", $lang_id, $prop) and // translation is there
+			(ifset($this->obj, "meta", "trans_{$lang_id}_status") or $ignore_status) // requested language translation is active or status is to be ignored
 		)
 		{ // get translation
 			$val = $this->obj["meta"]["translations"][$lang_id][$prop];
