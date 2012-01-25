@@ -1551,7 +1551,7 @@ class class_base extends aw_template implements orb_public_interface
 		}
 
 		// add translation subgroup lang id
-		if (!empty($this->inst->translation_lang_id) and !$retval_is_obj_id)
+		if ($this->inst->translation_lang_id and !$retval_is_obj_id)
 		{
 			$retval = aw_url_change_var($this->translation_lang_var_name, $this->inst->translation_lang_id, $retval);
 		}
@@ -5487,9 +5487,9 @@ class class_base extends aw_template implements orb_public_interface
 			$rv[$vgr] = $gval;
 		}
 
-		if (aw_ini_get("user_interface.content_trans") and !empty($this->inst->translation_lang_id))
+		if (aw_ini_get("user_interface.content_trans") and $this->inst->translation_lang_id)
 		{ // add virtual language-subgroups
-			$languages_in_use = languages::list_translate_targets();
+			$languages_in_use = languages::list_translate_targets();//TODO: viia aw_translations klassi
 
 			if($languages_in_use->count())
 			{
@@ -5615,8 +5615,12 @@ class class_base extends aw_template implements orb_public_interface
 			$this->show_error_text(t("T&otilde;lke keelt ei leitud"));
 			return self::PROP_FATAL_ERROR;
 		}
+		else
+		{
+			$lid = (int) $lang["aw_lid"];
+		}
 
-		if ($lang["aw_lid"] === $o->lang_id())
+		if ($lid === $o->lang_id())
 		{
 			$this->show_msg_text(t("T&otilde;lke keel ei saa olla sama, mis algkeel"));
 			return self::PROP_IGNORE;
@@ -5630,7 +5634,6 @@ class class_base extends aw_template implements orb_public_interface
 
 		$all_vals = safe_array($o->meta("translations"));
 		$time = time();
-		$lid = $lang["aw_lid"];
 		$this->translation_lang_id = $lid;
 		$mod = false;
 
@@ -5693,7 +5696,7 @@ class class_base extends aw_template implements orb_public_interface
 		// get langs
 		$languages_in_use = languages::list_translate_targets();
 		// get language to translate to
-		$requested_lang_id = empty($arr["request"][$this->translation_lang_var_name]) ? "" : $arr["request"][$this->translation_lang_var_name];
+		$requested_lang_id = empty($arr["request"][$this->translation_lang_var_name]) ? 0 : (int) $arr["request"][$this->translation_lang_var_name];
 		if($languages_in_use->count())
 		{
 			$l_o = $languages_in_use->begin();
