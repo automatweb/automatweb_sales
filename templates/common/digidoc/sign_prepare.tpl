@@ -19,10 +19,9 @@ var LC_Error = '{LC:Viga}';
 
 <script type="text/javascript" src="{VAR:applets_dir}idCard.js"></script>
 <script type="text/javascript" src="{VAR:applets_dir}signingHelpers.js"></script>
-
 </head>
 
-<body onload="loadPlugin();getCert();">
+<body onload="loadPlugin();">
 <div id="pluginLocation"></div>
 <div style="color: red" id="error"></div>
 
@@ -64,5 +63,9 @@ var LC_Error = '{LC:Viga}';
 
 		<input type="submit" value="{LC:Alusta allkirjastamist}" class="button" />
 	</form>
+
+	<script type="text/javascript">
+	getCert();
+	</script>
 </body>
 </html>
