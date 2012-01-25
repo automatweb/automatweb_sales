@@ -42,6 +42,7 @@ class shop_purveyors_webview extends class_base
 	public function show($arr)
 	{
 		$webview = obj($arr["id"], array(), shop_purveyors_webview_obj::CLID);
+		aw_translations::load("shop_purveyors_webview.tpl.show");
 
 		$this->read_template($webview->prop("template"));
 		$PURVEYOR = "";

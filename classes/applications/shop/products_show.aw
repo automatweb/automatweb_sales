@@ -225,7 +225,7 @@ class products_show extends class_base
 
 		$ob = new object($arr["id"]);
 		$product_oid = isset($arr["product"]) ? (int) $arr["product"] : 0;
-		if($this->can("view" , $product_oid))
+		if(acl_base::can("view" , $product_oid))
 		{
 			$show_product = obj($product_oid);
 			$instance = get_instance($show_product->class_id());
