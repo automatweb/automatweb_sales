@@ -57,9 +57,12 @@ var LC_Error = '{LC:Viga}';
 		</table>
 		</p>
 
+		<input type="hidden" id="certId" name="certId" value="" />
+		<input type="hidden" id="certHex" name="certHex" value="" />
+
 		{VAR:reforb}
 
-		<input type="submit" value="{LC:Alusta allkirjastamist}" class="button">
+		<input type="submit" value="{LC:Alusta allkirjastamist}" class="button" />
 	</form>
 </body>
 </html>

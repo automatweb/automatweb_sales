@@ -49,7 +49,7 @@ class ddoc_sk_signature
 
 	public function __construct()
 	{
-		$this->_read_client_platform();
+		// $this->_read_client_platform();
 	}
 
 	public function __get($name)

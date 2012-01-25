@@ -1446,8 +1446,6 @@ class ddoc extends class_base
 					"applets_dir" => $applets_dir,
 					"plugin_language" => $plugin_language,
 					"reforb" => $this->mk_reforb("sign", array(
-						"certId" => "",
-						"certHex" => "",
 						"id" => $ddoc_o->id()
 					), "ddoc")
 				));
@@ -1459,11 +1457,10 @@ class ddoc extends class_base
 					"ddoc_name" => $ddoc_o->name(),
 					"applets_dir" => $applets_dir,
 					"plugin_language" => $plugin_language,
+					"certId" => $signature->signer_token_id,
+					"signatureId" => $signature->id,
+					"hashHex" => $signature->signed_info_digest,
 					"reforb" => $this->mk_reforb("sign", array(
-						"certId" => $signature->signer_token_id,
-						"signatureId" => $signature->id,
-						"hashHex" => $signature->signed_info_digest,
-						"signatureHex" => "",
 						"id" => $ddoc_o->id()
 					), "ddoc")
 				));
