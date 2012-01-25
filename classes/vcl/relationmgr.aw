@@ -376,12 +376,11 @@ class relationmgr extends aw_template implements orb_public_interface
 		);
 //@property alias type=textbox group=advsearch
 //@caption Alias
-		$lg = new languages();
 		$rval["lang_id"] = array(
 			"name" => "lang_id",
 			"type" => "chooser",
 			"caption" => t("Keel"),
-			"options" => $lg->get_list(array("ignore_status" => true)),
+			"options" => languages::get_list(array("ignore_status" => true)),
 			"value" => automatweb::$request->arg("lang_id"),
 		);
 //@property site_id type=select group=advsearch
@@ -489,20 +488,17 @@ class relationmgr extends aw_template implements orb_public_interface
 
 		if ($this->do_search)
 		{
-			$s_args = array(
-				"lang_id" => array(),
-				"site_id" => array(),
-			);
+			$s_args = array();
 			foreach($this->qparts as $qkey => $qvalue)
 			{
 				$s_args[$qkey] = $qvalue;
-			};
+			}
 
 			// 3 - ignore status
 			if (ifset($s_args, "status") == 3)
 			{
 				unset($s_args["status"]);
-			};
+			}
 
 			$s_args["limit"] = 500;
 
@@ -708,13 +704,13 @@ class relationmgr extends aw_template implements orb_public_interface
 					"onchange" => "listB.populate();"
 				))
 			);
-			$tb->add_cdata('<select NAME="aselect" style="width:200px"><script LANGUAGE="JavaScript">listB.printOptions()</SCRIPT></select>');
+			$tb->add_cdata('<select name="aselect" style="width:200px"><script language="JavaScript" type="text/javascript">listB.printOptions()</script></select>');
 			$ru_var = get_ru();
 			if(isset($arr["request"]["searched"]) && $arr["request"]["searched"] == 1)
 			{
 				$ru_var = urlencode($arr["request"]["return_url"]);
 			}
-			$tb->add_cdata('<input TYPE="hidden" VALUE="'.$ru_var.'" NAME="return_url" />');
+			$tb->add_cdata('<input type="hidden" value="'.$ru_var.'" name="return_url" />');
 			$tb->add_button(array(
 				"name" => "new",
 				"img" => "new.gif",
@@ -1161,7 +1157,7 @@ class relationmgr extends aw_template implements orb_public_interface
 			"class_ids" => $this->clid_list,
 			"id" => $arr["obj_inst"]->id(),
 			"return_url" => urlencode(get_ru()),
-			"search_url" => aw_ini_get("baseurl").aw_url_change_var(array("srch" => 1)),
+			"search_url" => aw_url_change_var(array("srch" => 1)),
 		));
 		$tbl->set_header($this->parse());
 		$tbl->set_default_sortby("title");
