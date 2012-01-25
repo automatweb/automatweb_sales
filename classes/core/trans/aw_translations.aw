@@ -67,7 +67,7 @@ class aw_translations extends aw_core_module
 	{
 		$lc = languages::lid2lc($lang_id);
 		$set_name = basename($set_name);
-		$trans_fn = aw_ini_get("site_translations_dir") . "{$lc}/aw/{$set_name }" . AW_FILE_EXT;
+		$trans_fn = aw_ini_get("site_translations_dir") . "{$lc}/{$set_name }" . AW_FILE_EXT;
 		if (file_exists($trans_fn))
 		{
 			require_once($trans_fn);
