@@ -173,7 +173,7 @@ class ddoc_obj extends _int_object
 
 			if ("OK" !== $status)
 			{
-				throw new awex_ddoc_wsdl(sprintf("Error preparing signature for object '%s'. Service status: %s", $this->id(), $status));
+				throw new awex_ddoc_wsdl(sprintf("Error preparing signature for object '%s'. Service status: %s. Parameters: ", $this->id(), $status));
 			}
 
 			$signature->id = $signature_id;

@@ -32,9 +32,9 @@ class ddoc_sk_signature
 		...
 	)
 	*/
-	private $_signer_certificate; // signer’s certificate in HEX string format (transformed from binary (DER) format).
-	private $_signer_token_id; // identifier of the private key slot on a smartcard. The signing software defines this value when reading the signer’s certificate
-	private $_modules; // software plug in modules for client to use for signing
+	private $_signer_certificate = ""; // signer’s certificate in HEX string format (transformed from binary (DER) format).
+	private $_signer_token_id = ""; // identifier of the private key slot on a smartcard. The signing software defines this value when reading the signer’s certificate
+	private $_modules = array(); // software plug in modules for client to use for signing
 
 	private $_role = "";
 	private $_city = "";
