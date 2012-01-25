@@ -25,10 +25,13 @@ var LC_Error = '{LC:Viga}';
 <body onload="loadPlugin();">
 <div id="pluginLocation"></div>
 <div style="color: red" id="error"></div>
-
 	<form method="post" action="" enctype="multipart/form-data">
+	<input type="hidden" id="certId" name="certId" value="{VAR:certId}" />
+	<input type="hidden" id="signatureId" name="signatureId" value="{VAR:signatureId}" />
+	<input type="hidden" id="hashHex" name="hashHex" value="{VAR:hashHex}" />
+	<input type="hidden" id="signatureHex" name="signatureHex" value="" />
 	{VAR:reforb}
-	<input type="submit" value="{LC:Allkirjasta}" class="button">
+	<input type="submit" value="{LC:Allkirjasta}" class="button" />
 	</form>
 
 </body>
