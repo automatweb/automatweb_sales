@@ -1434,7 +1434,7 @@ class ddoc extends class_base
 
 		if ($signature->modules_loaded)
 		{ // show form
-			$applets_dir = aw_ini_get("digidoc.applets_url");
+			$applets_url = aw_ini_get("digidoc.applets_url");
 			$lc = strtolower(AW_REQUEST_UI_LANG_CODE);
 			$plugin_language = in_array($lc, array("est", "eng", "rus")) ? $lc : "eng";// check if aw ui lang is supported by id sign applet
 
@@ -1443,7 +1443,7 @@ class ddoc extends class_base
 				$this->read_template("sign_prepare.tpl");
 				$this->vars(array(
 					"ddoc_name" => $ddoc_o->name(),
-					"applets_dir" => $applets_dir,
+					"applets_url" => $applets_url,
 					"plugin_language" => $plugin_language,
 					"reforb" => $this->mk_reforb("sign", array(
 						"id" => $ddoc_o->id()
@@ -1455,7 +1455,7 @@ class ddoc extends class_base
 				$this->read_template("sign_finalize.tpl");
 				$this->vars(array(
 					"ddoc_name" => $ddoc_o->name(),
-					"applets_dir" => $applets_dir,
+					"applets_url" => $applets_url,
 					"plugin_language" => $plugin_language,
 					"certId" => $signature->signer_token_id,
 					"signatureId" => $signature->id,

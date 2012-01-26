@@ -6,7 +6,7 @@ var knownCAList = ["*"]; // Määrab milliste CA-de sertifikaate kuvatakse läbi
 *  Javascripti klienditeegi versioon 0.11
 *  Käesoleva javascripti klienditeegi dokumentatsiooni levitatakse eraldi dokumendina "Veebis signeerimise Javascripti klienditeek".
 *  Dokumentatsiooni saamiseks ja muude küsimuste korral pöörduda abi@id.ee
-*  
+*
 *  Muudatuste ajalugu:
 *
 *  versioon 0.11 7. sept 2011 (Tänud RIK-ile täiendus- ja parandusettepanekute eest!)
@@ -32,11 +32,11 @@ var knownCAList = ["*"]; // Määrab milliste CA-de sertifikaate kuvatakse läbi
 *  versioon 0.7, 15. detsember 2010
 *	 - Lisatud veakoodi 100 kirjeldus
 *
-*  versioon 0.6, 18. oktoober 2010 
+*  versioon 0.6, 18. oktoober 2010
 *	 - Kõige esimese põlvkonna signeerimise ActiveX-i jaoks vajaliku ASN.1 struktuuri parsimisse lisatud BMPstring välja tüübi tugi
 *	 - Täiustatud plugina laadimise loogikat Macil, parandatud viga mille tõttu ei laetud vanu Maci pluginaid
 *
-*  versioon 0.5, 8. oktoober 2010 
+*  versioon 0.5, 8. oktoober 2010
 *	- Lisatud 2010 aastal levitatava ID-kaardi baastarkvara tugi
 *	- knownCAList toodud globaalseks konfiguratsiooniparameetriks
 *	- puhastatud kood mittevajalikest "debug" fragmentidest
@@ -173,7 +173,7 @@ function checkIfPluginIsLoaded(pluginName, lang)
 	{
 		try
 		{
-			plugin.isActive();	//Kui see midagi vastab (vahet pole, kas true või false), siis on applet 
+			plugin.isActive();	//Kui see midagi vastab (vahet pole, kas true või false), siis on applet
 								//laetud lehele, kui aga appletid on blokeeritud vms ehk applet ei ole käivitunud,
 								//siis tuleb exception "member not found"
 			return true;
@@ -198,7 +198,7 @@ function getLoadedPlugin(){
 function loadSigningPlugin(lang, pluginToLoad){
 
 	var pluginHTML = {
-		javaApplet:		'<applet id="IdCardSigning" CODE ="SignatureApplet.class" ARCHIVE ="SignApplet_sig.jar,iaikPkcs11Wrapper_sig.jar" WIDTH="0" HEIGHT="0" NAME="SignatureApplet" MAYSCRIPT><param NAME="CODE" VALUE="SignatureApplet.class"><param NAME="ARCHIVE" VALUE="SignApplet_sig.jar,iaikPkcs11Wrapper_sig.jar"><param NAME="NAME" VALUE="SignatureApplet"><param NAME="DEBUG_LEVEL" VALUE="4"><param NAME="LANG" VALUE="EST"><param NAME="type" VALUE="application/x-java-applet;version=1.1.2"></applet>',
+		javaApplet:		'<applet id="IdCardSigning" CODEBASE="'+appletsUrl+'" CODE ="SignatureApplet.class" ARCHIVE ="SignApplet_sig.jar,iaikPkcs11Wrapper_sig.jar" WIDTH="0" HEIGHT="0" NAME="SignatureApplet" MAYSCRIPT><param NAME="CODE" VALUE="SignatureApplet.class"><param NAME="ARCHIVE" VALUE="SignApplet_sig.jar,iaikPkcs11Wrapper_sig.jar"><param NAME="NAME" VALUE="SignatureApplet"><param NAME="DEBUG_LEVEL" VALUE="4"><param NAME="LANG" VALUE="EST"><param NAME="type" VALUE="application/x-java-applet;version=1.1.2"></applet>',
 		activeX:		'<OBJECT id="IdCardSigning" codebase="EIDCard.cab" classid="clsid:FC5B7BD2-584A-4153-92D7-4C5840E4BC28"></OBJECT>',
 		winMozPlugin:	'<embed id="IdCardSigning" type="application/idcard-plugin" width="1" height="1" hidden="true" />',
 		macPlugin:		'<embed id="IdCardSigning" type="application/x-idcard-plugin" width="1" height="1" hidden="true" />',
@@ -228,17 +228,17 @@ function loadSigningPlugin(lang, pluginToLoad){
 			{
 				throw new IdCardException(100, dictionary[100][lang]);
 			}
-			
+
 			loadedPlugin = pluginToLoad;
 		}
 		else // Plugina nimi on tundmatu
 		{
 			// Tagastame vea juhtimaks teegi kasutaja tähelepanu valele nimele.
-			throw new IdCardException(100, dictionary[100][lang]);			
+			throw new IdCardException(100, dictionary[100][lang]);
 		}
 		return;
 	} else {
-		
+
 		// Esmalt püüame alati laadida uue ID-kaardi baastarkvara plugina (mime tüüp application/x-digidoc)
 		// Allkärgnev kontroll on Safari jaoks, et kui plugin puudub ei tuleks kasutajale koledat teadet
 		//
@@ -247,7 +247,7 @@ function loadSigningPlugin(lang, pluginToLoad){
 		// Mac+Safari juhul käivitub isPluginSupported, mis vaatab, kas plugin on arvutis olemas või mitte.
 		// Teiste OS+Brauseri kombinatsioonide puhul võib lihtsalt uut pluginat laadima minna, aga Mac+Safari
 		// puhul, kui püüda uut pluginat ilma selle olemasolu kontrollita laadida, näidatakse kasutajale
-		// kole viga, kui pluginat pole. 
+		// kole viga, kui pluginat pole.
 		if (
 				(!(navigator.userAgent.indexOf('Mac') != -1 && navigator.userAgent.indexOf('Safari') != -1)) ||
 				isPluginSupported("application/x-digidoc")
@@ -269,8 +269,8 @@ function loadSigningPlugin(lang, pluginToLoad){
 		*/
 
 		// Kui siia jõuame, siis uue tarkvara pluginat ei ole laetud ja otsustame brauseri põhiselt milline vanadest pluginatest laadida
-		
-		if (navigator.userAgent.indexOf('Win') != -1) // 
+
+		if (navigator.userAgent.indexOf('Win') != -1) //
 		{
 			if (navigator.appVersion.indexOf("MSIE") != -1)
 			{
@@ -305,7 +305,7 @@ function loadSigningPlugin(lang, pluginToLoad){
 		else if (navigator.userAgent.indexOf('Mac') != -1)
 		{
 			if ((navigator.userAgent.indexOf('Safari') == -1) || isPluginSupported("application/x-idcard-plugin")) {
-				
+
 				document.getElementById('pluginLocation').innerHTML = pluginHTML['macPlugin'];
 
 				if (checkIfPluginIsLoaded("macPlugin", lang))
@@ -317,17 +317,17 @@ function loadSigningPlugin(lang, pluginToLoad){
 			}
 		}
 
-		// Java appleti laeme nüüd, kui muud valikud on ammendunud ehk seni pole ühtki muud pluginat laetud 
-		// ning tegemist EI ole Mac OS X 10.5 ega Mac OS X 10.6'ga ega Mac OS X 10.7 (kõigil on uus plugin (digidocPlugin) 
+		// Java appleti laeme nüüd, kui muud valikud on ammendunud ehk seni pole ühtki muud pluginat laetud
+		// ning tegemist EI ole Mac OS X 10.5 ega Mac OS X 10.6'ga ega Mac OS X 10.7 (kõigil on uus plugin (digidocPlugin)
 		// ametlikult toetatud)
 		if (
-				(loadedPlugin===undefined || loadedPlugin=="") && 
+				(loadedPlugin===undefined || loadedPlugin=="") &&
 				!(
 					navigator.userAgent.indexOf("Mac OS X 10.5") != -1 || navigator.userAgent.indexOf("Mac OS X 10_5") != -1 ||
 					navigator.userAgent.indexOf("Mac OS X 10.6") != -1 || navigator.userAgent.indexOf("Mac OS X 10_6") != -1 ||
 					navigator.userAgent.indexOf("Mac OS X 10.7") != -1 || navigator.userAgent.indexOf("Mac OS X 10_7") != -1
 				)
-			) 
+			)
 		{
 			document.getElementById('pluginLocation').innerHTML = pluginHTML['javaApplet'];
 
@@ -337,7 +337,7 @@ function loadSigningPlugin(lang, pluginToLoad){
 				return;
 			}
 			//else: javaApplet laadimine ebaõnnestus, rohkem variante pole, anname all exceptioni
-			
+
 		}
 
 		//ühtki pluginat ei suudetud/ei otsustatud laadida, anname vea
@@ -371,13 +371,13 @@ function digidocPluginHandler(lang)
 		}
 		catch (ex)
 		{
-			
+
 		}
 
 		//2011.08.12, Ahto, saadame vea ülesse
 		if (plugin.errorCode != "0")
 		{
-			 
+
 			try
 			{
 				tmpErrorMessage = dictionary[plugin.errorCode][lang];	//exception tuleb, kui array elementi ei eksisteeri
@@ -414,7 +414,7 @@ function digidocPluginHandler(lang)
 
 		try
 		{
-			response = plugin.sign(id, hash, "");	
+			response = plugin.sign(id, hash, "");
 		}
 		catch (ex)
 		{}
@@ -422,7 +422,7 @@ function digidocPluginHandler(lang)
 		//2011.08.12, Ahto, saadame vea ülesse
 		if (plugin.errorCode != "0")
 		{
-			 
+
 			try
 			{
 				tmpErrorMessage = dictionary[plugin.errorCode][lang];	//exception tuleb, kui array elementi ei eksisteeri
@@ -435,7 +435,7 @@ function digidocPluginHandler(lang)
 			throw new IdCardException(parseInt(plugin.errorCode), tmpErrorMessage);
 		}
 
-		
+
 		if (response == null || response == undefined || response == "")
 		{
 			response = '({' + 'signature: "",' + 'returnCode: 14' + '})';
@@ -464,7 +464,7 @@ function ActiveXAPIPluginHandler(lang){
 	this.getCertificate = function () {
 
 		var signcert = plugin.getSigningCertificate();
-		
+
 		if (signcert != null && signcert != undefined && signcert != '')
 		{
 			var response = eval('' + certHexToJSON(signcert, plugin.selectedCertNumber));
@@ -489,7 +489,7 @@ function ActiveXAPIPluginHandler(lang){
 
 	this.sign = function (id, hash) {
 		var response = plugin.getSignedHash(hash, id);
-		
+
 		if (response == null || response == undefined || response == "")
 		{
 			response = '({' + 'signature: "",' + 'returnCode: 14' + '})';
@@ -527,7 +527,7 @@ function oldGenericAPIPluginHandler(lang){
 
     this.getCertificate = function () {
 
-		
+
 
 		//2011.09.06 - kui applet pole lõpuni käima läinud, siis näitame sertide laadimisel viga
 		//NB! plugina laadimisel juba kontrollisime, kas applet üldse laetud on. Eeldame siin, et on üldse laetud
@@ -630,17 +630,17 @@ function IdCardPluginHandler(lang)
 			return new digidocPluginHandler(lang);
 		}
 		else if (loadedPlugin == "activeX")
-		{					
-			return new ActiveXAPIPluginHandler(lang);		
+		{
+			return new ActiveXAPIPluginHandler(lang);
 		} else {
-			return new oldGenericAPIPluginHandler(lang);		
+			return new oldGenericAPIPluginHandler(lang);
 		}
 	}
 
 	this.getCertificate = function () {
 
 		pluginHandler = this.choosePluginHandler();
-		return pluginHandler.getCertificate();	
+		return pluginHandler.getCertificate();
 	}
 
 	this.sign = function (id, hash) {
@@ -663,7 +663,7 @@ function IdCardPluginHandler(lang)
 Abifunktsioon tuvastamaks, kas antud mime-tüübiga plugin eksisteerib.
 Enne mooduli lehele laadimist on vajalik antud kontroll läbi viia, vastasel korral kuvatakse kasutajale kole hoiatus.
 */
- 
+
 
  function isPluginSupported(pluginName) {
         if (navigator.mimeTypes && navigator.mimeTypes.length) {
@@ -766,10 +766,10 @@ function certHexToJSON(hexCert, selectedCertNumber){
 					hour	= UTCTime.substring(6,8);
 					minute	= UTCTime.substring(8,10);
 					second	= UTCTime.substring(10,12);
-					
+
 					yearStr = parseInt(trim(year, "0 ")) + 2000;
 					yearStr = yearStr + '';
-					//dateStr = 'new Date(' + yearStr + ',' + parseInt(month) + ',' + parseInt(day) + ',' + parseInt(hour) + ',' + parseInt(minute) + ',' + parseInt(second) + ')';	
+					//dateStr = 'new Date(' + yearStr + ',' + parseInt(month) + ',' + parseInt(day) + ',' + parseInt(hour) + ',' + parseInt(minute) + ',' + parseInt(second) + ')';
 					dateStr = 'new Date(' + yearStr + ',' + month + ',' + day + ',' + hour + ',' + minute + ',' + second + ')';
 
 					if (countUTCTime == 0)
@@ -789,7 +789,7 @@ function certHexToJSON(hexCert, selectedCertNumber){
 				default:
 					break;
 			}
-			
+
 		}
 		catch (ex)
 		{}
