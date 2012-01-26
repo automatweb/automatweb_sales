@@ -46,8 +46,18 @@ class mysql_pdo
 			$this->dbh = new PDO($dsn, $username, $password);
 			// those can't be set in my.cnf. May not be needed for higher than 5.0 or when server defaults are set correctly
 			///XXX: ajutiselt character_set_results v2lja, sest tundub, et teeb topeltkonvertimise kui andmebaasis on utf8 kujul
-			// $qr = $this->dbh->query("SET character_set_client=utf8; SET character_set_connection=utf8; SET character_set_results=utf8;");
-			$qr = $this->dbh->query("SET character_set_client=utf8; SET character_set_connection=utf8;");
+			$qr = $this->dbh->query("
+				SET character_set_client=utf8;
+				SET character_set_database=utf8;
+				SET character_set_connection=utf8;
+				SET character_set_results=utf8;
+				SET character_set_server=utf8;
+				SET character_set_system=utf8;
+				SET collation_connection=utf8_general_ci;
+				SET collation_database=utf8_general_ci;
+				SET collation_server=utf8_general_ci;
+			");
+			// $qr = $this->dbh->query("SET character_set_client=utf8; SET character_set_connection=utf8;");
 			$qr->fetchAll();
 		}
 		catch (Exception $e)

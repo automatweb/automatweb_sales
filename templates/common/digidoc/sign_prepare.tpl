@@ -1,24 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 
+<meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
 <title>{LC:Dokumendi %s allkirjastamine|{VAR:ddoc_name}}</title>
 
 <style type="text/css" media="all">
 @import "/automatweb/css/common/digidoc/ddoc/sign.css";
 </style>
 
-<meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
-<meta http-equiv="imagetoolbar" content="false" />
-
 <script type="text/javascript">
 var pluginLanguage = '{VAR:plugin_language}';
+var appletsUrl = '{VAR:applets_url}';
 var LC_ErrorCode = '{LC:Veakood}';
 var LC_Error = '{LC:Viga}';
 </script>
 
-<script type="text/javascript" src="{VAR:applets_dir}idCard.js"></script>
-<script type="text/javascript" src="{VAR:applets_dir}signingHelpers.js"></script>
+<script type="text/javascript" src="{VAR:applets_url}idCard.js"></script>
+<script type="text/javascript" src="{VAR:applets_url}signingHelpers.js"></script>
 </head>
 
 <body onload="loadPlugin();">
@@ -61,11 +59,12 @@ var LC_Error = '{LC:Viga}';
 
 		{VAR:reforb}
 
-		<input type="submit" value="{LC:Alusta allkirjastamist}" class="button" />
+		<input type="button" value="{LC:Alusta allkirjastamist}" class="button" onclick="getCert(); this.form.submit();" />
 	</form>
 
 	<script type="text/javascript">
-	getCert();
+		getCert();
 	</script>
+
 </body>
 </html>
