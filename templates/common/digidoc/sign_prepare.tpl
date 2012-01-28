@@ -59,12 +59,8 @@ var LC_Error = '{LC:Viga}';
 
 		{VAR:reforb}
 
-		<input type="button" value="{LC:Alusta allkirjastamist}" class="button" onclick="getCert(); this.form.submit();" />
+		<input type="button" value="{LC:Alusta allkirjastamist}" class="button" onclick="getCert(); setTimeout(function(){}, 2000); if (document.getElementById('certId').value) { this.form.submit(); } else { alert ('{LC:Sertifikaat valimata}'); }" />
 	</form>
-
-	<script type="text/javascript">
-		getCert();
-	</script>
 
 </body>
 </html>

@@ -1,9 +1,5 @@
 <?xml version='1.0'?>
 <xml>
-<num_0>
-      <class>/install/site_list_updater</class>
-      <func>on_login</func>
-</num_0>
 <num_1>
       <class>/core/obj/acl_base</class>
       <func>on_user_login</func>

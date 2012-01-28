@@ -336,7 +336,7 @@ class _int_object_loader
 		return $GLOBALS["objects"][$oid]->id();
 	}
 
-	public function save($oid, $exclusive = false, $previous_state = null)
+	public function save($oid, $check_state = false)
 	{
 		if (!is_object($GLOBALS["objects"][$oid]))
 		{
@@ -347,7 +347,7 @@ class _int_object_loader
 			return;
 		}
 
-		$t_oid = $GLOBALS["objects"][$oid]->save($exclusive, $previous_state);
+		$t_oid = $GLOBALS["objects"][$oid]->save($check_state);
 		$msg_params = array(
 			"oid" => $t_oid
 		);

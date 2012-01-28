@@ -792,7 +792,7 @@ class users extends users_user implements request_startup, orb_public_interface
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
 			"personal_id" => $ik->get(),
-			"status" => new obj_predicate_not(STAT_DELETED)
+			"status" => new obj_predicate_not(STAT_DELETED)//XXX: milleks?
 		));
 
 		if($ol->count() < 1 && aw_ini_get("users.id_only_existing"))
@@ -867,11 +867,7 @@ class users extends users_user implements request_startup, orb_public_interface
 				$o->save();
 				cache::file_clear_pt("storage_object_data");
 				cache::file_clear_pt("storage_search");
-
-				if (!aw_ini_get("acl.no_check"))
-				{
-					cache::file_clear_pt("acl");
-				}
+				cache::file_clear_pt("acl");
 			}
 			else
 			{
@@ -931,10 +927,12 @@ class users extends users_user implements request_startup, orb_public_interface
 			if ($row["hash"] === $arr["hash"])
 			{
 				// do quick login
-				$_SESSION["uid"] = $arr["uid"];
-				aw_global_set("uid", $arr["uid"]);
 				$oid = $this->get_oid_for_uid($arr["uid"]);
-				aw_session_set("uid_oid", $oid);
+
+				aw_session::set("uid", $uid);
+				aw_session::set("uid_oid", $oid);
+				aw_global_set("uid_oid", $oid);
+				aw_global_set("uid", $uid);
 
 				if ($this->can("", $oid))
 				{
@@ -942,6 +940,7 @@ class users extends users_user implements request_startup, orb_public_interface
 					$_SESSION["user_history_count"] = $o->prop("history_size") ? $o->prop("history_size") : 25;
 					$_SESSION["user_history_has_folders"] = $o->prop("history_has_folders");
 				}
+
 				$this->request_startup();
 
 				// remove hash from usable hashes

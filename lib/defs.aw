@@ -629,7 +629,7 @@ function aw_url_change_var($arg1, $arg2 = false, $url = false)
 
 	if (!$url)
 	{
-		$url = automatweb::$request->get_uri();
+		$url = automatweb::$request->get_uri()->__toString();
 	}
 
 	foreach($arg_list[0] as $arg1 => $arg2)

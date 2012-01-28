@@ -1372,6 +1372,7 @@ class ddoc extends class_base
 	/** Call this when signing errors out
 		@attrib api=1
 	**/
+	//used by sign_old
 	function sign_err()
 	{
 		if(($argc = func_num_args()) < 1)
@@ -1430,11 +1431,20 @@ class ddoc extends class_base
 		$ddoc_o = obj($arr["id"], array(), ddoc_obj::CLID);
 		$signature = new ddoc_sk_signature();
 		$signature->read_request(automatweb::$request);
-		$ddoc_o->sk_sign($signature);
 
-		if ($signature->modules_loaded)
+		try
+		{
+			$ddoc_o->sk_sign($signature);
+		}
+		catch (SoapFault $e)
+		{
+			$ddoc_o->sk_close_session();
+			$this->show_error($e, $ddoc_o);
+		}
+
+		if ($signature->input_applets_url)
 		{ // show form
-			$applets_url = aw_ini_get("digidoc.applets_url");
+			$applets_url = $signature->input_applets_url;
 			$lc = strtolower(AW_REQUEST_UI_LANG_CODE);
 			$plugin_language = in_array($lc, array("est", "eng", "rus")) ? $lc : "eng";// check if aw ui lang is supported by id sign applet
 
@@ -1467,12 +1477,12 @@ class ddoc extends class_base
 			}
 			else
 			{
-				$this->read_template("sign_finalize.tpl");
+				$this->read_template("sign_error.tpl");
 				$this->vars(array(
 					"ddoc_name" => $ddoc_o->name(),
 					"message" => t("S&uuml;steemi t&ouml;&ouml;s esines viga.")
 				));
-				trigger_error(sprintf("Invalid phase '%s' signing DDOC id %s with modules loaded", $signature->phase, $ddoc_o->id()), E_USER_WARNING);
+				trigger_error(sprintf("Invalid phase '%s' signing DDOC id %s", $signature->phase, $ddoc_o->id()), E_USER_WARNING);
 			}
 
 			automatweb::$result->set_data($this->parse());
@@ -1480,6 +1490,16 @@ class ddoc extends class_base
 		}
 		elseif (ddoc_sk_signature::PHASE_DONE === $signature->phase)
 		{
+			try
+			{
+				$ddoc_o->sk_close_session();
+				$ddoc_o->save();
+			}
+			catch (SoapFault $e)
+			{
+				$this->show_error($e, $ddoc_o);
+			}
+
 			$this->read_template("sign_end.tpl");
 			$this->vars(array(
 				"ddoc_name" => $ddoc_o->name()
@@ -1489,8 +1509,24 @@ class ddoc extends class_base
 		}
 		else
 		{ // redirect after processing data
-			return $this->mk_my_orb("sign", array("id" => $ddoc_o->id()), "ddoc");
+			return $this->mk_my_orb("sign", array("id" => $ddoc_o->id(), "phase" => $signature->phase), "ddoc");
 		}
+	}
+
+	private function show_error($e, $ddoc_o)
+	{
+		if (automatweb::MODE_DBG === automatweb::$instance->mode())
+		{
+			throw $e;
+		}
+
+		$this->read_template("sign_error.tpl");
+		$message = ddoc_obj::sk_error_string((int) $e->getMessage());
+		$this->vars(array(
+			"ddoc_name" => $ddoc_o->name(),
+			"message" => $message
+		));
+		exit($this->parse());
 	}
 
 	function sign_old($arr)

@@ -1237,17 +1237,34 @@ class crm_person extends class_base
 		return $r;
 	}
 
-	function _set_personal_id($arr)
+	function _get_personal_id(&$arr)
 	{
 		$r = class_base::PROP_OK;
-		if (!empty($arr["prop"]["value"]) and isset($arr["request"]["personal_id_country"]) and country_data::NUM_ESTONIA == $arr["request"]["personal_id_country"])
+		if ("root" !== aw_global_get("uid"))
 		{
-			$pid = new pid_et("45503034582");
-			if (!$pid->is_valid())
+			$arr["prop"]["disabled"] = "1";
+		}
+		return $r;
+	}
+
+	function _set_personal_id(&$arr)
+	{
+		if ("root" === aw_global_get("uid"))
+		{
+			$r = class_base::PROP_OK;
+			if (!empty($arr["prop"]["value"]) and isset($arr["request"]["personal_id_country"]) and country_data::NUM_ESTONIA == $arr["request"]["personal_id_country"])
 			{
-				$arr["prop"]["error"] = t("V&auml;&auml;rtus ei vasta Eesti isikukoodi standardile");
-				$r = class_base::PROP_ERROR;
+				$pid = new pid_et("45503034582");
+				if (!$pid->is_valid())
+				{
+					$arr["prop"]["error"] = t("V&auml;&auml;rtus ei vasta Eesti isikukoodi standardile");
+					$r = class_base::PROP_ERROR;
+				}
 			}
+		}
+		else
+		{
+			$r = class_base::PROP_IGNORE;
 		}
 		return $r;
 	}

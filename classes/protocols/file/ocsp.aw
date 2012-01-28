@@ -1,9 +1,6 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/protocols/file/ocsp.aw,v 1.3 2008/01/31 13:55:21 kristo Exp $
-// ocsp.aw - OCSP p&auml;ring 
-/*
-@classinfo  maintainer=tarvo
-*/
+
+// ocsp.aw - OCSP p&auml;ring
 
 class ocsp extends class_base
 {
@@ -19,7 +16,7 @@ class ocsp extends class_base
 		@param cert optional type=string
 			user certificate in PEM format
 		@param issuer_dn optional type=string
-			issuer domain name 
+			issuer domain name
 
 		@comment
 			checks wheather the given certificate is valid or not
@@ -31,27 +28,25 @@ class ocsp extends class_base
 	**/
 	function OCSP_check($cert = false,  $issuer_dn = false)
 	{
-		$cert = $cert?$cert:$_SERVER["SSL_CLIENT_CERT"];
-		$issuer_dn = $issuer_dn?$issuer_dn:$_SERVER["SSL_CLIENT_I_DN_CN"];
-		$user_good = 0;
-		
 		if(!aw_ini_get("id_config.use_ocsp"))
 		{
 			return 1;
 		}
 
+		$cert = $cert ? $cert : $_SERVER["SSL_CLIENT_CERT"];
+		$issuer_dn = $issuer_dn ? $issuer_dn : $_SERVER["SSL_CLIENT_I_DN_CN"];
+		$user_good = 0;
+
 		// Saving user certificate file to OCSP temp folder
 		$tmp_f = fopen($tmp_f_name = tempnam(aw_ini_get("ocsp.temp_dir"),'ocsp_check'),'w');
 		fwrite($tmp_f, $cert);
 		fclose($tmp_f);
-		
-		
+
 		$ca_cert_file = aw_ini_get("ocsp.".str_replace(" ", "-", strtolower($issuer_dn))."-"."ca_cert_file");
 		$ocsp_server_cert_file = aw_ini_get("ocsp.".str_replace(" ", "-", strtolower($issuer_dn))."-"."ocsp_server_cert_file");
 		$ocsp_server_url = aw_ini_get("ocsp.".str_replace(" ", "-", strtolower($issuer_dn))."-"."ocsp_server_url");
 
-
-		if (aw_ini_get("id_config.use_ocsp") && isset($ca_cert_file) && isset($ocsp_server_cert_file) && isset($ocsp_server_url))
+		if (isset($ca_cert_file) && isset($ocsp_server_cert_file) && isset($ocsp_server_url))
 		{
 
 			// Making OCSP request using OpenSSL ocsp command
@@ -105,4 +100,3 @@ class ocsp extends class_base
 	}
 
 }
-?>
