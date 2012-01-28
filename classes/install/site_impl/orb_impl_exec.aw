@@ -41,18 +41,18 @@ $content = $orb->get_data();
 if (substr($content,0,5) === "http:" || !empty($vars["reforb"]) || substr($content,0,6) === "https:")
 {
 	if (headers_sent())
-        {
-                print html::href(array(
-                        "url" => $content,
-                        "caption" => t("Kliki siia j&auml;tkamiseks"),
-                ));
-        }
-        else
-        {
-                header("Location: {$content}");
-                print "\n\n";
-        }
-        exit;
+	{
+		print html::href(array(
+			"url" => $content,
+			"caption" => t("Kliki siia j&auml;tkamiseks")
+		));
+	}
+	else
+	{
+		header("Location: {$content}");
+		print "\n\n";
+	}
+	exit;
 }
 elseif (is_oid($content))
 {

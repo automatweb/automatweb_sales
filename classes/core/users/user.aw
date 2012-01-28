@@ -1531,22 +1531,26 @@ EOF;
 		{
 			$cache = array();
 		}
+
 		if (isset($cache[$uid]))
 		{
 			return $cache[$uid];
 		}
+
 		$oid = $this->users->get_oid_for_uid($uid);
-		if (!$oid || !$this->can("view", $oid))
+		if (!$oid || !acl_base::can("", $oid))
 		{
 			$cache[$uid] = obj();
 			return obj();
 		}
+
 		$tmp = $this->get_person_for_user(obj($oid));
-		if (!object_loader::can("view", $tmp))
+		if (!acl_base::can("", $tmp))
 		{
 			$cache[$uid] = obj();
 			return obj();
 		}
+
 		$rv = obj($this->get_person_for_user(obj($oid)));
 		$cache[$uid] = $rv;
 		return $rv;

@@ -189,7 +189,7 @@ class object
 	function save($check_state = false)
 	{
 		self::lock();
-		$this->oid = object_loader::instance()->save($this->oid);
+		$this->oid = object_loader::instance()->save($this->oid, $check_state);
 		self::unlock();
 		return $this->oid;
 	}

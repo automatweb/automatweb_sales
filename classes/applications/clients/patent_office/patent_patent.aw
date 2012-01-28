@@ -247,15 +247,15 @@ class patent_patent extends intellectual_property
 
 	protected function save_priority($patent)
 	{
-		$patent->set_prop("prio_convention_date" , $_SESSION["patent"]["prio_convention_date"]);
-		$patent->set_prop("prio_convention_country" , $_SESSION["patent"]["prio_convention_country"]);
-		$patent->set_prop("prio_convention_nr" , $_SESSION["patent"]["prio_convention_nr"]);
-		$patent->set_prop("prio_prevapplicationsep_date" , $_SESSION["patent"]["prio_prevapplicationsep_date"]);
-		$patent->set_prop("prio_prevapplicationsep_nr" , $_SESSION["patent"]["prio_prevapplicationsep_nr"]);
-		$patent->set_prop("prio_prevapplicationadd_date" , $_SESSION["patent"]["prio_prevapplicationadd_date"]);
-		$patent->set_prop("prio_prevapplicationadd_nr" , $_SESSION["patent"]["prio_prevapplicationadd_nr"]);
-		$patent->set_prop("prio_prevapplication_date" , $_SESSION["patent"]["prio_prevapplication_date"]);
-		$patent->set_prop("prio_prevapplication_nr" , $_SESSION["patent"]["prio_prevapplication_nr"]);
+		$patent->set_prop("prio_convention_date" , isset($_SESSION["patent"]["prio_convention_date"]) ? $_SESSION["patent"]["prio_convention_date"] : "");
+		$patent->set_prop("prio_convention_country" , isset($_SESSION["patent"]["prio_convention_country"]) ? $_SESSION["patent"]["prio_convention_country"] : "");
+		$patent->set_prop("prio_convention_nr" , isset($_SESSION["patent"]["prio_convention_nr"]) ? $_SESSION["patent"]["prio_convention_nr"] : "");
+		$patent->set_prop("prio_prevapplicationsep_date" , isset($_SESSION["patent"]["prio_prevapplicationsep_date"]) ? $_SESSION["patent"]["prio_prevapplicationsep_date"] : "");
+		$patent->set_prop("prio_prevapplicationsep_nr" , isset($_SESSION["patent"]["prio_prevapplicationsep_nr"]) ? $_SESSION["patent"]["prio_prevapplicationsep_nr"] : "");
+		$patent->set_prop("prio_prevapplicationadd_date" , isset($_SESSION["patent"]["prio_prevapplicationadd_date"]) ? $_SESSION["patent"]["prio_prevapplicationadd_date"] : "");
+		$patent->set_prop("prio_prevapplicationadd_nr" , isset($_SESSION["patent"]["prio_prevapplicationadd_nr"]) ? $_SESSION["patent"]["prio_prevapplicationadd_nr"] : "");
+		$patent->set_prop("prio_prevapplication_date" , isset($_SESSION["patent"]["prio_prevapplication_date"]) ? $_SESSION["patent"]["prio_prevapplication_date"] : "");
+		$patent->set_prop("prio_prevapplication_nr" , isset($_SESSION["patent"]["prio_prevapplication_nr"]) ? $_SESSION["patent"]["prio_prevapplication_nr"] : "");
 		$patent->save();
 	}
 
@@ -275,14 +275,14 @@ class patent_patent extends intellectual_property
 
 	protected function save_invention($patent)
 	{
-		$patent->set_prop("invention_name_et", $_SESSION["patent"]["invention_name_et"]);
-		$patent->set_prop("invention_name_en", $_SESSION["patent"]["invention_name_en"]);
+		$patent->set_prop("invention_name_et",  isset($_SESSION["patent"]["invention_name_et"]) ? $_SESSION["patent"]["invention_name_et"] : "");
+		$patent->set_prop("invention_name_en",  isset($_SESSION["patent"]["invention_name_en"]) ? $_SESSION["patent"]["invention_name_en"] : "");
 		$patent->save();
 	}
 
 	protected function save_attachments($patent)
 	{
-		$patent->set_prop("attachment_demand_points" , $_SESSION["patent"]["attachment_demand_points"]);
+		$patent->set_prop("attachment_demand_points" , isset($_SESSION["patent"]["attachment_demand_points"]) ? $_SESSION["patent"]["attachment_demand_points"] : "");
 		$patent->save();
 	}
 

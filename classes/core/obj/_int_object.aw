@@ -1479,11 +1479,7 @@ class _int_object
 
 	public function is_connected_to($param)
 	{
-		if (count($this->connections_from($param)) > 0)
-		{
-			return true;
-		}
-		return false;
+		return (bool) count($this->connections_from($param));
 	}
 
 	function set_create_new_version()

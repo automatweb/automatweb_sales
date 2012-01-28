@@ -266,13 +266,12 @@ abstract class intellectual_property extends class_base
 	{
 		if(!acl_base::can("view", $oid))
 		{
-			throw new aw_exception("Invalid application object id. No access");
+			throw new aw_exception("Invalid application object id '{$oid}'. No access");
 		}
 
 		$c = new connection();
 		$cc = $c->find(array(
-			"from.class_id" => CL_DDOC,
-			// "from.status" => new obj_predicate_not(object::STAT_DELETED),
+			"from.class_id" => ddoc_obj::CLID,
 			"type" => "RELTYPE_SIGNED_FILE",
 			"to" => $oid
 		));
@@ -289,8 +288,16 @@ abstract class intellectual_property extends class_base
 		if(count($ret) > 1)
 		{
 			$ret = $ret["from"];
-			$inst = get_instance(CL_DDOC);
-			$tmp = $inst->is_signed($ret);
+
+			if ($ret)
+			{
+				$ddoc_o = obj($ret, array(), ddoc_obj::CLID);
+				$tmp = $ddoc_o->is_signed();
+			}
+			else
+			{
+				$tmp = false;
+			}
 /*
 			$classes_w_author = array(CL_UTILITY_MODEL, CL_PATENT_PATENT, CL_INDUSTRIAL_DESIGN);
 
@@ -3246,7 +3253,7 @@ abstract class intellectual_property extends class_base
 
 		if(isset($_GET["delete_patent"]) and acl_base::can("delete", $_GET["delete_patent"]))
 		{
-			$d = obj($delete_patent);
+			$d = obj($_GET["delete_patent"]);
 			$d->delete();
 		}
 
@@ -3444,7 +3451,7 @@ abstract class intellectual_property extends class_base
 				$change = $del_url = $send_url= '';
 				if(!($status->prop("nr") || $status->prop("verified")))
 				{
-					$del_url = aw_ini_get("baseurl").aw_url_change_var("delete_patent", $patent->id());
+					$del_url = aw_url_change_var("delete_patent", $patent->id());
 					$change = '<a href="' . $url . '">Muuda</a>';
 				}
 
@@ -3623,7 +3630,7 @@ abstract class intellectual_property extends class_base
 				if(!($status->prop("nr") || $status->prop("verified")))
 				{
 					$change = '<a href="'.$url.'">Muuda</a>';
-					$del_url = aw_ini_get("baseurl").aw_url_change_var("delete_patent", $patent->id());
+					$del_url = aw_url_change_var("delete_patent", $patent->id());
 				}
 
 				if(($re["status"] == 1))
@@ -3806,7 +3813,7 @@ abstract class intellectual_property extends class_base
 				if(!($status->prop("nr") || $status->prop("verified")))
 				{
 					$change = '<a href="'.$url.'">Muuda</a>';
-					$del_url = aw_ini_get("baseurl").aw_url_change_var("delete_patent", $patent->id());
+					$del_url = aw_url_change_var("delete_patent", $patent->id());
 				}
 
 				if(($re["status"] == 1))
@@ -3990,7 +3997,7 @@ abstract class intellectual_property extends class_base
 				if(!($status->prop("nr") || $status->prop("verified")))
 				{
 					$change = '<a href="'.$url.'">Muuda</a>';
-					$del_url = aw_ini_get("baseurl").aw_url_change_var("delete_patent", $patent->id());
+					$del_url = aw_url_change_var("delete_patent", $patent->id());
 				}
 
 				if(($re["status"] == 1))
@@ -4173,7 +4180,7 @@ abstract class intellectual_property extends class_base
 				if(!($status->prop("nr") || $status->prop("verified")))
 				{
 					$change = '<a href="'.$url.'">Muuda</a>';
-					$del_url = aw_ini_get("baseurl").aw_url_change_var("delete_patent", $patent->id());
+					$del_url = aw_url_change_var("delete_patent", $patent->id());
 				}
 
 				if($re["status"] == 1)
@@ -4393,23 +4400,48 @@ abstract class intellectual_property extends class_base
 			$digidoc->set_parent($this_object->id());
 			$digidoc->set_name(sprintf("DigiDoc '%s'", $this_object->name()));
 			$digidoc->save();
-			$digidoc->sk_start_session();
+
+			try
+			{
+				$digidoc->sk_start_session();
+			}
+			catch (awex_ddoc_session $e)
+			{
+				try
+				{
+					$e->violated_object->sk_close_session();
+					$digidoc->sk_start_session();
+				}
+				catch (Exception $e)
+				{//TODO: parem error dislplay
+					automatweb::$result->set_data(t("Varasemat DigiDoc sessiooni ei &otilde;nnestunud sulgeda."));
+					automatweb::http_exit();
+				}
+			}
+
 			$digidoc->sk_create_digidoc();
-			$digidoc->sk_add_file($this_object->name(), $this_object->get_xml(), "text/xml");
+			$digidoc->sk_add_file($this_object, $this_object->get_xml(), "text/xml");
+			$digidoc->save();
 			return core::mk_my_orb("sign", array("id" => $digidoc->id()), "ddoc");
 		}
 		catch (Exception $e)
 		{
-			$this->show_error_text(t("Viga"));
-			$_GET["in_popup"] = 1;
+			if (automatweb::MODE_DBG === automatweb::$instance->mode())
+			{
+				throw $e;
+			}
+
 			$htmlc = new htmlclient();
 			$htmlc->in_popup_mode(true);
 			$htmlc->start_output();
+			$htmlc->push_msg(t("Viga"), "ERROR");
 			$htmlc->finish_output(array(
 				"data" => array(),
 				"submit" => "no"
 			));
-			return $htmlc->get_result();
+			$result = $htmlc->get_result();
+			automatweb::$result->set_data($result);
+			automatweb::http_exit();
 		}
 	}
 }

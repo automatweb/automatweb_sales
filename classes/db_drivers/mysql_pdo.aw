@@ -44,6 +44,15 @@ class mysql_pdo
 		try
 		{
 			$this->dbh = new PDO($dsn, $username, $password);
+			$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		}
+		catch (Exception $e)
+		{
+			throw new awex_db_connection("Database connection failed: " . $e->getMessage());
+		}
+
+		try
+		{
 			// those can't be set in my.cnf. May not be needed for higher than 5.0 or when server defaults are set correctly
 			///XXX: ajutiselt character_set_results v2lja, sest tundub, et teeb topeltkonvertimise kui andmebaasis on utf8 kujul
 			$qr = $this->dbh->query("
@@ -52,7 +61,6 @@ class mysql_pdo
 				SET character_set_connection=utf8;
 				SET character_set_results=utf8;
 				SET character_set_server=utf8;
-				SET character_set_system=utf8;
 				SET collation_connection=utf8_general_ci;
 				SET collation_database=utf8_general_ci;
 				SET collation_server=utf8_general_ci;
@@ -60,9 +68,10 @@ class mysql_pdo
 			// $qr = $this->dbh->query("SET character_set_client=utf8; SET character_set_connection=utf8;");
 			$qr->fetchAll();
 		}
-		catch (Exception $e)
+		catch (PDOException $e)
 		{
-			throw new awex_db_connection("Database connection failed: " . $e->getMessage());
+			// trigger_error("Database character set variables setting error: " . $e->getMessage(), E_USER_NOTICE);
+			//TODO: FIXME: iga kord viga: SQLSTATE[HY000]: General error
 		}
 
 		$this->db_base = $base;
@@ -92,8 +101,11 @@ class mysql_pdo
 		// }
 
 		// arr($qtext); //XXX: teha dbg versioonid
+		// arr(dbg::sbt()); //XXX: teha dbg versioonid
 
-		$this->qID = $this->dbh->query($qtext);
+		$this->qID = $this->dbh->prepare($qtext, array(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true));
+		$this->qID->execute();
+		// $this->qID = $this->dbh->query($qtext);
 		// $this->log_query($qtext);
 
 		if (!$this->qID)
@@ -204,7 +216,9 @@ class mysql_pdo
 		{
 			$this->db_query($sql);
 		}
-		return $this->db_next();
+		$r = $this->db_next();
+		$this->db_free_result();
+		return $r;
 	}
 
 	# seda voib kasutada, kui on vaja teada saada mingit kindlat v2lja
@@ -214,7 +228,9 @@ class mysql_pdo
 	{
 		$this->db_query($qtext, $errors);
 		$row = $this->db_next();
-		return $row[$field];
+		$r = $row[$field];
+		$this->db_free_result();
+		return $r;
 	}
 
 	////
@@ -231,9 +247,10 @@ class mysql_pdo
 		{
 			$arr[]=$row;
 		}
+
+		$this->db_free_result();
 		return $arr;
 	}
-
 
 
 	# need 2 funktsiooni oskavad k2ituda nii array-de kui ka stringidega

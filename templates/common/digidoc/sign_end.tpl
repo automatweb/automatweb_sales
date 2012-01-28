@@ -13,7 +13,7 @@
 
 <script language="javascript" type="text/javascript">
 	window.opener.location.reload(true);
-	setTimeout("window.close()", 1000);
+	setTimeout("window.close()", 5000);
 </script>
 
 </head>

@@ -29,7 +29,7 @@ var LC_Error = '{LC:Viga}';
 	<input type="hidden" id="hashHex" name="hashHex" value="{VAR:hashHex}" />
 	<input type="hidden" id="signatureHex" name="signatureHex" value="" />
 	{VAR:reforb}
-	<input type="button" value="{LC:Allkirjasta}" class="button" onclick="sign();" />
+	<input type="button" value="{LC:Allkirjasta}" class="button" onclick="sign(); this.form.submit();" />
 	</form>
 
 </body>

@@ -1,9 +1,5 @@
 <?php
 
-/*
-HANDLE_MESSAGE(MSG_USER_LOGIN, on_login)
-*/
-
 class site_list_updater extends aw_template implements orb_public_interface
 {
 	function __construct()
@@ -19,41 +15,6 @@ class site_list_updater extends aw_template implements orb_public_interface
 	public function set_request(aw_request $request)
 	{
 		$this->req = $request;
-	}
-
-	/**
-		@attrib api=1 params=name
-		@param uid required
-	**/
-	function on_login($arr)
-	{
-		// if the remote connection is turned off, then bail out
-		if(aw_ini_get("server.no_remote_conn"))
-		{
-			return;
-		}
-
-		// check if there has been an update in the last 24 hours
-		// if so, do nothing
-		if ($this->_get_last_update_time() > (time() - (3600*24)))
-		{
-			return;
-		}
-
-		// no go to background
-		$url = str_replace("/automatweb", "", $this->mk_my_orb("bg_do_update", array("uid" => $arr["uid"]), "site_list_updater", false, true, "&", false));
-
-		try
-		{
-			$http = new http();
-			$http->get($url);
-		}
-		// catch (awex_http_redirect $e)
-		// {
-		// }
-		catch (awex_socket $e)
-		{
-		}
 	}
 
 	/**
