@@ -42,6 +42,11 @@ class ddoc_sk_signature
 	private $_signing_profile = "";
 	private $_input_applets_url = ""; // indicates that input for next phase is needed
 
+	private $_signer_first_name = "";
+	private $_signer_last_name = "";
+	private $_signer_personal_id = "";
+	private $_signing_time = 0;
+
 	private $html_module_vars = array();
 
 	public function __construct()
