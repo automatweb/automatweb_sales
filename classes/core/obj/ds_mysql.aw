@@ -1316,7 +1316,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				o_s.acldata as `from.acldata`
 		";
 
-		if ($GLOBALS["cfg"]["acl"]["use_new_acl"])
+		if (aw_ini_get("acl.use_new_acl"))
 		{
 			$ret .= ",o_t.acldata as `to.acldata`,o_s.acldata as `from.acldata`";
 		}
@@ -1636,7 +1636,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							"jrk" => isset($row["jrk"]) ? $row["jrk"] : null
 						);
 
-						if ($GLOBALS["cfg"]["acl"]["use_new_acl"] && isset($row["acldata"]))
+						if (aw_ini_get("acl.use_new_acl") && isset($row["acldata"]))
 						{
 							$row["acldata"] = safe_array(aw_unserialize($row["acldata"], false, true));
 							$acldata[$row["oid"]] = $row;
@@ -1665,7 +1665,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						"class_id" => $row["class_id"],
 						"jrk" => $row["jrk"],
 					);
-					if ($GLOBALS["cfg"]["acl"]["use_new_acl"])
+					if (aw_ini_get("acl.use_new_acl"))
 					{
 						$row["acldata"] = safe_array(aw_unserialize($row["acldata"], false, true));
 						$acldata[$row["oid"]] = $row;
@@ -3345,7 +3345,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		}
 
 		$acld = "";
-		if ($GLOBALS["cfg"]["acl"]["use_new_acl"])
+		if (aw_ini_get("acl.use_new_acl"))
 		{
 			$acld = " objects.acldata as acldata, objects.parent as parent,";
 		}

@@ -1236,6 +1236,11 @@ function aw_serialize($arr, $type = SERIALIZE_PHP, $flags = array(), $quote = fa
 **/
 function aw_unserialize($str, $dequote = false, $native_with_php_bc = false)
 {
+	if (null !== $str and !is_scalar($str))
+	{
+		throw new awex_param_type(sprintf("str argument must be a scalar value, %s given", gettype($str)));
+	}
+
 	if ($dequote)
 	{
 		$str = stripslashes($str);
@@ -1253,7 +1258,7 @@ function aw_unserialize($str, $dequote = false, $native_with_php_bc = false)
 	else
 	{
 		$retval = false; //!!! Tuleks muuta NULLiks, sest dok reklaamib nii ja false v6ib olla v22rtus. preagune nagu konverdiks tyhja stringi FALSEks
-		$magic_bytes = substr($str,0,6);
+		$magic_bytes = substr($str, 0, 6);
 		if ($magic_bytes === "<?xml ")
 		{
 			$x = new xml();

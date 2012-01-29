@@ -1085,7 +1085,7 @@ class ddoc extends class_base
 			return array();
 		}
 		$o = obj($oid);
-		return aw_unserialize($o->prop("signatures"));
+		return safe_array(aw_unserialize($o->prop("signatures")));
 	}
 
 	/**
@@ -1438,7 +1438,6 @@ class ddoc extends class_base
 		}
 		catch (SoapFault $e)
 		{
-			$ddoc_o->sk_close_session();
 			$this->show_error($e, $ddoc_o);
 		}
 
@@ -1509,6 +1508,7 @@ class ddoc extends class_base
 		}
 		else
 		{ // redirect after processing data
+			$ddoc_o->save();
 			return $this->mk_my_orb("sign", array("id" => $ddoc_o->id(), "phase" => $signature->phase), "ddoc");
 		}
 	}
@@ -1526,6 +1526,16 @@ class ddoc extends class_base
 			"ddoc_name" => $ddoc_o->name(),
 			"message" => $message
 		));
+
+		try
+		{
+			$ddoc_o->sk_close_session();
+		}
+		catch (Exception $e)
+		{
+			trigger_error("Failed to close session. Error: " . $e->getMessage(), E_USER_NOTICE);
+		}
+
 		exit($this->parse());
 	}
 
@@ -1914,7 +1924,7 @@ class ddoc extends class_base
 		@comment
 			write sigantures metainfo into ddoc object
 	**/
-	private function _write_signature_metainfo($arr)
+	function _write_signature_metainfo($arr)
 	{
 		if(!strlen($arr["ddoc_id"]) || !is_oid($arr["oid"]) || !is_oid($arr["signer"]) || !strlen($arr["signer_fn"]) || !strlen($arr["signer_ln"]) || !strlen($arr["signer_pid"]) || !strlen($arr["signing_time"]))
 		{
