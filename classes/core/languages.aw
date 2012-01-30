@@ -451,6 +451,11 @@ class languages extends aw_core_module implements orb_public_interface
 		or $lang_id = aw_cookie::get(self::get_ui_cookie_name())
 		;
 
+		if (!self::is_valid($lang_id))
+		{
+			$lang_id = 0;
+		}
+
 		return (int) $lang_id;
 	}
 
@@ -467,6 +472,11 @@ class languages extends aw_core_module implements orb_public_interface
 		or $lang_id = aw_session::get(self::get_ct_cookie_name())
 		or $lang_id = aw_cookie::get(self::get_ct_cookie_name())
 		;
+
+		if (!self::is_valid($lang_id))
+		{
+			$lang_id = 0;
+		}
 
 		return (int) $lang_id;
 	}
