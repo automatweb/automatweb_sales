@@ -1295,8 +1295,8 @@ function utf_unserialize($data)
 		{
 			// try to convert to latin1 as it has been the default charset in databases
 			// then unserialize and convert back to UTF-8
-			$data = iconv("UTF-8", "latin1", trim($data));
-			$value = unserialize($data);
+			$data_converted = iconv("UTF-8", "latin1", trim($data));
+			$value = unserialize($data_converted);
 			if (false !== $value)
 			{
 				$value = iconv_array("latin1", "UTF-8", $value);
@@ -1304,12 +1304,25 @@ function utf_unserialize($data)
 		}
 		catch (ErrorException $e)
 		{
-			// try another automatweb's commonly used encoding
-			$data = iconv("UTF-8", "iso-8859-15", trim($data));
-			$value = unserialize($data);
-			if (false !== $value)
+			try
 			{
-				$value = iconv_array("iso-8859-15", "UTF-8", $value);
+				// try another automatweb's commonly used encoding
+				$data_converted = iconv("UTF-8", "iso-8859-15", trim($data));
+				$value = unserialize($data_converted);
+				if (false !== $value)
+				{
+					$value = iconv_array("iso-8859-15", "UTF-8", $value);
+				}
+			}
+			catch (ErrorException $e)
+			{
+				// try utf decode to latin 1 discarding unknown chars
+				$data_converted = utf8_decode(trim($data));
+				$value = unserialize($data_converted);
+				if (false !== $value)
+				{
+					$value = iconv_array("iso-8859-1", "UTF-8", $value);
+				}
 			}
 		}
 	}
