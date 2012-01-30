@@ -1,4 +1,8 @@
 <?php
+function awddlog($msg, $op)
+{
+	file_put_contents(aw_ini_get("site_basedir")."files/ddoctmpdbg/".microtime(true) . "_".$op, $msg);
+}
 
 require_once AW_DIR . "addons/xmlseclibs.php";
 
@@ -23,9 +27,7 @@ class ddoc_obj extends _int_object
 	private $data_file_index = array(); // datafile id index array(file name => file id in digidoc xml, ...)
 	private $digidoc_changed = false; // keeps track of changes made during a session. if true then on close the changes are retrieved from sk service
 	private $signatures_index = array(); // signer personal id => signature_id
-	private $files = array(); // signed object id => datafile id in ddoc container
-
-	private $_new_file_content_cache = "";
+	private $files_index = array(); // signed object id => datafile id in ddoc container
 
 	public function __construct(array $objdata = array())
 	{
@@ -35,7 +37,7 @@ class ddoc_obj extends _int_object
 		{
 			$this->sk_session_code = aw_session::get("aw.digidoc.sk_session_code");
 			$this->signatures_index = safe_array($this->meta("signatures_index"));
-			$this->files = safe_array($this->meta("files"));
+			$this->files_index = safe_array($this->meta("files_index"));
 		}
 
 		return $r;
@@ -69,12 +71,11 @@ class ddoc_obj extends _int_object
 			Use if need for multiple operations in one session.
 			Session is required and if not manually started then automatically started and also closed for the following methods:
 				sk_create_digidoc(),
-				save() but only if sk_create_digidoc() not called before,
 				sk_sign(),
 				sk_add_file(),
 				sk_remove_file(),
-				sk_remove_signature()
-			sk_close_session() is absolutely mandatory to call when finished
+			sk_close_session() is mandatory to call when finished
+			Exclusive only at the moment -- only one ddoc object at time can hold a session
 		@errors
 			throws awex_ddoc_session if session is found for another object
 			throws awex_ddoc_wsdl on failure
@@ -89,8 +90,9 @@ class ddoc_obj extends _int_object
 		$this->_load_soap_client();
 		$this->_load_digidoc_from_filesystem();
 		$this->digidoc_changed = false;
-		$existing_session_oid = (int) aw_session::get("aw.digidoc.sk_session_ddoc_oid");
 
+		// check if an sk session within this php session is already open for another ddoc object
+		$existing_session_oid = (int) aw_session::get("aw.digidoc.sk_session_ddoc_oid");
 		if ($existing_session_oid !== (int) $this->id())
 		{
 			// check if session matches this object if oid exists
@@ -187,6 +189,7 @@ class ddoc_obj extends _int_object
 		aw_session::del("aw.digidoc.sk_session_data.hashHex");
 	}
 
+	// obj_save=always
 	public function sk_create_digidoc()
 	{
 		$local_session = $this->sk_start_session();
@@ -217,6 +220,9 @@ class ddoc_obj extends _int_object
 		$this->set_prop("digidoc_version", $signed_doc_info->Version);
 		$this->set_prop("digidoc_encoding", self::ESTEID_DEFAULT_DDOC_ENCODING);
 
+		$this->digidoc_changed = true;
+		$this->save();
+
 		/// end session if locally started
 		if ($local_session)
 		{
@@ -224,6 +230,7 @@ class ddoc_obj extends _int_object
 		}
 	}
 
+	// obj_save=conditional
 	public function sk_sign(ddoc_sk_signature $signature = null)
 	{
 		if (!($person = get_current_person() and $personal_id = $person->prop("personal_id")))
@@ -232,7 +239,6 @@ class ddoc_obj extends _int_object
 		}
 
 		$local_session = $this->sk_start_session();
-mail('tmp@evriaspekt.com', 'devtest_ses', "{$this->sk_session_code}");
 
 		if (!$signature)
 		{
@@ -267,6 +273,7 @@ mail('tmp@evriaspekt.com', 'devtest_ses', "{$this->sk_session_code}");
 			aw_session::set("aw.digidoc.sk_session_data.hashHex", $signature->signed_info_digest);
 			$signature->phase = ddoc_sk_signature::PHASE_FINALIZE;
 			$this->digidoc_changed = true;
+			$this->save();
 		}
 		elseif (ddoc_sk_signature::PHASE_FINALIZE === $signing_phase and $signature->id and $signature->value)
 		{
@@ -280,11 +287,8 @@ mail('tmp@evriaspekt.com', 'devtest_ses', "{$this->sk_session_code}");
 			{
 				throw new awex_ddoc_wsdl(sprintf("Error finalizing signature for object '%s'. Service status: %s", $this->id(), $status));
 			}
-mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . print_r($signed_doc_info, true));
 
 			$this->signatures_index[$personal_id] = $signature->id;
-			$signature->phase = ddoc_sk_signature::PHASE_DONE;
-			$this->digidoc_changed = true;
 
 			// set signatures
 			$tmp = is_array($signed_doc_info->SignatureInfo) ? $signed_doc_info->SignatureInfo : array($signed_doc_info->SignatureInfo);
@@ -292,8 +296,8 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 			{
 				$name = $signature_info->Signer->CommonName;
 				$name = explode(",", $name);
-				// why the hell do they put the T in the middle???..
-				$signing_time = strtotime(str_replace("T", " ",$signature_info->SigningTime));
+
+				$signing_time = strtotime(str_replace("T", " ", $signature_info->SigningTime));
 
 				$filter = array(
 					"class_id" => CL_CRM_PERSON,
@@ -317,10 +321,9 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 					$p_obj->save();
 				}
 
-				$ddoc = new ddoc();//TODO: tuua siia
-				$retval = $ddoc->_write_signature_metainfo(array(
+				// legacy
+				$arr = array(
 					"ddoc_id" => $signature_info->Id,
-					"oid" => $this->id(),
 					"signer" => $p_obj->id(),
 					"signer_fn" => $name[1],
 					"signer_ln" => $name[0],
@@ -331,13 +334,26 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 					"signing_index" => isset($signature_info->SignatureProductionPlace->PostalCode) ? $signature_info->SignatureProductionPlace->PostalCode : "",
 					"signing_country" => isset($signature_info->SignatureProductionPlace->CountryName) ? $signature_info->SignatureProductionPlace->CountryName : "",
 					"signing_role" => isset($signature_info->SignerRole->Role) ? $signature_info->SignerRole->Role : "",
-				));
+				);
 
-				$this->connect(array(
-					"type" => "RELTYPE_SIGNER",
-					"to" => $p_obj->id(),
-				));
+				if(!strlen($arr["ddoc_id"])|| !is_oid($arr["signer"]) || !strlen($arr["signer_fn"]) || !strlen($arr["signer_ln"]) || !strlen($arr["signer_pid"]) || !strlen($arr["signing_time"]))
+				{
+					throw new Exception("Parameters incorrect: ". print_r($arr, true));
+				}
+				$m = aw_unserialize($this->prop("signatures"));
+				$m[$arr["ddoc_id"]] = $arr;
+				$this->set_prop("signatures", aw_serialize($m, SERIALIZE_NATIVE));
+				// end legacy
 			}
+
+			$this->connect(array(
+				"type" => "RELTYPE_SIGNER",
+				"to" => $p_obj->id(),
+			));
+
+			$signature->phase = ddoc_sk_signature::PHASE_DONE;
+			$this->digidoc_changed = true;
+			$this->save();
 		}
 		else
 		{
@@ -354,7 +370,7 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 	}
 
 	/** Add file to digidoc container
-		@attrib api=1 params=pos
+		@attrib api=1 params=pos obj_save=always
 		@param object type=object
 			AutomatWeb object associated with added file content.
 		@param content type=string
@@ -398,8 +414,9 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 		$file_id = "D" . count($this->data_file_index);
 		$encoded_content	= $this->_get_encoded_file_content($content);
 
+		$this->_load_digidoc_from_filesystem();
 		$data_file_element = $this->digidoc->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile", $encoded_content);
-		$data_file_element->setAttribute("xmlns", self::SK_DDOC_NAMESPACE);
+		$data_file_element->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 		$data_file_element->setAttribute("ContentType", "EMBEDDED_BASE64");
 		$data_file_element->setAttribute("Filename", $file_name);
 		$data_file_element->setAttribute("Id", $file_id);
@@ -442,10 +459,32 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 			throw new awex_ddoc_wsdl(sprintf("Error adding file to digidoc. Oid '%s'. Service status: %s", $this->id(), $status));
 		}
 
+		// legacy
+		$arr = array(
+			"ddoc_id" => $file_id,
+			"file" => $object->id(),
+			"size" => $file_size,
+			"type" => $file_mime_type,
+			"name" => $file_name
+		);
+		if(!strlen($arr["ddoc_id"]) || (!is_oid($arr["file"]) && !$arr["remove"]))
+		{
+			throw new Exception("Parameters incorrect: ". print_r($arr, true));
+		}
+		$m = aw_unserialize($this->prop("files"));
+		$m[$arr["ddoc_id"]] = array(
+			"file" => strlen($arr["file"])?$arr["file"]:$m[$arr["ddoc_id"]]["file"],
+			"size" => strlen($arr["size"])?$arr["size"]:$m[$arr["ddoc_id"]]["size"],
+			"type" => strlen($arr["type"])?$arr["type"]:$m[$arr["ddoc_id"]]["type"],
+			"name" => strlen($arr["name"])?$arr["name"]:$m[$arr["ddoc_id"]]["name"]
+		);
+		$this->set_prop("files", aw_serialize($m, SERIALIZE_NATIVE));
+		// end legacy
+
 		$this->data_file_index[$file_name] = $file_id;
-		$this->files[$object->id()] = $file_id;
+		$this->files_index[$object->id()] = $file_id;
 		$this->digidoc_changed = true;
-		$this->_new_file_content_cache = $this->_get_encoded_file_content($content);
+		$this->save();
 
 		/// end session if locally started
 		if ($local_session)
@@ -455,7 +494,7 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 	}
 
 	/** Removes data file from digidoc container
-		@attrib api=1 params=pos
+		@attrib api=1 params=pos obj_save=always
 		@param name type=string
 			File name to be removed
 		@comment
@@ -491,6 +530,7 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 
 		unset($this->data_file_index[$file_name]);
 		$this->digidoc_changed = true;
+		$this->save();
 
 		/// end session if locally started
 		if ($local_session)
@@ -560,12 +600,6 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 
 	public function save($check_state = false)
 	{
-		// set file name to object but now, to ensure transactional integrity as much as possible
-		if ($this->digidoc_file_name)
-		{
-			$this->set_prop("ddoc_location", $this->digidoc_file_name);
-		}
-
 		if ($this->sk_session_code and $this->digidoc_changed)
 		{
 			/// save received digidoc xml to file
@@ -574,7 +608,6 @@ mail('tmp@evriaspekt.com', 'devtest_fin', "{$this->sk_session_code}\n\n\n" . pri
 			{
 				throw new awex_ddoc_wsdl(sprintf("Can't save. Error retrieving digidoc for new object '%s'. Service status: %s", $this->name(), $status));
 			}
-mail('tmp@evriaspekt.com', 'devtest', "{$this->sk_session_code}\n\n\n" . print_r($signed_doc_data, true));
 
 			$digidoc_hashed = new DOMDocument();
 			$digidoc_hashed->loadXML($signed_doc_data);
@@ -584,13 +617,12 @@ mail('tmp@evriaspekt.com', 'devtest', "{$this->sk_session_code}\n\n\n" . print_r
 			$this->_save_digidoc_to_filesystem();
 			$this->set_prop("digidoc_encoding", $this->digidoc->encoding);
 			$this->digidoc_changed = false;
-mail('tmp@evriaspekt.com', 'devtest2', "{$this->sk_session_code}\n\n\n" . print_r(canonicalxml::C14NGeneral($this->digidoc, true), true));
 		}
 
 		$this->set_meta("signatures_index", $this->signatures_index);
-		$this->set_meta("files", $this->files);
+		$this->set_meta("files_index", $this->files_index);
 
-		foreach ($this->files as $obj_id => $file_id)
+		foreach ($this->files_index as $obj_id => $file_id)
 		{
 			if (!$this->is_connected_to(array("to" => $obj_id, "type" => "RELTYPE_SIGNED_FILE")))
 			{
@@ -661,7 +693,7 @@ mail('tmp@evriaspekt.com', 'devtest2', "{$this->sk_session_code}\n\n\n" . print_
 			throw new awex_ddoc_file(sprintf("Error writing ddoc '%s' xml to '%s'", $this->id(), $digidoc_file_name));
 		}
 
-		$this->digidoc_file_name = $digidoc_file_name;
+		$this->set_prop("ddoc_location", $digidoc_file_name);
 	}
 
 	private function _load_soap_client()
@@ -687,14 +719,14 @@ mail('tmp@evriaspekt.com', 'devtest2', "{$this->sk_session_code}\n\n\n" . print_
 			foreach ($datafiles as $data_file_hashed)
 			{
 				$id = $data_file_hashed->getAttribute("Id");
-				$data_file_embedded = $embedded_ddoc_xpath ? $embedded_ddoc_xpath->query("//ddoc:DataFile[@Id='{$id}']")->item(0) : false;
+				$data_file_embedded = $embedded_ddoc_xpath->query("//ddoc:DataFile[@Id='{$id}']")->item(0);
 				if (!$data_file_embedded)
 				{
 					throw new awex_ddoc_data(sprintf("Ddoc '%s' hashed xml datafile '%s' not found in embedded xml.", $this->id(), $id));
 				}
 
 				$data_file_embedded_copy = $digidoc->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile", $data_file_embedded->nodeValue);
-				$data_file_embedded_copy->setAttribute("xmlns", $data_file_embedded->getAttribute("xmlns"));
+				$data_file_embedded_copy->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 				$data_file_embedded_copy->setAttribute("ContentType", "EMBEDDED_BASE64");
 				$data_file_embedded_copy->setAttribute("Filename", $data_file_embedded->getAttribute("Filename"));
 				$data_file_embedded_copy->setAttribute("Id", $data_file_embedded->getAttribute("Id"));
@@ -737,7 +769,7 @@ mail('tmp@evriaspekt.com', 'devtest2', "{$this->sk_session_code}\n\n\n" . print_
 			foreach ($datafiles as $data_file_embedded)
 			{
 				$data_file_hashed = $digidoc_hashed->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile");
-				$data_file_hashed->setAttribute("xmlns", $data_file_embedded->getAttribute("xmlns"));
+				$data_file_hashed->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 				$data_file_hashed->setAttribute("ContentType", "HASHCODE");
 				$data_file_hashed->setAttribute("Filename", $data_file_embedded->getAttribute("Filename"));
 				$data_file_hashed->setAttribute("Id", $data_file_embedded->getAttribute("Id"));

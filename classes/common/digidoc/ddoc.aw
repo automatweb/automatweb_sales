@@ -1107,52 +1107,6 @@ class ddoc extends class_base
 	}
 
 	/**
-		@param ddoc_id required type=int
-			file id in the ddoc file container
-		@param remove optional type=bool
-			if this is set to true, file with $ddoc_id is removed from metainfo
-		@param oid required type=oid
-			aw CL_DDOC object oid
-		@param file required type=oid
-			aw CL_FILE object oid
-		@param size optional type=int
-		@param type optional type=string
-		@param name optional type=string
-		@param hash optional type=string
-		@comment
-			adds file to files metainfo in ddoc object.
-		@returns
-			true on success, false otherwise
-	**/
-	private function _write_file_metainfo($arr)
-	{
-		if(!is_oid($arr["oid"]) || !strlen($arr["ddoc_id"]) || (!is_oid($arr["file"]) && !$arr["remove"]))
-		{
-			$this->sign_err(DDOR_ERR_DDOC, "_write_file_metainfo", "parameters incorrect");
-			return false;
-		}
-		$o = obj($arr["oid"]);
-		$m = aw_unserialize($o->prop("files"));
-		if($arr["remove"])
-		{
-			unset($m[$arr["ddoc_id"]]);
-		}
-		else
-		{
-			$m[$arr["ddoc_id"]] = array(
-				"file" => strlen($arr["file"])?$arr["file"]:$m[$arr["ddoc_id"]]["file"],
-				"size" => strlen($arr["size"])?$arr["size"]:$m[$arr["ddoc_id"]]["size"],
-				"type" => strlen($arr["type"])?$arr["type"]:$m[$arr["ddoc_id"]]["type"],
-				"name" => strlen($arr["name"])?$arr["name"]:$m[$arr["ddoc_id"]]["name"],
-				"hash" => strlen($arr["hash"])?$arr["hash"]:$m[$arr["ddoc_id"]]["hash"],
-			);
-		}
-		$o->set_prop("files", aw_serialize($m, SERIALIZE_NATIVE));
-		$o->save();
-		return true;
-	}
-
-	/**
 		@attrib params=pos
 		@param oid required type=oid
 			the CL_DDOC object's oid which data is to be resetted.
@@ -1434,6 +1388,24 @@ class ddoc extends class_base
 
 		try
 		{
+			try
+			{
+				$ddoc_o->sk_start_session();
+			}
+			catch (awex_ddoc_session $e)
+			{
+				try
+				{
+					$e->violated_object->sk_close_session();
+					$ddoc_o->sk_start_session();
+				}
+				catch (Exception $e)
+				{//TODO: parem error dislplay
+					automatweb::$result->set_data(t("Varasemat DigiDoc sessiooni ei &otilde;nnestunud sulgeda."));
+					automatweb::http_exit();
+				}
+			}
+
 			$ddoc_o->sk_sign($signature);
 		}
 		catch (SoapFault $e)
@@ -1492,7 +1464,6 @@ class ddoc extends class_base
 			try
 			{
 				$ddoc_o->sk_close_session();
-				$ddoc_o->save();
 			}
 			catch (SoapFault $e)
 			{
@@ -1508,7 +1479,6 @@ class ddoc extends class_base
 		}
 		else
 		{ // redirect after processing data
-			$ddoc_o->save();
 			return $this->mk_my_orb("sign", array("id" => $ddoc_o->id(), "phase" => $signature->phase), "ddoc");
 		}
 	}
@@ -1898,6 +1868,39 @@ class ddoc extends class_base
 		return true;
 	}
 
+	/**
+		@param ddoc_id required type=int
+			file id in the ddoc file container
+		@param remove optional type=bool
+			if this is set to true, file with $ddoc_id is removed from metainfo
+		@param oid required type=oid
+			aw CL_DDOC object oid
+		@param file required type=oid
+			aw CL_FILE object oid
+		@param size optional type=int
+		@param type optional type=string
+		@param name optional type=string
+		@comment
+			adds file to files metainfo in ddoc object.
+		@returns
+			true on success, false otherwise
+	**/
+	function _write_file_metainfo($arr)
+	{
+		if(!is_oid($arr["oid"]) || !strlen($arr["ddoc_id"]) || (!is_oid($arr["file"]) && !$arr["remove"]))
+		{
+			throw new Exception("Parameters incorrect: ". print_r($arr, true));
+		}
+		$o = obj($arr["oid"]);
+		$m = aw_unserialize($o->prop("files"));
+		$m[$arr["ddoc_id"]] = array(
+			"file" => strlen($arr["file"])?$arr["file"]:$m[$arr["ddoc_id"]]["file"],
+			"size" => strlen($arr["size"])?$arr["size"]:$m[$arr["ddoc_id"]]["size"],
+			"type" => strlen($arr["type"])?$arr["type"]:$m[$arr["ddoc_id"]]["type"],
+			"name" => strlen($arr["name"])?$arr["name"]:$m[$arr["ddoc_id"]]["name"]
+		);
+		$o->set_prop("files", aw_serialize($m, SERIALIZE_NATIVE));
+	}
 
 	/**
 		@param ddoc_id required type=int
@@ -1928,15 +1931,12 @@ class ddoc extends class_base
 	{
 		if(!strlen($arr["ddoc_id"]) || !is_oid($arr["oid"]) || !is_oid($arr["signer"]) || !strlen($arr["signer_fn"]) || !strlen($arr["signer_ln"]) || !strlen($arr["signer_pid"]) || !strlen($arr["signing_time"]))
 		{
-			$this->sign_err(DDOC_ERR_DDOC, "_write_signature_metainfo", "Parameters incorrect.");
-			return false;
+			throw new Exception("Parameters incorrect: ". print_r($arr, true));
 		}
 		$o = obj($arr["oid"]);
 		$m = aw_unserialize($o->prop("signatures"));
 		$m[$arr["ddoc_id"]] = $arr;
 		$o->set_prop("signatures", aw_serialize($m, SERIALIZE_NATIVE));
-		$o->save();
-		return true;
 	}
 
 	private function _clear_old_signed_files($oid)

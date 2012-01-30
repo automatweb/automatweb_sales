@@ -1321,17 +1321,20 @@ class trademark_manager extends class_base
 	{
 		$trademark_inst = get_instance(CL_PATENT);
 
-		foreach($arr["sel"] as $id)
+		if (isset($arr["sel"]) and is_array($arr["sel"]))
 		{
-			$o = obj($id);
-			$status = $trademark_inst->get_status($o);
-			$status->set_prop("verified", 1);
-			$status->set_prop("verified_date", time());
-			$status->set_name(t("Taotlus nr: ".$status->prop("nr")));
-			$status->save();
+			foreach($arr["sel"] as $id)
+			{
+				$o = obj($id);
+				$status = $trademark_inst->get_status($o);
+				$status->set_prop("verified", 1);
+				$status->set_prop("verified_date", time());
+				$status->set_name(t("Taotlus nr: ".$status->prop("nr")));
+				$status->save();
+			}
 		}
 
-		if($arr["popup"])
+		if(!empty($arr["popup"]))
 		{
 			die('<script type="text/javascript">
 				window.opener.location.reload();
