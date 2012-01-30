@@ -269,35 +269,13 @@ abstract class intellectual_property extends class_base
 			throw new aw_exception("Invalid application object id '{$oid}'. No access");
 		}
 
-		$c = new connection();
-		$cc = $c->find(array(
-			"from.class_id" => ddoc_obj::CLID,
-			"type" => "RELTYPE_SIGNED_FILE",
-			"to" => $oid
-		));
-		$return = $ret = array();
+		$this_object = new object($oid);
+		$ddoc_o = $this_object->get_digidoc();
+		$return = array();
 
-		foreach ($cc as $ret)
+		if($ddoc_o)
 		{
-			if ($ret["from.status"])
-			{
-				break;
-			}
-		}
-
-		if(count($ret) > 1)
-		{
-			$ret = $ret["from"];
-
-			if ($ret)
-			{
-				$ddoc_o = obj($ret, array(), ddoc_obj::CLID);
-				$tmp = $ddoc_o->is_signed();
-			}
-			else
-			{
-				$tmp = false;
-			}
+			$tmp = $ddoc_o->is_signed();
 /*
 			$classes_w_author = array(CL_UTILITY_MODEL, CL_PATENT_PATENT, CL_INDUSTRIAL_DESIGN);
 
@@ -333,13 +311,14 @@ abstract class intellectual_property extends class_base
 				}
 			}
  */
-			$return["status"] = $tmp?1:0;
-			$return["ddoc"] = $ret;
+			$return["status"] = $tmp ? 1 : 0;
+			$return["ddoc"] = $ddoc_o->id();
 		}
 		else
 		{
 			$return["status"] = -1;
 		}
+
 		return $return;
 	}
 
@@ -3786,7 +3765,7 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-					if($status["status"] == 1)
+					if($re["status"] == 1)
 					{
 						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
 					}
@@ -3969,7 +3948,7 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-					if($status["status"] == 1)
+					if($re["status"] == 1)
 					{
 						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
 					}
@@ -4396,10 +4375,7 @@ abstract class intellectual_property extends class_base
 				throw new awex_obj_type("Invalid class");
 			}
 
-			$digidoc = obj(null, array(), CL_DDOC);
-			$digidoc->set_parent($this_object->id());
-			$digidoc->set_name(sprintf("DigiDoc '%s'", $this_object->name()));
-			$digidoc->save();
+			$digidoc = $this_object->get_digidoc(true);
 
 			try
 			{
@@ -4421,7 +4397,6 @@ abstract class intellectual_property extends class_base
 
 			$digidoc->sk_create_digidoc();
 			$digidoc->sk_add_file($this_object, $this_object->get_xml(), "text/xml");
-			$digidoc->save();
 			return core::mk_my_orb("sign", array("id" => $digidoc->id()), "ddoc");
 		}
 		catch (Exception $e)
