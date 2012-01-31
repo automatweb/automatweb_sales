@@ -160,7 +160,7 @@ class patent_add extends class_base
 
 			if($res["status"] == 1)
 			{
-				return aw_url_change_var()."#";
+				return aw_url_change_var("")."#";
 			}
 		}
 
