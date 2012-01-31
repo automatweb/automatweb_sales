@@ -152,7 +152,7 @@ class trademark_add extends class_base
 			$res = $tr_inst->is_signed($_SESSION["patent"]["id"]);
 			if($res["status"] == 1)
 			{
-				return aw_url_change_var()."#";
+				return aw_url_change_var("")."#";
 			}
 		}
 

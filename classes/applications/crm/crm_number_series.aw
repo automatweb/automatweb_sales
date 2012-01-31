@@ -65,10 +65,10 @@ class crm_number_series extends class_base
 		$ser[] = array();
 		foreach($ser as $idx => $row)
 		{
-			$date_sel = "<A HREF='#'  onClick=\"var cal=new CalendarPopup();cal.select(aw_get_el('ser[$idx][from]'),'anchorf".$idx."','dd/MM/yy'); return false;\"
-						   NAME='anchorf".$idx."' ID='anchorf".$idx."'>".t("vali")."</A>";
-			$date_sel2 = "<A HREF='#'  onClick=\"var cal=new CalendarPopup();cal.select(aw_get_el('ser[$idx][to]'),'anchort".$idx."','dd/MM/yy'); return false;\"
-						   NAME='anchort".$idx."' ID='anchort".$idx."'>".t("vali")."</A>";
+			$date_sel = "<a href='#'  onclick=\"var cal=new CalendarPopup();cal.select(aw_get_el('ser[$idx][from]'),'anchorf".$idx."','dd/MM/yy'); return false;\"
+						   name='anchorf".$idx."' id='anchorf".$idx."'>".t("vali")."</a>";
+			$date_sel2 = "<a href='#'  onclick=\"var cal=new CalendarPopup();cal.select(aw_get_el('ser[$idx][to]'),'anchort".$idx."','dd/MM/yy'); return false;\"
+						   name='anchort".$idx."' id='anchort".$idx."'>".t("vali")."</a>";
 
 			$t->define_data(array(
 				"class" => html::select(array(
@@ -127,9 +127,9 @@ class crm_number_series extends class_base
 
 		@param series - series object
 		@param class - class to return number for
-		@param time - time for series
+		@param time - time for series, different series can apply for different dates
 	**/
-	public function get_next_in_series($series, $class, $time)
+	public function get_next_in_series($series, $class, $time = 0)
 	{
 		// get all series
 		$ser = safe_array($series->meta("series"));
@@ -158,12 +158,13 @@ class crm_number_series extends class_base
 				$filter = array(
 					"class_id" => $class
 				);
+
 				if($class == CL_CRM_BILL)
 				{
 					$filter["sort_by"] = "CAST(aw_crm_bill.aw_bill_no as signed) DESC";
 					if($time)
 					{
-						$filter["bill_date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, 	(int)($row["start"]) , (int)($row["end"]) , "int");
+						$filter["bill_date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, (int)($row["start"]) , (int)($row["end"]) , "int");
 					}
 					else
 					{
@@ -262,9 +263,9 @@ class crm_number_series extends class_base
 	}
 
 	/** finds the current company and from that the series	and returns next number in series**/
-	function find_series_and_get_next($class, $n, $time)
+	function find_series_and_get_next($class, $n, $time = 0)
 	{//TODO: get_current_company ei sobi!
-		if(is_oid($n) && $this->can("view" , $n))
+		if(acl_base::can("" , $n))
 		{
 			$ser = obj($n);
 		}
@@ -274,6 +275,7 @@ class crm_number_series extends class_base
 			$co = obj($u->get_current_company());
 			$ser = $co->get_first_obj_by_reltype("RELTYPE_NUMBER_SERIES");
 		}
+
 		if (!$ser)
 		{
 			return NULL;

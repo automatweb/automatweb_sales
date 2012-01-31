@@ -3236,12 +3236,8 @@ abstract class intellectual_property extends class_base
 			$d->delete();
 		}
 
-		$tpl = "list.tpl";
-		if (!empty($arr["unsigned"]))
-		{
-			$tpl = "unsigned_list.tpl";
-		}
-
+		$sent_list_requested = empty($arr["unsigned"]);
+		$tpl = $sent_list_requested ? "list.tpl" : "unsigned_list.tpl";
 		$this->read_template($tpl);
 		$u = new user();
 
@@ -3326,7 +3322,7 @@ abstract class intellectual_property extends class_base
 			}
 		}
 
-		if (empty($arr["unsigned"]))
+		if ($sent_list_requested)
 		{
 			krsort($objects_array);
 		}
@@ -3362,7 +3358,7 @@ abstract class intellectual_property extends class_base
 					$asd = $this->set_sent(array("add_obj" => $arr["alias"]["to"]));
 				}
 
-				if(!empty($arr["unsigned"]))
+				if(!$sent_list_requested)
 				{
 					if($status->prop("nr")) continue;
 					$date = date("d.m.Y" , $patent->created());
@@ -3518,7 +3514,7 @@ abstract class intellectual_property extends class_base
 			}
 		}
 
-		if(empty($arr["unsigned"]))
+		if($sent_list_requested)
 		{
 			krsort($objects_array);
 		}
@@ -3541,7 +3537,7 @@ abstract class intellectual_property extends class_base
 					$asd = $this->set_sent(array("add_obj" => $arr["alias"]["to"]));
 				}
 
-				if(!empty($arr["unsigned"]))
+				if(!$sent_list_requested)
 				{
 					if($status->prop("nr")) continue;
 					$date = date("d.m.Y" , $patent->created());
@@ -3702,7 +3698,7 @@ abstract class intellectual_property extends class_base
 			}
 		}
 
-		if(empty($arr["unsigned"]))
+		if($sent_list_requested)
 		{
 			krsort($objects_array);
 		}
@@ -3725,7 +3721,7 @@ abstract class intellectual_property extends class_base
 					$asd = $this->set_sent(array("add_obj" => $arr["alias"]["to"]));
 				}
 
-				if(!empty($arr["unsigned"]))
+				if(!$sent_list_requested)
 				{
 					if($status->prop("nr")) continue;
 					$date = date("d.m.Y" , $patent->created());
@@ -3885,7 +3881,7 @@ abstract class intellectual_property extends class_base
 			}
 		}
 
-		if(empty($arr["unsigned"]))
+		if($sent_list_requested)
 		{
 			krsort($objects_array);
 		}
@@ -3908,7 +3904,7 @@ abstract class intellectual_property extends class_base
 					$asd = $this->set_sent(array("add_obj" => $arr["alias"]["to"]));
 				}
 
-				if(!empty($arr["unsigned"]))
+				if(!$sent_list_requested)
 				{
 					if($status->prop("nr")) continue;
 					$date = date("d.m.Y" , $patent->created());
@@ -4068,7 +4064,7 @@ abstract class intellectual_property extends class_base
 			}
 		}
 
-		if (empty($arr["unsigned"]))
+		if ($sent_list_requested)
 		{
 			krsort($objects_array);
 		}
@@ -4091,7 +4087,7 @@ abstract class intellectual_property extends class_base
 					$asd = $this->set_sent(array("add_obj" => $arr["alias"]["to"]));
 				}
 
-				if (!empty($arr["unsigned"]))
+				if (!$sent_list_requested)
 				{
 					if($status->prop("nr")) continue;
 					$date = date("d.m.Y" , $patent->created());

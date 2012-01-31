@@ -250,7 +250,7 @@ class patent extends intellectual_property
 		{
 			foreach($_SESSION["patent"]["prod_selection"] as $prod)
 			{
-				if(!$this->can("view" , $prod))
+				if(!acl_base::can("view" , $prod))
 				{
 					continue;
 				}
@@ -828,12 +828,12 @@ class patent extends intellectual_property
 
 		$type = "";
 		// save image to folder
-		if ($this->can("view", $o->prop("reproduction")))
+		if (acl_base::can("", $o->prop("reproduction")))
 		{
 			$im = obj($o->prop("reproduction"));
 			$type = strtoupper(substr($im->name(), strrpos($im->name(), ".")));
 
-			$fld = aw_ini_get("site_basedir")."/patent_files/";
+			$fld = aw_ini_get("site_basedir")."patent_files/";
 			$fn = $fld .sprintf("%08d", $status->prop("nr")).$type;
 			echo "saving file $fn <br>";
 			$image_inst = get_instance(CL_FILE);
@@ -855,7 +855,7 @@ class patent extends intellectual_property
 		$root->insertBefore($el, $despg);
 
 		$typm = $o->prop("trademark_type");
-		$el = $xml->createElement("TYPMARI", ($typm["1"] == "1" ? "G" : "").($typm["0"] === "0" ? "C" : ""));
+		$el = $xml->createElement("TYPMARI", (isset($typm["1"]) && $typm["1"] == "1" ? "G" : "").(isset($typm["0"]) && $typm["0"] === "0" ? "C" : ""));
 		$root->insertBefore($el, $despg);
 
 		//
