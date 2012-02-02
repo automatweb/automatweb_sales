@@ -77,7 +77,7 @@ class euro_patent_et_desc_add extends class_base
 			{
 				foreach($links as $link)
 				{
-					if($this->can("view" , $link))
+					if(acl_base::can("view" , $link))
 					{
 						$ol->add($link);
 					}

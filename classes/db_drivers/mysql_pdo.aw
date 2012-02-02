@@ -103,12 +103,25 @@ class mysql_pdo
 		// arr($qtext); //XXX: teha dbg versioonid
 		// arr(dbg::sbt()); //XXX: teha dbg versioonid
 
-		$this->qID = $this->dbh->prepare($qtext, array(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true));
-		$this->qID->execute();
-		// $this->qID = $this->dbh->query($qtext);
-		// $this->log_query($qtext);
+		try
+		{
+			$this->qID = $this->dbh->prepare($qtext, array(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true));
+			$this->qID->execute();
+			// $this->qID = $this->dbh->query($qtext);
+			// $this->log_query($qtext);
 
-		if (!$this->qID)
+			if ($this->qID instanceof PDOStatement)
+			{
+				$this->num_rows = $this->qID->rowCount();
+				$this->num_fields = $this->qID->columnCount();
+			}
+			else
+			{
+				$this->num_rows = 0;
+				$this->num_fields = 0;
+			}
+		}
+		catch (PDOException $e)
 		{
 			if ($errors)
 			{
@@ -143,19 +156,6 @@ class mysql_pdo
 				}
 
 				throw new awex_db_mysql_query("Invalid query (error {$err_code}: '{$err_str}'): {$qtext}");
-			}
-		}
-		else
-		{
-			if ($this->qID instanceof PDOStatement)
-			{
-				$this->num_rows = $this->qID->rowCount();
-				$this->num_fields = $this->qID->columnCount();
-			}
-			else
-			{
-				$this->num_rows = 0;
-				$this->num_fields = 0;
 			}
 		}
 

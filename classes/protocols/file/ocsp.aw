@@ -2,15 +2,8 @@
 
 // ocsp.aw - OCSP p&auml;ring
 
-class ocsp extends class_base
+class ocsp
 {
-	function ocsp()
-	{
-		$this->init(array(
-			"clid" => CL_OCSP
-		));
-	}
-
 	/**
 		@attrib params=pos api=1
 		@param cert optional type=string
@@ -26,7 +19,7 @@ class ocsp extends class_base
 			 2 - OCSP internal error
 			 4 - Some error in script
 	**/
-	function OCSP_check($cert = false,  $issuer_dn = false)
+	public static function OCSP_check($cert = false,  $issuer_dn = false)
 	{
 		if(!aw_ini_get("id_config.use_ocsp"))
 		{
@@ -98,5 +91,4 @@ class ocsp extends class_base
 		}
 		return $user_good;
 	}
-
 }

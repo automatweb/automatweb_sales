@@ -8,6 +8,11 @@ define("HTML2PDF_MPDF", 5);
 
 class html2pdf extends class_base
 {
+	const OUTPUT_INLINE = 1;
+	const OUTPUT_DOWNLOAD = 2;
+	const OUTPUT_LOCALFILE = 3;
+	const OUTPUT_RETURN = 4;
+
 	function html2pdf()
 	{
 		$this->init();
@@ -116,14 +121,20 @@ class html2pdf extends class_base
 			if set to true.. landscape pdf is created
 		@param no_numbers optional type=bool
 			if set to true, no page numbers are set to pdf
+		@param output type=int default=html2pdf::OUTPUT_INLINE
+			Output destination. Inline with plugin, file download, local file, or returned string pdf content
 		@comment
-			generates pdf and outputs it to browser with correct headers.
+			generates pdf and outputs it as requested.
 		@errors
 			raises ERR_CONVERT error if there aren't any available converters found.
+		@returns void|string
+			PDF document as string if OUTPUT_RETURN selected
 
 	**/
 	public function gen_pdf($arr)
 	{
+		if (empty($arr["output"])) $arr["output"] = self::OUTPUT_INLINE;
+
 		switch($this->converter)
 		{
 			case HTML2PDF_HTMLDOC:
@@ -187,7 +198,20 @@ class html2pdf extends class_base
 		// mPDF ($mode, $format, $default_font_size, $default_font, $margin_left, $margin_right, $margin_top , $margin_bottom, $margin_header, $margin_footer, $orientation)
 		$mpdf = new mPDF("", "A4", 0, "", 13, 13, 13, 20, 9, 8, (empty($arr["landscape"]) ? "P" : "L"));
 		$this->_process_mpdf($mpdf, $arr);
-		$mpdf->Output($file_name, "I");
+
+		$output_formats = array(
+			self::OUTPUT_INLINE => "I",
+			self::OUTPUT_DOWNLOAD => "D",
+			self::OUTPUT_LOCALFILE => "F",
+			self::OUTPUT_RETURN => "S"
+		);
+
+		if (!isset($output_formats[$arr["output"]]))
+		{
+			throw new awex_param_type(sprintf("Invalid output format '%s' specified", $arr["output"]));
+		}
+
+		$mpdf->Output($file_name, $output_formats[$arr["output"]]);
 		exit;
 	}
 
