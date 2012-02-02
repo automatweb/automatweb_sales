@@ -111,6 +111,12 @@
 */
 abstract class intellectual_property extends class_base
 {
+	// popup window dimensions in pixels
+	const WINDOW_SIGN_WIDTH = 600;
+	const WINDOW_SIGN_HEIGHT = 400;
+	const WINDOW_PRINT_WIDTH = 600;
+	const WINDOW_PRINT_HEIGHT = 800;
+
 	public $ip_classes = array(
 		CL_PATENT,
 		CL_PATENT_PATENT,
@@ -165,7 +171,7 @@ abstract class intellectual_property extends class_base
 						$add_sig = html::href(array(
 							"url" => "#",
 							"caption" => t("Lisa allkiri"),
-							"onclick" => "aw_popup_scroll(\"".$url."\", \"".t("Allkirjastamine")."\", 410, 250);",
+							"onclick" => "aw_popup_scroll(\"".$url."\", \"".t("Allkirjastamine")."\", ".self::WINDOW_SIGN_WIDTH.", ".self::WINDOW_SIGN_HEIGHT.");",
 						));
 						$ddoc_link = html::href(array(
 							"url" => $this->mk_my_orb("change", array(
@@ -184,7 +190,7 @@ abstract class intellectual_property extends class_base
 						$add_sig = html::href(array(
 							"url" => "#",
 							"caption" => t("Allkirjasta"),
-							"onClick" => "aw_popup_scroll(\"".$url."\", \"".t("Allkirjastamine")."\", 410, 250);",
+							"onClick" => "aw_popup_scroll(\"".$url."\", \"".t("Allkirjastamine")."\", ".self::WINDOW_SIGN_WIDTH.", ".self::WINDOW_SIGN_HEIGHT.");",
 						));
 						$ddoc_link = html::href(array(
 							"url" => $this->mk_my_orb("change", array(
@@ -203,7 +209,7 @@ abstract class intellectual_property extends class_base
 						$prop["value"] = html::href(array(
 							"url" => "#",
 							"caption" => t("Allkirjasta fail"),
-							"onClick" => "aw_popup_scroll(\"".$url."\", \"".t("Allkirjastamine")."\", 410, 250);",
+							"onClick" => "aw_popup_scroll(\"".$url."\", \"".t("Allkirjastamine")."\", ".self::WINDOW_SIGN_WIDTH.", ".self::WINDOW_SIGN_HEIGHT.");",
 
 						));
 						break;
@@ -474,7 +480,7 @@ abstract class intellectual_property extends class_base
 				setTimeout('window.location.href=\"".$ref_url."\"',5000);
 			</script>";
 		}
-		elseif ($application_id)
+		elseif ($application_id and !$this->pdf)
 		{
 			$pdf_converter = new html2pdf();
 			if ($pdf_converter->can_convert())
@@ -493,19 +499,18 @@ abstract class intellectual_property extends class_base
 					$pdfurl = $this->mk_my_orb("pdf", array("print" => 1, "id" => $application_id), $class);
 				}
 				$pdfurl = str_replace("https" , "http" , $pdfurl);
-				$data["pdf"] = "<input type='button' value='Salvesta pdf' class='nupp'  onclick='javascript:window.location.href=\"".$pdfurl."\";'><br />";
+				$data["pdf"] = '<input type="button" value="'.t("Salvesta pdf").'" class="nupp" onclick="javascript:window.location.href=\''.$pdfurl.'\';"><br />';
 			}
 
-			$data["print"] = "<input type='button' value='".t("Prindi")."' class='nupp' onclick='javascript:document.changeform.submit();'>";
+			$data["print"] = '<input type="button" value="'.t("Prindi").'" class="nupp" onclick="javascript:document.changeform.submit();">';
 		}
-
 
 		if($application_id)
 		{
 			$status = $this->is_signed($arr["id"]);
 		}
 
-		if($show_sign_button && !$print_request)
+		if($show_sign_button && !$print_request && !$this->pdf)
 		{
 			$ddoc_inst = get_instance(CL_DDOC);
 			if($status["status"] > 0)
@@ -516,10 +521,10 @@ abstract class intellectual_property extends class_base
 			{
 				$url = core::mk_my_orb("create_and_sign", array("id" => $arr["id"]), get_class($this));
 			}
-			$data["sign"] = "<input type='button' value='".t("Allkirjasta")."' class='nupp' onclick='javascript:window.open(\"".$url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>";
+			$data["sign"] = '<input type="button" value="'.t("Allkirjasta").'" class="nupp" onclick="javascript:window.open(\''.$url.'\',\'\', \'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height='.self::WINDOW_SIGN_HEIGHT.', width='.self::WINDOW_SIGN_WIDTH.'\');">';
 		}
 
-		if($status["status"] > 0 && !$stat_obj->prop("nr") && !$print_request)
+		if($status["status"] > 0 && !$stat_obj->prop("nr") && !$print_request && !$this->pdf)
 		{
 			$data["send"] = '<input type="submit" value="'.t("Saadan taotluse").'" class="nupp" onclick="javascript:document.getElementById(\'send\').value=\'1\'; document.changeform.submit();">';
 		}
@@ -799,7 +804,7 @@ abstract class intellectual_property extends class_base
 					$address = $applicant->prop("contact");
 				}
 
-				if(acl_base::can("view" , $address))
+				if(acl_base::can("" , $address))
 				{
 					$address_obj = obj($address);
 					$this->vars(array(
@@ -892,7 +897,7 @@ abstract class intellectual_property extends class_base
 				$this->vars(array("A_NAME" => $this->parse("A_NAME")));
 				$address = $author->prop("address");
 
-				if(acl_base::can("view" , $address))
+				if(acl_base::can("" , $address))
 				{
 					$address_obj = obj($address);
 					$this->vars(array(
@@ -1242,7 +1247,7 @@ abstract class intellectual_property extends class_base
 			}
 		}
 
-		if(is_oid($patent->prop("authorized_person")) && acl_base::can("view" , $patent->prop("authorized_person")))
+		if(is_oid($patent->prop("authorized_person")) && acl_base::can("" , $patent->prop("authorized_person")))
 		{
 			$authorized_person = obj($patent->prop("authorized_person"));
 			$_SESSION["patent"]["authorized_person_firstname"] = $authorized_person->prop("firstname");
@@ -2024,7 +2029,7 @@ abstract class intellectual_property extends class_base
 			));
 		}
 
-		if(is_oid($dummy->prop("bank_payment")) && acl_base::can("view" , $dummy->prop("bank_payment")))
+		if(acl_base::can("" , $dummy->prop("bank_payment")))
 		{
 			$bank_inst = get_instance("common/bank_payment");
 			$data["banks"] = $bank_inst->bank_forms(array("id" => $dummy->prop("bank_payment") , "amount" => $this->get_payment_sum()));
@@ -2041,7 +2046,7 @@ abstract class intellectual_property extends class_base
 		$_SESSION["patent"]["request_fee_info"] = $this->get_request_fee();
 		$data["request_fee_info"]= $_SESSION["patent"]["request_fee_info"];
 
-		$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]), get_class($this))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800')";
+		$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]), get_class($this))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_PRINT_HEIGHT.", width=".self::WINDOW_PRINT_WIDTH."')";
 
 		$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , "id" => $patent_id, "add_obj" => $arr["alias"]["to"]), get_class($this));
 
@@ -2106,7 +2111,7 @@ abstract class intellectual_property extends class_base
 				$data["UNSIGNED"] = $this->parse("UNSIGNED");
 			}
 
-			$data["sign_button"] = '<input type="button" value="3. Allkirjasta taotlus" class="nupp" onclick="aw_popup_scroll(\''.$url.'\', \''.t("Allkirjastamine").'\', 410, 250);"><br />';
+			$data["sign_button"] = '<input type="button" value="3. '.t("Allkirjasta taotlus").'" class="nupp" onclick="aw_popup_scroll(\''.$url.'\', \''.t("Allkirjastamine").'\', '.self::WINDOW_SIGN_WIDTH.', '.self::WINDOW_SIGN_HEIGHT.');"><br />';
 		}
 		else
 		{
@@ -2120,7 +2125,7 @@ abstract class intellectual_property extends class_base
 	**/
 	function pdf($arr)
 	{
-		$conv = get_instance("core/converters/html2pdf");
+		$conv = new html2pdf();
 		ob_start();
 		$this->pdf = true;
 		print $this->show(array(
@@ -2132,7 +2137,8 @@ abstract class intellectual_property extends class_base
 
 		$conv->gen_pdf(array(
 			"source" => $content,
-			"filename" => $this->pdf_file_name,
+			"output" => html2pdf::OUTPUT_DOWNLOAD,
+			"filename" => $this->pdf_file_name
 		));
 		exit;
 	}
@@ -3407,7 +3413,7 @@ abstract class intellectual_property extends class_base
 					{
 						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
 					}
-			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
+			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_SIGN_HEIGHT.", width=".self::WINDOW_SIGN_WIDTH."\");'>".t("Allkirjasta")."</a>";
 				}
 				else
 				{
@@ -3427,14 +3433,14 @@ abstract class intellectual_property extends class_base
 				if(!($status->prop("nr") || $status->prop("verified")))
 				{
 					$del_url = aw_url_change_var("delete_patent", $patent->id());
-					$change = '<a href="' . $url . '">Muuda</a>';
+					$change = '<a href="' . $url . '">'.t("Muuda").'</a>';
 				}
 
 				if(($re["status"] == 1))
 				{
 					$change = "";
 					$url = aw_url_change_var("send_patent", $patent->id());
-					$send_url = '<a href="'.$url.'"> Saada</a>';
+					$send_url = '<a href="'.$url.'"> '.t("Saada").'</a>';
 				}
 
 				//taotlejad komaga eraldatuld
@@ -3585,7 +3591,7 @@ abstract class intellectual_property extends class_base
 					{
 						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
 					}
-					$sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
+					$sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_SIGN_HEIGHT.", width=".self::WINDOW_SIGN_WIDTH."\");'>Allkirjasta</a>";
 				}
 				else
 				{
@@ -3769,7 +3775,7 @@ abstract class intellectual_property extends class_base
 					{
 						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
 					}
-					$sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
+					$sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_SIGN_HEIGHT.", width=".self::WINDOW_SIGN_WIDTH."\");'>Allkirjasta</a>";
 				}
 				else
 				{
@@ -3952,7 +3958,7 @@ abstract class intellectual_property extends class_base
 					{
 						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
 					}
-			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
+			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_SIGN_HEIGHT.", width=".self::WINDOW_SIGN_WIDTH."\");'>Allkirjasta</a>";
 				}
 				else
 				{
@@ -4135,7 +4141,7 @@ abstract class intellectual_property extends class_base
 					{
 						$sign_url = core::mk_my_orb("create_and_sign", array("id" => $patent->id()), $patent->class_id());
 					}
-			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600\");'>Allkirjasta</a>";
+			          $sign = "<a href='javascript:void(0);' onclick='javascript:window.open(\"".$sign_url."\",\"\", \"toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_SIGN_HEIGHT.", width=".self::WINDOW_SIGN_WIDTH."\");'>Allkirjasta</a>";
 				}
 				else
 				{
@@ -4256,7 +4262,7 @@ abstract class intellectual_property extends class_base
 		{
 			$applicant = $c->to();
 
-			if (acl_base::can("view", $applicant->id()))
+			if (acl_base::can("", $applicant->id()))
 			{
 				$xml .= '<HOLGR>';
 				$xml .= "<NAME>";
@@ -4285,7 +4291,7 @@ abstract class intellectual_property extends class_base
 					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("address.postiindeks"))."</ADDRL>";
 					$addr .= "<ADDRL>" . implode(", ", $tel) . "</ADDRL>";
 					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("email.mail"))."</ADDRL>";
-					if (acl_base::can("view", $appl->prop("address.riik")))
+					if (acl_base::can("", $appl->prop("address.riik")))
 					{
 						$addr .= "<COUNTRY>".trademark_manager::rere($adr_i->get_country_code(obj($appl->prop("address.riik"))))."</COUNTRY>";
 					}
@@ -4310,7 +4316,7 @@ abstract class intellectual_property extends class_base
 					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("contact.postiindeks"))."</ADDRL>";
 					$addr .= "<ADDRL>" . implode(", ", $tel) . "</ADDRL>";
 					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("email_id.mail"))."</ADDRL>";
-					if (acl_base::can("view", $appl->prop("contact.riik")))
+					if (acl_base::can("", $appl->prop("contact.riik")))
 					{
 						$addr .= "<COUNTRY>".trademark_manager::rere($adr_i->get_country_code(obj($appl->prop("contact.riik"))))."</COUNTRY>";
 					}
@@ -4333,7 +4339,7 @@ abstract class intellectual_property extends class_base
 			$xml .= "</HOLGR>";
 		}
 
-		if (acl_base::can("view", $o->prop("procurator")))
+		if (acl_base::can("", $o->prop("procurator")))
 		{
 			$proc = obj($o->prop("procurator"));
 			$xml .= '<REPGR CLID="'.$proc->prop("code").'"><NAME><NAMEL>'.trademark_manager::rere($proc->prop("firstname")).'</NAMEL><NAMEL>'.trademark_manager::rere($proc->prop("lastname")).'</NAMEL></NAME></REPGR>';

@@ -77,7 +77,7 @@ class utility_model_add extends class_base
 			{
 				foreach($links as $link)
 				{
-					if($this->can("view" , $link))
+					if(acl_base::can("view" , $link))
 					{
 						$ol->add($link);
 					}

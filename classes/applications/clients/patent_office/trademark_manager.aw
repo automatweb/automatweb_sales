@@ -179,14 +179,9 @@ class trademark_manager extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	public function callback_on_load($arr)
 	{
-		if (isset($arr["request"]["group"]) and $arr["request"]["group"] === "procurators" and $this->can("view", $arr["request"]["id"]))
+		if (isset($arr["request"]["group"]) and $arr["request"]["group"] === "procurators" and acl_base::can("view", $arr["request"]["id"]))
 		{
 			$o = new object($arr["request"]["id"]);
 			$folder = $o->prop("procurators_folder");
@@ -215,7 +210,7 @@ class trademark_manager extends class_base
 		$tb = $arr["prop"]["vcl_inst"];
 
 		$procurators_folder = $arr["obj_inst"]->prop("procurators_folder");
-		if ($this->can("view", $procurators_folder))
+		if (acl_base::can("view", $procurators_folder))
 		{
 			$add_procurator_url = $this->mk_my_orb("new",array(
 				"parent" => $procurators_folder,
@@ -251,7 +246,7 @@ class trademark_manager extends class_base
 		$return = PROP_OK;
 		$procurators_folder = $arr["obj_inst"]->prop("procurators_folder");
 
-		if (!$this->can("view", $procurators_folder))
+		if (!acl_base::can("view", $procurators_folder))
 		{
 			$arr["prop"]["error"] = t("Volinike kaust m&auml;&auml;ramata v&otilde;i puudub &otilde;igus seda vaadata");
 			$return = PROP_ERROR;
@@ -377,7 +372,7 @@ class trademark_manager extends class_base
 				// add
 				foreach ($arr["request"]["pat_procurator_{$clid}"] as $procurator_oid => $value)
 				{
-					if ($this->can("view", $procurator_oid))
+					if (acl_base::can("view", $procurator_oid))
 					{
 						$procurator = new object($procurator_oid);
 						$procurator->create_brother($folder);
@@ -1524,7 +1519,7 @@ class trademark_manager extends class_base
 		// find procurator parent folder for this ip type
 		$tmp = $o->prop($this->ip_index[$clid]);
 
-		if (!$this->can("view", $tmp))
+		if (!acl_base::can("view", $tmp))
 		{
 			throw new aw_exception("No add document defined");
 		}

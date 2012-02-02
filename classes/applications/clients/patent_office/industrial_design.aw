@@ -416,17 +416,17 @@ class industrial_design extends intellectual_property
 			$_SESSION["patent"]["authors"][$key]["author_disallow_disclose"] = $author_disallow_disclose[$o->id()];
 			$address = $o->prop("address");
 
-			if($this->can("view" , $address))
+			if(acl_base::can("" , $address))
 			{
 				$address_obj = obj($address);
 				$_SESSION["patent"]["authors"][$key]["street"] = $address_obj->prop("aadress");
 				$_SESSION["patent"]["authors"][$key]["index"] = $address_obj->prop("postiindeks");
-				if(is_oid($address_obj->prop("linn")) && $this->can("view" , $address_obj->prop("linn")))
+				if(acl_base::can("" , $address_obj->prop("linn")))
 				{
 					$city = obj($address_obj->prop("linn"));
 					$_SESSION["patent"]["authors"][$key]["city"] = $city->name();
 				}
-				if($this->can("view" , $address_obj->prop("maakond")))
+				if(acl_base::can("" , $address_obj->prop("maakond")))
 				{
 					$county = obj($address_obj->prop("maakond"));
 					$_SESSION["patent"]["authors"][$key]["county"] = $county->name();
@@ -459,7 +459,7 @@ class industrial_design extends intellectual_property
 		{
 			$author = $c->to();
 
-			if ($this->can("view", $author->id()))
+			if (acl_base::can("", $author->id()))
 			{
 				$author_el = $xml->createElement("INVENTOR");
 				$name = $xml->createElement("NAME");
@@ -476,7 +476,7 @@ class industrial_design extends intellectual_property
 				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.maakond.name"))));
 				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.postiindeks"))));
 
-				if ($this->can("view", $author->prop("address.riik")))
+				if (acl_base::can("", $author->prop("address.riik")))
 				{
 					$addr->appendChild(new DOMElement("COUNTRY", trademark_manager::rere($adr_i->get_country_code(obj($author->prop("address.riik"))))));
 				}
