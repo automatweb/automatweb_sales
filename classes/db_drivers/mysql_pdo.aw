@@ -130,7 +130,8 @@ class mysql_pdo
 				{
 					try
 					{
-						$this->_proc_error($qtext, $error_info = $this->dbh->errorInfo();
+						$error_info = $this->dbh->errorInfo();
+						$this->_proc_error($qtext, $error_info);
 						$this->qID = $this->dbh->query($qtext);
 						$success = true;
 						$e_cnt++;
