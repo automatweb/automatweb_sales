@@ -82,7 +82,7 @@ class mysql_pdo
 		return $this->db_query($qt." LIMIT ".$limit.($count > 0 ? ",".$count : ""));
 	}
 
-	function db_query($qtext, $errors = true)
+	function db_query($qtext, $process_errors = true)
 	{
 		if (not($this->dbh))
 		{
@@ -123,13 +123,22 @@ class mysql_pdo
 		}
 		catch (PDOException $e)
 		{
-			if ($errors)
+			if ($process_errors)
 			{
 				$e_cnt = 0;
-				while (!$this->qID && $this->_proc_error($qtext, $error_info = $this->dbh->errorInfo()) && $e_cnt < 200)
+				while (!$success && $e_cnt < 200)
 				{
-					$this->qID = $this->dbh->query($qtext);
-					$e_cnt++;
+					try
+					{
+						$this->_proc_error($qtext, $error_info = $this->dbh->errorInfo();
+						$this->qID = $this->dbh->query($qtext);
+						$success = true;
+						$e_cnt++;
+					}
+					catch (PDOException $e)
+					{
+						$success = false;
+					}
 				}
 			}
 
@@ -137,15 +146,23 @@ class mysql_pdo
 			{
 				// retry with connection
 				$this->db_connect(aw_ini_get("db.host"), aw_ini_get("db.base"), aw_ini_get("db.user"), aw_ini_get("db.pass"));
-				$this->qID = $this->dbh->query($qtext);
+				try
+				{
+					$this->qID = $this->dbh->query($qtext);
+					$success = true;
+				}
+				catch (PDOException $e)
+				{
+					$success = false;
+				}
 			}
 
-			if (!$this->qID)
+			if (!$success)
 			{
 				$err = $this->dbh->errorInfo();
 				$err_str = $err[2];
 				$err_code = $this->dbh->errorCode();
-				if (!$errors)
+				if (!$process_errors)
 				{
 					$this->db_last_error = array(
 						'error_cmd' => $qtext,
@@ -224,9 +241,9 @@ class mysql_pdo
 	# seda voib kasutada, kui on vaja teada saada mingit kindlat v2lja
 	# a 'la cval tabelist config
 	# $cval = db_fetch_field("SELECT cval FROM config WHERE ckey = '$ckey'","cval")
-	function db_fetch_field($qtext,$field, $errors = true)
+	function db_fetch_field($qtext,$field, $process_errors = true)
 	{
-		$this->db_query($qtext, $errors);
+		$this->db_query($qtext, $process_errors);
 		$row = $this->db_next();
 		$r = $row[$field];
 		$this->db_free_result();
@@ -736,7 +753,7 @@ class mysql_pdo
 
 	function _proc_error($q, $error_info)
 	{
-		automatweb::$result->sysmsg("Processing a database query error");
+		automatweb::$result->sysmsg("Processing a database query error: '{$error_info}'");
 		$errstr = $error_info[2];
 
 		if (strpos($errstr, "Unknown column") !== false)
