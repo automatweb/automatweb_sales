@@ -969,8 +969,7 @@ class users extends users_user implements request_startup, orb_public_interface
 	}
 
 	/** logs the current user out
-		@attrib name=logout params=name nologin="1" is_public="1" caption="Logi v&auml;lja"
-
+		@attrib name=logout params=name nologin=1 is_public="1" caption="Logi v&auml;lja"
 		@param redir_to optional
 	**/
 	function orb_logout($arr = array())

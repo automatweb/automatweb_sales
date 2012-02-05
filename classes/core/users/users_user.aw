@@ -328,7 +328,7 @@ class users_user extends aw_template
 		unset($_SESSION["auth_redir_post"]);
 		post_message("MSG_USER_LOGOUT", array("uid" => $uid));
 
-		$url = !empty($arr["redir_to"]) ? $arr["redir_to"] : aw_ini_get("baseurl") . "automatweb/";
+		$url = !empty($arr["redir_to"]) ? $arr["redir_to"] : dirname(automatweb::$request->get_uri()->get_base()) . "/";
 		return $url;
 	}
 

@@ -668,7 +668,7 @@ abstract class intellectual_property extends class_base
 		{
 			// PRODUCTS
 			$p = "";
-			foreach($prods as $key => $product)
+			foreach(safe_array($prods) as $key => $product)
 			{
 				$product = strtolower(str_replace("\r" , "", str_replace("\n",", ",$product)));
 				$this->vars(array("product" => $product, "class"=> $key));
