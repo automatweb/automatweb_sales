@@ -1175,8 +1175,8 @@ class cfgform extends class_base
 		{
 			foreach ($this->cfg_proplist as $name => $cfg)
 			{
-				$this->cfg_proplist[$name] = safe_array($this->cfg_proplist[$name]) + safe_array($this->all_props[$name]);
-				if(is_array($this->cfg_proplist[$name]) and is_array($this->all_props[$name]) and empty($this->cfg_proplist[$name]["type"]))
+				$this->cfg_proplist[$name] = (isset($this->cfg_proplist[$name]) ? safe_array($this->cfg_proplist[$name]) : array()) + safe_array($this->all_props[$name]);
+				if(isset($this->cfg_proplist[$name]) and is_array($this->cfg_proplist[$name]) and is_array($this->all_props[$name]) and empty($this->cfg_proplist[$name]["type"]))
 				{
 					$this->cfg_proplist[$name]["type"] = $this->all_props[$name]["type"];
 				}
@@ -2464,7 +2464,7 @@ class cfgform extends class_base
 							case "classificator":
 								$this->vars(array(
 									"sort_callback_caption" => t("Sorteerimise callback"),
-									"sort_callback" => $property["sort_callback"],
+									"sort_callback" => isset($property["sort_callback"]) ? $property["sort_callback"] : "",
 									"prp_key" => $property["name"],
 								));
 								$property["cfgform_additional_options"] = $this->parse("classificator_options");
@@ -2505,9 +2505,9 @@ class cfgform extends class_base
 									"richtext_checked" => checked(isset($property["richtext"]) and $property["richtext"] == 1),
 									"richtext" => !empty($property["richtext"]),
 									"rows_caption" => t("K&otilde;rgus"),
-									"rows" => $property["rows"],
+									"rows" => empty($property["rows"]) ? "" : $property["rows"],
 									"cols_caption" => t("Laius"),
-									"cols" => $property["cols"],
+									"cols" => empty($property["cols"]) ? "" : $property["cols"],
 									"maxlength" => isset($property["maxlength"]) ? $property["maxlength"] : "",
 									"maxlength_caption" => t("T&auml;hem&auml;rkide piirang"),
 									"prp_key" => $property["name"],

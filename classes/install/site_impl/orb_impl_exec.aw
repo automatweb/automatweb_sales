@@ -1,36 +1,19 @@
 <?php
 
 $vars = automatweb::$request->get_args();
-if (!empty($vars["class"]))
-{
-	$class = $vars["class"];
-}
-else
-{
-	$class = "";
-}
-
-// I'll burn in hell for this
-if (!$class)
-{
-	$class = $vars["alias"];
-}
-
-if (!empty($vars["action"]))
-{
-	$action = $vars["action"];
-}
+$class = empty($vars["class"]) ? "" : $vars["class"];
+$action = empty($vars["action"]) ? "" : $vars["action"];
 
 include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."site_header".AW_FILE_EXT);
 
 $orb = new orb();
 $orb->process_request(array(
-	"class" => isset($_POST["class"]) ? $_POST["class"] : $_GET["class"],
-	"action" => isset($_POST["action"]) ? $_POST["action"] : $_GET["action"],
+	"class" => $class,
+	"action" => $action,
 	"reforb" => isset($vars["reforb"]) ? $vars["reforb"] : null,
 	"user"	=> 1,
 	"vars" => $vars,
-	"silent" => false,
+	"silent" => false
 ));
 $content = $orb->get_data();
 
@@ -40,34 +23,22 @@ $content = $orb->get_data();
 // mingi lahendus
 if (substr($content,0,5) === "http:" || !empty($vars["reforb"]) || substr($content,0,6) === "https:")
 {
-	if (headers_sent())
-	{
-		print html::href(array(
-			"url" => $content,
-			"caption" => t("Kliki siia j&auml;tkamiseks")
-		));
-	}
-	else
-	{
-		header("Location: {$content}");
-		print "\n\n";
-	}
-	exit;
+	$return_url = $content;
 }
 elseif (is_oid($content))
 {
-	$url = aw_ini_get("baseurl") . "{$content}";
-	if (headers_sent())
-	{
-		print html::href(array(
-			"url" => $url,
-			"caption" => t("Kliki siia j&auml;tkamiseks"),
-		));
-	}
-	else
-	{
-		header("Location: {$url}");
-	}
-	exit;
+	$return_url = aw_ini_get("baseurl") . "{$content}";
 }
 
+if (headers_sent())
+{
+	print html::href(array(
+		"url" => $return_url,
+		"caption" => t("Kliki siia j&auml;tkamiseks")
+	));
+}
+else
+{
+	header("Location: {$return_url}");
+}
+exit;

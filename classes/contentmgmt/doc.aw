@@ -537,8 +537,8 @@ class doc extends class_base
 						));
 						// also update keyword brother docs
 						$kw->update_menu_keyword_bros(array("doc_ids" => array($args["obj_inst"]->id())));
-					};
-				};
+					}
+				}
 				break;
 
 			case "tm":
@@ -673,7 +673,7 @@ class doc extends class_base
 
 				if (is_uploaded_file($file))
 				{
-					if ($this->cfg["upload_virus_scan"])
+					if (aw_ini_get("file.upload_virus_scan"))
 					{
 						if (($vir = $this->_do_virus_scan($file)))
 						{
@@ -686,8 +686,7 @@ class doc extends class_base
 
 					if (empty($file_type))
 					{
-						$mimeregistry = get_instance("core/aw_mime_types");
-						$realtype = $mimeregistry->type_for_ext($pathinfo["extension"]);
+						$realtype = aw_mime_types::type_for_ext($pathinfo["extension"]);
 						$file_type = $realtype;
 					}
 
@@ -888,11 +887,7 @@ class doc extends class_base
 	// clean word
 	private function _doc_clean_html($html)
 	{
-		$html = ereg_replace("<(/)?(meta|title|style|font|span|del|ins)[^>]*>","",$html);
-
-		// another pass over the html 2x times, removing unwanted attributes
-		//$html = ereg_replace("<([^>]*)(class|lang|size|face)=(\"[^\"]*\"|'[^']*'|[^>]+)([^>]*)>","<\\1>",$html);
-		//$html = ereg_replace("<([^>]*)(class|lang|size|face)=(\"[^\"]*\"|'[^']*'|[^>]+)([^>]*)>","<\\1>",$html);
+		$html = preg_replace("#<(/)?(meta|title|style|font|span|del|ins)[^>]*>#i","",$html);
 
 		// kill table cell style tag
 		preg_match_all("/<td.*>/imsU", $html, $mt);
@@ -1132,6 +1127,7 @@ class doc extends class_base
 	private function get_version_list($did)
 	{
 		$ret = array(aw_url_change_var("edit_version", NULL) => t("Aktiivne"));
+		settype($did, "int");
 		$this->db_query("SELECT version_id, vers_crea, vers_crea_by FROM documents_versions WHERE docid = '$did' order by vers_crea desc");
 		$u = get_instance(CL_USER);
 		while ($row = $this->db_next())
