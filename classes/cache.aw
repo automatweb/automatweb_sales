@@ -923,7 +923,7 @@ class cache extends aw_core_module
 						}
 						catch (ErrorException $e)
 						{
-							trigger_error(E_USER_NOTICE, "Couldn't delete cache directory '{$fld}'");
+							trigger_error("Couldn't delete cache directory '{$fld}'", E_USER_NOTICE);
 						}
 					}
 					else
@@ -934,7 +934,7 @@ class cache extends aw_core_module
 						}
 						catch (ErrorException $e)
 						{
-							trigger_error(E_USER_NOTICE, "Couldn't delete cache file '{$fld}'");
+							trigger_error("Couldn't delete cache file '{$fld}'", E_USER_NOTICE);
 						}
 					}
 				}
