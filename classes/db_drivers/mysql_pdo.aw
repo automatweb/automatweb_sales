@@ -146,7 +146,7 @@ class mysql_pdo
 
 				if ($this->_max_error_processing_retries === $e_cnt)
 				{
-					trigger_error(E_USER_NOTICE, "Retry limit reached trying to repair db for: '{$qtext}'");
+					trigger_error("Retry limit reached trying to repair db for: '{$qtext}'", E_USER_NOTICE);
 				}
 			}
 
@@ -762,7 +762,7 @@ class mysql_pdo
 	function _proc_error($q, $error_info)
 	{
 		$errstr = $error_info[2];
-		trigger_error(E_USER_NOTICE, "Processing a database query error '{$errstr}' for '{$q}'");
+		trigger_error("Processing a database query error '{$errstr}' for '{$q}'", E_USER_NOTICE);
 
 		if (strpos($errstr, "Unknown column") !== false)
 		{
