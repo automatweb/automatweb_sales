@@ -15,6 +15,8 @@ class mysql_pdo
 	private $db_proc_error_last_fn = "";
 	private $qhandles = array();
 
+	private $_max_error_processing_retries = 200;
+
 	function db_connect($server = "localhost", $base = "", $username = "", $password = "", $cid = db_connector::DEFAULT_CID_STR)
 	{
 		if ($base and $username)
@@ -125,8 +127,9 @@ class mysql_pdo
 		{
 			if ($process_errors)
 			{
+				$success = false;
 				$e_cnt = 0;
-				while (!$success && $e_cnt < 200)
+				while (!$success && $e_cnt <= $this->_max_error_processing_retries)
 				{
 					try
 					{
@@ -134,12 +137,16 @@ class mysql_pdo
 						$this->_proc_error($qtext, $error_info);
 						$this->qID = $this->dbh->query($qtext);
 						$success = true;
-						$e_cnt++;
 					}
 					catch (PDOException $e)
 					{
-						$success = false;
+						$e_cnt++;
 					}
+				}
+
+				if ($this->_max_error_processing_retries === $e_cnt)
+				{
+					trigger_error(E_USER_NOTICE, "Retry limit reached trying to repair db for: '{$qtext}'");
 				}
 			}
 
@@ -754,8 +761,8 @@ class mysql_pdo
 
 	function _proc_error($q, $error_info)
 	{
-		automatweb::$result->sysmsg("Processing a database query error: '{$error_info}'");
 		$errstr = $error_info[2];
+		trigger_error(E_USER_NOTICE, "Processing a database query error '{$errstr}' for '{$q}'");
 
 		if (strpos($errstr, "Unknown column") !== false)
 		{
@@ -802,7 +809,7 @@ class mysql_pdo
 					$pl = $o->get_property_list();
 					foreach($pl as $prop_item)
 					{
-						if ($prop_item["field"] === $mt[2] and (empty($mt[1]) and strpos($q, $prop_item["table"]) !== false or !empty($mt[1]) and  strpos($mt[1], $prop_item["table"]) === 0))
+						if ($prop_item["field"] === $mt[2] and (empty($mt[1]) and !empty($prop_item["table"]) and strpos($q, $prop_item["table"]) !== false or !empty($mt[1]) and !empty($prop_item["table"]) and strpos($mt[1], $prop_item["table"]) === 0))
 						{
 							$mt[1] = $prop_item["table"];
 							break;

@@ -23,7 +23,7 @@ class converters extends aw_template implements orb_public_interface
 
 	/**
 
-		@attrib name=menu_convimages params=name default="0"
+		@attrib name=menu_convimages params=name
 		@returns
 		@comment
 
@@ -117,7 +117,7 @@ class converters extends aw_template implements orb_public_interface
 
 	/**
 
-		@attrib name=menu_reset_template_sets params=name default="0"
+		@attrib name=menu_reset_template_sets params=name
 		@returns
 		@comment
 
@@ -146,7 +146,7 @@ class converters extends aw_template implements orb_public_interface
 
 	/**
 
-		@attrib name=promo_convert params=name default="0"
+		@attrib name=promo_convert params=name
 		@returns
 		@comment
 
@@ -301,7 +301,7 @@ class converters extends aw_template implements orb_public_interface
 
 	/**
 
-		@attrib name=convert_aliases params=name default="0"
+		@attrib name=convert_aliases params=name
 		@returns
 		@comment
 
@@ -331,7 +331,7 @@ class converters extends aw_template implements orb_public_interface
 
 	/**
 
-		@attrib name=groups_convert params=name default="0"
+		@attrib name=groups_convert params=name
 
 
 		@returns
@@ -592,10 +592,16 @@ class converters extends aw_template implements orb_public_interface
 	}
 
 	/**
-		@attrib name=convert_fg_tables_deleted params=name nologin="1" default="0"
+		@attrib name=convert_fg_tables_deleted params=name nologin=1
 	**/
 	function convert_fg_tables_deleted()
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		$ol = new object_list(array(
 			"class_id" => CL_FORM,
 			"site_id" => array(),
@@ -635,7 +641,7 @@ class converters extends aw_template implements orb_public_interface
 
 	/**
 
-		@attrib name=convert_really_old_aliases params=name default="0"
+		@attrib name=convert_really_old_aliases params=name
 
 
 		@returns
@@ -701,13 +707,19 @@ class converters extends aw_template implements orb_public_interface
 
 	/**
 
-		@attrib name=convert_copy_makes_brother params=name nologin="1" default="0"
+		@attrib name=convert_copy_makes_brother params=name nologin=1
 		@returns
 		@comment
 
 	**/
 	function convert_copy_makes_brother()
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		$this->_copy_makes_brother_fg();
 		$this->_copy_makes_brother_menu();
 		die("all done! <br />");
@@ -751,7 +763,7 @@ class converters extends aw_template implements orb_public_interface
 
 	/** creates the active_documents list for each folder in the system. the shitty part about this is, of course that
 
-		@attrib name=convert_active_documents_list params=name nologin="1" default="0"
+		@attrib name=convert_active_documents_list params=name nologin=1
 		@returns
 		@comment
 		all section modifiers will be fucked.
@@ -759,6 +771,12 @@ class converters extends aw_template implements orb_public_interface
 	**/
 	function convert_active_documents_list()
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		aw_set_exec_time(AW_LONG_PROCESS);
 		echo "creating active document lists! <br>\n";
 		flush();
@@ -778,13 +796,19 @@ class converters extends aw_template implements orb_public_interface
 	}
 
 	/**
-		@attrib name=convert_doc_templates params=name nologin="1" default="0"
+		@attrib name=convert_doc_templates params=name nologin=1
 		@param parent required
 		@returns
 		@comment
 	**/
 	function convert_doc_templates($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		$parent = $arr["parent"];
 
 		// check for oid column.
@@ -812,10 +836,16 @@ class converters extends aw_template implements orb_public_interface
 	}
 
 	/**
-		@attrib name=convert_menu_images params=name nologin="1" default="0"
+		@attrib name=convert_menu_images params=name nologin=1
 	**/
 	function convert_menu_images($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		echo "converting menu image aliases<br>\n";
 		flush();
 		$ol = new object_list(array(
@@ -854,10 +884,16 @@ class converters extends aw_template implements orb_public_interface
 	}
 
 	/**
-		@attrib name=convert_crm_relations2 nologin="1"
+		@attrib name=convert_crm_relations2 nologin=1
 	**/
 	function convert_crm_relations2($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		// see annab mulle k6ik aadressiobjektid, millel on seos URL objektiga
 		aw_set_exec_time(AW_LONG_PROCESS);
 		// 21 / 6 / 16 is URL
@@ -889,18 +925,16 @@ class converters extends aw_template implements orb_public_interface
 
 
 	/**
-
-		@attrib name=convert_crm_relations nologin="1"
-
-
-		@returns
-
-
-		@comment
-
+		@attrib name=convert_crm_relations nologin=1
 	**/
 	function convert_crm_relations($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		aw_set_exec_time(AW_LONG_PROCESS);
 		$q = "SELECT objects.oid,objects.name,aliases.reltype,aliases.target AS target FROM aliases,objects WHERE aliases.source = objects.oid AND aliases.type = 219;";
 		$this->db_query($q);
@@ -1070,10 +1104,16 @@ class converters extends aw_template implements orb_public_interface
 	}
 
 	/**
-		@attrib name=convert_docs_from_menu nologin="1"
+		@attrib name=convert_docs_from_menu nologin=1
 	**/
 	function convert_docs_from_menu($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		$ol = new object_list(array(
 			"class_id" => menu_obj::CLID
 		));
@@ -1908,7 +1948,7 @@ echo "mod ".$con["to.name"]."<br>";
 		if (is_oid($arr["id"]))
 		{
 			$ol_args["oid"] = $arr["id"];
-		};
+		}
 
 		$ol = new object_list($ol_args);
 
@@ -1923,7 +1963,8 @@ echo "mod ".$con["to.name"]."<br>";
 				$o->set_prop("content",str_replace("\n","<br>\n",$o->prop("content")));
 				$cbdat["content"] = 1;
 				$save = true;
-			};
+			}
+
 			if (empty($cbdat["lead"]))
 			{
 				$o->set_prop("lead",str_replace("\n","<br>\n",$o->prop("lead")));
@@ -1956,10 +1997,16 @@ echo "mod ".$con["to.name"]."<br>";
 	}
 
 	/**
-		@attrib name=convert_sections
+		@attrib name=convert_sections nologin=1
 	**/
 	function convert_sections($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		$objlist_size_limit = aw_ini_get("performance.objlist_size_limit");
 		$page = 0;
 
@@ -2044,10 +2091,16 @@ echo "mod ".$con["to.name"]."<br>";
 	}
 
 	/**
-		@attrib name=convert_professions
+		@attrib name=convert_professions nologin=1
 	**/
 	function convert_professions($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		$objlist_size_limit = aw_ini_get("performance.objlist_size_limit");
 		$page = 0;
 
@@ -2175,10 +2228,16 @@ echo "mod ".$con["to.name"]."<br>";
 	}
 
 	/**
-		@attrib name=convert_categories_1
+		@attrib name=convert_categories_1 nologin=1
 	**/
 	function convert_categories_1($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		//TODO: should be run by root only
 		$objlist_size_limit = aw_ini_get("performance.objlist_size_limit");
 		$page = 0;
@@ -2311,10 +2370,16 @@ echo "mod ".$con["to.name"]."<br>";
 	}
 
 	/**
-		@attrib name=update_languages_1
+		@attrib name=update_languages_1 nologin=1
 	**/
 	public function update_languages_1($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		// check if already converted.
 		$q = "SHOW COLUMNS FROM `languages` LIKE 'aw_lid'";
 		$cols = $this->db_fetch_array($q);
@@ -2376,7 +2441,7 @@ echo "mod ".$con["to.name"]."<br>";
 		$site_lang_data = $this->db_fetch_array($q);
 		 foreach ($site_lang_data as $data)
 		 {
-			 $site_lang_id = $data["id"];
+			 $site_lang_id = (int) $data["id"];
 			 $site_lc = $data["acceptlang"];
 			 if (isset($transcode_lut[$site_lc]))
 			 {
@@ -2386,10 +2451,10 @@ echo "mod ".$con["to.name"]."<br>";
 				 $queries[] = "UPDATE `objects` SET `lang_id`={$new_lang_id} WHERE `lang_id`={$site_lang_id}";
 
 				 // set languages table aw_lid column
-				 $queries[] = "UPDATE `languages` SET `aw_lid`={$new_lang_id} WHERE `acceptlang`={$site_lc}";
+				 $queries[] = "UPDATE `languages` SET `aw_lid`={$new_lang_id} WHERE `acceptlang`='{$site_lc}'";
 
 				 // set languages table lang_code column
-				 $queries[] = "UPDATE `languages` SET `lang_code`={$new_lang_code} WHERE `acceptlang`={$site_lc}";
+				 $queries[] = "UPDATE `languages` SET `lang_code`='{$new_lang_code}' WHERE `acceptlang`='{$site_lc}'";
 			 }
 		 }
 
@@ -2397,11 +2462,7 @@ echo "mod ".$con["to.name"]."<br>";
 		{
 			foreach ($queries as $q)
 			{
-				$result = $this->db_query($q);
-				if (!$result)
-				{
-					automatweb::$result->sysmsg("Query  '{$q}' failed");
-				}
+				$this->db_query($q);
 			}
 		}
 
@@ -2414,10 +2475,16 @@ echo "mod ".$con["to.name"]."<br>";
 
 
 	/**
-		@attrib name=convert_translations_1_find_lang_ids
+		@attrib name=convert_translations_1_find_lang_ids nologin=1
 	**/
 	public function convert_translations_1_find_lang_ids($arr)
 	{
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
 		$limit = 5000;
 		$page = 0;
 		$found_lang_ids = array();
@@ -2447,13 +2514,19 @@ echo "mod ".$con["to.name"]."<br>";
 	}
 
 	/**
-		@attrib name=convert_translations_1
+		@attrib name=convert_translations_1 nologin=1
 		@param from_lid required
 		@param to_lid required type=int
 	**/
 	public function convert_translations_1($arr)
 	{
-		automatweb::$instance->mode(automatweb::MODE_PRODUCTION);
+		if (!aw_ini_get("enable_web_maintenance"))
+		{
+			automatweb::$result->sysmsg("Web maintenance not enabled.");
+			automatweb::http_exit();
+		}
+
+		error_reporting (E_ALL ^ E_NOTICE ^ E_WARNING); // to suppress serialization errors, which are many
 		$limit = 5000;
 		$page = 0;
 		$from_lid = $arr["from_lid"];

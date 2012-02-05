@@ -913,15 +913,29 @@ class cache extends aw_core_module
 			{
 				if ($file !== "." and $file !== "..")
 				{
-					$fld = "{$fld}/{$file}";
+					$fld .= $file;
 					if (is_dir($fld))
 					{
-						self::_recursive_delete_cache_files_and_dirs($fld);
-						rmdir($fld);
+						self::_recursive_delete_cache_files_and_dirs($fld . "/");
+						try
+						{
+							rmdir($fld);
+						}
+						catch (ErrorException $e)
+						{
+							trigger_error(E_USER_NOTICE, "Couldn't delete cache directory '{$fld}'");
+						}
 					}
 					else
 					{
-						unlink($fld);
+						try
+						{
+							unlink($fld);
+						}
+						catch (ErrorException $e)
+						{
+							trigger_error(E_USER_NOTICE, "Couldn't delete cache file '{$fld}'");
+						}
 					}
 				}
 			}
