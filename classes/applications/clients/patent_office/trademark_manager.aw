@@ -1419,7 +1419,7 @@ class trademark_manager extends class_base
 				$filter = array(
 					"class_id" => $clid,
 					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.verified" => 1,
-					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.exported" => new obj_predicate_compare(obj_predicate_compare::IS_EMPTY)
+					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.exported" => new obj_predicate_not(1)
 					// $clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.modified" => $date_constraint
 				);
 
