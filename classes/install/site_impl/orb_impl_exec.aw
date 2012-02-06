@@ -30,15 +30,18 @@ elseif (is_oid($content))
 	$return_url = aw_ini_get("baseurl") . "{$content}";
 }
 
-if (headers_sent())
+if ($return_url)
 {
-	print html::href(array(
-		"url" => $return_url,
-		"caption" => t("Kliki siia j&auml;tkamiseks")
-	));
+	if (headers_sent())
+	{
+		print html::href(array(
+			"url" => $return_url,
+			"caption" => t("Kliki siia j&auml;tkamiseks")
+		));
+	}
+	else
+	{
+		header("Location: {$return_url}");
+	}
+	exit;
 }
-else
-{
-	header("Location: {$return_url}");
-}
-exit;
