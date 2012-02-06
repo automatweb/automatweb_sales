@@ -1381,6 +1381,16 @@ class trademark_manager extends class_base
 	**/
 	function nightly_export($arr)
 	{
+		$time = gmdate("Y M d H:i:s");
+		echo <<<HEADER
+
+
+
+=============================================================
+Starting export at {$time}
+
+HEADER;
+
 		$xml_data = array(); // array of DOMDocuments grouped by aw class id
 
 		if (empty($arr["test_id"]))
@@ -1498,7 +1508,8 @@ class trademark_manager extends class_base
 			}
 		}
 
-		exit("Done. " . date("F j, Y, H:i:s"));
+		$time = gmdate("Y M d H:i:s");
+		exit("{$time} Done, exiting.");
 	}
 
 	//replace reserved characters
