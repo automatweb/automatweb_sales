@@ -30,7 +30,7 @@ elseif (is_oid($content))
 	$return_url = aw_ini_get("baseurl") . "{$content}";
 }
 
-if ($return_url)
+if (!empty($return_url))
 {
 	if (headers_sent())
 	{
