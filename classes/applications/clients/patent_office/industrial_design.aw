@@ -160,9 +160,9 @@ class industrial_design extends intellectual_property
 
 	protected function save_priority($patent)
 	{
-		$patent->set_prop("prio_convention_date" , $_SESSION["patent"]["prio_convention_date"]);
-		$patent->set_prop("prio_convention_country" , $_SESSION["patent"]["prio_convention_country"]);
-		$patent->set_prop("prio_convention_nr" , $_SESSION["patent"]["prio_convention_nr"]);
+		$patent->set_prop("prio_convention_date" , isset($_SESSION["patent"]["prio_convention_date"]) ? $_SESSION["patent"]["prio_convention_date"] : "");
+		$patent->set_prop("prio_convention_country" , isset($_SESSION["patent"]["prio_convention_country"]) ? $_SESSION["patent"]["prio_convention_country"] : "");
+		$patent->set_prop("prio_convention_nr" , isset($_SESSION["patent"]["prio_convention_nr"]) ? $_SESSION["patent"]["prio_convention_nr"] : "");
 		$patent->save();
 	}
 
@@ -181,15 +181,14 @@ class industrial_design extends intellectual_property
 
 	protected function save_industrial_design($patent)
 	{
-		$patent->set_prop("industrial_design_name" , $_SESSION["patent"]["industrial_design_name"]);
-		// $patent->set_prop("industrial_design_variant" , $_SESSION["patent"]["industrial_design_variant"]);
-		$patent->set_prop("industrial_design_variant_count" , $_SESSION["patent"]["industrial_design_variant_count"]);
+		$patent->set_prop("industrial_design_name" , isset($_SESSION["patent"]["industrial_design_name"]) ? $_SESSION["patent"]["industrial_design_name"] : "");
+		$patent->set_prop("industrial_design_variant_count" , isset($_SESSION["patent"]["industrial_design_variant_count"]) ? $_SESSION["patent"]["industrial_design_variant_count"] : "");
 		$patent->save();
 	}
 
 	protected function save_process_postpone($patent)
 	{
-		$patent->set_prop("process_postpone" , $_SESSION["patent"]["process_postpone"]);
+		$patent->set_prop("process_postpone" , isset($_SESSION["patent"]["process_postpone"]) ? $_SESSION["patent"]["process_postpone"] : "");
 		$patent->save();
 	}
 
@@ -252,7 +251,7 @@ class industrial_design extends intellectual_property
 		$data = parent::get_vars($arr);
 
 		$_SESSION["patent"]["add_fee_info"] = $this->get_add_fee();
-		$data["add_fee_info"]= $_SESSION["patent"]["add_fee_info"];
+		$data["add_fee_info"] = $_SESSION["patent"]["add_fee_info"];
 
 		if (isset($_SESSION["patent"]["applicants"]) and count($_SESSION["patent"]["applicants"]) == 1)
 		{
