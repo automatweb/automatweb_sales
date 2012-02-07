@@ -1529,12 +1529,12 @@ class crm_bill extends class_base
 		$sum = 0;
 		$error = "";
 		extract($arr);
-		if(!is_object($o) && object_loader::can("view", $id))
+		if(!is_object($o) && acl_base::can("view", $id))
 		{
 			$o = obj($id);
 		}
 
-		if(object_loader::can("view" , $p))
+		if(acl_base::can("view" , $p))
 		{
 			$p = obj($p);
 		}

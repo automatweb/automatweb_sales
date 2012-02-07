@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/folder_list.aw,v 1.15 2008/01/31 13:52:14 kristo Exp $
-// folder_list.aw - Kaustade nimekiri 
+
+// folder_list.aw - Kaustade nimekiri
 /*
 
-@classinfo syslog_type=ST_FOLDER_LIST relationmgr=yes maintainer=kristo
+@classinfo relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -51,7 +51,7 @@ class folder_list extends class_base
 		switch($data["name"])
 		{
 			case "template":
-				$tm = get_instance("templatemgr");
+				$tm = new templatemgr();
 				$data["options"] = $tm->template_picker(array(
 					"folder" => "contentmgmt/folder_list"
 				));
@@ -66,26 +66,13 @@ class folder_list extends class_base
 
 			case "show_comment":
 				$data["options"] = array(
-					"comment" => "Kommentaari",	
+					"comment" => "Kommentaari",
 					"doc" => "Esimest dokumenti"
 				);
 				break;
-		};
+		}
 		return PROP_OK;
 	}
-
-	/*
-	function set_property($arr = array())
-	{
-		$data = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($data["name"])
-                {
-
-		}
-		return $retval;
-	}	
-	*/
 
 	////
 	// !this will be called if the object is put in a document by an alias and the document is being shown
@@ -125,7 +112,7 @@ class folder_list extends class_base
 			"site_id" => array()
 		));
 
-		$ssh = get_instance("contentmgmt/site_show");
+		$ssh = new site_show();
 		$d = new document();
 
 		$fls = "";
@@ -163,7 +150,7 @@ class folder_list extends class_base
 				"comment" => nl2br($o->comment())
 			));
 
-			if ($ob->prop("show_comment") == "doc")
+			if ($ob->prop("show_comment") === "doc")
 			{
 				$docs = $ssh->get_default_document(array(
 					"obj" => $o
@@ -173,16 +160,20 @@ class folder_list extends class_base
 				{
 					$doc = reset($docs);
 				}
-				$doco = obj($doc);
-				$this->vars(array(
-					"comment" => preg_replace("/#(\w+?)(\d+?)(v|k|p|)#/i","",$doco->prop("lead"))
-				));
+
+				if (acl_base::can("", $doc))
+				{
+					$doco = obj($doc);
+					$this->vars(array(
+						"comment" => preg_replace("/#(\w+?)(\d+?)(v|k|p|)#/i","",$doco->prop("lead"))
+					));
+				}
+
 				$this->vars(array(
 					"SHOW_COMMENT" => $this->parse("SHOW_COMMENT")
 				));
 			}
-			else
-			if ($ob->prop("show_comment") == "comment")
+			elseif ($ob->prop("show_comment") === "comment")
 			{
 				$this->vars(array(
 					"SHOW_COMMENT" => $this->parse("SHOW_COMMENT")
@@ -212,7 +203,7 @@ class folder_list extends class_base
 			$fls .= $this->parse("FOLDER");
 		}
 
-		if (is_oid($ob->prop("rootmenu")) && $this->can("view", $ob->prop("rootmenu")))
+		if (acl_base::can("view", $ob->prop("rootmenu")))
 		{
 			$rm = obj($ob->prop("rootmenu"));
 
@@ -225,4 +216,3 @@ class folder_list extends class_base
 		return $this->parse();
 	}
 }
-?>
