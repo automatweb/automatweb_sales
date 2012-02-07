@@ -551,12 +551,12 @@ class patent extends intellectual_property
 
 	protected function save_priority($patent)
 	{
-		$patent->set_prop("convention_nr" , $_SESSION["patent"]["convention_nr"]);
-		$patent->set_prop("convention_date" , $_SESSION["patent"]["convention_date"]);
-		$patent->set_prop("convention_country" , $_SESSION["patent"]["convention_country"]);
-		$patent->set_prop("exhibition_name" , $_SESSION["patent"]["exhibition_name"]);
-		$patent->set_prop("exhibition_date" , $_SESSION["patent"]["exhibition_date"]);
-		$patent->set_prop("exhibition_country" , $_SESSION["patent"]["exhibition_country"]);
+		$patent->set_prop("convention_nr" , isset($_SESSION["patent"]["convention_nr"]) ? $_SESSION["patent"]["convention_nr"] : "");
+		$patent->set_prop("convention_date" , isset($_SESSION["patent"]["convention_date"]) ? $_SESSION["patent"]["convention_date"] : "");
+		$patent->set_prop("convention_country" , isset($_SESSION["patent"]["convention_country"]) ? $_SESSION["patent"]["convention_country"] : "");
+		$patent->set_prop("exhibition_name" , isset($_SESSION["patent"]["exhibition_name"]) ? $_SESSION["patent"]["exhibition_name"] : "");
+		$patent->set_prop("exhibition_date" , isset($_SESSION["patent"]["exhibition_date"]) ? $_SESSION["patent"]["exhibition_date"] : "");
+		$patent->set_prop("exhibition_country" , isset($_SESSION["patent"]["exhibition_country"]) ? $_SESSION["patent"]["exhibition_country"] : "");
 		$patent->save();
 	}
 
