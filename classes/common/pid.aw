@@ -80,7 +80,7 @@ class pid_et extends pid
 	{
 		if (!isset($this->data["gender"]))
 		{
-			throw new awex_pid_na("Gender not retireved");
+			throw new awex_pid_na("Gender not retrieved");
 		}
 		$gender = $this->data["gender"] === self::GENDER_MALE ? $male_value : $female_value;
 		return $gender;
@@ -97,7 +97,7 @@ class pid_et extends pid
 	{
 		if (!isset($this->data["birth_date"]))
 		{
-			throw new awex_pid_na("Birth date not retireved");
+			throw new awex_pid_na("Birth date not retrieved");
 		}
 		return $this->data["birth_date"];
 	}
