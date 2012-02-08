@@ -110,6 +110,8 @@ class trademark_manager extends class_base
 	const XML_OUT_ENCODING = "ISO-8859-1";
 	const XML_IN_ENCODING = "ISO-8859-4";
 
+	const RECORDS_PER_PAGE = 25;
+
 	public $ip_classes = array(); // intellectual property classes. class_id => human readable name
 
 	private $ip_index = array( // intellectual property class_id => folder prop name
@@ -318,7 +320,7 @@ class trademark_manager extends class_base
 		return $return;
 	}
 
-	private function init_procurators_table(&$t)
+	private function init_procurators_table($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -636,9 +638,7 @@ class trademark_manager extends class_base
 						)
 					)),
 				)
-			)),
-			"lang_id" => array(),
-			"site_id" => array()
+			))
 		);
 
  		if((date_edit::get_timestamp($data["trademark_find_start"]) > 1)|| (date_edit::get_timestamp($data["trademark_find_end"]) > 1))
@@ -667,9 +667,6 @@ class trademark_manager extends class_base
 
 	function _objects_tbl($arr)
 	{
-		$t = $arr["prop"]["vcl_inst"];
-		$this->_init_objects_tbl($t);
-
 		$p_id = isset($arr["request"]["p_id"]) ? $arr["request"]["p_id"] : "";
 		$verified = ($p_id === "verified") ? 1 : null;
 		$cl = isset($arr["request"]["p_cl"]) ? $arr["request"]["p_cl"] : "";
@@ -954,9 +951,30 @@ class trademark_manager extends class_base
 						)),
 					)
 				)),
-				"sort_by" => "objects.created DESC"
 			);
 		}
+
+		// order
+		$sort_args = array(
+			"class" => "class_id",
+			"nr" => "RELTYPE_TRADEMARK_STATUS.nr",
+			"applicant_name" => "RELTYPE_APPLICANT.name",
+			"procurator" => "procurator.name",
+			"date" => "created"
+		);
+
+		if (!empty($arr["request"]["sortby"]) and isset($sort_args[$arr["request"]["sortby"]]))
+		{
+			$sort_by = $sort_args[$arr["request"]["sortby"]];
+			$sort_order = (isset($arr["request"]["sort_order"]) and "asc" === $arr["request"]["sort_order"]) ? obj_predicate_sort::ASC : obj_predicate_sort::DESC;
+		}
+		else
+		{
+			$sort_by = "created";
+			$sort_order = obj_predicate_sort::DESC;
+		}
+
+		$filter[] = new obj_predicate_sort(array($sort_by => $sort_order));
 
 		//otsingust
 		if(sizeof($arr["obj_inst"]->meta("search_data")) > 1)
@@ -968,18 +986,38 @@ class trademark_manager extends class_base
 				"prop" => "created",
 				"order" => "desc"
 			));
+			$count = $ol->count();
 		}
 		else
 		{
+			// get object count
+			$count = new object_data_list(
+				$filter,
+				array(
+					0 => array(new obj_sql_func(obj_sql_func::COUNT, "count" , "*"))
+				)
+			);
+			$count = $count->arr();
+			$count = reset($count);
+			$count = $count["count"];
+
+			// paging and limit
+			$per_page = self::RECORDS_PER_PAGE;
+			$cur_page = isset($arr["request"]["ft_page"]) ? (int) $arr["request"]["ft_page"] : 0;
+			$filter[] = new obj_predicate_limit($per_page, $per_page*$cur_page);
+
+			// list itself
 			$ol = new object_list($filter);
 		}
 
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_objects_tbl($t, $arr, $count);
 
 		$trademark_inst = get_instance(CL_PATENT);
 		$person_inst = get_instance(CL_CRM_PERSON);
 		$types = $trademark_inst->types;
 
-		foreach($ol->arr() as $o)
+		for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
 			$re = $trademark_inst->is_signed($o->id());
 			$status = $trademark_inst->get_status($o);
@@ -1112,22 +1150,26 @@ class trademark_manager extends class_base
 /*
 - paremal tabelis: M2rgi tyyp (s5nam2rk, kujutism2rk jne, kui s6nam2rk, siis vastava tekstiv2lja sisu ka sulgudes), Taotluse number (sellel klikkides avaneb ka taotluse sisestusvorm, kui number puudub, siis on klikitav tekst Number puudub), Esitaja nimi, Esitaja kontaktandmed (k6ik yhes v2ljas komaga eraldatult, aadressi pole vaja), voliniku nimi, Esitamise kuup2ev, Vali tulp.
 */
-	function _init_objects_tbl($t)
+	function _init_objects_tbl($t, &$arr, $count)
 	{
+		$cl = isset($arr["request"]["p_cl"]) ? $arr["request"]["p_cl"] : "";
+
 		$t->define_field(array(
 			"name" => "class",
 			"caption" => t("Taotluse t&uuml;&uuml;p"),
 			"align" => "center",
-			"sortable" => 1,
-			"filter" => empty($_GET["p_cl"]) ? "automatic" : null
+			"sortable" => $cl ? 0 : 1
 		));
 
-		$t->define_field(array(
-			"name" => "type",
-			"caption" => t("M&auml;rgi t&uuml;&uuml;p"),
-			"align" => "center",
-			"sortable" => 1
-		));
+		if ("tm" === $cl)
+		{
+			$t->define_field(array(
+				"name" => "type",
+				"caption" => t("M&auml;rgi t&uuml;&uuml;p"),
+				"align" => "center",
+				"sortable" => 0
+			));
+		}
 
 		$t->define_field(array(
 			"name" => "nr",
@@ -1147,7 +1189,7 @@ class trademark_manager extends class_base
 			"name" => "applicant_data",
 			"caption" => t("Esitaja kontaktandmed"),
 			"align" => "center",
-			"sortable" => 1
+			"sortable" => 0
 		));
 		$t->define_field(array(
 			"name" => "procurator",
@@ -1163,14 +1205,14 @@ class trademark_manager extends class_base
 			"sortable" => 1,
 			"numeric" => 1,
 			"type" => "time",
-			"format" => "d.m.Y",
+			"format" => "d.m.Y"
 		));
 
 		$t->define_field(array(
 			"name" => "signatures",
 			"caption" => t("Allkirjad"),
 			"align" => "center",
-//			"sortable" => 1
+			"sortable" => 0
 		));
 
 		$t->define_chooser(array(
@@ -1187,9 +1229,11 @@ class trademark_manager extends class_base
 			));
 		}
 
+
 		$t->define_pageselector (array (
 			"type" => "lbtxt",
-			"records_per_page" => 25,
+			"d_row_cnt" => $count,
+			"records_per_page" => self::RECORDS_PER_PAGE
 		));
 	}
 
