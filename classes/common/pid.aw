@@ -19,7 +19,7 @@ class pid
 
 	function __construct ($pid = null, $errors = false)
 	{
-		if (isset($pid))
+		if ($pid)
 		{
 			$this->set($pid, $errors);
 		}
@@ -109,13 +109,17 @@ class pid_et extends pid
 		$this->data = array();
 		$pid = $this->pid;
 
-		if (strlen ($pid) != 11)
+		if (strlen($pid) !== 11)
 		{
 			$this->is_valid = false;
 
 			if ($errors)
 			{
 				throw new awex_pid_length();
+			}
+			else
+			{
+				return;
 			}
 		}
 
@@ -157,6 +161,10 @@ class pid_et extends pid
 			if ($errors)
 			{
 				throw new awex_pid_checksum();
+			}
+			else
+			{
+				return;
 			}
 		}
 
@@ -209,6 +217,10 @@ class pid_et extends pid
 			if ($errors)
 			{
 				throw new awex_pid_birthdate();
+			}
+			else
+			{
+				return;
 			}
 		}
 	}
