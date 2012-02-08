@@ -1254,7 +1254,7 @@ class crm_person extends class_base
 			$r = class_base::PROP_OK;
 			if (!empty($arr["prop"]["value"]) and isset($arr["request"]["personal_id_country"]) and country_data::NUM_ESTONIA == $arr["request"]["personal_id_country"])
 			{
-				$pid = new pid_et("45503034582");
+				$pid = new pid_et($arr["prop"]["value"]);
 				if (!$pid->is_valid())
 				{
 					$arr["prop"]["error"] = t("V&auml;&auml;rtus ei vasta Eesti isikukoodi standardile");
@@ -4653,7 +4653,7 @@ class crm_person extends class_base
 		@returns
 			User object if the person has an user or false if not
 	**/
-	function has_user($o)
+	public static function has_user($o)
 	{
 		if(!is_oid($o->id()))//mingite uute objektidega tuleb siit miski tuhandeid p2ringuid jne
 		{
@@ -4669,7 +4669,7 @@ class crm_person extends class_base
 		if (count($res))
 		{
 			$tmp = reset($res);
-			if (acl_base::can("view", $tmp["from"]))
+			if (acl_base::can("", $tmp["from"]))
 			{
 				return obj($tmp["from"]);
 			}
