@@ -1235,7 +1235,7 @@ class core extends db_connector
 	// (see on muiltiple select boxide jaoks abix)
 
 	// rootobj - mis objektist alustame
-	function get_menu_list($ignore_langmenus = false,$empty = false,$rootobj = -1, $onlyact = -1, $make_path = true)
+	function get_menu_list($ignore_langmenus = false, $empty = false, $rootobj = -1, $onlyact = -1, $make_path = true)
 	{
 		if ($rootobj == -1)
 		{

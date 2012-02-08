@@ -124,7 +124,6 @@ class config_login_menus extends class_base
 
 		$lm = $arr["obj_inst"]->meta("lm");
 
-
 		foreach($gl as $gid => $gname)
 		{
 			$go = obj($gid);
@@ -150,7 +149,7 @@ class config_login_menus extends class_base
 				"caption" => t("Prioriteet"),
 				"size" => 4,
 				"name" => "lm[$gid][pri]",
-				"value" => $lm[$gid]["pri"]
+				"value" => isset($lm[$gid]["pri"]) ? $lm[$gid]["pri"] : ""
 			);
 
 			$ret[] = array(

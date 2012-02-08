@@ -791,8 +791,7 @@ class users extends users_user implements request_startup, orb_public_interface
 		$password = substr(gen_uniq_id(),0,8);
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
-			"personal_id" => $ik->get(),
-			"status" => new obj_predicate_not(STAT_DELETED)//XXX: milleks?
+			"personal_id" => $ik->get()
 		));
 
 		if($ol->count() < 1 && aw_ini_get("users.id_only_existing"))
@@ -834,23 +833,15 @@ class users extends users_user implements request_startup, orb_public_interface
 			$u_obj->save();
 			cache::file_clear_pt("storage_object_data");
 			cache::file_clear_pt("storage_search");
-
-			if (!aw_ini_get("acl.no_check"))
-			{
-				cache::file_clear_pt("acl");
-			}
+			cache::file_clear_pt("acl");
 		}
 		else
 		{
-			$c = new connection();
-			$conns = $c->find(array(
-				"from.class_id" => CL_USER,
-				"to" => $ol->ids()
-			));
+			$person_obj = $ol->begin();
+			$u_obj = crm_person::has_user($person_obj);
 
-			if(count($conns) < 1)
+			if (!$u_obj)
 			{
-				$person_id = current($ol->ids());
 				$user = new user();
 				$u_obj = $user->add_user(array(
 					"uid" => $arr["uid"],
@@ -861,8 +852,8 @@ class users extends users_user implements request_startup, orb_public_interface
 
 				$o = new object($u_obj->id());
 				$o->connect(array(
-					"to" => $person_id,
-					"type" => 2,
+					"to" => $person_obj->id(),
+					"type" => 2  // CL_USER.RELTYPE_PERSON
 				));
 				$o->save();
 				cache::file_clear_pt("storage_object_data");
@@ -871,9 +862,7 @@ class users extends users_user implements request_startup, orb_public_interface
 			}
 			else
 			{
-				$conn = current($conns);
-				$obj = new object($conn["from"]);
-				$arr["uid"] = $obj->prop("name");
+				$arr["uid"] = $u_obj->prop("name");
 			}
 		}
 		$hash = gen_uniq_id();
