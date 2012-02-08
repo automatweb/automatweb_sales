@@ -361,7 +361,7 @@ class patent extends intellectual_property
 			"checked" => !empty($_SESSION["patent"]["co_trademark"]),
 			"name" => "co_trademark",
 			"onclick" => "document.getElementById('c_statues_row').style.display = '';"
-			)).'<a href="javascript:;" onClick="MM_openBrWindow(\'16340\',\'\',\'width=720,height=540\')"><img src="/img/lk/ikoon_kysi.gif" border="0" /></a><br>'.
+			)).'<a href="javascript:;" onClick="MM_openBrWindow(\'16340\',\'\',\'width=720,height=540\')"><img src="/img/lk/ikoon_kysi.gif" border="0" /></a><br />'.
 
 			t("(kui taotlete garantiikaubam&auml;rki)").html::checkbox(array(
 				"value" => 1,
@@ -543,7 +543,7 @@ class patent extends intellectual_property
 <input type='hidden' name='print' value='1' />
 <input type='hidden' name='action' value='find_products' />
 <input type='hidden' name='ru' value='".$arr["ru"]."' />
-<br> Kauba/teenuse nimetus".html::textbox(array("name" => "product"))
+<br /> Kauba/teenuse nimetus".html::textbox(array("name" => "product"))
 		.$reforb.'<input type="submit" value="otsi"></form>';
 
 		return $ret . $result_list;
@@ -745,7 +745,7 @@ class patent extends intellectual_property
 				(empty($_SESSION["patent"]["products"]) or !is_array($_SESSION["patent"]["products"]))
 			)
 			{
-				$err.= t("Kohustuslik v&auml;hemalt &uuml;he klassi lisamine")."\n<br>";
+				$err.= t("Kohustuslik v&auml;hemalt &uuml;he klassi lisamine")."\n<br />";
 			}
 		}
 
@@ -753,47 +753,46 @@ class patent extends intellectual_property
 		{
 			if($_POST["type"] == 0 && !isset($_POST["word_mark"]))
 			{
-				$err.= t("S&otilde;nam&auml;rgi puhul peab olema s&otilde;naline osa t&auml;idetud")."\n<br>";
+				$err.= t("S&otilde;nam&auml;rgi puhul peab olema s&otilde;naline osa t&auml;idetud")."\n<br />";
 			}
 			if($_POST["type"] == 1 && !$_FILES["reproduction_upload"]["name"] && !is_oid($_SESSION["patent"]["reproduction"]))
 			{
-				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br>";
+				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br />";
 			}
 			if($_POST["type"] == 2 && !isset($_POST["word_mark"]))
 			{
-				$err.= t("Kombineeritud m&auml;rgi puhul peab olema s&otilde;naline osa t&auml;idetud")."\n<br>";
+				$err.= t("Kombineeritud m&auml;rgi puhul peab olema s&otilde;naline osa t&auml;idetud")."\n<br />";
 			}
 			if($_POST["type"] == 2 && !$_FILES["reproduction_upload"]["name"] && !is_oid($_SESSION["patent"]["reproduction"]))
 			{
-				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br>";
+				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br />";
 			}
 			if($_POST["type"] == 3 && !$_FILES["reproduction_upload"]["name"] && !is_oid($_SESSION["patent"]["reproduction"]))
 			{
-				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br>";
+				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br />";
 			}
 		}
 
 		if($requested_data_type === "3" and ($_POST["convention_date"]["day"] || $_POST["exhibition_date"]["day"]))
 		{
+			$six_months_back = mktime(0, 0, 0, date("m" , time())-6, date("j", time())-5, date("Y" , time()));
 			if (
 				(
 					$_POST["convention_nr"] &&
-					mktime(0,0,0,$_POST["convention_date"]["month"],$_POST["convention_date"]["day"],$_POST["convention_date"]["year"])
+					mktime(0, 0, 0, (int) $_POST["convention_date"]["month"], (int) $_POST["convention_date"]["day"], (int) $_POST["convention_date"]["year"])
 						<
-					mktime(0,0,0,date("m" , time())-6, date("j" , time())-5,date("Y" , time()))
+					$six_months_back
 				)
-				//time() - (30*6+5)*24*3600)
 				||
 				(
 					$_POST["exhibition_name"] &&
-					mktime(0,0,0,$_POST["exhibition_date"]["month"], $_POST["exhibition_date"]["day"],$_POST["exhibition_date"]["year"])
+					mktime(0, 0, 0, (int) $_POST["exhibition_date"]["month"], (int) $_POST["exhibition_date"]["day"], (int) $_POST["exhibition_date"]["year"])
 						<
-					mktime(0,0,0,date("m" , time())-6, date("j" , time())-5,date("Y" , time()))
+					$six_months_back
 				)
-				//time() - (30*6 + 5)*24*3600 )
 			 )
 			{
-				$err.= t("Prioriteedikuup&auml;ev ei v&otilde;i olla vanem kui 6 kuud")."\n<br>";
+				$err.= t("Prioriteedikuup&auml;ev ei v&otilde;i olla vanem kui 6 kuud")."\n<br />";
 			}
 		}
 
@@ -835,7 +834,7 @@ class patent extends intellectual_property
 
 			$fld = aw_ini_get("site_basedir")."patent_files/";
 			$fn = $fld .sprintf("%08d", $status->prop("nr")).$type;
-			echo "saving file $fn <br>";
+			echo "saving file $fn <br />";
 			$image_inst = get_instance(CL_FILE);
 			$imd = $image_inst->get_file_by_id($im->id(), true);
 			$f = fopen($fn ,"w");
