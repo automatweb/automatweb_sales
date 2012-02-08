@@ -1013,7 +1013,8 @@ abstract class intellectual_property extends class_base
 				{
 					if ($this->pdf)
 					{
-						$data[$var."_value"] = str_replace("https" , "http" , $this->get_right_size_image($file->id()));
+						$data[$var."_value"] = $this->get_right_size_image($file->id());
+						// $data[$var."_value"] = str_replace("https" , "http" , $this->get_right_size_image($file->id()));//XXX: proov kas mpdf t88tab httpsiga
 					}
 					else
 					{
@@ -1854,21 +1855,24 @@ abstract class intellectual_property extends class_base
 		$image_inst = new image();
 		$image = obj($oid);
 		$fl = $image->prop("file");
+
 		if (!empty($fl))
 		{
 			// rewrite $fl to be correct if site moved
 			$fl = basename($fl);
-			$fl = $this->cfg["site_basedir"]."/files/".$fl{0}."/".$fl;
+			$fl = aw_ini_get("site_basedir")."files/".$fl{0}."/".$fl;//FIXME: image objekti viia vms.
 			$sz = getimagesize($fl);
 		}
+
 		if($sz[0] > 200)
 		{
 			$sz[1] = ($sz[1]/($sz[0]/200)) % 200001;
 			$sz[0] = 200;
 		}
+
 		$ret =  $image_inst->make_img_tag_wl($oid, "", "" , array(
-				"height" => $sz[1],
-				"width" => $sz[0],
+			"height" => $sz[1],
+			"width" => $sz[0]
 		));
 		return $ret;
 	}
