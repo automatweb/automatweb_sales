@@ -232,7 +232,7 @@ abstract class intellectual_property extends class_base
 				{
 					$sig_nice[] = sprintf(t("%s, %s (%s) - %s"), $sig["signer_ln"], $sig["signer_fn"], $sig["signer_pid"], date("H:i d/m/Y", $sig["signing_time"]));
 				}
-				$prop["value"] = join("<br/>", $sig_nice);
+				$prop["value"] = join(html::linebreak(), $sig_nice);
 				break;
 
 			case "export_date":
@@ -4256,11 +4256,11 @@ abstract class intellectual_property extends class_base
 	{
 		$ip_inst = $o->instance();
 		$status = $ip_inst->get_status($o);
-		$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		$xml = "<?xml version=\"1.0\" encoding=\"".trademark_manager::XML_OUT_ENCODING."\"?>\n";
 		$xml .= '<BIRTH TRANTYP="ENN" INTREGN="'.sprintf("%08d", $status->prop("nr")).'" OOCD="EE" ORIGLAN="3" REGEDAT="'.date("Ymd", $status->prop("sent_date")).'" INTREGD="'.date("Ymd", $status->prop("modified")).'" DESUNDER="P">';
 
 		// common object xml data
-		$adr_i = get_instance(CL_CRM_ADDRESS);
+		$adr_i = new crm_address();
 
 		foreach($o->connections_from(array("type" => "RELTYPE_APPLICANT")) as $c)
 		{
@@ -4279,25 +4279,25 @@ abstract class intellectual_property extends class_base
 				{
 					if ($appl->prop("phone.name"))
 					{
-						$tel[] = trademark_manager::rere($appl->prop("phone.name"));
+						$tel[] = trademark_manager::convert_to_export_xml($appl->prop("phone.name"));
 					}
 
 					if ($appl->prop("fax.name"))
 					{
-						$tel[] = trademark_manager::rere($appl->prop("fax.name"));
+						$tel[] = trademark_manager::convert_to_export_xml($appl->prop("fax.name"));
 					}
 
-					$xml .= "<NAMEL>".trademark_manager::rere($applicant->prop("firstname"))."</NAMEL>";
-					$xml .= "<NAMEL>".trademark_manager::rere($applicant->prop("lastname"))."</NAMEL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("address.aadress"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("address.linn.name"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("address.maakond.name"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("address.postiindeks"))."</ADDRL>";
+					$xml .= "<NAMEL>".trademark_manager::convert_to_export_xml($applicant->prop("firstname"))."</NAMEL>";
+					$xml .= "<NAMEL>".trademark_manager::convert_to_export_xml($applicant->prop("lastname"))."</NAMEL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("address.aadress"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("address.linn.name"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("address.maakond.name"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("address.postiindeks"))."</ADDRL>";
 					$addr .= "<ADDRL>" . implode(", ", $tel) . "</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("email.mail"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("email.mail"))."</ADDRL>";
 					if (acl_base::can("", $appl->prop("address.riik")))
 					{
-						$addr .= "<COUNTRY>".trademark_manager::rere($adr_i->get_country_code(obj($appl->prop("address.riik"))))."</COUNTRY>";
+						$addr .= "<COUNTRY>".trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($appl->prop("address.riik"))))."</COUNTRY>";
 					}
 					$type = "1";
 				}
@@ -4305,24 +4305,24 @@ abstract class intellectual_property extends class_base
 				{
 					if ($appl->prop("phone_id.name"))
 					{
-						$tel[] = trademark_manager::rere($appl->prop("phone_id.name"));
+						$tel[] = trademark_manager::convert_to_export_xml($appl->prop("phone_id.name"));
 					}
 
 					if ($appl->prop("telefax_id.name"))
 					{
-						$tel[] = trademark_manager::rere($appl->prop("telefax_id.name"));
+						$tel[] = trademark_manager::convert_to_export_xml($appl->prop("telefax_id.name"));
 					}
 
-					$xml .= "<NAMEL>".trademark_manager::rere($applicant->name())."</NAMEL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("contact.aadress"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("contact.linn.name"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("contact.maakond.name"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("contact.postiindeks"))."</ADDRL>";
+					$xml .= "<NAMEL>".trademark_manager::convert_to_export_xml($applicant->name())."</NAMEL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("contact.aadress"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("contact.linn.name"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("contact.maakond.name"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("contact.postiindeks"))."</ADDRL>";
 					$addr .= "<ADDRL>" . implode(", ", $tel) . "</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::rere($appl->prop("email_id.mail"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("email_id.mail"))."</ADDRL>";
 					if (acl_base::can("", $appl->prop("contact.riik")))
 					{
-						$addr .= "<COUNTRY>".trademark_manager::rere($adr_i->get_country_code(obj($appl->prop("contact.riik"))))."</COUNTRY>";
+						$addr .= "<COUNTRY>".trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($appl->prop("contact.riik"))))."</COUNTRY>";
 					}
 					$type = "2";
 				}
@@ -4337,7 +4337,7 @@ abstract class intellectual_property extends class_base
 				$xml .= "</NAME>";
 				$xml .= $addr;
 
-				$xml .= '<LEGNATU><LEGNATT>'.trademark_manager::rere($appl->prop("ettevotlusvorm.name")).'</LEGNATT></LEGNATU>';
+				$xml .= '<LEGNATU><LEGNATT>'.trademark_manager::convert_to_export_xml($appl->prop("ettevotlusvorm.name")).'</LEGNATT></LEGNATU>';
 			}
 
 			$xml .= "</HOLGR>";
@@ -4346,14 +4346,15 @@ abstract class intellectual_property extends class_base
 		if (acl_base::can("", $o->prop("procurator")))
 		{
 			$proc = obj($o->prop("procurator"));
-			$xml .= '<REPGR CLID="'.$proc->prop("code").'"><NAME><NAMEL>'.trademark_manager::rere($proc->prop("firstname")).'</NAMEL><NAMEL>'.trademark_manager::rere($proc->prop("lastname")).'</NAMEL></NAME></REPGR>';
+			$xml .= '<REPGR CLID="'.$proc->prop("code").'"><NAME><NAMEL>'.trademark_manager::convert_to_export_xml($proc->prop("firstname")).'</NAMEL><NAMEL>'.trademark_manager::convert_to_export_xml($proc->prop("lastname")).'</NAMEL></NAME></REPGR>';
 		}
 
 		$xml .= '<DESPG><DCPCD>EE</DCPCD></DESPG>';
 		$xml .= '</BIRTH>';
 
-		$xml_doc = new DOMDocument();
+		$xml_doc = new DOMDocument("1.0", trademark_manager::XML_OUT_ENCODING);
 		$ret = $xml_doc->loadXML($xml);
+		$xml_doc->encoding = trademark_manager::XML_OUT_ENCODING;
 
 		if (!$ret)
 		{
@@ -4361,7 +4362,6 @@ abstract class intellectual_property extends class_base
 		}
 
 		$xml_doc->formatOutput = true;
-		$xml_doc->encoding = trademark_manager::XML_OUT_ENCODING;
 
 		return $xml_doc;
 	}

@@ -834,8 +834,8 @@ class patent extends intellectual_property
 
 			$fld = aw_ini_get("site_basedir")."patent_files/";
 			$fn = $fld .sprintf("%08d", $status->prop("nr")).$type;
-			echo "saving file $fn <br />";
-			$image_inst = get_instance(CL_FILE);
+			echo "saving file {$fn}\n";
+			$image_inst = new file();
 			$imd = $image_inst->get_file_by_id($im->id(), true);
 			$f = fopen($fn ,"w");
 			fwrite($f, $imd["content"]);
@@ -844,13 +844,13 @@ class patent extends intellectual_property
 
 		$img = $xml->createElement("IMAGE");
 		$img->setAttribute("NAME", sprintf("%08d", $status->prop("nr")));
-		$img->setAttribute("TEXT", trademark_manager::rere($o->prop("word_mark")));
+		$img->setAttribute("TEXT", trademark_manager::convert_to_export_xml($o->prop("word_mark")));
 		$img->setAttribute("COLOUR", ($o->prop("colors") != "" ? "Y" : "N"));
-		$img->setAttribute("TYPE", trademark_manager::rere($type));
+		$img->setAttribute("TYPE", trademark_manager::convert_to_export_xml($type));
 		$root->insertBefore($img, $despg);
 
 		$el = $xml->createElement("MARTRGR");
-		$el->appendChild(new DOMElement("MARTREN", trademark_manager::rere($o->prop("element_translation"))));
+		$el->appendChild(new DOMElement("MARTREN", trademark_manager::convert_to_export_xml($o->prop("element_translation"))));
 		$root->insertBefore($el, $despg);
 
 		$typm = $o->prop("trademark_type");
@@ -862,8 +862,7 @@ class patent extends intellectual_property
 		$el2 = $xml->createElement("MARDESEN");
 		if ($o->prop("trademark_character"))
 		{
-			$cdata = $xml->createCDATASection(iconv(trademark_manager::XML_IN_ENCODING, "UTF-8", $o->prop("trademark_character")));
-			// $cdata = $xml->createCDATASection(trademark_manager::rere($o->prop("trademark_character")));
+			$cdata = $xml->createCDATASection(trademark_manager::convert_to_utf($o->prop("trademark_character")));
 			$el2->appendChild($cdata);
 		}
 		$el->appendChild($el2);
@@ -874,15 +873,14 @@ class patent extends intellectual_property
 		$el2 = $xml->createElement("DISCLAIMEREN");
 		if ($o->prop("undefended_parts"))
 		{
-			$cdata = $xml->createCDATASection(iconv(trademark_manager::XML_IN_ENCODING, "UTF-8", $o->prop("undefended_parts")));
-			// $cdata = $xml->createCDATASection($o->prop("undefended_parts"));
+			$cdata = $xml->createCDATASection(trademark_manager::convert_to_utf($o->prop("undefended_parts")));
 			$el2->appendChild($cdata);
 		}
 		$el->appendChild($el2);
 		$root->insertBefore($el, $despg);
 
 		//
-		if ($o->prop("colors") != "")
+		if ($o->prop("colors"))
 		{
 			$el = $xml->createElement("MARCOLI");
 			$root->insertBefore($el, $despg);
@@ -900,8 +898,7 @@ class patent extends intellectual_property
 		$el2 = $xml->createElement("COLCLAEN");
 		if ($o->prop("colors"))
 		{
-			$cdata = $xml->createCDATASection(iconv(trademark_manager::XML_IN_ENCODING, "UTF-8", $o->prop("colors")));
-			// $cdata = $xml->createCDATASection($o->prop("colors"));
+			$cdata = $xml->createCDATASection(trademark_manager::convert_to_utf($o->prop("colors")));
 			$el2->appendChild($cdata);
 		}
 		$el->appendChild($el2);
@@ -914,9 +911,9 @@ class patent extends intellectual_property
 		foreach(safe_array($o->meta("products")) as $k => $v)
 		{
 			$el2 = $xml->createElement("GSGR");
-			$el2->setAttribute("NICCLAI", trademark_manager::rere($k));
+			$el2->setAttribute("NICCLAI", trademark_manager::convert_to_export_xml($k));
 			$el3 = $xml->createElement("GSTERMEN");
-			$cdata = $xml->createCDATASection(strtolower(str_replace("\r" , "", str_replace("\n",", ", iconv(trademark_manager::XML_OUT_ENCODING, "UTF-8", $v)))));
+			$cdata = $xml->createCDATASection(mb_strtolower(str_replace(array("\r", "\n"), "", trademark_manager::convert_to_utf($v)), "UTF-8"));
 			$el3->appendChild($cdata);
 			$el2->appendChild($el3);
 			$el->appendChild($el2);
@@ -967,7 +964,7 @@ class patent extends intellectual_property
 			$el->appendChild(new DOMElement("PRIAPPD", $pri_date));
 		}
 
-		$el->appendChild(new DOMElement("PRIAPPN", trademark_manager::rere($pri_name)));
+		$el->appendChild(new DOMElement("PRIAPPN", trademark_manager::convert_to_export_xml($pri_name)));
 		$root->insertBefore($el, $despg);
 
 		//

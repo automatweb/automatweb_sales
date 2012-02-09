@@ -1160,10 +1160,16 @@ class file extends class_base
 				else
 				{
 					$file = $this->check_file_path($tmpo->prop("file"));
-					$tmp = $this->get_file(array("file" => $file));
-					if ($tmp !== false)
+					try
 					{
-						$ret["content"] = $tmp;
+						$tmp = file_get_contents($file);
+						if (false !== $tmp)
+						{
+							$ret["content"] = $tmp;
+						}
+					}
+					catch (ErrorException $e)
+					{
 					}
 				}
 			}
@@ -1245,15 +1251,22 @@ class file extends class_base
 			$fc["type"] = $tmp;
 		}
 
-		header("Accept-Ranges: bytes");
-		header("Content-Length: ".strlen($fc["content"]));
-		header("Content-type: ".$fc["type"]);
-		header("Cache-control: public");
-		if($pi["extension"] == "ddoc")
+		if (isset($fc["content"]))
 		{
-			header("Content-Disposition: inline; filename=\"$fc[name]\"");
+			header("Accept-Ranges: bytes");
+			header("Content-Length: ".strlen($fc["content"]));
+			header("Content-type: ".$fc["type"]);
+			header("Cache-control: public");
+			if($pi["extension"] === "ddoc")
+			{
+				header("Content-Disposition: inline; filename=\"{$fc[name]}\"");
+			}
+			exit($fc["content"]);
 		}
-		die($fc["content"]);
+		else
+		{
+			automatweb::http_exit(http::STATUS_NOT_FOUND);
+		}
 	}
 
 	/**
@@ -1837,7 +1850,7 @@ class file extends class_base
 		$f2 = false === $slash1 ? $f1 : substr($f1, $slash1+1);
 
 		// add site basedir
-		return aw_ini_get("site_basedir")."files/".$f2."/".substr($fname, $slash+1);
+		return aw_ini_get("file.site_files_dir").$f2."/".substr($fname, $slash+1);
 	}
 
 	function file_is_in_whitelist($fn)

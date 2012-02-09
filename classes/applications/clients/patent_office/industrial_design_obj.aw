@@ -77,7 +77,19 @@ class industrial_design_obj extends intellectual_property_obj
 			$value = $this->prop($param);
 			$m = "get_{$param}_options";
 			$options = $this->$m();
-			$value = isset($options[$value]) ? $options[$value] : "";
+			if (is_array($value))
+			{
+				foreach ($value as $key => $val)
+				{
+					$value[$key] = isset($options[$val]) ? $options[$val] : "";;
+				}
+
+				$value = implode(", ", $value);
+			}
+			else
+			{
+				$value = isset($options[$value]) ? $options[$value] : "";
+			}
 			return $value;
 		}
 		else

@@ -83,7 +83,7 @@ class user_obj extends _int_object
 
 		if (!self::is_uid($value))
 		{
-			throw new awex_obj_type("Invalid user id value");
+			throw new awex_obj_type(sprintf("Invalid user id value '%s'", print_r($value, true)));
 		}
 
 		if (strtolower(object_loader::instance()->ds->db_fetch_field("SELECT uid FROM users WHERE uid = '{$value}'", "uid")) === strtolower($value))
