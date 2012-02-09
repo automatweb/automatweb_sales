@@ -108,19 +108,22 @@
 class trademark_manager extends class_base
 {
 	const XML_OUT_ENCODING = "ISO-8859-1";
-	const XML_IN_ENCODING = "ISO-8859-4";
 
 	const RECORDS_PER_PAGE = 25;
 
 	public $ip_classes = array(); // intellectual property classes. class_id => human readable name
 
-	private $ip_index = array( // intellectual property class_id => folder prop name
+	private static $ip_index = array( // intellectual property class_id => folder prop name
 			CL_PATENT => "trademark_add",
 			CL_PATENT_PATENT => "patent_add",
 			CL_UTILITY_MODEL => "utility_model_add",
 			CL_INDUSTRIAL_DESIGN => "industrial_design_add",
 			CL_EURO_PATENT_ET_DESC => "euro_patent_et_desc_add"
 		);
+
+	private static $_encoding_detect_list = array(
+		"UTF-8", "ISO-8859-4"
+	);
 
 	function trademark_manager()
 	{
@@ -188,7 +191,7 @@ class trademark_manager extends class_base
 			$o = new object($arr["request"]["id"]);
 			$folder = $o->prop("procurators_folder");
 
-			foreach ($this->ip_index as $clid => $value)
+			foreach (self::$ip_index as $clid => $value)
 			{
 				try
 				{
@@ -954,28 +957,6 @@ class trademark_manager extends class_base
 			);
 		}
 
-		// order
-		$sort_args = array(
-			"class" => "class_id",
-			"nr" => "RELTYPE_TRADEMARK_STATUS.nr",
-			"applicant_name" => "RELTYPE_APPLICANT.name",
-			"procurator" => "procurator.name",
-			"date" => "created"
-		);
-
-		if (!empty($arr["request"]["sortby"]) and isset($sort_args[$arr["request"]["sortby"]]))
-		{
-			$sort_by = $sort_args[$arr["request"]["sortby"]];
-			$sort_order = (isset($arr["request"]["sort_order"]) and "asc" === $arr["request"]["sort_order"]) ? obj_predicate_sort::ASC : obj_predicate_sort::DESC;
-		}
-		else
-		{
-			$sort_by = "created";
-			$sort_order = obj_predicate_sort::DESC;
-		}
-
-		$filter[] = new obj_predicate_sort(array($sort_by => $sort_order));
-
 		//otsingust
 		if(sizeof($arr["obj_inst"]->meta("search_data")) > 1)
 		{
@@ -990,6 +971,28 @@ class trademark_manager extends class_base
 		}
 		else
 		{
+			// order
+			$sort_args = array(
+				"class" => "class_id",
+				"nr" => "RELTYPE_TRADEMARK_STATUS.nr",
+				"applicant_name" => "RELTYPE_APPLICANT.name",
+				"procurator" => "procurator.name",
+				"date" => "created"
+			);
+
+			if (!empty($arr["request"]["sortby"]) and isset($sort_args[$arr["request"]["sortby"]]))
+			{
+				$sort_by = $sort_args[$arr["request"]["sortby"]];
+				$sort_order = (isset($arr["request"]["sort_order"]) and "asc" === $arr["request"]["sort_order"]) ? obj_predicate_sort::ASC : obj_predicate_sort::DESC;
+			}
+			else
+			{
+				$sort_by = "created";
+				$sort_order = obj_predicate_sort::DESC;
+			}
+
+			$filter[] = new obj_predicate_sort(array($sort_by => $sort_order));
+
 			// get object count
 			$count = new object_data_list(
 				$filter,
@@ -1415,16 +1418,13 @@ class trademark_manager extends class_base
 	}
 
 	/**
-		@attrib name=nightly_export nologin="1"
-		@param from optional type=int
-			Unix timestamp. Time of modification from when to include objects. Default previous day start.
-		@param to optional type=int
-			Unix timestamp. Time of modification until to include objects. Default current day start
+		@attrib name=nightly_export nologin=1
 		@param test_id optional type=int acl=view
 			Application object id to test exporting that object only.
 	**/
 	function nightly_export($arr)
 	{
+		header ("Content-Type: text/plain");
 		$time = gmdate("Y M d H:i:s");
 		echo <<<HEADER
 
@@ -1454,27 +1454,17 @@ HEADER;
 				CL_EURO_PATENT_ET_DESC => "CL_EURO_PATENT_ET_DESC"
 			);
 
-			$from = !empty($arr["from"]) ? (int) $arr["from"] : (date_calc::get_day_start()-(24*3600));
-			$to = !empty($arr["to"]) ? (int) $arr["to"] : date_calc::get_day_start();
-
-			if ($from >= $to)
-			{
-				throw new awex_po("Invalid arguments. Timespan end less than start.");
-			}
-
-			// list all intellectual prop objs created yesterday
-			$date_constraint = new obj_predicate_compare(obj_predicate_compare::BETWEEN, $from, $to);
 			$us = get_instance("users");
 			$us->login(array ("uid" => "struktuur", "password" => "autojuurutus"));//FIXME: !!!
 
 			// parse objs
 			foreach ($clidx as $clid => $value)
 			{
+				// list all intellectual prop objs not exported yet
 				$filter = array(
 					"class_id" => $clid,
 					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.verified" => 1,
 					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.exported" => new obj_predicate_not(1)
-					// $clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.modified" => $date_constraint
 				);
 
 				$ol = new object_list($filter);
@@ -1492,7 +1482,7 @@ HEADER;
 					{
 						// get xml from ip obj
 						$inst = $o->instance();
-						$xml_data[$clid]["data"] .= str_replace("<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>", "", $inst->get_po_xml($o)->saveXML());
+						$xml_data[$clid]["data"] .= str_replace("<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>", "", utf8_decode($inst->get_po_xml($o)->saveXML()));
 						$xml_data[$clid]["count"] += 1;
 
 						// indicate that object has been exported
@@ -1502,7 +1492,7 @@ HEADER;
 						$status->set_prop("export_date", time());
 						$o->set_no_modify(true);
 						aw_disable_messages();
-						$status->save();
+						// $status->save();
 						aw_restore_messages();
 					}
 					while ($o = $ol->next());
@@ -1557,22 +1547,40 @@ HEADER;
 	}
 
 	//replace reserved characters
-	public static function rere($string)
+	// convert encoding
+	public static function convert_to_export_xml($string)
 	{
-		$string = str_replace("&" , "&amp;" , $string);
-		$string = str_replace("<" , "&lt;" , $string);
-		$string = str_replace(">" , "&gt;" , $string);
-		$string = str_replace("%" , "&#37;" , $string);
-		$string = str_replace('"' , " &quot;" , $string);
-		$string = str_replace("'" , "&apos;" , $string);
-		$string = iconv(self::XML_IN_ENCODING, "UTF-8", $string);
-		return $string;
+		return str_replace(
+			array("&", "<", ">", "%", '"', "'"),
+			array("&amp;", "&lt;", "&gt;", "&#37;", " &quot;", "&apos;"),
+			self::convert_to_utf($string)
+		);
+	}
+
+	public static function convert_to_utf($string)
+	{
+		$encoding = mb_detect_encoding($string, self::$_encoding_detect_list);
+
+		if ("ISO-8859-4" === $encoding)
+		{
+			$string = iconv("ISO-8859-4", self::XML_OUT_ENCODING."//IGNORE", $string);
+		}
+		elseif ("UTF-8" === $encoding)
+		{
+			$string = iconv("UTF-8", self::XML_OUT_ENCODING."//IGNORE", $string);
+		}
+		else
+		{
+			$string = iconv("latin1", self::XML_OUT_ENCODING."//IGNORE", $string);
+		}
+
+		return utf8_encode($string);
 	}
 
 	public function get_procurator_folder_oid($o, $clid)
 	{
 		// find procurator parent folder for this ip type
-		$tmp = $o->prop($this->ip_index[$clid]);
+		$tmp = $o->prop(self::$ip_index[$clid]);
 
 		if (!acl_base::can("view", $tmp))
 		{
@@ -1581,7 +1589,7 @@ HEADER;
 
 		$tmp = new object($tmp);
 		$tmp = $tmp->connections_from(array(
-			"class_id" => constant("CL_" . strtoupper($this->ip_index[$clid]))
+			"class_id" => constant("CL_" . strtoupper(self::$ip_index[$clid]))
 		));
 
 		if (!count($tmp))

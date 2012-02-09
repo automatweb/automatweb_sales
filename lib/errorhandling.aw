@@ -172,8 +172,7 @@ class aw_errorhandler
 						//TODO: konverteerida filepath awex_bad_filepath-iks vms.
 				)) or
 				(E_NOTICE === $errno and (
-					strpos($errstr, "Detected an illegal character in input string") !== false // file path exception
-						//TODO: konverteerida filepath awex_bad_filepath-iks vms.
+					strpos($errstr, "Detected an illegal character in input string") !== false // iconv exception
 				))
 			)
 			{
