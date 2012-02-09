@@ -227,11 +227,11 @@ class euro_patent_et_desc extends intellectual_property
 		$xpath = new DOMXPath($xml);
 		$root = $xpath->query("//BIRTH")->item(0);
 		$despg = $xpath->query("//DESPG")->item(0);
-		$root->setAttribute("REGREN", trademark_manager::rere($o->prop("epat_nr")));
+		$root->setAttribute("REGREN", trademark_manager::convert_to_export_xml($o->prop("epat_nr")));
 
 		//
 		$el = $xml->createElement("TITLE");
-		$el->setAttribute("TEXT", trademark_manager::rere($o->prop("invention_name_et")));
+		$el->setAttribute("TEXT", trademark_manager::convert_to_export_xml($o->prop("invention_name_et")));
 		$root->insertBefore($el, $despg);
 
 		//

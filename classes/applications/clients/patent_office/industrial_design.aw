@@ -466,18 +466,18 @@ class industrial_design extends intellectual_property
 				$root->insertBefore($author_el, $holgr_following);
 
 				// author name
-				$name->appendChild(new DOMElement("NAMEL", trademark_manager::rere($author->prop("firstname"))));
-				$name->appendChild(new DOMElement("NAMEL", trademark_manager::rere($author->prop("lastname"))));
+				$name->appendChild(new DOMElement("NAMEL", trademark_manager::convert_to_export_xml($author->prop("firstname"))));
+				$name->appendChild(new DOMElement("NAMEL", trademark_manager::convert_to_export_xml($author->prop("lastname"))));
 
 				// author address
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.aadress"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.linn.name"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.maakond.name"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.postiindeks"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.aadress"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.linn.name"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.maakond.name"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.postiindeks"))));
 
 				if (acl_base::can("", $author->prop("address.riik")))
 				{
-					$addr->appendChild(new DOMElement("COUNTRY", trademark_manager::rere($adr_i->get_country_code(obj($author->prop("address.riik"))))));
+					$addr->appendChild(new DOMElement("COUNTRY", trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($author->prop("address.riik"))))));
 				}
 
 				//
@@ -489,7 +489,7 @@ class industrial_design extends intellectual_property
 
 		//
 		$el = $xml->createElement("TITLE");
-		$el->setAttribute("TEXT", trademark_manager::rere($o->prop("industrial_design_name")));
+		$el->setAttribute("TEXT", trademark_manager::convert_to_export_xml($o->prop("industrial_design_name")));
 		$root->insertBefore($el, $despg);
 
 		//
