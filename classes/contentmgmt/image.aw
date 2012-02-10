@@ -1386,7 +1386,7 @@ SVGOBJECT;
 						if (IMAGETYPE_JPEG === $type or IMAGETYPE_TIFF_II  === $type or IMAGETYPE_TIFF_MM  === $type)
 						{
 							$dat = exif_read_data($final_name);
-							$dt = $dat["DateTime"];
+							$dt = ( empty( $dat["DateTime"] ) ) ? 0 : $dat["DateTime"];
 							$dt = strptime($dt, "%Y:%m:%d %H:%M:%S");
 							$this->_set_dt = $dt;
 						}
