@@ -32,7 +32,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_GROUP, on_remove_alias
 	@property gid field=gid type=text
 	@caption Grupi ID
 
-	@property name field=name type=textbox table=objects
+	@property name field=name type=textbox
 	@caption Nimi
 
 	@property priority field=priority type=textbox size=15 warning=0
@@ -1098,12 +1098,12 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 		$o = obj();
 		$o->set_class_id(group_obj::CLID);
 		$o->set_name($name);
-		$o->set_status(STAT_ACTIVE);
+		$o->set_status(object::STAT_ACTIVE);
 		$o->set_parent($parent);
-		$o->set_prop("name", $name);
 		$o->set_prop("type", $type);
 		$o->set_prop("priority", $priority);
-		return $o->save();
+		$o->save();
+		return $o->id();
 	}
 
 	/** returns a list of groups in the system

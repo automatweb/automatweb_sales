@@ -26,8 +26,16 @@ class ocsp
 			return 1;
 		}
 
-		$cert = $cert ? $cert : $_SERVER["SSL_CLIENT_CERT"];
-		$issuer_dn = $issuer_dn ? $issuer_dn : $_SERVER["SSL_CLIENT_I_DN_CN"];
+		if (false === $cert and isset($_SERVER["SSL_CLIENT_CERT"]))
+		{
+			$cert = $_SERVER["SSL_CLIENT_CERT"];
+		}
+
+		if (false === $issuer_dn and isset($_SERVER["SSL_CLIENT_I_DN_CN"]))
+		{
+			$issuer_dn = $_SERVER["SSL_CLIENT_I_DN_CN"];
+		}
+
 		$user_good = 0;
 
 		// Saving user certificate file to OCSP temp folder
@@ -56,7 +64,6 @@ class ocsp
 			if (is_resource($process))
 			{
 				fclose($pipes[0]);
-
 
 				// Getting errors from stderr
 				$errorstr = "";
