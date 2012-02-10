@@ -2,15 +2,8 @@
 
 // ocsp.aw - OCSP p&auml;ring
 
-class ocsp extends class_base
+class ocsp
 {
-	function ocsp()
-	{
-		$this->init(array(
-			"clid" => CL_OCSP
-		));
-	}
-
 	/**
 		@attrib params=pos api=1
 		@param cert optional type=string
@@ -26,15 +19,23 @@ class ocsp extends class_base
 			 2 - OCSP internal error
 			 4 - Some error in script
 	**/
-	function OCSP_check($cert = false,  $issuer_dn = false)
+	public static function OCSP_check($cert = false,  $issuer_dn = false)
 	{
 		if(!aw_ini_get("id_config.use_ocsp"))
 		{
 			return 1;
 		}
 
-		$cert = $cert ? $cert : $_SERVER["SSL_CLIENT_CERT"];
-		$issuer_dn = $issuer_dn ? $issuer_dn : $_SERVER["SSL_CLIENT_I_DN_CN"];
+		if (false === $cert and isset($_SERVER["SSL_CLIENT_CERT"]))
+		{
+			$cert = $_SERVER["SSL_CLIENT_CERT"];
+		}
+
+		if (false === $issuer_dn and isset($_SERVER["SSL_CLIENT_I_DN_CN"]))
+		{
+			$issuer_dn = $_SERVER["SSL_CLIENT_I_DN_CN"];
+		}
+
 		$user_good = 0;
 
 		// Saving user certificate file to OCSP temp folder
@@ -63,7 +64,6 @@ class ocsp extends class_base
 			if (is_resource($process))
 			{
 				fclose($pipes[0]);
-
 
 				// Getting errors from stderr
 				$errorstr = "";
@@ -98,5 +98,4 @@ class ocsp extends class_base
 		}
 		return $user_good;
 	}
-
 }

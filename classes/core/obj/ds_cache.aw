@@ -27,11 +27,12 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 
 		$c_fn = "objdata-{$oid}";
 
-		$ret = aw_unserialize(cache::file_get_pt_oid(
+		$ret = cache::file_get_pt_oid(
 			"storage_object_data",
 			$oid,
 			$c_fn
-		), false, true);
+		);
+		$ret = $ret ? aw_unserialize($ret, false, true) : false;
 
 		if (!is_array($ret))
 		{
@@ -70,11 +71,12 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 
 		$c_fn = "properties-{$oid}";
 
-		$ret = aw_unserialize(cache::file_get_pt_oid(
+		$ret = cache::file_get_pt_oid(
 			"storage_object_data",
 			$oid,
 			$c_fn
-		), false, true);
+		);
+		$ret = $ret ? aw_unserialize($ret, false, true) : false;
 
 		if (!is_array($ret))
 		{
@@ -178,11 +180,12 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 
 		$c_fn = "connection-{$id}";
 
-		$ret = aw_unserialize(cache::file_get_pt_oid(
+		$ret = cache::file_get_pt_oid(
 			"storage_object_data",
 			$id,
 			$c_fn
-		), false, true);
+		);
+		$ret = $ret ? aw_unserialize($ret, false, true) : false;
 
 		if (!is_array($ret))
 		{
@@ -270,11 +273,12 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 
 		$c_fn = "conn_find-{$query_hash}";
 
-		$ret = aw_unserialize(cache::file_get_pt(
+		$ret = cache::file_get_pt(
 			"storage_search",
 			$query_hash[0],
 			$c_fn
-		), false, true);
+		);
+		$ret = $ret ? aw_unserialize($ret, false, true) : false;
 
 		if (!is_array($ret))
 		{
@@ -337,11 +341,12 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 
 		$c_fn = "obj_find-{$query_hash}";
 
-		$ret = aw_unserialize(cache::file_get_pt(
+		$ret = cache::file_get_pt(
 			"storage_search",
 			$query_hash[0],
 			$c_fn
-		), false, true);
+		);
+		$ret = $ret ? aw_unserialize($ret, false, true) : false;
 
 		if (!is_array($ret))
 		{

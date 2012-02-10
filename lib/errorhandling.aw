@@ -172,8 +172,7 @@ class aw_errorhandler
 						//TODO: konverteerida filepath awex_bad_filepath-iks vms.
 				)) or
 				(E_NOTICE === $errno and (
-					strpos($errstr, "Detected an illegal character in input string") !== false // file path exception
-						//TODO: konverteerida filepath awex_bad_filepath-iks vms.
+					strpos($errstr, "Detected an illegal character in input string") !== false // iconv exception
 				))
 			)
 			{
@@ -194,6 +193,31 @@ class aw_errorhandler
 					"fatal" => false,
 					"show" => false
 				));
+			}
+			elseif (aw_ini_get("errors.log_to"))
+			{
+				$error_type = isset(self::$error_severity_names[$errno]) ? self::$error_severity_names[$errno] : "UNKNOWN ERROR";
+				$bt = dbg::sbt();
+				$time = gmdate("Y M d H:i:s");
+				$uid = aw_global_get("uid");
+				$url = addcslashes(automatweb::$request->get_url()->get(), "'");
+				$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : "";
+				$user_agent = addcslashes(isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : "", "'");
+				$msg = <<<ENDMSG
+
+================================================
+{$error_type}: {$errstr}
+LOCATION: {$errline}:{$errline}
+BACKTRACE: {$bt}
+DATA: time {$time}, user '{$uid}', url '{$url}', ip '{$ip}', agent '{$user_agent}'
+
+
+ENDMSG;
+				$logged = error_log($msg, 3, aw_ini_get("errors.log_to"));
+				if (!$logged)
+				{
+					trigger_error(sprintf("Couldn't write to error log '%s'", aw_ini_get("errors.log_to")), E_USER_WARNING);
+				}
 			}
 		}
 

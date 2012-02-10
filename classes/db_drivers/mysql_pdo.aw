@@ -15,6 +15,8 @@ class mysql_pdo
 	private $db_proc_error_last_fn = "";
 	private $qhandles = array();
 
+	private $_max_error_processing_retries = 200;
+
 	function db_connect($server = "localhost", $base = "", $username = "", $password = "", $cid = db_connector::DEFAULT_CID_STR)
 	{
 		if ($base and $username)
@@ -82,7 +84,7 @@ class mysql_pdo
 		return $this->db_query($qt." LIMIT ".$limit.($count > 0 ? ",".$count : ""));
 	}
 
-	function db_query($qtext, $errors = true)
+	function db_query($qtext, $process_errors = true)
 	{
 		if (not($this->dbh))
 		{
@@ -103,20 +105,48 @@ class mysql_pdo
 		// arr($qtext); //XXX: teha dbg versioonid
 		// arr(dbg::sbt()); //XXX: teha dbg versioonid
 
-		$this->qID = $this->dbh->prepare($qtext, array(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true));
-		$this->qID->execute();
-		// $this->qID = $this->dbh->query($qtext);
-		// $this->log_query($qtext);
-
-		if (!$this->qID)
+		try
 		{
-			if ($errors)
+			$this->qID = $this->dbh->prepare($qtext, array(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true));
+			$this->qID->execute();
+			// $this->qID = $this->dbh->query($qtext);
+			// $this->log_query($qtext);
+
+			if ($this->qID instanceof PDOStatement)
 			{
+				$this->num_rows = $this->qID->rowCount();
+				$this->num_fields = $this->qID->columnCount();
+			}
+			else
+			{
+				$this->num_rows = 0;
+				$this->num_fields = 0;
+			}
+		}
+		catch (PDOException $e)
+		{
+			if ($process_errors)
+			{
+				$success = false;
 				$e_cnt = 0;
-				while (!$this->qID && $this->_proc_error($qtext, $error_info = $this->dbh->errorInfo()) && $e_cnt < 200)
+				while (!$success && $e_cnt <= $this->_max_error_processing_retries)
 				{
-					$this->qID = $this->dbh->query($qtext);
-					$e_cnt++;
+					try
+					{
+						$error_info = $this->dbh->errorInfo();
+						$this->_proc_error($qtext, $error_info);
+						$this->qID = $this->dbh->query($qtext);
+						$success = true;
+					}
+					catch (PDOException $e)
+					{
+						$e_cnt++;
+					}
+				}
+
+				if ($this->_max_error_processing_retries === $e_cnt)
+				{
+					trigger_error("Retry limit reached trying to repair db for: '{$qtext}'", E_USER_NOTICE);
 				}
 			}
 
@@ -124,15 +154,23 @@ class mysql_pdo
 			{
 				// retry with connection
 				$this->db_connect(aw_ini_get("db.host"), aw_ini_get("db.base"), aw_ini_get("db.user"), aw_ini_get("db.pass"));
-				$this->qID = $this->dbh->query($qtext);
+				try
+				{
+					$this->qID = $this->dbh->query($qtext);
+					$success = true;
+				}
+				catch (PDOException $e)
+				{
+					$success = false;
+				}
 			}
 
-			if (!$this->qID)
+			if (!$success)
 			{
 				$err = $this->dbh->errorInfo();
 				$err_str = $err[2];
 				$err_code = $this->dbh->errorCode();
-				if (!$errors)
+				if (!$process_errors)
 				{
 					$this->db_last_error = array(
 						'error_cmd' => $qtext,
@@ -143,19 +181,6 @@ class mysql_pdo
 				}
 
 				throw new awex_db_mysql_query("Invalid query (error {$err_code}: '{$err_str}'): {$qtext}");
-			}
-		}
-		else
-		{
-			if ($this->qID instanceof PDOStatement)
-			{
-				$this->num_rows = $this->qID->rowCount();
-				$this->num_fields = $this->qID->columnCount();
-			}
-			else
-			{
-				$this->num_rows = 0;
-				$this->num_fields = 0;
 			}
 		}
 
@@ -224,9 +249,9 @@ class mysql_pdo
 	# seda voib kasutada, kui on vaja teada saada mingit kindlat v2lja
 	# a 'la cval tabelist config
 	# $cval = db_fetch_field("SELECT cval FROM config WHERE ckey = '$ckey'","cval")
-	function db_fetch_field($qtext,$field, $errors = true)
+	function db_fetch_field($qtext,$field, $process_errors = true)
 	{
-		$this->db_query($qtext, $errors);
+		$this->db_query($qtext, $process_errors);
 		$row = $this->db_next();
 		$r = $row[$field];
 		$this->db_free_result();
@@ -736,8 +761,8 @@ class mysql_pdo
 
 	function _proc_error($q, $error_info)
 	{
-		automatweb::$result->sysmsg("Processing a database query error");
 		$errstr = $error_info[2];
+		trigger_error("Processing a database query error '{$errstr}' for '{$q}'", E_USER_NOTICE);
 
 		if (strpos($errstr, "Unknown column") !== false)
 		{
@@ -784,7 +809,7 @@ class mysql_pdo
 					$pl = $o->get_property_list();
 					foreach($pl as $prop_item)
 					{
-						if ($prop_item["field"] === $mt[2] and (empty($mt[1]) and strpos($q, $prop_item["table"]) !== false or !empty($mt[1]) and  strpos($mt[1], $prop_item["table"]) === 0))
+						if ($prop_item["field"] === $mt[2] and (empty($mt[1]) and !empty($prop_item["table"]) and strpos($q, $prop_item["table"]) !== false or !empty($mt[1]) and !empty($prop_item["table"]) and strpos($mt[1], $prop_item["table"]) === 0))
 						{
 							$mt[1] = $prop_item["table"];
 							break;

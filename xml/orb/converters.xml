@@ -235,42 +235,42 @@
 			</function>
 		</action>
 
-		<action name="convert_professions">
+		<action name="convert_professions" nologin="1">
 			<function name="convert_professions">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="convert_sections">
+		<action name="convert_sections" nologin="1">
 			<function name="convert_sections">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="convert_categories_1">
+		<action name="convert_categories_1" nologin="1">
 			<function name="convert_categories_1">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="update_languages_1">
+		<action name="update_languages_1" nologin="1">
 			<function name="update_languages_1">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="convert_translations_1_find_lang_ids">
+		<action name="convert_translations_1_find_lang_ids" nologin="1">
 			<function name="convert_translations_1_find_lang_ids">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="convert_translations_1">
+		<action name="convert_translations_1" nologin="1">
 			<function name="convert_translations_1">
 				<arguments>
 					<required name="from_lid" />

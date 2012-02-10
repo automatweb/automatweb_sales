@@ -769,10 +769,11 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			// create all access for the creator
 			acl_base::create_obj_access($oid);
 		}
+
 		// set brother to self if not specified.
-		if (empty($objdata["brother_of"]))
+		if ($oid and empty($objdata["brother_of"]))
 		{
-			$this->db_query("UPDATE objects SET brother_of = oid WHERE oid = $oid");
+			$this->db_query("UPDATE objects SET brother_of = oid WHERE oid = {$oid}");
 		}
 
 		// put into cache to avoid query for the same object's data in the can() a few lines down
@@ -808,7 +809,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					if ($data["method"] === "serialize")
 					{
 						// unpack field, add value, repack field
-						$_field_val = aw_unserialize($tbls[$data["table"]]["defaults"][$data["field"]], false, true);
+						$_field_val = isset($tbls[$data["table"]]["defaults"][$data["field"]]) ? aw_unserialize($tbls[$data["table"]]["defaults"][$data["field"]], false, true) : array();
 						$_field_val[$prop] = $objdata["properties"][$prop];
 						$tbls[$data["table"]]["defaults"][$data["field"]] = aw_serialize($_field_val, SERIALIZE_NATIVE);
 					}
@@ -1316,7 +1317,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				o_s.acldata as `from.acldata`
 		";
 
-		if ($GLOBALS["cfg"]["acl"]["use_new_acl"])
+		if (aw_ini_get("acl.use_new_acl"))
 		{
 			$ret .= ",o_t.acldata as `to.acldata`,o_s.acldata as `from.acldata`";
 		}
@@ -1636,7 +1637,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							"jrk" => isset($row["jrk"]) ? $row["jrk"] : null
 						);
 
-						if ($GLOBALS["cfg"]["acl"]["use_new_acl"] && isset($row["acldata"]))
+						if (aw_ini_get("acl.use_new_acl") && isset($row["acldata"]))
 						{
 							$row["acldata"] = safe_array(aw_unserialize($row["acldata"], false, true));
 							$acldata[$row["oid"]] = $row;
@@ -1665,7 +1666,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						"class_id" => $row["class_id"],
 						"jrk" => $row["jrk"],
 					);
-					if ($GLOBALS["cfg"]["acl"]["use_new_acl"])
+					if (aw_ini_get("acl.use_new_acl"))
 					{
 						$row["acldata"] = safe_array(aw_unserialize($row["acldata"], false, true));
 						$acldata[$row["oid"]] = $row;
@@ -2443,7 +2444,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		$objdata["site_id"] = $od["site_id"];
 
 		$acld_fld = $acld_val = "";
-		if (aw_ini_get("acl.use_new_acl") && $_SESSION["uid"] != "" && is_oid(aw_global_get("uid_oid")))
+		if (aw_ini_get("acl.use_new_acl") && aw_global_get("uid") && is_oid(aw_global_get("uid_oid")))
 		{
 			$uo = obj(aw_global_get("uid_oid"));
 			$g_d = $uo->get_default_group();
@@ -3345,7 +3346,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		}
 
 		$acld = "";
-		if ($GLOBALS["cfg"]["acl"]["use_new_acl"])
+		if (aw_ini_get("acl.use_new_acl"))
 		{
 			$acld = " objects.acldata as acldata, objects.parent as parent,";
 		}

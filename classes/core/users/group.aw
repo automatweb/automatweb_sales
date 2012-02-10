@@ -32,7 +32,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_GROUP, on_remove_alias
 	@property gid field=gid type=text
 	@caption Grupi ID
 
-	@property name field=name type=textbox table=objects
+	@property name field=name type=textbox
 	@caption Nimi
 
 	@property priority field=priority type=textbox size=15 warning=0
@@ -203,7 +203,7 @@ class group extends class_base
 					list(, $c_d) = each($c->find(array("relobj_id" => $arr["obj_inst"]->id())));
 					$c = new connection($c_d["id"]);
 
-					if (!$this->can("admin", $c->prop("from")))
+					if (!acl_base::can("admin", $c->prop("from")))
 					{
 						error::raise(array(
 							"id" => "ERR_ACL",
@@ -290,9 +290,9 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 		$prop =& $arr["prop"];
 		$gid = $arr["obj_inst"]->prop("gid");
 
-		if ($prop['name'] == 'data')
+		if ($prop['name'] === 'data')
 		{
-			if ($this->can("view", $arr["obj_inst"]->prop("search_form")))
+			if (acl_base::can("view", $arr["obj_inst"]->prop("search_form")))
 			{
 				$f = get_instance(CL_FORM);
 				$f->process_entry(array(
@@ -304,8 +304,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				$this->db_query("UPDATE groups SET data = '$eid' WHERE gid = '$gid'");
 			}
 		}
-		else
-		if ($prop['name'] == 'import')
+		elseif ($prop['name'] === 'import')
 		{
 			global $import;
 			$imp = $import;
@@ -330,8 +329,8 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				$pass = $row[1];
 				$name = $row[2];
 				$email = $row[3];
-				$act_to = ($row[5] == "NULL" || $row[5] == "" ? -1 : strtotime($row[5]));
-				$act_from = ($row[4] == "NULL" || $row[4] == "" ? -1 : strtotime($row[4]));
+				$act_to = ($row[5] === "NULL" || $row[5] == "" ? -1 : strtotime($row[5]));
+				$act_from = ($row[4] === "NULL" || $row[4] == "" ? -1 : strtotime($row[4]));
 
 				$row = $this->db_fetch_row("SELECT uid,oid FROM users WHERE uid = '$uid'");
 				if (!is_array($row))
@@ -346,7 +345,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				else
 				{
 					echo "kasutaja $uid ($name) on juba olemas, lisan ainult gruppi ja ei muuda parooli!<br>";
-					if (is_oid($row["oid"]) && $this->can("view", $row["oid"]))
+					if (is_oid($row["oid"]) && acl_base::can("view", $row["oid"]))
 					{
 						$uo = obj($row["oid"]);
 					}
@@ -448,7 +447,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 
 		foreach($dat as $row)
 		{
-			if (!$this->can("view", $row["oid"]))
+			if (!acl_base::can("view", $row["oid"]))
 			{
 				continue;
 			}
@@ -460,7 +459,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				), $o->class_id()),
 				'caption' => $row['obj_name'],
 			));
-			$row['obj_parent'] = $ml[$row['obj_parent']];
+			$row['obj_parent'] = isset($ml[$row['obj_parent']]) ? $ml[$row['obj_parent']] : "";
 			$row["acl"] = html::href(array(
 				"caption" => t("Muuda"),
 				"url" => aw_url_change_var("edit_acl", $row["oid"])
@@ -476,7 +475,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 		));
 	}
 
-	function &_init_obj_table($arr)
+	function _init_obj_table($arr)
 	{
 		if (!isset($arr["exclude"]))
 		{
@@ -484,7 +483,6 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 		}
 		extract($arr);
 
-		load_vcl("table");
 		$t = new aw_table(array("layout" => "generic"));
 
 		if (!in_array("obj_name",$exclude))
@@ -594,8 +592,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 	function get_admin_rootmenus($arr)
 	{
 		$ret = array();
-		$la = get_instance("languages");
-		$ll = $la->get_list(array(
+		$ll = languages::get_list(array(
 			"ignore_status" => true
 		));
 
@@ -608,18 +605,22 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 		{
 			$opts = $oopts;
 
-			if (!is_array($meta["admin_rootmenu2"]))
+			if (isset($meta["admin_rootmenu2"][$lid]))
 			{
-				$meta["admin_rootmenu2"] = array();
-			}
-
-			foreach((array) $meta["admin_rootmenu2"][$lid] as $k => $v)
-			{
-				if (!isset($opts[$v]) && $this->can("view", $v))
+				foreach((array) $meta["admin_rootmenu2"][$lid] as $k => $v)
 				{
-					$o = obj($v);
-					$opts[$v] = $o->name();
+					if (!isset($opts[$v]) && acl_base::can("view", $v))
+					{
+						$o = obj($v);
+						$opts[$v] = $o->name();
+					}
 				}
+
+				$value = (array) $meta["admin_rootmenu2"][$lid];
+			}
+			else
+			{
+				$value = array();
 			}
 
 			$ret["admin_rootmenu2[$lid]"] = array(
@@ -631,7 +632,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				"method" => "serialize",
 				"multiple" => 1,
 				"caption" => sprintf(t("Administreerimisliidese juurkaust (%s)"), $lname),
-				"value" => isset($meta["admin_rootmenu2"][$lid]) ? $meta["admin_rootmenu2"][$lid] : 0,
+				"value" => isset($meta["admin_rootmenu2"][$lid]) ? $meta["admin_rootmenu2"][$lid] : array(),
 				"reltype" => "RELTYPE_ADMIN_ROOT",
 				"options" => $opts
 			);
@@ -642,8 +643,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 	function get_grp_frontpage($arr)
 	{
 		$ret = array();
-		$la = get_instance("languages");
-		$ll = $la->get_list();
+		$ll = languages::get_list();
 		$meta = $arr["obj_inst"]->meta();
 
 		if (!is_array($meta))
@@ -661,7 +661,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				"field" => "meta",
 				"method" => "serialize",
 				"caption" => sprintf(t("Esileht (%s)"), $lname),
-				"value" => isset($meta["grp_frontpage"]) ? (is_array($meta["grp_frontpage"]) ? $meta["grp_frontpage"][$lid] : $meta["grp_frontpage"]) : null,
+				"value" => isset($meta["grp_frontpage"]) ? (isset($meta["grp_frontpage"][$lid]) ? $meta["grp_frontpage"][$lid] : $meta["grp_frontpage"]) : null,
 				"reltype" => "RELTYPE_ADMIN_ROOT"
 			);
 		}
@@ -1048,6 +1048,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				}
 			}
 		}
+
 		if(aw_ini_get("users.use_group_membership") == 1 && $ol->count() > 0)
 		{
 			// Deactivate all valid membership objects for subgroups
@@ -1097,12 +1098,12 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 		$o = obj();
 		$o->set_class_id(group_obj::CLID);
 		$o->set_name($name);
-		$o->set_status(STAT_ACTIVE);
+		$o->set_status(object::STAT_ACTIVE);
 		$o->set_parent($parent);
-		$o->set_prop("name", $name);
 		$o->set_prop("type", $type);
 		$o->set_prop("priority", $priority);
-		return $o->save();
+		$o->save();
+		return $o->id();
 	}
 
 	/** returns a list of groups in the system

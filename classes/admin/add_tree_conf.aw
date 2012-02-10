@@ -57,9 +57,9 @@ class add_tree_conf extends class_base
 
 	function _set_sel(&$arr)
 	{
-		$arr["obj_inst"]->set_meta("visible", is_array($arr["request"]["visible"]) ? $arr["request"]["visible"] : array());
-		$arr["obj_inst"]->set_meta("usable", is_array($arr["request"]["usable"]) ? $arr["request"]["usable"] : array());
-		$arr["obj_inst"]->set_meta("alias_add", is_array($arr["request"]["alias_add"]) ? $arr["request"]["alias_add"] : array());
+		$arr["obj_inst"]->set_meta("visible", (isset($arr["request"]["visible"]) and is_array($arr["request"]["visible"])) ? $arr["request"]["visible"] : array());
+		$arr["obj_inst"]->set_meta("usable", (isset($arr["request"]["usable"]) and is_array($arr["request"]["usable"])) ? $arr["request"]["usable"] : array());
+		$arr["obj_inst"]->set_meta("alias_add", (isset($arr["request"]["alias_add"]) and is_array($arr["request"]["alias_add"])) ? $arr["request"]["alias_add"] : array());
 		return PROP_OK;
 	}
 

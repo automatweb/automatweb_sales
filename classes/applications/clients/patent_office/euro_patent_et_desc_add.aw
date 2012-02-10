@@ -77,7 +77,7 @@ class euro_patent_et_desc_add extends class_base
 			{
 				foreach($links as $link)
 				{
-					if($this->can("view" , $link))
+					if(acl_base::can("view" , $link))
 					{
 						$ol->add($link);
 					}
@@ -131,7 +131,7 @@ class euro_patent_et_desc_add extends class_base
 			$res = $tr_inst->is_signed($_SESSION["patent"]["id"]);
 			if($res["status"] == 1)
 			{
-				return aw_url_change_var()."#";
+				return aw_url_change_var("")."#";
 			}
 		}
 

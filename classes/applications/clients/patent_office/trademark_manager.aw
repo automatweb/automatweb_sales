@@ -108,17 +108,22 @@
 class trademark_manager extends class_base
 {
 	const XML_OUT_ENCODING = "ISO-8859-1";
-	const XML_IN_ENCODING = "ISO-8859-4";
+
+	const RECORDS_PER_PAGE = 25;
 
 	public $ip_classes = array(); // intellectual property classes. class_id => human readable name
 
-	private $ip_index = array( // intellectual property class_id => folder prop name
+	private static $ip_index = array( // intellectual property class_id => folder prop name
 			CL_PATENT => "trademark_add",
 			CL_PATENT_PATENT => "patent_add",
 			CL_UTILITY_MODEL => "utility_model_add",
 			CL_INDUSTRIAL_DESIGN => "industrial_design_add",
 			CL_EURO_PATENT_ET_DESC => "euro_patent_et_desc_add"
 		);
+
+	private static $_encoding_detect_list = array(
+		"UTF-8", "ISO-8859-4"
+	);
 
 	function trademark_manager()
 	{
@@ -179,19 +184,14 @@ class trademark_manager extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	public function callback_on_load($arr)
 	{
-		if (isset($arr["request"]["group"]) and $arr["request"]["group"] === "procurators" and $this->can("view", $arr["request"]["id"]))
+		if (isset($arr["request"]["group"]) and $arr["request"]["group"] === "procurators" and acl_base::can("view", $arr["request"]["id"]))
 		{
 			$o = new object($arr["request"]["id"]);
 			$folder = $o->prop("procurators_folder");
 
-			foreach ($this->ip_index as $clid => $value)
+			foreach (self::$ip_index as $clid => $value)
 			{
 				try
 				{
@@ -215,7 +215,7 @@ class trademark_manager extends class_base
 		$tb = $arr["prop"]["vcl_inst"];
 
 		$procurators_folder = $arr["obj_inst"]->prop("procurators_folder");
-		if ($this->can("view", $procurators_folder))
+		if (acl_base::can("view", $procurators_folder))
 		{
 			$add_procurator_url = $this->mk_my_orb("new",array(
 				"parent" => $procurators_folder,
@@ -251,7 +251,7 @@ class trademark_manager extends class_base
 		$return = PROP_OK;
 		$procurators_folder = $arr["obj_inst"]->prop("procurators_folder");
 
-		if (!$this->can("view", $procurators_folder))
+		if (!acl_base::can("view", $procurators_folder))
 		{
 			$arr["prop"]["error"] = t("Volinike kaust m&auml;&auml;ramata v&otilde;i puudub &otilde;igus seda vaadata");
 			$return = PROP_ERROR;
@@ -323,7 +323,7 @@ class trademark_manager extends class_base
 		return $return;
 	}
 
-	private function init_procurators_table(&$t)
+	private function init_procurators_table($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -377,7 +377,7 @@ class trademark_manager extends class_base
 				// add
 				foreach ($arr["request"]["pat_procurator_{$clid}"] as $procurator_oid => $value)
 				{
-					if ($this->can("view", $procurator_oid))
+					if (acl_base::can("view", $procurator_oid))
 					{
 						$procurator = new object($procurator_oid);
 						$procurator->create_brother($folder);
@@ -641,9 +641,7 @@ class trademark_manager extends class_base
 						)
 					)),
 				)
-			)),
-			"lang_id" => array(),
-			"site_id" => array()
+			))
 		);
 
  		if((date_edit::get_timestamp($data["trademark_find_start"]) > 1)|| (date_edit::get_timestamp($data["trademark_find_end"]) > 1))
@@ -672,9 +670,6 @@ class trademark_manager extends class_base
 
 	function _objects_tbl($arr)
 	{
-		$t = $arr["prop"]["vcl_inst"];
-		$this->_init_objects_tbl($t);
-
 		$p_id = isset($arr["request"]["p_id"]) ? $arr["request"]["p_id"] : "";
 		$verified = ($p_id === "verified") ? 1 : null;
 		$cl = isset($arr["request"]["p_cl"]) ? $arr["request"]["p_cl"] : "";
@@ -699,7 +694,7 @@ class trademark_manager extends class_base
 			$date_constraint1 = null;
 			$date_constraint2 = null;
 			$sent_constraint = new obj_predicate_compare(obj_predicate_compare::GREATER, 1);
-			$verified = new obj_predicate_compare(obj_predicate_compare::LESS, 1);
+			$verified = new obj_predicate_compare(obj_predicate_compare::IS_EMPTY);
 		}
 		else
 		{
@@ -959,7 +954,6 @@ class trademark_manager extends class_base
 						)),
 					)
 				)),
-				"sort_by" => "objects.created DESC"
 			);
 		}
 
@@ -973,18 +967,60 @@ class trademark_manager extends class_base
 				"prop" => "created",
 				"order" => "desc"
 			));
+			$count = $ol->count();
 		}
 		else
 		{
+			// order
+			$sort_args = array(
+				"class" => "class_id",
+				"nr" => "RELTYPE_TRADEMARK_STATUS.nr",
+				"applicant_name" => "RELTYPE_APPLICANT.name",
+				"procurator" => "procurator.name",
+				"date" => "created"
+			);
+
+			if (!empty($arr["request"]["sortby"]) and isset($sort_args[$arr["request"]["sortby"]]))
+			{
+				$sort_by = $sort_args[$arr["request"]["sortby"]];
+				$sort_order = (isset($arr["request"]["sort_order"]) and "asc" === $arr["request"]["sort_order"]) ? obj_predicate_sort::ASC : obj_predicate_sort::DESC;
+			}
+			else
+			{
+				$sort_by = "created";
+				$sort_order = obj_predicate_sort::DESC;
+			}
+
+			$filter[] = new obj_predicate_sort(array($sort_by => $sort_order));
+
+			// get object count
+			$count = new object_data_list(
+				$filter,
+				array(
+					0 => array(new obj_sql_func(obj_sql_func::COUNT, "count" , "*"))
+				)
+			);
+			$count = $count->arr();
+			$count = reset($count);
+			$count = $count["count"];
+
+			// paging and limit
+			$per_page = self::RECORDS_PER_PAGE;
+			$cur_page = isset($arr["request"]["ft_page"]) ? (int) $arr["request"]["ft_page"] : 0;
+			$filter[] = new obj_predicate_limit($per_page, $per_page*$cur_page);
+
+			// list itself
 			$ol = new object_list($filter);
 		}
 
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_objects_tbl($t, $arr, $count);
 
 		$trademark_inst = get_instance(CL_PATENT);
 		$person_inst = get_instance(CL_CRM_PERSON);
 		$types = $trademark_inst->types;
 
-		foreach($ol->arr() as $o)
+		for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
 			$re = $trademark_inst->is_signed($o->id());
 			$status = $trademark_inst->get_status($o);
@@ -997,7 +1033,7 @@ class trademark_manager extends class_base
 			$procurator = $type = $nr = $applicant_name = $applicant_data = $applicant = "";
 			$procurator = $o->prop_str("procurator");
 
-			if($this->can("view" , $o->prop("warrant")))
+			if(acl_base::can("" , $o->prop("warrant")))
 			{
 				$file_inst = get_instance(CL_FILE);
 				$procurator = html::href(array(
@@ -1027,7 +1063,7 @@ class trademark_manager extends class_base
 				"caption" => $nr_str,
 				"url" => "#",//html::get_change_url($o->id(), array("return_url" => $arr["post_ru"])),
 				// "onclick" => 'javascript:window.open("'.aw_ini_get("baseurl").'/?class='.$class.'&action=show&print=1&sent_form=1&id='.$o->id(). '","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
-				"onclick" => 'javascript:window.open("'.aw_ini_get("baseurl").'/'.$o->id(). '?print=1","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
+				"onclick" => 'javascript:window.open("'.aw_ini_get("baseurl").$o->id(). '?print=1","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
 			));
 
 			$applicant = $o->get_first_obj_by_reltype("RELTYPE_APPLICANT");
@@ -1117,22 +1153,26 @@ class trademark_manager extends class_base
 /*
 - paremal tabelis: M2rgi tyyp (s5nam2rk, kujutism2rk jne, kui s6nam2rk, siis vastava tekstiv2lja sisu ka sulgudes), Taotluse number (sellel klikkides avaneb ka taotluse sisestusvorm, kui number puudub, siis on klikitav tekst Number puudub), Esitaja nimi, Esitaja kontaktandmed (k6ik yhes v2ljas komaga eraldatult, aadressi pole vaja), voliniku nimi, Esitamise kuup2ev, Vali tulp.
 */
-	function _init_objects_tbl($t)
+	function _init_objects_tbl($t, &$arr, $count)
 	{
+		$cl = isset($arr["request"]["p_cl"]) ? $arr["request"]["p_cl"] : "";
+
 		$t->define_field(array(
 			"name" => "class",
 			"caption" => t("Taotluse t&uuml;&uuml;p"),
 			"align" => "center",
-			"sortable" => 1,
-			"filter" => empty($_GET["p_cl"]) ? "automatic" : null
+			"sortable" => $cl ? 0 : 1
 		));
 
-		$t->define_field(array(
-			"name" => "type",
-			"caption" => t("M&auml;rgi t&uuml;&uuml;p"),
-			"align" => "center",
-			"sortable" => 1
-		));
+		if ("tm" === $cl)
+		{
+			$t->define_field(array(
+				"name" => "type",
+				"caption" => t("M&auml;rgi t&uuml;&uuml;p"),
+				"align" => "center",
+				"sortable" => 0
+			));
+		}
 
 		$t->define_field(array(
 			"name" => "nr",
@@ -1152,7 +1192,7 @@ class trademark_manager extends class_base
 			"name" => "applicant_data",
 			"caption" => t("Esitaja kontaktandmed"),
 			"align" => "center",
-			"sortable" => 1
+			"sortable" => 0
 		));
 		$t->define_field(array(
 			"name" => "procurator",
@@ -1168,14 +1208,14 @@ class trademark_manager extends class_base
 			"sortable" => 1,
 			"numeric" => 1,
 			"type" => "time",
-			"format" => "d.m.Y",
+			"format" => "d.m.Y"
 		));
 
 		$t->define_field(array(
 			"name" => "signatures",
 			"caption" => t("Allkirjad"),
 			"align" => "center",
-//			"sortable" => 1
+			"sortable" => 0
 		));
 
 		$t->define_chooser(array(
@@ -1192,9 +1232,11 @@ class trademark_manager extends class_base
 			));
 		}
 
+
 		$t->define_pageselector (array (
 			"type" => "lbtxt",
-			"records_per_page" => 25,
+			"d_row_cnt" => $count,
+			"records_per_page" => self::RECORDS_PER_PAGE
 		));
 	}
 
@@ -1210,7 +1252,7 @@ class trademark_manager extends class_base
 
 		if (is_oid($arr["obj_inst"] ->prop("trademark_add")))
 		{
-			$add_trademark_url = aw_ini_get("baseurl")."/".$arr["obj_inst"] ->prop("trademark_add");
+			$add_trademark_url = aw_ini_get("baseurl").$arr["obj_inst"] ->prop("trademark_add");
 			$tb->add_menu_item(array(
 				"parent" => "add_item",
 				"text" => t("Kaubam&auml;rgitaotlus"),
@@ -1221,7 +1263,7 @@ class trademark_manager extends class_base
 
 		if (is_oid($arr["obj_inst"] ->prop("patent_add")))
 		{
-			$add_patent_url = aw_ini_get("baseurl")."/".$arr["obj_inst"] ->prop("patent_add");
+			$add_patent_url = aw_ini_get("baseurl").$arr["obj_inst"] ->prop("patent_add");
 			$tb->add_menu_item(array(
 				"parent" => "add_item",
 				"text" => t("Patenditaotlus"),
@@ -1232,7 +1274,7 @@ class trademark_manager extends class_base
 
 		if (is_oid($arr["obj_inst"] ->prop("utility_model_add")))
 		{
-			$add_utility_model_url = aw_ini_get("baseurl")."/".$arr["obj_inst"] ->prop("utility_model_add");
+			$add_utility_model_url = aw_ini_get("baseurl").$arr["obj_inst"] ->prop("utility_model_add");
 			$tb->add_menu_item(array(
 				"parent" => "add_item",
 				"text" => t("Kasuliku mudeli taotlus"),
@@ -1243,7 +1285,7 @@ class trademark_manager extends class_base
 
 		if (is_oid($arr["obj_inst"] ->prop("industrial_design_add")))
 		{
-			$add_industrial_design_url = aw_ini_get("baseurl")."/".$arr["obj_inst"] ->prop("industrial_design_add");
+			$add_industrial_design_url = aw_ini_get("baseurl").$arr["obj_inst"] ->prop("industrial_design_add");
 			$tb->add_menu_item(array(
 				"parent" => "add_item",
 				"text" => t("T&ouml;&ouml;stusdisaini taotlus"),
@@ -1254,7 +1296,7 @@ class trademark_manager extends class_base
 
 		if (is_oid($arr["obj_inst"] ->prop("euro_patent_et_desc_add")))
 		{
-			$add_euro_patent_et_desc_url = aw_ini_get("baseurl")."/".$arr["obj_inst"] ->prop("euro_patent_et_desc_add");
+			$add_euro_patent_et_desc_url = aw_ini_get("baseurl").$arr["obj_inst"] ->prop("euro_patent_et_desc_add");
 			$tb->add_menu_item(array(
 				"parent" => "add_item",
 				"text" => t("EP patendi taotlus"),
@@ -1321,17 +1363,20 @@ class trademark_manager extends class_base
 	{
 		$trademark_inst = get_instance(CL_PATENT);
 
-		foreach($arr["sel"] as $id)
+		if (isset($arr["sel"]) and is_array($arr["sel"]))
 		{
-			$o = obj($id);
-			$status = $trademark_inst->get_status($o);
-			$status->set_prop("verified", 1);
-			$status->set_prop("verified_date", time());
-			$status->set_name(t("Taotlus nr: ".$status->prop("nr")));
-			$status->save();
+			foreach($arr["sel"] as $id)
+			{
+				$o = obj($id);
+				$status = $trademark_inst->get_status($o);
+				$status->set_prop("verified", 1);
+				$status->set_prop("verified_date", time());
+				$status->set_name(t("Taotlus nr: ".$status->prop("nr")));
+				$status->save();
+			}
 		}
 
-		if($arr["popup"])
+		if(!empty($arr["popup"]))
 		{
 			die('<script type="text/javascript">
 				window.opener.location.reload();
@@ -1373,16 +1418,23 @@ class trademark_manager extends class_base
 	}
 
 	/**
-		@attrib name=nightly_export nologin="1"
-		@param from optional type=int
-			Unix timestamp. Time of modification from when to include objects. Default previous day start.
-		@param to optional type=int
-			Unix timestamp. Time of modification until to include objects. Default current day start
+		@attrib name=nightly_export nologin=1
 		@param test_id optional type=int acl=view
 			Application object id to test exporting that object only.
 	**/
 	function nightly_export($arr)
 	{
+		header ("Content-Type: text/plain");
+		$time = gmdate("Y M d H:i:s");
+		echo <<<HEADER
+
+
+
+=============================================================
+Starting export at {$time}
+
+HEADER;
+
 		$xml_data = array(); // array of DOMDocuments grouped by aw class id
 
 		if (empty($arr["test_id"]))
@@ -1402,48 +1454,48 @@ class trademark_manager extends class_base
 				CL_EURO_PATENT_ET_DESC => "CL_EURO_PATENT_ET_DESC"
 			);
 
-			$from = !empty($arr["from"]) ? (int) $arr["from"] : (date_calc::get_day_start()-(24*3600));
-			$to = !empty($arr["to"]) ? (int) $arr["to"] : date_calc::get_day_start();
-
-			if ($from >= $to)
-			{
-				throw new awex_po("Invalid arguments. Timespan end less than start.");
-			}
-
-			// list all intellectual prop objs created yesterday
-			$verified = 1;
-			$date_constraint = new obj_predicate_compare(obj_predicate_compare::BETWEEN, $from, $to);
 			$us = get_instance("users");
 			$us->login(array ("uid" => "struktuur", "password" => "autojuurutus"));//FIXME: !!!
 
 			// parse objs
 			foreach ($clidx as $clid => $value)
 			{
+				// list all intellectual prop objs not exported yet
 				$filter = array(
 					"class_id" => $clid,
-					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.verified" => $verified,
-					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.modified" => $date_constraint
+					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.verified" => 1,
+					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.exported" => new obj_predicate_not(1)
 				);
 
 				$ol = new object_list($filter);
 				$ol->sort_by_cb(array($this, "__application_sorter"));
 
-				foreach($ol->arr() as $o)
+				if ($ol->count())
 				{
-					// get xml from ip obj
-					$inst = $o->instance();
-					$xml_data[$clid]["data"] .= str_replace("<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>", "", $inst->get_po_xml($o)->saveXML());
-					$xml_data[$clid]["count"] += 1;
+					$o = $ol->begin();
+					$xml_data[$clid] = array(
+						"data" => "",
+						"count" => 0
+					);
 
-					// indicate that object has been exported
-					$status = $inst->get_status($o);
-					$status->set_no_modify(true);
-					$status->set_prop("exported", 1);
-					$status->set_prop("export_date", time());
-					$o->set_no_modify(true);
-					aw_disable_messages();
-					$status->save();
-					aw_restore_messages();
+					do
+					{
+						// get xml from ip obj
+						$inst = $o->instance();
+						$xml_data[$clid]["data"] .= str_replace("<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>", "", utf8_decode($inst->get_po_xml($o)->saveXML()));
+						$xml_data[$clid]["count"] += 1;
+
+						// indicate that object has been exported
+						$status = $inst->get_status($o);
+						$status->set_no_modify(true);
+						$status->set_prop("exported", 1);
+						$status->set_prop("export_date", time());
+						$o->set_no_modify(true);
+						aw_disable_messages();
+						// $status->save();
+						aw_restore_messages();
+					}
+					while ($o = $ol->next());
 				}
 			}
 		}
@@ -1453,8 +1505,8 @@ class trademark_manager extends class_base
 			$o = new object($arr["test_id"]);
 			$inst = $o->instance();
 			$clid = $o->class_id();
-			$xml_data[$clid]["data"] .= str_replace("<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>", "", $inst->get_po_xml($o)->saveXML());
-			$xml_data[$clid]["count"] += 1;
+			$xml_data[$clid]["data"] = str_replace("<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>", "", $inst->get_po_xml($o)->saveXML());
+			$xml_data[$clid]["count"] = 1;
 		}
 
 		foreach ($xml_data as $clid => $data)
@@ -1469,6 +1521,7 @@ class trademark_manager extends class_base
 			$cl = empty($arr["test_id"]) ? $clidx[$clid] : "test_tmp_";// file name prefix
 			$date = empty($arr["to"]) ? date("Ymd") : ("_tmp" . date("Ymd", (date_calc::get_day_start($to)+(30*3600))));
 			$fn = aw_ini_get("site_basedir")."patent_xml/" . $cl . $date . ".xml";
+
 			$f = fopen($fn, "w");
 
 			if (!is_resource($f))
@@ -1476,7 +1529,6 @@ class trademark_manager extends class_base
 				echo "couldn't open {$fn}\n";
 			}
 
-			// $b = fwrite($f, iconv("UTF-8", trademark_manager::XML_OUT_ENCODING, $xml));
 			$b = fwrite($f, $xml);
 			fclose($f);
 
@@ -1490,35 +1542,54 @@ class trademark_manager extends class_base
 			}
 		}
 
-		exit("Done. " . date("F j, Y, H:i:s"));
+		$time = gmdate("Y M d H:i:s");
+		exit("{$time} Done, exiting.");
 	}
 
 	//replace reserved characters
-	public static function rere($string)
+	// convert encoding
+	public static function convert_to_export_xml($string)
 	{
-		$string = str_replace("&" , "&amp;" , $string);
-		$string = str_replace("<" , "&lt;" , $string);
-		$string = str_replace(">" , "&gt;" , $string);
-		$string = str_replace("%" , "&#37;" , $string);
-		$string = str_replace('"' , " &quot;" , $string);
-		$string = str_replace("'" , "&apos;" , $string);
-		$string = iconv(self::XML_IN_ENCODING, "UTF-8", $string);
-		return $string;
+		return str_replace(
+			array("&", "<", ">", "%", '"', "'"),
+			array("&amp;", "&lt;", "&gt;", "&#37;", " &quot;", "&apos;"),
+			self::convert_to_utf($string)
+		);
+	}
+
+	public static function convert_to_utf($string)
+	{
+		$encoding = mb_detect_encoding($string, self::$_encoding_detect_list);
+
+		if ("ISO-8859-4" === $encoding)
+		{
+			$string = iconv("ISO-8859-4", self::XML_OUT_ENCODING."//IGNORE", $string);
+		}
+		elseif ("UTF-8" === $encoding)
+		{
+			$string = iconv("UTF-8", self::XML_OUT_ENCODING."//IGNORE", $string);
+		}
+		else
+		{
+			$string = iconv("latin1", self::XML_OUT_ENCODING."//IGNORE", $string);
+		}
+
+		return utf8_encode($string);
 	}
 
 	public function get_procurator_folder_oid($o, $clid)
 	{
 		// find procurator parent folder for this ip type
-		$tmp = $o->prop($this->ip_index[$clid]);
+		$tmp = $o->prop(self::$ip_index[$clid]);
 
-		if (!$this->can("view", $tmp))
+		if (!acl_base::can("view", $tmp))
 		{
 			throw new aw_exception("No add document defined");
 		}
 
 		$tmp = new object($tmp);
 		$tmp = $tmp->connections_from(array(
-			"class_id" => constant("CL_" . strtoupper($this->ip_index[$clid]))
+			"class_id" => constant("CL_" . strtoupper(self::$ip_index[$clid]))
 		));
 
 		if (!count($tmp))

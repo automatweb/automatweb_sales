@@ -64,8 +64,7 @@ class intellectual_property_obj extends _int_object
 
 				// access to digidoc object
 				$ddc = $this->connections_to(array(
-					"from.class_id" => CL_DDOC,
-					// "from.status" => new obj_predicate_not(object::STAT_DELETED)
+					"from.class_id" => CL_DDOC
 				));
 
 				foreach ($ddc as $c)
@@ -106,6 +105,55 @@ class intellectual_property_obj extends _int_object
 				$this->save();
 			}
 		}
+	}
+
+	/** Returns associated digidoc object if found, NULL if not
+		@attrib api=1 params=pos obj_save=conditional
+		@param create type=bool default=FALSE
+		@comment
+			Saves object if $create=true
+		@returns CL_DDOC|NULL
+		@errors
+	**/
+	public function get_digidoc($create = false)
+	{
+		if (acl_base::can("", $this->meta("digidoc_oid")))
+		{
+			$digidoc = obj($this->meta("digidoc_oid"), array(), ddoc_obj::CLID);
+		}
+		else
+		{ // legacy
+			$c = new connection();
+			$cc = $c->find(array(
+				"from.class_id" => ddoc_obj::CLID,
+				"type" => "RELTYPE_SIGNED_FILE",
+				"to" => $this->id()
+			));
+
+			$digidoc = reset($cc);
+			if ($digidoc)
+			{
+				$digidoc = obj($digidoc["from"], array(), ddoc_obj::CLID);
+				$this->set_meta("digidoc_oid", $digidoc->id());
+				$this->save();
+			}
+			else
+			{
+				$digidoc = null;
+			}
+		}
+
+		if ($create and !$digidoc)
+		{
+			$digidoc = obj(null, array(), CL_DDOC);
+			$digidoc->set_parent($this->id());
+			$digidoc->set_name(sprintf("DigiDoc '%s'", $this->name()));
+			$digidoc->save();
+			$this->set_meta("digidoc_oid", $digidoc->id());
+			$this->save();
+		}
+
+		return $digidoc;
 	}
 }
 

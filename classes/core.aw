@@ -264,20 +264,20 @@ class core extends db_connector
 		@param err_type required
 			The type of the error to throw. Error types are registered in the ini file, errors array.
 
-		@param msg required
+		@param msg type=string
 			The error message.
 
-		@param fatal optional
+		@param fatal type=bool default=FALSE
 			If true, execution is halted after the error is displayed. Defaults to false.
 
-		@param silent optional
+		@param silent type=bool default=FALSE
 			If true, error is not displayed to the user. It is still sent to the list and reported to the error server. Defaults to false.
 
-		@param oid optional
+		@param oid type=int default=0
 			If set, must contain the oid of the object that the error is about.
 
 	**/
-	function raise_error($err_type,$msg, $fatal = false, $silent = false, $oid = 0, $send_mail = true)
+	function raise_error($err_type, $msg, $fatal = false, $silent = false, $oid = 0, $send_mail = true)
 	{
 		if (!function_exists("aw_global_get"))
 		{//XXX: oletatavasti vaja fastcall-i jaoks, kui selle jaoks ka mitte siis 2ra
@@ -1235,7 +1235,7 @@ class core extends db_connector
 	// (see on muiltiple select boxide jaoks abix)
 
 	// rootobj - mis objektist alustame
-	function get_menu_list($ignore_langmenus = false,$empty = false,$rootobj = -1, $onlyact = -1, $make_path = true)
+	function get_menu_list($ignore_langmenus = false, $empty = false, $rootobj = -1, $onlyact = -1, $make_path = true)
 	{
 		if ($rootobj == -1)
 		{

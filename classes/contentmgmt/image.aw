@@ -1959,7 +1959,7 @@ SVGOBJECT;
 	**/
 	function get_url_by_id($id)
 	{
-		if (!object_loader::can("view", $id))
+		if (!acl_base::can("view", $id))
 		{
 			return "";
 		}
@@ -2283,7 +2283,7 @@ SVGOBJECT;
 		@examples
 			none
 	**/
-	function make_img_tag_wl($id, $alt = NULL, $has_big_alt = NULL, $size = array(), $arr = array())
+	public function make_img_tag_wl($id, $alt = NULL, $has_big_alt = NULL, $size = array(), $arr = array())
 	{
 		try
 		{
@@ -2292,16 +2292,17 @@ SVGOBJECT;
 			{
 				$that = new image();
 			}
+
 			$u = $that->get_url_by_id($id);
 
-			$o = obj($id, array(), image_obj::CLID);
+			$o = obj($id);//FIXME: $id v6ib olla suvaline objekt. juhuslikult sobib lisaks pildiobjektile ka failiobjekt kuna 'file' prop olemas. kui fail on pilt. teha midagi targemat.
 
 			if ($alt === NULL)
 			{
 				$alt = $o->name();
 			}
 
-			if ($o->prop("file2") != "")
+			if ($o->is_a(image_obj::CLID) and $o->prop("file2"))
 			{
 				$file2 = basename($o->prop("file2"));
 				$file2 = aw_ini_get("file.site_files_dir").$file2{0}."/".$file2;
@@ -2309,7 +2310,7 @@ SVGOBJECT;
 				{
 					$alt = $has_big_alt;
 				}
-				$imagetag = image::make_img_tag($u, $alt, $size, $arr);
+				$imagetag = self::make_img_tag($u, $alt, $size, $arr);
 
 				$size = getimagesize($file2);
 
@@ -2325,7 +2326,7 @@ SVGOBJECT;
 			}
 			else
 			{
-				$imagetag = image::make_img_tag($u, $alt, $size, $arr);
+				$imagetag = self::make_img_tag($u, $alt, $size, $arr);
 			}
 		}
 		catch (Exception $e)

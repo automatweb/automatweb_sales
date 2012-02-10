@@ -54,7 +54,7 @@ class obj_predicate_sort
 
 			if ($predicate and (!is_object($predicate) or !in_array(get_class($predicate), self::$supported_predicates)))
 			{
-
+				throw new awex_obj_param_type("Argument contains invalid sorting comparison predicate");
 			}
 
 			$this->data[] = array(

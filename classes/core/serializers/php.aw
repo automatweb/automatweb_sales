@@ -55,10 +55,17 @@ class php_serializer
 	function php_unserialize($str)
 	{
 		$r = eval($str);
+
 		if (!isset($arr) || !is_array($arr))
 		{
 			eval(stripslashes($str));
 		}
+
+		if (!isset($arr))
+		{
+			throw new aw_exception("Unserialize error. Given string:\n\n\n" . print_r($str, true));
+		}
+
 		return $arr;
 	}
 }

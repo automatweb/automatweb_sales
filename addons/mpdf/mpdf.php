@@ -6594,7 +6594,7 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 	//Automatic width and height calculation if needed
 	if($w==0 and $h==0) {
 /*-- IMAGES-WMF --*/
-           if ($info['type']=='wmf') {
+           if ($info['type']==='wmf') {
 			// WMF units are twips (1/20pt)
 			// divide by 20 to get points
 			// divide by k to get user units
@@ -6603,7 +6603,7 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 		}
 		else
 /*-- END IMAGES-WMF --*/
-           if ($info['type']=='svg') {
+           if ($info['type']==='svg') {
 			// returned SVG units are pts
 			// divide by k to get user units (mm)
 			$w = abs($info['w'])/$this->k;
@@ -6636,7 +6636,7 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 			$h = $maxh ; $w=abs($h*$info['w']/$info['h']);
 		}
 	  }
-	  else if ($this->watermark_size == 'F') {
+	  else if ($this->watermark_size === 'F') {
 		if ($this->ColActive) { $maxw = $this->w - ($this->DeflMargin + $this->DefrMargin); }
 		else { $maxw = $this->pgwidth; }
 		$maxh = $this->h - ($this->tMargin + $this->bMargin);
@@ -6646,7 +6646,7 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 			$h = $maxh ; $w=abs($h*$info['w']/$info['h']);
 		}
 	  }
-	  else  if ($this->watermark_size == 'P') {	// Default P
+	  else  if ($this->watermark_size === 'P') {	// Default P
 		$w = $maxw;
 		$h=abs($w*$info['h']/$info['w']);
 		if ($h > $maxh )  {
@@ -6667,7 +6667,7 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 		$x = $this->watermark_pos[0];
 		$y = $this->watermark_pos[1];
 	  }
-	  else if ($this->watermark_pos == 'F')  {	// centred on printable area
+	  else if ($this->watermark_pos === 'F')  {	// centred on printable area
 		if ($this->ColActive) {	// *COLUMNS*
 			if (($this->mirrorMargins) && (($this->page)%2==0)) { $xadj = $this->DeflMargin-$this->DefrMargin; }	// *COLUMNS*
 			else { $xadj = 0; }	// *COLUMNS*
@@ -6683,14 +6683,14 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 		$y = ($this->h/2) - ($h/2);
 	  }
 /*-- IMAGES-WMF --*/
-	  if ($info['type']=='wmf') {
+	  if ($info['type']==='wmf') {
 		$sx = $w*$this->k / $info['w'];
 		$sy = -$h*$this->k / $info['h'];
 		$outstring = sprintf('q %.3f 0 0 %.3f %.3f %.3f cm /FO%d Do Q', $sx, $sy, $x*$this->k-$sx*$info['x'], (($this->h-$y)*$this->k)-$sy*$info['y'], $info['i']);
 	  }
 	  else
 /*-- END IMAGES-WMF --*/
-	  if ($info['type']=='svg') {
+	  if ($info['type']==='svg') {
 		$sx = $w*$this->k / $info['w'];
 		$sy = -$h*$this->k / $info['h'];
 		$outstring = sprintf('q %.3f 0 0 %.3f %.3f %.3f cm /FO%d Do Q', $sx, $sy, $x*$this->k-$sx*$info['x'], (($this->h-$y)*$this->k)-$sy*$info['y'], $info['i']);
@@ -6753,14 +6753,14 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 	}	// end of IF constrain
 
 /*-- IMAGES-WMF --*/
-	if ($info['type']=='wmf') {
+	if ($info['type']==='wmf') {
 		$sx = $w*$this->k / $info['w'];
 		$sy = -$h*$this->k / $info['h'];
 		$outstring = sprintf('q %.3f 0 0 %.3f %.3f %.3f cm /FO%d Do Q', $sx, $sy, $x*$this->k-$sx*$info['x'], (($this->h-$y)*$this->k)-$sy*$info['y'], $info['i']);
 	}
 	else
 /*-- END IMAGES-WMF --*/
-	if ($info['type']=='svg') {
+	if ($info['type']==='svg') {
 		$sx = $w*$this->k / $info['w'];
 		$sy = -$h*$this->k / $info['h'];
 		$outstring = sprintf('q %.3f 0 0 %.3f %.3f %.3f cm /FO%d Do Q', $sx, $sy, $x*$this->k-$sx*$info['x'], (($this->h-$y)*$this->k)-$sy*$info['y'], $info['i']);
@@ -6786,7 +6786,7 @@ function Image($file,$x,$y,$w=0,$h=0,$type='',$link='',$paint=true, $constrain=t
 
 	$sizesarray['IMAGE_ID'] = $info['i'];
 	$sizesarray['itype'] = $info['type'];
-	$sizesarray['set-dpi'] = $info['set-dpi'];
+	$sizesarray['set-dpi'] = isset($info['set-dpi']) ? $info['set-dpi'] : "";
 	return $sizesarray;
 }
 
@@ -9486,7 +9486,7 @@ function _getImage(&$file, $firsttime=true, $allowvector=true, $orig_srcpath=fal
 			$data = file_get_contents($file);
 			$type = $this->_imageTypeFromString($data);
 		}
-		if (!$data && $check = @fopen($file,"rb")) {
+		if (!$data && $check = fopen($file,"rb")) {
 			fclose($check);
 			$data = file_get_contents($file);
 			$type = $this->_imageTypeFromString($data);
@@ -9507,7 +9507,7 @@ function _getImage(&$file, $firsttime=true, $allowvector=true, $orig_srcpath=fal
 	if (($type == 'wmf' || $type == 'svg') && !$allowvector) { return $this->_imageError($file, $firsttime, 'WMF or SVG image file not supported in this context'); }
 
 	// SVG
-	if ($type == 'svg') {
+	if ($type === 'svg') {
 		if (!class_exists('SVG', false)) { include(_MPDF_PATH .'classes/svg.php'); }
 		$svg = new SVG($this);
 		$family=$this->FontFamily;
@@ -9543,11 +9543,11 @@ function _getImage(&$file, $firsttime=true, $allowvector=true, $orig_srcpath=fal
 			// convert to RGB image
 			if (!function_exists("gd_info")) { $this->Error("JPG image may not use CMYK color space (".$file.")."); }
 			if ($this->PDFA && !$this->PDFAauto) { $this->PDFAXwarnings[] = "JPG image may not use CMYK color space - ".$file." - (Image converted to RGB. NB This will alter the colour profile of the image.)"; }
-			$im = @imagecreatefromstring($data);
+			$im = imagecreatefromstring($data);
 			if ($im) {
 				$tempfile = _MPDF_TEMP_PATH.'_tempImgPNG'.RAND(1,10000).'.png';
 				imageinterlace($im, false);
-				$check = @imagepng($im, $tempfile);
+				$check = imagepng($im, $tempfile);
 				if (!$check) { return $this->_imageError($file, $firsttime, 'Error creating temporary file ('.$tempfile.') whilst using GD library to parse JPG(CMYK) image'); }
 				$info = $this->_getImage($tempfile, false);
 				if (!$info) { return $this->_imageError($file, $firsttime, 'Error parsing temporary file ('.$tempfile.') created with GD library to parse JPG(CMYK) image'); }
@@ -18521,7 +18521,8 @@ function OpenTag($tag,$attr)
 	else if ($this->lastblocklevelchange < 1) { $blockstate = 0; }	// NO margins/padding
 	// called from block after new div e.g. <div> ... <table> ...    Outputs block top margin/border and padding
 	if (count($this->textbuffer) == 0 && $this->lastblocklevelchange == 1 && !$this->tableLevel && !$this->kwt) {
-		$this->newFlowingBlock( $this->blk[$this->blklvl]['width'],$this->lineheight,'',false,false,1,true, $this->blk[$this->blklvl]['direction']);
+		$b_direction = isset($this->blk[$this->blklvl]['direction']) ? $this->blk[$this->blklvl]['direction'] : "";
+		$this->newFlowingBlock( $this->blk[$this->blklvl]['width'],$this->lineheight,'',false,false,1,true, $b_direction);
 		$this->finishFlowingBlock(true);	// true = END of flowing block
 	}
 	else if (!$this->tableLevel && count($this->textbuffer)) { $this->printbuffer($this->textbuffer,$blockstate); }
@@ -22129,7 +22130,7 @@ function PaintDivBB($divider='',$blockstate=0,$blvl=0) {
 	}
 
 	if (isset($this->blk[$blvl]['background-image'])) {
-	   if ($this->blk[$blvl]['background-image']['gradient']  && preg_match('/(-moz-)*(repeating-)*(linear|radial)-gradient/', $this->blk[$blvl]['background-image']['gradient'] )) {
+	   if (!empty($this->blk[$blvl]['background-image']['gradient']) && preg_match('/(-moz-)*(repeating-)*(linear|radial)-gradient/', $this->blk[$blvl]['background-image']['gradient'] )) {
 		$g = $this->parseMozGradient( $this->blk[$blvl]['background-image']['gradient'] );
 		if ($g) {
 			$gx = $x0;

@@ -1107,7 +1107,7 @@ class relationmgr extends aw_template implements orb_public_interface
 			}
 			else
 			{
-				$type_str = $this->reltypes[$reltype_id];
+				$type_str = isset($this->reltypes[$reltype_id]) ? $this->reltypes[$reltype_id] : t("[M&auml;&auml;ratlemata]");
 			}
 
 			if ($alias->prop("relobj_id"))

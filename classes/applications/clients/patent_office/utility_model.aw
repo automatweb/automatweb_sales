@@ -192,13 +192,13 @@ class utility_model extends intellectual_property
 
 	protected function save_priority($patent)
 	{
-		$patent->set_prop("prio_convention_date" , $_SESSION["patent"]["prio_convention_date"]);
-		$patent->set_prop("prio_convention_country" , $_SESSION["patent"]["prio_convention_country"]);
-		$patent->set_prop("prio_convention_nr" , $_SESSION["patent"]["prio_convention_nr"]);
-		$patent->set_prop("prio_prevapplicationsep_date" , $_SESSION["patent"]["prio_prevapplicationsep_date"]);
-		$patent->set_prop("prio_prevapplicationsep_nr" , $_SESSION["patent"]["prio_prevapplicationsep_nr"]);
-		$patent->set_prop("prio_prevapplication_date" , $_SESSION["patent"]["prio_prevapplication_date"]);
-		$patent->set_prop("prio_prevapplication_nr" , $_SESSION["patent"]["prio_prevapplication_nr"]);
+		$patent->set_prop("prio_convention_date" , isset($_SESSION["patent"]["prio_convention_date"]) ? $_SESSION["patent"]["prio_convention_date"] : "");
+		$patent->set_prop("prio_convention_country" , isset($_SESSION["patent"]["prio_convention_country"]) ? $_SESSION["patent"]["prio_convention_country"] : "");
+		$patent->set_prop("prio_convention_nr" , isset($_SESSION["patent"]["prio_convention_nr"]) ? $_SESSION["patent"]["prio_convention_nr"] : "");
+		$patent->set_prop("prio_prevapplicationsep_date" , isset($_SESSION["patent"]["prio_prevapplicationsep_date"]) ? $_SESSION["patent"]["prio_prevapplicationsep_date"] : "");
+		$patent->set_prop("prio_prevapplicationsep_nr" , isset($_SESSION["patent"]["prio_prevapplicationsep_nr"]) ? $_SESSION["patent"]["prio_prevapplicationsep_nr"] : "");
+		$patent->set_prop("prio_prevapplication_date" , isset($_SESSION["patent"]["prio_prevapplication_date"]) ? $_SESSION["patent"]["prio_prevapplication_date"] : "");
+		$patent->set_prop("prio_prevapplication_nr" , isset($_SESSION["patent"]["prio_prevapplication_nr"]) ? $_SESSION["patent"]["prio_prevapplication_nr"] : "");
 		$patent->save();
 	}
 
@@ -217,14 +217,14 @@ class utility_model extends intellectual_property
 
 	protected function save_invention($patent)
 	{
-		$patent->set_prop("invention_name" , $_SESSION["patent"]["invention_name"]);
-		$patent->set_prop("invention_name_en" , $_SESSION["patent"]["invention_name_en"]);
+		$patent->set_prop("invention_name" , isset($_SESSION["patent"]["invention_name"]) ? $_SESSION["patent"]["invention_name"] : "");
+		$patent->set_prop("invention_name_en" , isset($_SESSION["patent"]["invention_name_en"]) ? $_SESSION["patent"]["invention_name_en"] : "");
 		$patent->save();
 	}
 
 	protected function save_attachments($patent)
 	{
-		$patent->set_prop("attachment_demand_points" , $_SESSION["patent"]["attachment_demand_points"]);
+		$patent->set_prop("attachment_demand_points" , isset($_SESSION["patent"]["attachment_demand_points"]) ? $_SESSION["patent"]["attachment_demand_points"] : "");
 		$patent->save();
 	}
 
@@ -390,17 +390,17 @@ class utility_model extends intellectual_property
 			$_SESSION["patent"]["authors"][$key]["author_disallow_disclose"] = $author_disallow_disclose[$o->id()];
 			$address = $o->prop("address");
 
-			if($this->can("view" , $address))
+			if(acl_base::can("" , $address))
 			{
 				$address_obj = obj($address);
 				$_SESSION["patent"]["authors"][$key]["street"] = $address_obj->prop("aadress");
 				$_SESSION["patent"]["authors"][$key]["index"] = $address_obj->prop("postiindeks");
-				if($this->can("view" , $address_obj->prop("linn")))
+				if(acl_base::can("" , $address_obj->prop("linn")))
 				{
 					$city = obj($address_obj->prop("linn"));
 					$_SESSION["patent"]["authors"][$key]["city"] = $city->name();
 				}
-				if($this->can("view" , $address_obj->prop("maakond")))
+				if(acl_base::can("" , $address_obj->prop("maakond")))
 				{
 					$county = obj($address_obj->prop("maakond"));
 					$_SESSION["patent"]["authors"][$key]["county"] = $county->name();
@@ -433,7 +433,7 @@ class utility_model extends intellectual_property
 		{
 			$author = $c->to();
 
-			if ($this->can("view", $author->id()))
+			if (acl_base::can("", $author->id()))
 			{
 				$author_el = $xml->createElement("INVENTOR");
 				$name = $xml->createElement("NAME");
@@ -441,18 +441,18 @@ class utility_model extends intellectual_property
 				$root->insertBefore($author_el, $holgr_following);
 
 				// author name
-				$name->appendChild(new DOMElement("NAMEL", trademark_manager::rere($author->prop("firstname"))));
-				$name->appendChild(new DOMElement("NAMEL", trademark_manager::rere($author->prop("lastname"))));
+				$name->appendChild(new DOMElement("NAMEL", trademark_manager::convert_to_export_xml($author->prop("firstname"))));
+				$name->appendChild(new DOMElement("NAMEL", trademark_manager::convert_to_export_xml($author->prop("lastname"))));
 
 				// author address
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.aadress"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.linn.name"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.maakond.name"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.postiindeks"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.aadress"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.linn.name"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.maakond.name"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.postiindeks"))));
 
-				if ($this->can("view", $author->prop("address.riik")))
+				if (acl_base::can("", $author->prop("address.riik")))
 				{
-					$addr->appendChild(new DOMElement("COUNTRY", trademark_manager::rere($adr_i->get_country_code(obj($author->prop("address.riik"))))));
+					$addr->appendChild(new DOMElement("COUNTRY", trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($author->prop("address.riik"))))));
 				}
 
 				//
@@ -464,7 +464,7 @@ class utility_model extends intellectual_property
 
 		//
 		$el = $xml->createElement("TITLE");
-		$el->setAttribute("TEXT", trademark_manager::rere($o->prop("invention_name")));
+		$el->setAttribute("TEXT", trademark_manager::convert_to_export_xml($o->prop("invention_name")));
 		$root->insertBefore($el, $despg);
 
 		//

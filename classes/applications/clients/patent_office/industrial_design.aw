@@ -160,9 +160,9 @@ class industrial_design extends intellectual_property
 
 	protected function save_priority($patent)
 	{
-		$patent->set_prop("prio_convention_date" , $_SESSION["patent"]["prio_convention_date"]);
-		$patent->set_prop("prio_convention_country" , $_SESSION["patent"]["prio_convention_country"]);
-		$patent->set_prop("prio_convention_nr" , $_SESSION["patent"]["prio_convention_nr"]);
+		$patent->set_prop("prio_convention_date" , isset($_SESSION["patent"]["prio_convention_date"]) ? $_SESSION["patent"]["prio_convention_date"] : "");
+		$patent->set_prop("prio_convention_country" , isset($_SESSION["patent"]["prio_convention_country"]) ? $_SESSION["patent"]["prio_convention_country"] : "");
+		$patent->set_prop("prio_convention_nr" , isset($_SESSION["patent"]["prio_convention_nr"]) ? $_SESSION["patent"]["prio_convention_nr"] : "");
 		$patent->save();
 	}
 
@@ -181,15 +181,14 @@ class industrial_design extends intellectual_property
 
 	protected function save_industrial_design($patent)
 	{
-		$patent->set_prop("industrial_design_name" , $_SESSION["patent"]["industrial_design_name"]);
-		// $patent->set_prop("industrial_design_variant" , $_SESSION["patent"]["industrial_design_variant"]);
-		$patent->set_prop("industrial_design_variant_count" , $_SESSION["patent"]["industrial_design_variant_count"]);
+		$patent->set_prop("industrial_design_name" , isset($_SESSION["patent"]["industrial_design_name"]) ? $_SESSION["patent"]["industrial_design_name"] : "");
+		$patent->set_prop("industrial_design_variant_count" , isset($_SESSION["patent"]["industrial_design_variant_count"]) ? $_SESSION["patent"]["industrial_design_variant_count"] : "");
 		$patent->save();
 	}
 
 	protected function save_process_postpone($patent)
 	{
-		$patent->set_prop("process_postpone" , $_SESSION["patent"]["process_postpone"]);
+		$patent->set_prop("process_postpone" , isset($_SESSION["patent"]["process_postpone"]) ? $_SESSION["patent"]["process_postpone"] : "");
 		$patent->save();
 	}
 
@@ -252,7 +251,7 @@ class industrial_design extends intellectual_property
 		$data = parent::get_vars($arr);
 
 		$_SESSION["patent"]["add_fee_info"] = $this->get_add_fee();
-		$data["add_fee_info"]= $_SESSION["patent"]["add_fee_info"];
+		$data["add_fee_info"] = $_SESSION["patent"]["add_fee_info"];
 
 		if (isset($_SESSION["patent"]["applicants"]) and count($_SESSION["patent"]["applicants"]) == 1)
 		{
@@ -416,17 +415,17 @@ class industrial_design extends intellectual_property
 			$_SESSION["patent"]["authors"][$key]["author_disallow_disclose"] = $author_disallow_disclose[$o->id()];
 			$address = $o->prop("address");
 
-			if($this->can("view" , $address))
+			if(acl_base::can("" , $address))
 			{
 				$address_obj = obj($address);
 				$_SESSION["patent"]["authors"][$key]["street"] = $address_obj->prop("aadress");
 				$_SESSION["patent"]["authors"][$key]["index"] = $address_obj->prop("postiindeks");
-				if(is_oid($address_obj->prop("linn")) && $this->can("view" , $address_obj->prop("linn")))
+				if(acl_base::can("" , $address_obj->prop("linn")))
 				{
 					$city = obj($address_obj->prop("linn"));
 					$_SESSION["patent"]["authors"][$key]["city"] = $city->name();
 				}
-				if($this->can("view" , $address_obj->prop("maakond")))
+				if(acl_base::can("" , $address_obj->prop("maakond")))
 				{
 					$county = obj($address_obj->prop("maakond"));
 					$_SESSION["patent"]["authors"][$key]["county"] = $county->name();
@@ -459,7 +458,7 @@ class industrial_design extends intellectual_property
 		{
 			$author = $c->to();
 
-			if ($this->can("view", $author->id()))
+			if (acl_base::can("", $author->id()))
 			{
 				$author_el = $xml->createElement("INVENTOR");
 				$name = $xml->createElement("NAME");
@@ -467,18 +466,18 @@ class industrial_design extends intellectual_property
 				$root->insertBefore($author_el, $holgr_following);
 
 				// author name
-				$name->appendChild(new DOMElement("NAMEL", trademark_manager::rere($author->prop("firstname"))));
-				$name->appendChild(new DOMElement("NAMEL", trademark_manager::rere($author->prop("lastname"))));
+				$name->appendChild(new DOMElement("NAMEL", trademark_manager::convert_to_export_xml($author->prop("firstname"))));
+				$name->appendChild(new DOMElement("NAMEL", trademark_manager::convert_to_export_xml($author->prop("lastname"))));
 
 				// author address
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.aadress"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.linn.name"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.maakond.name"))));
-				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::rere($author->prop("address.postiindeks"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.aadress"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.linn.name"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.maakond.name"))));
+				$addr->appendChild(new DOMElement("ADDRL", trademark_manager::convert_to_export_xml($author->prop("address.postiindeks"))));
 
-				if ($this->can("view", $author->prop("address.riik")))
+				if (acl_base::can("", $author->prop("address.riik")))
 				{
-					$addr->appendChild(new DOMElement("COUNTRY", trademark_manager::rere($adr_i->get_country_code(obj($author->prop("address.riik"))))));
+					$addr->appendChild(new DOMElement("COUNTRY", trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($author->prop("address.riik"))))));
 				}
 
 				//
@@ -490,7 +489,7 @@ class industrial_design extends intellectual_property
 
 		//
 		$el = $xml->createElement("TITLE");
-		$el->setAttribute("TEXT", trademark_manager::rere($o->prop("industrial_design_name")));
+		$el->setAttribute("TEXT", trademark_manager::convert_to_export_xml($o->prop("industrial_design_name")));
 		$root->insertBefore($el, $despg);
 
 		//
