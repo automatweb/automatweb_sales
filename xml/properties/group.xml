@@ -10,7 +10,7 @@
       </property>
       <property>
             <name>name</name>
-            <table>objects</table>
+            <table>groups</table>
             <group>general</group>
             <field>name</field>
             <type>textbox</type>

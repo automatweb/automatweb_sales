@@ -1749,17 +1749,18 @@ EOF;
 
 		$o->set_prop("home_folder", $this->users->hfid);
 		$o->set_password($password);
-		if(isset($person) && $this->can("view", $person))
+		if(isset($person) && acl_base::can("", $person))
 		{
 			$o->set_meta("person", $person);
 		}
 		$o->save();
 
 		// add user to all users grp if we are not under that
-		if (!$aug_oid)
+		if (empty($aug_oid))
 		{
 			$aug_oid = user::get_all_users_group();
 		}
+
 		if ($aug_oid != $o->parent())
 		{
 			$aug_o = obj($aug_oid);

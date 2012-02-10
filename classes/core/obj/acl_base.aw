@@ -742,7 +742,7 @@ class acl_base extends aw_core_module
 		{
 			return $cache[$uid];
 		}
-		$rv =  object_loader::ds()->db_fetch_field("SELECT oid FROM groups WHERE type=1 AND name='$uid'", "oid");
+		$rv =  object_loader::ds()->db_fetch_field("SELECT oid FROM groups WHERE type=".aw_groups::TYPE_DEFAULT." AND name='{$uid}'", "oid");
 		$cache[$uid] = $rv;
 		return $rv;
 	}
