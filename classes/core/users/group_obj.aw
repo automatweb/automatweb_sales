@@ -18,6 +18,7 @@ class group_obj extends _int_object
 		}
 		else
 		{
+			parent::set_prop("name", $v);
 			return parent::set_name($v);
 		}
 	}

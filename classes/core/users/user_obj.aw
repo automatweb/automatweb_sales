@@ -191,12 +191,12 @@ class user_obj extends _int_object
 		$this->set_prop("home_folder", $hfid);
 
 		// create default group
-		$gid = obj(get_instance(group_obj::CLID)->add_group(1, $this->prop("uid"), aw_groups::TYPE_DEFAULT, USER_GROUP_PRIORITY));
+		$gid = obj(group::add_group(1, $this->prop("uid"), aw_groups::TYPE_DEFAULT, USER_GROUP_PRIORITY));
 
 		if ("root" !== $this->prop("uid"))
 		{
 			// give all access to the home folder for this user
-			acl_base::create_obj_access($hfid,$this->prop("uid"));
+			acl_base::create_obj_access($hfid, $this->prop("uid"));
 			// and remove all access from everyone else
 			acl_base::deny_obj_access($hfid);
 			// user has all access to itself
