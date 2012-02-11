@@ -7977,7 +7977,7 @@ END;
 	**/
 	function view($arr = array())
 	{
-		if ($arr["cfgform"])
+		if (!empty($arr["cfgform"]))
 		{
 			$cfg = get_instance(CL_CFGFORM);
 			$props = $cfg->get_props_from_cfgform(array("id" => $arr["cfgform"]));
@@ -7993,12 +7993,12 @@ END;
 		$this->read_template("show.tpl");
 
 		$o = obj($arr["id"]);
-
+		$l = "";
 		foreach($props as $pn => $pd)
 		{
 			//echo "$pn => $pd[caption] <br>";
 			$this->vars(array(
-				"prop" => $pd["caption"],
+				"prop" => ( empty($pd["caption"]) ) ? "" : $pd["caption"],
 				"value" => nl2br($o->prop_str($pn, in_array($pn, array("ettevotlusvorm", "firmajuht", "telefax_id"))))
 			));
 			$l .= $this->parse("LINE");
