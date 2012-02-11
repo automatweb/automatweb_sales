@@ -58,6 +58,7 @@ class shop_purveyors_webview extends class_base
 					"comment" => $purveyor->comment(),
 					"logo.url" => $purveyor->prop("logo.url"),
 					"address" => $purveyor->get_address_string(),
+					"PHONES" => $this->parse_phones_template($purveyor)
 				));
 
 				$PURVEYOR .= $this->parse("PURVEYOR");
@@ -69,6 +70,28 @@ class shop_purveyors_webview extends class_base
 		));
 
 		return $this->parse();
+	}
+
+	function parse_phones_template($purveyor)
+	{
+		$phones = $purveyor->get_phones();
+		if (empty($phones))
+		{
+			return "";
+		}
+
+		$phones_str = "";
+		foreach ($phones as $phone)
+		{
+			$this->vars(array(
+				'phone' => $phone
+			));
+			$phones_str .= $this->parse('PHONE');
+		}
+		$this->vars(array(
+			'PHONE' => $phones_str
+		));
+		return $this->parse('PHONES');
 	}
 
 	function do_db_upgrade($table, $field, $query, $error)
