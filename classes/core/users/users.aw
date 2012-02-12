@@ -747,7 +747,7 @@ class users extends users_user implements request_startup, orb_public_interface
 		$user = new user();
 		while(true)
 		{
-			$user_name = $user_name.$suffix;
+			$user_name = $uid.$suffix;
 			if(!$user->username_is_taken($user_name))
 			{
 				return $user_name;
