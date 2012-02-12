@@ -39,6 +39,8 @@ define("DEFAULT_ID_LOGIN_PRIORITY", 10);
 
 class id_config extends class_base
 {
+	const ESTEID_PERSON_FILE_ENCODING = "ISO-8859-1";
+
 	function id_config()
 	{
 		$this->init(array(
