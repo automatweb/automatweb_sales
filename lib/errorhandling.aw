@@ -195,24 +195,26 @@ class aw_errorhandler
 				));
 			}
 			elseif (aw_ini_get("errors.log_to"))
-			{
+			{ // this error logging works only after ini cfg loaded
 				$error_type = isset(self::$error_severity_names[$errno]) ? self::$error_severity_names[$errno] : "UNKNOWN ERROR";
 				$bt = dbg::sbt();
 				$time = gmdate("Y M d H:i:s");
 				$uid = aw_global_get("uid");
-				$url = addcslashes(automatweb::$request->get_url()->get(), "'");
+				$url = automatweb::$request->get_uri()->get();
+				$url = addcslashes($url, "'");
 				$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : "";
 				$user_agent = addcslashes(isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : "", "'");
 				$msg = <<<ENDMSG
 
 ================================================
 {$error_type}: {$errstr}
-LOCATION: {$errline}:{$errline}
+LOCATION: {$errfile}:{$errline}
 BACKTRACE: {$bt}
-DATA: time {$time}, user '{$uid}', url '{$url}', ip '{$ip}', agent '{$user_agent}'
+DATA: Time {$time}; User '{$uid}'; URL '{$url}'; IP '{$ip}'; Agent '{$user_agent}'
 
 
 ENDMSG;
+
 				$logged = error_log($msg, 3, aw_ini_get("errors.log_to"));
 				if (!$logged)
 				{
