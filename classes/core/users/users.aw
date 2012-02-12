@@ -701,7 +701,7 @@ class users extends users_user implements request_startup, orb_public_interface
 	private function _find_username($first, $last, $encoding)
 	{
 		$uid = $first.".".$last;
-		if (!user_obj::is_uid($uid)
+		if (!user_obj::is_uid($uid))
 		{ // transliterate to ascii and remove symbol chars except dash, replace spaces with underscore
 			try
 			{
