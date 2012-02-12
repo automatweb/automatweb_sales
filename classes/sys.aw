@@ -24,7 +24,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=gen_db_struct params=name default="0"
 	**/
 	function gen_db_struct($args = array())
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$tables = $this->db_get_struct();
 		$ser = aw_serialize($tables, SERIALIZE_XML, array("ctag" => "tabledefs"));
 		header("Content-Type: text/xml");
@@ -38,7 +38,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=show_table_sizes
 	**/
 	function show_table_sizes()
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$t = new vcl_table();
 		$t->define_field(array(
 			"name" => "name",
@@ -86,7 +86,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=gen_create_tbl params=name
 	**/
 	function gen_create_tbl($args = array())
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$ret = array();
 		$tables = $this->db_get_struct();
 		foreach($tables as $tblname => $tbldat)
@@ -107,7 +107,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=dbsync params=name
 	**/
 	function db_compare_choose_donor($args = array())
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$files = array(
 			"www.just.ee" => "www.just.ee",
 			"envir.struktuur.ee" => "envir.struktuur.ee",
@@ -158,7 +158,7 @@ class sys extends aw_template implements orb_public_interface
 			On the left, the external definition and on the right the local database, the checkboxes are chechked where the local database needs to be added to.
 	**/
 	function _db_compare_dbs($args)
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		extract($args);
 		$right = $this->db_get_struct();
 		$h = new http();
@@ -295,7 +295,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=submit_compare_db params=name default="0"
 	**/
 	function submit_compare_db($args = array())
-	{
+	{return;//FIXME: offline kuni yle vaadatud
 		$donor_struct = $_SESSION['donor_struct'];
 		$orig = $this->db_get_struct();
 		extract($args);
@@ -433,7 +433,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=check_indexes
 	**/
 	function do_check_indexes($arr)
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$indexes = array(
 			"objects" => array(
 				"oid","class_id","status","site_id","lang_id","jrk","modified","created"
@@ -489,7 +489,7 @@ class sys extends aw_template implements orb_public_interface
 			can be used (with foreach_site) to check if a class can be safely removed
 	**/
 	function has_objects($arr)
-	{
+	{return;//FIXME: offline kuni yle vaadatud
 		$ol = new object_list(array(
 			"class_id" => $arr["clid"]
 		));
@@ -507,7 +507,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=last_mod
 	**/
 	function last_mod()
-	{
+	{return;//FIXME: offline kuni yle vaadatud
 		$t = new vcl_table(array(
 			"layout" => "generic"
 		));
@@ -558,7 +558,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=perf
 	**/
 	function perf()
-	{
+	{return;//FIXME: offline kuni yle vaadatud
 		$data = array();
 		$this->db_query("show status");
 		while ($row = $this->db_next())
@@ -681,7 +681,7 @@ class sys extends aw_template implements orb_public_interface
 		@param parent required acl=view;add
 	**/
 	function test_object_types($arr)
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$clss = aw_ini_get("classes");
 		foreach($clss as $clid => $cldata)
 		{
@@ -701,7 +701,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=test_sites
 	**/
 	function test_sites($arr)
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		ob_end_clean();
 		aw_set_exec_time(AW_LONG_PROCESS);
 		echo "testing sites ... <br>\n";
@@ -761,12 +761,12 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=do_dump
 	**/
 	function db_dump($arr)
-	{
-		$fld = aw_ini_get("site_basedir")."/files/dumper/";
-		@mkdir($fld, 0777);
+	{ return;//FIXME: offline kuni yle vaadatud
+		$fld = aw_ini_get("site_basedir")."files/dumper/";
+		mkdir($fld, 0777);
 
 		$fn = $fld."dump.sql";
-		@unlink($fn);
+		unlink($fn);
 
 
 		$u = aw_ini_get("db.user");
@@ -785,7 +785,7 @@ class sys extends aw_template implements orb_public_interface
 		@attrib name=site_gzip
 	**/
 	function site_gzip($arr)
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$fld = aw_ini_get("site_basedir")."/files/dumper/";
 		mkdir($fld, 0777);
 
@@ -814,7 +814,7 @@ class sys extends aw_template implements orb_public_interface
 
 	**/
 	function do_test_dump($arr)
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$fld = aw_ini_get("site_basedir")."/files/dumper/";
 		mkdir($fld, 0777);
 
@@ -927,7 +927,7 @@ class sys extends aw_template implements orb_public_interface
 		comma separated list of classes to make orb definitions for.
 **/
 	function make_orb_definitions($arr)
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		aw_set_exec_time(AW_LONG_PROCESS);
 
 		if (!aw_ini_get("enable_web_maintenance"))
@@ -975,53 +975,11 @@ class sys extends aw_template implements orb_public_interface
 		echo "</pre>";
 	}
 
-	// DEPRECATED. separate ini files not used anymore
-	function make_ini_file()
-	{ return;
-		if (!aw_ini_get("enable_web_maintenance"))
-		{
-			throw new awex_sys_webmaintenance("Web maintenance is turned off");
-		}
-
-		$_GET["in_popup"] = 1;
-		$this->_make_ini_file();
-	}
-
-	// DEPRECATED. separate ini files not used anymore
-	function _make_ini_file()
-	{ return;
-		$basedir = aw_ini_get("basedir");
-		$input_file = $basedir . "/aw.ini.root";
-		$output_file = $basedir . "/aw.ini";
-
-		if (!file_exists($input_file))
-		{
-			throw new awex_sys_ini("File not found.");
-		}
-
-		require($basedir . "/scripts/ini/parse_config_to_ini.aw");
-		$res = parse_config_to_ini($input_file);
-
-		if ($res === false)
-		{
-			throw new awex_sys_ini("No config data returned from parser");
-		}
-		else
-		{
-			$fp = fopen ($output_file, "w");
-			fwrite ($fp, $res, strlen($res));
-			fclose ($fp);
-			echo "<pre>";
-			echo "aw.ini successfully written.";
-			echo "</pre>";
-		}
-	}
-
 /**
 	@attrib name=make_trans
 **/
 	function make_translations()
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		aw_set_exec_time(AW_LONG_PROCESS);
 
 		if (!headers_sent())
@@ -1052,7 +1010,7 @@ class sys extends aw_template implements orb_public_interface
 	@param in_class optional
 **/
 	function list_missing_translations($arr = array())
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		aw_set_exec_time(AW_LONG_PROCESS);
 
 		if (!headers_sent())
@@ -1157,7 +1115,7 @@ ENDCLASSFORM;
 	private function _save_class($args)
 	{
 		echo "<pre>";
-		include(aw_ini_get("basedir") . "/scripts/mk_class/mk_class.aw");
+		include(aw_ini_get("basedir") . "scripts/mk_class/mk_class.aw");
 		echo "</pre>";
 	}
 
@@ -1165,10 +1123,10 @@ ENDCLASSFORM;
 		@attrib name=consolidate_template_logs
 	**/
 	public function consolidate_template_logs($arr)
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		// make a list of all files available
 		// analyze and remove all past months logs
-		foreach(glob(aw_ini_get("site_basedir")."/files/template_log_*") as $fn)
+		foreach(glob(aw_ini_get("site_basedir")."files/template_log_*") as $fn)
 		{
 			echo "fn = $fn <br>";
 			list(,,$y, $m) = explode("_", basename($fn, ".log"));
@@ -1226,7 +1184,7 @@ ENDCLASSFORM;
 		@attrib name=prop_stats
 	**/
 	function prop_stats()
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$rv = array();
 		// go over all classes and all their props and for each in a separate table query that to fetch count
 		$clss = aw_ini_get("classes");
@@ -1262,15 +1220,11 @@ ENDCLASSFORM;
 		@attrib name=clid_stats
 	**/
 	function clid_stats()
-	{
+	{ return;//FIXME: offline kuni yle vaadatud
 		$rv = array();
-		//$this->db_query("DELETE FROM aw_site_object_stats WHERE site_id = ".aw_ini_get("site_id"));
 		$this->db_query("SELECT count(*) as cnt, class_id FROM objects GROUP BY class_id");
 		while ($row = $this->db_next())
 		{
-			/*$this->save_handle();
-			$this->db_query("INSERT INTO aw_site_object_stats(site_id, class_id, count) values(".aw_ini_get("site_id").", $row[class_id], $row[cnt])");
-			$this->restore_handle();*/
 			$rv[] = array(
 				"site_id" => aw_ini_get("site_id"),
 				"class_id" => $row["class_id"],
