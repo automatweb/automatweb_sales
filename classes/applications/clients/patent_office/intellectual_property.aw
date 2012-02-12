@@ -2746,18 +2746,25 @@ abstract class intellectual_property extends class_base
 	protected abstract function save_forms($patent);
 	protected abstract function get_object();
 
-	function get_status($patent)
+	public static function get_status($patent, $create = true)
 	{
 		if(!acl_base::can("add" , $patent->id())) return $patent;
 		$status = $patent->get_first_obj_by_reltype("RELTYPE_TRADEMARK_STATUS");
 		if(!is_object($status))
 		{
-			$status = new object();
-			$status->set_class_id(CL_TRADEMARK_STATUS);
-			$status->set_parent($patent->id());
-			$status->set_name(" Kinnitamata taotlus nr [".$patent->id()."]");
-			$status->save();
-			$patent->connect(array("to" => $status->id() , "type" => "RELTYPE_TRADEMARK_STATUS"));
+			if ($create)
+			{
+				$status = new object();
+				$status->set_class_id(CL_TRADEMARK_STATUS);
+				$status->set_parent($patent->id());
+				$status->set_name(" Kinnitamata taotlus nr [".$patent->id()."]");
+				$status->save();
+				$patent->connect(array("to" => $status->id() , "type" => "RELTYPE_TRADEMARK_STATUS"));
+			}
+			else
+			{
+				throw new awex_not_found("Status not found for " . $patent->id());
+			}
 		}
 		return $status;
 	}
@@ -3321,7 +3328,7 @@ abstract class intellectual_property extends class_base
 		$objects_array = $obj_list->arr();
 		foreach($obj_list->arr() as $key => $patent)
 		{
-			$status = $this->get_status($patent);
+			$status = self::get_status($patent);
 			if($status->prop("nr"))
 			{
 				$objects_array[$status->prop("nr")] = $patent;
@@ -3359,7 +3366,7 @@ abstract class intellectual_property extends class_base
 
 				$patent->check_and_set_authorized_codes_user_access();
 				$sent_form = 0;
-				$status = $this->get_status($patent);
+				$status = self::get_status($patent);
 				$re = $this->is_signed($patent->id());
 
 				if($send_patent == $patent->id() && $re["status"] == 1 && !$status->prop("nr"))
@@ -3513,7 +3520,7 @@ abstract class intellectual_property extends class_base
 		$objects_array = array();
 		foreach($obj_list->arr() as $key => $patent)
 		{
-			$status = $this->get_status($patent);
+			$status = self::get_status($patent);
 			if($status->prop("nr"))
 			{
 				$objects_array[$status->prop("nr")] = $patent;
@@ -3537,7 +3544,7 @@ abstract class intellectual_property extends class_base
 			{
 				$view_url = $sign = $del_url = $send_url = "";
 				$patent->check_and_set_authorized_codes_user_access();
-				$status = $this->get_status($patent);
+				$status = self::get_status($patent);
 				$re = $this->is_signed($patent->id());
 				$sent_form = 0;
 
@@ -3697,7 +3704,7 @@ abstract class intellectual_property extends class_base
 		$objects_array = array();
 		foreach($obj_list->arr() as $key => $patent)
 		{
-			$status = $this->get_status($patent);
+			$status = self::get_status($patent);
 			if($status->prop("nr"))
 			{
 				$objects_array[$status->prop("nr")] = $patent;
@@ -3721,7 +3728,7 @@ abstract class intellectual_property extends class_base
 			{
 				$view_url = $sign = $del_url = $send_url = "";
 				$patent->check_and_set_authorized_codes_user_access();
-				$status = $this->get_status($patent);
+				$status = self::get_status($patent);
 				$re = $this->is_signed($patent->id());
 				$sent_form = 0;
 
@@ -3880,7 +3887,7 @@ abstract class intellectual_property extends class_base
 		$objects_array = array();
 		foreach($obj_list->arr() as $key => $patent)
 		{
-			$status = $this->get_status($patent);
+			$status = self::get_status($patent);
 			if($status->prop("nr"))
 			{
 				$objects_array[$status->prop("nr")] = $patent;
@@ -3904,7 +3911,7 @@ abstract class intellectual_property extends class_base
 			{
 				$view_url = $sign = $del_url = $send_url = "";
 				$patent->check_and_set_authorized_codes_user_access();
-				$status = $this->get_status($patent);
+				$status = self::get_status($patent);
 				$re = $this->is_signed($patent->id());
 				$sent_form = 0;
 
@@ -4063,7 +4070,7 @@ abstract class intellectual_property extends class_base
 		$objects_array = array();
 		foreach($obj_list->arr() as $key => $patent)
 		{
-			$status = $this->get_status($patent);
+			$status = self::get_status($patent);
 			if($status->prop("nr"))
 			{
 				$objects_array[$status->prop("nr")] = $patent;
@@ -4087,7 +4094,7 @@ abstract class intellectual_property extends class_base
 			{
 				$view_url = $sign = $del_url = $send_url = "";
 				$patent->check_and_set_authorized_codes_user_access();
-				$status = $this->get_status($patent);
+				$status = self::get_status($patent);
 				$re = $this->is_signed($patent->id());
 				$sent_form = 0;
 
@@ -4254,8 +4261,8 @@ abstract class intellectual_property extends class_base
 	**/
 	public function get_po_xml(object $o)
 	{
-		$ip_inst = $o->instance();
-		$status = $ip_inst->get_status($o);
+		$status = self::get_status($o, false);
+
 		$xml = "<?xml version=\"1.0\" encoding=\"".trademark_manager::XML_OUT_ENCODING."\"?>\n";
 		$xml .= '<BIRTH TRANTYP="ENN" INTREGN="'.sprintf("%08d", $status->prop("nr")).'" OOCD="EE" ORIGLAN="3" REGEDAT="'.date("Ymd", $status->prop("sent_date")).'" INTREGD="'.date("Ymd", $status->prop("modified")).'" DESUNDER="P">';
 
