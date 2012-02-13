@@ -63,6 +63,7 @@ class mysql_pdo
 				SET character_set_results=utf8;
 				SET character_set_server=utf8;
 				SET character_set_filesystem=binary;
+				SET names utf8;
 				SET collation_connection=utf8_general_ci;
 				SET collation_server=utf8_general_ci;
 			");

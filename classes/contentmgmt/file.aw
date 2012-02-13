@@ -1196,8 +1196,8 @@ class file extends class_base
 
 	/** N&auml;itab faili. DUH.
 
-		@attrib name=preview params=name nologin="1" default="0"
-		@param id required
+		@attrib name=preview params=name nologin=1
+		@param id required type=oid acl=view
 
 	**/
 	function show($id)
@@ -1306,7 +1306,7 @@ class file extends class_base
 	**/
 	function get_url($id, $name = "")
 	{
-		$retval = str_replace("automatweb/","",$this->mk_my_orb("preview", array("id" => $id),"file", false,true,"/"))."/".urlencode(str_replace("/","_",$name));
+		$retval = str_replace("automatweb/","",$this->mk_my_orb("preview", array("id" => $id),"file", false,true,"/"));
 		return $retval;
 	}
 
