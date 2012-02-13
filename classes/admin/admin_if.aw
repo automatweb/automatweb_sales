@@ -456,8 +456,10 @@ class admin_if extends class_base
 		if ($adminf)
 		{
 			$prog = aw_ini_get("programs");
-			$m["url"] = $prog[$adminf]["url"];
-
+			if(!empty($prog[$adminf]))
+			{
+				$m["url"] = $prog[$adminf]["url"];
+			}
 			if (empty($m["url"]))
 			{
 				$m["url"] = "about:blank";

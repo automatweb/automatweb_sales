@@ -2010,6 +2010,7 @@ SVGOBJECT;
 		));
 
 		$rv = false;
+		$appi = "";
 		if ($apply_image)
 		{
 			$appi = " AND apply_image = 1 ";

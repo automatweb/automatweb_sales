@@ -216,6 +216,10 @@ class gallery_conf extends class_base
 
 	function get_rate_objects($id)
 	{
+		if(empty($id))
+		{
+			return "";
+		}
 		$obj = new object($id);
 		return $obj->prop("conf_ratings");
 	}
