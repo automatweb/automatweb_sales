@@ -4,8 +4,6 @@ function awddlog($msg, $op)
 	file_put_contents(aw_ini_get("site_basedir")."files/ddoctmpdbg/".microtime(true) . "_".$op, $msg);
 }
 
-require_once AW_DIR . "addons/xmlseclibs.php";
-
 class ddoc_obj extends _int_object
 {
 	const CLID = 1186;
@@ -211,9 +209,8 @@ class ddoc_obj extends _int_object
 		}
 
 		$this->digidoc = new DOMDocument();
+		$this->digidoc->formatOutput = false;
 		$this->digidoc->loadXML($signed_doc_data);
-		$this->digidoc_hashed = new DOMDocument();
-		$this->digidoc_hashed->loadXML($signed_doc_data);
 
 		// save digidoc properties
 		$this->set_prop("digidoc_format", $signed_doc_info->Format);
@@ -416,7 +413,6 @@ class ddoc_obj extends _int_object
 
 		$this->_load_digidoc_from_filesystem();
 		$data_file_element = $this->digidoc->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile", $encoded_content);
-		$data_file_element->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 		$data_file_element->setAttribute("ContentType", "EMBEDDED_BASE64");
 		$data_file_element->setAttribute("Filename", $file_name);
 		$data_file_element->setAttribute("Id", $file_id);
@@ -610,6 +606,7 @@ class ddoc_obj extends _int_object
 			}
 
 			$digidoc_hashed = new DOMDocument();
+			$digidoc_hashed->formatOutput = false;
 			$digidoc_hashed->loadXML($signed_doc_data);
 			$this->_check_signatures($digidoc_hashed);
 			$this->_load_digidoc_from_filesystem();
@@ -654,6 +651,7 @@ class ddoc_obj extends _int_object
 		if (null === $this->digidoc and file_exists($this->prop("ddoc_location")))
 		{
 			$this->digidoc = new DOMDocument();
+			$this->digidoc->formatOutput = false;
 			$this->digidoc->load($this->prop("ddoc_location"));
 
 			// load file index
@@ -680,12 +678,25 @@ class ddoc_obj extends _int_object
 		$digidoc_file_name = $cl_file->generate_file_path(array(
 			"type" => "xml/ddoc"
 		));
-		$xml = $this->_get_xml_header() . canonicalxml::C14NGeneral($this->digidoc, true);
+
+		// get canonicalized xml
+		$xml = $this->digidoc->C14N();
+
+		// perform replacements to enable SK's home made version of canonicalization and iron out php DOM peculiarities
+		// needed to get a validatable signed document
+		$xml = str_replace('<DataFile ContentType="EMBEDDED_BASE64"', '<DataFile xmlns="http://www.sk.ee/DigiDoc/v1.3.0#" ContentType="EMBEDDED_BASE64"', $xml);
+		$xml = str_replace('<SignedDoc xmlns="http://www.sk.ee/DigiDoc/v1.3.0#" format="DIGIDOC-XML" version="1.3">', '<SignedDoc format="DIGIDOC-XML" version="1.3" xmlns="http://www.sk.ee/DigiDoc/v1.3.0#">', $xml);
+		$xml = preg_replace('|<Signature xmlns="http://www\.w3\.org/2000/09/xmldsig#" Id="S([0-9]+)">|', '<Signature Id="S$1" xmlns="http://www.w3.org/2000/09/xmldsig#">', $xml);
+		$xml = preg_replace('|<SignedProperties Id="S([0-9]+)-SignedProperties">|', '<SignedProperties xmlns="http://uri.etsi.org/01903/v1.1.1#" Id="S$1-SignedProperties">', $xml);
+		$xml = str_replace('<SignedInfo>', '<SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#">', $xml);
+
+		// write file
+		$xml = $this->_get_xml_header() . $xml;
 		$r = file_put_contents($digidoc_file_name, $xml);
 
 		if (false === $r)
 		{
-			throw new awex_ddoc_file(sprintf("Couln't write ddoc '%s' xml to '%s'", $this->id(), $digidoc_file_name));
+			throw new awex_ddoc_file(sprintf("Couldn't write ddoc '%s' xml to '%s'", $this->id(), $digidoc_file_name));
 		}
 
 		if ($r !== strlen($xml))
@@ -707,7 +718,8 @@ class ddoc_obj extends _int_object
 	private function _move_hashed_digidoc_to_embedded_replacing_data_files(DOMDocument $digidoc_hashed)
 	{
 		$digidoc = new DOMDocument();
-		$digidoc->loadXML(canonicalxml::C14NGeneral($digidoc_hashed, true));
+		$digidoc->formatOutput = false;
+		$digidoc->loadXML($digidoc_hashed->C14N());
 
 		if ($this->digidoc)
 		{
@@ -726,7 +738,6 @@ class ddoc_obj extends _int_object
 				}
 
 				$data_file_embedded_copy = $digidoc->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile", $data_file_embedded->nodeValue);
-				$data_file_embedded_copy->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 				$data_file_embedded_copy->setAttribute("ContentType", "EMBEDDED_BASE64");
 				$data_file_embedded_copy->setAttribute("Filename", $data_file_embedded->getAttribute("Filename"));
 				$data_file_embedded_copy->setAttribute("Id", $data_file_embedded->getAttribute("Id"));
@@ -748,7 +759,7 @@ class ddoc_obj extends _int_object
 
 	private function _get_data_file_element_hash(DOMElement $element)
 	{
-		return base64_encode(pack("H*", sha1(canonicalxml::C14NGeneral($element, true))));
+		return base64_encode(pack("H*", sha1($element->C14N())));
 	}
 
 	private function _get_xml_header()
@@ -762,14 +773,14 @@ class ddoc_obj extends _int_object
 		{
 			// load from source
 			$digidoc_hashed = new DOMDocument();
-			$digidoc_hashed->loadXML(canonicalxml::C14NGeneral($this->digidoc, true));
+			$digidoc_hashed->formatOutput = false;
+			$digidoc_hashed->loadXML($this->digidoc->C14N());
 
 			// convert data file elements
 			$datafiles = $digidoc_hashed->getElementsByTagName("DataFile");
 			foreach ($datafiles as $data_file_embedded)
 			{
 				$data_file_hashed = $digidoc_hashed->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile");
-				$data_file_hashed->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 				$data_file_hashed->setAttribute("ContentType", "HASHCODE");
 				$data_file_hashed->setAttribute("Filename", $data_file_embedded->getAttribute("Filename"));
 				$data_file_hashed->setAttribute("Id", $data_file_embedded->getAttribute("Id"));
@@ -781,7 +792,7 @@ class ddoc_obj extends _int_object
 			}
 
 			// get canonicalized xml with header
-			$digidoc_xml = $this->_get_xml_header() . canonicalxml::C14NGeneral($digidoc_hashed, true);
+			$digidoc_xml = $this->_get_xml_header() . $digidoc_hashed->C14N();
 		}
 		else
 		{
