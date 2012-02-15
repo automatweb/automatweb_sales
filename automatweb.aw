@@ -341,7 +341,6 @@ class automatweb
 		ignore_user_abort(true);
 		ini_set("memory_limit", "512M");
 		ini_set("max_execution_time", "2000");
-		$baseurl = aw_ini_get("baseurl");
 		$request_uri = $_SERVER["REQUEST_URI"];
 
 		if (aw_ini_get("menuedit.require_ssl") and "https" !== self::$request->get_uri()->get_scheme())

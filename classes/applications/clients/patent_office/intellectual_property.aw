@@ -282,41 +282,6 @@ abstract class intellectual_property extends class_base
 		if($ddoc_o)
 		{
 			$tmp = $ddoc_o->is_signed();
-/*
-			$classes_w_author = array(CL_UTILITY_MODEL, CL_PATENT_PATENT, CL_INDUSTRIAL_DESIGN);
-
-			if (in_array($o->class_id(), $classes_w_author))
-			{ // for classes with author, check if authors not wishing to disclose their name have signed
-				$author_disallow_disclose = (array) $o->meta("author_disallow_disclose");
-				$sign_req = array();
-
-				foreach($o->connections_from(array("type" => "RELTYPE_AUTHOR")) as $c)
-				{
-					$author = $c->to();
-					if (!empty($author_disallow_disclose[$author->id()]))
-					{
-						$sign_req[] = $author;
-					}
-				}
-
-				foreach ($sign_req as $author)
-				{
-					$c = new connection();
-					$signed = $c->find(array(
-						"from.class_id" => CL_DDOC,
-						"type" => "RELTYPE_SIGNER",
-						"from" => $ret,
-						"to" => $author->id()
-					));
-
-					if (count($signed) < 1)
-					{
-						$tmp = false;
-						break;
-					}
-				}
-			}
- */
 			$return["status"] = $tmp ? 1 : 0;
 			$return["ddoc"] = $ddoc_o->id();
 		}
@@ -1333,7 +1298,7 @@ abstract class intellectual_property extends class_base
 			exit;
 		}
 
-		if(isset($_SESSION["patent"]["id"]) and is_oid($_SESSION["patent"]["id"]))
+		if(isset($_SESSION["patent"]["id"]) and acl_base::can("view", $_SESSION["patent"]["id"]))
 		{
 			$o = obj($_SESSION["patent"]["id"]);
 			$status = $this->get_status($o);
@@ -1355,7 +1320,7 @@ abstract class intellectual_property extends class_base
 		$this->vars(array("reforb" => $this->mk_reforb("submit_data",array(
 				"data_type"	=> $arr["data_type"],
 				"return_url" 	=> post_ru(),
-				"add_obj" 	=> $arr["alias"]["to"],
+				"add_obj" 	=> $arr["alias"]["to"]
 			), get_class($this)),
 		));
 
@@ -1405,7 +1370,7 @@ abstract class intellectual_property extends class_base
 	{
 		$js = "";
 
-		if(!$_GET["data_type"])
+		if(empty($_GET["data_type"]))
 		{
 			if(empty($_SESSION["patent"]["procurator"]))
 			{
@@ -1631,11 +1596,6 @@ abstract class intellectual_property extends class_base
 				"value" => isset($_SESSION["patent"][$var]) ? $_SESSION["patent"][$var] : "",
 				"options"=> $options
 			);
-
-			// if ("industrial_design_variant" === $var)
-			// {
-				// $el_cfg["onchange"] = "showVarCountSelect();";
-			// }
 
 			$data[$var] = html::select($el_cfg);
 		}
@@ -1882,6 +1842,11 @@ abstract class intellectual_property extends class_base
 		$data = array();
 		$patent_id = isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "";
 
+		if ($patent_id and !acl_base::can("view", $patent_id))
+		{
+			return $data;
+		}
+
 		////////////// applicants //////////////
 		if(!empty($_SESSION["patent"]["delete_applicant"]))
 		{
@@ -1908,27 +1873,6 @@ abstract class intellectual_property extends class_base
 		unset($_SESSION["patent"]["delete_applicant"]);
 		//nendesse ka siis see tingumus, et muuta ei saa
 
-/*
-		if(!$_SESSION["patent"]["payer"])
-		{
-			if (isset($_SESSION["patent"]["representer"]))
-			{
-				if ($_SESSION["patent"]["applicants"][$_SESSION["patent"]["representer"]]["applicant_type"] == "1")
-				{
-					$data["payer"] = $_SESSION["patent"]["payer"] = $_SESSION["patent"]["applicants"][$_SESSION["patent"]["representer"]]["name"];
-				}
-				else
-				{
-					$data["payer"] =  $_SESSION["patent"]["payer"] = $_SESSION["patent"]["applicants"][$_SESSION["patent"]["representer"]]["firstname"]." ".$_SESSION["patent"]["applicants"][$_SESSION["patent"]["representer"]]["lastname"];
-				}
-			}
-			else
-			{
-				$payer = reset($_SESSION["patent"]["applicants"]);
-				$data["payer"] = $payer["name"];
-			}
-		}
-*/
 		$data["country"] = t("Eesti ").html::radiobutton(array(
 			"value" => "0",
 			"checked" => (empty($_SESSION["patent"]["country"]) && isset($_SESSION["patent"]["country"])) ? 1 : 0,
@@ -2039,20 +1983,17 @@ abstract class intellectual_property extends class_base
 			$data["banks"] = $bank_inst->bank_forms(array("id" => $dummy->prop("bank_payment") , "amount" => $this->get_payment_sum()));
 		}
 
-/* 		$data["payer_popup_link"] = html::href(array(
-			"caption" => t("Vali") ,
-			"url"=> "javascript:void(0);",
-			"onclick" => 'javascript:window.open("'.$this->mk_my_orb("payer_popup", array("print" => 1), get_class($this)).'","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
-		));
- */
 		$_SESSION["patent"]["fee_sum_info"] = $this->get_payment_sum();
 		$data["fee_sum_info"] = $_SESSION["patent"]["fee_sum_info"];
 		$_SESSION["patent"]["request_fee_info"] = $this->get_request_fee();
 		$data["request_fee_info"]= $_SESSION["patent"]["request_fee_info"];
 
-		$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]), get_class($this))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_PRINT_HEIGHT.", width=".self::WINDOW_PRINT_WIDTH."')";
+		if ($patent_id)
+		{
+			$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => $patent_id, "add_obj" => $arr["alias"]["to"]), get_class($this))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_PRINT_HEIGHT.", width=".self::WINDOW_PRINT_WIDTH."')";
 
-		$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , "id" => $patent_id, "add_obj" => $arr["alias"]["to"]), get_class($this));
+			$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , "id" => $patent_id, "add_obj" => $arr["alias"]["to"]), get_class($this));
+		}
 
 		if(isset($_SESSION["patent"]["applicants"]) and count($_SESSION["patent"]["applicants"]))
 		{
@@ -2549,13 +2490,14 @@ abstract class intellectual_property extends class_base
 		$status->set_prop("nr" , $tno);
 		$status->set_prop("sent_date" , time());
 		$status->save();
-		header("Location:"."19205");
+		header("Location:"."19205");//TODO: korda teha
 		die();
 	}
 
 	function check_fields()
 	{
 		$err = "";
+		$data_type = isset($_GET["data_type"]) ? $_GET["data_type"] : null; //TODO: teha korda.
 
 		if($_POST["data_type"] !== "11" and (!empty($_POST["code"]) || !empty($_POST["name"]) || !empty($_POST["firstname"]) || !empty($_POST["lastname"])))
 		{
@@ -2617,12 +2559,12 @@ abstract class intellectual_property extends class_base
 
 			if(empty($err))
 			{
-				$_SESSION["patent"]["checked"][$_GET["data_type"]] = $_GET["data_type"];
+				$_SESSION["patent"]["checked"][$data_type] = $data_type;
 			}
 		}
 		else
 		{
-			$_SESSION["patent"]["checked"][$_GET["data_type"]] = $_GET["data_type"];
+			$_SESSION["patent"]["checked"][$data_type] = $data_type;
 		}
 
 		return $err;
