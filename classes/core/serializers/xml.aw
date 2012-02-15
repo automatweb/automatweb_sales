@@ -1,9 +1,7 @@
 <?php
 // xml.aw - xml serializer
 // at the moment (Apr 25, 2001) it can serialize PHP arrays to XML and vice versa
-/*
-@classinfo  maintainer=kristo
-*/
+
 class xml
 {
 	////
@@ -155,6 +153,10 @@ class xml
 				{
 					$pkey = $this->parents[$plen-1];
 				}
+				else
+				{
+					$pkey = null;
+				}
 
 				if (!empty($this->child_id[$pkey]))
 				{
@@ -166,10 +168,10 @@ class xml
 					if ($this->enumerate)
 					{
 						$xkey .= $key;
-					};
-				};
+					}
+				}
 				$key = $xkey;
-			};
+			}
 
 			if (is_array($val))
 			{
@@ -272,6 +274,4 @@ echo "line = ".xml_get_current_line_number($parser);
 		return $retval;
 	}
 
-};
-
-?>
+}

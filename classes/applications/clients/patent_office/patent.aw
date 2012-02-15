@@ -395,7 +395,11 @@ class patent extends intellectual_property
 	{
 		if(!empty($_POST["do_post"]))
 		{
-			$_SESSION["patent"]["prod_selection"] =  $_POST["oid"];
+			if (!empty($_POST["oid"]))
+			{
+				$_SESSION["patent"]["prod_selection"] = $_POST["oid"];
+			}
+
 			die("
 				<script type='text/javascript'>
 					window.opener.document.getElementById('stay').value=1;
