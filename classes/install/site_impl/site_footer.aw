@@ -140,18 +140,10 @@ if (isset($_GET["TPL"]) and $_GET["TPL"] === "1")
 	$str = preg_replace("/<body.*>/imsU", "\\0".aw_global_get("TPL=1"), $str);
 }
 
-// if (false && aw_ini_get("content.compress") === "1")
-// {
-	// ob_start( 'ob_gzhandler' );
-	// echo $str;
-// }
-// else
-// {
-	// ob_start();
-	echo $str;
-	// ob_end_flush();
-// }
+// MAIN OUTPUT CALL
+echo $str;
 
+// ...
 aw_shutdown();
 
 // do a cache clean every hour
@@ -159,7 +151,4 @@ if (filectime(aw_ini_get("cache.page_cache")."temp/lmod") < (time() - 3600))
 {
 	$m = new maitenance();
 	$m->cache_update(array());
-
-	$m = new scheduler();
-	$m->static_sched(array());
 }
