@@ -327,7 +327,7 @@ class languages extends aw_core_module implements orb_public_interface
 	}
 
 	/** Sets active content language and redirects if requested.
-		@attrib name=set_active
+		@attrib name=set_active nologin=1
 		@param id required type=int
 			Language id to set
 		@param return_url optional type=string

@@ -3,8 +3,8 @@
 class user_obj extends _int_object
 {
 	const CLID = 197;
+	const UID_CHARSET = '1234567890qwertyuiopasdfghjklzxcvbnm_QWERTYUIOPASDFGHJKLZXCVBNM.@-';
 
-	private static $uid_charset = '1234567890qwertyuiopasdfghjklzxcvbnm_QWERTYUIOPASDFGHJKLZXCVBNM.@-';
 	private static $uid_max_length = 100;
 	private static $uid_min_length = 2;
 
@@ -54,7 +54,7 @@ class user_obj extends _int_object
 		}
 
 		// check characters
-		if (strspn($uid, self::$uid_charset) !== strlen($uid))
+		if (strspn($uid, self::UID_CHARSET) !== strlen($uid))
 		{
 			$r = false;
 		}

@@ -1,7 +1,7 @@
 <?php
 // poll.aw - Generic poll handling class
 
-session_register("poll_clicked");
+//session_register("poll_clicked");
 
 // poll.aw - it sucks more than my aunt jemimas vacuuming machine
 //
@@ -71,15 +71,72 @@ class poll extends class_base implements main_subtemplate_handler
 			"tpldir" => "poll",
 			"clid" => CL_POLL
 		));
-		lc_site_load("poll",&$this);
+		lc_site_load("poll",$this);
 	}
+
+function array_walk_deep(&$items){
+    foreach ($items as &$item) {
+        if(is_array($item))
+          $this->array_walk_deep($item);
+        else
+          $item = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $item));
+    }
+}
+
+//array_walk_deep($array, 'strtoupper');
+
+
 
 	function get_answers($id)
 	{
+		$asd = obj(239);
+		aw_disable_acl();
+		$ol = new object_list(array(
+			"lang_id" => 182119,
+			"site_id" => array(),
+			"class_id" => array(119),
+		//	"modified" => new obj_predicate_compare(OBJ_COMP_LESS, 1328734555),
+	//		"limit" => "1,100"
+	//		"oid" => 19811
+		));
+
+		//1328734565
+		$x = 1;
+	//	arr($ol->count());
+
+	/*	foreach($ol->arr() as $asd)
+		{
+		//	if($asd->id() < 2377 || $asd->id() == 6123 || $asd->id() == 2426) continue;
+		//	$main = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $asd->name()));
+		//	$comment = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $asd->comment()))." ";
+	//		$title = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $asd->prop("title")))." ";
+		//	$content = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $asd->prop("lead")))." ";
+			print $asd->name()." - ";
+		//	print $main." - ".$comment;
+			foreach($asd->meta() as $k => $val)
+			{
+
+			//	$this->array_walk_deep($val);
+			//	arr($val);
+		//		print $k." ---- ".iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $val));
+			//	$asd->set_meta($k , $val);
+			}
+			print ' - '.$x. ' - '.$asd->id().'<br>';
+		//	$asd->set_name($main);
+		//	$asd->set_comment($comment);
+		//	$asd->set_prop("lead" , $content);
+		//	$asd->set_prop("title" , $title);
+		//	$asd->save();
+			$x++;
+		}*/
+		aw_restore_acl();
+		//2377
+		//Message: No access to load object with id '2424'.
+	//	print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 		$o = obj($id);
 		$ans = $o->meta("answers");
 
-		$ret = $ans[$o->lang_id()];
+		$ret = empty($ans[$o->lang_id()]) ? array() : $ans[$o->lang_id()];
 
 		$data = array();
 		$this->db_query("SELECT * FROM poll_answers WHERE poll_id = '$id' ORDER BY id");
@@ -88,7 +145,7 @@ class poll extends class_base implements main_subtemplate_handler
 			$data[$row["id"]] = $row;
 		}
 
-		$awa = new aw_array($ans[aw_global_get("lang_id")]);
+		$awa = empty($ans[aw_global_get("lang_id")]) ? new aw_array() : new aw_array($ans[aw_global_get("lang_id")]);
 		foreach($awa->get() as $aid => $aval)
 		{
 			$data[$aid]["answer"] = $aval;
@@ -129,7 +186,7 @@ class poll extends class_base implements main_subtemplate_handler
 
 		$lid = aw_global_get("lang_id");
 		$section = aw_global_get("section");
-
+		$def = 0;
 		if ( !$this->can("view", $section) )
 		{
 			return "";
@@ -154,7 +211,7 @@ class poll extends class_base implements main_subtemplate_handler
 			$def = true;
 			$this->read_any_template("poll.tpl");
 		}
-		if ($_GET["c_set_answer_id"] || $GLOBALS["answer_id"] && !$GLOBALS["class"] && $GLOBALS["poll_id"] == $id)
+		if (!empty($_GET["c_set_answer_id"]) || !empty($GLOBALS["answer_id"]) && !$GLOBALS["class"] && $GLOBALS["poll_id"] == $id)
 		{
 			return $this->show($GLOBALS["poll_id"]);
 		}
@@ -199,10 +256,14 @@ class poll extends class_base implements main_subtemplate_handler
 		}
 
 		$ans = $this->get_answers($poll_id);
-
+		if(empty($GLOBALS["poll_disp_count"]))
+		{
+			$GLOBALS["poll_disp_count"] = 0;
+		}
 		$GLOBALS["poll_disp_count"]++;
 
 		reset($ans);
+		$as = "";
 		while (list($k,$v) = each($ans))
 		{
 			$o_l = $this->mk_my_orb("show", array("poll_id" => $poll_id, "c_set_answer_id" => $k, "section" => $section));
@@ -269,7 +330,7 @@ class poll extends class_base implements main_subtemplate_handler
 			return;
 		}
 
-		$this->quote(&$aid);
+		$this->quote($aid);
 		$poll_id = $this->db_fetch_field("SELECT poll_id FROM poll_answers WHERE id = '$aid'", "poll_id");
 
 		if ($poa[$poll_id] != 1)
@@ -428,7 +489,7 @@ class poll extends class_base implements main_subtemplate_handler
 			$namear = $poll->meta("names");
 		}
 
-		$this->dequote(&$namear);
+		$this->dequote($namear);
 
 		$na = $namear[aw_global_get("lang_id")];
 
@@ -500,7 +561,7 @@ class poll extends class_base implements main_subtemplate_handler
 	function parse_alias($args = array())
 	{
 		extract($args);
-		if ($alias["target"] == $f["target"])
+		if (!empty($f["target"]) && $alias["target"] == $f["target"])
 		{
 			return $this->show($f["target"]);
 		}

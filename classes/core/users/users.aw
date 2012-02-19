@@ -691,22 +691,6 @@ class users extends users_user implements request_startup, orb_public_interface
 	}
 
 	/**
-		@comment
-			fixes umlauts etc in name.
-	**/
-	private function fix_name($name, $space = "_")
-	{
-		$name = strtolower($name);
-		$name = trim($name);
-		$to_replace = array("&auml;","&ouml;","&uuml;","&otilde;", " ");
-		$replace_with = array("a","o","u","o", $space);
-		$str = "!\"@#.$%&/()[]={}?\+-`'|,;";
-		$name = str_replace(preg_split("//", $str, -1 , PREG_SPLIT_NO_EMPTY), "", $name);
-		$name = str_replace($to_replace, $replace_with, strtolower(htmlentities($name)));
-		return $name;
-	}
-
-	/**
 		@attrib params=pos
 		@param first required type=string
 		@param last required type=string
@@ -714,19 +698,59 @@ class users extends users_user implements request_startup, orb_public_interface
 		finds first available uid in format firstname.lastname[.###]
 		etc: 'john.smith','johm.smith.051' ...
 	**/
-	private function _find_username($first, $last)
+	private function _find_username($first, $last, $encoding)
 	{
-		$first = $this->fix_name($first);
-		$last = $this->fix_name($last);
+		$uid = $first.".".$last;
+		if (!user_obj::is_uid($uid))
+		{ // transliterate to ascii and remove symbol chars except dash, replace spaces with underscore
+			try
+			{
+				$first = iconv($encoding, "us-ascii//TRANSLIT", $first);
+				$last = iconv($encoding, "us-ascii//TRANSLIT", $last);
+			}
+			catch (ErrorException $e)
+			{
+				$encoding = mb_detect_encoding($first.$last);
+
+				try
+				{
+					$first = iconv($encoding, "us-ascii//TRANSLIT", $first);
+					$last = iconv($encoding, "us-ascii//TRANSLIT", $last);
+				}
+				catch (ErrorException $e)
+				{ // all options depleted, try latin1
+					$first = iconv("latin1", "us-ascii//TRANSLIT", $first);
+					$last = iconv("latin1", "us-ascii//TRANSLIT", $last);
+				}
+			}
+
+			// trim and replace spaces with dash
+			/// replace dashes with spaces
+			$first = str_replace("-", " ", $first);
+			$last = str_replace("-", " ", $last);
+
+			/// replace white space sequences with single dash
+			$first = preg_replace("/\s+/", "-", $first);
+			$last = preg_replace("/\s+/", "-", $last);
+
+			// remove all other characters
+			$uid_charset = str_replace(".", "", user_obj::UID_CHARSET);
+			$first = preg_replace("/[^{$uid_charset}]/", "", $first);
+			$last = preg_replace("/[^{$uid_charset}]/", "", $last);
+
+			// combine name
+			$uid = $first.".".$last;
+		}
+
 		$suffix = "";
 		$count = 0;
 		$user = new user();
 		while(true)
 		{
-			$uid = $first.".".$last.$suffix;
-			if(!$user->username_is_taken($uid))
+			$user_name = $uid.$suffix;
+			if(!$user->username_is_taken($user_name))
 			{
-				return $uid;
+				return $user_name;
 			}
 			$count++;
 			$suffix = ".".str_pad ($count, 3, "0", STR_PAD_LEFT);
@@ -787,7 +811,7 @@ class users extends users_user implements request_startup, orb_public_interface
 			die($tpl->parse());
 		}
 
-		$arr["uid"] = $this->_find_username($arr["firstname"],$arr["lastname"]);
+		$arr["uid"] = $this->_find_username($arr["firstname"], $arr["lastname"], id_config::ESTEID_PERSON_FILE_ENCODING);
 		$password = substr(gen_uniq_id(),0,8);
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,

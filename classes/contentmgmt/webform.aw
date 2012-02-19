@@ -1921,8 +1921,8 @@ class webform extends class_base
 				continue;
 			}
 
-			if($pd["invisible"]) continue;
-			if($pd["invisible_name"]) $pd["caption"] = null;
+			if(!empty($pd["invisible"])) continue;
+			if(!empty($pd["invisible_name"])) $pd["caption"] = null;
 
 			if($pd["type"] === "releditor")
 			{
@@ -2092,14 +2092,14 @@ class webform extends class_base
 				unset($els[$key]);
 				continue;
 			}
-			$aliasmgr->parse_oo_aliases($id, &$els[$key]["caption"]);
+			$aliasmgr->parse_oo_aliases($id, $els[$key]["caption"]);
 			if($val["type"] === "text")
 			{
 				if(!empty($all_props[$key]["value"]) && empty($els[$key]["value"]))
 				{
 					$els[$key]["value"] = nl2br($all_props[$key]["value"]);
 				}
-				$aliasmgr->parse_oo_aliases($id, &$els[$key]["value"]);
+				$aliasmgr->parse_oo_aliases($id, $els[$key]["value"]);
 				$els[$key]['value'] .= html::hidden(array(
 					'name' => $key,
 					'value' => $els[$key]['value']
@@ -2234,7 +2234,7 @@ class webform extends class_base
 				$last = $v;
 				$x++;
 			}
-			if($el["nextto"] == 1 && !empty($last))
+			if(!empty($el["nextto"]) && $el["nextto"] == 1 && !empty($last))
 			{
 				if($els[$last]["nextto"] == 1 && $last != $v)
 				{

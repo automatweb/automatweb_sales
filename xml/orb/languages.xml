@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <orb>
-	<class name="languages" folder="www/dev/terryf/automatweb_dev/classes/core" extends="aw_template">
+	<class name="languages" extends="aw_template">
 		<action name="get_trans_lc">
 			<function name="get_trans_lc">
 				<arguments>
@@ -8,7 +8,7 @@
 			</function>
 		</action>
 
-		<action name="set_active">
+		<action name="set_active" nologin="1">
 			<function name="set_active">
 				<arguments>
 					<required name="id" type="int" />

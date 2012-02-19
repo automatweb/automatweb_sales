@@ -14,7 +14,7 @@ class old_search_model extends aw_template implements main_subtemplate_handler
 	{
 		$id = $arr["inst"]->section_obj->id();
 		$def = isset($_GET["parent"]) ? $_GET["parent"] : $id;
-		$sl = $this->get_search_list(&$def);
+		$sl = $this->get_search_list($def);
 		$arr["inst"]->vars(array(
 			"search_sel" => $this->option_list($def,$sl),
 			"section" => $id,

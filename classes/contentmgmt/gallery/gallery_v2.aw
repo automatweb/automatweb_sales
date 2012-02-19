@@ -363,7 +363,7 @@ class gallery_v2 extends class_base
 			set_time_limit(14400);
 			if ($meta['import_overwrite'] == 1)
 			{
-				$this->_clear_images(&$meta);
+				$this->_clear_images($meta);
 			}
 
 			if ($meta["import_zip"] == 1)
@@ -518,7 +518,7 @@ class gallery_v2 extends class_base
 				if ($r === false && $meta['import_add_pages'] == 1)
 				{
 					// add page to the end
-					$this->_add_page(&$meta, $ob);
+					$this->_add_page($meta, $ob);
 					$r = $this->_get_next_free_pos($meta, $_pg, $_row, $_col, $ob);
 				}
 
@@ -852,17 +852,18 @@ class gallery_v2 extends class_base
 		$robj = aw_global_get("oid");
 
 		// ok, do draw, first draw all rate objs
+	//	var_dump($robj); var_dump($ob);
 		$this->_show_rate_objs($ob,$robj);
 
 		// and if that doesn't belong here, then show the default view
-		if (!$this->rateobjs[$robj])
+		if (empty($this->rateobjs[$robj]))
 		{
 			unset($robj);
 		};
 
 		$this->rating = get_instance(CL_RATE);
 
-		if ($robj)
+		if (!empty($robj))
 		{
 			// get the order, I dunno why, but rating->show wants a reference
 			// to the array
@@ -874,7 +875,7 @@ class gallery_v2 extends class_base
 			// show is misleading, it merely returns the image order array
 			$imorder = $this->rating->show($tmp);
 
-			$this->reorder(&$ob,$imorder);
+			$this->reorder($ob,$imorder);
 		}
 
 		$this->_show_pageselector($ob, $page);
@@ -1152,9 +1153,13 @@ class gallery_v2 extends class_base
 	function _get_rate_objs($obj)
 	{
 		$ret = array();
-
+		$fold = $this->_get_conf_for_folder($obj->parent());
+		if(empty($fold))
+		{
+			return $ret;
+		}
 		$cf = get_instance(CL_GALLERY_CONF);
-		$ros = new aw_array($cf->get_rate_objects($this->_get_conf_for_folder($obj->parent())));
+		$ros = new aw_array($cf->get_rate_objects($fold));
 
 		$this->db_query("SELECT oid,name FROM objects WHERE oid IN(".$ros->to_sql().")");
 		while ($row = $this->db_next())
@@ -1183,6 +1188,11 @@ class gallery_v2 extends class_base
 	function show_image($arr)
 	{
 		extract($arr);
+		if(empty($col))
+		{
+			$col = "";
+		}
+
 
 		$ob = obj($id);
 		if ($img_id)

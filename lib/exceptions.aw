@@ -57,3 +57,8 @@ class awex_not_available extends aw_exception
 class awex_not_implemented extends aw_exception
 {
 }
+
+/** Item doesn't exist **/
+class awex_not_found extends aw_exception
+{
+}

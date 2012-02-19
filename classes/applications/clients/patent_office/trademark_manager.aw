@@ -1436,6 +1436,7 @@ Starting export at {$time}
 HEADER;
 
 		$xml_data = array(); // array of DOMDocuments grouped by aw class id
+		$status_objects = new object_list(); // gather statuses and save after transaction complete
 
 		if (empty($arr["test_id"]))
 		{
@@ -1491,9 +1492,7 @@ HEADER;
 						$status->set_prop("exported", 1);
 						$status->set_prop("export_date", time());
 						$o->set_no_modify(true);
-						aw_disable_messages();
-						// $status->save();
-						aw_restore_messages();
+						$status_objects->add($status);
 					}
 					while ($o = $ol->next());
 				}
@@ -1542,6 +1541,13 @@ HEADER;
 			}
 		}
 
+		if ($status_objects->count())
+		{
+			aw_disable_messages();
+			$status_objects->save();
+			aw_restore_messages();
+		}
+
 		$time = gmdate("Y M d H:i:s");
 		exit("{$time} Done, exiting.");
 	}
@@ -1567,7 +1573,14 @@ HEADER;
 		}
 		elseif ("UTF-8" === $encoding)
 		{
-			$string = iconv("UTF-8", self::XML_OUT_ENCODING."//IGNORE", $string);
+			try
+			{
+				$string = iconv("UTF-8", self::XML_OUT_ENCODING."//IGNORE", $string);
+			}
+			catch (ErrorException $e)
+			{
+				$string = iconv("latin1", self::XML_OUT_ENCODING."//IGNORE", $string);
+			}
 		}
 		else
 		{
