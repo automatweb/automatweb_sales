@@ -42,6 +42,8 @@
 	@property no_apply_gal_conf type=checkbox table=objects field=meta method=serialize ch_value=1
 	@caption &Auml;ra kasuta galerii seadeid
 
+	@property url type=hidden table=images field=url
+	@caption URL
 
 	/@property file_show type=text store=no editonly=1
 	/@caption Eelvaade
@@ -2661,6 +2663,13 @@ SVGOBJECT;
 					"type" => "int"
 				));
 				return true;
+			case "url":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "varchar(255)"
+				));
+				return true;
+				
 		}
 	}
 
