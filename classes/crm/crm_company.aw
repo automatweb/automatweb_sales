@@ -2099,7 +2099,7 @@ class crm_company extends class_base
 				{
 					if(strlen(trim($comm->commtext)))
 					{
-						$comment = $comm->commtext .
+						$comment = nl2br($comm->commtext) .
 							"<br /><br /><b>" . t("T&uuml;&uuml;p:") . "</b> " . (array_key_exists($comm->commtype, $this->comment_types) ? $this->comment_types[$comm->commtype] : t("M&auml;&auml;ramata")) .
 							"<br /><b>" . t("Aeg:") . "</b> " . strftime("%d. %b %Y %H:%M", $comm->created()) .
 							"<br /><b>" . t("Autor:") . "</b> " . $comm->uname . "<br />";
