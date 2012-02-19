@@ -106,6 +106,14 @@
             <caption>&amp;amp;Auml;ra kasuta galerii seadeid</caption>
       </property>
       <property>
+            <name>url</name>
+            <group>general</group>
+            <type>hidden</type>
+            <table>images</table>
+            <field>url</field>
+            <caption>URL</caption>
+      </property>
+      <property>
             <name>show_conditions</name>
             <group>show_def</group>
             <type>chooser</type>
