@@ -1127,6 +1127,15 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $ol;
 	}
 
+	/** Returns the count of the comments for the company as integer
+	@attrib name=get_comments_count api=1 params=name
+	**/
+	function get_comments_count()
+	{
+		$conns = $this->connections_from(array("type" => "RELTYPE_COMMENT"));
+		return count($conns);
+	}
+
 	function get_mail()
 	{
 		$inst = $this->instance();
