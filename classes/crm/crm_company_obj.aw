@@ -1695,6 +1695,18 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $list->names();
 	}
 
+	/** Returns customer's all e-mail addresses as an array
+		@attrib api=1 params=pos
+	**/
+	function get_emails()
+	{
+		$list = new object_list(array(
+			"class_id" => CL_ML_MEMBER,
+			"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_COMPANY)" => $this->id(),
+		));
+		return $list->names();
+	}
+
 	/** returns customer relation creator
 		@attrib api=1
 		@return string
