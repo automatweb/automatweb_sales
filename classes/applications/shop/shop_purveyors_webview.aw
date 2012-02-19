@@ -57,6 +57,7 @@ class shop_purveyors_webview extends class_base
 					"title" => $purveyor->get_title(),
 					"comment" => $purveyor->comment(),
 					"logo.url" => $purveyor->prop("logo.url"),
+					"logo.comment" => $purveyor->prop("logo.comment"),
 					"address" => $purveyor->get_address_string(),
 					"PHONES" => $this->parse_phones_template($purveyor),
 					"EMAILS" => $this->parse_emails_template($purveyor)
