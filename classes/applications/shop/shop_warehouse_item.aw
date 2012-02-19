@@ -67,7 +67,7 @@ class shop_warehouse_item extends aw_product
 		));
 		$t->define_field(array(
 			"name" => "weekdays",
-			"caption" => t("Tarnepäevad"),
+			"caption" => t("TarnepÃ¤evad"),
 			"align" => "center",
 		));
 		$t->define_field(array(

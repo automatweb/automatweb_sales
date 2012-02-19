@@ -1218,7 +1218,7 @@ class shop_order_center extends class_base
 		$l_inst = $layout->instance();
 		$l_inst->read_template($layout->prop("template"));
 
-		lc_site_load("shop_order_center", &$this);
+		lc_site_load("shop_order_center", $this);
 		$last_menu = "";
 		if (isset($arr["pl_on_page"]))
 		{
@@ -1313,7 +1313,7 @@ class shop_order_center extends class_base
 		$u = get_instance(CL_USER);
 		$p = obj($u->get_current_person());
 		$this->read_template("orders.tpl");
-		lc_site_load("shop_order_center", &$this);
+		lc_site_load("shop_order_center", $this);
 		if($ord = $p->get_first_obj_by_reltype("RELTYPE_ORDER"))
 		{
 			$center = $ord->get_first_obj_by_reltype("RELTYPE_ORDER_CENTER");
@@ -1371,7 +1371,7 @@ class shop_order_center extends class_base
 			));
 		}
 
-		lc_site_load("shop_order_center", &$this);
+		lc_site_load("shop_order_center", $this);
 
 		foreach($ool->arr() as $ord)
 		{
