@@ -144,6 +144,17 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			throw new awex_obj_type(sprintf("Invalid type (%s) user object (%s) given for person (%s)"), $user->class_id(), $user->id(), $this->id());
 		}
 
+		$existing_user_connections = connection::find(array(
+			"from.class_id" => CL_USER,
+			"to" => $this->id(),
+			"type" => "RELTYPE_PERSON"
+		));
+		foreach ($existing_user_connections as $id => $data)
+		{
+			$connection = new connection($id);
+			$connection->delete();
+		}
+
 		$user->connect(array(
 			"to" => $this->ref(),
 			"type" => "RELTYPE_PERSON"

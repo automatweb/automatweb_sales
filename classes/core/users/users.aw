@@ -805,8 +805,8 @@ class users extends users_user implements request_startup, orb_public_interface
 
 		$personal_id = $personal_id_obj->get();
 		$pid_data_gender = $personal_id_obj->gender(1,2);
-		$certdata_firstname = mb_convert_case(iconv(id_config::ESTEID_PERSON_FILE_ENCODING, languages::USER_CHARSET, $data["f_name"]), MB_CASE_TITLE);
-		$certdata_lastname = mb_convert_case(iconv(id_config::ESTEID_PERSON_FILE_ENCODING, languages::USER_CHARSET, $data["l_name"]), MB_CASE_TITLE);
+		$certdata_firstname = mb_convert_case($data["f_name"], MB_CASE_TITLE);
+		$certdata_lastname = mb_convert_case($data["l_name"], MB_CASE_TITLE);
 
 		if($act_inst->use_safelist())
 		{ // only people in safelist can log in with id card
@@ -1044,11 +1044,15 @@ class users extends users_user implements request_startup, orb_public_interface
 	{
 		$str = preg_replace("/\\\\x([0-9ABCDEF]{1,2})/e", "chr(hexdec('\\1'))", $str);
 		$result = "";
-		$encoding = mb_detect_encoding($str,"ASCII, UCS2, UTF8");
+		$encoding = mb_detect_encoding($str,"ASCII, ISO-8859-1, UCS2, UTF8");
 
 		if ("ASCII" === $encoding)
 		{
 			$result = mb_convert_encoding($str, languages::USER_CHARSET, "ASCII");
+		}
+		elseif ("ISO-8859-1" === $encoding)
+		{
+			$result = mb_convert_encoding($str, languages::USER_CHARSET, "ISO-8859-1");
 		}
 		else
 		{
