@@ -2456,3 +2456,6 @@ class awex_obj_invalid_count extends awex_obj_data_integrity {}
 
 /** Indicates an attempt to violate object system architecture **/
 class awex_obj_system extends awex_obj {}
+
+/** Indicates that given object alias is not valid **/
+class awex_obj_alias extends awex_obj {}

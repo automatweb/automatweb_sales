@@ -23,9 +23,10 @@
 			</function>
 		</action>
 
-		<action name="get_ddoc_file" all_args="1">
+		<action name="get_ddoc_file">
 			<function name="get_ddoc_file">
 				<arguments>
+					<required name="id" type="oid" acl="view" />
 				</arguments>
 			</function>
 		</action>

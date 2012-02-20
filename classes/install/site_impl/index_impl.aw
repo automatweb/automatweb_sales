@@ -16,7 +16,15 @@ else
 	}
 	else
 	{
-		include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."site_header".AW_FILE_EXT);
+		//XXX: ajutine. aliasega antud section-i olemasolu peaks varem kontrollima
+		try
+		{
+			include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."site_header".AW_FILE_EXT);
+		}
+		catch (awex_obj_alias $e)
+		{
+			automatweb::http_exit(http::STATUS_NOT_FOUND);
+		}
 	}
 }
 

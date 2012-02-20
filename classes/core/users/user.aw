@@ -1509,7 +1509,7 @@ EOF;
 		if (!$retval)
 		{
 			$u = obj(aw_global_get("uid_oid"));
-			$i = new user();
+			$i = new user();//XXX: ...
 			$retval = $i->get_person_for_user($u);
 		}
 		return $retval;
@@ -1567,6 +1567,7 @@ EOF;
 	{
 		$person_c = $u->connections_from(array(
 			"type" => "RELTYPE_PERSON",
+			"to.class_id" => CL_CRM_PERSON
 		));
 		$person_c = reset($person_c);
 		if (!$person_c)
@@ -1612,13 +1613,13 @@ EOF;
 			// now, connect user to person
 			$u->connect(array(
 				"to" => $p->id(),
-				"reltype" => 2
+				"reltype" => "RELTYPE_PERSON"
 			));
 			return $p->id();
 		}
 		else
 		{
-			if (aw_global_get("uid") == $u->prop("uid") && !$this->can("edit", $person_c->prop("to")))
+			if (aw_global_get("uid") === $u->prop("uid") && !acl_base::can("edit", $person_c->prop("to")))
 			{
 				$p = obj($person_c->prop("to"));
 				$p->acl_set(

@@ -117,17 +117,23 @@ class ddoc extends class_base
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($prop["name"])
 		{
 			case "name":
+				if($arr["new"])
+				{
+					return class_base::PROP_IGNORE;
+				}
+
 				$prop["value"] = html::href(array(
 					"caption" => $prop["value"],
 					"url" => $this->mk_my_orb("get_ddoc_file", array(
-						"oid" => $arr["obj_inst"]->id(),
+						"id" => $arr["obj_inst"]->id()
 					)),
 				));
 				break;
+
 			case "files_tb":
 				$tb = $prop["vcl_inst"];
 				$url = $this->mk_my_orb("upload_new_file", array(
@@ -148,7 +154,7 @@ class ddoc extends class_base
 					"img" => "delete.gif",
 					"confirm" => $s?t("Antud DigiDoc on ALLKIRJASTATUD, faili(de) eemaldamisega eemaldatakse ka allkirjad! Kas te soovite j".html_entity_decode("&auml;")."tkata?"):NULL,
 				));
-				$popup_search = get_instance("vcl/popup_search");
+				$popup_search = new popup_search();
 				$search_butt = $popup_search->get_popup_search_link(array(
 					"pn" => "search_result_file",
 					"clid" => CL_FILE,
@@ -156,6 +162,7 @@ class ddoc extends class_base
 				));
 				$tb->add_cdata($search_butt);
 				break;
+
 			case "files_tbl":
 				$t = $prop["vcl_inst"];
 				$t->define_chooser(array(
@@ -197,15 +204,13 @@ class ddoc extends class_base
 			case "signatures_tb":
 				$tb = $prop["vcl_inst"];
 
-				$sign_url = $this->sign_url(array(
-					"ddoc_oid" => $arr["obj_inst"]->id(),
-				));
+				$sign_url = core::mk_my_orb("sign", array("id" => $arr["obj_inst"]->id()), "ddoc");
 				$tb->add_button(array(
 					"name" => "add_signature",
 					"tooltip" => t("Lisa allkiri"),
 					"img" => "new.gif",
 					"url" => "#",
-					"onClick" => "aw_popup_scroll('".$sign_url."','Allkirjastamine', 410,250);",
+					"onclick" => "aw_popup_scroll('".$sign_url."','Allkirjastamine', 410,250);",
 				));
 				$tb->add_button(array(
 					"name" => "remove_signature",
@@ -249,19 +254,21 @@ class ddoc extends class_base
 				$signatures = aw_unserialize($arr["obj_inst"]->prop("signatures"));
 				foreach($signatures as $sig_id => $sig)
 				{
-					$loc = array();
-					$loc[] = $sig["signing_town"];
-					$loc[] = $sig["signing_state"];
-					$loc[] = $sig["signing_index"];
-					$loc[] = $sig["signing_country"];
+					$location = array();
+					strlen($sig["signing_town"]) and $location[] = $sig["signing_town"];
+					strlen($sig["signing_state"]) and $location[] = $sig["signing_state"];
+					strlen($sig["signing_index"]) and $location[] = $sig["signing_index"];
+					strlen($sig["signing_country"]) and $location[] = $sig["signing_country"];
+					$location = count($location) ? implode(", ", $location) : t("[M&auml;&auml;ramata]");
+
 					$t->define_data(array(
 						"sig_id" => $sig_id,
 						"firstname" => $sig["signer_fn"],
 						"lastname" => $sig["signer_ln"],
 						"pid" => $sig["signer_pid"],
 						"time" => date("d/m/Y H:i:s" ,$sig["signing_time"]),
-						"role" => $sig["signing_role"],
-						"location" => (strlen($tmp = join(", ", $loc)))?$tmp:t("M&aauml;&aauml;ramata"),
+						"role" => strlen($sig["signing_role"]) ? $sig["signing_role"] : t("[M&auml;&auml;ramata]"),
+						"location" => $location,
 					));
 				}
 				break;
@@ -307,7 +314,7 @@ class ddoc extends class_base
 					if (empty($file_type))
 					{
 						$mimeregistry = get_instance("core/aw_mime_types");
-						$realtype = $mimeregistry->type_for_ext($pathinfo["extension"]);
+						$realtype = aw_mime_types::type_for_ext($pathinfo["extension"]);
 						$file_type = $realtype;
 					};
 					$final_name = $cl_file->generate_file_path(array(
@@ -325,7 +332,7 @@ class ddoc extends class_base
 				elseif (is_array($data["value"]) && $data["value"]["content"] != "")
 				{
 					$final_name = $cl_file->generate_file_path(array(
-						"type" => "text/html",
+						"type" => "text/html"
 					));
 					$fc = fopen($final_name, "w");
 					fwrite($fc, $data["value"]["content"]);
@@ -340,7 +347,6 @@ class ddoc extends class_base
 				else
 				{
 					return class_base::PROP_IGNORE;
-					//$retval = PROP_IGNORE;
 				}
 				$this->_do_reset_ddoc($arr["obj_inst"]->id(), false);
 				break;
@@ -368,6 +374,7 @@ class ddoc extends class_base
 					unset($files[$k]);
 				}
 			}
+
 			if($this->is_signed($arr["id"]) && count($files))
 			{
 				$this->remove_signatures($arr["id"]);
@@ -477,7 +484,7 @@ class ddoc extends class_base
 	{
 		$tpl = new aw_template();
 		$tpl->init(array(
-			"tpldir" => "common/digidoc",
+			"tpldir" => "common/digidoc"
 		));
 		$tpl->read_template("new_file.tpl");
 
@@ -496,8 +503,8 @@ class ddoc extends class_base
 						"size" => $_FILES["new_file"]["size"],
 						"MIME" => $_FILES["new_file"]["type"],
 						"error" => $_FILES["new_file"]["error"],
-						"content" => file_get_contents($_FILES["new_file"]["tmp_name"]),
-					),
+						"content" => file_get_contents($_FILES["new_file"]["tmp_name"])
+					)
 				)))
 				{
 					error::raise(array(
@@ -521,11 +528,11 @@ class ddoc extends class_base
 
 	/** Saves the ddoc file (browser save popup)
 		@attrib name=get_ddoc_file
-		@param oid required type=oid acl=view
+		@param id required type=oid acl=view
 	**/
 	public function get_ddoc_file($arr)
 	{
-		$o = obj($arr["oid"]);
+		$o = obj($arr["id"]);
 		$content = $o->get_digidoc_file_contents();
 		$name = (substr($o->name(), -4, 4) === ".ddoc") ? $o->name() : $o->name().".ddoc";
 		automatweb::$result->set_send_file_contents($content, $name, "text/xml", $o->prop("digidoc_encoding"));
