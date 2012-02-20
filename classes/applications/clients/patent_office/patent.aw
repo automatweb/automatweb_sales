@@ -382,8 +382,12 @@ class patent extends intellectual_property
 		$_SESSION["patent"]["prod_ru"] = get_ru();
 		$data["results_table"] = $this->get_results_table();
 
-		$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]),  "patent")."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800')";
-		$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , 	"id" => isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : "", "add_obj" => $arr["alias"]["to"]), "patent");
+		if (!empty($_SESSION["patent"]["id"]))
+		{
+			$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => $_SESSION["patent"]["id"] , "add_obj" => $arr["alias"]["to"]),  "patent")."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800')";
+			$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , 	"id" => $_SESSION["patent"]["id"], "add_obj" => $arr["alias"]["to"]), "patent");
+		}
+
 		return $data;
 	}
 

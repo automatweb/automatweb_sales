@@ -309,12 +309,14 @@ class core extends db_connector
 		// also attach backtrace and file/line
 		if ($this->raise_error_exception instanceof awex_php_generic_error)
 		{
+			$msg = "[" . get_class($this->raise_error_exception) . "] " . $msg;
 			$msg .= "\n<br /><b>File:</b> " . $this->raise_error_exception->errfile;
 			$msg .= "\n<br /><b>Line:</b> " . $this->raise_error_exception->errline;
 			$msg .= "\n<br /><b>Backtrace:</b>" . str_replace("#", "\n<br /><b>#</b>", $this->raise_error_exception->getTraceAsString()); //!!! backtrace otsida ka 6ige, errori enda oma, mitte errorhandleri oma
 		}
 		elseif ($this->raise_error_exception instanceof Exception)
 		{
+			$msg = "[" . get_class($this->raise_error_exception) . "] " . $msg;
 			$msg .= "\n<br /><b>File:</b> " . $this->raise_error_exception->getFile();
 			$msg .= "\n<br /><b>Line:</b> " . $this->raise_error_exception->getLine();
 			$msg .= "\n<br /><b>Backtrace:</b>" . str_replace("#", "\n<br /><b>#</b>", $this->raise_error_exception->getTraceAsString());
@@ -611,12 +613,12 @@ class core extends db_connector
 
 				if (automatweb::MODE_PRODUCTION === automatweb::$instance->mode())
 				{
-					exit;
+					automatweb::http_exit(http::STATUS_SERVER_ERROR, t("S&uuml;steemi t&ouml;&ouml;s esines viga."));
 				}
 				else
 				{
 					flush();
-					die("<br /><b>AW_ERROR: $msg</b><br />\n\n<br />");
+					automatweb::http_exit(http::STATUS_SERVER_ERROR, "<br /><b>AW_ERROR: $msg</b><br />\n\n<br />");
 				}
 			}
 		}

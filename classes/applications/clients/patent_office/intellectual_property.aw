@@ -270,7 +270,7 @@ abstract class intellectual_property extends class_base
 	**/
 	function is_signed($oid)
 	{
-		if(!acl_base::can("view", $oid))
+		if(!acl_base::can("", $oid))
 		{
 			throw new aw_exception("Invalid application object id '{$oid}'. No access");
 		}
@@ -478,7 +478,7 @@ abstract class intellectual_property extends class_base
 		if($show_sign_button && !$print_request && !$this->pdf)
 		{
 			$ddoc_inst = get_instance(CL_DDOC);
-			if($status["status"] > 0)
+			if (!empty($status["ddoc"]))
 			{
 				$url = core::mk_my_orb("sign", array("id" => $status["ddoc"]), "ddoc");
 			}
@@ -2038,7 +2038,7 @@ abstract class intellectual_property extends class_base
 			$ddoc_inst = new ddoc();
 			$status = $this->is_signed($patent_id);
 
-			if($status["status"] > 0)
+			if (!empty($status["ddoc"]))
 			{
 				$url = core::mk_my_orb("sign", array("id" => $status["ddoc"]), "ddoc");
 			}
@@ -3358,7 +3358,7 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-					if($re["status"] == 1)
+					if (!empty($re["ddoc"]))
 					{
 						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
 					}
@@ -3536,7 +3536,7 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-					if($re["status"] == 1)
+					if (!empty($re["ddoc"]))
 					{
 						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
 					}
@@ -3720,7 +3720,7 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-					if($re["status"] == 1)
+					if (!empty($re["ddoc"]))
 					{
 						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
 					}
@@ -3903,7 +3903,7 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-					if($re["status"] == 1)
+					if (!empty($re["ddoc"]))
 					{
 						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
 					}
@@ -4086,7 +4086,7 @@ abstract class intellectual_property extends class_base
 				if(!$status->prop("verified") &&	!$status->prop("nr"))
 				{
 					$do_sign = 1;
-					if($re["status"] == 1)
+					if (!empty($re["ddoc"]))
 					{
 						$sign_url = core::mk_my_orb("sign", array("id" => $re["ddoc"]), "ddoc");
 					}
@@ -4322,56 +4322,34 @@ abstract class intellectual_property extends class_base
 	**/
 	public function create_and_sign($arr)
 	{
+		$this_object = new object($arr["id"]);
+		if (!$this_object->is_a(CL_INTELLECTUAL_PROPERTY))
+		{
+			throw new awex_obj_type("Invalid class");
+		}
+
+		$digidoc = $this_object->get_digidoc(true);
+
 		try
 		{
-			$this_object = new object($arr["id"]);
-			if (!$this_object->is_a(CL_INTELLECTUAL_PROPERTY))
-			{
-				throw new awex_obj_type("Invalid class");
-			}
-
-			$digidoc = $this_object->get_digidoc(true);
-
+			$digidoc->sk_start_session();
+		}
+		catch (awex_ddoc_session $e)
+		{
 			try
 			{
+				$e->violated_object->sk_close_session();
 				$digidoc->sk_start_session();
 			}
-			catch (awex_ddoc_session $e)
-			{
-				try
-				{
-					$e->violated_object->sk_close_session();
-					$digidoc->sk_start_session();
-				}
-				catch (Exception $e)
-				{//TODO: parem error dislplay
-					automatweb::$result->set_data(t("Varasemat DigiDoc sessiooni ei &otilde;nnestunud sulgeda."));
-					automatweb::http_exit();
-				}
+			catch (Exception $e)
+			{//TODO: parem error dislplay
+				automatweb::$result->set_data(t("Varasemat DigiDoc sessiooni ei &otilde;nnestunud sulgeda."));
+				automatweb::http_exit();
 			}
-
-			$digidoc->sk_create_digidoc();
-			$digidoc->sk_add_file($this_object, $this_object->get_xml(), "text/xml");
-			return core::mk_my_orb("sign", array("id" => $digidoc->id()), "ddoc");
 		}
-		catch (Exception $e)
-		{
-			if (automatweb::MODE_DBG === automatweb::$instance->mode())
-			{
-				throw $e;
-			}
 
-			$htmlc = new htmlclient();
-			$htmlc->in_popup_mode(true);
-			$htmlc->start_output();
-			$htmlc->push_msg(t("Viga"), "ERROR");
-			$htmlc->finish_output(array(
-				"data" => array(),
-				"submit" => "no"
-			));
-			$result = $htmlc->get_result();
-			automatweb::$result->set_data($result);
-			automatweb::http_exit();
-		}
+		$digidoc->sk_create_digidoc();
+		$digidoc->sk_add_file($this_object, $this_object->get_xml(), "text/xml");
+		return core::mk_my_orb("sign", array("id" => $digidoc->id()), "ddoc");
 	}
 }

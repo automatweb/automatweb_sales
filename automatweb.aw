@@ -19,6 +19,12 @@ require_once(AW_DIR . "lib/main" . AW_FILE_EXT);
 // set required configuration
 set_error_handler (array("aw_errorhandler", "handle_error"));
 ini_set("track_errors", "1");
+$success = mb_internal_encoding(languages::USER_CHARSET);
+
+if (!$success)
+{
+	throw new aw_exception("Failed to set default character encoding for multibyte module");
+}
 
 /*
 //TODO: cli exec option
@@ -226,16 +232,18 @@ class automatweb
 		@attrib api=1 params=pos
 		@param status type=int default=http::STATUS_OK
 			One of http::STATUS_ constants
+		@param message type=string default=""
+			Optional status message.
 		@comment
 		@returns void
 		@errors
 	**/
-	public static function http_exit($status = http::STATUS_OK)
+	public static function http_exit($status = http::STATUS_OK, $message = "")
 	{
 		self::$result->set_status($status);
 		self::$result->send();
 		self::shutdown();
-		exit;
+		exit($message);
 	}
 
 

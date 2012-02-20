@@ -1089,7 +1089,7 @@ class trademark_manager extends class_base
 					{
 						$stuff[] = $a_mail->name();
 					}
-					$applicant_data = join("," , $stuff);
+					$applicant_data = implode(", " , $stuff);
 				}
 			}
 
@@ -1102,18 +1102,18 @@ class trademark_manager extends class_base
 				$date = $o->created();
 			}
 
-			$retval = "";
 			if($re["status"] == 1)
 			{
-				$signatures_url = $this->mk_my_orb("change", array("group" => "signatures", "id" => $re["ddoc"]), CL_DDOC);
-				$retval = html::href(array(
-					"url" => $signatures_url,
-					"target" => "new window",
-					//"url" => "#",
+				$signatures_url = $this->mk_my_orb("change", array("group" => "signatures", "id" => $re["ddoc"], "in_popup" => "1"), CL_DDOC);
+				$signatures_link = html::href(array(
+					"url" => "javascript: void(0);",
 					"caption" => t("Allkirjad"),
-					// "title" => $title,
-					//"onclick" => 'javascript:window.open("'.$signatures_url.'","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
+					"onclick" => 'javascript:window.open("'.$signatures_url.'","", "toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600");',
 				));
+			}
+			else
+			{
+				$signatures_link = "";
 			}
 
 			try
@@ -1134,7 +1134,7 @@ class trademark_manager extends class_base
 				"applicant_data" => $applicant_data,
 				"date" => $date,
 				"oid" => $o->id(),
-				"signatures" => $retval,
+				"signatures" => $signatures_link,
 				"verify" => ($status->prop("verified")) ? "" : html::href(array(
 					"caption" => t("Kinnita"),
 					"url" => "#",
