@@ -3583,7 +3583,7 @@ class crm_person extends class_base
 				break;
 		};
 		$conns = $ob->connections_from($args);
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$arr["prop"]["vcl_inst"]->configure(array(
 			"overview_func" => array(&$this,"get_overview"),
@@ -4659,22 +4659,17 @@ class crm_person extends class_base
 		{
 			return false;
 		}
-		$c = new connection();
-		$res = $c->find(array(
-			"to" => $o->id(),
-			"from.class_id" => CL_USER,
-			"type" => 2 // CL_USER.RELTYPE_PERSON
-		));
 
-		if (count($res))
+		$user = $o->get_user();
+
+		if ($user)
 		{
-			$tmp = reset($res);
-			if (acl_base::can("", $tmp["from"]))
-			{
-				return obj($tmp["from"]);
-			}
+			return $user;
 		}
-		return false;
+		else
+		{
+			return false;
+		}
 	}
 
 	// this is a helper method, which can be used to add or update a specific

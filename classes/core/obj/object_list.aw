@@ -444,7 +444,7 @@ class object_list extends _int_obj_container_base
 		return $this->_int_get_at($this->iter_lut[$this->iter_index]);
 	}
 
-	/** Returns the object at the current internal ioterator position and increments the current internal iterator by one
+	/** Returns the object at the current internal iterator position and increments the current internal iterator by one
 		@attrib api=1
 
 		@errors
@@ -784,7 +784,6 @@ class object_list extends _int_obj_container_base
 	function ids()
 	{
 		$tmp = array_keys($this->list);
-
 		$ret = array();
 
 		foreach($tmp as $v)
@@ -1085,7 +1084,7 @@ class object_list extends _int_obj_container_base
 					$list_objdata = $objdata[$oid];
 				}
 
-				$this->list[$load_oid] = $load_oid;
+				$this->list[$load_oid] = new object($load_oid);
 				$this->list_names[$load_oid] = $oname;
 				$this->list_objdata[$load_oid] = $list_objdata;
 			}

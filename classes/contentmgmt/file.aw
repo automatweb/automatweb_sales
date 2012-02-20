@@ -1307,7 +1307,7 @@ class file extends class_base
 	function get_url($id, $name = "")
 	{
 		$retval = str_replace("automatweb/","",$this->mk_my_orb("preview", array("id" => $id),"file", false,true,"/"));
-		return $retval;
+		return $retval;//TODO: faili nimi tagasi panna ja teha et see t88taks uues systeemis...
 	}
 
 	////

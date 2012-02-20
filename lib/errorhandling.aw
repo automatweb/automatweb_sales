@@ -128,7 +128,6 @@ class aw_errorhandler
 					"show" => false,
 					"exception" => $e
 				));
-				automatweb::shutdown();
 			}
 			catch (Exception $e)
 			{

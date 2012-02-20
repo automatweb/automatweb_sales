@@ -784,25 +784,17 @@ class users extends users_user implements request_startup, orb_public_interface
 
 		// this little modafocka is here beacause estonian language has freaking umlauts etc..
 		$data = $this->returncertdata($_SERVER["SSL_CLIENT_CERT"]);
+		$certdata_pid = isset($data["pid"]) ? $data["pid"] : "";
+		$personal_id_obj = new pid_et($certdata_pid);
 
-		if($act_inst->use_safelist())
-		{ // only people in safelist can log in with id card
-			$sl = $act_inst->get_safelist();
-			if(!in_array($data["pid"], array_keys($sl)))
-			{
-				return aw_ini_get("baseurl");
-			}
-		}
-
-		$arr["firstname"] = $data["f_name"];
-		$arr["lastname"] = $data["l_name"];
-		$arr["ik"] = $data["pid"];
-		$ik = new pid_et($arr["ik"]);
-		$arr["gender"] = $ik->gender(1,2);
-
-		if(!$arr["firstname"] || !$arr["lastname"] || !$ik->is_valid())
+		// check id card person file and cert data
+		if (
+			empty($data["f_name"]) or
+			empty($data["l_name"]) or
+			empty($data["pid"]) or
+			!$personal_id_obj->is_valid()
+		)
 		{
-			$url = aw_ini_get("baseurl")."orb.aw?class=ddoc&action=no_ddoc";
 			$tpl = new aw_template();
 			$tpl->init(array(
 				"tpldir" => "common/digidoc/idErr"
@@ -811,93 +803,131 @@ class users extends users_user implements request_startup, orb_public_interface
 			die($tpl->parse());
 		}
 
-		$arr["uid"] = $this->_find_username($arr["firstname"], $arr["lastname"], id_config::ESTEID_PERSON_FILE_ENCODING);
-		$password = substr(gen_uniq_id(),0,8);
-		$ol = new object_list(array(
-			"class_id" => CL_CRM_PERSON,
-			"personal_id" => $ik->get()
-		));
+		$personal_id = $personal_id_obj->get();
+		$pid_data_gender = $personal_id_obj->gender(1,2);
+		$certdata_firstname = mb_convert_case($data["f_name"], MB_CASE_TITLE);
+		$certdata_lastname = mb_convert_case($data["l_name"], MB_CASE_TITLE);
 
-		if($ol->count() < 1 && aw_ini_get("users.id_only_existing"))
-		{ // only people who have a user object in this system can log in with id card
-			return aw_ini_get("baseurl");
+		if($act_inst->use_safelist())
+		{ // only people in safelist can log in with id card
+			$sl = $act_inst->get_safelist();
+			if(!in_array($personal_id, array_keys($sl)))
+			{
+				return aw_ini_get("baseurl");
+			}
 		}
 
-		if($ol->count() < 1)
+		$person_list = new object_list(array(
+			"class_id" => CL_CRM_PERSON,
+			"personal_id" => $personal_id
+		));
+
+		if (0 === $person_list->count())
 		{
+			if (aw_ini_get("users.id_only_existing"))
+			{ // only people who have a user object in this system can log in with id card
+				return aw_ini_get("baseurl");
+			}
+
+			// add new person
+			$person_obj = new object();
+			$person_obj->set_class_id(CL_CRM_PERSON);
+			$person_obj->set_parent(aw_ini_get("users.root_folder"));
+			$person_obj->set_prop("personal_id", $personal_id);
+			$person_obj->set_prop("firstname", $certdata_firstname);
+			$person_obj->set_prop("lastname", $certdata_lastname);
+			$person_obj->set_prop("gender", $pid_data_gender);
+			$person_obj->save();
+		}
+		elseif (1 === $person_list->count())
+		{
+			$person_obj = $person_list->begin();
+		}
+		else
+		{
+			// try to find right one among multiple person objects
+			$user_cl = new user();
+			$invalid_users = array();
+			$i = 0;
+			for ($person_obj_to_check = $person_list->begin(); !$person_list->end(); $person_obj_to_check = $person_list->next())
+			{
+				$i++;
+				$u_obj_to_check = $person_obj_to_check->get_user();
+
+				// for legacy object structures and data integrity check if found user matches found person
+				$person_oid = $user_cl->get_person_for_user($u_obj_to_check);
+				if (!isset($u_obj) and $person_oid == $person_obj_to_check->id() or $i === $person_list->count())
+				{
+					$person_obj = $person_obj_to_check;
+					$u_obj = $u_obj_to_check;
+					$person_obj->set_user($u_obj);
+				}
+				else
+				{
+					$invalid_users[] = $person_obj->id() . ": " . $u_obj_to_check->id();
+					$u_obj_to_check->set_prop("blocked", 1);
+					$u_obj_to_check->save();
+				}
+			}
+
+			// log an error since data integrity not intact
+			if (1 !== $person_list->count())
+			{
+				trigger_error(sprintf("Multiple persons found with personal id %s (%s)", $personal_id, implode(", ", $invalid_users)), E_USER_WARNING);
+			}
+		}
+
+		// check person name
+		if ($person_obj->prop("firstname") !== $certdata_firstname or $person_obj->prop("lastname") !== $certdata_lastname)
+		{
+			$person_obj->set_prop("firstname", $certdata_firstname);
+			$person_obj->set_prop("lastname", $certdata_lastname);
+			$person_obj->save();
+		}
+
+		// get user for person, create if not found
+		$u_obj = $person_obj->get_user();
+		$user_cl = new user();
+		if (!$u_obj)
+		{
+			$uid = $this->_find_username($certdata_firstname, $certdata_lastname, languages::USER_CHARSET);
+			$password = substr(gen_uniq_id(),0,8);
 			$grs = $act_inst->get_ugroups();
-			$user = new user();
-			$u_obj = $user->add_user(array(
-				"uid" => $arr["uid"],
+
+			$u_obj = $user_cl->add_user(array(
+				"uid" => $uid,
 				"password" => $password,
-				"real_name" => $arr["firstname"]." ".$arr["lastname"]
+				"real_name" => $certdata_firstname . " " . $certdata_lastname
 			));
 			// set new users user groups depending on the active id_config settings
-			foreach($grs as $gr)
+			foreach ($grs as $gr)
 			{
 				$gr_inst = new group();
 				$gr_obj = new object($gr);
 				$gr_inst->add_user_to_group($u_obj, $gr_obj);
 			}
-
-			$person_obj = new object();
-			$person_obj->set_class_id(CL_CRM_PERSON);
-			$person_obj->set_parent(aw_ini_get("users.root_folder"));
-			$person_obj->set_name($arr["uid"]);
-			$person_obj->set_prop("personal_id",$ik->get());
-			$person_obj->set_prop("firstname",$arr["firstname"]);
-			$person_obj->set_prop("lastname",$arr["lastname"]);
-			$person_obj->set_prop("gender",$arr["gender"]);
-			$person_id = $person_obj->save();
-
-			$u_obj->connect(array(
-				"to" => $person_id,
-				"type" => "RELTYPE_PERSON"
-			));
-			$u_obj->save();
-			cache::file_clear_pt("storage_object_data");
-			cache::file_clear_pt("storage_search");
-			cache::file_clear_pt("acl");
+			$person_obj->set_user($u_obj);
 		}
 		else
 		{
-			$person_obj = $ol->begin();
-			$u_obj = crm_person::has_user($person_obj);
-
-			if (!$u_obj)
+			// for legacy object structures and data integrity check if found user matches found person
+			$person_oid = $user_cl->get_person_for_user($u_obj);
+			if ($person_oid != $person_obj->id())
 			{
-				$user = new user();
-				$u_obj = $user->add_user(array(
-					"uid" => $arr["uid"],
-					"password" => $password,
-					"real_name" => $arr["firstname"]." ".$arr["lastname"],
-				));
-
-
-				$o = new object($u_obj->id());
-				$o->connect(array(
-					"to" => $person_obj->id(),
-					"type" => 2  // CL_USER.RELTYPE_PERSON
-				));
-				$o->save();
-				cache::file_clear_pt("storage_object_data");
-				cache::file_clear_pt("storage_search");
-				cache::file_clear_pt("acl");
-			}
-			else
-			{
-				$arr["uid"] = $u_obj->prop("name");
+				$person_obj->set_user($u_obj);
 			}
 		}
+
+		$uid = $u_obj->prop("name");
 		$hash = gen_uniq_id();
-		$q = "INSERT INTO user_hashes (hash, hash_time, uid) VALUES('".$hash."','".(time()+60)."','".$arr["uid"]."')";
+		$q = "INSERT INTO user_hashes (hash, hash_time, uid) VALUES('".$hash."','".(time()+60)."','".$uid."')";
 		$res = $this->db_query($q);
-		return $this->login(array("hash" => $hash ,"uid" => $arr["uid"]));
+		return $this->login(array("hash" => $hash ,"uid" => $uid));
 	}
 
 	/** login
 
-		@attrib name=login params=name default="0" nologin="1" is_public="1" caption="Logi sisse"
+		@attrib name=login params=name nologin=1 is_public=1 caption="Logi sisse"
 
 		@param uid required
 		@param password optional
@@ -1014,11 +1044,15 @@ class users extends users_user implements request_startup, orb_public_interface
 	{
 		$str = preg_replace("/\\\\x([0-9ABCDEF]{1,2})/e", "chr(hexdec('\\1'))", $str);
 		$result = "";
-		$encoding = mb_detect_encoding($str,"ASCII, UCS2, UTF8");
+		$encoding = mb_detect_encoding($str,"ASCII, ISO-8859-1, UCS2, UTF8");
 
 		if ("ASCII" === $encoding)
 		{
 			$result = mb_convert_encoding($str, languages::USER_CHARSET, "ASCII");
+		}
+		elseif ("ISO-8859-1" === $encoding)
+		{
+			$result = mb_convert_encoding($str, languages::USER_CHARSET, "ISO-8859-1");
 		}
 		else
 		{
