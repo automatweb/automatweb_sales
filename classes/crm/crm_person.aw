@@ -4664,7 +4664,7 @@ class crm_person extends class_base
 
 		if ($user)
 		{
-			return $user
+			return $user;
 		}
 		else
 		{
