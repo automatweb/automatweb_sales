@@ -106,13 +106,13 @@ class persons_webview extends class_base
 			"DESC" => t("Kahanev"),
 		);
 
-		$this->education["options"] = array(
+		$this->education = array("options" => array(
 			0 => t("-- vali --"),
 			1 => t("p&otilde;hi"),
 			2 => t("kesk"),
 			3 => t("kesk-eri"),
 			4 => t("k&otilde;rgem"),
-		);
+		));
 
 		$this->phone_types = array("phone" => "");//see on selleks, et lihtsalt telefoni tyybid kirja panna ja jargmistel inimestel vastavad muutujad ara nullida, muidu v6tab eelmiselt isikult
 
@@ -626,10 +626,14 @@ class persons_webview extends class_base
 		{
 			$from_to = explode("-" , $levels);
 			$possible_levels = array();
-			while($from_to[0] <= $from_to[1])
+
+			if(!empty($from_to[1]))
 			{
-				$possible_levels[] = $from_to[0] - $level;
-				$from_to[0]++;
+				while($from_to[0] <= $from_to[1])
+				{
+					$possible_levels[] = $from_to[0] - $level;
+					$from_to[0]++;
+				}
 			}
 			if(sizeof($possible_levels)>0) $levels = $possible_levels;
 			else $levels = array($levels - $level);
@@ -648,11 +652,11 @@ class persons_webview extends class_base
 	/** parse alias
 		@attrib name=parse_alias is_public="1" nologin="1"
 	**/
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		extract($_GET);
 		//global $view , $id, $section, $level, $company_id, $section_id;
-		if(is_oid($id) && is_oid($section_o)) // juhul kui asi pole dokumendi sees vaid tulev kuskiklt urlist
+		if(!empty($id) && is_oid($section_o)) // juhul kui asi pole dokumendi sees vaid tulev kuskiklt urlist
 		{
 			$this->view_obj = obj($id);
 		}
@@ -660,21 +664,21 @@ class persons_webview extends class_base
 		{
 			$this->view_obj = obj($arr["alias"]["to"]); // dokumendis aliasena
 		}
-		if(is_oid($company_id)) $this->company = obj($company_id);
-		if(is_oid($section_id)) $this->section = obj($section_id);
+		if(!empty($company_id) && is_oid($company_id)) $this->company = obj($company_id);
+		if(!empty($section_id) && is_oid($section_id)) $this->section = obj($section_id);
 
 		$this->meta = $this->view_obj->meta();
-		$this->view_no = $view;
-		if($view)
-		{
-			$this->view = $this->meta["view"][$view]; // juhul kui tuleb kuskilt urlist miski tase,...
-		}
-		else
+		$this->view_no = empty($view) ? 0 : $view;
+		if(empty($view))
 		{
 			 $this->view = $this->meta["view"][0]; // algul paneb siis metasse esimese (default) taseme vaate,...
 		}
+		else
+		{
+			$this->view = $this->meta["view"][$view]; // juhul kui tuleb kuskilt urlist miski tase,...
+		}
 
-		if($this->can("view" , $section_o)){
+		if(!empty($section_o) && $this->can("view" , $section_o)){
 			$section_obj = obj($section_o);
 			if($section_obj->class_id() == CL_CRM_PERSON)
 			{
@@ -695,7 +699,7 @@ class persons_webview extends class_base
 			}
 		}
 
-		if(!is_object($company))
+		if(empty($company))
 		{
 			$company_id = $this->view_obj->prop("company");
 			if(!is_oid($company_id)) return t("pole asutust valitud");
@@ -704,13 +708,17 @@ class persons_webview extends class_base
 
 		//miskis lambikohas v6ib asutust ka vaja minna
 		if($company->class_id() == CL_CRM_COMPANY) $this->company=$company;
-		if(!$level)$level = 0;
+		if(empty($level))$level = 0;
 		$this->level = $level;
 		$this->set_levels($level);//teeb siis erinevatest tasemetest massiivi, mida yldse kuvada ja paneb selle muutujasse $this->levels
 
-		if($arr["search_results"]) //sel juhul tuleb otsingust
+		if(!empty($arr["search_results"])) //sel juhul tuleb otsingust
 		{
 			$this->sw = $arr["search_results"];
+		}
+		else
+		{
+			$this->sw = null;
 		}
 
 		return $this->parse_company($company);
@@ -887,7 +895,7 @@ class persons_webview extends class_base
 
 	function parse_profession($worker)
 	{
-		$profession = $directive = "";
+		$profession = $directive = $directive_link= "";
 		$profession_obj = $worker->get_first_obj_by_reltype("RELTYPE_RANK");
 		//k6ik ametid mis tyybil on
 		$conns = $worker->connections_from(array(
@@ -967,7 +975,7 @@ class persons_webview extends class_base
 			foreach($workers as $val)
 			{
 				$worker = $val["worker"];
-				if($this->view["rows_by"])//ametinimede kaupa grupeerimise porno, et erinevale reale 6ige arv tuleks jne
+				if(!empty($this->view["rows_by"]))//ametinimede kaupa grupeerimise porno, et erinevale reale 6ige arv tuleks jne
 				{
 					if(!$this->order_array) $this->make_order_array($workers);
 					if(!$this->calculated) $col_num = $this->get_cols_num($row_num);
@@ -1082,7 +1090,7 @@ class persons_webview extends class_base
 
 	function parse_worker($worker)
 	{
-		if(!$this->section && !$this->view_obj->prop("department_grouping"))
+		if(empty($this->section) && !$this->view_obj->prop("department_grouping"))
 		{
 			$this->section = $worker->get_first_obj_by_reltype("RELTYPE_SECTION");
 		}
@@ -1106,7 +1114,8 @@ class persons_webview extends class_base
 			"reception" => $worker->prop("work_hrs"),
 		);
 
-		//pilt                $photo="";
+		//pilt 
+		$photo="";
 		$image_inst = new image();
 		if(false && is_oid($worker->prop("picture")) && $this->can("view", $worker->prop("picture")))
 		{
@@ -1197,7 +1206,7 @@ class persons_webview extends class_base
 		}
 
 		//haridus
-		$speciality = $school = "";
+		$speciality = $school = $subject_field = "";
 		$speciality_obj = $worker->get_first_obj_by_reltype("RELTYPE_EDUCATION");
 		if(is_object($speciality_obj))
 		{
@@ -1212,14 +1221,22 @@ class persons_webview extends class_base
 		{
 			$wage_doc_exist = '<a href ='.$worker->prop("wage_doc").'> '. t("Palk").' </a>';
 		}
+
+		$url_params = array(
+			"id" => $this->view_obj->id(),
+			"section_o" => $worker->id(),
+			"view" => (1 + $this->view_no),
+			"company_id" => $this->company->id(),
+		//	"section_id" => $this->section->id()
+		);
+
+		if(!empty($this->section))
+		{
+			$url_params["section_id"] = $this->section->id();
+		}
+
 		$next_level_link = $this->mk_my_orb("parse_alias",
-			array(
-				"id" => $this->view_obj->id(),
-				"section_o" => $worker->id(),
-				"view" => (1 + $this->view_no),
-				"company_id" => $this->company->id(),
-				"section_id"	=> $this->section->id()
-		),
+			$url_params,
 		CL_PERSONS_WEBVIEW);
 		if(!$this->company)
 		{
@@ -1276,6 +1293,7 @@ class persons_webview extends class_base
 		}
 
 		//peatatud toosuhe
+		$stopped = "";
 		if($this->is_template("STOPPED"))
 		{
 			$stopped_reason = $subsitute = $stopped = "";
@@ -1342,13 +1360,16 @@ class persons_webview extends class_base
 		$vars["contact"] = $contact;
 		$vars["email"] = $email;
 		$vars["emails"] = $emails;
-		$vars["education"] = $person_inst->edulevel_options[$worker->prop("edulevel")];
+		$vars["education"] = !$worker->prop("edulevel") ? "" : $person_inst->edulevel_options[$worker->prop("edulevel")];
 		$vars["speciality"] = $speciality;
 		$vars["name_with_email"] = $name_with_email;
 		$vars["wage_doc_exist"] = $wage_doc_exist;
 		$vars["next_level_link"] = $next_level_link;
 		$vars["company"] = $company;
-		$vars["section"] = $this->section->trans_get_val("name");
+		if(!empty($this->section))
+		{
+			$vars["section"] = $this->section->trans_get_val("name");
+		}
 		$vars["url"] = $url;
 		$vars["urls"] = $urls;
 		$vars["school"] = $school;
