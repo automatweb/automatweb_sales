@@ -11,6 +11,15 @@ class crm_company_employees_view extends class_base
 	const REQVAR_NAME = "es_n"; // request parameter name for name search
 	const REQVAR_EMPLOYMENT_STATUS = "es_s"; // request parameter name for status
 
+	const REQVAR_EMPLOYMENT_GENDER = "es_g"; // request parameter name for sex
+	const REQVAR_EMPLOYMENT_ADDRESS = "es_a"; // request parameter name for address
+	const REQVAR_EMPLOYMENT_EMAIL = "es_e"; // request parameter name for e-mail
+	const REQVAR_EMPLOYMENT_AGEFROM = "es_agefrom"; // request parameter name for age from
+	const REQVAR_EMPLOYMENT_AGETO = "es_ageto"; // request parameter name for age to
+
+
+
+
 	const CLIPBOARD_DATA_VAR = "awcb_organization_structure_selection_clipboard";
 	const CLIPBOARD_FROM_CAT_VAR = "awcb_organization_structure_old_parent_clipboard";
 	const CLIPBOARD_ACTION_VAR = "awcb_organization_structure_clipboard_action";
@@ -54,6 +63,17 @@ class crm_company_employees_view extends class_base
 		if (!isset($arr["prop"]["value"]))
 		{
 			$arr["prop"]["value"] = crm_employee_search::EMPLOYMENT_STATUS_ACTIVE;
+		}
+		return class_base::PROP_OK;
+	}
+
+	public function _get_es_g(&$arr)
+	{
+		$arr["prop"]["options"] = crm_employee_search::get_employment_gender_options();
+
+		if (!isset($arr["prop"]["value"]))
+		{
+			$arr["prop"]["value"] = crm_employee_search::EMPLOYMENT_GENDER_ALL;
 		}
 		return class_base::PROP_OK;
 	}
@@ -350,6 +370,39 @@ class crm_company_employees_view extends class_base
 			if (!empty($arr["request"][self::REQVAR_NAME]))
 			{
 				$employee_search->name = $arr["request"][self::REQVAR_NAME];
+				$search_params_set = true;
+			}
+
+			// searched by sex
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_GENDER]))
+			{
+				$employee_search->gender = $arr["request"][self::REQVAR_EMPLOYMENT_GENDER];
+				$search_params_set = true;
+			}
+
+			// searched by address
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_ADDRESS]))
+			{
+				$employee_search->address = $arr["request"][self::REQVAR_EMPLOYMENT_ADDRESS];
+				$search_params_set = true;
+			}
+
+			// searched by e-mail
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_EMAIL]))
+			{
+				$employee_search->email = $arr["request"][self::REQVAR_EMPLOYMENT_EMAIL];
+				$search_params_set = true;
+			}
+
+			// searched by age
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_AGEFROM]))
+			{
+				$employee_search->agefrom = $arr["request"][self::REQVAR_EMPLOYMENT_AGEFROM];
+				$search_params_set = true;
+			}
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_AGETO]))
+			{
+				$employee_search->ageto = $arr["request"][self::REQVAR_EMPLOYMENT_AGETO];
 				$search_params_set = true;
 			}
 

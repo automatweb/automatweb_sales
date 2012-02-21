@@ -260,6 +260,22 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 					@property es_s type=chooser orient=vertical store=request parent=search_params_container no_caption=1
 					@caption T&ouml;&ouml;suhte staatus
 
+
+					@property es_a type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption Aadress
+
+					@property es_e type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption E-Post
+
+					@property es_agefrom type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption Vanus alates
+
+					@property es_ageto type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption Vanus kuni
+
+					@property es_g type=chooser orient=vertical store=request parent=search_params_container no_caption=1
+					@caption T&ouml;&ouml;taja sugu
+
 				@layout search_submit_container type=hbox parent=hrm_search_container
 
 					@property es_sbt type=submit size=15 store=no parent=search_submit_container no_caption=1

@@ -7,6 +7,10 @@ class crm_employee_search extends aw_object_search
 	const EMPLOYMENT_STATUS_PROSPECTIVE = 4;
 	const EMPLOYMENT_STATUS_ALL = 5;
 
+	const EMPLOYMENT_GENDER_ALL = 0;
+	const EMPLOYMENT_GENDER_M = 1;
+	const EMPLOYMENT_GENDER_W = 2;
+
 	const PARAM_NAME = 1;
 	const PARAM_EMPLOYER = 2;
 	const PARAM_ADDRESS = 3;
@@ -18,6 +22,10 @@ class crm_employee_search extends aw_object_search
 	const PARAM_EMPLOYMENT_STATUS = 9;
 	const PARAM_SECTION = 10;
 	const PARAM_PROFESSION = 11;
+	const PARAM_EMAIL = 12;
+	const PARAM_GENDER = 13;
+	const PARAM_AGE = 14;
+
 
 	private $p_name = false;
 	private $p_employer = false;
@@ -26,6 +34,10 @@ class crm_employee_search extends aw_object_search
 	private $p_section = false;
 	private $p_profession = false;
 	private $p_employment_status = false;
+	private $p_email = false;
+	private $p_gender = false;
+	private $p_ageto = false;
+	private $p_agefrom = false;
 
 	private $sort_order;
 	private $search_method = "obj";
@@ -35,6 +47,12 @@ class crm_employee_search extends aw_object_search
 		self::EMPLOYMENT_STATUS_ACTIVE,
 		self::EMPLOYMENT_STATUS_FORMER,
 		self::EMPLOYMENT_STATUS_PROSPECTIVE
+	);
+
+	private static $gender_values = array(
+		self::EMPLOYMENT_GENDER_ALL,
+		self::EMPLOYMENT_GENDER_M,
+		self::EMPLOYMENT_GENDER_W
 	);
 
 	public static $sort_modes = array(
@@ -59,6 +77,18 @@ class crm_employee_search extends aw_object_search
 			self::EMPLOYMENT_STATUS_ALL => t("K&otilde;ik")
 		);
 	}
+
+	public static function get_employment_gender_options()
+	{
+		return array(
+			self::EMPLOYMENT_GENDER_M => t("Mees"),
+			self::EMPLOYMENT_GENDER_W => t("Naine"),
+			self::EMPLOYMENT_GENDER_ALL => t("K&otilde;ik")
+		);
+	}
+	
+
+
 
 	// /** Counts objects satisfying filter constraints
 		// @attrib api=1 params=pos
@@ -188,6 +218,43 @@ class crm_employee_search extends aw_object_search
 		$this->p_employment_status = $value;
 	}
 
+	private function _set_agefrom($value)
+	{
+		if (empty($value))
+		{
+			$e = new awex_param_type_employee_search("Invalid value '" . var_export($value, true) . "' for employment_status parameter", self::PARAM_AGE);
+			throw $e->ui_msg(t("Antud v&auml;&auml;rtus ei kuulu v&otilde;imalike vanuste hulka"));
+		}
+
+		$this->p_agefrom = $value;
+	}
+
+	private function _set_ageto($value)
+	{
+		if (empty($value))
+		{
+			$e = new awex_param_type_employee_search("Invalid value '" . var_export($value, true) . "' for employment_status parameter", self::PARAM_AGE);
+			throw $e->ui_msg(t("Antud v&auml;&auml;rtus ei  v&otilde;imalike vanuste hulka"));
+		}
+
+		$this->p_ageto = $value;
+	}
+
+
+
+
+	private function _set_gender($value)
+	{
+		if (empty($value) or !in_array($value, self::$gender_values))
+		{
+			$e = new awex_param_type_employee_search("Invalid value '" . var_export($value, true) . "' for gender parameter", self::PARAM_GENDER);
+			throw $e->ui_msg(t("Antud v&auml;&auml;rtus ei kuulu kehtivate sugude hulka"));
+		}
+
+		$this->p_gender = $value;
+	}
+
+
 	private function _set_address($value)
 	{
 		if (empty($value) or !is_string($value) or strlen($value) < 2)
@@ -197,6 +264,17 @@ class crm_employee_search extends aw_object_search
 		}
 
 		$this->p_address = self::prepare_search_words($value);
+	}
+
+	private function _set_email($value)
+	{
+		if (empty($value) or !is_string($value) or strlen($value) < 0)
+		{
+			$e = new awex_param_type_employee_search("Invalid value '" . var_export($value, true) . "' for e-mail parameter", self::PARAM_EMAIL);
+			throw $e->ui_msg(t("Antud v&auml;&auml;rtus on e-posti otsinguparameetriks sobimatu"));
+		}
+
+		$this->p_email = self::prepare_search_words($value);
 	}
 
 	private function _set_phone($value)
@@ -363,6 +441,11 @@ class crm_employee_search extends aw_object_search
 			$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_PHONE.name"] = "{$this->p_phone}";
 		}
 
+		if (!empty($this->p_email))
+		{
+			$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_EMAIL.mail"] = "{$this->p_email}";
+		}
+
 		if (!empty($this->p_createdby))
 		{
 			$filter["createdby"] = $this->p_createdby;
@@ -372,6 +455,17 @@ class crm_employee_search extends aw_object_search
 		{
 			$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name"] = "{$this->p_address}";
 		}
+
+		if (!empty($this->p_gender))
+		{
+			$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).gender"] = "{$this->p_gender}";
+		}
+
+		if (!empty($this->p_agefrom) || !empty($this->p_ageto))
+		{
+			//arr("sadasda");
+		}
+
 
 /* TODO: kirjutada p2ring, mis kysiks isikuid, kel on ainult aktiivsed, ainult l6ppend, ... t88suhted.
 		if (self::EMPLOYMENT_STATUS_ACTIVE === $this->p_employment_status)
@@ -430,7 +524,7 @@ class crm_employee_search extends aw_object_search
 		{
 			$filter[] = $this->sort_order;
 		}
-
+arr($filter);
 		return $filter;
 	}
 
