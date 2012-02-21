@@ -10,6 +10,10 @@ class image_obj extends _int_object
 		{
 			parent::set_meta("old_file", parent::prop("file"));
 		}
+		if ($k == "url")
+		{
+			$v = $this->get_url();
+		}
 		return parent::set_prop($k, $v);
 	}
 

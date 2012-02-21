@@ -2099,7 +2099,7 @@ class crm_company extends class_base
 				{
 					if(strlen(trim($comm->commtext)))
 					{
-						$comment = $comm->commtext .
+						$comment = nl2br($comm->commtext) .
 							"<br /><br /><b>" . t("T&uuml;&uuml;p:") . "</b> " . (array_key_exists($comm->commtype, $this->comment_types) ? $this->comment_types[$comm->commtype] : t("M&auml;&auml;ramata")) .
 							"<br /><b>" . t("Aeg:") . "</b> " . strftime("%d. %b %Y %H:%M", $comm->created()) .
 							"<br /><b>" . t("Autor:") . "</b> " . $comm->uname . "<br />";
@@ -7977,7 +7977,7 @@ END;
 	**/
 	function view($arr = array())
 	{
-		if ($arr["cfgform"])
+		if (!empty($arr["cfgform"]))
 		{
 			$cfg = get_instance(CL_CFGFORM);
 			$props = $cfg->get_props_from_cfgform(array("id" => $arr["cfgform"]));
@@ -7993,12 +7993,12 @@ END;
 		$this->read_template("show.tpl");
 
 		$o = obj($arr["id"]);
-
+		$l = "";
 		foreach($props as $pn => $pd)
 		{
 			//echo "$pn => $pd[caption] <br>";
 			$this->vars(array(
-				"prop" => $pd["caption"],
+				"prop" => ( empty($pd["caption"]) ) ? "" : $pd["caption"],
 				"value" => nl2br($o->prop_str($pn, in_array($pn, array("ettevotlusvorm", "firmajuht", "telefax_id"))))
 			));
 			$l .= $this->parse("LINE");

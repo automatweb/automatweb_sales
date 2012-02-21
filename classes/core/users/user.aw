@@ -352,18 +352,18 @@ class user extends class_base
 				$mt = $arr["obj_inst"]->meta("aclwiz");
 				$prop["value"] = "".html::textbox(array(
 					"name" => "aclwizard[user]",
-					"value" => $mt["user"],
+					"value" => (empty($mt["user"])) ? '' : $mt["user"],
 					"size" => "15"
 				))." &otilde;igused objektile ".html::textbox(array(
 					"name" => "aclwizard[object]",
-					"value" => $mt["object"],
+					"value" => (empty($mt["object"])) ? '' : $mt["object"],
 					"size" => 8
 				))."?";
 				break;
 
 			case "aclwizard_a":
 				$mt = $arr["obj_inst"]->meta("aclwiz");
-				if ($mt["user"] != "" && is_oid($mt["object"]))
+				if (!empty($mt["user"]) && is_oid($mt["object"]))
 				{
 					$prop["value"] = $this->aclwizard_ponder(array(
 						"user" => $mt["user"],
@@ -1509,7 +1509,7 @@ EOF;
 		if (!$retval)
 		{
 			$u = obj(aw_global_get("uid_oid"));
-			$i = new user();
+			$i = new user();//XXX: ...
 			$retval = $i->get_person_for_user($u);
 		}
 		return $retval;
@@ -1567,6 +1567,7 @@ EOF;
 	{
 		$person_c = $u->connections_from(array(
 			"type" => "RELTYPE_PERSON",
+			"to.class_id" => CL_CRM_PERSON
 		));
 		$person_c = reset($person_c);
 		if (!$person_c)
@@ -1612,13 +1613,13 @@ EOF;
 			// now, connect user to person
 			$u->connect(array(
 				"to" => $p->id(),
-				"reltype" => 2
+				"reltype" => "RELTYPE_PERSON"
 			));
 			return $p->id();
 		}
 		else
 		{
-			if (aw_global_get("uid") == $u->prop("uid") && !$this->can("edit", $person_c->prop("to")))
+			if (aw_global_get("uid") === $u->prop("uid") && !acl_base::can("edit", $person_c->prop("to")))
 			{
 				$p = obj($person_c->prop("to"));
 				$p->acl_set(

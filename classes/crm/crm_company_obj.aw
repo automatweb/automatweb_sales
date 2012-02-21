@@ -1127,6 +1127,15 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $ol;
 	}
 
+	/** Returns the count of the comments for the company as integer
+	@attrib name=get_comments_count api=1 params=name
+	**/
+	function get_comments_count()
+	{
+		$conns = $this->connections_from(array("type" => "RELTYPE_COMMENT"));
+		return count($conns);
+	}
+
 	function get_mail()
 	{
 		$inst = $this->instance();
@@ -1691,6 +1700,18 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 					))
 				)
 			))
+		));
+		return $list->names();
+	}
+
+	/** Returns customer's all e-mail addresses as an array
+		@attrib api=1 params=pos
+	**/
+	function get_emails()
+	{
+		$list = new object_list(array(
+			"class_id" => CL_ML_MEMBER,
+			"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_COMPANY)" => $this->id(),
 		));
 		return $list->names();
 	}

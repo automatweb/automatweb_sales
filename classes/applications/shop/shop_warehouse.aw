@@ -3696,7 +3696,7 @@ class shop_warehouse extends class_base
 		$this->_init_do_prodg_list($arr);
 		$t = $arr["prop"]["vcl_inst"];
 		$ol = new object_list(array(
-			"parent" => ($p = $arr["request"]["pgtf"])?$p:$this->prod_type_fld,
+			"parent" => (!empty($arr["request"]["pgtf"])) ? $arr["request"]["pgtf"] : $this->prod_type_fld,
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
 		));
 		foreach($ol->arr() as $obj)

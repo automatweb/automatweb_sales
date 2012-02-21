@@ -146,7 +146,9 @@ class aw_request
 					{
 						foreach($languages as $l)
 						{
-							if ($l["status"] == object::STAT_ACTIVE && object_loader::can("", $l["oid"]))
+							if ($l["status"] == object::STAT_ACTIVE && !$this->is_fastcall() && object_loader::can("", $l["oid"]))
+							//XXX: is_fastcall() on selleks et "/orb.aw/class=image/action=show/fastcall=1/file=..." tyypi requestide puhul ei hakataks core klassi enne fastcall_base-t laadima
+							//TODO: uurida, miks see juhtub kui mpdf pilte nii kysib kuid muidu n2ib et mitte.
 							{
 								$ct_lid = $l["aw_lid"];
 								break;

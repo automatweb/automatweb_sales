@@ -113,7 +113,7 @@ class aw_http_response extends aw_resource
 
 		// IE needs specific headers
 		$browser_info = get_browser();
-		$browser_is_ie = "IE" === $browser_info["browser"];
+		$browser_is_ie = "IE" === $browser_info->browser;
 		if ($browser_is_ie)
 		{
 			$encoding = mb_detect_encoding($file_name);
@@ -151,7 +151,7 @@ class aw_http_response extends aw_resource
 		header("Content-Disposition-type: attachment");
 		header("Content-Transfer-Encoding: binary");
 
-		$this->set_data($contents);
+		exit($contents);//TODO: ... yle vaadata
 	}
 
 	public function add_data($data)

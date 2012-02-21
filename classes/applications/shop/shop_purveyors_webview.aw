@@ -57,7 +57,11 @@ class shop_purveyors_webview extends class_base
 					"title" => $purveyor->get_title(),
 					"comment" => $purveyor->comment(),
 					"logo.url" => $purveyor->prop("logo.url"),
+					"logo.comment" => $purveyor->prop("logo.comment"),
 					"address" => $purveyor->get_address_string(),
+					"reviews_count" => $purveyor->get_comments_count(),
+					"PHONES" => $this->parse_phones_template($purveyor),
+					"EMAILS" => $this->parse_emails_template($purveyor)
 				));
 
 				$PURVEYOR .= $this->parse("PURVEYOR");
@@ -69,6 +73,52 @@ class shop_purveyors_webview extends class_base
 		));
 
 		return $this->parse();
+	}
+
+	function parse_phones_template($purveyor)
+	{
+		$phones = $purveyor->get_phones();
+		if (empty($phones))
+		{
+			return "";
+		}
+
+		$phones_str = "";
+		foreach ($phones as $phone)
+		{
+			$this->vars(array(
+				'phone' => $phone
+			));
+			$phones_str .= $this->parse('PHONE');
+		}
+		$this->vars(array(
+			'PHONE' => $phones_str
+		));
+
+		return $this->parse('PHONES');
+	}
+
+	function parse_emails_template($purveyor)
+	{
+		$emails = $purveyor->get_emails();
+		if (empty($emails))
+		{
+			return "";
+		}
+
+		$emails_str= "";
+		foreach ($emails as $email)
+		{
+			$this->vars(array(
+				'email' => $email
+			));
+			$emails_str .= $this->parse('EMAIL');
+		}
+		$this->vars(array(
+			'EMAIL' => $emails_str
+		));
+
+		return $this->parse('EMAILS');
 	}
 
 	function do_db_upgrade($table, $field, $query, $error)

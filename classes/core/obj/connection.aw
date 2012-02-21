@@ -190,6 +190,7 @@ class connection
 		{
 			echo "connection::find(".join(",", map2('%s => %s', $param)).") <br>";
 		}
+
 		if (!is_array($param))
 		{
 			error::raise(array(
@@ -234,11 +235,13 @@ class connection
 		{
 			uasort($retval, create_function('$a,$b', 'return strcasecmp($a["'.$param["sort_by"].'"], $["'.$param["sort_by"].'"]);'));
 		}
+
 		if (isset($param["sort_by_num"]) && $param["sort_by_num"] != "")
 		{
 			uasort($retval, create_function('$a,$b', 'return ($a["'.$param["sort_by_num"].'"] == $b["'.$param["sort_by_num"].'"] ? 0 : ($a["'.$param["sort_by_num"].'"] > $b["'.$param["sort_by_num"].'"] ? 1 : -1 ));'));
 		}
-		if(isset($param['sort_dir']) && $param['sort_dir'] == 'desc')
+
+		if(isset($param['sort_dir']) && $param['sort_dir'] === 'desc')
 		{
 			$retval = array_reverse($retval);
 		}
@@ -246,7 +249,7 @@ class connection
 		$rv = array();
 		foreach($retval as $k => $v)
 		{
-			if (object_loader::can("", $v["to"]) and object_loader::can("", $v["from"]))
+			if (object_loader::can("", $v["to"]) and object_loader::can("", $v["from"]))//TODO: viia p2ringusse
 			{
 				$rv[$k] = $v;
 			}

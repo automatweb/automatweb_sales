@@ -42,6 +42,8 @@
 	@property no_apply_gal_conf type=checkbox table=objects field=meta method=serialize ch_value=1
 	@caption &Auml;ra kasuta galerii seadeid
 
+	@property url type=hidden table=images field=url
+	@caption URL
 
 	/@property file_show type=text store=no editonly=1
 	/@caption Eelvaade
@@ -1386,7 +1388,7 @@ SVGOBJECT;
 						if (IMAGETYPE_JPEG === $type or IMAGETYPE_TIFF_II  === $type or IMAGETYPE_TIFF_MM  === $type)
 						{
 							$dat = exif_read_data($final_name);
-							$dt = $dat["DateTime"];
+							$dt = ( empty( $dat["DateTime"] ) ) ? 0 : $dat["DateTime"];
 							$dt = strptime($dt, "%Y:%m:%d %H:%M:%S");
 							$this->_set_dt = $dt;
 						}
@@ -2661,6 +2663,13 @@ SVGOBJECT;
 					"type" => "int"
 				));
 				return true;
+			case "url":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "varchar(255)"
+				));
+				return true;
+				
 		}
 	}
 

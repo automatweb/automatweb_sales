@@ -200,7 +200,7 @@ class _int_object_loader
 			$oid = $this->oid_for_alias($param);
 			if (!$oid)
 			{
-				throw new awex_oid(sprintf("Invalid object alias %s", var_export($param, true)));
+				throw new awex_obj_alias(sprintf("Invalid object alias %s", var_export($param, true)));
 			}
 			return $oid;
 		}

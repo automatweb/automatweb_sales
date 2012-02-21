@@ -96,6 +96,74 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return $user_name;
 	}
 
+	/** Returns login user for person or NULL if not found
+		@attrib api=1 params=pos
+		@returns CL_USER|NULL
+	**/
+	public function get_user()
+	{
+		$this->require_state("saved");//TODO: pole vaja ju
+		$user_connections = $this->connections_to(array(
+			"from.class_id" => CL_USER,
+			"type" => "RELTYPE_PERSON"
+		));
+
+		if (count($user_connections))
+		{
+			$c = reset($user_connections);
+			$user = $c->from();
+
+			if (1 !== count($user_connections))
+			{
+				$users = new object_list($user_connections);
+				trigger_error(sprintf("Person %s has more that one user (%s)", $this->id(), implode(", ", $users->ids())), E_USER_WARNING);
+			}
+		}
+		else
+		{
+			$user = null;
+		}
+
+		return $user;
+	}
+
+	/** Sets login user for person
+		@attrib api=1 params=pos
+		@param user type=CL_USER
+		@returns void
+		@errors
+			throws awex_obj_state_new if this object not saved
+			throws awex_obj_type if $user of wrong class
+	**/
+	public function set_user(object $user)
+	{
+		$this->require_state("saved");
+
+		if (CL_USER != $user->class_id())
+		{
+			throw new awex_obj_type(sprintf("Invalid type (%s) user object (%s) given for person (%s)"), $user->class_id(), $user->id(), $this->id());
+		}
+
+		$existing_user_connections = connection::find(array(
+			"from.class_id" => CL_USER,
+			"to" => $this->id(),
+			"type" => "RELTYPE_PERSON"
+		));
+		foreach ($existing_user_connections as $id => $data)
+		{
+			$connection = new connection($id);
+			$connection->delete();
+		}
+
+		$user->connect(array(
+			"to" => $this->ref(),
+			"type" => "RELTYPE_PERSON"
+		));
+		cache::file_clear_pt("storage_object_data");
+		cache::file_clear_pt("storage_search");
+		cache::file_clear_pt("acl");
+	}
+
 	// a DEPRECATED and potentially harmful method.
 	function set_rank($v)
 	{
@@ -1864,6 +1932,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		{
 			parent::save($check_state);
 		}
+
 		foreach($fakes as $fake)
 		{
 			$sim = $this->meta("sim_fake_".$fake);

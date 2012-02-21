@@ -4,8 +4,6 @@ function awddlog($msg, $op)
 	file_put_contents(aw_ini_get("site_basedir")."files/ddoctmpdbg/".microtime(true) . "_".$op, $msg);
 }
 
-require_once AW_DIR . "addons/xmlseclibs.php";
-
 class ddoc_obj extends _int_object
 {
 	const CLID = 1186;
@@ -26,8 +24,10 @@ class ddoc_obj extends _int_object
 	private $digidoc_file_previous_version_to_delete = ""; // digidoc xml is saved to a new file every time, old version is removed if transaction successful
 	private $data_file_index = array(); // datafile id index array(file name => file id in digidoc xml, ...)
 	private $digidoc_changed = false; // keeps track of changes made during a session. if true then on close the changes are retrieved from sk service
-	private $signatures_index = array(); // signer personal id => signature_id
-	private $files_index = array(); // signed object id => datafile id in ddoc container
+	private $save_signed = false;
+
+	private $signatures_data = array();
+	private $files_data = array();
 
 	public function __construct(array $objdata = array())
 	{
@@ -36,8 +36,8 @@ class ddoc_obj extends _int_object
 		if ($this->is_saved())
 		{
 			$this->sk_session_code = aw_session::get("aw.digidoc.sk_session_code");
-			$this->signatures_index = safe_array($this->meta("signatures_index"));
-			$this->files_index = safe_array($this->meta("files_index"));
+			$this->signatures_data = safe_array(aw_unserialize($this->prop("signatures")));
+			$this->files_data = safe_array(aw_unserialize($this->prop("files")));
 		}
 
 		return $r;
@@ -211,9 +211,8 @@ class ddoc_obj extends _int_object
 		}
 
 		$this->digidoc = new DOMDocument();
+		$this->digidoc->formatOutput = false;
 		$this->digidoc->loadXML($signed_doc_data);
-		$this->digidoc_hashed = new DOMDocument();
-		$this->digidoc_hashed->loadXML($signed_doc_data);
 
 		// save digidoc properties
 		$this->set_prop("digidoc_format", $signed_doc_info->Format);
@@ -235,7 +234,7 @@ class ddoc_obj extends _int_object
 	{
 		if (!($person = get_current_person() and $personal_id = $person->prop("personal_id")))
 		{
-			throw new awex_ddoc_no_person(sprintf("Can't sign '%s', person not found or no pid '%s'", $this->id(), $personal_id));
+			throw new awex_ddoc_person(sprintf("Can't sign '%s', person not found or no pid '%s'", $this->id(), $personal_id));
 		}
 
 		$local_session = $this->sk_start_session();
@@ -288,8 +287,6 @@ class ddoc_obj extends _int_object
 				throw new awex_ddoc_wsdl(sprintf("Error finalizing signature for object '%s'. Service status: %s", $this->id(), $status));
 			}
 
-			$this->signatures_index[$personal_id] = $signature->id;
-
 			// set signatures
 			$tmp = is_array($signed_doc_info->SignatureInfo) ? $signed_doc_info->SignatureInfo : array($signed_doc_info->SignatureInfo);
 			foreach($tmp as $signature_info)
@@ -321,7 +318,6 @@ class ddoc_obj extends _int_object
 					$p_obj->save();
 				}
 
-				// legacy
 				$arr = array(
 					"ddoc_id" => $signature_info->Id,
 					"signer" => $p_obj->id(),
@@ -340,19 +336,18 @@ class ddoc_obj extends _int_object
 				{
 					throw new Exception("Parameters incorrect: ". print_r($arr, true));
 				}
-				$m = aw_unserialize($this->prop("signatures"));
-				$m[$arr["ddoc_id"]] = $arr;
-				$this->set_prop("signatures", aw_serialize($m, SERIALIZE_NATIVE));
-				// end legacy
-			}
 
-			$this->connect(array(
-				"type" => "RELTYPE_SIGNER",
-				"to" => $p_obj->id(),
-			));
+				$this->signatures_data[$arr["ddoc_id"]] = $arr;
+
+				$this->connect(array(
+					"type" => "RELTYPE_SIGNER",
+					"to" => $p_obj->id()
+				));
+			}
 
 			$signature->phase = ddoc_sk_signature::PHASE_DONE;
 			$this->digidoc_changed = true;
+			$this->save_signed = true;
 			$this->save();
 		}
 		else
@@ -416,7 +411,6 @@ class ddoc_obj extends _int_object
 
 		$this->_load_digidoc_from_filesystem();
 		$data_file_element = $this->digidoc->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile", $encoded_content);
-		$data_file_element->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 		$data_file_element->setAttribute("ContentType", "EMBEDDED_BASE64");
 		$data_file_element->setAttribute("Filename", $file_name);
 		$data_file_element->setAttribute("Id", $file_id);
@@ -459,7 +453,6 @@ class ddoc_obj extends _int_object
 			throw new awex_ddoc_wsdl(sprintf("Error adding file to digidoc. Oid '%s'. Service status: %s", $this->id(), $status));
 		}
 
-		// legacy
 		$arr = array(
 			"ddoc_id" => $file_id,
 			"file" => $object->id(),
@@ -467,22 +460,14 @@ class ddoc_obj extends _int_object
 			"type" => $file_mime_type,
 			"name" => $file_name
 		);
-		if(!strlen($arr["ddoc_id"]) || (!is_oid($arr["file"]) && !$arr["remove"]))
+
+		if (!strlen($arr["ddoc_id"]) || (!is_oid($arr["file"])))
 		{
 			throw new Exception("Parameters incorrect: ". print_r($arr, true));
 		}
-		$m = aw_unserialize($this->prop("files"));
-		$m[$arr["ddoc_id"]] = array(
-			"file" => strlen($arr["file"])?$arr["file"]:$m[$arr["ddoc_id"]]["file"],
-			"size" => strlen($arr["size"])?$arr["size"]:$m[$arr["ddoc_id"]]["size"],
-			"type" => strlen($arr["type"])?$arr["type"]:$m[$arr["ddoc_id"]]["type"],
-			"name" => strlen($arr["name"])?$arr["name"]:$m[$arr["ddoc_id"]]["name"]
-		);
-		$this->set_prop("files", aw_serialize($m, SERIALIZE_NATIVE));
-		// end legacy
 
+		$this->files_data[$arr["ddoc_id"]] = $arr;
 		$this->data_file_index[$file_name] = $file_id;
-		$this->files_index[$object->id()] = $file_id;
 		$this->digidoc_changed = true;
 		$this->save();
 
@@ -560,16 +545,17 @@ class ddoc_obj extends _int_object
 
 	public function is_signed()
 	{
-		return (bool) count($this->signatures_index);
-	}
-
-	public function is_signed_by($personal_ids = array())
-	{
-		$signed = true;
-		foreach ($personal_ids as $personal_id)
+		try
 		{
-			$signed = ($signed and !empty($this->signatures_index[$personal_id]));
+			$this->_check_integrity();
+			$signed = (bool) count($this->signatures_data);
 		}
+		catch (Exception $e)
+		{
+			$this->_restore_integrity();
+			$signed = false;
+		}
+
 		return $signed;
 	}
 
@@ -609,24 +595,50 @@ class ddoc_obj extends _int_object
 				throw new awex_ddoc_wsdl(sprintf("Can't save. Error retrieving digidoc for new object '%s'. Service status: %s", $this->name(), $status));
 			}
 
-			$digidoc_hashed = new DOMDocument();
-			$digidoc_hashed->loadXML($signed_doc_data);
-			$this->_check_signatures($digidoc_hashed);
-			$this->_load_digidoc_from_filesystem();
-			$this->_move_hashed_digidoc_to_embedded_replacing_data_files($digidoc_hashed);
-			$this->_save_digidoc_to_filesystem();
-			$this->set_prop("digidoc_encoding", $this->digidoc->encoding);
-			$this->digidoc_changed = false;
+			if ($this->save_signed)
+			{
+				$this->set_meta("ddoc_save_signed_sk_signed_doc_data", $signed_doc_data);
+				$this->set_meta("ddoc_save_signed_local_file_data", $this->get_digidoc_file_contents());
+			}
+
+			try
+			{
+				$digidoc_hashed = new DOMDocument();
+				$digidoc_hashed->formatOutput = false;
+				$digidoc_hashed->loadXML($signed_doc_data);
+				$this->_check_signatures($digidoc_hashed);
+				$this->_check_files($digidoc_hashed);
+				$this->_load_digidoc_from_filesystem();
+				$this->_move_hashed_digidoc_to_embedded_replacing_data_files($digidoc_hashed);
+				$this->_save_digidoc_to_filesystem();
+				$this->set_prop("digidoc_encoding", $this->digidoc->encoding);
+				$this->digidoc_changed = false;
+			}
+			catch (Exception $e)
+			{
+				$this->_restore_integrity();
+				throw $e;
+			}
 		}
 
-		$this->set_meta("signatures_index", $this->signatures_index);
-		$this->set_meta("files_index", $this->files_index);
-
-		foreach ($this->files_index as $obj_id => $file_id)
+		try
 		{
-			if (!$this->is_connected_to(array("to" => $obj_id, "type" => "RELTYPE_SIGNED_FILE")))
+			$this->_check_integrity();
+		}
+		catch (Exception $e)
+		{
+			$this->_restore_integrity();
+			throw $e;
+		}
+
+		$this->set_prop("signatures", aw_serialize($this->signatures_data, SERIALIZE_NATIVE));
+		$this->set_prop("files", aw_serialize($this->files_data, SERIALIZE_NATIVE));
+
+		foreach ($this->files_data as $ddoc_id => $file_data)
+		{
+			if (!$this->is_connected_to(array("to" => $file_data["file"], "type" => "RELTYPE_SIGNED_FILE")))
 			{
-				$this->connect(array("to" => $obj_id, "type" => "RELTYPE_SIGNED_FILE"));
+				$this->connect(array("to" => $file_data["file"], "type" => "RELTYPE_SIGNED_FILE"));
 			}
 		}
 
@@ -635,18 +647,111 @@ class ddoc_obj extends _int_object
 
 	private function _check_signatures(DOMDocument $digidoc)
 	{
-		$signatures = $digidoc->getElementsByTagName("Signature");
 		$xpath = new DOMXPath($digidoc);
 		$xpath->registerNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
 
-		foreach ($this->signatures_index as $pid => $id)
+		foreach ($this->signatures_data as $ddoc_id => $data)
 		{
-			$signature_count = $xpath->query("//ds:Signature[@Id='{$id}']")->length;
+			$signature_count = $xpath->query("//ds:Signature[@Id='{$ddoc_id}']")->length;
 			if (1 !== $signature_count)
 			{
-				throw new awex_ddoc_signature(sprintf("Data integrity error. Wrong count '%s' of signatures '%s' for ddoc '%s' by '%s'.", $signature_count, $id, $this->id(), $pid));
+				throw new awex_ddoc_signature(sprintf("Data integrity error. Wrong count '%s' of signatures '%s' for ddoc '%s'. Data: %s", $signature_count, $ddoc_id, $this->id(), print_r($this->signatures_data, true)));
 			}
 		}
+	}
+
+	private function _reset_signatures()
+	{
+		$this->digidoc = null;
+		$this->_load_digidoc_from_filesystem();
+
+		if ($this->digidoc)
+		{
+			$xpath = new DOMXPath($this->digidoc);
+			$xpath->registerNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+			$object_signatures_data = aw_unserialize($this->prop("signatures"));
+			$object_signatures_data_updated = array();
+
+			$ddoc_xml_signatures = $xpath->query("//ds:Signature");
+			foreach ($ddoc_xml_signatures as $signature)
+			{
+				$id = $signature->getAttribute("Id");
+				if (isset($object_signatures_data[$id]))
+				{
+					$object_signatures_data_updated[$id] = $object_signatures_data[$id];
+				}
+			}
+		}
+		else
+		{
+			$object_signatures_data_updated = array();
+		}
+
+		$this->signatures_data = $object_signatures_data_updated;
+	}
+
+	private function _check_files(DOMDocument $digidoc)
+	{
+		$xpath = new DOMXPath($digidoc);
+		$xpath->registerNamespace("ddoc", self::SK_DDOC_NAMESPACE);
+
+		foreach ($this->files_data as $ddoc_id => $file_data)
+		{
+			$file_count = $xpath->query("//ddoc:DataFile[@Id='{$ddoc_id}']")->length;
+			if (1 !== $file_count)
+			{
+				throw new awex_ddoc_signature(sprintf("Data integrity error. Wrong count '%s' of files '%s' for ddoc '%s'. Data: %s", $file_count, $ddoc_id, $this->id(), print_r($this->files_data, true)));
+			}
+		}
+	}
+
+	private function _reset_files()
+	{
+		$this->digidoc = null;
+		$this->_load_digidoc_from_filesystem();
+
+		if ($this->digidoc)
+		{
+			$xpath = new DOMXPath($this->digidoc);
+			$xpath->registerNamespace("ddoc", self::SK_DDOC_NAMESPACE);
+			$object_files_data = aw_unserialize($this->prop("files"));
+			$object_files_data_updated = array();
+
+			$ddoc_xml_files = $xpath->query("//ddoc:DataFile");
+			foreach ($ddoc_xml_files as $signature)
+			{
+				$id = $signature->getAttribute("Id");
+				if (isset($object_files_data[$id]))
+				{
+					$object_files_data_updated[$id] = $object_files_data[$id];
+				}
+			}
+		}
+		else
+		{
+			$object_files_data_updated = array();
+		}
+
+		$this->files_data = $object_files_data_updated;
+	}
+
+	private function _check_integrity()
+	{
+		$this->_load_digidoc_from_filesystem();
+		if ($this->digidoc)
+		{
+			$this->_check_signatures($this->digidoc);
+			$this->_check_files($this->digidoc);
+		}
+	}
+
+	private function _restore_integrity()
+	{
+		$this->_reset_signatures();
+		$this->_reset_files();
+		$this->set_prop("signatures", aw_serialize($this->signatures_data, SERIALIZE_NATIVE));
+		$this->set_prop("files", aw_serialize($this->files_data, SERIALIZE_NATIVE));
+		parent::save();
 	}
 
 	private function _load_digidoc_from_filesystem()
@@ -654,6 +759,7 @@ class ddoc_obj extends _int_object
 		if (null === $this->digidoc and file_exists($this->prop("ddoc_location")))
 		{
 			$this->digidoc = new DOMDocument();
+			$this->digidoc->formatOutput = false;
 			$this->digidoc->load($this->prop("ddoc_location"));
 
 			// load file index
@@ -680,12 +786,25 @@ class ddoc_obj extends _int_object
 		$digidoc_file_name = $cl_file->generate_file_path(array(
 			"type" => "xml/ddoc"
 		));
-		$xml = $this->_get_xml_header() . canonicalxml::C14NGeneral($this->digidoc, true);
+
+		// get canonicalized xml
+		$xml = $this->digidoc->C14N();
+
+		// perform replacements to enable SK's home made version of canonicalization and iron out php DOM peculiarities
+		// needed to get a validatable signed document
+		$xml = str_replace('<DataFile ContentType="EMBEDDED_BASE64"', '<DataFile xmlns="http://www.sk.ee/DigiDoc/v1.3.0#" ContentType="EMBEDDED_BASE64"', $xml);
+		$xml = str_replace('<SignedDoc xmlns="http://www.sk.ee/DigiDoc/v1.3.0#" format="DIGIDOC-XML" version="1.3">', '<SignedDoc format="DIGIDOC-XML" version="1.3" xmlns="http://www.sk.ee/DigiDoc/v1.3.0#">', $xml);
+		$xml = preg_replace('|<Signature xmlns="http://www\.w3\.org/2000/09/xmldsig#" Id="S([0-9]+)">|', '<Signature Id="S$1" xmlns="http://www.w3.org/2000/09/xmldsig#">', $xml);
+		$xml = preg_replace('|<SignedProperties Id="S([0-9]+)-SignedProperties">|', '<SignedProperties xmlns="http://uri.etsi.org/01903/v1.1.1#" Id="S$1-SignedProperties">', $xml);
+		$xml = str_replace('<SignedInfo>', '<SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#">', $xml);
+
+		// write file
+		$xml = $this->_get_xml_header() . $xml;
 		$r = file_put_contents($digidoc_file_name, $xml);
 
 		if (false === $r)
 		{
-			throw new awex_ddoc_file(sprintf("Couln't write ddoc '%s' xml to '%s'", $this->id(), $digidoc_file_name));
+			throw new awex_ddoc_file(sprintf("Couldn't write ddoc '%s' xml to '%s'", $this->id(), $digidoc_file_name));
 		}
 
 		if ($r !== strlen($xml))
@@ -707,7 +826,8 @@ class ddoc_obj extends _int_object
 	private function _move_hashed_digidoc_to_embedded_replacing_data_files(DOMDocument $digidoc_hashed)
 	{
 		$digidoc = new DOMDocument();
-		$digidoc->loadXML(canonicalxml::C14NGeneral($digidoc_hashed, true));
+		$digidoc->formatOutput = false;
+		$digidoc->loadXML($digidoc_hashed->C14N());
 
 		if ($this->digidoc)
 		{
@@ -726,7 +846,6 @@ class ddoc_obj extends _int_object
 				}
 
 				$data_file_embedded_copy = $digidoc->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile", $data_file_embedded->nodeValue);
-				$data_file_embedded_copy->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 				$data_file_embedded_copy->setAttribute("ContentType", "EMBEDDED_BASE64");
 				$data_file_embedded_copy->setAttribute("Filename", $data_file_embedded->getAttribute("Filename"));
 				$data_file_embedded_copy->setAttribute("Id", $data_file_embedded->getAttribute("Id"));
@@ -748,7 +867,7 @@ class ddoc_obj extends _int_object
 
 	private function _get_data_file_element_hash(DOMElement $element)
 	{
-		return base64_encode(pack("H*", sha1(canonicalxml::C14NGeneral($element, true))));
+		return base64_encode(pack("H*", sha1($element->C14N())));
 	}
 
 	private function _get_xml_header()
@@ -762,14 +881,14 @@ class ddoc_obj extends _int_object
 		{
 			// load from source
 			$digidoc_hashed = new DOMDocument();
-			$digidoc_hashed->loadXML(canonicalxml::C14NGeneral($this->digidoc, true));
+			$digidoc_hashed->formatOutput = false;
+			$digidoc_hashed->loadXML($this->digidoc->C14N());
 
 			// convert data file elements
 			$datafiles = $digidoc_hashed->getElementsByTagName("DataFile");
 			foreach ($datafiles as $data_file_embedded)
 			{
 				$data_file_hashed = $digidoc_hashed->createElementNS(self::SK_DDOC_NAMESPACE, "DataFile");
-				$data_file_hashed->setAttributeNode(new DOMAttr("xmlns", self::SK_DDOC_NAMESPACE));
 				$data_file_hashed->setAttribute("ContentType", "HASHCODE");
 				$data_file_hashed->setAttribute("Filename", $data_file_embedded->getAttribute("Filename"));
 				$data_file_hashed->setAttribute("Id", $data_file_embedded->getAttribute("Id"));
@@ -781,7 +900,7 @@ class ddoc_obj extends _int_object
 			}
 
 			// get canonicalized xml with header
-			$digidoc_xml = $this->_get_xml_header() . canonicalxml::C14NGeneral($digidoc_hashed, true);
+			$digidoc_xml = $this->_get_xml_header() . $digidoc_hashed->C14N();
 		}
 		else
 		{
@@ -812,3 +931,6 @@ class awex_ddoc_session extends awex_ddoc
 {
 	public $violated_object = null;
 }
+
+/** Person object not found **/
+class awex_ddoc_person extends awex_ddoc {}
