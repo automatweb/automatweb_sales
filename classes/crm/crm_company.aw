@@ -4271,6 +4271,7 @@ END;
 		{
 			if (isset($arr["request"]["cs_sbt"])) $arr["args"]["cs_sbt"] = $arr["request"]["cs_sbt"];
 			if (isset($arr["request"]["cs_n"])) $arr["args"]["cs_n"] = $arr["request"]["cs_n"];
+			if (isset($arr["request"]["customer_search_reg"])) $arr["args"]["customer_search_reg"] = $arr["request"]["customer_search_reg"];
 		}
 
 		if($this->do_search)
@@ -7050,7 +7051,7 @@ END;
 			case "relorg_b":
 			case "relorg_s":
 				$co = user::get_current_company();
-				return (!isset($arr["request"]["id"]) xor (isset($arr["request"]["id"]) and $arr["request"]["id"] == $co));
+//				return (!isset($arr["request"]["id"]) xor (isset($arr["request"]["id"]) and $arr["request"]["id"] == $co));
 		}
 
 		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
