@@ -55,6 +55,7 @@ class shop_purveyors_webview extends class_base
 			{
 				$this->vars(array(
 					"title" => $purveyor->get_title(),
+					"view_url" => $this->mk_my_orb("view", array('id' => $purveyor->id()), 'crm_company'),
 					"comment" => $purveyor->comment(),
 					"logo.url" => $purveyor->prop("logo.url"),
 					"logo.comment" => $purveyor->prop("logo.comment"),
