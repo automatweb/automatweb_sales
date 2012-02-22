@@ -53,6 +53,9 @@ class shop_purveyors_webview extends class_base
 			$purveyor = $purveyors->begin();
 			do
 			{
+				$phones = $purveyor->get_phones();
+				$emails = $purveyor->get_emails();
+
 				$this->vars(array(
 					"title" => $purveyor->get_title(),
 					"view_url" => $this->mk_my_orb("view", array('id' => $purveyor->id()), 'crm_company'),
@@ -61,8 +64,10 @@ class shop_purveyors_webview extends class_base
 					"logo.comment" => $purveyor->prop("logo.comment"),
 					"address" => $purveyor->get_address_string(),
 					"reviews_count" => $purveyor->get_comments_count(),
-					"PHONES" => $this->parse_phones_template($purveyor),
-					"EMAILS" => $this->parse_emails_template($purveyor)
+					"PHONES" => $this->parse_phones_template($phones),
+					"phones_comma_separated" => implode(', ', $phones),
+					"EMAILS" => $this->parse_emails_template($emails),
+					"emails_comma_separated" => implode(', ', $emails),
 				));
 
 				$PURVEYOR .= $this->parse("PURVEYOR");
@@ -76,9 +81,9 @@ class shop_purveyors_webview extends class_base
 		return $this->parse();
 	}
 
-	function parse_phones_template($purveyor)
+	function parse_phones_template($phones)
 	{
-		$phones = $purveyor->get_phones();
+	//	$phones = $purveyor->get_phones();
 		if (empty($phones))
 		{
 			return "";
@@ -99,9 +104,9 @@ class shop_purveyors_webview extends class_base
 		return $this->parse('PHONES');
 	}
 
-	function parse_emails_template($purveyor)
+	function parse_emails_template($emails)
 	{
-		$emails = $purveyor->get_emails();
+	//	$emails = $purveyor->get_emails();
 		if (empty($emails))
 		{
 			return "";
