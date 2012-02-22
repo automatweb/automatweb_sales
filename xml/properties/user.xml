@@ -1,6 +1,12 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>person</name>
+            <table>users</table>
+            <field>person</field>
+            <type>hidden</type>
+      </property>
+      <property>
             <name>uid</name>
             <table>users</table>
             <group>general</group>

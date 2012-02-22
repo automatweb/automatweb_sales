@@ -218,7 +218,7 @@ class id_config extends class_base
 	**/
 	function get_safelist($oid)
 	{
-		if(!acl_base::can("view", $oid))
+		if(!acl_base::can("", $oid))
 		{
 			return false;
 		}
@@ -235,7 +235,7 @@ class id_config extends class_base
 	**/
 	function set_safelist($oid, $list)
 	{
-		if(!acl_base::can("view", $oid))
+		if(!acl_base::can("edit", $oid))
 		{
 			return false;
 		}
@@ -254,7 +254,7 @@ class id_config extends class_base
 	**/
 	function add_into_safelist($oid, $list)
 	{
-		if(!acl_base::can("view", $oid))
+		if(!acl_base::can("edit", $oid))
 		{
 			return false;
 		}

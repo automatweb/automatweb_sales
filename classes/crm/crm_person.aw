@@ -1117,7 +1117,7 @@ class crm_person extends class_base
 				break;
 
 			case "username":
-				if (($arr["new"] || !($tmp = $this->has_user($arr["obj_inst"]))) and strlen(trim($prop["value"])))
+				if (($arr["new"] || !($tmp = $arr["obj_inst"]->get_user())) and strlen(trim($prop["value"])))
 				{
 					$arr["obj_inst"]->set_meta("no_create_user_yet", true);
 					$arr["obj_inst"]->set_meta("tmp_crm_person_username", $prop["value"]);

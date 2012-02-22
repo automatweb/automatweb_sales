@@ -393,7 +393,7 @@ class users extends users_user implements request_startup, orb_public_interface
 
 	public function request_startup()
 	{
-		if (isset($_GET["set_group"]) && object_loader::can("", $_GET["set_group"]))//XXX: mis see on?
+		if (isset($_GET["set_group"]) && acl_base::can("", $_GET["set_group"]))//XXX: mis see on?
 		{
 			// fetch thegroup and check if non logged users can switch to it
 			$setg_o = obj($_GET["set_group"]);
@@ -817,12 +817,19 @@ class users extends users_user implements request_startup, orb_public_interface
 			}
 		}
 
-		$person_list = new object_list(array(
-			"class_id" => CL_CRM_PERSON,
-			"personal_id" => $personal_id
-		));
+		$q = "select o.brother_of as oid from objects o join kliendibaas_isik k on k.oid=o.oid where o.oid = o.brother_of and o.class_id = 145 and o.status > 0 and k.personal_id = {$personal_id}";
+		$this->db_query($q);
+		$person_data = $this->db_next();
 
-		if (0 === $person_list->count())
+		if ($this->db_next())
+		{
+			// log an error since data integrity not intact
+			trigger_error(sprintf("Multiple persons (%s) found with personal id %s (%s)", implode(", ", $person_list->ids()), $personal_id, implode(", ", $invalid_users)), E_USER_WARNING);
+		}
+
+		$this->db_free_result();
+
+		if (empty($person_data["oid"]))
 		{
 			if (aw_ini_get("users.id_only_existing"))
 			{ // only people who have a user object in this system can log in with id card
@@ -839,42 +846,10 @@ class users extends users_user implements request_startup, orb_public_interface
 			$person_obj->set_prop("gender", $pid_data_gender);
 			$person_obj->save();
 		}
-		elseif (1 === $person_list->count())
-		{
-			$person_obj = $person_list->begin();
-		}
 		else
 		{
-			// try to find right one among multiple person objects
-			$user_cl = new user();
-			$invalid_users = array();
-			$i = 0;
-			for ($person_obj_to_check = $person_list->begin(); !$person_list->end(); $person_obj_to_check = $person_list->next())
-			{
-				$i++;
-				$u_obj_to_check = $person_obj_to_check->get_user();
-
-				// for legacy object structures and data integrity check if found user matches found person
-				$person_oid = $user_cl->get_person_for_user($u_obj_to_check);
-				if (!isset($u_obj) and $person_oid == $person_obj_to_check->id() or $i === $person_list->count())
-				{
-					$person_obj = $person_obj_to_check;
-					$u_obj = $u_obj_to_check;
-					$person_obj->set_user($u_obj);
-				}
-				else
-				{
-					$invalid_users[] = $person_obj->id() . ": " . $u_obj_to_check->id();
-					$u_obj_to_check->set_prop("blocked", 1);
-					$u_obj_to_check->save();
-				}
-			}
-
-			// log an error since data integrity not intact
-			if (1 !== $person_list->count())
-			{
-				trigger_error(sprintf("Multiple persons found with personal id %s (%s)", $personal_id, implode(", ", $invalid_users)), E_USER_WARNING);
-			}
+			$person_obj = new object($person_data["oid"]);
+			$_SESSION["__aw_person_oid"] = $person_obj->id();
 		}
 
 		// check person name
@@ -906,16 +881,16 @@ class users extends users_user implements request_startup, orb_public_interface
 				$gr_obj = new object($gr);
 				$gr_inst->add_user_to_group($u_obj, $gr_obj);
 			}
+
 			$person_obj->set_user($u_obj);
-		}
-		else
-		{
-			// for legacy object structures and data integrity check if found user matches found person
-			$person_oid = $user_cl->get_person_for_user($u_obj);
-			if ($person_oid != $person_obj->id())
-			{
-				$person_obj->set_user($u_obj);
-			}
+
+			$u_obj->connect(array(
+				"to" => $person_obj->id(),
+				"type" => "RELTYPE_PERSON"
+			));
+
+			$person_obj->save();
+			$u_obj->save();
 		}
 
 		$uid = $u_obj->prop("name");
@@ -977,7 +952,7 @@ class users extends users_user implements request_startup, orb_public_interface
 				aw_global_set("uid_oid", $oid);
 				aw_global_set("uid", $uid);
 
-				if ($this->can("", $oid))
+				if (acl_base::can("", $oid))
 				{
 					$o = obj($oid);
 					$_SESSION["user_history_count"] = $o->prop("history_size") ? $o->prop("history_size") : 25;
@@ -1036,11 +1011,8 @@ class users extends users_user implements request_startup, orb_public_interface
 		}
 	}
 
-	/**
-		@comment
-			converts certificates subject value to current system character encoding
-	**/
-	private function convert_cert_string($str)
+	// converts certificates subject value to current system character encoding
+	private static function convert_cert_string($str)
 	{
 		$str = preg_replace("/\\\\x([0-9ABCDEF]{1,2})/e", "chr(hexdec('\\1'))", $str);
 		$result = "";
@@ -1083,17 +1055,17 @@ class users extends users_user implements request_startup, orb_public_interface
 		$data = array();
 		$certstructure = openssl_x509_parse($cert);
 
-		if (strpos($_SERVER["SSL_VERSION_LIBRARY"],"0.9.6")===false)
+		if (strpos($_SERVER["SSL_VERSION_LIBRARY"], "0.9.6") === false)
 		{
-			$data['f_name'] = $this->convert_cert_string($certstructure["subject"]["GN"]);
-			$data['l_name'] = $this->convert_cert_string($certstructure["subject"]["SN"]);
+			$data['f_name'] = $certstructure["subject"]["GN"];
+			$data['l_name'] = $certstructure["subject"]["SN"];
 			$data['pid'] = $certstructure["subject"]["serialNumber"];
 		}
 		else
 		{
 			$data['f_name'] = $certstructure["subject"]["SN"];
-			$data['l_name'] = $this->convert_cert_string($certstructure["subject"]["G"]);
-			$data['pid'] = $this->convert_cert_string($certstructure["subject"]["S"]);
+			$data['l_name'] = $certstructure["subject"]["G"];
+			$data['pid'] = $certstructure["subject"]["S"];
 		}
 		return $data;
 	}

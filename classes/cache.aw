@@ -913,7 +913,7 @@ class cache extends aw_core_module
 			{
 				if ($file !== "." and $file !== "..")
 				{
-					$fld .= $file;
+					$fld .= "/".$file;
 					if (is_dir($fld))
 					{
 						self::_recursive_delete_cache_files_and_dirs($fld . "/");

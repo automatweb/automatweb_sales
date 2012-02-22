@@ -873,19 +873,18 @@ class object_list extends _int_obj_container_base
 		$ol = new object_list(array(
 			"oid" => $oids
 		));
+
 		foreach($ol->arr() as $o)
 		{
 			if ($param1 === null)
 			{
 				$o->$func();
 			}
-			else
-			if ($param2 === null)
+			elseif ($param2 === null)
 			{
 				$o->$func($param1);
 			}
-			else
-			if ($param3 === null)
+			elseif ($param3 === null)
 			{
 				$o->$func($param1, $param2);
 			}
@@ -894,7 +893,10 @@ class object_list extends _int_obj_container_base
 				$o->$func($param1, $param2, $param3);
 			}
 
-			$o->save();
+			if ("delete" !== $func)
+			{
+				$o->save();
+			}
 		}
 	}
 
