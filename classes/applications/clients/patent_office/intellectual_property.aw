@@ -404,6 +404,7 @@ abstract class intellectual_property extends class_base
 			}
 
 			$manager = $ol->begin();
+			$is_admin = 0;
 			if(is_object($manager) && acl_base::can("view" , $manager->id()))
 			{
 				$admins = $manager->prop("admins");
@@ -413,7 +414,7 @@ abstract class intellectual_property extends class_base
 				}
 			}
 
-			if(!(aw_global_get("uid") === $ob->createdby() || substr_count($ob->prop("authorized_codes"), $code) || $is_admin))
+			if(!(aw_global_get("uid") === $ob->createdby() || $ob->prop("authorized_codes") && $code && substr_count($ob->prop("authorized_codes"), $code) || $is_admin))
 			{
 				return "";
 			}
@@ -1802,11 +1803,12 @@ abstract class intellectual_property extends class_base
 
 		$ddoc_inst = get_instance(CL_DDOC);
 		$signs = $ddoc_inst->get_signatures($re["ddoc"]);
+		$sig_nice = array();
 		foreach($signs as $sig)
 		{
 			$sig_nice[] = sprintf(t("%s, %s  - %s"), $sig["signer_ln"], $sig["signer_fn"], date("H:i d/m/Y", $sig["signing_time"]));
 		}
-		$signatures = join(html::linebreak(), $sig_nice);
+		$signatures = implode(html::linebreak(), $sig_nice);
 		return $signatures;
 	}
 
@@ -3200,32 +3202,7 @@ abstract class intellectual_property extends class_base
 		$this->read_template($tpl);
 		$u = new user();
 
-		//FIXME: XXX: ajutine lahendus patendiameti probleemile, kus id-kaardiga sisse logind kasutajale luuakse isik, aga seda get_current_person() vms. miskip2rast ei leia ja loob uue, ilma isikukoodita
-		$u_o = obj(aw_global_get("uid_oid"));
-		$person_c = $u_o->connections_from(array(
-			"type" => "RELTYPE_PERSON"
-		));
-
-		$p = false;
-		if (count($person_c))
-		{
-			foreach ($person_c as $person_connection)
-			{
-				$p = obj($person_connection->prop("to"));
-
-				if ($p->prop("personal_id"))
-				{
-					break;
-				}
-			}
-		}
-
-		if (false === $p)
-		{
-			$p = obj($u->get_current_person());
-		}
-		//XXX: end ajutine lahendus
-
+		$p = get_current_person();
 		$code = $p->prop("personal_id");
 		$ddoc_inst = new ddoc();
 

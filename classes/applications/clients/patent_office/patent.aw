@@ -577,14 +577,17 @@ class patent extends intellectual_property
 		$patent->set_prop("type" , $_SESSION["patent"]["type"]);
 		$patent->set_prop("undefended_parts" , $_SESSION["patent"]["undefended_parts"]);
 		$tr_type = array();
-		if($_SESSION["patent"]["co_trademark"])
+
+		if (!empty($_SESSION["patent"]["co_trademark"]))
 		{
 			$tr_type[] = 0;
 		}
-		if($_SESSION["patent"]["guaranty_trademark"])
+
+		if (!empty($_SESSION["patent"]["guaranty_trademark"]))
 		{
 			$tr_type[] = 1;
 		}
+
 		$patent->set_prop("trademark_type" , $tr_type);
 		$patent->save();
 	}

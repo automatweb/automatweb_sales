@@ -234,7 +234,7 @@ class ddoc_obj extends _int_object
 	{
 		if (!($person = get_current_person() and $personal_id = $person->prop("personal_id")))
 		{
-			throw new awex_ddoc_person(sprintf("Can't sign '%s', person not found or no pid '%s'", $this->id(), $personal_id));
+			throw new awex_ddoc_person(sprintf("Can't sign '%s', person not found (%s) or no pid '%s'", $this->id(), $person->id(), $personal_id));
 		}
 
 		$local_session = $this->sk_start_session();

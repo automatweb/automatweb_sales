@@ -289,7 +289,7 @@ class _int_object_loader
 		if (!isset($ob) || !is_object($ob))
 		{
 			// check if can load object
-			if (!$this->ds->can("", $oid))
+			if (!acl_base::can("", $oid))
 			{
 				$e = new awex_obj_acl("No access to load object with id '{$oid}'.");
 				$e->awobj_id = $oid;

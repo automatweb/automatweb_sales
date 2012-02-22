@@ -2972,7 +2972,7 @@ class bug_tracker extends class_base
 			// map name to possible persons, get users for those and search by that
 			$ul = new object_list(array(
 				"class_id" => CL_USER,
-				"CL_USER.RELTYPE_PERSON.name" => "%".$r["s_createdby"]."%"
+				"person.name" => "%".$r["s_createdby"]."%"
 			));
 			if ($ul->count())
 			{
@@ -4439,7 +4439,7 @@ class bug_tracker extends class_base
 			"caption" => t("Prognoos"),
 			"align" => "center"
 		));
-		if($p->id() == obj(aw_global_get("uid_oid"))->get_first_obj_by_reltype("RELTYPE_PERSON")->id())
+		if($p->id() == obj(aw_global_get("uid_oid"))->prop("person"))
 		{
 			$t->define_field(array(
 				"name" => "time_p",
@@ -5269,14 +5269,12 @@ die("a");
 	}
 
 	function get_user2person_arr_from_list($user_list)
-	{
+	{ throw new awex_not_implemented("FIXME");
 		$u2p = array();
 		if (count($user_list))
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_USER,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"uid" => $user_list
 			));
 			$oid_list = array();
@@ -5284,7 +5282,7 @@ die("a");
 			{
 				$oid_list[$uo->id()] = $uo->prop("uid");
 			}
-
+//FIXME: kasutaja isik on nyyd - $person_oid = $user_object->prop("person")
 			$c = new connection();
 			$u2p_conns = $c->find(array(
 				"from.class_id" => CL_USER,
@@ -5298,7 +5296,7 @@ die("a");
 				$u2p[$oid_list[$con["from"]]] = $con["to"];
 			}
 
-			$person_ol = new object_list(array("class_id" => CL_CRM_PERSON, "oid" => $person_oids, "lang_id" => array(), "site_id" => array()));
+			$person_ol = new object_list(array("class_id" => CL_CRM_PERSON, "oid" => $person_oids));
 			$person_ol->arr();
 		}
 		return $u2p;
