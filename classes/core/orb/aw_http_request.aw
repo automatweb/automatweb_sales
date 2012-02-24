@@ -146,21 +146,27 @@ class aw_http_request extends aw_request
 		/// load host part
 		if (!empty($_SERVER["SCRIPT_URI"]))
 		{
+			$scheme = empty($_SERVER["HTTPS"]) || "off" !== $_SERVER["HTTPS"] ? "http" : "https";// "off" check is for IIS
 			$url = substr($_SERVER["SCRIPT_URI"], 0, strrpos($_SERVER["SCRIPT_URI"], "/"));
+			$host_only = false;
 		}
 		elseif (!empty($_SERVER["HTTP_HOST"]))
 		{
 			$scheme = empty($_SERVER["HTTPS"]) || "off" !== $_SERVER["HTTPS"] ? "http" : "https";// "off" check is for IIS
 			$url = "{$scheme}://{$_SERVER["HTTP_HOST"]}/";
+			$host_only = true;
 		}
 		elseif (!empty($_SERVER["SERVER_NAME"]))
 		{
 			$scheme = empty($_SERVER["HTTPS"]) && "off" !== $_SERVER["HTTPS"] ? "http" : "https"; // "off" check is for IIS
 			$url = "{$scheme}://{$_SERVER["SERVER_NAME"]}/";
+			$host_only = true;
 		}
 		else
 		{
+			$scheme = "";
 			$url = aw_ini_get("baseurl");
+			$host_only = true;
 		}
 
 		/// create uri object
@@ -171,7 +177,7 @@ class aw_http_request extends aw_request
 		}
 		else
 		{
-			$request_uri = $_SERVER["REQUEST_URI"];
+			$request_uri = $host_only ? $_SERVER["REQUEST_URI"] : "/" . basename($_SERVER["REQUEST_URI"]);
 
 			try
 			{
