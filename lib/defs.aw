@@ -76,23 +76,9 @@ function aw_register_ps_event_handler($class, $method, $params, $to_class)
 **/
 function get_current_person()
 {
-	static $curp;
-	if (!$curp)
-	{
-		$i = new user();
-		$tmp = $i->get_current_person();
-		if ($tmp === false)
-		{
-			$tmp = null;
-		}
-
-		if (is_oid($tmp) && !acl_base::can("view", $tmp))
-		{
-			acl_base::create_obj_access($tmp);
-		}
-		$curp = obj($tmp);
-	}
-	return $curp;
+	$i = new user();
+	$person_oid = $i->get_current_person();
+	return $person_oid ? obj($person_oid) : null;
 }
 
 /** returns the object of the currently active company
@@ -128,10 +114,9 @@ function get_current_company()
 		));
 **/
 function get_ru()
-{//TODO: REQUEST_URI topeltslash minema, kasutada automatweb::$request->get_uri()
+{//TODO: kasutada automatweb::$request->get_uri()
 	$request_uri = aw_global_get("REQUEST_URI");
-
-	$query = parse_url(aw_global_get("REQUEST_URI"));
+	$query = parse_url($request_uri);
 	if(isset($query["query"]))
 	{
 		parse_str($query["query"], $result);
@@ -151,7 +136,7 @@ function get_ru()
 
 	if(!isset($retval))
 	{
-		$retval = aw_ini_get("baseurl").$request_uri;
+		$retval = aw_ini_get("baseurl").substr($request_uri, 1);
 	}
 
 	if(!empty($result["view_layout"]) || !empty($result["view_property"]))
@@ -627,9 +612,9 @@ function aw_url_change_var($arg1, $arg2 = false, $url = false)
 		$arg_list[0]["view_layout"] = NULL;
 	}
 
-	if (!$url)
+	if (false === $url)
 	{
-		$url = automatweb::$request->get_uri()->__toString();
+		$url = automatweb::$request->get_uri()->get();
 	}
 
 	foreach($arg_list[0] as $arg1 => $arg2)

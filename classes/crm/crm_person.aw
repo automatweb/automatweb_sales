@@ -1747,7 +1747,7 @@ class crm_person extends class_base
 			$ol = new object_list();
 		}
 		$res = ($add_empty ? array("" => t("--vali--")) : array()) +  $ol->names();
-		uasort($res, array(&$this, "__person_name_sorter"));
+		uasort($res, array($this, "__person_name_sorter"));
 		$cache[$co->id()][$add_empty][$important_only] = $res;
 		return $res;
 	}

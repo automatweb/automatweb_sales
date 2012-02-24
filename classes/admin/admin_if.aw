@@ -145,7 +145,7 @@ class admin_if extends class_base
 
 		$tb = $arr["prop"]["vcl_inst"];
 		// add button only visible if the add privilege is set
-		$can_add = $this->can("add", $parent);
+		$can_add = acl_base::can("add", $parent);
 		if ($can_add)
 		{
 			$tb->add_menu_button(array(
@@ -307,7 +307,7 @@ class admin_if extends class_base
 		{
 			foreach($rn as $rn_i)
 			{
-				if (isset($has_items[$rn_i]) && $this->can("view", $rn_i))
+				if (isset($has_items[$rn_i]) && acl_base::can("view", $rn_i))
 				{
 					continue;
 				}
@@ -481,7 +481,7 @@ class admin_if extends class_base
 	private function mk_home_folder_new()
 	{
 		$ucfg = new object(aw_global_get("uid_oid"));
-		if (!$this->can("view", $ucfg->prop("home_folder")))
+		if (!acl_base::can("view", $ucfg->prop("home_folder")))
 		{
 			return;
 		}
@@ -693,7 +693,7 @@ class admin_if extends class_base
 				"modified" => $row_d["modified"],
 				"oid" => $row_d["oid"]
 			);
-			$can_change = $this->can("edit", $row_d["oid"]);
+			$can_change = acl_base::can("edit", $row_d["oid"]);
 
 			$row["is_menu"] = 0;
 			if (in_array($row_d["class_id"],$containers))
@@ -705,11 +705,11 @@ class admin_if extends class_base
 			{
 				if ($can_change)
 				{
-					$chlink = $this->mk_my_orb("change", array("id" => $row_d["oid"], "period" => $period),$row_d["class_id"]);
+					$chlink = core::mk_my_orb("change", array("id" => $row_d["oid"]), $row_d["class_id"]);
 				}
 				else
 				{
-					$chlink = $this->mk_my_orb("view", array("id" => $row_d["oid"], "period" => $period),$row_d["class_id"]);
+					$chlink = core::mk_my_orb("view", array("id" => $row_d["oid"]), $row_d["class_id"]);
 				}
 			}
 
@@ -874,7 +874,7 @@ class admin_if extends class_base
 		try
 		{
 			$class = basename(aw_ini_get("classes.{$clid}.file"));
-			if ($this->can("edit", $id))
+			if (acl_base::can("edit", $id))
 			{
 				$this->pm->add_item(array(
 					"link" => sprintf($this->change_url_template, $class, $id, $parent, $period).$this->post_ru_append,
@@ -896,7 +896,7 @@ class admin_if extends class_base
 			"text" => t("Kopeeri")
 		));
 
-		if ($this->can("delete", $id))
+		if (acl_base::can("delete", $id))
 		{
 			$delurl = sprintf($this->if_delete_template, $_GET["id"], $id, $parent, $id, $period);
 			$delurl = "javascript:if(confirm('".t("Kustutada valitud objektid?")."')){window.location='$delurl';};";
@@ -1003,7 +1003,7 @@ class admin_if extends class_base
 
 					if ($val != $oval)
 					{
-						if ($this->can("edit", $oid) && $this->can("view", $oid))
+						if (acl_base::can("edit", $oid) && acl_base::can("view", $oid))
 						{
 							$o = obj($oid);
 							if ($column === "jrk")
@@ -1204,7 +1204,6 @@ class admin_if extends class_base
 					// ok, so how do I add objects to here?
 					foreach($sel as $oid => $one)
 					{
-	//					aw_global_set("xmlrpc_dbg",1);
 						$r = $this->_search_mk_call(array("oid" => $oid, "encode" => 1),$login);
 						$r = base64_decode($r);
 						if ($r !== false)
@@ -1215,7 +1214,6 @@ class admin_if extends class_base
 							};
 							$copied_objects[$oid] = $r;
 							$ra = aw_unserialize($r);
-	//					echo "r = $r <br />ra = <pre>", var_dump($ra),"</pre> <br />";
 						}
 					}
 				}
@@ -1309,7 +1307,7 @@ class admin_if extends class_base
 			));
 			for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 			{
-				if ($this->can("delete", $o->id()))
+				if (acl_base::can("delete", $o->id()))
 				{
 					$o->delete();
 				}
@@ -1595,7 +1593,7 @@ class admin_if extends class_base
 	private function _resolve_tbl_parent($arr)
 	{
 		$parent = !empty($arr["request"]["parent"]) ? $arr["request"]["parent"] : aw_ini_get("rootmenu");
-		if (!$this->can("view", $parent))
+		if (!acl_base::can("view", $parent))
 		{
 			return null;
 		}
@@ -1765,9 +1763,6 @@ class admin_if extends class_base
 		@param parent required
 
 		@returns
-
-
-		@comment
 
 	**/
 	function submit_import($arr)

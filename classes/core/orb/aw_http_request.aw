@@ -146,7 +146,7 @@ class aw_http_request extends aw_request
 		/// load host part
 		if (!empty($_SERVER["SCRIPT_URI"]))
 		{
-			$url = $_SERVER["SCRIPT_URI"];
+			$url = substr($_SERVER["SCRIPT_URI"], 0, strrpos($_SERVER["SCRIPT_URI"], "/"));
 		}
 		elseif (!empty($_SERVER["HTTP_HOST"]))
 		{
@@ -175,7 +175,7 @@ class aw_http_request extends aw_request
 
 			try
 			{
-				$uri = $url . (1 === strpos($request_uri, "/") ? substr($request_uri, 1) : $request_uri);
+				$url = $url . (1 === strpos($request_uri, "/") ? substr($request_uri, 1) : $request_uri);
 				$this->_uri = new aw_uri($url);
 
 				// try to get request variables from uri, assuming that those must prevail over $_GET
