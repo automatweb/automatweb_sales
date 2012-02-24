@@ -295,7 +295,7 @@ features = array()
 		else
 		{
 			$url = aw_ini_get("baseurl") . $row["oid"];
-		};
+		}
 		return $url;
 	}
 

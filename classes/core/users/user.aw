@@ -1493,31 +1493,36 @@ EOF;
 
 	/** returns the oid of the CL_CRM_PERSON object that's attached to the current user
 		@attrib api=1
-		@comment
-		Returns current person
-		@returns
-		Current persons oid
+		@returns int
+			Current persons oid
 	**/
 	public static function get_current_person()
 	{
-		if (aw_global_get("uid_oid") == "")
-		{
-			return false;
-		}
+		static $uid_oid;
 		static $retval;
-		if (!$retval)
+
+		$current_user_oid = aw_global_get("uid_oid");
+
+		if (!$retval or $uid_oid !== $current_user_oid)
 		{
-			if (!empty($_SESSION["__aw_person_oid"]))
+			$uid_oid = $current_user_oid;
+
+			if (!aw_global_get("uid_oid"))
 			{
+				$retval = 0;
+			}
+			elseif (!empty($_SESSION["__aw_person_oid"]))
+			{//XXX: peaks olema ajutine. kuskil vahetatakse midagi (vbl brotheri vastu) ning tagastatakse vale person (id kaardi logini puhul)
 				$retval = $_SESSION["__aw_person_oid"];
 			}
 			else
 			{
-				$u = obj(aw_global_get("uid_oid"));
+				$u = new object(aw_global_get("uid_oid"));
 				$i = new user();//XXX: ...
 				$retval = $i->get_person_for_user($u);
 			}
 		}
+
 		return $retval;
 	}
 
@@ -1571,62 +1576,64 @@ EOF;
 	**/
 	public function get_person_for_user(object $u, $create = false)
 	{
-		$person_oid = $u->prop("person");
-		if (!$person_oid and $create)
+		$person_oid = $u->prop("person.oid");
+
+		if ($person_oid)
 		{
-			// create new person next to user
-			$p = obj();
-			$p->set_class_id(crm_person_obj::CLID);
-			$p->set_parent($u->id());
-
-			$rn = $u->prop("real_name");
-
-			$uid = $u->prop("uid");
-
-			$p_n = ($rn != "" ? $rn : $uid);
-			$p->set_name($p_n);
-
-			if ($rn != "")
+			if ($create)
 			{
-				$name_data = explode(" ", $rn);
-				$fn = isset($name_data[0]) ? $name_data[0] : "";
-				$ln = isset($name_data[1]) ? $name_data[1] : "";
+				// create new person next to user
+				$p = obj();
+				$p->set_class_id(crm_person_obj::CLID);
+				$p->set_parent($u->id());
+
+				$rn = $u->prop("real_name");
+
+				$uid = $u->prop("uid");
+
+				$p_n = ($rn != "" ? $rn : $uid);
+				$p->set_name($p_n);
+
+				if ($rn != "")
+				{
+					$name_data = explode(" ", $rn);
+					$fn = isset($name_data[0]) ? $name_data[0] : "";
+					$ln = isset($name_data[1]) ? $name_data[1] : "";
+				}
+				else
+				{
+					$name_data = explode(".", $uid);
+					$fn = isset($name_data[0]) ? $name_data[0] : "";
+					$ln = isset($name_data[1]) ? $name_data[1] : "";
+				}
+
+				$p->set_prop("firstname", $fn);
+				$p->set_prop("lastname", $ln);
+				$p->save();
+
+				if ("root" !== $uid and $uid === aw_global_get("uid")) //XXX: FIXME: root peaks ka saama, vaadata miks getdefaultgrp ei t88ta kohati kui root
+				{
+					// set acl to the given user
+					$p->acl_set(
+						obj($u->get_default_group()),
+						array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
+					);
+				}
+
+				$p->set_user($u);
+				$person_oid = $p->id();
 			}
-			else
-			{
-				$name_data = explode(".", $uid);
-				$fn = isset($name_data[0]) ? $name_data[0] : "";
-				$ln = isset($name_data[1]) ? $name_data[1] : "";
-			}
-
-			$p->set_prop("firstname", $fn);
-			$p->set_prop("lastname", $ln);
-			$p->save();
-
-			if ("root" !== $uid and $uid === aw_global_get("uid")) //XXX: FIXME: root peaks ka saama, vaadata miks getdefaultgrp ei t88ta kohati kui root
-			{
-				// set acl to the given user
-				$p->acl_set(
-					obj($u->get_default_group()),
-					array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
-				);
-			}
-
-			$p->set_user($u);
-			return $p->id();
-		}
-		else
-		{
-			if (aw_global_get("uid") === $u->prop("uid") && !acl_base::can("edit", $person_oid))
-			{
+			elseif (aw_global_get("uid") === $u->prop("uid") and !acl_base::can("edit", $person_oid))
+			{//TODO: andmete korrastamine igal p2ringul pole hea
 				$p = obj($person_oid);
 				$p->acl_set(
 					obj($u->get_default_group()),
 					array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
 				);
 			}
-			return $person_oid;
 		}
+
+		return $person_oid;
 	}
 
 	/**

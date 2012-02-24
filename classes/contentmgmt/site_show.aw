@@ -184,10 +184,10 @@ class site_show extends aw_template
 			"printlink" => $printlink
 		));
 
-		$p = get_instance("period");
-		$p->on_site_show_import_vars(array("inst" => &$this));
+		$p = new period();
+		$p->on_site_show_import_vars(array("inst" => $this));
 		$p = get_instance(CL_SITE_STYLES);
-		$p->on_site_show_import_vars(array("inst" => &$this));
+		$p->on_site_show_import_vars(array("inst" => $this));
 	}
 
 	private function _get_sel_section()
@@ -701,7 +701,7 @@ class site_show extends aw_template
 			$ok = $check->class_id() == CL_DOCUMENT && $check->status() == STAT_ACTIVE;
 			if (aw_ini_get("lang_menus") == 1)
 			{
-				$ok &= $check->lang() == aw_global_get("LC");
+				$ok &= $check->lang() == AW_REQUEST_CT_LANG_CODE;
 			}
 			if (!$ok)
 			{
@@ -748,7 +748,7 @@ class site_show extends aw_template
 				$ot = new object_tree(array(
 					"class_id" => menu_obj::CLID,
 					"site_id" => aw_ini_get("site_id"),
-					"lang_id" => AW_REQUEST_CT_LANG_ID,
+					"lang_id" => $filt_lang_id,
 					"parent" => $obj->id(),
 					"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 					"sort_by" => "objects.parent"
@@ -874,10 +874,11 @@ class site_show extends aw_template
 
 				foreach($gm_c as $gm)
 				{
-					if ($gm->prop("reltype") == 24)
+					if ($gm->prop("reltype") == 24)//XXX: ?
 					{
 						continue;
 					}
+
 					$gm_id = $gm->prop("to");
 					$sections[$gm_id] = $gm_id;
 					if ($gm_subs[$gm_id])
@@ -885,7 +886,7 @@ class site_show extends aw_template
 						$ot = new object_tree(array(
 							"class_id" => menu_obj::CLID,
 							"site_id" => aw_ini_get("site_id"),
-							"lang_id" => AW_REQUEST_CT_LANG_ID,
+							"lang_id" => $filt_lang_id,
 							"parent" => $gm_id,
 							"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 							"sort_by" => "objects.parent"
@@ -908,7 +909,7 @@ class site_show extends aw_template
 						$ot = new object_tree(array(
 							"class_id" => menu_obj::CLID,
 							"site_id" => aw_ini_get("site_id"),
-							"lang_id" => AW_REQUEST_CT_LANG_ID,
+							"lang_id" => $filt_lang_id,
 							"parent" => $gm_id,
 							"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 							"sort_by" => "objects.parent"
@@ -923,7 +924,7 @@ class site_show extends aw_template
 
 			if ($obj->meta("all_pers"))
 			{
-				$period_instance = get_instance(CL_PERIOD);
+				$period_instance = new period();
 				$periods = $this->make_keys(array_keys($period_instance->period_list(false)));
 			}
 			else
@@ -987,15 +988,17 @@ class site_show extends aw_template
 					{
 						$has_rand = true;
 					}
+
 					$ordby .= ($ordby != "" ? " , " : " ").$obj->meta("sort_by2");
 					if ($obj->meta("sort_ord2") != "")
 					{
 						$ordby .= " ".$obj->meta("sort_ord2");
 					}
+
 					if ($obj->meta("sort_by2") === "documents.modified")
 					{
 						$ordby .= ", objects.created DESC";
-					};
+					}
 				}
 
 				if ($obj->meta("sort_by3"))
@@ -1004,15 +1007,17 @@ class site_show extends aw_template
 					{
 						$has_rand = true;
 					}
+
 					$ordby .= ($ordby != "" ? " , " : " ").$obj->meta("sort_by3");
 					if ($obj->meta("sort_ord3") != "")
 					{
 						$ordby .= " ".$obj->meta("sort_ord3");
 					}
+
 					if ($obj->meta("sort_by3") === "documents.modified")
 					{
 						$ordby .= ", objects.created DESC";
-					};
+					}
 				}
 			}
 
@@ -1020,6 +1025,7 @@ class site_show extends aw_template
 			{
 				$ordby = "objects.jrk";
 			}
+
 			$no_fp_document = aw_ini_get("menuedit.no_fp_document");
 
 			if (strpos($ordby,"planner.start") !== false)
@@ -1168,7 +1174,7 @@ class site_show extends aw_template
 
 			$tc = 0;
 			$done_oids = array();
-			foreach($documents->arr() as $o)
+			for ($o = $documents->begin(); !$documents->end(); $o = $documents->next())
 			{
 				if (!empty($done_oids[$o->brother_of()]))
 				{
