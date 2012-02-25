@@ -104,7 +104,7 @@ class document extends aw_template implements orb_public_interface
 	//       lead/full is based on leadonly parameter
 	function gen_preview($params)
 	{
-		if ($this->cfg["use_new_parser"])
+		if (aw_ini_get("document.use_new_parser"))
 		{
 			$d = new doc_display();
 			return $d->gen_preview($params);
@@ -2484,7 +2484,7 @@ class document extends aw_template implements orb_public_interface
 			{
 				$_to = $to;
 			}
-			send_mail($_to,str_replace("\n","",str_replace("\r","",$this->parse("title"))),$this->parse("mail"),"Content-Type: text/plain; charset=\"ISO-8859-1\"\nFrom: \"$from_name\" <".$from.">\nSender: \"$from_name\" <".$from.">\nReturn-path: \"$from_name\" <".$from.">".$bcc."\n\n");
+			send_mail($_to,str_replace("\n","",str_replace("\r","",$this->parse("title"))),$this->parse("mail"),"Content-Type: text/plain; charset=\"".languages::USER_CHARSET."\"\nFrom: \"$from_name\" <".$from.">\nSender: \"$from_name\" <".$from.">\nReturn-path: \"$from_name\" <".$from.">".$bcc."\n\n");
 		}
 
 		$this->quote($section);
@@ -2508,9 +2508,6 @@ class document extends aw_template implements orb_public_interface
 		@param print optional type=int
 
 		@returns
-
-
-		@comment
 
 	**/
 	function feedback($arr)
