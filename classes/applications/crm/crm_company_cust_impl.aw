@@ -1799,6 +1799,14 @@ class crm_company_cust_impl extends class_base
 			$ret["reg_nr"] = "%".$r["customer_search_reg"]."%";
 			$has_params = true;
 		}
+/*
+		if ($r["customer_search_address"] != "")
+		{
+			$ret["reg_nr"] = "%".$r["customer_search_reg"]."%";
+			$has_params = true;
+		}
+
+*/
 
 		if ($r["customer_search_worker"] != "")
 		{
@@ -2572,6 +2580,11 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 		if (!empty($arr["request"]["customer_search_reg"]))
 		{
 			$customer_relations_search->reg_nr = "{$arr["request"]["customer_search_reg"]}%";
+		}
+
+		if (!empty($arr["request"]["customer_search_address"]))
+		{
+			$customer_relations_search->address = "%{$arr["request"]["customer_search_address"]}%";
 		}
 
 		$customer_relations_search->set_sort_order("name-asc");

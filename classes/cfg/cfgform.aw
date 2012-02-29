@@ -490,6 +490,7 @@ class cfgform extends class_base
 					1 => t("AW RTE"),
 					2 => t("FCKeditor"),
 					3 => t("CodePress"),
+					5 => t("CKeditor"),
 				);
 				$data["type"] = "select";
 				break;

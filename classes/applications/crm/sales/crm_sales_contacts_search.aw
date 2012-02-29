@@ -379,6 +379,7 @@ class crm_sales_contacts_search
 
 	private function search_obj($limit)
 	{
+
 		$result = array();
 		$filter = array("class_id" => crm_company_customer_data_obj::CLID);
 
@@ -420,7 +421,7 @@ class crm_sales_contacts_search
 				"logic" => "OR",
 				"conditions" => array (
 					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).reg_nr" => "{$this->p_reg_nr}",
-					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).reg_nr" => "{$this->p_reg_nr}"
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).personal_id" => "{$this->p_reg_nr}"
 				)
 			));
 		}
@@ -496,7 +497,9 @@ class crm_sales_contacts_search
 				"logic" => "OR",
 				"conditions" => array (
 					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).RELTYPE_ADDRESS_ALT.name" => "{$this->p_address}",
-					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name" => "{$this->p_address}"
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name" => "{$this->p_address}",
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).RELTYPE_ADDRESS.name" => "{$this->p_address}",
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_ADDRESS.name" => "{$this->p_address}"
 				)
 			));
 		}

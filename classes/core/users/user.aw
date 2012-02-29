@@ -1028,7 +1028,7 @@ class user extends class_base
 	function callback_on_load($arr)
 	{
 		if ($arr["request"]["action"] === "new")
-		{
+		{//arr($arr);
 			$po = obj($arr["request"]["parent"]);
 			$rm = aw_ini_get("users.root_folder");
 

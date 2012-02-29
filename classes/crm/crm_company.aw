@@ -2432,7 +2432,7 @@ END;
 			case "customer_search_worker":
 			case "customer_search_city":
 			case "customer_search_county":
-			case "customer_search_address":
+		//	case "customer_search_address":
 			case "customer_search_ev":
 			case "customer_search_cust_grp":
 				if ( aw_global_get('crm_customers_search_mode') != CRM_CUSTOMERS_SEARCH_DETAIL )
@@ -2448,6 +2448,7 @@ END;
 			case "cs_n":
 			case "cs_sbt":
 			case "customer_search":
+			case "customer_search_address":
 				$s = isset($arr['request'][$data["name"]]) ? $arr['request'][$data["name"]] : "";
 				$this->dequote($s);
 				$data['value'] = $s;
@@ -4272,6 +4273,7 @@ END;
 			if (isset($arr["request"]["cs_sbt"])) $arr["args"]["cs_sbt"] = $arr["request"]["cs_sbt"];
 			if (isset($arr["request"]["cs_n"])) $arr["args"]["cs_n"] = $arr["request"]["cs_n"];
 			if (isset($arr["request"]["customer_search_reg"])) $arr["args"]["customer_search_reg"] = $arr["request"]["customer_search_reg"];
+			if (isset($arr["request"]["customer_search_address"])) $arr["args"]["customer_search_address"] = $arr["request"]["customer_search_address"];
 		}
 
 		if($this->do_search)

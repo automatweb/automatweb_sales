@@ -532,6 +532,11 @@ ENDJAVASCRIPT
 				<br />
 				<input type=\"checkbox\" onclick=\"{$name}.toggleAutoComplete();\" checked /> AutoComplete\n";
 			}
+			elseif($rte_type == 5)
+			{
+				$retval = "<textarea class=\"ckeditor\" id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\" wrap=\"off\" >{$value}</textarea>";
+					active_page_data::load_javascript("ckeditor/ckeditor.js");
+			}
 			else
 			{
 				$args["type"] = "richtext";

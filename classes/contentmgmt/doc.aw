@@ -120,6 +120,12 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@property show_print type=checkbox ch_value=1 table=objects field=meta method=serialize default=1
 	@caption 'Prindi' nupp
 
+	@property show_facebook type=checkbox ch_value=1 table=objects field=meta method=serialize default=1
+	@caption Facebooki kommenteerimine
+
+	@property show_twitter type=checkbox ch_value=1 table=objects field=meta method=serialize default=1
+	@caption Twitteri kommenteerimine
+
 	@property createdby table=objects field=createdby type=text
 	@caption Kes tegi
 

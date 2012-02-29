@@ -3486,6 +3486,10 @@ class class_base extends aw_template implements orb_public_interface
 								"no_rte" => $this->no_rte,
 							));
 						}
+						elseif($this->classinfo(array("name" => "allow_rte")) == 5)
+						{
+							//2kki kunagi vaja siia miskit lisada
+						}
 						else
 						{
 							$rte = new rte();

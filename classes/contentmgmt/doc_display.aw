@@ -307,6 +307,16 @@ class doc_display extends aw_template
 			$ps = $this->parse("PRINTANDSEND");
 		}
 
+		if ($doc->prop("show_facebook"))
+		{
+			$this->vars(array("FACEBOOK" => $this->parse("FACEBOOK")));
+		}
+
+		if ($doc->prop("show_twitter"))
+		{
+			$this->vars(array("TWITTER" => $this->parse("TWITTER")));
+		}
+
 		if ($doc->prop("title_clickable"))
 		{
 			$this->vars(array("TITLE_LINK_BEGIN" => $this->parse("TITLE_LINK_BEGIN"), "TITLE_LINK_END" => $this->parse("TITLE_LINK_END")));
