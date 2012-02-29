@@ -743,6 +743,66 @@
             <caption>T&amp;amp;ouml;&amp;amp;ouml;suhte staatus</caption>
       </property>
       <property>
+            <name>es_a</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <field>es_a</field>
+            <caption>Aadress</caption>
+      </property>
+      <property>
+            <name>es_e</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <field>es_e</field>
+            <caption>E-Post</caption>
+      </property>
+      <property>
+            <name>es_agefrom</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <field>es_agefrom</field>
+            <caption>Vanus alates</caption>
+      </property>
+      <property>
+            <name>es_ageto</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <field>es_ageto</field>
+            <caption>Vanus kuni</caption>
+      </property>
+	  <property>
+            <name>es_g</name>
+            <table>objects</table>
+            <group>employees_management</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <no_caption>1</no_caption>
+            <field>es_g</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;taja sugu</caption>
+      </property>
+      <property>
             <name>es_sbt</name>
             <table>objects</table>
             <group>employees_management</group>
