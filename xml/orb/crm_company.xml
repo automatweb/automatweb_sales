@@ -585,7 +585,7 @@
 			</function>
 		</action>
 
-		<action name="view" nologin="1">
+		<action name="view">
 			<function name="view">
 				<arguments>
 					<required name="id" />
