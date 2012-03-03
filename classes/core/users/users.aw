@@ -824,7 +824,7 @@ class users extends users_user implements request_startup, orb_public_interface
 		if ($this->db_next())
 		{
 			// log an error since data integrity not intact
-			trigger_error(sprintf("Multiple persons (%s) found with personal id %s (%s)", implode(", ", $person_list->ids()), $personal_id, implode(", ", $invalid_users)), E_USER_WARNING);
+			trigger_error(sprintf("Multiple persons found with personal id %s", $personal_id), E_USER_WARNING);
 		}
 
 		$this->db_free_result();
@@ -1083,7 +1083,7 @@ class users extends users_user implements request_startup, orb_public_interface
 				$inrm = aw_ini_get("rootmenu");
 			}
 			aw_ini_set("ini_rootmenu", $inrm);
-			aw_ini_set("rootmenu",is_array($admin_rootmenu) ? reset($admin_rootmenu) : $admin_rootmenu);
+			aw_ini_set("rootmenu", is_array($admin_rootmenu) ? reset($admin_rootmenu) : $admin_rootmenu);
 		}
 
 		$lang_id = aw_global_get("lang_id");

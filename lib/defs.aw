@@ -2160,3 +2160,43 @@ function aw_ifset($array, $default)
 
 	return $default;
 }
+
+/** Deletes a directory recursively
+	@attrib api=1 params=pos
+	@param dir type=string
+		Directory to delete
+	@param remove type=bool
+		Whether to remove given $dir or just empty it
+	@returns bool
+	@errors
+		triggers E_USER_NOTICE if a file couldn't be deleted
+**/
+function aw_directory_delete($dir, $remove = false)
+{
+	if (!file_exists($dir)) return true;
+	if (!is_dir($dir) || is_link($dir)) return unlink($dir);
+
+	foreach (scandir($dir) as $item)
+	{
+		if ($item === "." || $item === "..")
+		{
+			continue;
+		}
+
+		$file = "{$dir}/{$item}";
+		if (!aw_directory_delete($file, true))
+		{
+			if (!aw_directory_delete($file, true))
+			{
+				trigger_error("Couldn't delete '{$file}'", E_USER_NOTICE);
+				return false;
+			}
+		}
+	}
+
+	if ($remove)
+	{
+		return rmdir($dir);
+	}
+}
+
