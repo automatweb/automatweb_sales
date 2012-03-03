@@ -234,12 +234,7 @@ class crm_user_creator extends core
 			$uo = $this->cl_user->add_user(array(
 				"uid" => $uid,
 				"password" => $pwd,
-				"real_name" => $pers->name()
-			));
-
-			$uo->connect(array(
-				"to" => $pers->id(),
-				"reltype" => 2 // CL_USER.RELTYPE_PERSON
+				"person" => $pers->id()
 			));
 			return $uo;
 		}

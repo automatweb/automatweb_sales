@@ -4,9 +4,14 @@
 // but take the fetch from another array and allow sql funcs in that
 // and return just the data
 
-class object_data_list
+class object_data_list implements IteratorAggregate
 {
 	private $list_data = array();
+
+	public function getIterator()
+	{
+		return new ArrayIterator($this->list_data);
+	}
 
 	/** Constructs object data list
 		@attrib params=pos api=1

@@ -259,21 +259,23 @@ class acl_base extends aw_core_module
 		{
 			$can = false;
 		}
+		elseif ("" === $operation_id or aw_users::ROOT_UID === aw_global_get("uid"))
+		{ // check if object record exists and state isn't 'deleted'
+			$can = self::_object_exists_and_not_deleted($object_id);
+		}
 		elseif ($operation_id)
 		{
-			if (aw_users::ROOT_UID === aw_global_get("uid"))
+			$operation_id = "can_{$operation_id}";
+
+			if (!is_array(self::$acl_ids) or !in_array($operation_id, self::$acl_ids))
 			{
-				$can = self::_object_exists_and_not_deleted($object_id);
+				$can = false;
 			}
 			else
 			{
-				$operation_id = "can_{$operation_id}";
+				$can = self::_object_exists_and_not_deleted($object_id);
 
-				if (!is_array(self::$acl_ids) or !in_array($operation_id, self::$acl_ids))
-				{
-					$can = false;
-				}
-				else
+				if ($can)
 				{
 					$can = false;
 					$user_oid = $user_oid ? $user_oid : aw_global_get("uid_oid");
@@ -319,10 +321,6 @@ class acl_base extends aw_core_module
 					}
 				}
 			}
-		}
-		elseif ("" === $operation_id or aw_users::ROOT_UID === aw_global_get("uid"))
-		{ // check if object record exists and state isn't 'deleted'
-			$can = self::_object_exists_and_not_deleted($object_id);
 		}
 		else
 		{

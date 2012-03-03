@@ -432,7 +432,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					WHERE
 						source = '".$object_id."' AND
 						reltype IN (".join(",", map("'%s'", $conn_prop_fetch)).") AND
-						objects.status != 0
+						objects.status > 0
 				";
 				$this->db_query($q);
 				while ($row = $this->db_next())

@@ -575,16 +575,29 @@ class patent extends intellectual_property
 		$patent->set_prop("trademark_character" , $_SESSION["patent"]["trademark_character"]);
 		$patent->set_prop("element_translation" , $_SESSION["patent"]["element_translation"]);
 		$patent->set_prop("type" , $_SESSION["patent"]["type"]);
+
+		if (empty($_SESSION["patent"]["type"]))
+		{ // clear reproduction files
+			$reproductions = $patent->get_connected_objects("RELTYPE_REPRODUCTION");
+			foreach ($reproductions as $oid => $reproduction)
+			{
+				$reproduction->delete(true);
+			}
+		}
+
 		$patent->set_prop("undefended_parts" , $_SESSION["patent"]["undefended_parts"]);
 		$tr_type = array();
-		if($_SESSION["patent"]["co_trademark"])
+
+		if (!empty($_SESSION["patent"]["co_trademark"]))
 		{
 			$tr_type[] = 0;
 		}
-		if($_SESSION["patent"]["guaranty_trademark"])
+
+		if (!empty($_SESSION["patent"]["guaranty_trademark"]))
 		{
 			$tr_type[] = 1;
 		}
+
 		$patent->set_prop("trademark_type" , $tr_type);
 		$patent->save();
 	}
@@ -763,18 +776,22 @@ class patent extends intellectual_property
 			{
 				$err.= t("S&otilde;nam&auml;rgi puhul peab olema s&otilde;naline osa t&auml;idetud")."\n<br />";
 			}
+
 			if($_POST["type"] == 1 && !$_FILES["reproduction_upload"]["name"] && !is_oid($_SESSION["patent"]["reproduction"]))
 			{
 				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br />";
 			}
+
 			if($_POST["type"] == 2 && !isset($_POST["word_mark"]))
 			{
 				$err.= t("Kombineeritud m&auml;rgi puhul peab olema s&otilde;naline osa t&auml;idetud")."\n<br />";
 			}
+
 			if($_POST["type"] == 2 && !$_FILES["reproduction_upload"]["name"] && !is_oid($_SESSION["patent"]["reproduction"]))
 			{
 				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br />";
 			}
+
 			if($_POST["type"] == 3 && !$_FILES["reproduction_upload"]["name"] && !is_oid($_SESSION["patent"]["reproduction"]))
 			{
 				$err.= t("Peab olema lisatud ka reproduktsioon")."\n<br />";
@@ -870,7 +887,7 @@ class patent extends intellectual_property
 		$el2 = $xml->createElement("MARDESEN");
 		if ($o->prop("trademark_character"))
 		{
-			$cdata = $xml->createCDATASection(trademark_manager::convert_to_utf($o->prop("trademark_character")));
+			$cdata = $xml->createCDATASection($o->prop("trademark_character"));
 			$el2->appendChild($cdata);
 		}
 		$el->appendChild($el2);
@@ -881,7 +898,7 @@ class patent extends intellectual_property
 		$el2 = $xml->createElement("DISCLAIMEREN");
 		if ($o->prop("undefended_parts"))
 		{
-			$cdata = $xml->createCDATASection(trademark_manager::convert_to_utf($o->prop("undefended_parts")));
+			$cdata = $xml->createCDATASection($o->prop("undefended_parts"));
 			$el2->appendChild($cdata);
 		}
 		$el->appendChild($el2);
@@ -906,7 +923,7 @@ class patent extends intellectual_property
 		$el2 = $xml->createElement("COLCLAEN");
 		if ($o->prop("colors"))
 		{
-			$cdata = $xml->createCDATASection(trademark_manager::convert_to_utf($o->prop("colors")));
+			$cdata = $xml->createCDATASection($o->prop("colors"));
 			$el2->appendChild($cdata);
 		}
 		$el->appendChild($el2);
@@ -921,7 +938,7 @@ class patent extends intellectual_property
 			$el2 = $xml->createElement("GSGR");
 			$el2->setAttribute("NICCLAI", trademark_manager::convert_to_export_xml($k));
 			$el3 = $xml->createElement("GSTERMEN");
-			$cdata = $xml->createCDATASection(mb_strtolower(str_replace(array("\r", "\n"), "", trademark_manager::convert_to_utf($v)), "UTF-8"));
+			$cdata = $xml->createCDATASection(mb_strtolower(str_replace(array("\r", "\n"), "", $v), "UTF-8"));
 			$el3->appendChild($cdata);
 			$el2->appendChild($el3);
 			$el->appendChild($el2);

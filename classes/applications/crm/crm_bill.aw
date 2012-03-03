@@ -1681,7 +1681,7 @@ class crm_bill extends class_base
 	{
 		if(strlen($name))
 		{
-			$persons = new object_list(array("class_id" => CL_CRM_PERSON, "lang_id" => array() , "name" => $name));
+			$persons = new object_list(array("class_id" => CL_CRM_PERSON, "name" => $name));
 			$person = $persons->begin();
 			if(is_object($person))
 			{

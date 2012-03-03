@@ -1215,7 +1215,7 @@ class file extends class_base
 		{
 			if (!$si->can_view_file($id))
 			{
-				die("access denied&");
+				die("Access denied");
 			}
 		}
 
@@ -1255,12 +1255,25 @@ class file extends class_base
 		{
 			header("Accept-Ranges: bytes");
 			header("Content-Length: ".strlen($fc["content"]));
-			header("Content-type: ".$fc["type"]);
-			header("Cache-control: public");
-			if($pi["extension"] === "ddoc")
-			{
-				header("Content-Disposition: inline; filename=\"{$fc[name]}\"");
+
+			if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE'))//TODO: teha paremini
+			{// ie jaoks eraldi headerid jne.
+				header("Content-type: application/octet-stream");
+				header("Content-Disposition: attachment; filename=\"{$fc[name]}\"");
+				header("Cache-Control: no-store, no-cache, no-transform, must-revalidate, private");
+				header("Expires: 0");
 			}
+			else
+			{
+				header("Content-type: ".$fc["type"]);
+				header("Cache-control: public");
+
+				if($pi["extension"] === "ddoc")
+				{
+					header("Content-Disposition: inline; filename=\"{$fc[name]}\"");
+				}
+			}
+
 			exit($fc["content"]);
 		}
 		else
@@ -1270,7 +1283,7 @@ class file extends class_base
 	}
 
 	/**
-		@attrib name=view params=name nologin="1" default="0"
+		@attrib name=view params=name nologin=1
 		@param id required
 	**/
 	function view($args = array())
@@ -1306,7 +1319,7 @@ class file extends class_base
 	**/
 	function get_url($id, $name = "")
 	{
-		$retval = str_replace("automatweb/","",$this->mk_my_orb("preview", array("id" => $id),"file", false,true,"/"));
+		$retval = str_replace("automatweb/", "", $this->mk_my_orb("preview", array("id" => $id), "file", false, true, "/")) . "/" . urlencode(str_replace("/", "_", $name));
 		return $retval;//TODO: faili nimi tagasi panna ja teha et see t88taks uues systeemis...
 	}
 
