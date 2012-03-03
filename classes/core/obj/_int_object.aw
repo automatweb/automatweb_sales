@@ -1789,6 +1789,13 @@ class _int_object
 		return false;
 	}
 
+	public function get_connected_objects($type = null)
+	{
+		return new object_list($this->connections_from(array(
+			"type" => $type
+		)));
+	}
+
 	public function get_xml($options)
 	{
 		$i = new obj_xml_gen();
