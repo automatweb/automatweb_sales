@@ -923,6 +923,10 @@ class image extends class_base
 						case "svg":
 							$type = aw_mime_types::type_for_ext("svg");
 							break;
+						default:
+							trigger_error(sprintf("Content type not found for image %s (%s)", $fname, print_r($size, true), E_USER_NOTICE));
+							$type = "";
+							break;
 					}
 
 					// if resize requested

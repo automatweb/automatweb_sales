@@ -287,14 +287,15 @@ class calendar_registration extends class_base
 		$cal = obj($arr["cal"]);
 		$event = obj($arr["event"]);
 		$owner_user = $cal->get_first_obj_by_reltype(8 /* CL_PLANNER.RELTYPE_CALENDAR_OWNERSHIP */);
-		$owner_person = $owner_user->get_first_obj_by_reltype(2 /* CL_USER.RELTYPE_PERSON */);
+
+		$owner_person = new object($owner_user->prop("person"));
 		$owner_person->connect(array(
 			"to" => $o->id(),
 			"reltype" => 8 // CRM_PERSON.RELTYPE_PERSON_MEETING
 		));
 
-		$this->do_create_person($arr, $o);
 
+		$this->do_create_person($arr, $o);
 		$this->do_send_confirm_mail($arr, $o, $arr["reg"]["email"]);
 
 		// show confirmation page
@@ -352,7 +353,7 @@ class calendar_registration extends class_base
 		{
 			$cal = obj($arr["cal"]);
 			$owner_user = $cal->get_first_obj_by_reltype(8 /* CL_PLANNER.RELTYPE_CALENDAR_OWNERSHIP */);
-			$owner_person = $owner_user->get_first_obj_by_reltype(2 /* CL_USER.RELTYPE_PERSON */);
+			$owner_person = new object($owner_user->prop("person"));
 
 			$person = get_instance(CL_CRM_PERSON);
 			$pdata = $person->fetch_person_by_id(array(
@@ -440,8 +441,7 @@ class calendar_registration extends class_base
 		$pdata = array();
 		if ($owner_user)
 		{
-			$owner_person = $owner_user->get_first_obj_by_reltype(2 /* CL_USER.RELTYPE_PERSON */);
-
+			$owner_person = new object($owner_user->prop("person"));
 			$pdata = $person->fetch_person_by_id(array(
 				"id" => $owner_person->id()
 			));

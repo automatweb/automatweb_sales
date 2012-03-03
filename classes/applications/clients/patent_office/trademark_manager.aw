@@ -398,22 +398,13 @@ class trademark_manager extends class_base
 */
 	function _get_trademark_tr($arr)
 	{
-
-
 		$arr["prop"]["vcl_inst"]->start_tree (array (
 			"type" => TREE_DHTML,
 			"has_root" => 1,
 			"tree_id" => "offers_tree",
 			"persist_state" => 1,
 			"root_name" => t("Taotlused"),
-			"root_url" => "#",
-//			"get_branch_func" => $this->mk_my_orb("get_tree_stuff",array(
-//				"clid" => $arr["clid"],
-//				"group" => $arr["request"]["group"],
-//				"oid" => $arr["obj_inst"]->id(),
-//				"set_retu" => get_ru(),
-//				"parent" => " ",
-//			)),
+			"root_url" => "#"
 		));
 
 		$arr["prop"]["vcl_inst"]->add_item(0, array(
@@ -681,6 +672,7 @@ class trademark_manager extends class_base
 			$date_constraint2 = new obj_predicate_compare(obj_predicate_compare::IS_NULL);
 			$sent_constraint = null;
 			$verified = 1;
+			$default_sort_field = "CL_INTELLECTUAL_PROPERTY.RELTYPE_TRADEMARK_STATUS.verified_date";
 		}
 		elseif ("verified" === $p_id)
 		{ // recently verified
@@ -688,6 +680,7 @@ class trademark_manager extends class_base
 			$date_constraint2 = null;
 			$sent_constraint = null;
 			$verified = 1;
+			$default_sort_field = "CL_INTELLECTUAL_PROPERTY.RELTYPE_TRADEMARK_STATUS.verified_date";
 		}
 		elseif ("not_verified" === $p_id)
 		{ // only sent applications. those that have a number
@@ -695,6 +688,7 @@ class trademark_manager extends class_base
 			$date_constraint2 = null;
 			$sent_constraint = new obj_predicate_compare(obj_predicate_compare::GREATER, 1);
 			$verified = new obj_predicate_compare(obj_predicate_compare::IS_EMPTY);
+			$default_sort_field = "CL_INTELLECTUAL_PROPERTY.RELTYPE_TRADEMARK_STATUS.sent_date";
 		}
 		else
 		{
@@ -987,7 +981,7 @@ class trademark_manager extends class_base
 			}
 			else
 			{
-				$sort_by = "created";
+				$sort_by = $default_sort_field;
 				$sort_order = obj_predicate_sort::DESC;
 			}
 
@@ -1426,6 +1420,7 @@ class trademark_manager extends class_base
 	{
 		header ("Content-Type: text/plain");
 		$time = gmdate("Y M d H:i:s");
+
 		echo <<<HEADER
 
 
@@ -1464,6 +1459,8 @@ HEADER;
 				// list all intellectual prop objs not exported yet
 				$filter = array(
 					"class_id" => $clid,
+					// $clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.nr" => new obj_predicate_compare(obj_predicate_compare::GREATER, 0),
+					// $clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.sent_date" => new obj_predicate_compare(obj_predicate_compare::GREATER, 0),
 					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.verified" => 1,
 					$clidx2[$clid] . ".RELTYPE_TRADEMARK_STATUS.exported" => new obj_predicate_not(1)
 				);
@@ -1483,16 +1480,24 @@ HEADER;
 					{
 						// get xml from ip obj
 						$inst = $o->instance();
-						$xml_data[$clid]["data"] .= str_replace("<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>", "", utf8_decode($inst->get_po_xml($o)->saveXML()));
-						$xml_data[$clid]["count"] += 1;
+						try
+						{
+							$xml_doc = $inst->get_po_xml($o);
+							$xml_data[$clid]["data"] .= $xml_doc->saveXML($xml_doc->documentElement);
+							$xml_data[$clid]["count"] += 1;
 
-						// indicate that object has been exported
-						$status = $inst->get_status($o);
-						$status->set_no_modify(true);
-						$status->set_prop("exported", 1);
-						$status->set_prop("export_date", time());
-						$o->set_no_modify(true);
-						$status_objects->add($status);
+							// indicate that object has been exported
+							$status = $inst->get_status($o);
+							$status->set_no_modify(true);
+							$status->set_prop("exported", 1);
+							$status->set_prop("export_date", time());
+							$o->set_no_modify(true);
+							$status_objects->add($status);
+						}
+						catch (awex_po_xml $e)
+						{
+							echo "ERROR exporting object: " . $e->getMessage() . "\n";
+						}
 					}
 					while ($o = $ol->next());
 				}
@@ -1504,7 +1509,8 @@ HEADER;
 			$o = new object($arr["test_id"]);
 			$inst = $o->instance();
 			$clid = $o->class_id();
-			$xml_data[$clid]["data"] = str_replace("<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>", "", $inst->get_po_xml($o)->saveXML());
+			$xml_doc = $inst->get_po_xml($o);
+			$xml_data[$clid]["data"] = $xml_doc->saveXML($xml_doc->documentElement);
 			$xml_data[$clid]["count"] = 1;
 		}
 
@@ -1513,7 +1519,7 @@ HEADER;
 			// xml header and contents
 			$xml = "<?xml version=\"1.0\" encoding=\"" . self::XML_OUT_ENCODING . "\"?>\n";
 			$xml .= '<ENOTIF BIRTHCOUNT="'.$data["count"].'" CPCD="EE" WEEKNO="'.date("W").'" NOTDATE="'.date("Ymd").'">' . "\n";
-			$xml .= $data["data"];
+			$xml .= iconv("UTF-8", self::XML_OUT_ENCODING . "//TRANSLIT//IGNORE", $data["data"]);
 			$xml .= "</ENOTIF>\n";
 
 			// write file
@@ -1559,7 +1565,7 @@ HEADER;
 		return str_replace(
 			array("&", "<", ">", "%", '"', "'"),
 			array("&amp;", "&lt;", "&gt;", "&#37;", " &quot;", "&apos;"),
-			self::convert_to_utf($string)
+			$string
 		);
 	}
 
@@ -1569,25 +1575,20 @@ HEADER;
 
 		if ("ISO-8859-4" === $encoding)
 		{
-			$string = iconv("ISO-8859-4", self::XML_OUT_ENCODING."//IGNORE", $string);
+			$string = iconv("ISO-8859-4", "UTF-8", $string);
 		}
-		elseif ("UTF-8" === $encoding)
+		elseif ("UTF-8" !== $encoding)
 		{
 			try
 			{
-				$string = iconv("UTF-8", self::XML_OUT_ENCODING."//IGNORE", $string);
+				$string = iconv("latin1", "UTF-8", $string);
 			}
 			catch (ErrorException $e)
 			{
-				$string = iconv("latin1", self::XML_OUT_ENCODING."//IGNORE", $string);
 			}
 		}
-		else
-		{
-			$string = iconv("latin1", self::XML_OUT_ENCODING."//IGNORE", $string);
-		}
 
-		return utf8_encode($string);
+		return $string;
 	}
 
 	public function get_procurator_folder_oid($o, $clid)

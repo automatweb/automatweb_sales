@@ -26,6 +26,8 @@ EMIT_MESSAGE(MSG_USER_CREATE);
 @tableinfo users index=oid master_table=objects master_index=brother_of
 
 @default table=users
+	@property person field=person type=hidden
+
 @default group=general
 	@property uid field=uid type=text group=general editonly=1
 	@caption Kasutajanimi
@@ -282,12 +284,16 @@ class user extends class_base
 				break;
 
 			case "link_to_p":
-				if (!is_oid($arr["obj_inst"]->id()))
+				if (!$arr["obj_inst"]->is_saved())
 				{
 					return class_base::PROP_IGNORE;
 				}
+
 				$p = $this->get_person_for_user($arr["obj_inst"]);
-				$prop["value"] = html::obj_change_url($p);
+				if ($p)
+				{
+					$prop["value"] = html::obj_change_url($p);
+				}
 				break;
 
 			case "name":
@@ -396,7 +402,7 @@ class user extends class_base
 		switch($prop['name'])
 		{
 			case "blocked":
-				if ($arr["obj_inst"]->prop("blocked") == 1 && $prop["value"] == 0 && $this->can("view", $arr["obj_inst"]->prop("join_grp")))
+				if ($arr["obj_inst"]->prop("blocked") == 1 && $prop["value"] == 0 && acl_base::can("view", $arr["obj_inst"]->prop("join_grp")))
 				{
 					$jo = obj($arr["obj_inst"]->prop("join_grp"));
 					if (!$jo->prop("send_join_mail") && $jo->prop("users_blocked_by_default"))
@@ -701,7 +707,7 @@ class user extends class_base
 			$gd["modified"] = $go->modified();
 
 			$can_edit = true;
-			if (!$this->can("edit", $g_oid))
+			if (!acl_base::can("edit", $g_oid))
 			{
 				$can_edit = false;
 			}
@@ -775,14 +781,16 @@ class user extends class_base
 		// now, remove user from all removed groups
 		foreach($groups as $g_oid => $is)
 		{
-			if (!$this->can("edit", $g_oid))
+			try
 			{
-				continue;
+				$group = obj($g_oid);
+				if ((!isset($member[$g_oid]) || $member[$g_oid] != 1) && $is && isset($gl[$g_oid]))
+				{
+					group::remove_user_from_group($o, $group);
+				}
 			}
-			$group = obj($g_oid);
-			if ((!isset($member[$g_oid]) || $member[$g_oid] != 1) && $is && isset($gl[$g_oid]))
+			catch (awex_obj_na $e)
 			{
-				group::remove_user_from_group($o, $group);
 			}
 		}
 
@@ -1101,11 +1109,6 @@ EOF;
 		// and remove the user from that group
 		$o = obj($oid);
 		$real_user = $o->get_original();
-
-		if (!$this->can("view", $o->parent()))
-		{
-			return;
-		}
 
 		aw_global_set("__from_raise_error", 1);
 		$grp_o = obj($o->parent());
@@ -1475,11 +1478,7 @@ EOF;
 	function get_obj_for_uid($uid)
 	{
 		$oid = $this->users->get_oid_for_uid($uid);
-		if (is_oid($oid) && $this->can("view", $oid))
-		{
-			return obj($oid);
-		}
-		return NULL;
+		return acl_base::can("", $oid) ? obj($oid) : null;
 	}
 
 	/**
@@ -1494,24 +1493,36 @@ EOF;
 
 	/** returns the oid of the CL_CRM_PERSON object that's attached to the current user
 		@attrib api=1
-		@comment
-		Returns current person
-		@returns
-		Current persons oid
+		@returns int
+			Current persons oid
 	**/
 	public static function get_current_person()
 	{
-		if (aw_global_get("uid_oid") == "")
-		{
-			return false;
-		}
+		static $uid_oid;
 		static $retval;
-		if (!$retval)
+
+		$current_user_oid = aw_global_get("uid_oid");
+
+		if (!$retval or $uid_oid !== $current_user_oid)
 		{
-			$u = obj(aw_global_get("uid_oid"));
-			$i = new user();//XXX: ...
-			$retval = $i->get_person_for_user($u);
+			$uid_oid = $current_user_oid;
+
+			if (!aw_global_get("uid_oid"))
+			{
+				$retval = 0;
+			}
+			elseif (!empty($_SESSION["__aw_person_oid"]))
+			{//XXX: peaks olema ajutine. kuskil vahetatakse midagi (vbl brotheri vastu) ning tagastatakse vale person (id kaardi logini puhul)
+				$retval = $_SESSION["__aw_person_oid"];
+			}
+			else
+			{
+				$u = new object(aw_global_get("uid_oid"));
+				$i = new user();//XXX: ...
+				$retval = $i->get_person_for_user($u);
+			}
 		}
+
 		return $retval;
 	}
 
@@ -1538,7 +1549,7 @@ EOF;
 		}
 
 		$oid = $this->users->get_oid_for_uid($uid);
-		if (!$oid || !acl_base::can("", $oid))
+		if (!acl_base::can("", $oid))
 		{
 			$cache[$uid] = obj();
 			return obj();
@@ -1563,72 +1574,66 @@ EOF;
 		@returns
 		Person object id
 	**/
-	public function get_person_for_user(object $u)
+	public function get_person_for_user(object $u, $create = false)
 	{
-		$person_c = $u->connections_from(array(
-			"type" => "RELTYPE_PERSON",
-			"to.class_id" => CL_CRM_PERSON
-		));
-		$person_c = reset($person_c);
-		if (!$person_c)
+		$person_oid = $u->prop("person");
+
+		if ($person_oid)
 		{
-			// create new person next to user
-			$p = obj();
-			$p->set_class_id(crm_person_obj::CLID);
-			$p->set_parent($u->id());
-
-			$rn = $u->prop("real_name");
-
-			$uid = $u->prop("uid");
-
-			$p_n = ($rn != "" ? $rn : $uid);
-			$p->set_name($p_n);
-
-			if ($rn != "")
+			if ($create)
 			{
-				$name_data = explode(" ", $rn);
-				$fn = isset($name_data[0]) ? $name_data[0] : "";
-				$ln = isset($name_data[1]) ? $name_data[1] : "";
+				// create new person next to user
+				$p = obj();
+				$p->set_class_id(crm_person_obj::CLID);
+				$p->set_parent($u->id());
+
+				$rn = $u->prop("real_name");
+
+				$uid = $u->prop("uid");
+
+				$p_n = ($rn != "" ? $rn : $uid);
+				$p->set_name($p_n);
+
+				if ($rn != "")
+				{
+					$name_data = explode(" ", $rn);
+					$fn = isset($name_data[0]) ? $name_data[0] : "";
+					$ln = isset($name_data[1]) ? $name_data[1] : "";
+				}
+				else
+				{
+					$name_data = explode(".", $uid);
+					$fn = isset($name_data[0]) ? $name_data[0] : "";
+					$ln = isset($name_data[1]) ? $name_data[1] : "";
+				}
+
+				$p->set_prop("firstname", $fn);
+				$p->set_prop("lastname", $ln);
+				$p->save();
+
+				if ("root" !== $uid and $uid === aw_global_get("uid")) //XXX: FIXME: root peaks ka saama, vaadata miks getdefaultgrp ei t88ta kohati kui root
+				{
+					// set acl to the given user
+					$p->acl_set(
+						obj($u->get_default_group()),
+						array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
+					);
+				}
+
+				$p->set_user($u);
+				$person_oid = $p->id();
 			}
-			else
-			{
-				$name_data = explode(".", $uid);
-				$fn = isset($name_data[0]) ? $name_data[0] : "";
-				$ln = isset($name_data[1]) ? $name_data[1] : "";
-			}
-
-			$p->set_prop("firstname", $fn);
-			$p->set_prop("lastname", $ln);
-			$p->save();
-
-			if ($uid === aw_global_get("uid"))
-			{
-				// set acl to the given user
+			elseif (aw_global_get("uid") === $u->prop("uid") and !acl_base::can("edit", $person_oid))
+			{//TODO: andmete korrastamine igal p2ringul pole hea
+				$p = obj($person_oid);
 				$p->acl_set(
 					obj($u->get_default_group()),
 					array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
 				);
 			}
+		}
 
-			// now, connect user to person
-			$u->connect(array(
-				"to" => $p->id(),
-				"reltype" => "RELTYPE_PERSON"
-			));
-			return $p->id();
-		}
-		else
-		{
-			if (aw_global_get("uid") === $u->prop("uid") && !acl_base::can("edit", $person_c->prop("to")))
-			{
-				$p = obj($person_c->prop("to"));
-				$p->acl_set(
-					obj($u->get_default_group()),
-					array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
-				);
-			}
-			return $person_c->prop("to");
-		}
+		return $person_oid;
 	}
 
 	/**
@@ -1696,21 +1701,21 @@ EOF;
 	/** creates a new user object and returns the object
 		@attrib params=name api=1
 		@param uid required type=int
-		User id
+			User id
 		@param email optional type=string
-		Users email
+			Users email
 		@param password optional type=string
-		Users password
+			Users password
 		@param real_name optional type=string
-		Users name
+			Users name
 		@param person optional type=oid
-		The OID of person object.
+			The OID of person object.
 		@param parent optional type=oid default="users.root_folder"
 			Parent for user object
 		@comment
-		Creates new user object
+			Creates new user object
 		@returns
-		New users object
+			New users object
 	**/
 	public function add_user($arr)
 	{
@@ -1753,6 +1758,7 @@ EOF;
 		if(isset($person) && acl_base::can("", $person))
 		{
 			$o->set_meta("person", $person);
+			$o->set_prop("person", $person);
 		}
 		$o->save();
 
@@ -1814,11 +1820,11 @@ EOF;
 		if (aw_ini_get("acl.use_new_acl"))
 		{
 			$acl = array();
-			$acl["add"] = $this->can("add", $oid);
-			$acl["view"] = $this->can("view", $oid);
-			$acl["edit"] = $this->can("edit", $oid);
-			$acl["delete"] = $this->can("delete", $oid);
-			$acl["admin"] = $this->can("admin", $oid);
+			$acl["add"] = acl_base::can("add", $oid);
+			$acl["view"] = acl_base::can("view", $oid);
+			$acl["edit"] = acl_base::can("edit", $oid);
+			$acl["delete"] = acl_base::can("delete", $oid);
+			$acl["admin"] = acl_base::can("admin", $oid);
  			return $str.sprintf(t("<br>M&auml;&auml;ratud &otilde;igused on j&auml;rgnevad:<br>
 				%s"), $this->_new_acl_string($acl));
 		}
@@ -1830,7 +1836,7 @@ EOF;
 		}
 
 		$o_str = "";
-		if ($this->can("view", $ca["oid"]))
+		if (acl_base::can("view", $ca["oid"]))
 		{
 			$o = obj($ca["oid"]);
 			$o_str = html::href(array(
@@ -1843,7 +1849,7 @@ EOF;
 			$o_str = $this->db_fetch_field("select name from objects where oid = '$ca[oid]'", "name")." (oid = $ca[oid])";
 		}
 
-		if ($this->can("view", $oid))
+		if (acl_base::can("view", $oid))
 		{
 			$ro = obj($oid);
 			$ro_str = html::href(array(
@@ -2052,7 +2058,7 @@ EOF;
 					))
 				);
 			}
-		}
+		} ///XXX: teha else
 		return $groups_list;
 	}
 
@@ -2290,14 +2296,30 @@ EOF;
 					"type" => "char"
 				));
 				return true;
-			break;
+
+			case "person":
+				$this->db_add_col($tbl, array(
+					"name" => "person",
+					"type" => "int"
+				));
+				$q = <<<SQL
+UPDATE `users` u
+JOIN `objects` o ON o.oid = u.`oid`
+JOIN `aliases` a ON o.oid = a.`source`
+SET u.`person` = a.`target`
+WHERE o.`class_id` = 197 AND a.`reltype` = 2
+SQL;
+				$res = $this->db_query($q);
+				cache::full_flush();
+				return true;
+
 			case "warning_notification":
 			case "aw_extern_id":
 				$this->db_add_col($tbl, array(
 					"name" => $field,
 					"type" => "int",
 				));
-				break;
+				return true;
 		}
 		return false;
 	}
@@ -2429,7 +2451,7 @@ EOF;
 	{
 		$c = new config();
 		$aug_oid = $c->get_simple_config("all_users_grp_oid");
-		if (!$c->can("view", $aug_oid))
+		if (!acl_base::can("", $aug_oid))
 		{
 			$aug = aw_ini_get("groups.all_users_grp");
 			// convert to oid and store that

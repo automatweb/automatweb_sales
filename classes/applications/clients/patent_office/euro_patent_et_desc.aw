@@ -190,12 +190,12 @@ class euro_patent_et_desc extends intellectual_property
 			}
 
 			$date = mktime(0, 0, 0, (int) $_POST["epat_date"]["month"], (int) $_POST["epat_date"]["day"], (int) $_POST["epat_date"]["year"]);
-			if(1025470800 > $date) // July 1st 2002
+			if (1025470800 > $date) // July 1st 2002
 			{
 				$err.= t("Kuup&auml;ev peab olema suurem kui 1. juuli 2002")."\n<br>";
 			}
 
-			if(empty($err))
+			if (empty($err))
 			{
 				$_SESSION["patent"]["checked"]["12"] = "12";
 			}

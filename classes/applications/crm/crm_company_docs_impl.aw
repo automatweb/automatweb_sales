@@ -364,7 +364,7 @@ class crm_company_docs_impl extends class_base
 	**/
 	function get_tree_stuff($arr)
 	{
-		
+
 		$seti = get_instance(CL_CRM_SETTINGS);
 		$sts = $seti->get_current_settings();
 
@@ -463,7 +463,7 @@ class crm_company_docs_impl extends class_base
 
 		array_unshift($open_path, $fld_id); // top parent item
 
-		
+
 		$file_inst = get_instance(CL_FILE);
 		$gbf = $this->mk_my_orb("get_tree_stuff",array(
 			"set_retu" => aw_url_change_var(),
@@ -756,7 +756,7 @@ class crm_company_docs_impl extends class_base
 			$cur_level_folders = $this->_get_level_folders_from_fld($fld, $sel, true);
 		}
 
-		
+
 		$clss = aw_ini_get("classes");
 		get_instance(CL_FILE);
 
@@ -966,23 +966,20 @@ class crm_company_docs_impl extends class_base
 			// get all persons whose names match
 			$pers = new object_list(array(
 				"class_id" => CL_CRM_PERSON,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"name" => "%".$req["docs_s_user"]."%"
 			));
 			// get all users for those
-			$c = new connection();
-			$user_conns = $c->find(array(
-				"from.class_id" => CL_USER,
-				"type" => "RELTYPE_PERSON",
-				"to" => $pers->ids()
+			$users = new object_list(array(
+				"class_id" => CL_USER,
+				"person" => $pers->ids()
 			));
-			$uids = array();
-			foreach($user_conns as $c)
+
+			$uids = array();//TODO: objdatalist oleks parem
+			for ($u = $users->begin(); !$users->end(); $u = $users->next())
 			{
-				$u = obj($c["from"]);
 				$uids[] = $u->prop("uid");
 			}
+
 			// filter by createdby or modifiedby by those users
 			$res[] = new object_list_filter(array(
 				"logic" => "OR",

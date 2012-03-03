@@ -795,7 +795,7 @@ class rfp extends class_base
 			case "data_contactperson":
 				if(!$prop["value"])
 				{
-					$prop["value"] = obj(aw_global_get("uid_oid"))->get_first_obj_by_reltype("RELTYPE_PERSON")->name();
+					$prop["value"] = obj(aw_global_get("uid_oid"))->prop("person.name");
 				}
 				break;
 
@@ -2868,7 +2868,7 @@ class rfp extends class_base
 			"data_currency" => $arr["obj_inst"]->prop("default_currency.name"),
 		));
 
-		$cur_p = obj(aw_global_get("uid_oid"))->get_first_obj_by_reltype("RELTYPE_PERSON");
+		$cur_p = new object(obj(aw_global_get("uid_oid"))->prop("person"));
 		$mail = $cur_p->get_first_obj_by_reltype("RELTYPE_EMAIL");
 		if($mail)
 		{

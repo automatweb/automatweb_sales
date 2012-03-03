@@ -1595,32 +1595,18 @@ class _int_object
 		return $prev;
 	}
 
-	public function prop_is_translated($prop)
+	public function prop_is_translated($prop, $lang_id = AW_REQUEST_CT_LANG_ID)
 	{
-		$trans = false;
-		$cur_lid = false;
-		if (aw_ini_get("user_interface.content_trans") && ($cur_lid = aw_global_get("lang_id")) != $this->lang_id())
+		if ((aw_ini_get("user_interface.content_trans") or aw_ini_get("user_interface.full_content_trans")) && $lang_id !== $this->lang_id())
 		{
-			$trans = true;
+			$translated = !empty($this->obj["meta"]["trans_{$lang_id}_status"]);
+		}
+		else
+		{
+			$translated = true;
 		}
 
-		if (aw_ini_get("user_interface.full_content_trans") && ($cl = aw_global_get("ct_lang_id")) != $this->lang_id())
-		{
-			$trans = true;
-			$cur_lid = $cl;
-		}
-
-		if ($trans)
-		{
-			// $trs = $this->obj["meta"]["translations"];
-			// if (/*!empty($trs[$cur_lid]) &&*/ @$this->obj["meta"]["trans_".$cur_lid."_status"] == 1)
-			if (isset($this->obj["meta"]["trans_".$cur_lid."_status"]) and $this->obj["meta"]["trans_".$cur_lid."_status"] == 1)
-			{
-				return true;
-			}
-			return false;
-		}
-		return true;
+		return $translated;
 	}
 
 	public function set_translation_status($lang_id, $active)
@@ -1801,6 +1787,13 @@ class _int_object
 			return $first->to();
 		}
 		return false;
+	}
+
+	public function get_connected_objects($type = null)
+	{
+		return new object_list($this->connections_from(array(
+			"type" => $type
+		)));
 	}
 
 	public function get_xml($options)

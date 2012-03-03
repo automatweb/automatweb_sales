@@ -79,21 +79,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	public function awobj_get_username()
 	{
-		$this->require_state("saved");
-		$user_connections = $this->connections_to(array(
-			"from.class_id" => CL_USER,
-			"type" => "RELTYPE_PERSON"
-		));
-
-		$user_name = "";
-
-		if (1 === count($user_connections))
-		{
-			$c = reset($user_connections);
-			$user_name = $c->prop("from.name");
-		}
-
-		return $user_name;
+		$user = $this->get_user();
+		return $user->prop("uid");
 	}
 
 	/** Returns login user for person or NULL if not found
@@ -102,21 +89,20 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	**/
 	public function get_user()
 	{
-		$this->require_state("saved");//TODO: pole vaja ju
-		$user_connections = $this->connections_to(array(
-			"from.class_id" => CL_USER,
-			"type" => "RELTYPE_PERSON"
+		$this->require_state("saved");
+
+		$users = new object_list(array(
+			"class_id" => CL_USER,
+			"person" => $this->brother_of()
 		));
 
-		if (count($user_connections))
+		if ($users->count())
 		{
-			$c = reset($user_connections);
-			$user = $c->from();
-
-			if (1 !== count($user_connections))
+			$user = $users->begin()->get_original();
+			$oids = array_unique($users->brother_ofs());
+			if (1 !== count($oids))
 			{
-				$users = new object_list($user_connections);
-				trigger_error(sprintf("Person %s has more that one user (%s)", $this->id(), implode(", ", $users->ids())), E_USER_WARNING);
+				trigger_error(sprintf("Person %s has more than one user (%s)", $this->brother_of(), implode(", ", $oids)), E_USER_WARNING);
 			}
 		}
 		else
@@ -144,21 +130,13 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			throw new awex_obj_type(sprintf("Invalid type (%s) user object (%s) given for person (%s)"), $user->class_id(), $user->id(), $this->id());
 		}
 
-		$existing_user_connections = connection::find(array(
-			"from.class_id" => CL_USER,
-			"to" => $this->id(),
-			"type" => "RELTYPE_PERSON"
-		));
-		foreach ($existing_user_connections as $id => $data)
+		if (!$user->is_saved())
 		{
-			$connection = new connection($id);
-			$connection->delete();
+			throw new awex_obj_state_new(sprintf("Unsaved user object (%s) given for person (%s)"), $user->id(), $this->id());
 		}
 
-		$user->connect(array(
-			"to" => $this->ref(),
-			"type" => "RELTYPE_PERSON"
-		));
+		$user->set_prop("person", $this->id());
+		$user->save();
 		cache::file_clear_pt("storage_object_data");
 		cache::file_clear_pt("storage_search");
 		cache::file_clear_pt("acl");
