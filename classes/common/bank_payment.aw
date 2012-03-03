@@ -1259,7 +1259,7 @@ class bank_payment extends class_base
 			$return.= '<input type="hidden" name='.$key.' value="'.(string)$val.'">
 			';
 		};
-//		if(aw_global_get("uid") == "struktuur"){ arr($return); die();}
+
 		if($form) return $return;
 		print $return.'<p class="text">'.t("Kui suunamist mingil p&otilde;hjusel ei toimu, palun vajutage").'<a href="#" onClick="document.postform.submit();"> '.t("siia").'</a></p>
 		</form>
