@@ -344,7 +344,7 @@ class room_obj extends _int_object
 		);
 		$filter["end"] = new obj_predicate_compare(OBJ_COMP_GREATER, $start);
 		$filter["start1"] = new obj_predicate_compare(OBJ_COMP_LESS, $end);
-		$ol = new object_list($filter);//arr($ol); arr($filter); arr(date("d.m.Y h:i" , $start)); arr(date("d.m.Y h:i" , $end));
+		$ol = new object_list($filter);
 		return $ol;
 
 	}
