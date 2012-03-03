@@ -209,6 +209,7 @@ class cache extends aw_core_module
 	public static function get_fqfn($key)
 	{
 		$hash = md5($key);
+		$key = str_replace("./", "", $key);
 
 		if ($key{0} === "/")
 		{
@@ -434,6 +435,9 @@ class cache extends aw_core_module
 	**/
 	public static function file_set_pt($pt, $subf, $fn, $content)
 	{
+		$fn = str_replace("/", "", $fn);
+		$pt = str_replace("/", "", $pt);
+		$subf = str_replace("/", "", $subf);
 		$dir = aw_ini_get("cache.page_cache")."{$pt}/{$subf}/";
 		if (!is_dir($dir))
 		{
@@ -482,6 +486,9 @@ class cache extends aw_core_module
 	**/
 	public static function file_get_pt($pt, $subf, $fn)
 	{
+		$fn = str_replace("/", "", $fn);
+		$pt = str_replace("/", "", $pt);
+		$subf = str_replace("/", "", $subf);
 		$fq = aw_ini_get("cache.page_cache")."{$pt}/{$subf}/{$fn}";
 		return file_exists($fq) ? file_get_contents($fq) : false;
 	}
@@ -523,6 +530,9 @@ class cache extends aw_core_module
 	**/
 	public static function file_get_pt_ts($pt, $subf, $fn, $ts)
 	{
+		$fn = str_replace("/", "", $fn);
+		$pt = str_replace("/", "", $pt);
+		$subf = str_replace("/", "", $subf);
 		$fq = aw_ini_get("cache.page_cache").$pt."/".$subf."/".$fn;
 
 		if (!file_exists($fq) || filemtime($fq) < $ts)
@@ -575,6 +585,8 @@ class cache extends aw_core_module
 			return;
 		}
 
+		$pt = str_replace("/", "", $pt);
+
 		// now, this is where the magic happens.
 		// basically, we rename the whole folder and clear it's contents later.
 		$cache_dir = aw_ini_get("cache.page_cache");
@@ -606,6 +618,9 @@ class cache extends aw_core_module
 	**/
 	public static function file_clear_pt_oid($pt, $oid)
 	{
+		$pt = str_replace("/", "", $pt);
+		$oid = str_replace("/", "", $oid);
+
 		$of = substr($oid, -1, 1);
 		$cachedir = aw_ini_get("cache.page_cache");
 		$fq = "{$cachedir}{$pt}/{$of}";
@@ -644,6 +659,10 @@ class cache extends aw_core_module
 	**/
 	public static function file_clear_pt_oid_fn($pt, $oid, $fn)
 	{
+		$fn = str_replace("/", "", $fn);
+		$pt = str_replace("/", "", $pt);
+		$oid = str_replace("/", "", $oid);
+
 		$of = substr($oid, -1, 1);
 		$fq = aw_ini_get("cache.page_cache")."{$pt}/{$of}/{$fn}";
 
@@ -678,6 +697,9 @@ class cache extends aw_core_module
 	**/
 	public static function file_clear_pt_sub($pt, $subf)
 	{
+		$pt = str_replace("/", "", $pt);
+		$subf = str_replace("/", "", $subf);
+
 		$cachedir = aw_ini_get("cache.page_cache");
 		$fq = "{$cachedir}{$pt}/{$subf}";
 		$nn = "{$cachedir}temp/{$pt}_{$subf}_" . gen_uniq_id();
@@ -902,44 +924,7 @@ class cache extends aw_core_module
 		}
 
 		// delete file cache contents
-		self::_recursive_delete_cache_files_and_dirs($cache_dir);
-	}
-
-	private static function _recursive_delete_cache_files_and_dirs($fld)
-	{
-		if (is_dir($fld) and $dir = opendir($fld))
-		{
-			while (($file = readdir($dir)) !== false)
-			{
-				if ($file !== "." and $file !== "..")
-				{
-					$fld .= "/".$file;
-					if (is_dir($fld))
-					{
-						self::_recursive_delete_cache_files_and_dirs($fld . "/");
-						try
-						{
-							rmdir($fld);
-						}
-						catch (ErrorException $e)
-						{
-							trigger_error("Couldn't delete cache directory '{$fld}'", E_USER_NOTICE);
-						}
-					}
-					else
-					{
-						try
-						{
-							unlink($fld);
-						}
-						catch (ErrorException $e)
-						{
-							trigger_error("Couldn't delete cache file '{$fld}'", E_USER_NOTICE);
-						}
-					}
-				}
-			}
-		}
+		aw_directory_delete($cache_dir);
 	}
 }
 

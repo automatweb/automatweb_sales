@@ -199,8 +199,8 @@ class aw_http_request extends aw_request
 
 		// parse special automatweb request variables
 		$AW_GET_VARS = array();
-		$pi = empty($_SERVER["PATH_INFO"]) ? "" : preg_replace("|\?automatweb=[^&]*|","", $_SERVER["PATH_INFO"]);
-		$query_string = empty($_SERVER["QUERY_STRING"]) ? "" : preg_replace("|\?automatweb=[^&]*|","", $_SERVER["QUERY_STRING"]);
+		$pi = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "";
+		$query_string = isset($_SERVER["QUERY_STRING"]) ? $_SERVER["QUERY_STRING"] : "";
 
 		if (!$query_string and !$pi and $request_uri)
 		{
@@ -212,20 +212,16 @@ class aw_http_request extends aw_request
 			$pi .= "?{$query_string}";
 		}
 
-		$pi = preg_replace("|\?automatweb=[^&]*|ims", "", $pi);
-
-		if ($pi)
+		if (false !== strpos($pi, "=") and false === strpos($pi, "?"))
 		{
-			// if $pi contains & or =
-			if (preg_match("/[&|=]/",$pi))
-			{
-				// expand and import PATH_INFO
-				// replace ? and / with & in $pi and output the result to AW_GET_VARS
-				parse_str(str_replace(array("?", "/"), "&", $pi), $AW_GET_VARS);
-			}
+			// expand and import PATH_INFO
+			// replace ? and / with & in $pi and output the result to AW_GET_VARS
+			parse_str(str_replace("/", "&", $pi), $AW_GET_VARS);
 		}
 
 		$this->args = $this->args + $AW_GET_VARS;
+
+		if (isset($this->args["automatweb"])) unset($this->args["automatweb"]); // for security//TODO: otsida, miks oli vaja preg_replace-ga automatweb=... urlist v2lja, kas ainult sessioonimuutuja p2rast, mis v6is globalsi kaudu kuskile sattuda?
 
 		// parse arguments
 		$this->parse_args();
