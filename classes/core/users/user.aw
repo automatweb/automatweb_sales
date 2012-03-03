@@ -1576,7 +1576,7 @@ EOF;
 	**/
 	public function get_person_for_user(object $u, $create = false)
 	{
-		$person_oid = $u->prop("person.oid");
+		$person_oid = $u->prop("person");
 
 		if ($person_oid)
 		{
