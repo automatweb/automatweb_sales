@@ -110,14 +110,14 @@ class industrial_design_add extends class_base
 				$ol->add($o3);
 
 				$o4 = new object();
-				$o4->set_name("Prioriteedin".chr(245)."ue");
+				$o4->set_name("Prioriteedin&otilde;ue");
 				$o4->set_class_id(CL_MENU);
 				$o4->set_parent($o->id());
 				$o4->save();
 				$ol->add($o4);
 
 				$o41 = new object();
-				$o41->set_name("Menetluse peatamise n".chr(245)."ue");
+				$o41->set_name("Menetluse peatamise n&otilde;ue");
 				$o41->set_class_id(CL_MENU);
 				$o41->set_parent($o->id());
 				$o41->save();
@@ -131,7 +131,7 @@ class industrial_design_add extends class_base
 				$ol->add($o51);
 
 				$o5 = new object();
-				$o5->set_name("Riigil".chr(245)."iv");
+				$o5->set_name("Riigil&otilde;iv");
 				$o5->set_class_id(CL_MENU);
 				$o5->set_parent($o->id());
 				$o5->save();
@@ -149,45 +149,5 @@ class industrial_design_add extends class_base
 			}
 		}
 		return $ol;
-	}
-
-	function make_menu_link($o, $ref = NULL)
-	{
-		if(isset($_SESSION["patent"]["id"]) and acl_base::can("view" , $_SESSION["patent"]["id"]))
-		{
-			$tr_inst = new industrial_design();
-			$res = $tr_inst->is_signed($_SESSION["patent"]["id"]);
-			if($res["status"] == 1)
-			{
-				return aw_url_change_var("")."#";
-			}
-		}
-
-		static $jrk;
-
-		if (empty($jrk))
-		{
-			$jrk = 0;
-		}
-
-		$item = industrial_design::$level_index[$jrk];
-
-		if($jrk === 0)
-		{
-			$url = $_SERVER["SCRIPT_URI"]."?data_type=0" . (!empty($_GET["section"]) ? ("&section=".$_GET["section"]) : "");
-		}
-		elseif (isset($_SESSION["patent"]["checked"]) and in_array($item, $_SESSION["patent"]["checked"]))
-		{
-			$url = aw_url_change_var("data_type", $item);
-			$url = aw_url_change_var("new_application" , null , $url);
-		}
-		else
-		{
-			$url = aw_url_change_var("new_application" , null) . "#";
-		}
-
-		++$jrk;
-		$url = aw_url_change_var("new_application" , null , $url);
-		return $url;
 	}
 }

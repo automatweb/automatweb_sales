@@ -502,7 +502,7 @@ class industrial_design extends intellectual_property
 		$root->insertBefore($el, $despg);
 
 		// priority
-		if($o->prop("prio_convention_date") !== "-1" and $o->prop("prio_convention_nr"))
+		if($o->prop("prio_convention_date") > 1 and $o->prop("prio_convention_nr"))
 		{
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRICP", $o->prop("prio_convention_country")));

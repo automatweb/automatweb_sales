@@ -527,7 +527,7 @@ class patent_patent extends intellectual_property
 		$holgr_following = $xpath->query("following-sibling::REPGR|following-sibling::DESPG", $holgr_following)->item(0);
 
 		// author(s)
-		$adr_i = get_instance(CL_CRM_ADDRESS);
+		$adr_i = new crm_address();
 		$author_disallow_disclose = (array) $o->meta("author_disallow_disclose");
 
 		foreach($o->connections_from(array("type" => "RELTYPE_AUTHOR")) as $c)
@@ -583,7 +583,7 @@ class patent_patent extends intellectual_property
 		$root->insertBefore($el, $despg);
 
 		// priority
-		if($o->prop("prio_convention_date") !== "-1" and $o->prop("prio_convention_nr"))
+		if($o->prop("prio_convention_date") > 1 and $o->prop("prio_convention_nr"))
 		{ // Pariisi konventsiooni vm. kokkuleppe taotluse alusel
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRICP", $o->prop("prio_convention_country")));
@@ -593,7 +593,7 @@ class patent_patent extends intellectual_property
 			$root->insertBefore($el, $despg);
 		}
 
-		if($o->prop("prio_prevapplicationsep_date") !== "-1" and $o->prop("prio_prevapplicationsep_nr"))
+		if($o->prop("prio_prevapplicationsep_date") > 1 and $o->prop("prio_prevapplicationsep_nr"))
 		{ // Varasema patenditaotluse alusel sellest eraldatud patenditaotluse puhul
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd",$o->prop("prio_prevapplicationsep_date"))));
@@ -602,7 +602,7 @@ class patent_patent extends intellectual_property
 			$root->insertBefore($el, $despg);
 		}
 
-		if($o->prop("prio_prevapplicationadd_date") !== "-1" and $o->prop("prio_prevapplicationadd_nr"))
+		if ($o->prop("prio_prevapplicationadd_date") > 1 and $o->prop("prio_prevapplicationadd_nr"))
 		{ // Varasema patenditaotluse paranduste ja t&auml;ienduste alusel
 			$el = $xml->createElement("PRIGR");
 			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd",$o->prop("prio_prevapplicationadd_date"))));
@@ -611,10 +611,10 @@ class patent_patent extends intellectual_property
 			$root->insertBefore($el, $despg);
 		}
 
-		if($o->prop("prio_prevapplication_date") !== "-1" and $o->prop("prio_prevapplication_nr"))
+		if ($o->prop("prio_prevapplication_date") > 1 and $o->prop("prio_prevapplication_nr"))
 		{ // Varasema taotluse alusel
 			$el = $xml->createElement("PRIGR");
-			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd",$o->prop("prio_prevapplication_date"))));
+			$el->appendChild(new DOMElement("PRIAPPD", date("Ymd", $o->prop("prio_prevapplication_date"))));
 			$el->appendChild(new DOMElement("PRIAPPN", $o->prop("prio_prevapplication_nr")));
 			$el->appendChild(new DOMElement("PRITYPE", "3"));
 			$root->insertBefore($el, $despg);
@@ -623,20 +623,20 @@ class patent_patent extends intellectual_property
 		//
 		$el = $xml->createElement("BASED");
 		$el->appendChild(new DOMElement("BASCP", $o->prop("other_first_application_data_country")));
-		$el->appendChild(new DOMElement("BASAPPD", "-1" === $o->prop("other_first_application_data_date") ? "" : date("Ymd",$o->prop("other_first_application_data_date"))));
+		$el->appendChild(new DOMElement("BASAPPD", $o->prop("other_first_application_data_date") < 2 ? "" : date("Ymd",$o->prop("other_first_application_data_date"))));
 		$el->appendChild(new DOMElement("BASAPPN", $o->prop("other_first_application_data_nr")));
 		$root->insertBefore($el, $despg);
 
 		//
 		$el = $xml->createElement("MICRO");
 		$el->appendChild(new DOMElement("MICCN", $o->prop("other_bio_nr")));
-		$el->appendChild(new DOMElement("MICAPPD", "-1" === $o->prop("other_bio_date") ? "" : date("Ymd",$o->prop("other_bio_date"))));
+		$el->appendChild(new DOMElement("MICAPPD", $o->prop("other_bio_date") < 2 ? "" : date("Ymd",$o->prop("other_bio_date"))));
 		$el->appendChild(new DOMElement("MICAPPN", $o->prop("other_bio_inst")));
 		$root->insertBefore($el, $despg);
 
 		//
 		$el = $xml->createElement("ADVERT");
-		$el->appendChild(new DOMElement("ADVCP", "-1" === $o->prop("other_datapub_date") ? "" : date("Ymd",$o->prop("other_datapub_date"))));
+		$el->appendChild(new DOMElement("ADVCP", $o->prop("other_datapub_date") < 2 ? "" : date("Ymd",$o->prop("other_datapub_date"))));
 		$root->insertBefore($el, $despg);
 
 		//

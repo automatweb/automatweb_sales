@@ -131,7 +131,7 @@ class patent_add extends class_base
 				$ol->add($o42);
 
 				$o5 = new object();
-				$o5->set_name("Riigil".chr(245)."iv");
+				$o5->set_name("Riigil&otilde;iv");
 				$o5->set_class_id(CL_MENU);
 				$o5->set_parent($o->id());
 				$o5->save();
@@ -149,46 +149,5 @@ class patent_add extends class_base
 			}
 		}
 		return $ol;
-	}
-
-	function make_menu_link($o, $ref = NULL)
-	{
-		if (isset($_SESSION["patent"]["id"]) and acl_base::can("view" , $_SESSION["patent"]["id"]))
-		{
-			$tr_inst = new patent_patent();
-			$res = $tr_inst->is_signed($_SESSION["patent"]["id"]);
-
-			if($res["status"] == 1)
-			{
-				return aw_url_change_var("")."#";
-			}
-		}
-
-		static $jrk;
-
-		if (empty($jrk))
-		{
-			$jrk = 0;
-		}
-
-		$item = patent_patent::$level_index[$jrk];
-
-		if($jrk === 0)
-		{
-			$url = $_SERVER["SCRIPT_URI"]."?data_type=0" . (!empty($_GET["section"]) ? ("&section=".$_GET["section"]) : "");
-		}
-		elseif (isset($_SESSION["patent"]["checked"]) and in_array($item, $_SESSION["patent"]["checked"]))
-		{
-			$url = aw_url_change_var("data_type", $item);
-			$url = aw_url_change_var("new_application" , null , $url);
-		}
-		else
-		{
-			$url = aw_url_change_var("new_application" , null) . "#";
-		}
-
-		++$jrk;
-		$url = aw_url_change_var("new_application" , null , $url);
-		return $url;
 	}
 }
