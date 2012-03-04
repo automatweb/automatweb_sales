@@ -2164,7 +2164,7 @@ class object
 
 			$new_obj = object::from_xml($xml, 6); // copies all objects and their relations from object 1 to object 6
 	**/
-	function get_xml(array $options = array())
+	public function get_xml(array $options = array())
 	{
 		$this->_check_lock_read();
 		return $GLOBALS["objects"][$this->oid]->get_xml($options);
@@ -2192,9 +2192,9 @@ class object
 				"new_rels" => true
 			));
 
-			$new_obj = object::from_xml($xml, 6); // copies all objects and their relations from object 1 to object 6
+			$new_obj = object::from_xml($xml, 6); // copies all objects and their relations from object 1 to a new object under object 6
 	**/
-	function from_xml($xml, $parent)
+	public static function from_xml($xml, $parent)
 	{
 		$this->_check_lock_write();
 		return _int_object::from_xml($xml, $parent);

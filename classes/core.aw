@@ -1323,10 +1323,10 @@ class core extends db_connector
 		return $orb->do_method_call($arr);
 	}
 
-	/** this takes an array and goes through it and makes another array that has as keys the values of the given array and also the velues of the given array
+	/** Returns an array with both keys and values from values of argument array
 		@attrib api=1 params=pos
-		@param arr required type=array
-			The array to convert.
+		@param arr type=array
+			The source array. Must contain only scalar values.
 		@returns array
 	**/
 	function make_keys($arr)
