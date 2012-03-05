@@ -626,7 +626,6 @@ class calendar_view extends class_base
 
 	function __sort_events_by_jrk($el1, $el2)
 	{
-		//if(aw_global_get("uid") == "kix") {arr($el1["start1"]); arr($el2["start1"]); arr($this->day_start);arr();}
 		if(!($this->can("view" , $el1) && $this->can("view" , $el2)))
 		{
 			return $el1 - $el2;

@@ -368,7 +368,7 @@ class openhours extends class_base
 				$row["h2"] = 24;
 			}
 			if (($row["day1"] <= $wd && $row["day2"] >= $wd) || ($row["day1"] == $wd && !$row["day2"]))
-			{//arr($row); arr($wd);
+			{
 				return array($row["h1"]*3600+$row["m1"]*60, $row["h2"]*3600+$row["m2"]*60);
 			}
 		}
