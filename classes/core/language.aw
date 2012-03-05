@@ -19,6 +19,9 @@
 	@property lang_status table=languages type=status field=status
 	@caption Aktiivne
 
+	@property lang_site_id table=languages type=select field=lang_site_id
+	@caption Sait
+
 	@property show_not_logged type=checkbox ch_value=1 prop_cb=1 table=languages field=show_not_logged
 	@caption N&auml;htav v&auml;lja loginud kasutajatele
 
@@ -37,9 +40,6 @@
 	@property url_code table=languages type=select field=url_code
 	@comment Kui on seadistatud menuedit.language_in_url siis selle keele kood m&auml;&auml;ratakse siin
 	@caption Keele kood URL-is
-
-	@property lang_site_id table=languages type=select multiple=1 field=site_id
-	@caption Saidid kus keel on valitav
 
 	@property lang_trans_msg table=languages type=textarea rows=5 cols=30 field=meta method=serialize
 	@caption T&otilde;lkimata sisu teade
@@ -427,6 +427,38 @@ class language extends class_base
 			{
 				$this->db_add_col("languages", array("name" => "url_code", "type" => "char(16)"));
 				$r = true;
+			}
+			elseif ("lang_site_id" === $f)
+			{
+				$this->db_query(<<<SQL
+ALTER TABLE `languages`  CHANGE COLUMN `status` `status` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `charset`,  CHANGE COLUMN `modified` `modified` INT(11) UNSIGNED NULL AFTER `acceptlang`,  ADD COLUMN `lang_site_id` SMALLINT UNSIGNED NOT NULL DEFAULT '0' AFTER `site_id`,  CHANGE COLUMN `show_not_logged` `show_not_logged` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `meta`,  CHANGE COLUMN `show_logged` `show_logged` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `show_not_logged`,  CHANGE COLUMN `show_others` `show_others` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `show_logged`;
+
+SQL
+				);
+
+				$languages = new object_list(array(
+					"class_id" => CL_LANGUAGE
+				));
+				foreach ($languages as $language)
+				{
+					$sites = explode(",", $language->prop("lang_site_id"));
+					if (count($sites) > 1)
+					{ // make a copy of the language object for each site it is used in
+						$parent = $language->parent();
+						while (count($sites))
+						{
+							$site_id = array_shift($sites);
+							$language->set_prop("lang_site_id", $site_id);
+							$language->save();
+
+							if (count($sites))
+							{
+								$language_xml = $language->get_xml(array("copy_subobjects" => false));
+								$language = object::from_xml($language_xml, $parent);
+							}
+						}
+					}
+				}
 			}
 		}
 		return $r;

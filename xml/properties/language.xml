@@ -25,6 +25,14 @@
             <caption>Aktiivne</caption>
       </property>
       <property>
+            <name>lang_site_id</name>
+            <table>languages</table>
+            <group>general</group>
+            <type>select</type>
+            <field>site_id</field>
+            <caption>Sait</caption>
+      </property>
+      <property>
             <name>show_not_logged</name>
             <table>languages</table>
             <group>general</group>
@@ -71,13 +79,13 @@
             <caption>Keele kood</caption>
       </property>
       <property>
-            <name>lang_site_id</name>
+            <name>url_code</name>
             <table>languages</table>
             <group>general</group>
             <type>select</type>
-            <multiple>1</multiple>
-            <field>site_id</field>
-            <caption>Saidid kus keel on valitav</caption>
+            <field>url_code</field>
+            <comment>Kui on seadistatud menuedit.language_in_url siis selle keele kood m&amp;amp;auml;&amp;amp;auml;ratakse siin</comment>
+            <caption>Keele kood URL-is</caption>
       </property>
       <property>
             <name>lang_trans_msg</name>
