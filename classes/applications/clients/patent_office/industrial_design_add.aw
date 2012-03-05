@@ -36,7 +36,7 @@
 
 */
 
-class industrial_design_add extends class_base
+class industrial_design_add extends intellectual_property_add
 {
 	function industrial_design_add()
 	{

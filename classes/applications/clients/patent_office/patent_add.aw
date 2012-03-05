@@ -36,7 +36,7 @@
 
 */
 
-class patent_add extends class_base
+class patent_add extends intellectual_property_add
 {
 	function patent_add()
 	{
