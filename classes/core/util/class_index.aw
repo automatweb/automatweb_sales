@@ -584,6 +584,11 @@ class class_index
 		// write implemented-by info
 		foreach(self::$implements_interface as $if_name => $implemented_by)
 		{
+			if ("Iterator" === $if_name or "IteratorAggregate" === $if_name) //TODO: ajutine. vaja vahet teha predefined ja aw interface-del
+			{
+				continue;
+			}
+
 			$if_file = $index_dir . $if_name . AW_FILE_EXT;
 
 			if (!is_readable($if_file))
