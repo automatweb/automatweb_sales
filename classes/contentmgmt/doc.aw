@@ -1710,7 +1710,7 @@ class doc extends class_base
 
 	function callback_pre_edit($arr)
 	{
-		if (is_oid($arr["obj_inst"]->id()))
+		if (isset($arr["obj_inst"]) and $arr["obj_inst"]->is_saved())
 		{
 			$key = $this->_get_simultaneous_key($arr["obj_inst"]);
 			$data = aw_unserialize($this->get_cval($key));

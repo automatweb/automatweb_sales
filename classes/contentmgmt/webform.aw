@@ -1942,7 +1942,8 @@ class webform extends class_base
 						$pd["cols"] = $all_props[$pn]["width"];
 					}
 				}
-				if(!empty($all_props[$pn]["height"]) && $pd["type"] == "textarea")
+
+				if(!empty($all_props[$pn]["height"]) && $pd["type"] === "textarea")
 				{
 					$pd["rows"] = $all_props[$pn]["height"];
 				}
@@ -1978,7 +1979,8 @@ class webform extends class_base
 					{
 						continue;
 					}
-					if($all_props[$pn][$vad])
+
+					if(!empty($all_props[$pn][$vad]))
 					{
 						$pd[$ke] = $all_props[$pn][$vad];
 					}
@@ -2035,10 +2037,10 @@ class webform extends class_base
 				"caption" => t("Saada"),
 			);
 		}
-		$ftype = $arr["obj_inst"]->prop("form_type");
-		$inst = empty($ftype) ? CL_REGISTER_DATA : $ftype;
-		$rd = get_instance($inst);
 
+		$ftype = $arr["obj_inst"]->prop("form_type");
+		$ftype = empty($ftype) ? CL_REGISTER_DATA : $ftype;
+		$rd = get_instance($ftype);
 
 		$dummy = new object();
 		$dummy->set_class_id($ftype);
@@ -2071,8 +2073,9 @@ class webform extends class_base
 			}
 		}
 		$id = $arr["obj_inst"]->id();
-		$aliasmgr = get_instance("alias_parser");
+		$aliasmgr = new alias_parser();
 		$tmp = $els;
+		$tmpx = array();
 
 		foreach($tmp as $key => $val)
 		{
@@ -2087,11 +2090,13 @@ class webform extends class_base
 					}
 				}
 			}
+
 			if(strpos($key, "_filename") !== false)
 			{
 				unset($els[$key]);
 				continue;
 			}
+
 			$aliasmgr->parse_oo_aliases($id, $els[$key]["caption"]);
 			if($val["type"] === "text")
 			{
@@ -2107,9 +2112,9 @@ class webform extends class_base
 			}
 			// some goddamn thing messes up the element captions, reorder them
 			//$els[$key]["caption"] = $all_props[$key]["caption"];
-			$els[$key]["capt_ord"] = $all_props[$key]["wf_capt_ord"];
+			$els[$key]["capt_ord"] = isset($all_props[$key]["wf_capt_ord"]) ? $all_props[$key]["wf_capt_ord"] : "";
 			// treat all text properties as an ordinary text property
-			if($all_props[$key]["type"] === "text" && empty($all_props[$key]["value"]))
+			if(isset($all_props[$key]) && $all_props[$key]["type"] === "text" && empty($all_props[$key]["value"]))
 			{
 				$els[$key]["subtitle"] = 1;
 			}
@@ -2146,12 +2151,12 @@ class webform extends class_base
 				unset($els[$key]);
 			}
 
-			if(isset($clf_type[$key]) and in_array($clf_type[$key], $this->n_props))
+			if (isset($clf_type[$key]) and in_array($clf_type[$key], $this->n_props))
 			{
 				$els[$key]["orient"] = $all_props[$key]["orient"];
 			}
 
-			if($all_props[$key]["type"] === "reset" || $all_props[$key]["type"] === "submit")
+			if (isset($all_props[$key]) and ($all_props[$key]["type"] === "reset" || $all_props[$key]["type"] === "submit"))
 			{
 				$val["class"] = isset($val["style"]["prop"]) ? $val["style"]["prop"] : null;
 				if($all_props[$key]["type"] === "submit")
@@ -2250,7 +2255,8 @@ class webform extends class_base
 			$els[$v]["pr"] = $last;
 			$last = $v;
 		}
-		$els = (array)$els + (array)$tmpx;
+
+		$els = (array) $els + $tmpx;
 
 		$htmlc = new htmlclient(array(
 			"template" => "real_webform.tpl",
@@ -2260,7 +2266,7 @@ class webform extends class_base
 		$htmlc->start_output();
 		foreach($els as $pn => $pd)
 		{
-			$pd["capt_ord"] = $pd["wf_capt_ord"];
+			$pd["capt_ord"] = isset($pd["wf_capt_ord"]) ? $pd["wf_capt_ord"] : "";
 			if ($pd["capt_ord"] === "in" && empty($arr['value']))
 			{
 				switch ($pd['type'])
