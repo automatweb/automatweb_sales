@@ -403,26 +403,31 @@ class image extends class_base
 			$alt = htmlspecialchars($idata["meta"]["alt"]);
 
 			$size = array(0 => null, 1 => null);
-			if (!empty($idata["meta"]["file2"]))
+			if (isset($idata["meta"]["file2"]) and file_exists($idata["meta"]["file2"]))
 			{
 				$size = getimagesize($idata["meta"]["file2"]);
 			}
+
 			if (isset($idata["meta"]["big_flash"]) && $this->can("view", $idata["meta"]["big_flash"]))
 			{
 				$flo = obj($idata["meta"]["big_flash"]);
 				$size = array($flo->prop("width"), $flo->prop("height"));
 			}
+
 			$bi_show_link = $this->mk_my_orb("show_big", $show_link_arr);
+
 			if (empty($args['addwidth']))
 			{
 				$args['addwidth'] = 0;
 			}
 			$popup_width = min(1000, $size[0] + ($do_comments ? 500 : 0)) + $args['addwidth'];
+
 			if (empty($args['addheight']))
 			{
 				$args['addheight'] = 0;
 			}
 			$popup_height = max(5, $size[1]) + $args['addheight'];// + ($do_comments ? 200 : 0);
+
 			$bi_link = "window.open('$bi_show_link','popup','width=".($popup_width).",height=".($popup_height)."');";
 
 			// for case if there is a big pic, a little one is missing. then usual text link is shown with images name
@@ -1390,7 +1395,7 @@ SVGOBJECT;
 						if (IMAGETYPE_JPEG === $type or IMAGETYPE_TIFF_II  === $type or IMAGETYPE_TIFF_MM  === $type)
 						{
 							$dat = exif_read_data($final_name);
-							$dt = $dat["DateTime"];
+							$dt = ( empty( $dat["DateTime"] ) ) ? 0 : $dat["DateTime"];
 							$dt = strptime($dt, "%Y:%m:%d %H:%M:%S");
 							$this->_set_dt = $dt;
 						}
