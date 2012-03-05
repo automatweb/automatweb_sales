@@ -36,7 +36,7 @@
 
 */
 
-class euro_patent_et_desc_add extends class_base
+class euro_patent_et_desc_add extends intellectual_property_add
 {
 	function euro_patent_et_desc_add()
 	{
