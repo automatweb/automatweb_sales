@@ -21,7 +21,7 @@ class aw_template extends core
 	public $v2_name_map;
 
 	private $debug_mode;
-	private $templates = array();
+	protected $templates = array();
 
 	/** whether to use eval() or preg_replace to render templates **/
 	private $use_eval = false;

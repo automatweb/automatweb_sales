@@ -1478,43 +1478,46 @@ abstract class intellectual_property extends class_base
 	{
 		$author_vars = $this->author_vars;
 		$a = "";
-		foreach($_SESSION["patent"]["authors"] as $key => $val)
+		if (isset($_SESSION["patent"]["authors"]))
 		{
-			foreach($this->datafromobj_del_vars as $del_var)
+			foreach (safe_array($_SESSION["patent"]["authors"]) as $key => $val)
 			{
-				unset($this->vars["a_".$del_var]);
+				foreach($this->datafromobj_del_vars as $del_var)
+				{
+					unset($this->vars["a_".$del_var]);
+				}
+
+				foreach($author_vars as $var)
+				{
+					if($var === "name" && !$_SESSION["patent"]["authors"][$key][$var])
+					{
+						$_SESSION["patent"]["authors"][$key][$var] = $_SESSION["patent"]["authors"][$key]["firstname"]." ".$_SESSION["patent"]["authors"][$key]["lastname"];
+					}
+					$this->vars(array("a_{$var}_value" => $_SESSION["patent"]["authors"][$key][$var]));
+
+					$str = "A_" . strtoupper($var);
+					if (!empty($_SESSION["patent"]["authors"][$key][$var]))
+					{
+						$this->vars(array($str => $this->parse($str)));
+					}
+					else
+					{
+						$this->vars(array($str => null));
+					}
+				}
+
+				if (
+					!empty($this->vars["a_street_value"]) ||
+					!empty($this->vars["a_city_value"]) ||
+					!empty($this->vars["a_index_value"]) ||
+					!empty($this->vars["a_country_code_value"]) ||
+					!empty($this->vars["a_county_value"])
+				)
+				{
+					$this->vars(array("A_ADDRESS" => $this->parse("A_ADDRESS")));
+				}
+				$a.= $this->parse("AUTHOR");
 			}
-
-			foreach($author_vars as $var)
-			{
-				if($var === "name" && !$_SESSION["patent"]["authors"][$key][$var])
-				{
-					$_SESSION["patent"]["authors"][$key][$var] = $_SESSION["patent"]["authors"][$key]["firstname"]." ".$_SESSION["patent"]["authors"][$key]["lastname"];
-				}
-				$this->vars(array("a_{$var}_value" => $_SESSION["patent"]["authors"][$key][$var]));
-
-				$str = "A_" . strtoupper($var);
-				if (!empty($_SESSION["patent"]["authors"][$key][$var]))
-				{
-					$this->vars(array($str => $this->parse($str)));
-				}
-				else
-				{
-					$this->vars(array($str => null));
-				}
-			}
-
- 			if (
-				!empty($this->vars["a_street_value"]) ||
-				!empty($this->vars["a_city_value"]) ||
-				!empty($this->vars["a_index_value"]) ||
-				!empty($this->vars["a_country_code_value"]) ||
-				!empty($this->vars["a_county_value"])
-			)
- 			{
- 				$this->vars(array("A_ADDRESS" => $this->parse("A_ADDRESS")));
- 			}
- 			$a.= $this->parse("AUTHOR");
 		}
 		return $a;
 	}

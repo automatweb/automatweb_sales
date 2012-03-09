@@ -1712,7 +1712,7 @@ class doc extends class_base
 			$data[aw_global_get("uid")] = array(
 				"tm" => time(),
 				"uid" => aw_global_get("uid_oid"),
-				"person" => get_current_person()->id()
+				"person" => user::get_current_person()
 			);
 			$this->set_cval($key, serialize($data));
 		}
