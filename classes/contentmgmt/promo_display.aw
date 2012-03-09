@@ -29,9 +29,11 @@ class promo_display implements main_subtemplate_handler
 			$leadonly = -1;
 		}
 
-		$filter = array();
-		$filter["status"] = object::STAT_ACTIVE;
-		$filter["class_id"] = CL_PROMO;
+		$filter = array(
+			"class_id" => CL_PROMO,
+			"status" => object::STAT_ACTIVE,
+			new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC))
+		);
 
 		if (aw_ini_get("menuedit.lang_menus"))
 		{
@@ -39,9 +41,6 @@ class promo_display implements main_subtemplate_handler
 		}
 
 		$list = new object_list($filter);
-		$parr = $list->arr();
-		$list->sort_by(array("prop" => "ord"));
-		$parr = $list->arr();
 
 		// pre-fetch all RELTYPE_ASSIGNED_MENU's for all containers
 		$con = new connection();
@@ -80,7 +79,7 @@ class promo_display implements main_subtemplate_handler
 
 		$displayed_promos = array();
 
-		foreach($parr as $o)
+		foreach($list as $o)
 		{
 ///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>"; }
 
@@ -122,13 +121,11 @@ class promo_display implements main_subtemplate_handler
 			{
 				$show_promo = true;
 			}
-			else
-			if (isset($msec[$inst->sel_section_real]) && $msec[$inst->sel_section_real])
+			elseif (isset($msec[$inst->sel_section_real]) && $msec[$inst->sel_section_real])
 			{
 				$show_promo = true;
 			}
-			else
-			if (is_array($section_include_submenus))
+			elseif (is_array($section_include_submenus))
 			{
 				$pa = array($rootmenu);
 				foreach($inst->path as $p_o)
@@ -228,332 +225,331 @@ class promo_display implements main_subtemplate_handler
 			}
 		}
 
+		foreach($displayed_promos as $o)
+		{
+			// visible. so show it
+			// get list of documents in this promo box
+			$pr_c = "";
 
-
-			foreach($displayed_promos as $o)
+			if ($o->prop("is_dyn"))
 			{
-				// visible. so show it
-				// get list of documents in this promo box
-				$pr_c = "";
+				aw_global_set("no_cache", 1);
+			}
 
-				if ($o->prop("is_dyn"))
-				{
-					aw_global_set("no_cache", 1);
-				}
+			// right, here we need to check if the container does not order docs by random, cause if it does, we need to not rely on the saved docs list
+			$has_rand = false;
+			if ($o->prop("sort_by") === "RAND()" || $o->prop("sort_by2") === "RAND()" || $o->prop("sort_by3") === "RAND()")
+			{
+				$has_rand = true;
+			}
 
-				// right, here we need to check if the container does not order docs by random, cause if it does, we need to not rely on the saved docs list
-				$has_rand = false;
-				if ($o->prop("sort_by") === "RAND()" || $o->prop("sort_by2") === "RAND()" || $o->prop("sort_by3") === "RAND()")
+			if (!$has_rand && $o->meta("version") == 2 && (aw_ini_get("promo.version") == 2) && !$o->prop("auto_period") && !$o->prop("docs_from_current_menu") && false)
+			{
+				$docid = array_values(safe_array($o->meta("content_documents")));
+				foreach($docid as $_idx => $_did)
 				{
-					$has_rand = true;
-				}
-
-				if (!$has_rand && $o->meta("version") == 2 && (aw_ini_get("promo.version") == 2) && !$o->prop("auto_period") && !$o->prop("docs_from_current_menu") && false)
-				{
-					$docid = array_values(safe_array($o->meta("content_documents")));
-					foreach($docid as $_idx => $_did)
+					if (!is_oid($_did))
 					{
-						if (!is_oid($_did))
-						{
-							unset($docid[$_idx]);
-						}
-					}
-					if (count($docid))
-					{
-						// prefetch docs in list so we get them in one query
-						$ol = new object_list(array("oid" => $docid));
-						$tt = $ol->arr();
-						$nids = $ol->ids();
-						$tmp = array();
-						foreach($docid as $_id)
-						{
-							if (in_array($_id, $nids))
-							{
-								$tmp[] = $_id;
-							}
-						}
-						$docid = $tmp;
+						unset($docid[$_idx]);
 					}
 				}
-				else
+
+				if (count($docid))
 				{
-					// get_default_document prefetches docs by itself so no need to do list here
+					// prefetch docs in list so we get them in one query
+					$ol = new object_list(array("oid" => $docid));
+					$tt = $ol->arr();
+					$nids = $ol->ids();
+					$tmp = array();
+					foreach($docid as $_id)
+					{
+						if (in_array($_id, $nids))
+						{
+							$tmp[] = $_id;
+						}
+					}
+					$docid = $tmp;
+				}
+			}
+			else
+			{
+				// get_default_document prefetches docs by itself so no need to do list here
 ///* dbg */ if (!empty($_GET["PROMO_DBG"])) { $_GET["INTENSE_DUKE"] = 1; obj_set_opt("no_cache", 1); }
 
-					$docid = $inst->get_default_document(array(
-						"obj" => $o,
-						"all_langs" => true,
-						"dsdi_cache" => !isset($dsdi_list_by_promo[$o->id()]) ? array() : $dsdi_list_by_promo[$o->id()]
-					));
+				$docid = $inst->get_default_document(array(
+					"obj" => $o,
+					"all_langs" => true,
+					"dsdi_cache" => !isset($dsdi_list_by_promo[$o->id()]) ? array() : $dsdi_list_by_promo[$o->id()]
+				));
 
 ///* dbg */ if (!empty($_GET["PROMO_DBG"])){ $_GET["INTENSE_DUKE"] = 0; echo "version1 <br>"; }
 
-				}
+			}
 
 ///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "3promo = ".$o->id()." show = ".dbg::dump($docid)." <br>"; }
 ///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($docid)." <br>"; }
 
-				if (!$docid)
+			if (!$docid)
+			{
+				continue;
+			}
+
+			if (!is_array($docid))
+			{
+				if (acl_base::can("view", $docid))
+				{
+					$do = obj($docid);
+					$inst->vars(array(
+						"page_name" => $do->trans_get_val("title")
+					));
+				}
+				$docid = array($docid);
+			}
+
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "showing promo ".$o->name()." (".$o->id().")  type = ".$o->meta("type")." docs = ".join(", ", $docid)."<br>"; }
+
+			$d_cnt = 0;
+			$d_total = count($docid);
+			aw_global_set("in_promo_display", $o->id());
+
+			if (!$o->prop("tpl_lead"))
+			{
+				$tpl_filename = $default_tpl_filename;
+				if (!$default_tpl_filename)
+				{
+					continue;
+				}
+			}
+			else
+			{
+				// find the file for the template by id. sucks. we should join the template table
+				// on the menu template I guess
+				$tpl_filename = $tplmgr->get_template_file_by_id(array(
+					"id" => $o->prop("tpl_lead"),
+				));
+			}
+
+			$set_tpl_filename = $tpl_filename;
+
+			foreach($docid as $d)
+			{
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc $d <br>"; }
+
+				$do = obj($d);
+				if (aw_ini_get("user_interface.hide_untranslated") && !$do->prop_is_translated("content"))
 				{
 					continue;
 				}
 
-				if (!is_array($docid))
-				{
-					if ($inst->can("view", $docid))
-					{
-						$do = obj($docid);
-						$inst->vars(array(
-							"page_name" => $do->trans_get_val("title")
-						));
-					}
-					$docid = array($docid);
-				}
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "showing promo ".$o->name()." (".$o->id().")  type = ".$o->meta("type")." docs = ".join(", ", $docid)."<br>"; }
-
-				$d_cnt = 0;
-				$d_total = count($docid);
-				aw_global_set("in_promo_display", $o->id());
-
-				if (!$o->prop("tpl_lead"))
-				{
-					$tpl_filename = $default_tpl_filename;
-					if (!$default_tpl_filename)
-					{
-						continue;
-					}
-				}
-				else
-				{
-					// find the file for the template by id. sucks. we should join the template table
-					// on the menu template I guess
-					$tpl_filename = $tplmgr->get_template_file_by_id(array(
-						"id" => $o->prop("tpl_lead"),
-					));
-				}
-
-				$set_tpl_filename = $tpl_filename;
-
-				foreach($docid as $d)
-				{
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc $d <br>"; }
-
-					$do = obj($d);
-					if (aw_ini_get("user_interface.hide_untranslated") && !$do->prop_is_translated("content"))
-					{
-						continue;
-					}
-
 ///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc2 $d <br>"; }
 
-					$add_2 = false;
-					if (($d_cnt % 2)  == 1)
+				$add_2 = false;
+				if (($d_cnt % 2)  == 1)
+				{
+					if (file_exists($tpldir."/automatweb/documents/".$tpl_filename."2"))
 					{
-						if (file_exists($tpldir."/automatweb/documents/".$tpl_filename."2"))
-						{
-							$tpl_filename .= "2";
-							$add_2 = true;
-						}
+						$tpl_filename .= "2";
+						$add_2 = true;
 					}
+				}
 
-					if(!$add_2)
-					{
-						$tpl_filename = $set_tpl_filename;
-					}
+				if(!$add_2)
+				{
+					$tpl_filename = $set_tpl_filename;
+				}
 
-					if ($d_cnt >= $o->prop("tpl_lead_last_count") && $o->prop("tpl_lead_last"))
-					{
-						$tpl_filename = $tplmgr->get_template_file_by_id(array(
-							"id" => $o->prop("tpl_lead_last")
-						));
-					}
-
-					$cont = $doc->gen_preview(array(
-						"docid" => $d,
-						"tpl" => $tpl_filename,
-						"leadonly" => $leadonly,
-						"section" => $inst->sel_section,
-						"strip_img" => false,
-						"showlead" => 1,
-						"boldlead" => aw_ini_get("promo.boldlead"),
-						"no_strip_lead" => 1,
-						"no_acl_checks" => $no_acl_checks,
-						"vars" => array("doc_ord_num" => $d_cnt+1),
-						"not_last_in_list" => (($d_cnt+1) < $d_total)
+				if ($d_cnt >= $o->prop("tpl_lead_last_count") && $o->prop("tpl_lead_last"))
+				{
+					$tpl_filename = $tplmgr->get_template_file_by_id(array(
+						"id" => $o->prop("tpl_lead_last")
 					));
+				}
+
+				$cont = $doc->gen_preview(array(
+					"docid" => $d,
+					"tpl" => $tpl_filename,
+					"leadonly" => $leadonly,
+					"section" => $inst->sel_section,
+					"strip_img" => false,
+					"showlead" => 1,
+					"boldlead" => aw_ini_get("promo.boldlead"),
+					"no_strip_lead" => 1,
+					"no_acl_checks" => $no_acl_checks,
+					"vars" => array("doc_ord_num" => $d_cnt+1),
+					"not_last_in_list" => (($d_cnt+1) < $d_total)
+				));
 
 ///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc $d cont = ".htmlentities($cont)." <br>"; }
 
-					$pr_c .= $cont;
-					// X marks the spot
-					//$pr_c .= str_replace("\r","",str_replace("\n","",$cont));
-					$d_cnt++;
-				}
+				$pr_c .= $cont;
+				// X marks the spot
+				//$pr_c .= str_replace("\r","",str_replace("\n","",$cont));
+				$d_cnt++;
+			}
 
-				aw_global_set("in_promo_display", 0);
+			aw_global_set("in_promo_display", 0);
 
-				$this->do_prev_next_links($docid, $inst);
+			$this->do_prev_next_links($docid, $inst);
 
-				if ($o->prop("separate_pages"))
+			if ($o->prop("separate_pages"))
+			{
+				$o->set_prop("separate_pages", false);
+				$all_docs = $inst->get_default_document(array(
+					"obj" => $o,
+				));
+				$total_docs = count($all_docs);
+				$per_page = $o->prop("docs_per_page");
+				$pages = $total_docs / $per_page;
+				$var_name = "promo_".$o->id()."_page";
+				$cur_page = (int)$_GET["promo_".$o->id()."_page"];
+
+				$ps = array();
+				for($i = 0; $i < $pages; $i++)
 				{
-					$o->set_prop("separate_pages", false);
-					$all_docs = $inst->get_default_document(array(
-						"obj" => $o,
-					));
-					$total_docs = count($all_docs);
-					$per_page = $o->prop("docs_per_page");
-					$pages = $total_docs / $per_page;
-					$var_name = "promo_".$o->id()."_page";
-					$cur_page = (int)$_GET["promo_".$o->id()."_page"];
-
-					$ps = array();
-					for($i = 0; $i < $pages; $i++)
-					{
-						$inst->vars(array(
-							"page_url" => aw_url_change_var($var_name, $i),
-							"page_number" => $i+1
-						));
-						if ($cur_page == $i)
-						{
-							$ps[] = $inst->parse("PROMO_CUR_PAGE");
-						}
-						else
-						{
-							$ps[] = $inst->parse("PROMO_PAGE");
-						}
-						if ($i == ($cur_page-1))
-						{
-							$prev_page = $inst->parse("PROMO_PREV_PAGE");
-						}
-						if ($i == ($cur_page+1))
-						{
-							$next_page = $inst->parse("PROMO_NEXT_PAGE");
-						}
-					}
 					$inst->vars(array(
-						"PROMO_PAGE" => join($inst->parse("PROMO_PAGE_SEP"), $ps),
-						"PROMO_CUR_PAGE" => "",
-						"PROMO_PAGE_SEP" => "",
-						"PROMO_PREV_PAGE" => $prev_page,
-						"PROMO_NEXT_PAGE" => $next_page
+						"page_url" => aw_url_change_var($var_name, $i),
+						"page_number" => $i+1
 					));
-				}
-
-				$image = "";
-				$image_url = "";
-				if ($o->prop("image"))
-				{
-					$i = new image();
-					$image_url = $i->get_url_by_id($o->prop("image"));
-					$image = $i->make_img_tag($image_url);
-				}
-
-				$promo_link = $this->get_promo_link($o);
-				$inst->vars_safe(array(
-					"comment" => $o->trans_get_val("comment"),
-					"title" => $o->trans_get_val("name"),
-					"caption" => $o->trans_get_val("caption"),
-					"content" => $pr_c,
-					"url" => $promo_link,
-					"link" => $promo_link,
-					"link_caption" => $o->trans_get_val("link_caption"),
-					"promo_doc_count" => (int)$d_cnt,
-					"image" => $image,
-					"image_url" => $image_url,
-					"image_or_title" => ($image == "" ? $o->trans_get_val("caption") : $image),
-					"promo_oid" => $o->id()
-				));
-
-				// which promo to use? we need to know this to use
-				// the correct SHOW_TITLE subtemplate
-				if (is_array($promo_areas) && count($promo_areas) > 0)
-				{
-					$templates = array();
-					foreach($promo_areas as $pid => $pd)
+					if ($cur_page == $i)
 					{
-						$templates[$pid] = $pd["def"]."_PROMO";
+						$ps[] = $inst->parse("PROMO_CUR_PAGE");
+					}
+					else
+					{
+						$ps[] = $inst->parse("PROMO_PAGE");
+					}
+					if ($i == ($cur_page-1))
+					{
+						$prev_page = $inst->parse("PROMO_PREV_PAGE");
+					}
+					if ($i == ($cur_page+1))
+					{
+						$next_page = $inst->parse("PROMO_NEXT_PAGE");
 					}
 				}
-				else
-				{
-					$templates = array(
-						"scroll" => "SCROLL_PROMO",
-						"0" => "LEFT_PROMO",
-						"1" => "RIGHT_PROMO",
-						"2" => "UP_PROMO",
-						"3" => "DOWN_PROMO",
-					);
-				}
-
-				$use_tpl = $templates[$o->meta("type")];
-				if (!$use_tpl)
-				{
-					$use_tpl = "LEFT_PROMO";
-				};
-
-				$inst->vars_safe(array(
-					$use_tpl."_image" => $image,
-					$use_tpl."_image_url" => $image_url,
-					$use_tpl."_image_or_title" => ($image == "" ? $o->trans_get_val("caption") : $image),
-				));
-
-				$hlc = "";
-				if ($o->trans_get_val("link_caption") != "")
-				{
-					$hlc = $inst->parse($use_tpl.".HAS_LINK_CAPTION");
-				}
-				$inst->vars_safe(array(
-					"HAS_LINK_CAPTION" => $hlc
-				));
-
-				if ($o->meta("no_title") != 1)
-				{
-					$inst->vars_safe(array(
-						"SHOW_TITLE" => $inst->parse($use_tpl . ".SHOW_TITLE")
-					));
-				}
-				else
-				{
-					$inst->vars_safe(array(
-						"SHOW_TITLE" => ""
-					));
-				}
-				$ap = "";
-				if ($promo_link != "")
-				{
-					$ap = "_LINKED";
-				}
-				if (!isset($this->used_promo_tpls[$use_tpl]) || $this->used_promo_tpls[$use_tpl] != 1)
-				{
-					$ap.="_BEGIN";
-					$this->used_promo_tpls[$use_tpl] = 1;
-				}
-
-				if(!isset($promos[$use_tpl]))
-				{
-					$promos[$use_tpl] = "";
-				}
-
-				if ($inst->is_template($use_tpl . $ap))
-				{
-					$promos[$use_tpl] .= $inst->parse($use_tpl . $ap);
-					$inst->vars_safe(array($use_tpl . $ap => ""));
-				}
-				else
-				{
-					$promos[$use_tpl] .= $inst->parse($use_tpl);
-					$inst->vars_safe(array($use_tpl => ""));
-				};
-				// nil the variables that were imported for promo boxes
-				// if we dont do that we can get unwanted copys of promo boxes
-				// in places we dont want them
-				$inst->vars_safe(array(
-					"title" => "",
-					"content" => "",
-					"url" => ""
+				$inst->vars(array(
+					"PROMO_PAGE" => join($inst->parse("PROMO_PAGE_SEP"), $ps),
+					"PROMO_CUR_PAGE" => "",
+					"PROMO_PAGE_SEP" => "",
+					"PROMO_PREV_PAGE" => $prev_page,
+					"PROMO_NEXT_PAGE" => $next_page
 				));
 			}
+
+			$image = "";
+			$image_url = "";
+			if ($o->prop("image"))
+			{
+				$i = new image();
+				$image_url = $i->get_url_by_id($o->prop("image"));
+				$image = $i->make_img_tag($image_url);
+			}
+
+			$promo_link = $this->get_promo_link($o);
+			$inst->vars_safe(array(
+				"comment" => $o->trans_get_val("comment"),
+				"title" => $o->trans_get_val("name"),
+				"caption" => $o->trans_get_val("caption"),
+				"content" => $pr_c,
+				"url" => $promo_link,
+				"link" => $promo_link,
+				"link_caption" => $o->trans_get_val("link_caption"),
+				"promo_doc_count" => (int)$d_cnt,
+				"image" => $image,
+				"image_url" => $image_url,
+				"image_or_title" => ($image == "" ? $o->trans_get_val("caption") : $image),
+				"promo_oid" => $o->id()
+			));
+
+			// which promo to use? we need to know this to use
+			// the correct SHOW_TITLE subtemplate
+			if (is_array($promo_areas) && count($promo_areas) > 0)
+			{
+				$templates = array();
+				foreach($promo_areas as $pid => $pd)
+				{
+					$templates[$pid] = $pd["def"]."_PROMO";
+				}
+			}
+			else
+			{
+				$templates = array(
+					"scroll" => "SCROLL_PROMO",
+					"0" => "LEFT_PROMO",
+					"1" => "RIGHT_PROMO",
+					"2" => "UP_PROMO",
+					"3" => "DOWN_PROMO"
+				);
+			}
+
+			$use_tpl = $templates[$o->meta("type")];
+			if (!$use_tpl)
+			{
+				$use_tpl = "LEFT_PROMO";
+			};
+
+			$inst->vars_safe(array(
+				$use_tpl."_image" => $image,
+				$use_tpl."_image_url" => $image_url,
+				$use_tpl."_image_or_title" => ($image == "" ? $o->trans_get_val("caption") : $image),
+			));
+
+			$hlc = "";
+			if ($o->trans_get_val("link_caption") != "")
+			{
+				$hlc = $inst->parse($use_tpl.".HAS_LINK_CAPTION");
+			}
+			$inst->vars_safe(array(
+				"HAS_LINK_CAPTION" => $hlc
+			));
+
+			if ($o->meta("no_title") != 1)
+			{
+				$inst->vars_safe(array(
+					"SHOW_TITLE" => $inst->parse($use_tpl . ".SHOW_TITLE")
+				));
+			}
+			else
+			{
+				$inst->vars_safe(array(
+					"SHOW_TITLE" => ""
+				));
+			}
+			$ap = "";
+			if ($promo_link != "")
+			{
+				$ap = "_LINKED";
+			}
+			if (!isset($this->used_promo_tpls[$use_tpl]) || $this->used_promo_tpls[$use_tpl] != 1)
+			{
+				$ap.="_BEGIN";
+				$this->used_promo_tpls[$use_tpl] = 1;
+			}
+
+			if(!isset($promos[$use_tpl]))
+			{
+				$promos[$use_tpl] = "";
+			}
+
+			if ($inst->is_template($use_tpl . $ap))
+			{
+				$promos[$use_tpl] .= $inst->parse($use_tpl . $ap);
+				$inst->vars_safe(array($use_tpl . $ap => ""));
+			}
+			else
+			{
+				$promos[$use_tpl] .= $inst->parse($use_tpl);
+				$inst->vars_safe(array($use_tpl => ""));
+			};
+			// nil the variables that were imported for promo boxes
+			// if we dont do that we can get unwanted copys of promo boxes
+			// in places we dont want them
+			$inst->vars_safe(array(
+				"title" => "",
+				"content" => "",
+				"url" => ""
+			));
+		}
 
 		$inst->vars_safe($promos);
 	}
