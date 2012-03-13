@@ -55,6 +55,8 @@ class crm_sales_contacts_search
 	const PARAM_CREATEDBY = 14;
 	const PARAM_COMMENT = 15;
 	const PARAM_CONTACT_NAME = 16;
+	const PARAM_CITY = 17;
+	const PARAM_COUNTY = 18;
 
 	private $p_seller = false;
 	private $p_buyer = false;
@@ -66,6 +68,8 @@ class crm_sales_contacts_search
 	private $p_calls = false;
 	private $p_status = false;
 	private $p_address = false;
+	private $p_city = false;
+	private $p_county = false;
 	private $p_phone = false;
 	private $p_createdby = false;
 	private $p_comment = false;
@@ -269,6 +273,26 @@ class crm_sales_contacts_search
 		}
 
 		$this->p_address = self::prepare_search_words($value);
+	}
+
+	private function _set_city($value)
+	{
+		if (empty($value) or !is_string($value) or strlen($value) < 2)
+		{
+			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for address parameter", self::PARAM_CITY);
+		}
+
+		$this->p_city = self::prepare_search_words($value);
+	}
+
+	private function _set_county($value)
+	{
+		if (empty($value) or !is_string($value) or strlen($value) < 2)
+		{
+			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for address parameter", self::PARAM_COUNTY);
+		}
+
+		$this->p_county = self::prepare_search_words($value);
 	}
 
 	private function _set_createdby($value)
@@ -503,6 +527,27 @@ class crm_sales_contacts_search
 				)
 			));
 		}
+/*
+		if (!empty($this->p_city))
+		{
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array (
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).RELTYPE_ADDRESS.linn.name" => "{$this->p_address}",
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_ADDRESS.linn.name" => "{$this->p_address}"
+				)
+			));
+		}
+		if (!empty($this->p_county))
+		{
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array (
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).RELTYPE_ADDRESS.maakond.name" => "{$this->p_address}",
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_ADDRESS.maakond.name" => "{$this->p_address}"
+				)
+			));
+		}*/
 
 		if (!empty($this->p_status))
 		{

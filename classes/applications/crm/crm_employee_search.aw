@@ -463,11 +463,28 @@ class crm_employee_search extends aw_object_search
 
 		if (!empty($this->p_agefrom) || !empty($this->p_ageto))
 		{
-			//türa....
+			$year = date("Y");
+			if(!empty($this->p_agefrom) && !empty($this->p_ageto))
+			{
+				$start = mktime(0,0,0,date("m"),date("d"),$year - $this->p_ageto);
+				$end = mktime(0,0,0,date("m"),date("d"),$year - $this->p_agefrom);
+				$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).birth_date"] = 
+				new obj_predicate_compare(obj_predicate_compare::BETWEEN, $start, $end);
+			}
+			elseif(!empty($this->p_agefrom))
+			{
+				$end = mktime(0,0,0,date("m"),date("d"),$year - $this->p_agefrom);
+				$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).birth_date"] = new obj_predicate_compare(obj_predicate_compare::LESS, $end);
+			}
+			else
+			{
+				$start = mktime(0,0,0,date("m"),date("d"),$year - $this->p_ageto);
+				$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).birth_date"] = new obj_predicate_compare(obj_predicate_compare::GREATER, $end);
+			}
 		}
 
 
-/* TODO: kirjutada p2ring, mis kysiks isikuid, kel on ainult aktiivsed, ainult l6ppend, ... t88suhted.
+/* TODO: kirjutada p2ring, mis kysiks isikuid, kel on ainult aktiivsed, ainult l6ppend, ... t88suhted.*/
 		if (self::EMPLOYMENT_STATUS_ACTIVE === $this->p_employment_status)
 		{
 			// set filter to get work relations with this moment's time falling between start and end property values
@@ -518,13 +535,13 @@ class crm_employee_search extends aw_object_search
 			// work relation start is set and after this moment's time
 			$filter["start"] = new obj_predicate_compare(obj_predicate_compare::GREATER, time());
 		}
-*/
+
 		// sorting
 		if ($this->sort_order)
 		{
 			$filter[] = $this->sort_order;
 		}
-arr($filter);
+//arr($filter);
 		return $filter;
 	}
 

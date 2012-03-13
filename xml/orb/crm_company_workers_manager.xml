@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_company_workers_manager" folder="applications/crm" extends="class_base">
+		<action name="cut">
+			<function name="cut">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste" all_args="1">
+			<function name="paste">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>
+		

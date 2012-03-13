@@ -1,0 +1,73 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_customer_view" folder="applications/crm" extends="class_base">
+
+		<action name="add_customer">
+			<function name="add_customer">
+				<arguments>
+					<required name="id" type="oid" />
+					<required name="t" type="int" />
+					<required name="return_url" type="string" />
+					<optional name="c" type="clid" />
+					<optional name="o" type="oid" />
+					<optional name="s" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="customer_view_cut">
+			<function name="customer_view_cut">
+				<arguments>
+					<required name="cs_c" type="string" />
+					<required name="post_ru" type="string" />
+					<optional name="cust_check" type="array" />
+					<optional name="cat_check" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="customer_view_copy">
+			<function name="customer_view_copy">
+				<arguments>
+					<required name="cs_c" type="string" />
+					<required name="post_ru" type="string" />
+					<optional name="cust_check" type="array" />
+					<optional name="cat_check" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="customer_view_paste">
+			<function name="customer_view_paste">
+				<arguments>
+					<required name="id" type="oid" acl="view" />
+					<required name="cs_c" type="string" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_from_category" all_args="1">
+			<function name="remove_from_category">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_selected_objects">
+			<function name="delete_selected_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_cust_relations" all_args="1">
+			<function name="remove_cust_relations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>
+		

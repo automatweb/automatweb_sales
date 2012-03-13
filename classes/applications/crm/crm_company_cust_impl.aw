@@ -2587,6 +2587,17 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 			$customer_relations_search->address = "%{$arr["request"]["customer_search_address"]}%";
 		}
 
+		if (!empty($arr["request"]["customer_search_city"]))
+		{
+			$customer_relations_search->city = "%{$arr["request"]["customer_search_city"]}%";
+		}
+
+		if (!empty($arr["request"]["customer_search_county"]))
+		{
+			$customer_relations_search->county = "%{$arr["request"]["customer_search_county"]}%";
+		}
+
+
 		$customer_relations_search->set_sort_order("name-asc");
 
 		if (!empty($arr["request"][crm_company::REQVAR_CATEGORY]))
@@ -2842,8 +2853,25 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 	**/
 	function remove_from_cust_grp($arr)
 	{
-		$cg = obj($arr["cgrp"]);
-		$cg->disconnect(array("from" => $arr["id"]));
+		$rels = new object_list(array(
+			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+			"CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY" => $arr["cgrp"],
+			new object_list_filter(array(
+				"logic" => "OR",
+					"conditions" => array(
+						"buyer" => $arr["id"],
+						"seller" => $arr["id"],
+				)
+			)),
+		));
+		foreach($rels -> arr() as $rel)
+		{
+			$rel->disconnect(array("from" => $arr["cgrp"]));
+		}
+/*		$cg = obj($arr["cgrp"]);
+		$cg->disconnect(array("from" => $arr["id"]));*/
+/*		$relation = obj($arr["id"]);
+		$relation->disconnect(array("from" => $arr["cgrp"]));*/
 		return $arr["post_ru"];
 	}
 

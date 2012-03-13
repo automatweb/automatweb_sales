@@ -1,0 +1,279 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>company</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_COMPANY</reltype>
+            <caption>Ettev&amp;amp;otilde;te</caption>
+      </property>
+      <property>
+            <name>my_customers_toolbar</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Kliendivaate tegevused</caption>
+      </property>
+      <property>
+            <name>tree_search_split_dummy</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>hidden</type>
+            <no_caption>1</no_caption>
+            <parent>tree_search_split</parent>
+      </property>
+      <property>
+            <name>customer_listing_tree</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>treeview</type>
+            <no_caption>1</no_caption>
+            <parent>vvoc_customers_tree_left</parent>
+            <store>no</store>
+            <caption>Kliendikategooriad hierarhiliselt</caption>
+      </property>
+      <property>
+            <name>cs_n</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>no</store>
+            <parent>vbox_customers_left_top</parent>
+            <captionside>top</captionside>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>customer_search_reg</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>no</store>
+            <parent>vbox_customers_left_top</parent>
+            <captionside>top</captionside>
+            <caption>Reg nr.</caption>
+      </property>
+      <property>
+            <name>customer_search_address</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>no</store>
+            <parent>vbox_customers_left_top</parent>
+            <captionside>top</captionside>
+            <caption>Aadress</caption>
+      </property>
+      <property>
+            <name>cs_sbt</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>submit</type>
+            <size>15</size>
+            <store>no</store>
+            <parent>vbox_customers_left_search_btn</parent>
+            <no_caption>1</no_caption>
+            <caption>Otsi</caption>
+      </property>
+      <property>
+            <name>customer_categories_table</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>category_list_container</parent>
+            <caption>Kliendikategooriad</caption>
+      </property>
+      <property>
+            <name>my_customers_table</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>customer_list_container</parent>
+            <caption>Kliendid</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <groupinfo>
+            <relorg>
+                  <caption>Kliendid</caption>
+                  <focus>cs_n</focus>
+                  <submit>no</submit>
+            </relorg>
+            <relorg_b>
+                  <caption>Ostjad</caption>
+                  <focus>cs_n</focus>
+                  <parent>relorg</parent>
+                  <submit>no</submit>
+            </relorg_b>
+            <relorg_s>
+                  <caption>M&amp;amp;uuml;&amp;amp;uuml;jad</caption>
+                  <focus>cs_n</focus>
+                  <parent>relorg</parent>
+                  <submit>no</submit>
+            </relorg_s>
+      </groupinfo>
+      <tableinfo>
+            <aw_crm_customer_view>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_crm_customer_view>
+      </tableinfo>
+      <reltypes>
+            <COMPANY>
+                  <value>1</value>
+                  <clid>CL_CRM_COMPANY</clid>
+                  <caption>Ettev&amp;amp;otilde;te</caption>
+            </COMPANY>
+      </reltypes>
+      <layout>
+            <my_cust_bot>
+                  <type>hbox</type>
+                  <width>20%:80%</width>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+                  <area_caption></area_caption>
+            </my_cust_bot>
+            <tree_search_split>
+                  <type>vbox</type>
+                  <parent>my_cust_bot</parent>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+                  <area_caption></area_caption>
+            </tree_search_split>
+            <vvoc_customers_tree_left>
+                  <type>vbox</type>
+                  <parent>tree_search_split</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Kliendivalik</area_caption>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+            </vvoc_customers_tree_left>
+            <vbox_customers_left>
+                  <type>vbox</type>
+                  <parent>tree_search_split</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Otsing</area_caption>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+            </vbox_customers_left>
+            <vbox_customers_left_top>
+                  <type>vbox</type>
+                  <parent>vbox_customers_left</parent>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+                  <area_caption></area_caption>
+            </vbox_customers_left_top>
+            <vbox_customers_left_search_btn>
+                  <type>hbox</type>
+                  <parent>vbox_customers_left</parent>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+                  <area_caption></area_caption>
+            </vbox_customers_left_search_btn>
+            <list_container>
+                  <type>vbox</type>
+                  <parent>my_cust_bot</parent>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+                  <area_caption></area_caption>
+            </list_container>
+            <category_list_container>
+                  <type>vbox</type>
+                  <parent>list_container</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Kategooriad</area_caption>
+                  <no_padding>1</no_padding>
+                  <default_state>closed</default_state>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+            </category_list_container>
+            <customer_list_container>
+                  <type>vbox</type>
+                  <parent>list_container</parent>
+                  <area_caption>Kliendid</area_caption>
+                  <closeable>1</closeable>
+                  <no_padding>1</no_padding>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+            </customer_list_container>
+      </layout>
+</properties>
+

@@ -50,6 +50,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 @property birthday type=date_select year_from=1930 year_to=2010 default=-1 save_format=iso8601
 @caption S&uuml;nniaeg
 
+@property birth_date type=date_select default=-1 year_from=1900 
+@caption S&uuml;nnikuup&auml;ev
+
 @property birthday_hidden type=checkbox ch_value=1 table=objects field=meta method=serialize
 @caption Peida s&uuml;nniaeg
 
@@ -4765,6 +4768,7 @@ class crm_person extends class_base
 			case "cvapproved":
 			case "show_cnt":
 			case "aw_external_id":
+			case "birth_date":
 				$this->db_add_col($tbl, array(
 					"name" => $field,
 					"type" => "int",
