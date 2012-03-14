@@ -2,7 +2,7 @@
 
 // object_list.aw - with this you can manage object lists
 
-class object_list extends _int_obj_container_base
+class object_list extends _int_obj_container_base implements Iterator
 {
 	var $list = array();	// array of objects in the current list
 	var $list_names = array();
@@ -18,6 +18,42 @@ class object_list extends _int_obj_container_base
 
 	private $__filter_by_user_access_uid = "";
 	private $__filter_by_user_access_action = "";
+
+	// ITERATOR INTERFACE
+	public function current()
+	{
+		if (isset($this->iter_lut[$this->iter_index]))
+		{
+			return $this->_int_get_at($this->iter_lut[$this->iter_index]);
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public function key()
+	{
+		if (isset($this->iter_lut[$this->iter_index]))
+		{
+			return $this->iter_lut[$this->iter_index];
+		}
+		else
+		{
+			trigger_error(sprintf("Invalid offset %s", $this->iter_index), E_USER_NOTICE);
+			return null;
+		}
+	}
+
+	public function rewind()
+	{
+		$this->begin();
+	}
+
+	public function valid()
+	{
+		return isset($this->iter_lut[$this->iter_index]);
+	}
 
 	/** creates the object list, can also initialize it with objects
 		@attrib api=1
@@ -406,13 +442,13 @@ class object_list extends _int_obj_container_base
 		return $this->_int_get_at(end(array_keys($this->list)));
 	}
 
-	/** resets the internal iterator to the beginning of the list, returns the first object and increments the position by one
+	/** Resets the internal iterator to the beginning of the list and returns the first object
 		@attrib api=1
 
 		@errors
 			none
 
-		@returns
+		@returns object
 			first object in the object list
 
 		@examples
@@ -450,7 +486,7 @@ class object_list extends _int_obj_container_base
 		@errors
 			none
 
-		@returns
+		@returns object
 			instance at the object at the current iterator position, or NULL if iterator is
 			after the last element in the list
 
@@ -873,19 +909,18 @@ class object_list extends _int_obj_container_base
 		$ol = new object_list(array(
 			"oid" => $oids
 		));
+
 		foreach($ol->arr() as $o)
 		{
 			if ($param1 === null)
 			{
 				$o->$func();
 			}
-			else
-			if ($param2 === null)
+			elseif ($param2 === null)
 			{
 				$o->$func($param1);
 			}
-			else
-			if ($param3 === null)
+			elseif ($param3 === null)
 			{
 				$o->$func($param1, $param2);
 			}
@@ -894,7 +929,10 @@ class object_list extends _int_obj_container_base
 				$o->$func($param1, $param2, $param3);
 			}
 
-			$o->save();
+			if ("delete" !== $func)
+			{
+				$o->save();
+			}
 		}
 	}
 

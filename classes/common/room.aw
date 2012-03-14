@@ -2026,7 +2026,7 @@ class room extends class_base
 /*							if(is_array($this->other_rooms) && sizeof($this->other_rooms) && $settings->prop("col_slave") != "")
 							{
 								foreach($other_room_ol->arr() as $oro)
-								{//arr($oro);arr(date("d.m h:i" , $start_step)); arr(date("d.m h:i" , $end_step));
+								{
 									if(!$oro->is_available(array(
 										"start" => $start_step,
 										"end" => $end_step,

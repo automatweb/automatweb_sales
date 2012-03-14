@@ -124,7 +124,7 @@ class doc_display extends aw_template
 		$modf_eml = "";
 		if ($modf != "" && $this->template_has_var_full("modifiedby_email"))
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = $u->get_person_for_uid($modf);
 			$modf = $p->name();
 			$modf_eml = $p->prop("email.mail");
@@ -189,7 +189,7 @@ class doc_display extends aw_template
 			aw_global_set("set_doc_title","");
 		}
 
-		$uinst = get_instance(CL_USER);
+		$uinst = new user();
 		$mb_person = obj();
 		if ($this->template_has_var_full("modified_by"))
 		{
@@ -365,7 +365,7 @@ class doc_display extends aw_template
 		}
 
 		// do template autodetect from parent
-		$tplmgr = get_instance("templatemgr");
+		$tplmgr = new templatemgr();
 		if ($leadonly > -1)
 		{
 			$tpl = $tplmgr->get_lead_template($doc["parent"]);
@@ -630,7 +630,6 @@ class doc_display extends aw_template
 				$a_tables[] = $this->_parse_wiki_table_get_to_array( $var );
 			}
 
-			$ti = get_instance("vcl/table");
 			$ti = new aw_table();
 			$ti->set_layout("generic");
 			$i_tableid=0;
@@ -651,7 +650,6 @@ class doc_display extends aw_template
 
 	private function _parse_wiki_table_parse_array_to_html($a_table, $i_tableid)
 	{
-		$ti = get_instance("vcl/table");
 		$ti = new aw_table();
 		$ti->set_layout("generic");
 
@@ -875,19 +873,19 @@ class doc_display extends aw_template
 		// and finally output the list
 		for ($i=0;$i<$i_text_count;$i++)
 		{
-			if ($a_text[$i]["listype"] == "unordered")
+			if ($a_text[$i]["listype"] === "unordered")
 			{
 				$s_list_prefix = "<ul>";
 				$s_list_sufix = "</ul>";
 				$s_list_item = "<li>";
 			}
-			else if ($a_text[$i]["listype"] == "ordered")
+			else if ($a_text[$i]["listype"] === "ordered")
 			{
 				$s_list_prefix = "<ol>";
 				$s_list_sufix = "</ol>";
 				$s_list_item = "<li>";
 			}
-			else if ($a_text[$i]["listype"] == "definitionlist")
+			else if ($a_text[$i]["listype"] === "definitionlist")
 			{
 				$s_list_prefix = "<dl>";
 				$s_list_sufix = "</dl>";
@@ -1038,7 +1036,7 @@ class doc_display extends aw_template
 				"num_comments" => sprintf("%d",$num_comments),
 				"comm_link" => str_replace("&", "&amp;", $this->mk_my_orb("show_threaded",array("board" => $doc->id(),"section" => $_sect),"forum")),
 			));
-			$forum = get_instance(CL_FORUM);
+			$forum = new forum();
 			$fr = $forum->add_comment(array("board" => $doc->id(),"section" => $_sect));
 
 			if ($num_comments > 0)
@@ -1115,12 +1113,10 @@ class doc_display extends aw_template
 	{
 		if ($this->template_has_var("charset"))
 		{
-			$_langs = get_instance("languages");
-			$_ld = $_langs->fetch(aw_ini_get("user_interface.full_content_trans") ? aw_global_get("ct_lang_id") : aw_global_get("lang_id"));
 			$this->vars(array(
-				"charset" => $_ld["charset"]
+				"charset" => languages::USER_CHARSET
 			));
-		};
+		}
 	}
 
 	private function _do_checkboxes($doc)
@@ -1147,7 +1143,7 @@ class doc_display extends aw_template
 		{
 			return;
 		}
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("site_edit_".$menu->id());
 		$url = $this->mk_my_orb("new", array("parent" => $menu->parent(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_DOCUMENT, true);
 		$pm->add_item(array(
@@ -1356,7 +1352,7 @@ class doc_display extends aw_template
 			static $ss_i;
 			if (!$ss_i)
 			{
-				$ss_i = get_instance("contentmgmt/site_show");
+				$ss_i = new site_show();
 			}
 			$doc_link = $ss_i->make_menu_link($doc, $lc);
 		}

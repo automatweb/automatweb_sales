@@ -835,7 +835,6 @@ class persons_webview extends class_base
 		CL_PERSONS_WEBVIEW);
 
 		$secvars["address"] = $section->prop("contact.name");
-		//if(aw_global_get("uid") == "struktuur"){ arr($secvars);arr($phone_obj);}
 		$this->vars_safe($secvars);
 	}
 

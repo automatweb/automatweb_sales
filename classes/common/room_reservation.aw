@@ -885,7 +885,7 @@ if(!$level)
 				$data["sum_wb"][$curr] = ((double)$sum[$curr] +  (double)$room_inst->bargain_value[$curr])." ".$currency->name();
 			}
 		}
-//	if(aw_global_get("uid") == "struktuur"){arr($room_inst->people_price_discount);arr($sum);}
+
 		$min_prod_prices = $room->meta("web_min_prod_prices");
 		$min_prices = $room->meta("web_room_min_price");
 		foreach ($show_curr as $curr)
@@ -895,13 +895,9 @@ if(!$level)
 				$data["menu_sum"][$curr] = 0;
 			}
 			$currency = obj($curr);
-//			if ($min_prod_prices[$curr] > 0)
-//			{
-//				$data["menu_sum"][$curr] = $min_prod_prices[$curr];
-//			}
 
 			$min_sum = $min_prices[$curr] - $data["menu_sum"][$curr] + $data["menu_disc"][$curr];
-			//arr($min_prices[$curr]); arr($sum[$curr]);
+			
 			if($min_sum < 0)
 			{
 				$min_sum = 0;
@@ -1416,7 +1412,7 @@ if(!$level)
 			web room reservation object
 	**/
 	function pay_reservation($arr)
-	{//if(aw_global_get("uid") == "struktuur"){ arr($arr);arr($_POST);arr($_GET);die();}
+	{
 		if($_SESSION["room_reservation"]["room_id"])
 		{
 			$arr["room"] =  $_SESSION["room_reservation"]["room_id"];

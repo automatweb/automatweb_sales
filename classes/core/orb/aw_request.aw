@@ -122,19 +122,19 @@ class aw_request
 			// try to figure out the balance between the user's language preferences and the
 			// languages that are available.
 			// places checked:
-			// 1 request (browser acceptlang etc.)
-			// 2 ini languages.default setting
+			// 1 ini languages.default setting
+			// 2 request (browser acceptlang etc.)
 			// 3 first active language found
 			// 4 any defined language
 			// 5 a hard coded default
 			{
-				// try request
-				$ct_lid = $this->lang_id();
-
 				// try ini
+				$ct_lid = languages::lc2lid(aw_ini_get("languages.default"));
+
+				// try request
 				if (!$ct_lid)
 				{
-					$ct_lid = languages::lc2lid(aw_ini_get("languages.default"));
+					$ct_lid = $this->lang_id();
 				}
 
 				// try to find an active language

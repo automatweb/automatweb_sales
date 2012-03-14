@@ -579,8 +579,8 @@ class object
 	/** Finds the first connection of type specified by parameter and returns the target object where the connection points to.
 		@attrib api=1
 
-		@param type optional type=string
-			- connection type - string or integer, defaults to NULL
+		@param type type=string default=NULL
+			- connection type - string or integer
 
 		@comment
 			If connection of that type doesn't exist, returns FALSE.
@@ -604,10 +604,36 @@ class object
 				echo "No image found";
 			}
 	**/
-	function get_first_obj_by_reltype($type = NULL)
+	public function get_first_obj_by_reltype($type = NULL)
 	{
 		$this->_check_lock_read();
 		return $GLOBALS["objects"][$this->oid]->get_first_obj_by_reltype($type);
+	}
+
+	/** Retuns list of objects connected to this object by given type.
+		@attrib api=1
+
+		@param type type=string default=NULL
+			- connection type - string or integer
+
+		@errors
+			- if no object is loaded, error is thrown
+
+		@returns object_list
+
+		@examples
+			$o = obj(666);
+			$images = $o->get_connected_objects("RELTYPE_IMAGE");
+			for ($image_o = $images->begin(); !$images->end(); $image_o = $images->next())
+			{
+				$image_o->name();
+			}
+
+	**/
+	public function get_connected_objects($type = null)
+	{
+		$this->_check_lock_read();
+		return $GLOBALS["objects"][$this->oid]->get_connected_objects($type);
 	}
 
 	/** returns an array of object instances that are the current objects parent objects
@@ -2138,7 +2164,7 @@ class object
 
 			$new_obj = object::from_xml($xml, 6); // copies all objects and their relations from object 1 to object 6
 	**/
-	function get_xml(array $options = array())
+	public function get_xml(array $options = array())
 	{
 		$this->_check_lock_read();
 		return $GLOBALS["objects"][$this->oid]->get_xml($options);
@@ -2166,9 +2192,9 @@ class object
 				"new_rels" => true
 			));
 
-			$new_obj = object::from_xml($xml, 6); // copies all objects and their relations from object 1 to object 6
+			$new_obj = object::from_xml($xml, 6); // copies all objects and their relations from object 1 to a new object under object 6
 	**/
-	function from_xml($xml, $parent)
+	public static function from_xml($xml, $parent)
 	{
 		$this->_check_lock_write();
 		return _int_object::from_xml($xml, $parent);

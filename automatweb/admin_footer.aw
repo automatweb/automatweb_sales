@@ -60,14 +60,19 @@ while (!empty($ru) && empty($pf))
 	$ru = isset($vals["return_url"]) ? $vals["return_url"] : NULL;
 }
 
-$p = get_current_person();
 $co = get_current_company();
 if (!$co)
 {
 	$co = obj();
 }
 
-if (!empty($_GET["id"]) and $sf->can("view", $_GET["id"]))
+$p = get_current_person();
+if (!$p)
+{
+	$p = obj();
+}
+
+if (!empty($_GET["id"]) and acl_base::can("view", $_GET["id"]))
 {
 	$cur_obj = obj($_GET["id"]);
 	$cur_obj_name = $cur_obj->prop_xml("name");

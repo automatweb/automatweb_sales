@@ -1105,7 +1105,7 @@ class spa_bookigs_entry extends class_base
 		$rs = get_week_start($from) + 24*7*3600;
 		// now, draw table for the active range
 		
-		$t = new aw_table();//if(aw_global_get("uid") == "st88rl2206"){ arr(date("H:i d.m.Y" , $range_to)); arr(date("H:i d.m.Y" , $range_from));}
+		$t = new aw_table();
 		$num_days = floor(($range_to - $range_from) / (24*3600)+1);
 		for ($i = 0; $i < $num_days; $i++)
 		{

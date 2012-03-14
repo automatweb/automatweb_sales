@@ -1120,7 +1120,7 @@ class crm_person extends class_base
 				break;
 
 			case "username":
-				if (($arr["new"] || !($tmp = $this->has_user($arr["obj_inst"]))) and strlen(trim($prop["value"])))
+				if (($arr["new"] || !($tmp = $arr["obj_inst"]->get_user())) and strlen(trim($prop["value"])))
 				{
 					$arr["obj_inst"]->set_meta("no_create_user_yet", true);
 					$arr["obj_inst"]->set_meta("tmp_crm_person_username", $prop["value"]);
@@ -1750,7 +1750,7 @@ class crm_person extends class_base
 			$ol = new object_list();
 		}
 		$res = ($add_empty ? array("" => t("--vali--")) : array()) +  $ol->names();
-		uasort($res, array(&$this, "__person_name_sorter"));
+		uasort($res, array($this, "__person_name_sorter"));
 		$cache[$co->id()][$add_empty][$important_only] = $res;
 		return $res;
 	}

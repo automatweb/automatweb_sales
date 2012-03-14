@@ -176,6 +176,16 @@ class automatweb
 
 	private static function start_session()
 	{
+		if (
+			isset($_SERVER["REQUEST_URI"]) and
+			false !== strpos($_SERVER["REQUEST_URI"], "class=file") and
+			false !== strpos($_SERVER["REQUEST_URI"], "action=preview") and
+			isset($_SERVER['HTTP_USER_AGENT']) and
+			strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE'))
+		{//TODO: paremaks teha, mujale panna, ... . Vajalik, et https-iga IE faili allalaadimised t88taks
+			session_cache_limiter("private");
+		}
+
 		ini_set("session.save_handler", "files");
 		session_name("automatweb");
 		session_start();

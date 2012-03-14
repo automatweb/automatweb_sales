@@ -237,7 +237,7 @@ abstract class intellectual_property extends class_base
 
 			case "export_date":
 				$status = $this->get_status($arr["obj_inst"]);
-				if($status->prop("exported"))
+				if ($status->prop("exported"))
 				{
 					$prop["type"] = "text";
 					$prop["value"] = isset($prop["value"]) ? date("j:m:Y h:i" , $prop["value"]) : "";
@@ -404,6 +404,7 @@ abstract class intellectual_property extends class_base
 			}
 
 			$manager = $ol->begin();
+			$is_admin = 0;
 			if(is_object($manager) && acl_base::can("view" , $manager->id()))
 			{
 				$admins = $manager->prop("admins");
@@ -413,7 +414,7 @@ abstract class intellectual_property extends class_base
 				}
 			}
 
-			if(!(aw_global_get("uid") === $ob->createdby() || substr_count($ob->prop("authorized_codes"), $code) || $is_admin))
+			if(!(aw_global_get("uid") === $ob->createdby() || $ob->prop("authorized_codes") && $code && substr_count($ob->prop("authorized_codes"), $code) || $is_admin))
 			{
 				return "";
 			}
@@ -421,8 +422,8 @@ abstract class intellectual_property extends class_base
 		else
 		{
 			$data = $this->web_data($arr);
-			$ob = obj($_SESSION["patent"]["id"]);
-			$application_id = $_SESSION["patent"]["id"];
+			$ob = isset($_SESSION["patent"]["id"]) && acl_base::can("view", $_SESSION["patent"]["id"]) ? obj($_SESSION["patent"]["id"]) : new object();
+			$application_id = isset($_SESSION["patent"]["id"]) ? $_SESSION["patent"]["id"] : 0;
 
 			if (CL_PATENT === $this->clid)
 			{
@@ -430,7 +431,10 @@ abstract class intellectual_property extends class_base
 			}
 		}
 
+		if ($ob->is_saved())
+		{
 		$stat_obj = $this->get_status($ob);
+		}
 
 		if (!empty($_POST["send"]))
 		{
@@ -489,19 +493,23 @@ abstract class intellectual_property extends class_base
 			$data["sign"] = '<input type="button" value="'.t("Allkirjasta").'" class="nupp" onclick="javascript:window.open(\''.$url.'\',\'\', \'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height='.self::WINDOW_SIGN_HEIGHT.', width='.self::WINDOW_SIGN_WIDTH.'\');">';
 		}
 
-		if($status["status"] > 0 && !$stat_obj->prop("nr") && !$print_request && !$this->pdf)
+		if(!empty($status["status"]) && !$stat_obj->prop("nr") && !$print_request && !$this->pdf)
 		{
 			$data["send"] = '<input type="submit" value="'.t("Saadan taotluse").'" class="nupp" onclick="javascript:document.getElementById(\'send\').value=\'1\'; document.changeform.submit();">';
 		}
 
+		if (isset($stat_obj))
+		{
 		$data["ref"] = $stat_obj->prop("nr");
 		$data["send_date"] = $stat_obj->prop("sent_date");
-		if(!$data["ref"])
+		}
+
+		if (empty($data["ref"]))
 		{
 			$data["ref"] = "";
 		}
 
-		if($data["send_date"])
+		if (!empty($data["send_date"]))
 		{
 			$data["send_date"] = date("d.m.Y" , $data["send_date"]);
 		}
@@ -518,7 +526,7 @@ abstract class intellectual_property extends class_base
 
 		$this->vars($data);
 
-		if($data["procurator_text"])
+		if (!empty($data["procurator_text"]))
 		{
 			$warrant = empty($data["warrant_value"]) ? "" : $this->parse("WARRANT");
 			$this->vars(array(
@@ -529,7 +537,7 @@ abstract class intellectual_property extends class_base
 			));
 		}
 
-		if(!empty($data["authorized_person_firstname_value"]) || !empty($data["authorized_person_lastname_value"]) || !empty($data["authorized_person_code_value"]))
+		if (!empty($data["authorized_person_firstname_value"]) || !empty($data["authorized_person_lastname_value"]) || !empty($data["authorized_person_code_value"]))
 		{
 			$this->vars(array("AUTHORIZED_PERSON" => $this->parse("AUTHORIZED_PERSON")));
 		}
@@ -976,16 +984,8 @@ abstract class intellectual_property extends class_base
 				$file = obj($o->prop($var));
 				if($var === "reproduction")
 				{
-					if ($this->pdf)
-					{
-						$data[$var."_value"] = $this->get_right_size_image($file->id());
-						// $data[$var."_value"] = str_replace("https" , "http" , $this->get_right_size_image($file->id()));//XXX: proov kas mpdf t88tab httpsiga
-					}
-					else
-					{
 						$data[$var."_value"] = $this->get_right_size_image($file->id());
 					}
-				}
 				elseif($var === "warrant")
 				{
 					$data[$var."_value"] = html::href(array(
@@ -999,9 +999,10 @@ abstract class intellectual_property extends class_base
 				else
 				{
 					$data[$var."_value"] = html::href(array(
-						"url" => str_replace("https" , "http" , $file_inst->get_url($file->id(), $file->name())),
+						// "url" => str_replace("https" , "http" , $file_inst->get_url($file->id(), $file->name())),
+						"url" => $file_inst->get_url($file->id(), $file->name()),
 						"caption" => htmlspecialchars($file->name()),
-						"target" => "_blank",
+						"target" => "_blank"
 					));
 				}
 			}
@@ -1021,27 +1022,6 @@ abstract class intellectual_property extends class_base
 		$data["procurator_text"] = htmlspecialchars($o->prop_str("procurator"));
 		$data["signatures"] = $this->get_signatures($id);
 		return $data;
-	}
-
-	/**
-		@attrib name=show_payment_ordermake  params=name all_args=1 api=1
-	**/
-	function show_payment_order($arr)
-	{
-		$file_inst = new file();
-		$mm_type="application/octet-stream";
-		$fc = $file_inst->get_file_by_id($arr["id"]);
-		header("Cache-Control: public, must-revalidate");
-		header("Pragma: hack");
-		header("Content-Type: " . $mm_type);
-		header("Content-Length: " . filesize($fc["properties"]["file"]));
-		header('Content-Disposition: attachment; filename="'.$fc["name"].'"');
-		header("Content-Transfer-Encoding: binary\n");
-		$fp = fopen($fc["properties"]["file"], 'rb');
-		$buffer = fread($fp, filesize($fc["properties"]["file"]));
-		fclose ($fp);
-		header("Content-Length: " .(string)(filesize($fc["properties"]["file"])) );
-		print $buffer;
 	}
 
 	/** Saves file (browser save popup)
@@ -1542,8 +1522,8 @@ abstract class intellectual_property extends class_base
 	function web_data($arr)
 	{
 		$data = $this->get_vars($arr);
-		$data["data_type"] = $arr["data_type"];
-		$data["data_type_name"] = $this->info_levels[$arr["data_type"]];
+		$data["data_type"] = isset($arr["data_type"]) ? $arr["data_type"] : null;
+		$data["data_type_name"] = isset($arr["data_type"]) && isset($this->info_levels[$arr["data_type"]]) ? $this->info_levels[$arr["data_type"]] : "";
 		$this->get_user_data($arr);
 		$htmlclient = new htmlclient();
 
@@ -1692,14 +1672,15 @@ abstract class intellectual_property extends class_base
 		foreach($this->file_upload_vars as $var)
 		{
 			$data[$var] = html::fileupload(array("name" => $var."_upload"));
-			if(isset($_SESSION["patent"][$var]) and acl_base::can("view", $_SESSION["patent"][$var]))
+
+			if (isset($_SESSION["patent"][$var]) and acl_base::can("view", $_SESSION["patent"][$var]))
 			{
 				$file = obj($_SESSION["patent"][$var]);
-				if("reproduction" === $var)
+				if ("reproduction" === $var)
 				{
 					$data[$var."_value"] = $this->get_right_size_image($_SESSION["patent"][$var]);
 				}
-				elseif($var === "warrant")
+				elseif ("warrant" === $var)
 				{
 					$data[$var."_value"] = html::href(array(
 						"caption" =>  $file->name(),
@@ -1728,7 +1709,7 @@ abstract class intellectual_property extends class_base
 				}
 				else
 				{
-					$_SESSION["patent"][$var] = mktime(0,0,0, $_SESSION["patent"][$var]["month"], $_SESSION["patent"][$var]["day"], $_SESSION["patent"][$var]["year"]);
+					$_SESSION["patent"][$var] = mktime(0, 0, 0, $_SESSION["patent"][$var]["month"], $_SESSION["patent"][$var]["day"], $_SESSION["patent"][$var]["year"]);
 				}
 			}
 
@@ -1802,11 +1783,12 @@ abstract class intellectual_property extends class_base
 
 		$ddoc_inst = get_instance(CL_DDOC);
 		$signs = $ddoc_inst->get_signatures($re["ddoc"]);
+		$sig_nice = array();
 		foreach($signs as $sig)
 		{
 			$sig_nice[] = sprintf(t("%s, %s  - %s"), $sig["signer_ln"], $sig["signer_fn"], date("H:i d/m/Y", $sig["signing_time"]));
 		}
-		$signatures = join(html::linebreak(), $sig_nice);
+		$signatures = implode(html::linebreak(), $sig_nice);
 		return $signatures;
 	}
 
@@ -1816,6 +1798,8 @@ abstract class intellectual_property extends class_base
 		$image = obj($oid);
 		$fl = $image->prop("file");
 
+		try
+		{
 		if (!empty($fl))
 		{
 			// rewrite $fl to be correct if site moved
@@ -1834,6 +1818,12 @@ abstract class intellectual_property extends class_base
 			"height" => $sz[1],
 			"width" => $sz[0]
 		));
+		}
+		catch (ErrorException $e)
+		{
+			$ret = "";
+		}
+
 		return $ret;
 	}
 
@@ -1912,7 +1902,7 @@ abstract class intellectual_property extends class_base
 			$data["P_ADDRESS"] = $this->parse("P_ADDRESS");
 		}
 
-		$dummy = obj($arr["alias"]["to"]);
+		$dummy = isset($arr["alias"]["to"]) && acl_base::can("", $arr["alias"]["to"]) ? obj($arr["alias"]["to"]) : new object();
 		$_SESSION["patent"]["parent"] = $data["parent"] = $dummy->prop("trademarks_menu");
 
 		if(isset($_SESSION["patent"]["procurator"]) and acl_base::can("view" , $_SESSION["patent"]["procurator"]))
@@ -1990,9 +1980,13 @@ abstract class intellectual_property extends class_base
 
 		if ($patent_id)
 		{
-			$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1 , "id" => $patent_id, "add_obj" => $arr["alias"]["to"]), get_class($this))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_PRINT_HEIGHT.", width=".self::WINDOW_PRINT_WIDTH."')";
+			$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1, "id" => $patent_id, "add_obj" => $arr["alias"]["to"]), get_class($this))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_PRINT_HEIGHT.", width=".self::WINDOW_PRINT_WIDTH."')";
 
 			$data["convert_link"] = $this->mk_my_orb("pdf", array("print" => 1 , "id" => $patent_id, "add_obj" => $arr["alias"]["to"]), get_class($this));
+		}
+		elseif (!empty($_SESSION["patent"]))
+		{
+			$data["show_link"] = "javascript:window.open('".$this->mk_my_orb("show", array("print" => 1, "id" => 0, "add_obj" => (isset($arr["alias"]["to"]) ? $arr["alias"]["to"] : 0)), get_class($this))."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=".self::WINDOW_PRINT_HEIGHT.", width=".self::WINDOW_PRINT_WIDTH."')";
 		}
 
 		if(isset($_SESSION["patent"]["applicants"]) and count($_SESSION["patent"]["applicants"]))
@@ -2639,12 +2633,30 @@ abstract class intellectual_property extends class_base
 		$file_inst = get_instance(CL_FILE);
 		foreach($this->file_upload_vars as $var)
 		{
+			if ("reproduction" === $var and "1" === $_POST["data_type"] and empty($_POST["type"]))
+			{
+				if (isset($_SESSION["patent"][$var]))
+				{
+					try
+					{
+						$reproduction = obj($_SESSION["patent"][$var], array(), CL_FILE);
+						$reproduction->delete(true);
+					}
+					catch (awex_obj $e)
+					{
+					}
+
+					unset($_SESSION["patent"][$var]);
+				}
+			}
+
 			if(array_key_exists($var."_upload" , $uploads))
 			{
 				if(empty($_FILES[$var."_upload"]['tmp_name']))
 				{
 					continue;
 				}
+
 				$id = $file_inst->save_file(array(
 					"parent" => $_SESSION["patent"]["parent"],
 					"content" => $image_inst->get_file(array(
@@ -2653,6 +2665,7 @@ abstract class intellectual_property extends class_base
 					"name" => $_FILES[$var."_upload"]['name'],
  					"type" => $_FILES[$var."_upload"]['type'],
 				));
+
 				// if there is image uploaded:
 				$_SESSION["patent"][$var] = $id;
 			}
@@ -2690,16 +2703,16 @@ abstract class intellectual_property extends class_base
 
 	public static function get_status($patent, $create = true)
 	{
-		if(!acl_base::can("add" , $patent->id())) return $patent;
+		$patent = $patent->get_original();
 		$status = $patent->get_first_obj_by_reltype("RELTYPE_TRADEMARK_STATUS");
-		if(!is_object($status))
+		if (!is_object($status))
 		{
 			if ($create)
 			{
 			$status = new object();
 			$status->set_class_id(CL_TRADEMARK_STATUS);
 			$status->set_parent($patent->id());
-			$status->set_name(" Kinnitamata taotlus nr [".$patent->id()."]");
+				$status->set_name("Kinnitamata taotlus nr [".$patent->id()."]");
 			$status->save();
 			$patent->connect(array("to" => $status->id() , "type" => "RELTYPE_TRADEMARK_STATUS"));
 		}
@@ -3200,32 +3213,7 @@ abstract class intellectual_property extends class_base
 		$this->read_template($tpl);
 		$u = new user();
 
-		//FIXME: XXX: ajutine lahendus patendiameti probleemile, kus id-kaardiga sisse logind kasutajale luuakse isik, aga seda get_current_person() vms. miskip2rast ei leia ja loob uue, ilma isikukoodita
-		$u_o = obj(aw_global_get("uid_oid"));
-		$person_c = $u_o->connections_from(array(
-			"type" => "RELTYPE_PERSON"
-		));
-
-		$p = false;
-		if (count($person_c))
-		{
-			foreach ($person_c as $person_connection)
-			{
-				$p = obj($person_connection->prop("to"));
-
-				if ($p->prop("personal_id"))
-				{
-					break;
-				}
-			}
-		}
-
-		if (false === $p)
-		{
-			$p = obj($u->get_current_person());
-		}
-		//XXX: end ajutine lahendus
-
+		$p = get_current_person();
 		$code = $p->prop("personal_id");
 		$ddoc_inst = new ddoc();
 
@@ -4205,7 +4193,12 @@ abstract class intellectual_property extends class_base
 	{
 		$status = self::get_status($o, false);
 
-		$xml = "<?xml version=\"1.0\" encoding=\"".trademark_manager::XML_OUT_ENCODING."\"?>\n";
+		if (!$status->prop("nr") or !$status->prop("sent_date"))
+		{
+			throw new awex_po_xml(sprintf("Invalid status (nr %s, date %s) for object %s", $status->prop("nr"), $status->prop("sent_date"), $o->id()));
+		}
+
+		$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		$xml .= '<BIRTH TRANTYP="ENN" INTREGN="'.sprintf("%08d", $status->prop("nr")).'" OOCD="EE" ORIGLAN="3" REGEDAT="'.date("Ymd", $status->prop("sent_date")).'" INTREGD="'.date("Ymd", $status->prop("modified")).'" DESUNDER="P">';
 
 		// common object xml data
@@ -4220,58 +4213,57 @@ abstract class intellectual_property extends class_base
 				$xml .= '<HOLGR>';
 				$xml .= "<NAME>";
 
-				$appl = $applicant;
 				$addr = "<ADDRESS>";
 				$tel = array();
 
-				if ($appl->class_id() == CL_CRM_PERSON)
+				if ($applicant->class_id() == CL_CRM_PERSON)
 				{
-					if ($appl->prop("phone.name"))
+					if ($applicant->prop("phone.name"))
 					{
-						$tel[] = trademark_manager::convert_to_export_xml($appl->prop("phone.name"));
+						$tel[] = trademark_manager::convert_to_export_xml($applicant->prop("phone.name"));
 					}
 
-					if ($appl->prop("fax.name"))
+					if ($applicant->prop("fax.name"))
 					{
-						$tel[] = trademark_manager::convert_to_export_xml($appl->prop("fax.name"));
+						$tel[] = trademark_manager::convert_to_export_xml($applicant->prop("fax.name"));
 					}
 
 					$xml .= "<NAMEL>".trademark_manager::convert_to_export_xml($applicant->prop("firstname"))."</NAMEL>";
 					$xml .= "<NAMEL>".trademark_manager::convert_to_export_xml($applicant->prop("lastname"))."</NAMEL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("address.aadress"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("address.linn.name"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("address.maakond.name"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("address.postiindeks"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("address.aadress"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("address.linn.name"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("address.maakond.name"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("address.postiindeks"))."</ADDRL>";
 					$addr .= "<ADDRL>" . implode(", ", $tel) . "</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("email.mail"))."</ADDRL>";
-					if (acl_base::can("", $appl->prop("address.riik")))
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("email.mail"))."</ADDRL>";
+					if (acl_base::can("", $applicant->prop("address.riik")))
 					{
-						$addr .= "<COUNTRY>".trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($appl->prop("address.riik"))))."</COUNTRY>";
+						$addr .= "<COUNTRY>".trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($applicant->prop("address.riik"))))."</COUNTRY>";
 					}
 					$type = "1";
 				}
 				else
 				{
-					if ($appl->prop("phone_id.name"))
+					if ($applicant->prop("phone_id.name"))
 					{
-						$tel[] = trademark_manager::convert_to_export_xml($appl->prop("phone_id.name"));
+						$tel[] = trademark_manager::convert_to_export_xml($applicant->prop("phone_id.name"));
 					}
 
-					if ($appl->prop("telefax_id.name"))
+					if ($applicant->prop("telefax_id.name"))
 					{
-						$tel[] = trademark_manager::convert_to_export_xml($appl->prop("telefax_id.name"));
+						$tel[] = trademark_manager::convert_to_export_xml($applicant->prop("telefax_id.name"));
 					}
 
 					$xml .= "<NAMEL>".trademark_manager::convert_to_export_xml($applicant->name())."</NAMEL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("contact.aadress"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("contact.linn.name"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("contact.maakond.name"))."</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("contact.postiindeks"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("contact.aadress"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("contact.linn.name"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("contact.maakond.name"))."</ADDRL>";
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("contact.postiindeks"))."</ADDRL>";
 					$addr .= "<ADDRL>" . implode(", ", $tel) . "</ADDRL>";
-					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($appl->prop("email_id.mail"))."</ADDRL>";
-					if (acl_base::can("", $appl->prop("contact.riik")))
+					$addr .= "<ADDRL>".trademark_manager::convert_to_export_xml($applicant->prop("email_id.mail"))."</ADDRL>";
+					if (acl_base::can("", $applicant->prop("contact.riik")))
 					{
-						$addr .= "<COUNTRY>".trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($appl->prop("contact.riik"))))."</COUNTRY>";
+						$addr .= "<COUNTRY>".trademark_manager::convert_to_export_xml($adr_i->get_country_code(obj($applicant->prop("contact.riik"))))."</COUNTRY>";
 					}
 					$type = "2";
 				}
@@ -4286,7 +4278,7 @@ abstract class intellectual_property extends class_base
 				$xml .= "</NAME>";
 				$xml .= $addr;
 
-				$xml .= '<LEGNATU><LEGNATT>'.trademark_manager::convert_to_export_xml($appl->prop("ettevotlusvorm.name")).'</LEGNATT></LEGNATU>';
+				$xml .= '<LEGNATU><LEGNATT>'.trademark_manager::convert_to_export_xml($applicant->prop("ettevotlusvorm.name")).'</LEGNATT></LEGNATU>';
 			}
 
 			$xml .= "</HOLGR>";

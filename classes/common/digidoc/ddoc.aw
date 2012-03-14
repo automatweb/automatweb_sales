@@ -134,6 +134,13 @@ class ddoc extends class_base
 				));
 				break;
 
+			case "ddoc":
+				if ($arr["obj_inst"]->is_saved() and $arr["obj_inst"]->is_signed())
+				{
+					$retval = class_base::PROP_IGNORE;
+				}
+				break;
+
 			case "files_tb":
 				$tb = $prop["vcl_inst"];
 				$url = $this->mk_my_orb("upload_new_file", array(
@@ -181,23 +188,39 @@ class ddoc extends class_base
 					"name" => "size",
 					"caption" => t("Suurus"),
 				));
-				$files = aw_unserialize($arr["obj_inst"]->prop("files"));
+				$files = safe_array(aw_unserialize($arr["obj_inst"]->prop("files")));
 				$file_inst = new file();
 				foreach($files as $id => $data)
 				{
-					$o = obj($data["file"]);
-					$cl_id = $o->class_id();
-					$cl = aw_ini_get("classes");
-					$url = ($cl_id == CL_FILE)?$file_inst->get_url($data["file"], $data["name"]):$this->mk_my_orb("change", array("id" => $data["file"], "return_url" => get_ru()), $cl_id);
-					$t->define_data(array(
-						"file_id" => $id,
-						"name" => html::href(array(
-							"caption" => $data["name"]." (".$cl[$cl_id]["name"].")",
-							"url" => $url,
-						)),
-						"type" => $data["type"],
-						"size" => ($data["size"] > 1024)?round(($data["size"]/1024),2).t("kB"):$data["size"].t("B"),
-					));
+					if (acl_base::can("", $data["file"]))
+					{
+						$o = obj($data["file"]);
+						$cl_id = $o->class_id();
+						$url =
+							($cl_id == CL_FILE)
+								?
+							$file_inst->get_url($data["file"], $data["name"])
+								:
+							$this->mk_my_orb("change", array("id" => $data["file"], "return_url" => get_ru()), $cl_id)
+						;
+						$t->define_data(array(
+							"file_id" => $id,
+							"name" => html::href(array(
+								"caption" => $data["name"]." (".aw_ini_get("classes.{$cl_id}.name").")",
+								"url" => $url,
+							)),
+							"type" => $data["type"],
+							"size" => ($data["size"] > 1024)?round(($data["size"]/1024),2).t("kB"):$data["size"].t("B"),
+						));
+					}
+					else
+					{
+						$t->define_data(array(
+							"type" => t("Objekti ei leitud"),
+							"size" => t("Objekti ei leitud"),
+							"name" => $data["name"]
+						));
+					}
 				}
 				break;
 
@@ -251,7 +274,7 @@ class ddoc extends class_base
 					"caption" => t("Asukoht"),
 				));
 
-				$signatures = aw_unserialize($arr["obj_inst"]->prop("signatures"));
+				$signatures = safe_array(aw_unserialize($arr["obj_inst"]->prop("signatures")));
 				foreach($signatures as $sig_id => $sig)
 				{
 					$location = array();
@@ -284,12 +307,17 @@ class ddoc extends class_base
 		switch($prop["name"])
 		{
 			case "ddoc":
-				// actually i should check wheather it is a correct ddoc file
-				if (is_array($data["value"]))
+				if ($arr["obj_inst"]->is_saved() and $arr["obj_inst"]->is_signed())
 				{
-					$file = $data["value"]["tmp_name"];
-					$file_type = $data["value"]["type"];
-					$file_name = $data["value"]["name"];
+					return class_base::PROP_IGNORE;
+				}
+
+				// actually i should check wheather it is a correct ddoc file
+				if (isset($prop["value"]) and is_array($prop["value"]))
+				{
+					$file = $prop["value"]["tmp_name"];
+					$file_type = $prop["value"]["type"];
+					$file_name = $prop["value"]["name"];
 				}
 				else
 				{
@@ -306,7 +334,6 @@ class ddoc extends class_base
 				}
 
 				$cl_file = new file();
-
 				if (is_uploaded_file($file))
 				{
 
@@ -329,18 +356,18 @@ class ddoc extends class_base
 					//$arr["obj_inst"]->set_prop("type", $file_type);
 					$this->file_type = $file_type;
 				}
-				elseif (is_array($data["value"]) && $data["value"]["content"] != "")
+				elseif (is_array($prop["value"]) && $prop["value"]["content"] != "")
 				{
 					$final_name = $cl_file->generate_file_path(array(
 						"type" => "text/html"
 					));
 					$fc = fopen($final_name, "w");
-					fwrite($fc, $data["value"]["content"]);
+					fwrite($fc, $prop["value"]["content"]);
 					fclose($f);
 					// vetax vana faili 2ra igaks-juhuks
 					unlink($arr["obj_inst"]->prop("ddoc_location"));
 					$arr["obj_inst"]->set_prop("ddoc_location", $final_name);
-					$arr["obj_inst"]->set_name($data["value"]["name"]);
+					$arr["obj_inst"]->set_name($prop["value"]["name"]);
 					//$arr["obj_inst"]->set_prop("type", "text/html");
 					$this->file_type = "text/html";
 				}

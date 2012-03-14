@@ -836,7 +836,7 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				"type" => "checkbox",
 				"ch_value" => 1,
 				"store" => "no",
-				"value" => $da[$acln]
+				"value" => ( empty( $da[$acln] ) ) ? false : $da[$acln]
 			);
 		}
 
