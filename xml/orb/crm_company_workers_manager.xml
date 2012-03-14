@@ -14,6 +14,16 @@
 				</arguments>
 			</function>
 		</action>
+
+		<action name="submit_delete_relations">
+			<function name="submit_delete_relations">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="unit" type="int" />
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>
 		

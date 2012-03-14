@@ -83,7 +83,7 @@ class crm_company_workers_manager extends class_base
 			"tpldir" => "applications/crm/crm_company_workers_manager",
 			"clid" => crm_company_workers_manager_obj::CLID
 		));
-		$this->search_props = array("es_n","es_s","es_g","es_a","es_e","es_agefrom","es_ageto");
+		$this->search_props = array("es_n","es_s","es_g","es_a","es_e","es_agefrom","es_ageto", "es_c");
 	}
 
 	function do_db_upgrade($table, $field, $query, $error)
@@ -155,6 +155,12 @@ class crm_company_workers_manager extends class_base
 				return $employees_view->$fn($params);
 			}
 		}
+/*		switch($data["name"])
+		{
+			case "es_c":
+				arr($arr);
+				break;
+		}*/
 		return $retval;
 	}
 
@@ -217,7 +223,7 @@ class crm_company_workers_manager extends class_base
 		@attrib name=cut
 	**/
 	function cut($arr)
-	{
+	{//arr($arr);die();
 		$employees_view = new crm_company_employees_view();
 		$employees_view->set_request($this->req);
 		$r = $employees_view->cut($arr);
@@ -228,7 +234,7 @@ class crm_company_workers_manager extends class_base
 		@attrib name=paste all_args=1
 	**/
 	function paste($arr)
-	{arr($arr);die();
+	{
 		$employees_view = new crm_company_employees_view();
 		$employees_view->set_request($this->req);
 		$manager = obj($arr["id"]);
@@ -237,4 +243,72 @@ class crm_company_workers_manager extends class_base
 		return $r;
 	}
 
+	/**
+		Ends selected work relations, if
+		@attrib name=submit_delete_relations
+		@param id required type=int acl=view
+		@param post_ru required type=string
+		@param cat optional type=int
+			Profession oid. Delete only relations with that profession
+		@param check optional type=array
+			Array of person object id-s
+	**/
+	function submit_delete_relations($arr)
+	{
+		try
+		{
+			$manager = obj($arr['id']);
+			$this_o = obj($manager->prop("company"), array(), CL_CRM_COMPANY);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Organisatsiooniobjekt polnud loetav."));
+			return $arr["post_ru"];
+		}
+
+		if (isset($arr["check"]) and is_array($arr["check"]))
+		{
+			$failed_person_oids = array();
+			$profession = null;
+			foreach($arr['check'] as $person_oid)
+			{
+				try
+				{
+					$person = obj($person_oid, array(), crm_person_obj::CLID);
+					if (!empty($arr["cat"]) and is_oid($arr["cat"])) $profession = obj($arr["cat"], array(), CL_CRM_PROFESSION);
+
+					$work_relations = crm_person_work_relation_obj::find($person, $profession, $this_o);
+					if($work_relations->count())
+					{
+						$work_relation = $work_relations->begin();
+
+						do
+						{
+							if (!$work_relation->is_finished())
+							{
+								$this_o->finish_work_relation($work_relation);
+							}
+						}
+						while ($work_relation = $work_relations->next());
+					}
+				}
+				catch (Exception $e)
+				{
+					/*~AWdbg*/ if (aw_ini_get("debug_mode")) { echo nl2br($e); exit; }
+					$failed_person_oids[] = $person_oid;
+				}
+			}
+
+			if (count($failed_person_oids))
+			{
+				$this->show_error_text(t("Osa valitud isikuid polnud loetavad."));
+			}
+			else
+			{
+				$this->show_completed_text(t("Valitud isikutega antud ameti all t&ouml;&ouml;suhted l&otilde;petatud."));
+			}
+		}
+
+		return $arr["post_ru"];
+	}
 }
