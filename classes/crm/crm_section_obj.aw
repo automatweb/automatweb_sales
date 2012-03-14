@@ -91,27 +91,38 @@ class crm_section_obj extends _int_object
 	**/
 	function get_workers($arr = array())
 	{
-		$ol = new object_list();
-
 		$rel_list = new object_list(array(
 			"class_id" => CL_CRM_PERSON_WORK_RELATION,
 			"site_id" => array(),
 			"lang_id" => array(),
-			"CL_CRM_PERSON_WORK_RELATION.RELTYPE_SECTION" => $this->id(),
+			"company_section" => $this->id(),
 		));
 
-		if(sizeof($rel_list->ids()))
+		if($rel_list->count())
 		{
-			$ol = new object_list(array(
-				"class_id" => CL_CRM_PERSON,
-				"site_id" => array(),
-				"class_id" => array(),
-				"CL_CRM_PERSON.RELTYPE_CURRENT_JOB" => $rel_list->ids(),
-			));
+			$ids = array();
+			foreach($rel_list->arr() as $rel)
+			{
+				$ids[] = $rel->prop("employee");
+			}
+			if(sizeof($ids))
+			{
+				$ol = new object_list(array(
+					"oid" => $ids
+				));
+			}
+			else
+			{
+				$ol = new object_list();
+			}
+		}
+		else
+		{
+			$ol = new object_list();
 		}
 
 		//vana asja toimimiseks
-		if(!$arr["co"] || !is_object($co = obj($arr["co"])) || !$co->prop("use_only_wr_workers"))
+		if(empty($arr["co"]) || !is_object($co = obj($arr["co"])) || !$co->prop("use_only_wr_workers"))
 		{
 			$ol->add($this->get_employees(1));
 		}

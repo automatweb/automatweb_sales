@@ -561,7 +561,7 @@ class persons_webview extends class_base
 		$count = sizeof($principe);
 		while($count>=0)
 		{
-			if($principe[$count]["principe"])
+			if(!empty($principe[$count]["principe"]))
 			{
 				$sections = $this->section_sort_by(array(
 					"sections" => $sections,
@@ -727,6 +727,7 @@ class persons_webview extends class_base
 	function parse_company($company)
 	{
 		$departments = $this->view_obj->prop("departments");
+		$department = "";
 		$template = $this->view["template"];
 		$this->read_template($template);
 		lc_site_load("persons_web_view",$this);
@@ -734,9 +735,13 @@ class persons_webview extends class_base
 		{
 			if($this->is_template("DEPARTMENT"))
 			{
+				
 				$this->jrks = array();
 				if(in_array((0) , $this->levels) && (sizeof($this->levels) > 0)) $sections = array_merge(array($company) , $this->get_sections(array("section" => $company , "jrk" => 0)));
 				else $sections = $this->get_sections(array("section" => $company , "jrk" => 0));
+
+
+
 			foreach($sections as $section)
 				{
 					$this->section = $section; // eks seda l2heb vast mujal ka vaja... ametinimetuses n2iteks
@@ -843,6 +848,7 @@ class persons_webview extends class_base
 	{
 		$workers_list = $section->get_workers();
 		//------------------------sorteerib k6vemad vennad ette;
+		$workers = array();
 		foreach($workers_list->arr() as $worker)
 		{
 			if($this->sw && !in_array($worker->id() , $this->sw))//kui on otsing, kuid tulemustes pole
@@ -868,7 +874,7 @@ class persons_webview extends class_base
 		{
 			$workers = $this->person_sort($workers);
 		}
-
+//arr($workers);
 		return $workers;
 	}
 
@@ -876,13 +882,20 @@ class persons_webview extends class_base
 	{
 		extract($args);
 		$sections = array();
-		$section_list = new object_list($section->connections_from (array (
+		if($section->class_id() == CL_CRM_COMPANY)
+		{
+			$section_list = $section->get_sections();
+		}
+		else
+		{
+			$section_list = new object_list($section->connections_from (array (
 			"type" => "RELTYPE_SECTION",
-		)));
+			)));
+		}
 		$section_arr = $this->sort_sections($section_list->arr());
 		foreach($section_arr as $sec)
 		{
-			if(in_array(($jrk + 1) , $this->levels) && (sizeof($this->levels) > 0) && !$this->jrks[$sec->id()])
+			if(in_array(($jrk + 1) , $this->levels) && (sizeof($this->levels) > 0) && empty($this->jrks[$sec->id()]))
 			{
 				$sections[] = $sec;
 			}
@@ -1027,7 +1040,7 @@ class persons_webview extends class_base
 			foreach($workers as $val)
 			{
 				$worker = $val["worker"];
-				if($this->view["rows_by"])//ametinimede kaupa grupeerimise porno, et erinevale reale 6ige arv tuleks jne
+				if(!empty($this->view["rows_by"]))//ametinimede kaupa grupeerimise porno, et erinevale reale 6ige arv tuleks jne
 				{
 					if(!$this->order_array) $this->make_order_array($workers);
 					if(!$this->calculated) $col_num = $this->get_cols_num($row_num);
@@ -1055,7 +1068,7 @@ class persons_webview extends class_base
 				}
 			$this->count++;
 			}
-			if(!$parsed)//viimane rida v6ib olla tegemata
+			if(empty($parsed))//viimane rida v6ib olla tegemata
 			{
 				$this->vars_safe(array(
 					"WORKER" => $c,
@@ -1249,9 +1262,18 @@ class persons_webview extends class_base
 
 		foreach($phone_array as $key => $val)
 		{
-			$this->vars_safe(array(
-				$key => join(" ," , $val),
-			));
+			if(is_array($val))
+			{
+				$this->vars_safe(array(
+					$key => join(" ," , $val),
+				));
+			}
+			else
+			{
+				$this->vars_safe(array(
+					$key => $val,
+				));
+			}
 		}
 
 		//haridus
