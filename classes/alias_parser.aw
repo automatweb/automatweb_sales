@@ -45,12 +45,14 @@ class alias_parser extends core
 		{
 			return;
 		}
-		$_res = preg_match_all("/(#)(\w+?)(\d+?)(v|k|p|)(#)/i",$source,$matches,PREG_SET_ORDER);
+
+		$_res = preg_match_all("/(#)(\w+?)(\d+?)(v|k|p|)(#)/i", $source, $matches, PREG_SET_ORDER);
 		if (!$_res)
 		{
 			// if no aliases are in text, don't do nothin
 			return;
 		}
+
 		extract($args);
 
 		$this->tmp_vars = array();
@@ -60,12 +62,13 @@ class alias_parser extends core
 		{
 			$oid = $o->get_original();
 		}
+
 		$aliases = $this->get_oo_aliases(array("oid" => $oid));
 
 		$by_idx = $by_alias = array();
 
-		$tmp = aw_ini_get("classes");
-		foreach($tmp as $clid => $cldat)
+		$classlist = aw_ini_get("classes");
+		foreach($classlist as $clid => $cldat)
 		{
 			if (isset($cldat["alias"]))
 			{
@@ -102,29 +105,12 @@ class alias_parser extends core
 			}
 		}
 
-		$classlist = aw_ini_get("classes");
-
 		// try to find aliases until we no longer find any.
 		// why is this? well, to enable the user to add aliases bloody anywhere. like in files that are to be shown right away
-		enter_function("aliasmgr::parse_oo_aliases::loop");
-		$_cnt = 0;
-		while (1)
+		$i = 0;
+		do
 		{
-
-			$_cnt++;
-			if ($_cnt > 20)
-			{
-				// make sure we don't end up in an endless loop
-				break;
-			}
-
-			$_res = preg_match_all("/(#)(\w+?)(\d+?)(v|k|p|)(#)/i",$source,$matches,PREG_SET_ORDER);
-			if (!$_res)
-			{
-				// if no more aliases are found, then break out of the loop.
-				break;
-			}
-
+			$_res = preg_match_all("/(#)(\w+?)(\d+?)(v|k|p|)(#)/i", $source, $matches, PREG_SET_ORDER);
 			if (is_array($matches))
 			{
 				// we gather all aliases in here, grouped by class so we gan give them to parse_alias_list()
@@ -163,11 +149,12 @@ class alias_parser extends core
 					foreach($claliases as $avalue => $adata)
 					{
 						// if there is no object, then we just skip it -- ahz
-						if(!is_oid($adata["target"]) || !$GLOBALS["object_loader"]->ds->can("view", $adata["target"]))
+						if(!is_oid($adata["target"]) || !acl_base::can("view", $adata["target"]))
 						{
 							$source = str_replace($avalue, "", $source);
 							continue;
 						}
+
 						$replacement = false;
 						if (method_exists($$emb_obj_name,"parse_alias"))
 						{
@@ -178,11 +165,7 @@ class alias_parser extends core
 								"tpls" => &$args["templates"],
 								"data" => isset($args["data"]) ? $args["data"] : null
 							);
-							enter_function("aliasmgr::parse_oo_aliases::loop::do_palias");
-							tm::s($class_name_base, "parse_alias");
 							$repl = $$emb_obj_name->parse_alias($parm);
-							tm::e($class_name_base, "parse_alias");
-							exit_function("aliasmgr::parse_oo_aliases::loop::do_palias");
 
 							$inplace = false;
 							if (is_array($repl))
@@ -199,15 +182,15 @@ class alias_parser extends core
 							{
 								$this->tmp_vars[$inplace] .= $replacement;
 								$replacement = "";
-							};
+							}
 						}
 
 						$source = str_replace($avalue,$replacement,$source);
 					}
 				}
 			}
-		}	// while (1)
-		exit_function("aliasmgr::parse_oo_aliases::loop");
+		}
+		while ($_res and ++$i < 21);
 	}
 
 	/**  Returns an array of aw aliases that are attached to gthe given object
@@ -262,8 +245,8 @@ class alias_parser extends core
 		// fetch objs in object_list, it's fastah
 		if (count($ids))
 		{
-			$ol = new object_list(array("oid" => $ids, "lang_id" => array(), "site_id" => array()));
-			$ol->arr();
+			$ol = new object_list(array("oid" => $ids));
+			$ol->begin();
 		}
 
 		foreach($cf as $c)
@@ -309,10 +292,9 @@ class alias_parser extends core
 		$ret = array();
 
 		$o = obj($oid);
-		$tmp = aw_ini_get("classes");
 		foreach($o->connections_from() as $c)
 		{
-			list($astr) = explode(",",$tmp[$c->prop("to.class_id")]["alias"]);
+			list($astr) = explode(",", aw_ini_get("classes.".$c->prop("to.class_id").".alias"));
 			$ret[$c->prop("to")] = "#".$astr.($c->prop("idx"))."#";
 		}
 		return $ret;

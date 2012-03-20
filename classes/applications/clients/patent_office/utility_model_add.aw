@@ -36,7 +36,7 @@
 
 */
 
-class utility_model_add extends class_base
+class utility_model_add extends intellectual_property_add
 {
 	function utility_model_add()
 	{

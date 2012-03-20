@@ -35,14 +35,17 @@ class doc_display extends aw_template
 	{
 		$arr["leadonly"] = isset($arr["leadonly"]) ? $arr["leadonly"] : null;
 		$doc = obj($arr["docid"]);
+
 		if (aw_ini_get("config.object_versioning") == 1 && $_GET["docversion"] != "")
 		{
 			$doc->load_version($_GET["docversion"]);
 		}
+
 		if(!$doc->is_visible_to())
 		{
 			return t("Ei ole &otilde;igust n&auml;ha");
 		}
+
 		$doc_parent = obj($doc->parent());
 		$this->tpl_reset();
 		$this->tpl_init("automatweb/documents");
@@ -60,11 +63,13 @@ class doc_display extends aw_template
 		{
 			$text = $this->get_document_text($arr, $doc);
 		}
+
 		$lead = "";
 		if ($this->template_has_var("lead"))
 		{
 			$lead = $this->_get_lead($arr, $doc);
 		}
+
 		$content = "";
 		if ($this->template_has_var("content"))
 		{

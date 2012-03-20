@@ -19,16 +19,16 @@
  *
  *   You might (will) want to play around with the addListRow() method to make the output prettier.
  *
- *   You might also want to change the line 
+ *   You might also want to change the line
  *       element.name = 'file_' + this.count;
  *   ...to a naming convention that makes more sense to you.
- * 
+ *
  * Licence:
  *   Use this however/wherever you like, just don't blame me if it breaks anything.
  *
  * Credit:
  *   If you're nice, you'll leave this bit:
- *  
+ *
  *   Class by Stickman -- http://www.the-stickman.com
  *      with thanks to:
  *      [for Safari fixes]
@@ -38,8 +38,7 @@
  *      [for duplicate name bug]
  *         'neal'
  */
-function MultiSelector( list_target, max )
-{
+function MultiSelector( list_target, max ) {
 	// cuz page refreshes without it in ie - body has refresher for some reason
 	window.onresize = function () {return false;}
 
@@ -56,9 +55,10 @@ function MultiSelector( list_target, max )
 		this.max = max;
 	} else {
 		this.max = -1;
-	};
+	}
+
 	this.input_element;
-	
+
 	/**
 	 * Add a new file input element
 	 */
@@ -67,7 +67,7 @@ function MultiSelector( list_target, max )
 		// Make sure it's a file input element
 		if( element.tagName == 'INPUT' && element.type == 'file' ){
 			this.input_element = element;
-		
+
 			// Element name -- what number am I?
 			element.name = 'file[]';
 			element.id = 'fail_input_'+this.count;
@@ -84,7 +84,7 @@ function MultiSelector( list_target, max )
 
 				// Add new element
 				this.parentNode.insertBefore( new_element, this );
-				
+
 				// Apply 'update' to element
 				this.multi_selector.addElement( new_element );
 
@@ -95,37 +95,35 @@ function MultiSelector( list_target, max )
 				this.style.position = 'absolute';
 				this.style.left = '-1000px';
 
-			};
+			}
+
 			// If we've reached maximum number, disable input element
 			if( this.max != -1 && this.count >= this.max || this.counter >= this.max ){
 				element.disabled = true;
-			};
+			}
 
 			// File element counter
 			this.count++;
 			// Most recent element
 			this.current_element = element;
-			
+
 		} else {
 			// This can only be applied to file input elements!
 			alert( 'Error: not a file input element' );
-		};
+		}
+	}
 
-	};
-	
-	this.refresh = function()
-	{
+	this.refresh = function() {
 			// If we've reached maximum number, disable input element
 			if( this.counter >= this.max ){
 				this.input_element.disabled = true;
-			};
+			}
 	}
 
 	/**
 	 * Add a new row to the list of files
 	 */
-	this.addListRow = function( element )
-	{
+	this.addListRow = function( element ) {
 		// Row div
 		var new_row = document.createElement( 'div' );
 
@@ -133,10 +131,10 @@ function MultiSelector( list_target, max )
 		var new_td_index = document.createElement("td");
 		var new_td_filename = document.createElement("td");
 		var new_td_button = document.createElement("td");
-		
+
 		new_td_index.innerHTML = ++this.counter;
-		
-		
+
+
 		// Delete button
 		var new_row_button = document.createElement( 'input' );
 		new_row_button.type = 'button';
@@ -148,13 +146,13 @@ function MultiSelector( list_target, max )
 		new_row.element = element;
 
 		// Delete function
-		new_row_button.onclick= function(){
+		new_row_button.onclick= function() {
 
 			// Remove element from form
 			var div_form = document.getElementById("multifile_upload_form");
 			var input_element = document.getElementById('fail_input_'+(this.count-2));
 			div_form.removeChild (input_element);
-			
+
 			// Remove this row from the list
 			//this.parentNode.parentNode.removeChild( this.parentNode );
 			this.parentNode.parentNode.parentNode.removeChild (this.parentNode.parentNode);
@@ -166,47 +164,44 @@ function MultiSelector( list_target, max )
 			// Re-enable input element (if it's disabled)
 			//this.parentNode.element.multi_selector.current_element.disabled = false;
 			multi_selector.current_element.disabled = false;
-			
+
 			// Appease Safari
 			//    without it Safari wants to reload the browser window
 			//    which nixes your already queued uploads
 			return false;
-		};
+		}
 
 		// Set row value
 		new_row.innerHTML = element.value;
-		
+
 		// Add button
 		new_td_button.appendChild( new_row_button );
 		new_td_filename.appendChild(new_row);
 		new_tr.appendChild(new_td_index);
 		new_tr.appendChild(new_td_filename);
 		new_tr.appendChild(new_td_button);
-	
+
 		// Add it to the list
 		this.list_target.appendChild( new_tr );
 		this.refresh();
-	};
+	}
+}
 
-};
-
-function multifile_delete(id)
-{
+function multifile_delete(id) {
 	var check = confirm("Oled kindel?");
-	if(check){
+	if(check) {
 		var XMLHttpRequestObject = false;
-		
+
 		if (window.XMLHttpRequest) {
 			XMLHttpRequestObject = new XMLHttpRequest();
 		} else if (window.ActiveXObject) {
 			XMLHttpRequestObject = new
 			ActiveXObject("Microsoft.XMLHTTP");
 		}
-		
+
 		if(XMLHttpRequestObject) {
 			XMLHttpRequestObject.open("GET", '/orb.aw?class=multifile_upload&action=ajax_delete_obj&id='+id);
-			XMLHttpRequestObject.onreadystatechange = function()
-			{
+			XMLHttpRequestObject.onreadystatechange = function() {
 				if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
 					//callback(XMLHttpRequestObject.responseText);
 					parentDiv = document.getElementById("multifile_upload_files_list");

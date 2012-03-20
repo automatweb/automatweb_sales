@@ -1,0 +1,6 @@
+/nbproject/
+/files/*
+/addons/mpdf/graph_cache/*
+/addons/mpdf/tmp/*
+/addons/mpdf/ttfontdata/*
+

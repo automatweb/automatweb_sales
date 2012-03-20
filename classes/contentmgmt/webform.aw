@@ -2239,6 +2239,7 @@ class webform extends class_base
 				$last = $v;
 				$x++;
 			}
+
 			if(!empty($el["nextto"]) && $el["nextto"] == 1 && !empty($last))
 			{
 				if($els[$last]["nextto"] == 1 && $last != $v)

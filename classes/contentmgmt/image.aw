@@ -594,13 +594,14 @@ class image extends class_base
 				else
 				{
 					$tpl = "image";
-					if ($idata["big_url"] != "")
-					{
-						$tpl = "image_has_big";
-					}
+
 					if (isset($tpls["image_text_only"]) && $idata["file"] == "")
 					{
 						$tpl = "image_text_only";
+					}
+					elseif ($idata["big_url"])
+					{
+						$tpl = "image_has_big";
 					}
 
 					$inplace = 0;
@@ -610,7 +611,7 @@ class image extends class_base
 				{
 					$replacement = localparse($tpls[$tpl],$vars);
 				}
-				else if (!aw_ini_get("image.no_default_template"))
+				elseif (!aw_ini_get("image.no_default_template"))
 				{
 					$replacement = "";
 					if ($vars["align"] != "")
@@ -620,7 +621,7 @@ class image extends class_base
 
 					if (!empty($idata["big_url"]) || $do_comments)
 					{
-						$replacement .= "<a href=\"javascript:void(0)\" onClick=\"$bi_link\">";
+						$replacement .= "<a href=\"javascript:void(0)\" onclick=\"$bi_link\">";
 					}
 
 					$replacement .= "<img src='$idata[url]' alt='$alt' title='$alt' border=\"0\" class=\"$use_style\" width='".$i_size[0]."' height='".$i_size[1]."'$xhtml_slash>";

@@ -1,12 +1,24 @@
 <?php
 
-class multifile_upload extends class_base
+class multifile_upload extends class_base implements vcl_interface, orb_public_interface
 {
+	const MAX_FILES = 32;
+
 	function multifile_upload()
 	{
 		$this->init(array(
-			"tpldir" => "vcl/multifile_upload",
+			"tpldir" => "vcl/multifile_upload"
 		));
+	}
+
+	/** Sets orb request to be processed by this object
+		@attrib api=1 params=pos
+		@param request type=aw_request
+		@returns void
+	**/
+	public function set_request(aw_request $request)
+	{
+		$this->req = $request;
 	}
 
 	function init_vcl_property($arr)
@@ -27,7 +39,7 @@ class multifile_upload extends class_base
 		}
 		else
 		{
-			$i_max_files = 999;
+			$i_max_files = self::MAX_FILES;
 		}
 
 		if ($arr["new"] != 1)
@@ -38,13 +50,22 @@ class multifile_upload extends class_base
 				$fo = $file->to();
 				$file_instance = $fo->instance();
 
+				if ($fo->is_a(CL_IMAGE))
+				{
+					$file_url = file_exists($fo->prop("file2")) ? $file_instance->get_big_url_by_id($fo->id()) : $file_instance->get_url_by_id($fo->id());
+				}
+				else
+				{
+					$file_url = $file_instance->get_url($fo->id(), $fo->name());
+				}
+
 				$this->vars(array(
 					"id" => $fo->id(),
 					"counter" => $i++,
 					"file_name"=>$fo -> name(),
-					"file_url" => $fo->class_id() == CL_IMAGE ? (file_exists($fo->prop("file2")) ? $file_instance->get_big_url_by_id($fo->id()) : $file_instance->get_url_by_id($fo->id())) : $file_instance->get_url($fo->id(), $fo->name()),
+					"file_url" => $file_url,
 					"edit_url" => html::get_change_url($fo->id()),
-					"delete_url" => $this->mk_my_orb("ajax_delete_obj", array("id" => $fo->id())),
+					"delete_url" => $this->mk_my_orb("ajax_delete_obj", array("id" => $fo->id()), "multifile_upload"),
 				));
 				$tmp .= $this->parse('file');
 			}
@@ -62,9 +83,8 @@ class multifile_upload extends class_base
 		return array($tp["name"] => $tp);
 	}
 
-	function process_vcl_property($arr)
+	function process_vcl_property(&$arr)
 	{
-
 	}
 
 	function callback_post_save($arr)
@@ -73,14 +93,16 @@ class multifile_upload extends class_base
 		$oid = $arr["obj_inst"]->id();
 		$clid = $arr["obj_inst"]->class_id();
 		$o = obj($oid);
+
 		if(!empty($arr["prop"]["image"]))
 		{
-			$fi = get_instance(CL_IMAGE);
+			$fi = new image();
 		}
 		else
 		{
-			$fi = get_instance(CL_FILE);
+			$fi = new file();
 		}
+
 		$files = $fi -> add_upload_multifile("file", $parent);
 		foreach ($files as $file)
 		{
@@ -93,16 +115,12 @@ class multifile_upload extends class_base
 
 	/**
 	@attrib name=ajax_delete_obj
-
-	@param id required type=int
-
-	@comment
-		Get directory listing
+	@param id required type=oid acl=delete
 	**/
 	function ajax_delete_obj ($arr)
 	{
 		$o = obj($arr["id"]);
 		$o -> delete();
-		die();
+		exit;
 	}
 }

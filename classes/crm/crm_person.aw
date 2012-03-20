@@ -1661,9 +1661,13 @@ class crm_person extends class_base
 	function _get_cust_contract_creator($arr)
 	{
 		// list of all persons in my company
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
-		$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
+		if ($co)
+		{
+			$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
+		}
+
 		if (($rel = $this->get_cust_rel($arr["obj_inst"])))
 		{
 			$arr["prop"]["value"] = $rel->prop($arr["prop"]["name"]);
@@ -1679,9 +1683,13 @@ class crm_person extends class_base
 	function _get_buyer_contract_creator($arr)
 	{
 		// list of all persons in my company
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
-		$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
+		if ($co)
+		{
+			$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
+		}
+
 		if (($rel = $this->get_cust_rel(obj($co) , 0 , $arr["obj_inst"])))
 		{
 			$arr["prop"]["value"] = $rel->prop($arr["prop"]["name"]);
@@ -1717,6 +1725,7 @@ class crm_person extends class_base
 		{
 			$res = array();
 		}
+
 		$coi->get_all_workers_for_company($co, $res);
 		if (!count($res))
 		{
