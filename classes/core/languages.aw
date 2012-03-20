@@ -385,7 +385,7 @@ class languages extends aw_core_module implements orb_public_interface
 			return 0;
 		}
 
-		if (!object_loader::can("", $l["oid"]))
+		if (!acl_base::can("", $l["oid"]))
 		{
 			return 0;
 		}

@@ -705,8 +705,8 @@ class users extends users_user implements request_startup, orb_public_interface
 		{ // transliterate to ascii and remove symbol chars except dash, replace spaces with underscore
 			try
 			{
-				$first = iconv($encoding, "us-ascii//TRANSLIT", $first);
-				$last = iconv($encoding, "us-ascii//TRANSLIT", $last);
+				$first = iconv($encoding, "us-ascii//TRANSLIT//IGNORE", $first);
+				$last = iconv($encoding, "us-ascii//TRANSLIT//IGNORE", $last);
 			}
 			catch (ErrorException $e)
 			{
@@ -714,13 +714,13 @@ class users extends users_user implements request_startup, orb_public_interface
 
 				try
 				{
-					$first = iconv($encoding, "us-ascii//TRANSLIT", $first);
-					$last = iconv($encoding, "us-ascii//TRANSLIT", $last);
+					$first = iconv($encoding, "us-ascii//TRANSLIT//IGNORE", $first);
+					$last = iconv($encoding, "us-ascii//TRANSLIT//IGNORE", $last);
 				}
 				catch (ErrorException $e)
 				{ // all options depleted, try latin1
-					$first = iconv("latin1", "us-ascii//TRANSLIT", $first);
-					$last = iconv("latin1", "us-ascii//TRANSLIT", $last);
+					$first = iconv("latin1", "us-ascii//TRANSLIT//IGNORE", $first);
+					$last = iconv("latin1", "us-ascii//TRANSLIT//IGNORE", $last);
 				}
 			}
 
@@ -766,7 +766,7 @@ class users extends users_user implements request_startup, orb_public_interface
 	**/
 	function id_pre_login($arr)
 	{
-		if($_SERVER["HTTPS"] !== "on")
+		if ($_SERVER["HTTPS"] !== "on")
 		{
 			return aw_ini_get("baseurl");
 		}
@@ -808,7 +808,7 @@ class users extends users_user implements request_startup, orb_public_interface
 		$certdata_firstname = mb_convert_case($data["f_name"], MB_CASE_TITLE);
 		$certdata_lastname = mb_convert_case($data["l_name"], MB_CASE_TITLE);
 
-		if($act_inst->use_safelist())
+		if ($act_inst->use_safelist())
 		{ // only people in safelist can log in with id card
 			$sl = $act_inst->get_safelist();
 			if(!in_array($personal_id, array_keys($sl)))

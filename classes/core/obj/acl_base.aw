@@ -4,9 +4,6 @@
 HANDLE_MESSAGE(MSG_USER_LOGIN, on_user_login)
 */
 
-// call static constructor
-acl_base::construct();
-
 class acl_base extends aw_core_module
 {
 	protected static $acl_ids = array();
@@ -802,3 +799,6 @@ class acl_base extends aw_core_module
 		self::$__aw_acl_cache = array();
 	}
 }
+
+// call static constructor
+acl_base::construct();
