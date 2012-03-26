@@ -861,6 +861,55 @@ class image extends class_base
 	}
 
 	/**
+		@attrib name=upload_image params=name nologin="1" all_arg="1" is_public=""
+		@param file required
+		@returns
+		@comment
+	**/
+	function upload_image($arr)
+	{
+		$name = empty($arr["name"]) ? "upload" : $arr["parent"];
+		$parent = empty($arr["parent"]) ? "1" : $arr["parent"];
+
+		$res = $this->add_upload_image($name,$parent);
+		$url = empty($res["url"]) ? "" : $res["url"];
+		if(empty($res["id"]))
+		{
+			$message = t("Pildi lisamine ebaõnnestus");
+		}
+		else
+		{
+			$url = str_replace(aw_ini_get("baseurl") , "" , $url);
+			$funcNum = $_GET['CKEditorFuncNum'] ;
+			$message = "Pilt lisatud vms";
+			$document = obj($arr["parent"]);
+			$document->connect(array("to" => $res["id"]));
+		}
+		echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '".$url."', '".$message."');</script>";
+/*
+Array
+(
+    [id] => 25066
+    [url] => http://or.localhost//vvfiles/c/c9bcc90ce022409aed28b8dd2a9d0377.jpg
+    [sz] => Array
+        (
+            [0] => 320
+            [1] => 240
+            [2] => 2
+            [3] => width="320" height="240"
+            [bits] => 8
+            [channels] => 3
+            [mime] => image/jpeg
+        )
+
+)
+</pre>
+*/
+
+//		arr($res); die();
+	}
+
+	/**
 		@attrib name=show params=name nologin="1"
 		@param file required
 		@returns

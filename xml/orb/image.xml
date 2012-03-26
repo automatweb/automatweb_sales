@@ -68,6 +68,13 @@
 			</function>
 		</action>
 
+		<action name="upload_image" nologin="1" is_public="1" all_args="1">
+			<function name="upload_image">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="resize_picture">
 			<function name="resize_picture">
 				<arguments>
