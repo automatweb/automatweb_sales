@@ -41,6 +41,32 @@
 					@property customer_search_address type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
 					@caption Aadress
 
+		@property cts_comment type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
+		@caption Kommentaar
+
+		@property cts_phone type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
+		@caption Telefon
+
+		@property cts_lead_source type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
+		@caption Soovitaja
+
+		@property cts_contact type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
+		@caption Kontaktisik
+
+		@property cts_salesman type=select parent=vbox_customers_left_top store=no captionside=top
+		@caption M&uuml;&uuml;giesindaja
+
+		@property cts_status type=select parent=vbox_customers_left_top store=no captionside=top
+		@caption Staatus
+
+		@property cts_cat type=objpicker parent=vbox_customers_left_top store=no options_callback=crm_customer_view::get_category_options captionside=top clid=CL_CRM_CATEGORY size=30
+		@caption Kliendigrupp
+
+		@property cts_calls type=textbox parent=vbox_customers_left_top store=no captionside=top size=30
+		@comment Positiivne t&auml;isarv. V&otilde;imalik kasutada v&otilde;rdlusoperaatoreid suurem kui ( &gt; ), v&auml;iksem kui ( &lt; ) ning '='. Kui operaatorit pole numbri ees, arvatakse vaikimisi operaatoriks v&otilde;rdus ( = )
+		@caption Tehtud k&otilde;nesid
+
+
 				@layout vbox_customers_left_search_btn type=hbox parent=vbox_customers_left
 
 					@property cs_sbt type=submit size=15 store=no parent=vbox_customers_left_search_btn no_caption=1
@@ -82,9 +108,51 @@ class crm_customer_view extends class_base
 			"clid" => crm_customer_view_obj::CLID
 		));
 
-		$this->search_props = array("cs_n","customer_search_reg","customer_search_address","customer_search_city","customer_search_county");
+		$this->search_props = array("cs_n","customer_search_reg","customer_search_address","customer_search_city","customer_search_county" , "cts_phone" , "cts_salesman" , "cts_calls" , "cts_lead_source" , "cts_address" , "cts_status", "cts_contact","cts_comment","cts_cat");
 
 	}
+
+	/** Outputs autocomplete options matching category name search string $typed_text in bsnAutosuggest format json
+		@attrib name=get_category_options
+		@param typed_text optional type=string
+	**/
+	public static function get_category_options($args)
+	{
+		$choices = array("results" => array());
+		$typed_text = $args["typed_text"];
+	//	$this_o = new object($args["id"]);
+		$limit = 20;
+		$list = new object_list(array(
+			"class_id" => CL_CRM_CATEGORY,
+	//		"organization" => $this_o->prop("company"),
+			"name" => "{$typed_text}%",
+			new obj_predicate_limit($limit)
+		));
+
+		if ($list->count() > 0)
+		{
+			$results = array();
+			$o = $list->begin();
+			do
+			{
+				$value = $o->prop_xml("name");
+				$info = "";
+				$results[] = array("id" => $o->id(), "value" => iconv("iso-8859-4", "UTF-8", $value), "info" => $info);//FIXME charsets
+			}
+			while ($o = $list->next());
+			$choices["results"] = $results;
+		}
+
+		ob_start("ob_gzhandler");
+		header("Content-Type: application/json");
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header("Pragma: no-cache"); // HTTP/1.0
+		exit(json_encode($choices));
+	}
+
+
 
 	function do_db_upgrade($table, $field, $query, $error)
 	{
@@ -113,14 +181,51 @@ class crm_customer_view extends class_base
 		return $r;
 	}
 
+	private function get_salesman_search_prop(&$arr)
+	{
+		$r = PROP_IGNORE;
+		$arr["prop"]["value"] = isset($arr["request"][$arr["prop"]["name"]]) ? $arr["request"][$arr["prop"]["name"]] : "";
 
+		try
+		{
+			$oid = new aw_oid($arr["obj_inst"]->prop("role_profession_salesman"));
+			$profession = obj($oid, array(), CL_CRM_PROFESSION);
+			$this->set_employees_options($arr, $profession, false);
+			$r = PROP_OK;
+		}
+		catch (Exception $e)
+		{
+		}
 
+		try
+		{
+			$oid = new aw_oid($arr["obj_inst"]->prop("role_profession_sales_manager"));
+			$profession = obj($oid, array(), CL_CRM_PROFESSION);
+			$this->set_employees_options($arr, $profession, false);
+			$r = PROP_OK;
+		}
+		catch (Exception $e)
+		{
+		}
+
+		return $r;
+	}
+	function _get_cts_salesman(&$arr)
+	{
+		return $this->get_salesman_search_prop($arr);
+	}
 	function get_property(&$arr)
 	{
 		$retval = PROP_OK;
+
+
+
 		$data = &$arr['prop'];
 		$arr["use_group"] = $this->use_group;
-
+		if ("cts_status" === $data["name"])
+		{ // set search status selection options
+			$arr["prop"]["options"] = array("" => "") + crm_company_customer_data_obj::sales_state_names();
+		}
 		if(in_array($data["name"] , $this->search_props))
 		{
 			if(isset($arr["request"][$data["name"]]))

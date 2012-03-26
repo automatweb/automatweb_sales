@@ -2597,6 +2597,71 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 			$customer_relations_search->county = "%{$arr["request"]["customer_search_county"]}%";
 		}
 
+		if (!empty($arr["request"]["cts_comment"]))
+		{
+			$customer_relations_search->comment = "%{$arr["request"]["cts_comment"]}%";
+		}
+
+
+		if (!empty($arr["request"]["cts_phone"]))
+		{
+			$customer_relations_search->phone = $arr["request"]["cts_phone"];
+		}
+		if (!empty($arr["request"]["cts_lead_source"]))
+		{
+			$customer_relations_search->lead_source = "{$arr["request"]["cts_lead_source"]}%";
+		}
+		if (!empty($arr["request"]["cts_contact"]))
+		{
+			$customer_relations_search->contact_name = "{$arr["request"]["cts_contact"]}%";
+		}
+		if (!empty($arr["request"]["cts_status"]))
+		{
+			$customer_relations_search->status = (int)$arr["request"]["cts_status"];
+		}
+
+		if (!empty($arr["request"]["cts_cat"]))
+		{
+			$customer_relations_search->category = obj($arr["request"]["cts_cat"]);
+		}
+
+		if (!empty($arr["request"]["cts_calls"]))
+		{
+			$calls_constraint = null;
+			$tmp = preg_split("/\s*/", $arr["request"]["cts_calls"], 2, PREG_SPLIT_NO_EMPTY);
+			if (1 === count($tmp) and is_numeric($tmp[0]))
+			{
+				$calls_constraint = new obj_predicate_compare(obj_predicate_compare::EQUAL, (int) $tmp[0]);
+			}
+			elseif (2 === count($tmp) and is_numeric($tmp[1]))
+			{
+				$calls_compare_value = (int) $tmp[1];
+				if ("<" === $tmp[0] and $calls_compare_value)
+				{
+					$calls_constraint = new obj_predicate_compare(obj_predicate_compare::LESS, $calls_compare_value);
+				}
+				elseif (">" === $tmp[0])
+				{
+					$calls_constraint = new obj_predicate_compare(obj_predicate_compare::GREATER, $calls_compare_value);
+				}
+				elseif ("=" === $tmp[0])
+				{
+					$calls_constraint = new obj_predicate_compare(obj_predicate_compare::EQUAL, (int) $tmp[1]);
+				}
+				else
+				{
+					class_base::show_error_text(t("Viga k&otilde;nede arvu v&otilde;rdlusoperaatoris"));
+				}
+			}
+			else
+			{
+				class_base::show_error_text(t("Viga k&otilde;nede arvu parameetris"));
+			}
+
+			$customer_relations_search->calls = $calls_constraint;
+			$params_defined = true;
+		}
+
 
 		$customer_relations_search->set_sort_order("name-asc");
 

@@ -101,6 +101,135 @@
             <caption>Aadress</caption>
       </property>
       <property>
+            <name>cts_comment</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>textbox</type>
+            <parent>vbox_customers_left_top</parent>
+            <store>no</store>
+            <size>30</size>
+            <captionside>top</captionside>
+            <caption>Kommentaar</caption>
+      </property>
+      <property>
+            <name>cts_phone</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>textbox</type>
+            <parent>vbox_customers_left_top</parent>
+            <store>no</store>
+            <size>30</size>
+            <captionside>top</captionside>
+            <caption>Telefon</caption>
+      </property>
+      <property>
+            <name>cts_lead_source</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>textbox</type>
+            <parent>vbox_customers_left_top</parent>
+            <store>no</store>
+            <size>30</size>
+            <captionside>top</captionside>
+            <caption>Soovitaja</caption>
+      </property>
+      <property>
+            <name>cts_contact</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>textbox</type>
+            <parent>vbox_customers_left_top</parent>
+            <store>no</store>
+            <size>30</size>
+            <captionside>top</captionside>
+            <caption>Kontaktisik</caption>
+      </property>
+      <property>
+            <name>cts_salesman</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>select</type>
+            <parent>vbox_customers_left_top</parent>
+            <store>no</store>
+            <captionside>top</captionside>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja</caption>
+      </property>
+      <property>
+            <name>cts_status</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>select</type>
+            <parent>vbox_customers_left_top</parent>
+            <store>no</store>
+            <captionside>top</captionside>
+            <caption>Staatus</caption>
+      </property>
+      <property>
+            <name>cts_cat</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>objpicker</type>
+            <parent>vbox_customers_left_top</parent>
+            <store>no</store>
+            <options_callback>crm_customer_view::get_category_options</options_callback>
+            <captionside>top</captionside>
+            <clid>CL_CRM_CATEGORY</clid>
+            <size>30</size>
+            <caption>Kliendigrupp</caption>
+      </property>
+      <property>
+            <name>cts_calls</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>textbox</type>
+            <parent>vbox_customers_left_top</parent>
+            <store>no</store>
+            <captionside>top</captionside>
+            <size>30</size>
+            <comment>Positiivne t&amp;amp;auml;isarv. V&amp;amp;otilde;imalik kasutada v&amp;amp;otilde;rdlusoperaatoreid suurem kui ( &amp;amp;gt; ), v&amp;amp;auml;iksem kui ( &amp;amp;lt; ) ning '='. Kui operaatorit pole numbri ees, arvatakse vaikimisi operaatoriks v&amp;amp;otilde;rdus ( = )</comment>
+            <caption>Tehtud k&amp;amp;otilde;nesid</caption>
+      </property>
+      <property>
             <name>cs_sbt</name>
             <table>objects</table>
             <method>serialize</method>
