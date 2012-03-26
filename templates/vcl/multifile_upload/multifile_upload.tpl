@@ -4,11 +4,11 @@
 #multifile_upload .files {width: 30%;}
 </style>
 
-<script src="{VAR:baseurl}/automatweb/js/vcl/multifile.js"></script>
+<script src="{VAR:baseurl}automatweb/js/vcl/multifile.js"></script>
 
 <div id="multifile_upload">
 <div id="multifile_upload_form" class="form">
-	<input id="my_file_element" type="file" name="file[]">
+	<input id="my_file_element" type="file" name="file[]" />
 </div>
 
 <table class="files">
@@ -17,12 +17,16 @@
 <tr id="multifile_{VAR:id}">
 	<td>{VAR:counter}.</td>
 	<td><a href="{VAR:file_url}" target="_blank">{VAR:file_name}</a></td>
-	<td><input type="button" value="muuda" class="delete" onClick="window.top.location = '{VAR:edit_url}'"> <input type="button" value="kustuta" class="delete" onClick="multifile_delete ('{VAR:id}')"></td></tr>
+	<td>
+		<input type="button" value="{LC:muuda}" class="delete" onclick="window.top.location = '{VAR:edit_url}'" />
+		<input type="button" value="{LC:kustuta}" class="delete" onclick="multifile_delete ('{VAR:id}')" />
+	</td>
+</tr>
 <!-- END SUB: file -->
 </tbody>
 </table>
 
-<script>
+<script type="text/javascript">
 	var multi_selector = new MultiSelector( document.getElementById( 'multifile_upload_files_list' ), {VAR:max} );
 	multi_selector.counter = '{VAR:counter}';
 	multi_selector.addElement( document.getElementById( 'my_file_element' ) );

@@ -488,22 +488,10 @@ class automatweb
 						}
 						// END TMP
 
-						try
-						{
-							$redirect_url = new aw_uri($users->_find_post_login_url(array(), $uid, $user));
-
-							if (!$redirect_url->arg_isset("class"))
-							{
-								throw new Exception("No class");
-							}
-						}
-						catch (Exception $e)
-						{
-							// go to default admin interface
-							include(AW_DIR . "automatweb/admin_header" . AW_FILE_EXT);
-							$id = admin_if::find_admin_if_id();
-							$redirect_url = aw_ini_get("baseurl") . "automatweb/orb.aw?class=admin_if&action=change&group=o&id={$id}";
-						}
+						// go to default admin interface
+						include(AW_DIR . "automatweb/admin_header" . AW_FILE_EXT);
+						$id = admin_if::find_admin_if_id();
+						$redirect_url = aw_ini_get("baseurl") . "automatweb/orb.aw?class=admin_if&action=change&group=o&id={$id}";
 					}
 					else
 					{ // go to main page

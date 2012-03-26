@@ -351,19 +351,16 @@ class industrial_design extends intellectual_property
 					}
 				}
 
-				if (is_uploaded_file($file_data["tmp_name"]))
+				if ("doc_description_upload" === $var and is_uploaded_file($file_data["tmp_name"]))
 				{
-					if ("doc_description_upload" === $var)
+					$fp = fopen($file_data["tmp_name"], "r");
+					flock($fp, LOCK_SH);
+					$sig = fread($fp, 4);
+					fclose($fp);
+					if("%PDF" !== $sig)
 					{
-						$fp = fopen($file_data["tmp_name"], "r");
-						flock($fp, LOCK_SH);
-						$sig = fread($fp, 4);
-						fclose($fp);
-						if("%PDF" !== $sig)
-						{
-							unset($_FILES[$var]["tmp_name"]);
-							$err.= t("Kirjeldusel ainult pdf formaadis failid lubatud")."\n<br>";
-						}
+						unset($_FILES[$var]["tmp_name"]);
+						$err.= t("Kirjeldusel ainult pdf formaadis failid lubatud")."\n<br>";
 					}
 				}
 			}
