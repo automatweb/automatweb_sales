@@ -1196,6 +1196,23 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					]
 				},
 				{
+					id : 'Search',
+					hidden : false,
+					filebrowser : 'searchButton',
+					label : editor.lang.common.search,
+					elements :
+					[
+						{
+							type:'html',
+							html:'<div style="height:40px" class="cke_dialog_ui_text" id="id_uiElement" role="presentation"><label for="id_textInput" id="id_label" class="cke_dialog_ui_labeled_label">Id</label><div role="presentation" class="cke_dialog_ui_labeled_content"><div role="presentation" class="cke_dialog_ui_input_text"><input type="text" aria-labelledby="id_label" size="38" id="id_textInput" class="cke_dialog_ui_input_text"></div></div></div><div style="height:40px" class="cke_dialog_ui_text" id="name_uiElement" role="presentation"><label for="name_textInput" id="name_label" class="cke_dialog_ui_labeled_label">Name</label><div role="presentation" class="cke_dialog_ui_labeled_content"><div role="presentation" class="cke_dialog_ui_input_text"><input type="text" size="38" id="name_textInput" class="cke_dialog_ui_input_text"></div></div></div>',
+						},
+						{
+							type:'html',
+							html:'<a id="cke_360_uiElement" aria-labelledby="cke_359_label" role="button" class="cke_dialog_ui_button" hidefocus="true" title="Search" href="javascript:search_images()" style="-moz-user-select: none;"><span class="cke_dialog_ui_button" id="cke_359_label">Search</span></a><div id="search_results" style="overflow:auto;height:240px;margin-top:10px;"></div>',
+						}
+					]
+				},
+				{
 					id : 'advanced',
 					label : editor.lang.common.advancedTab,
 					elements :
@@ -1405,3 +1422,53 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return imageDialog( editor, 'imagebutton' );
 		});
 })();
+function search_images()
+{
+	var sid = document.getElementById('id_textInput');
+	var sname = document.getElementById('name_textInput');
+	if(sid.value != "" || sname.value != "")
+	{
+		var ajaxRequest;  // The variable that makes Ajax possible!
+			try{
+				ajaxRequest = new XMLHttpRequest();
+			} catch (e){
+			try{
+				ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try{
+					ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+				}
+			}
+		}
+		// Create a function that will receive data sent from the server
+		ajaxRequest.onreadystatechange = function(){
+			if(ajaxRequest.readyState == 4){
+				var ajaxDisplay = document.getElementById('search_results');
+				ajaxDisplay.innerHTML = ajaxRequest.responseText;
+			//	alert(ajaxRequest.responseText);
+			}
+		}
+		
+		var queryString = "?class=image&action=search_image&sid=" + sid.value + "&sname=" + sname.value;
+		ajaxRequest.open("GET", "orb.aw" + queryString, true);
+		ajaxRequest.send(null); 
+	}
+//alert("asd");
+}
+
+function set_image(strLink)
+{
+	// get current dialog
+	var dialog = CKEDITOR.dialog.getCurrent();
+	// get the info tab in the dialog
+	dialog.selectPage('info');
+	// get the txtUrl element (found id using devtools plugin)
+	var tUrl = dialog.getContentElement('info', 'txtUrl');
+	// set this input box to by variable
+	tUrl.setValue(strLink);
+
+}

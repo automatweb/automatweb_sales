@@ -594,14 +594,13 @@ class image extends class_base
 				else
 				{
 					$tpl = "image";
-
+					if ($idata["big_url"] != "")
+					{
+						$tpl = "image_has_big";
+					}
 					if (isset($tpls["image_text_only"]) && $idata["file"] == "")
 					{
 						$tpl = "image_text_only";
-					}
-					elseif ($idata["big_url"])
-					{
-						$tpl = "image_has_big";
 					}
 
 					$inplace = 0;
@@ -611,7 +610,7 @@ class image extends class_base
 				{
 					$replacement = localparse($tpls[$tpl],$vars);
 				}
-				elseif (!aw_ini_get("image.no_default_template"))
+				else if (!aw_ini_get("image.no_default_template"))
 				{
 					$replacement = "";
 					if ($vars["align"] != "")
@@ -621,7 +620,7 @@ class image extends class_base
 
 					if (!empty($idata["big_url"]) || $do_comments)
 					{
-						$replacement .= "<a href=\"javascript:void(0)\" onclick=\"$bi_link\">";
+						$replacement .= "<a href=\"javascript:void(0)\" onClick=\"$bi_link\">";
 					}
 
 					$replacement .= "<img src='$idata[url]' alt='$alt' title='$alt' border=\"0\" class=\"$use_style\" width='".$i_size[0]."' height='".$i_size[1]."'$xhtml_slash>";
@@ -862,6 +861,41 @@ class image extends class_base
 	}
 
 	/**
+		@attrib name=search_image params=name nologin="1" all_arg="1" is_public=""
+		@returns
+		@comment
+	**/
+	function search_image($arr)
+	{
+		$funcNum = $_GET['CKEditorFuncNum'] ;
+$funcNum = 206; //ei ole veel aru saanud kuidas see väärtus leitakse
+		$ol = new object_list(array(
+			"class_id" => CL_IMAGE,
+			"oid" => $arr["sid"]."%",
+			"name" => "%".$arr["name"]."%",
+			"limit" => "0,40"
+		));
+		if(!$ol->count()){
+			$str = t("Ei leitud &uuml;htegi otsingutulemust");
+		}
+		else
+		{
+		$str = '<table style="width:100%;"><tr><td>Id</td><td>Nimi</td><td></td><tr>';
+		foreach($ol->arr() as $o)
+		{
+			$message = "";
+			$url = str_replace(aw_ini_get("baseurl") , "" , $this->get_url_by_id($o->id()));
+			$str.='<tr><td>'.$o->id().'</td><td>'.$o->name().'</td><td><a href="javascript:set_image(\''.$url.'\');">Vali</a></td></tr>';
+		}
+		$str.= "</table>";
+//		print $arr["sid"];
+//		print $arr["sname"];
+		}
+		print $str;
+		die();
+	}
+
+	/**
 		@attrib name=upload_image params=name nologin="1" all_arg="1" is_public=""
 		@param file required
 		@returns
@@ -874,6 +908,8 @@ class image extends class_base
 
 		$res = $this->add_upload_image($name,$parent);
 		$url = empty($res["url"]) ? "" : $res["url"];
+		$funcNum = $_GET['CKEditorFuncNum'] ;
+
 		if(empty($res["id"]))
 		{
 			$message = t("Pildi lisamine ebaõnnestus");
@@ -881,12 +917,14 @@ class image extends class_base
 		else
 		{
 			$url = str_replace(aw_ini_get("baseurl") , "" , $url);
-			$funcNum = $_GET['CKEditorFuncNum'] ;
 			$message = "Pilt lisatud vms";
 			$document = obj($arr["parent"]);
 			$document->connect(array("to" => $res["id"]));
 		}
-		echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '".$url."', '".$message."');</script>";
+		echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('".$funcNum."', '".$url."', '".$message."');
+	//	$('#cke_359_textInput', window.parent).val('".$res["id"]."');
+		</script>";
+		die();
 /*
 Array
 (
