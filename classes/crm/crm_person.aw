@@ -47,11 +47,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 @property external_id type=hidden field=aw_external_id
 @caption Siduss&uuml;steemi id
 
-@property birthday type=date_select year_from=1930 year_to=2010 default=-1 save_format=iso8601
-@caption S&uuml;nniaeg
+@property birthday type=hidden year_from=1930 year_to=2010 default=-1 save_format=iso8601
+@caption S&uuml;nniaeg vana
 
 @property birth_date type=date_select default=-1 year_from=1900 
-@caption S&uuml;nnikuup&auml;ev
+@caption S&uuml;nniaeg
 
 @property birthday_hidden type=checkbox ch_value=1 table=objects field=meta method=serialize
 @caption Peida s&uuml;nniaeg
@@ -1777,6 +1777,7 @@ class crm_person extends class_base
 				$data["value"] = $arr["request"][$data["name"]];
 				break;
 			case "birthday":
+			case "birt_date":
 				$pm = obj(get_instance(CL_PERSONNEL_MANAGEMENT)->get_sysdefault());
 				if($pm->yob_from)
 				{

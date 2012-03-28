@@ -104,13 +104,13 @@
             <name>birthday</name>
             <table>kliendibaas_isik</table>
             <group>general2</group>
-            <type>date_select</type>
+            <type>hidden</type>
             <year_from>1930</year_from>
             <year_to>2010</year_to>
             <default>-1</default>
             <save_format>iso8601</save_format>
             <field>birthday</field>
-            <caption>S&amp;amp;uuml;nniaeg</caption>
+            <caption>S&amp;amp;uuml;nniaeg vana</caption>
       </property>
       <property>
             <name>birth_date</name>
@@ -120,7 +120,7 @@
             <default>-1</default>
             <year_from>1900</year_from>
             <field>birth_date</field>
-            <caption>S&amp;amp;uuml;nnikuup&amp;amp;auml;ev</caption>
+            <caption>S&amp;amp;uuml;nniaeg</caption>
       </property>
       <property>
             <name>birthday_hidden</name>
