@@ -279,7 +279,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				}
 				elseif(parent::prop("birthday"))
 				{
-					$bd_tm = explode("-", $parent::prop("birthday"));
+					$bd_tm = explode("-", parent::prop("birthday"));
 					$bd_tm = mktime(0, 0, 0, $bd_tm[1], $bd_tm[2], $bd_tm[0]);
 					return $bd_tm;
 				}
