@@ -15,7 +15,7 @@
 
 
 // Customers view
-@default group=relorg_s,relorg_b
+@default group=relorg
 
 	@property my_customers_toolbar type=toolbar no_caption=1 store=no
 	@caption Kliendivaate tegevused
@@ -86,10 +86,6 @@
 
 
 @groupinfo relorg caption="Kliendid" focus=cs_n submit=no
-	// @groupinfo relorg_t caption="K&otilde;ik" parent=relorg submit=no submit=no
-	@groupinfo relorg_b caption="Ostjad" focus=cs_n parent=relorg submit=no
-	@groupinfo relorg_s caption="M&uuml;&uuml;jad" focus=cs_n parent=relorg submit=no
-
 
 @reltype COMPANY value=1 clid=CL_CRM_COMPANY
 @caption Ettev&otilde;te
@@ -246,7 +242,7 @@ class crm_customer_view extends class_base
 			case "customer_search_cust_mgr":
 			case "customer_search_is_co":
 			case "my_customers_toolbar":
-			case "my_customers_table":
+//			case "my_customers_table":
 			case "customer_categories_table":
 			case "offers_listing_toolbar":
 			case "offers_listing_tree":
@@ -748,6 +744,707 @@ class crm_customer_view extends class_base
 		}
 
 		return $arr["post_ru"];
+	}
+
+	function _get_my_customers_table(&$arr)
+	{ // lists customers, filters by search parameters
+		$company = obj($arr['obj_inst']->prop("company"));
+		$customer_relations_list = array();
+
+
+		foreach(array("seller" , "buyer") as $company_action)
+		{
+			$customer_relations_search = new crm_sales_contacts_search();
+			$customer_relations_search->$company_action = $company;
+/*		if ("relorg_s" === $this->use_group)
+		{ // list sellers
+			$customer_relations_search->buyer = $arr['obj_inst'];
+		}
+		elseif ("relorg_b" === $this->use_group)
+		{ // list buyers
+			$customer_relations_search->seller = $company;
+		}
+*/
+
+			if (!empty($arr["request"]["filt_p"]))
+			{
+				$customer_relations_search->name = "{$arr["request"]["filt_p"]}%";
+			}
+
+			if (!empty($arr["request"]["cs_n"]))
+			{
+				$customer_relations_search->name = "%{$arr["request"]["cs_n"]}%";
+			}
+
+			if (!empty($arr["request"]["customer_search_reg"]))
+			{
+				$customer_relations_search->reg_nr = "{$arr["request"]["customer_search_reg"]}%";
+			}
+
+			if (!empty($arr["request"]["customer_search_address"]))
+			{
+				$customer_relations_search->address = "%{$arr["request"]["customer_search_address"]}%";
+			}
+
+			if (!empty($arr["request"]["customer_search_city"]))
+			{
+				$customer_relations_search->city = "%{$arr["request"]["customer_search_city"]}%";
+			}
+
+			if (!empty($arr["request"]["customer_search_county"]))
+			{
+				$customer_relations_search->county = "%{$arr["request"]["customer_search_county"]}%";
+			}
+
+			if (!empty($arr["request"]["cts_comment"]))
+			{
+				$customer_relations_search->comment = "%{$arr["request"]["cts_comment"]}%";
+			}
+
+
+			if (!empty($arr["request"]["cts_phone"]))
+			{
+				$customer_relations_search->phone = $arr["request"]["cts_phone"];
+			}
+			if (!empty($arr["request"]["cts_lead_source"]))
+			{
+				$customer_relations_search->lead_source = "{$arr["request"]["cts_lead_source"]}%";
+			}
+			if (!empty($arr["request"]["cts_contact"]))
+			{
+				$customer_relations_search->contact_name = "{$arr["request"]["cts_contact"]}%";
+			}
+			if (!empty($arr["request"]["cts_status"]))
+			{
+				$customer_relations_search->status = (int)$arr["request"]["cts_status"];
+			}
+
+			if (!empty($arr["request"]["cts_cat"]))
+			{
+				$customer_relations_search->category = obj($arr["request"]["cts_cat"]);
+			}
+
+			if (!empty($arr["request"]["cts_calls"]))
+			{
+				$calls_constraint = null;
+				$tmp = preg_split("/\s*/", $arr["request"]["cts_calls"], 2, PREG_SPLIT_NO_EMPTY);
+				if (1 === count($tmp) and is_numeric($tmp[0]))
+				{
+					$calls_constraint = new obj_predicate_compare(obj_predicate_compare::EQUAL, (int) $tmp[0]);
+				}
+				elseif (2 === count($tmp) and is_numeric($tmp[1]))
+				{
+					$calls_compare_value = (int) $tmp[1];
+					if ("<" === $tmp[0] and $calls_compare_value)
+					{
+						$calls_constraint = new obj_predicate_compare(obj_predicate_compare::LESS, $calls_compare_value);
+					}
+					elseif (">" === $tmp[0])
+					{
+						$calls_constraint = new obj_predicate_compare(obj_predicate_compare::GREATER, $calls_compare_value);
+					}
+					elseif ("=" === $tmp[0])
+					{
+						$calls_constraint = new obj_predicate_compare(obj_predicate_compare::EQUAL, (int) $tmp[1]);
+					}
+					else
+					{
+						class_base::show_error_text(t("Viga k&otilde;nede arvu v&otilde;rdlusoperaatoris"));
+					}
+				}
+				else
+				{
+					class_base::show_error_text(t("Viga k&otilde;nede arvu parameetris"));
+				}
+
+				$customer_relations_search->calls = $calls_constraint;
+				$params_defined = true;
+			}
+
+
+			$customer_relations_search->set_sort_order("name-asc");
+
+			if (!empty($arr["request"][crm_company::REQVAR_CATEGORY]))
+			{
+				try
+				{
+					$category = new object($arr["request"][crm_company::REQVAR_CATEGORY]);
+				}
+				catch (Exception $e)
+				{
+					//XXX: pole vist vaja. veatolerantne.
+					// $this->show_error_text(t("Kategooria parameeter ei vasta n&otilde;uetele"));
+				}
+
+				if ($category->is_a(crm_category_obj::CLID))
+				{
+					$customer_relations_search->category = $category;
+				}
+				elseif ($category->is_a(crm_company_obj::CLID))
+				{
+					$customer_relations_search->category = null;
+				}
+				else
+				{
+				}
+			}
+
+			$customer_relations_one_list = $customer_relations_search->get_customer_relation_oids(new obj_predicate_limit(crm_settings::LIST_LENGTH_DEFAULT));
+			$customer_relations_list = $customer_relations_list + $customer_relations_one_list;
+
+		}
+		$this->_finish_org_tbl($arr, $customer_relations_list);
+
+		// print table only
+		//TODO: probably needs some style
+		if (!empty($arr["request"]["customer_search_print_view"]))
+		{
+			$sf = new aw_template();
+			$sf->db_init();
+			$sf->tpl_init("automatweb");
+			$sf->read_template("index.tpl");
+			$sf->vars(array(
+				"content"	=> $arr["prop"]["vcl_inst"]->draw(),
+				"uid" => aw_global_get("uid"),
+				"charset" => aw_global_get("charset")
+			));
+			exit($sf->parse());
+		}
+	}
+
+
+	function _finish_org_tbl($arr, $customer_relations_list)
+	{
+/*		if ("relorg_s" === $this->use_group)
+		{ // list sellers
+			$customer_relation_type_prop = "seller";
+		}
+		elseif ("relorg_b" === $this->use_group)
+		{ // list buyers
+		*/
+			$customer_relation_type_prop = "buyer";
+//		}
+
+		$tf = $arr["prop"]["vcl_inst"];
+		$manager = obj($arr["request"]["id"]);
+		$org = obj($manager->prop("company"));
+		
+
+		$format = t("%s kliendid");
+		$requested_category = isset($arr["request"][crm_company::REQVAR_CATEGORY]) ? $arr["request"][crm_company::REQVAR_CATEGORY] : null;
+
+		$this->_org_table_header($tf);
+		$default_cfg = true;
+
+		$cl_crm_settings = new crm_settings();
+		$cl_crm_company = new crm_company();
+		if ($o = $cl_crm_settings->get_current_settings())
+		{
+			$usecase = $cl_crm_company->get_current_usecase($arr);//$arr["obj_inst"] peab olemas olema.
+			$cl_crm_settings->apply_table_cfg($o, $usecase, $arr["prop"]["name"], $tf);
+			$visible_fields = $cl_crm_settings->get_visible_fields($o, $usecase, $arr["prop"]["name"]);
+
+			if (!empty($visible_fields))
+			{
+				$default_cfg = false;
+			}
+		}
+
+		//TODO: teha et ei peaks lugema neid eraldi arraysse vms.
+		//tmp. get and index customers by cro-s
+		$customer_list = array();
+		$buyers = array();
+		$sellers = array();
+		$idx_cro_by_customer = array();
+		foreach ($customer_relations_list as $cro_oid => $cro_data)
+		{
+			$cro_o = new object($cro_oid);
+
+			if($cro_o->prop("buyer") == $org->id())
+			{
+				$customer_oid = $cro_o->prop("seller");
+			}
+
+			if($cro_o->prop("seller") == $org->id())
+			{
+				$customer_oid = $cro_o->prop("buyer");
+			}
+			$customer_list[]  = $customer_oid;
+
+			$idx_cro_by_customer[$customer_oid][] = $cro_o;
+		}
+		//end tmp
+
+		# some helper data for roles
+		if ($default_cfg or in_array("rollid", $visible_fields))
+		{
+			$rc_by_co = array();
+			$role_entry_list = new object_list(array(
+				"class_id" => CL_CRM_COMPANY_ROLE_ENTRY,
+				"company" => $arr["request"]["id"],
+				"client" => $customer_list,
+				"project" => new obj_predicate_compare(OBJ_COMP_LESS, 1)
+			));
+			foreach($role_entry_list->arr() as $role_entry)
+			{
+				$rc_by_co[$role_entry->prop("client")][$role_entry->prop("person")][] = html::get_change_url(
+						$arr["request"]["id"],
+						array(
+							"group" => "contacts2",
+							"unit" => $role_entry->prop("unit"),
+						),
+						parse_obj_name($role_entry->prop_str("unit"))
+					)
+					."/".
+					html::get_change_url(
+						$arr["request"]["id"],
+						array(
+							"group" => "contacts2",
+							crm_company::REQVAR_CATEGORY => $role_entry->prop("role")
+						),
+						parse_obj_name($role_entry->prop_str("role"))
+					);
+			}
+		}
+
+		# table contents
+		$perpage = 100;
+		$page_nr = isset($arr["request"]["ft_page"]) ? (int) $arr["request"]["ft_page"] : 0;
+		$org_count = count($customer_list);
+		if($perpage > $org_count)
+		{
+			$page_nr = 0;
+		}
+
+		foreach($customer_list as $customer_oid)
+		{
+			try
+			{
+				$o = obj($customer_oid);
+			}
+			catch (Exception $e)
+			{
+				continue;
+			}
+
+			// aga &uuml;lej&auml;&auml;nud on k&otilde;ik seosed!
+			$name = $client_manager = $pm = $vorm = $tegevus = $contact = $juht = $juht_id = $phone = $fax = $url = $mail = $ceo = "";
+
+			# rollid
+			if ($default_cfg or in_array("rollid", $visible_fields))
+			{
+				$roles = $this->_get_role_html(array(
+					"from_org" => $arr["request"]["id"],
+					"to_org" => $o->id(),
+					"rc_by_co" => $rc_by_co
+				));
+			}
+
+			if ($o->is_a(crm_company_obj::CLID))
+			{
+				try
+				{
+					$tmp = obj($o->prop("ettevotlusvorm"), array(), CL_CRM_CORPFORM);
+					$vorm = html::space() . $tmp->prop("shortname");
+				}
+				catch (awex_obj $e)
+				{
+				}
+
+				# ceo
+				if ($default_cfg or in_array("ceo", $visible_fields))
+				{
+					$ceo = html::obj_change_url($o->prop("firmajuht"));
+				}
+
+				# email
+				if ($default_cfg or in_array("email", $visible_fields))
+				{
+					try
+					{
+						$mail_obj = new object($o->prop("email_id"));
+						$mail = $mail_obj->prop("mail");
+						$mail = empty($mail) ? "" : html::href(array(
+							"url" => "mailto:" . $mail,
+							"caption" => $mail
+						));
+					}
+					catch (awex_obj $e)
+					{
+					}
+				}
+
+				# url
+				if (($default_cfg or in_array("url", $visible_fields)) and ($this->can("view", $o->prop("url_id"))))
+				{
+					$url_o = obj($o->prop("url_id"));
+					$url_str = $url_o->name();
+					if ($url_str)
+					{
+						if (strpos($url_str, "http:") === false && substr($url_str, 0, 3) === "www")
+						{
+							$url_str = "http://{$url_str}";
+						}
+
+						$url = html::href(array(
+							"url" => $url_str,
+							"caption" => $url_str,
+							"target" => "_blank"
+						));
+					}
+				}
+
+				# phone
+				if (($default_cfg or in_array("phone", $visible_fields)))
+				{
+					$phones = $o->get_phones();
+					$count = count($phones);
+					$i = 0;
+					foreach ($phones as $phone_nr)
+					{
+						$phone .= html::span(array("content" => $phone_nr . (++$i === $count ? "" : ", "), "nowrap" => true));
+					}
+				}
+			}
+			elseif ($o->is_a(crm_person_obj::CLID))
+			{
+				// e-mail address
+				try
+				{
+					$mail_obj = obj($o->prop("email"), array(), CL_ML_MEMBER);
+					$mail = html::href(array(
+						"url" => "mailto:" . $mail_obj->prop("mail"),
+						"caption" => $mail_obj->prop("mail"),
+					));
+				}
+				catch (awex_obj $e)
+				{
+				}
+
+				// web address
+				try
+				{
+					$urlo = obj($o->prop("url"), array(), CL_EXTLINK);
+					$ru = $urlo->prop_str("url");
+					if (substr($ru, 0, 4) != "http")
+					{
+						$ru = "http://".$ru;
+					}
+					$url = html::href(array(
+						"url" => $ru,
+						"caption" => $urlo->prop_str("url"),
+					));
+				}
+				catch (awex_obj $e)
+				{
+				}
+
+				// phone
+				try
+				{
+					$tmp = obj($o->prop("phone"), array(), CL_CRM_PHONE);
+					$phone = $tmp->name();
+				}
+				catch (awex_obj $e)
+				{
+				}
+			}
+
+			# fax
+			if (($default_cfg or  in_array("fax", $visible_fields)) and object_loader::can("view", $o->prop("telefax_id")))
+			{
+				$fax = obj($o->prop("telefax_id"));
+				$fax = $fax->name();
+			}
+
+			# client_manager
+			if ($default_cfg or in_array("client_manager", $visible_fields))
+			{
+				$client_manager = html::obj_change_url($o->prop("client_manager"));
+			}
+
+			# pop
+			if ($default_cfg or in_array("pop", $visible_fields))
+			{
+				$pm = new popup_menu();
+				$pm->begin_menu("org".$o->id());
+				$pm->add_item(array(
+					"text" => t("Vaata klienti"),
+					"link" => $this->mk_my_orb("change", array("id" => $o->id(), "return_url" => get_ru(), "group" => "quick_view"), $o->class_id())
+				));
+				$pm->add_item(array(
+					"text" => t("Muuda klienti"),
+					"link" => html::get_change_url($o->id(), array("return_url" => get_ru()))
+				));
+
+				foreach($idx_cro_by_customer[$o->id()] as $cro)
+				{
+
+					$pm->add_item(array(
+						"text" => t("Muuda kliendisuhet"),
+						"link" => html::get_change_url($cro, array("return_url" => get_ru()))
+					));
+				}
+
+				if (!empty($requested_category))
+				{
+					$pm->add_item(array(
+						"text" => t("Eemalda kliendigrupist"),
+						"link" => $this->mk_my_orb("remove_from_cust_grp", array(
+							"id" => $o->id(),
+							"cgrp" => $requested_category,
+							"post_ru" => get_ru()
+						))
+					));
+				}
+				$pm = $pm->get_menu();
+			}
+
+			# name
+			if ($default_cfg or in_array("name", $visible_fields))
+			{
+				$name = html::span(array(
+					"nowrap" => true,
+					"content" => icons::get_class_icon($o->class_id()) . html::space() . html::get_change_url($o->id(), array("return_url" => get_ru()), ($o->name() ? $o->name() : t("[Nimetu]")) . $vorm
+				)));
+
+				if ($o->is_a(crm_company_obj::CLID))
+				{
+					$_url = $this->mk_my_orb("get_cust_contact_table", array("id" => $o->id(), "return_url" => post_ru()));
+					$name .= html::href(array(
+						"url" => "javascript:void(0)",
+						"id" => "tnr" . $o->id(),
+						"caption" => t("(Kontaktid)"),
+						"onclick" => "co_contact(" . $o->id() . ",\"{$_url}\");"
+					));
+				}
+			}
+
+			$c = $o->connections_from(array(
+				"type" => "RELTYPE_METAMGR"
+			));
+
+			if (count($c))
+			{
+				$classif1 = array();
+				foreach ($c as $c_o)
+				{
+					$classif1[] = $c_o->prop("to.name");
+				}
+				$classif1 = implode(", ", $classif1);
+			}
+			else
+			{
+				$classif1 = t("N/A");
+			}
+
+			$cro_oid = 0;
+			if(sizeof($idx_cro_by_customer[$o->id()]) == 1)
+			{
+				$cro_obj = reset($idx_cro_by_customer[$o->id()]);
+				$cro_oid = $cro_obj->id();
+			}
+			else
+			{
+				foreach($idx_cro_by_customer[$o->id()] as $cro_obj)
+				{
+					if($cro_obj->prop("seller") == $org->id())
+					{
+						$cro_oid = $cro_obj->id();
+					}
+				}
+				if(!$cro_oid)
+				{
+					$cro_obj = reset($idx_cro_by_customer[$o->id()]);
+					$cro_oid = $cro_obj->id();
+				}
+			}
+
+			$customer_rel_order = "";
+
+			foreach($idx_cro_by_customer[$o->id()] as $cro)
+			{
+				$customer_rel_order.= html::href(array(
+					"caption" => $cro->prop("buyer") == $org->id() ? "M" : "O",
+					"url" => html::get_change_url($cro, array("return_url" => get_ru()))
+				));
+			}
+
+
+
+			//TODO: define and get data only for fields configured to be shown in current crm settings.
+			$tf->define_data(array(
+				"id" => $cro_oid,
+				"name" => $name,
+				"cutcopied" => !empty($_SESSION["awcb_customer_selection_clipboard"][$cro_oid]) ? self::CUTCOPIED_COLOUR : "",
+				"classif1" => $classif1,
+				"customer_rel_creator" => method_exists($o, "get_cust_rel_creator_name") ? $o->get_cust_rel_creator_name() : "n/a",///!!!! teha korda
+				"reg_nr" => $o->prop("reg_nr"),
+				"address" => $o->class_id() == crm_company_obj::CLID ? $o->prop_str("contact") : $o->prop("RELTYPE_ADDRESS.name"),
+				"ceo" => $ceo,
+				"phone" => $phone,
+				"fax" => $fax,
+				"url" => $url,
+				"email" => $mail,
+				'rollid' => $o->class_id() == CL_CRM_CATEGORY ? "" : $roles,
+				'client_manager' => $client_manager,
+				"pop" => $o->class_id() == CL_CRM_CATEGORY ? "" : $pm,
+				"customer_rel_order" => $customer_rel_order,
+			));
+		}
+
+		if ($requested_category == $arr["obj_inst"]->id())
+		{
+			$this->layoutinfo["customer_list_container"]["area_caption"] =  sprintf(t("'%s' kategoriseerimata kliendid"), $arr["obj_inst"]->name());
+		}
+		elseif (!$requested_category)
+		{ //TODO: nimi tabelile kui mitte kategooriate list
+		}
+		else
+		{
+			try
+			{
+				$requested_category = obj($requested_category, array(), crm_category_obj::CLID);
+				$this->layoutinfo["customer_list_container"]["area_caption"] = sprintf(t("'%s' kliendid kategoorias '%s'"), $arr["obj_inst"]->name(), $requested_category->name());
+			}
+			catch (Exception $e)
+			{
+				$this->show_error_text("Vigane kategooria id '{$requested_category}'");
+			}
+		}
+
+		// make pageselector.
+		$tf->define_pageselector(array(
+			"type"=>"lb",
+			"records_per_page"=>100,
+			"d_row_cnt" => $org_count,
+		));
+	}
+
+
+	function _org_table_header($tf)
+	{
+		$tf->define_field(array(
+			"name" => "pop",
+			"caption" => t("&nbsp;")
+		));
+
+		$tf->define_field(array(
+			"name" => "name",
+			"caption" => t("Kliendi nimi"),
+			"chgbgcolor" => "cutcopied",
+			"sortable" => 1
+		));
+
+		$tf->define_field(array(
+			"name" => "address",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("Aadress")
+		));
+
+		$tf->define_field(array(
+			"name" => "email",
+			"caption" => t("Kontakt"),
+			"chgbgcolor" => "cutcopied",
+			"align" => "center"
+		));
+
+		$tf->define_field(array(
+			"name" => "url",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("WWW")
+		));
+
+		$tf->define_field(array(
+			"name" => "phone",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t('Telefon')
+		));
+
+		$tf->define_field(array(
+			"name" => "fax",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t('Faks')
+		));
+
+		$tf->define_field(array(
+			"name" => "ceo",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("Juht")
+		));
+
+		$tf->define_field(array(
+			"name" => "rollid",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("Rollid")
+		));
+
+		$tf->define_field(array(
+			"name" => "client_manager",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("Kliendihaldur"),
+			"sortable" => 1,
+		));
+
+		$tf->define_field(array(
+			"name" => "customer_rel_creator",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("Kliendisuhte looja"),
+			"sortable" => 1
+		));
+
+		$tf->define_field(array(
+			"name" => "customer_rel_order",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("Suund"),
+			"sortable" => 1
+		));
+
+		$tf->define_chooser(array(
+			"field" => "id",
+			"name" => "cust_check"
+		));
+	}
+
+
+	function _get_role_html($arr)
+	{
+		extract($arr);
+		$role_url = $this->mk_my_orb("change", array(
+			"from_org" => $from_org,
+			"to_org" => $to_org,
+			"to_project" => isset($to_project) ?  $to_project :  null
+		), "crm_role_manager");
+
+		$roles = array();
+
+		$iter = isset($rc_by_co[$to_org]) ? safe_array($rc_by_co[$to_org]) :  array();
+		if (!empty($to_project))
+		{
+			$iter = isset($rc_by_co[$to_org][$to_project]) ? safe_array($rc_by_co[$to_org][$to_project]) : array();
+		}
+
+		foreach($iter as $r_p_id => $r_p_data)
+		{
+			try
+			{
+				$r_p_o = obj($r_p_id);
+				$roles[] = html::get_change_url($r_p_o->id(), array(), parse_obj_name($r_p_o->name())).": ".join(",", $r_p_data);
+			}
+			catch (awex_obj $e)
+			{
+			}
+		}
+		$roles = join(html::linebreak(), $roles);
+
+		$roles .= ($roles != "" ? html::linebreak() : "" ).html::popup(array(
+			"url" => $role_url,
+			'caption' => t('Rollid'),
+			"width" => 800,
+			"height" => 600,
+			"scrollbars" => "auto"
+		));
+		return $roles;
 	}
 
 }

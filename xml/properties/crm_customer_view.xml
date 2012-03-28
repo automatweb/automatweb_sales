@@ -7,273 +7,222 @@
             <field>meta</field>
             <group>general</group>
             <type>relpicker</type>
-            <reltype>RELTYPE_COMPANY</reltype>
-            <caption>Ettev&amp;amp;otilde;te</caption>
+            <reltype>RELTYPE_COMPANY</reltype>
+            <caption>Ettev&amp;amp;otilde;te</caption>
       </property>
       <property>
             <name>my_customers_toolbar</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
-            <store>no</store>
-            <caption>Kliendivaate tegevused</caption>
+            <store>no</store>
+            <caption>Kliendivaate tegevused</caption>
       </property>
       <property>
             <name>tree_search_split_dummy</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>hidden</type>
             <no_caption>1</no_caption>
-            <parent>tree_search_split</parent>
+            <parent>tree_search_split</parent>
       </property>
       <property>
             <name>customer_listing_tree</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>treeview</type>
             <no_caption>1</no_caption>
-            <parent>vvoc_customers_tree_left</parent>
+            <parent>vvoc_customers_tree_left</parent>
             <store>no</store>
-            <caption>Kliendikategooriad hierarhiliselt</caption>
+            <caption>Kliendikategooriad hierarhiliselt</caption>
       </property>
       <property>
             <name>cs_n</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>textbox</type>
             <size>30</size>
             <store>no</store>
             <parent>vbox_customers_left_top</parent>
-            <captionside>top</captionside>
-            <caption>Nimi</caption>
+            <captionside>top</captionside>
+            <caption>Nimi</caption>
       </property>
       <property>
             <name>customer_search_reg</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>textbox</type>
             <size>30</size>
             <store>no</store>
             <parent>vbox_customers_left_top</parent>
-            <captionside>top</captionside>
-            <caption>Reg nr.</caption>
+            <captionside>top</captionside>
+            <caption>Reg nr.</caption>
       </property>
       <property>
             <name>customer_search_address</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>textbox</type>
             <size>30</size>
             <store>no</store>
             <parent>vbox_customers_left_top</parent>
-            <captionside>top</captionside>
-            <caption>Aadress</caption>
+            <captionside>top</captionside>
+            <caption>Aadress</caption>
       </property>
       <property>
             <name>cts_comment</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
             <size>30</size>
-            <captionside>top</captionside>
-            <caption>Kommentaar</caption>
+            <captionside>top</captionside>
+            <caption>Kommentaar</caption>
       </property>
       <property>
             <name>cts_phone</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
             <size>30</size>
-            <captionside>top</captionside>
-            <caption>Telefon</caption>
+            <captionside>top</captionside>
+            <caption>Telefon</caption>
       </property>
       <property>
             <name>cts_lead_source</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
             <size>30</size>
-            <captionside>top</captionside>
-            <caption>Soovitaja</caption>
+            <captionside>top</captionside>
+            <caption>Soovitaja</caption>
       </property>
       <property>
             <name>cts_contact</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
             <size>30</size>
-            <captionside>top</captionside>
-            <caption>Kontaktisik</caption>
+            <captionside>top</captionside>
+            <caption>Kontaktisik</caption>
       </property>
       <property>
             <name>cts_salesman</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>select</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
-            <captionside>top</captionside>
-            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja</caption>
+            <captionside>top</captionside>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja</caption>
       </property>
       <property>
             <name>cts_status</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>select</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
-            <captionside>top</captionside>
-            <caption>Staatus</caption>
+            <captionside>top</captionside>
+            <caption>Staatus</caption>
       </property>
       <property>
             <name>cts_cat</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>objpicker</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
             <options_callback>crm_customer_view::get_category_options</options_callback>
             <captionside>top</captionside>
             <clid>CL_CRM_CATEGORY</clid>
-            <size>30</size>
-            <caption>Kliendigrupp</caption>
+            <size>30</size>
+            <caption>Kliendigrupp</caption>
       </property>
       <property>
             <name>cts_calls</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
             <captionside>top</captionside>
-            <size>30</size>
-            <comment>Positiivne t&amp;amp;auml;isarv. V&amp;amp;otilde;imalik kasutada v&amp;amp;otilde;rdlusoperaatoreid suurem kui ( &amp;amp;gt; ), v&amp;amp;auml;iksem kui ( &amp;amp;lt; ) ning '='. Kui operaatorit pole numbri ees, arvatakse vaikimisi operaatoriks v&amp;amp;otilde;rdus ( = )</comment>
-            <caption>Tehtud k&amp;amp;otilde;nesid</caption>
+            <size>30</size>
+            <comment>Positiivne t&amp;amp;auml;isarv. V&amp;amp;otilde;imalik kasutada v&amp;amp;otilde;rdlusoperaatoreid suurem kui ( &amp;amp;gt; ), v&amp;amp;auml;iksem kui ( &amp;amp;lt; ) ning '='. Kui operaatorit pole numbri ees, arvatakse vaikimisi operaatoriks v&amp;amp;otilde;rdus ( = )</comment>
+            <caption>Tehtud k&amp;amp;otilde;nesid</caption>
       </property>
       <property>
             <name>cs_sbt</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>submit</type>
             <size>15</size>
             <store>no</store>
             <parent>vbox_customers_left_search_btn</parent>
-            <no_caption>1</no_caption>
-            <caption>Otsi</caption>
+            <no_caption>1</no_caption>
+            <caption>Otsi</caption>
       </property>
       <property>
             <name>customer_categories_table</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>category_list_container</parent>
-            <caption>Kliendikategooriad</caption>
+            <parent>category_list_container</parent>
+            <caption>Kliendikategooriad</caption>
       </property>
       <property>
             <name>my_customers_table</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
+            <group>relorg</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>customer_list_container</parent>
-            <caption>Kliendid</caption>
+            <parent>customer_list_container</parent>
+            <caption>Kliendid</caption>
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
@@ -285,20 +234,8 @@
             <relorg>
                   <caption>Kliendid</caption>
                   <focus>cs_n</focus>
-                  <submit>no</submit>
+                  <submit>no</submit>
             </relorg>
-            <relorg_b>
-                  <caption>Ostjad</caption>
-                  <focus>cs_n</focus>
-                  <parent>relorg</parent>
-                  <submit>no</submit>
-            </relorg_b>
-            <relorg_s>
-                  <caption>M&amp;amp;uuml;&amp;amp;uuml;jad</caption>
-                  <focus>cs_n</focus>
-                  <parent>relorg</parent>
-                  <submit>no</submit>
-            </relorg_s>
       </groupinfo>
       <tableinfo>
             <aw_crm_customer_view>
@@ -311,26 +248,20 @@
             <COMPANY>
                   <value>1</value>
                   <clid>CL_CRM_COMPANY</clid>
-                  <caption>Ettev&amp;amp;otilde;te</caption>
+                  <caption>Ettev&amp;amp;otilde;te</caption>
             </COMPANY>
       </reltypes>
       <layout>
             <my_cust_bot>
                   <type>hbox</type>
                   <width>20%:80%</width>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
                   <area_caption></area_caption>
             </my_cust_bot>
             <tree_search_split>
                   <type>vbox</type>
                   <parent>my_cust_bot</parent>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
                   <area_caption></area_caption>
             </tree_search_split>
             <vvoc_customers_tree_left>
@@ -338,46 +269,31 @@
                   <parent>tree_search_split</parent>
                   <closeable>1</closeable>
                   <area_caption>Kliendivalik</area_caption>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
             </vvoc_customers_tree_left>
             <vbox_customers_left>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
                   <closeable>1</closeable>
                   <area_caption>Otsing</area_caption>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
             </vbox_customers_left>
             <vbox_customers_left_top>
                   <type>vbox</type>
                   <parent>vbox_customers_left</parent>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
                   <area_caption></area_caption>
             </vbox_customers_left_top>
             <vbox_customers_left_search_btn>
                   <type>hbox</type>
                   <parent>vbox_customers_left</parent>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
                   <area_caption></area_caption>
             </vbox_customers_left_search_btn>
             <list_container>
                   <type>vbox</type>
                   <parent>my_cust_bot</parent>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
                   <area_caption></area_caption>
             </list_container>
             <category_list_container>
@@ -387,10 +303,7 @@
                   <area_caption>Kategooriad</area_caption>
                   <no_padding>1</no_padding>
                   <default_state>closed</default_state>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
             </category_list_container>
             <customer_list_container>
                   <type>vbox</type>
@@ -398,10 +311,7 @@
                   <area_caption>Kliendid</area_caption>
                   <closeable>1</closeable>
                   <no_padding>1</no_padding>
-                  <group>
-                        <num_0>relorg_s</num_0>
-                        <num_1>relorg_b</num_1>
-                  </group>
+                  <group>relorg</group>
             </customer_list_container>
       </layout>
 </properties>
