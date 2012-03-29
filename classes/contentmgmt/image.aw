@@ -867,25 +867,44 @@ class image extends class_base
 	**/
 	function search_image($arr)
 	{
-		$funcNum = $_GET['CKEditorFuncNum'] ;
-$funcNum = 206; //ei ole veel aru saanud kuidas see väärtus leitakse
-		$ol = new object_list(array(
+//		$funcNum = $_GET['CKEditorFuncNum'] ;
+//$funcNum = 206; //ei ole veel aru saanud kuidas see väärtus leitakse
+		$props = array(
 			"class_id" => CL_IMAGE,
-			"oid" => $arr["sid"]."%",
-			"name" => "%".$arr["name"]."%",
-			"limit" => "0,40"
-		));
+			"limit" => "0,100"
+		);
+		if(!empty($arr["sid"])) $props["oid"] = $arr["sid"]."%";
+		if(!empty($arr["sname"])) $props["name"] = "%".$arr["sname"]."%";
+		if(!empty($arr["sid"]) || !empty($arr["sname"]))
+		{
+			$ol = new object_list($props);
+		}
+		else
+		{
+			$ol = new object_list();
+		}
 		if(!$ol->count()){
 			$str = t("Ei leitud &uuml;htegi otsingutulemust");
 		}
 		else
 		{
-		$str = '<table style="width:100%;"><tr><td>Id</td><td>Nimi</td><td></td><tr>';
+		$str = '
+		<style>
+			.result_table {width:100%;}
+			.result_table th{font-weight:bold;background-color: #D0D0D0;padding:5px;}
+			.result_table td{padding:5px;}
+			.result_table .dr td{background-color: #E0E0E0;}
+			.result_table a:hover{cursor:pointer; color:#0386C7;}
+		</style>
+		
+		<table class="result_table"><tr><th>Id</th><th>Nimi</th><th>Kommentaar</th><th></th><tr>';
+		$count = 0;
 		foreach($ol->arr() as $o)
 		{
 			$message = "";
 			$url = str_replace(aw_ini_get("baseurl") , "" , $this->get_url_by_id($o->id()));
-			$str.='<tr><td>'.$o->id().'</td><td>'.$o->name().'</td><td><a href="javascript:set_image(\''.$url.'\');">Vali</a></td></tr>';
+			$str.='<tr'.($count%2==1 ? ' class="dr"' : "").'><td>'.$o->id().'</td><td>'.$o->name().'</td><td>'.$o->comment().'</td><td><a href="javascript:set_image(\''.$url.'\',\''.$o->prop("alt").'\',\''.$o->id().'\');">Vali</a></td></tr>';
+			$count++;
 		}
 		$str.= "</table>";
 //		print $arr["sid"];

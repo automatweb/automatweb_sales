@@ -8,6 +8,11 @@
 				</arguments>
 			</function>
 		</action>
-
+		<action name="search_flash" nologin="1" is_public="1" all_args="1">
+			<function name="search_flash">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

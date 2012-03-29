@@ -145,7 +145,7 @@ class flash extends class_base
 	// !this will be called if the object is put in a document by an alias and the document is being shown
 	// parameters
 	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($args)
+	function parse_alias($args = array())
 	{
 		extract($args);
 		return $this->view(array('id' => $alias['target']));
@@ -279,4 +279,61 @@ class flash extends class_base
 	{
 		return $this->trans_callback($arr, $this->trans_props);
 	}
+
+	/**
+		@attrib name=search_flash params=name nologin="1" all_arg="1" is_public=""
+		@returns
+		@comment
+	**/
+	function search_flash($arr)
+	{
+//		$funcNum = $_GET['CKEditorFuncNum'] ;
+//$funcNum = 206; //ei ole veel aru saanud kuidas see väärtus leitakse
+		$props = array(
+			"class_id" => CL_FLASH,
+			"limit" => "0,100"
+		);
+		if(!empty($arr["sid"])) $props["oid"] = $arr["sid"]."%";
+		if(!empty($arr["sname"])) $props["name"] = "%".$arr["sname"]."%";
+		if(!empty($arr["sid"]) || !empty($arr["sname"]))
+		{
+			$ol = new object_list($props);
+		}
+		else
+		{
+			$ol = new object_list();
+		}
+		if(!$ol->count()){
+			$str = t("Ei leitud &uuml;htegi otsingutulemust");
+		}
+		else
+		{
+		$str = '
+		<style>
+			.result_table {width:100%;}
+			.result_table th{font-weight:bold;background-color: #D0D0D0;padding:5px;}
+			.result_table td{padding:5px;}
+			.result_table .dr td{background-color: #E0E0E0;}
+			.result_table a:hover{cursor:pointer; color:#0386C7;}
+		</style>
+		
+		<table class="result_table"><tr><th>Id</th><th>Nimi</th><th>Kommentaar</th><th></th><tr>';
+		$count = 0;
+		foreach($ol->arr() as $o)
+		{
+			$message = "";
+			$url = str_replace(aw_ini_get("baseurl") , "" , $this->get_url($o->prop("file")));
+			$str.='<tr'.($count%2==1 ? ' class="dr"' : "").'><td>'.$o->id().'</td><td>'.$o->name().'</td><td>'.$o->comment().'</td><td><a href="javascript:set_flash(\''.$url.'\',\''.$o->prop("alt").'\',\''.$o->id().'\');">Vali</a></td></tr>';
+			$count++;
+		}
+		$str.= "</table>";
+//		print $arr["sid"];
+//		print $arr["sname"];
+		}
+		print $str;
+		die();
+	}
+
+
+
 }

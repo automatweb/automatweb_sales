@@ -1093,6 +1093,46 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					]
 				},
 				{
+					id : 'Search',
+					hidden : false,
+					filebrowser : 'searchButton',
+					label : editor.lang.common.search,
+					elements :
+					[
+						{
+							type:'html',
+							html:'<div style="height:40px" class="cke_dialog_ui_text" id="id_uiElement" role="presentation"><label for="id_textInput" id="id_label" class="cke_dialog_ui_labeled_label">Id</label><div role="presentation" class="cke_dialog_ui_labeled_content"><div role="presentation" class="cke_dialog_ui_input_text"><input type="text" aria-labelledby="id_label" size="38" id="id_textInput" class="cke_dialog_ui_input_text"></div></div></div><div style="height:40px" class="cke_dialog_ui_text" id="name_uiElement" role="presentation"><label for="name_textInput" id="name_label" class="cke_dialog_ui_labeled_label">Name</label><div role="presentation" class="cke_dialog_ui_labeled_content"><div role="presentation" class="cke_dialog_ui_input_text"><input type="text" size="38" id="name_textInput" class="cke_dialog_ui_input_text"></div></div></div>',
+						},
+						{
+							type:'html',
+							html:'<a id="cke_360_uiElement" aria-labelledby="cke_359_label" role="button" class="cke_dialog_ui_button" hidefocus="true" title="Search" href="javascript:search_images()" style="-moz-user-select: none;"><span class="cke_dialog_ui_button" id="cke_359_label">Search</span></a><div id="search_results" style="overflow:auto;height:240px;margin-top:10px;"></div>',
+						}
+					]
+				},
+				{
+					id : 'Upload',
+					hidden : false,
+					filebrowser : 'uploadButton',
+					label : editor.lang.image.upload,
+					elements :
+					[
+						{
+							type : 'file',
+							id : 'upload',
+							label : editor.lang.image.btnUpload,
+							style: 'height:40px',
+							size : 38
+						},
+						{
+							type : 'fileButton',
+							id : 'uploadButton',
+							filebrowser : 'info:txtUrl',
+							label : editor.lang.image.btnUpload,
+							'for' : [ 'Upload', 'upload' ]
+						}
+					]
+				},
+				{
 					id : 'Link',
 					label : editor.lang.link.title,
 					padding : 0,
@@ -1169,46 +1209,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										element.setAttribute( 'target', this.getValue() );
 								}
 							}
-						}
-					]
-				},
-				{
-					id : 'Upload',
-					hidden : false,
-					filebrowser : 'uploadButton',
-					label : editor.lang.image.upload,
-					elements :
-					[
-						{
-							type : 'file',
-							id : 'upload',
-							label : editor.lang.image.btnUpload,
-							style: 'height:40px',
-							size : 38
-						},
-						{
-							type : 'fileButton',
-							id : 'uploadButton',
-							filebrowser : 'info:txtUrl',
-							label : editor.lang.image.btnUpload,
-							'for' : [ 'Upload', 'upload' ]
-						}
-					]
-				},
-				{
-					id : 'Search',
-					hidden : false,
-					filebrowser : 'searchButton',
-					label : editor.lang.common.search,
-					elements :
-					[
-						{
-							type:'html',
-							html:'<div style="height:40px" class="cke_dialog_ui_text" id="id_uiElement" role="presentation"><label for="id_textInput" id="id_label" class="cke_dialog_ui_labeled_label">Id</label><div role="presentation" class="cke_dialog_ui_labeled_content"><div role="presentation" class="cke_dialog_ui_input_text"><input type="text" aria-labelledby="id_label" size="38" id="id_textInput" class="cke_dialog_ui_input_text"></div></div></div><div style="height:40px" class="cke_dialog_ui_text" id="name_uiElement" role="presentation"><label for="name_textInput" id="name_label" class="cke_dialog_ui_labeled_label">Name</label><div role="presentation" class="cke_dialog_ui_labeled_content"><div role="presentation" class="cke_dialog_ui_input_text"><input type="text" size="38" id="name_textInput" class="cke_dialog_ui_input_text"></div></div></div>',
-						},
-						{
-							type:'html',
-							html:'<a id="cke_360_uiElement" aria-labelledby="cke_359_label" role="button" class="cke_dialog_ui_button" hidefocus="true" title="Search" href="javascript:search_images()" style="-moz-user-select: none;"><span class="cke_dialog_ui_button" id="cke_359_label">Search</span></a><div id="search_results" style="overflow:auto;height:240px;margin-top:10px;"></div>',
 						}
 					]
 				},
@@ -1460,15 +1460,25 @@ function search_images()
 //alert("asd");
 }
 
-function set_image(strLink)
+function set_image(strLink,comment,id)
 {
 	// get current dialog
 	var dialog = CKEDITOR.dialog.getCurrent();
+
+	dialog.selectPage('Link');
+	// get the txtUrl element (found id using devtools plugin)
+	var asdasd = dialog.getContentElement('advanced', 'linkId');
+	asdasd.setValue(id);
+
 	// get the info tab in the dialog
 	dialog.selectPage('info');
 	// get the txtUrl element (found id using devtools plugin)
 	var tUrl = dialog.getContentElement('info', 'txtUrl');
 	// set this input box to by variable
 	tUrl.setValue(strLink);
+
+	var tcmnt = dialog.getContentElement('info', 'txtAlt');
+	// set this input box to by variable
+	tcmnt.setValue(comment);
 
 }

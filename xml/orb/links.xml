@@ -27,6 +27,11 @@
 				</arguments>
 			</function>
 		</action>
-
+		<action name="search_link" nologin="1" is_public="1" all_args="1">
+			<function name="search_link">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

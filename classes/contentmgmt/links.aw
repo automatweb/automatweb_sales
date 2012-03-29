@@ -572,4 +572,62 @@ class links extends class_base
 			$arr["obj_inst"]->set_meta("linked_obj", $arr["request"]["link_pops"]);
 		}
 	}
+
+	/**
+		@attrib name=search_link params=name nologin="1" all_arg="1" is_public=""
+		@returns
+		@comment
+	**/
+	function search_link($arr)
+	{
+//		$funcNum = $_GET['CKEditorFuncNum'] ;
+//$funcNum = 206; //ei ole veel aru saanud kuidas see väärtus leitakse
+		$props = array(
+			"class_id" => CL_EXTLINK,
+			"limit" => "0,100"
+		);
+		if(!empty($arr["sid"])) $props["oid"] = $arr["sid"]."%";
+		if(!empty($arr["sname"])) $props["name"] = "%".$arr["sname"]."%";
+		if(!empty($arr["sid"]) || !empty($arr["sname"]))
+		{
+			$ol = new object_list($props);
+		}
+		else
+		{
+			$ol = new object_list();
+		}
+		if(!$ol->count()){
+			$str = t("Ei leitud &uuml;htegi otsingutulemust");
+		}
+		else
+		{
+		$str = '
+		<style>
+			.result_table {width:100%;}
+			.result_table th{font-weight:bold;background-color: #D0D0D0;padding:5px;}
+			.result_table td{padding:5px;}
+			.result_table .dr td{background-color: #E0E0E0;}
+			.result_table a:hover{cursor:pointer; color:#0386C7;}
+		</style>
+		
+		<table class="result_table"><tr><th>Id</th><th>Nimi</th><th>Url</th><th></th><tr>';
+		$count = 0;
+		foreach($ol->arr() as $o)
+		{
+			$message = "";
+			$url = $o->prop("url");
+			$str.='<tr'.($count%2==1 ? ' class="dr"' : "").'><td>'.$o->id().'</td><td>'.$o->name().'</td><td>'.$url.'</td><td><a href="javascript:set_link(\''.$url.'\',\''.$o->prop("newwindow").'\',\''.$o->id().'\');">Vali</a></td></tr>';
+			$count++;
+		}
+		$str.= "</table>";
+//		print $arr["sid"];
+//		print $arr["sname"];
+		}
+		print $str;
+		die();
+	}
+
+
+
+
 }
