@@ -25,6 +25,9 @@ class crm_employee_search extends aw_object_search
 	const PARAM_EMAIL = 12;
 	const PARAM_GENDER = 13;
 	const PARAM_AGE = 14;
+	const PARAM_COUNTY = 15;
+	const PARAM_CITY = 16;
+	const PARAM_INDEX = 17;
 
 
 	private $p_name = false;
@@ -38,6 +41,9 @@ class crm_employee_search extends aw_object_search
 	private $p_gender = false;
 	private $p_ageto = false;
 	private $p_agefrom = false;
+	private $p_county = false;
+	private $p_city = false;
+	private $p_index = false;
 
 	private $sort_order;
 	private $search_method = "obj";
@@ -263,7 +269,40 @@ class crm_employee_search extends aw_object_search
 			throw $e->ui_msg(t("Antud v&auml;&auml;rtus on aadressi otsinguparameetriks sobimatu"));
 		}
 
-		$this->p_address = self::prepare_search_words($value);
+		$this->p_address = self::prepare_multiple_search_words($value);
+
+	}
+
+	private function _set_county($value)
+	{
+		if (empty($value) or !is_string($value) or strlen($value) < 1)
+		{
+			$e = new awex_param_type_employee_search("Invalid value '" . var_export($value, true) . "' for address parameter", self::PARAM_COUNTY);
+			throw $e->ui_msg(t("Antud v&auml;&auml;rtus on maakonna otsinguparameetriks sobimatu"));
+		}
+
+		$this->p_county = self::prepare_multiple_search_words($value);
+	}
+
+	private function _set_city($value)
+	{
+		if (empty($value) or !is_string($value) or strlen($value) < 1)
+		{
+			$e = new awex_param_type_employee_search("Invalid value '" . var_export($value, true) . "' for address parameter", self::PARAM_CITY);
+			throw $e->ui_msg(t("Antud v&auml;&auml;rtus on linna otsinguparameetriks sobimatu"));
+		}
+
+		$this->p_city = self::prepare_multiple_search_words($value);
+	}
+
+	private function _set_index($value)
+	{
+		if (empty($value) or strlen($value) < 1)
+		{
+			$e = new awex_param_type_employee_search("Invalid value '" . var_export($value, true) . "' for address parameter", self::PARAM_INDEX);
+			throw $e->ui_msg(t("Antud v&auml;&auml;rtus on postiindeksi otsinguparameetriks sobimatu"));
+		}
+		$this->p_index = self::prepare_multiple_search_words($value);
 	}
 
 	private function _set_email($value)
@@ -453,8 +492,42 @@ class crm_employee_search extends aw_object_search
 
 		if (!empty($this->p_address))
 		{
-			$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name"] = "{$this->p_address}";
+		/*	$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name"] = "{$this->p_address}";
+*/
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					"CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name" => "{$this->p_address}",	"CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS.name" => $this->p_address,
+				)));
 		}
+
+		if (!empty($this->p_county))
+		{
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					"CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name" => "{$this->p_county}",	"CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS.maakond.name" => $this->p_county,
+				)));
+		}
+
+		if (!empty($this->p_city))
+		{
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					"CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name" => "{$this->p_city}",	"CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS.linn.name" => $this->p_city,
+			)));
+		}
+
+		if (!empty($this->p_index))
+		{
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					"CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.postal_code" => "{$this->p_index}",	"CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_ADDRESS.postiindeks" => $this->p_index,
+			)));
+		}
+
 
 		if (!empty($this->p_gender))
 		{
@@ -557,6 +630,23 @@ class crm_employee_search extends aw_object_search
 		$this->$setter($value);
 	}
 
+	private function prepare_multiple_search_words($string)
+	{
+		if (false === strpos($string, ","))
+		{
+			$words = self::prepare_search_words($string);
+		}
+		else
+		{
+			$arr = explode(",", $string);
+			foreach($arr as $a)
+			{
+				$words[] =trim($a);
+			}
+		}
+		return $words;
+	}
+
 	// takes space separated user input "AND" search string, returns words separated by "%"
 	private function prepare_search_words($string)
 	{
@@ -579,7 +669,6 @@ class crm_employee_search extends aw_object_search
 		{
 			$words = addslashes($string);
 		}
-
 		return $words;
 	}
 }

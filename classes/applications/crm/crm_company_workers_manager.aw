@@ -35,9 +35,17 @@
 					@property es_s type=chooser orient=vertical store=request parent=search_params_container no_caption=1
 					@caption T&ouml;&ouml;suhte staatus
 
-
 					@property es_a type=textbox size=30 store=request parent=search_params_container captionside=top
 					@caption Aadress
+
+					@property es_county type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption Maakond
+
+					@property es_city type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption Linn
+
+					@property es_index type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption Postiindeks
 
 					@property es_e type=textbox size=30 store=request parent=search_params_container captionside=top
 					@caption E-Post
@@ -83,7 +91,7 @@ class crm_company_workers_manager extends class_base
 			"tpldir" => "applications/crm/crm_company_workers_manager",
 			"clid" => crm_company_workers_manager_obj::CLID
 		));
-		$this->search_props = array("es_n","es_s","es_g","es_a","es_e","es_agefrom","es_ageto", "es_c");
+		$this->search_props = array("es_n","es_s","es_g","es_a","es_e","es_agefrom","es_ageto", "es_c", "es_county",  "es_city", "es_index");
 	}
 
 	function do_db_upgrade($table, $field, $query, $error)
@@ -131,7 +139,6 @@ class crm_company_workers_manager extends class_base
 				$data["value"] = "";
 			}
 		}
-
 
 		if ("employees_management" === $this->use_group)
 		{

@@ -16,6 +16,9 @@ class crm_company_employees_view extends class_base
 	const REQVAR_EMPLOYMENT_EMAIL = "es_e"; // request parameter name for e-mail
 	const REQVAR_EMPLOYMENT_AGEFROM = "es_agefrom"; // request parameter name for age from
 	const REQVAR_EMPLOYMENT_AGETO = "es_ageto"; // request parameter name for age to
+	const REQVAR_EMPLOYMENT_COUNTY = "es_county"; // request parameter name for county
+	const REQVAR_EMPLOYMENT_CITY = "es_city"; // request parameter name for city
+	const REQVAR_EMPLOYMENT_INDEX = "es_index"; // request parameter name for postal index
 
 
 
@@ -39,7 +42,7 @@ class crm_company_employees_view extends class_base
 	public function set_request(aw_request $request)
 	{
 		parent::set_request($request);
-
+//arr($this->req->arg(self::REQVAR_NODE));
 		if (is_oid($this->req->arg(self::REQVAR_NODE)))
 		{
 			$this->selected_item_id = (int) $this->req->arg(self::REQVAR_NODE);
@@ -387,6 +390,24 @@ class crm_company_employees_view extends class_base
 				$search_params_set = true;
 			}
 
+			// searched by address
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_COUNTY]))
+			{
+				$employee_search->county = $arr["request"][self::REQVAR_EMPLOYMENT_COUNTY];
+				$search_params_set = true;
+			}
+			// searched by address
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_CITY]))
+			{
+				$employee_search->city = $arr["request"][self::REQVAR_EMPLOYMENT_CITY];
+				$search_params_set = true;
+			}
+			// searched by address
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_INDEX]))
+			{
+				$employee_search->index = $arr["request"][self::REQVAR_EMPLOYMENT_INDEX];
+				$search_params_set = true;
+			}
 			// searched by e-mail
 			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_EMAIL]))
 			{

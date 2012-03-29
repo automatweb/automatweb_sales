@@ -92,6 +92,45 @@
             <caption>Aadress</caption>
       </property>
       <property>
+            <name>es_county</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <caption>Maakond</caption>
+      </property>
+      <property>
+            <name>es_city</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <caption>Linn</caption>
+      </property>
+      <property>
+            <name>es_index</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <caption>Postiindeks</caption>
+      </property>
+      <property>
             <name>es_e</name>
             <table>objects</table>
             <method>serialize</method>
