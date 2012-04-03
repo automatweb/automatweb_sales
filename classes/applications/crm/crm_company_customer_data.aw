@@ -259,7 +259,10 @@ class crm_company_customer_data extends class_base
 				// list of all persons in my company
 				$co = get_current_company();
 				$i = new crm_company();
-				$arr["prop"]["options"] = $i->get_employee_picker($co, true);
+				if($co)
+				{
+					$arr["prop"]["options"] = $i->get_employee_picker($co, true);
+				}
 				break;
 
 			case "buyer_contract_creator":
@@ -313,8 +316,12 @@ class crm_company_customer_data extends class_base
 				break;
 
 			case "client_manager":
+				$co = get_current_company();
 				$i = new crm_company();
-				$prop["options"] = $i->get_employee_picker(get_current_company(), true);
+				if($co)
+				{
+					$arr["prop"]["options"] = $i->get_employee_picker($co, true);
+				}
 				break;
 		}
 		return $retval;
