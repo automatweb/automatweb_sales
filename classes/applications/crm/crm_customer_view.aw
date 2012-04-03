@@ -766,14 +766,18 @@ class crm_customer_view extends class_base
 		}
 */
 
-			if (!empty($arr["request"]["filt_p"]))
-			{
-				$customer_relations_search->name = "{$arr["request"]["filt_p"]}%";
-			}
-
+		
 			if (!empty($arr["request"]["cs_n"]))
 			{
 				$customer_relations_search->name = "%{$arr["request"]["cs_n"]}%";
+			}
+			elseif (!empty($arr["request"]["filt_p"]))
+			{
+				$customer_relations_search->name = "{$arr["request"]["filt_p"]}%";
+			}
+			else
+			{
+				$customer_relations_search->name = "%%";
 			}
 
 			if (!empty($arr["request"]["customer_search_reg"]))
