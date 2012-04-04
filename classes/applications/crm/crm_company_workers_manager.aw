@@ -165,8 +165,7 @@ class crm_company_workers_manager extends class_base
 				return $employees_view->$fn($params);
 			}
 		}
-		arr(ord("
-"));
+
 		switch($data["name"])
 		{
 			case "es_age":
