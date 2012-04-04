@@ -313,7 +313,7 @@ class crm_company_employees_view extends class_base
 			$url->set_arg(self::REQVAR_NODE, self::REQVAL_ALL_SELECTION);
 			$data[] = array(
 				"data" => array(
-					"title" => html_entity_decode(t("K&otilde;ik t&ouml;&ouml;tajad")),
+					"title" => html_entity_decode(t("K&otilde;ik t&ouml;&ouml;tajad"),ENT_COMPAT,languages::USER_CHARSET),
 					"icon" => icons::get_std_icon_url("group")
 				),
 				"attr" => array(

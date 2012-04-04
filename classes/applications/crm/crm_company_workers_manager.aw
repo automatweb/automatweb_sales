@@ -26,29 +26,32 @@
 				@property organization_structure_tree type=treeview store=no parent=hrm_tree_container no_caption=1
 				@caption Organisatsiooni struktuur
 
-			@layout hrm_search_container type=vbox parent=hrm_query_container closeable=1 area_caption=Otsing
+			@layout hrm_search_container type=vbox parent=hrm_query_container closeable=1 area_caption=Otsi&nbsp;t&ouml;&ouml;tajat
 				@layout search_params_container type=vbox parent=hrm_search_container
 
 					@property es_n type=textbox size=30 store=request parent=search_params_container captionside=top
-					@caption Nimi
+					@caption T&ouml;&ouml;taja nimi
 
-					@property es_s type=chooser orient=vertical store=request parent=search_params_container no_caption=1
+					@property es_s type=chooser store=request parent=search_params_container no_caption=1
 					@caption T&ouml;&ouml;suhte staatus
 
-					@property es_a type=textbox size=30 store=request parent=search_params_container captionside=top
-					@caption Aadress
 
 					@property es_county type=textbox size=30 store=request parent=search_params_container captionside=top
 					@caption Maakond
 
 					@property es_city type=textbox size=30 store=request parent=search_params_container captionside=top
-					@caption Linn
+					@caption Linn/vald
 
 					@property es_index type=textbox size=30 store=request parent=search_params_container captionside=top
 					@caption Postiindeks
 
+					@property es_a type=textbox size=30 store=request parent=search_params_container captionside=top
+					@caption Aadress
 					@property es_e type=textbox size=30 store=request parent=search_params_container captionside=top
 					@caption E-Post
+
+					@es_age type=text store=request parent=search_params_container captionside=top
+					@caption Vanus
 
 					@property es_agefrom type=textbox size=30 store=request parent=search_params_container captionside=top
 					@caption Vanus alates
@@ -56,13 +59,13 @@
 					@property es_ageto type=textbox size=30 store=request parent=search_params_container captionside=top
 					@caption Vanus kuni
 
-					@property es_g type=chooser orient=vertical store=request parent=search_params_container no_caption=1
+					@property es_g type=chooser store=request parent=search_params_container no_caption=1
 					@caption T&ouml;&ouml;taja sugu
 
 				@layout search_submit_container type=hbox parent=hrm_search_container
 
 					@property es_sbt type=submit size=15 store=no parent=search_submit_container no_caption=1
-					@caption Otsi
+					@caption Otsi t&ouml;&ouml;tajat
 
 		@layout hrm_information_container type=vbox parent=hrm_main_container
 			@layout unit_list_container type=vbox parent=hrm_information_container closeable=1 area_caption=&Uuml;ksused no_padding=1 default_state=closed
@@ -162,12 +165,19 @@ class crm_company_workers_manager extends class_base
 				return $employees_view->$fn($params);
 			}
 		}
-/*		switch($data["name"])
+		arr(ord("
+"));
+		switch($data["name"])
 		{
-			case "es_c":
-				arr($arr);
+			case "es_age":
+				$data["value"] = '
+				<input type="text" value="'.(empty($arr["request"]["es_agefrom"]) ? "" : $arr["request"]["es_agefrom"]).'" size="4" name="es_agefrom" id="es_agefrom"> - 
+				<input type="text" value="'.(empty($arr["request"]["es_ageto"]) ? "" : $arr["request"]["es_ageto"]).'" size="4" name="es_ageto" id="es_ageto">';
 				break;
-		}*/
+			case "es_agefrom":
+			case "es_ageto":
+				return PROP_IGNORE;
+		}
 		return $retval;
 	}
 

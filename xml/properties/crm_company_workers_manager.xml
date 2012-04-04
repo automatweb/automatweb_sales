@@ -63,7 +63,7 @@
             <store>request</store>
             <parent>search_params_container</parent>
             <captionside>top</captionside>
-            <caption>Nimi</caption>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;taja nimi</caption>
       </property>
       <property>
             <name>es_s</name>
@@ -72,24 +72,10 @@
             <field>meta</field>
             <group>employees_management</group>
             <type>chooser</type>
-            <orient>vertical</orient>
             <store>request</store>
             <parent>search_params_container</parent>
             <no_caption>1</no_caption>
             <caption>T&amp;amp;ouml;&amp;amp;ouml;suhte staatus</caption>
-      </property>
-      <property>
-            <name>es_a</name>
-            <table>objects</table>
-            <method>serialize</method>
-            <field>meta</field>
-            <group>employees_management</group>
-            <type>textbox</type>
-            <size>30</size>
-            <store>request</store>
-            <parent>search_params_container</parent>
-            <captionside>top</captionside>
-            <caption>Aadress</caption>
       </property>
       <property>
             <name>es_county</name>
@@ -115,7 +101,7 @@
             <store>request</store>
             <parent>search_params_container</parent>
             <captionside>top</captionside>
-            <caption>Linn</caption>
+            <caption>Linn/vald</caption>
       </property>
       <property>
             <name>es_index</name>
@@ -129,6 +115,19 @@
             <parent>search_params_container</parent>
             <captionside>top</captionside>
             <caption>Postiindeks</caption>
+      </property>
+      <property>
+            <name>es_a</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <caption>Aadress</caption>
       </property>
       <property>
             <name>es_e</name>
@@ -156,6 +155,18 @@
             <captionside>top</captionside>
             <caption>Vanus alates</caption>
       </property>
+	  <property>
+            <name>es_age</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>text</type>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <caption>Vanus</caption>
+      </property>
       <property>
             <name>es_ageto</name>
             <table>objects</table>
@@ -176,7 +187,6 @@
             <field>meta</field>
             <group>employees_management</group>
             <type>chooser</type>
-            <orient>vertical</orient>
             <store>request</store>
             <parent>search_params_container</parent>
             <no_caption>1</no_caption>
@@ -193,7 +203,7 @@
             <store>no</store>
             <parent>search_submit_container</parent>
             <no_caption>1</no_caption>
-            <caption>Otsi</caption>
+            <caption>Otsi t&amp;amp;ouml;&amp;amp;ouml;tajat</caption>
       </property>
       <property>
             <name>organizational_units_table</name>
@@ -280,7 +290,7 @@
                   <type>vbox</type>
                   <parent>hrm_query_container</parent>
                   <closeable>1</closeable>
-                  <area_caption>Otsing</area_caption>
+                  <area_caption>Otsi&amp;amp;nbsp;t&amp;amp;ouml;&amp;amp;ouml;tajat</area_caption>
                   <group>employees_management</group>
             </hrm_search_container>
             <search_params_container>

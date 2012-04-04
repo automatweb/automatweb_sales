@@ -552,7 +552,7 @@ class crm_employee_search extends aw_object_search
 			else
 			{
 				$start = mktime(0,0,0,date("m"),date("d"),$year - $this->p_ageto);
-				$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).birth_date"] = new obj_predicate_compare(obj_predicate_compare::GREATER, $end);
+				$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).birth_date"] = new obj_predicate_compare(obj_predicate_compare::GREATER, $start);
 			}
 		}
 

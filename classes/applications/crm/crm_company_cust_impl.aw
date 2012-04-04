@@ -661,7 +661,7 @@ class crm_company_cust_impl extends class_base
 		));
 
 		// menu items for adding customers
-		if ("relorg_b" === $arr["use_group"])
+		if ("relorg_b" === $arr["use_group"] || "relorg" === $arr["use_group"])
 		{ // buyers
 			// add buyer category
 			$tb->add_menu_item(array(
@@ -722,7 +722,7 @@ class crm_company_cust_impl extends class_base
 			));
 
 		}
-		elseif ("relorg_s" === $arr["use_group"])
+		if ("relorg_s" === $arr["use_group"] || "relorg" === $arr["use_group"])
 		{ // sellers
 			// add seller category
 			$tb->add_menu_item(array(
