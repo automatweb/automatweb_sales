@@ -147,19 +147,17 @@ class propcollector extends aw_template
 		$name = $arr["file"];
 		if (file_exists($name))
 		{
-			$lines = @file($name);
+			$lines = file($name);
 		}
-		else
-		if (!empty($arr["data"]))
+		elseif (!empty($arr["data"]))
 		{
 			$lines = explode("\n",$arr["data"]);
-		};
-
+		}
 
 		if (!is_array($lines))
 		{
 			return false;
-		};
+		}
 
 		$tags = $this->tags;
 
@@ -170,9 +168,10 @@ class propcollector extends aw_template
 			$tagdata = "";
 			if (($taginfo = preg_match("/^\s*@(\w*) (.*)/",$line,$m)))
 			{
-				$tagname = $m[1];
-				$tagdata = $m[2];
+				$tagname = trim($m[1]);
+				$tagdata = trim($m[2]);
 			}
+
 			if (isset($tags[$tagname]) && $tags[$tagname] == self::TAG_PAIRS)
 			{
 				$attribs = $this->_parse_attribs($m[2]);
@@ -189,7 +188,7 @@ class propcollector extends aw_template
 
 			if (isset($tags[$tagname]) && $tags[$tagname] == self::TAG_CTX)
 			{
-				preg_match("/(\w+?) (.*)/",$tagdata,$m);
+				preg_match("/(\w+?) (.*)/", $tagdata, $m);
 				$aname = $m[1];
 				$attribs = $m[2];
 				if ($tagname === "groupinfo")
@@ -226,15 +225,16 @@ class propcollector extends aw_template
 					$this->classdef[$tagname][$aname] = $this->_parse_attribs($attribs);
 					$this->name = $aname;
 					$this->last_element = $tagname;
-				};
-			};
+				}
+			}
 
 			if (isset($tags[$tagname]) && $tags[$tagname] == self::TAG_VALUE)
 			{
 				if ($tagname === "caption")
 				{
 					$this->add_caption($tagdata);
-				};
+				}
+
 				if ($tagname === "comment")
 				{
 					$this->add_comment($tagdata);
@@ -367,7 +367,7 @@ class propcollector extends aw_template
 		if (empty($fields["group"]) && !empty($this->defaults["group"]))
 		{
 			$fields["group"] = $this->defaults["group"];
-		};
+		}
 		$fields["area_caption"] = empty($fields["area_caption"]) ? "" : htmlentities($fields["area_caption"]);
 		$this->layout[$name] = $fields;
 		$this->name = $name;
@@ -723,8 +723,8 @@ class propcollector extends aw_template
 				continue;
 			}
 
-			$tagname = $m[1];
-			$tagdata = $m[2];
+			$tagname = trim($m[1]);
+			$tagdata = trim($m[2]);
 
 			switch ($this->tags[$tagname])
 			{
@@ -743,7 +743,7 @@ class propcollector extends aw_template
 					break;
 
 				case self::TAG_CTX:
-					preg_match("/(\w+?) (.*)/",$tagdata,$m);
+					preg_match("/(\w+?) (.*)/", $tagdata, $m);
 					$aname = $m[1];
 					$attribs = $m[2];
 
