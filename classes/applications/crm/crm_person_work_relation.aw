@@ -42,6 +42,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_ML_MEMBER, on_discon
 	@property room type=textbox
 	@caption T&ouml;&ouml;ruum
 
+	@property description type=textarea table=aw_crm_person_work_relation field=description
+	@caption Kirjeldus
+
 	@property tasks type=textarea
 	@caption &Uuml;lesanded
 
@@ -229,11 +232,19 @@ class crm_person_work_relation extends class_base
 						`employee` int(11) UNSIGNED NOT NULL default '0',
 						`start` int(11) UNSIGNED NOT NULL default '0',
 						`end` int(11) UNSIGNED NOT NULL default '0',
+						`description` text,
 						`state` tinyint UNSIGNED NOT NULL default '".crm_person_work_relation_obj::STATE_UNDEFINED."',
 						PRIMARY KEY  (`aw_oid`));
 				");
 				$this->db_query("CREATE INDEX `state` ON `aw_crm_person_work_relation` (`state`);");
 				$ret_val = true;
+			}
+			elseif("description" === $field)
+			{
+				$this->db_add_col("aw_crm_person_work_relation", array(
+					"name" => "description",
+					"type" => "text"
+				));
 			}
 			elseif ("state" === $field)
 			{

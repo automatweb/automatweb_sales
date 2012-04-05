@@ -96,6 +96,41 @@ class crm_section_obj extends _int_object
 			"site_id" => array(),
 			"lang_id" => array(),
 			"company_section" => $this->id(),
+			new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
+						)
+					)),
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time())
+						)
+					))
+				)
+			)),
+			new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
+						)
+					)),
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
+						)
+					))
+				)
+			)),
+
 		));
 
 		if($rel_list->count())
@@ -122,10 +157,11 @@ class crm_section_obj extends _int_object
 		}
 
 		//vana asja toimimiseks
-		if(empty($arr["co"]) || !is_object($co = obj($arr["co"])) || !$co->prop("use_only_wr_workers"))
+/*		if(empty($arr["co"]) || !is_object($co = obj($arr["co"])) || !$co->prop("use_only_wr_workers"))
 		{
 			$ol->add($this->get_employees(1));
 		}
+*/
 
 		return $ol;
 	}

@@ -45,6 +45,12 @@ class crm_employee_search extends aw_object_search
 	private $p_city = false;
 	private $p_index = false;
 
+
+	private $p_citizenship = false;
+	private $p_personal_code = false;
+
+	
+
 	private $sort_order;
 	private $search_method = "obj";
 
@@ -260,6 +266,15 @@ class crm_employee_search extends aw_object_search
 		$this->p_gender = $value;
 	}
 
+	private function _set_citizenship($value)
+	{
+		$this->p_citizenship = self::prepare_search_words($value);
+	}
+
+	private function _set_personal_code($value)
+	{
+		$this->p_personal_code = self::prepare_search_words($value);
+	}
 
 	private function _set_address($value)
 	{
@@ -532,6 +547,16 @@ class crm_employee_search extends aw_object_search
 		if (!empty($this->p_gender))
 		{
 			$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).gender"] = "{$this->p_gender}";
+		}
+
+		if (!empty($this->p_personal_code))
+		{
+			$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).personal_id"] = "{$this->p_personal_code}";
+		}
+
+		if (!empty($this->p_citizenship))
+		{
+			$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).RELTYPE_CITIZENSHIP.country.name"] = "{$this->p_citizenship}";
 		}
 
 		if (!empty($this->p_agefrom) || !empty($this->p_ageto))

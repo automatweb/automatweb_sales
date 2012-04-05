@@ -871,7 +871,7 @@ class crm_company_cust_impl extends class_base
 		$url->set_arg(crm_company::REQVAR_CATEGORY, $arr['obj_inst']->id());
 		$tree_inst->add_item(0, array(
 			"id" => $arr['obj_inst']->id(),
-			"name" => sprintf(t("%s kliendikategooriad"), ($arr['obj_inst']->prop("short_name") ? $arr['obj_inst']->prop("short_name") : $arr['obj_inst']->name())),
+			"name" => sprintf(t("%s kliendigrupid"), ($arr['obj_inst']->prop("short_name") ? $arr['obj_inst']->prop("short_name") : $arr['obj_inst']->name())),
 			"url" => $url->get()
 		));
 
@@ -2037,7 +2037,7 @@ class crm_company_cust_impl extends class_base
 	function _get_customer_listing_tree($arr)
 	{
 		$tree_inst = $arr["prop"]["vcl_inst"];
-		$tree_inst->set_only_one_level_opened(1);
+//		$tree_inst->set_only_one_level_opened(1);
 		$this->_add_cust_mgr($arr, $tree_inst);
 		$this->_add_categories($arr, $tree_inst);
 		$this->_add_cust_alpha($arr, $tree_inst);
@@ -3159,8 +3159,21 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 		{
 			$types = array(crm_category_obj::TYPE_GENERIC);
 			$types[] = ("relorg_s" === $this->use_group ? crm_category_obj::TYPE_SELLER : crm_category_obj::TYPE_BUYER);
-			$categories = $arr["obj_inst"]->get_customer_categories($parent_category, $types);
-
+			if("relorg" === $this->use_group)
+			{
+				if($parent_category->is_a(crm_company_obj::CLID))
+				{
+					$categories = $arr["obj_inst"]->get_customer_categories();
+				}
+				else
+				{
+					$categories = $arr["obj_inst"]->get_customer_categories($parent_category, $types);
+				}
+			}
+			else
+			{
+				$categories = $arr["obj_inst"]->get_customer_categories($parent_category, $types);
+			}
 			if ($parent_category->is_a(crm_category_obj::CLID))
 			{
 				$table->set_caption(sprintf(t("Kategooriad, mis asuvad kategooria '%s' all"), $parent_category->name()));
@@ -3182,6 +3195,10 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 				do
 				{
 					$category_id = $category->id();
+					if($category->prop("parent_category") && $parent_category->is_a(crm_company_obj::CLID))
+					{
+						continue;
+					}
 					// category popup menu
 					$menu = new popup_menu();
 					$menu->begin_menu("custcattbl".$category_id);

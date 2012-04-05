@@ -210,6 +210,9 @@ class crm_customer_view extends class_base
 	{
 		return $this->get_salesman_search_prop($arr);
 	}
+
+
+
 	function get_property(&$arr)
 	{
 		$retval = PROP_OK;
@@ -236,7 +239,7 @@ class crm_customer_view extends class_base
 
 		switch($data['name'])
 		{
-			/// CUSTOMER tab
+			/// CUSTOMER tab$arr
 			case "my_projects":
 			case "customer_rel_creator":
 			case "customer_search_cust_mgr":

@@ -66,6 +66,32 @@
             <caption>T&amp;amp;ouml;&amp;amp;ouml;taja nimi</caption>
       </property>
       <property>
+            <name>es_code</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;taja isikukood</caption>
+      </property>
+      <property>
+            <name>es_citizenship</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>textbox</type>
+            <size>30</size>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;taja kodakondsus</caption>
+      </property>
+      <property>
             <name>es_s</name>
             <table>objects</table>
             <method>serialize</method>
@@ -140,7 +166,7 @@
             <store>request</store>
             <parent>search_params_container</parent>
             <captionside>top</captionside>
-            <caption>E-Post</caption>
+            <caption>Vanus</caption>
       </property>
       <property>
             <name>es_agefrom</name>
@@ -154,18 +180,6 @@
             <parent>search_params_container</parent>
             <captionside>top</captionside>
             <caption>Vanus alates</caption>
-      </property>
-	  <property>
-            <name>es_age</name>
-            <table>objects</table>
-            <method>serialize</method>
-            <field>meta</field>
-            <group>employees_management</group>
-            <type>text</type>
-            <store>request</store>
-            <parent>search_params_container</parent>
-            <captionside>top</captionside>
-            <caption>Vanus</caption>
       </property>
       <property>
             <name>es_ageto</name>

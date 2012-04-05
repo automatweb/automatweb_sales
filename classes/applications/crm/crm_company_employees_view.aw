@@ -19,8 +19,8 @@ class crm_company_employees_view extends class_base
 	const REQVAR_EMPLOYMENT_COUNTY = "es_county"; // request parameter name for county
 	const REQVAR_EMPLOYMENT_CITY = "es_city"; // request parameter name for city
 	const REQVAR_EMPLOYMENT_INDEX = "es_index"; // request parameter name for postal index
-
-
+	const REQVAR_EMPLOYMENT_CITIZENSHIP = "es_citizenship"; // request parameter name for citizenship
+	const REQVAR_EMPLOYMENT_CODE = "es_code"; // request parameter name for personal code
 
 
 	const CLIPBOARD_DATA_VAR = "awcb_organization_structure_selection_clipboard";
@@ -340,6 +340,8 @@ class crm_company_employees_view extends class_base
 		$employees_table = $arr["prop"]["vcl_inst"];
 		$this->define_employees_table($employees_table);
 
+		$gender_options = crm_employee_search::get_employment_gender_options();
+
 		$employee_search = new crm_employee_search();
 
 		try
@@ -408,6 +410,16 @@ class crm_company_employees_view extends class_base
 				$employee_search->index = $arr["request"][self::REQVAR_EMPLOYMENT_INDEX];
 				$search_params_set = true;
 			}
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_CITIZENSHIP]))
+			{
+				$employee_search->citizenship = $arr["request"][self::REQVAR_EMPLOYMENT_CITIZENSHIP];
+				$search_params_set = true;
+			}
+			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_CODE]))
+			{
+				$employee_search->personal_code = $arr["request"][self::REQVAR_EMPLOYMENT_CODE];
+				$search_params_set = true;
+			}
 			// searched by e-mail
 			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_EMAIL]))
 			{
@@ -435,6 +447,7 @@ class crm_company_employees_view extends class_base
 				$clipboard = (array) aw_session::get(self::CLIPBOARD_DATA_VAR);
 
 				// get employees and fill table
+				
 				$employee_oids = $employee_search->get_oids();
 				foreach ($employee_oids as $employee_oid => $work_relations)
 				{
@@ -477,13 +490,22 @@ class crm_company_employees_view extends class_base
 					$work_relation_menu = html::span(array("content" => $rel_menu->get_menu() . "({$rels_count})", "nowrap" => "1"));
 
 					// enter data
+					$age = "";
+					if($employee->prop("birth_date"))
+					{
+						$age = (int)((time() - $employee->prop("birth_date")) / (3600*24*366));
+					}
 					$employees_table->define_data(array(
+						"age" => $age,
 						"id" => $employee_oid,
+						"sex" => $employee->prop("gender") ? $gender_options[$employee->prop("gender")] : "",
 						"name" => $employee->prop_str("name"),
 						"firstname" => $employee->prop_str("firstname"),
 						"lastname" => $employee->prop_str("lastname"),
-						"email" => $employee->get_mail_tag($organization_oid, $section),
-						"phone" => $employee->get_phone($organization_oid, $section),
+//						"email" => $employee->get_mail_tag($organization_oid, $section),
+						"email" => join(", " ,$employee->emails()->names()),
+						"phone" => join(", " ,$employee->phones()->names()),
+						"address" => $employee->get_address_string(),
 						"image" => $employee->get_image_tag(), //TODO: pildi link, millele klikkides avaneb t88taja pilt
 						"cutcopied" => in_array($employee_oid, $clipboard) ? self::CUTCOPIED_COLOUR : "",
 						"legend" => $active ? "lightgreen" : "silver",
@@ -535,6 +557,24 @@ class crm_company_employees_view extends class_base
 				"chgbgcolor" => "cutcopied",
 				"callback" => array($this, "get_person_name_field"),
 				"callb_pass_row" => true
+			),
+			array(
+				"name" => "sex",
+				"caption" => t("Sugu"),
+				"sortable" => "1",
+				"chgbgcolor" => "cutcopied",
+			),
+			array(
+				"name" => "age",
+				"caption" => t("Vanus"),
+				"sortable" => "1",
+				"chgbgcolor" => "cutcopied",
+			),
+			array(
+				"name" => "address",
+				"caption" => t("Aadress"),
+				"sortable" => "1",
+				"chgbgcolor" => "cutcopied",
 			),
 			array(
 				"name" => "phone",

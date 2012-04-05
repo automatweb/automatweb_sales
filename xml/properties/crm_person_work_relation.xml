@@ -70,6 +70,15 @@
             <caption>T&amp;amp;ouml;&amp;amp;ouml;ruum</caption>
       </property>
       <property>
+            <name>description</name>
+            <group>general</group>
+            <table>aw_crm_person_work_relation</table>
+            <field>description</field>
+            <method>serialize</method>
+            <type>textarea</type>
+            <caption>Kirjeldus</caption>
+      </property>
+      <property>
             <name>tasks</name>
             <group>general</group>
             <table>objects</table>
