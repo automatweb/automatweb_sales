@@ -62,6 +62,14 @@
             <caption>Grupeerimise j&amp;amp;auml;rjestamisprintsiip</caption>
       </property>
       <property>
+            <name>employee_status</name>
+            <table>objects</table>
+            <group>view</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+      </property>
+      <property>
             <name>view</name>
             <table>objects</table>
             <group>view</group>
@@ -71,12 +79,10 @@
             <caption>Vaadete tabel</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_PERSONS_WEBVIEW</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <view>

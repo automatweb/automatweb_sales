@@ -41,6 +41,8 @@ caption .
 @property grouping_principe type=callback callback=callback_get_grouping_principe
 @caption Grupeerimise j&auml;rjestamisprintsiip
 
+@property employee_status type=select
+
 - Vaadete tabel (salvestamisel uus rida)
 @property view callback=callback_get_view_table
 @caption Vaadete tabel
@@ -187,6 +189,9 @@ class persons_webview extends class_base
 					}
 				}
 				break;
+			case "employee_status":
+				$prop["options"] = array("active" => "Kuva ainult praeguseid" , "former" => "Kuva endiseid töötajaid", "all" => "Kuva kõiki");
+				break;
 		}
 		return $retval;
 	}
@@ -316,16 +321,26 @@ class persons_webview extends class_base
 			"caption" => t("Minimaalne tulpade arv"),
 		));
 		$nm = "view";
+
+		$template_selection = array();
+		if ($handle = opendir($this->cfg["site_tpldir"]."crm/persons_webview/")) {
+			while (false !== ($entry = readdir($handle))) {
+				if($entry !== '.' && $entry !== '..') { 
+				$template_selection[$entry] = $entry;
+				}
+			}
+		}
+
 		for($i = 0; $i < $count+1; $i++)
 		{
 			if($i==0) $caption = "Vaadete tabelid";
 			else $caption = "";
 			$t->define_data(array(
 				"name" => ($i + 1),
-				"template" => html::textbox(array(
+				"template" => html::select(array(
 						"name" => "view[".$i."][template]",
 						"value" => $view[$i]["template"],
-						"size" => "10",
+						"options" => $template_selection
 				)),
 				"department_levels" => html::textbox(array(
 						"name" => "view[".$i."][department_levels]",
@@ -731,6 +746,7 @@ class persons_webview extends class_base
 		$template = $this->view["template"];
 		$this->read_template($template);
 		lc_site_load("persons_web_view",$this);
+
 		if($this->view_obj->prop("department_grouping"))
 		{
 			if($this->is_template("DEPARTMENT"))
@@ -739,8 +755,6 @@ class persons_webview extends class_base
 				$this->jrks = array();
 				if(in_array((0) , $this->levels) && (sizeof($this->levels) > 0)) $sections = array_merge(array($company) , $this->get_sections(array("section" => $company , "jrk" => 0)));
 				else $sections = $this->get_sections(array("section" => $company , "jrk" => 0));
-
-
 
 			foreach($sections as $section)
 				{
@@ -752,6 +766,7 @@ class persons_webview extends class_base
 						$workers = $this->get_workers($section);
 						$this->parse_persons($workers);
 					}
+
 					//if(sizeof($workers) > 0)
 					$this->parse_section($section);
 					if($this->is_template("LEVEL".$this->jrks[$section->id()]."DEPARTMENT"))
@@ -763,11 +778,13 @@ class persons_webview extends class_base
 		}
 		else //juhul kui osakondade j2rgi pole grupeeritud, siis saab veidi lihtsamini template jne teha
 		{
+
 			if($this->view["with_persons"])
 			{
 				$workers = $this->get_workers($company);
 				$this->parse_persons($workers);
 			}
+					
 			if($this->is_template("DEPARTMENT"))//juhuks kui DEPARTMENT sub sisse on j22nud... mida tegelt pole vaja
 			{
 				$department .= $this->parse("DEPARTMENT");
@@ -846,7 +863,7 @@ class persons_webview extends class_base
 
 	function get_workers($section)
 	{
-		$workers_list = $section->get_workers();
+		$workers_list = $section->get_workers(array("state" => $this->view_obj->prop("employee_status")));
 		//------------------------sorteerib k6vemad vennad ette;
 		$workers = array();
 		foreach($workers_list->arr() as $worker)
@@ -892,7 +909,9 @@ class persons_webview extends class_base
 			"type" => "RELTYPE_SECTION",
 			)));
 		}
+
 		$section_arr = $this->sort_sections($section_list->arr());
+
 		foreach($section_arr as $sec)
 		{
 			if(in_array(($jrk + 1) , $this->levels) && (sizeof($this->levels) > 0) && empty($this->jrks[$sec->id()]))
@@ -902,6 +921,8 @@ class persons_webview extends class_base
 			$sections = array_merge($sections , $this->get_sections(array("section" => $sec, "jrk" => ($jrk+1))));
 			$this->jrks[$sec->id()] = $jrk + 1;
 		}
+
+
 		return $sections;
 	}
 
@@ -1115,7 +1136,7 @@ class persons_webview extends class_base
 		$this->parse_profession($worker);
 
 		$vars = array(
-			"name" => str_replace("�" , "&#154;" , str_replace("�" , "&#138;" , $worker->name())),
+			"name" => str_replace("¹" , "&#154;" , str_replace("©" , "&#138;" , $worker->name())),
 			"wage_doc" => $worker->prop("wage_doc"),
 			"ta1" => $worker->prop("udef_ta1"),
 			"ta2" => $worker->prop("udef_ta2"),

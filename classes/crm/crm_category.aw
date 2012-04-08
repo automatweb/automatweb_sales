@@ -43,6 +43,18 @@ class crm_category extends class_base
 
 	function do_db_upgrade($table, $field, $q, $err)
 	{
+		if ("aw_account_balances" === $table)
+		{//ei tea miks see siin peaks olema, kuid väga mitmest klassist just siit seda välja kutsutakse... kellele ei meeldi tõstku mujale
+			if (empty($field))
+			{
+				$this->db_query("CREATE TABLE IF NOT EXISTS `aw_account_balances` (
+					  `aw_oid` int(11) UNSIGNED NOT NULL default '0',
+					  `aw_balance` DOUBLE default NULL,
+					  PRIMARY KEY (`aw_oid`)
+					) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+			}
+		}
+
 		if ("aw_crm_category" === $table)
 		{
 			if (empty($field))

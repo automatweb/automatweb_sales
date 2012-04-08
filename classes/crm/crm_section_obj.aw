@@ -91,12 +91,12 @@ class crm_section_obj extends _int_object
 	**/
 	function get_workers($arr = array())
 	{
-		$rel_list = new object_list(array(
+		$filter = array(
 			"class_id" => CL_CRM_PERSON_WORK_RELATION,
 			"site_id" => array(),
 			"lang_id" => array(),
 			"company_section" => $this->id(),
-			new object_list_filter(array(
+/*			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
 					new object_list_filter(array(
@@ -129,9 +129,28 @@ class crm_section_obj extends _int_object
 						)
 					))
 				)
-			)),
+			)),*/
 
-		));
+		);
+
+		if(empty($arr["state"]))
+		{
+			$arr["state"] = "active";
+		}
+		switch($arr["state"])
+		{
+			case "former":
+				$filter["state"] = array(crm_person_work_relation_obj::STATE_ENDED);
+				break;
+			case "all":
+				$filter["state"] = array();
+			break;
+			case "active":
+			default:
+				$filter["state"] = array(crm_person_work_relation_obj::STATE_ACTIVE, crm_person_work_relation_obj::STATE_UNDEFINED);
+				break;
+		}
+		$rel_list = new object_list($filter);
 
 		if($rel_list->count())
 		{

@@ -1632,6 +1632,16 @@ EOF;
 				);
 			}
 		}
+		else
+		{
+			$o = $u->get_first_obj_by_reltype("RELTYPE_PERSON");
+			if($o)
+			{
+				$u->set_prop("person" , $o->id());
+				$u->save();
+				$person_oid = $o->id();
+			}
+		}
 
 		return $person_oid;
 	}

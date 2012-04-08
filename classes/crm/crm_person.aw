@@ -4083,7 +4083,7 @@ class crm_person extends class_base
 		if (aw_global_get("uid") != "")
 		{
 			$p = get_current_person();
-			if ("general2" === $this->use_group)
+			if ($p && "general2" === $this->use_group)
 			{
 				if (!empty($arr["request"]["is_important"]))
 				{
