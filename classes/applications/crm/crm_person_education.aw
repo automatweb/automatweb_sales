@@ -24,7 +24,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_CRM_PERSON, on_disconn
 @property school2 type=textbox field=school_2
 @caption Muu kool
 
-@property faculty type=relpicker reltype=RELTYPE_FACULTY no_edit=1 store=connect
+@property faculty type=relpicker reltype=RELTYPE_FACULTY store=connect
 @caption Teaduskond
 
 @property degree type=select field=degree

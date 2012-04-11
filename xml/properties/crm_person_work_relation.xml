@@ -61,6 +61,14 @@
             <caption>Suhte l&amp;amp;otilde;pp</caption>
       </property>
       <property>
+            <name>type</name>
+            <group>general</group>
+            <table>aw_crm_person_work_relation</table>
+            <type>select</type>
+            <field>type</field>
+            <caption>Suhte t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
             <name>room</name>
             <group>general</group>
             <table>objects</table>

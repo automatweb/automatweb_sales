@@ -35,6 +35,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_ML_MEMBER, on_discon
 	@property end type=datepicker
 	@caption Suhte l&otilde;pp
 
+	@property type type=select
+	@caption Suhte t&uuml;&uuml;p
 
 @default table=objects
 @default field=meta
@@ -102,6 +104,19 @@ class crm_person_work_relation extends class_base
 		$this->init(array(
 			"clid" => CL_CRM_PERSON_WORK_RELATION
 		));
+	}
+
+	function get_property($arr)
+	{
+		$prop = &$arr["prop"];
+		$retval = PROP_OK;
+		switch($prop["name"])
+		{
+			case "type":
+				$prop["options"] = array("Töövõtja suhe" , "Organisatsiooniline kuuluvus");
+				break;
+		}
+		return $retval;
 	}
 
 	function _get_state($arr)
@@ -244,6 +259,13 @@ class crm_person_work_relation extends class_base
 				$this->db_add_col("aw_crm_person_work_relation", array(
 					"name" => "description",
 					"type" => "text"
+				));
+			}
+			elseif("type" === $field)
+			{
+				$this->db_add_col("aw_crm_person_work_relation", array(
+					"name" => "type",
+					"type" => "tinyint UNSIGNED NOT NULL default '0'"
 				));
 			}
 			elseif ("state" === $field)

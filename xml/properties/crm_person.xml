@@ -327,6 +327,16 @@
             <caption>Salvesta</caption>
       </property>
       <property>
+            <name>customer_relation_table</name>
+            <table>kliendibaas_isik</table>
+            <group>cust_rel</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>customer_relation_table</field>
+            <caption>Praeguste t&amp;amp;ouml;&amp;amp;ouml;kohtade tabel</caption>
+      </property>
+      <property>
             <name>co_is_cust</name>
             <table>kliendibaas_isik</table>
             <group>cust_rel</group>
@@ -997,6 +1007,26 @@
             <comment>Formaat: 15.03.2007 - 18.03.2007</comment>
       </property>
       <property>
+            <name>education_tb</name>
+            <table>kliendibaas_isik</table>
+            <group>education</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>education_tb</field>
+            <caption>Hariduse toolbar</caption>
+      </property>
+      <property>
+            <name>education_table</name>
+            <table>kliendibaas_isik</table>
+            <group>education</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>education_table</field>
+            <caption>Hariduse tabel</caption>
+      </property>
+      <property>
             <name>edulevel</name>
             <table>kliendibaas_isik</table>
             <group>education</group>
@@ -1099,6 +1129,26 @@
             <caption>Haridusk&amp;amp;auml;ik 2</caption>
       </property>
       <property>
+            <name>add_education_tb</name>
+            <table>kliendibaas_isik</table>
+            <group>add_edu</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>add_education_tb</field>
+            <caption>T&amp;amp;auml;iendkoolituse toolbar</caption>
+      </property>
+      <property>
+            <name>add_education_table</name>
+            <table>kliendibaas_isik</table>
+            <group>add_edu</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>add_education_table</field>
+            <caption>T&amp;amp;auml;iendkoolituse tabel</caption>
+      </property>
+      <property>
             <name>add_edu_edit</name>
             <table>kliendibaas_isik</table>
             <group>add_edu</group>
@@ -1175,18 +1225,19 @@
             <field>recommends_edit</field>
       </property>
       <property>
-            <name>add_info_tlb</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
+            <name>languages_tb</name>
+            <table>kliendibaas_isik</table>
+            <group>languages</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <field>add_info_tlb</field>
+            <field>languages_tb</field>
+            <caption>Keelte toolbar</caption>
       </property>
       <property>
             <name>mlang</name>
             <table>kliendibaas_isik</table>
-            <group>addinfo_new</group>
+            <group>languages</group>
             <type>objpicker</type>
             <clid>CL_CRM_LANGUAGE</clid>
             <field>mlang</field>
@@ -1195,19 +1246,68 @@
       <property>
             <name>other_mlang</name>
             <table>kliendibaas_isik</table>
-            <group>addinfo_new</group>
+            <group>languages</group>
             <type>textbox</type>
             <field>other_mlang</field>
             <caption>Muu emakeel</caption>
       </property>
       <property>
             <name>skills_lang_tbl</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
+            <table>kliendibaas_isik</table>
+            <group>languages</group>
             <type>table</type>
             <store>no</store>
             <field>skills_lang_tbl</field>
             <caption>Keeleoskus</caption>
+      </property>
+      <property>
+            <name>vehicles_tb</name>
+            <table>kliendibaas_isik</table>
+            <group>vehicles</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>vehicles_tb</field>
+            <caption>Autos&amp;amp;otilde;idu oskuste toolbar</caption>
+      </property>
+      <property>
+            <name>vehicles_tbl</name>
+            <table>kliendibaas_isik</table>
+            <group>vehicles</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <parent>vehicles_table_layout</parent>
+            <store>no</store>
+            <field>vehicles_tbl</field>
+            <caption>Autos&amp;amp;otilde;idu oskuste tabel</caption>
+      </property>
+      <property>
+            <name>drivers_license</name>
+            <table>kliendibaas_isik</table>
+            <group>vehicles</group>
+            <type>select</type>
+            <multiple>1</multiple>
+            <field>drivers_license_2</field>
+            <caption>Autojuhiload</caption>
+      </property>
+      <property>
+            <name>dl_can_use</name>
+            <table>kliendibaas_isik</table>
+            <group>vehicles</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <no_caption>1</no_caption>
+            <field>dl_can_use</field>
+            <caption>Kas v&amp;amp;otilde;imalik kasutada isiklikku autot t&amp;amp;ouml;&amp;amp;ouml;eesm&amp;amp;auml;rkidel</caption>
+      </property>
+      <property>
+            <name>add_info_tlb</name>
+            <table>objects</table>
+            <group>addinfo_new</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>add_info_tlb</field>
       </property>
       <property>
             <name>skills_tbl</name>
@@ -1343,30 +1443,72 @@
             <caption>Keeled releditor</caption>
       </property>
       <property>
-            <name>drivers_license</name>
-            <table>kliendibaas_isik</table>
-            <group>addinfo_new</group>
-            <type>select</type>
-            <multiple>1</multiple>
-            <field>drivers_license_2</field>
-            <caption>Autojuhiload</caption>
-      </property>
-      <property>
-            <name>dl_can_use</name>
-            <table>kliendibaas_isik</table>
-            <group>addinfo_new</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>dl_can_use</field>
-            <caption>Kas v&amp;amp;otilde;imalik kasutada isiklikku autot t&amp;amp;ouml;&amp;amp;ouml;eesm&amp;amp;auml;rkidel</caption>
-      </property>
-      <property>
             <name>addinfo</name>
             <table>kliendibaas_isik</table>
             <group>addinfo_new</group>
             <type>textarea</type>
             <field>addinfo</field>
             <caption>Muud oskused</caption>
+      </property>
+      <property>
+            <name>org_relations_tb</name>
+            <table>objects</table>
+            <group>org_relations</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>org_relations_tb</field>
+            <caption>Organisatsioonilise kuuluvuse toolbar</caption>
+      </property>
+      <property>
+            <name>org_relations_table</name>
+            <table>objects</table>
+            <group>org_relations</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>org_relations_table</field>
+            <caption>Organisatsioonilise kuuluvuse tabel</caption>
+      </property>
+      <property>
+            <name>old_org_relations_table</name>
+            <table>objects</table>
+            <group>org_relations</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>old_org_relations_table</field>
+            <caption>Endiste organisatsiooniliste kuuluvuse tabel</caption>
+      </property>
+      <property>
+            <name>work_tb</name>
+            <table>objects</table>
+            <group>experiences</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>work_tb</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;kohtade toolbar</caption>
+      </property>
+      <property>
+            <name>work_table</name>
+            <table>objects</table>
+            <group>experiences</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>work_table</field>
+            <caption>Praeguste t&amp;amp;ouml;&amp;amp;ouml;kohtade tabel</caption>
+      </property>
+      <property>
+            <name>past_work_table</name>
+            <table>objects</table>
+            <group>experiences</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>past_work_table</field>
+            <caption>Endiste t&amp;amp;ouml;&amp;amp;ouml;kohtade tabel</caption>
       </property>
       <property>
             <name>previous_job_edit</name>
@@ -1964,23 +2106,10 @@
                   <parent>general</parent>
                   <no_submit>1</no_submit>
             </general2>
-            <cust_rel>
-                  <caption>Kliendisuhe</caption>
-                  <parent>general</parent>
-            </cust_rel>
-            <contact>
-                  <caption>Kontaktandmed</caption>
-                  <parent>general</parent>
-            </contact>
             <description>
                   <caption>Kirjeldus</caption>
                   <parent>general</parent>
             </description>
-            <documents_all>
-                  <caption>Dokumendid</caption>
-                  <submit>no</submit>
-                  <parent>general</parent>
-            </documents_all>
             <mails>
                   <caption>Kirjad</caption>
                   <submit>no</submit>
@@ -1996,64 +2125,25 @@
             </work_hrs>
             <cv>
                   <caption>Elulugu</caption>
-                  
+                  <parent>general</parent>
             </cv>
-            <education>
-                  <caption>Haridusk&amp;amp;auml;ik</caption>
-                  <parent>cv</parent>
-            </education>
-            <add_edu>
-                  <caption>T&amp;amp;auml;ienduskoolitus</caption>
-                  <parent>cv</parent>
-            </add_edu>
             <orgs>
                   <caption>Organisatoorne kuuluvus</caption>
                   <parent>cv</parent>
                   <submit>no</submit>
             </orgs>
-            <recommends>
-                  <caption>Soovitajad</caption>
-                  <parent>cv</parent>
-            </recommends>
-            <addinfo_new>
-                  <caption>Muud oskused</caption>
-                  <parent>cv</parent>
-            </addinfo_new>
-            <work>
-                  <caption>T&amp;amp;ouml;&amp;amp;ouml;</caption>
-                  
-            </work>
-            <experiences>
-                  <caption>T&amp;amp;ouml;&amp;amp;ouml;kogemus</caption>
-                  <parent>work</parent>
-            </experiences>
             <work_projects>
                   <caption>Projektid</caption>
-                  <parent>work</parent>
+                  <parent>general</parent>
             </work_projects>
-            <work_wanted>
-                  <caption>Soovitud t&amp;amp;ouml;&amp;amp;ouml;</caption>
-                  <parent>work</parent>
-                  <submit>no</submit>
-            </work_wanted>
-            <candidate>
-                  <caption>Kandideerimised</caption>
-                  <parent>work</parent>
-                  <submit>no</submit>
-            </candidate>
-            <skills>
-                  <caption>P&amp;amp;auml;devused</caption>
-                  <parent>work</parent>
-                  <submit>no</submit>
-            </skills>
             <atwork>
                   <caption>T&amp;amp;ouml;&amp;amp;ouml;ajad</caption>
-                  <parent>work</parent>
+                  <parent>general</parent>
                   <submit>no</submit>
             </atwork>
             <overview>
                   <caption>Tegevused</caption>
-                  
+                  <parent>general</parent>
             </overview>
             <all_actions>
                   <caption>K&amp;amp;otilde;ik</caption>
@@ -2077,20 +2167,21 @@
             </tasks>
             <data>
                   <caption>Andmed</caption>
-                  
+                  <parent>general</parent>
             </data>
             <my_stats>
                   <caption>Minu statistika</caption>
                   <submit>no</submit>
                   <submit_method>get</submit_method>
+                  <parent>general</parent>
             </my_stats>
             <transl>
                   <caption>T&amp;amp;otilde;lgi</caption>
-                  
             </transl>
             <cv_view>
                   <caption>CV vaade</caption>
                   <submit>no</submit>
+                  <parent>general</parent>
             </cv_view>
             <ext_sys>
                   <caption>Siduss&amp;amp;uuml;steemid</caption>
@@ -2109,6 +2200,85 @@
                   <parent>general</parent>
                   <submit>no</submit>
             </sms>
+            <skills>
+                  <caption>P&amp;amp;auml;devused-vana</caption>
+                  <parent>general</parent>
+                  <submit>no</submit>
+            </skills>
+            <contact>
+                  <caption>Kontaktandmed</caption>
+            </contact>
+            <work>
+                  <caption>T&amp;amp;ouml;&amp;amp;ouml;suhted</caption>
+            </work>
+            <experiences>
+                  <caption>Praegused ja varasemad t&amp;amp;ouml;&amp;amp;ouml;kohad</caption>
+                  <parent>work</parent>
+                  <submit>no</submit>
+            </experiences>
+            <work_wanted>
+                  <caption>Soovitud t&amp;amp;ouml;&amp;amp;ouml;kohad</caption>
+                  <parent>work</parent>
+                  <submit>no</submit>
+            </work_wanted>
+            <recommends>
+                  <caption>Soovitajad</caption>
+                  <parent>work</parent>
+            </recommends>
+            <candidate>
+                  <caption>Kandideerimised</caption>
+                  <parent>work</parent>
+                  <submit>no</submit>
+            </candidate>
+            <customer_relations>
+                  <caption>Kliendisuhted</caption>
+            </customer_relations>
+            <cust_rel>
+                  <caption>Aktiivsed ja varasemad kliendisuhted</caption>
+                  <parent>customer_relations</parent>
+            </cust_rel>
+            <education_and_improvement>
+                  <caption>Haridus ja t&amp;amp;auml;ienduskoolitus</caption>
+            </education_and_improvement>
+            <education>
+                  <caption>Haridustee</caption>
+                  <parent>education_and_improvement</parent>
+            </education>
+            <add_edu>
+                  <caption>T&amp;amp;auml;ienduskoolitus</caption>
+                  <parent>education_and_improvement</parent>
+            </add_edu>
+            <all_skills>
+                  <caption>Oskused</caption>
+            </all_skills>
+            <languages>
+                  <caption>Keeled</caption>
+                  <parent>all_skills</parent>
+            </languages>
+            <vehicles>
+                  <caption>S&amp;amp;otilde;idukite juhtimine</caption>
+                  <parent>all_skills</parent>
+            </vehicles>
+            <computer_skills>
+                  <caption>Arvutioskused</caption>
+                  <parent>all_skills</parent>
+            </computer_skills>
+            <devices>
+                  <caption>Seadmete juhtimine</caption>
+                  <parent>all_skills</parent>
+            </devices>
+            <addinfo_new>
+                  <caption>Muud oskused</caption>
+                  <parent>all_skills</parent>
+            </addinfo_new>
+            <org_relations>
+                  <caption>Kuulumine organisatsioonidesse</caption>
+                  <submit>no</submit>
+            </org_relations>
+            <documents_all>
+                  <caption>Dokumendid</caption>
+                  <submit>no</submit>
+            </documents_all>
       </groupinfo>
       <tableinfo>
             <kliendibaas_isik>
@@ -2671,6 +2841,11 @@
                   <group>mails</group>
                   <area_caption></area_caption>
             </mails_table_l>
+            <vehicles_table_layout>
+                  <type>vbox</type>
+                  <group>vehicles</group>
+                  <area_caption></area_caption>
+            </vehicles_table_layout>
       </layout>
 </properties>
 

@@ -32,6 +32,27 @@
 			</function>
 		</action>
 
+		<action name="add_new_work_relation">
+			<function name="add_new_work_relation">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_new_org_relation">
+			<function name="add_new_org_relation">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_education">
+			<function name="new_education">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="edit_my_person_obj" is_public="1" caption="Muuda isikuobjekti andmeid">
 			<function name="edit_my_person_obj">
 				<arguments>

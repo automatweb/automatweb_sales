@@ -319,6 +319,10 @@ class doc_display extends aw_template
 
 		if ($doc->prop("show_twitter"))
 		{
+	/*		arr($this->vars["docid"]);
+			arr(aw_ini_get("baseurl"));
+			arr(urlencode(aw_ini_get("baseurl").$this->vars["docid"]));*/
+			$this->vars(array("twitter_url" => "http://platform.twitter.com/widgets/tweet_button.1333526973.html#_=1334108136206&amp;count=horizontal&amp;id=twitter-widget-26&amp;lang=en&amp;original_referer=http%3A%2F%2Ftwitter.com%2Fabout%2Fresources%2Fbuttons%23tweet&amp;size=m&amp;text=Twitter%20%2F%20Twitter%20buttons&amp;url=".urlencode(aw_ini_get("baseurl").$this->vars["docid"])));
 			$this->vars(array("TWITTER" => $this->parse("TWITTER")));
 		}
 

@@ -277,7 +277,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				{
 					return $val;
 				}
-				elseif(parent::prop("birthday"))
+				elseif(parent::prop("birthday") && parent::prop("birthday") != -1)
 				{
 					$bd_tm = explode("-", parent::prop("birthday"));
 					$bd_tm = mktime(0, 0, 0, $bd_tm[1], $bd_tm[2], $bd_tm[0]);
@@ -1371,6 +1371,55 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			return $obj->name();
 		}
 		return "";
+	}
+
+	//returns all old work relations
+	public function get_old_work_relations()
+	{
+		return crm_person_work_relation_obj::find(obj($this->id()), null, null, null, crm_person_work_relation_obj::STATE_ENDED);
+	}
+
+	//returns all person customer relations
+	public function get_customer_relations()
+	{
+		$filter = array("class_id" => crm_company_customer_data_obj::CLID);
+		$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array (
+					"CL_CRM_COMPANY_CUSTOMER_DATA.seller" => $this->id() ,
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer" => $this->id(),
+				)
+		));
+		return new object_list($filter);
+	}
+
+	function get_education_list()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_CRM_PERSON_EDUCATION,
+			"person" => $this->id(), 
+		));
+		return $ol;
+	}
+
+	function get_drivers_licenses()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_CRM_PERSON_DRIVERS_LICENSE,
+			"person" => $this->id(), 
+		));
+		return $ol;
+	}
+
+
+	function get_add_education_list()
+	{
+		$ol = new object_list();
+		foreach($this->connections_from(array("class_id" => "CL_CRM_PERSON_ADD_EDUCATION")) as $conn)
+		{
+			$ol ->add($conn->prop("to"));
+		}
+		return $ol;
 	}
 
 	/** returns object id of first company found where person is currently employed or has some other active relation to

@@ -122,8 +122,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo cust_rel caption="Kliendisuhe" parent=general
+
 @default group=cust_rel
+
+	@property customer_relation_table type=table no_caption=1 store=no
+	@caption Praeguste t&ouml;&ouml;kohtade tabel
 
 	@layout co_bottom_seller area_caption=Kliendisuhe&#44;&nbsp;tema_ostab_meilt closeable=1 type=hbox width=50%:50%
 
@@ -179,9 +182,12 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo contact caption="Kontaktandmed" parent=general
-@default group=contact
 
+
+
+
+
+@default group=contact
 @property ct_rel_tb type=toolbar no_caption=1 store=no
 
 	@layout ct_super type=vbox  closeable=1 area_caption=Kontaktid
@@ -277,7 +283,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo documents_all caption="Dokumendid" submit=no parent=general
+
 @default group=documents_all
 
 @property docs_tb type=toolbar no_caption=1
@@ -384,10 +390,17 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 	@comment Formaat: 15.03.2007 - 18.03.2007
 
 ------------------------------------------------------------------
-@groupinfo cv caption="Elulugu"
+@groupinfo cv caption="Elulugu" parent=general
 
-@groupinfo education caption="Haridusk&auml;ik" parent=cv
+
 @default group=education
+	@property education_tb type=toolbar no_caption=1 store=no
+	@caption Hariduse toolbar
+
+	@property education_table type=table no_caption=1 store=no
+	@caption Hariduse tabel
+
+
 	@property edulevel type=select field=edulevel table=kliendibaas_isik
 	@caption Haridustase
 
@@ -402,8 +415,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo add_edu caption="T&auml;ienduskoolitus" parent=cv
+	@property add_education_tb type=toolbar no_caption=1 store=no group=add_edu
+	@caption T&auml;iendkoolituse toolbar
 
+	@property add_education_table type=table no_caption=1 store=no group=add_edu
+	@caption T&auml;iendkoolituse tabel
 @property add_edu_edit type=releditor store=no mode=manager2 reltype=RELTYPE_ADD_EDUCATION props=org,field,time,time_text,length_hrs,length table_fields=org,field,time,time_text,length_hrs,length group=add_edu
 ------------------------------------------------------------------
 
@@ -413,18 +429,16 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo recommends caption="Soovitajad" parent=cv
+
 @default group=recommends
 
 	@property recommends_edit type=releditor store=no mode=manager2 reltype=RELTYPE_RECOMMENDATION props=person,relation,phones,emails,org,profession,contact_lang table_fields=person,relation,phones,emails,org,profession,contact_lang
 
 ------------------------------------------------------------------
 
-@groupinfo addinfo_new caption="Muud oskused" parent=cv
-@default group=addinfo_new
-@default table=objects
-
-	@property add_info_tlb type=toolbar no_caption=1 store=no
+@default group=languages
+	@property languages_tb type=toolbar no_caption=1 store=no
+	@caption Keelte toolbar
 
 	@property mlang type=objpicker clid=CL_CRM_LANGUAGE table=kliendibaas_isik field=mlang
 	@caption Emakeel
@@ -434,6 +448,26 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 	@property skills_lang_tbl type=table store=no
 	@caption Keeleoskus
+
+@default group=vehicles
+	@property vehicles_tb type=toolbar no_caption=1 store=no
+	@caption Autos&otilde;idu oskuste toolbar
+
+		@layout vehicles_table_layout type=vbox
+
+		@property vehicles_tbl type=table no_caption=1 parent=vehicles_table_layout
+		@caption Autos&otilde;idu oskuste tabel
+
+	@property drivers_license type=select multiple=1 field=drivers_license_2 table=kliendibaas_isik
+	@caption Autojuhiload
+
+	@property dl_can_use type=checkbox ch_value=1 table=kliendibaas_isik no_caption=1
+	@caption Kas v&otilde;imalik kasutada isiklikku autot t&ouml;&ouml;eesm&auml;rkidel
+
+@default group=addinfo_new
+@default table=objects
+
+	@property add_info_tlb type=toolbar no_caption=1 store=no
 
 	@property skills_tbl type=table store=no
 	@caption Oskused
@@ -456,21 +490,32 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 	@property languages_releditor type=releditor mode=manager2 reltype=RELTYPE_LANGUAGE_SKILL props=language,talk,understand,write,other table_fields=language,talk,understand,write store=no
 	@caption Keeled releditor
 
-	@property drivers_license type=select multiple=1 field=drivers_license_2 table=kliendibaas_isik
-	@caption Autojuhiload
-
-	@property dl_can_use type=checkbox ch_value=1 table=kliendibaas_isik
-	@caption Kas v&otilde;imalik kasutada isiklikku autot t&ouml;&ouml;eesm&auml;rkidel
-
 	@property addinfo type=textarea table=kliendibaas_isik field=addinfo
 	@caption Muud oskused
 
 ------------------------------------------------------------------
+@default group=org_relations
+	@property org_relations_tb type=toolbar no_caption=1 store=no
+	@caption Organisatsioonilise kuuluvuse toolbar
 
-@groupinfo work caption="T&ouml;&ouml;"
+	@property org_relations_table type=table no_caption=1 store=no
+	@caption Organisatsioonilise kuuluvuse tabel
 
-@groupinfo experiences caption="T&ouml;&ouml;kogemus" parent=work
+	@property old_org_relations_table type=table no_caption=1 store=no
+	@caption Endiste organisatsiooniliste kuuluvuse tabel
+
+
+
 @default group=experiences
+	@property work_tb type=toolbar no_caption=1 store=no
+	@caption T&ouml;&ouml;kohtade toolbar
+
+	@property work_table type=table no_caption=1 store=no
+	@caption Praeguste t&ouml;&ouml;kohtade tabel
+
+	@property past_work_table type=table no_caption=1 store=no
+	@caption Endiste t&ouml;&ouml;kohtade tabel
+
 
 	@property previous_job_edit type=releditor store=no mode=manager2 reltype=RELTYPE_PREVIOUS_JOB props=org,section2,profession,field,start,end,tasks,load,salary,salary_currency,benefits,directive_link,directive,contract_stop table_fields=org,section2,profession,field,start,end,tasks,load,salary,salary_currency,benefits,directive_link,directive,contract_stop
 	@caption Endised t&ouml;&ouml;kohad
@@ -483,7 +528,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo work_projects caption="Projektid" parent=work
+@groupinfo work_projects caption="Projektid" parent=general
 
 	@property work_projects group=work_projects type=table store=no no_caption=1
 	@caption Projektid
@@ -492,14 +537,14 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo work_wanted caption="Soovitud t&ouml;&ouml;" parent=work submit=no
+
 @default group=work_wanted
 
 	@property jobs_wanted_edit type=releditor mode=manager2 reltype=RELTYPE_WORK_WANTED store=no props=field,job_type,professions_rels,professions,load,pay,work_by_schedule,work_at_night,ready_for_errand,location,location_2,location_text,start_working,additional_skills,handicaps,hobbies_vs_work,addinfo table_fields=field,job_type,professions_rels,professions,load,pay,work_by_schedule,work_at_night,ready_for_errand,location,location_2,location_text,start_working,additional_skills,handicaps,hobbies_vs_work,addinfo
 
 ------------------------------------------------------------------
 
-@groupinfo candidate caption="Kandideerimised" parent=work submit=no
+
 @default group=candidate
 
 	@property candidate_tb type=toolbar no_caption=1 store=no
@@ -508,20 +553,20 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo skills caption="P&auml;devused" parent=work submit=no
+
 @default group=skills
 
 	@property skills_tb type=toolbar no_caption=1 store=no
 	@property skills_table type=table no_caption=1 store=no
 
-@groupinfo atwork caption="T&ouml;&ouml;ajad" parent=work submit=no
+@groupinfo atwork caption="T&ouml;&ouml;ajad" parent=general submit=no
 @default group=atwork
 
 	@property atwork_table type=text no_caption=1 store=no
 
 ------------------------------------------------------------------
 
-@groupinfo overview caption="Tegevused"
+@groupinfo overview caption="Tegevused" parent=general
 @groupinfo all_actions caption="K&otilde;ik" parent=overview submit=no
 @groupinfo calls caption="K&otilde;ned" parent=overview submit=no
 @groupinfo meetings caption="Kohtumised" parent=overview submit=no
@@ -541,7 +586,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo data caption="Andmed"
+@groupinfo data caption="Andmed" parent=general
 @default group=data
 
 @property correspond_address type=relpicker reltype=RELTYPE_CORRESPOND_ADDRESS
@@ -592,7 +637,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo my_stats caption="Minu statistika" submit=no submit_method=get
+@groupinfo my_stats caption="Minu statistika" submit=no submit_method=get  parent=general
 @default group=my_stats
 
 @property stats_s_from type=date_select store=no
@@ -625,7 +670,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 ------------------------------------------------------------------
 
-@groupinfo cv_view caption="CV vaade" submit=no
+@groupinfo cv_view caption="CV vaade" submit=no  parent=general
 @default group=cv_view
 
 @property cv_view_tb type=toolbar no_caption=1 store=no
@@ -662,6 +707,33 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 @default group=sms
 
 	@property sms_tbl type=table store=no no_caption=1
+
+	@groupinfo skills caption="P&auml;devused-vana" parent=general submit=no
+
+@groupinfo contact caption="Kontaktandmed"
+@groupinfo work caption="T&ouml;&ouml;suhted"
+	@groupinfo experiences caption="Praegused ja varasemad t&ouml;&ouml;kohad" parent=work submit=no
+	@groupinfo work_wanted caption="Soovitud t&ouml;&ouml;kohad" parent=work submit=no
+	@groupinfo recommends caption="Soovitajad" parent=work
+	@groupinfo candidate caption="Kandideerimised" parent=work submit=no
+@groupinfo customer_relations caption="Kliendisuhted"
+	@groupinfo cust_rel caption="Aktiivsed ja varasemad kliendisuhted" parent=customer_relations 
+@groupinfo education_and_improvement caption="Haridus ja t&auml;ienduskoolitus"
+	@groupinfo education caption="Haridustee" parent=education_and_improvement
+	@groupinfo add_edu caption="T&auml;ienduskoolitus" parent=education_and_improvement
+
+@groupinfo all_skills caption="Oskused"
+	@groupinfo languages caption="Keeled" parent=all_skills
+	@groupinfo vehicles caption="S&otilde;idukite juhtimine" parent=all_skills
+	@groupinfo computer_skills caption="Arvutioskused" parent=all_skills
+	@groupinfo devices caption="Seadmete juhtimine" parent=all_skills
+
+	@groupinfo addinfo_new caption="Muud oskused" parent=all_skills 
+
+@groupinfo org_relations caption="Kuulumine organisatsioonidesse" submit=no
+@groupinfo documents_all caption="Dokumendid" submit=no
+
+
 
 */
 
@@ -1440,6 +1512,84 @@ class crm_person extends class_base
 		$t->add_delete_button();
 	}
 
+	function _get_vehicles_tb($arr)
+	{
+		load_javascript("reload_properties_layouts.js");
+		$t = $arr["prop"]["vcl_inst"];
+		$t->add_button(array(
+			"name" => "new_driver_licence",
+			"img" => "new.gif",
+			"url" => "javascript:new_drivers_license();",
+			"tooltip" => t("Lisa uus autosõiduoskus")
+		));
+
+		$t->add_button(array(
+			"name" => "delete",
+			"img" => "delete.gif",
+			"tooltip" => t("Kustuta"),
+			"action" => "delete_obj",
+			"confirm" => t("Oled kindel, et kustutada?"),
+		));
+	}
+
+	function _get_vehicles_tbl($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->define_chooser(array(
+			"name" => "sel",
+			"field" => "oid",
+		));
+		$t->define_field(array(
+			"name" => "category",
+			"caption" => t("Kategooria"),
+		));
+		$t->define_field(array(
+			"name" => "year",
+			"caption" => t("Aasta"),
+		));
+		$t->define_field(array(
+			"name" => "experience",
+			"caption" => t("Staaž"),
+		)); 
+
+		$t->set_caption(t("Isiku juhiload"));
+
+		foreach($arr["obj_inst"]->get_drivers_licenses()->arr() as $licence)
+		{
+			$t->define_data(array(
+				"year" => $licence->prop("year"),
+				"experience" => $licence->prop("experience"),
+				"category" => $licence->prop("category"),
+				"oid" => $licence->id(),
+			));
+		}
+	}
+
+
+
+	function _get_languages_tb($arr)
+	{
+		$personnel_management_inst = get_instance(CL_PERSONNEL_MANAGEMENT);
+
+		$t = $arr["prop"]["vcl_inst"];
+		$t->add_menu_button(array(
+			"name" => "new_skill",
+			"img" => "new.gif",
+			"tooltip" => t("Lisa uus keeleoskus")
+		));
+		$t->add_save_button();
+		foreach($personnel_management_inst->get_languages() as $lkey => $lname)
+		{
+			$t->add_menu_item(array(
+				"parent" => "new_skill",
+				"name" => "new_lang_skill_".$lkey,
+				"text" => $lname,
+				"link" => $this->mk_my_orb("add_lang_skill", array("lang_id" => $lkey, "id" => $arr["obj_inst"]->id(), "return_url" => get_ru())),
+			));
+		}
+		$t->add_delete_button();
+	}
+
 	function _get_skills_lang_tbl($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
@@ -1673,7 +1823,7 @@ class crm_person extends class_base
 			$arr["prop"]["value"] = $rel->prop($arr["prop"]["name"]);
 		}
 
-		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && acl_base::can("", $arr["prop"]["value"]))
+		if (isset($arr["prop"]["value"]) && !isset($arr["prop"]["options"][$arr["prop"]["value"]]) && acl_base::can("", $arr["prop"]["value"]))
 		{
 			$v = obj($arr["prop"]["value"]);
 			$arr["prop"]["options"][$arr["prop"]["value"]] = $v->name();
@@ -1695,7 +1845,7 @@ class crm_person extends class_base
 			$arr["prop"]["value"] = $rel->prop($arr["prop"]["name"]);
 		}
 
-		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && acl_base::can("", $arr["prop"]["value"]))
+		if (isset($arr["prop"]["value"]) && !isset($arr["prop"]["options"][$arr["prop"]["value"]]) && acl_base::can("", $arr["prop"]["value"]))
 		{
 			$v = obj($arr["prop"]["value"]);
 			$arr["prop"]["options"][$arr["prop"]["value"]] = $v->name();
@@ -1759,7 +1909,7 @@ class crm_person extends class_base
 			$ol = new object_list();
 		}
 		$res = ($add_empty ? array("" => t("--vali--")) : array()) +  $ol->names();
-		uasort($res, array($this, "__person_name_sorter"));
+//		uasort($res, array($this, "__person_name_sorter"));
 		$cache[$co->id()][$add_empty][$important_only] = $res;
 		return $res;
 	}
@@ -1771,6 +1921,17 @@ class crm_person extends class_base
 		$personnel_management_inst = get_instance(CL_PERSONNEL_MANAGEMENT);
 		switch($data["name"])
 		{
+			case "previous_job_edit":
+			case "previous_praxis_edit":
+			case "current_job_edit":
+			case "edulevel":
+			case "academic_degree":
+			case "education_edit":
+			case "education_edit_2":
+			case "add_edu_edit":
+			case "drivers_license":
+				return PROP_IGNORE;
+
 			case "mails_s_name":
 			case "mails_s_content":
 			case "mails_s_customer":
@@ -2190,11 +2351,11 @@ class crm_person extends class_base
 				{
 					$data["value"] = $u->get_current_person();
 				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && acl_base::can("", $data["value"]))
+	/*			if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && acl_base::can("", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$data["value"]] = $tmp->name();
-				}
+				}*/
 				break;
 
 			case "pictureurl":
@@ -2324,10 +2485,10 @@ class crm_person extends class_base
 				$this->do_previous_jobs_tb($arr);
 				break;
 
-			case "education_tb":
+/*			case "education_tb":
 				$this->do_education_tb($arr);
 				break;
-
+*/
 			case "basic_education_edit":
 				if($arr["request"]["etype"] === "basic_edu")
 				{
@@ -2372,10 +2533,10 @@ class crm_person extends class_base
 				}
 				break;
 
-			case "education_table":
+/*			case "education_table":
 				$this->do_education_table($arr);
 				break;
-
+*/
 			case "programming_skills":
 
 				if(!($arr["request"]["skill"] === "programming"))
@@ -3963,6 +4124,78 @@ class crm_person extends class_base
 	}
 
 	/**
+	@attrib name=add_new_org_relation
+	**/
+	function add_new_org_relation($arr)
+	{
+		$o = new object();
+		$o->set_parent($arr["id"]);
+		$o->set_class_id(CL_CRM_PERSON_WORK_RELATION);
+		$o->set_prop("employee" , $arr["id"]);
+		$o->set_prop("start" , time());
+		$o->set_prop("type" , 1);
+		$o->save();
+		return html::get_change_url($o->id(), array(
+			"return_url" => $arr["post_ru"],
+		));
+	}
+
+	/**
+	@attrib name=add_new_work_relation
+	**/
+	function add_new_work_relation($arr)
+	{
+		$o = new object();
+		$o->set_parent($arr["id"]);
+		$o->set_class_id(CL_CRM_PERSON_WORK_RELATION);
+		$o->set_prop("employee" , $arr["id"]);
+		$o->set_prop("start" , time());
+		$o->save();
+		return html::get_change_url($o->id(), array(
+			"return_url" => $arr["post_ru"],
+		));
+	}
+
+	/**
+	@attrib name=new_education
+	**/
+	function new_education($arr)
+	{
+		$o = new object();
+		$o->set_parent($arr["id"]);
+		$o->set_class_id(CL_CRM_PERSON_EDUCATION);
+		$o->set_prop("person" , $arr["id"]);
+		$o->save();
+		$person = obj($arr["id"]);
+		$person->connect(array(
+				"to" => $arr["obj_inst"]->id(),
+				"type" => "RELTYPE_EDUCATION",
+			));
+		return html::get_change_url($o->id(), array(
+			"return_url" => $arr["post_ru"],
+		));
+	}
+
+	/**
+	@attrib name=new_education
+	**/
+	function new_add_education($arr)
+	{
+		$o = new object();
+		$o->set_parent($arr["id"]);
+		$o->set_class_id(CL_CRM_PERSON_EDUCATION);
+		$o->save();
+		$person = obj($arr["id"]);
+		$person->connect(array(
+				"to" => $arr["obj_inst"]->id(),
+				"type" => "RELTYPE_ADD_EDUCATION",
+			));
+		return html::get_change_url($o->id(), array(
+			"return_url" => $arr["post_ru"],
+		));
+	}
+
+	/**
 	@attrib name=delete_objects
 	**/
 	function delete_objects($arr)
@@ -3990,7 +4223,6 @@ class crm_person extends class_base
 				$obj->delete();
 			}
 		}
-
 		return  $arr["post_ru"];
 	}
 
@@ -4290,68 +4522,112 @@ class crm_person extends class_base
 		}
 	}
 
-
-	function do_education_tb(&$arr)
+	function _get_add_education_tb(&$arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 
-		$tb->add_menu_button(array(
-			'name'=>'new',
-			'tooltip'=>t('Hariduse lisamine')
+		$tb->add_button(array(
+			"name" => "new",
+			"img" => "new.gif",
+	//		"action" => "new_add_education",
+			"url" => html::get_new_url(CL_CRM_PERSON_ADD_EDUCATION, $arr["obj_inst"]->id(), array(
+				"return_url" => get_ru(),
+				"alias_to" => $arr["obj_inst"]->id(),
+				"reltype" => 22
+			)),
+			"tooltip" => t("Lisa")
+		));
+	//		"action" => "new_work_relation",
+		$tb->add_button(array(
+			"name" => "delete",
+			"img" => "delete.gif",
+			"tooltip" => t("Kustuta täiendõpe"),
+			"action" => "delete_obj",
+			"confirm" => t("Oled kindel, et kustutada täiendõpe?"),
+		));
+	}
+
+	function _get_add_education_table(&$arr)
+	{
+	//	$education_instance = get_instance("crm_person_education");
+		$table = &$arr["prop"]["vcl_inst"];
+
+		$table->define_field(array(
+			"name" => "company",
+			"caption" => t("Ettevõte"),
+			"sortable" => 1,
+		));
+		$table->define_field(array(
+			"name" => "field",
+			"caption" => t("Teema"),
+			"sortable" => 1,
 		));
 
+		$table->define_field(array(
+			"name" => "date_from",
+			"caption" => t("Algus"),
+			"sortable" => 1,
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "Y",
+			"align" => "center",
+		));
+
+		$table->define_field(array(
+			"name" => "length",
+			"caption" => t("Kestvus"),
+			"sortable" => 1,
+		));
+
+		$table->define_field(array(
+			"name" => "edit",
+		));
+		$table->define_chooser(array(
+			"name" => "sel",
+			"field" => "sel",
+		));
+
+
+
+		foreach ($arr["obj_inst"]->get_add_education_list()->arr() as $b_edu)
+		{
+			$table->define_data(array(
+				"company" => $b_edu->prop("org"),
+				"date_from" => $b_edu->prop("time"),
+				"field" => $b_edu->prop("field"),
+				"sel" => $b_edu->id(),
+				"edit" => html::href(array(
+					'url' => html::get_change_url($b_edu->id()),
+					'caption' => t("Muuda"),
+				)),
+				"length" => $b_edu->prop("length_hrs") ? $b_edu->prop("length_hrs")." ".t("tundi") :($b_edu->prop("length") ? $b_edu->prop("length")." ".t("päeva") : ""), 
+			));
+		}
+	}
+	
+	function _get_education_tb(&$arr)
+	{
+		$tb = $arr["prop"]["vcl_inst"];
+
+		$tb->add_button(array(
+			"name" => "new",
+			"img" => "new.gif",
+			"action" => "new_education",
+			"tooltip" => t("Lisa")
+		));
+	//		"action" => "new_work_relation",
 		$tb->add_button(array(
 			"name" => "delete",
 			"img" => "delete.gif",
 			"tooltip" => t("Kustuta haridus"),
-			"action" => "delete_objects",
-			"confirm" => t("Oled kindel, et kustutada?"),
-		));
-
-		$tb->add_menu_item(array(
-				'parent'=>'new',
-				'text'=>t('P&otilde;hiharidus'),
-				'link'=> $this->mk_my_orb('change' ,array(
-					"id" => $arr["obj_inst"]->id(),
-					"group" => $arr["request"]["group"],
-					"etype" => "basic_edu",
-				), CL_CRM_PERSON),
-
-		));
-
-		$tb->add_menu_item(array(
-				'parent'=>'new',
-				'text'=>t('Keskharidus'),
-				'link'=> $this->mk_my_orb('change' ,array(
-					"id" => $arr["obj_inst"]->id(),
-					"group" => $arr["request"]["group"],
-					"etype" => "secondary_edu",
-				), CL_CRM_PERSON),
-		));
-
-		$tb->add_menu_item(array(
-				'parent'=>'new',
-				'text'=>t('K&otilde;rgharidus'),
-				'link'=>$this->mk_my_orb('change' ,array(
-					"id" => $arr["obj_inst"]->id(),
-					"group" => $arr["request"]["group"],
-					"etype" => "higher_edu",
-				), CL_CRM_PERSON)
-		));
-
-		$tb->add_menu_item(array(
-				'parent'=>'new',
-				'text'=>t('Kutseharidus'),
-				'link'=>$this->mk_my_orb('change' ,array(
-					"id" => $arr["obj_inst"]->id(),
-					"group" => $arr["request"]["group"],
-					"etype" => "voc_edu",
-				),	CL_CRM_PERSON)
+			"action" => "delete_obj",
+			"confirm" => t("Oled kindel, et kustutada haridus?"),
 		));
 	}
 
-	function do_education_table(&$arr)
+	function _get_education_table(&$arr)
 	{
+		$education_instance = get_instance("crm_person_education");
 		$table = &$arr["prop"]["vcl_inst"];
 
 		$table->define_field(array(
@@ -4359,128 +4635,75 @@ class crm_person extends class_base
 			"caption" => t("Kool"),
 			"sortable" => 1,
 		));
-
+		$table->define_field(array(
+			"name" => "faculty",
+			"caption" => t("Teaduskond"),
+			"sortable" => 1,
+		));
+		$table->define_field(array(
+			"name" => "speciality",
+			"caption" => t("Eriala"),
+			"sortable" => 1,
+		));
+		$table->define_field(array(
+			"name" => "degree",
+			"caption" => t("Kraad"),
+			"sortable" => 1,
+		));
+		
+		$table->define_field(array(
+			"name" => "in_progress",
+			"caption" => t("Omandamisel"),
+			"sortable" => 1,
+		));
+		
 		$table->define_field(array(
 			"name" => "date_from",
-			"caption" => t("Alates"),
+			"caption" => t("Algus"),
 			"sortable" => 1,
 			"type" => "time",
 			"numeric" => 1,
-			"format" => "d.m.y",
+			"format" => "Y",
 			"align" => "center",
 		));
 
 		$table->define_field(array(
 			"name" => "date_to",
-			"caption" => t("Kuni"),
+			"caption" => t("Lõpp"),
 			"type" => "time",
 			"numeric" => 1,
-			"format" => "d.m.y",
+			"format" => "Y",
 			"align" => "center",
 			"sortable" => 1,
 		));
 
 		$table->define_field(array(
-			"name" => "etype",
-			"caption" => t("Haridusliik"),
-			"sortable" => 1,
+			"name" => "edit",
 		));
-
-		$table->define_field(array(
-			"name" => "profession",
-			"caption" => t("Eriala"),
-			"sortable" => 1
-		));
-
 		$table->define_chooser(array(
 			"name" => "sel",
 			"field" => "sel",
 		));
 
 
-		foreach ($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_BASIC_EDUCATION")) as $b_edu_conn)
-		{
-			$b_edu = $b_edu_conn->to();
 
-			$table->define_data(array(
-				"school" => html::href(array(
-					"url" => $this->mk_my_orb("change", array(
-						"id" => $arr["obj_inst"]->id(),
-						"group" => $arr["request"]["group"],
-						"eoid" => $b_edu_conn->id(),
-						"etype" => "basic_edu",
-						), CL_CRM_PERSON),
-					"caption" => $b_edu->prop("school"),
-					)),
-				"date_to" => $b_edu->prop("date_to"),
-				"date_from" => $b_edu->prop("date_from"),
-				"etype" => "P&otilde;hiharidus",
-				"sel" => $b_edu_conn->id(),
-			));
-		}
-
-		foreach ($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_SECONDARY_EDUCATION")) as $s_edu_conn)
+		foreach ($arr["obj_inst"]->get_education_list()->arr() as $b_edu)
 		{
-			$s_edu = $s_edu_conn->to();
 			$table->define_data(array(
-				"school" => html::href(array(
-					"url" => $this->mk_my_orb("change", array(
-						"id" => $arr["obj_inst"]->id(),
-						"group" => $arr["request"]["group"],
-						"eoid" => $s_edu_conn->id(),
-						"etype" => "secondary_edu",
-						), CL_CRM_PERSON),
-					"caption" => $s_edu->prop("school"),
-					)),
-				"date_to" => $s_edu->prop("date_to"),
-				"date_from" => $s_edu->prop("date_from"),
-				"etype" => t("Keskharidus"),
-				"sel" => $s_edu_conn->id(),
-			));
-		}
-
-		foreach ($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_HIGHER_EDUCATION")) as $h_edu_conn)
-		{
-			$h_edu = $h_edu_conn->to();
-			$table->define_data(array(
-				"school" => html::href(array(
-					"url" => $this->mk_my_orb("change", array(
-						"id" => $arr["obj_inst"]->id(),
-						"group" => $arr["request"]["group"],
-						"eoid" => $h_edu_conn->id(),
-						"etype" => "higher_edu",
-					), CL_CRM_PERSON),
-					"caption" => $h_edu->prop("school"),
+				"school" => $b_edu->prop("school1") ?$b_edu->prop("school1.name") : $b_edu->prop("school2"),
+				"date_to" => $b_edu->prop("end"),
+				"date_from" => $b_edu->prop("start"),
+				"faculty" => $b_edu->prop("faculty.name"),
+				"speciality" => $b_edu->prop("speciality"),
+				"degree" => $education_instance->degree_options[$b_edu->prop("degree")],
+				"in_progress" => $b_edu->prop("in_progress") ? t("Jah") : t("Ei"),
+				"sel" => $b_edu->id(),
+				"edit" => html::href(array(
+					'url' => html::get_change_url($b_edu->id()),
+					'caption' => t("Muuda"),
 				)),
-				"date_to" => $h_edu->prop("date_to"),
-				"date_from" => $h_edu->prop("date_from"),
-				"profession" => $h_edu->prop("profession"),
-				"etype" => t("K&otilde;rgharidus"),
-				"sel" => $h_edu_conn->id(),
 			));
 		}
-
-		foreach ($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_VOCATIONAL_EDUCATION")) as $v_edu_conn)
-		{
-			$v_edu = $v_edu_conn->to();
-			$table->define_data(array(
-				"school" => html::href(array(
-					"url" => $this->mk_my_orb("change", array(
-						"id" => $arr["obj_inst"]->id(),
-						"group" => $arr["request"]["group"],
-						"etype" => "voc_edu",
-						"eoid" => $v_edu_conn->id(),
-					), CL_CRM_PERSON),
-					"caption" => $v_edu->prop("school"),
-				)),
-				"date_to" => $v_edu->prop("date_to"),
-				"date_from" => $v_edu->prop("date_from"),
-				"profession" => $v_edu->prop("profession"),
-				"etype" => t("Kutseharidus"),
-				"sel" => $v_edu_conn->id(),
-			));
-		}
-
 	}
 
 	function do_language_skills_table(&$arr)
@@ -4910,6 +5133,32 @@ class crm_person extends class_base
 
 	function callback_generate_scripts($arr)
 	{
+		if($arr["request"]["group"] == "vehicles")
+		{
+			return '
+			function new_drivers_license()
+			{
+				var category = prompt("Kategooria?");
+				var year = prompt("Aasta?");
+				var experience = prompt("Praktiseeritud kogemust/staaži?");
+				if(category.length)
+				{
+					$.ajax({
+						type: "POST",
+						url: "'.aw_ini_get("baseurl") .'/automatweb/orb.aw",
+						data: "&class=crm_person_drivers_license&action=javascript_add_new&person='.$arr["request"]["id"].'&category="+category + "&year=" + year + "&experience=" + experience ,
+						success: function(response){
+							reload_layout("vehicles_table_layout");
+						}
+					});
+				}
+
+			}
+
+			';
+		}
+
+
 		$f = "
 		jQuery(document).ready(function()
 		{
@@ -4918,6 +5167,9 @@ class crm_person extends class_base
 			jQuery('#other_mlang').parent().parent().hide();
 		});
 		";
+
+		
+
 		if (!$arr["new"])
 		{
 			if (isset($arr["request"]["warn_conflicts"]) && $arr["request"]["warn_conflicts"] == 1)
@@ -5028,6 +5280,10 @@ fnCallbackAddNew = function()
 		if ($arr["name"] == "mails_table_l")
 		{
 			$arr["area_caption"] = sprintf(t("Isikule %s saadetud kirjad"), $arr["obj_inst"]->name());
+		}
+		if($arr["name"] == "co_bottom_seller" || $arr["name"] == "co_bottom_buyer")
+		{
+			return false;
 		}
 		return true;
 	}
@@ -8461,6 +8717,366 @@ fnCallbackAddNew = function()
 		return $arr["post_ru"];
 	}
 
+	function _get_education_toolbar(&$arr)
+	{
+		arr("123");
+		$tb = $arr["prop"]["vcl_inst"];
+		$tb->add_button(array(
+			"name" => "new",
+			"img" => "new.gif",
+			"action" => "add_new_work_relation",
+			"tooltip" => t("Lisa haridus")
+		));
+		$tb->add_button(array(
+			"name" => "delete",
+			"img" => "delete.gif",
+			"action" => "delete_obj",
+			"tooltip" => t("Kustuta haridus"),
+			"confirm" => t("Olete kindel, et isik tegelikult sellist haridust ei saanud?"),
+		));
+	}
+
+	function _get_org_relations_tb(&$arr)
+	{
+		$tb = $arr["prop"]["vcl_inst"];
+		$tb->add_button(array(
+			"name" => "new",
+			"img" => "new.gif",
+			"action" => "add_new_org_relation",
+			"tooltip" => t("Lisa organisatsiooniline kuuluvus")
+		));
+		$tb->add_button(array(
+			"name" => "delete",
+			"img" => "delete.gif",
+			"action" => "delete_obj",
+			"tooltip" => t("Kustuta organisatsiooniline kuuluvus")
+		));
+	}
+
+	function _get_org_relations_table(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_work_table2($t);
+		$t->set_caption("Isiku ".$arr["obj_inst"]->name()." organisatsioonilised kuuluvused");
+
+		$relations = $arr["obj_inst"]->get_active_work_relations();
+		foreach($relations->arr() as $rel)
+		{
+			if(!$rel->prop("type"))
+			{
+				continue;
+			}
+			$t->define_data(array(
+				"employer" => $rel->prop("employer.name"),
+				"section" => $rel->prop("company_section.name"),
+				"profession" => $rel->prop("profession.name"),
+				"start" => $rel->prop("start"),
+				"end" => $rel->prop("end"),
+				"oid" => $rel->id(),
+				"edit" => html::href(array(
+					'url' => html::get_change_url($rel->id()),
+					'caption' => t("Muuda"),
+				)),
+			));
+		}
+	}
+	function _get_old_org_relations_table(&$arr)
+	{
+		$relations = $arr["obj_inst"]->get_old_work_relations();
+		$t = $arr["prop"]["vcl_inst"];
+		$cnt = 0;
+		foreach($relations->arr() as $rel)
+		{
+			if(!$rel->prop("type"))
+			{
+				continue;
+			}
+			$cnt++;
+			$t->define_data(array(
+				"employer" => $rel->prop("employer.name"),
+				"section" => $rel->prop("company_section.name"),
+				"profession" => $rel->prop("profession.name"),
+				"start" => $rel->prop("start"),
+				"end" => $rel->prop("end"),
+				"oid" => $rel->id(),
+				"edit" => html::href(array(
+					'url' => html::get_change_url($rel->id()),
+					'caption' => t("Muuda"),
+				)),
+			));
+		}
+		if($cnt)
+		{
+			$this->_init_work_table2($t);
+			$t->set_caption("Isiku ".$arr["obj_inst"]->name()." endised organisatsioonilised kuuluvused");
+		}
+	}
+	function _get_work_tb(&$arr)
+	{
+		$tb = $arr["prop"]["vcl_inst"];
+		$tb->add_button(array(
+			"name" => "new",
+			"img" => "new.gif",
+			"action" => "add_new_work_relation",
+			"tooltip" => t("Lisa töösuhe")
+		));
+		$tb->add_button(array(
+			"name" => "delete",
+			"img" => "delete.gif",
+			"action" => "delete_obj",
+			"tooltip" => t("Kustuta töösuhe")
+		));
+	}
+
+	private function _init_work_table2(&$t)
+	{
+		$t->define_field(array(
+			"name" => "employer",
+			"caption" => t("Organisatsioon"),
+			"align" => "center",
+			"sortable" => 1
+		));
+		$t->define_field(array(
+			"name" => "section",
+			"caption" => t("Üksus"),
+			"align" => "center",
+			"sortable" => 1
+		));
+		$t->define_field(array(
+			"name" => "profession",
+			"caption" => t("Amet"),
+			"align" => "center",
+			"sortable" => 1
+		));
+
+		$t->define_field(array(
+			"name" => "start",
+			"caption" => t("Suhte algus"),
+			"align" => "center",
+			"sortable" => 1,
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "d.m.Y"
+		));
+
+		$t->define_field(array(
+			"name" => "end",
+			"caption" => t("Suhte lõpp"),
+			"align" => "center",
+			"sortable" => 1,
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "d.m.Y"
+		));
+
+		$t->define_chooser(array(
+			"field" => "oid",
+			"name" => "sel"
+		));
+
+		$t->define_field(array(
+			"name" => "edit",
+//			"caption" => t("Amet"),
+//			"align" => "center",
+//			"sortable" => 1
+		));
+
+	}
+
+	private function _init_work_table(&$t)
+	{
+		$t->define_field(array(
+			"name" => "employer",
+			"caption" => t("Tööandja"),
+			"align" => "center",
+			"sortable" => 1
+		));
+		$t->define_field(array(
+			"name" => "section",
+			"caption" => t("Üksus"),
+			"align" => "center",
+			"sortable" => 1
+		));
+		$t->define_field(array(
+			"name" => "profession",
+			"caption" => t("Amet"),
+			"align" => "center",
+			"sortable" => 1
+		));
+
+		$t->define_field(array(
+			"name" => "start",
+			"caption" => t("Töösuhte algus"),
+			"align" => "center",
+			"sortable" => 1,
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "d.m.Y"
+		));
+
+		$t->define_field(array(
+			"name" => "end",
+			"caption" => t("Töösuhte lõpp"),
+			"align" => "center",
+			"sortable" => 1,
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "d.m.Y"
+		));
+
+		$t->define_chooser(array(
+			"field" => "oid",
+			"name" => "sel"
+		));
+
+		$t->define_field(array(
+			"name" => "edit",
+//			"caption" => t("Amet"),
+//			"align" => "center",
+//			"sortable" => 1
+		));
+
+	}
+
+	function _get_customer_relation_table($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->set_caption(t("Isiku kliendisuhted"));
+
+		$t->define_field(array(
+			"name" => "buyer",
+			"caption" => t("Ostja"),
+			"align" => "center",
+			"sortable" => 1
+		));
+		$t->define_field(array(
+			"name" => "seller",
+			"caption" => t("Müüja"),
+			"align" => "center",
+			"sortable" => 1
+		));
+
+		$t->define_field(array(
+			"name" => "start_buy",
+			"caption" => t("Hankijasuhte alguskuupäev"),
+			"align" => "center",
+			"sortable" => 1,
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "d.m.Y"
+		));
+		$t->define_field(array(
+			"name" => "starter_buy",
+			"caption" => t("Hankijasuhte looja"),
+			"align" => "center",
+			"sortable" => 1
+		));
+		$t->define_field(array(
+			"name" => "start_sell",
+			"caption" => t("Kliendisuhte alguskuupäev"),
+			"align" => "center",
+			"sortable" => 1,
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "d.m.Y"
+		));
+		$t->define_field(array(
+			"name" => "starter_sell",
+			"caption" => t("Kliendisuhte looja"),
+			"align" => "center",
+			"sortable" => 1
+		));
+
+		$t->define_field(array(
+			"name" => "comment",
+			"caption" => t("Kommentaar"),
+			"align" => "center",
+			"sortable" => 1
+		));
+/*
+		$t->define_chooser(array(
+			"field" => "oid",
+			"name" => "sel"
+		));
+*/
+		$t->define_field(array(
+			"name" => "edit",
+		));
+
+
+		$relations = $arr["obj_inst"]->get_customer_relations();
+		foreach($relations->arr() as $rel)
+		{
+
+			$t->define_data(array(
+				"buyer" => $rel->prop("buyer.name"),
+				"seller" => $rel->prop("seller.name"),
+				"start_buy" => $rel->prop("buyer_contract_date"),
+				"start_sell" => $rel->prop("cust_contract_date"),
+				"starter_buy" => $rel->prop("buyer_contract_creator.name"),
+				"starter_sell" => $rel->prop("cust_contract_creator.name"),
+				"comment" => $rel->prop("comment"),
+				"oid" => $rel->id(),
+				"edit" => html::href(array(
+					'url' => html::get_change_url($rel->id()),
+					'caption' => t("Muuda"),
+				)),
+			));
+		}
+	}
+
+
+	function _get_work_table(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_work_table($t);
+		$t->set_caption(t("Praegused töökohad"));
+
+		$relations = $arr["obj_inst"]->get_active_work_relations();
+		foreach($relations->arr() as $rel)
+		{
+			$t->define_data(array(
+				"employer" => $rel->prop("employer.name"),
+				"section" => $rel->prop("company_section.name"),
+				"profession" => $rel->prop("profession.name"),
+				"start" => $rel->prop("start"),
+				"end" => $rel->prop("end"),
+				"oid" => $rel->id(),
+				"edit" => html::href(array(
+					'url' => html::get_change_url($rel->id()),
+					'caption' => t("Muuda"),
+				)),
+			));
+		}
+	}
+
+	function _get_past_work_table(&$arr)
+	{
+
+		$relations = $arr["obj_inst"]->get_old_work_relations();
+		if($relations->count())
+		{
+			$t = $arr["prop"]["vcl_inst"];
+			$this->_init_work_table($t);
+			$t->set_caption(t("Endised töökohad"));
+			foreach($relations->arr() as $rel)
+			{
+				$t->define_data(array(
+					"employer" => $rel->prop("employer.name"),
+					"section" => $rel->prop("company_section.name"),
+					"profession" => $rel->prop("profession.name"),
+					"start" => $rel->prop("start"),
+					"end" => $rel->prop("end"),
+					"oid" => $rel->id(),
+					"edit" => html::href(array(
+						'url' => html::get_change_url($rel->id()),
+						'caption' => t("Muuda"),
+					)),
+				));
+			}
+		}
+	}
+
 	function _skills_tb($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -8617,7 +9233,7 @@ fnCallbackAddNew = function()
 	}
 
 //----------------------- kliendisuhte funktsioonid-----------------------
-	function get_cust_rel($o,$crea_if_not_exists,$my_co)
+	function get_cust_rel($o,$crea_if_not_exists = null,$my_co = null)
 	{
 		$co_inst = get_instance(CL_CRM_COMPANY);
 		return $co_inst->get_cust_rel($o, $crea_if_not_exists, $my_co);
@@ -8627,7 +9243,7 @@ fnCallbackAddNew = function()
 	function _get_co_is_cust($arr)
 	{
 		$crel = $this->get_cust_rel($arr["obj_inst"]);
-		if ($crel || $arr["request"]["set_as_is_cust"])
+		if ($crel || !empty($arr["request"]["set_as_is_cust"]))
 		{
 			$arr["prop"]["value"] = 1;
 		}
@@ -8653,7 +9269,7 @@ fnCallbackAddNew = function()
 	{
 		$cur = get_current_company();
 		$crel = $this->get_cust_rel($cur, false, $arr["obj_inst"]);
-		if ($crel || $arr["request"]["set_as_is_buyer"])
+		if ($crel || !empty($arr["request"]["set_as_is_buyer"]))
 		{
 			$arr["prop"]["value"] = 1;
 		}
