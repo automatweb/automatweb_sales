@@ -2445,7 +2445,7 @@ class webform extends class_base
 		$subaction = $arr["subaction"];
 		$obj_inst = obj($arr["id"]);
 		$redirect = $obj_inst->trans_get_val("redirect");
-		$rval = (strpos(strtolower($redirect), "http://") !== false || strpos(strtolower($redirect), "https://") !== false ? $redirect : (substr($redirect, 0, 1) == "/" ?  aw_ini_get("baseurl").substr($redirect, 0, -1) : aw_ini_get("baseurl").$redirect));
+		$rval = (strpos(strtolower($redirect), "http://") !== false || strpos(strtolower($redirect), "https://") !== false ? $redirect : (0 === strpos($redirect, "/") ?  aw_ini_get("baseurl").substr($redirect, 1) : aw_ini_get("baseurl").$redirect));
 
 		$object_type = $obj_inst->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE");
 		$cfgform = $obj_inst->get_first_obj_by_reltype("RELTYPE_CFGFORM");
@@ -2465,8 +2465,8 @@ class webform extends class_base
 			foreach($_FILES as $name => $dontcare)
 			{
 				$arr[$name] = 1;
-			};
-		};
+			}
+		}
 
 		if ($obj_inst->prop('show_confirm_page'))
 		{
@@ -2578,6 +2578,7 @@ class webform extends class_base
 					$o->set_prop($key, $val);
 				}
 			}
+
 			$name = "";
 			foreach(safe_array($obj_inst->prop("obj_name")) as $key => $val)
 			{
