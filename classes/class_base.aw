@@ -3039,7 +3039,7 @@ class class_base extends aw_template implements orb_public_interface
 					foreach($vx as $ekey => $eval)
 					{
 						$this->convert_element($eval);
-						if($eval["orig_type"] != "layout")
+						if (!isset($eval["orig_type"]) or $eval["orig_type"] !== "layout")
 						{
 							$resprops[$ekey] = $eval;
 						}
@@ -3866,35 +3866,26 @@ class class_base extends aw_template implements orb_public_interface
 					$controller_id = $contr;
 					$prpdata["value"] = $val;
 					$props[$key]["value"] = $val;
-					// $controller_id, $args["id"], &$prpdata, &$arr["request"], $val, &$this->obj_inst
-					// $controller_oid, $obj_id, &$prop, $request, $entry, $obj_inst
+
 					if ($this->cfg_debug)
 					{
 						print "validating " . $prpdata["name"] . " against controller $controller_id<br>";
-					};
-					$controller_ret = $controller_inst->check_property($controller_id, $args["id"], $prpdata, $arr["request"], $val, $this->obj_inst);
-					/*
-					$controller_ret = $controller_inst->check_property(array(
-						"controller_oid" => $controller_id,
-						"obj_id" => $args["id"],
-						"prop" => &$prpdata,
-						"request" => &$arr["request"],
-						"entry" => $val,
-						"obj_inst" => &$this->obj_inst,
-					));
-					*/
-					if ($controller_ret !== PROP_OK && is_oid($controller_id))
+					}
+
+					$controller_ret = $controller_inst->check_property($controller_id, (isset($arr["id"]) ? $arr["id"] : 0), $prpdata, $arr["request"], $val, $this->obj_inst);
+
+					if ($controller_ret !== self::PROP_OK && is_oid($controller_id))
 					{
 						if ($this->cfg_debug)
 						{
-							print "validation failed!<br>";
+							print "validation failed!<br/>";
 						}
 
 						$ctrl_obj = new object($controller_id);
 						$errmsg = $ctrl_obj->trans_get_val("errmsg");
 						if (empty($errmsg))
 						{
-							$errmsg = "Entry was blocked by a controller, but no error message is available";
+							$errmsg = "Entry was invalidated by a controller, but no error message is available";
 						}
 						$errmsg = str_replace("%caption", $prpdata["caption"], $errmsg);
 						$rvs[] = $errmsg;
@@ -3907,6 +3898,7 @@ class class_base extends aw_template implements orb_public_interface
 				}
 			}
 		}
+
 		return $res;
 	}
 

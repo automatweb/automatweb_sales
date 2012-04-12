@@ -144,8 +144,6 @@ class css extends class_base
 			"clid" => CL_CSS
 		));
 
-		$this->lc_load("css","lc_css");
-
 		// fondifamilyd, do not change the order
 		$this->font_families = array(
 			"0" => "Verdana,Helvetica,sans-serif",
@@ -375,8 +373,8 @@ class css extends class_base
 		$retval .= "}\n";
 
 		if (
-			$has_border or 
-			isset($data["padding"]) and trim($data["padding"]) != "" or 
+			$has_border or
+			isset($data["padding"]) and trim($data["padding"]) != "" or
 			isset($data["margin"]) and trim($data["margin"]) != "" or
 			isset($data["fgcolor"]) and trim($data["fgcolor"]) != ""
 		)

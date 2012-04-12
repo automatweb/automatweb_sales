@@ -180,7 +180,14 @@ class alias_parser extends core
 
 							if ($inplace)
 							{
-								$this->tmp_vars[$inplace] .= $replacement;
+								if (isset($this->tmp_vars[$inplace]))
+								{
+									$this->tmp_vars[$inplace] .= $replacement;
+								}
+								else
+								{
+									$this->tmp_vars[$inplace] = $replacement;
+								}
 								$replacement = "";
 							}
 						}
