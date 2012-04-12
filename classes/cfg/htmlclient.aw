@@ -443,13 +443,8 @@ class htmlclient extends aw_template
 	function put_line($args)
 	{
 		$rv = "";
-		$caption = isset($args["caption"]) ? $args["caption"] : "";
+		$caption = isset($args["caption"]) && strlen($args["caption"]) ? $args["caption"] : " ";
 		unset($args["caption"]);
-
-		if ($caption == "")
-		{
-			$caption = " ";
-		}
 
 		$tpl_vars = array(
 			"caption" => $caption,
@@ -1202,19 +1197,9 @@ class htmlclient extends aw_template
 				if (!empty($tmp["parent"]))
 				{
 					unset($tmp["caption"]);
-					unset($tmp["orig_caption"]);
 				}
+				unset($tmp["orig_caption"]);
 				$retval = html::checkbox($tmp);
-				/*
-				$retval = html::checkbox(array(
-					"label" => isset($arr["label"]) ? $arr["label"] : "",
-					"name" => $arr["name"],
-					"value" => isset($arr["ch_value"]) ? $arr["ch_value"] : "",
-					"caption" => isset($arr["caption"]) ? $arr["caption"] : "",
-					"checked" => ($arr["value"] && ( (isset($arr["ch_value"]) && $arr["value"] == $arr["ch_value"]) || !isset($arr["ch_value"]) ) ),
-					"onclick" => $arr["onclick"],
-				));
-				*/
 				break;
 
 				// will probably be deprecated, after all what good is a
@@ -1345,6 +1330,7 @@ class htmlclient extends aw_template
 		{
 			$item["html"] = $this->put_content($item);
 		}
+
 		return $item["html"];
 	}
 

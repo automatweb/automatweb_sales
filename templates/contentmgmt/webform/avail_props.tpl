@@ -10,6 +10,7 @@ function selall()
 	chk_status = !chk_status;
 }
 </script>
+
 <!-- SUB: avail -->
 	<div style="margin-left: 50px;">
 	<table border="1" style="border-collapse: collapse; font-size: 11px; border-color: #CCC;" cellpadding="3px">
@@ -40,7 +41,7 @@ function selall()
 			<td width="30" align="center">{VAR:prp_name}</td>
 			<td width="100"><input type="text" id="mark[{VAR:prp_type}]" name="mark[{VAR:prp_type}]" style="width:50px"></td>
 			<td width="100">{VAR:used_cap} {VAR:prp_used} / {VAR:unused_cap} {VAR:prp_unused}</td>
-		</tr>	
+		</tr>
 		<!-- END SUB: avail_property -->
 	</table>
 	</div>
