@@ -137,7 +137,16 @@
             <method>serialize</method>
             <field>meta</field>
             <type>textbox</type>
-            <caption>Kuhu suunata peale t&amp;amp;auml;tmist</caption>
+            <caption>Kuhu suunata peale t&amp;amp;auml;itmist</caption>
+      </property>
+      <property>
+            <name>redirect_error</name>
+            <table>objects</table>
+            <group>general_redir</group>
+            <method>serialize</method>
+            <field>meta</field>
+            <type>textbox</type>
+            <caption>Kuhu suunata vea puhul</caption>
       </property>
       <property>
             <name>disp_after_entry</name>
