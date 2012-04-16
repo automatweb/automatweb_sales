@@ -431,6 +431,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 
 @default group=recommends
+	@property recommends_tb type=toolbar no_caption=1 store=no
+	@caption Soovitajate toolbar
+
+	@property recommends_table type=table store=no no_caption=1
+	@caption Soovitajate tabel
 
 	@property recommends_edit type=releditor store=no mode=manager2 reltype=RELTYPE_RECOMMENDATION props=person,relation,phones,emails,org,profession,contact_lang table_fields=person,relation,phones,emails,org,profession,contact_lang
 
@@ -539,6 +544,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 
 @default group=work_wanted
+	@property work_wanted_tb type=toolbar no_caption=1 store=no
+
+	@property work_wanted_table type=table no_caption=1
+
 
 	@property jobs_wanted_edit type=releditor mode=manager2 reltype=RELTYPE_WORK_WANTED store=no props=field,job_type,professions_rels,professions,load,pay,work_by_schedule,work_at_night,ready_for_errand,location,location_2,location_text,start_working,additional_skills,handicaps,hobbies_vs_work,addinfo table_fields=field,job_type,professions_rels,professions,load,pay,work_by_schedule,work_at_night,ready_for_errand,location,location_2,location_text,start_working,additional_skills,handicaps,hobbies_vs_work,addinfo
 
@@ -710,6 +719,16 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 	@groupinfo skills caption="P&auml;devused-vana" parent=general submit=no
 
+@groupinfo addinfo_new caption="Oskused-vana" parent=general
+
+
+
+
+
+@default group=other_skills,computer_skills,device_skills,art_skills
+	@property skill_tb type=toolbar no_caption=1 store=no
+	@property skill_table type=table no_caption=1 store=no
+
 @groupinfo contact caption="Kontaktandmed"
 @groupinfo work caption="T&ouml;&ouml;suhted"
 	@groupinfo experiences caption="Praegused ja varasemad t&ouml;&ouml;kohad" parent=work submit=no
@@ -726,12 +745,13 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 	@groupinfo languages caption="Keeled" parent=all_skills
 	@groupinfo vehicles caption="S&otilde;idukite juhtimine" parent=all_skills
 	@groupinfo computer_skills caption="Arvutioskused" parent=all_skills
-	@groupinfo devices caption="Seadmete juhtimine" parent=all_skills
-
-	@groupinfo addinfo_new caption="Muud oskused" parent=all_skills 
+	@groupinfo device_skills caption="Seadmete juhtimine" parent=all_skills
+	@groupinfo art_skills caption="Kaunid kunstid" parent=all_skills
+	@groupinfo other_skills caption="Muud oskused" parent=all_skills
 
 @groupinfo org_relations caption="Kuulumine organisatsioonidesse" submit=no
 @groupinfo documents_all caption="Dokumendid" submit=no
+
 
 
 
@@ -1551,6 +1571,9 @@ class crm_person extends class_base
 			"name" => "experience",
 			"caption" => t("Staaž"),
 		)); 
+		$t->define_field(array(
+			"name" => "edit"
+		)); 
 
 		$t->set_caption(t("Isiku juhiload"));
 
@@ -1561,6 +1584,10 @@ class crm_person extends class_base
 				"experience" => $licence->prop("experience"),
 				"category" => $licence->prop("category"),
 				"oid" => $licence->id(),
+				"edit" => html::href(array(
+					'url' => html::get_change_url($licence->id()),
+					'caption' => t("Muuda"),
+				)),
 			));
 		}
 	}
@@ -1720,7 +1747,7 @@ class crm_person extends class_base
 		));
 	}
 
-	function _get_recommends_tlb($arr)
+	function _get_recommends_tb($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$t->add_new_button(array(CL_CRM_RECOMMENDATION), $arr["obj_inst"]->id(), 87);		// RELTYPE_RECOMMENDATION
@@ -1733,7 +1760,7 @@ class crm_person extends class_base
 		));
 	}
 
-	function _get_recommends_tbl($arr)
+	function _get_recommends_table($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
@@ -1921,6 +1948,7 @@ class crm_person extends class_base
 		$personnel_management_inst = get_instance(CL_PERSONNEL_MANAGEMENT);
 		switch($data["name"])
 		{
+			case "recommends_edit":
 			case "previous_job_edit":
 			case "previous_praxis_edit":
 			case "current_job_edit":
@@ -1930,6 +1958,7 @@ class crm_person extends class_base
 			case "education_edit_2":
 			case "add_edu_edit":
 			case "drivers_license":
+			case "jobs_wanted_edit":
 				return PROP_IGNORE;
 
 			case "mails_s_name":
@@ -2044,7 +2073,7 @@ class crm_person extends class_base
 				$data["value"] = isset($data["value"]) ? explode(",", $data["value"]) : array();
 				break;
 
-			case "jobs_wanted_tb":
+			case "work_wanted_tb":
 				$t = $data["vcl_inst"];
 				$t->add_new_button(array(CL_PERSONNEL_MANAGEMENT_JOB_WANTED), $arr["obj_inst"]->id(), 77);
 				$t->add_button(array(
@@ -2949,7 +2978,7 @@ class crm_person extends class_base
 		}
 	}
 
-	function _get_jobs_wanted_table($arr)
+	function _get_work_wanted_table($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
@@ -3199,7 +3228,6 @@ class crm_person extends class_base
 		};
 
 	}
-
 
 	function show_isik($args)
 	{
@@ -5133,20 +5161,20 @@ class crm_person extends class_base
 
 	function callback_generate_scripts($arr)
 	{
-		if($arr["request"]["group"] == "vehicles")
+		if(!empty($arr["request"]["group"]) && $arr["request"]["group"] == "vehicles")
 		{
 			return '
 			function new_drivers_license()
 			{
 				var category = prompt("Kategooria?");
-				var year = prompt("Aasta?");
-				var experience = prompt("Praktiseeritud kogemust/staaži?");
+//				var year = prompt("Aasta?");
+//				var experience = prompt("Praktiseeritud kogemust/staaži?");
 				if(category.length)
 				{
 					$.ajax({
 						type: "POST",
 						url: "'.aw_ini_get("baseurl") .'/automatweb/orb.aw",
-						data: "&class=crm_person_drivers_license&action=javascript_add_new&person='.$arr["request"]["id"].'&category="+category + "&year=" + year + "&experience=" + experience ,
+						data: "&class=crm_person_drivers_license&action=javascript_add_new&person='.$arr["request"]["id"].'&category="+category,
 						success: function(response){
 							reload_layout("vehicles_table_layout");
 						}
@@ -8375,6 +8403,246 @@ fnCallbackAddNew = function()
 	}
 	/**/
 
+	function _get_skill_tb($arr)
+	{
+		$tb = $arr["prop"]["vcl_inst"];
+
+		$organised_skills = array("computer_skills" => "Arvutioskused" , "device_skills" => "Seadmete juhtimine"  , "art_skills" => "Kaunid kunstid");
+
+
+		$group = "";
+		$ids = array();
+		if(!empty($organised_skills[$arr["request"]["group"]]))
+		{
+			$group = $arr["request"]["group"];
+		}
+
+		if($group)
+		{
+			$ol = new object_list(array(
+				"class_id" => CL_PERSON_SKILL_MANAGER,
+			));
+			$manager = $ol->begin();
+
+			if($manager)
+			{
+				$persontab = $manager->meta("persontab");
+				if(empty($persontab[$group]) || !acl_base::can("view", $persontab[$group]))
+				{
+					//error
+				}
+				else
+				{
+					$ol = new object_list(array(
+						"class_id" => CL_PERSON_SKILL,
+						"lang_id" => array(),
+						"site_id" => array(),
+						"parent" => $persontab[$group],
+					));
+
+					$ol2 = new object_list(array(
+						"class_id" => CL_PERSON_SKILL,
+						"lang_id" => array(),
+						"site_id" => array(),
+						"parent" => $ol->ids(),
+					));
+					$ids = $ol2->ids() + $ol->ids();
+					$ids[]= $persontab[$group];
+				}
+			}
+			else
+			{
+				//error
+			}
+		}
+
+
+		if(!$group)
+		{
+			$tb->add_button(array(
+				"name" => "new",
+				"img" => "new.gif",
+				"url" => html::get_new_url(CL_PERSON_HAS_SKILL, $arr["obj_inst"]->id(), array(
+					"return_url" => get_ru(),
+					"alias_to" => $arr["obj_inst"]->id(),
+					"reltype" => 53
+				)),
+				"tooltip" => t("Lisa")
+			));
+		}
+		else
+		{
+			$tb->add_menu_button(array(
+				"name" => "new",
+				"img" => "new.gif",
+			));
+
+			foreach($ids as $id)
+			{
+				$o = obj($id);
+				$tb->add_menu_item(array(
+					"parent" => "new",
+					"name" => "new_skill_".$id,
+					"text" => $o->name(),
+					"link" => html::get_new_url(CL_PERSON_HAS_SKILL, $arr["obj_inst"]->id(), array(
+						"return_url" => get_ru(),
+						"alias_to" => $arr["obj_inst"]->id(),
+						"reltype" => 53,
+						"skill" => $id,
+					)),
+				));
+			}
+
+		}
+
+		$tb->add_button(array(
+			"name" => "delete",
+			"img" => "delete.gif",
+			"action" => "delete_obj"
+		));
+
+//		$tb->add_save_button();
+	}
+
+	function _get_skill_table($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->define_field(array(
+			"name" => "skill",
+			"caption" => t("Oskus"),
+			"align" => "center",
+			"sortable" => 1,
+		));
+		$t->define_field(array(
+			"name" => "level",
+			"caption" => t("tase"),
+			"align" => "center",
+			"sortable" => 1,
+		));
+		$t->define_field(array(
+			"name" => "skill_acquired",
+			"caption" => t("Omandaud"),
+			"align" => "center",
+			"sortable" => 1,
+		));
+		
+
+		$t->define_chooser(array(
+			"field" => "oid",
+			"name" => "sel"
+		));
+
+		$t->define_field(array(
+			"name" => "edit"
+		));
+		$organised_skills = array("computer_skills" => "Arvutioskused" , "device_skills" => "Seadmete juhtimine"  , "art_skills" => "Kaunid kunstid");
+
+		$group = "";
+		$ids = array();
+		if(!empty($organised_skills[$arr["request"]["group"]]))
+		{
+			$group = $arr["request"]["group"];
+		}
+
+		$ol = new object_list(array(
+			"class_id" => CL_PERSON_SKILL_MANAGER,
+		));
+		$manager = $ol->begin();
+
+		if($group)
+		{
+
+			if($manager)
+			{
+				$persontab = $manager->meta("persontab");
+				if(empty($persontab[$group]) || !acl_base::can("view", $persontab[$group]))
+				{
+					print $organised_skills[$group]." pädevuste halduses määramata";
+				}
+				else
+				{
+					$ol = new object_list(array(
+						"class_id" => CL_PERSON_SKILL,
+						"lang_id" => array(),
+						"site_id" => array(),
+						"parent" => $persontab[$group],
+					));
+
+					$ids = $ol->ids();
+					if(sizeof($ids))
+					{
+						$ol2 = new object_list(array(
+							"class_id" => CL_PERSON_SKILL,
+							"lang_id" => array(),
+							"site_id" => array(),
+							"parent" => $ol->ids(),
+						));
+						$ids = $ids + $ol2->ids();
+					}
+					$ids[]= $persontab[$group];
+
+				}
+			}
+			else
+			{
+				print "Pädevuste haldust pole";
+			}
+		}
+		elseif($manager)
+		{
+			$ignore = array();
+			$persontab = $manager->meta("persontab");
+
+			$ol = new object_list(array(
+				"class_id" => CL_PERSON_SKILL,
+				"lang_id" => array(),
+				"site_id" => array(),
+				"parent" => $persontab,
+			));
+
+
+			$ignore =  $ol->ids();
+			if(sizeof($ignore))
+			{
+				$ol2 = new object_list(array(
+					"class_id" => CL_PERSON_SKILL,
+					"lang_id" => array(),
+					"site_id" => array(),
+					"parent" => $ol->ids(),
+				));
+				$ignore+= $ol2->ids();
+			}
+			foreach($persontab as $id => $val)
+			{
+				$ignore[$val] = $val;
+			}
+		}
+
+		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_HAS_SKILL")) as $c)
+		{
+			$rel = $c->to();
+
+			if($group)
+			{
+				if(!in_array($rel->prop("skill") , $ids)) continue;
+			}
+			elseif(in_array($rel->prop("skill") , $ignore))continue;
+
+			$t->define_data(array(
+				"name" => $rel->name(),
+				"oid" => $rel->id(),
+				"level" => $rel->prop("level"),
+				"skill" => $rel->prop("skill.name"),
+				"edit" => html::href(array(
+					'url' => html::get_change_url($rel->id()),
+					'caption' => t("Muuda"),
+				)),
+				"skill_acquired"  => $rel->prop("skill_acquired") > 0 ? date("d.m.Y" , $rel->prop("skill_acquired")) : "",
+			));
+		}
+	}
+
+
 	function _ct_rel_tb($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -8780,6 +9048,7 @@ fnCallbackAddNew = function()
 			));
 		}
 	}
+
 	function _get_old_org_relations_table(&$arr)
 	{
 		$relations = $arr["obj_inst"]->get_old_work_relations();

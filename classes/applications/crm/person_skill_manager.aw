@@ -257,7 +257,7 @@ class person_skill_manager extends class_base
 				"name" => $o->name(),
 				"url" => aw_url_change_var("skill" , $o->id(),$set_retu),
 			));
-			if($parents[ $o->id()])
+			if(!empty($parents[ $o->id()]))
 			{
 				$tree->add_item($o->id(), array(
 					"id" => $o->id()."t",
@@ -591,7 +591,6 @@ class person_skill_manager extends class_base
 		}
 	}
 
-
 	function _get_skills_tbl($arr)
 	{
 		$t =& $arr["prop"]["vcl_inst"];
@@ -610,6 +609,13 @@ class person_skill_manager extends class_base
 			"caption" => t("Tunde n&auml;dalas, mis on p&auml;devuse hoidmiseks vajalikud"),
 			"sortable" => 1,
 		));
+
+		$t->define_field(array(
+			"name" => "persontab",
+			"caption" => t("Organisatsioonis"),
+			"sortable" => 1,
+		));
+
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid"
@@ -629,19 +635,31 @@ class person_skill_manager extends class_base
 		{
 			$ol = $arr["obj_inst"]->get_all_skills($tf);
 		}
+
+		$opts = array("" , "computer_skills" => "Arvutioskused"  , "device_skills" => "Seadmete juhtimine", "art_skills" => "Kaunid kunstid");
+
+		$persontab = $arr["obj_inst"]->meta("persontab");
 		foreach($ol->arr() as $o)
 		{
+			$key = array_search($o->id(), $persontab); // $key = 2;
 			$t->define_data(array(
 				"name" => html::get_change_url($o->id(),array("returl_url" => get_ru()),$o->name()). html::hidden(array("name" => "skill[".$o->id()."][id]" , "value" => $o->id())),
 				"oid" => $o->id(),
 				"short" => html::textbox(array("name" => "skill[".$o->id()."][short]" , "value" => $o->prop("short_name"))),
 				"hours" => html::textbox(array("name" => "skill[".$o->id()."][hours]" , "value" => $o->prop("hrs_per_week_to_keep"))),
+				"persontab" => html::select(array(
+					"name" => "skill[".$o->id()."][persontab]",
+					"value" => $key ? $key : "",
+					"options" => $opts,
+				)),
 			));
 		}
 	}
 
 	function _set_skills_tbl($arr)
 	{
+		$persontab = $arr["obj_inst"]->meta("persontab");
+
 		foreach($arr["request"]["skill"] as $id => $data)
 		{
 			if(!$this->can("view" , $id))
@@ -652,7 +670,14 @@ class person_skill_manager extends class_base
 			$o->set_prop("short_name" ,$data["short"]);
 			$o->set_prop("hrs_per_week_to_keep" ,$data["hours"]);
 			$o->save();
+			if($data["persontab"])
+			{
+				$persontab[$data["persontab"]] = $id;
+			}
 		}
+		$arr["obj_inst"]->set_meta("persontab" , $persontab);
+		$arr["obj_inst"]->save();
+  
 		$p = "<script name= javascript>location.href='".$arr["request"]["post_ru"]."';</script>";
 		die($p);
 	}

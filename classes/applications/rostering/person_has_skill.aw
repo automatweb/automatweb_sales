@@ -47,6 +47,14 @@ class person_has_skill extends class_base
 		{
 			case "level":
 				$prop["options"] = array(0,1,2,3,4,5,6,7,8,9);
+			break;
+			case "skill":
+				if($arr["request"]["skill"])
+				{
+					$prop["value"] = $arr["request"]["skill"];
+				}
+		//		arr($arr);
+				break;
 		};
 		return $retval;
 	}

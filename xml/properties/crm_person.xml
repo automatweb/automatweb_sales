@@ -1197,6 +1197,26 @@
             <field>org_edit</field>
       </property>
       <property>
+            <name>recommends_tb</name>
+            <table>kliendibaas_isik</table>
+            <group>recommends</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>recommends_tb</field>
+            <caption>Soovitajate toolbar</caption>
+      </property>
+      <property>
+            <name>recommends_table</name>
+            <table>kliendibaas_isik</table>
+            <group>recommends</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>recommends_table</field>
+            <caption>Soovitajate tabel</caption>
+      </property>
+      <property>
             <name>recommends_edit</name>
             <table>kliendibaas_isik</table>
             <group>recommends</group>
@@ -1659,6 +1679,24 @@
             <method>serialize</method>
       </property>
       <property>
+            <name>work_wanted_tb</name>
+            <table>objects</table>
+            <group>work_wanted</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>work_wanted_tb</field>
+      </property>
+      <property>
+            <name>work_wanted_table</name>
+            <table>objects</table>
+            <group>work_wanted</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>work_wanted_table</field>
+      </property>
+      <property>
             <name>jobs_wanted_edit</name>
             <table>objects</table>
             <group>work_wanted</group>
@@ -2094,6 +2132,34 @@
             <no_caption>1</no_caption>
             <field>sms_tbl</field>
       </property>
+      <property>
+            <name>skill_tb</name>
+            <table>objects</table>
+            <group>
+                  <num_0>other_skills</num_0>
+                  <num_1>computer_skills</num_1>
+                  <num_2>device_skills</num_2>
+                  <num_3>art_skills</num_3>
+            </group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>skill_tb</field>
+      </property>
+      <property>
+            <name>skill_table</name>
+            <table>objects</table>
+            <group>
+                  <num_0>other_skills</num_0>
+                  <num_1>computer_skills</num_1>
+                  <num_2>device_skills</num_2>
+                  <num_3>art_skills</num_3>
+            </group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>skill_table</field>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
@@ -2205,6 +2271,10 @@
                   <parent>general</parent>
                   <submit>no</submit>
             </skills>
+            <addinfo_new>
+                  <caption>Oskused-vana</caption>
+                  <parent>general</parent>
+            </addinfo_new>
             <contact>
                   <caption>Kontaktandmed</caption>
             </contact>
@@ -2263,14 +2333,18 @@
                   <caption>Arvutioskused</caption>
                   <parent>all_skills</parent>
             </computer_skills>
-            <devices>
+            <device_skills>
                   <caption>Seadmete juhtimine</caption>
                   <parent>all_skills</parent>
-            </devices>
-            <addinfo_new>
+            </device_skills>
+            <art_skills>
+                  <caption>Kaunid kunstid</caption>
+                  <parent>all_skills</parent>
+            </art_skills>
+            <other_skills>
                   <caption>Muud oskused</caption>
                   <parent>all_skills</parent>
-            </addinfo_new>
+            </other_skills>
             <org_relations>
                   <caption>Kuulumine organisatsioonidesse</caption>
                   <submit>no</submit>
