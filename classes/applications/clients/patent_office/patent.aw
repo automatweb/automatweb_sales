@@ -956,12 +956,12 @@ class patent extends intellectual_property
 
 		// priority
 		$pri_co = $pri_date = $pri_name = "";
-		if($o->prop("convention_date") !== "-1")
+		if($o->prop("convention_date") > 1)
 		{
 			$pri_date = date("Ymd",$o->prop("convention_date"));
 		}
 
-		if($o->prop("exhibition_date") !== "-1")
+		if($o->prop("exhibition_date") > 1)
 		{
 			$pri_date = date("Ymd",$o->prop("exhibition_date"));
 		}
@@ -984,7 +984,7 @@ class patent extends intellectual_property
 		$el = $xml->createElement("PRIGR");
 		$el->appendChild(new DOMElement("PRICP", $pri_co));
 
-		if ($o->prop("convention_date") !== "-1" or $o->prop("exhibition_date") !== "-1")
+		if ($o->prop("convention_date") > 1 or $o->prop("exhibition_date") > 1)
 		{
 			$el->appendChild(new DOMElement("PRIAPPD", $pri_date));
 		}

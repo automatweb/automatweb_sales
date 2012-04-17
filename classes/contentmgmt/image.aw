@@ -582,7 +582,7 @@ class image extends class_base
 					$inplace = $tpl;
 					$this->image_inplace_used = true;
 				}
-				elseif (!empty($tpls["image_inplace"]) && !$GLOBALS["image_inplace_used"][$f["from"]])
+				elseif (!empty($tpls["image_inplace"]) && empty($GLOBALS["image_inplace_used"][$f["from"]]))
 				{
 					$tpl = "image_inplace";
 					$inplace = $tpl;

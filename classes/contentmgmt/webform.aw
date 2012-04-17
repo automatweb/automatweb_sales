@@ -59,7 +59,10 @@
 @default group=general_redir
 
 	@property redirect type=textbox
-	@caption Kuhu suunata peale t&auml;tmist
+	@caption Kuhu suunata peale t&auml;itmist
+
+	@property redirect_error type=textbox
+	@caption Kuhu suunata vea puhul
 
 	@property disp_after_entry type=select
 	@caption L&otilde;puvaade template
@@ -300,14 +303,15 @@ class webform extends class_base
 	function callback_on_load($arr)
 	{
 		$this->cfgform_i = get_instance(CL_CFGFORM);
-		if(is_oid($arr["request"]["id"]) && $this->can("view", $arr["request"]["id"]))
+		if (isset($arr["request"]["id"]) and acl_base::can("view", $arr["request"]["id"]))
 		{
 			$obj_inst = obj($arr["request"]["id"]);
-			if($this->cfgform = $obj_inst->get_first_obj_by_reltype("RELTYPE_CFGFORM"))
+			if ($this->cfgform = $obj_inst->get_first_obj_by_reltype("RELTYPE_CFGFORM"))
 			{
 				$this->cfgform_i->_init_cfgform_data($this->cfgform);
 			}
-			if(!$arr["new"])
+
+			if (empty($arr["new"]))
 			{
 				$form = $this->make_keys(array_keys($this->form_types));
 				if(in_array($obj_inst->prop("form_type"), $form))
@@ -318,7 +322,8 @@ class webform extends class_base
 				{
 					$this->p_clid = CL_REGISTER_DATA;
 				}
-				if($obj_inst->prop("form_type") != $this->p_clid)
+
+				if ($obj_inst->prop("form_type") != $this->p_clid)
 				{
 					$obj_inst->set_prop("form_type", $this->p_clid);
 					$obj_inst->save();
@@ -329,11 +334,12 @@ class webform extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
-		if($arr["id"] == "show_entries")
+
+		if ($arr["id"] === "show_entries")
 		{
 			if($arr["obj_inst"]->prop("form_type") == CL_REGISTER_DATA)
 			{
@@ -367,8 +373,8 @@ class webform extends class_base
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
+		$retval = class_base::PROP_OK;
+		switch ($prop["name"])
 		{
 			case "error_location":
 				$prop["options"] = array(
@@ -388,7 +394,7 @@ class webform extends class_base
 
 			case "search":
 				$register = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_REGISTER");
-				$s = get_instance(CL_REGISTER_SEARCH);
+				$s = new register_search();
 				$GLOBALS["search_butt"] = 1;
 				$prop["value"] = $s->show(array(
 					"id" => $register->prop("search_o"),
@@ -463,13 +469,13 @@ class webform extends class_base
 			case "redirect":
 				if($arr["obj_inst"]->prop("form_type") != CL_REGISTER_DATA)
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				break;
 
 			case "entries":
 				$register = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_REGISTER");
-				$register_i = get_instance(CL_REGISTER);
+				$register_i = new register();
 				$register_i->do_data_tbl(array(
 					"obj_inst" => $register,
 					"prop" => &$arr["prop"],
@@ -479,7 +485,7 @@ class webform extends class_base
 
 			case "search":
 				$register = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_REGISTER");
-				$s = get_instance(CL_REGISTER_SEARCH);
+				$s = new register_search();
 				$prop["value"] = $s->show(array(
 					"id" => $register->prop("search_o"),
 					"no_form" => 1,
@@ -487,7 +493,7 @@ class webform extends class_base
 				break;
 
 			case "navtoolbar":
-				$tb = &$prop["vcl_inst"];
+				$tb = $prop["vcl_inst"];
 
 				$tb->add_button(array(
 					"name" => "save",
@@ -511,12 +517,13 @@ class webform extends class_base
 
 			case "disp_after_entry":
 			case "disp_after_entry_print":
-				$prop["options"] = array("" => t("--vali--")) + $this->get_directory(array("dir" => aw_ini_get("site_tpldir")."/contentmgmt/webform/disp"));
+				$prop["options"] = array("" => t("--vali--")) + $this->get_directory(array("dir" => aw_ini_get("site_tpldir")."contentmgmt/webform/disp"));
 				break;
 
 			case "search_mail_info":
-				$prop["value"] = t("Otsi aadressit");
+				$prop["value"] = t("Otsi aadressi");
 				break;
+
 			case "search_mail_name":
 			case "search_mail_email":
 				$prop["option_is_tuple"] = 1;
@@ -539,7 +546,7 @@ class webform extends class_base
 	function set_property($arr = array())
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($prop["name"])
 		{
 			case "transl":
@@ -547,29 +554,29 @@ class webform extends class_base
 				break;
 
 			case "on_init":
-				if(!$arr["new"])
+				if (empty($arr["new"]))
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				$this->_on_init($arr);
 				break;
 
 			case "view_controllers":
-				if($this->cfgform)
+				if ($this->cfgform)
 				{
 					$this->cfgform->set_meta("view_controllers", $arr["request"]["view_controllers"]);
 				}
 				break;
 
 			case "submit_controllers":
-				if($this->cfgform)
+				if ($this->cfgform)
 				{
 					$this->cfgform->set_meta("controllers", $arr["request"]["controllers"]);
 				}
 				break;
 
 			case "props":
-				if($this->cfgform)
+				if ($this->cfgform)
 				{
 					$this->add_new_properties($arr);
 					if(($metamgr = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_METAMGR")) && ($object_type = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE")))
@@ -581,7 +588,7 @@ class webform extends class_base
 							{
 								$no = obj();
 								$no->set_class_id(CL_META);
-								$no->set_status(STAT_ACTIVE);
+								$no->set_status(object::STAT_ACTIVE);
 								$no->set_parent($metamgr->id());
 								$no->set_name($val["name"]);
 								$no->save();
@@ -627,10 +634,10 @@ class webform extends class_base
 	{
 		if(!$object_type = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE"))
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 		$classificator = $object_type->meta("classificator");
-		$clf_type = $arr["request"]["clf_type"];
+		$clf_type = isset($arr["request"]["clf_type"]) ? $arr["request"]["clf_type"] : array();
 		$this->cfgform_i->save_layout(array(
 			"obj_inst" => $this->cfgform,
 			"request" => &$arr["request"],
@@ -639,24 +646,28 @@ class webform extends class_base
 
 		foreach(safe_array($arr["request"]["prp_opts"]) as $key => $val)
 		{
-			if($prplist[$key])
+			if (!empty($prplist[$key]))
 			{
 				if (!isset($val["nextto"]))
 				{
 					$val["nextto"] = 0;
 				}
+
 				if (!isset($val["invisible"]))
 				{
 					$val["invisible"] = 0;
 				}
+
 				if (!isset($val["invisible_name"]))
 				{
 					$val["invisible_name"] = 0;
 				}
+
 				if (!isset($val["buttons"]))
 				{
 					$val["buttons"] = 0;
 				}
+
 				foreach($val as $key2 => $val2)
 				{
 					if($key2 == "defaultx" && is_array($val2))
@@ -681,7 +692,7 @@ class webform extends class_base
 			$mark = $arr["request"]["mark"];
 			foreach(safe_array($mark) as $pkey => $val)
 			{
-				if(is_oid($classificator[$pkey]) && $this->can("delete", $classificator[$pkey]))
+				if (isset($classificator[$pkey]) && acl_base::can("delete", $classificator[$pkey]))
 				{
 					$meta = obj($classificator[$pkey]);
 					$meta->delete();
@@ -691,7 +702,8 @@ class webform extends class_base
 			}
 		}
 
-		foreach(safe_array($arr["request"]["prp_metas"]) as $key => $val)
+		$arr["request"]["prp_metas"] = isset($arr["request"]["prp_metas"]) ? safe_array($arr["request"]["prp_metas"]) : array();
+		foreach($arr["request"]["prp_metas"] as $key => $val)
 		{
 			$prps = explode(";", $val);
 			if($prplist[$key] && !empty($prps) && is_oid($classificator[$key]) && $this->can("view", $classificator[$key]))
@@ -723,7 +735,7 @@ class webform extends class_base
 					$e_prps[] = $prp;
 					$no = obj();
 					$no->set_class_id(CL_META);
-					$no->set_status(STAT_ACTIVE);
+					$no->set_status(object::STAT_ACTIVE);
 					$no->set_parent($classificator[$key]);
 					$no->set_name($prp);
 					$no->set_ord($highest);
@@ -748,13 +760,13 @@ class webform extends class_base
 		$form->set_name($this->p_clid == CL_SHOP_PRODUCT ? $arr["request"]["name"] : $this->form_types[$this->p_clid]." ".$arr["obj_inst"]->id());
 		$form->set_parent($parent);
 		$form->set_class_id($this->p_clid);
-		$form->set_status(STAT_ACTIVE);
+		$form->set_status(object::STAT_ACTIVE);
 		$form->save();
 		$cfgform = obj();
 		$cfgform->set_parent($parent);
 		$cfgform->set_class_id(CL_CFGFORM);
 		$cfgform->set_name("Seadete vorm ".$arr["obj_inst"]->id());
-		$cfgform->set_status(STAT_ACTIVE);
+		$cfgform->set_status(object::STAT_ACTIVE);
 		$cfgform->save();
 		// well, seems that this is the only way -- ahz
 		$this->cfgform_i->set_property(array(
@@ -775,7 +787,7 @@ class webform extends class_base
 		$object_type->set_parent($parent);
 		$object_type->set_class_id(CL_OBJECT_TYPE);
 		$object_type->set_name(t("Objekti t&uuml;&uuml;p ").$arr["obj_inst"]->id());
-		$object_type->set_status(STAT_ACTIVE);
+		$object_type->set_status(object::STAT_ACTIVE);
 		$object_type->set_prop("use_cfgform", $cfgform->id());
 		$object_type->set_prop("type", $this->p_clid);
 		$object_type->save();
@@ -796,7 +808,7 @@ class webform extends class_base
 		$metamgr->set_parent($arr["obj_inst"]->id());
 		$metamgr->set_class_id(CL_METAMGR);
 		$metamgr->set_name("Muutujate haldus ".$arr["obj_inst"]->id());
-		$metamgr->set_status(STAT_ACTIVE);
+		$metamgr->set_status(object::STAT_ACTIVE);
 		$metamgr->save();
 		$arr["obj_inst"]->connect(array(
 			"to" => $metamgr->id(),
@@ -816,7 +828,7 @@ class webform extends class_base
 			$register->set_parent($arr["obj_inst"]->parent());
 			$register->set_class_id(CL_REGISTER);
 			$register->set_name("Register ".$arr["obj_inst"]->id());
-			$register->set_status(STAT_ACTIVE);
+			$register->set_status(object::STAT_ACTIVE);
 			$register->set_prop("data_cfgform", $cfgform->id());
 			$register->set_prop("default_cfgform", 1);
 			$register->set_prop("data_rootmenu", $dir->id());
@@ -843,7 +855,7 @@ class webform extends class_base
 			$register_search = obj();
 			$register_search->set_parent($register->id());
 			$register_search->set_class_id(CL_REGISTER_SEARCH);
-			$register_search->set_status(STAT_ACTIVE);
+			$register_search->set_status(object::STAT_ACTIVE);
 			$register_search->set_name("Registri otsing ".$arr["obj_inst"]->id());
 			$register_search->set_prop("per_page", 100);
 			$register_search->set_prop("register", $register->id());
@@ -864,7 +876,7 @@ class webform extends class_base
 			$object_export = obj();
 			$object_export->set_class_id(CL_OBJECT_EXPORT);
 			$object_export->set_parent($arr["obj_inst"]->id());
-			$object_export->set_status(STAT_ACTIVE);
+			$object_export->set_status(object::STAT_ACTIVE);
 			$object_export->set_name("Objekti eksport ".$arr["obj_inst"]->id());
 			$object_export->set_prop("object_type", $object_type->id());
 			$object_export->set_prop("root_folder", $dir->id());
@@ -893,8 +905,7 @@ class webform extends class_base
 			"email_address_not_correct" => t("%caption sisestatud e-mailiaadress pole korrektne"),
 		);
 		// now, lets get what language is used
-		$languages_inst = get_instance("languages");
-		$lang_data = $languages_inst->fetch(aw_global_get("lang_id"));
+		$lang_data = languages::fetch(aw_global_get("lang_id"));
 // end of hopefully temporary
 
 		$set_controllers = array(
@@ -1059,7 +1070,12 @@ class webform extends class_base
 			if(!array_key_exists($key, $c_props))
 			{
 				// we skip the checkboxes
-				if($prp_count[$prop["type"]] == 1 && $prop["type"] === "checkbox")
+				if (!isset($prp_count[$prop["type"]]))
+				{
+					$prp_count[$prop["type"]] = 0;
+				}
+
+				if ($prp_count[$prop["type"]] == 1 && $prop["type"] === "checkbox")
 				{
 					continue;
 				}
@@ -1078,6 +1094,7 @@ class webform extends class_base
 				}
 			}
 		}
+
 		$show_props = array();
 		$ext_count = array();
 		// these props won't go to heaven
@@ -1092,6 +1109,11 @@ class webform extends class_base
 				$prop["type"] = "releditor_fl";
 			}
 
+			if (!isset($ext_count[$prop["type"]]))
+			{
+				$ext_count[$prop["type"]] = 0;
+			}
+
 			if(!array_key_exists($prop["type"], $prop_order))
 			{
 				continue;
@@ -1104,7 +1126,7 @@ class webform extends class_base
 
 			if(!array_key_exists($key, $c_props))
 			{
-				if($ext_count[$prop["type"]] == 1 && $prop["type"] === "checkbox")
+				if ($ext_count[$prop["type"]] == 1 && $prop["type"] === "checkbox")
 				{
 					continue;
 				}
@@ -1134,6 +1156,7 @@ class webform extends class_base
 		{
 			$vrs["d_prp"] = $this->parse("d_prp");
 		}
+
 		if(!empty($show_props))
 		{
 			$this->vars(array(
@@ -1148,11 +1171,12 @@ class webform extends class_base
 
 		foreach($show_props as $prop)
 		{
+			$p_count = isset($prp_count[$prop["type"]]) ? (int) $prp_count[$prop["type"]] : 0;
 			$this->vars(array(
 				"prp_name" => $this->trans_names[$prop["type"]],
 				"prp_type" => $prop["type"],
-				"prp_used" => (int)$prp_count[$prop["type"]],
-				"prp_unused" => ((int)$ext_count[$prop["type"]] - (int)$prp_count[$prop["type"]]),
+				"prp_used" => $p_count,
+				"prp_unused" => ((int) $ext_count[$prop["type"]] - $p_count),
 				"used_cap" => t("kasutusel"),
 				"unused_cap" => t("alles"),
 			));
@@ -1165,12 +1189,16 @@ class webform extends class_base
 			"avail" => $this->parse("avail"),
 		));
 		$item["value"] = $this->parse();
-		return array($item);
+		return array("props" => array(
+			"name" => "props",
+			"type" => "text",
+			"value" => $this->parse()
+		));
 	}
 
 	function add_new_properties($arr)
 	{
-		$target = $arr["request"]["target"];
+		$target = isset($arr["request"]["target"]) ? $arr["request"]["target"] : "";
 		// first check, whether a group with that id exists
 		$_tgt = $this->cfgform->meta("cfg_groups");
 		if (isset($_tgt[$target]))
@@ -1183,27 +1211,40 @@ class webform extends class_base
 			$highest = 0;
 			foreach($prplist as $key => $prop)
 			{
+				if (!isset($prp_count[$prop["type"]]))
+				{
+					$prp_count[$prop["type"]] = 0;
+				}
+
 				$prp_count[$prop["type"]]++;
 				if($prop["ord"] > $highest)
 				{
 					$highest = $prop["ord"];
 				}
 			}
+
 			$ext_count = array();
 			foreach($this->cfgform_i->all_props as $key => $prop)
 			{
-				if ($prop["type"] == "releditor" && substr($prop["name"], 0, 6) == "userim")
+				if ($prop["type"] === "releditor" && substr($prop["name"], 0, 6) === "userim")
 				{
 					$prop["type"] = "releditor_im";
 				}
-				else
-				if ($prop["type"] == "releditor" && substr($prop["name"], 0, 8) == "userfile")
+				elseif ($prop["type"] === "releditor" && substr($prop["name"], 0, 8) === "userfile")
 				{
 					$prop["type"] = "releditor_fl";
 				}
 
-				$ext_count[$prop["type"]]++;
+				if (isset($ext_count[$prop["type"]]))
+				{
+					$ext_count[$prop["type"]]++;
+				}
+				else
+				{
+					$ext_count[$prop["type"]] = 0;
+				}
 			}
+
 			$mark = $arr["request"]["mark"];
 			foreach(safe_array($mark) as $pkey => $pval)
 			{
@@ -1218,11 +1259,12 @@ class webform extends class_base
 					);
 					continue;
 				}
+
 				$count = (int)$ext_count[$pkey] - (int)$prp_count[$pkey];
 				$pval = (int)$pval;
 
 				$old_pk = $pkey;
-				$pkey = $pkey == "releditor_fl" ? "releditor" : $pkey == "releditor_im" ? "releditor" : $pkey;
+				$pkey = $pkey === "releditor_fl" ? "releditor" : $pkey === "releditor_im" ? "releditor" : $pkey;
 
 				if($count > 0 && !empty($pval))
 				{
@@ -1232,24 +1274,28 @@ class webform extends class_base
 					{
 						foreach($this->cfgform_i->all_props as $key => $val)
 						{
-							if($c <= 0)
+							if ($c <= 0)
 							{
 								break;
 							}
-							if(in_array($key, $this->no_props))
+
+							if (in_array($key, $this->no_props))
 							{
 								continue;
 							}
-							if(!array_key_exists($key, $prplist) && $val["type"] == $pkey)
+
+							if (!array_key_exists($key, $prplist) && $val["type"] == $pkey)
 							{
-								if ($old_pk == "releditor_fl" && substr($val["name"], 0, 8) != "userfile")
+								if ($old_pk === "releditor_fl" && substr($val["name"], 0, 8) !== "userfile")
 								{
 									continue;
 								}
-								if ($old_pk == "releditor_im" && substr($val["name"], 0, 6) != "userim")
+
+								if ($old_pk === "releditor_im" && substr($val["name"], 0, 6) !== "userim")
 								{
 									continue;
 								}
+
 								$prplist[$key] = array(
 									"name" => $key,
 									"ord" => $highest++,
@@ -1356,33 +1402,36 @@ class webform extends class_base
 				$used_props[$property["name"]] = 1;
 
 				$type_str = $this->trans_names[$prpdata["type"]];
-				if ($prpdata["type"] == "releditor" && $prpdata["name"]{4} == "f")
+				if ($prpdata["type"] === "releditor" && $prpdata["name"]{4} === "f")
 				{
 					$type_str = $this->trans_names["releditor_fl"];
 				}
-				if ($prpdata["type"] == "releditor" && $prpdata["name"]{4} == "i")
+
+				if ($prpdata["type"] === "releditor" && $prpdata["name"]{4} === "i")
 				{
 					$type_str = $this->trans_names["releditor_im"];
 				}
+
 				$this->vars(array(
 					"bgcolor" => $cnt % 2 ? "#C9C9C9" : "#FFFFFF",
-					"prp_caption" => $property["caption"],
-					"prp_comment" => $property["comment"],
+					"prp_caption" => isset($property["caption"]) ? $property["caption"] : "",
+					"prp_comment" => isset($property["comment"]) ? $property["comment"] : "",
 					"prp_type" => $type_str,
 					"prp_key" => $prpdata["name"],
-					"prp_order" => $property["ord"],
+					"prp_order" => isset($property["ord"]) ? $property["ord"] : "",
 					"capt_ord" => html::select(array(
 						"name" => "prp_opts[".$prpdata["name"]."][wf_capt_ord]",
 						"style" => "border: 1px solid #EEE; padding: 2px; background-color: #FCFCEC;",
 						"options" => $capt_opts,
-						"selected" => $property["wf_capt_ord"],
+						"selected" => isset($property["wf_capt_ord"]) ? $property["wf_capt_ord"] : "",
 					)),
-					"nextto" => (int)$property["nextto"] ? "checked" : "",
-					"space" => $property["space"],
-					"invisible" => (int)$property["invisible"] ? "checked" : "",
-					"invisible_name" => (int)$property["invisible_name"] ? "checked" : "",
+					"nextto" => empty($property["nextto"]) ? "" : "checked",
+					"space" => isset($property["space"]) ? $property["space"] : "",
+					"invisible" => empty($property["invisible"]) ? "" : "checked",
+					"invisible_name" => empty($property["invisible_name"]) ? "" : "checked"
 				));
-				if($prpdata["type"] == "classificator")
+
+				if($prpdata["type"] === "classificator")
 				{
 					$optionz = array(
 						"parent" => $classificator[$prpdata["name"]],
@@ -1434,36 +1483,38 @@ class webform extends class_base
 					}
 					$clf1 = $this->parse("CLF1");
 				}
-				elseif($prpdata["type"] == "text")
+				elseif($prpdata["type"] === "text")
 				{
 					$this->vars(array(
 						"prp_value" => $property["value"],
 					));
 					$clf2 = $this->parse("CLF2");
 				}
-				elseif($prpdata["type"] == "checkbox")
+				elseif($prpdata["type"] === "checkbox")
 				{
 					$x_opts = array();
 					foreach($proplist as $pp)
 					{
 						if(!in_array($pp["type"], $this->no_trans))
 						{
-							$x_opts[$pp["name"]] = $pp["caption"];
+							$x_opts[$pp["name"]] = isset($pp["caption"]) ? $pp["caption"] : "";
 						}
 					}
+
 					$this->vars(array(
 						"name_select" => html::select(array(
 							"name" => "prp_opts[".$prpdata["name"]."][name_f]",
 							"options" => $x_opts,
-							"value" => $property["name_f"],
+							"value" => isset($property["name_f"]) ? $property["name_f"] : ""
 						)),
 						"email_select" => html::select(array(
 							"name" => "prp_opts[".$prpdata["name"]."][email_f]",
 							"options" => $x_opts,
-							"value" => $property["email_f"],
+							"value" => isset($property["email_f"]) ? $property["email_f"] : ""
 						)),
-						"fld_id" => $property["folder_id"],
+						"fld_id" => isset($property["folder_id"]) ? $property["folder_id"] : ""
 					));
+
 					if($this->p_clid != CL_CALENDAR_REGISTRATION_FORM)
 					{
 						$this->vars(array(
@@ -1472,7 +1523,7 @@ class webform extends class_base
 					}
 					$clf3 = $this->parse("CLF3");
 				}
-				elseif($prpdata["type"] == "date_select")
+				elseif($prpdata["type"] === "date_select")
 				{
 					$this->vars(array(
 						"time_select" => html::date_select(array(
@@ -1534,25 +1585,26 @@ class webform extends class_base
 					));
 					$clf4 = $this->parse("CLF4");
 				}
-				if($prpdata["type"] == "textbox" || $prpdata["type"] == "textarea")
+				elseif($prpdata["type"] === "textbox" || $prpdata["type"] === "textarea")
 				{
 					//arr($prpdata);
 					$height = "";
-					if($prpdata["type"] == "textarea")
+					if($prpdata["type"] === "textarea")
 					{
 						$this->vars(array(
-							"ht" => $property["height"],
+							"ht" => isset($property["height"]) ? $property["height"] : "",
 							"height_caption" => t("K&otilde;rgus"),
 						));
 						$height = $this->parse("HEIGHT");
 					}
 					$this->vars(array(
-						"wt" => $property["width"],
+						"wt" => isset($property["width"]) ? $property["width"] : "",
 						"HEIGHT" => $height,
 						"width_caption" => t("Laius"),
 					));
 					$clf5 = $this->parse("CLF5");
 				}
+
 				$this->vars(array(
 					"CLF1" => $clf1,
 					"CLF2" => $clf2,
@@ -1649,7 +1701,7 @@ class webform extends class_base
 			"caption" => t("Veateate stiil"),
 			"type" => "select",
 			"options" => $this->all_rels,
-			"selected" => $m_styles["error"],
+			"selected" => isset($m_styles["error"]) ? $m_styles["error"] : null
 		);
 		foreach($this->cfgform_i->prplist as $key => $val)
 		{
@@ -1658,21 +1710,21 @@ class webform extends class_base
 				"caption" => sprintf(t("%s pealkirja stiil"), $val["caption"]),
 				"type" => "select",
 				"options" => $this->all_rels,
-				"selected" => $sel_styles[$key]["caption"],
+				"selected" => isset($sel_styles[$key]["caption"]) ? $sel_styles[$key]["caption"] : null
 			);
 			$props[$key."_comment"] = array(
 				"name" => "style[$key][comment]",
 				"caption" => sprintf(t("%s kommentaari stiil"), $val["caption"]),
 				"type" => "select",
 				"options" => $this->all_rels,
-				"selected" => $sel_styles[$key]["comment"],
+				"selected" => isset($sel_styles[$key]["comment"]) ? $sel_styles[$key]["comment"] : null
 			);
 			$props[$key] = array(
 				"name" => "style[$key][prop]",
 				"caption" => sprintf(t("%s elemendi stiil"), $val["caption"]),
 				"type" => "select",
 				"options" => $this->all_rels,
-				"selected" => $sel_styles[$key]["prop"],
+				"selected" => isset($sel_styles[$key]["prop"]) ? $sel_styles[$key]["prop"] : null
 			);
 		}
 		return $props;
@@ -1731,8 +1783,8 @@ class webform extends class_base
 				"type" => "select",
 				"multiple" => 1,
 				"size" => 3,
-				"value" => $controllers[$prop["name"]],
-				"options" => array("" => t("-- Vali --")) + $this->all_rels,
+				"value" => isset($controllers[$prop["name"]]) ? $controllers[$prop["name"]] : "",
+				"options" => array("" => t("-- Vali --")) + $this->all_rels
 			);
 		}
 		return  $retval;
@@ -1756,13 +1808,22 @@ class webform extends class_base
 
 	function show($arr)
 	{
+		try
+		{
+			$obj_inst = obj($arr["id"], array(), CL_WEBFORM);
+		}
+		catch (Exception $e)
+		{
+			return "No access to web form object.";
+		}
+
 		$this->read_template("show_form.tpl");
-		$obj_inst = obj($arr["id"]);
 		$ftype = $obj_inst->prop("form_type");
 		$this->get_rel_props(array(
 			"obj_inst" => $obj_inst,
 			"prop" => "style",
 		));
+
 		if (!empty($_SERVER["HTTPS"]))
 		{
 			$this->vars(array(
@@ -1775,23 +1836,24 @@ class webform extends class_base
 				"url_spec" => aw_ini_get("baseurl")
 			));
 		}
+
 		$object_type = $obj_inst->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE");
 		$errors = aw_global_get("wf_errors");
 		$values = aw_global_get("wf_data");
-		if(strpos(strtolower($_SERVER["REQUEST_URI"]), "/automatweb") !== false)
+
+		if ($obj_inst->prop("redirect_error"))
 		{
-			$section = html::get_change_url($arr["id"], array(
+			$return_url = $obj_inst->prop("redirect_error");
+		}
+		elseif(strpos(strtolower($_SERVER["REQUEST_URI"]), "/automatweb") !== false)
+		{
+			$return_url = html::get_change_url($arr["id"], array(
 				"group" => $arr["group"],
 			));
 		}
 		else
 		{
-			$section = aw_ini_get("baseurl").substr($_SERVER["REQUEST_URI"], 0, -1);
-		}
-
-		if (!empty($_SERVER["HTTPS"]))
-		{
-			$section = str_replace("http:", "https:", $section);
+			$return_url = automatweb::$request->get_uri()->get();
 		}
 
 		$vrs = array();
@@ -1806,6 +1868,7 @@ class webform extends class_base
 			{
 				$form_conf = $obj_inst->get_first_obj_by_reltype("RELTYPE_CAL_REG_FORM_CONF");
 			}
+
 			if(is_object($form_conf))
 			{
 				$event = obj($form_conf->prop("event"));
@@ -1851,9 +1914,9 @@ class webform extends class_base
 				"ot" => $object_type->id(),
 				"reforb" => array(
 					"class" => $ftype != CL_CALENDAR_REGISTRATION_FORM ? "webform" : "calendar_registration_form_conf",
-					"return_url" => $section.((isset($_GET["show"]) and $_GET["show"] == 1) ? "?show=1" : ""),
+					"return_url" => $return_url,
 					"id" => $ftype != CL_CALENDAR_REGISTRATION_FORM  ? $arr["id"] : $ef_id,
-					"doc_id" => is_object($arr["doc_id"]) ? $arr["doc_id"]->id() : $arr["doc_id"],
+					"doc_id" => isset($arr["doc_id"]) ? (is_object($arr["doc_id"]) ? $arr["doc_id"]->id() : $arr["doc_id"]) : 0,
 					"subaction" => "",
 					"section" => aw_global_get("section")
 				),
@@ -2304,6 +2367,7 @@ class webform extends class_base
 							}
 						}
 						break;
+
 					case 'chooser':
 						if ($pd['multiple'] == 1)
 						{
@@ -2324,10 +2388,9 @@ class webform extends class_base
 						$pd["onfocus"] = "if (this.value == '".$pd['value']."')this.value=''";
 						$pd["onblur"] = "if (this.value == '')this.value='".$pd['value']."'";
 				}
-
 			}
 			// strip tags because of hidden values
-			if ($pd["type"] === "text" && $pd["subtitle"] == 1 && trim(strip_tags($pd["value"])) == "")
+			if ($pd["type"] === "text" && !empty($pd["subtitle"]) && trim(strip_tags($pd["value"])) == "")
 			{
 				$pd["value"] = $pd["caption"];
 			}
@@ -2382,7 +2445,7 @@ class webform extends class_base
 		$subaction = $arr["subaction"];
 		$obj_inst = obj($arr["id"]);
 		$redirect = $obj_inst->trans_get_val("redirect");
-		$rval = (strpos(strtolower($redirect), "http://") !== false || strpos(strtolower($redirect), "https://") !== false ? $redirect : (substr($redirect, 0, 1) == "/" ?  aw_ini_get("baseurl").substr($redirect, 0, -1) : aw_ini_get("baseurl").$redirect));
+		$rval = (strpos(strtolower($redirect), "http://") !== false || strpos(strtolower($redirect), "https://") !== false ? $redirect : (0 === strpos($redirect, "/") ?  aw_ini_get("baseurl").substr($redirect, 1) : aw_ini_get("baseurl").$redirect));
 
 		$object_type = $obj_inst->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE");
 		$cfgform = $obj_inst->get_first_obj_by_reltype("RELTYPE_CFGFORM");
@@ -2402,8 +2465,8 @@ class webform extends class_base
 			foreach($_FILES as $name => $dontcare)
 			{
 				$arr[$name] = 1;
-			};
-		};
+			}
+		}
 
 		if ($obj_inst->prop('show_confirm_page'))
 		{
@@ -2515,6 +2578,7 @@ class webform extends class_base
 					$o->set_prop($key, $val);
 				}
 			}
+
 			$name = "";
 			foreach(safe_array($obj_inst->prop("obj_name")) as $key => $val)
 			{
@@ -2686,7 +2750,7 @@ class webform extends class_base
 		$this->read_template($o->prop('confirm_page_template'));
 
 		$object_type = $o->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE");
-		$cfgform_i = get_instance(CL_CFGFORM);
+		$cfgform_i = new cfgform();
 		$props = $cfgform_i->get_props_from_ot(array(
 			"ot" => $object_type->id()
 		));

@@ -3353,7 +3353,9 @@ class cfgform extends class_base
 				{
 					foreach($mark as $pkey => $val)
 					{
-						list($prop, $grp) = explode("|", $pkey, 2);
+						$tmp = explode("|", $pkey, 2);
+						$prop = $tmp[0];
+						$grp = isset($tmp[1]) ? $tmp[1] : "";
 
 						if (!is_array($this->cfg_proplist[$prop]["group"]) or 1 === count($this->cfg_proplist[$prop]["group"]))
 						{
@@ -3479,7 +3481,7 @@ class cfgform extends class_base
 	{
 		$grplist = $this->grplist;
 
-		if (is_array($arr["request"]["grpcaption"]))
+		if (isset($arr["request"]["grpcaption"]) and is_array($arr["request"]["grpcaption"]))
 		{
 			foreach($arr["request"]["grpcaption"] as $key => $val)
 			{
@@ -3785,7 +3787,6 @@ class cfgform extends class_base
 			"clid" => $class_id,
 		));
 
-
 		if ($ot->prop("use_cfgform"))
 		{
 			$cff = obj($ot->prop("use_cfgform"));
@@ -3810,7 +3811,7 @@ class cfgform extends class_base
 
 			$trans = $cff->meta("translations");
 
-			if ($arr["site_lang"])
+			if (!empty($arr["site_lang"]))
 			{
 				if (aw_ini_get("user_interface.full_content_trans"))
 				{
@@ -3845,6 +3846,7 @@ class cfgform extends class_base
 				}
 			}
 		}
+
 		$tmp = array();
 		foreach($els as $pn => $pd)
 		{
@@ -5380,13 +5382,13 @@ class cfgform extends class_base
 		{
 			$cf->remove_property($arr["prop"]);
 			$cf->save();
-			die(aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_red.png");
+			die(aw_ini_get("baseurl")."automatweb/images/icons/cfg_edit_red.png");
 		}
 		else
 		{
 			$cf->restore_property($arr["prop"]);
 			$cf->save();
-			die(aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_green.png");
+			die(aw_ini_get("baseurl")."automatweb/images/icons/cfg_edit_green.png");
 		}
 	}
 
