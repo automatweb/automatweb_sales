@@ -48,7 +48,8 @@ and acquisition contracts are represented in separate customer relation objects
 	@property show_in_webview type=checkbox ch_value=1 field= table=aw_crm_customer_data field=aw_show_in_webview
 	@caption Kuva veebis
 
-
+	@property area type=relpicker reltype=RELTYPE_AREA table=aw_crm_customer_data field=aw_area
+	@caption Piirkond
 
 @groupinfo buyer caption="Ostja"
 @default group=buyer
@@ -236,6 +237,9 @@ and acquisition contracts are represented in separate customer relation objects
 //
 @reltype CATEGORY value=102 clid=CL_CRM_CATEGORY
 @caption Kliendikategooria
+
+@reltype AREA value=102 clid=CL_CRM_AREA
+@caption Piirkond
 
 */
 
@@ -982,6 +986,7 @@ Aadress: %s
 			case "aw_lead_source":
 			case "aw_sales_status":
 			case "aw_sales_last_call":
+			case "aw_area":
 				$this->db_add_col($tbl, array(
 					"name" => $fld,
 					"type" => "int(11)"

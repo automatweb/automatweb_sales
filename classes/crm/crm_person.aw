@@ -1534,7 +1534,9 @@ class crm_person extends class_base
 
 	function _get_vehicles_tb($arr)
 	{
+
 		load_javascript("reload_properties_layouts.js");
+
 		$t = $arr["prop"]["vcl_inst"];
 		$t->add_button(array(
 			"name" => "new_driver_licence",
@@ -1948,6 +1950,39 @@ class crm_person extends class_base
 		$personnel_management_inst = get_instance(CL_PERSONNEL_MANAGEMENT);
 		switch($data["name"])
 		{
+			case "dl_can_use":
+				$data["post_append_text"] = '<div style="display:none;position:absolute;z-index:15;padding:10px;background-color:#FFFFFF;left:50%;margin-left:-180px;top:50%;margin-top:-70px;border-color: #FFFFFF #BDBDBD #BDBDBD #FFFFFF;border-style:solid;border-width:1px;" id="add_new_drivers_licence_div">
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+		    <td width="100" id="linecaption">
+				Kategooria
+			</td>
+			<td id="lineelment"><input type="text" size="40" name="category" id="category">
+			</td>
+		</tr>
+		<tr>
+			<td width="100" id="linecaption">
+				Aasta
+			</td>
+		    <td id="lineelment"><input type="text" size="40" name="year" id="year"></td>
+		</tr>
+		<tr>
+			<td width="100" id="linecaption">
+				Praktiseeritud kogemust
+			</td>
+			<td id="lineelment"><input type="text" size="40" name="experience" id="experience">
+			</td>
+		</tr>
+		<tr>
+			<td width="100"></td>
+			<td id="buttons">
+				<input type="button" value="Lisa" onclick="submit_new_licence();">
+				<input type="button" value="Sulge" onclick="$(\'#add_new_drivers_licence_div\').fadeOut(1000);">
+			</td>
+		</tr>
+	</table>
+</div> Kas v&otilde;imalik kasutada isiklikku autot t&ouml;&ouml;eesm&auml;rkidel';
+				break;
 			case "recommends_edit":
 			case "previous_job_edit":
 			case "previous_praxis_edit":
@@ -5146,7 +5181,8 @@ class crm_person extends class_base
 			return '
 			function new_drivers_license()
 			{
-				var category = prompt("Kategooria?");
+				$(\'#add_new_drivers_licence_div\').css(\'display\', \'block\');
+/*				var category = prompt("Kategooria?");
 //				var year = prompt("Aasta?");
 //				var experience = prompt("Praktiseeritud kogemust/staaži?");
 				if(category.length)
@@ -5159,10 +5195,28 @@ class crm_person extends class_base
 							reload_layout("vehicles_table_layout");
 						}
 					});
-				}
+				}*/
 
 			}
-
+			function submit_new_licence()
+			{
+				var category = $("#category").val();
+				if(category.length)
+				{
+					$("#add_new_drivers_licence_div").fadeOut(1000);
+					$.ajax({
+						type: "POST",
+						url: "'.aw_ini_get("baseurl") .'/automatweb/orb.aw",
+						data: "&class=crm_person_drivers_license&action=javascript_add_new&person='.$arr["request"]["id"].'&category=" + category + "&year="+$("#year").val()+ "&experience=" + $("#experience").val(),
+						success: function(response){
+							$("#year").val("");
+							$("#category").val("");
+							$("#experience").val("");
+							reload_layout("vehicles_table_layout");
+						}
+					});
+				}
+			}
 			';
 		}
 

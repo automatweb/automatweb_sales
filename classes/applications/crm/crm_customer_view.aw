@@ -808,6 +808,19 @@ class crm_customer_view extends class_base
 				$customer_relations_search->comment = "%{$arr["request"]["cts_comment"]}%";
 			}
 
+			if (!empty($arr["request"]["area"]))
+			{
+				$customer_relations_search->area = $arr["request"]["area"];
+			}
+
+		if (!empty($arr["request"]["pmgr"]))
+		{
+			$customer_relations_search->manager = $arr["request"]["pmgr"];
+		}
+		if (!empty($arr["request"]["cmgr"]))
+		{
+			$customer_relations_search->customer_manager = $arr["request"]["cmgr"];
+		}
 
 			if (!empty($arr["request"]["cts_phone"]))
 			{

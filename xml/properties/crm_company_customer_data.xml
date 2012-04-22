@@ -102,6 +102,15 @@
             <caption>Kuva veebis</caption>
       </property>
       <property>
+            <name>area</name>
+            <table>aw_crm_customer_data</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_AREA</reltype>
+            <field>aw_area</field>
+            <caption>Piirkond</caption>
+      </property>
+      <property>
             <name>buyer_contract_creator</name>
             <table>aw_crm_customer_data</table>
             <group>buyer</group>
@@ -537,6 +546,11 @@
                   <clid>CL_CRM_CATEGORY</clid>
                   <caption>Kliendikategooria</caption>
             </CATEGORY>
+            <AREA>
+                  <value>102</value>
+                  <clid>CL_CRM_AREA</clid>
+                  <caption>Piirkond</caption>
+            </AREA>
       </reltypes>
       <layout>
             <splitbox1>

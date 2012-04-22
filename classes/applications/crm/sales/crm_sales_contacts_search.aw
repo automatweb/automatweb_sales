@@ -57,6 +57,9 @@ class crm_sales_contacts_search
 	const PARAM_CONTACT_NAME = 16;
 	const PARAM_CITY = 17;
 	const PARAM_COUNTY = 18;
+	const PARAM_PROJECT_MANAGER = 19;
+	const PARAM_AREA = 20;
+	const PARAM_CUSTOMER_MANAGER = 19;
 
 	private $p_seller = false;
 	private $p_buyer = false;
@@ -74,6 +77,10 @@ class crm_sales_contacts_search
 	private $p_createdby = false;
 	private $p_comment = false;
 	private $p_contact_name = false;
+	private $p_manager = false;
+	private $p_area = false;
+	private $p_customer_manager = false;
+
 
 	private $sort_order;
 	private $additional_joins = "";
@@ -273,6 +280,35 @@ class crm_sales_contacts_search
 		}
 
 		$this->p_address = self::prepare_search_words($value);
+	}
+
+
+	private function _set_manager($value)
+	{
+		if (!is_oid($value))
+		{
+			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for project manager parameter", self::PARAM_PROJECT_MANAGER);
+		}
+		$this->p_manager = $value;
+	}
+
+	private function _set_customer_manager($value)
+	{
+		if (!is_oid($value))
+		{
+			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for customer manager parameter", self::PARAM_CUSTOMER_MANAGER);
+		}
+		$this->p_customer_manager = $value;
+	}
+
+
+	private function _set_area($value)
+	{
+		if (!is_oid($value))
+		{
+			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for area parameter", self::PARAM_AREA);
+		}
+		$this->p_area = self::prepare_search_words($value);
 	}
 
 	private function _set_city($value)
@@ -527,6 +563,44 @@ class crm_sales_contacts_search
 				)
 			));
 		}
+
+		if (!empty($this->p_area))
+		{
+			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.area"] = $this->p_area;
+		}
+
+		if (!empty($this->p_customer_manager))
+		{
+			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.client_manager"] = $this->p_customer_manager;
+		}
+
+		if (!empty($this->p_manager))
+		{
+			$projects = new object_list(array(
+				"class_id" => CL_PROJECT,
+				"proj_mgr" => $this->p_manager,
+			));
+
+			$customers_= array();
+			foreach($projects->arr() as $project)
+			{
+				if($project->prop("orderer"))
+				{
+					$customers_[$project->prop("orderer")]= $project->prop("orderer");
+				}
+			}
+			if(!sizeof($customers_))
+			{
+				$customers_ = -1;
+			}
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array (
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer" => $customers_,
+				)
+			));
+		}
+
 /*
 		if (!empty($this->p_city))
 		{
