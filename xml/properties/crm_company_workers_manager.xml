@@ -21,6 +21,16 @@
             <store>no</store>
       </property>
       <property>
+            <name>add_existing_profession_oid</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>hidden</type>
+            <datatype>int</datatype>
+            <store>no</store>
+      </property>
+      <property>
             <name>es_c</name>
             <table>objects</table>
             <method>serialize</method>

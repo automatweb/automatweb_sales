@@ -156,6 +156,33 @@ class crm_company_employees_view extends class_base
 			));
 		}
 
+
+		if ($this->selected_object and $this->selected_object->is_a(crm_section_obj::CLID))
+		{
+
+			$url = $this->mk_my_orb("do_search", array(
+				"clid" => crm_profession_obj::CLID,
+				"pn" => "add_existing_profession_oid"
+			), "popup_search");
+
+			$tb->add_button(array(
+				"name" => "Search",
+				"icon" => "magnifier",
+				"tooltip" => t("Lisa amet olemasolevate ametite hulgast"),
+				"link" => "#",
+				"url" => "#",
+				"onclick" => html::popup(array(
+					"url" => $url,
+					"resizable" => true,
+					"scrollbars" => "auto",
+					"height" => 500,
+					"width" => 700,
+					"no_link" => true,
+					"quote" => "'"
+				))
+			));
+		}
+
 		// profession add, no specific item selection in tree required
 		$tb->add_menu_item(array(
 			"parent" => "add_item",
@@ -672,20 +699,71 @@ class crm_company_employees_view extends class_base
 					// get name/link
 					$url->set_arg(self::REQVAR_NODE, $section_oid);
 					$name = html::href(array("url" => $url->get(), "caption" => $section->prop_str("name")));
-
+					$members = $section->get_workers();
+					$m3 = array();
+					$x = 0;
+					foreach($members->arr() as $member)
+					{
+						if($members->count() - 3 < $x)
+						{
+							$m3[]= $member->name();
+						}
+						$x++;
+					}
 					// enter data
 					$organizational_units_table->define_data(array(
 						"oid" => $section_oid,
 						"cutcopied" => in_array($section_oid, $clipboard) ? self::CUTCOPIED_COLOUR : "",
 						"menu" => $menu->get_menu(),
 						"name" => $name,
-						"ord" => $order_edit
+						"ord" => $order_edit,
+						"icon" => html::img(array("url" => icons::get_icon_url(crm_section_obj::CLID))),
+						
+						"editor" => $section->modifiedby(),
+						"members" => $members->count(),
+							"last_members" => join(", " , $m3)
 					));
 				}
 				while ($section = $list->next());
 			}
 		}
 
+		return $r;
+	}
+ 
+	public function _set_add_existing_profession_oid($arr)
+	{
+	//	arr($arr); die();
+		$r = class_base::PROP_IGNORE;
+
+		if (empty($arr["prop"]["value"]) or empty($arr["request"][self::REQVAR_NODE]))
+		{
+			return $r;
+		}
+
+		// load person and profession objects
+		try
+		{
+			$prof = obj($arr["prop"]["value"], array(), crm_profession_obj::CLID);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Amet pole loetav"));
+			return $r;
+		}
+
+		// popup search found id, parent is set
+		$employer = $arr["obj_inst"];
+
+		$section = empty($arr["request"]["es_c"]) ? null : obj($arr["request"]["es_c"], array(), CL_CRM_SECTION);
+		$profession = $employer->add_profession($section);
+		$profession->set_name($prof->name());
+		$profession->save();
+		$params = array();
+		if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
+		if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+
+		$r = html::get_change_url($profession->id(), $params);
 		return $r;
 	}
 
@@ -771,14 +849,33 @@ class crm_company_employees_view extends class_base
 
 	private function define_organizational_units_table($organizational_units_table)
 	{
+
 		$organizational_units_table->define_field(array(
 			"width" => "1",
-			"name" => "menu"
+			"name" => "icon"
 		));
-
 		$organizational_units_table->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
+			"sortable" => "1",
+			"chgbgcolor" => "cutcopied"
+		));
+		$organizational_units_table->define_field(array(
+			"name" => "editor",
+			"caption" => t("Viimane muutja"),
+			"sortable" => "1",
+			"chgbgcolor" => "cutcopied"
+		));
+		$organizational_units_table->define_field(array(
+			"name" => "members",
+			"caption" => t("Liikmeid üksuses"),
+			"sortable" => "1",
+			"chgbgcolor" => "cutcopied"
+		));
+
+		$organizational_units_table->define_field(array(
+			"name" => "last_members",
+			"caption" => t("Viimati lisatud"),
 			"sortable" => "1",
 			"chgbgcolor" => "cutcopied"
 		));
@@ -795,6 +892,12 @@ class crm_company_employees_view extends class_base
 			"width" => "1",
 			"name" => "check"
 		));
+		$organizational_units_table->define_field(array(
+			"width" => "1",
+			"name" => "menu"
+		));
+
+
 	}
 
 	public function _get_professions_table(&$arr)
@@ -844,7 +947,7 @@ class crm_company_employees_view extends class_base
 						"menu" => $menu->get_menu(),
 						"cutcopied" => in_array($profession_oid, $clipboard) ? self::CUTCOPIED_COLOUR : "",
 						"name" => $name,
-						"ord" => $order_edit
+						"ord" => $order_edit,
 					));
 				}
 				while ($profession = $list->next());

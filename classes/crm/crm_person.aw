@@ -731,7 +731,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 @groupinfo contact caption="Kontaktandmed"
 @groupinfo work caption="T&ouml;&ouml;suhted"
-	@groupinfo experiences caption="Praegused ja varasemad t&ouml;&ouml;kohad" parent=work submit=no
+	@groupinfo experiences caption="Praegused ja varasemad t&ouml;&ouml;suhted" parent=work submit=no
 	@groupinfo work_wanted caption="Soovitud t&ouml;&ouml;kohad" parent=work submit=no
 	@groupinfo recommends caption="Soovitajad" parent=work
 	@groupinfo candidate caption="Kandideerimised" parent=work submit=no
@@ -1959,6 +1959,8 @@ class crm_person extends class_base
 			case "add_edu_edit":
 			case "drivers_license":
 			case "jobs_wanted_edit":
+			case "work_tbl":
+			case "mlang":
 				return PROP_IGNORE;
 
 			case "mails_s_name":
@@ -2676,6 +2678,7 @@ class crm_person extends class_base
 				break;
 
 			case "cedit_profession_tbl":
+				return PROP_IGNORE;
 				$i = new crm_company_cedit_impl();
 				$t = $data["vcl_inst"];
 				$fields = array(
@@ -3034,7 +3037,7 @@ class crm_person extends class_base
 			));
 		}
 	}
-
+/*
 	function _get_work_tbl($arr)
 	{
 		$org_fixed = 0;
@@ -3111,34 +3114,11 @@ class crm_person extends class_base
 				"org" => $wr->prop_str("employer"),
 				"sec" => $wr->prop_str("company_section"),
 				"pro" => $wr->prop_str("profession")
-/*
-				"org" => $relpicker->create_relpicker(array(
-					"name" => "work_tbl[".$wr->id()."][org]",
-					"reltype" => 1,
-					"oid" => $wr->id(),
-					"property" => "employer",
-//					"buttonspos" => "bottom",
-				)),
-				"sec" => $relpicker->create_relpicker(array(
-					"name" => "work_tbl[".$wr->id()."][sec]",
-					"reltype" => 7,
-					"oid" => $wr->id(),
-					"property" => "company_section",
-					"options" => $sec_options[$orgid],
-				)),
-				"pro" => $relpicker->create_relpicker(array(
-					"name" => "work_tbl[".$wr->id()."][pro]",
-					"reltype" => 3,
-					"oid" => $wr->id(),
-					"property" => "profession",
-					"options" => $pro_options,
-				)),
-				"sel" => $wr->id(),
-*/
+
 			));
 		}
 	}
-
+*/
 	function isik_toolbar(&$args)
 	{
 		$toolbar = $args["prop"]["toolbar"];

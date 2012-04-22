@@ -26,6 +26,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_CRM_PERSON_LANGUAGE, on_save)
 @property other type=textbox field=other
 @caption Muu keel
 
+@property mlang type=checkbox ch_value=1 field=mlang
+@caption Emakeel
+
 @property person type=hidden field=meta method=serialize table=objects
 
 @reltype LANGUAGE value=1 clid=CL_CRM_LANGUAGE
@@ -93,6 +96,7 @@ class crm_person_language extends class_base
 			case "sk_understand":
 			case "sk_write":
 			case "language":
+			case "mlang":
 				$this->db_add_col($tbl, array(
 					"name" => $field,
 					"type" => "int",

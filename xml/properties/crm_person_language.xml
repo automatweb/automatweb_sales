@@ -43,6 +43,15 @@
             <caption>Muu keel</caption>
       </property>
       <property>
+            <name>mlang</name>
+            <group>general</group>
+            <table>kliendibaas_keeleoskus</table>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>mlang</field>
+            <caption>Emakeel</caption>
+      </property>
+      <property>
             <name>person</name>
             <group>general</group>
             <table>objects</table>

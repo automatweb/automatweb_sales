@@ -14,6 +14,7 @@
 
 @default group=employees_management
 	@property add_existing_employee_oid type=hidden datatype=int store=no
+	@property add_existing_profession_oid type=hidden datatype=int store=no
 	@property es_c type=hidden store=request
 
 	@property hrm_toolbar type=toolbar no_caption=1 store=no
@@ -331,5 +332,20 @@ class crm_company_workers_manager extends class_base
 		}
 
 		return $arr["post_ru"];
+	}
+
+	function callback_mod_layout(&$arr)
+	{
+		if ($arr["name"] == "unit_list_container")
+		{
+			if($arr["obj_inst"]->prop("company"))
+			{
+				$company = obj($arr["obj_inst"]->prop("company"));
+
+
+				$arr["area_caption"] = sprintf(t('Organisatsiooni "%s" üksused'), $company->name());
+			}
+		}
+		return true;
 	}
 }
