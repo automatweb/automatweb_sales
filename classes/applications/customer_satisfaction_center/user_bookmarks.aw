@@ -878,9 +878,9 @@ class user_bookmarks extends class_base
 	function pm_lod($arr)
 	{
 		$bm = $this->init_bm();
-		$bookmarks_menu = cache::file_get(self::CACHE_KEY_PREFIX_HTML . $bm->id());
+	//	$bookmarks_menu = cache::file_get(self::CACHE_KEY_PREFIX_HTML . $bm->id());
 
-		if (!$bookmarks_menu)
+		if (empty($bookmarks_menu))
 		{
 			$pm = new popup_menu();
 			$pm->begin_menu("user_bookmarks");
@@ -996,6 +996,16 @@ class user_bookmarks extends class_base
 				"link" => html::get_change_url($bm->id(), array("return_url" => $arr["url"], "group" => "bms"))
 			));
 
+			$pm->add_item(array(
+				"emphasized" => true,
+				"text" => t("Kuva rakenduse men&uuml;&uuml;s"),
+				"link" => $this->mk_my_orb("add_to_app", array("url" => $arr["url"]))
+			));
+			$pm->add_item(array(
+				"emphasized" => true,
+				"text" => t("Eemalda rakenduse men&uuml;&uuml;st"),
+				"link" => $this->mk_my_orb("remove_from_app", array("url" => $arr["url"]))
+			));
 			$bookmarks_menu = $pm->get_menu(array(
 				"text" => html::img(array(
 					"url" => "/automatweb/images/aw06/ikoon_jarjehoidja.gif",
@@ -1120,6 +1130,62 @@ class user_bookmarks extends class_base
 	}
 
 	/**
+		@attrib name=add_to_app
+		@param url required type=string
+	**/
+	function add_to_app($arr)
+	{
+		try
+		{
+			$url = new aw_uri($arr["url"]);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text("Vigane aadress antud, ei saa lisada rakendusmenüüsse.");
+		}
+
+		$bm = $this->init_bm();
+
+		$pask = $bm->meta("apps");
+
+		$new_app = array("url" => $url->get());
+		$class_id = 0;
+		$id = 0;
+		if ($this->can("view", $url->arg("id")))
+		{
+			$t = obj($url->arg("id"));
+			$new_app["name"] = $t->name();
+			$new_app["class_id"] = $t->class_id();
+			$class_id = $t->class_id();
+			$id = $t->id();
+		}
+		if(empty($pask[$class_id]))
+		{
+			$pask[$class_id] = array();
+		}
+		$pask[$class_id][$id]= $new_app;
+
+		$bm->set_meta("apps" , $pask);
+		$bm->save();
+
+		$this->clear_cache($bm);
+
+		$return_url = $url->get();
+		if ($return_url{0} === "?")
+		{
+			$return_url = (isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"]) . $return_url;
+		}
+
+		if (0 !== strpos($return_url, aw_ini_get("baseurl")))
+		{
+			$return_url = aw_ini_get("baseurl") . ("/" ===  $return_url{0} ? substr($return_url, 1) : $return_url);
+		}
+
+		$this->show_success_text("Aadress lisatud rakendusmenüüsse.");
+		return $return_url;
+	}
+
+	/**
 		@attrib name=remove_from_bm
 		@param url optional
 	**/
@@ -1142,6 +1208,60 @@ class user_bookmarks extends class_base
 		{
 			$arr["url"] = (isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"]) . $arr["url"];
 		}
+		return $arr["url"];
+	}
+
+	/**
+		@attrib name=remove_from_app
+		@param url optional
+	**/
+	function remove_from_app($arr)
+	{
+		try
+		{
+			$url = new aw_uri($arr["url"]);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text("Vigane aadress antud, ei saa eemaldada.");
+		}
+		$bm = $this->init_bm();
+		$apps = $bm->meta("apps");
+		if ($this->can("view", $url->arg("id")))
+		{
+			foreach($apps as $class => $objects)
+			{
+				foreach($objects as $id => $data)
+				{
+					if($url->arg("id") == $id)
+					{
+						unset($apps[$class][$id]);				
+					}
+				}
+			}
+		}
+
+		foreach($apps as $class => $objects)
+		{
+			foreach($objects as $id => $data)
+			{
+				if($arr["url"] == $data["url"])
+				{
+					unset($apps[$class][$id]);				
+				}
+			}
+		}
+
+		$bm->set_meta("apps", $apps);
+		$bm->save();
+
+		$this->clear_cache($bm);
+		if(substr($arr["url"], 0, 1) === "?")
+		{
+			$arr["url"] = (isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"]) . $arr["url"];
+		}
+		header("location: " . $arr["url"]);
+		die();
 		return $arr["url"];
 	}
 

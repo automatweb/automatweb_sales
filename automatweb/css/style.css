@@ -205,6 +205,34 @@ a img { border: 0; }
 	text-decoration: none
 }
 
+#pais .application_links
+{
+	float: left;
+	height: 55px;
+	margin-left:247px;
+	margin-top:27px;
+	z-index: 2;
+/*	position: relative;*/
+
+/*	position:absolute;
+	z-index: 15;
+	top:47px;
+	left:247px;*/
+	vertical-align:middle;
+	height:14px;
+	line-height:14px;
+}
+#pais .application_links a
+{
+	padding: 2px 10px 3px 20px;
+}
+#pais .application_links img
+{
+	margin-left: -1px;
+	height:14px;
+	position: absolute;
+}
+
 #pais .toiming
 {
 	float: right;

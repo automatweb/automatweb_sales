@@ -37,6 +37,9 @@
 		<a href="{VAR:srch_link}" class="nupp"><img src="{VAR:baseurl}/automatweb/images/aw06/ikoon_luup.gif" alt="" width="13" height="13" border="0" class="ikoon" />{VAR:search_text}</a>
 		<!-- END SUB: HAS_SEARCH -->
 	</div>
+	<div class="application_links">
+		{VAR:application_links}
+	</div>
 	<!-- END SUB: NOT_POPUP -->
 
 </div>

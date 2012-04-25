@@ -66,8 +66,24 @@
 			</function>
 		</action>
 
+		<action name="add_to_app">
+			<function name="add_to_app">
+				<arguments>
+					<optional name="url" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="remove_from_bm">
 			<function name="remove_from_bm">
+				<arguments>
+					<optional name="url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_from_app">
+			<function name="remove_from_app">
 				<arguments>
 					<optional name="url" />
 				</arguments>

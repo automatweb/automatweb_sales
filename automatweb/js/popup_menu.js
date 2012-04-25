@@ -1,4 +1,4 @@
-var XBrowserZindex = 1;
+var XBrowserZindex = 2;
 function XBrowser() {
 	
   var ua, s, i;

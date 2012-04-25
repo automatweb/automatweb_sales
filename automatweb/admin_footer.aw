@@ -184,10 +184,82 @@ $sf->vars(array(
 
 if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 {
+
 	if (acl_base::prog_acl("view", "disp_person"))
 	{
+		$person_text = "";
+		$person = get_current_person();
+		if($person)
+		{
+			$cfg = get_instance("cfg/cfgutils");
+			$popup_menu = new popup_menu();
+			$popup_menu->begin_menu("current_person");
+
+			if(acl_base::can("edit", $person->id()))
+			{
+				$uprops = $cfg->load_properties(array(
+					"clid" => CL_CRM_PERSON, 
+				));
+				$groups = $cfg->get_groupinfo();
+
+				$params = array(
+					"name" => "currentpersonmenu",
+					"text" => t("Isiku andmed")
+				);
+	
+				$popup_menu->add_sub_menu($params);
+
+				foreach($groups as $gid => $group)
+				{
+					if(empty($group["parent"]))
+					{
+						$popup_menu->add_item(array(
+							"text" => $group["caption"],
+							"link" => $cfg->mk_my_orb("change", array("group" => $gid, "id" => $person->id()), CL_CRM_PERSON),
+							"parent" => "currentpersonmenu"
+						));
+					}
+				}
+			}
+
+			if(acl_base::can("edit", aw_global_get("uid_oid")))
+			{
+				$uprops = $cfg->load_properties(array(
+					"clid" => CL_USER, 
+				));
+				$groups = $cfg->get_groupinfo();
+
+				$params = array(
+					"name" => "currentusermenu",
+					"text" => t("Kasutaja andmed")
+				);
+	
+				$popup_menu->add_sub_menu($params);
+
+				foreach($groups as $gid => $group)
+				{
+					if(empty($group["parent"]))
+					{
+						$popup_menu->add_item(array(
+							"text" => $group["caption"],
+							"link" => $cfg->mk_my_orb("change", array("group" => $gid, "id" => aw_global_get("uid_oid")), CL_USER),
+							"parent" => "currentusermenu"
+						));
+					}
+				}
+			}
+
+			$popup_menu->add_item(array(
+				"text" => '<img src="'.aw_global_get("baseurl").'automatweb/images/aw06/ikoon_logout.gif" width="26" height="14" border="0" alt="'.t("Logi v&auml;lja").'">',
+				"link" => aw_global_get("baseurl")."automatweb/orb.aw?class=users&action=logout",
+			));
+			$person_text = $popup_menu->get_menu(array(
+				"text" => $person->name(),
+			));
+		}
+
 		$sf->vars(array(
-			"SHOW_CUR_P" => $sf->parse("SHOW_CUR_P")
+			"SHOW_CUR_P" => $person_text,//$sf->parse("SHOW_CUR_P") 
 		));
 	}
 
