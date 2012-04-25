@@ -451,7 +451,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 	@property other_mlang type=textbox field=other_mlang table=kliendibaas_isik
 	@caption Muu emakeel
 
-	@property skills_lang_tbl type=table store=no
+	@property skills_lang_tbl type=table store=no no_caption=1
 	@caption Keeleoskus
 
 @default group=vehicles
@@ -1136,6 +1136,7 @@ class crm_person extends class_base
 						$o->set_prop("talk", $val["talk"]);
 						$o->set_prop("understand", $val["understand"]);
 						$o->set_prop("write", $val["write"]);
+						$o->set_prop("mlang", empty($val["mlang"]) ? 0 : 1);
 						$o->save();
 					}
 				}
@@ -1646,6 +1647,12 @@ class crm_person extends class_base
 			"caption" => t("Kirjutan"),
 			"align" => "center",
 		));
+		$t->define_field(array(
+			"name" => "mlang",
+			"caption" => t("Emakeel"),
+			"align" => "center",
+		));
+
 		$lang_ops[0] = t("--vali--");
 		$lang_ops += get_instance("crm_person_language")->lang_lvl_options;
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_LANGUAGE_SKILL")) as $conn)
@@ -1680,6 +1687,10 @@ class crm_person extends class_base
 				)).html::hidden(array(
 					"name" => "lang_write[".$to->id()."]",
 					"value" => $to->prop("write"),
+				)),
+				"mlang" => html::checkbox(array(
+					"name" => "lang[".$to->id()."][mlang]",
+					"checked" => $to->prop("mlang"),
 				)),
 			));
 		}
@@ -4211,7 +4222,7 @@ class crm_person extends class_base
 		$o->save();
 		$person = obj($arr["id"]);
 		$person->connect(array(
-				"to" => $arr["obj_inst"]->id(),
+				"to" => $o->id(),
 				"type" => "RELTYPE_EDUCATION",
 			));
 		return html::get_change_url($o->id(), array(

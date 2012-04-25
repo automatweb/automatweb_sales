@@ -1277,6 +1277,7 @@
             <group>languages</group>
             <type>table</type>
             <store>no</store>
+            <no_caption>1</no_caption>
             <field>skills_lang_tbl</field>
             <caption>Keeleoskus</caption>
       </property>
