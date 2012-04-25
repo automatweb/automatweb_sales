@@ -344,6 +344,10 @@ class industrial_design extends intellectual_property
 						$this_o = new object($_SESSION["patent"]["id"]);
 						$existing_repros = $this_o->connections_from(array("type" => "RELTYPE_DOC_REPRO"));
 					}
+					else
+					{
+						$existing_repros = array();
+					}
 
 					if(count($file_data["name"]) < 2 and !count($existing_repros))
 					{

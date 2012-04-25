@@ -2,9 +2,7 @@
 // klassile antakse ette "unix timestamp", ta konverdib
 // selle ajayhikuteks, ning tagastab nende muutmiseks
 // sobivad vormielemendid
-/*
-@classinfo  maintainer=kristo
-*/
+
 class date_edit
 {
 	// vormielementide nimed saavad olema kujul
@@ -194,14 +192,14 @@ class date_edit
 						for ($i = $range1; $i >= $range2; $i--)
 						{
 							$retval .= sprintf("<option value='%s' %s>%s</option>\n",$i,selected($i == $year),$i);
-						};
+						}
 					}
 					else
 					{
-						for ($i = $range1; $i < $range2; $i++)
+						for ($i = $range1; $i <= $range2; $i++)
 						{
 							$retval .= sprintf("<option value='%s' %s>%s</option>\n",$i,selected($i == $year),$i);
-						};
+						}
 					}
 					$retval .= "</select>\n";
 					break;
@@ -410,7 +408,7 @@ class date_edit
 			}
 		}
 
-		if ($var['month'] == '---' || $var['day'] == '---' || $var['year'] == '---')
+		if ($var['month'] === '---' || $var['day'] === '---' || $var['year'] === '---')
 		{
 			return -1;
 		}
@@ -441,14 +439,16 @@ class date_edit
 	**/
 	function get_day_end_timestamp($var)
 	{
-		if ($var['month'] == '---' || $var['day'] == '---' || $var['year'] == '---')
+		if ($var['month'] === '---' || $var['day'] === '---' || $var['year'] === '---')
 		{
 			return -1;
 		}
+
 		if ($var['month'] == 0 || $var['day'] == 0 || $var['year'] == 0)
 		{
 			return -1;
 		}
+
 		if (!is_array($var))
 		{
 			return -1;
@@ -456,4 +456,4 @@ class date_edit
 		$tmp =  mktime(23, 59, 59, $var["month"], $var["day"], $var["year"]);
 		return $tmp;
 	}
-}; // end class
+}

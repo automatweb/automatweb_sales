@@ -2632,8 +2632,8 @@ abstract class intellectual_property extends class_base
 
 	function save_uploads($uploads)
 	{
-		$image_inst = get_instance(CL_IMAGE);
-		$file_inst = get_instance(CL_FILE);
+		$image_inst = new image();
+		$file_inst = new file();
 		foreach($this->file_upload_vars as $var)
 		{
 			if ("reproduction" === $var and "1" === $_POST["data_type"] and empty($_POST["type"]))
