@@ -13,7 +13,7 @@ class aw_oid
 		else
 		{
 			$string_oid = (string) $oid;
-			if (empty($oid) or $oid !== $string_oid)
+			if (empty($oid) or $oid != $string_oid)
 			{
 				throw new awex_oid("Invalid object id ".var_export($oid, true));
 			}
@@ -30,4 +30,3 @@ class aw_oid
 
 class awex_oid extends awex_obj {}
 
-?>
