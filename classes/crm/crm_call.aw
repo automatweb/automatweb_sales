@@ -246,18 +246,17 @@ class crm_call extends task
 
 	function _get_customer_name_edit(&$arr)
 	{
-		$r = PROP_OK;
 		$this_o = $arr["obj_inst"];
-		$cro = obj($this_o->prop("customer_relation"), array(), CL_CRM_COMPANY_CUSTOMER_DATA);
-		$customer = is_object($cro) ? obj($cro->prop("buyer")) : null;
-
-		if (!is_object($customer) or !$customer->is_saved())
+		try
 		{
-			$r = PROP_IGNORE;
-		}
-		else
-		{
+			$cro = obj($this_o->prop("customer_relation"), array(), CL_CRM_COMPANY_CUSTOMER_DATA);
+			$customer = is_object($cro) ? obj($cro->prop("buyer")) : null;
 			$arr["prop"]["value"] = $customer->name();
+			$r = class_base::PROP_OK;
+		}
+		catch (Exception $e)
+		{
+			$r = class_base::PROP_IGNORE;
 		}
 
 		return $r;
@@ -265,32 +264,45 @@ class crm_call extends task
 
 	function _set_customer_name_edit(&$arr)
 	{
-		$r = PROP_IGNORE;
 		$this_o = $arr["obj_inst"];
-		$cro = obj($this_o->prop("customer_relation"), array(), CL_CRM_COMPANY_CUSTOMER_DATA);
-		$customer = obj($cro->prop("buyer"));
 
-		if (!is_object($customer) or !$customer->is_saved())
+		try
 		{
-			// $arr["prop"]["error"] = t("Klienti ei leitud");
-			// $r = PROP_ERROR;
-		}
-		else
-		{
-			if ($customer->is_a(CL_CRM_PERSON))
+			if (!empty($arr["prop"]["value"]))
 			{
-				$name = explode(" ", $arr["prop"]["value"], 2);
-				$firstname = isset($name[0]) ? $name[0] : "";
-				$lastname = isset($name[1]) ? $name[1] : "";
-				$customer->set_prop("firstname", $firstname);
-				$customer->set_prop("lastname", $lastname);
+				$cro = obj($this_o->prop("customer_relation"), array(), CL_CRM_COMPANY_CUSTOMER_DATA);
+				$customer = obj($cro->prop("buyer"));
+
+				if ($customer->is_a(CL_CRM_PERSON))
+				{
+					$name = explode(" ", $arr["prop"]["value"], 2);
+					$firstname = isset($name[0]) ? $name[0] : "";
+					$lastname = isset($name[1]) ? $name[1] : "";
+					$customer->set_prop("firstname", $firstname);
+					$customer->set_prop("lastname", $lastname);
+				}
+				else
+				{
+					$name = $arr["prop"]["value"];
+					$customer->set_name($name);
+				}
+
+				$customer->save();
+				$r = class_base::PROP_OK;
 			}
 			else
 			{
-				$name = $arr["prop"]["value"];
-				$customer->set_name($name);
+				$r = class_base::PROP_IGNORE;
 			}
-			$customer->save();
+		}
+		catch (awex_obj_na $e)
+		{
+			$r = class_base::PROP_IGNORE;
+		}
+		catch (Exception $e)
+		{
+			$arr["prop"]["error"] = t("Kliendi nime ei saanud salvestada");
+			$r = class_base::PROP_ERROR;
 		}
 
 		return $r;
@@ -300,7 +312,7 @@ class crm_call extends task
 	{
 		$this_o = $arr["obj_inst"];
 		$result_task = $this_o->prop("result_task");
-		$r = PROP_IGNORE;
+		$r = class_base::PROP_IGNORE;
 
 		if ($result_task)
 		{
@@ -318,7 +330,7 @@ class crm_call extends task
 					"title" => t("Muuda")
 				));
 
-				$r = PROP_OK;
+				$r = class_base::PROP_OK;
 			}
 			catch (awex_obj $e)
 			{
@@ -339,7 +351,7 @@ class crm_call extends task
 			"class" => "crm_company_customer_data",
 			"group" => "sales_data"
 		));
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_call_tools(&$arr)
@@ -375,7 +387,7 @@ class crm_call extends task
 				));
 			}
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_start1(&$arr)
@@ -394,7 +406,7 @@ class crm_call extends task
 				$arr["prop"]["value"] = time();
 			}
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_real_start(&$arr)
@@ -405,11 +417,11 @@ class crm_call extends task
 			{
 				$arr["prop"]["value"] = date("d.m.Y H:i", $arr["prop"]["value"]);
 			}
-			$r = PROP_OK;
+			$r = class_base::PROP_OK;
 		}
 		else
 		{ // don't show when call hasn't been made
-			$r = PROP_IGNORE;
+			$r = class_base::PROP_IGNORE;
 		}
 		return $r;
 	}
@@ -420,30 +432,30 @@ class crm_call extends task
 		{
 			$value = isset($arr["prop"]["value"]) ? $arr["prop"]["value"] : 0;
 			$arr["prop"]["value"] = aw_locale::get_lc_time($value, aw_locale::TIME_SHORT_WORDS);
-			$r = PROP_OK;
+			$r = class_base::PROP_OK;
 		}
 		else
 		{ // don't show when call hasn't been made
-			$r = PROP_IGNORE;
+			$r = class_base::PROP_IGNORE;
 		}
 		return $r;
 	}
 
 	function _get_result(&$arr)
 	{
-		$r = PROP_IGNORE;
+		$r = class_base::PROP_IGNORE;
 		if ($arr["obj_inst"]->prop("real_start") > 1)
 		{
 			$arr["prop"]["options"] = array("" => "") + $arr["obj_inst"]->result_names();
 			$arr["prop"]["onchange"] = "crmCallProcessResult(this);";
-			$r = PROP_OK;
+			$r = class_base::PROP_OK;
 		}
 		return $r;
 	}
 
 	function _get_phone(&$arr)
 	{
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 		if (empty($arr["value"]) and isset($arr["request"]["phone_id"]) and is_oid($arr["request"]["phone_id"]))
 		{
 			$phone = obj($arr["request"]["phone_id"], array(), CL_CRM_PHONE);
@@ -460,30 +472,30 @@ class crm_call extends task
 
 	function _get_new_call_date(&$arr)
 	{
-		$r = PROP_IGNORE;
+		$r = class_base::PROP_IGNORE;
 		if ($arr["obj_inst"]->prop("real_start") > 1)
 		{
-			$r = PROP_OK;
+			$r = class_base::PROP_OK;
 		}
 		return $r;
 	}
 
 	function _get_preferred_language(&$arr)
 	{
-		$r = PROP_IGNORE;
+		$r = class_base::PROP_IGNORE;
 		if ($arr["obj_inst"]->prop("real_start") > 1)
 		{
-			$r = PROP_OK;
+			$r = class_base::PROP_OK;
 		}
 		return $r;
 	}
 
 	function _set_preferred_language(&$arr)
 	{
-		$r = PROP_IGNORE;
+		$r = class_base::PROP_IGNORE;
 		if ($arr["obj_inst"]->prop("real_start") > 1)
 		{
-			$r = PROP_OK;
+			$r = class_base::PROP_OK;
 			$application = automatweb::$request->get_application();
 
 			if ($application->is_a(CL_CRM_SALES))
@@ -491,7 +503,7 @@ class crm_call extends task
 				if (isset($arr["request"]["result"]) and crm_call_obj::RESULT_LANG == $arr["request"]["result"] and !is_oid($arr["prop"]["value"]))
 				{
 					$arr["prop"]["error"] = t("Soovitav suhtluskeel peab olema m&auml;&auml;ratud");
-					$r = PROP_FATAL_ERROR;
+					$r = class_base::PROP_FATAL_ERROR;
 				}
 			}
 		}
@@ -501,7 +513,7 @@ class crm_call extends task
 	function get_property(&$arr)
 	{
 		$data = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		$i = new task();
 
 		switch($data['name'])
@@ -518,7 +530,7 @@ class crm_call extends task
 			case "real_maker":
 				if (!$arr["obj_inst"]->has_started())
 				{
-					$retval = PROP_IGNORE;
+					$retval = class_base::PROP_IGNORE;
 				}
 				break;
 
@@ -541,7 +553,7 @@ class crm_call extends task
 			case "promoter":
 			case "project":
 			case "customer":
-				$retval = PROP_IGNORE;
+				$retval = class_base::PROP_IGNORE;
 				break;
 
 			case "name":
@@ -587,7 +599,7 @@ class crm_call extends task
 	function set_property($arr)
 	{
 		$data = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($data["name"])
 		{
 			case "add_clauses":
@@ -598,7 +610,7 @@ class crm_call extends task
 			case "promoter":
 			case "customer":
 			case "project":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 
 			case "new_call_date":
 				$v = datepicker::get_timestamp($data["value"]);
@@ -616,7 +628,7 @@ class crm_call extends task
 						{
 							$arr["prop"]["error"] = t("Uue k&otilde;ne aeg ei saa olla minevikus");
 						}
-						return PROP_FATAL_ERROR;
+						return class_base::PROP_FATAL_ERROR;
 					}
 				}
 				else
@@ -654,7 +666,7 @@ class crm_call extends task
 					elseif ($v > 300)
 					{
 						$data["error"] = t("Uue k&otilde;ne aeg ei tohi olla minevikus!");
-						return PROP_FATAL_ERROR;
+						return class_base::PROP_FATAL_ERROR;
 					}
 				}
 				break;
@@ -673,7 +685,7 @@ class crm_call extends task
 
 	function _set_phone(&$arr)
 	{
-		$r = PROP_OK;
+		$r = class_base::PROP_OK;
 		if (empty($arr["prop"]["value"]) and isset($arr["request"]["phone_id"]) and is_oid($arr["request"]["phone_id"]))
 		{
 			$arr["prop"]["value"] = $arr["request"]["phone_id"];
@@ -687,9 +699,9 @@ class crm_call extends task
 		if (isset($arr["request"]["action"]) and "end" === $arr["request"]["action"] and empty($arr["prop"]["value"]) or $this_o->prop("result") and empty($arr["prop"]["value"])) // result must be defined when ending call. result can't be unset when call was ended and result defined
 		{
 			$arr["prop"]["error"] = t("Tulemus peab olema m&auml;&auml;ratud");
-			return PROP_FATAL_ERROR;
+			return class_base::PROP_FATAL_ERROR;
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _get_comment(&$arr)
@@ -704,7 +716,7 @@ class crm_call extends task
 			$arr["prop"]["caption"] = t("Lisa kommentaar");
 			$arr["prop"]["comment"] = t("Kommentaar lisatakse kommentaaridele kliendiinfos.");
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function _set_comment(&$arr)
@@ -724,7 +736,7 @@ class crm_call extends task
 				));
 			}
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function new_change($arr)
