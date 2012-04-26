@@ -953,9 +953,9 @@ class htmlclient extends aw_template
 			$bm_h->begin_menu("history_pop");
 
 			$application_links = "";
-			$bookmark_inst = get_instance(CL_USER_BOOKMARKS);
+			$bookmark_inst = new user_bookmarks();
 			$bmobj = $bookmark_inst->init_bm();
-			$apps = $bmobj->meta("apps");
+			$apps = safe_array($bmobj->meta("apps"));
 
 			foreach($apps as $key => $app)
 			{

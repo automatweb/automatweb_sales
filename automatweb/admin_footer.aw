@@ -86,7 +86,7 @@ else
 // do not display the YAH bar, if site_title is empty
 $bmb = new popup_menu();
 $bmb->begin_menu("settings_pop");
-// arr(AW_REQUEST_CT_LANG_ID);exit;
+
 // language selection menu
 $ld = languages::fetch(AW_REQUEST_CT_LANG_ID);
 if (languages::count() > 1)
@@ -198,7 +198,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 			if(acl_base::can("edit", $person->id()))
 			{
 				$uprops = $cfg->load_properties(array(
-					"clid" => CL_CRM_PERSON, 
+					"clid" => CL_CRM_PERSON,
 				));
 				$groups = $cfg->get_groupinfo();
 
@@ -206,7 +206,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 					"name" => "currentpersonmenu",
 					"text" => t("Isiku andmed")
 				);
-	
+
 				$popup_menu->add_sub_menu($params);
 
 				foreach($groups as $gid => $group)
@@ -225,7 +225,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 			if(acl_base::can("edit", aw_global_get("uid_oid")))
 			{
 				$uprops = $cfg->load_properties(array(
-					"clid" => CL_USER, 
+					"clid" => CL_USER,
 				));
 				$groups = $cfg->get_groupinfo();
 
@@ -233,7 +233,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 					"name" => "currentusermenu",
 					"text" => t("Kasutaja andmed")
 				);
-	
+
 				$popup_menu->add_sub_menu($params);
 
 				foreach($groups as $gid => $group)
@@ -259,7 +259,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 		}
 
 		$sf->vars(array(
-			"SHOW_CUR_P" => $person_text,//$sf->parse("SHOW_CUR_P") 
+			"SHOW_CUR_P" => $person_text,//$sf->parse("SHOW_CUR_P")
 		));
 	}
 
