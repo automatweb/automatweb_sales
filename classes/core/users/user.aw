@@ -1684,7 +1684,7 @@ EOF;
 		@attrib api=1
 		@comment
 			Gets the company attached to the current user
-		@returns
+		@returns oid
 			The company id
 	**/
 	public static function get_current_company()
@@ -1700,7 +1700,7 @@ EOF;
 			}
 			catch (awex_oid $e)
 			{
-				$retval = false;
+				$retval = 0;
 			}
 		}
 		return $retval;

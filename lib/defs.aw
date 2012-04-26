@@ -93,7 +93,7 @@ function get_current_company()
 	if (!$curc)
 	{
 		$tmp = user::get_current_company();
-		if ($tmp == false)
+		if (!$tmp)
 		{
 			return false;
 		}
