@@ -149,7 +149,7 @@ class user_bookmarks extends class_base
 			$o->set_class_id(CL_USER_BOOKMARKS);
 			$o->set_parent(aw_ini_get("amenustart"));
 			$p = get_current_person();
-			$o->set_name(sprintf(t("%s j&auml;rjehoidja"), $p->name()));
+			$o->set_name(sprintf(t("%s j&auml;rjehoidja"), ($p ? $p->name() : aw_global_get("uid"))));
 			$o->save();
 			return $o;
 		}
@@ -1235,7 +1235,7 @@ class user_bookmarks extends class_base
 				{
 					if($url->arg("id") == $id)
 					{
-						unset($apps[$class][$id]);				
+						unset($apps[$class][$id]);
 					}
 				}
 			}
@@ -1247,7 +1247,7 @@ class user_bookmarks extends class_base
 			{
 				if($arr["url"] == $data["url"])
 				{
-					unset($apps[$class][$id]);				
+					unset($apps[$class][$id]);
 				}
 			}
 		}
