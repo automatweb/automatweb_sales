@@ -2681,16 +2681,16 @@ END;
 				break;
 
 			case "act_s_status":
-				if($this->use_group === "ovrv_mails") return PROP_IGNORE;
+				if($this->use_group === "ovrv_mails") return class_base::PROP_IGNORE;
 				$data["options"] = array(1 => t("T&ouml;&ouml;s"), 2 => t("Tehtud"), "3" => t("K&otilde;ik"));
-				$data['value'] = $arr['request'][$data["name"]];
+				$data["value"] = isset($arr["request"]["act_s_status"]) ? $arr["request"]["act_s_status"] : "";
 				break;
 
 			case "act_s_task_content":
 			case "act_s_code":
 				if ($this->use_group === "ovrv_offers" || $this->use_group === "documents_all_manage" || $this->use_group === "ovrv_mails")
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 
 			case "act_s_cust":
@@ -2708,10 +2708,10 @@ END;
 			case "act_s_mail_content":
 				if($this->use_group !== "ovrv_mails")
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 			case "act_s_print_view":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 				$data['value'] = isset($arr['request'][$data["name"]]) ? $arr['request'][$data["name"]] : "";
 				$data["onclick"] = "document.changeform.target=\"_blank\"";
 				break;
@@ -2756,7 +2756,7 @@ END;
 			case "contact_search_submit":
 				if(empty($arr['request']['contact_search']))
 				{
-					return PROP_IGNORE;
+					return class_base::PROP_IGNORE;
 				}
 				else
 				{
@@ -2807,7 +2807,7 @@ END;
 				$data =& $arr["prop"];
 				if (!isset($arr["request"][$data["name"]]))
 				{
-					$data["value"] = mktime(0,0,0, date("m")-($data["name"] == "bill_s_from" ? 1 : 0), 1, date("Y"));
+					$data["value"] = mktime(0,0,0, date("m")-($data["name"] === "bill_s_from" ? 1 : 0), 1, date("Y"));
 				}
 				else
 				if ($arr["request"][$data["name"]]["year"] > 1)
@@ -2823,7 +2823,7 @@ END;
 				$data =& $arr["prop"];
 				if (!isset($arr["request"][$data["name"]]))
 				{
-					$data["value"] = mktime(0,0,0, date("m")-($data["name"] == "bill_s_from" ? 1 : 0), date("d"), date("Y"));
+					$data["value"] = mktime(0,0,0, date("m")-($data["name"] === "bill_s_from" ? 1 : 0), date("d"), date("Y"));
 				}
 				else
 				if ($arr["request"][$data["name"]]["year"] > 1)
@@ -2840,7 +2840,7 @@ END;
 				if($arr["request"]["different_customers"])
 				{
 					$data["error"] = t("T&ouml;&ouml;d on teostatud erinevatele klientidele, palun kontrolli!");
-					return PROP_ERROR;
+					return class_base::PROP_ERROR;
 				}
 
 			case 'bill_proj_list':
@@ -3138,7 +3138,7 @@ END;
 			case "url_id":
 			case "email_id":
 			case "aw_bank_account":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 
 			case "cedit_phone_tbl":
 			case "cedit_telefax_tbl":
@@ -3240,7 +3240,7 @@ END;
 				if ($data["value"] == "")
 				{
 					$data["error"] = t("Nimi peab olema t&auml;idetud!");
-					return PROP_ERROR;
+					return class_base::PROP_ERROR;
 				}
 				break;
 
@@ -3272,9 +3272,9 @@ END;
 				break;
 
 			case "contact":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function callback_pre_edit($arr)
@@ -8497,7 +8497,7 @@ END;
 
 	function _get_pohitegevus($arr)
 	{
-		$arr["prop"]["options"] = array("" => t("--Vali--")) + safe_array(get_instance(CL_PERSONNEL_MANAGEMENT)->get_sectors());
+		$arr["prop"]["options"] = array("" => t("--Vali--"));//FIXME: kui palju objekte siis jooskeb kinni // + safe_array(get_instance(CL_PERSONNEL_MANAGEMENT)->get_sectors());
 		if ($arr["new"] && $arr["request"]["sector"])
 		{
 			$arr["prop"]["value"] = $arr["request"]["sector"];
