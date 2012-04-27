@@ -58,9 +58,15 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 		$this->orb_defs = $orb_defs;
 
 		// action defineeritud?
-		$action = $args["action"];
-		$action = ($action) ? $action : $orb_defs[$class]["default"];
-		if (!isset($action))
+		if (!empty($args["action"]))
+		{
+			$action = $args["action"];
+		}
+		elseif (!empty($orb_defs[$class]["default"]))
+		{
+			$action = $orb_defs[$class]["default"];
+		}
+		else
 		{
 			throw new awex_orb_action("Action not defined");
 		}

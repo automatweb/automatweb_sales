@@ -393,9 +393,14 @@ class crm_company_overview_impl extends class_base
 
 	function _init_my_tasks_t($t, $data = false, $r = array() , $group = 0)
 	{
-		if (is_array($data) && $r["act_s_print_view"] != 1)
+		$filt = array(
+			"customer" => array(),
+			"proj_name" => array(),
+			"priority" => array(),
+			"parts" => array()
+		);
+		if (is_array($data) && (!isset($r["act_s_print_view"]) or $r["act_s_print_view"] != 1))
 		{
-			$filt = array();
 			foreach($data as $row)
 			{
 				$filt["customer"][] = strip_tags($row["customer"]);
@@ -427,6 +432,7 @@ class crm_company_overview_impl extends class_base
 	//			"chgbgcolor" => "col",
 			));
 		}
+
 		if(!$group)
 		{
 			$t->define_field(array(
@@ -458,7 +464,7 @@ class crm_company_overview_impl extends class_base
 		));
 
 
-		if ($r["group"] != "meetings")
+		if ($r["group"] !== "meetings")
 		{
 			$t->define_field(array(
 				"caption" => t("Aeg"),
@@ -496,7 +502,7 @@ class crm_company_overview_impl extends class_base
 			"filter" => array_unique($filt["parts"])
 		));
 
-		if ($r["act_s_print_view"] != 1)
+		if (!isset($r["act_s_print_view"]) or $r["act_s_print_view"] != 1)
 		{
 			$t->define_chooser(array(
 		//			"chgbgcolor" => "col",
@@ -555,19 +561,17 @@ class crm_company_overview_impl extends class_base
 	{
 		$seti = new crm_settings();
 		$sts = $seti->get_current_settings();
-		if(is_object($sts) && $sts->prop("group_task_view"))
-		{
-			$group = 1;
-		}
+		$group = (is_object($sts) && $sts->prop("group_task_view"));
+
 		if (aw_global_get("crm_task_view") != CRM_TASK_VIEW_TABLE)
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 
 		$ol = $this->_get_task_list($arr);
 		$olarr = $ol->arr();
 		$this->_preload_customer_list_for_tasks($olarr);
-		if($arr["request"]["group"] !== "ovrv_mails")
+		if ($arr["request"]["group"] !== "ovrv_mails")
 		{
 			$ol->sort_by_cb(array($this, "__task_sorter"));
 		}
@@ -625,10 +629,7 @@ class crm_company_overview_impl extends class_base
 					}
 					$last_proj = $task->prop("project");
 				}
-			}
 
-			if($group)
-			{
 /*				if($last_cust != $task->prop("customer"))
 				{
 					$table_data[] = array(
@@ -896,13 +897,17 @@ class crm_company_overview_impl extends class_base
 		$t->set_default_sortby("deadline");
 		$t->set_default_sorder("asc");
 
-		$t->sort_by(array(
-			"field" => $arr["request"]["sortby"],
-			"sorder" => ($arr["request"]["sortby"] == "priority" ? "desc" : $arr["request"]["sort_order"])
-		));
+		if (!empty($arr["request"]["sortby"]))
+		{
+			$t->sort_by(array(
+				"field" => $arr["request"]["sortby"],
+				"sorder" => ($arr["request"]["sortby"] == "priority" ? "desc" : $arr["request"]["sort_order"])
+			));
+		}
 
 		$t->set_sortable(false);
-		if (!($_GET["sortby"] != "" && $_GET["sortby"] != "deadline"))
+
+		if (empty($arr["request"]["sortby"]) or $arr["request"]["sortby"] === "deadline")
 		{
 			foreach($table_data as $row)
 			{
@@ -913,16 +918,16 @@ class crm_company_overview_impl extends class_base
 			}
 		}
 
-		if ($arr["request"]["act_s_print_view"] == 1)
+		if (!empty($arr["request"]["act_s_print_view"]))
 		{
-			$sf = new aw_template;
+			$sf = new aw_template();
 			$sf->db_init();
 			$sf->tpl_init("automatweb");
 			$sf->read_template("index.tpl");
 			$sf->vars(array(
 				"content"	=> $t->draw(),
 				"uid" => aw_global_get("uid"),
-				"charset" => aw_global_get("charset")
+				"charset" => languages::USER_CHARSET
 			));
 			die($sf->parse());
 		}
@@ -1352,14 +1357,14 @@ class crm_company_overview_impl extends class_base
 				'action' => 'tasks_switch_to_table_view',
 			));
 		}
-		if($arr["request"]["group"] == "ovrv_mails")
+		if($arr["request"]["group"] === "ovrv_mails")
 		{
 			$mail_mgr = new crm_email_mgr();
 			$tb->add_button(array(
 				"name" => "user_calendar",
 				"tooltip" => t("Impordi mailid"),
 				"url" => $mail_mgr->mk_my_orb('upd_mails', array()),
-				"onClick" => "",
+				"onclick" => "",
 				"img" => "mail_reply.gif",
 			));
 
@@ -1382,7 +1387,7 @@ class crm_company_overview_impl extends class_base
 					'parent'=>'set_project',
 					'text' => $o->name(),
 					"url" => "#",
-					"onClick" => "document.changeform.proj.value='".$o->id()."';
+					"onclick" => "document.changeform.proj.value='".$o->id()."';
 						document.changeform.action.value='set_project_to_mail';
 						document.changeform.submit()"
 				));
@@ -1392,8 +1397,9 @@ class crm_company_overview_impl extends class_base
 
 	function _get_act_s_part($arr)
 	{
-		if ($arr["request"]["act_s_sbt"] == "" && $arr["request"]["act_s_is_is"] != 1)
+		if (empty($arr["request"]["act_s_sbt"]) && (!isset($arr["request"]["act_s_is_is"]) or $arr["request"]["act_s_is_is"] != 1))
 		{
+			$v = "";
 			$u = get_instance(CL_USER);
 			$p = obj($u->get_current_person());
 			//$v = $p->name();
@@ -1439,8 +1445,9 @@ class crm_company_overview_impl extends class_base
 		}
 		else
 		{
-			$v = $arr["request"]["act_s_part"];
+			$v = isset($arr["request"]["act_s_part"]) ? $arr["request"]["act_s_part"] : "";
 		}
+
 		$tt = t("Kustuta");
 		$arr["prop"]["value"] = html::textbox(array(
 			"name" => "act_s_part",
@@ -1526,9 +1533,9 @@ class crm_company_overview_impl extends class_base
 		$done = null;
 		$undone = $over_deadline = 0;
 		$ol = new object_list();
-		$params = explode("_" , $arr["request"]["st"]);
-		$time_params = explode("_" , $arr["request"]["tm"]);
-		$type_params = explode("_" , $arr["request"]["tf"]);
+		$params = isset($arr["request"]["st"]) ? explode("_" , $arr["request"]["st"]) : array(0 => "");
+		$time_params = isset($arr["request"]["tm"]) ? explode("_" , $arr["request"]["tm"]) : array(0 => "");
+		$type_params = isset($arr["request"]["tf"]) ? explode("_" , $arr["request"]["tf"]) : array(0 => "");
 		$stats = new crm_company_stats_impl();
 
 		switch($params[0])
@@ -1555,22 +1562,6 @@ class crm_company_overview_impl extends class_base
 
 		switch($type_params[0])
 		{
-/*			case "next":
-				$start = time();
-				$end = time() + DAY*1000;
-				break;*/
-/*			case "last_last_mon":
-				$start = mktime(0,0,0,(date("m") - 2) , 1 , date("Y"));
-				$end = mktime(0,0,0,(date("m") - 1) , 1 , date("Y"))-1;
-				break;
-			case "cur_year":
-				$start = get_year_start();
-				$end = mktime(0,0,0,1,1,(date("Y") + 1))-1;
-				break;
-			case "last_year":
-				$start = mktime(0,0,0,1,1,(date("Y") - 1));
-				$end = get_year_start()-1;
-				break;*/
 			case CL_BUG:
 				$class_id = CL_BUG;
 				if($type_params[1] > 0)
@@ -1578,16 +1569,21 @@ class crm_company_overview_impl extends class_base
 					$filter["status"] = $type_params[1];
 				}
 				break;
+
 			case CL_CRM_CALL:
 				$class_id = CL_CRM_CALL;
 				break;
+
 			case CL_TASK:
 				$class_id = CL_TASK;
 				break;
+
 			case CL_CRM_MEETING:
 				$class_id = CL_CRM_MEETING;
 				break;
+
 			default:
+				$class_id = null;
 				break;
 		}
 
@@ -2679,6 +2675,7 @@ class crm_company_overview_impl extends class_base
 				"url" => aw_url_change_var($var, CL_BUG."_".$type_id),
 			));
 		}
+
 		foreach($bug_inst->bug_statuses as $type_id => $type)
 		{
 			if (isset($_GET[$var]) && $_GET[$var] == CL_BUG."_".$type_id)
@@ -2866,7 +2863,24 @@ class crm_company_overview_impl extends class_base
 				CL_CRM_BILL => array(new obj_sql_func(OBJ_SQL_UNIQUE, "customer", "aw_bugs.customer"))
 			)
 		);
-		$ol->add($t->get_element_from_all("customer"));//FIXME: No access to load object with id '118369'.
+		$customer_ids = $t->get_element_from_all("customer");
+
+		do
+		{
+			try
+			{
+				$e = false;
+				$ol->add($customer_ids);
+			}
+			catch (awex_obj_acl $e)
+			{
+				$inaccessible_oid = $e->awobj_id;
+				$inaccessible_idx = array_keys($customer_ids, $inaccessible_oid, true);
+				$inaccessible_idx = reset($inaccessible_idx);
+				unset($customer_ids[$inaccessible_idx]);
+			}
+		}
+		while ($e);
 
 		return $ol;
 	}

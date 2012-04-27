@@ -478,6 +478,8 @@ class languages extends aw_core_module implements orb_public_interface
 			$lang_id = 0;
 		}
 
+		//FIXME: kui siia kirjutada LC_EST siis or.ee t88tas
+
 		return (int) $lang_id;
 	}
 

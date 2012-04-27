@@ -286,7 +286,7 @@ class html
 				"param" => $name,
 			);
 
-			if(is_array($ac_filter))
+			if(isset($ac_filter) and is_array($ac_filter))
 			{
 				$params += $ac_filter;
 			}

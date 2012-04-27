@@ -5441,31 +5441,30 @@ ini_set("memory_limit", "1500M");
 
  	private function get_rows_data($f = array())
 	{
-/*		static $cache;
-		if ($cache)
-		{
-			return $cache;
-		}
-*/
 		$bc_filt = array(
 			"class_id" => CL_TASK_ROW
 		);
-		if($f["between"])
+
+		if(!empty($f["between"]))
 		{
 			$bc_filt["date"] = $f["between"];
 		}
-		if($f["parent_clid"])
+
+		if(!empty($f["parent_clid"]))
 		{
 			$bc_filt["task.class_id"] = $f["parent_clid"];
 		}
-		if($f["bill_between"])
+
+		if(!empty($f["bill_between"]))
 		{
 			$bc_filt["bill_id.bill_date"] = $f["bill_between"];
 		}
-		if($f["customer"])
+
+		if(!empty($f["customer"]))
 		{
 			$bc_filt["CL_TASK_ROW.RELTYPE_CUSTOMER"] = $f["customer"];
 		}
+
 		$rows_data_list = new object_data_list(
 			$bc_filt,
 			array(CL_TASK_ROW => array(
@@ -5568,7 +5567,7 @@ ini_set("memory_limit", "1500M");
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL_PAYMENT;
 		$filter["brother_of"] = new obj_predicate_prop("id");
-		if($arr["between"])
+		if (!empty($arr["between"]))
 		{
 			$filter["date"] = $arr["between"];
 		}
@@ -5604,7 +5603,7 @@ ini_set("memory_limit", "1500M");
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL_ROW;
 
-		if($arr["between"])
+		if (!empty($arr["between"]))
 		{
 			$filter["CL_CRM_BILL_ROW.RELTYPE_ROW(CL_CRM_BILL).bill_date"] = $arr["between"];
 		}
@@ -5629,7 +5628,7 @@ ini_set("memory_limit", "1500M");
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL_ROW;
 
-		if($arr["between"])
+		if (!empty($arr["between"]))
 		{
 			$filter["CL_CRM_BILL_ROW.RELTYPE_TASK_ROW.date"] = $arr["between"];
 		}
@@ -5643,7 +5642,7 @@ ini_set("memory_limit", "1500M");
 		$filter["class_id"] = CL_CRM_BILL;
 		$filter["brother_of"] = new obj_predicate_prop("id");
 
-		if($arr["between"])
+		if (!empty($arr["between"]))
 		{
 			$filter["bill_date"] = $arr["between"];
 		}
@@ -5656,41 +5655,51 @@ ini_set("memory_limit", "1500M");
 		$filter = array();
 		$filter["class_id"] = CL_BUG;
 		$filter["brother_of"] = new obj_predicate_prop("id");
-		if($arr["status"])
+
+		if (!empty($arr["status"]))
 		{
 			$filter["bug_status"] = $arr["status"];
 		}
-		if($arr["project_manager"])
+
+		if (!empty($arr["project_manager"]))
 		{
 			$filter["CL_BUG.RELTYPE_PROJECT.proj_mgr"] = $arr["project_manager"];
 		}
-		if($arr["customer"])
+
+		if (!empty($arr["customer"]))
 		{
 			$filter["customer"] = $arr["customer"];
 		}
-		if($arr["deadline"])
+
+		if (!empty($arr["deadline"]))
 		{
 			$arr["done"] = 0;
 			$filter["deadline"] = new obj_predicate_compare(OBJ_COMP_LESS, time());
 
 		}
-		if($arr["done"] == 1)
+
+		if (isset($arr["done"]))
 		{
-			$filter["bug_status"] = array(3,4,5,6,7,8,9);
-		}
-		elseif($arr["done"] === 0)
-		{
-			$filter["bug_status"] = array(1,2,10,11);
+			if ($arr["done"] == 1)
+			{
+				$filter["bug_status"] = array(3,4,5,6,7,8,9);
+			}
+			elseif ($arr["done"] === 0)
+			{
+				$filter["bug_status"] = array(1,2,10,11);
+			}
 		}
 
-		if($arr["between"])
+		if (!empty($arr["between"]))
 		{
 			$filter["CL_BUG.RELTYPE_COMMENT.date"] = $arr["between"];
 		}
-		if($arr["person"])
+
+		if (!empty($arr["person"]))
 		{
 			$filter["who"] = $arr["person"];
 		}
+
 		return $filter;
 	}
 
@@ -5699,33 +5708,42 @@ ini_set("memory_limit", "1500M");
 		$filter = array();
 		$filter["class_id"] = CL_TASK;
 		$filter["brother_of"] = new obj_predicate_prop("id");
-		if($arr["project_manager"])
+
+		if (!empty($arr["project_manager"]))
 		{
 			$filter["CL_TASK.RELTYPE_PROJECT.proj_mgr"] = $arr["project_manager"];
 		}
-		if($arr["customer"])
+
+		if (!empty($arr["customer"]))
 		{
 			$filter["CL_TASK.RELTYPE_CUSTOMER"] = $arr["customer"];
 		}
-		if($arr["deadline"])
+
+		if (!empty($arr["deadline"]))
 		{
 			$arr["done"] = 0;
-			$filter["deadline"] = new obj_predicate_compare(OBJ_COMP_LESS, time());
+			$filter["deadline"] = new obj_predicate_compare(obj_predicate_compare::LESS, time());
 
 		}
-		if($arr["done"] == 1)
+
+		if (isset($arr["done"]))
 		{
-			$filter["is_done"] = $arr["done"];
+			if ($arr["done"] == 1)
+			{
+				$filter["is_done"] = $arr["done"];
+			}
+			elseif ($arr["done"] === 0)
+			{
+				$filter["is_done"] = new obj_predicate_not(1);
+			}
 		}
-		elseif($arr["done"] === 0)
-		{
-			$filter["is_done"] = new obj_predicate_not(1);
-		}
-		if($arr["between"])
+
+		if (!empty($arr["between"]))
 		{
 			$filter["CL_TASK.RELTYPE_ROW.date"] = $arr["between"];
 		}
-		if($arr["person"])
+
+		if (!empty($arr["person"]))
 		{
 			$filter["CL_CRM_CALL.RELTYPE_ROW.impl"] = $arr["person"];
 		}
@@ -5737,48 +5755,58 @@ ini_set("memory_limit", "1500M");
 		$filter = array();
 		$filter["class_id"] = CL_CRM_MEETING;
 		$filter["brother_of"] = new obj_predicate_prop("id");
-		if($arr["project_manager"])
+
+		if (!empty($arr["project_manager"]))
 		{
 			$filter["CL_CRM_MEETING.RELTYPE_PROJECT.proj_mgr"] = $arr["project_manager"];
 		}
-		if($arr["customer"])
+
+		if (!empty($arr["customer"]))
 		{
 			$filter["CL_CRM_MEETING.RELTYPE_CUSTOMER"] = $arr["customer"];
 		}
-		if($arr["deadline"])
+
+		if (!empty($arr["deadline"]))
 		{
 			$arr["done"] = 0;
-			$filter["deadline"] = new obj_predicate_compare(OBJ_COMP_LESS, time());
+			$filter["deadline"] = new obj_predicate_compare(obj_predicate_compare::LESS, time());
 		}
-		if($arr["person"])
+
+		if (!empty($arr["person"]))
 		{
 			$filter["CL_CRM_MEETING.RELTYPE_ROW.impl"] = $arr["person"];
 		}
-		if($arr["done"] == 1)
+
+		if (isset($arr["done"]))
 		{
-			$filter["is_done"] = $arr["done"];
+			if ($arr["done"] == 1)
+			{
+				$filter["is_done"] = $arr["done"];
+			}
+			elseif ($arr["done"] === 0)
+			{
+				$filter["is_done"] = new obj_predicate_not(1);
+			}
 		}
-		elseif($arr["done"] === 0)
-		{
-			$filter["is_done"] = new obj_predicate_not(1);
-		}
-		if($arr["from"])
+
+		if (!empty($arr["from"]))
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_CRM_MEETING.start1" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
-					"CL_CRM_MEETING.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
+					"CL_CRM_MEETING.start1" => new obj_predicate_compare(obj_predicate_compare::GREATER, $arr["from"]),
+					"CL_CRM_MEETING.RELTYPE_ROW.date" => new obj_predicate_compare(obj_predicate_compare::GREATER, $arr["from"]),
 				)
 			));
 		}
-		if($arr["to"])
+
+		if (!empty($arr["to"]))
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_CRM_MEETING.start1" => new obj_predicate_compare(OBJ_COMP_LESS, $arr["to"]),
-					"CL_CRM_MEETING.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_LESS, $arr["to"]),
+					"CL_CRM_MEETING.start1" => new obj_predicate_compare(obj_predicate_compare::LESS, $arr["to"]),
+					"CL_CRM_MEETING.RELTYPE_ROW.date" => new obj_predicate_compare(obj_predicate_compare::LESS, $arr["to"]),
 				)
 			));
 		}
@@ -5791,62 +5819,66 @@ ini_set("memory_limit", "1500M");
 		$filter["class_id"] = CL_CRM_CALL;
 		$filter["brother_of"] = new obj_predicate_prop("id");
 
-		if($arr["project_manager"])
+		if (!empty($arr["project_manager"]))
 		{
 			$filter["CL_CRM_CALL.RELTYPE_PROJECT.proj_mgr"] = $arr["project_manager"];
 		}
 
-		if($arr["client_manager"])
-		{
-		//	$filter["CL_TASK.RELTYPE_CUSTOMER"] = $arr["customer"];
-		}
+		// if (!empty($arr["client_manager"]))
+		// {
+			//	$filter["CL_TASK.RELTYPE_CUSTOMER"] = $arr["customer"];
+		// }
 
-		if($arr["customer"])
+		if (!empty($arr["customer"]))
 		{
 			$filter["CL_CRM_CALL.RELTYPE_CUSTOMER"] = $arr["customer"];
 		}
 
-		if($arr["deadline"])
+		if (!empty($arr["deadline"]))
 		{
 			$arr["done"] = 0;
-			$filter["deadline"] = new obj_predicate_compare(OBJ_COMP_LESS, time());
+			$filter["deadline"] = new obj_predicate_compare(obj_predicate_compare::LESS, time());
 		}
 
-		if($arr["done"] == 1)
+		if (isset($arr["done"]))
 		{
-			$filter["is_done"] = $arr["done"];
-		}
-		elseif($arr["done"] === 0)
-		{
-			$filter["is_done"] = new obj_predicate_not(1);
+			if ($arr["done"] == 1)
+			{
+				$filter["is_done"] = $arr["done"];
+			}
+			elseif($arr["done"] === 0)
+			{
+				$filter["is_done"] = new obj_predicate_not(1);
+			}
 		}
 
-		if($arr["person"])
+		if (!empty($arr["person"]))
 		{
 			$filter["CL_CRM_CALL.RELTYPE_ROW.impl"] = $arr["person"];
 		}
 
-		if($arr["from"])
+		if (!empty($arr["from"]))
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_CRM_CALL.start1" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
-					"CL_CRM_CALL.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"])
+					"CL_CRM_CALL.start1" => new obj_predicate_compare(obj_predicate_compare::GREATER, $arr["from"]),
+					"CL_CRM_CALL.RELTYPE_ROW.date" => new obj_predicate_compare(obj_predicate_compare::GREATER, $arr["from"])
 				)
 			));
 		}
 
-		if($arr["to"])
+		if (!empty($arr["to"]))
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_CRM_CALL.start1" => new obj_predicate_compare(OBJ_COMP_LESS, $arr["to"]),
-					"CL_CRM_CALL.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_LESS, $arr["to"])
+					"CL_CRM_CALL.start1" => new obj_predicate_compare(obj_predicate_compare::LESS, $arr["to"]),
+					"CL_CRM_CALL.RELTYPE_ROW.date" => new obj_predicate_compare(obj_predicate_compare::LESS, $arr["to"])
 				)
 			));
 		}
+
 		return $filter;
 	}
 

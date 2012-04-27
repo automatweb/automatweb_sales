@@ -1016,7 +1016,7 @@ class aw_table extends aw_template
 		If this is set, the table will be drawn without chooser javascript
 	@return string/html table
 	@example
-		
+
 		$table = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -1424,13 +1424,13 @@ END;
 						$this->rowspans[$v1["name"]]--;
 						continue;
 					}
-					else
-					if(isset($v1["rowspan"]) && isset($v[$v1["rowspan"]]))
+					elseif(isset($v1["rowspan"]) && isset($v[$v1["rowspan"]]))
 					{
 						$rowspan = $v[$v1["rowspan"]];
 						$this->rowspans[$v1["name"]] = $v[$v1["rowspan"]];
 					}
-					$colspan = isset($v1["colspan"]) && $v[$v1["colspan"]] ? $v[$v1["colspan"]] : 1;
+
+					$colspan = isset($v1["colspan"]) && !empty($v[$v1["colspan"]]) ? $v[$v1["colspan"]] : 1;
 					$cols += $colspan;
 					if($cols > count($this->rowdefs))
 					{

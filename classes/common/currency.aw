@@ -3,7 +3,7 @@
 
 /*
 
-@classinfo no_status=1
+@classinfo prop_cb=1
 
 @default group=general
 	@property ord type=textbox table=objects field=jrk size=5
@@ -391,7 +391,7 @@ class currency extends class_base
 	function get_default_currency_name()
 	{
 		$c = $this->get_default_currency();
-		if(!(is_oid($c) && $this->can("" , $c)))
+		if(!acl_base::can("" , $c))
 		{
 			return "EEK";
 		}

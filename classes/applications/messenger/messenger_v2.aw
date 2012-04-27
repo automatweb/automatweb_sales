@@ -252,12 +252,8 @@ class messenger_v2 extends class_base
 	**/
 	function get_messenger_for_user($arr = array())
 	{
-		$uid = $arr["uid"];
-		if (empty($uid))
-		{
-			$uid = aw_global_get("uid");
-		};
-		$users = get_instance("users");
+		$uid = empty($arr["uid"]) ? aw_global_get("uid") : $arr["uid"];
+		$users = new users();
 		$user = new object($users->get_oid_for_uid($uid));
 
 		$conns = $user->connections_to(array(
@@ -267,7 +263,7 @@ class messenger_v2 extends class_base
 		if (sizeof($conns) == 0)
 		{
 			return false;
-		};
+		}
 		list(,$conn) = each($conns);
 		$obj_id = $conn->prop("from");
 		return $obj_id;
