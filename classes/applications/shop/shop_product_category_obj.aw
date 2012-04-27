@@ -11,12 +11,9 @@ class shop_product_category_obj extends _int_object
 	**/
 	public function get_categories($id = NULL)
 	{
-		enter_function("product_management_category_tree4");
 //parentiga oleks tegelt sitaks kiirem... a kui m6lemad on sees, siis umbes 10 korda aeglasem kogu see jama
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
-			"lang_id" => array(),
-			"site_id" => array(),
 //			new object_list_filter(array(
 //				"logic" => "OR",
 //				"conditions" => array(
@@ -26,7 +23,6 @@ class shop_product_category_obj extends _int_object
 //			)),
 			"sort_by" => "jrk asc, name asc",
 		));
-		exit_function("product_management_category_tree4");
 		return $ol;
 	}
 
@@ -41,8 +37,6 @@ class shop_product_category_obj extends _int_object
 
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
-			"lang_id" => array(),
-			"site_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -50,7 +44,7 @@ class shop_product_category_obj extends _int_object
 					"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY" => $this->id(),
 				),
 			)),
-			"sort_by" => "jrk asc, name asc",
+			"sort_by" => "jrk asc, name asc"
 		));
 		foreach($ol->arr() as $o)
 		{
@@ -90,7 +84,7 @@ class shop_product_category_obj extends _int_object
 	{
 		$this->connect(array(
 			"to" => $id,
-			"reltype" => "RELTYPE_CATEGORY",
+			"reltype" => "RELTYPE_CATEGORY"
 		));
 	}
 
@@ -101,7 +95,7 @@ class shop_product_category_obj extends _int_object
 	{
 		$this->connect(array(
 			"to" => $id,
-			"reltype" => "RELTYPE_CATEGORY_TYPES",
+			"reltype" => "RELTYPE_CATEGORY_TYPES"
 		));
 	}
 
@@ -152,9 +146,7 @@ class shop_product_category_obj extends _int_object
 	{
 		$prms = array(
 			"class_id" => CL_SHOP_PRODUCT,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"CL_SHOP_PRODUCT.RELTYPE_CATEGORY" => $id !== NULL ? $id : $this->id(),
+			"CL_SHOP_PRODUCT.RELTYPE_CATEGORY" => $id !== NULL ? $id : $this->id()
 		);
 
 		if(is_array($id))
@@ -195,9 +187,7 @@ class shop_product_category_obj extends _int_object
 	{
 		$prms = array(
 			"class_id" =>CL_SHOP_PACKET,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"CL_SHOP_PACKET.RELTYPE_CATEGORY" => $this->get_all_categories(),
+			"CL_SHOP_PACKET.RELTYPE_CATEGORY" => $this->get_all_categories()
 		);
 
 		return new object_list($prms);
@@ -219,14 +209,7 @@ class shop_product_category_obj extends _int_object
 		if(!empty($this->image_object) && is_object($this->image_object))
 		{
 			return $this->image_object->get_url();
-		}		
+		}
 		return "";
 	}
-
-
-//----------------- static functions -------------------------
-
-
 }
-
-?>

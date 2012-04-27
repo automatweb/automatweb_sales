@@ -5,19 +5,10 @@ class shop_product_packaging_obj extends shop_product_obj
 	const CLID = 327;
 
 
-	function prop($k)
+	public function awobj_get_size()
 	{
-
-		$rv = parent::prop($k);
-
-		if ($k == "size")
-		{
-			return str_replace('"' , '' , $rv);
-		}
-
-		return $rv;
+		return str_replace('"' , '' , $this->prop("size"));
 	}
-
 
 	public function save($check_state = false)
 	{
@@ -83,6 +74,7 @@ class shop_product_packaging_obj extends shop_product_obj
 					$prices[$shop->default_currency] = $price_value;
 				}
 			}
+
 			return shop_price_list_obj::price(array(
 				"shop" => $arr["shop"],
 				"product" => $product = $this->prop("product"),

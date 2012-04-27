@@ -205,6 +205,13 @@
 			</function>
 		</action>
 
+		<action name="create_new_packaging" all_args="1">
+			<function name="create_new_packaging">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="add_type_to_categories" all_args="1">
 			<function name="add_type_to_categories">
 				<arguments>
