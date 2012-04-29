@@ -29,6 +29,14 @@
 				@property customer_listing_tree type=treeview no_caption=1 parent=vvoc_customers_tree_left
 				@caption Kliendikategooriad hierarhiliselt
 
+			@layout customers_tree_responsible type=vbox parent=tree_search_split closeable=1 area_caption=Osapooled
+				@property customer_responsible_tree type=treeview no_caption=1 parent=customers_tree_responsible
+				@caption Kliendikategooriad Vastutajate puu
+
+			@layout customers_tree_areas type=vbox parent=tree_search_split closeable=1 area_caption=Piirkonnad
+				@property customer_areas_tree type=treeview no_caption=1 parent=customers_tree_areas
+				@caption Kliendikategooriad Piirkondade puu
+
 			@layout vbox_customers_left type=vbox parent=tree_search_split closeable=1 area_caption=Otsing
 				@layout vbox_customers_left_top type=vbox parent=vbox_customers_left
 
@@ -1465,6 +1473,129 @@ class crm_customer_view extends class_base
 			"scrollbars" => "auto"
 		));
 		return $roles;
+	}
+
+	function _get_customer_responsible_tree($arr)
+	{
+		$tree_inst = $arr["prop"]["vcl_inst"];
+		$reset_tree_params_url = aw_url_change_var("cmgr", null, aw_url_change_var("pmgr", null));		
+		$tree_inst->add_item(0, array(
+			"id" => "people_who_are_responsible_for_that_s__t",
+			"name" => t("Vastutajad"),
+			"url" => $reset_tree_params_url
+		));
+
+		$tree_inst->add_item("people_who_are_responsible_for_that_s__t", array(
+			"id" => "cmgr",
+			"name" => t("Kliendihaldurid"),
+			"url" => $reset_tree_params_url
+		));
+		$tree_inst->add_item("people_who_are_responsible_for_that_s__t", array(
+			"id" => "pmgr",
+			"name" => t("Projektijuhid"),
+			"url" => $reset_tree_params_url
+		));
+
+		$ol = new object_data_list(array(
+				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"seller" => $arr["obj_inst"]->prop("company")
+			),
+			array(
+				CL_CRM_COMPANY_CUSTOMER_DATA => array(new obj_sql_func(OBJ_SQL_UNIQUE, "client_manager", "client_manager"))
+			)
+		);
+		$tmp = $ol->arr();
+		$ids = array(-1);
+		foreach($tmp as $item)
+		{
+			if ($this->can("view", $item["client_manager"]))
+			{
+				$ids[] = $item["client_manager"];
+			}
+		}
+		$ol = new object_list(array(
+			"oid" => $ids
+		));
+		$nms = $ol->names();
+		foreach($nms as $id => $nm)
+		{
+			$tree_inst->add_item("cmgr", array(
+				"id" => "cmgr_".$id,
+				"name" => parse_obj_name($nm),
+				"url" => aw_url_change_var("cmgr", $id,aw_url_change_var("pmgr", null)),
+				"iconurl" => icons::get_icon_url(CL_CRM_PERSON)
+			));
+		}
+
+		if (!empty($arr["request"]["cmgr"]))
+		{
+			$tree_inst->set_selected_item("cmgr_".$arr["request"]["cmgr"]);
+		}
+/* projektijuhid*/
+		$ol = new object_data_list(array(
+				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"seller" => $arr["obj_inst"]->prop("company")
+			),
+			array(
+				CL_CRM_COMPANY_CUSTOMER_DATA => array(new obj_sql_func(OBJ_SQL_UNIQUE, "salesman", "salesman"))
+			)
+		);
+
+		$tmp = $ol->arr();
+		$ids = array(-1);
+		foreach($tmp as $item)
+		{
+			if ($this->can("view", $item["salesman"]))
+			{
+				$ids[] = $item["salesman"];
+			}
+		}
+		$ol = new object_list(array(
+			"oid" => $ids
+		));
+		$nms = $ol->names();
+		foreach($nms as $id => $nm)
+		{
+			$tree_inst->add_item("pmgr", array(
+				"id" => "pmgr_".$id,
+				"name" => parse_obj_name($nm),
+				"url" => aw_url_change_var("pmgr", $id, aw_url_change_var("cmgr", null)),
+				"iconurl" => icons::get_icon_url(CL_CRM_PERSON)
+			));
+		}
+		if (!empty($arr["request"]["pmgr"]))
+		{
+			$tree_inst->set_selected_item("pmgr_".$arr["request"]["pmgr"]);
+		}
+	}
+
+	function _get_customer_areas_tree($arr)
+	{
+		$tree_inst = $arr["prop"]["vcl_inst"];
+
+		$tree_inst->add_item(0, array(
+			"id" => "areas",
+			"name" => t("Piirkonnad"),
+			"url" => aw_url_change_var("area", null)
+		));
+
+		$ol = new object_list(array(
+			"class_id" => CL_CRM_AREA	
+		));
+
+		foreach($ol->arr() as $o)
+		{
+			$tree_inst->add_item("areas", array(
+				"id" => $o->id(),
+				"name" => $o->name(),
+				"url" => aw_url_change_var("area", $o->id())
+			));
+		}
+
+		if (!empty($arr["request"]["area"]))
+		{
+			$tree_inst->set_selected_item($arr["request"]["area"]);
+		}
 	}
 
 }

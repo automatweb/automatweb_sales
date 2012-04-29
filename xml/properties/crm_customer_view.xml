@@ -44,6 +44,30 @@
             <caption>Kliendikategooriad hierarhiliselt</caption>
       </property>
       <property>
+            <name>customer_responsible_tree</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>relorg</group>
+            <type>treeview</type>
+            <no_caption>1</no_caption>
+            <parent>customers_tree_responsible</parent>
+            <store>no</store>
+            <caption>Kliendikategooriad Vastutajate puu</caption>
+      </property>
+      <property>
+            <name>customer_areas_tree</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>relorg</group>
+            <type>treeview</type>
+            <no_caption>1</no_caption>
+            <parent>customers_tree_areas</parent>
+            <store>no</store>
+            <caption>Kliendikategooriad Piirkondade puu</caption>
+      </property>
+      <property>
             <name>cs_n</name>
             <table>objects</table>
             <method>serialize</method>
@@ -271,6 +295,20 @@
                   <area_caption>Kliendivalik</area_caption>
                   <group>relorg</group>
             </vvoc_customers_tree_left>
+            <customers_tree_responsible>
+                  <type>vbox</type>
+                  <parent>tree_search_split</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Osapooled</area_caption>
+                  <group>relorg</group>
+            </customers_tree_responsible>
+            <customers_tree_areas>
+                  <type>vbox</type>
+                  <parent>tree_search_split</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Piirkonnad</area_caption>
+                  <group>relorg</group>
+            </customers_tree_areas>
             <vbox_customers_left>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>

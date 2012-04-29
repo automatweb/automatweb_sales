@@ -719,7 +719,7 @@ class crm_company_employees_view extends class_base
 						"ord" => $order_edit,
 						"icon" => html::img(array("url" => icons::get_icon_url(crm_section_obj::CLID))),
 						
-						"editor" => $section->modifiedby(),
+						"editor" => $this->get_person_name_by_uid($section->modifiedby()),//$section->modifiedby(),
 						"members" => $members->count(),
 							"last_members" => join(", " , $m3)
 					));
@@ -731,6 +731,21 @@ class crm_company_employees_view extends class_base
 		return $r;
 	}
  
+	private function get_person_name_by_uid($uid)
+	{
+		$persons = new object_list(array(
+			"RELTYPE_PERSON(CL_USER).uid" => $uid,
+			"class_id" => CL_CRM_PERSON
+		));
+
+		$name = "";
+		foreach($persons->names() as $name)
+		{
+			;
+		}
+		return $name;
+	}
+
 	public function _set_add_existing_profession_oid($arr)
 	{
 	//	arr($arr); die();
