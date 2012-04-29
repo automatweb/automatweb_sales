@@ -760,7 +760,7 @@ class shop_product_packaging extends shop_warehouse_item
 		return $arr["post_ru"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

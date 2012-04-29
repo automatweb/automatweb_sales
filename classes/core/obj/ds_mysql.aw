@@ -1710,7 +1710,8 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 	function final_delete_object($oid)
 	{
-		$clid = $this->db_fetch_field("SELECT class_id FROM objects WHERE oid = '{$oid}'", "class_id");
+		settype($oid, "int");
+		$clid = $this->db_fetch_field("SELECT class_id FROM objects WHERE oid = {$oid}", "class_id");
 		if (!$clid)
 		{
 			error::raise(array(
@@ -1720,8 +1721,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		}
 
 		// load props by clid
-		$cl = aw_ini_get("classes");
-		$file = $cl[$clid]["file"];
+		$file = aw_ini_get("classes.{$clid}.file");
 		if ($clid == 29)
 		{
 			$file = "doc";

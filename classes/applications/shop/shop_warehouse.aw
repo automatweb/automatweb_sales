@@ -69,10 +69,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 
 		@layout product_managementleft type=vbox parent=product_managementsplit
 
-			@layout product_managementtree_layout type=vbox closeable=1 area_caption=Artiklikategooriad parent=product_managementleft
+			@layout product_managementtree_layout type=vbox closeable=1 area_caption=Tootekategooriad parent=product_managementleft
 				@property product_management_tree type=text parent=product_managementtree_layout store=no no_caption=1
 
-			@layout product_management_tree_layout2 type=vbox closeable=1 area_caption=Artiklikategooriate&nbsp;t&uuml;&uuml;bid parent=product_managementleft
+			@layout product_management_tree_layout2 type=vbox closeable=1 area_caption=Tootekategooriate&nbsp;t&uuml;&uuml;bid parent=product_managementleft
 				@property product_management_category_tree type=text parent=product_management_tree_layout2 store=no no_caption=1
 
 			@layout product_managementleft_search type=vbox parent=product_managementleft area_caption=Otsing closeable=1
@@ -99,10 +99,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 					@property product_managements_price_to type=textbox store=no captionside=top size=8 parent=product_managements_price_box
 					@caption Hind kuni
 
-				@property product_managements_show_pieces type=checkbox ch_value=1 store=no captionside=top size=30  parent=product_managementleft_search no_caption=1 label=Kuva&nbsp;t&uuml;kkidena
+				@property product_managements_show_pieces type=checkbox ch_value=1 store=no captionside=top size=30  parent=product_managementleft_search no_caption=1
 				@caption Kuva t&uuml;kkidena
 
-				@property product_managements_show_batches type=checkbox ch_value=1 store=no captionside=top size=30  parent=product_managementleft_search no_caption=1 label=Kuva&nbsp;partiidena
+				@property product_managements_show_batches type=checkbox ch_value=1 store=no captionside=top size=30  parent=product_managementleft_search no_caption=1
 				@caption Kuva partiidena
 
 
@@ -266,7 +266,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 		@property channel_toolbar type=toolbar no_caption=1 store=no parent=channel_toolbar
 		@caption M&uuml;&uuml;gikanalite toolbar
 	@layout channel_list type=vbox closeable=1 area_caption=M&uuml;&uuml;gikanalite&nbsp;nimekiri
-		@property channel_list type=table store=no no_caption=1 channel=brand_list
+		@property channel_list type=table store=no no_caption=1
 		@caption M&uuml;&uuml;gikanalite nimekiri
 
 
@@ -1279,9 +1279,21 @@ define("STORAGE_FILTER_EXPORT", 2);
 
 class shop_warehouse extends class_base
 {
+	private $prod_fld = "";
 	private $prod_type_fld = "";
+	private $pkt_fld = "";
+	private $reception_fld = "";
+	private $export_fld = "";
+	private $order_fld = "";
+	private $buyers_fld = "";
+	private $prod_conf_folder = "";
+
 	private $no_count = false;
 	private $def_price_list;
+	private $prod_tree_root;
+	private $pkt_tree_root;
+	private $prod_type_cfgform;
+	private $def_currency;
 
 	function shop_warehouse()
 	{
@@ -1293,7 +1305,7 @@ class shop_warehouse extends class_base
 
 	function callback_on_load($arr)
 	{
-		if(isset($arr["request"]["id"]) and $this->can("view", $arr["request"]["id"]))
+		if(isset($arr["request"]["id"]) and acl_base::can("view", $arr["request"]["id"]))
 		{
 			$obj = obj($arr["request"]["id"]);
 			if($cfgmanager = $obj->get_first_conn_by_reltype("RELTYPE_CFGMANAGER"))
@@ -1346,7 +1358,7 @@ class shop_warehouse extends class_base
 
 	function _get_clients_time_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "timespan";
 		$tv->set_selected_item(isset($arr["request"][$var]) ? $arr["request"][$var] : "period_week");
 
@@ -1481,7 +1493,7 @@ class shop_warehouse extends class_base
 				elseif(!empty($arr["request"]["filt_cust"]))
 				{
 					$v = $arr["request"]["filt_cust"];
-					if($this->can("view", $v))
+					if(acl_base::can("view", $v))
 					{
 						$co = obj($v);
 					}
@@ -1513,7 +1525,7 @@ class shop_warehouse extends class_base
 				$prop["value"] = $arr["request"][$prop["name"]] ?  date_edit::get_timestamp($arr["request"][$prop["name"]]) : time();
 				break;
 
-			case "products_toolbar":
+			case "products_toolbar"://DEPRECATED
 				$this->mk_prod_toolbar($arr);
 				break;
 
@@ -1735,7 +1747,7 @@ class shop_warehouse extends class_base
 			case "category_list":
 				foreach($_POST["ord"] as $cat => $val)
 				{
-					if($this->can("view" , $cat))
+					if(acl_base::can("view" , $cat))
 					{
 						$category = obj($cat);
 						$category->set_ord($val);
@@ -2600,7 +2612,7 @@ class shop_warehouse extends class_base
 
 	function __br_sort($a, $b)
 	{
-		if(!($this->can("view" , $a) and $this->can("view" , $b))) return 1;
+		if(!(acl_base::can("view" , $a) and acl_base::can("view" , $b))) return 1;
 		$p1 = obj($a);
 		$p2 = obj($b);
 		if($p1->name() > $p2->name()) return 1;
@@ -2741,13 +2753,13 @@ class shop_warehouse extends class_base
 		foreach($ol->arr() as $oid => $o)
 		{
 			$p = $o->prop("orderer_person");
-			if($this->can("view", $p))
+			if(acl_base::can("view", $p))
 			{
 				$po = obj($p);
 				$uo = crm_person::has_user($po);
 			}
 			$c = $o->prop("orderer_company");
-			if($this->can("view", $c))
+			if(acl_base::can("view", $c))
 			{
 				$co = obj($c);
 			}
@@ -2916,10 +2928,10 @@ class shop_warehouse extends class_base
 		foreach($upkeys as $product)
 		{
 			$order = $undone_products[$product];
-			if(!$this->can("view" , $product)) continue;
+			if(!acl_base::can("view" , $product)) continue;
 			$product_obj = obj($product);
 			$unit = "";
-			if($this->can("view", $product_obj->prop("uservar1")))
+			if(acl_base::can("view", $product_obj->prop("uservar1")))
 			{
 				$cls_obj = obj($product_obj->prop("uservar1"));
 				$unit = $cls_obj->name();
@@ -2935,10 +2947,10 @@ class shop_warehouse extends class_base
 
 			foreach($order as $key => $amount)
 			{
-				if(!$this->can("view" , $key)) continue;
+				if(!acl_base::can("view" , $key)) continue;
 				$order = obj($key);
 				$client = "";
-				if($this->can("view" , $order->prop("orderer_company")))
+				if(acl_base::can("view" , $order->prop("orderer_company")))
 				{
 					$client_o = obj($order->prop("orderer_company"));
 					$client = html::get_change_url($order->prop("orderer_company"), array("return_url" => get_ru()) , $client_o->name());
@@ -3241,7 +3253,7 @@ class shop_warehouse extends class_base
 		}
 	}
 
-	function mk_prod_toolbar(&$data)
+	function mk_prod_toolbar(&$data) //DEPRECATED
 	{
 		$tb = $data["prop"]["toolbar"];
 
@@ -3272,7 +3284,7 @@ class shop_warehouse extends class_base
 				), CL_SHOP_PRODUCT)
 			));
 
-			if($this->can("view", automatweb::$request->arg("ptf")))
+			if(acl_base::can("view", automatweb::$request->arg("ptf")))
 			{
 				$ptf_o = obj(automatweb::$request->arg("ptf"));
 
@@ -3330,20 +3342,20 @@ class shop_warehouse extends class_base
 		{
 			$tb->add_menu_item(array(
 				"parent" => "new",
-				"text" => t("Artiklikategooria"),
+				"text" => t("Tootekategooria"),
 				"link" => $this->mk_my_orb("new", array(
 					"parent" => $data["request"]["pgtf"],
 					"return_url" => get_ru(),
 				), CL_SHOP_PRODUCT_CATEGORY)
 			));
 			$gid = $data["request"]["pgtf"];
-			if($this->can("view", $gid))
+			if(acl_base::can("view", $gid))
 			{
 				$go = obj($gid);
 				if($go->class_id() == CL_SHOP_PRODUCT_CATEGORY)
 				{
 					$fid = $go->meta("def_fld");
-					if($this->can("view", $fid))
+					if(acl_base::can("view", $fid))
 					{
 						$tb->add_menu_item(array(
 							"parent" => "new",
@@ -3364,7 +3376,7 @@ class shop_warehouse extends class_base
 			}
 		}
 
-		if($this->can("view", $this->prod_type_fld) and $this->prod_tree_root)
+		if(acl_base::can("view", $this->prod_type_fld) and $this->prod_tree_root)
 		{
 			$this->_req_add_itypes($tb, $this->prod_type_fld, $data);
 		}
@@ -3376,7 +3388,7 @@ class shop_warehouse extends class_base
 			'action' => 'update_products_index',
 			'tooltip' => t('Uuenda toodete otsingu indeksit'),
 		));
-	}
+	} //DEPRECATED
 
 	function mk_prodg_toolbar(&$prop)
 	{
@@ -3459,7 +3471,7 @@ class shop_warehouse extends class_base
 		else
 		{
 			$pt = $this->get_warehouse_configs($arr, "prod_type_fld");
-			$root_name = t("Artiklikategooriad");
+			$root_name = t("Tootekategooriad");
 		}
 
 		if(empty($pt))
@@ -4171,7 +4183,7 @@ class shop_warehouse extends class_base
 		{
 			$cat = automatweb::$request->arg("pgtf");
 		}
-		if ($this->can("view", $cat))
+		if (acl_base::can("view", $cat))
 		{
 			$cato = obj($cat);
 			$conn = $cato->connections_to(array(
@@ -4186,7 +4198,7 @@ class shop_warehouse extends class_base
 			$params["class_id"] = CL_SHOP_PRODUCT;
 			$params["oid"] = isset($params["oid"])?array_intersect($params["oid"], $oids):$oids;
 		}
-		elseif($this->can("view", automatweb::$request->arg("ptf")))
+		elseif(acl_base::can("view", automatweb::$request->arg("ptf")))
 		{
 			$params["parent"] = $arr["request"]["ptf"];
 			$params["class_id"] = array(CL_MENU, CL_SHOP_PRODUCT);
@@ -4552,11 +4564,11 @@ class shop_warehouse extends class_base
 		$group = $this->get_search_group($arr);
 		$show_purveyance = $this->get_warehouse_configs($arr, "show_purveyance");
 
-		if ($this->can("view", automatweb::$request->arg("pgtf")))
+		if (acl_base::can("view", automatweb::$request->arg("pgtf")))
 		{
 			$tb->set_caption(sprintf(t("Artiklid kategoorias %s"), obj($arr["request"]["pgtf"])->path_str(array("start_at" => $this->config->prop("prod_type_fld")))));
 		}
-		elseif($this->can("view", automatweb::$request->arg("ptf")))
+		elseif(acl_base::can("view", automatweb::$request->arg("ptf")))
 		{
 			$ptf_o = obj(automatweb::$request->arg("ptf"));
 			if($ptf_o->is_a(CL_SHOP_PRODUCT))
@@ -4815,7 +4827,7 @@ class shop_warehouse extends class_base
 			{
 				foreach($arr["warehouses"] as $wh)
 				{
-					if(!$this->can("view", $wh))
+					if(!acl_base::can("view", $wh))
 					{
 						continue;
 					}
@@ -5104,16 +5116,11 @@ $tb->add_delete_button();
 		$request = $arr["request"];
 		$this->_init_pkt_list_list_tbl($tb, $arr["obj_inst"]);
 		$tree_filter = array(
-//			"parent" => isset($this->pkt_tree_root) ? $this->pkt_tree_root : 1,
-//			"class_id" => array(CL_MENU,CL_SHOP_PACKET),
 			"class_id" => array(CL_SHOP_PACKET),
-			"status" => array(STAT_ACTIVE, STAT_NOTACTIVE),
+			"CL_SHOP_PACKET.RELTYPE_WAREHOUSE" => $arr["obj_inst"]->id(),
 			"limit" => 300,
 			"sort_by" => "name asc",
 		);
-
-
-
 
 //-----------paketi loomise aja j2rgi filtreerimine------------- toimib kui v2hemalt aasta on valitud
 		$search_from = false;
@@ -5153,10 +5160,12 @@ $tb->add_delete_button();
 		{
 			$tree_filter["name"] = "%".$arr["request"]["product_managements_name"]."%";
 		}
+
 		if(!empty($arr["request"]["packets_s_active"]) and $arr["request"]["packets_s_active"] > 0)
 		{
 			$tree_filter["status"] = $arr["request"]["packets_s_active"];
 		}
+
 		if(!empty($arr["request"]["packets_s_cat"]))
 		{
 			$tree_filter["CL_SHOP_PACKET.RELTYPE_CATEGORY.name"] = "%".$arr["request"]["packets_s_cat"]."%";
@@ -5187,19 +5196,14 @@ $tb->add_delete_button();
 				}
 			}
 		}
-		if(isset($cats) and sizeof($cats) and $this->can("view" , reset($cats)))
+
+		if(isset($cats) and sizeof($cats) and acl_base::can("view" , reset($cats)))
 		{
 			$cat_obj = obj(reset($cats));
 			$tb->set_caption(sprintf(t("Kategooriates: %s"), $cat_obj->name()));
 		}
 
-
-
 		// get items
-
-/*		$ot = new object_tree($tree_filter);
-		$ol = $ot->to_list();*/
-
 		$ol = new object_list($tree_filter);
 
 //		$products = array();
@@ -5525,22 +5529,22 @@ $tb->add_delete_button();
 		}
 		if($t > 1 and $f > 1 and empty($arr["request"]["filt_time"]))
 		{
-			$timefilter = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $f, $t);
+			$timefilter = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, $f, $t);
 		}
 		elseif($f>1 and !$arr["request"]["filt_time"])
 		{
-			$timefilter = new obj_predicate_compare(OBJ_COMP_GREATER, $f);
+			$timefilter = new obj_predicate_compare(obj_predicate_compare::GREATER, $f);
 		}
 		elseif($t>1 and !$arr["request"]["filt_time"])
 		{
-			$timefilter = new obj_predicate_compare(OBJ_COMP_LESS, $t);
+			$timefilter = new obj_predicate_compare(obj_predicate_compare::LESS, $t);
 		}
 		elseif((strpos($group, "sales") !== false || strpos($group, "purchase") !== false) and (!isset($arr["request"]["filt_time"]) or $arr["request"]["filt_time"] != "all"))
 		{
 			unset($arr["start"]);
 			unset($arr["end"]);
 			$v = $this->_get_status_orders_time_filt($arr);
-			$timefilter = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $v["filt_start"], $v["filt_end"]);
+			$timefilter = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, $v["filt_start"], $v["filt_end"]);
 		}
 		$prod_ol = $this->get_art_filter_ol($arr);
 		if(!empty($dnotes))
@@ -5604,7 +5608,7 @@ $tb->add_delete_button();
 			{
 				$co = $arr["request"][$group."_s_acquiredby"];
 			}
-			elseif($this->can("view", $arr["request"]["filt_cust"]))
+			elseif(acl_base::can("view", $arr["request"]["filt_cust"]))
 			{
 				$co = obj($arr["request"]["filt_cust"]);
 				if($co->class_id() == CL_CRM_CATEGORY)
@@ -5668,10 +5672,12 @@ $tb->add_delete_button();
 						$params["oid"] = array(-1);
 					}
 				}
+
 				if($no = $arr["request"][$group."_s_number"])
 				{
 					$params["bill_no"] = "%".$no."%";
 				}
+
 				if($arr["request"]["group"] === "storage_income" || $arr["request"]["group"] === "storage" || strpos($group, "purchase") !== false)
 				{
 					$prop = "customer";
@@ -5682,12 +5688,13 @@ $tb->add_delete_button();
 					$prop = "impl";
 					$sprop = "customer";
 				}
+
 				$params[$prop] = $cos;
 				if($arr["request"][$group."_s_acquiredby"])
 				{
 					$co = $arr["request"][$group."_s_acquiredby"];
 				}
-				elseif($this->can("view", $arr["request"]["filt_cust"]))
+				elseif(acl_base::can("view", $arr["request"]["filt_cust"]))
 				{
 					$co = obj($arr["request"]["filt_cust"]);
 					if($co->class_id() == CL_CRM_CATEGORY)
@@ -5700,14 +5707,17 @@ $tb->add_delete_button();
 						$co = $co->name();
 					}
 				}
+
 				if($co)
 				{
 					$params["CL_CRM_BILL.".$sprop.".name"] = "%".$co."%";
 				}
+
 				if($timefilter)
 				{
 					$params["bill_date"] = $timefilter;
 				}
+
 				$params["class_id"] = CL_CRM_BILL;
 				$params = array_merge($params, $aparams);
 				$b_ol = new object_list($params);
@@ -5724,10 +5734,12 @@ $tb->add_delete_button();
 				}
 			}
 		}
+
 		if(empty($ol))
 		{
 			$ol = new object_list();
 		}
+
 		$ol->sort_by(array(
 			"prop" => "created",
 			"order" => "desc",
@@ -5746,11 +5758,11 @@ $tb->add_delete_button();
 		{
 			foreach(safe_array(ifset($arr, "warehouses")) as $wh)
 			{
-				if($this->can("view", $wh))
+				if(acl_base::can("view", $wh))
 				{
 					$who = obj($wh);
 					$cfgid = $who->prop("conf");
-					if($this->can("view", $cfgid))
+					if(acl_base::can("view", $cfgid))
 					{
 						$cfgs[] = obj($cfgid);
 					}
@@ -5991,7 +6003,7 @@ $tb->add_delete_button();
 		{
 			foreach($data["warehouses"] as $wh)
 			{
-				if($this->can("view", $wh))
+				if(acl_base::can("view", $wh))
 				{
 					$whs[$wh] = obj($wh);
 				}
@@ -6447,7 +6459,7 @@ $tb->add_delete_button();
 	{
 		if (!$arr["obj_inst"]->prop("order_current_org") and
 			is_oid($arr["obj_inst"]->prop("order_current_person")) and
-			$this->can("view", $arr["obj_inst"]->prop("order_current_person"))
+			acl_base::can("view", $arr["obj_inst"]->prop("order_current_person"))
 		)
 		{
 			// get the org from the person
@@ -6652,7 +6664,7 @@ $tb->add_delete_button();
 	{
 		// also update the data form data, based on the property maps from the order center
 		// first org
-		if(!is_oid($arr["oid"]) || !$this->can("view", $arr["oid"]))
+		if(!is_oid($arr["oid"]) || !acl_base::can("view", $arr["oid"]))
 		{
 			return;
 		}
@@ -6991,7 +7003,7 @@ $tb->add_delete_button();
 			}
 		}
 
-		if(is_oid($arr["parent"]) and $this->can("add" , $arr["parent"]))
+		if(is_oid($arr["parent"]) and acl_base::can("add" , $arr["parent"]))
 		{
 			foreach(safe_array(ifset($_SESSION, "shop_warehouse", "cut_products")) as $id)
 			{
@@ -7406,6 +7418,7 @@ $tb->add_delete_button();
 								}
 							);
 						}
+
 						function add_packet()
 						{
 							var cat = get_property_data['cat'];
@@ -7419,6 +7432,16 @@ $tb->add_delete_button();
 								}
 									$js.= " 'cat': cat}, function (html) {
 									reload_property('packets_list');
+								}
+							);
+						}
+
+						function add_packaging()
+						{
+							var my_string = prompt('".t("Sisesta pakendi nimi")."');
+							$.get('/automatweb/orb.aw', {'class': 'shop_warehouse', 'action': 'create_new_packaging',
+								'id': '".$arr["obj_inst"]->id()."' , 'name': my_string}, function (html) {
+									reload_property('product_management_list');
 								}
 							);
 						}
@@ -7470,8 +7493,12 @@ $tb->add_delete_button();
 				{
 					var cat = get_property_data['cat'];
 					var my_string = prompt('".t("Sisesta kategooria nimi")."');
-					$.get('/automatweb/orb.aw', {'class': 'shop_warehouse', 'action': 'create_new_category',
-						'id': '".$arr["obj_inst"]->id()."', 'name': my_string, 'cat': cat}, function (html) {
+					$.get('/automatweb/orb.aw', {
+						'class': 'shop_warehouse',
+						'action': 'create_new_category',
+						'id': '".$arr["obj_inst"]->id()."',
+						'name': my_string,
+						'cat': cat }, function (html) {
 							reload_property('category_list');
 							$('#product_management_tree').jstree('refresh');
 						}
@@ -7591,7 +7618,7 @@ SCRIPT;
 		$wh = obj($arr["warehouse"]);
 		$conf_id = $wh->prop("conf");
 		$ret = array();
-		if(is_oid($conf_id) and $this->can("view", $conf_id))
+		if(is_oid($conf_id) and acl_base::can("view", $conf_id))
 		{
 			$conf = obj($conf_id);
 			$this->_req_get_prod_add_config_forms($conf->prop("prod_type_fld"), $ret, "sp_cfgform");
@@ -7610,7 +7637,7 @@ SCRIPT;
 		$wh = obj($arr["warehouse"]);
 		$conf_id = $wh->prop("conf");
 		$ret = array();
-		if(is_oid($conf_id) and $this->can("view", $conf_id))
+		if(is_oid($conf_id) and acl_base::can("view", $conf_id))
 		{
 			$conf = obj($conf_id);
 			$this->_req_get_prod_add_config_forms($conf->prop("prod_type_fld"), $ret, "packaging_cfgform");
@@ -7628,7 +7655,7 @@ SCRIPT;
 		{
 			if ($o->class_id() != CL_MENU)
 			{
-				if (is_oid($cf_id = $o->prop($prop)) and $this->can("view", $cf_id))
+				if (is_oid($cf_id = $o->prop($prop)) and acl_base::can("view", $cf_id))
 				{
 					$ret[$cf_id] = $cf_id;
 				}
@@ -7699,7 +7726,7 @@ die();
 			foreach($arr["sel"] as $id)
 			{;
 
-				if($this->can("view", $id))
+				if(acl_base::can("view", $id))
 				{
 					$vars = array(
 						"id" => $id,
@@ -7723,7 +7750,7 @@ die();
 */			}
 		//		$res.= "<script name= javascript>setTimeout('window.close()',10000);window.print();</script>";
 		}
-//		elseif($this->can("view", $arr["print_id"]))
+//		elseif(acl_base::can("view", $arr["print_id"]))
 //		{
 //
 //			$res .= $oo->request_execute(obj($arr["print_id"]));
@@ -8157,7 +8184,7 @@ die();
 			$data["oid"] = $o->id();
 			foreach($objs as $obj)
 			{
-				if($this->can("view", ($id = $o->prop($obj))))
+				if(acl_base::can("view", ($id = $o->prop($obj))))
 				{
 					${$obj} = obj($id);
 					$data[$obj] = html::obj_change_url(${$obj}, parse_obj_name(${$obj}->name()));
@@ -8167,7 +8194,7 @@ die();
 			$data["created"] = date('d.m.Y, H:i', $o->created());
 			$data["amount"] = $o->prop("amount")." ".$o->prop("unit.unit_code");
 			$total[$o->prop("product")][$o->prop("unit")] += $o->prop("amount");
-			if($this->can("view", ($id = $o->prop("delivery_note"))))
+			if(acl_base::can("view", ($id = $o->prop("delivery_note"))))
 			{
 				$dno = obj($id);
 				$cnum = $dno->prop("number");
@@ -8548,7 +8575,7 @@ die();
 		{
 			foreach($data["warehouses"] as $wh)
 			{
-				if($this->can("view", $wh))
+				if(acl_base::can("view", $wh))
 				{
 					$whs[$wh] = obj($wh);
 				}
@@ -8793,7 +8820,7 @@ die();
 		{
 			$co = $arr["request"][$group."_s_".$co_filt];
 		}
-		elseif(!empty($arr["request"]["filt_cust"]) and $this->can("view", $arr["request"]["filt_cust"]))
+		elseif(!empty($arr["request"]["filt_cust"]) and acl_base::can("view", $arr["request"]["filt_cust"]))
 		{
 			$co = obj($arr["request"]["filt_cust"]);
 			if($co->class_id() == CL_CRM_CATEGORY)
@@ -8976,7 +9003,7 @@ die();
 		{
 			$co = $arr["request"][$group."_s_".$co_filt];
 		}
-		elseif(!empty($arr["request"]["filt_cust"]) and $this->can("view", $arr["request"]["filt_cust"]))
+		elseif(!empty($arr["request"]["filt_cust"]) and acl_base::can("view", $arr["request"]["filt_cust"]))
 		{
 			$co = obj($arr["request"]["filt_cust"]);
 			if($co->class_id() == CL_CRM_CATEGORY)
@@ -9100,7 +9127,7 @@ die();
 		$count = 0;
 		$total_sum = 0;
 		$customer_relation_ids = array();
-/*		if($this->can("view", $arr["obj_inst"]->prop("conf.owner")))
+/*		if(acl_base::can("view", $arr["obj_inst"]->prop("conf.owner")))
 		{
 			$owner = obj($arr["obj_inst"]->prop("conf.owner"));
 			$customer_relation_ids = shop_sell_order_obj::get_customer_relation_ids_for_purchasers($odl->get_element_from_all("purchaser"), $owner, true);
@@ -9129,7 +9156,7 @@ die();
 
 			$cnum = $odata["number"];
 			$cid = $odata["job"];
-			if($this->can("view", $cid))
+			if(acl_base::can("view", $cid))
 			{
 				$co = obj($cid);
 				$case = html::obj_change_url($co, parse_obj_name($co->name())).", ".$co->comment();
@@ -9216,7 +9243,7 @@ die();
 					{
 						$row = $c->to();
 						$prodid = $row->prop("prod");
-						if($this->can("view", $prodid))
+						if(acl_base::can("view", $prodid))
 						{
 							$prod = obj($prodid);
 							$data = array(
@@ -10144,7 +10171,7 @@ die();
 		$count = 0;
 		$total_sum = 0;
 		$customer_relation_ids = array();
-		if($this->can("view", $arr["obj_inst"]->prop("conf.owner")))
+		if(acl_base::can("view", $arr["obj_inst"]->prop("conf.owner")))
 		{
 			$owner = obj($arr["obj_inst"]->prop("conf.owner"));
 			$customer_relation_ids = shop_sell_order_obj::get_customer_relation_ids_for_purchasers($odl->get_element_from_all("purchaser"), $owner, true);
@@ -11006,7 +11033,7 @@ die();
 				));
 			}
 
-			if(!$this->can("view", $wh))
+			if(!acl_base::can("view", $wh))
 			{
 				continue;
 			}
@@ -11244,7 +11271,7 @@ die();
 				unset($row);
 				foreach($arr["warehouses"] as $wh)
 				{
-					if(!$this->can("view", $wh))
+					if(!acl_base::can("view", $wh))
 					{
 						continue;
 					}
@@ -11272,7 +11299,7 @@ die();
 			foreach($c_ol->arr() as $o)
 			{
 				$co = $o->prop("company");
-				if($this->can("view", $co))
+				if(acl_base::can("view", $co))
 				{
 					$cos[$co] = html::obj_change_url(obj($co));
 				}
@@ -11767,7 +11794,7 @@ die();
 		{
 			foreach($arr["warehouses"] as $wh)
 			{
-				if($this->can("view", $wh))
+				if(acl_base::can("view", $wh))
 				{
 					$whs[$wh] = obj($wh);
 				}
@@ -11868,7 +11895,7 @@ die();
 		}
 
 		$owner = $this->config->prop("owner");
-		if(!$this->can("view", $owner))
+		if(!acl_base::can("view", $owner))
 		{
 			return;
 		}
@@ -12155,7 +12182,7 @@ die();
 		}
 
 		$owner = $this->config->prop("owner");
-		if(!$this->can("view", $owner))
+		if(!acl_base::can("view", $owner))
 		{
 			$this->show_error_text(t("Lao omanik valimata"));
 			return;
@@ -12211,7 +12238,7 @@ die();
 		}
 
 		$owner = $this->config->prop("owner");
-		if(!$this->can("view", $owner))
+		if(!acl_base::can("view", $owner))
 		{
 			return;
 		}
@@ -12226,7 +12253,7 @@ die();
 			'parent' => $arr['obj_inst']->id(),
 			'return_url' => get_ru(),
 		);
-		if(isset($arr["request"]["filt_cust"]) and $this->can("view", $arr["request"]["filt_cust"]) and obj($arr["request"]["filt_cust"])->class_id() == CL_CRM_CATEGORY)
+		if(isset($arr["request"]["filt_cust"]) and acl_base::can("view", $arr["request"]["filt_cust"]) and obj($arr["request"]["filt_cust"])->class_id() == CL_CRM_CATEGORY)
 		{
 			$lp['alias_to'] = $cat;
 			$lp['reltype'] = 3; // crm_company.CUSTOMER,
@@ -12250,7 +12277,7 @@ die();
 		$alias_to = $parent = $owner;
 		$rt = 30;
 
-		if(isset($arr["request"]["filt_cust"]) and $this->can("view", $arr["request"]["filt_cust"]) and obj($arr["request"]["filt_cust"])->class_id() == CL_CRM_CATEGORY)
+		if(isset($arr["request"]["filt_cust"]) and acl_base::can("view", $arr["request"]["filt_cust"]) and obj($arr["request"]["filt_cust"])->class_id() == CL_CRM_CATEGORY)
 		{
 			$alias_to = $arr["request"]["filt_cust"];
 			$parent = $arr["request"]["filt_cust"];
@@ -12275,7 +12302,7 @@ die();
 	{
 		$g = $arr["request"]["group"];
 		$owner = $this->config->prop("owner");
-		if(!$this->can("view", $owner))
+		if(!acl_base::can("view", $owner))
 		{
 			return new object_list();
 		}
@@ -12471,7 +12498,7 @@ die();
 
 		$g = $arr["request"]["group"];
 		$owner = $this->config->prop("owner");
-		if(!$this->can("view", $owner))
+		if(!acl_base::can("view", $owner))
 		{
 			return;
 		}
@@ -12489,20 +12516,20 @@ die();
 			{
 				continue;
 			}
-			if ($this->can("view", $o->prop("phone_id")))
+			if (acl_base::can("view", $o->prop("phone_id")))
 			{
 				$phone = obj($o->prop("phone_id"));
 				$phone = $phone->name();
 			}
 
-			if ($this->can("view", $o->prop("telefax_id")))
+			if (acl_base::can("view", $o->prop("telefax_id")))
 			{
 				$fax = obj($o->prop("telefax_id"));
 				$fax = $fax->name();
 			}
 
 			$rel = $mail = $fax = $phone =  "";
-			if ($this->can("view", $o->prop("email_id")))
+			if (acl_base::can("view", $o->prop("email_id")))
 			{
 				$mail_obj = new object($o->prop("email_id"));
 				$mail = $mail_obj->prop("mail");
@@ -12597,7 +12624,7 @@ die();
 	{
 		$cid = 0;
 		$obj_inst = new object($arr['id']);
-		if ($this->can('view', $obj_inst->prop('conf')))
+		if (acl_base::can('view', $obj_inst->prop('conf')))
 		{
 			$config = new object($obj_inst->prop('conf'));
 			$cid = $config->prop('short_code_ctrl');
@@ -12648,7 +12675,7 @@ die();
        /** Returns true, if it is possible to make a prducts search using the index table
 
        **/
-       function can_use_products_index()
+       private function can_use_products_index()
        {
                if ($this->db_get_table('aw_shop_products_index') !== false)
                {
@@ -12666,7 +12693,7 @@ die();
 		$per_page = 10;
 		$selected_page = automatweb::$request->arg('ft_page');
 
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_pageselector(array(
 			'type' => 'lb',
@@ -12703,7 +12730,7 @@ die();
 		}
 
 		$ol = new object_list();
-		if($this->can("view" , $arr["request"]["cat"]))
+		if(acl_base::can("view" , $arr["request"]["cat"]))
 		{
 			$object = obj($arr["request"]["cat"]);
 			switch($object->class_id())
@@ -12736,6 +12763,7 @@ die();
 				"sort_by" => "jrk asc, name asc",
 			));
 		}
+
 		foreach($ol->arr() as $o)
 		{
 			$types = $o->get_gategory_types()->names();
@@ -12781,7 +12809,7 @@ die();
 				"props" => array("category_list"),
 			        "params" => array("cat" => $prod_folder)
 			)
-		));//print "folder:" ; arr($prod_folder);
+		));
 
 		$cats = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
@@ -12856,7 +12884,7 @@ die();
 
 	function _get_category_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"img" => "new.gif",
@@ -12951,7 +12979,7 @@ die();
 
 	function _get_product_management_toolbar($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$types = $arr["obj_inst"]->get_product_category_types();
 
 		$tb->add_menu_button(array(
@@ -12962,20 +12990,20 @@ die();
 
 		$tb->add_menu_item(array(
 			"parent" => "new",
-			"text" => t("Pakett"),
-			"link" => "javascript:add_packet();"
-		));
-
-		$tb->add_menu_item(array(
-			"parent" => "new",
 			"text" => t("Toode"),
 			"link" => "javascript:add_product();"
 		));
 
 		$tb->add_menu_item(array(
 			"parent" => "new",
-			"text" => t("Pakend"),
+			"text" => t("Toote pakend"),
 			"link" => "javascript:add_packaging();"
+		));
+
+		$tb->add_menu_item(array(
+			"parent" => "new",
+			"text" => t("Toodete pakett"),
+			"link" => "javascript:add_packet();"
 		));
 
 		$tb->add_menu_item(array(
@@ -13194,22 +13222,23 @@ die();
 			"id" => "product_management_tree",
 		));
 
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	/**
 		@attrib name=get_product_management_tree_nodes params=pos
 		@param id required
-			The OID of the crm_db object
+			The OID of the shop warehouse object
 		@param node optional default=-1
 			The id of the parent node for which the children will be returned.
 	**/
 	public function get_product_management_tree_nodes($arr)
 	{
+		$o = obj($arr["id"], array(), shop_warehouse_obj::CLID);
+
 		if (!isset($this->config))
 		{
-			$o = obj($arr["id"], array(), shop_warehouse_obj::CLID);
-			$this->config = $this->config = obj($o->prop("conf"), array(), shop_warehouse_config_obj::CLID);
+			$this->config = obj($o->prop("conf"), array(), shop_warehouse_config_obj::CLID);
 		}
 
 		if (isset($arr["node"]) and $arr["node"] > 0)
@@ -13221,7 +13250,8 @@ die();
 		{
 			$categories = new object_list(array(
 				"class_id" => shop_product_category_obj::CLID,
-				"parent" => $this->config->prop("prod_cat_fld"),
+				"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_WAREHOUSE" => $o->id(),
+				"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY" => new obj_predicate_compare(obj_predicate_compare::IS_NULL)
 			));
 		}
 
@@ -13234,7 +13264,8 @@ die();
 				"state" => "closed"
 			);
 		}
-		die(json_encode($data));
+
+		exit(json_encode($data));
 	}
 
 	public function _get_product_management_category_tree($arr)
@@ -13243,7 +13274,7 @@ die();
 			"id" => "product_management_category_tree",
 		));
 
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	/**
@@ -13561,7 +13592,7 @@ die();
 			$cats = array();
 			foreach($o->get_categories($o->id()) as $cat)
 			{
-				if($this->can("view" , $cat))
+				if(acl_base::can("view" , $cat))
 				{
 					$cat = obj( $cat);
 					$cats[]=  html::obj_change_url($cat, parse_obj_name($cat->name()));
@@ -13620,30 +13651,9 @@ die();
 	**/
 	public function create_new_category($arr)
 	{
-		$warehouse = obj($arr["id"]);
-		if(!is_oid($arr["cat"]))
-		{
-			$arr["cat"] = $warehouse->get_conf("prod_cat_fld");
-		}
-		$o = new object();
-		$o->set_parent($arr["cat"]);
-		$o->set_name($arr["name"]);
-		$o->set_class_id(CL_SHOP_PRODUCT_CATEGORY);
-		$o->save();
-		if($this->can("view" , $arr["cat"]))
-		{
-			$category = obj($arr["cat"]);
-			if($category->class_id() == CL_SHOP_PRODUCT_CATEGORY)
-			{
-				$o->set_category($category->id());
-			}
-			if($category->class_id() == CL_SHOP_PRODUCT_CATEGORY_TYPE)
-			{
-				$o->set_category_type($category->id());
-			}
-		}
-		$o->save();
-		die($o->id());
+		$warehouse = obj($arr["id"], array(), CL_SHOP_WAREHOUSE);
+		$o = $warehouse->new_product_category($arr);
+		exit($o->id());
 	}
 
 	/**
@@ -13651,13 +13661,9 @@ die();
 	**/
 	public function create_new_category_type($arr)
 	{
-		$warehouse = obj($arr["id"]);arr($arr);arr($warehouse->get_conf("prod_cat_fld"));
-		$o = new object();
-		$o->set_parent($warehouse->get_conf("prod_cat_fld"));
-		$o->set_name($arr["name"]);
-		$o->set_class_id(CL_SHOP_PRODUCT_CATEGORY_TYPE);
-		$o->save();arr($o);
-		die($o->id());
+		$warehouse = obj($arr["id"], array(), CL_SHOP_WAREHOUSE);
+		$o = $warehouse->new_product_category_type($arr);
+		exit($o->id());
 	}
 
 	private function get_categories_from_search($arr)
@@ -13687,9 +13693,9 @@ die();
 	public function create_new_product($arr)
 	{
 		$arr["category"] =  $this->get_categories_from_search($arr);
-		$object = obj($arr["id"]);
-		$id = $object->new_product($arr);
-		die($id);
+		$object = obj($arr["id"], array(), CL_SHOP_WAREHOUSE);
+		$o = $object->new_product($arr);
+		die($o->id());
 	}
 
 	/**
@@ -13698,9 +13704,19 @@ die();
 	public function create_new_packet($arr)
 	{
 		$arr["category"] =  $this->get_categories_from_search($arr);
-		$object = obj($arr["id"]);
-		$id = $object->new_packet($arr);
-		die($id);
+		$object = obj($arr["id"], array(), CL_SHOP_WAREHOUSE);
+		$o = $object->new_packet($arr);
+		die($o->id());
+	}
+
+	/**
+		@attrib name=create_new_packaging all_args=1
+	**/
+	public function create_new_packaging($arr)
+	{
+		$object = obj($arr["id"], array(), CL_SHOP_WAREHOUSE);
+		$o = $object->new_packaging($arr);
+		die($o->id());
 	}
 
 	/**
@@ -13758,13 +13774,14 @@ die();
 	function search_categories($arr)
 	{
 		$content = "";
-		if(is_oid($arr["result"]) || (is_array($arr["result"]) and sizeof($arr["result"])))
+		if(!empty($arr["result"]))
 		{
 			if(is_oid($arr["result"]))
 			{
 				$arr["result"] = array($arr["result"] => $arr["result"]);
 			}
-			if(is_oid($arr["category"]))
+
+			if(acl_base::can("", $arr["category"]))
 			{
 				$category = obj($arr["category"]);
 				if($category->class_id() == CL_SHOP_PRODUCT_CATEGORY)
@@ -13775,6 +13792,7 @@ die();
 						$o->set_category($category->id());
 					}
 				}
+
 				if($category->class_id() == CL_SHOP_PRODUCT_CATEGORY_TYPE)
 				{
 					foreach($arr["result"] as $tr)
@@ -13791,20 +13809,20 @@ die();
 		}
 
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 
 		$htmlc->add_property(array(
 			"name" => "name",
 			"type" => "textbox",
-			"value" => $arr["name"],
+			"value" => isset($arr["name"]) ? $arr["name"] : "",
 			"caption" => t("Kategooria nimi"),
 			"autocomplete_class_id" => array(CL_SHOP_PRODUCT_CATEGORY),
 		));
 		$htmlc->add_property(array(
 			"name" => "oid",
 			"type" => "textbox",
-			"value" => $arr["oid"],
+			"value" => isset($arr["oid"]) ? $arr["oid"] : "",
 			"caption" => t("ID"),
 		));
 		$htmlc->add_property(array(
@@ -13813,6 +13831,7 @@ die();
 			"value" => t("Otsi"),
 			"caption" => t("Otsi")
 		));
+
 		$data = array(
 //			"oid" => $arr["oid"],
 			"category" => $arr["category"],
@@ -13820,7 +13839,6 @@ die();
 			"orb_class" => $_GET["class"]?$_GET["class"]:$_POST["class"],
 			"reforb" => 0,
 		);
-
 
 		$t = new vcl_table(array(
 			"layout" => "generic",
@@ -13842,20 +13860,21 @@ die();
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
 		);
 
-		if($arr["name"])
+		if (!empty($arr["name"]))
 		{
 			$filter["name"] = $arr["name"]."%";
 		}
 
-		if($arr["oid"])
+		if (!empty($arr["oid"]))
 		{
 			$filter["oid"] = $arr["oid"];
 		}
 
-		if(sizeof($filter) < 4)
+		if (sizeof($filter) < 4)
 		{
 			$filter["limit"] = 10;
 		}
+
 		$ol = new object_list($filter);
 		foreach($ol->arr() as $o)
 		{
@@ -13963,7 +13982,7 @@ die();
 		$shop = obj($arr["id"]);
 		foreach($arr["sel"] as $id)
 		{
-			if($this->can("view" , $id))
+			if(acl_base::can("view" , $id))
 			{
 				$o = obj($id);
 				switch($o->class_id())

@@ -627,7 +627,7 @@
             <store>no</store>
             <no_caption>1</no_caption>
             <parent>packets_list_lay</parent>
-            <field>packets_list</field>
+            <field>packets_list_old</field>
             <caption>Pakettide nimekiri</caption>
       </property>
       <property>
@@ -670,7 +670,6 @@
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <channel>brand_list</channel>
             <field>channel_list</field>
             <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanalite nimekiri</caption>
       </property>
@@ -3351,14 +3350,14 @@
             <product_managementtree_layout>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Artiklikategooriad</area_caption>
+                  <area_caption>Tootekategooriad</area_caption>
                   <parent>product_managementleft</parent>
                   <group>product_management</group>
             </product_managementtree_layout>
             <product_management_tree_layout2>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Artiklikategooriate&amp;amp;nbsp;t&amp;amp;uuml;&amp;amp;uuml;bid</area_caption>
+                  <area_caption>Tootekategooriate&amp;amp;nbsp;t&amp;amp;uuml;&amp;amp;uuml;bid</area_caption>
                   <parent>product_managementleft</parent>
                   <group>product_management</group>
             </product_management_tree_layout2>
@@ -4242,3 +4241,4 @@
             </stats_inventory_repair_right>
       </layout>
 </properties>
+

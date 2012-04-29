@@ -362,11 +362,17 @@ class mysql_pdo
 	function db_get_table($name)
 	{
 		$ret = array('name' => $name,'fields' => array());
-		$fID = $this->dbh->query("SHOW COLUMNS FROM table LIKE '{$name}'");
 
-		if (!$fID)
+		try
 		{
-			return false;
+			$fID = $this->dbh->query("SHOW COLUMNS FROM `{$name}`");
+		}
+		catch (PDOException $e)
+		{
+			if ("42S02" === $e->getCode())
+			{
+				return false;
+			}
 		}
 
 		$numfields = mysql_num_fields($fID);
@@ -379,13 +385,13 @@ class mysql_pdo
 			$ret['fields'][$_name] = array('name' => $_name, 'length' => $len, 'type' => $type, 'flags' => '');
 		}
 
-		$this->db_query("DESCRIBE $name");
+		$this->db_query("DESCRIBE {$name}");
 		while ($row = $this->db_next())
 		{
 			$ret['fields'][$row['Field']]['name'] = $row['Field'];
 			if (strpos($row['Type'],'(') === false)
 			{
-				$ret['fields'][$row['Field']]['length'] = $row['Type'] == 'text' ? 65535 : ($row['Type'] == 'mediumtext' ? 1024*1024*16 : 0 );
+				$ret['fields'][$row['Field']]['length'] = $row['Type'] === 'text' ? 65535 : ($row['Type'] === 'mediumtext' ? 1024*1024*16 : 0 );
 				$ret['fields'][$row['Field']]['type'] = $row['Type'];
 			}
 			else

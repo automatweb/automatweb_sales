@@ -5677,7 +5677,6 @@ class personnel_management extends class_base
 
 	public function get_sectors()
 	{
-		enter_function("personnel_management::get_sectors");
 		$o = obj($this->get_sysdefault());
 
 		$prms = array(
@@ -5695,7 +5694,7 @@ class personnel_management extends class_base
 		// parentize the list - move all items that have parents in the list
 		// below them, so we can draw them with grouping
 		$list_by_parent = array();
-		foreach($ol->arr() as $o)
+		for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
 			if ($ol->get_at($o->parent()))
 			{
@@ -5728,7 +5727,6 @@ class personnel_management extends class_base
 			}
 		}
 
-		exit_function("personnel_management::get_sectors");
 		return $nitems;
 	}
 
@@ -5736,9 +5734,7 @@ class personnel_management extends class_base
 	{
 		$ot = new object_tree(array(
 			"parent" => $id,
-			"class_id" => CL_CRM_SECTOR,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_CRM_SECTOR
 		));
 		$o = obj($id);
 		$nitems[$o->id()] = $o->trans_get_val("name");

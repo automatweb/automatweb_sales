@@ -10,12 +10,10 @@
             <comment>Objekti j&amp;amp;auuml;rjekord</comment>
       </property>
       <classinfo>
-            <syslog_type>ST_SHOP_PRODUCT_CATEGORY_TYPE</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>smeedia</maintainer>
       </classinfo>
       <tableinfo>
             <aw_shop_product_category_type>
@@ -30,6 +28,11 @@
                   <clid>CL_SHOP_PRODUCT_CATEGORY</clid>
                   <caption>Tootekategooria, mille tooted omavad ka seda t&amp;amp;uuml;&amp;amp;uuml;pi kategooriaid</caption>
             </CATEGORY>
+            <WAREHOUSE>
+                  <value>2</value>
+                  <clid>CL_SHOP_WAREHOUSE</clid>
+                  <caption>Ladu</caption>
+            </WAREHOUSE>
       </reltypes>
 </properties>
 

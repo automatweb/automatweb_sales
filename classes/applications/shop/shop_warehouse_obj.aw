@@ -30,8 +30,6 @@ class shop_warehouse_obj extends _int_object
 	{
 		$filter = array();
 		$filter["class_id"] = CL_SHOP_WAREHOUSE_MOVEMENT;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 
 		if(is_oid($arr["category"]))
 		{
@@ -48,7 +46,7 @@ class shop_warehouse_obj extends _int_object
 			}
 			$filter["product.RELTYPE_CATEGORY"] = $arr["category"];
 		}
-		
+
 		if(!empty($arr["after_time"]))
 		{
 			$arr["from"] = $arr["to"]+1;
@@ -83,8 +81,6 @@ class shop_warehouse_obj extends _int_object
 	{
 		$filter = array();
 		$filter["class_id"] = CL_SHOP_DELIVERY_NOTE;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 /*
 		if(is_oid($arr["category"]))
 		{
@@ -138,8 +134,7 @@ class shop_warehouse_obj extends _int_object
 	{
 		$filter = array();
 		$filter["class_id"] = CL_SHOP_PRODUCT;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
+		$filter["CL_SHOP_PRODUCT.RELTYPE_WAREHOUSE"] = $this->id();
 
 		if(isset($arr["category"]))
 		{
@@ -164,7 +159,7 @@ class shop_warehouse_obj extends _int_object
 			elseif(is_array($arr["category"]) && sizeof($arr["category"]))
 			{
 				if($arr["cat_condition"] == "and")
-				{//----------------------------------------------------
+				{
 					$filter["CL_SHOP_PRODUCT.RELTYPE_CATEGORY"] = $arr["category"];
 				}
 				else
@@ -226,8 +221,7 @@ class shop_warehouse_obj extends _int_object
 	{
 		$filter = array();
 		$filter["class_id"] = CL_SHOP_PRODUCT_PACKAGING;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
+		$filter["CL_SHOP_PRODUCT_PACKAGING.RELTYPE_WAREHOUSE"] = $this->id();
 
 		if(is_oid($arr["category"]))
 		{
@@ -256,8 +250,6 @@ class shop_warehouse_obj extends _int_object
 		}
 		$params = array(
 			"class_id" => CL_SHOP_WAREHOUSE_INVENTORY,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"warehouse" => $arr["warehouses"],
 		);
 //		$group = $this->get_search_group($arr);
@@ -334,8 +326,6 @@ class shop_warehouse_obj extends _int_object
 				$params["CL_SHOP_WAREHOUSE_AMOUNT.single.code"] = $arr["singlecode"];
 			}
 			$params["class_id"] = CL_SHOP_WAREHOUSE_AMOUNT;
-			$params["lang_id"] = array();
-			$params["site_id"] = array();
 			$ol = new object_list($params);
 			return $ol;
 		}
@@ -372,9 +362,8 @@ class shop_warehouse_obj extends _int_object
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY_TYPE,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"sort_by" => "jrk asc, name asc",
+			"CL_SHOP_PRODUCT_CATEGORY_TYPE.RELTYPE_WAREHOUSE" => $this->id(),
+			"sort_by" => "jrk asc, name asc"
 		));
 		return $ol;
 	}
@@ -390,37 +379,53 @@ class shop_warehouse_obj extends _int_object
 	public function new_product($arr)
 	{
 		$o = obj(null, array(), shop_product_obj::CLID);
-		$parent = $this->id();
-		if(isset($arr["parent"]) && is_oid($arr["parent"]))
+		$name = empty($arr["name"]) ? t("[Nimetu]") : $arr["name"];
+
+		if (isset($arr["parent"]) && acl_base::can("", $arr["parent"]))
 		{
 			$parent = $arr["parent"];
 		}
-		elseif($this->get_conf("prod_fld"))
+		elseif (acl_base::can("", $this->get_conf("prod_fld")))
 		{
 			$parent = $this->get_conf("prod_fld");
 		}
+		else
+		{
+			$parent = $this->id();
+		}
+
 		$o->set_parent($parent);
-		$o->set_name($arr["name"]);
+		$o->set_name($name);
 		$o->save();
+
 		if(isset($arr["category"]))
 		{
 			if(is_oid($arr["category"]))
 			{
 				$arr["category"] = array($arr["category"]);
 			}
+
 			if(is_array($arr["category"]))
 			{
 				foreach($arr["category"] as $cat)
 				{
-					$o->add_category($cat);
+					try
+					{
+						$o->add_category($cat);
+					}
+					catch (Exception $e)
+					{
+					}
 				}
 			}
 		}
+
 		$o->connect(array(
 			"to" => $this->id(),
 			"type" => "RELTYPE_WAREHOUSE"
 		));
-		return $o->id();
+
+		return $o;
 	}
 
 	/**adds new packet to warehouse
@@ -434,37 +439,178 @@ class shop_warehouse_obj extends _int_object
 	public function new_packet($arr)
 	{
 		$o = obj(null, array(), shop_packet_obj::CLID);
-		$parent = $this->id();
-		if(isset($arr["parent"]) && is_oid($arr["parent"]))
+		$name = empty($arr["name"]) ? t("[Nimetu]") : $arr["name"];
+
+		if(isset($arr["parent"]) && acl_base::can("", $arr["parent"]))
 		{
 			$parent = $arr["parent"];
 		}
-		elseif($this->get_conf("pkt_fld"))
+		elseif(acl_base::can("", $this->get_conf("pkt_fld")))
 		{
 			$parent = $this->get_conf("pkt_fld");
 		}
+		else
+		{
+			$parent = $this->id();
+		}
+
 		$o->set_parent($parent);
-		$o->set_name($arr["name"]);
+		$o->set_name($name);
 		$o->save();
+
 		if(isset($arr["category"]))
 		{
 			if(is_oid($arr["category"]))
 			{
 				$arr["category"] = array($arr["category"]);
 			}
+
 			if(is_array($arr["category"]))
 			{
 				foreach($arr["category"] as $cat)
 				{
-					$o->add_category($cat);
+					try
+					{
+						$o->add_category($cat);
+					}
+					catch (Exception $e)
+					{
+					}
 				}
 			}
 		}
+
 		$o->connect(array(
 			"to" => $this->id(),
 			"type" => "RELTYPE_WAREHOUSE"
 		));
-		return $o->id();
+
+		return $o;
+	}
+
+	/**adds new packaging to warehouse
+		@attrib api=1
+		@param name required type=string
+		@param parent optional type=int
+		@param category optional type=oid/array
+		@returns oid
+			new object id
+	**/
+	public function new_packaging($arr)
+	{
+		$o = obj(null, array(), shop_product_packaging_obj::CLID);
+		$name = empty($arr["name"]) ? t("[Nimetu]") : $arr["name"];
+
+		if(isset($arr["parent"]) && acl_base::can("", $arr["parent"]))
+		{
+			$parent = $arr["parent"];
+		}
+		elseif(acl_base::can("", $this->get_conf("prod_fld")))
+		{
+			$parent = $this->get_conf("prod_fld");
+		}
+		else
+		{
+			$parent = $this->id();
+		}
+
+		$o->set_parent($parent);
+		$o->set_name($name);
+		$o->save();
+
+		$o->connect(array(
+			"to" => $this->id(),
+			"type" => "RELTYPE_WAREHOUSE"
+		));
+
+		return $o;
+	}
+
+	/** Adds a new product category to warehouse
+		@attrib api=1
+		@param name type=string
+		@param cat type=oid|array default=0
+		@returns oid
+			new object id
+	**/
+	public function new_product_category($arr)
+	{
+		$name = empty($arr["name"]) ? t("[Nimetu]") : $arr["name"];
+		$cat = isset($arr["cat"]) && acl_base::can("" , $arr["cat"]) ? $arr["cat"] : 0;
+
+		if ($cat)
+		{
+			$parent = $cat;
+		}
+		elseif (acl_base::can("", $this->get_conf("prod_cat_fld")))
+		{
+			$parent = $this->get_conf("prod_cat_fld");
+		}
+		else
+		{
+			$parent = $this->id();
+		}
+
+		$o = new object();
+		$o->set_parent($parent);
+		$o->set_name($name);
+		$o->set_class_id(CL_SHOP_PRODUCT_CATEGORY);
+		$o->save();
+
+		if ($cat)
+		{
+			$category = obj($arr["cat"]);
+			if($category->class_id() == CL_SHOP_PRODUCT_CATEGORY)
+			{
+				$o->set_category($category->id());
+			}
+
+			if($category->class_id() == CL_SHOP_PRODUCT_CATEGORY_TYPE)
+			{
+				$o->set_category_type($category->id());
+			}
+		}
+
+		$o->save();
+
+		$o->connect(array(
+			"to" => $this->id(),
+			"type" => "RELTYPE_WAREHOUSE"
+		));
+
+		return $o;
+	}
+
+	/** Adds a new product category type to warehouse
+		@attrib api=1
+		@param name type=string
+		@returns oid
+			new object id
+	**/
+	public function new_product_category_type($arr)
+	{
+		$name = empty($arr["name"]) ? t("[Nimetu]") : $arr["name"];
+
+		if (acl_base::can("", $this->get_conf("prod_cat_fld")))
+		{
+			$parent = $this->get_conf("prod_cat_fld");
+		}
+		else
+		{
+			$parent = $this->id();
+		}
+
+		$o = new object();
+		$o->set_parent($parent);
+		$o->set_name($name);
+		$o->set_class_id(CL_SHOP_PRODUCT_CATEGORY_TYPE);
+		$o->save();
+		$o->connect(array(
+			"to" => $this->id(),
+			"type" => "RELTYPE_WAREHOUSE"
+		));
+
+		return $o;
 	}
 
 	/**return all brands
@@ -499,7 +645,7 @@ class shop_warehouse_obj extends _int_object
 		{
 			$eml = $con->to();
 			$ret[$eml->prop("mail")] = $eml->prop("mail");
-		};
+		}
 		return $ret;
 	}
 
@@ -515,8 +661,6 @@ class shop_warehouse_obj extends _int_object
 	**/
 	function get_packet_list($arr = array())
 	{
-		enter_function("shop_warehouse::get_packet_list");
-
 		$conf = obj($this->prop("conf"));
 
 		$status = array(STAT_ACTIVE, STAT_NOTACTIVE);
@@ -557,14 +701,12 @@ class shop_warehouse_obj extends _int_object
 			$parent = $po->id();
 		}
 
-		enter_function("warehouse::object_list");
 		$ol = new object_list(array(
 			"parent" => $parent,
 			"class_id" => CL_SHOP_PRODUCT,
 			"status" => $status
 		));
 		$ret->add($ol);
-		exit_function("warehouse::object_list");
 		if(!$conf->prop("sell_prods") && empty($arr["no_subitems"]))
 		{
 			//seda peaks parandama
@@ -580,7 +722,6 @@ class shop_warehouse_obj extends _int_object
 //			}
 //			$ret = $tmp;
 		}
-		exit_function("shop_warehouse::get_packet_list");
 		return $ret;
 	}
 
@@ -609,9 +750,7 @@ class shop_warehouse_obj extends _int_object
 
 		$cats = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
-			"parent" => $prod_folder,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"parent" => $prod_folder
 		));
 
 		return $cats;
@@ -621,19 +760,15 @@ class shop_warehouse_obj extends _int_object
 
 	public function get_packet_products($packets)
 	{
-		enter_function("packet_obj::get_packets_products");
-			$odl = new object_data_list(
-				array(
-						"class_id" => CL_SHOP_PRODUCT,
-						"lang_id" => array(),
-						"site_id" => array(),
-						"CL_SHOP_PRODUCT.RELTYPE_PRODUCT(CL_SHOP_PACKET)" => $packets
-					),
-				array(
-					CL_SHOP_PRODUCT => array("name"),
-				)
-			);
-		exit_function("packet_obj::get_packets_products");
+		$odl = new object_data_list(
+			array(
+					"class_id" => CL_SHOP_PRODUCT,
+					"CL_SHOP_PRODUCT.RELTYPE_PRODUCT(CL_SHOP_PACKET)" => $packets
+				),
+			array(
+				CL_SHOP_PRODUCT => array("name"),
+			)
+		);
 		return $odl;
 	}
 

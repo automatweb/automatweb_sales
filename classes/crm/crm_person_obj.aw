@@ -1397,7 +1397,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON_EDUCATION,
-			"person" => $this->id(), 
+			"person" => $this->id(),
 		));
 		return $ol;
 	}
@@ -1406,7 +1406,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON_DRIVERS_LICENSE,
-			"person" => $this->id(), 
+			"person" => $this->id(),
 		));
 		return $ol;
 	}
@@ -1424,16 +1424,16 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	/** returns object id of first company found where person is currently employed or has some other active relation to
 		@attrib api=1
-		@return oid
+		@returns oid
 			company id
 	**/
 	public function company_id()
 	{
 		if (!$this->is_saved())
 		{
-			return;
+			return 0;
 		}
-		elseif (null === self::$company_id_cache)
+		elseif (null === self::$company_id_cache[$this->id()])
 		{
 			$this_persons_work_rels = crm_person_work_relation_obj::find($this->ref());
 			if ($this_persons_work_rels->count())
@@ -1445,10 +1445,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				$id = 0;
 			}
 
-			self::$company_id_cache = $id;
+			self::$company_id_cache[$this->id()] = $id;
 		}
 
-		return self::$company_id_cache;
+		return self::$company_id_cache[$this->id()];
 	}
 
 	/** Gets organisations with which this person has a relation to

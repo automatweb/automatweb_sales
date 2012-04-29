@@ -147,6 +147,11 @@
                   <clid>CL_CRM_COMPANY</clid>
                   <caption>Tarnija</caption>
             </PURVEYOR>
+            <WAREHOUSE>
+                  <value>9</value>
+                  <clid>CL_SHOP_WAREHOUSE</clid>
+                  <caption>Ladu</caption>
+            </WAREHOUSE>
       </reltypes>
 </properties>
 

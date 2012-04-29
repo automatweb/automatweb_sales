@@ -2419,15 +2419,15 @@ class crm_bill_obj extends _int_object
 			$pdf->delete(true);
 		}
 
-		if (object_loader::can("", $this->meta("crm_bill_attachments_tmp_invoice_pdf_oid")))
+		if (object_loader::can("", $this->meta("crm_bill_attachments_tmp_reminder_pdf_oid")))
 		{
-			$pdf = obj($this->meta("crm_bill_attachments_tmp_invoice_pdf_oid"), array(), CL_FILE);
+			$pdf = obj($this->meta("crm_bill_attachments_tmp_reminder_pdf_oid"), array(), CL_FILE);
 			$pdf->delete(true);
 		}
 
-		if (object_loader::can("", $this->meta("crm_bill_attachments_tmp_invoice_pdf_oid")))
+		if (object_loader::can("", $this->meta("crm_bill_attachments_tmp_appendix_pdf_oid")))
 		{
-			$pdf = obj($this->meta("crm_bill_attachments_tmp_invoice_pdf_oid"), array(), CL_FILE);
+			$pdf = obj($this->meta("crm_bill_attachments_tmp_appendix_pdf_oid"), array(), CL_FILE);
 			$pdf->delete(true);
 		}
 

@@ -1576,11 +1576,19 @@ EOF;
 	**/
 	public function get_person_for_user(object $u, $create = false)
 	{
-		$person_oid = $u->prop("person");
+		$person_oid = (int) $u->prop("person");
 
-		if ($person_oid)
+		if (!acl_base::can("", $person_oid))
 		{
-			if ($create)
+			$o = $u->get_first_obj_by_reltype("RELTYPE_PERSON");
+			if ($o)
+			{
+				$u->set_prop("person" , $o->id());
+				$u->save();
+				$person_oid = $o->id();
+			}
+
+			if ($create and !$person_oid)
 			{
 				// create new person next to user
 				$p = obj();
@@ -1623,24 +1631,14 @@ EOF;
 				$p->set_user($u);
 				$person_oid = $p->id();
 			}
-			elseif (aw_global_get("uid") === $u->prop("uid") and !acl_base::can("edit", $person_oid))
-			{//TODO: andmete korrastamine igal p2ringul pole hea
-				$p = obj($person_oid);
-				$p->acl_set(
-					obj($u->get_default_group()),
-					array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
-				);
-			}
 		}
-		else
-		{
-			$o = $u->get_first_obj_by_reltype("RELTYPE_PERSON");
-			if($o)
-			{
-				$u->set_prop("person" , $o->id());
-				$u->save();
-				$person_oid = $o->id();
-			}
+		elseif (aw_global_get("uid") === $u->prop("uid") and !acl_base::can("edit", $person_oid))
+		{//TODO: andmete korrastamine igal p2ringul pole hea
+			$p = obj($person_oid);
+			$p->acl_set(
+				obj($u->get_default_group()),
+				array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
+			);
 		}
 
 		return $person_oid;
@@ -1685,9 +1683,9 @@ EOF;
 	/** returns the CL_CRM_COMPANY that is connected to the current logged in user
 		@attrib api=1
 		@comment
-		Gets the company attached to the current user
-		@returns
-		The company id
+			Gets the company attached to the current user
+		@returns oid
+			The company id
 	**/
 	public static function get_current_company()
 	{
@@ -1702,7 +1700,7 @@ EOF;
 			}
 			catch (awex_oid $e)
 			{
-				$retval = false;
+				$retval = 0;
 			}
 		}
 		return $retval;

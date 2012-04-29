@@ -61,6 +61,9 @@
 @reltype PURVEYOR value=8 clid=CL_CRM_COMPANY
 @caption Tarnija
 
+@reltype WAREHOUSE value=9 clid=CL_SHOP_WAREHOUSE
+@caption Ladu
+
 */
 
 class shop_product_category extends class_base
