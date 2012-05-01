@@ -2,7 +2,7 @@
 // event_import_2.aw - S&uuml;ndmuste import 2
 /*
 
-@classinfo syslog_type=ST_EVENT_IMPORT_2 relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -873,11 +873,7 @@ class event_import_2 extends class_base
 			$odl = new object_data_list(
 				array(
 					"class_id" => CL_EXTERNAL_SYSTEM_ENTRY,
-					"ext_sys_id" => $this->conf["extsys"][$ot],
-					"lang_id" => array(),
-					"site_id" => array(),
-					"parent" => array(),
-					"status" => array(),
+					"ext_sys_id" => $this->conf["extsys"][$ot]
 				),
 				array(
 					CL_EXTERNAL_SYSTEM_ENTRY => array("obj", "value"),
@@ -1139,10 +1135,6 @@ class event_import_2 extends class_base
 			$ol = new object_list(array(
 				"class_id" => CL_EXTERNAL_SYSTEM_ENTRY,
 				"ext_sys_id" => $this->conf["extsys"]["event_time"],
-				"lang_id" => array(),
-				"site_id" => array(),
-				"parent" => array(),
-				"status" => array(),
 				"value" => $time["ext_id"],
 				"limit" => 1,
 			));
@@ -1280,10 +1272,6 @@ class event_import_2 extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_EXTERNAL_SYSTEM_ENTRY,
 			"ext_sys_id" => $this->conf["extsys"][$type],
-			"lang_id" => array(),
-			"site_id" => array(),
-			"parent" => array(),
-			"status" => array(),
 			"value" => $id,
 			"limit" => 1,
 		));

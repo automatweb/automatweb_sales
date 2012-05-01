@@ -500,9 +500,7 @@ class personnel_management_job_offer extends class_base
 				{
 					$ol = new object_list(array(
 						"class_id" => CL_CRM_PERSON,
-						"oid" => $arr["request"]["sel"],
-						"parent" => array(),
-						"status" => array()
+						"oid" => $arr["request"]["sel"]
 					));
 					if($arr["request"]["sms"])
 					{
@@ -597,9 +595,7 @@ class personnel_management_job_offer extends class_base
 			case "offer_cfgform":
 				$ol = new object_list(array(
 					"class_id" => CL_CFGFORM,
-					"subclass" => CL_CRM_PERSON,
-					"parent" => array(),
-					"status" => array(),
+					"subclass" => CL_CRM_PERSON
 				));
 				$prop["options"] = array("" => t("--vali--")) + $ol->names();
 				if($arr["request"]["personnel_management_id"] && $arr["new"] == 1)
@@ -1449,9 +1445,7 @@ class personnel_management_job_offer extends class_base
 			$odl = new object_data_list(
 				array(
 					"class_id" => CL_ML_MEMBER,
-					"oid" => $tos,
-					"parent" => array(),
-					"status" => array(),
+					"oid" => $tos
 				),
 				array(
 					CL_ML_MEMBER => array("mail"),
@@ -1480,8 +1474,7 @@ class personnel_management_job_offer extends class_base
 			$odl = new object_data_list(
 				array(
 					"class_id" => CL_ML_MEMBER,
-					"parent" => $this->can("view", $pm->fb_from_fld) ? $pm->fb_from_fld : $arr["obj_inst"]->id(),
-					"status" => array(),
+					"parent" => $this->can("view", $pm->fb_from_fld) ? $pm->fb_from_fld : $arr["obj_inst"]->id()
 				),
 				array(
 					CL_ML_MEMBER => array("mail"),
@@ -1586,9 +1579,7 @@ class personnel_management_job_offer extends class_base
 				$odl = new object_data_list(
 					array(
 						"class_id" => CL_CRM_PHONE,
-						"oid" => $arr["request"]["receivers"],
-						"parent" => array(),
-						"status" => array(),
+						"oid" => $arr["request"]["receivers"]
 					),
 					array(
 						CL_CRM_PHONE => array("clean_number" => "nr"),
@@ -2292,9 +2283,7 @@ class personnel_management_job_offer extends class_base
 		{
 			$this->db_query("create table personnel_management_job_offer (oid int primary key)");
 			$ol = new object_list(array(
-				"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER,
-				"parent" => array(),
-				"status" => array()
+				"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER
 			));
 			foreach($ol->ids() as $oid)
 			{
@@ -2338,9 +2327,7 @@ class personnel_management_job_offer extends class_base
 				if(array_key_exists($field, $props))
 				{
 					$ol = new object_list(array(
-						"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER,
-						"parent" => array(),
-						"status" => array(),
+						"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER
 					));
 					foreach($ol->arr() as $o)
 					{
@@ -2367,9 +2354,7 @@ class personnel_management_job_offer extends class_base
 				if(array_key_exists($field, $props))
 				{
 					$ol = new object_list(array(
-						"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER,
-						"parent" => array(),
-						"status" => array(),
+						"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER
 					));
 					foreach($ol->arr() as $o)
 					{

@@ -377,12 +377,7 @@ class personnel_management_job_offer_webview extends class_base
 					"city" => t("Linnad"),
 				);
 				$GROUP_LVL1 = "";
-				$ol_prms = array(
-					"parent" => array(),
-					"status" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
-				);
+				$ol_prms = array();
 				$olf_conds = array();
 				foreach($clids as $opr => $clid)
 				{
@@ -448,11 +443,7 @@ class personnel_management_job_offer_webview extends class_base
 
 			case 2:
 				$ol_prms = array(
-					"class_id" => CL_CRM_COMPANY,
-					"parent" => array(),
-					"status" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
+					"class_id" => CL_CRM_COMPANY
 				);
 				if(is_array($o->org) && count($o->org) > 0)
 				{
@@ -489,11 +480,7 @@ class personnel_management_job_offer_webview extends class_base
 
 			case 3:
 				$ol_prms = array(
-					"class_id" => CL_CRM_SECTION,
-					"parent" => array(),
-					"status" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
+					"class_id" => CL_CRM_SECTION
 				);
 				if(is_array($o->secs) && count($o->secs) > 0)
 				{
@@ -530,11 +517,7 @@ class personnel_management_job_offer_webview extends class_base
 
 			case 4:
 				$ol_prms = array(
-					"class_id" => CL_CRM_COMPANY,
-					"parent" => array(),
-					"status" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
+					"class_id" => CL_CRM_COMPANY
 				);
 				if(is_array($o->org) && count($o->org) > 0)
 				{

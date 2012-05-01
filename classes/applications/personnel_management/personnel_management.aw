@@ -5,7 +5,7 @@
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_CRM_PERSON, on_add_person)
 
-@classinfo syslog_type=ST_PERSONNEL_MANAGEMENT relationmgr=yes r2=yes no_name=1 no_status=1 no_comment=1 prop_cb=1
+@classinfo relationmgr=yes r2=yes no_name=1 no_status=1 no_comment=1 prop_cb=1
 @default table=objects
 
 @groupinfo general caption="Seaded"
@@ -920,10 +920,8 @@ class personnel_management extends class_base
 				$u = obj(user::get_current_user());
 				$ssol = new object_list(array(
 					"class_id" => CL_PERSONNEL_MANAGEMENT_CV_SEARCH_SAVED,
-					"parent" => array(),
-					"status" => array(),
-					"lang_id" => array(),
-					"createdby" => $u->name(),
+					"site_id" => aw_ini_get("site_id"),
+					"createdby" => $u->name()
 				));
 				$prop["options"] = array(0 => t("--vali--")) + $ssol->names();
 				$prop["onchange"] = "submit_changeform();";
@@ -1600,11 +1598,7 @@ class personnel_management extends class_base
 				$odl = new object_data_list(
 					array(
 						"name" => "%".htmlspecialchars($_GET["vs_name"])."%",
-						"class_id" => CL_LANGUAGE,
-						"parent" => array(),
-						"lang_id" => array(),
-						"site_id" => array(),
-						"status" => array(),
+						"class_id" => CL_LANGUAGE
 					),
 					array(
 						CL_LANGUAGE => array("name"),
@@ -3047,9 +3041,7 @@ class personnel_management extends class_base
 					)
 				)),
 				// The next line SHOULD be (but isn't!) unnecessary, cuz deleted objects can't have connections anyway. -kaarel
-				"CL_PERSONNEL_MANAGEMENT_JOB_WANTED.RELTYPE_PERSON.status" => array(object::STAT_ACTIVE, object::STAT_NOTACTIVE),
-				"site_id" => array(),
-				"lang_id" => array(),
+				"CL_PERSONNEL_MANAGEMENT_JOB_WANTED.RELTYPE_PERSON.status" => array(object::STAT_ACTIVE, object::STAT_NOTACTIVE)
 			),
 			array(
 				CL_PERSONNEL_MANAGEMENT_JOB_WANTED => array("person", "location", "location_2"),
@@ -4865,10 +4857,7 @@ class personnel_management extends class_base
 	function cv_search_filter($o, $r)
 	{
 		$odl_prms = array(
-			"class_id" => CL_CRM_PERSON,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"status" => array(),
+			"class_id" => CL_CRM_PERSON
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -5551,8 +5540,6 @@ class personnel_management extends class_base
 		$r = &$arr["request"];
 
 		$ol_arr = array(
-			"site_id" => array(),
-			"lang_id" => array(),
 			"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER,
 			"archive" => $arr["request"]["group"] != "offers_archive" ? 0 : 1,
 		);

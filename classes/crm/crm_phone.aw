@@ -246,13 +246,9 @@ class crm_phone extends class_base
 
 				// Now let's fill this property for all existing phones.
 				$ol = new object_list(array(
-					"class_id" => CL_CRM_PHONE,
-					"parent" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
-					"status" => array(),
+					"class_id" => CL_CRM_PHONE
 				));
-				foreach($ol->arr() as $o)
+				foreach($ol->arr() as $o)//FIXME! telefone v6ib miljon olla
 				{
 					$oid = $o->id();
 					$type = $o->meta("type");
@@ -276,11 +272,7 @@ class crm_phone extends class_base
 
 				// Now let's fill this property for all existing phones.
 				$ol = new object_list(array(
-					"class_id" => CL_CRM_PHONE,
-					"parent" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
-					"status" => array(),
+					"class_id" => CL_CRM_PHONE
 				));
 				foreach($ol->arr() as $o)
 				{

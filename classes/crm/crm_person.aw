@@ -50,7 +50,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 @property birthday type=hidden year_from=1930 year_to=2010 default=-1 save_format=iso8601
 @caption S&uuml;nniaeg vana
 
-@property birth_date type=date_select default=-1 year_from=1900 
+@property birth_date type=date_select default=-1 year_from=1900
 @caption S&uuml;nniaeg
 
 @property birthday_hidden type=checkbox ch_value=1 table=objects field=meta method=serialize
@@ -736,7 +736,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 	@groupinfo recommends caption="Soovitajad" parent=work
 	@groupinfo candidate caption="Kandideerimised" parent=work submit=no
 @groupinfo customer_relations caption="Kliendisuhted"
-	@groupinfo cust_rel caption="Aktiivsed ja varasemad kliendisuhted" parent=customer_relations 
+	@groupinfo cust_rel caption="Aktiivsed ja varasemad kliendisuhted" parent=customer_relations
 @groupinfo education_and_improvement caption="Haridus ja t&auml;ienduskoolitus"
 	@groupinfo education caption="Haridustee" parent=education_and_improvement
 	@groupinfo add_edu caption="T&auml;ienduskoolitus" parent=education_and_improvement
@@ -1572,10 +1572,10 @@ class crm_person extends class_base
 		$t->define_field(array(
 			"name" => "experience",
 			"caption" => t("Staaž"),
-		)); 
+		));
 		$t->define_field(array(
 			"name" => "edit"
-		)); 
+		));
 
 		$t->set_caption(t("Isiku juhiload"));
 
@@ -3051,9 +3051,7 @@ class crm_person extends class_base
 			if(!empty($field))
 			{
 				$fol = new object_list(array(
-					"oid" => $to->prop("field"),
-					"parent" => array(),
-					"status" => array()
+					"oid" => $to->prop("field")
 				));
 				$field = "";
 				foreach($fol->names() as $name)
@@ -4643,11 +4641,11 @@ class crm_person extends class_base
 					'url' => html::get_change_url($b_edu->id()),
 					'caption' => t("Muuda"),
 				)),
-				"length" => $b_edu->prop("length_hrs") ? $b_edu->prop("length_hrs")." ".t("tundi") :($b_edu->prop("length") ? $b_edu->prop("length")." ".t("päeva") : ""), 
+				"length" => $b_edu->prop("length_hrs") ? $b_edu->prop("length_hrs")." ".t("tundi") :($b_edu->prop("length") ? $b_edu->prop("length")." ".t("päeva") : ""),
 			));
 		}
 	}
-	
+
 	function _get_education_tb(&$arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -4693,13 +4691,13 @@ class crm_person extends class_base
 			"caption" => t("Kraad"),
 			"sortable" => 1,
 		));
-		
+
 		$table->define_field(array(
 			"name" => "in_progress",
 			"caption" => t("Omandamisel"),
 			"sortable" => 1,
 		));
-		
+
 		$table->define_field(array(
 			"name" => "date_from",
 			"caption" => t("Algus"),
@@ -5230,7 +5228,7 @@ class crm_person extends class_base
 		});
 		";
 
-		
+
 
 		if (!$arr["new"])
 		{
@@ -7207,11 +7205,7 @@ fnCallbackAddNew = function()
 		{
 			$job_wanted_ol = new object_list(array(
 				"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_WANTED,
-				"oid" => $oids,
-				"parent" => array(),
-				"status" => array(),
-				"site_id" => array(),
-				"lang_id" => array(),
+				"oid" => $oids
 			));
 		}
 		else
@@ -7899,11 +7893,7 @@ fnCallbackAddNew = function()
 			$c_ol = new object_list(array(
 				"class_id" => CL_PERSONNEL_MANAGEMENT_CANDIDATE,
 				"person" => $o->id,
-				"job_offer" => $arr["job_offer"],
-				"status" => array(),
-				"lang_id" => array(),
-				"parent" => array(),
-				"site_id" => array(),
+				"job_offer" => $arr["job_offer"]
 			));
 			if($c_ol->count() > 0)
 			{
@@ -8559,7 +8549,7 @@ fnCallbackAddNew = function()
 			"align" => "center",
 			"sortable" => 1,
 		));
-		
+
 
 		$t->define_chooser(array(
 			"field" => "oid",

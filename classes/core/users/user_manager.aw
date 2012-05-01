@@ -982,10 +982,7 @@ class user_manager extends class_base
 				$ol = new object_list(array(
 					'class_id' => CL_USER,
 					'lastaction' => new obj_predicate_compare(OBJ_COMP_LESS, time()-$period*24*3600),  // Last activity less than period days ago
-					'brother_of' => new obj_predicate_prop('id'),
-					//'status' => STAT_NOTACTIVE,
-					"lang_id" => array(),
-					"site_id" => array(),
+					'brother_of' => new obj_predicate_prop('id')
 				));
 				$users = $ol->ids();
 			break;
@@ -995,11 +992,7 @@ class user_manager extends class_base
 				$r = $arr["request"];
 				$ol_args = array(
 					"class_id" => CL_USER,
-					"brother_of" => new obj_predicate_prop("id"),
-					"parent" => array(),
-					"status" => array(),
-					"lang_id" => array(),
-					"site_id" => array(),
+					"brother_of" => new obj_predicate_prop("id")
 				);
 				if($r["search_blocked"] == 1)
 				{

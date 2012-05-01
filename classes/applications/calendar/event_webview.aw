@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_EVENT_WEBVIEW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_event_webview master_index=brother_of master_table=objects index=aw_oid
 
 @default table=objects
@@ -70,23 +70,6 @@ class event_webview extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-	
 	/**
 	@attrib name=show all_args=1
 	**/
@@ -124,7 +107,7 @@ class event_webview extends class_base
 			if($ob->display_by === "event_times")
 			{
 				$ol_args["CL_CALENDAR_EVENT.RELTYPE_EVENT_TIMES.start"] = new obj_predicate_compare(
-					OBJ_COMP_BETWEEN_INCLUDING,
+					obj_predicate_compare::BETWEEN_INCLUDING,
 					$date_s,
 					$date_e
 				);
@@ -132,7 +115,7 @@ class event_webview extends class_base
 			else
 			{
 				$ol_args["CL_CALENDAR_EVENT.start1"] = new obj_predicate_compare(
-					OBJ_COMP_BETWEEN_INCLUDING,
+					obj_predicate_compare::BETWEEN_INCLUDING,
 					$date_s,
 					$date_e
 				);
@@ -145,14 +128,14 @@ class event_webview extends class_base
 				if($ob->display_by === "event_times")
 				{
 					$ol_args["CL_CALENDAR_EVENT.RELTYPE_EVENT_TIMES.start"] = new obj_predicate_compare(
-						OBJ_COMP_LESS,
+						obj_predicate_compare::LESS,
 						$ob->date_end
 					);
 				}
 				else
 				{
 					$ol_args["CL_CALENDAR_EVENT.start1"] = new obj_predicate_compare(
-						OBJ_COMP_LESS,
+						obj_predicate_compare::LESS,
 						$ob->date_end
 					);
 				}
@@ -218,10 +201,6 @@ class event_webview extends class_base
 			{
 				$event_times = new object_data_list(array(
 					"class_id" => CL_EVENT_TIME,
-					"parent" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
-					"status" => array(),
 					"oid" => $event_time_ids,
 					new obj_predicate_sort(array("start" => ($ob->order_by_time != "desc" ? "asc" : "desc"))),
 				),
@@ -282,7 +261,7 @@ class event_webview extends class_base
 			}
 			$EVENT .= $this->parse("EVENT");
 		}
-		
+
 		$this->vars(array(
 			"EVENT" => $EVENT,
 		));
@@ -312,5 +291,3 @@ class event_webview extends class_base
 		}
 	}
 }
-
-?>

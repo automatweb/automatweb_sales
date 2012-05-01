@@ -1716,11 +1716,7 @@ class crm_meeting extends task
 	private function do_db_upgrade_copy_data($field)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_MEETING,
-			"parent" => array(),
-			"site_id" => array(),
-			"lang_id" => array(),
-			"status" => array(),
+			"class_id" => CL_CRM_MEETING
 		));
 		foreach($ol->arr() as $o)
 		{

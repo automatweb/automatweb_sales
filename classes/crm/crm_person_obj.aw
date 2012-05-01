@@ -24,7 +24,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
-			"status" => object::STAT_ACTIVE,
+			"status" => object::STAT_ACTIVE
 		));
 		return $ol;
 	}
@@ -520,11 +520,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		{
 			$arr["parent"] = array($arr["parent"]);
 		}
-		$arr["status"] = !isset($arr["status"]) ? array() : $arr["status"];
-		if(!is_array($arr["status"]))
-		{
-			$arr["status"] = array($arr["status"]);
-		}
+
+		$arr["status"] = !isset($arr["status"]) ? null : safe_array($arr["status"]);
 		$arr["childs"] = !isset($arr["childs"]) ? true : $arr["childs"];
 
 		if($arr["childs"] && (!is_array($arr["parent"]) || count($arr["parent"]) > 0))
@@ -575,8 +572,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 		$prms = array(
 			"class_id" => CL_CRM_PHONE,
-			"status" => array(),
-			"parent" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -606,7 +601,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	function emails($arr = array())
 	{
-		extract($arr);
 		// $type, $id, $return_as_odl
 
 		$return_as_odl = isset($arr["return_as_odl"]) ? (bool) $arr["return_as_odl"] : false;
@@ -614,7 +608,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 		$prms = array(
 			"class_id" => CL_ML_MEMBER,
-			"status" => array(),
 			"parent" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",

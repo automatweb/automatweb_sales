@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/otto/otto_import.aw,v 1.115 2009/09/01 12:41:27 dragut Exp $
+
 // otto_import.aw - Otto toodete import
 /*
 
-@classinfo syslog_type=ST_OTTO_IMPORT relationmgr=yes no_status=1 no_comment=1 prop_cb=1  maintainer=dragut
+@classinfo relationmgr=yes no_status=1 no_comment=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -272,7 +272,7 @@
 	@property csv_files_location type=textbox field=meta method=serialize
 	@caption CSV failid
 
-	@property xml_file_link type=text 
+	@property xml_file_link type=text
 	@caption Genereeritud XML fail
 
 	@property csv_files_list type=table no_caption=1
@@ -591,7 +591,7 @@ class otto_import extends class_base implements warehouse_import_if
 			$arr['args']['products_manager_prod_image'] = $arr['request']['products_manager_prod_image'];
 			$arr['args']['products_search'] = $arr['request']['products_search'];
 		}
-		
+
 		$product_id = (isset($arr['request']['product_manager_prod_id'])) ? (int)$arr['request']['products_manager_prod_id'] : '';
 		if ( $this->can('view', $product_id) )
 		{
@@ -3119,7 +3119,7 @@ class otto_import extends class_base implements warehouse_import_if
 				));
 			}
 
-			$stat = fopen($this->cfg["site_basedir"]."/files/status.txt","w");
+			$stat = fopen(aw_ini_get("site_basedir")."files/status.txt","w");
 
 			fwrite($stat, $pcode);
 			fclose($stat);
@@ -4254,7 +4254,7 @@ class otto_import extends class_base implements warehouse_import_if
 
 				$full_code = str_replace(".","", $row[4]);
 				$full_code = str_replace(" ","", $full_code);
-				
+
 				$row[4] = substr(str_replace(".","", str_replace(" ","", $row[4])), 0, 8);
 				$color = $row[3];
 				if ($row[2] != "")
@@ -4865,8 +4865,7 @@ class otto_import extends class_base implements warehouse_import_if
 					$ot = new object_tree(array(
 						"class_id" => CL_MENU,
 						"parent" => $section,
-						"lang_id" => array(),
-						"status" => array(),
+						"site_id" => aw_ini_get("site_id")
 					));
 					$ids = $ot->ids();
 					if(!in_array(aw_global_get("section"), $ids) && time() < mktime(0, 0, 0, 8, 1, 2009))
@@ -5275,7 +5274,7 @@ class otto_import extends class_base implements warehouse_import_if
 			// differently. But maybe there won't be such a case and therefore let it be for now.
 			preg_match_all("/function goon\(\) \{(.*)\}/imsU", $html, $mt, PREG_PATTERN_ORDER);
 			$js_code = $mt[1][0];
-			
+
 			$pattern = "/\" \+ encodeURIComponent\(\"(.*)\"\)/U";
 
 			preg_match_all($pattern, $js_code, $m);
@@ -5327,7 +5326,7 @@ class otto_import extends class_base implements warehouse_import_if
 					{
 						// NEW for new import
 						$return_images[] = 'http://image01.otto.de:80/pool/formata/'.$connection_image.'.jpg';
-						
+
 						echo "[ OTTO ] Siduv pilt ";
 						$image_ok = $this->get_image(array(
 							'source' => 'http://image01.otto.de:80/pool/formatb/'.$connection_image.'.jpg',
@@ -5551,7 +5550,7 @@ class otto_import extends class_base implements warehouse_import_if
 			// differently. But maybe there won't be such a case and therefore let it be for now.
 			preg_match_all("/function goon\(\) \{(.*)\}/imsU", $html, $mt, PREG_PATTERN_ORDER);
 			$js_code = $mt[1][0];
-			
+
 			$pattern = "/\" \+ encodeURIComponent\(\"(.*)\"\)/U";
 
 			preg_match_all($pattern, $js_code, $m);
@@ -6504,7 +6503,7 @@ return false;
 
 					/*
 						// I don't remember anymore what was the purpose for the following logic
-						// but I think it might break things ... 
+						// but I think it might break things ...
 						// So I set the userch3 flag to zero for all imported discount products
 						// --dragut@25.03.2009
 						if (isset($visible_discount_products[$row['product']]))
@@ -6795,7 +6794,7 @@ return false;
 					if ($handled_code === ((int)$fields[1]))
 					{
 						echo "----".$packaging->prop('size')." -- ".$fields[1]." - ".((int)$fields[1])."/ ".$fields[2]."<br />\n";
-						
+
 						$purvs = new object_list(array(
 							"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
 							"packaging" => $packaging->id(),
@@ -6830,7 +6829,7 @@ return false;
 								));
 								$purv->set_prop('company', $comp->id());
 							}
-							
+
 							// seostab lao ka 2ra:
 							if ($wh !== false)
 							{
@@ -6888,7 +6887,7 @@ return false;
 			S = 904
 			XS = 903
 			XXS = 902
-			3XS = XXXS = 901 
+			3XS = XXXS = 901
 		*/
 		$expressions = array(
 			'/^3XS\([0-9]+\)$/' => 901,
@@ -7004,7 +7003,7 @@ return false;
 	public function get_products_xml()
 	{
 		$xml_file_path = aw_ini_get('site_basedir').'/files/warehouse_import/products.xml';
-		// This is for warehouse import to get the XML file which the warehouse import will be able to import 
+		// This is for warehouse import to get the XML file which the warehouse import will be able to import
 
 		// TODO: I need a better way to have otto import object id here
 		$otto_import_ol = new object_list(array(
@@ -7041,12 +7040,12 @@ return false;
 </products>
 
 teine variant oleks teha xml selline, et vastaks aw objektidele (<packet><product></packagin>) jne.
-Esimese puhul oleks ülesehitus vast loogilisem, aga siis peaks kuidagi konfitavaks tegema selle, et 
+Esimese puhul oleks ülesehitus vast loogilisem, aga siis peaks kuidagi konfitavaks tegema selle, et
 milliste parent tagide järgi packette/tooteid/pakeneid tekitatakse (või kas üldse tehakse)
 
 <warehouse_data>
 	<packet>
-		<page /> 
+		<page />
 		<nr />
 		<name />
 		<description />
@@ -7177,7 +7176,7 @@ Võtn hetkel kasutusele selle teise variandi
 						$oxml->endElement();
 
 						$oxml->writeElement('price', $size['price']);
-						
+
 						$oxml->startElement('size');
 						$oxml->writeCData($s);
 						$oxml->endElement();
@@ -7213,7 +7212,7 @@ Võtn hetkel kasutusele selle teise variandi
 
 	function parse_csv_file($file)
 	{
-		
+
 	}
 
 	// for warehouse interface:
@@ -7233,5 +7232,3 @@ Võtn hetkel kasutusele selle teise variandi
 	public function get_amounts_xml($wh_id = null){}
 	public function get_bills_xml($wh_id = null){}
 }
-
-?>
