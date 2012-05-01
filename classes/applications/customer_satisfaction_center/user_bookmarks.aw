@@ -1018,7 +1018,7 @@ class user_bookmarks extends class_base
 			cache::file_set(self::CACHE_KEY_PREFIX_HTML . $bm->id(), $bookmarks_menu);
 		}
 
-		header("Content-type: text/html; charset=".aw_global_get("charset"));
+		header("Content-type: text/html; charset=".languages::USER_CHARSET);
 		exit($bookmarks_menu);
 	}
 

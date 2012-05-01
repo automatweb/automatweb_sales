@@ -1,9 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
-class links_display 
+class links_display
 {
 	////
 	// !Hoolitseb ntx doku sees olevate extlinkide aliaste parsimise eest (#l2#)
@@ -15,15 +12,17 @@ class links_display
 
 		list($url,$target,$caption) = $this->draw_link($alias["target"]);
 
-		if (substr($url, 0, 3) == "www")
+		if (substr($url, 0, 4) === "www.")
 		{
 			$url = "http://".$url;
 		}
+
 		$caption2 = $caption;
 		if ($this->img)
 		{
 			$caption = $this->img;
-		};
+		}
+
 		$caption = !empty($htmlentities) ? htmlentities($caption) : $caption;
 		$alt = $this->cur_link->trans_get_val("alt");
 		$url = str_replace("'", "\"", $url);
@@ -43,6 +42,7 @@ class links_display
 			"alt" => $alt,
 			"comment" => $this->cur_link->comment()
 		);
+
 		if (isset($tpls["link"]))
 		{
 			$replacement = trim(localparse($tpls["link"],$vars));
@@ -58,7 +58,8 @@ class links_display
 			{
 				$replacement = sprintf("<a href='%s' %s title='%s' %s>%s</a>",$url,$target,$alt,$style_class,$caption);
 			}
-		};
+		}
+
 		$this->img = "";
 		return $replacement;
 	}
@@ -77,7 +78,7 @@ class links_display
 		elseif (aw_ini_get("extlinks.directlink") == 1)
 		{
 			$linksrc = $url_pv;
-			if (substr($linksrc, 0, 3) == "www")
+			if (substr($linksrc, 0, 4) === "www.")
 			{
 				$linksrc = "http://".$linksrc;
 			}
@@ -88,8 +89,9 @@ class links_display
 		}
 		else
 		{
-			$linksrc = aw_ini_get("baseurl")."/".$link->id();
-		};
+			$linksrc = aw_ini_get("baseurl").$link->id();
+		}
+
 		$this->real_link = $url_pv;
 
 		if ($link->prop("link_image_check_active") && ($link->prop("link_image_active_until") < 100 || $link->prop("link_image_active_until") >= time()) )
@@ -97,10 +99,10 @@ class links_display
 			$img = new object_list(array(
 				"parent" => $link->id(),
 				"class_id" => CL_FILE,
-				"lang_id" => array()
+				"site_id" => aw_ini_get("site_id")
 			));
 
-			$awf = get_instance(CL_FILE);
+			$awf = new file();
 			$o = $img->begin();
 			if ($img->count() > 0 && $awf->can_be_embedded($o))
 			{
@@ -109,14 +111,14 @@ class links_display
 			else
 			{
 				$img = "";
-			};
+			}
 
 			$this->img = $img;
 		}
 
 		if ($link->prop("use_javascript"))
 		{
-			$target = sprintf("onClick='javascript:window.open(\"%s\",\"w%s\",\"toolbar=%d,location=%d,menubar=%d,scrollbars=%d,width=%d,height=%d\")'",
+			$target = sprintf("onclick='javascript:window.open(\"%s\",\"w%s\",\"toolbar=%d,location=%d,menubar=%d,scrollbars=%d,width=%d,height=%d\")'",
 				$linksrc,
 				$link->id(),
 				$link->prop("newwintoolbar"),
@@ -132,8 +134,8 @@ class links_display
 		{
 			$url = $linksrc;
 			$target = $link->prop("newwindow") ? "target='_blank'" : "";
-		};
+		}
+
 		return array($url,$target,$link->trans_get_val("name"));
 	}
 }
-?>
