@@ -18,6 +18,7 @@ class ml_mail_gen extends run_in_background
 		$this->init();
 		$this->bg_checkpoint_steps = 1000 ;
 		$this->bg_log_steps = 50;
+		$this->mails_to_gen = null;
 	}
 
 	function bg_run_get_log_entry($o)

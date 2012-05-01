@@ -56,7 +56,7 @@
 					@property es_e type=textbox size=30 store=request parent=search_params_container captionside=top
 					@caption E-Post
 
-					@es_age type=text store=request parent=search_params_container captionside=top
+					@property es_age type=text store=request parent=search_params_container captionside=top
 					@caption Vanus
 
 					@property es_agefrom type=textbox size=30 store=request parent=search_params_container captionside=top
@@ -132,7 +132,6 @@ class crm_company_workers_manager extends class_base
 
 	function get_property(&$arr)
 	{
-
 		$retval = class_base::PROP_OK;
 		$data = &$arr['prop'];
 		$arr["use_group"] = $this->use_group;

@@ -14,6 +14,17 @@
 				</arguments>
 			</function>
 		</action>
-
+		<action name="cut" all_args="1">
+			<function name="cut">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="paste" all_args="1">
+			<function name="paste">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

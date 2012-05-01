@@ -11,6 +11,14 @@
             <caption>Organisatsioon</caption>
       </property>
       <property>
+            <name>selected_skill</name>
+            <table>aw_person_skill_manager</table>
+            <group>skills</group>
+            <type>hidden</type>
+            <store>no</store>
+            <field>selected_skill</field>
+      </property>
+      <property>
             <name>skills_tb</name>
             <table>aw_person_skill_manager</table>
             <group>skills</group>

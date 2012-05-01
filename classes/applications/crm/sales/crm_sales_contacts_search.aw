@@ -559,7 +559,8 @@ class crm_sales_contacts_search
 					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).RELTYPE_ADDRESS_ALT.name" => "{$this->p_address}",
 					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_ADDRESS_ALT.name" => "{$this->p_address}",
 					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).RELTYPE_ADDRESS.name" => "{$this->p_address}",
-					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_ADDRESS.name" => "{$this->p_address}"
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_ADDRESS.name" => "{$this->p_address}",
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).RELTYPE_ADDRESS.postiindeks" => "{$this->p_address}"
 				)
 			));
 		}
@@ -576,29 +577,7 @@ class crm_sales_contacts_search
 
 		if (!empty($this->p_manager))
 		{
-			$projects = new object_list(array(
-				"class_id" => CL_PROJECT,
-				"proj_mgr" => $this->p_manager,
-			));
-
-			$customers_= array();
-			foreach($projects->arr() as $project)
-			{
-				if($project->prop("orderer"))
-				{
-					$customers_[$project->prop("orderer")]= $project->prop("orderer");
-				}
-			}
-			if(!sizeof($customers_))
-			{
-				$customers_ = -1;
-			}
-			$filter[] = new object_list_filter(array(
-				"logic" => "OR",
-				"conditions" => array (
-					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer" => $customers_,
-				)
-			));
+			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.salesman"] = $this->p_manager;
 		}
 
 /*

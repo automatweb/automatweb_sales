@@ -451,7 +451,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 	@property other_mlang type=textbox field=other_mlang table=kliendibaas_isik
 	@caption Muu emakeel
 
-	@property skills_lang_tbl type=table store=no
+	@property skills_lang_tbl type=table store=no no_caption=1
 	@caption Keeleoskus
 
 @default group=vehicles
@@ -1067,6 +1067,7 @@ class crm_person extends class_base
 			2 => t("Magister"),
 			3 => t("Doktor"),
 		);
+		$this->organised_skills = array("computer_skills" => "Arvutioskused" , "device_skills" => "Seadmete juhtimine"  , "art_skills" => "Kaunid kunstid");
 	}
 
 	function callback_on_load($arr)
@@ -1136,6 +1137,7 @@ class crm_person extends class_base
 						$o->set_prop("talk", $val["talk"]);
 						$o->set_prop("understand", $val["understand"]);
 						$o->set_prop("write", $val["write"]);
+						$o->set_prop("mlang", empty($val["mlang"]) ? 0 : 1);
 						$o->save();
 					}
 				}
@@ -1577,8 +1579,8 @@ class crm_person extends class_base
 			"name" => "edit"
 		));
 
-		$t->set_caption(t("Isiku juhiload"));
-
+		$t->set_caption(sprintf(t('Isiku %s sõidukijuhi oskused'),$arr["obj_inst"]->name()));
+ 
 		foreach($arr["obj_inst"]->get_drivers_licenses()->arr() as $licence)
 		{
 			$t->define_data(array(
@@ -1646,6 +1648,13 @@ class crm_person extends class_base
 			"caption" => t("Kirjutan"),
 			"align" => "center",
 		));
+		$t->define_field(array(
+			"name" => "mlang",
+			"caption" => t("Emakeel"),
+			"align" => "center",
+		));
+		$t->set_caption(sprintf(t('Isiku %s keeleoskused'),$arr["obj_inst"]->name()));
+ 
 		$lang_ops[0] = t("--vali--");
 		$lang_ops += get_instance("crm_person_language")->lang_lvl_options;
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_LANGUAGE_SKILL")) as $conn)
@@ -1680,6 +1689,10 @@ class crm_person extends class_base
 				)).html::hidden(array(
 					"name" => "lang_write[".$to->id()."]",
 					"value" => $to->prop("write"),
+				)),
+				"mlang" => html::checkbox(array(
+					"name" => "lang[".$to->id()."][mlang]",
+					"checked" => $to->prop("mlang"),
 				)),
 			));
 		}
@@ -1957,7 +1970,7 @@ class crm_person extends class_base
 		    <td width="100" id="linecaption">
 				Kategooria
 			</td>
-			<td id="lineelment"><input type="text" size="40" name="category" id="category">
+			<td id="lineelment">'.html::select(array("options" => crm_person_drivers_license::categories(), "name" => "category")).'
 			</td>
 		</tr>
 		<tr>
@@ -1981,7 +1994,7 @@ class crm_person extends class_base
 			</td>
 		</tr>
 	</table>
-</div> Kas v&otilde;imalik kasutada isiklikku autot t&ouml;&ouml;eesm&auml;rkidel';
+</div> Võimalik kasutada isiklikku sõidukit tööeesmärkidel';
 				break;
 			case "recommends_edit":
 			case "previous_job_edit":
@@ -4209,7 +4222,7 @@ class crm_person extends class_base
 		$o->save();
 		$person = obj($arr["id"]);
 		$person->connect(array(
-				"to" => $arr["obj_inst"]->id(),
+				"to" => $o->id(),
 				"type" => "RELTYPE_EDUCATION",
 			));
 		return html::get_change_url($o->id(), array(
@@ -8431,12 +8444,9 @@ fnCallbackAddNew = function()
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 
-		$organised_skills = array("computer_skills" => "Arvutioskused" , "device_skills" => "Seadmete juhtimine"  , "art_skills" => "Kaunid kunstid");
-
-
 		$group = "";
 		$ids = array();
-		if(!empty($organised_skills[$arr["request"]["group"]]))
+		if(!empty($this->organised_skills[$arr["request"]["group"]]))
 		{
 			$group = $arr["request"]["group"];
 		}
@@ -8471,7 +8481,7 @@ fnCallbackAddNew = function()
 						"parent" => $ol->ids(),
 					));
 					$ids = $ol2->ids() + $ol->ids();
-					$ids[]= $persontab[$group];
+			//		$ids[]= $persontab[$group];
 				}
 			}
 			else
@@ -8559,11 +8569,10 @@ fnCallbackAddNew = function()
 		$t->define_field(array(
 			"name" => "edit"
 		));
-		$organised_skills = array("computer_skills" => "Arvutioskused" , "device_skills" => "Seadmete juhtimine"  , "art_skills" => "Kaunid kunstid");
 
 		$group = "";
 		$ids = array();
-		if(!empty($organised_skills[$arr["request"]["group"]]))
+		if(!empty($this->organised_skills[$arr["request"]["group"]]))
 		{
 			$group = $arr["request"]["group"];
 		}
@@ -8581,7 +8590,7 @@ fnCallbackAddNew = function()
 				$persontab = $manager->meta("persontab");
 				if(empty($persontab[$group]) || !acl_base::can("view", $persontab[$group]))
 				{
-					print $organised_skills[$group]." pädevuste halduses määramata";
+					print $this->organised_skills[$group]." pädevuste halduses määramata";
 				}
 				else
 				{
@@ -8663,6 +8672,20 @@ fnCallbackAddNew = function()
 				)),
 				"skill_acquired"  => $rel->prop("skill_acquired") > 0 ? date("d.m.Y" , $rel->prop("skill_acquired")) : "",
 			));
+		}
+		switch($group)
+		{
+			case "computer_skills":
+				$t->set_caption(sprintf(t('Isiku %s arvutioskused'),$arr["obj_inst"]->name()));
+				break;
+			case "device_skills":
+				$t->set_caption(sprintf(t('Isiku %s seadmete juhtimise oskused'),$arr["obj_inst"]->name()));
+				break;
+			case "art_skills":
+				$t->set_caption(sprintf(t('Isiku %s kaunite kunstide oskused'),$arr["obj_inst"]->name()));
+				break;
+			default:
+				$t->set_caption(sprintf(t('Isiku %s oskused'),$arr["obj_inst"]->name()));
 		}
 	}
 

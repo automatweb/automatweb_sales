@@ -176,6 +176,18 @@
             <store>request</store>
             <parent>search_params_container</parent>
             <captionside>top</captionside>
+            <caption>E-Post</caption>
+      </property>
+      <property>
+            <name>es_age</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>employees_management</group>
+            <type>text</type>
+            <store>request</store>
+            <parent>search_params_container</parent>
+            <captionside>top</captionside>
             <caption>Vanus</caption>
       </property>
       <property>

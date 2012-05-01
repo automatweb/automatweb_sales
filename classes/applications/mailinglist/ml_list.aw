@@ -376,6 +376,7 @@ class ml_list extends class_base
 		));
 		lc_load("definition");
 		lc_site_load("ml_list", $this);
+		$this->list_id = null;
 	}
 
 	function callback_mod_layout(&$arr)
@@ -670,8 +671,18 @@ class ml_list extends class_base
 			"qid" => $qid,
 			"mfrom" => $mfrom,
 		));
-		$mlq = get_instance("applications/mailinglist/ml_mail_gen");
-		$mlq->bg_control(array("id" => $id, "do" => "start"));
+
+		$o = obj($id);
+		$fn = $mlq->lock_file.".".$o->id();
+		$s = get_instance("scheduler");
+		$url = aw_global_get("baseurl")."orb.aw?class=ml_mail_gen&action=bg_run&id=".$id;
+		$s->add(array(
+			"event" => $url,
+			"time" => time()-1
+		));
+
+		$o->set_meta("bg_run_log",t("Protsess k&auml;ivitub hiljemalt kahe minuti p&auml;rast"));
+		$o->save();
 
 		$this->_log(ST_MAILINGLIST, SA_SEND, sprintf(t("saatis meili %s listi %s:%s"),$id, $v["name"], $gname) ,$lid);
 		return aw_global_get("route_back");
@@ -1314,7 +1325,7 @@ class ml_list extends class_base
 				$prop["value"] = "tab'i eraldajana kasutamiseks m&auml;rgi tekstikasti /t";
 				break;
 			case "list_status_table":
-				$tbl = $this->db_get_table("ml_sent_mails");
+//				$tbl = $this->db_get_table("ml_sent_mails");
 /*				if (!isset($tbl["fields"]["oid"]))
 				{
 					$this->db_add_col("ml_sent_mails", array(
@@ -2446,8 +2457,20 @@ foreach($ol->arr() as $o)
 	function add_gen_sched($arr)
 	{
 		extract($arr);
-		$mlq = get_instance("applications/mailinglist/ml_mail_gen");
-		$mlq->bg_control(array("id" => $mid, "do" => "start",));
+		$o = obj($mid);
+		$fn = $mlq->lock_file.".".$o->id();
+		$s = get_instance("scheduler");
+		$url = aw_global_get("baseurl")."orb.aw?class=ml_mail_gen&action=bg_run&id=".$mid;
+		$s->add(array(
+			"event" => $url,
+			"time" => time()-1
+		));
+
+		$o->set_meta("bg_run_log",t("Protsess k&auml;ivitub hiljemalt kahe minuti p&auml;rast"));
+		$o->save();
+
+
+
 		print "<script language='javascript'>window.opener.location.reload();;
 			window.close();
 		</script>";
@@ -3415,7 +3438,7 @@ foreach($ol->arr() as $o)
 
 	function _get_mail_message_object($arr)
 	{
-		if(is_object($this->msg_obj))
+		if(!empty($this->msg_obj))
 		{
 			return $this->msg_obj;
 		}

@@ -564,7 +564,7 @@ class crm_employee_search extends aw_object_search
 			$year = date("Y");
 			if(!empty($this->p_agefrom) && !empty($this->p_ageto))
 			{
-				$start = mktime(0,0,0,date("m"),date("d"),$year - $this->p_ageto);
+				$start = mktime(0,0,0,date("m"),date("d"),$year - $this->p_ageto-1);
 				$end = mktime(0,0,0,date("m"),date("d"),$year - $this->p_agefrom);
 				$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).birth_date"] = 
 				new obj_predicate_compare(obj_predicate_compare::BETWEEN, $start, $end);
@@ -576,8 +576,9 @@ class crm_employee_search extends aw_object_search
 			}
 			else
 			{
-				$start = mktime(0,0,0,date("m"),date("d"),$year - $this->p_ageto);
-				$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).birth_date"] = new obj_predicate_compare(obj_predicate_compare::GREATER, $start);
+
+				$start = mktime(0,0,0,date("m"),date("d"),$year - $this->p_ageto-1);
+				$filter["CL_CRM_PERSON_WORK_RELATION.employee(CL_CRM_PERSON).birth_date"] = new obj_predicate_compare(obj_predicate_compare::GREATER, $start);				//arr(date("d.m.Y" , $start));
 			}
 		}
 

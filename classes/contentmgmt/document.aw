@@ -1285,7 +1285,7 @@ class document extends aw_template implements orb_public_interface
 			"tm_only" => $orig_doc_tm,
 			"link_text"	=> $doc["link_text"],
 			// please don't change the format
-			"start1" => date("d.m.Y", $doc["start1"]),
+			"start1" => date("d.m.Y H:i", $doc["start1"]),
 			"subtitle"	=> $doc["subtitle"],
 			"RATE"			=> $pts,
 			"FORUM_ADD" => $fr,

@@ -11,6 +11,8 @@
 
 @groupinfo skills caption="Oskused"
 @default group=skills
+
+	@property selected_skill type=hidden store=no
 	@property skills_tb type=toolbar no_caption=1 store=no 
 
 	@layout skills_layout type=hbox width=20%:80%
@@ -51,6 +53,12 @@ class person_skill_manager extends class_base
 
 		switch($prop["name"])
 		{
+			case "selected_skill":
+				if(!empty($arr["request"]["skill"]))
+				{
+					$prop["value"] = $arr["request"]["skill"];
+				}
+				break;
 		}
 
 		return $retval;
@@ -108,10 +116,72 @@ class person_skill_manager extends class_base
 		$tb->add_button(array(
 			"name" => "new",
 			"img" => "new.gif",
-			"url" => html::get_new_url(CL_PERSON_SKILL, $arr["request"]["skill"]?$arr["request"]["skill"]:$arr["obj_inst"]->id(), array("return_url" => get_ru())),
+			"url" => html::get_new_url(CL_PERSON_SKILL, isset($arr["request"]["skill"]) ? $arr["request"]["skill"] : $arr["obj_inst"]->id(), array("return_url" => get_ru())),
+		)); 
+
+		$tb->add_button(array(
+			"name" => "cut",
+			"tooltip" => t("L&otilde;ika"),
+			"action" => "cut",
+			"icon" => "cut"
 		));
+
+		if (aw_global_get("awcb_skill_selection_clipboard"))
+		{
+			$tb->add_button(array(
+				"name"=>"paste",
+				"tooltip"=> t("Kleebi"),
+				"action" => "paste",
+				"icon" => "paste"
+			));
+		}
+
+
 		$tb->add_delete_button();
 		$tb->add_save_button();
+	}
+
+	/**
+		@attrib name=cut  all_args=1
+	**/
+	function cut($arr)
+	{
+		$check = $arr["sel"];
+
+		aw_session::set("awcb_clipboard_action", "cut");
+		aw_session::set("awcb_skill_selection_clipboard", $check);
+		return $arr["post_ru"];
+	}
+
+	/**
+		@attrib name=paste all_args=1
+	**/
+	function paste($arr)
+	{
+		$errors = array();
+		$action = aw_session::get("awcb_clipboard_action");
+		$new_parent = $arr["selected_skill"];
+
+
+		if (aw_session::get("awcb_skill_selection_clipboard"))
+		{
+			$selected_objects = aw_session::get("awcb_skill_selection_clipboard");
+			foreach ($selected_objects as $oid)
+			{
+				if ($oid)
+				{
+					$o = new object($oid);
+					$o->set_parent($new_parent);
+					$o->save();
+				}
+			}
+		}
+
+
+		aw_session::del("awcb_clipboard_action");
+		aw_session::del("awcb_skill_selection_clipboard");
+
+		return $arr["post_ru"];
 	}
 
 	function _get_workers_tb($arr)
@@ -122,25 +192,28 @@ class person_skill_manager extends class_base
 			"img" => "new.gif",
 			"url" => "javascript:alert('".t("Valige isik kellele oskus lisada!")."');",
 		);
-		$parent =  $arr["request"]["parent"];
-		if(!is_oid($parent))
+
+		if(!empty($arr["request"]["parent"]))
 		{
-			$a = explode("_" , $parent);
-			$parent = $a[0];
-			$section = $a[1];
-		}
-		if($this->can("view" ,$parent))
-		{
-			$p = obj($parent);
-			if($p->class_id() == CL_CRM_PERSON)
+			$parent = $arr["request"]["parent"];
+			if(!is_oid($parent))
 			{
-				$btn["url"] = html::get_new_url(
-					CL_PERSON_HAS_SKILL,
-					$parent?$parent:$arr["obj_inst"]->id(),
-					 array("alias_to" => $parent, "reltype" => 53, "return_url" => get_ru())
-				);
+				$a = explode("_" , $parent);
+				$parent = $a[0];
+				$section = $a[1];
 			}
-			
+			if($this->can("view" ,$parent))
+			{
+				$p = obj($parent);
+				if($p->class_id() == CL_CRM_PERSON)
+				{
+					$btn["url"] = html::get_new_url(
+						CL_PERSON_HAS_SKILL,
+						$parent?$parent:$arr["obj_inst"]->id(),
+						 array("alias_to" => $parent, "reltype" => 53, "return_url" => get_ru())
+					);
+				}
+			}
 		}
 
 		$tb->add_button($btn);
@@ -151,10 +224,11 @@ class person_skill_manager extends class_base
 
 	function _get_skills_tree($arr)
 	{
+		$_SESSION["set_skill"] = empty($arr["request"]["skill"]) ? 0 : $arr["request"]["skill"];
 		$tree = &$arr['prop']['vcl_inst'];
 		$skills = $arr["obj_inst"]->get_all_skills();
 
-		$skill = reset($skills->arr());
+		$skill = $skills->begin();
 
 		if(!is_object($skill))
 		{
@@ -172,7 +246,7 @@ class person_skill_manager extends class_base
 			"root_name" => t("Oskused"),
 			"root_url" => "#",
 			"get_branch_func" => $this->mk_my_orb("skills_tree_leaf",array(
-				"clid" => $arr["clid"],
+				"clid" => CL_PERSON_HAS_SKILL, 
 				"group" => $arr["request"]["group"],
 				"oid" => $arr["obj_inst"]->id(),
 				"set_retu" => get_ru(),
@@ -213,7 +287,7 @@ class person_skill_manager extends class_base
 				));
 			}
 		}
-		
+
 	}
 
 	/**
@@ -265,6 +339,9 @@ class person_skill_manager extends class_base
 				));
 			}
 		}
+		
+		
+		$tree->set_selected_item($_SESSION["set_skill"]);
 		die($tree->finalize_tree());
 	}
 
@@ -626,7 +703,7 @@ class person_skill_manager extends class_base
 			"sortable" => 1,
 		));
 */
-		$tf = $arr["request"]["skill"];
+		$tf = empty($arr["request"]["skill"]) ? 0 : $arr["request"]["skill"] ;
 		if(!$tf)
 		{
 			$ol = $arr["obj_inst"]->get_root_skills();
