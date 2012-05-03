@@ -76,6 +76,24 @@
             <parent>shared_tt</parent>
             <field>shared_table</field>
       </property>
+      <property>
+            <name>apps_tb</name>
+            <table>objects</table>
+            <group>apps</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>apps_tb</field>
+      </property>
+      <property>
+            <name>apps_table</name>
+            <table>objects</table>
+            <group>apps</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>apps_table</field>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
@@ -91,6 +109,10 @@
                   <caption>Jagatud j&amp;amp;auml;rjehoidjad</caption>
                   <submit>no</submit>
             </shared>
+            <apps>
+                  <caption>Rakendusmen&amp;amp;uuml;&amp;amp;uuml;</caption>
+                  <submit>no</submit>
+            </apps>
       </groupinfo>
       <tableinfo>
             <user_bookmarks>

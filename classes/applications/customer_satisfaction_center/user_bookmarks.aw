@@ -43,6 +43,14 @@
 @groupinfo bms caption="J&auml;rjehoidja" submit=no
 @groupinfo shared caption="Jagatud j&auml;rjehoidjad" submit=no
 
+
+
+@groupinfo apps caption="Rakendusmen&uuml;&uuml;" submit=no
+@default group=apps
+
+	@property apps_tb type=toolbar store=no no_caption=1
+	@property apps_table type=table store=no no_caption=1
+
 @reltype SHOW_SHARED value=1 clid=CL_EXTLINK,CL_MENU,CL_USER_BOOKMARKS
 @caption Jagatud j&auml;rjehoidja
 */
@@ -50,6 +58,7 @@
 class user_bookmarks extends class_base
 {
 	const CACHE_KEY_PREFIX_HTML = "aw_bookmarks_menuhtml_";
+	const CACHE_KEY_PREFIX_APP_MENU = "aw_bookmarks_appmenuhtml_";
 
 	function user_bookmarks()
 	{
@@ -219,6 +228,335 @@ class user_bookmarks extends class_base
 				"tooltip" => t("Kleebi")
 			));
 		}
+	}
+
+
+	function _get_apps_tb($arr)
+	{
+		$tb = $arr["prop"]["vcl_inst"];
+
+		$tb->add_save_button();
+
+		$tb->add_delete_button();
+	}
+
+	function _get_apps_table($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->set_sortable(false);
+
+		$t->define_field(array(
+			"name" => "icon",
+			"caption" => t("Ikoon"),
+			"width" => "5%",
+			"align" => "center"
+		));
+
+		$t->define_field(array(
+			"name" => "ord",
+			"caption" => t("J&auml;rjekord"),
+			"align" => "center"
+		));
+		
+		$t->define_field(array(
+			"name" => "name",
+			"caption" => t("Objekti nimi"),
+			"align" => "left"
+		));
+		$t->define_field(array(
+			"name" => "show_group",
+			"caption" => t("Grupp"),
+			"align" => "left"
+		));
+		$t->define_field(array(
+			"name" => "link_text_type",
+			"caption" => t("Lingi tekst"),
+			"align" => "center",
+		));
+		$t->define_field(array(
+			"name" => "link_text",
+			"caption" => t("Kirjutatud tekst"),
+			"align" => "center",
+		));
+
+		$t->define_field(array(
+			"name" => "group",
+			"caption" => t("Grupeeri"),
+			"align" => "center",
+			"width" => 15
+		));
+
+		$t->define_field(array(
+			"name" => "show_groups",
+			"caption" => t("Kuva koos omaduste gruppidega"),
+			"align" => "center",
+		));
+
+		$t->define_chooser(array(
+			"name" => "sel",
+			"field" => "oid",
+			"width" => "5%"
+		));
+
+		$link_text_types = array("Objekti nimi" , "Klassi nimi" , "Omaduste grupi nimi", "Kirjutatud string");
+		$cfg = new cfgutils();
+
+		$bm = $this->init_bm();	
+		$ol = new object_list(array(
+			"parent" => $bm->id(),
+			"class_id" => CL_USER_BOOKMARK_ITEM,
+			"sort_by" => "objects.jrk"
+		));
+		
+		foreach($ol->arr() as $o)
+		{
+			if(!acl_base::can("view", $o->prop("obj")))
+			{
+				continue;
+			}
+			$obj = obj($o->prop("obj"));
+			$uprops = $cfg->load_properties(array(
+				"clid" => $obj->class_id(),
+			));
+			$groups = $cfg->get_groupinfo();
+			$gopts = array();
+			foreach($groups as $gid => $group)
+			{
+	//			if(empty($group["parent"]))
+	//			{
+					$gopts[$gid] = $group["caption"];
+	//			}
+			}
+
+			$t->define_data(array(
+				"name" => $obj->name(),
+				"link_text_type" => html::select(array(
+					"value" => $o->prop("link_text_type"),
+					"options" => $link_text_types,
+					"name" => "app_bookmark[".$o->id()."][link_text_type]"
+				)),
+				"show_group" => html::select(array(
+					"value" => $o->prop("show_group"),
+					"options" => $gopts,
+					"name" => "app_bookmark[".$o->id()."][show_group]"
+				)),
+				"show_groups" => html::checkbox(array(
+					"checked" => $o->prop("show_groups"),
+					"name" => "app_bookmark[".$o->id()."][show_groups]"
+				)),
+				"group" => html::checkbox(array(
+					"checked" => $o->prop("group"),
+					"name" => "app_bookmark[".$o->id()."][group]"
+				)),
+				"link_text" => html::textbox(array(
+					"value" => $o->prop("link_text"),
+					"name" => "app_bookmark[".$o->id()."][link_text]"
+				)),
+				"ord" => html::textbox(array(
+					"value" => $o->ord(),
+					"name" => "app_bookmark[".$o->id()."][ord]",
+					"size" => 4
+				)),
+				"icon" => html::img(array(
+					"url" => icons::get_icon_url($obj->class_id()),
+				)),
+				"oid" => $o->id(),
+			));
+		}
+	}
+
+	function get_application_links()
+	{
+		$application_links = "";
+		$bmobj = $this->init_bm();	
+		$app_menu = cache::file_get(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id());
+		if (!empty($app_menu))
+		{
+			return $app_menu;
+		}
+
+		$ol = new object_list(array(
+			"parent" => $bmobj->id(),
+			"class_id" => CL_USER_BOOKMARK_ITEM,
+			"sort_by" => "objects.jrk"
+		));
+
+		$cfg = new cfgutils();
+
+		$apps = array();
+
+		foreach($ol->arr() as $o)
+		{
+			if(!acl_base::can("view", $o->prop("obj")))
+			{
+				continue;
+			}
+			$obj = obj($o->prop("obj"));
+			if($o->prop("group"))
+			{
+				$key = $obj->class_id();
+			}
+			else
+			{
+				$key = $obj->class_id()."_".$obj->id();
+			}
+			if(empty($apps[$key]))
+			{
+				$apps[$key] = array();
+			}
+
+			$nm = "";
+			switch($o->prop("link_text_type"))
+			{
+				case "3":
+					$nm = $o->prop("link_text");
+					break;
+				case "2":
+					$uprops = $cfg->load_properties(array(
+						"clid" => $obj->class_id(),
+					));
+					$groups = $cfg->get_groupinfo();
+					$nm = $groups[$o->prop("show_group")]["caption"];
+					break;
+				case "1":
+					$nm = $GLOBALS["cfg"]["classes"][$obj->class_id()]["name"];
+					break;
+				default:
+					$nm = $obj->name();
+			}
+
+			$url = $o->prop("url");
+			if($o->prop("show_group"))
+			{
+				$url = aw_url_change_var("group" ,$o->prop("show_group") , $url);
+			}
+
+			$apps[$key][$obj->id()] = array(
+				"url" => $url,
+				"name" => $nm,
+                "class_id" => $obj->class_id(),
+				"show_groups" => $o->prop("show_groups"),
+				"id" => $obj->id()
+			);
+		}
+
+/*		$apps = safe_array($bmobj->meta("apps"));
+arr($apps);*/
+			foreach($apps as $key => $app)
+			{
+				$k = explode("_" , $key);
+				$key = $k[0];
+				$ico = '<span class="icon">'.html::img(array(
+					"url" => icons::get_icon_url((empty($key) ? 123 : $key),empty($app["name"]) ? "" :$app["name"]),
+				)).'</span>';
+
+				$uprops = $cfg->load_properties(array(
+					"clid" => $key,
+				));
+				$groups = $cfg->get_groupinfo();
+				$gopts = array();
+				foreach($groups as $gid => $group)
+				{
+//					if(empty($group["parent"]))
+//					{
+						$gopts[$gid] = $group["caption"];
+//					}
+				}
+
+				if(is_array($app) && sizeof($app) > 1)
+				{
+					$am = new popup_menu();
+					$am->begin_menu("user_applications_".$key);
+					foreach($app as $k => $v)
+					{
+						if($v["show_groups"])
+						{
+							$params = array(
+								"name" => $v["class_id"]."_".$v["id"],
+								"text" => $v["name"]
+							);
+
+							$am->add_sub_menu($params);
+
+							foreach($gopts as $gid => $group)
+							{
+								$am->add_item(array(
+									"text" => $group,
+									"link" => aw_url_change_var("group" ,$k , $v["url"]),
+									"parent" => $v["class_id"]."_".$v["id"]
+								));
+							}
+						}
+						else
+						{
+							$am->add_item(array(
+								"text" => empty($v["name"]) ? $k : $v["name"],
+								"link" => $v["url"]
+							));
+						}
+					}
+
+					$application_links.= '
+						'.$ico.' '.$am->get_menu(
+						array("text" => (empty($GLOBALS["cfg"]["classes"][$key]["plural"]) ? $GLOBALS["cfg"]["classes"][$key]["name"] : $GLOBALS["cfg"]["classes"][$key]["plural"]).'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">'));
+				}
+				elseif(is_array($app) && sizeof($app) == 1)
+				{
+					$a = reset($app);
+					if(!is_array($a)) continue;
+					$application_links.= $ico." ";
+
+
+					if($a["show_groups"])
+					{
+						$am = new popup_menu();
+						$am->begin_menu("user_applications_".$key."_".$a["id"]);
+						foreach($gopts as $k => $v)
+						{
+							$am->add_item(array(
+								"text" => $v,
+								"link" => aw_url_change_var("group" ,$k , $a["url"])
+							));
+						}
+						$application_links.= $am->get_menu(
+							array("text" => $a["name"])
+						);
+					}
+					else
+					{
+						$application_links.= '
+							<span style="height:15px;text-align: center; background-color: transparent; " id="menuBar">
+								<a id="href_user_applications_1134" title="" alt=""  href="'.$a["url"].'" class="menuButton">
+									<span>'.(empty($a["name"]) ? $key : $a["name"]).'</span>
+									</a>
+							</span>
+						';
+					}
+				}
+			}
+
+		cache::file_set(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id(), $application_links);
+		return $application_links;
+	}
+
+	function _set_apps_table($arr)
+	{
+	//	arr($arr);die();
+		if(!empty($arr["request"]["app_bookmark"]))
+		{
+			foreach($arr["request"]["app_bookmark"] as $id => $data)
+			{
+				$o = obj($id);
+				$o->set_ord($data["ord"]);
+				$o->set_prop("show_group" , $data["show_group"]);
+				$o->set_prop("link_text_type" , $data["link_text_type"]);
+				$o->set_prop("link_text" , $data["link_text"]);
+				$o->set_prop("show_groups" , empty($data["show_groups"]) ? 0: 1);
+				$o->set_prop("group" , empty($data["group"]) ? 0:1 );
+				$o->save();
+			}
+		}
+		cache::file_invalidate(self::CACHE_KEY_PREFIX_APP_MENU . $arr["request"]["id"]);
 	}
 
 	/**
@@ -467,6 +805,10 @@ class user_bookmarks extends class_base
 		$shared = $arr["obj_inst"]->meta("shared");
 		foreach($ol->arr() as $o)
 		{
+			if($o->class_id() == CL_USER_BOOKMARK_ITEM)
+			{
+				continue;
+			}
 			$link = "";
 			$grp = "";
 			if ($o->class_id() == CL_EXTLINK)
@@ -482,7 +824,7 @@ class user_bookmarks extends class_base
 				$inf = array();
 				foreach($gl as $nm => $dat)
 				{
-					$inf[$nm] = ($dat["parent"] != "" ? "&nbsp;&nbsp;&nbsp;&nbsp;" : "").$dat["caption"];
+					$inf[$nm] = (!empty($dat["parent"]) ? "&nbsp;&nbsp;&nbsp;&nbsp;" : "").$dat["caption"];
 				}
 				$grp = html::select(array(
 					"options" => $inf,
@@ -557,6 +899,13 @@ class user_bookmarks extends class_base
 				)),
 			));
 		}
+
+		$ol = new object_list(array(
+			"parent" => $pt,
+			"sort_by" => "objects.class_id asc, objects.name asc",
+			"class_id" => CL_USER_BOOKMARK_ITEM
+		));
+
 	}
 
 	/**
@@ -920,6 +1269,10 @@ class user_bookmarks extends class_base
 
 			foreach($list->arr() as $li)
 			{
+				if($li->class_id() == CL_USER_BOOKMARK_ITEM)
+				{
+					continue;
+				}
 				$pt = null;
 				if(!empty($parents[$li->id()]))
 				{
@@ -1146,29 +1499,21 @@ class user_bookmarks extends class_base
 
 		$bm = $this->init_bm();
 
-		$pask = $bm->meta("apps");
+		$o = new object();
+		$o->set_class_id(CL_USER_BOOKMARK_ITEM);
+		$o->set_parent($bm->id());
+		$o->set_prop("show_apps_menu" , 1);
+		$o->set_prop("url" , $url->get());
 
-		$new_app = array("url" => $url->get());
-		$class_id = 0;
-		$id = 0;
 		if ($this->can("view", $url->arg("id")))
 		{
-			$t = obj($url->arg("id"));
-			$new_app["name"] = $t->name();
-			$new_app["class_id"] = $t->class_id();
-			$class_id = $t->class_id();
-			$id = $t->id();
+			$o->set_prop("obj" , $url->arg("id"));
 		}
-		if(empty($pask[$class_id]))
-		{
-			$pask[$class_id] = array();
-		}
-		$pask[$class_id][$id]= $new_app;
 
-		$bm->set_meta("apps" , $pask);
-		$bm->save();
+		$o->set_prop("show_group" , $url->arg("group"));
+		$o->save();
 
-		$this->clear_cache($bm);
+		cache::file_invalidate(self::CACHE_KEY_PREFIX_APP_MENU . $bm->id());
 
 		$return_url = $url->get();
 		if ($return_url{0} === "?")
@@ -1226,36 +1571,33 @@ class user_bookmarks extends class_base
 			$this->show_error_text("Vigane aadress antud, ei saa eemaldada.");
 		}
 		$bm = $this->init_bm();
-		$apps = $bm->meta("apps");
-		if ($this->can("view", $url->arg("id")))
+
+		$ol = new object_list(array(
+			"parent" => $bmobj->id(),
+			"class_id" => CL_USER_BOOKMARK_ITEM,
+			"sort_by" => "objects.jrk"
+		));
+
+		$changed = false;
+
+		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
-			foreach($apps as $class => $objects)
+			if(
+				$o->prop("obj") == $url->arg("id") ||
+				$o->prop("url") == $arr["url"]
+			)
 			{
-				foreach($objects as $id => $data)
-				{
-					if($url->arg("id") == $id)
-					{
-						unset($apps[$class][$id]);
-					}
-				}
+				$o->delete();
+				$changed = true;
 			}
+
+		};
+
+		if($changed)
+		{
+			cache::file_invalidate(self::CACHE_KEY_PREFIX_APP_MENU . $bm->id());
 		}
 
-		foreach($apps as $class => $objects)
-		{
-			foreach($objects as $id => $data)
-			{
-				if($arr["url"] == $data["url"])
-				{
-					unset($apps[$class][$id]);
-				}
-			}
-		}
-
-		$bm->set_meta("apps", $apps);
-		$bm->save();
-
-		$this->clear_cache($bm);
 		if(substr($arr["url"], 0, 1) === "?")
 		{
 			$arr["url"] = (isset($_SERVER["SCRIPT_NAME"]) ? $_SERVER["SCRIPT_NAME"] : $_SERVER["SCRIPT_URI"]) . $arr["url"];

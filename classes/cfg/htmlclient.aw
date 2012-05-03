@@ -952,45 +952,11 @@ class htmlclient extends aw_template
 			$bm_h = new popup_menu();
 			$bm_h->begin_menu("history_pop");
 
-			$application_links = "";
 			$bookmark_inst = new user_bookmarks();
-			$bmobj = $bookmark_inst->init_bm();
-			$apps = safe_array($bmobj->meta("apps"));
 
-			foreach($apps as $key => $app)
-			{
-				$ico = html::img(array(
-					"url" => icons::get_icon_url((empty($key) ? 123 : $key),empty($app["name"]) ? "" :$app["name"]),
-				));
-				if(is_array($app) && sizeof($app) > 1)
-				{
-					$am = new popup_menu();
-					$am->begin_menu("user_applications_".$key);
-					foreach($app as $k => $v)
-					{
-						$am->add_item(array(
-							"text" => empty($v["name"]) ? $k : $v["name"],
-							"link" => $v["url"]
-						));
-					}
-					$application_links.= '
-						'.$ico.' '.$am->get_menu(
-						array("text" => empty($GLOBALS["cfg"]["classes"][$key]["plural"]) ? $GLOBALS["cfg"]["classes"][$key]["name"] : $GLOBALS["cfg"]["classes"][$key]["plural"])).'
-					';
-				}
-				elseif(is_array($app) && sizeof($app) == 1)
-				{
-					$a = reset($app);
-					if(!is_array($a)) continue;
-					$application_links.= $ico.'
-						<span style="height:15px;text-align: center; background-color: transparent; " id="menuBar">
-							<a id="href_user_applications_1134" title="" alt=""  href="'.$a["url"].'" class="menuButton">
-								<span>'.(empty($a["name"]) ? $key : $a["name"]).'</span>
-								</a>
-						</span>
-					';
-				}
-			}
+			$application_links = $bookmark_inst->get_application_links();
+
+			$bmobj = $bookmark_inst->init_bm();
 
 			$tp->vars_safe(array(
 				"warn" => isset($this->config["warn"]) ? $this->config["warn"] : null,
