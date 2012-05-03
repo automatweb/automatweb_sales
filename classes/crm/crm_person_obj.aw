@@ -1415,7 +1415,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	function get_add_education_list()
 	{
 		$ol = new object_list();
-		foreach($this->connections_from(array("class_id" => "CL_CRM_PERSON_ADD_EDUCATION")) as $conn)
+		foreach($this->connections_from(array("type" => "RELTYPE_ADD_EDUCATION")) as $conn)
 		{
 			$ol ->add($conn->prop("to"));
 		}

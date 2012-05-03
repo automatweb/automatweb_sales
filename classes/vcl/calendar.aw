@@ -819,8 +819,10 @@ class vcalendar extends aw_template
 		{
 			$mnames[$i] = aw_locale::get_lc_month($i);
 		}
+		$yto = date("Y") + 8;
+		$yfr = date("Y") - 12;
 
-		for ($i = 2003; $i <= 2010; $i++)
+		for ($i = 2003; $i <= $yto; $i++)
 		{
 			$years[$i] = $i;
 			foreach($mnames as $monyear_key => $monyear_val)

@@ -33,6 +33,7 @@ class crm_person_drivers_license extends class_base
 
 	public static function categories()
 	{
+		//võiks staatilisse muutujasse panna
 		$arr = array("A" => "A", "B" => "B", "C" => "C", "D" => "D" ,"BE" => "BE", "CE" => "CE", "DE" => "DE", "A1" => "A1", "B1" => "B1", "C1" => "C1", "D1" => "D1", "C1E" => "C1E", "D1E" => "D1E", "T" => "T" , "R" => "R");
 asort($arr);
 		return $arr;

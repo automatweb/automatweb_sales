@@ -309,13 +309,15 @@ class person_skill_manager extends class_base
 			"lang_id" => array(),
 			"site_id" => array(),
 			"parent" => $arr["parent"],
-		));
+			"sort_by" => "objects.jrk",
+		)); 
 
 		$ol2 = new object_list(array(
 			"class_id" => CL_PERSON_SKILL,
 			"lang_id" => array(),
 			"site_id" => array(),
 			"parent" => $ol->ids(),
+			"sort_by" => "objects.jrk",
 		));
 
 		$parents = array();
@@ -672,6 +674,11 @@ class person_skill_manager extends class_base
 	{
 		$t =& $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
+			"name" => "ord",
+			"caption" => t("Jrk"),
+			"sortable" => 1,
+		));
+		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
 			"sortable" => 1,
@@ -720,6 +727,7 @@ class person_skill_manager extends class_base
 		{
 			$key = array_search($o->id(), $persontab); // $key = 2;
 			$t->define_data(array(
+				"ord" => html::textbox(array("size" => 3,"name" => "skill[".$o->id()."][jrk]" , "value" => $o->ord())),
 				"name" => html::get_change_url($o->id(),array("returl_url" => get_ru()),$o->name()). html::hidden(array("name" => "skill[".$o->id()."][id]" , "value" => $o->id())),
 				"oid" => $o->id(),
 				"short" => html::textbox(array("name" => "skill[".$o->id()."][short]" , "value" => $o->prop("short_name"))),
@@ -745,6 +753,7 @@ class person_skill_manager extends class_base
 			}
 			$o = obj($id);
 			$o->set_prop("short_name" ,$data["short"]);
+			$o->set_ord($data["jrk"]);
 			$o->set_prop("hrs_per_week_to_keep" ,$data["hours"]);
 			$o->save();
 			if($data["persontab"])

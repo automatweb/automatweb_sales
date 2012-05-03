@@ -210,7 +210,7 @@ a img { border: 0; }
 	float: left;
 	height: 55px;
 	margin-left:247px;
-	margin-top:27px;
+	margin-top:25px;
 	z-index: 2;
 /*	position: relative;*/
 
@@ -226,9 +226,10 @@ a img { border: 0; }
 {
 	padding: 2px 10px 3px 20px;
 }
-#pais .application_links img
+#pais .application_links .icon img
 {
-	margin-left: -1px;
+	margin-left: 4px;
+	margin-top:1px;
 	height:14px;
 	position: absolute;
 }
@@ -264,6 +265,24 @@ a img { border: 0; }
 	margin-top: 25px;
 	border: 1px solid #fff
 }
+
+#pais .application_links a.menuButton {
+	color: #000;
+	font-size: 11px;
+	margin-right:5px;
+	border: 1px solid #fff
+}
+#pais .application_links .menuBar a.menuButton {
+	color: #000;
+	font-size: 11px;
+	border: 1px solid #fff;
+}
+
+#pais .application_links  a:hover {
+	border: 1px solid #05a6e9;
+	text-decoration: none
+}
+
 
 #pais .toiming .menuBar a.menuButton {
 	float: left;

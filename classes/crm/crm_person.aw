@@ -4589,7 +4589,7 @@ class crm_person extends class_base
 			"url" => html::get_new_url(CL_CRM_PERSON_ADD_EDUCATION, $arr["obj_inst"]->id(), array(
 				"return_url" => get_ru(),
 				"alias_to" => $arr["obj_inst"]->id(),
-				"reltype" => 22
+				"reltype" => 24
 			)),
 			"tooltip" => t("Lisa")
 		));
@@ -9361,6 +9361,10 @@ fnCallbackAddNew = function()
 		$relations = $arr["obj_inst"]->get_active_work_relations();
 		foreach($relations->arr() as $rel)
 		{
+			if($rel->prop("type"))
+			{
+				continue;
+			}
 			$t->define_data(array(
 				"employer" => $rel->prop("employer.name"),
 				"section" => $rel->prop("company_section.name"),
