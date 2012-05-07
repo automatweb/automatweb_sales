@@ -142,7 +142,36 @@ catch (aw_lock_exception $e)
 	$parent = 0;
 }
 
+			$bm = new popup_menu();
+			$bm->begin_menu("user_bookmarks");
+			$bmq = new popup_menu();
+			$bmq->begin_menu("user_qa");
+			$bmb = new popup_menu();
+			$bmb->begin_menu("settings_pop");
+			$bm_h = new popup_menu();
+			$bm_h->begin_menu("history_pop");
+
+
+
 $sf->vars(array(
+
+
+				"bm_pop" => acl_base::prog_acl("view", "can_bm") ? $bm->get_menu(array(
+					"load_on_demand_url" => $bm->mk_my_orb("pm_lod", array("url" => get_ru()), "user_bookmarks"),
+					"text" => '<img src="/automatweb/images/aw06/ikoon_jarjehoidja.gif" alt="" width="16" height="14" border="0" class="ikoon" />'.t("J&auml;rjehoidja")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
+				)) : "",
+				"history_pop" => acl_base::prog_acl("view", "can_history") ? $bm_h->get_menu(array(
+					"load_on_demand_url" => $bm->mk_my_orb("hist_lod", array("url" => get_ru()), "user"),
+					"text" => '<img src="/automatweb/images/aw06/ikoon_ajalugu.gif" alt="" width="13" height="13" border="0" class="ikoon" />'.t("Ajalugu")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
+				)) : "",
+
+				"qa_pop" => acl_base::prog_acl("view", "can_quick_add") ? $bmq->get_menu(array(
+					"load_on_demand_url" => $bm->mk_my_orb("qa_lod", array("url" => get_ru()), "obj_quick_add"),
+					"text" => '<img alt="" title="" border="0" src="'.aw_ini_get("baseurl").'automatweb/images/aw06/ikoon_lisa.gif" id="mb_user_qa" border="0" class="ikoon" />'.t("Lisa kiiresti")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" /></a>'
+				)) : "",
+
+
+
 	"prod_family" => $pf,
 	"prod_family_href" => $pf_url,
 	"cur_p_name" => $p->prop_xml("name"),
@@ -250,11 +279,11 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 			}
 
 			$popup_menu->add_item(array(
-				"text" => '<img src="'.aw_global_get("baseurl").'automatweb/images/aw06/ikoon_logout.gif" width="26" height="14" border="0" alt="'.t("Logi v&auml;lja").'">',
-				"link" => aw_global_get("baseurl")."automatweb/orb.aw?class=users&action=logout",
+				"text" => t(" V&auml;ljun").'&nbsp;<img src="'.aw_ini_get("baseurl").'automatweb/images/aw06/ikoon_logout.gif" width="26" height="14" border="0" style="left:0px;top:2px;" alt="'.t("Logi v&auml;lja").'">',
+				"link" => aw_ini_get("baseurl")."automatweb/orb.aw?class=users&action=logout",
 			));
 			$person_text = $popup_menu->get_menu(array(
-				"text" => $person->name(),
+				"text" => $person->name().'<img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />',
 			));
 		}
 

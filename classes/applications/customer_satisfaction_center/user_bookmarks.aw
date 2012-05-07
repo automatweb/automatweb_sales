@@ -288,7 +288,8 @@ class user_bookmarks extends class_base
 
 		$t->define_field(array(
 			"name" => "show_groups",
-			"caption" => t("Kuva koos omaduste gruppidega"),
+			"caption" => '<a href="#" alt="'.t("Kuva koos omaduste gruppidega").'">KKOG</a>',
+//			"caption" => t("Kuva koos omaduste gruppidega"),
 			"align" => "center",
 		));
 
@@ -369,7 +370,7 @@ class user_bookmarks extends class_base
 	{
 		$application_links = "";
 		$bmobj = $this->init_bm();	
-		$app_menu = cache::file_get(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id());
+//		$app_menu = cache::file_get(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id());
 		if (!empty($app_menu))
 		{
 			return $app_menu;
@@ -442,98 +443,97 @@ class user_bookmarks extends class_base
 
 /*		$apps = safe_array($bmobj->meta("apps"));
 arr($apps);*/
-			foreach($apps as $key => $app)
+		foreach($apps as $key => $app)
+		{
+			$k = explode("_" , $key);
+			$key = $k[0];
+			$ico = '<span class="icon">'.html::img(array(
+				"url" => icons::get_icon_url((empty($key) ? 123 : $key),empty($app["name"]) ? "" :$app["name"]),
+			)).'</span>';
+
+			$uprops = $cfg->load_properties(array(
+				"clid" => $key,
+			));
+
+			$groups = $cfg->get_groupinfo();
+			$gopts = array();
+			foreach($groups as $gid => $group)
 			{
-				$k = explode("_" , $key);
-				$key = $k[0];
-				$ico = '<span class="icon">'.html::img(array(
-					"url" => icons::get_icon_url((empty($key) ? 123 : $key),empty($app["name"]) ? "" :$app["name"]),
-				)).'</span>';
+//				if(empty($group["parent"]))
+//				{
+					$gopts[$gid] = $group["caption"];
+//				}
+			}
 
-				$uprops = $cfg->load_properties(array(
-					"clid" => $key,
-				));
-				$groups = $cfg->get_groupinfo();
-				$gopts = array();
-				foreach($groups as $gid => $group)
+			if(is_array($app) && sizeof($app) > 1)
+			{
+				$am = new popup_menu();
+				$am->begin_menu("user_applications_".$key);
+				foreach($app as $k => $v)
 				{
-//					if(empty($group["parent"]))
-//					{
-						$gopts[$gid] = $group["caption"];
-//					}
-				}
-
-				if(is_array($app) && sizeof($app) > 1)
-				{
-					$am = new popup_menu();
-					$am->begin_menu("user_applications_".$key);
-					foreach($app as $k => $v)
+					if($v["show_groups"])
 					{
-						if($v["show_groups"])
-						{
-							$params = array(
-								"name" => $v["class_id"]."_".$v["id"],
-								"text" => $v["name"]
-							);
-
-							$am->add_sub_menu($params);
-
-							foreach($gopts as $gid => $group)
-							{
-								$am->add_item(array(
-									"text" => $group,
-									"link" => aw_url_change_var("group" ,$k , $v["url"]),
-									"parent" => $v["class_id"]."_".$v["id"]
-								));
-							}
-						}
-						else
-						{
-							$am->add_item(array(
-								"text" => empty($v["name"]) ? $k : $v["name"],
-								"link" => $v["url"]
-							));
-						}
-					}
-
-					$application_links.= '
-						'.$ico.' '.$am->get_menu(
-						array("text" => (empty($GLOBALS["cfg"]["classes"][$key]["plural"]) ? $GLOBALS["cfg"]["classes"][$key]["name"] : $GLOBALS["cfg"]["classes"][$key]["plural"]).'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">'));
-				}
-				elseif(is_array($app) && sizeof($app) == 1)
-				{
-					$a = reset($app);
-					if(!is_array($a)) continue;
-					$application_links.= $ico." ";
-
-
-					if($a["show_groups"])
-					{
-						$am = new popup_menu();
-						$am->begin_menu("user_applications_".$key."_".$a["id"]);
-						foreach($gopts as $k => $v)
-						{
-							$am->add_item(array(
-								"text" => $v,
-								"link" => aw_url_change_var("group" ,$k , $a["url"])
-							));
-						}
-						$application_links.= $am->get_menu(
-							array("text" => $a["name"])
+						$params = array(
+							"name" => $v["class_id"]."_".$v["id"],
+							"text" => $v["name"]
 						);
+
+						$am->add_sub_menu($params);
+
+						foreach($gopts as $gid => $group)
+						{
+							$am->add_item(array(
+								"text" => $group,
+								"link" => aw_url_change_var("group" ,$k , $v["url"]),
+								"parent" => $v["class_id"]."_".$v["id"]
+							));
+						}
 					}
 					else
 					{
-						$application_links.= '
-							<span style="height:15px;text-align: center; background-color: transparent; " id="menuBar">
-								<a id="href_user_applications_1134" title="" alt=""  href="'.$a["url"].'" class="menuButton">
-									<span>'.(empty($a["name"]) ? $key : $a["name"]).'</span>
-									</a>
-							</span>
-						';
+						$am->add_item(array(
+							"text" => empty($v["name"]) ? $k : $v["name"],
+							"link" => $v["url"]
+						));
 					}
 				}
+
+				$application_links.= $am->get_menu(
+					array("text" =>$ico. (empty($GLOBALS["cfg"]["classes"][$key]["plural"]) ? $GLOBALS["cfg"]["classes"][$key]["name"] : $GLOBALS["cfg"]["classes"][$key]["plural"]).'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">'));
 			}
+			elseif(is_array($app) && sizeof($app) == 1)
+			{
+				$a = reset($app);
+				if(!is_array($a)) continue;
+				$application_links.= " ";
+
+				if($a["show_groups"])
+				{
+					$am = new popup_menu();
+					$am->begin_menu("user_applications_".$key."_".$a["id"]);
+					foreach($gopts as $k => $v)
+					{
+						$am->add_item(array(
+							"text" => $v,
+							"link" => aw_url_change_var("group" ,$k , $a["url"])
+						));
+					}
+					$application_links.= $am->get_menu(
+						array("text" => $ico.$a["name"].'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')
+					);
+				}
+				else
+				{
+					$application_links.= '
+						<span style="height:15px;text-align: center; background-color: transparent; " id="menuBar">
+						<a id="href_user_applications_1134" title="" alt=""  href="'.$a["url"].'" class="menuButton">
+						<span>'.$ico.(empty($a["name"]) ? $key : $a["name"]).'</span>
+						</a>
+						</span>
+					';
+				}
+			}
+		}
 
 		cache::file_set(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id(), $application_links);
 		return $application_links;
@@ -1371,7 +1371,7 @@ arr($apps);*/
 			cache::file_set(self::CACHE_KEY_PREFIX_HTML . $bm->id(), $bookmarks_menu);
 		}
 
-		header("Content-type: text/html; charset=".aw_global_get("charset"));
+		header("Content-type: text/html; charset=".languages::USER_CHARSET);
 		exit($bookmarks_menu);
 	}
 

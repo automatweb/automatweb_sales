@@ -126,8 +126,18 @@ function cfEditClickGroup(group, oid)
 			{VAR:lang_pop}
 		</div>
 		<div class="top-right-menu-item">
-			{VAR:settings_pop}
+		<!--{VAR:settings_pop}-->
+		{VAR:qa_pop}
+
 		</div>
+
+		<div class="top-right-menu-item">
+		{VAR:bm_pop}
+		</div>
+		<div class="top-right-menu-item">
+			{VAR:history_pop}
+		</div>
+
 		<div class="top-right-menu-item">
 			<div style="padding-right: 2px;">
 			<!-- SUB: SHOW_CUR_P -->
@@ -149,7 +159,7 @@ function cfEditClickGroup(group, oid)
 			({VAR:cur_co_name})
 			<!-- END SUB: SHOW_CUR_CO_TEXT -->
 			</div>
-			<a href="{VAR:baseurl}automatweb/orb.aw?class=users&action=logout" title="{VAR:logout_text}"><img src="{VAR:baseurl}automatweb/images/aw06/ikoon_logout.gif" width="26" height="14" border="0" alt="{VAR:logout_text}"></a>
+			<!-- <a href="{VAR:baseurl}automatweb/orb.aw?class=users&action=logout" title="{VAR:logout_text}"><img src="{VAR:baseurl}automatweb/images/aw06/ikoon_logout.gif" width="26" height="14" border="0" alt="{VAR:logout_text}"></a>-->
 		</div>
 	</div>
 
