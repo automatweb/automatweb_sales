@@ -389,10 +389,10 @@ class document extends aw_template implements orb_public_interface
 		// import charset for print
 		if ($this->template_has_var("charset"))
 		{
-			$_ld = languages::fetch($lang_id);
+//			$_ld = languages::fetch($lang_id);
 			$this->vars(array(
-				"charset" => $_ld["charset"]
-			));
+				"charset" => languages::USER_CHARSET,
+			)); 
 		}
 
 		// load localization settings and put them in the template
