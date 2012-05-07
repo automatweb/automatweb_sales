@@ -666,8 +666,28 @@ class person_skill_manager extends class_base
 					));
 				}
 			}
-			
 		}
+	}
+
+	private function get_req_skills($parent)
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_PERSON_SKILL,	
+			"parent" => $parent,
+		));
+		$arr = $ol->names();
+		foreach($ol->names() as $id => $name)
+		{
+			$arr+= $this->get_req_skills($id);
+		}
+		return $arr;
+	}
+
+	public function get_sub_skills($parent)
+	{
+		$ret = $this->get_req_skills($parent);
+		asort($ret);
+		return $ret;
 	}
 
 	function _get_skills_tbl($arr)
@@ -720,7 +740,9 @@ class person_skill_manager extends class_base
 			$ol = $arr["obj_inst"]->get_all_skills($tf);
 		}
 
-		$opts = array("" , "computer_skills" => "Arvutioskused"  , "device_skills" => "Seadmete juhtimine", "art_skills" => "Kaunid kunstid");
+		$person = new crm_person();
+		$opts =  array("") + $person->organised_skills;
+/*		$opts = array("" , "computer_skills" => "Arvutioskused"  , "device_skills" => "Seadmete juhtimine", "art_skills" => "Kaunid kunstid");*/
 
 		$persontab = $arr["obj_inst"]->meta("persontab");
 		foreach($ol->arr() as $o)

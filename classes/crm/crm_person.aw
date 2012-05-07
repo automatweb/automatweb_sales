@@ -50,7 +50,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 @property birthday type=hidden year_from=1930 year_to=2010 default=-1 save_format=iso8601
 @caption S&uuml;nniaeg vana
 
-@property birth_date type=date_select default=-1 year_from=1900 
+@property birth_date type=date_select default=-1 year_from=1900
 @caption S&uuml;nniaeg
 
 @property birthday_hidden type=checkbox ch_value=1 table=objects field=meta method=serialize
@@ -736,7 +736,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 	@groupinfo recommends caption="Soovitajad" parent=work
 	@groupinfo candidate caption="Kandideerimised" parent=work submit=no
 @groupinfo customer_relations caption="Kliendisuhted"
-	@groupinfo cust_rel caption="Aktiivsed ja varasemad kliendisuhted" parent=customer_relations 
+	@groupinfo cust_rel caption="Aktiivsed ja varasemad kliendisuhted" parent=customer_relations
 @groupinfo education_and_improvement caption="Haridus ja t&auml;ienduskoolitus"
 	@groupinfo education caption="Haridustee" parent=education_and_improvement
 	@groupinfo add_edu caption="T&auml;ienduskoolitus" parent=education_and_improvement
@@ -1067,7 +1067,7 @@ class crm_person extends class_base
 			2 => t("Magister"),
 			3 => t("Doktor"),
 		);
-		$this->organised_skills = array("computer_skills" => "Arvutioskused" , "device_skills" => "Seadmete juhtimine"  , "art_skills" => "Kaunid kunstid");
+		$this->organised_skills = array("computer_skills" => "Arvutioskused" , "device_skills" => "Seadmete juhtimine"  , "art_skills" => "Kaunid kunstid", "other_skills" => "Muud oskused");
 	}
 
 	function callback_on_load($arr)
@@ -1346,7 +1346,8 @@ class crm_person extends class_base
 
 	function _set_personal_id(&$arr)
 	{
-		if ("root" === aw_global_get("uid"))
+		//võiks äkki teised ka seda salvestada saada või?
+		if (true || "root" === aw_global_get("uid"))
 		{
 			$r = class_base::PROP_OK;
 			if (!empty($arr["prop"]["value"]) and isset($arr["request"]["personal_id_country"]) and country_data::NUM_ESTONIA == $arr["request"]["personal_id_country"])
@@ -1574,10 +1575,10 @@ class crm_person extends class_base
 		$t->define_field(array(
 			"name" => "experience",
 			"caption" => t("Staaž"),
-		)); 
+		));
 		$t->define_field(array(
 			"name" => "edit"
-		)); 
+		));
 
 		$t->set_caption(sprintf(t('Isiku %s sõidukijuhi oskused'),$arr["obj_inst"]->name()));
  
@@ -3064,9 +3065,7 @@ class crm_person extends class_base
 			if(!empty($field))
 			{
 				$fol = new object_list(array(
-					"oid" => $to->prop("field"),
-					"parent" => array(),
-					"status" => array()
+					"oid" => $to->prop("field")
 				));
 				$field = "";
 				foreach($fol->names() as $name)
@@ -4656,11 +4655,11 @@ class crm_person extends class_base
 					'url' => html::get_change_url($b_edu->id()),
 					'caption' => t("Muuda"),
 				)),
-				"length" => $b_edu->prop("length_hrs") ? $b_edu->prop("length_hrs")." ".t("tundi") :($b_edu->prop("length") ? $b_edu->prop("length")." ".t("päeva") : ""), 
+				"length" => $b_edu->prop("length_hrs") ? $b_edu->prop("length_hrs")." ".t("tundi") :($b_edu->prop("length") ? $b_edu->prop("length")." ".t("päeva") : ""),
 			));
 		}
 	}
-	
+
 	function _get_education_tb(&$arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -4706,13 +4705,13 @@ class crm_person extends class_base
 			"caption" => t("Kraad"),
 			"sortable" => 1,
 		));
-		
+
 		$table->define_field(array(
 			"name" => "in_progress",
 			"caption" => t("Omandamisel"),
 			"sortable" => 1,
 		));
-		
+
 		$table->define_field(array(
 			"name" => "date_from",
 			"caption" => t("Algus"),
@@ -5130,6 +5129,8 @@ class crm_person extends class_base
 
 	function callback_mod_tab($arr)
 	{
+//		if($arr["id"] == "other_skills") return false;
+
 		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
@@ -5243,7 +5244,7 @@ class crm_person extends class_base
 		});
 		";
 
-		
+
 
 		if (!$arr["new"])
 		{
@@ -7220,11 +7221,7 @@ fnCallbackAddNew = function()
 		{
 			$job_wanted_ol = new object_list(array(
 				"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_WANTED,
-				"oid" => $oids,
-				"parent" => array(),
-				"status" => array(),
-				"site_id" => array(),
-				"lang_id" => array(),
+				"oid" => $oids
 			));
 		}
 		else
@@ -7912,11 +7909,7 @@ fnCallbackAddNew = function()
 			$c_ol = new object_list(array(
 				"class_id" => CL_PERSONNEL_MANAGEMENT_CANDIDATE,
 				"person" => $o->id,
-				"job_offer" => $arr["job_offer"],
-				"status" => array(),
-				"lang_id" => array(),
-				"parent" => array(),
-				"site_id" => array(),
+				"job_offer" => $arr["job_offer"]
 			));
 			if($c_ol->count() > 0)
 			{
@@ -8450,6 +8443,41 @@ fnCallbackAddNew = function()
 	}
 	/**/
 
+	private function add_skill_tree_leaf($skill , &$pm, $parent, $person)
+	{
+		$o = obj($skill);
+		$ol = new object_list(array(
+			"parent" => $skill,
+			"class_id" => CL_PERSON_SKILL
+		));
+		if($ol->count())
+		{
+			$pm->add_sub_menu(array(
+				"parent" => $parent,
+				"name" => "new_skill_".$skill,
+				"text" => $o->name(),
+			));
+			foreach($ol->names() as $key => $name)
+			{
+				$this->add_skill_tree_leaf($key , $pm, "new_skill_".$skill, $person);
+			}
+		}
+		else
+		{
+			$pm->add_menu_item(array(
+				"parent" => $parent,
+				"name" => "new_skill_".$skill,
+				"text" => $o->name(),
+				"link" => html::get_new_url(CL_PERSON_HAS_SKILL, $person, array(
+					"return_url" => get_ru(),
+					"alias_to" => $person,
+					"reltype" => 53,
+					"skill" => $skill,
+					)),
+				));
+		}
+	}
+
 	function _get_skill_tb($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -8477,21 +8505,9 @@ fnCallbackAddNew = function()
 				}
 				else
 				{
-					$ol = new object_list(array(
-						"class_id" => CL_PERSON_SKILL,
-						"lang_id" => array(),
-						"site_id" => array(),
-						"parent" => $persontab[$group],
-					));
+					$skill_manager = new person_skill_manager();
+					$skills = $skill_manager->get_sub_skills($persontab[$group]);
 
-					$ol2 = new object_list(array(
-						"class_id" => CL_PERSON_SKILL,
-						"lang_id" => array(),
-						"site_id" => array(),
-						"parent" => $ol->ids(),
-					));
-					$ids = $ol2->ids() + $ol->ids();
-			//		$ids[]= $persontab[$group];
 				}
 			}
 			else
@@ -8520,23 +8536,15 @@ fnCallbackAddNew = function()
 				"name" => "new",
 				"img" => "new.gif",
 			));
-
-			foreach($ids as $id)
+		
+			$ol = new object_list(array(
+				"class_id" => CL_PERSON_SKILL,
+				"parent" => $persontab[$group]
+			));
+			foreach($ol->ids() as $skill)
 			{
-				$o = obj($id);
-				$tb->add_menu_item(array(
-					"parent" => "new",
-					"name" => "new_skill_".$id,
-					"text" => $o->name(),
-					"link" => html::get_new_url(CL_PERSON_HAS_SKILL, $arr["obj_inst"]->id(), array(
-						"return_url" => get_ru(),
-						"alias_to" => $arr["obj_inst"]->id(),
-						"reltype" => 53,
-						"skill" => $id,
-					)),
-				));
+				$this->add_skill_tree_leaf($skill , $tb, "new", $arr["obj_inst"]->id());
 			}
-
 		}
 
 		$tb->add_button(array(
@@ -8569,7 +8577,6 @@ fnCallbackAddNew = function()
 			"align" => "center",
 			"sortable" => 1,
 		));
-		
 
 		$t->define_chooser(array(
 			"field" => "oid",
@@ -8594,7 +8601,6 @@ fnCallbackAddNew = function()
 
 		if($group)
 		{
-
 			if($manager)
 			{
 				$persontab = $manager->meta("persontab");
@@ -8604,7 +8610,10 @@ fnCallbackAddNew = function()
 				}
 				else
 				{
-					$ol = new object_list(array(
+					$skill_manager = new person_skill_manager();
+					$skills = $skill_manager->get_sub_skills($persontab[$group]);
+
+/*					$ol = new object_list(array(
 						"class_id" => CL_PERSON_SKILL,
 						"lang_id" => array(),
 						"site_id" => array(),
@@ -8622,8 +8631,19 @@ fnCallbackAddNew = function()
 						));
 						$ids = $ids + $ol2->ids();
 					}
-					$ids[]= $persontab[$group];
 
+					if(sizeof($ids))
+					{
+						$ol3 = new object_list(array(
+							"class_id" => CL_PERSON_SKILL,
+							"lang_id" => array(),
+							"site_id" => array(),
+							"parent" => $ol->ids(),
+						));
+						$ids = $ids + $ol3->ids();
+					}
+
+					$ids[]= $persontab[$group];*/
 				}
 			}
 			else
@@ -8660,16 +8680,21 @@ fnCallbackAddNew = function()
 				$ignore[$val] = $val;
 			}
 		}
-
-		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_HAS_SKILL")) as $c)
+//	arr($skills);arr($group);	
+foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_HAS_SKILL")) as $c)
 		{
 			$rel = $c->to();
-
+//arr($rel->prop("skill"));
 			if($group)
 			{
-				if(!in_array($rel->prop("skill") , $ids)) continue;
+				if(!isset($skills[$rel->prop("skill")]))
+				{
+					continue;
+				}
+			}			elseif(empty($skills[$rel->prop("skill")]))
+			{
+				continue;
 			}
-			elseif(in_array($rel->prop("skill") , $ignore))continue;
 
 			$t->define_data(array(
 				"name" => $rel->name(),
