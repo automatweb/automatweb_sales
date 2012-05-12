@@ -1942,7 +1942,6 @@ class webform extends class_base
 		}
 		$els = $cfgform_i->get_props_from_ot($arr);
 		//sorteerimine
-		$form = obj($arr["obj_inst"]->prop("use_cfgform"));
 		$cfgform = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_CFGFORM");
 		$cfgform_i->_init_cfgform_data($cfgform);
 		$cfgform_i->sort_grplist();
