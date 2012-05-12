@@ -5,7 +5,7 @@ Toode koondab pakendeid
 N2iteks: pluus on pakett, eri v2rvi pluusid on tooted, iga pluusi suurus on pakend
 */
 /*
-@classinfo syslog_type=ST_SHOP_PACKET relationmgr=yes prop_cb=1
+@classinfo relationmgr=yes prop_cb=1
 @tableinfo aw_shop_packets index=aw_oid master_table=objects master_index=brother_of
 @extends applications/shop/shop_warehouse_item
 

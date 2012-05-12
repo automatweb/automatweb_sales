@@ -13,5 +13,12 @@
                   <index>aw_oid</index>
             </aw_product>
       </tableinfo>
+      <reltypes>
+            <DESCRIPTION_DOCUMENT>
+                  <value>32</value>
+                  <clid>CL_DOCUMENT</clid>
+                  <caption>Tootekirjeldus</caption>
+            </DESCRIPTION_DOCUMENT>
+      </reltypes>
 </properties>
 

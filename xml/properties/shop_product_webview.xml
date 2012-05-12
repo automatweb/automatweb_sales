@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>object</name>
+            <group>general</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>objpicker</type>
+            <clid>CL_SHOP_PRODUCT</clid>
+            <caption>Toode mida kuvada</caption>
+      </property>
+      <property>
+            <name>template</name>
+            <group>general</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Kujundusmall</caption>
+      </property>
+      <property>
+            <name>sales_contact_persons</name>
+            <group>general</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <reltype>RELTYPE_SALES_CONTACT_PERSON</reltype>
+            <caption>Kontaktisikud</caption>
+            <comment>Isikud, kellega toote vastu huvi tundja saab kontakteeruda</comment>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <reltypes>
+            <SALES_CONTACT_PERSON>
+                  <value>1</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Kontaktisik</caption>
+            </SALES_CONTACT_PERSON>
+      </reltypes>
+</properties>
+

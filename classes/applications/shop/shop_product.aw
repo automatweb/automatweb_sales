@@ -36,7 +36,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 				@property jrk type=textbox size=5 table=objects field=jrk parent=gen_gen
 				@caption J&auml;rjekord
 				@comment Objekti j&auml;rjekord
-				
+
 				@property short_description type=textarea cols=40 rows=5 table=aw_shop_products field=aw_short_description parent=gen_gen
 				@caption L&uuml;hikirjeldus
 
