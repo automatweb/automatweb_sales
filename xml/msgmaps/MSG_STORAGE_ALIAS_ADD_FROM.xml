@@ -1,73 +1,73 @@
 <?xml version='1.0'?>
-<xml>
-<num_0>
-      <class>/core/users/user</class>
-      <func>on_add_alias</func>
+<msgmap>
+<handler>
+      <class>user</class>
+      <method>on_add_alias</method>
       <param>CL_USER</param>
-</num_0>
-<num_1>
-      <class>/core/users/group_membership</class>
-      <func>on_connect_from_group_membership</func>
+</handler>
+<handler>
+      <class>group_membership</class>
+      <method>on_connect_from_group_membership</method>
       <param>CL_GROUP_MEMBERSHIP</param>
-</num_1>
-<num_2>
-      <class>/core/users/group</class>
-      <func>on_add_alias_to_group</func>
+</handler>
+<handler>
+      <class>group</class>
+      <method>on_add_alias_to_group</method>
       <param>CL_GROUP</param>
-</num_2>
-<num_8>
-      <class>/crm/crm_phone</class>
-      <func>on_connect_work_relation_to_phone</func>
+</handler>
+<handler>
+      <class>crm_phone</class>
+      <method>on_connect_work_relation_to_phone</method>
       <param>CL_CRM_PERSON_WORK_RELATION</param>
-</num_8>
-<num_9>
-      <class>/crm/crm_section</class>
-      <func>on_connect_person_to_section</func>
+</handler>
+<handler>
+      <class>crm_section</class>
+      <method>on_connect_person_to_section</method>
       <param>CL_CRM_PERSON</param>
-</num_9>
-<num_10>
-      <class>/applications/calendar/event_time</class>
-      <func>on_connect_event_to_time</func>
+</handler>
+<handler>
+      <class>event_time</class>
+      <method>on_connect_event_to_time</method>
       <param>CL_CALENDAR_EVENT</param>
-</num_10>
-<num_11>
-      <class>/applications/crm/crm_person_education</class>
-      <func>on_connect_person_to_edu</func>
+</handler>
+<handler>
+      <class>crm_person_education</class>
+      <method>on_connect_person_to_edu</method>
       <param>CL_CRM_PERSON</param>
-</num_11>
-<num_12>
-      <class>/applications/crm/crm_person_work_relation</class>
-      <func>on_connect_phone_to_work_relation</func>
+</handler>
+<handler>
+      <class>crm_person_work_relation</class>
+      <method>on_connect_phone_to_work_relation</method>
       <param>CL_CRM_PHONE</param>
-</num_12>
-<num_13>
-      <class>/applications/crm/crm_person_work_relation</class>
-      <func>on_connect_email_to_work_relation</func>
+</handler>
+<handler>
+      <class>crm_person_work_relation</class>
+      <method>on_connect_email_to_work_relation</method>
       <param>CL_ML_MEMBER</param>
-</num_13>
-<num_14>
-      <class>/applications/crm/crm_recommendation</class>
-      <func>on_connect_person_to_recommendation</func>
+</handler>
+<handler>
+      <class>crm_recommendation</class>
+      <method>on_connect_person_to_recommendation</method>
       <param>CL_CRM_PERSON</param>
-</num_14>
-<num_15>
-      <class>/applications/shop/shop_product</class>
-      <func>on_add_alias</func>
+</handler>
+<handler>
+      <class>shop_product</class>
+      <method>on_add_alias</method>
       <param>CL_SHOP_PRODUCT</param>
-</num_15>
-<num_16>
-      <class>/applications/mailinglist/ml_member</class>
-      <func>on_connect_work_relation_to_email</func>
+</handler>
+<handler>
+      <class>ml_member</class>
+      <method>on_connect_work_relation_to_email</method>
       <param>CL_CRM_PERSON_WORK_RELATION</param>
-</num_16>
-<num_22>
-      <class>/contentmgmt/timing</class>
-      <func>on_tconnect_from</func>
+</handler>
+<handler>
+      <class>timing</class>
+      <method>on_tconnect_from</method>
       <param>CL_DOCUMENT</param>
-</num_22>
-<num_23>
-      <class>/contentmgmt/timing</class>
-      <func>on_tconnect_from</func>
+</handler>
+<handler>
+      <class>timing</class>
+      <method>on_tconnect_from</method>
       <param>CL_MENU</param>
-</num_23>
-</xml>
+</handler>
+</msgmap>

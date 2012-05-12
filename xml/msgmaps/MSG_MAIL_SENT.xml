@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
-<xml>
-<num_0>
-      <class>/admin/sent_mail_database</class>
-      <func>on_send_mail</func>
-</num_0>
-</xml>
+<msgmap id="MSG_MAIL_SENT">
+<handler>
+      <class>sent_mail_database</class>
+      <method>on_send_mail</method>
+</handler>
+</msgmap>

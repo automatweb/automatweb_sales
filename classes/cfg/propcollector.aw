@@ -14,10 +14,12 @@ class propcollector extends aw_template
 	const TAG_PAIRS = 2;
 	const TAG_VALUE = 3;
 
+	private $messages = array();
 	private $tagdata = array();
 	private $tags = array(
 		"extends" => self::TAG_VALUE,
 		"classinfo" => self::TAG_PAIRS,
+		"message" => self::TAG_CTX,
 		"default" => self::TAG_PAIRS,
 		"groupinfo" => self::TAG_CTX,
 		"tableinfo" => self::TAG_CTX,
@@ -193,32 +195,31 @@ class propcollector extends aw_template
 				$attribs = $m[2];
 				if ($tagname === "groupinfo")
 				{
-					$this->set_groupinfo($aname,$attribs);
+					$this->set_groupinfo($aname, $attribs);
 				}
-				else
-				if ($tagname === "tableinfo")
+				elseif ($tagname === "message")
 				{
-					$this->set_tableinfo($aname,$attribs);
+					$this->set_message($aname, $attribs);
 				}
-				else
-				if ($tagname === "property")
+				elseif ($tagname === "tableinfo")
 				{
-					$this->add_property($aname,$attribs);
+					$this->set_tableinfo($aname, $attribs);
 				}
-				else
-				if ($tagname === "layout")
+				elseif ($tagname === "property")
 				{
-					$this->add_layout($aname,$attribs);
+					$this->add_property($aname, $attribs);
 				}
-				else
-				if ($tagname === "reltype")
+				elseif ($tagname === "layout")
 				{
-					$this->add_reltype($aname,$attribs);
+					$this->add_layout($aname, $attribs);
 				}
-				else
-				if ($tagname === "forminfo")
+				elseif ($tagname === "reltype")
 				{
-					$this->add_forminfo($aname,$attribs);
+					$this->add_reltype($aname, $attribs);
+				}
+				elseif ($tagname === "forminfo")
+				{
+					$this->add_forminfo($aname, $attribs);
 				}
 				else
 				{
@@ -254,6 +255,7 @@ class propcollector extends aw_template
 		$this->properties = array();
 		$this->defaults = array();
 		$this->classinfo = array();
+		$this->messages = array();
 		$this->groupinfo = array();
 		$this->tableinfo = array();
 		$this->views = array();
@@ -474,8 +476,14 @@ class propcollector extends aw_template
 		if (empty($attr["master_index"]) && $attr["master_table"] === "objects")
 		{
 			$attr["master_index"] = "brother_of";
-		};
+		}
 		$this->tableinfo[$id] = $attr;
+	}
+
+	private function set_message($id,$data)
+	{
+		$attr = $this->_parse_attribs($data);
+		$this->messages[$id] = $attr;
 	}
 
 	private function add_caption($caption)
@@ -510,67 +518,67 @@ class propcollector extends aw_template
 
 	////
 	// !Ends a class
-	private function cl_end($write = 1)
+	private function cl_end($write = true)
 	{
-		$sr = get_instance("core/serializers/xml",array("ctag" => ""));
+		$sr = get_instance("core/serializers/xml", array("ctag" => ""));
 		$sr->set_child_id("properties","property");
 		$outdir = AW_DIR . "xml/properties/";
 		$success = false;
 
-		if (sizeof($this->properties) > 0 || sizeof($this->classinfo) > 0)
+		if (count($this->properties) || count($this->classinfo))
 		{
 			$fullname = $outdir . $this->cl_name . ".xml";
-			if (1 == $write)
+			if ($write)
 			{
 				print "Creating $fullname\n";
-			};
+			}
 			$arr = array();
 			$arr["properties"] = array_values($this->properties);
 
 			if (sizeof($this->classinfo) > 0)
 			{
 				$arr["properties"]["classinfo"] = $this->classinfo;
-			};
+			}
 
 			if (sizeof($this->groupinfo) > 0)
 			{
 				$arr["properties"]["groupinfo"] = $this->groupinfo;
-			};
+			}
 
 			if (sizeof($this->tableinfo) > 0)
 			{
 				$arr["properties"]["tableinfo"] = $this->tableinfo;
-			};
+			}
 
 			if (sizeof($this->views) > 0)
 			{
 				$arr["properties"]["views"] = $this->views;
-			};
+			}
 
 			if (sizeof($this->reltypes) > 0)
 			{
 				$arr["properties"]["reltypes"] = $this->reltypes;
-			};
+			}
 
 			if (sizeof($this->layout) > 0)
 			{
 				$arr["properties"]["layout"] = $this->layout;
-			};
+			}
 
 			if (sizeof($this->forminfo) > 0)
 			{
 				$arr["properties"]["forminfo"] = $this->forminfo;
-			};
+			}
 
 			if (!empty($this->classdef["column"]) && sizeof($this->classdef["column"]) > 0)
 			{
 				$arr["properties"]["columns"] = $this->classdef["column"];
-			};
+			}
 
-			if ($write == 1)
+			if ($write)
 			{
 				$res = $sr->xml_serialize($arr);
-				$this->put_file(array(
+				core::put_file(array(
 					"file" => $fullname,
 					"content" => $res,
 				));
@@ -582,6 +590,18 @@ class propcollector extends aw_template
 
 			$success = true;
 		}
+
+		if (count($this->messages) and $write)
+		{
+			foreach ($this->messages as $id => $data)
+			{
+				$class = $this->cl_name;
+				$method = isset($data["handler"]) ? $data["handler"] : "";
+				$param = isset($data["param"]) ? $data["param"] : "";
+				msg_index::add_handler($id, $class, $method, $param);
+			}
+		}
+
 		return $success;
 	}
 
@@ -746,6 +766,11 @@ class propcollector extends aw_template
 					preg_match("/(\w+?) (.*)/", $tagdata, $m);
 					$aname = $m[1];
 					$attribs = $m[2];
+//FIXME:
+// [NOTICE] Undefined offset: 1 in propcollector.aw on line 767
+// [NOTICE] Undefined offset: 2 in propcollector.aw on line 768
+
+
 
 					if ($tagname === "groupinfo")
 					{
@@ -754,6 +779,10 @@ class propcollector extends aw_template
 					elseif ($tagname === "tableinfo")
 					{
 						$this->set_tableinfo($aname,$attribs);
+					}
+					elseif ($tagname === "message")
+					{
+						$this->set_message($aname, $attribs);
 					}
 					elseif ($tagname === "property")
 					{
@@ -802,8 +831,7 @@ class propcollector extends aw_template
 				$arr["field"] => $arr["value"]
 			);
 		}
-		else
-		if(isset($arr["fields"]) && is_array($arr["fields"]))
+		elseif(isset($arr["fields"]) && is_array($arr["fields"]))
 		{
 			$fields = $arr["fields"];
 		}
@@ -832,6 +860,7 @@ class propcollector extends aw_template
 			$tagfields = $tagfields[$fields["type"]];
 			$err_add_text = " with type \"".$fields["type"]."\"";
 		}
+
 		foreach($fields as $f => $val)
 		{
 			if($arr["type"] === "property" && $f === "name")

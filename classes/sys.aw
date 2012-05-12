@@ -961,17 +961,17 @@ class sys extends aw_template implements orb_public_interface
 			throw new awex_sys_webmaintenance("Web maintenance is turned off");
 		}
 
-		$this->_make_message_maps();
+		// $this->_make_message_maps();
 		exit; //TODO: tmp, move header from admin_footer to cb or htmlc
 	}
 
 	private function _make_message_maps()
 	{
 		aw_global_set("no_db_connection", 1);
-		$scanner = get_instance("core/msg/msg_scanner");
+		$scanner = new msg_scanner();
 
 		echo "<pre>";
-		$scanner->scan();
+		// $scanner->scan();
 		echo "</pre>";
 	}
 
