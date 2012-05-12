@@ -406,7 +406,7 @@ class document extends aw_template implements orb_public_interface
 		// $this->add_hit($docid);
 
 
-		$doc["content"] = str_replace("#nool#", '<IMG SRC="{VAR:baseurl}img/icon_nool.gif" WIDTH="21" HEIGHT="9" BORDER=0 ALT="">', $doc["content"]);
+		$doc["content"] = str_replace("#nool#", '<img src="{VAR:baseurl}img/icon_nool.gif" width="21" height="9" border=0 alt="">', $doc["content"]);
 
 		# translate stuff between #code# and #/code#
 		if (false !== strpos($doc["content"],"#code#"))
@@ -466,7 +466,7 @@ class document extends aw_template implements orb_public_interface
 				}
 				else
 				{
-					$def = t("<br /><B>Edasi loe ajakirjast!</b></font>");//XXX: midagi vana, kaotada, muuta...
+					$def = t("<br /><b>Edasi loe ajakirjast!</b></font>");//XXX: midagi vana, kaotada, muuta...
 				}
 				$doc["content"] = substr($doc["content"],0,$pp).$def;
 			}
@@ -498,6 +498,7 @@ class document extends aw_template implements orb_public_interface
 			{
 				$re = t("Loe edasi");
 			}
+
 			if (!(($pp = strpos($doc["content"],"#edasi#")) === false))
 			{
 				$doc["content"] = substr($doc["content"],0,$pp)."<a href='".aw_url_change_var("show_all", 1)."'>$re</a>";
@@ -574,9 +575,9 @@ class document extends aw_template implements orb_public_interface
 				if ($boldlead)
 				{
 					$txt = "<b>";
-				};
+				}
 
-				if ($doc["lead"] != "" && $doc["lead"] != "&nbsp;")
+				if ($doc["lead"] != "" && $doc["lead"] !== "&nbsp;")
 				{
 					if ($this->cfg["lead_splitter"] != "")
 					{
@@ -584,11 +585,11 @@ class document extends aw_template implements orb_public_interface
 					}
 					else
 					{
-						if (aw_ini_get("content.doctype") == "xhtml")
+						if (aw_ini_get("content.doctype") === "xhtml")
 						{
 							$txt .= $doc["lead"] . "<br />";
 						}
-						else if (aw_ini_get("content.doctype") == "html" )
+						else if (aw_ini_get("content.doctype") === "html" )
 						{
 							$txt .= $doc["lead"] . "<br>";
 						}
@@ -606,12 +607,12 @@ class document extends aw_template implements orb_public_interface
 					$txt .= "</b>";
 				}
 
-				if (aw_ini_get("content.doctype") == "xhtml")
+				if (aw_ini_get("content.doctype") === "xhtml")
 				{
 					$txt .= ($this->cfg["doc_lead_break"] && $no_doc_lead_break != 1 ? "<br />" : "")."$doc[content]";
 
 				}
-				else if (aw_ini_get("content.doctype") == "html" )
+				else if (aw_ini_get("content.doctype") === "html" )
 				{
 					$txt .= ($this->cfg["doc_lead_break"] && $no_doc_lead_break != 1 ? "<br>" : "")."$doc[content]";
 				}
@@ -769,11 +770,11 @@ class document extends aw_template implements orb_public_interface
 		}
 		else
 		{
-			if (aw_ini_get("content.doctype") == "xhtml")
+			if (aw_ini_get("content.doctype") === "xhtml")
 			{
 				$doc["content"] = str_replace("\r\n", "<br />",$doc["content"]);
 			}
-			else if (aw_ini_get("content.doctype") == "html")
+			else if (aw_ini_get("content.doctype") === "html")
 			{
 				$doc["content"] = str_replace("\r\n", "<br>",$doc["content"]);
 			}

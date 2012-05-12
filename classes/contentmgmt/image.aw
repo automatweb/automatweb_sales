@@ -896,7 +896,7 @@ class image extends class_base
 			.result_table .dr td{background-color: #E0E0E0;}
 			.result_table a:hover{cursor:pointer; color:#0386C7;}
 		</style>
-		
+
 		<table class="result_table"><tr><th>Id</th><th>Nimi</th><th>Kommentaar</th><th></th><tr>';
 		$count = 0;
 		foreach($ol->arr() as $o)
@@ -2484,7 +2484,7 @@ SVGOBJECT;
 			return "";
 		}
 
-		$that = new image;
+		$that = new image();
 
 		$size = getimagesize(self::_get_fs_path($o->prop("file2")));
 		$bi_show_link = $that->mk_my_orb("show_big", array("id" => $id), "image");

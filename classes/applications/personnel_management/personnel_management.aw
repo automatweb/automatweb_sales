@@ -4838,7 +4838,7 @@ class personnel_management extends class_base
 
 	private function pdf_tpl_options()
 	{
-		$dir = aw_ini_get("tpldir")."/applications/personnel_management/personnel_management_job_offer/";
+		$dir = aw_ini_get("tpldir")."applications/personnel_management/personnel_management_job_offer/";
 		$handle = is_dir($dir) ? opendir($dir) : false;
 		$ret = array();
 		while(false !== $handle && false !== ($file = readdir($handle)))
@@ -4857,7 +4857,7 @@ class personnel_management extends class_base
 	function cv_search_filter($o, $r)
 	{
 		$odl_prms = array(
-			"class_id" => CL_CRM_PERSON
+			"class_id" => CL_CRM_PERSON,
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(

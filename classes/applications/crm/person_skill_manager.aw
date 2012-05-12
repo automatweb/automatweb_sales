@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_PERSON_SKILL_MANAGER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_person_skill_manager master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_person_skill_manager
@@ -13,7 +13,7 @@
 @default group=skills
 
 	@property selected_skill type=hidden store=no
-	@property skills_tb type=toolbar no_caption=1 store=no 
+	@property skills_tb type=toolbar no_caption=1 store=no
 
 	@layout skills_layout type=hbox width=20%:80%
 		@layout skills_tree_l type=vbox parent=skills_layout closeable=1 area_caption=Oskuste&nbsp;puu
@@ -23,7 +23,7 @@
 
 @groupinfo workers caption="T&ouml;&ouml;tajad"
 @default group=workers
-	@property workers_tb type=toolbar no_caption=1 store=no 
+	@property workers_tb type=toolbar no_caption=1 store=no
 
 	@layout workers_layout type=hbox width=20%:80%
 		@layout workers_tree_l type=vbox parent=workers_layout closeable=1 area_caption=T&ouml;&ouml;tajate&nbsp;puu
@@ -64,23 +64,6 @@ class person_skill_manager extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function show($arr)
 	{
 		$ob = new object($arr["id"]);
@@ -98,26 +81,16 @@ class person_skill_manager extends class_base
 			$this->db_query("CREATE TABLE aw_person_skill_manager(aw_oid int primary key)");
 			return true;
 		}
-
-		switch($f)
-		{
-			case "":
-				$this->db_add_col($t, array(
-					"name" => $f,
-					"type" => ""
-				));
-				return true;
-		}
 	}
 
 	function _get_skills_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "new",
 			"img" => "new.gif",
 			"url" => html::get_new_url(CL_PERSON_SKILL, isset($arr["request"]["skill"]) ? $arr["request"]["skill"] : $arr["obj_inst"]->id(), array("return_url" => get_ru())),
-		)); 
+		));
 
 		$tb->add_button(array(
 			"name" => "cut",
@@ -186,7 +159,7 @@ class person_skill_manager extends class_base
 
 	function _get_workers_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$btn = array(
 			"name" => "new",
 			"img" => "new.gif",
@@ -225,7 +198,7 @@ class person_skill_manager extends class_base
 	function _get_skills_tree($arr)
 	{
 		$_SESSION["set_skill"] = empty($arr["request"]["skill"]) ? 0 : $arr["request"]["skill"];
-		$tree = &$arr['prop']['vcl_inst'];
+		$tree = $arr['prop']['vcl_inst'];
 		$skills = $arr["obj_inst"]->get_all_skills();
 
 		$skill = $skills->begin();
@@ -235,7 +208,7 @@ class person_skill_manager extends class_base
 			return;
 		}
 
-		
+
 		$tree =&$arr["prop"]["vcl_inst"];
 		$tree->start_tree(array (
 			"type" => TREE_DHTML,
@@ -246,7 +219,7 @@ class person_skill_manager extends class_base
 			"root_name" => t("Oskused"),
 			"root_url" => "#",
 			"get_branch_func" => $this->mk_my_orb("skills_tree_leaf",array(
-				"clid" => CL_PERSON_HAS_SKILL, 
+				"clid" => CL_PERSON_HAS_SKILL,
 				"group" => $arr["request"]["group"],
 				"oid" => $arr["obj_inst"]->id(),
 				"set_retu" => get_ru(),
@@ -306,16 +279,12 @@ class person_skill_manager extends class_base
 
 		$ol = new object_list(array(
 			"class_id" => CL_PERSON_SKILL,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"parent" => $arr["parent"],
+			"parent" => $arr["parent"]
 		));
 
 		$ol2 = new object_list(array(
 			"class_id" => CL_PERSON_SKILL,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"parent" => $ol->ids(),
+			"parent" => $ol->ids()
 		));
 
 		$parents = array();
@@ -339,8 +308,8 @@ class person_skill_manager extends class_base
 				));
 			}
 		}
-		
-		
+
+
 		$tree->set_selected_item($_SESSION["set_skill"]);
 		die($tree->finalize_tree());
 	}
@@ -375,9 +344,9 @@ class person_skill_manager extends class_base
 				"parent" => " ",
 			)),
 		));
-		
+
 		$sections = $org->get_root_sections();
-		
+
 		foreach($sections->arr() as $section)
 		{
 			if($section->has_sections() || $section->has_workers())
@@ -429,7 +398,7 @@ class person_skill_manager extends class_base
 
 		if ($_SESSION["crm"]["people_view"] == "edit")
 		{
-			
+
 			$tree_inst->set_root_name($arr["obj_inst"]->name());
 			$tree_inst->set_root_icon(icons::get_icon_url(CL_CRM_COMPANY));
 			$tree_inst->set_root_url(aw_url_change_var("cat", NULL, aw_url_change_var("unit", NULL)));
@@ -482,7 +451,7 @@ class person_skill_manager extends class_base
 			"tree_id" => "workers_tree_".$arr["parent"],
 			"var" => "parent",
 		));
-		
+
 		$secs = $p->get_sections();
 		$profs = $p->get_professions();
 		$workers = $p->get_workers_grp_profession();
@@ -564,7 +533,7 @@ class person_skill_manager extends class_base
 			$section = $a[1];
 		}
 		$p = obj($parent);
-		$tree = get_instance("vcl/treeview");
+		$tree = new treeview();
 		$tree->start_tree(array (
 			"type" => TREE_DHTML,
 			"branch" => 1,
@@ -595,7 +564,7 @@ class person_skill_manager extends class_base
 
 	function _get_workers_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 //		$t->define_field(array(
 //			"name" => "name",
 //			"caption" => t("Nimi"),
@@ -664,13 +633,13 @@ class person_skill_manager extends class_base
 					));
 				}
 			}
-			
+
 		}
 	}
 
 	function _get_skills_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -754,12 +723,12 @@ class person_skill_manager extends class_base
 		}
 		$arr["obj_inst"]->set_meta("persontab" , $persontab);
 		$arr["obj_inst"]->save();
-  
+
 		$p = "<script name= javascript>location.href='".$arr["request"]["post_ru"]."';</script>";
 		die($p);
 	}
 
-	
+
 	function _set_workers_tbl($arr)
 	{
 		foreach($arr["request"]["skills"] as $id => $data)
@@ -779,5 +748,3 @@ class person_skill_manager extends class_base
 		die($p);
 	}
 }
-
-?>

@@ -1578,8 +1578,8 @@ class doc extends class_base
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_DOCUMENT
-		));
-		foreach($ol->arr() as $o)
+		));//FIXME: k6ik dokumendid?
+		for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
 			echo "o = ".$o->name()." (".$o->id().") <br>\n";
 			flush();
@@ -1652,7 +1652,7 @@ class doc extends class_base
 	{
 		if ($arr["new"])
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 
 		$key = $this->_get_simultaneous_key($arr["obj_inst"]);
@@ -1663,7 +1663,7 @@ class doc extends class_base
 		$data = aw_unserialize($this->get_cval($key));
 		if (!is_array($data))
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 
 		$mod = false;
@@ -1685,7 +1685,7 @@ class doc extends class_base
 
 		if (!count($data))
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 
 		if (count($data) == 1)

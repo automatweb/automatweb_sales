@@ -551,11 +551,23 @@ function load_config ($files = array(), $cache_file = "")
 					define($cld["def"], $clid);
 					if (isset($cld["file"]))
 					{
+						// class name to class id lookup
 						$bnf = basename($cld["file"]);
 						if (!isset($GLOBALS["cfg"]["class_lut"][$bnf]))
 						{
 							$GLOBALS["cfg"]["class_lut"][$bnf] = $clid;
 						}
+/* TODO: cache class lut ja alias lut
+						// class alias to class id lookup
+						if (!empty($cld["alias"]))
+						{
+							$aliases = explode(",", $cld["alias"]);
+							foreach ($aliases as $alias)
+							{
+								$GLOBALS["cfg"]["alias_lut"][$alias] = $clid;
+							}
+						}
+						*/
 					}
 				}
 			}
