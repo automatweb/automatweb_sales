@@ -31,6 +31,12 @@
 @caption Kestvus p&auml;evades
 @comment &Uuml;le kuuajalise koolituse puhul kestvus kuudes
 
+@property course type=textbox size=2
+@caption Kursus / Klass
+
+@property year type=textbox size=4
+@caption Aastanumber
+
 */
 
 class crm_person_add_education extends class_base
@@ -57,13 +63,14 @@ class crm_person_add_education extends class_base
 			case "time_text":
 			case "length_hrs":
 			case "length":
+			case "course":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "varchar(255)"
 				));
 				$this->do_db_upgrade_insert($f);
 				return true;
-
+			case "year":
 			case "time":
 			case "time_end":
 				$this->db_add_col($t, array(

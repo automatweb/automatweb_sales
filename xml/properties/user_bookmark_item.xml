@@ -1,0 +1,89 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>obj</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <field>obj</field>
+            <caption>Objekt</caption>
+      </property>
+      <property>
+            <name>url</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>url</field>
+            <caption>Lingi tekst</caption>
+      </property>
+      <property>
+            <name>show_group</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>show_group</field>
+            <caption>Default grupp</caption>
+      </property>
+      <property>
+            <name>link_text_type</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>select</type>
+            <field>link_text_type</field>
+            <caption>Lingi teksti valik</caption>
+      </property>
+      <property>
+            <name>link_text</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>link_text</field>
+            <caption>Lingi tekst</caption>
+      </property>
+      <property>
+            <name>show_groups</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>show_groups</field>
+            <caption>Kuva koos omaduste gruppidega</caption>
+      </property>
+      <property>
+            <name>group</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>group</field>
+            <caption>Grupeeri</caption>
+      </property>
+      <property>
+            <name>share</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>share</field>
+            <caption>Jaga</caption>
+      </property>
+      <property>
+            <name>show_apps_menu</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>show_apps_menu</field>
+            <caption>N&amp;amp;auml;ita rakenduste men&amp;amp;uuml;&amp;amp;uuml;s</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_user_bookmark_item>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_user_bookmark_item>
+      </tableinfo>
+</properties>
+

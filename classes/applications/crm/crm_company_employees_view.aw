@@ -518,7 +518,8 @@ class crm_company_employees_view extends class_base
 
 					// enter data
 					$age = "";
-					if($employee->prop("birth_date"))
+
+					if($employee->prop("birth_date") && $employee->prop("birth_date")!= -1)
 					{
 						$age = (int)((time() - $employee->prop("birth_date")) / (3600*24*366));
 					}

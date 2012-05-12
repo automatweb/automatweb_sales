@@ -2,7 +2,7 @@
 // mobi_handler.aw - Mobi SMS haldur
 /*
 
-@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo syslog_type=ST_MOBI_HANDLER relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -99,6 +99,8 @@ class mobi_handler extends class_base
 		));
 		$ol = new object_list(array(
 			"class_id" => CL_SMS,
+			"status" => array(),
+			"lang_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -150,7 +152,7 @@ class mobi_handler extends class_base
 		));
 		return $this->parse();
 	}
-
+	
 	/**
 	@attrib name=presend_sms
 	**/
@@ -176,7 +178,7 @@ class mobi_handler extends class_base
 		return $this->mk_my_orb("change", array("id" => $arr["id"], "group" => "log"), CL_MOBI_HANDLER);
 		//return $arr["post_ru"];
 	}
-
+		
 	/** Sends SMS via Mobi.
 		@attrib name=send_sms api=1 params=name
 
@@ -319,3 +321,5 @@ class mobi_handler extends class_base
 		return $sms_sent;
 	}
 }
+
+?>

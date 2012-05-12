@@ -1,15 +1,11 @@
 <?php
 ob_implicit_flush(true);
-
-if (!defined("AW_DIR"))
-{
-	$basedir = str_replace("\\", "/", realpath("."));
-	include($basedir . "automatweb.aw");
-}
+$basedir = str_replace("\\", "/", realpath("."));
+include($basedir . "/automatweb.aw");
 
 function _file_get_contents($name)
 {
-	$f = fopen($name, "r");
+	$f = @fopen($name, "r");
 	if (!$f)
 	{
 		echo "\nERROR: file $name not found!\n\n";
@@ -22,7 +18,7 @@ function _file_get_contents($name)
 
 function _file_put_contents($name, $fc)
 {
-	$f = fopen($name, "w");
+	$f = @fopen($name, "w");
 	if (!$f)
 	{
 		echo "\nERROR: could not create file $name!\n\n";

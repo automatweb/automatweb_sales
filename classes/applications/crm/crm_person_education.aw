@@ -1,13 +1,13 @@
 <?php
-
-// crm_person_education.aw - Haridus
+// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_person_education.aw,v 1.31 2009/01/16 11:37:28 kristo Exp $
+// crm_person_education.aw - Haridus 
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_PERSON, on_connect_person_to_edu)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disconnect_person_from_edu)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_CRM_PERSON, on_disconnect_edu_from_person)
 
-@classinfo no_name=1 no_comment=1 no_status=1
+@classinfo syslog_type=ST_CRM_PERSON_EDUCATION no_name=1 no_comment=1 no_status=1
 @tableinfo kliendibaas_haridus index=oid master_table=objects master_index=oid
 
 @default table=objects
@@ -58,7 +58,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_CRM_PERSON, on_disconn
 @caption Algus
 
 # format=month,year doesn't work!!!! -kaarel
-# @property end type=date_select field=end year_from=1950
+# @property end type=date_select field=end year_from=1950 
 # Since I only need it for years, I can just use select.
 @property end type=select field=end
 @caption L&otilde;pp
@@ -169,7 +169,7 @@ class crm_person_education extends class_base
 				$prop["options"] = $ops;
 				$prop["onchange"] = "asd = this.name; asd = asd.replace('start', 'end'); if(aw_get_el(asd).value - this.value < 0 && aw_get_el(asd).value != 0){ alert('".t("Algus ei saa olla suurem kui l&otilde;pp!")."'); aw_get_el(asd).value = this.value; }";
 				break;
-
+				
 			case "end":
 				$ops["---"] = "---";
 				for($i = date("Y") + 1; $i >= 1950; $i--)
@@ -246,8 +246,12 @@ class crm_person_education extends class_base
 					"name" => $field,
 					"type" => "int"
 				));
-				$ol = new object_list(array(//FIXME: v6ib palju objekte olla
-					"class_id" => CL_CRM_PERSON_EDUCATION
+				$ol = new object_list(array(
+					"class_id" => CL_CRM_PERSON_EDUCATION,
+					"parent" => array(),
+					"site_id" => array(),
+					"lang_id" => array(),
+					"status" => array(),
 				));
 				foreach($ol->arr() as $o)
 				{
@@ -272,7 +276,11 @@ class crm_person_education extends class_base
 					"type" => "varchar(50)"
 				));
 				$ol = new object_list(array(
-					"class_id" => CL_CRM_PERSON_EDUCATION
+					"class_id" => CL_CRM_PERSON_EDUCATION,
+					"parent" => array(),
+					"site_id" => array(),
+					"lang_id" => array(),
+					"status" => array(),
 				));
 				foreach($ol->arr() as $o)
 				{

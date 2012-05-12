@@ -11,6 +11,7 @@ class person_skill_manager_obj extends _int_object
 			"lang_id" => array(),
 			"site_id" => array(),
 			"class_id" => CL_PERSON_SKILL,
+			"sort_by" => "objects.jrk",
 		);
 		if($parent)
 		{

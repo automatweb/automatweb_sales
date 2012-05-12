@@ -389,10 +389,10 @@ class document extends aw_template implements orb_public_interface
 		// import charset for print
 		if ($this->template_has_var("charset"))
 		{
-			$_ld = languages::fetch($lang_id);
+//			$_ld = languages::fetch($lang_id);
 			$this->vars(array(
-				"charset" => $_ld["charset"]
-			));
+				"charset" => languages::USER_CHARSET,
+			)); 
 		}
 
 		// load localization settings and put them in the template
@@ -1250,6 +1250,21 @@ class document extends aw_template implements orb_public_interface
 			$s_lead_br = $doc["lead"] != "" ? "<br />" : "";
 		}
 
+		if ($doc_o->prop("show_facebook"))
+		{
+			$this->vars(array("FACEBOOK" => $this->parse("FACEBOOK")));
+		}
+
+		if ($doc_o->prop("show_twitter"))
+		{
+	/*		arr($this->vars["docid"]);
+			arr(aw_ini_get("baseurl"));
+			arr(urlencode(aw_ini_get("baseurl").$this->vars["docid"]));*/
+			$this->vars(array("twitter_url" => "http://platform.twitter.com/widgets/tweet_button.1333526973.html#_=1334108136206&amp;count=horizontal&amp;id=twitter-widget-26&amp;lang=en&amp;original_referer=http%3A%2F%2Ftwitter.com%2Fabout%2Fresources%2Fbuttons%23tweet&amp;size=m&amp;text=Twitter%20%2F%20Twitter%20buttons&amp;url=".urlencode(aw_ini_get("baseurl").$this->vars["docid"])));
+			$this->vars(array("TWITTER" => $this->parse("TWITTER")));
+		}
+
+
 		$this->vars_safe(array(
 			"sel_lang_img_url" => $sel_lang_img_url,
 			"doc_modified" => $_date,
@@ -1286,7 +1301,8 @@ class document extends aw_template implements orb_public_interface
 			"tm_only" => $orig_doc_tm,
 			"link_text"	=> $doc["link_text"],
 			// please don't change the format
-			"start1" => date("d.m.Y H:i", $doc["start1"]),
+			"start1" => date("d.m.Y", $doc["start1"]),
+			"start2" => date("d.m.Y H:i", $doc["start1"]),
 			"subtitle"	=> $doc["subtitle"],
 			"RATE"			=> $pts,
 			"FORUM_ADD" => $fr,

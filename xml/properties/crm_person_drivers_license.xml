@@ -5,33 +5,33 @@
             <table>aw_crm_person_drivers_license</table>
             <group>general</group>
             <type>objpicker</type>
-            <clid>CL_CRM_PERSON</clid>
+            <clid>CL_CRM_PERSON</clid>
             <field>person</field>
-            <caption>Isik</caption>
+            <caption>Isik</caption>
       </property>
       <property>
             <name>category</name>
             <table>aw_crm_person_drivers_license</table>
             <group>general</group>
-            <type>textbox</type>
+            <type>textbox</type>
             <field>category</field>
-            <caption>Kategooria</caption>
+            <caption>Kategooria</caption>
       </property>
       <property>
             <name>year</name>
             <table>aw_crm_person_drivers_license</table>
             <group>general</group>
-            <type>textbox</type>
+            <type>textbox</type>
             <field>year</field>
-            <caption>Aasta</caption>
+            <caption>Aasta</caption>
       </property>
       <property>
             <name>experience</name>
             <table>aw_crm_person_drivers_license</table>
             <group>general</group>
-            <type>textbox</type>
+            <type>textbox</type>
             <field>experience</field>
-            <caption>Praktiseeritud kogemust</caption>
+            <caption>Praktiseeritud kogemust</caption>
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>

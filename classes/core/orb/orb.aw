@@ -42,7 +42,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 			$class = "period";
 		}
 
-		$class = preg_replace("/[^A-z_.\-]/", "", $class);// precaution against filesystem access attempts
+		$class = preg_replace("/[^A-z0-9_.\-]/", "", $class);// precaution against filesystem access attempts
 
 		// laeme selle klassi siis
 		$orb_defs = $this->try_load_class($class);
@@ -601,7 +601,7 @@ class orb extends aw_template //TODO: v6iks mitte ekstendida awtpl-i
 	// loads orb definitions for class
 	private function try_load_class($class)
 	{
-		$class = preg_replace("/[^A-z_.\-]/", "", $class);// extra precaution against filesystem access attempts
+		$class = preg_replace("/[^A-z0-9_.\-]/", "", $class);// extra precaution against filesystem access attempts
 
 		if (!is_readable(AW_DIR."xml/orb/{$class}.xml") && !is_readable(aw_ini_get("site_basedir")."xml/orb/{$class}.xml"))
 		{

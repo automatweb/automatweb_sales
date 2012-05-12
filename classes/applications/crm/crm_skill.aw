@@ -2,7 +2,7 @@
 // crm_skill.aw - Skill
 /*
 
-@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo syslog_type=ST_CRM_SKILL relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo kliendibaas_oskus index=oid master_table=objects master_index=oid
 
@@ -95,7 +95,11 @@ class crm_skill extends class_base
 					"type" => "text"
 				));
 				$ol = new object_list(array(
-					"class_id" => CL_CRM_SKILL//FIXME: objekte v6ib palju olla
+					"class_id" => CL_CRM_SKILL,
+					"parent" => array(),
+					"site_id" => array(),
+					"lang_id" => array(),
+					"status" => array(),
 				));
 				foreach($ol->arr() as $o)
 				{
@@ -118,7 +122,11 @@ class crm_skill extends class_base
 					"type" => "int"
 				));
 				$ol = new object_list(array(
-					"class_id" => CL_CRM_SKILL
+					"class_id" => CL_CRM_SKILL,
+					"parent" => array(),
+					"site_id" => array(),
+					"lang_id" => array(),
+					"status" => array(),
 				));
 				foreach($ol->arr() as $o)
 				{
@@ -139,3 +147,5 @@ class crm_skill extends class_base
 		return false;
 	}
 }
+
+?>

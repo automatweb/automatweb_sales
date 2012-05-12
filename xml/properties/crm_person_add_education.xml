@@ -59,6 +59,24 @@
             <caption>Kestvus p&amp;amp;auml;evades</caption>
             <comment>&amp;amp;Uuml;le kuuajalise koolituse puhul kestvus kuudes</comment>
       </property>
+      <property>
+            <name>course</name>
+            <table>aw_crm_person_add_education</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>2</size>
+            <field>course</field>
+            <caption>Kursus / Klass</caption>
+      </property>
+      <property>
+            <name>year</name>
+            <table>aw_crm_person_add_education</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>4</size>
+            <field>year</field>
+            <caption>Aastanumber</caption>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_PERSON_ADD_EDUCATION</syslog_type>
             <no_name>1</no_name>

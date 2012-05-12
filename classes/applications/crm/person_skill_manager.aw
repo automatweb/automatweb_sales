@@ -279,12 +279,27 @@ class person_skill_manager extends class_base
 
 		$ol = new object_list(array(
 			"class_id" => CL_PERSON_SKILL,
+<<<<<<< HEAD
 			"parent" => $arr["parent"]
 		));
 
 		$ol2 = new object_list(array(
 			"class_id" => CL_PERSON_SKILL,
 			"parent" => $ol->ids()
+=======
+			"lang_id" => array(),
+			"site_id" => array(),
+			"parent" => $arr["parent"],
+			"sort_by" => "objects.jrk",
+		)); 
+
+		$ol2 = new object_list(array(
+			"class_id" => CL_PERSON_SKILL,
+			"lang_id" => array(),
+			"site_id" => array(),
+			"parent" => $ol->ids(),
+			"sort_by" => "objects.jrk",
+>>>>>>> 518bee02159b9adfb8299cd5237b05453c5e0a2c
 		));
 
 		$parents = array();
@@ -633,13 +648,42 @@ class person_skill_manager extends class_base
 					));
 				}
 			}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 518bee02159b9adfb8299cd5237b05453c5e0a2c
 		}
+	}
+
+	private function get_req_skills($parent)
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_PERSON_SKILL,	
+			"parent" => $parent,
+		));
+		$arr = $ol->names();
+		foreach($ol->names() as $id => $name)
+		{
+			$arr+= $this->get_req_skills($id);
+		}
+		return $arr;
+	}
+
+	public function get_sub_skills($parent)
+	{
+		$ret = $this->get_req_skills($parent);
+		asort($ret);
+		return $ret;
 	}
 
 	function _get_skills_tbl($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
+		$t->define_field(array(
+			"name" => "ord",
+			"caption" => t("Jrk"),
+			"sortable" => 1,
+		));
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -682,13 +726,16 @@ class person_skill_manager extends class_base
 			$ol = $arr["obj_inst"]->get_all_skills($tf);
 		}
 
-		$opts = array("" , "computer_skills" => "Arvutioskused"  , "device_skills" => "Seadmete juhtimine", "art_skills" => "Kaunid kunstid");
+		$person = new crm_person();
+		$opts =  array("") + $person->organised_skills;
+/*		$opts = array("" , "computer_skills" => "Arvutioskused"  , "device_skills" => "Seadmete juhtimine", "art_skills" => "Kaunid kunstid");*/
 
 		$persontab = $arr["obj_inst"]->meta("persontab");
 		foreach($ol->arr() as $o)
 		{
 			$key = array_search($o->id(), $persontab); // $key = 2;
 			$t->define_data(array(
+				"ord" => html::textbox(array("size" => 3,"name" => "skill[".$o->id()."][jrk]" , "value" => $o->ord())),
 				"name" => html::get_change_url($o->id(),array("returl_url" => get_ru()),$o->name()). html::hidden(array("name" => "skill[".$o->id()."][id]" , "value" => $o->id())),
 				"oid" => $o->id(),
 				"short" => html::textbox(array("name" => "skill[".$o->id()."][short]" , "value" => $o->prop("short_name"))),
@@ -714,6 +761,7 @@ class person_skill_manager extends class_base
 			}
 			$o = obj($id);
 			$o->set_prop("short_name" ,$data["short"]);
+			$o->set_ord($data["jrk"]);
 			$o->set_prop("hrs_per_week_to_keep" ,$data["hours"]);
 			$o->save();
 			if($data["persontab"])

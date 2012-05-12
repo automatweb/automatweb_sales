@@ -49,7 +49,7 @@ class person_has_skill extends class_base
 				$prop["options"] = array(0,1,2,3,4,5,6,7,8,9);
 			break;
 			case "skill":
-				if($arr["request"]["skill"])
+				if(!empty($arr["request"]["skill"]))
 				{
 					$prop["value"] = $arr["request"]["skill"];
 				}

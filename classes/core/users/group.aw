@@ -902,6 +902,8 @@ v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &
 				// I can't see why we need two membership objects with EXACTLY the same attributes.
 				$ol_args = array(
 					"class_id" => CL_GROUP_MEMBERSHIP,
+					"status" => array(),	// If it's inactive, we'll activate it! ;)
+					"parent" => array(),	// The parent doesn't make a difference here.
 					"gms_user" => $user->id(),
 					"gms_group" => $group->id(),
 				);

@@ -1800,7 +1800,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			{
 				continue;
 			}
-			elseif ("status" === (string)($key) and null !== $val)
+			elseif ("status" === (string)($key))
 			{
 				$this->stat = true;
 			}

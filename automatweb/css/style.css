@@ -29,8 +29,8 @@ a img { border: 0; }
 #pais
 {
 	background: #e2e2e2 url('/automatweb/images/aw06/pais_t.gif') repeat-x;
-	/*min-width: 550px;*/
-	height: 82px;
+	min-width: 550px;
+	height: 90px;
 	border-bottom: 1px solid #f1f8fc
 }
 
@@ -109,7 +109,7 @@ a img { border: 0; }
 	float: left;
 	color: #000;
 	border-left: 1px solid #fff;
-	padding: 5px 8px 0 10px;
+	padding: 5px 8px 0 6px;
 	margin-right: 0px;
 	height: 100%;
 	white-space: nowrap;
@@ -118,6 +118,12 @@ a img { border: 0; }
 #pais .top-right-menyy a
 {
 	color: #000;
+}
+
+#pais .top-right-menyy a img
+{
+	position:relative;
+	left: -3px;
 }
 
 #pais .top-right-menyy a.akt
@@ -161,7 +167,7 @@ a img { border: 0; }
 #pais .tabs {
 	float: left;
 	padding-left: 30px;
-	top: 64px;
+	top: 72px;
 	position: absolute;
 }
 #pais .tabs .norm, #pais .tabs .akt {
@@ -210,7 +216,7 @@ a img { border: 0; }
 	float: left;
 	height: 55px;
 	margin-left:247px;
-	margin-top:27px;
+	margin-top:28px;
 	z-index: 2;
 /*	position: relative;*/
 
@@ -222,13 +228,16 @@ a img { border: 0; }
 	height:14px;
 	line-height:14px;
 }
+
 #pais .application_links a
 {
-	padding: 2px 10px 3px 20px;
+	padding: 2px 10px 3px 25px;
 }
-#pais .application_links img
+
+#pais .application_links .icon img
 {
-	margin-left: -1px;
+	margin-left: -21px;
+	margin-top:1px;
 	height:14px;
 	position: absolute;
 }
@@ -252,9 +261,20 @@ a img { border: 0; }
 	font-size: 11px;
 	padding: 2px 10px 3px 25px;
 	margin-right:5px;
-	margin-top: 25px;
+	margin-top: 26px;
 	border: 1px solid #fff
 }
+#href_current_person span
+{
+	padding:5px;
+}
+
+#pais #href_current_person span img
+{
+	position:relative;
+	left:1px;
+}
+
 #pais .toiming a.menuButton {
 	float: left;
 	color: #000;
@@ -264,6 +284,24 @@ a img { border: 0; }
 	margin-top: 25px;
 	border: 1px solid #fff
 }
+
+#pais .application_links a.menuButton {
+	color: #000;
+	font-size: 11px;
+	margin-right:5px;
+	border: 1px solid #fff
+}
+#pais .application_links .menuBar a.menuButton {
+	color: #000;
+	font-size: 11px;
+	border: 1px solid #fff;
+}
+
+#pais .application_links  a:hover {
+	border: 1px solid #05a6e9;
+	text-decoration: none
+}
+
 
 #pais .toiming .menuBar a.menuButton {
 	float: left;

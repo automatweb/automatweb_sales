@@ -952,45 +952,11 @@ class htmlclient extends aw_template
 			$bm_h = new popup_menu();
 			$bm_h->begin_menu("history_pop");
 
-			$application_links = "";
 			$bookmark_inst = new user_bookmarks();
-			$bmobj = $bookmark_inst->init_bm();
-			$apps = safe_array($bmobj->meta("apps"));
 
-			foreach($apps as $key => $app)
-			{
-				$ico = html::img(array(
-					"url" => icons::get_icon_url((empty($key) ? 123 : $key),empty($app["name"]) ? "" :$app["name"]),
-				));
-				if(is_array($app) && sizeof($app) > 1)
-				{
-					$am = new popup_menu();
-					$am->begin_menu("user_applications_".$key);
-					foreach($app as $k => $v)
-					{
-						$am->add_item(array(
-							"text" => empty($v["name"]) ? $k : $v["name"],
-							"link" => $v["url"]
-						));
-					}
-					$application_links.= '
-						'.$ico.' '.$am->get_menu(
-						array("text" => empty($GLOBALS["cfg"]["classes"][$key]["plural"]) ? $GLOBALS["cfg"]["classes"][$key]["name"] : $GLOBALS["cfg"]["classes"][$key]["plural"])).'
-					';
-				}
-				elseif(is_array($app) && sizeof($app) == 1)
-				{
-					$a = reset($app);
-					if(!is_array($a)) continue;
-					$application_links.= $ico.'
-						<span style="height:15px;text-align: center; background-color: transparent; " id="menuBar">
-							<a id="href_user_applications_1134" title="" alt=""  href="'.$a["url"].'" class="menuButton">
-								<span>'.(empty($a["name"]) ? $key : $a["name"]).'</span>
-								</a>
-						</span>
-					';
-				}
-			}
+			$application_links = $bookmark_inst->get_application_links();
+
+			$bmobj = $bookmark_inst->init_bm();
 
 			$tp->vars_safe(array(
 				"warn" => isset($this->config["warn"]) ? $this->config["warn"] : null,
@@ -1016,19 +982,19 @@ class htmlclient extends aw_template
 				"feedback_m_text" => t("Kasutajatugi"),
 				"help_text" => t("Abi"),
 				"search_text" => t("Otsi"),
-				"bm_pop" => acl_base::prog_acl("view", "can_bm") ? $bm->get_menu(array(
+/*				"bm_pop" => acl_base::prog_acl("view", "can_bm") ? $bm->get_menu(array(
 					"load_on_demand_url" => $this->mk_my_orb("pm_lod", array("url" => get_ru()), "user_bookmarks"),
 					"text" => '<img src="/automatweb/images/aw06/ikoon_jarjehoidja.gif" alt="" width="16" height="14" border="0" class="ikoon" />'.t("J&auml;rjehoidja")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
-				)) : "",
+				)) : "",*/
 				"application_links" => $application_links,
-				"history_pop" => acl_base::prog_acl("view", "can_history") ? $bm_h->get_menu(array(
+/*				"history_pop" => acl_base::prog_acl("view", "can_history") ? $bm_h->get_menu(array(
 					"load_on_demand_url" => $this->mk_my_orb("hist_lod", array("url" => get_ru()), "user"),
 					"text" => '<img src="/automatweb/images/aw06/ikoon_ajalugu.gif" alt="" width="13" height="13" border="0" class="ikoon" />'.t("Ajalugu")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
-				)) : "",
-				"qa_pop" => acl_base::prog_acl("view", "can_quick_add") ? $bmq->get_menu(array(
+				)) : "",*/
+/*				"qa_pop" => acl_base::prog_acl("view", "can_quick_add") ? $bmq->get_menu(array(
 					"load_on_demand_url" => $this->mk_my_orb("qa_lod", array("url" => get_ru()), "obj_quick_add"),
 					"text" => '<img alt="" title="" border="0" src="'.aw_ini_get("baseurl").'automatweb/images/aw06/ikoon_lisa.gif" id="mb_user_qa" border="0" class="ikoon" />'.t("Lisa kiiresti")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" /></a>'
-				)) : "",
+				)) : "",*/
 				"settings_pop" => $bmb->get_menu(array("load_on_demand_url" => $this->mk_my_orb("settings_lod", array("url" => get_ru()), "user"))),
 				"srch_link" => $this->mk_my_orb("redir_search", array("url" => $this->my_get_ru("aw_object_search_if")), "aw_object_search_if")
 			));
