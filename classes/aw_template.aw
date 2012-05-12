@@ -19,18 +19,19 @@ class aw_template extends core
 	public $sub_merge;
 	public $template_filename;
 	public $v2_name_map;
+	public $v2_templates;
 
-	private $debug_mode;
 	protected $templates = array();
+	protected $tpldir = "";
 
 	/** whether to use eval() or preg_replace to render templates **/
 	private $use_eval = false;
-	public $v2_templates;
 	private $v2_arr;
 	private $v2_parent_map;
 	private $c_templates;
 
 	private static $loaded_template_files = array();
+	private $debug_mode;
 
 	/** The derived class should always call this with the template folder as an argument
 		@attrib api=1 params=name
@@ -51,17 +52,16 @@ class aw_template extends core
 	function init($args = array())
 	{
 		parent::init($args);
-		if (is_array($args))
+
+		if (is_array($args) and method_exists($this, "tpl_init"))
 		{
-			if (method_exists($this, "tpl_init"))
-			{
-				$this->tpl_init(isset($args["tpldir"]) ? $args["tpldir"]."/" :  "");
-			}
+			$this->tpl_init(isset($args["tpldir"]) ? $args["tpldir"]."/" :  "");
 		}
 		else
 		{
 			$this->tpl_init($args);
 		}
+
 		$this->debug_mode = aw_ini_get("debug_mode");
 	}
 
@@ -70,6 +70,11 @@ class aw_template extends core
 		if (!isset($this->cfg) || !is_array($this->cfg))
 		{
 			aw_config_init_class($this);
+		}
+
+		if (!$has_top_level_folder)
+		{
+			$this->tpldir = $basedir;
 		}
 
 		if ($basedir and substr($basedir, 0, -1) !== "/")
@@ -127,7 +132,7 @@ class aw_template extends core
 			{
 				foreach(obj($sect)->path() as $path_item)
 				{
-					if ($path_item->prop("tpl_dir_applies_to_all") && $path_item->prop("tpl_dir"))
+					if ($path_item->is_a(CL_MENU) && $path_item->prop("tpl_dir_applies_to_all") && $path_item->prop("tpl_dir"))
 					{
 						$dir = aw_ini_get("site_basedir").$path_item->prop("tpl_dir")."/";
 					}

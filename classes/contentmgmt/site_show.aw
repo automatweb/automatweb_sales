@@ -271,16 +271,16 @@ class site_show extends aw_template
 				}
 				elseif ($key === "tpl_view")
 				{
-					if ($i == 0 || !$obj->prop("tpl_view_no_inherit"))
+					if ($i == 0 || !$obj->is_property("tpl_view_no_inherit") || !$obj->prop("tpl_view_no_inherit"))
 					{
-						$this->properties[ "tpl_view"] = $obj->prop( "tpl_view");
+						$this->properties[ "tpl_view"] = $obj->is_property( "tpl_view") ? $obj->prop( "tpl_view") : "";
 					}
 				}
 				elseif ($key === "tpl_lead")
 				{
-					if ($i == 0 || !$obj->prop("tpl_lead_no_inherit"))
+					if ($i == 0 || !$obj->is_property("tpl_lead_no_inherit") || !$obj->prop("tpl_lead_no_inherit"))
 					{
-						$this->properties["tpl_lead"] = $obj->prop("tpl_lead");
+						$this->properties["tpl_lead"] = $obj->is_property("tpl_lead") ? $obj->prop("tpl_lead") : "";
 					}
 				}
 				elseif ($key === "tpl_dir")
@@ -298,7 +298,7 @@ class site_show extends aw_template
 				{
 					// check whether this object has any properties that
 					// none of the previous ones had
-					if (empty($this->properties[$key]) && ($obj->class_id() == menu_obj::CLID || $key == "users_only") && $obj->prop($key))
+					if (empty($this->properties[$key]) && $obj->class_id() == menu_obj::CLID && $obj->prop($key))
 					{
 						$this->properties[$key] = $obj->prop($key);
 					}
@@ -717,13 +717,19 @@ class site_show extends aw_template
 		$no_in_promo = false;
 
 		$ndocs = $obj->prop("ndocs");
-		$start_ndocs = $obj->prop("start_ndocs");
-
-		if ($obj->class_id() == CL_PROMO && $obj->prop("separate_pages"))
+		if ($obj->class_id() == CL_PROMO)
 		{
-			$cur_page = (int)$_GET["promo_".$obj->id()."_page"];
-			$ndocs = ($cur_page+1) * $obj->prop("docs_per_page");
-			$start_ndocs = $cur_page * $obj->prop("docs_per_page");
+			$start_ndocs = $obj->prop("start_ndocs");
+			if ($obj->prop("separate_pages"))
+			{
+				$cur_page = (int)$_GET["promo_".$obj->id()."_page"];
+				$ndocs = ($cur_page+1) * $obj->prop("docs_per_page");
+				$start_ndocs = $cur_page * $obj->prop("docs_per_page");
+			}
+		}
+		else
+		{
+			$start_ndocs = 0;
 		}
 
 		$filt_lang_id = AW_REQUEST_CT_LANG_ID;
@@ -1056,7 +1062,7 @@ class site_show extends aw_template
 			$filter["sort_by"] = $ordby;
 
 			// if target audience is to be used, then limid docs by that
-			if ($obj->prop("use_target_audience") == 1)
+			if ($obj->is_a(menu_obj::CLID) and $obj->prop("use_target_audience") == 1)
 			{
 				// get all current target audiences
 				$ta_list = new object_list(array(
@@ -1074,7 +1080,7 @@ class site_show extends aw_template
 				$filter["no_show_in_promo"] = new obj_predicate_not(1);
 			}
 
-			if ($obj->prop("auto_period") == 1)
+			if ($obj->is_a(CL_PROMO) and $obj->prop("auto_period") == 1)
 			{
 				$filter["period"] = aw_global_get("act_per_id");
 			}
@@ -1838,7 +1844,7 @@ class site_show extends aw_template
 				$link = $this->make_menu_link($ref);
 			}
 
-			if ($ref->prop("link") != "")
+			if ($ref->is_a(menu_obj::CLID) and $ref->prop("link"))
 			{
 				$link = $ref->prop("link");
 			}
@@ -1862,19 +1868,20 @@ class site_show extends aw_template
 				}
 			}
 
-			if (is_oid($ref->prop("submenus_from_obj")) && acl_base::can("view", $ref->prop("submenus_from_obj")))
+			if ($ref->is_a(menu_obj::CLID) && acl_base::can("view", $ref->prop("submenus_from_obj")))
 			{
 				$sfo = $ref->prop("submenus_from_obj");
 			}
 
 			// now. if the object in the path is marked to use site tree as
 			// the displayer, then get the link from that
-			if ($ref->prop("show_object_tree"))
+			if ($ref->is_a(menu_obj::CLID) && $ref->prop("show_object_tree"))
 			{
 				$show_obj_tree = true;
 				$ot_inst = get_instance(CL_OBJECT_TREE);
 				$ot_id = $ref->prop("show_object_tree");
 			}
+
 			$this->vars(array(
 				"link" => $link,
 				"text" => str_replace("&nbsp;"," ",strip_tags($ref->trans_get_val("name"))),
@@ -1884,7 +1891,7 @@ class site_show extends aw_template
 			));
 
 			$show_always = false;
-			if ((($ref->class_id() == menu_obj::CLID && $ref->prop("clickable") == 1) || $ref->class_id() == CL_DOCUMENT || $ref->class_id() == CL_CRM_SECTOR) && $show && $ref->class_id() != CL_DOCUMENT)
+			if ((($ref->is_a(menu_obj::CLID) && $ref->prop("clickable") == 1) || $ref->class_id() == CL_DOCUMENT || $ref->class_id() == CL_CRM_SECTOR) && $show && $ref->class_id() != CL_DOCUMENT)
 			{
 				if ($this->is_template("YAH_LINK_BEGIN") && $ya == "")
 				{
@@ -2504,7 +2511,7 @@ class site_show extends aw_template
 			"current_period" => aw_global_get("current_period"),
 			"cur_section" => $this->section,
 			"section_name" => $this->section_obj->name(),
-			"meta_description" => $this->section_obj->trans_get_val("description"),
+			"meta_description" => $this->section_obj->is_property("description") ? $this->section_obj->trans_get_val("description") : "",
 			"meta_keywords" => $this->properties["keywords"], //$this->section_obj->trans_get_val("keywords"), // hell i know if this is the right solution !?!
 			"trans_lc" => aw_global_get("ct_lang_lc"),
 			"site_loginmenu" => $site_loginmenu,
@@ -2758,7 +2765,7 @@ class site_show extends aw_template
 	{
 		$this->skip = false;
 		$link = "";
-		$link_str = $o->trans_get_val("link");
+		$link_str = $o->is_property("link") ? $o->trans_get_val("link") : "";
 		if (acl_base::can("view", $o->meta("linked_obj")) && $o->meta("linked_obj") != $o->id())
 		{
 			$linked_obj = obj($o->meta("linked_obj"));
@@ -2773,7 +2780,7 @@ class site_show extends aw_template
 			}
 		}
 
-		if ($o->prop("type") == MN_PMETHOD)
+		if ($o->is_a(menu_obj::CLID) and $o->prop("type") == MN_PMETHOD)
 		{
 			// I should retrieve orb definitions for the requested class
 			// to figure out which arguments it needs and then provide
@@ -2977,14 +2984,13 @@ class site_show extends aw_template
 			}
 		}
 
-		$sdct = $o->prop("set_doc_content_type");
-		if (acl_base::can("view", $sdct))
+		if ($o->is_property("set_doc_content_type") and acl_base::can("view", $o->prop("set_doc_content_type")))
 		{
 			$so = new object(menu_obj::get_active_section_id());
 			$su = ($so->is_frontpage() || $so->class_id() == CL_DOCUMENT  ? $link : aw_global_get("REQUEST_URI"));
 			$su = aw_url_change_var("clear_doc_content_type", null, $su);
 			$su = aw_url_change_var("docid", null, $su);
-			$link = aw_url_change_var("set_doc_content_type", $sdct, $su);
+			$link = aw_url_change_var("set_doc_content_type", $o->prop("set_doc_content_type"), $su);
 		}
 
 		return $link;
@@ -3111,16 +3117,18 @@ class site_show extends aw_template
 			}
 		}
 
-		$content_from_obj = $this->section_obj->prop("get_content_from");
-		if (is_oid($content_from_obj) && acl_base::can("view", $content_from_obj))
+		if ($this->section_obj->is_property("get_content_from"))
 		{
-			$content_obj = obj($content_from_obj);
-			$content_obj_inst = $content_obj->instance();
-			if (method_exists($content_obj_inst, "request_execute"))
+			$content_from_obj = $this->section_obj->prop("get_content_from");
+			if (acl_base::can("view", $content_from_obj))
 			{
-				$arr["text"] = $content_obj_inst->request_execute($content_obj);
+				$content_obj = obj($content_from_obj);
+				$content_obj_inst = $content_obj->instance();
+				if (method_exists($content_obj_inst, "request_execute"))
+				{
+					$arr["text"] = $content_obj_inst->request_execute($content_obj);
+				}
 			}
-
 		}
 
 		// until we can have class-static variables, this actually SETS current text content
@@ -3212,6 +3220,7 @@ class site_show extends aw_template
 			{
 				continue;
 			}
+
 			foreach(explode(",", $_name) as $name)
 			{
 				$tmp = array();
@@ -3220,7 +3229,8 @@ class site_show extends aw_template
 				{
 					continue;
 				}
-				$o = obj($id);if(aw_global_get("uid") == "markop") arr($o);
+
+				$o = obj($id);
 				foreach($o->connections_to(array("type" => 5, "to.lang_id" => AW_REQUEST_CT_LANG_ID)) as $c)
 				{
 					$samenu = $c->from();

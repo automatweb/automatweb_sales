@@ -760,6 +760,7 @@ class class_base extends aw_template implements orb_public_interface
 		// to beg rid of all that shit
 		$this->inst->relinfo = $this->relinfo;
 		$panel = array(
+			"store" => "class_base",
 			"name" => "tabpanel",
 			"type" => "tabpanel",
 			"caption"=> t("tab panel"),
@@ -1462,23 +1463,6 @@ class class_base extends aw_template implements orb_public_interface
 				{
 					$i = get_instance(CL_CFGCONTROLLER);
 					$retval = $i->check_property($cfgform_o->prop("cfgview_ru_cntrl"), $this->id, null, $request, $retval, obj($this->id));
-				}
-
-				// call mod retval controller(s) from cfgform object if defined
-				$cfg_cntrl = (array) $cfgform_o->prop("mod_retval_controllers");
-
-				if (count($cfg_cntrl))
-				{
-					$controller_inst = get_instance(CL_CFGCONTROLLER);
-
-					foreach ($cfg_cntrl as $cfg_cntrl_id)
-					{
-						if (is_oid($cfg_cntrl_id))
-						{
-							$tmp = null;
-							$retval = $controller_inst->check_property($cfg_cntrl_id, $this->id, $tmp, $args, $request, $tmp);
-						}
-					}
 				}
 			}
 			// Remove drafts by the current user on save.
@@ -2828,7 +2812,7 @@ class class_base extends aw_template implements orb_public_interface
 			{
 			}*/
 		}
-		else
+		elseif (empty($property["store"]) or "class_base" !== $property["store"])
 		{
 			// get property value from storage object
 			try
@@ -2839,7 +2823,10 @@ class class_base extends aw_template implements orb_public_interface
 			{
 				$property_value_from_store = null;
 				$property["error"] = t("Viga v&auml;&auml;rtuse lugemisel");
-				trigger_error("Caught exception " . get_class($e) . " while reading property '{$nm}' from datasource '" . $ds_obj->id() . "'. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
+				trigger_error(sprintf(
+					"Caught exception %s while reading property '%s' from datasource '%s'. Thrown in class '%s' file '%s' on line %s: %s",
+					get_class($e), $nm, $ds_obj->id(), get_class($this), $e->getFile(), $e->getLine(), $e->getMessage()
+				), E_USER_WARNING);
 			}
 		}
 
@@ -4417,10 +4404,10 @@ class class_base extends aw_template implements orb_public_interface
 		}
 
 		// translation. if the object is is_translated or needs_translation, it gets the has_translation flag
-		if ($this->obj_inst->flag(OBJ_NEEDS_TRANSLATION) || $this->obj_inst->flag(OBJ_IS_TRANSLATED) || $this->obj_inst->prop("needs_translation") || $this->obj_inst->prop("is_translated"))
-		{
+		if ($this->obj_inst->flag(OBJ_NEEDS_TRANSLATION) || $this->obj_inst->flag(OBJ_IS_TRANSLATED) || $this->obj_inst->is_property("needs_translation") && $this->obj_inst->prop("needs_translation") || $this->obj_inst->is_property("is_translated") && $this->obj_inst->prop("is_translated"))
+		{//TODO:Luua kord siin
 			$this->obj_inst->set_flag(OBJ_HAS_TRANSLATION, true);
-		}
+		} //TODO:Luua kord siin
 
 		// gee, I wonder how many pre_save handlers do I have to fix to get this thing working
 		// properly
@@ -4895,8 +4882,8 @@ class class_base extends aw_template implements orb_public_interface
 		$cfg_props["relationmgr"] =Array(
 			"name" => "relationmgr",
 			"type" => "relationmgr",
+			"store" => "class_base",
 			"caption" => t("Seostehaldur"),
-			"store" => "no",
 			"group" => "relationmgr"
 		);
 		$this->_cfg_props = $cfg_props;
@@ -5372,7 +5359,7 @@ class class_base extends aw_template implements orb_public_interface
 			"name" => "relationmgr",
 			"type" => "relationmgr",
 			"caption" => t("Seostehaldur"),
-			"store" => "no",
+			"store" => "class_base",
 			"group" => "relationmgr"
 		);
 
@@ -5742,7 +5729,7 @@ class class_base extends aw_template implements orb_public_interface
 		$ppl = $pl;
 		if (object_loader::can("view", $cfgform_id))
 		{
-			$cf = get_instance(CL_CFGFORM);
+			$cf = new cfgform();
 			$pl = $cf->get_props_from_cfgform(array("id" => $cfgform_id));
 			$ppl = $cf->get_cfg_proplist($cfgform_id);
 			// also, get group list and then throw out all the props that are not in visible groups
@@ -5750,7 +5737,7 @@ class class_base extends aw_template implements orb_public_interface
 
 			foreach($pl as $k => $v)
 			{
-				if ($gps[$ppl[$k]["group"]]["grphide"] == 1)
+				if (!empty($gps[$ppl[$k]["group"]]["grphide"]))
 				{
 					unset($pl[$k]);
 				}
@@ -5797,6 +5784,7 @@ class class_base extends aw_template implements orb_public_interface
 		));
 		$ret["__aw_translations_toolbar"] = array(
 			"name" => "__aw_translations_toolbar",
+			"store" => "class_base",
 			"type" => "text",
 			"value" => $toolbar->get_toolbar(),
 			"no_caption" => "1"
@@ -5835,6 +5823,7 @@ class class_base extends aw_template implements orb_public_interface
 			$ret[$nm]["name"] = $nm;
 			$ret[$nm]["no_caption"] = "1";
 			$ret[$nm]["type"] = "text";
+			$ret[$nm]["store"] = "class_base";
 			$ret[$nm]["value"] = $original_value;
 			$ret[$nm]["ord"] = ++$so;
 			$ret[$nm]["group"] = $this->use_group;
@@ -5845,6 +5834,7 @@ class class_base extends aw_template implements orb_public_interface
 			$ret[$nm] = $ppl[$p];
 			$ret[$nm]["no_caption"] = "1";
 			$ret[$nm]["name"] = $nm;
+			$ret[$nm]["store"] = "class_base";
 			$ret[$nm]["value"] = $o->trans_get_val($p, $this->translation_lang_id, true);
 			$ret[$nm]["ord"] = ++$so;
 			$ret[$nm]["group"] = $this->use_group;
@@ -5853,6 +5843,7 @@ class class_base extends aw_template implements orb_public_interface
 
 		$ret["spacer"] = array(
 			"name" => "spacer",
+			"store" => "class_base",
 			"value" =>  html::space(),
 			"no_caption" => "1",
 			"type" => "text",
@@ -5863,6 +5854,7 @@ class class_base extends aw_template implements orb_public_interface
 		$ret[$nm] = array(
 			"name" => $nm,
 			"caption" => t("T&otilde;lge aktiivne"),
+			"store" => "class_base",
 			"type" => "checkbox",
 			"ch_value" => 1,
 			"value" => $o->meta("trans_{$this->translation_lang_id}_status"),
@@ -5872,6 +5864,7 @@ class class_base extends aw_template implements orb_public_interface
 		$nm = $this->translation_lang_var_name;
 		$ret[$nm] = array(
 			"name" => $nm,
+			"store" => "class_base",
 			"type" => "hidden",
 			"value" => $this->translation_lang_id
 		);

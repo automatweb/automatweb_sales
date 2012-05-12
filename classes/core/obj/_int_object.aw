@@ -15,6 +15,7 @@ class _int_object
 
 	var $obj = array(
 		"oid" => 0,
+		"id" => 0,
 		"brother_of" => 0,
 		"properties" => array(),
 		"class_id" => 0,
@@ -50,6 +51,7 @@ class _int_object
 	public function __construct(array $objdata = array())
 	{
 		$this->obj = $objdata + $this->obj;
+		$this->obj["id"] = &$this->obj["oid"];
 
 		if (isset($objdata["__obj_load_parameter"]))
 		{
@@ -1067,7 +1069,7 @@ class _int_object
 			foreach($bits as $idx => $part)
 			{
 				$is_rel = false;
-				if (substr($part, 0, strlen("RELTYPE")) === "RELTYPE")
+				if (substr($part, 0, 8) === "RELTYPE_")
 				{
 					$is_rel = true;
 					$prop_dat = array();
@@ -1359,7 +1361,10 @@ class _int_object
 	public function properties()
 	{
 		// make sure props are loaded
-		$this->_int_get_prop(NULL);
+		if (!$this->props_loaded)
+		{
+			$this->_int_load_property_values();
+		}
 
 		$ret = $this->obj["properties"];
 		$ret["createdby"] = $this->createdby();
@@ -2593,6 +2598,7 @@ class _int_object
 			}
 			$this->_int_load_property_values();
 		}
+
 		$cur_v = null;
 		// if this is a complex thingie, then loopdaloop
 		if (strpos($prop, ".") !== false || preg_match("/RELTYPE_(.*)\(CL_(.*)\)/", $prop, $mt))
@@ -2677,51 +2683,28 @@ class _int_object
 			$pd = $GLOBALS["properties"][$this->obj["class_id"]][$prop];
 		}
 
-		if ($pd && $pd["field"] === "meta" && $pd["table"] === "objects" && isset($this->obj["meta"][$pd["name"]]))
+		if ($pd && $pd["field"] === "meta" && $pd["table"] === "objects")
 		{
-			$this->_scan_warning_possibility($this->obj["meta"][$pd["name"]], $pd);
-			return isset($this->obj["meta"][$pd["name"]]) ? $this->obj["meta"][$pd["name"]] : null;
+			$property_value = isset($this->obj["meta"][$pd["name"]]) ? $this->obj["meta"][$pd["name"]] : null;
+		}
+		elseif (isset($this->obj["properties"][$prop]))
+		{
+			$property_value = $this->obj["properties"][$prop];
+		}
+		elseif (isset($this->obj[$prop]))
+		{
+			$property_value = $this->obj[$prop];
+		}
+		elseif ($pd)
+		{ // ui components etc. (toolbar, table and such types properties)
+			$property_value = null;
+		}
+		else
+		{
+			throw new awex_obj_prop(sprintf("Invalid property name '%s' for object '%s' of class '%s'", $prop, $this->id(), basename(aw_ini_get("classes.".$this->class_id().".file"))));
 		}
 
-		if (isset($this->obj["properties"][$prop]))
-		{
-			$this->_scan_warning_possibility($this->obj["properties"][$prop], $pd);
-		}
-
-		return isset($this->obj["properties"][$prop]) ? $this->obj["properties"][$prop] : null;
-	}
-
-	protected function _scan_warning_possibility($value, $prop = false)
-	{
-		if(!$prop || !is_array($prop) || !$prop["type"])
-		{
-			return false;
-		}
-		$_1 = array("checkbox", "chooser");
-		$_2 = array("date_select", "time_select");
-		$level_0 = array("checkbox", "text", "releditor", "status", "href", "hidden", "callback");
-
-		if(in_array($prop["type"], $_1) || in_array($prop["type"], $level_0) || $prop["store"] === "no")
-		{
-			return false;
-		}
-
-		if(in_array($prop["type"], $_2) && $value != -1)
-		{
-			return false;
-		}
-
-		if(!empty($value) || is_string($value) && strlen($value))
-		{
-			return false;
-		}
-
-		if(empty($prop["warning"]))
-		{
-			$prop["warning"] = ($prop["type"] === "relpicker") ? 2 : 1;
-		}
-
-		return false;
+		return $property_value;
 	}
 
 	protected function _int_load_property_values()
