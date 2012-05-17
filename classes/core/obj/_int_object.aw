@@ -1389,10 +1389,14 @@ class _int_object
 
 	function fetch()
 	{
+		if (!$this->props_loaded)
+		{
+			$this->_int_load_property_values();
+		}
+
 		// returns something which resembles the return value of get_object
 		// this approach might suck, but it's a awfully big task to convert
 		// _everything_ and I'm running out of time
-		$this->_int_get_prop(NULL);
 		$retval = array();
 		if (is_array($this->obj["properties"]))
 		{
