@@ -843,6 +843,7 @@ class toolbar extends aw_template
 	**/
 	public function add_search_button($arr)
 	{
+		$arr["in_popup"] = 1;
 		$url = $this->mk_my_orb("do_search", $arr, "popup_search");
 		$s = !empty($arr['tooltip']) ? $arr['tooltip'] : t("Otsi");
 		$this->add_button(array(

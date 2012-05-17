@@ -78,7 +78,7 @@ class shop_product_category extends class_base
 		$this->trans_props = array("name", "desc");
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["add_folder"] = 0;
 	}

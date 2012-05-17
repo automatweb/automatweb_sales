@@ -123,9 +123,7 @@ class shop_packet_obj extends shop_warehouse_item_obj
 	private function get_warehouse_settings()
 	{
 		$ol = new object_list(array(
-			"site_id" => array(),
-			"lang_id" => array(),
-			"class_id" => CL_SHOP_WAREHOUSE_CONFIG,
+			"class_id" => CL_SHOP_WAREHOUSE_CONFIG
 		));
 		return $ol->begin();
 	}
@@ -140,12 +138,9 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		$cat = $this->get_first_obj_by_reltype("RELTYPE_CATEGORY");
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PACKET,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"CL_SHOP_PACKET.RELTYPE_CATEGORY" => $cat->id(),
 			"oid" => new obj_predicate_not($this->id()),
-			"status" => 2,
-//			"limit" => 3,
+			"status" => object::STAT_ACTIVE
 		));
 		$ol2 = new object_list();
 		$array = $ol->names();
@@ -161,8 +156,6 @@ class shop_packet_obj extends shop_warehouse_item_obj
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"CL_SHOP_PRODUCT.RELTYPE_PRODUCT(CL_SHOP_PACKET)" => $this->id()
 		));
 		return $ol;
@@ -170,16 +163,13 @@ class shop_packet_obj extends shop_warehouse_item_obj
 
 	public function get_first_category_id()
 	{
-		foreach($this->connections_from(array(
-			"type" => "RELTYPE_CATEGORY",
-
-		)) as $c)
+		foreach($this->connections_from(array("type" => "RELTYPE_CATEGORY")) as $c)
 		{
 			return $c->prop("to");
 		}
 		return null;
 	}
-	
+
 	public function get_categories()
 	{
 /*		$ol = new object_list();
@@ -193,20 +183,16 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		*/
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY(CL_SHOP_PACKET)" => $this->id(),
 		));
 		return $ol;
 	}
-	
+
 	public static function get_categories_for_id($id)
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
-			"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY(CL_SHOP_PACKET)" => $id,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY(CL_SHOP_PACKET)" => $id
 		));
 		return $ol;
 	}
@@ -355,7 +341,7 @@ class shop_packet_obj extends shop_warehouse_item_obj
 					$this->image_object = $c->to();
 					return;
 				}
-			}		
+			}
 			return "";
 		}
 	}
@@ -387,7 +373,7 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		}
 		return $ret;
 	}
-	
+
 	private function get_big_image_urls()
 	{
 		$ret = array();
@@ -421,7 +407,7 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		if(!empty($this->image_object) && is_object($this->image_object))
 		{
 			return $this->image_object->get_url();
-		}		
+		}
 		return "";
 	}
 
@@ -431,7 +417,7 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		if(!empty($this->image_object) && is_object($this->image_object))
 		{
 			return $this->image_object->get_size();
-		}		
+		}
 		return "";
 	}
 
@@ -441,7 +427,7 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		if(!empty($this->image_object) && is_object($this->image_object))
 		{
 			return $this->image_object->get_html();
-		}		
+		}
 		return "";
 	}
 
@@ -451,7 +437,7 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		if(!empty($this->image_object) && is_object($this->image_object))
 		{
 			return $this->image_object->get_big_html();
-		}		
+		}
 		return "";
 	}
 	private function get_big_image_url()
@@ -460,7 +446,7 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		if(!empty($this->image_object) && is_object($this->image_object))
 		{
 			return $this->image_object->get_big_url();
-		}		
+		}
 		return "";
 	}
 //returns array(product id => color name)
@@ -555,21 +541,21 @@ class shop_packet_obj extends shop_warehouse_item_obj
 		*/
 
 		//	Temporary fix:
-		
+
 		$id = $this->id();
 		$sql = "
 SELECT
 	MIN(aw_shop_packaging.aw_price) AS `price`
 FROM
 	objects
-	LEFT JOIN aw_shop_packaging ON aw_shop_packaging.id = objects.brother_of 
-	LEFT JOIN aliases aliases___295_2 ON aliases___295_2.target = objects.oid AND aliases___295_2.reltype = 2 
-	LEFT JOIN objects objects__327_295_2 ON aliases___295_2.source = objects__327_295_2.oid 
-	LEFT JOIN aliases aliases_327_2_297_1 ON aliases_327_2_297_1.target = objects__327_295_2.oid AND aliases_327_2_297_1.reltype = 1 
-WHERE 
-	objects.`class_id` = '327' 
-	AND aliases_327_2_297_1.`source` = '{$id}' 
-	AND aw_shop_packaging.`aw_price` > '0' 
+	LEFT JOIN aw_shop_packaging ON aw_shop_packaging.id = objects.brother_of
+	LEFT JOIN aliases aliases___295_2 ON aliases___295_2.target = objects.oid AND aliases___295_2.reltype = 2
+	LEFT JOIN objects objects__327_295_2 ON aliases___295_2.source = objects__327_295_2.oid
+	LEFT JOIN aliases aliases_327_2_297_1 ON aliases_327_2_297_1.target = objects__327_295_2.oid AND aliases_327_2_297_1.reltype = 1
+WHERE
+	objects.`class_id` = '327'
+	AND aliases_327_2_297_1.`source` = '{$id}'
+	AND aw_shop_packaging.`aw_price` > '0'
 	AND objects.status > 0
 ";
 		$result = $this->instance()->db_fetch_row($sql);
@@ -631,24 +617,24 @@ WHERE
 		);
 		$prices = $t->get_element_from_all("sum");
 		*/
-		
+
 
 		//	Temporary fix:
-		
+
 		$id = $this->id();
 		$sql = "
 SELECT
 	MIN(aw_shop_packaging.aw_price) AS `price`
 FROM
 	objects
-	LEFT JOIN aw_shop_packaging ON aw_shop_packaging.id = objects.brother_of 
-	LEFT JOIN aliases aliases___295_2 ON aliases___295_2.target = objects.oid AND aliases___295_2.reltype = 2 
-	LEFT JOIN objects objects__327_295_2 ON aliases___295_2.source = objects__327_295_2.oid 
-	LEFT JOIN aliases aliases_327_2_297_1 ON aliases_327_2_297_1.target = objects__327_295_2.oid AND aliases_327_2_297_1.reltype = 1 
-WHERE 
-	objects.`class_id` = '327' 
-	AND aliases_327_2_297_1.`source` = '{$id}' 
-	AND aw_shop_packaging.`aw_price` > '0' 
+	LEFT JOIN aw_shop_packaging ON aw_shop_packaging.id = objects.brother_of
+	LEFT JOIN aliases aliases___295_2 ON aliases___295_2.target = objects.oid AND aliases___295_2.reltype = 2
+	LEFT JOIN objects objects__327_295_2 ON aliases___295_2.source = objects__327_295_2.oid
+	LEFT JOIN aliases aliases_327_2_297_1 ON aliases_327_2_297_1.target = objects__327_295_2.oid AND aliases_327_2_297_1.reltype = 1
+WHERE
+	objects.`class_id` = '327'
+	AND aliases_327_2_297_1.`source` = '{$id}'
+	AND aw_shop_packaging.`aw_price` > '0'
 	AND objects.status > 0
 ";
 		$result = $this->instance()->db_fetch_row($sql);
@@ -656,7 +642,7 @@ WHERE
 		{
 			return number_format($result["price"], 2);
 		}
-		
+
 		return number_format($prices[0],2);
 	}
 
@@ -702,7 +688,7 @@ WHERE
 				"limit" => 1
 			));
 		}
-		
+
 		$menus = array();
 		foreach($ol->arr() as $o)
 		{
@@ -714,7 +700,7 @@ WHERE
 
 	protected function delete_product_show_cache()
 	{
-		$cache_dir = aw_ini_get("cache.page_cache")."/product_show/";
+		$cache_dir = aw_ini_get("cache.page_cache")."product_show/";
 		foreach(glob(sprintf($cache_dir."*product=%u&*.tpl*", $this->id())) as $file)
 		{
 			unlink($file);

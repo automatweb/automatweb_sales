@@ -1,4 +1,4 @@
-f<?php
+<?php
 /*
 Pakett koondab tooteid
 Toode koondab pakendeid
@@ -611,7 +611,6 @@ class shop_packet extends shop_warehouse_item
 	function callback_mod_reforb(&$arr)
 	{
 		$arr["add_items_to_packet"] = "0";
-		$arr["post_ru"] = post_ru();
 	}
 
 	function callback_post_save($arr)
@@ -879,8 +878,6 @@ class shop_packet extends shop_warehouse_item
 
 		}
 
-//if(aw_global_get("uid") == "struktuur.markop") arr($prod_params);
-
 		$first_pack = reset($data["packages"]);
 		$n = 0;
 		$data["SIZES"] = "";
@@ -1023,18 +1020,12 @@ class shop_packet extends shop_warehouse_item
  	**/
 	public function get_data($arr)
 	{
-		aw_disable_acl();
 		$products = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT,
-			"site_id" => array(),
-			"lang_id" => array(),
-			"code" => $arr["code"],
-			"status" => array(1,2)
+			"code" => $arr["code"]
 		));
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PACKET,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"CL_SHOP_PACKET.RELTYPE_PRODUCT" => $products->ids(),
 		));
 		$o = $ol->begin();
@@ -1043,9 +1034,8 @@ class shop_packet extends shop_warehouse_item
 		{
 			$fun = "get_".$arr["prop"];
 			$stuff = $o->$fun(1);
-			aw_restore_acl();
 			return $stuff;
-		}aw_restore_acl();
+		}
 		return null;
 	}
 }

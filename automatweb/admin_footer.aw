@@ -213,14 +213,13 @@ $sf->vars(array(
 
 if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 {
-
 	if (acl_base::prog_acl("view", "disp_person"))
 	{
 		$person_text = "";
 		$person = get_current_person();
 		if($person)
 		{
-			$cfg = get_instance("cfg/cfgutils");
+			$cfg = new cfgutils();
 			$popup_menu = new popup_menu();
 			$popup_menu->begin_menu("current_person");
 
