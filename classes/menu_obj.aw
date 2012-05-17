@@ -98,7 +98,7 @@ class menu_obj extends _int_object
 			if (($query_string === "" && $path_info === "") && $request_uri !== "")
 			{
 				$query_string = $request_uri;
-				$query_string = str_replace(array("xmlrpc.aw", "index.aw", "orb.aw", "login.aw", "reforb.aw"), "", $query_string);
+				$query_string = str_replace(array("xmlrpc.aw", "index.aw", "reforb.aw", "orb.aw", "login.aw"), "", $query_string);
 			}
 
 			if (strlen($query_string) > 1)
