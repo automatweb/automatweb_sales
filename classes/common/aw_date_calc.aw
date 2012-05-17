@@ -204,12 +204,12 @@ class date_calc
 				break;
 
 			case "relative":
-							$next = mktime(0,0,0,0,0,0);
-							$prev = mktime(0,0,0,0,0,0);
+				$next = mktime(0,0,0,0,0,0);
+				$prev = mktime(0,0,0,0,0,0);
 				// if we are supposed to show future events, then set the start range to
 				// this same day
 				// forward = 0, backward = 1
-				if ($args["direction"] == "0")
+				if (isset($args["direction"]) and $args["direction"] == "0")
 				{
 					if (!empty($args["event_time_item"]))
 					{
@@ -222,7 +222,7 @@ class date_calc
 					$start_ts = mktime(0,0,0,$m,$d,$y);
 					$end_ts = mktime(0,0,0,$m,$d2,$y);
 				}
-				elseif (($args["direction"] == 1) && (isset($args["time"])) || (isset($args["date"])))
+				elseif (isset($args["direction"]) && ($args["direction"] == 1) && (isset($args["time"])) || (isset($args["date"])))
 				{
 					if (!empty($args["event_time_item"]))
 					{

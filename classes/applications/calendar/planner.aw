@@ -1246,7 +1246,7 @@ class planner extends class_base
 							"return_url" => get_ru(),
 							"add_to_cal" => $id,
 							"pt" => $preset_time,
-							"day" => (isset($arr["request"]["viewtype"]) and $arr["request"]["viewtype"] === "day") ? $arr["request"]["date"] : 0
+							"day" => (isset($arr["request"]["viewtype"]) and $arr["request"]["viewtype"] === "day" and isset($arr["request"]["date"])) ? $arr["request"]["date"] : 0
 						), $clid),
 						"text" => $classname
 					));

@@ -7,19 +7,23 @@ class vcalendar extends aw_template
 	var $container_template = "container.tpl"; // access?
 	var $cal_tpl_dir = "calendar"; // access?
 	var $output_initialized = false; // access?
-	public /*???*/ $full_weeks;
-	public /*???*/ $month_week;
-	public/*???*/ $adm_day;
-	public/*???*/ $overview_func;
-	public/*???*/ $filt_views;
-	public/*???*/ $target_section;
-	public/*???*/ $random;
-	public/*???*/ $years;
-	public/*???*/ $past;
-	public/*???*/ $skip_empty;
-	public/*???*/ $first_event;
-	public/*???*/ $events_sorted;
-	public/*???*/ $overview_items_oids;
+	public /*TODO: scope?*/ $full_weeks;
+	public /*TODO: scope?*/ $month_week;
+	public/*TODO: scope?*/ $adm_day;
+	public/*TODO: scope?*/ $overview_func;
+	public/*TODO: scope?*/ $filt_views;
+	public/*TODO: scope?*/ $target_section;
+	public/*TODO: scope?*/ $random;
+	public/*TODO: scope?*/ $years;
+	public/*TODO: scope?*/ $past;
+	public/*TODO: scope?*/ $skip_empty;
+	public/*TODO: scope?*/ $first_event;
+	public/*TODO: scope?*/ $events_sorted;
+	public/*TODO: scope?*/ $overview_items_oids;
+	public /*TODO: scope?*/ $past_limit;
+	public /*TODO: scope?*/ $last_event;
+	public /*TODO: scope?*/ $future;
+	public /*TODO: scope?*/ $future_limit;
 
 	protected $items = array();
 	protected $overview_items = array();
@@ -966,7 +970,7 @@ class vcalendar extends aw_template
 			"act_day_tm" => $this->range["timestamp"],
 		));
 
-		$n = isset($inst) && is_object($inst) && is_object($inst->obj_inst) && $this->can("view", $inst->obj_inst->id()) && obj($inst->obj_inst->id())->monyear_2in1 ? 1 : 2;
+		$n = isset($inst) && is_object($inst) && is_object($inst->obj_inst) && $inst->obj_inst->is_a(CL_CALENDAR_VIEW) && $inst->obj_inst->prop("monyear_2in1") ? "1" : "2";
 		$this->vars_safe(array(
 			"MINIMONYEAR_2IN".$n => $this->parse("MINIMONYEAR_2IN".$n),
 			"MINIMONYEAR_2IN".$n."_JS" => $this->parse("MINIMONYEAR_2IN".$n."_JS"),
@@ -1254,7 +1258,7 @@ class vcalendar extends aw_template
 		if ($this->overview_func)
 		{
 			$o_inst = $this->overview_func[0];
-			if(is_object($o_inst->obj_inst))
+			if(is_object($o_inst->obj_inst) and $o_inst->obj_inst->is_a(CL_CALENDAR_VIEW))
 			{
 				$sub_tpl = $o_inst->obj_inst->prop("week_event_template");
 			}
