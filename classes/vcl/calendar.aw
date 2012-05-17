@@ -103,7 +103,7 @@ class vcalendar extends aw_template
 		if ($this->overview_func)
 		{
 			$o_inst = $this->overview_func[0];
-			if(is_object($o_inst->obj_inst))
+			if(is_object($o_inst->obj_inst) and $o_inst->obj_inst->is_a(CL_CALENDAR_VIEW))
 			{
 				$sub_tpl = $o_inst->obj_inst->prop("sub_event_template");
 			}
