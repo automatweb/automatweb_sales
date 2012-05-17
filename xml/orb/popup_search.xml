@@ -18,6 +18,7 @@
 					<required name="pn" />
 					<optional name="multiple" />
 					<optional name="clid" />
+					<optional name="fcb" />
 					<optional name="s" />
 					<optional name="append_html" />
 					<optional name="tbl_props" />
@@ -47,6 +48,7 @@
 					<optional name="id" />
 					<optional name="multiple" />
 					<optional name="clid" />
+					<optional name="fcb" />
 					<optional name="property" />
 					<optional name="reload_property" type="string" />
 					<optional name="reload_layout" type="string" />
@@ -76,6 +78,7 @@
 					<optional name="name" />
 					<optional name="multiple" />
 					<optional name="clid" />
+					<optional name="fcb" />
 					<optional name="property" />
 					<optional name="reload_layout" type="string" />
 					<optional name="reload_window" type="bool" />

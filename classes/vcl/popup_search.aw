@@ -12,8 +12,20 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 	const PS_WIDTH = 800;
 	const PS_HEIGHT = 500;
 
+	const REQVAR_FILTER_CLASS_ID = "c";
+	const REQVAR_FILTER_CALLBACK = "fcb";
+	const REQVAR_RELOAD_LAYOUT = "rl";
+	const REQVAR_RELOAD_PROPERTY = "rp";
+	const REQVAR_RELOAD_WINDOW = "rw";
+
+	protected static $valid_filter_callbacks = array(
+		0 => array("popup_search", "get_filter"),
+		1 => array("shop_product", "get_categories_popup_filter")
+	);
+
 	protected $req;
 	protected $clid = array();
+	protected $filter_callback = 0;
 
 	protected $action;
 	protected $property;
@@ -113,6 +125,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 		{
 			$clid[] = constant($clid_str);
 		}
+
 		if (is_object($arr["obj_inst"]))
 		{
 			$url = $this->mk_my_orb("do_search", array(
@@ -151,6 +164,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 				$selstr = obj($sel);
 				$selstr = $selstr->name();
 			}
+
 			if($arr["property"]["autocomplete_source"])
 			{
 				$as = $arr["property"]["autocomplete_source"];
@@ -159,6 +173,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 			{
 				$as = $this->mk_my_orb("autocomplete_source", array("pn" => $arr["property"]["name"], "clid" => $clid));
 			}
+
 			if(!$arr["property"]["autocomplete_params"])
 			{
 				$arr["property"]["autocomplete_params"] = array($arr["property"]["name"]);
@@ -392,12 +407,13 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 
 	/**
 
-		@attrib name=do_search api=1
+		@attrib name=do_search
 
 		@param id optional
 		@param pn required
 		@param multiple optional
 		@param clid optional
+		@param fcb optional
 		@param s optional
 		@param append_html optional
 		@param no_submit optional
@@ -491,8 +507,8 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 	function _get_form($arr)
 	{
 		$htmlc = new htmlclient();
-		$htmlc->start_output();
 		$htmlc->in_popup_mode(true);
+		$htmlc->start_output();
 
 		$this->_insert_form_props($htmlc, $arr);
 
@@ -520,10 +536,12 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 			"pn" => isset($arr["pn"]) ? $arr["pn"] : "",
 			"multiple" => isset($arr["multiple"]) ? $arr["multiple"] : "",
 			"clid" => isset($arr["clid"]) ? $arr["clid"] : "",
+			self::REQVAR_FILTER_CALLBACK => isset($arr[self::REQVAR_FILTER_CALLBACK]) ? $arr[self::REQVAR_FILTER_CALLBACK] : "",
 			"no_submit" => ifset($arr, "no_submit"),
 			"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
 			"orb_class" => $_GET["class"],
-			"reforb" => 0,
+			"in_popup" => 1,
+			"reforb" => 0
 		);
 		$this->_process_reforb_args($data);
 		$htmlc->finish_output(array(
@@ -690,11 +708,11 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 		{
 			// Pre-check checkboxes for relpicker
 			$checked = array ();
-			if (isset($arr['id']) && is_oid($arr['id']) && $this->can('view', $arr['id']))
+			if (isset($arr['id']) && acl_base::can("view", $arr['id']))
 			{
 				$ob = obj($arr['id']);
 				$props = $ob->get_property_list();
-				$prop = $props[$arr['pn']];
+				$prop = isset($props[$arr['pn']]) ? $props[$arr['pn']] : array();
 				if (isset($prop['style']) && $prop['style'] === 'relpicker' && isset($prop['reltype']))
 				{
 					foreach($ob->connections_from(array("type" => $prop['reltype'])) as $c)
@@ -703,6 +721,13 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 					}
 				}
 			}
+
+			// get custom filter if defined
+			$self = get_class($this);
+			$filter_callback = isset($arr[self::REQVAR_FILTER_CALLBACK]) ? (int) $arr[self::REQVAR_FILTER_CALLBACK] : 0;
+			$filter_callback = isset($self::$valid_filter_callbacks[$filter_callback]) ? $self::$valid_filter_callbacks[$filter_callback] : $self::$valid_filter_callbacks[0];
+			$filter = array_merge($filter, call_user_func($filter_callback, $arr));
+
 			$ol = new object_list($filter);
 
 			$elname = $arr["pn"];
@@ -991,15 +1016,13 @@ function aw_get_el(name,form)
 
 		$ol = new object_list(array(
 			"class_id" => $arr["clid"],
-			"name" => iconv("UTF-8", aw_global_get("charset"), $arr[$arr["pn"]])."%",
-			"lang_id" => array(),
-			"site_id" => array(),
-			"limit" => 30,
+			"name" => $arr[$arr["pn"]]."%",
+			"limit" => 30
 		));
 		$autocomplete_options = $ol->names();
 		foreach($autocomplete_options as $k => $v)
 		{
-			$autocomplete_options[$k] = iconv(aw_global_get("charset"), "UTF-8", parse_obj_name($v));
+			$autocomplete_options[$k] = parse_obj_name($v);
 		}
 		exit ($cl_json->encode($option_data));
 
@@ -1023,7 +1046,7 @@ function aw_get_el(name,form)
 		{
 			foreach(explode(",", $val) as $item)
 			{
-				if ($this->can("view", $item))
+				if (acl_base::can("view", $item))
 				{
 					$o->connect(array(
 						"to" => $item,
@@ -1038,6 +1061,18 @@ function aw_get_el(name,form)
 	public function set_class_id($clid)
 	{
 		$this->clid = safe_array($clid);
+	}
+
+	public function set_filter_callback($id)
+	{
+		settype($id, "int");
+		$self = get_class($this);
+		if (!isset($self::$valid_filter_callbacks[$id]))
+		{
+			throw new awex_param_type("Invalid filter id '{$id}'");
+		}
+
+		$this->filter_callback = $id;
 	}
 
 	public function set_id($id)
@@ -1083,17 +1118,21 @@ function aw_get_el(name,form)
 
 	function get_popup_url()
 	{
-		$url = $this->mk_my_orb("do_ajax_search", array(
+		$args = array(
 			"id" => $this->oid,
 			"in_popup" => "1",
 			"start_empty" => "1",
-			"reload_layout" => isset($this->reload_layouts) ? $this->reload_layouts :"",
-			"reload_property" => isset($this->reload_property) ? $this->reload_property :"",
-			"reload_window" => !empty($this->reload_window),
-			"clid" => $this->clid,
 			"action" => $this->action,
 			"property" => $this->property
-		), get_class($this));
+		);
+
+		if (isset($this->reload_layouts)) $args["reload_layout"] = $this->reload_layouts;
+		if (isset($this->reload_property)) $args["reload_property"] = $this->reload_property;
+		if (!empty($this->reload_window)) $args["reload_window"] = $this->reload_window;
+		if (!empty($this->clid)) $args["clid"] = $this->clid;
+		if (!empty($this->filter_callback)) $args[self::REQVAR_FILTER_CALLBACK] = $this->filter_callback;
+
+		$url = core::mk_my_orb("do_ajax_search", $args, get_class($this));
 		return $url;
 	}
 
@@ -1102,6 +1141,7 @@ function aw_get_el(name,form)
 		@param id optional
 		@param multiple optional
 		@param clid optional type=array
+		@param fcb optional
 		@param property optional
 		@param reload_property optional type=string
 		@param reload_layout optional type=string
@@ -1158,11 +1198,12 @@ function aw_get_el(name,form)
 		}
 	}
 
+	// $arr -- from request
 	protected function _get_search_form($arr)
 	{
 		$htmlc = new htmlclient();
-		$htmlc->start_output();
 		$htmlc->in_popup_mode(true);
+		$htmlc->start_output();
 
 		$property_dfns = $this->_get_search_form_property_definitions($arr);
 		foreach ($property_dfns as $name => $definition)
@@ -1171,9 +1212,10 @@ function aw_get_el(name,form)
 		}
 
 		$clid = empty($arr["clid"]) ? "" : (is_array($arr["clid"]) ? implode("," , $arr["clid"]) : $arr["clid"]);
-		$reload_layout = isset($arr["reload_layout"]) ? "\nreload_layout: '".$arr["reload_layout"]."',\n" : "";
-		$reload_property = isset($arr["reload_property"]) ? "\nreload_property: '".$arr["reload_property"]."',\n" : "";
-		$reload_window = !empty($arr["reload_window"]) ? "\nreload_window: '1',\n" : "";
+		$filter_callback = empty($arr[self::REQVAR_FILTER_CALLBACK]) ? "" : "\n '".self::REQVAR_FILTER_CALLBACK."' : '".$arr[self::REQVAR_FILTER_CALLBACK]."',";
+		$reload_layout = isset($arr["reload_layout"]) ? "\n'reload_layout' : '".$arr["reload_layout"]."'," : "";
+		$reload_property = isset($arr["reload_property"]) ? "\n'reload_property' : '".$arr["reload_property"]."'," : "";
+		$reload_window = !empty($arr["reload_window"]) ? "\n'reload_window' : '1'," : "";
 
 		$htmlc->add_property(array(
 			"name" => "s[submit]",
@@ -1207,7 +1249,7 @@ PARAM;
 				id: '{$id}',
 				{$search_params}
 				clid: '{$clid}',
-				{$reload_property}{$reload_layout}{$reload_window}
+				{$filter_callback}{$reload_property}{$reload_layout}{$reload_window}
 				property: '{$arr["property"]}'
 			}, function (html) {
 			x=document.getElementById('result');
@@ -1259,6 +1301,11 @@ ENDJS
 		);
 	}
 
+	public function get_filter(array $arr)
+	{
+		return array();
+	}
+
 	/**
 		@attrib name=get_search_results orb=1
 		@param id optional
@@ -1267,6 +1314,7 @@ ENDJS
 		@param action type=string default=""
 		@param multiple optional
 		@param clid optional
+		@param fcb optional
 		@param property type=string default=""
 		@param reload_layout type=string default=""
 		@param reload_window type=bool default=FALSE
@@ -1401,6 +1449,7 @@ ENDJS
 		}
 	}
 
+	// $arr -- from request
 	protected function _get_search_results_filter(array $arr)
 	{
 		$filter = array();
@@ -1424,6 +1473,12 @@ ENDJS
 
 			$filter[] = new obj_predicate_limit($this->search_results_limit);
 		}
+
+
+		$self = get_class($this);
+		$filter_callback = isset($arr[self::REQVAR_FILTER_CALLBACK]) ? (int) $arr[self::REQVAR_FILTER_CALLBACK] : 0;
+		$filter_callback = isset($self::$valid_filter_callbacks[$filter_callback]) ? $self::$valid_filter_callbacks[$filter_callback] : $self::$valid_filter_callbacks[0];
+		$filter = array_merge($filter, call_user_func($filter_callback, $arr));
 
 		return $filter;
 	}
