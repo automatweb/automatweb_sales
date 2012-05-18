@@ -94,13 +94,16 @@
 
 class crm_company_workers_manager extends class_base
 {
+	private static $search_props = array(
+		"es_n","es_s","es_g","es_a","es_e","es_agefrom","es_ageto", "es_c", "es_county",  "es_city", "es_index", "es_citizenship", "es_code"
+	);
+
 	function __construct()
 	{
 		$this->init(array(
 			"tpldir" => "applications/crm/crm_company_workers_manager",
 			"clid" => crm_company_workers_manager_obj::CLID
 		));
-		$this->search_props = array("es_n","es_s","es_g","es_a","es_e","es_agefrom","es_ageto", "es_c", "es_county",  "es_city", "es_index", "es_citizenship", "es_code");
 	}
 
 	function do_db_upgrade($table, $field, $query, $error)
@@ -132,11 +135,11 @@ class crm_company_workers_manager extends class_base
 
 	function get_property(&$arr)
 	{
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		$data = &$arr['prop'];
 		$arr["use_group"] = $this->use_group;
 
-		if(in_array($data["name"] , $this->search_props))
+		if(in_array($data["name"] , self::$search_props))
 		{
 			if(isset($arr["request"][$data["name"]]))
 			{
@@ -161,12 +164,11 @@ class crm_company_workers_manager extends class_base
 
 			$fn = "_get_{$data["name"]}";
 			if (method_exists($employees_view, $fn))
-			{//arr($data["name"]);
+			{
 				$params = array();
 				$params["obj_inst"] = obj($arr["obj_inst"]->prop("company"));
 				$params["prop"] =&$arr["prop"];
 				$params["request"] =&$arr["request"];
-	//			arr($params["prop"]);
 				return $employees_view->$fn($params);
 			}
 		}
@@ -175,12 +177,12 @@ class crm_company_workers_manager extends class_base
 		{
 			case "es_age":
 				$data["value"] = '
-				<input type="text" value="'.(empty($arr["request"]["es_agefrom"]) ? "" : $arr["request"]["es_agefrom"]).'" size="4" name="es_agefrom" id="es_agefrom"> - 
+				<input type="text" value="'.(empty($arr["request"]["es_agefrom"]) ? "" : $arr["request"]["es_agefrom"]).'" size="4" name="es_agefrom" id="es_agefrom"> -
 				<input type="text" value="'.(empty($arr["request"]["es_ageto"]) ? "" : $arr["request"]["es_ageto"]).'" size="4" name="es_ageto" id="es_ageto">';
 				break;
 			case "es_agefrom":
 			case "es_ageto":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 		}
 		return $retval;
 	}
@@ -199,8 +201,8 @@ class crm_company_workers_manager extends class_base
 	}
 
 	function callback_mod_retval(&$arr)
-	{//arr($arr['request']);die();
-		foreach($this->search_props as $prop)
+	{
+		foreach(self::$search_props as $prop)
 		{
 			if(!empty($arr['request'][$prop]))
 			{
@@ -236,7 +238,7 @@ class crm_company_workers_manager extends class_base
 				return $employees_view->$fn($params);
 			}
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 
@@ -244,7 +246,7 @@ class crm_company_workers_manager extends class_base
 		@attrib name=cut
 	**/
 	function cut($arr)
-	{//arr($arr);die();
+	{
 		$employees_view = new crm_company_employees_view();
 		$employees_view->set_request($this->req);
 		$r = $employees_view->cut($arr);

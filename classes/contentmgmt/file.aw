@@ -1065,11 +1065,11 @@ class file extends class_base
 	{
 		if ($args["sys"])
 		{
-			$path = aw_ini_get("basedir") . "/files";
+			$path = aw_ini_get("basedir") . "files";
 		}
 		else
 		{
-			$path = aw_ini_get("site_basedir") . "/files";
+			$path = aw_ini_get("site_basedir") . "files";
 		}
 
 		if ($args["path"])
@@ -1089,11 +1089,11 @@ class file extends class_base
 	{
 		if ($args["sys"])
 		{
-			$path = aw_ini_get("basedir") . "/files";
+			$path = aw_ini_get("basedir") . "files";
 		}
 		else
 		{
-			$path = aw_ini_get("site_basedir") . "/files";
+			$path = aw_ini_get("site_basedir") . "files";
 		}
 
 		if ($args["path"])
@@ -1259,7 +1259,7 @@ class file extends class_base
 			if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE'))//TODO: teha paremini
 			{// ie jaoks eraldi headerid jne.
 				header("Content-type: application/octet-stream");
-				header("Content-Disposition: attachment; filename=\"{$fc[name]}\"");
+				header("Content-Disposition: attachment; filename=\"{$fc["name"]}\"");
 				header("Cache-Control: no-store, no-cache, no-transform, must-revalidate, private");
 				header("Expires: 0");
 			}
@@ -1270,7 +1270,7 @@ class file extends class_base
 
 				if($pi["extension"] === "ddoc")
 				{
-					header("Content-Disposition: inline; filename=\"{$fc[name]}\"");
+					header("Content-Disposition: inline; filename=\"{$fc["name"]}\"");
 				}
 			}
 

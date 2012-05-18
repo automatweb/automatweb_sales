@@ -2225,11 +2225,11 @@ abstract class intellectual_property extends class_base
 			"caption" => t("")
 		));
 
-		foreach($_SESSION["patent"]["applicants"] as $key =>$applicant)
+		foreach ($_SESSION["patent"]["applicants"] as $key =>$applicant)
 		{
-			if($applicant["applicant_type"])
+			if ($applicant["applicant_type"])
 			{
-				$name = $applicant["name"];
+				$name = isset($applicant["name"]) ? $applicant["name"] : "";
 			}
 			else
 			{
@@ -2238,7 +2238,7 @@ abstract class intellectual_property extends class_base
 
 			$t->define_data(array(
 				"name" => $name,
-				"code" => $applicant["code"],
+				"code" => isset($applicant["code"]) ? $applicant["code"] : "",
 				"representer" => html::radiobutton(array(
 					"value" => $key,
 					"checked" => (isset($_SESSION["patent"]["representer"]) and $_SESSION["patent"]["representer"] == $key) ? 1 : 0,

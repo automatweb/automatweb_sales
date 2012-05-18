@@ -127,8 +127,9 @@ class aw_template extends core
 		if ($dir === null)
 		{
 			$dir = aw_ini_get("site_tpldir");
+			$sect = aw_global_get("section");
 
-			if ($sect = aw_global_get("section"))
+			if ($sect)
 			{
 				foreach(obj($sect)->path() as $path_item)
 				{

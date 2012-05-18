@@ -698,7 +698,7 @@ class site_show extends aw_template
 		if ($docid > 0)
 		{
 			$check = obj($docid);
-			$ok = $check->class_id() == CL_DOCUMENT && $check->status() == STAT_ACTIVE;
+			$ok = $check->class_id() == CL_DOCUMENT && $check->status() == object::STAT_ACTIVE;
 			if (aw_ini_get("lang_menus") == 1)
 			{
 				$ok &= $check->lang() == AW_REQUEST_CT_LANG_CODE;
@@ -716,9 +716,9 @@ class site_show extends aw_template
 		$get_inact = false;
 		$no_in_promo = false;
 
-		$ndocs = $obj->prop("ndocs");
 		if ($obj->class_id() == CL_PROMO)
 		{
+			$ndocs = $obj->prop("ndocs");
 			$start_ndocs = $obj->prop("start_ndocs");
 			if ($obj->prop("separate_pages"))
 			{
@@ -727,9 +727,14 @@ class site_show extends aw_template
 				$start_ndocs = $cur_page * $obj->prop("docs_per_page");
 			}
 		}
+		elseif ($obj->class_id() == menu_obj::CLID)
+		{
+			$ndocs = $obj->prop("ndocs");
+			$start_ndocs = 0;
+		}
 		else
 		{
-			$start_ndocs = 0;
+			$ndocs = $start_ndocs = 0;
 		}
 
 		$filt_lang_id = AW_REQUEST_CT_LANG_ID;
