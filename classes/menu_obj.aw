@@ -206,6 +206,11 @@ class menu_obj extends _int_object
 					$section = aw_ini_get("frontpage");
 				}
 			}
+
+			if (!acl_base::can("view", $section))
+			{
+				$section = null;
+			}
 		}
 
 		return $section;
