@@ -183,18 +183,21 @@ class crm_company_employees_view extends class_base
 			));
 		}
 
-		// profession add, no specific item selection in tree required
-		$tb->add_menu_item(array(
-			"parent" => "add_item",
-			"text"=> t("Ametikoht"),
-			"link" => $this->mk_my_orb("add_profession", array(
-					"id" => $arr["obj_inst"]->id(),
-					"return_url" => get_ru(),
-					"section" => $parent
-				),
-				"crm_company"
-			)
-		));
+		if (!$this->selected_object or !$this->selected_object->is_a(crm_profession_obj::CLID))
+		{
+			// profession add, no specific item selection in tree required
+			$tb->add_menu_item(array(
+				"parent" => "add_item",
+				"text"=> t("Ametikoht"),
+				"link" => $this->mk_my_orb("add_profession", array(
+						"id" => $arr["obj_inst"]->id(),
+						"return_url" => get_ru(),
+						"section" => $parent
+					),
+					"crm_company"
+				)
+			));
+		}
 
 		$tb->add_save_button();
 
@@ -463,6 +466,11 @@ class crm_company_employees_view extends class_base
 			if (!empty($arr["request"][self::REQVAR_EMPLOYMENT_AGETO]))
 			{
 				$employee_search->ageto = $arr["request"][self::REQVAR_EMPLOYMENT_AGETO];
+				$search_params_set = true;
+			}
+
+			if(isset($arr["request"]["meta"]))
+			{
 				$search_params_set = true;
 			}
 
