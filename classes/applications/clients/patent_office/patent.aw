@@ -414,16 +414,12 @@ class patent extends intellectual_property
 		}
 
 		$result_list = "";
-		if(!empty($arr["product"]) || !empty($arr["prodclass"]))
+		$search_term_prod_name = isset($arr["product"]) ? $arr["product"] : "";
+		$search_term_prod_class = isset($arr["prodclass"]) ? $arr["prodclass"] : "";
+		if ($search_term_prod_name || $search_term_prod_class)
 		{
-			if($arr["prodclass"])
-			{
-				$limit = 1700;
-			}
-			else
-			{
-				$limit = 500;
-			}
+			$limit = $search_term_prod_class ? 1700 : 500;
+			$limit = new obj_predicate_limit($limit);
 			$tpl = "products_res.tpl";
 			$is_tpl = $this->read_template($tpl,1);
 
@@ -442,33 +438,28 @@ class patent extends intellectual_property
 			$t->define_chooser(array(
 				"name" => "oid",
 				"field" => "oid",
-				"caption" => t("Vali"),
+				"caption" => t("Vali")
 			));
 
 			$products = new object_list();
-			if(strlen($arr["prodclass"]) == 1)
+			if(strlen($search_term_prod_class) == 1)
 			{
-				$arr["prodclass"] = "0".$arr["prodclass"];
+				$search_term_prod_class = "0{$search_term_prod_class}";
 			}
 			$parents = new object_list(array(
-				"comment" => "%".$arr["prodclass"]."%",
+				"comment" => "%{$search_term_prod_class}%",
 				"class_id" => CL_MENU,
-				"lang_id" => array(),
-				"limit" => $limit,
-			));
-			$parents->sort_by(array(
-				"prop" => "name",
-				"order" => "asc"
+				new obj_predicate_sort(array("name" => obj_predicate_sort::ASC)),
+				$limit
 			));
 
 			foreach ($parents->ids() as $id)
 			{
 				$prod_list = new object_list(array(
-					"userta1" => "%".$arr["product"]."%",
+					"userta1" => "%{$search_term}%",
 					"parent" => $id,
 					"class_id" => CL_SHOP_PRODUCT,
-					"lang_id" => array(),
-					"limit" => $limit
+					$limit
 				));
 
 				foreach($prod_list->arr() as $p)

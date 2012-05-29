@@ -2709,9 +2709,18 @@ class crm_bill extends class_base
 					$sum_cc = " (".$ccurrency_o->sum_with_currency($cc_price*$row->prop("amt"), 2).")";
 				}
 
+				try
+				{ //FIXME: ajutine lahendus probleemile:  Invalid property name 'unit_code' for object '1' of class 'menu'
+					$uc = $row->prop("unit.unit_code");
+				}
+				catch (Exception $e)
+				{
+					$uc = "";
+				}
+
 				$ret.=
 					t("Hind").": ".$row->prop("price").$price_cc.html::linebreak().
-					t("Kogus").": ".$row->prop("amt").html::space().$row->prop("unit.unit_code").html::linebreak().
+					t("Kogus").": ".$row->prop("amt").html::space().$uc.html::linebreak().
 					t("Summa").": ".$row->prop("price")*$row->prop("amt").$sum_cc;
 				break;
 

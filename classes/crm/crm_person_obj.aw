@@ -1110,7 +1110,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $current_job)
 		{
-			if($co && $current_job->prop("org") != $co)
+			if($co && $current_job->prop("employer") != $co)
 			{
 				continue;
 			}
@@ -1143,7 +1143,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $current_job)
 		{
-			if($co && $current_job->prop("org") != $co)
+			if($co && $current_job->prop("employer") != $co)
 			{
 				continue;
 			}
@@ -1262,9 +1262,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			$this->set_current_jobs();
 			foreach($this->current_jobs->arr() as $job)
 			{
-				if($job->prop("org"))
+				if($job->prop("employer"))
 				{
-					$sel[$job->prop("org")] = $job->prop("org.name");
+					$sel[$job->prop("employer")] = $job->prop("employer.name");
 				}
 			}
 			return $sel;
@@ -1273,9 +1273,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_all_jobs();
 		foreach($this->all_jobs->arr() as $job)
 		{
-			if($job->prop("org"))
+			if($job->prop("employer"))
 			{
-				$sel[$job->prop("org")] = $job->prop("org.name");
+				$sel[$job->prop("employer")] = $job->prop("employer.name");
 			}
 		}
 
