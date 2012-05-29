@@ -719,6 +719,11 @@ class doc extends class_base
 		return $retval;
 	}
 
+	function callback_get_cfgform($args)
+	{
+		return (isset($args["obj_inst"]) and $args["obj_inst"] instanceof object) ? (int) $args["obj_inst"]->meta("awcb_doc_cfgform_oid") : 0;
+	}
+
 	function callback_pre_save($args = array())
 	{
 		// map title to name
@@ -727,7 +732,7 @@ class doc extends class_base
 
 		if (isset($this->_preview))
 		{
-			$obj_inst->set_meta("dcache",$this->_preview);
+			$obj_inst->set_meta("dcache", $this->_preview);
 			$res = trim(preg_replace("/<.*>/imsU", " ",$this->_preview));
 			$len = strlen($res);
 			for($i = 0; $i < $len; $i++)
@@ -753,19 +758,32 @@ class doc extends class_base
 			$obj_inst->set_prop("moreinfo",$this->_doc_strip_tags($obj_inst->prop("moreinfo")));
 		}
 
-		if (acl_base::can("view", $args["request"]["cfgform"]))
+		if (isset($args["request"]["cfgform"]) and acl_base::can("view", $args["request"]["cfgform"]))
 		{
-			$cff = obj($args["request"]["cfgform"]);
-			if ($cff->prop("classinfo_allow_rte") == 2)
+			try
 			{
-				$obj_inst->set_prop("nobreaks",1);
+				$cff = obj($args["request"]["cfgform"], array(), CL_CFGFORM);
+
+				if (!$obj_inst->is_saved())
+				{
+					$obj_inst->set_meta("awcb_doc_cfgform_oid", $cff->id());
+				}
+
+				if ($cff->prop("classinfo_allow_rte") == 2)
+				{
+					$obj_inst->set_prop("nobreaks",1);
+				}
+				//if ($cff->prop("on_save_settings_remove_word_html") == 1)
+				//{
+					$obj_inst->set_prop("content",$this->_doc_clean_html($obj_inst->prop("content")));
+					$obj_inst->set_prop("lead",$this->_doc_clean_html($obj_inst->prop("lead")));
+					$obj_inst->set_prop("moreinfo",$this->_doc_clean_html($obj_inst->prop("moreinfo")));
+				//}
 			}
-			//if ($cff->prop("on_save_settings_remove_word_html") == 1)
-			//{
-				$obj_inst->set_prop("content",$this->_doc_clean_html($obj_inst->prop("content")));
-				$obj_inst->set_prop("lead",$this->_doc_clean_html($obj_inst->prop("lead")));
-				$obj_inst->set_prop("moreinfo",$this->_doc_clean_html($obj_inst->prop("moreinfo")));
-			//}
+			catch (Exception $e)
+			{
+				$this->show_error_text(t("Viga seadetevormi laadimisel."));
+			}
 		}
 
 		$old_tm = $obj_inst->prop("tm");
