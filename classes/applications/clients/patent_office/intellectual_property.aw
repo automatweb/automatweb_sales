@@ -2225,11 +2225,11 @@ abstract class intellectual_property extends class_base
 			"caption" => t("")
 		));
 
-		foreach($_SESSION["patent"]["applicants"] as $key =>$applicant)
+		foreach ($_SESSION["patent"]["applicants"] as $key =>$applicant)
 		{
-			if($applicant["applicant_type"])
+			if ($applicant["applicant_type"])
 			{
-				$name = $applicant["name"];
+				$name = isset($applicant["name"]) ? $applicant["name"] : "";
 			}
 			else
 			{
@@ -2238,7 +2238,7 @@ abstract class intellectual_property extends class_base
 
 			$t->define_data(array(
 				"name" => $name,
-				"code" => $applicant["code"],
+				"code" => isset($applicant["code"]) ? $applicant["code"] : "",
 				"representer" => html::radiobutton(array(
 					"value" => $key,
 					"checked" => (isset($_SESSION["patent"]["representer"]) and $_SESSION["patent"]["representer"] == $key) ? 1 : 0,
@@ -2712,13 +2712,13 @@ abstract class intellectual_property extends class_base
 		{
 			if ($create)
 			{
-			$status = new object();
-			$status->set_class_id(CL_TRADEMARK_STATUS);
-			$status->set_parent($patent->id());
+				$status = new object();
+				$status->set_class_id(CL_TRADEMARK_STATUS);
+				$status->set_parent($patent->id());
 				$status->set_name("Kinnitamata taotlus nr [".$patent->id()."]");
-			$status->save();
-			$patent->connect(array("to" => $status->id() , "type" => "RELTYPE_TRADEMARK_STATUS"));
-		}
+				$status->save();
+				$patent->connect(array("to" => $status->id() , "type" => "RELTYPE_TRADEMARK_STATUS"));
+			}
 			else
 			{
 				throw new awex_not_found("Status not found for " . $patent->id());
@@ -2894,7 +2894,7 @@ abstract class intellectual_property extends class_base
 				else $applicant->set_prop("phone_id" , $phone->id());
 			}
 
-			if($val["email"])
+			if(!empty($val["email"]))
 			{
 				$email = new object();
 				$email->set_class_id(CL_ML_MEMBER);
@@ -2907,7 +2907,7 @@ abstract class intellectual_property extends class_base
 				else $applicant->set_prop("email_id" , $email->id());
 			}
 
-			if($val["fax"])
+			if(!empty($val["fax"]))
 			{
 				$phone = new object();
 				$phone->set_class_id(CL_CRM_PHONE);
@@ -2934,7 +2934,7 @@ abstract class intellectual_property extends class_base
 				$patent->set_prop("applicant" , $applicant->id());
 			}
 
-			if ($val["applicant_reg"])
+			if (!empty($val["applicant_reg"]))
 			{
 				$tmp = (array) $patent->meta("applicant_reg");
 				$tmp[$applicant->id()] = $val["applicant_reg"];
@@ -2973,7 +2973,7 @@ abstract class intellectual_property extends class_base
 			$address->set_prop("aadress", $val["street"]);
 			$address->set_prop("postiindeks" , $val["index"]);
 			$address->set_prop("riik" , $address_inst->get_country_by_code($val["country_code"], $author->id()));
-			if($val["city"])
+			if(!empty($val["city"]))
 			{
 				$cities = new object_list(array("class_id" => CL_CRM_CITY, "name" => $val["city"]));
 				if(!is_object($city = $cities->begin()))
@@ -2988,7 +2988,7 @@ abstract class intellectual_property extends class_base
 				$address->set_prop("linn" ,$city->id());
 			}
 
-			if($val["county"])
+			if(!empty($val["county"]))
 			{
 				$counties = new object_list(array("class_id" => CL_CRM_COUNTY, "name" => $val["county"]));
 				if (!is_object($county = $counties->begin()))

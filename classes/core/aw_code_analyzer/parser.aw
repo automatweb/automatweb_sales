@@ -217,7 +217,7 @@ class parser extends aw_template
 		{
 			$tok = $this->_p_get_token();
 //			echo "token = $tok <br />\n";
-			if (substr($tok,0,2) == "//")
+			if (substr($tok,0,2) === "//")
 			{
 //				echo "onelinecomment <br />";
 				$in_line = true;
@@ -237,8 +237,7 @@ class parser extends aw_template
 				$ret.="\n";
 //				echo "end of oneline <br />";
 			}
-			else
-			if (substr($tok,0,1) == "#")
+			elseif (substr($tok,0,1) === "#")
 			{
 //				echo "onelinecomment2 <br />";
 				$in_line = true;
@@ -258,19 +257,18 @@ class parser extends aw_template
 				$ret.="\n";
 //				echo "end of oneline2 <br />";
 			}
-			else
-			if (substr($tok,0,2) == "/*")
+			elseif (substr($tok,0,2) === "/*")
 			{
 				$in_comment = true;
 				while ($in_comment)
 				{
 					$_tok = $this->_p_get_token(true); // strings inside comments must be ignored
-					if ($_tok == "\n")
+					if ($_tok === "\n")
 					{
 						$ret.=$_tok;
 					}
 					else
-					if ($_tok === false || $_tok == "*/")
+					if ($_tok === false || $_tok === "*/")
 					{
 						$in_comment = false;
 					}
@@ -303,17 +301,17 @@ class parser extends aw_template
 			$tok = $this->p_get_token();
 			// find char before token, in case it is $, which must be used as a separator, but we must prepend it to the token if
 			// it is there, to make sure variables with name s like $class do not get mistaken fo class starts
-			if ($tok != "{" && $tok != "}")
+			if ($tok !== "{" && $tok !== "}")
 			{
 				$p_ch = $this->p_get_at_pos($this->p_get_p_pos()-(strlen($tok)+1));
-				if ($p_ch == "\$")
+				if ($p_ch === "\$")
 				{
 					$tok = "\$".$tok;
 				}
 			}
 //			echo "tok = <pre>", htmlspecialchars(var_dump($tok)),"</pre> <br />";
 			// process token
-			if ($tok == "class")
+			if ($tok === "class")
 			{
 //				echo "tok == $tok , prev_tok = $prev_tok <br />";
 				$cur_class = $this->p_get_token();
@@ -327,7 +325,7 @@ class parser extends aw_template
 				$try = $this->p_get_token();
 //				echo "try after class = $try <br />";
 //				flush();
-				if ($try == "extends")
+				if ($try === "extends")
 				{
 					$ex_name = $this->p_get_token();
 					$this->classes[$cur_class]["extends"] = $ex_name;
@@ -336,7 +334,7 @@ class parser extends aw_template
 					$try = $this->p_get_token();
 				}
 
-				if ($try == "{")	// class starts
+				if ($try === "{")	// class starts
 				{
 					$in_class = true;
 					$class_start_brace_level = $brace_level;
@@ -346,8 +344,7 @@ class parser extends aw_template
 //					flush();
 				}
 			}
-			else
-			if ($tok == "function")
+			elseif ($tok === "function")
 			{
 				// found function def
 				// read function name and args
@@ -356,19 +353,19 @@ class parser extends aw_template
 //				echo "found function, name = $cur_func , line = ".$this->p_get_line()."<br />";
 //				flush();
 				$args = "";
-				while (($_tok = $this->_p_get_token()) != "("); // opening (
+				while (($_tok = $this->_p_get_token()) !== "("); // opening (
 				$bracket_level = 1;
 				// now. we must find the end of the argument string, can't just end it at ) , because it might contain array()
 				// so we do bracket level counting to find the real end
 				do
 				{
 					$_tok = $this->_p_get_token();
-					if ($_tok == "(")
+					if ($_tok === "(")
 					{
 						$bracket_level++;
 					}
 					else
-					if ($_tok == ")")
+					if ($_tok === ")")
 					{
 						$bracket_level--;
 					}
@@ -384,7 +381,7 @@ class parser extends aw_template
 //				flush();
 				// now, opening {
 				$_tok = $this->p_get_token();
-				if ($_tok == "{")
+				if ($_tok === "{")
 				{
 					$func_start_brace_level = $brace_level;
 					$brace_level++;
@@ -394,8 +391,7 @@ class parser extends aw_template
 				}
 				$this->functions[$cur_class][$cur_func] = array("name" => $cur_func,"file" => $file_name, "start_line" => $this->p_get_line(),"args" => $args);
 			}
-			else
-			if ($tok == "{")
+			elseif ($tok === "{")
 			{
 				$brace_level++;
 				if ($this->max_brace_level < $brace_level)
@@ -406,8 +402,7 @@ class parser extends aw_template
 				}
 //				echo "found { in line ".$this->p_get_line()." , brace_level = $brace_level <br />";
 			}
-			else
-			if ($tok == "}")
+			elseif ($tok === "}")
 			{
 				// ok, brace close, we must figure out what this means.
 				// check if class ends
@@ -430,8 +425,7 @@ class parser extends aw_template
 					$cur_func = "";
 				}
 			}
-			else
-			if ($tok == "return")
+			elseif ($tok === "return")
 			{
 				// return from function - mark this down so we know the function exit points for all functions
 				$this->fun_returns[$cur_class][$cur_func][$this->p_get_line()] = $this->p_get_line();
@@ -460,7 +454,7 @@ class parser extends aw_template
 	{
 		if (!$this->p_eos())
 		{
-			if ($this->p_str[$this->p_pos] == "\n")
+			if ($this->p_str[$this->p_pos] === "\n")
 			{
 				$this->p_line++;
 			}
@@ -475,7 +469,7 @@ class parser extends aw_template
 		if ($this->p_pos > 0)
 		{
 			$this->p_pos--;
-			if ($this->p_str[$this->p_pos] == "\n")
+			if ($this->p_str[$this->p_pos] === "\n")
 			{
 				$this->p_line--;
 			}
@@ -520,7 +514,7 @@ class parser extends aw_template
 		$tok = false;
 		do {
 			$ch = $this->p_getch();
-			if ($ch == "{" || $ch == "}")
+			if ($ch === "{" || $ch === "}")
 			{
 				// brace always gets it's own token
 				if ($tok != "")
@@ -549,7 +543,7 @@ class parser extends aw_template
 			if ($tok == "")	// if it is, but token is empty, return separator, to avoid infinite loops
 			{
 				// quotes are a special case - strings form a complete token no matter what is contained
-				if (($ch == "\"" || $ch == "'") && !$ignore_strings)
+				if (($ch === "\"" || $ch === "'") && !$ignore_strings)
 				{
 					$this->p_ungetch();
 					return $this->p_get_string();
@@ -574,7 +568,7 @@ class parser extends aw_template
 	{
 		$str_start = $this->p_getch();
 //		echo "enter p_get_string() <br />";
-		if ($str_start != "\"" && $str_start != "'")
+		if ($str_start !== "\"" && $str_start != "'")
 		{
 			die(sprintf(t("error in p_get_string (line: %s , pos = %s ) , called without string start <br />\n"), $this->p_get_line(), $this->p_pos));
 		}
@@ -582,7 +576,7 @@ class parser extends aw_template
 //		echo "str_start = $str_start, line = ".$this->p_get_line()." \n";
 		while (($ch = $this->p_getch()) !== false)
 		{
-			if ($ch == "\\")
+			if ($ch === "\\")
 			{
 				// skip over escaped chars, they can't end strings
 				$ret.=$ch;

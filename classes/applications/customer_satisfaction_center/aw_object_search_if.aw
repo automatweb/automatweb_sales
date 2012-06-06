@@ -209,6 +209,8 @@
 
 class aw_object_search_if extends class_base
 {
+	const SEARCH_RESULTS_LIMIT = 2000;
+
 	private $u_oids = array();
 
 	function aw_object_search_if()
@@ -376,7 +378,7 @@ class aw_object_search_if extends class_base
 				break;
 
 			case "s_rel_type":
-				if (is_array($arr["request"]["s_clid1"]))
+				if (isset($arr["request"]["s_clid1"]) and is_array($arr["request"]["s_clid1"]))
 				{
 					$prop["options"] = $this->_get_relation_type_options(reset($arr["request"]["s_clid1"]));
 				}
@@ -625,7 +627,7 @@ class aw_object_search_if extends class_base
 				$arr["request"][substr($k, 0, -1)] = $v;
 			}
 		}
-		$filt = array("limit" => 2000, "lang_id" => array(), "site_id" => array());
+		$filt = array(new obj_predicate_limit(self::SEARCH_RESULTS_LIMIT));
 		$arrprops = array("s_name", "s_parent");
 		foreach($arrprops as $arrprop)
 		{
@@ -745,22 +747,20 @@ class aw_object_search_if extends class_base
 			}
 		}
 
-		$c_from = date_edit::get_timestamp($arr["request"]["s_crea_from"]);
-		$c_to = date_edit::get_timestamp($arr["request"]["s_crea_to"]);
-		$m_from = date_edit::get_timestamp($arr["request"]["s_mod_from"]);
-		$m_to = date_edit::get_timestamp($arr["request"]["s_mod_to"]);
+		$c_from = isset($arr["request"]["s_crea_from"]) ? date_edit::get_timestamp($arr["request"]["s_crea_from"]) : -1;
+		$c_to = isset($arr["request"]["s_crea_to"]) ? date_edit::get_timestamp($arr["request"]["s_crea_to"]) : -1;
+		$m_from = isset($arr["request"]["s_mod_from"]) ? date_edit::get_timestamp($arr["request"]["s_mod_from"]) : -1;
+		$m_to = isset($arr["request"]["s_mod_to"]) ? date_edit::get_timestamp($arr["request"]["s_mod_to"]) : -1;
 
 		if ($c_from > 1 && $c_to > 1)
 		{
 			$filt["created"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $c_from, $c_to);
 		}
-		else
-		if ($c_from > 1)
+		elseif ($c_from > 1)
 		{
 			$filt["created"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $c_from);
 		}
-		else
-		if ($c_to > 1)
+		elseif ($c_to > 1)
 		{
 			$filt["created"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $c_to);
 		}
@@ -769,13 +769,11 @@ class aw_object_search_if extends class_base
 		{
 			$filt["modified"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $m_from, $m_to);
 		}
-		else
-		if ($m_from > 1)
+		elseif ($m_from > 1)
 		{
 			$filt["modified"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $m_from);
 		}
-		else
-		if ($m_to > 1)
+		elseif ($m_to > 1)
 		{
 			$filt["modified"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $m_to);
 		}
@@ -786,12 +784,6 @@ class aw_object_search_if extends class_base
 		}
 
 		return $filt;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-		$arr["return_url"] = automatweb::$request->arg("return_url");
 	}
 
 	function callback_mod_tab($arr)

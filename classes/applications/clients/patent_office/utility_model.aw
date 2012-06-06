@@ -326,7 +326,7 @@ class utility_model extends intellectual_property
 		{
 			foreach ($_FILES as $var => $file_data)
 			{
-				if (is_uploaded_file($file_data["tmp_name"]) and "attachment_other_upload" !== $var)
+				if ("file" !== $var and "attachment_other_upload" !== $var and is_uploaded_file($file_data["tmp_name"])) // "file" is multifile upload container structure
 				{
 					$fp = fopen($file_data["tmp_name"], "r");
 					flock($fp, LOCK_SH);

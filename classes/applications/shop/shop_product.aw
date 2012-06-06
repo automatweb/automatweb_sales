@@ -36,7 +36,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 				@property jrk type=textbox size=5 table=objects field=jrk parent=gen_gen
 				@caption J&auml;rjekord
 				@comment Objekti j&auml;rjekord
-				
+
 				@property short_description type=textarea cols=40 rows=5 table=aw_shop_products field=aw_short_description parent=gen_gen
 				@caption L&uuml;hikirjeldus
 
@@ -2502,18 +2502,17 @@ class shop_product extends shop_warehouse_item
 		return $arr["post_ru"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["add_purveyor"] = 0;
 		$arr["add_material"] = 0;
 		$arr["add_brand"] = 0;
 		$arr["add_cat"] = 0;
 		$arr["add_replacement_product"] = 0;
-		$arr["post_ru"] = post_ru();
-		if($_GET["action"] == "new")
+		if ($request["action"] === "new")
 		{
-			$arr["new_cat"] = $_GET["category"];
-			$arr["warehouse"] = $_GET["warehouse"];
+			if (isset($request["category"])) $arr["new_cat"] = $request["category"];
+			if (isset($request["warehouse"])) $arr["warehouse"] = $request["warehouse"];
 		}
 	}
 
@@ -2544,11 +2543,36 @@ class shop_product extends shop_warehouse_item
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_search_button(array(
+			"id" => $arr["obj_inst"]->id(),
 			"pn" => "add_cat",
+			popup_search::REQVAR_FILTER_CALLBACK => 1,
 			"clid" => CL_SHOP_PRODUCT_CATEGORY,
-			"multiple" => 1,
+			"multiple" => 1
 		));
 		$tb->add_delete_rels_button();
+	}
+
+	public static function get_categories_popup_filter(array $arr)
+	{
+		$filter = array("CL_SHOP_PRODUCT_CATEGORY.RELTYPE_WAREHOUSE" => 0);
+		if (!empty($arr["id"]))
+		{
+			try
+			{
+				$this_o = obj($arr["id"], array(), CL_SHOP_PRODUCT);
+				$owner_warehouse = $this_o->get_first_obj_by_reltype("RELTYPE_WAREHOUSE");
+				if ($owner_warehouse)
+				{
+					$filter = array(
+						"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_WAREHOUSE" => $owner_warehouse->id()
+					);
+				}
+			}
+			catch (Exception $e)
+			{
+			}
+		}
+		return $filter;
 	}
 
 	function _set_categories_toolbar($arr)

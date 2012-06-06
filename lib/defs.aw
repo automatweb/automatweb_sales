@@ -261,13 +261,10 @@ function post_message($msg, $params)
 	}
 
 	aw_disable_messages();
-
-	$inst = new msg_dispatch();
-	$inst->post_message(array(
+	msg_dispatch::post_message(array(
 		"msg" => $msg,
 		"params" => $params
 	));
-
 	aw_restore_messages();
 }
 
@@ -362,14 +359,11 @@ function post_message_with_param($msg, $param, &$params)
 	}
 
 	aw_disable_messages();
-
-	$inst = new msg_dispatch();
-	$inst->post_message_with_param(array(
+	msg_dispatch::post_message_with_param(array(
 		"msg" => $msg,
 		"param" => $param,
 		"params" => $params
 	));
-
 	aw_restore_messages();
 }
 

@@ -174,8 +174,6 @@ class doc_display extends aw_template
 		$user16 = $doc->trans_get_val("user16");
 		$al->parse_oo_aliases($doc->id(), $user16, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user16")));
 
-		$userta1 = $orig->trans_get_val("userta1");
-		$al->parse_oo_aliases($doc->id(), $userta1, array("templates" => $this->templates, "meta" => $mt));
 		$userta2 = $orig->trans_get_val("userta2");
 		$al->parse_oo_aliases($doc->id(), $userta2, array("templates" => $this->templates, "meta" => $mt));
 		$userta3 = $orig->trans_get_val("userta3");
@@ -223,8 +221,8 @@ class doc_display extends aw_template
 			"print_date_est" => aw_locale::get_lc_date(time(), LC_DATE_FORMAT_LONG),
 			"modified" => date("d.m.Y", $doc->modified()),
 			"created_tm" => $doc->created(),
-			"created_hr" => "<?php classload(\"doc_display\"); echo doc_display::get_date_human_readable(".$doc->created()."); ?>",
-			"created_human_readable" => "<?php classload(\"doc_display\"); echo doc_display::get_date_human_readable(".$doc->created()."); ?>",
+			"created_hr" => "<?php echo doc_display::get_date_human_readable(".$doc->created()."); ?>",
+			"created_human_readable" => "<?php echo doc_display::get_date_human_readable(".$doc->created()."); ?>",
 			"created" => date("d.m.Y", $doc->created()),
 			"modifiedby" => $modf,
 			"modifiedby_email" => $modf_eml,
@@ -246,7 +244,6 @@ class doc_display extends aw_template
 			"user14" => $user14,
 			"user15" => $user15,
 			"user16" => $user16,
-			"userta1" => $userta1,
 			"userta2" => $userta2,
 			"userta3" => $userta3,
 			"userta4" => $userta4,
@@ -293,13 +290,6 @@ class doc_display extends aw_template
 		if (aw_global_get("print") == 1)
 		{
 			aw_session_set("no_cache", 1);
-			$cs = aw_global_get("charset");
-			if (aw_ini_get("user_interface.full_content_trans"))
-			{
-				$ld = languages::fetch(aw_global_get("ct_lang_id"));
-				$cs = $ld["charset"];
-			}
-			header("Content-type: text/html; charset=".$cs);
 		}
 
 		$this->vars(array(
@@ -319,9 +309,6 @@ class doc_display extends aw_template
 
 		if ($doc->prop("show_twitter"))
 		{
-	/*		arr($this->vars["docid"]);
-			arr(aw_ini_get("baseurl"));
-			arr(urlencode(aw_ini_get("baseurl").$this->vars["docid"]));*/
 			$this->vars(array("twitter_url" => "http://platform.twitter.com/widgets/tweet_button.1333526973.html#_=1334108136206&amp;count=horizontal&amp;id=twitter-widget-26&amp;lang=en&amp;original_referer=http%3A%2F%2Ftwitter.com%2Fabout%2Fresources%2Fbuttons%23tweet&amp;size=m&amp;text=Twitter%20%2F%20Twitter%20buttons&amp;url=".urlencode(aw_ini_get("baseurl").$this->vars["docid"])));
 			$this->vars(array("TWITTER" => $this->parse("TWITTER")));
 		}
@@ -348,13 +335,6 @@ class doc_display extends aw_template
 		if (aw_global_get("print") == 1)
 		{
 			aw_session_set("no_cache", 1);
-			$cs = aw_global_get("charset");
-			if (aw_ini_get("user_interface.full_content_trans"))
-			{
-				$ld = languages::fetch(aw_global_get("ct_lang_id"));
-				$cs = $ld["charset"];
-			}
-			header("Content-type: text/html; charset=".$cs);
 		}
 		$str = $this->parse();
 		$this->vars(array("image_inplace" => ""));
@@ -368,6 +348,7 @@ class doc_display extends aw_template
 		{
 			return aw_ini_get("document.print_tpl");
 		}
+
 		if (isset($arr["tpl"]))
 		{
 			return $arr["tpl"];
@@ -383,6 +364,7 @@ class doc_display extends aw_template
 		{
 			$tpl = $tplmgr->get_long_template($doc["parent"]);
 		}
+
 		if ($tpl == "")
 		{
 			return $arr["leadonly"] ? "lead.tpl" : "plain.tpl";
@@ -455,7 +437,7 @@ class doc_display extends aw_template
 			}
 		}
 
-		if (aw_ini_get("document.use_wiki_parser") == 1)
+		if (aw_ini_get("document.use_wiki_parser"))
 		{
 			$this->parse_wiki($text, $doc);
 		}
@@ -566,7 +548,7 @@ class doc_display extends aw_template
 		$cb_nb = $doc->meta("cb_nobreaks");
 		if (!($doc->prop("nobreaks") || $cb_nb["content"]))
 		{
-			if (aw_ini_get("content.doctype") == "xhtml")
+			if (aw_ini_get("content.doctype") === "xhtml")
 			{
 				$text = str_replace("\r\n","<br />",$text);
 			}
@@ -1023,10 +1005,10 @@ class doc_display extends aw_template
 	private function _do_forum($doc)
 	{
 		$fr = "";
-		if ($doc->prop("is_forum") &&
+		if (
+			$doc->prop("is_forum") &&
 			($this->is_template("FORUM_ADD_SUB") || $this->is_template("FORUM_ADD_SUB_ALWAYS") || $this->is_template("FORUM_ADD"))
-
-	     	)
+		)
 		{
 			$_sect = aw_global_get("section");
 			// calculate the amount of comments this document has
@@ -1526,9 +1508,6 @@ class doc_display extends aw_template
 						"KEYWORD" => $tmp,
 				));
 			}
-
-
 		}
-
 	}
 }

@@ -1416,13 +1416,13 @@ features = array()
 		$show_num_child = null;
 		$add_change_url = null;
 		extract($arr);
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 		$aw_classes = get_class_picker (array ("field" => "def"));
 		$item_name_props = (array) ifset($arr, "item_name_props");
 
 		if (!isset($target_url))
 		{
-			$target_url = null;
+			$target_url = false;
 		}
 
 		$class_id = $arr["root_item"]->class_id ();
@@ -1430,7 +1430,7 @@ features = array()
 
 		if ( (is_array ($node_actions)) and !empty($node_actions[$class_id]))
 		{
-			$tree_opts["root_url"] = $tv->mk_my_orb ($node_actions[$class_id], array(
+			$tree_opts["root_url"] = core::mk_my_orb ($node_actions[$class_id], array(
 				"id" => $o->id (),
 				"return_url" => get_ru(),
 			), $class_name);
@@ -1445,7 +1445,7 @@ features = array()
 
 		if ( (is_array ($node_actions)) and !empty($node_actions[$class_id]) )
 		{
-			$url = $tv->mk_my_orb ($node_actions[$class_id], array(
+			$url = core::mk_my_orb ($node_actions[$class_id], array(
 				"id" => $o->id (),
 				"return_url" => get_ru(),
 			), $class_name);

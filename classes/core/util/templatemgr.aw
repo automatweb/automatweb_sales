@@ -2,7 +2,7 @@
 /**
 A class to help manage template files.
 **/
-class templatemgr extends aw_template
+class templatemgr extends core
 {
 	function templatemgr()
 	{
@@ -51,6 +51,7 @@ class templatemgr extends aw_template
 				$def = $this->get_long_template($args["menu"]);
 			}
 		}
+
 		$q = "SELECT * FROM template WHERE type = $type ORDER BY id";
 		$this->db_query($q);
 		$result = array("0" => $args["caption"]);
@@ -166,7 +167,7 @@ class templatemgr extends aw_template
 		if (empty($section))
 		{
 			return "plain.tpl";
-		};
+		}
 		$obj = new object($section);
 		$clid = $obj->class_id();
 		if ($clid == CL_PERIODIC_SECTION || $clid == CL_DOCUMENT)
@@ -182,7 +183,7 @@ class templatemgr extends aw_template
 			$path = array_reverse($path);
 			foreach($path as $path_item)
 			{
-				$tpl_view = $path_item->prop("tpl_view");
+				$tpl_view = $path_item->is_property("tpl_view") ? $path_item->prop("tpl_view") : null;
 				if (empty($template) && is_oid($tpl_view) && ($section == $path_item->id() || !$path_item->prop("tpl_view_no_inherit")))
 				{
 					$template = $this->get_template_file_by_id(array("id" => $tpl_view));
@@ -298,5 +299,35 @@ class templatemgr extends aw_template
 		}
 
 		return $ret;
+	}
+
+	/** List available template names for a template category/folder
+		@attrib api=1 params=pos
+		@param tpldir type=string
+			Folder/category path in template bank. e.g. "automatweb/menuedit"
+		@param folder type=array default=array("tpl", "php")
+			Template types to list. Default is all types.
+		@comment
+			If multiple types requested, type/extension is appended, if only one type then template names list without extensions/type suffixes is returned.
+		@returns array
+		@errors
+	**/
+	public static function get_list($tpldir, $type = array("tpl", "php"))
+	{
+		$dir = realpath(AW_DIR . "templates/{$tpldir}");
+		$templates = scandir($dir);
+		$name_only = 1 === count($type);
+		foreach ($templates as $key => $value)
+		{
+			if (!in_array(substr(strrchr($value, "."), 1), $type))
+			{
+				unset($templates[$key]);
+			}
+			elseif ($name_only)
+			{
+				$templates[$key] = substr($value, 0, strrpos($value, "."));
+			}
+		}
+		return $templates;
 	}
 }

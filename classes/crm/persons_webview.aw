@@ -232,6 +232,7 @@ class persons_webview extends class_base
 				"name" => $nm,
 				"caption" => ($i + 1).". ".t("Isikute j&auml;rjestamisprintsiip"),
 				"type" => "text",
+				"store" => "class_base",
 				"value" => html::select(array(
 					"name" => "persons_principe[".$i."][principe]",
 					"options" => $this->persons_sort_order,
@@ -265,6 +266,7 @@ class persons_webview extends class_base
 				"name" => $nm,
 				"caption" => ($i + 1).". ".t("Osakondade j&auml;rjestamisprintsiip"),
 				"type" => "text",
+				"store" => "class_base",
 				"value" => html::select(array(
 					"name" => $nm,
 					"options" => $this->department_sort_order,
@@ -323,9 +325,9 @@ class persons_webview extends class_base
 		$nm = "view";
 
 		$template_selection = array();
-		if ($handle = opendir($this->cfg["site_tpldir"]."crm/persons_webview/")) {
+		if ($handle = opendir(aw_ini_get("site_tpldir")."crm/persons_webview/")) {
 			while (false !== ($entry = readdir($handle))) {
-				if($entry !== '.' && $entry !== '..') { 
+				if($entry !== '.' && $entry !== '..') {
 				$template_selection[$entry] = $entry;
 				}
 			}
@@ -372,8 +374,9 @@ class persons_webview extends class_base
 		$ret[$nm] = array(
 			"name" => $nm,
 			"caption" => t($caption),
+			"store" => "class_base",
 			"type" => "text",
-			"value" => $t->draw().$this->help,
+			"value" => $t->draw().$this->help
 		);
 		return $ret;
 	}
@@ -472,7 +475,7 @@ class persons_webview extends class_base
 					$res = strcmp($a["worker"]->prop("lastname"),$b["worker"]->prop("lastname"));
 					if($res)
 					{
-						if($val["order"] == "ASC")
+						if($val["order"] === "ASC")
 						{
 							return $res;
 						}
@@ -493,7 +496,7 @@ class persons_webview extends class_base
 					}
 					if($res)
 					{
-						if($val["order"] == "ASC")
+						if($val["order"] === "ASC")
 						{
 							$this->set_proffession_principe_order("ASC");
 							return $res;
@@ -507,7 +510,7 @@ class persons_webview extends class_base
 					$res = $a["jrk"] - $b["jrk"];
 					if($res)
 					{
-						if($val["order"] == "ASC")
+						if($val["order"] === "ASC")
 						{
 							return $res;
 						}
@@ -751,7 +754,7 @@ class persons_webview extends class_base
 		{
 			if($this->is_template("DEPARTMENT"))
 			{
-				
+
 				$this->jrks = array();
 				if(in_array((0) , $this->levels) && (sizeof($this->levels) > 0)) $sections = array_merge(array($company) , $this->get_sections(array("section" => $company , "jrk" => 0)));
 				else $sections = $this->get_sections(array("section" => $company , "jrk" => 0));
@@ -784,7 +787,7 @@ class persons_webview extends class_base
 				$workers = $this->get_workers($company);
 				$this->parse_persons($workers);
 			}
-					
+
 			if($this->is_template("DEPARTMENT"))//juhuks kui DEPARTMENT sub sisse on j22nud... mida tegelt pole vaja
 			{
 				$department .= $this->parse("DEPARTMENT");
@@ -1147,7 +1150,7 @@ class persons_webview extends class_base
 			"reception" => $worker->prop("work_hrs"),
 		);
 
-		//pilt 
+		//pilt
 		$photo="";
 		$image_inst = new image();
 		if(false && is_oid($worker->prop("picture")) && $this->can("view", $worker->prop("picture")))

@@ -1,11 +1,11 @@
 <?xml version='1.0'?>
-<xml>
-<num_1>
-      <class>/core/obj/acl_base</class>
-      <func>on_user_login</func>
-</num_1>
-<num_2>
-      <class>/applications/messenger/messenger_v2</class>
-      <func>on_user_login</func>
-</num_2>
-</xml>
+<msgmap>
+<handler>
+      <class>acl_base</class>
+      <method>on_user_login</method>
+</handler>
+<handler>
+      <class>messenger_v2</class>
+      <method>on_user_login</method>
+</handler>
+</msgmap>

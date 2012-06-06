@@ -1,27 +1,21 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 // this class generates the message dispatch tables from the class files
 
-class msg_scanner extends class_base
+class msg_scanner
 {
-	function msg_scanner()
+	public function __construct()
 	{
 		aw_global_set("no_db_connection", true);
-		$this->init(array(
-			"no_db" => 1
-		));
-		$this->folder = AW_DIR."xml/msgmaps";
+		$this->folder = AW_DIR."xml/msgmaps/";
 	}
 
-	function scan()
+	public function scan()
 	{
 		// generate list of all class files in aw
-		$parser = get_instance("core/aw_code_analyzer/parser");
+		$parser = new parser();
 		$files = array();
-		$parser->_get_class_list(&$files, $this->cfg["classdir"]);
+		$parser->_get_class_list(&$files, aw_ini_get("classdir"));
 		$files[] = AW_DIR . "lib/defs.aw"; // temporary. until MSG_MAIL_SENT emit declaration moved from defs.aw
 
 		// scan them for all dispatched / recieved messages
@@ -34,7 +28,7 @@ class msg_scanner extends class_base
 		$this->_save_message_maps($messages, $receivers, $receivers_param);
 	}
 
-	function _scan_files($files)
+	private function _scan_files($files)
 	{
 		$messages = array();
 		$receivers = array();
@@ -42,9 +36,9 @@ class msg_scanner extends class_base
 		foreach($files as $file)
 		{
 			$blen = strlen(AW_DIR."classes")+1;
-			$class = substr($file, $blen, strlen($file) - (strlen(".".$this->cfg["ext"])+$blen));
+			$class = substr($file, $blen, strlen($file) - (strlen(AW_FILE_EXT+$blen));
 
-			$fc = $this->get_file(array("file" => $file));
+			$fc = core::get_file(array("file" => $file));
 			if (preg_match_all("/EMIT_MESSAGE\((.*)\)/U",$fc, $mt, PREG_SET_ORDER))
 			{
 				foreach($mt as $m)
@@ -80,7 +74,7 @@ class msg_scanner extends class_base
 		return array($messages, $receivers, $receivers_param);
 	}
 
-	function _check_message_maps($messages, $receivers, $receivers_param)
+	private function _check_message_maps($messages, $receivers, $receivers_param)
 	{
 		foreach($receivers as $msg => $cldat)
 		{
@@ -136,7 +130,7 @@ class msg_scanner extends class_base
 		}
 	}
 
-	function _save_message_maps($messages, $receivers, $receivers_param)
+	private function _save_message_maps($messages, $receivers, $receivers_param)
 	{
 		$this->_delete_old_maps();
 
@@ -161,8 +155,8 @@ class msg_scanner extends class_base
 			// serialize
 			$xml = aw_serialize($r, SERIALIZE_XML);
 			// write file
-			$file = $this->folder."/".$msg.".xml";
-			$this->put_file(array(
+			$file = $this->folder.$msg.".xml";
+			core::put_file(array(
 				"file" => $file,
 				"content" => $xml
 			));
@@ -170,16 +164,16 @@ class msg_scanner extends class_base
 		}
 	}
 
-	function _delete_old_maps()
+	private function _delete_old_maps()
 	{
 		$fs = array();
-		if (($dir = @opendir($this->folder)))
+		if (($dir = opendir($this->folder)))
 		{
 			while (($file = readdir($dir)) !== false)
 			{
-				$fn = $this->folder."/".$file;
+				$fn = $this->folder.$file;
 
-				if (is_file($fn) && substr($file,strlen($file)-4) == ".xml")
+				if (is_file($fn) && substr($file,strlen($file)-4) === ".xml")
 				{
 					if (!is_writable($fn))
 					{
@@ -197,11 +191,10 @@ class msg_scanner extends class_base
 
 		foreach($fs as $fn)
 		{
-			if (!@unlink($fn))
+			if (!unlink($fn))
 			{
 				die(sprintf(t("ERROR: no write access to file %s!\n\n"), $fn));
 			}
 		}
 	}
 }
-?>

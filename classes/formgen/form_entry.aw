@@ -1,8 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/formgen/form_entry.aw,v 1.12 2008/01/31 13:54:34 kristo Exp $
 
 // basically this is an interface class :)
-// it provides a form_entry manipulating interface to menueditor via orb. 
+// it provides a form_entry manipulating interface to menueditor via orb.
 // but it doesn't contain any of the functionality, it just forwards calls to class form
 // well, ok, not an interface class in it's purest meaning, but still pretty cool
 
@@ -11,9 +10,6 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_FORM_ENTRY, on_add_alias)
 
 */
-/*
-@classinfo  maintainer=kristo
-*/
 
 class form_entry extends aw_template
 {
@@ -21,19 +17,17 @@ class form_entry extends aw_template
 	{
 		$this->db_init();
 		$this->tpl_init("forms");
-		lc_load("definition");
-		$this->lc_load("form", "lc_form");
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=change params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -55,7 +49,7 @@ class form_entry extends aw_template
 	**/
 	function orb_new($arr)
 	{
-		$i = get_instance("formgen/form_alias");
+		$i = new form_alias();
 		return $i->do_new($arr);
 	}
 
@@ -68,9 +62,9 @@ class form_entry extends aw_template
 		extract($args);
 		// koigepealt teeme kindlaks, millise vormi juurde see entry kuulub
 		$fid = $this->db_fetch_field("SELECT form_id FROM form_entries WHERE id = '$eid'","form_id");
-		
+
 		$entry = $this->get_record("form_" . $fid . "_entries","id",$eid);
-		
+
 		// if it is part of a chain, then fetch all the other entries as well
 		if ($entry["chain_id"])
 		{
@@ -81,7 +75,7 @@ class form_entry extends aw_template
 		{
 			$els = array($fid => $eid);
 		};
- 
+
 		$block = array();
 
 		foreach($els as $form_id => $entry_id)
@@ -108,7 +102,7 @@ class form_entry extends aw_template
 		};
 		// acl-iga voib kamm tekkida.
 		$new_id = $old->save_new();
-	
+
 		$oldentry = $this->get_record("form_entries","id",$eid);
 
 		$q = "INSERT INTO form_entries(id,form_id) VALUES ('$new_id','$oldentry[form_id]')";
@@ -134,9 +128,9 @@ class form_entry extends aw_template
 		};
 
 		$q = sprintf("INSERT INTO $ftable (%s) VALUES (%s)",join(",",$keys),join(",",$values));
-		
+
 		$this->db_query($q);
-		
+
 		return $new_id;
 
 	}
@@ -150,7 +144,7 @@ class form_entry extends aw_template
 		$this->mk_path($al["parent"],"<a href='".$this->mk_my_orb("list_aliases", array("id" => $arr["connection"]->prop("from")),"aliasmgr")."'>Tagasi</a> / Vali aliase t&uuml;&uuml;p");
 		$this->read_template("alias_type.tpl");
 
-		$fb = get_instance("formgen/form_base");
+		$fb = new form_base();
 		$form = $fb->get_form_for_entry($arr["connection"]->prop("to"));
 
 		$opl = $fb->get_op_list($form);
@@ -185,4 +179,3 @@ class form_entry extends aw_template
 		}
 	}
 }
-?>

@@ -17,6 +17,8 @@
 @reltype WAREHOUSE value=25 clid=CL_SHOP_WAREHOUSE
 @caption Ladu
 
+@message MSG_STORAGE_ALIAS_ADD_TO
+
 */
 
 class shop_warehouse_item extends aw_product
@@ -50,7 +52,7 @@ class shop_warehouse_item extends aw_product
 	function _get_purveyance_tbl($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		
+
 		$t->define_chooser(array(
 			"field" => "oid",
 			"name" => "sel",
@@ -194,16 +196,11 @@ class shop_warehouse_item extends aw_product
 				)");
 				$r = true;
 			}
-			elseif ("" === $field)
-			{
-				$this->db_add_col("aw_shop_warehouse_item", array(
-					"name" => "",
-					"type" => ""
-				));
-				$r = true;
-			}
 		}
 
 		return $r;
 	}
+
+	// Override parent to avoid multiple calls in message handling
+	public function setup_description_document($arr) {}
 }

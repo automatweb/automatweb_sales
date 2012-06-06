@@ -5,7 +5,7 @@
 
 // also, all view related functions from CL_PLANNER will move over here
 
-@classinfo syslog_type=ST_CALENDAR_VIEW relationmgr=yes no_status=1
+@classinfo relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -183,7 +183,7 @@ class calendar_view extends class_base
 			case "result_table":
 				$retval = $this->gen_result_table($arr);
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -258,7 +258,7 @@ class calendar_view extends class_base
 		{
 			$arr["prop"]["error"] = t("V&auml;ljundvorm on valimata");
 			return PROP_ERROR;
-		};
+		}
 
 		$pname = $arr["prop"]["name"];
 
@@ -322,7 +322,7 @@ class calendar_view extends class_base
 				))."<br />";
 			}
 			$t->define_data($prps);
-		};
+		}
 		$t->set_sortable(false);
 	}
 
@@ -371,8 +371,8 @@ class calendar_view extends class_base
 				$q = "SELECT source,target FROM aliases WHERE relobj_id = '$al_id'";
 				$row = $this->db_fetch_row($q);
 				$target_doc = $row["source"];
-			};
-		};
+			}
+		}
 
 		return $target_doc;
 
@@ -394,7 +394,7 @@ class calendar_view extends class_base
 		if (!empty($target_doc))
 		{
 			$item["url"] = aw_ini_get("baseurl") . "/" . $target_doc;
-		};
+		}
 		*/
 
 
@@ -412,7 +412,7 @@ class calendar_view extends class_base
 					"start" => $arr["start"],
 					"end" => $arr["end"],
 				));
-			};
+			}
 
 			if ($clid == CL_DOCUMENT_ARCHIVE)
 			{
@@ -422,7 +422,7 @@ class calendar_view extends class_base
 					"start" => $arr["start"],
 					"end" => $arr["end"],
 				));
-			};
+			}
 
 			if ($clid == CL_PROJECT)
 			{
@@ -434,7 +434,7 @@ class calendar_view extends class_base
 				));
 
 
-			};
+			}
 			foreach($overview as $event)
 			{
 				if($this->can("view", $this->obj_inst->default_urlobj))
@@ -448,7 +448,7 @@ class calendar_view extends class_base
 				if (!empty($item["url"]))
 				{
 					$item["url"] = aw_url_change_var("date",date("d-m-Y",$event["start"]),$item["url"]);
-				};
+				}
 				if($this->obj_inst->use_event_time_objs)
 				{
 					foreach(connection::find(array("from" => $event["id"], "from.class_id" => CL_CALENDAR_EVENT, "type" => "RELTYPE_EVENT_TIMES")) as $et_conn)
@@ -458,7 +458,7 @@ class calendar_view extends class_base
 						if (!empty($item["url"]))
 						{
 							$item["url"] = aw_url_change_var("date",date("d-m-Y",$event_time_obj->start), $item["url"]);
-						};
+						}
 
 						$tmp = $item;
 						$tmp["start"] = $tmp["timestamp"] = get_day_start($event_time_obj->start);
@@ -489,15 +489,15 @@ class calendar_view extends class_base
 							if (!empty($item["url"]))
 							{
 								$item["url"] = aw_url_change_var("date",date("d-m-Y",$tmp["timestamp"]), $item["url"]);
-							};
+							}
 							$tmp = $item;
 							$tmp["start"] = $tmp["timestamp"] = $i;
 							$rv[$i] = $tmp;
 						}
 					}
 				}
-			};
-		};
+			}
+		}
 		// now, I need a document which will carry the news articles
 		return $rv;
 	}
@@ -540,7 +540,7 @@ class calendar_view extends class_base
 					$varx["item_end"] = $event["end"];
 				}
 				$arr["cal_inst"]->add_item($varx);
-			};
+			}
 
 		}
 		else
@@ -611,10 +611,10 @@ class calendar_view extends class_base
 						}
 					}
 					$arr["cal_inst"]->add_item($varx);
-				};
+				}
 
-			};
-		};
+			}
+		}
 	}
 
 	function __sort_events_by_time($el1, $el2)
@@ -687,9 +687,9 @@ class calendar_view extends class_base
 						if ($val["start"] < $range["start"])
 						{
 							unset($events[$key]);
-						};
-					};
-				};
+						}
+					}
+				}
 				$this->day_start = $arr["range"]["start"];
 			//	if(aw_global_get("uid") == "kix") {arr($events);}
 				uasort($events, array($this, "__sort_events_by_time"));
@@ -701,7 +701,7 @@ class calendar_view extends class_base
 					// this does not work, because PLANNER does not yet have a method
 					// to returns events from a specified range
 					$events = array_slice($events, 0, $num);
-				};
+				}
 				break;
 
 			case CL_DOCUMENT_ARCHIVE:
@@ -723,7 +723,7 @@ class calendar_view extends class_base
 					"project_media" => $arr["project_media"],
 				));
 				break;
-		};
+		}
 
 		return $events;
 	}
@@ -782,7 +782,7 @@ class calendar_view extends class_base
 		else
 		{
 			$this->obj_inst = new object($arr["alias"]["target"]);
-		};
+		}
 
 		if ($this->obj_inst)
 		{
@@ -807,7 +807,7 @@ class calendar_view extends class_base
 		if ($use2dir[$use_template])
 		{
 			$tpldir = $use2dir[$use_template];
-		};
+		}
 
 		// oookey .. I need a way to query the calendar whether it has to show images?
 		$vcal = new vcalendar(array(
@@ -817,7 +817,7 @@ class calendar_view extends class_base
 		if ($arr["event_template"])
 		{
 			$args["event_template"] = $arr["event_template"];
-		};
+		}
 
 		$args = array(
 			"container_template" => "intranet1.tpl",
@@ -827,7 +827,7 @@ class calendar_view extends class_base
 		{
 			$args["overview_func"] = array($this,"get_overview");
 			$args["overview_range"] = 1;
-		};
+		}
 		if($use_template == "relative")
 		{
 			$args["overview_range"] = 3;
@@ -837,12 +837,12 @@ class calendar_view extends class_base
 		if (1 == $this->obj_inst->prop("show_days_with_events"))
 		{
 			$args["show_days_with_events"] = 1;
-		};
+		}
 
 		if ($arr["skip_empty"])
 		{
 			$args["skip_empty"] = $arr["skip_empty"];
-		};
+		}
 
 		// this parse_alias is also being invoked directly from the project class,
 		// without an alias anywhere. I want to show full months if this is an alias
@@ -851,12 +851,12 @@ class calendar_view extends class_base
 		if (!empty($arr["matches"]))
 		{
 			$arr["full_weeks"] = 1;
-		};
+		}
 
 		if ($arr["full_weeks"])
 		{
 			$args["full_weeks"] = $arr["full_weeks"];
-		};
+		}
 
 		if (is_oid($this->target_doc))
 		{
@@ -865,11 +865,11 @@ class calendar_view extends class_base
 		else
 		{
 			$args["target_section"] = aw_global_get("section");
-		};
-		$status = array(STAT_ACTIVE, STAT_NOTACTIVE);
+		}
+		$status = array(object::STAT_ACTIVE, object::STAT_NOTACTIVE);
 		if($this->obj_inst->prop("actives_only") == 1)
 		{
-			$status = array(STAT_ACTIVE);
+			$status = array(object::STAT_ACTIVE);
 			$args["active_only"] = 1;
 		}
 		if($this->obj_inst->prop("fix_links") == 1)
@@ -884,11 +884,11 @@ class calendar_view extends class_base
 		if ($viewtype == "")
 		{
 			$viewtype = "week";
-		};
+		}
 		if ($arr["viewtype"])
 		{
 			$viewtype = $arr["viewtype"];
-		};
+		}
 
 		if ($_GET["viewtype"])
 		{
@@ -896,8 +896,8 @@ class calendar_view extends class_base
 			if ($use2dir[$viewtype])
 			{
 				$tpldir = $use2dir[$viewtype];
-			};
-		};
+			}
+		}
 
 		$text = "";
 		if (is_oid($_GET["event_id"]) && $this->can("view",$_GET["event_id"]))
@@ -924,7 +924,6 @@ class calendar_view extends class_base
 		$range = $vcal->get_range($range_p);
 		if($this->obj_inst->prop("show_event_content") == 1)
 		{
-			enter_function("calendar_view::show_event_content");
 			$ec = array();
 			foreach($conns as $conn)
 			{
@@ -1035,7 +1034,7 @@ class calendar_view extends class_base
 						"class_id" => $this->event_entry_classes,
 						"status" => $status,
 						"brother_of" => new obj_predicate_prop("id"),
-						"start1" => new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, mktime(0, 0, 1, 1, 1, $year)),
+						"start1" => new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, mktime(0, 0, 1, 1, 1, $year)),
 						"limit" => 1,
 					));
 					$obj = $objs->begin();
@@ -1050,7 +1049,6 @@ class calendar_view extends class_base
 				}
 				$vcal->years = $years;
 			}
-			exit_function("calendar_view::show_event_content");
 		}
 		else
 		{
@@ -1085,19 +1083,19 @@ class calendar_view extends class_base
 			$exp_args["show_active_trans"] = true;
 		}
 
-		if ("grouped" == $use_template && "day" == $viewtype)
+		if ("grouped" === $use_template && "day" === $viewtype)
 		{
 			// use_template on see mida kasutatakse yhe konkreetse syndmuse joonistamiseks
 			$args["container_template"] = "grouped.tpl";
 			//$arr["event_template"] = "groupitem.tpl";
-		};
+		}
 
 		$vcal->init_output(array("event_template" => $arr["event_template"]));
 		$exp_args["limit_events"] = $this->obj_inst->prop("num_next_events");
 		if ($arr["obj_inst"])
 		{
 			$exp_args["oid"] = $arr["obj_inst"]->id();
-		};
+		}
 		$this->_export_events($exp_args);
 		classload("layout/active_page_data");
 		$style = array();
@@ -1128,7 +1126,7 @@ class calendar_view extends class_base
 					$stylex = get_instance(CL_STYLE);
 				}
 				$style[$style_prop] = $stylex->get_style_name($prop_value);
-			};
+			}
 		}
 
 		$args = array(
@@ -1136,15 +1134,15 @@ class calendar_view extends class_base
 		);
 
 
-		if ($this->obj_inst->prop("use_template") ==  "weekview")
+		if ($this->obj_inst->prop("use_template") ===  "weekview")
 		{
 			$args["tpl"] = "week.tpl";
-		};
+		}
 
 		if (!empty($text))
 		{
 			$args["text"] = $text;
-		};
+		}
 
 		$rv = $vcal->get_html($args);
 		if ("grouped" == $use_template)
@@ -1168,7 +1166,7 @@ class calendar_view extends class_base
 			));
 
 			$event_validator = $this->obj_inst->get_first_obj_by_reltype("RELTYPE_EVENT_VALIDATOR");
-			$rv .= "<br>";
+			$rv .= html::linebreak();
 			foreach ($conns as $conn)
 			{
 				$to_o = $conn->to();
@@ -1183,7 +1181,7 @@ class calendar_view extends class_base
 				{
 					$data = $event;
 					$evt_obj = new object($event["id"]);
-					if ($this->obj_inst->prop("actives_only") && $evt_obj->status() != STAT_ACTIVE)
+					if ($this->obj_inst->prop("actives_only") && $evt_obj->status() != object::STAT_ACTIVE)
 					{
 						continue;
 					}
@@ -1204,14 +1202,14 @@ class calendar_view extends class_base
 						"item_end" => $event["end"],
 						"data" => $data,
 					));
-				};
+				}
 				if (sizeof($events) > 0)
 				{
 					$rv .= $vcal->draw_day(array("caption" => $to_o->name()));
-				};
-			};
+				}
+			}
 
-		};
+		}
 		return $rv;
 	}
 

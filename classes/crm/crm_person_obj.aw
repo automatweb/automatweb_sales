@@ -24,7 +24,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
-			"status" => object::STAT_ACTIVE,
+			"status" => object::STAT_ACTIVE
 		));
 		return $ol;
 	}
@@ -500,7 +500,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			"type" => "RELTYPE_CANDIDATE"
 		));
 
-		$pm = get_instance(CL_PERSONNEL_MANAGEMENT);
+		$pm = new personnel_management();
 		foreach($conns as $conn)
 		{
 			$from = obj($conn["from"]);
@@ -515,27 +515,16 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	function prms(&$arr)
 	{
-		$arr["parent"] = !isset($arr["parent"]) ? array() : $arr["parent"];
-		if(!is_array($arr["parent"]))
-		{
-			$arr["parent"] = array($arr["parent"]);
-		}
-		$arr["status"] = !isset($arr["status"]) ? array() : $arr["status"];
-		if(!is_array($arr["status"]))
-		{
-			$arr["status"] = array($arr["status"]);
-		}
 		$arr["childs"] = !isset($arr["childs"]) ? true : $arr["childs"];
-
-		if($arr["childs"] && (!is_array($arr["parent"]) || count($arr["parent"]) > 0))
+		if($arr["childs"] && (!isset($arr["parent"]) || !is_array($arr["parent"]) || count($arr["parent"]) > 0))
 		{
 			$pars = $arr["parent"];
 			foreach($pars as $par)
 			{
 				$ot = new object_tree(array(
 					"class_id" => CL_MENU,
-					"status" => $arr["status"],
-					"parent" => $par,
+					"status" => isset($arr["status"]) ? $arr["status"] : null,
+					"parent" => $par
 				));
 				foreach($ot->ids() as $oid)
 				{
@@ -575,8 +564,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 		$prms = array(
 			"class_id" => CL_CRM_PHONE,
-			"status" => array(),
-			"parent" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -614,8 +601,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 		$prms = array(
 			"class_id" => CL_ML_MEMBER,
-			"status" => array(),
-			"parent" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -1125,7 +1110,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $current_job)
 		{
-			if($co && $current_job->prop("org") != $co)
+			if($co && $current_job->prop("employer") != $co)
 			{
 				continue;
 			}
@@ -1158,7 +1143,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $current_job)
 		{
-			if($co && $current_job->prop("org") != $co)
+			if($co && $current_job->prop("employer") != $co)
 			{
 				continue;
 			}
@@ -1277,9 +1262,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			$this->set_current_jobs();
 			foreach($this->current_jobs->arr() as $job)
 			{
-				if($job->prop("org"))
+				if($job->prop("employer"))
 				{
-					$sel[$job->prop("org")] = $job->prop("org.name");
+					$sel[$job->prop("employer")] = $job->prop("employer.name");
 				}
 			}
 			return $sel;
@@ -1288,9 +1273,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_all_jobs();
 		foreach($this->all_jobs->arr() as $job)
 		{
-			if($job->prop("org"))
+			if($job->prop("employer"))
 			{
-				$sel[$job->prop("org")] = $job->prop("org.name");
+				$sel[$job->prop("employer")] = $job->prop("employer.name");
 			}
 		}
 

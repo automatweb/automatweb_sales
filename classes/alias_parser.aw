@@ -1,13 +1,45 @@
 <?php
 
-class alias_parser extends core
+class alias_parser
 {
 	private $tmp_vars;
 
-	function alias_parser()
+	private static $aw_formatting_tags = array(
+		"expander-trigger", "expander-content"
+	);
+
+	/** Parses aw formatting tags to html
+		@attrib api=1 params=pos
+
+		@param oid type=oid
+			the object to which the text belongs to
+
+		@param source type=string
+
+		@comment
+		@returns void
+		@errors
+	**/
+	public static function parse_tags($oid, &$source)
 	{
-		$this->init();
+		// should eliminate 99% of the texts that don't contain aliases
+		if(strpos($source, "#") === false)
+		{
+			return;
+		}
+
+		$tags = implode("|", self::$aw_formatting_tags);
+		$tags_pattern = "/(##)(({$tags})\-?[0-9]*)(##)/iS";
+
+		$_res = preg_match_all($tags_pattern, $source, $matches, PREG_SET_ORDER);
+		if ($_res)
+		{
+			foreach ($matches as $key => $data)
+			{
+			}
+		}
 	}
+
 
 	/**  Finds aw aliases in the given string and replaces them with their output
 		@attrib api=1
@@ -38,7 +70,7 @@ class alias_parser extends core
 
 			echo $content; // displays document with aliases parsed
 	**/
-	function parse_oo_aliases($oid, &$source, $args = array())
+	public function parse_oo_aliases($oid, &$source, $args = array())
 	{
 		// should eliminate 99% of the texts that don't contain aliases -- ahz
 		if(strpos($source, "#") === false)
@@ -46,10 +78,12 @@ class alias_parser extends core
 			return;
 		}
 
-		$_res = preg_match_all("/(#)(\w+?)(\d+?)(v|k|p|)(#)/i", $source, $matches, PREG_SET_ORDER);
+		$tags_pattern = "/(#)(\w+?)(\d+?)(v|k|p|\.([a-z_.]+)|)(#)/iS";
+
+		$_res = preg_match_all($tags_pattern, $source, $matches, PREG_SET_ORDER);
 		if (!$_res)
 		{
-			// if no aliases are in text, don't do nothin
+			// if no aliases are in text, do nothin
 			return;
 		}
 
@@ -60,7 +94,8 @@ class alias_parser extends core
 		$o = obj($oid);
 		if ($o->is_brother())
 		{
-			$oid = $o->get_original();
+			$o = $o->get_original();
+			$oid = $o->id();
 		}
 
 		$aliases = $this->get_oo_aliases(array("oid" => $oid));
@@ -110,7 +145,7 @@ class alias_parser extends core
 		$i = 0;
 		do
 		{
-			$_res = preg_match_all("/(#)(\w+?)(\d+?)(v|k|p|)(#)/i", $source, $matches, PREG_SET_ORDER);
+			$_res = preg_match_all($tags_pattern, $source, $matches, PREG_SET_ORDER);
 			if (is_array($matches))
 			{
 				// we gather all aliases in here, grouped by class so we gan give them to parse_alias_list()
@@ -127,7 +162,6 @@ class alias_parser extends core
 
 					$toreplace[$clid][$val[0]] = $aliases[$clid][$idx];
 					$toreplace[$clid][$val[0]]["val"] = $val;
-
 				}
 
 				// here we do the actual parse/replace bit
@@ -140,59 +174,72 @@ class alias_parser extends core
 					if ($class_name)
 					{
 						// load and create the class needed for that alias type
-						$$emb_obj_name = get_instance($class_name);
+						$$emb_obj_name = new $class_name_base();
 						$$emb_obj_name->embedded = true;
 					}
-
 
 					// if not, then parse all the aliases one by one
 					foreach($claliases as $avalue => $adata)
 					{
-						// if there is no object, then we just skip it -- ahz
-						if(!is_oid($adata["target"]) || !acl_base::can("view", $adata["target"]))
+						$replacement = "";
+						if(acl_base::can("view", $adata["target"]))
 						{
-							$source = str_replace($avalue, "", $source);
-							continue;
-						}
+							if (!empty($adata["val"][5]))
+							{ // embedded object property accessed in document content
+								$target_o = new object($adata["target"]);
+								$property_name = $adata["val"][5];
 
-						$replacement = false;
-						if (method_exists($$emb_obj_name,"parse_alias"))
-						{
-							$parm = array(
-								"oid" => $oid,
-								"matches" => $adata["val"],
-								"alias" => $adata,
-								"tpls" => &$args["templates"],
-								"data" => isset($args["data"]) ? $args["data"] : null
-							);
-							$repl = $$emb_obj_name->parse_alias($parm);
-
-							$inplace = false;
-							if (is_array($repl))
-							{
-								$replacement = $repl["replacement"];
-								$inplace = $repl["inplace"];
-							}
-							else
-							{
-								$replacement = $repl;
-							}
-
-							if ($inplace)
-							{
-								if (isset($this->tmp_vars[$inplace]))
+								try
 								{
-									$this->tmp_vars[$inplace] .= $replacement;
+									$replacement = $target_o->prop_str($property_name);
+								}
+								catch (awex_obj_prop $e)
+								{
+									$uid = aw_global_get("uid");
+									if ($uid and ($uid === $o->createdby() or $uid === $o->modifiedby()))
+									{
+										$replacement = sprintf(t("[Viga: objektil %s pole omadust nimega %s]"), $target_o->name(), $property_name);
+									}
+								}
+							}
+							elseif (method_exists($$emb_obj_name, "parse_alias"))
+							{ // object view embedded in document content
+								$parm = array(
+									"oid" => $oid,
+									"matches" => $adata["val"],
+									"alias" => $adata,
+									"tpls" => &$args["templates"],
+									"data" => isset($args["data"]) ? $args["data"] : null
+								);
+								$repl = $$emb_obj_name->parse_alias($parm);
+
+								$inplace = false;
+								if (is_array($repl))
+								{
+									$replacement = $repl["replacement"];
+									$inplace = $repl["inplace"];
 								}
 								else
 								{
-									$this->tmp_vars[$inplace] = $replacement;
+									$replacement = $repl;
 								}
-								$replacement = "";
+
+								if ($inplace)
+								{
+									if (isset($this->tmp_vars[$inplace]))
+									{
+										$this->tmp_vars[$inplace] .= $replacement;
+									}
+									else
+									{
+										$this->tmp_vars[$inplace] = $replacement;
+									}
+									$replacement = "";
+								}
 							}
 						}
 
-						$source = str_replace($avalue,$replacement,$source);
+						$source = str_replace($avalue, $replacement, $source);
 					}
 				}
 			}

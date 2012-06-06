@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="object_webview" folder="classes/contentmgmt/object_webview" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" type="CL_OBJECT_WEBVIEW" />
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

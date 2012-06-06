@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
-<xml>
-<num_0>
-      <class>formgen/form</class>
-      <func>on_language_add</func>
-</num_0>
-</xml>
+<msgmap>
+<handler>
+      <class>form</class>
+      <method>on_language_add</method>
+</handler>
+</msgmap>

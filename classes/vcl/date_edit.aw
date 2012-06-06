@@ -2,9 +2,7 @@
 // klassile antakse ette "unix timestamp", ta konverdib
 // selle ajayhikuteks, ning tagastab nende muutmiseks
 // sobivad vormielemendid
-/*
-@classinfo  maintainer=kristo
-*/
+
 class date_edit
 {
 	// vormielementide nimed saavad olema kujul
@@ -456,4 +454,4 @@ class date_edit
 		$tmp =  mktime(23, 59, 59, $var["month"], $var["day"], $var["year"]);
 		return $tmp;
 	}
-}; // end class
+}

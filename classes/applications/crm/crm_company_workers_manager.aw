@@ -94,13 +94,16 @@
 
 class crm_company_workers_manager extends class_base
 {
+	private static $search_props = array(
+		"es_n","es_s","es_g","es_a","es_e","es_agefrom","es_ageto", "es_c", "es_county",  "es_city", "es_index", "es_citizenship", "es_code"
+	);
+
 	function __construct()
 	{
 		$this->init(array(
 			"tpldir" => "applications/crm/crm_company_workers_manager",
 			"clid" => crm_company_workers_manager_obj::CLID
 		));
-		$this->search_props = array("es_n","es_s","es_g","es_a","es_e","es_agefrom","es_ageto", "es_c", "es_county",  "es_city", "es_index", "es_citizenship", "es_code");
 	}
 
 	function do_db_upgrade($table, $field, $query, $error)
@@ -136,7 +139,7 @@ class crm_company_workers_manager extends class_base
 		$data = &$arr['prop'];
 		$arr["use_group"] = $this->use_group;
 
-		if(in_array($data["name"] , $this->search_props))
+		if(in_array($data["name"] , self::$search_props))
 		{
 			if(isset($arr["request"][$data["name"]]))
 			{
@@ -161,12 +164,11 @@ class crm_company_workers_manager extends class_base
 
 			$fn = "_get_{$data["name"]}";
 			if (method_exists($employees_view, $fn))
-			{//arr($data["name"]);
+			{
 				$params = array();
 				$params["obj_inst"] = obj($arr["obj_inst"]->prop("company"));
 				$params["prop"] =&$arr["prop"];
 				$params["request"] =&$arr["request"];
-	//			arr($params["prop"]);
 				return $employees_view->$fn($params);
 			}
 		}
@@ -202,7 +204,7 @@ class crm_company_workers_manager extends class_base
 
 	function callback_mod_retval(&$arr)
 	{
-		foreach($this->search_props as $prop)
+		foreach(self::$search_props as $prop)
 		{
 			if(!empty($arr['request'][$prop]))
 			{

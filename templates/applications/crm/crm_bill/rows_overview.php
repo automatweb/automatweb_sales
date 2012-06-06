@@ -13,7 +13,7 @@
 					<th class="caption"><?php echo t("Kogus", $lang_id)?></td>
 					<th class="caption"><?php echo t("Hind", $lang_id)?></td>
 					<th class="caption"><?php echo t("Summa", $lang_id)?></td>
-					<th class="caption"><?php echo t("KM", $lang_id)?></td>
+					<?php if ($tax) {?><th class="caption"><?php echo t("KM", $lang_id)?></td><?php }?>
 				</tr>
 			</thead>
 
@@ -24,7 +24,7 @@
 					<td class="nowrap"><?php echo $row["quantity_str"]?></td>
 					<td><?php echo $row["price"]?></td>
 					<td><?php echo $row["sum"]?></td>
-					<td><?php echo $row["tax_sum"]?></td>
+					<?php if ($tax) {?><td><?php echo $row["tax_sum"]?></td><?php }?>
 				</tr>
 			<?php }?>
 			</tbody>
@@ -34,20 +34,20 @@
 				<tr>
 					<td colspan="3" class="caption sumcaption"><?php echo sprintf(t("Soodushindlus %s%%:", $lang_id), $discount_pct)?></td>
 					<td><?php echo $discount?> <?php echo $currency_name?></td>
-					<td></td>
+					<?php if ($tax) {?><td></td><?php } ?>
 				</tr>
 				<?php }?>
 				<tr>
 					<td colspan="3" class="caption sumcaption"><?php echo t("KOKKU:", $lang_id)?></td>
 					<td><?php echo $total_wo_tax?> <?php echo $currency_name?></td>
-					<td><?php echo $tax?> <?php echo $currency_name?></td>
+					<?php if ($tax) {?><td><?php echo number_format($tax, 2,".", " ")?> <?php echo $currency_name?></td><?php } ?>
 				</tr>
 				<tr>
-					<td colspan="3" class="caption sumcaption"><?php echo t("Summa koos k&auml;ibemaksuga:", $lang_id)?></td>
+					<td colspan="3" class="caption sumcaption"><?php echo t($tax ? "Summa koos k&auml;ibemaksuga:" : "Arve summa:", $lang_id)?></td>
 					<td colspan="2"><strong><?php echo $total?> <?php echo $currency_name?></strong></td>
 				</tr>
 				<tr>
-					<td colspan="5"><span class="caption"><?php echo t("Summa s&otilde;nadega:", $lang_id)?></span> <?php echo $total_text?></td>
+					<td colspan="<?php echo $tax ? "5" : "4" ?>"><span class="caption"><?php echo t("Summa s&otilde;nadega:", $lang_id)?></span> <?php echo $total_text?></td>
 				</tr>
 			</tbody>
 		</table>

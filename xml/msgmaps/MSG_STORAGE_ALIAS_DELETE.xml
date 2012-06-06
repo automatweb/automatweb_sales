@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
-<xml>
-<num_0>
-      <class>/core/obj/brother_support</class>
-      <func>on_delete_alias</func>
-</num_0>
-</xml>
+<msgmap>
+<handler>
+      <class>brother_support</class>
+      <method>on_delete_alias</method>
+</handler>
+</msgmap>

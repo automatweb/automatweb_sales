@@ -526,7 +526,7 @@ class crm_call_obj extends task_object implements crm_sales_price_component_inte
 		{
 			$job = new object($this->prop("hr_schedule_job"));
 			$planned_length = $this->prop("end") > $this->prop("start1") ? $this->prop("end") - $this->prop("start1") : 0;
-			if ($this->prop("start") != $job->prop("minstart") or $planned_length != $job->prop("planned_length"))
+			if ($this->prop("start1") != $job->prop("minstart") or $planned_length != $job->prop("planned_length"))
 			{
 				$job->set_prop("minstart", $this->prop("start1"));
 				$job->set_prop("planned_length", $planned_length);
