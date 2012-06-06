@@ -3436,23 +3436,35 @@ class crm_bill_obj extends _int_object
 			switch($prop)
 			{
 				case "street":
-					return $cust_obj->prop($a.".aadress");
+					return $cust_obj->prop($a.".street");
 				break;
 				case "index":
-					return $cust_obj->prop($a.".postiindeks");
+					return $cust_obj->prop($a.".postal_code");
 				break;
 				case "country":
-					return $cust_obj->prop($a.".riik.name");
+					return $cust_obj->prop($a.".country.name");
 				break;
 				case "county":
-					return $cust_obj->prop($a.".maakond.name");
+					if($this->can("view", $cust_obj->prop($a)))
+					{
+						$address = obj($cust_obj->prop($a));
+						$parent = obj($address->parent());					$parent2 = obj($parent->parent());
+						return $parent2->name();
+					}
+					return "";//$cust_obj->prop($a.".maakond.name");
 				break;
 				case "city":
-					return $cust_obj->prop($a.".linn.name");
+					if($this->can("view", $cust_obj->prop($a)))
+					{
+						$address = obj($cust_obj->prop($a));
+						$parent = obj($address->parent());
+						return $parent->name();
+					}
+					return "";//$cust_obj->prop($a.".linn.name");
 				break;
 				case "country_en":
-					if($cust_obj->prop($a.".riik.name_en")) return $cust_obj->prop($a.".riik.name_en");
-					else return $cust_obj->prop($a.".riik.name");
+					if($cust_obj->prop($a.".cuntry.name_en")) return $cust_obj->prop($a.".country.name_en");
+					else return $cust_obj->prop($a.".country.name");
 				break;
 			}
 		}

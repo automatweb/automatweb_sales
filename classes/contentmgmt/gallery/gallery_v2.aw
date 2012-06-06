@@ -761,6 +761,7 @@ class gallery_v2 extends class_base
 
 	function _show_pageselector($ob, $page, $callback = "_page_has_images")
 	{
+
 		// now pageselector
 		$pages = array();
 		$ps_back = "";
@@ -783,6 +784,8 @@ class gallery_v2 extends class_base
 			}
 			$sp++;
 		}
+
+		if(!(sizeof($sp) > 1)) return;
 
 		foreach($p2rp as $sp => $pg)
 		{

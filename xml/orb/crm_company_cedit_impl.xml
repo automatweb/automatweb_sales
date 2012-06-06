@@ -7,6 +7,25 @@
 				</arguments>
 			</function>
 		</action>
-
+		<action name="ac_city" all_args="1">
+			<function name="ac_city">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="ac_county" all_args="1">
+			<function name="ac_county">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="ac_vald" all_args="1">
+			<function name="ac_vald">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>
+
+

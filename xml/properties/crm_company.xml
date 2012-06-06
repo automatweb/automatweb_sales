@@ -790,7 +790,7 @@
             <field>es_ageto</field>
             <caption>Vanus kuni</caption>
       </property>
-	  <property>
+      <property>
             <name>es_g</name>
             <table>objects</table>
             <group>employees_management</group>
@@ -917,6 +917,16 @@
             <field>cedit_bank_account_tbl</field>
       </property>
       <property>
+            <name>address_toolbar</name>
+            <table>objects</table>
+            <group>cedit</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>ceditadr</parent>
+            <field>address_toolbar</field>
+      </property>
+      <property>
             <name>cedit_adr_tbl</name>
             <table>objects</table>
             <group>cedit</group>
@@ -931,7 +941,7 @@
             <table>kliendibaas_firma</table>
             <group>cedit</group>
             <type>relpicker</type>
-            <reltype>RELTYPE_ADDRESS</reltype>
+            <reltype>RELTYPE_ADDRESS_ALT</reltype>
             <parent>ce_other_top</parent>
             <captionside>top</captionside>
             <field>contact</field>

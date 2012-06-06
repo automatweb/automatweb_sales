@@ -137,8 +137,8 @@ a img { border: 0; }
 }
 
 #pais a.nupp:hover,
-#pais a.menuButton:hover,
-#pais a.menuItem:hover
+#pais a.menuButton:hover/*,
+#pais a.menuItem:hover*/
 {
 	text-decoration: none ! important;
 }
@@ -232,6 +232,9 @@ a img { border: 0; }
 #pais .application_links a
 {
 	padding: 2px 10px 3px 25px;
+	position:relative;
+	top:0px;
+	left:0px;
 }
 
 #pais .application_links .icon img
@@ -297,11 +300,11 @@ a img { border: 0; }
 	border: 1px solid #fff;
 }
 
-#pais .application_links  a:hover {
+/*#pais .application_links  a:hover {
 	border: 1px solid #05a6e9;
 	text-decoration: none
 }
-
+*/
 
 #pais .toiming .menuBar a.menuButton {
 	float: left;
@@ -312,11 +315,11 @@ a img { border: 0; }
 	margin-top: 25px;
 	border: 1px solid #fff;
 }
-
+/*
 #pais .toiming a.akt, #pais .toiming a:hover {
 	border: 1px solid #05a6e9;
 	text-decoration: none
-}
+}*/
 #pais .popup_item a.akt, #pais .popup_item a:hover { /*kalmer 22.09.2006*/
 	border-bottom: 0px solid #ffffff;
 	text-decoration: underline;
@@ -508,11 +511,11 @@ a img { border: 0; }
 	margin-top: 33px;
 	border: 1px solid #fff;
 }
-
+/*
 #pais2 .toiming a.akt, #pais2 .toiming a:hover {
 	border: 1px solid #05a6e9;
 	text-decoration: none
-}
+}*/
 #pais2 .popup_item a.akt, #pais2 .popup_item a:hover { /*kalmer 22.09.2006*/
 	border-bottom: 0px solid #ffffff;
 	text-decoration: underline;
@@ -1467,6 +1470,9 @@ div.menu
 
 div.menu a.menuItem
 {
+	position:relative;
+	top:0px;
+	left:0px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px ! important;
 	background-color: #e1e1e1;
@@ -1709,4 +1715,29 @@ div.menu a.menuItem_sub span.menuItemText {background: url(/automatweb/images/ar
 #ajaxLoader div
 {
 	font-size: 11px; font-weight:bold; margin: 0 auto; text-align: center; width: 220px;
+}
+
+.menuItemArrow
+{
+	position:absolute;
+	right:-4px;
+	top:7px;
+}
+
+.menuItemText
+{
+	margin-right:2px;
+}
+
+#pais .top-right-menyy .top-right-menu-item .menu_text
+{
+	position:relative;
+	top:-2px;
+/*	//vertical-align:middle;*/
+}
+
+#pais .top-right-menyy .top-right-menu-item .down_arrow
+{
+	left:3px;
+	top:-4px;
 }

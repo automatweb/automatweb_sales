@@ -22,8 +22,14 @@
 @property link_text type=textbox
 @caption Lingi tekst
 
+@property group_text type=textbox
+@caption Grupi tekst
+
 @property show_groups type=checkbox
 @caption Kuva koos omaduste gruppidega
+
+@property force type=hidden
+@caption Kohustuslik
 
 @property group type=checkbox
 @caption Grupeeri
@@ -76,12 +82,18 @@ class user_bookmark_item extends links
 							"type" => "VARCHAR(64)"
 						));
 						break;
+					case "group_text":
 					case "link_text":
 						$this->db_add_col("aw_user_bookmark_item", array(
 							"name" => $field,
 							"type" => "VARCHAR(64)"
 						));
 						break;
+					case "force":
+					case "force_all":
+					case "force_site":
+					case "force_unit":
+					case "force_company":
 					case "link_text_type":
 					case "show_groups":
 					case "group":

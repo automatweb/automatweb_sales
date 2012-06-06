@@ -132,7 +132,7 @@ class crm_company_workers_manager extends class_base
 
 	function get_property(&$arr)
 	{
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		$data = &$arr['prop'];
 		$arr["use_group"] = $this->use_group;
 
@@ -175,31 +175,33 @@ class crm_company_workers_manager extends class_base
 		{
 			case "es_age":
 				$data["value"] = '
-				<input type="text" value="'.(empty($arr["request"]["es_agefrom"]) ? "" : $arr["request"]["es_agefrom"]).'" size="4" name="es_agefrom" id="es_agefrom"> - 
+				<input type="text" value="'.(empty($arr["request"]["es_agefrom"]) ? "" : $arr["request"]["es_agefrom"]).'" size="4" name="es_agefrom" id="es_agefrom"> -
 				<input type="text" value="'.(empty($arr["request"]["es_ageto"]) ? "" : $arr["request"]["es_ageto"]).'" size="4" name="es_ageto" id="es_ageto">';
 				break;
 			case "es_agefrom":
 			case "es_ageto":
-				return PROP_IGNORE;
+				return class_base::PROP_IGNORE;
 		}
 		return $retval;
 	}
 
 	function callback_get_default_group($arr)
 	{
-		$o = obj($arr["request"]["id"]);
-		if($o->prop("company"))
+		$default_group = "general";
+		if (!empty($arr["request"]["id"]))
 		{
-			return "employees_management";
+			$o = obj($arr["request"]["id"], array(), crm_company_workers_manager_obj::CLID);
+			if ($o->prop("company"))
+			{
+				$default_group = "employees_management";
+			}
 		}
-		else
-		{
-			return "general";
-		}
+
+		return $default_group;
 	}
 
 	function callback_mod_retval(&$arr)
-	{//arr($arr['request']);die();
+	{
 		foreach($this->search_props as $prop)
 		{
 			if(!empty($arr['request'][$prop]))
@@ -236,7 +238,7 @@ class crm_company_workers_manager extends class_base
 				return $employees_view->$fn($params);
 			}
 		}
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 
@@ -244,7 +246,7 @@ class crm_company_workers_manager extends class_base
 		@attrib name=cut
 	**/
 	function cut($arr)
-	{//arr($arr);die();
+	{
 		$employees_view = new crm_company_employees_view();
 		$employees_view->set_request($this->req);
 		$r = $employees_view->cut($arr);
@@ -335,7 +337,7 @@ class crm_company_workers_manager extends class_base
 
 	function callback_mod_layout(&$arr)
 	{
-		if ($arr["name"] == "unit_list_container")
+		if ($arr["name"] === "unit_list_container")
 		{
 			if($arr["obj_inst"]->prop("company"))
 			{

@@ -195,9 +195,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 			@property contact_desc_text type=text store=no parent=contact_l captionside=top
 			@caption Kontaktandmed
 
-			@property address type=relpicker reltype=RELTYPE_ADDRESS parent=contact_l captionside=top
+			@property address type=relpicker reltype=RELTYPE_ADDRESS_ALT parent=contact_l captionside=top
 			@caption Aadress
-
 
 	@layout work_super type=vbox  closeable=1 area_caption=T&ouml;&ouml;kohad
 		@property work_tbl type=table parent=work_super store=no no_caption=1
@@ -242,13 +241,17 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 			@property cedit_profession_tbl type=table store=no no_caption=1 parent=ceditprof store=no
 
 		@layout ceditadr type=vbox closeable=1 area_caption=Aadressid
+			property cedit_address_old type=text store=no no_caption=1 parent=ceditadr
+			
+			@property address_toolbar type=toolbar store=no no_caption=1 parent=ceditadr
+
 			@property cedit_adr_tbl type=table store=no no_caption=1 parent=ceditadr
 
 		@layout ceditmsn type=vbox closeable=1 area_caption=Msn/yahoo/aol/icq
 			@property messenger type=textbox size=30 maxlength=200 parent=ceditmsn no_caption=1
 
 
-@property address2_edit type=releditor mode=manager store=connect props=country,location_data,location,street,house,apartment,postal_code,po_box table_fields=name,location,street,house,apartment reltype=RELTYPE_ADDRESS_ALT
+property address2_edit type=releditor mode=manager store=connect props=country,location_data,location,street,house,apartment,postal_code,po_box table_fields=name,location,street,house,apartment reltype=RELTYPE_ADDRESS_ALT
 
 @property email type=hidden table=objects field=meta method=serialize
 @property phone type=hidden table=objects field=meta method=serialize
@@ -1184,6 +1187,8 @@ class crm_person extends class_base
 				$fn = "_set_".$prop["name"];
 				$i->$fn($arr);
 				break;
+
+
 
 			case "ext_sys_t":
 				$this->_save_ext_sys_t($arr);
@@ -2265,7 +2270,34 @@ class crm_person extends class_base
 				}
 				$this->_get_citizenship_table($arr);
 				break;
+			case "address_toolbar":
+				$tb =&$arr["prop"]["toolbar"];
 
+				$tb->add_button(array(
+					"name" => "new",
+					"img" => "new.gif",
+					"tooltip" => t("Lisa uus aadress"),
+					"url" => $this->mk_my_orb("new", array(
+						"alias_to" => $arr["obj_inst"]->id(),
+						"reltype" => 97,
+						"return_url" => get_ru(),
+						"parent" => $arr["obj_inst"]->id()
+					), CL_ADDRESS),
+				));
+				$tb->add_button(array(
+					"name" => "delete",
+					"img" => "delete.gif",
+					"tooltip" => t("Kustuta aadressid"),
+					"action" => "delete_objects",
+					"confirm" => t("Oled kindel, et kustutada?"),
+				));
+				$tb->add_button(array(
+					"name" => "convert",
+					"img" => "restore.gif",
+					"tooltip" => t("Konverdi uude aadressisüsteemi"),
+					"action" => "convert_objects",
+				));
+				break;
 			case "cv_view_tb":
 				$tpl = $arr["request"]["cv_tpl"]?("cv/".basename($v[$arr["request"]["cv_tpl"]])):false;
 				$url = $this->mk_my_orb("show_cv", array(
@@ -2496,7 +2528,7 @@ class crm_person extends class_base
 				break;
 
 			case "gender":
-				$data["options"] = $arr["obj_inst"]->gender_options();
+		//		$data["options"] = $arr["obj_inst"]->gender_options();
 				break;
 
 			case "email":
@@ -2753,17 +2785,34 @@ class crm_person extends class_base
 				$i->_get_acct_tbl($t, $arr);
 				$t->set_caption(t("Pangaarved"));
 				break;
+			case "cedit_address_old":
+				$i = new crm_company_cedit_impl();
+				$data["value"] = $i->_get_old_address_text($arr);
+				break;
 			case "cedit_adr_tbl":
 				$i = new crm_company_cedit_impl();
 				$t = $data["vcl_inst"];
-				$fields = array(
+/*				$fields = array(
 					"aadress" => t("T&auml;nav"),
 					"postiindeks" => t("Postiindeks"),
 					"linn" => t("Linn"),
 					"maakond" => t("Maakond"),
 					"piirkond" => t("Piirkond"),
 					"riik" => t("Riik")
+				);*/
+				$fields = array(
+					"country" => t("Riik"),
+					"county" => t("Maakond"),
+					"city" => t("Linn"),
+					"vald" => t("Vald"),
+				//					"location" => t("Asukoht"),
+					"street" => t("T&auml;nav/k&uuml;la"),
+					"house" => t("Maja"),
+					"apartment" => t("Korter"),
+					"postal_code" => t("Postiindeks"),
+					"po_box" => t("Postkast")
 				);
+
 				$i->init_cedit_tables($t, $fields);
 				$i->_get_adr_tbl($t, $arr);
 				$t->set_caption(t("Aadressid"));
@@ -4248,6 +4297,14 @@ class crm_person extends class_base
 		return html::get_change_url($o->id(), array(
 			"return_url" => $arr["post_ru"],
 		));
+	}
+
+	function convert_objects($arr)
+	{
+
+		$i = new crm_company_cedit_impl();
+		$i->convert_addresses($arr["id"] , $_POST["select"]);
+		return  $arr["post_ru"];
 	}
 
 	/**

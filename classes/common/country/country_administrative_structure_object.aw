@@ -89,7 +89,10 @@ class country_administrative_structure_object extends _int_object
 
 	private function invalidate_cache()
 	{
-		cache::file_clear_pt_oid(self::CACHE_FOLDER, $this->id());
+		if(is_oid($this->id()))
+		{
+			cache::file_clear_pt_oid(self::CACHE_FOLDER, $this->id());
+		}
 	}
 
 	/**

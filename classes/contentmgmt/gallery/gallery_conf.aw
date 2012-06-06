@@ -300,8 +300,15 @@ class gallery_conf extends class_base
 
 	function get_default_layout($id)
 	{
-		$obj = new object($id);
-		return $obj->prop("def_layout");
+		if($id)
+		{
+			$obj = new object($id);
+			return $obj->prop("def_layout");
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	function do_check_tbl()

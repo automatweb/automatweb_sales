@@ -1,5 +1,11 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="country" folder="www/dev/terryf/automatweb_dev/classes/common/country" extends="class_base">
+		<action name="install_estonia" all_args="1">
+			<function name="install_estonia">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

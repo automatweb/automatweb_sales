@@ -8,6 +8,13 @@
 			</function>
 		</action>
 
+		<action name="convert_objects">
+			<function name="convert_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="submit_new_task">
 			<function name="submit_new_task">
 				<arguments>
