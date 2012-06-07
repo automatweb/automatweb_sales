@@ -450,8 +450,10 @@ class patent extends intellectual_property
 			{
 				$arr["prodclass"] = "0".$arr["prodclass"];
 			}
+
 			$parents = new object_list(array(
 				"comment" => "%".$arr["prodclass"]."%",
+				"status" => object::STAT_ACTIVE,
 				"class_id" => CL_MENU,
 				"lang_id" => array(),
 				"limit" => $limit,
@@ -471,7 +473,7 @@ class patent extends intellectual_property
 					"limit" => $limit
 				));
 
-				foreach($prod_list->arr() as $p)
+				for ($p = $prod_list->begin(); !$prod_list->end(); $p = $prod_list->next())
 				{
 					if($p->prop("userch10"))
 					{
@@ -491,7 +493,7 @@ class patent extends intellectual_property
 			if($is_tpl)
 			{
 				$c = "";
-				foreach($products->arr() as $prod)
+				for ($prod = $products->begin(); !$products->end(); $prod = $products->next())
 				{
 					$parent = obj($prod->parent());
 					if($prod->prop("userch10"))
@@ -518,7 +520,7 @@ class patent extends intellectual_property
 			}
 			else
 			{
-				foreach($products->arr() as $prod)
+				for ($prod = $products->begin(); !$products->end(); $prod = $products->next())
 				{
 					$parent = obj($prod->parent());
 					$t->define_data(array(
