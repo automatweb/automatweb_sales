@@ -78,16 +78,11 @@ class automatweb
 	@errors
 		Displays critical errors in output. If cfg_file not found, or when a fatal server error occurred.
 	**/
-	public static function run_simple_web_request_bc($cfg_file)
+	public static function run_simple_web_request_bc($cfg_file, $mode = self::MODE_PRODUCTION)
 	{
-		if (!is_readable($cfg_file))
-		{
-			exit("Configuration file not readable.");
-		}
-
 		try
 		{
-			self::start();
+			self::start($mode);
 		}
 		catch (Exception $e)
 		{
