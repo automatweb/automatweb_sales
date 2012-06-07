@@ -278,7 +278,11 @@ class user_bookmarks extends class_base
 			"caption" => t("Kirjutatud tekst"),
 			"align" => "center",
 		));
-
+		$t->define_field(array(
+			"name" => "group_text",
+			"caption" => t("Grupi kirjutatud tekst"),
+			"align" => "center",
+		));
 		$t->define_field(array(
 			"name" => "group",
 			"caption" => t("Grupeeri"),
@@ -293,6 +297,36 @@ class user_bookmarks extends class_base
 			"align" => "center",
 		));
 
+		$t->define_field(array(
+			"name" => "force",
+			"caption" => t("Kohustuslik"),
+			"align" => "center"
+		));
+/*		$t->define_field(array(
+			"name" => "force_all",
+			"parent" => "force",
+			"caption" => t("K&otilde;igile"),
+			"align" => "center"
+		));
+		$t->define_field(array(
+			"name" => "force_site",
+			"parent" => "force",
+			"caption" => t("Saidile"),
+			"align" => "center"
+		));
+		$t->define_field(array(
+			"name" => "force_company",
+			"parent" => "force",
+			"caption" => t("Organisatsioonile"),
+			"align" => "center"
+		));
+		$t->define_field(array(
+			"name" => "force_unit",
+			"parent" => "force",
+			"caption" => t("&Uuml;ksusele"),
+			"align" => "center"
+		));
+*/
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -308,7 +342,27 @@ class user_bookmarks extends class_base
 			"class_id" => CL_USER_BOOKMARK_ITEM,
 			"sort_by" => "objects.jrk"
 		));
-		
+
+		$force_opts = array(
+			"" , 
+			"1" => t("K&otilde;igile"),
+		);
+
+		$co = get_current_company();
+		if($co)
+		{
+			$force_opts[$co->id()] = t("Organisatsioonile");
+		}
+		$person = get_current_person();
+		if($person)
+		{
+			$section = $person->get_org_section();
+			if($section)
+			{
+				$force_opts[$section] = t("&Uuml;ksusele");
+			}
+		}
+
 		foreach($ol->arr() as $o)
 		{
 			if(!acl_base::can("view", $o->prop("obj")))
@@ -351,8 +405,39 @@ class user_bookmarks extends class_base
 				)),
 				"link_text" => html::textbox(array(
 					"value" => $o->prop("link_text"),
-					"name" => "app_bookmark[".$o->id()."][link_text]"
+					"name" => "app_bookmark[".$o->id()."][link_text]",
+					"size" => 15
 				)),
+				"group_text" => html::textbox(array(
+					"value" => $o->prop("group_text"),
+					"name" => "app_bookmark[".$o->id()."][group_text]",
+					"size" => 15
+				)),
+				"force" => html::select(array(
+					"value" => $o->prop("force"),
+					"options" => $force_opts,
+					"name" => "app_bookmark[".$o->id()."][force]"
+				)),
+
+/*				"force_all" => html::checkbox(array(
+					"checked" => $o->prop("force_all"),
+					"name" => "app_bookmark[".$o->id()."][force_all]"
+				)),
+
+				"force_site" => html::select(array(
+					"value" => $o->prop("force_site"),
+//					"options" => $gopts,
+					"name" => "app_bookmark[".$o->id()."][force_site]"
+				)),
+				"force_company" => html::checkbox(array(
+					"checked" => $o->prop("force_company"),
+					"name" => "app_bookmark[".$o->id()."][force_company]"
+				)),
+				"force_unit" => html::checkbox(array(
+					"checked" => $o->prop("force_unit"),
+					"name" => "app_bookmark[".$o->id()."][force_unit]"
+				)),*/
+
 				"ord" => html::textbox(array(
 					"value" => $o->ord(),
 					"name" => "app_bookmark[".$o->id()."][ord]",
@@ -381,6 +466,32 @@ class user_bookmarks extends class_base
 			"class_id" => CL_USER_BOOKMARK_ITEM,
 			"sort_by" => "objects.jrk"
 		));
+
+
+		$force_opts = array("1");
+
+		$co = get_current_company();
+		if($co)
+		{
+			$force_opts[] = $co->id();
+		}
+		$person = get_current_person();
+		if($person)
+		{
+			$section = $person->get_org_section();
+			if($section)
+			{
+				$force_opts[] = $section;
+			}
+		}
+
+		$ol2 = new object_list(array(
+			"force" => $force_opts,
+			"class_id" => CL_USER_BOOKMARK_ITEM,
+			"sort_by" => "objects.jrk"
+		));
+
+		$ol->add($ol2);
 
 		$cfg = new cfgutils();
 
@@ -437,6 +548,7 @@ class user_bookmarks extends class_base
 				"name" => $nm,
                 "class_id" => $obj->class_id(),
 				"show_groups" => $o->prop("show_groups"),
+				"group_text" => $o->prop("group_text"),
 				"id" => $obj->id()
 			);
 		}
@@ -461,9 +573,24 @@ arr($apps);*/
 			{
 //				if(empty($group["parent"]))
 //				{
-					$gopts[$gid] = $group["caption"];
+					$gopts[$gid] = $group;
 //				}
 			}
+			foreach($gopts as $gid => $group)
+			{
+				if(!empty($group["parent"]))
+				{
+					if(empty($gopts[$group["parent"]]["subclasses"]))
+					{
+						$gopts[$group["parent"]]["subclasses"] = 1;
+					}
+					else
+					{
+						$gopts[$group["parent"]]["subclasses"]++;
+					}
+				}
+			}
+
 
 			if(is_array($app) && sizeof($app) > 1)
 			{
@@ -480,13 +607,35 @@ arr($apps);*/
 
 						$am->add_sub_menu($params);
 
+
+
 						foreach($gopts as $gid => $group)
 						{
-							$am->add_item(array(
-								"text" => $group,
-								"link" => aw_url_change_var("group" ,$k , $v["url"]),
-								"parent" => $v["class_id"]."_".$v["id"]
-							));
+							if(!empty($group["parent"]))
+							{
+								$am->add_item(array(
+									"text" => $group["caption"],
+									"link" => aw_url_change_var("group" ,$k , $v["url"]),
+									"parent" => $v["class_id"]."_".$v["id"]."_".$group["parent"]
+								));
+							}
+							elseif(empty($group["subclasses"]))
+							{
+								$am->add_item(array(
+									"text" => $group["caption"],
+									"link" => aw_url_change_var("group" ,$k , $v["url"]),
+									"parent" => $v["class_id"]."_".$v["id"]
+								));
+							}
+							else
+							{
+								$params = array(
+									"name" => $v["class_id"]."_".$v["id"]."_".$gid,
+									"text" => $group["caption"],
+									"parent" => $v["class_id"]."_".$v["id"]
+								);
+								$am->add_sub_menu($params);
+							}
 						}
 					}
 					else
@@ -498,8 +647,15 @@ arr($apps);*/
 					}
 				}
 
+				$gn = (empty($GLOBALS["cfg"]["classes"][$key]["plural"]) ? $GLOBALS["cfg"]["classes"][$key]["name"] : $GLOBALS["cfg"]["classes"][$key]["plural"]);
+
+				if($v["group_text"])
+				{
+					$gn = $v["group_text"];
+				}
+
 				$application_links.= $am->get_menu(
-					array("text" =>$ico. (empty($GLOBALS["cfg"]["classes"][$key]["plural"]) ? $GLOBALS["cfg"]["classes"][$key]["name"] : $GLOBALS["cfg"]["classes"][$key]["plural"]).'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">'));
+					array("text" =>$ico. $gn.'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">'));
 			}
 			elseif(is_array($app) && sizeof($app) == 1)
 			{
@@ -511,13 +667,43 @@ arr($apps);*/
 				{
 					$am = new popup_menu();
 					$am->begin_menu("user_applications_".$key."_".$a["id"]);
-					foreach($gopts as $k => $v)
+/*					foreach($gopts as $k => $v)
 					{
 						$am->add_item(array(
-							"text" => $v,
+							"text" => $v["caption"],
 							"link" => aw_url_change_var("group" ,$k , $a["url"])
 						));
+					}*/
+
+					foreach($gopts as $gid => $group)
+					{
+						if(!empty($group["parent"]))
+						{
+							$am->add_item(array(
+								"text" => $group["caption"],
+								"link" => aw_url_change_var("group" ,$gid , $a["url"]),
+								"parent" => $key."__".$group["parent"]
+							));
+						}
+						elseif(empty($group["subclasses"]))
+						{
+							$am->add_item(array(
+								"text" => $group["caption"],
+								"link" => aw_url_change_var("group" ,$gid , $a["url"]),
+					//			"parent" => $v["class_id"]."_".$v["id"]
+							));
+						}
+						else
+						{
+							$params = array(
+								"name" => $key."__".$gid,
+								"text" => $group["caption"],
+						//		"parent" => $v["class_id"]."_".$v["id"]
+							);
+							$am->add_sub_menu($params);
+						}
 					}
+
 					$application_links.= $am->get_menu(
 						array("text" => $ico.$a["name"].'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')
 					);
@@ -542,6 +728,8 @@ arr($apps);*/
 	function _set_apps_table($arr)
 	{
 	//	arr($arr);die();
+		$co_id = 1;
+		$unit_id = 1;
 		if(!empty($arr["request"]["app_bookmark"]))
 		{
 			foreach($arr["request"]["app_bookmark"] as $id => $data)
@@ -551,8 +739,14 @@ arr($apps);*/
 				$o->set_prop("show_group" , $data["show_group"]);
 				$o->set_prop("link_text_type" , $data["link_text_type"]);
 				$o->set_prop("link_text" , $data["link_text"]);
+				$o->set_prop("group_text" , $data["group_text"]);
 				$o->set_prop("show_groups" , empty($data["show_groups"]) ? 0: 1);
 				$o->set_prop("group" , empty($data["group"]) ? 0:1 );
+				$o->set_prop("force" , $data["force"] );
+/*				$o->set_prop("force_all" , empty($data["force_all"]) ? 0:1 );
+				$o->set_prop("force_site" , $data["force_site"] );
+				$o->set_prop("force_unit" , empty($data["force_unit"]) ? 0:$co_id );
+				$o->set_prop("force_company" , empty($data["force_cmpany"]) ? 0:$unit_id );*/
 				$o->save();
 			}
 		}
@@ -783,6 +977,7 @@ arr($apps);*/
 			"align" => "center",
 			"width" => 15
 		));
+
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -1334,28 +1529,28 @@ arr($apps);*/
 
 			$pm->add_separator();
 			$pm->add_item(array(
-				"emphasized" => true,
+	//			"emphasized" => true,
 				"text" => t("Pane j&auml;rjehoidjasse"),
 				"link" => $this->mk_my_orb("add_to_bm", array("url" => $arr["url"]))
 			));
 			$pm->add_item(array(
-				"emphasized" => true,
+		//		"emphasized" => true,
 				"text" => t("Eemalda j&auml;rjehoidjast"),
 				"link" => $this->mk_my_orb("remove_from_bm", array("url" => $arr["url"]))
 			));
 			$pm->add_item(array(
-				"emphasized" => true,
+		//		"emphasized" => true,
 				"text" => t("Toimeta j&auml;rjehoidjat"),
 				"link" => html::get_change_url($bm->id(), array("return_url" => $arr["url"], "group" => "bms"))
 			));
 
 			$pm->add_item(array(
-				"emphasized" => true,
+		//		"emphasized" => true,
 				"text" => t("Kuva rakenduse men&uuml;&uuml;s"),
 				"link" => $this->mk_my_orb("add_to_app", array("url" => $arr["url"]))
 			));
 			$pm->add_item(array(
-				"emphasized" => true,
+		//		"emphasized" => true,
 				"text" => t("Eemalda rakenduse men&uuml;&uuml;st"),
 				"link" => $this->mk_my_orb("remove_from_app", array("url" => $arr["url"]))
 			));
@@ -1366,8 +1561,12 @@ arr($apps);*/
 					"height" => "14",
 					"border" => "0",
 					"class" => "ikoon"
-				)) . t("J&auml;rjehoidja")
+				)) . '<span class="menu_text">'.t("J&auml;rjehoidja").'</span><img width="5" height="3" border="0" alt="#" src="/automatweb/images/aw06/ikoon_nool_alla.gif" class="down_arrow">'
 			));
+
+
+
+
 			cache::file_set(self::CACHE_KEY_PREFIX_HTML . $bm->id(), $bookmarks_menu);
 		}
 

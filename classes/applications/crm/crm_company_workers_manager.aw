@@ -189,15 +189,17 @@ class crm_company_workers_manager extends class_base
 
 	function callback_get_default_group($arr)
 	{
-		$o = obj($arr["request"]["id"]);
-		if($o->prop("company"))
+		$default_group = "general";
+		if (!empty($arr["request"]["id"]))
 		{
-			return "employees_management";
+			$o = obj($arr["request"]["id"], array(), crm_company_workers_manager_obj::CLID);
+			if ($o->prop("company"))
+			{
+				$default_group = "employees_management";
+			}
 		}
-		else
-		{
-			return "general";
-		}
+
+		return $default_group;
 	}
 
 	function callback_mod_retval(&$arr)
@@ -337,7 +339,7 @@ class crm_company_workers_manager extends class_base
 
 	function callback_mod_layout(&$arr)
 	{
-		if ($arr["name"] == "unit_list_container")
+		if ($arr["name"] === "unit_list_container")
 		{
 			if($arr["obj_inst"]->prop("company"))
 			{

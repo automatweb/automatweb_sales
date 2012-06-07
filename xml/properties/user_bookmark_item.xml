@@ -41,12 +41,28 @@
             <caption>Lingi tekst</caption>
       </property>
       <property>
+            <name>group_text</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>group_text</field>
+            <caption>Grupi tekst</caption>
+      </property>
+      <property>
             <name>show_groups</name>
             <table>aw_user_bookmark_item</table>
             <group>general</group>
             <type>checkbox</type>
             <field>show_groups</field>
             <caption>Kuva koos omaduste gruppidega</caption>
+      </property>
+      <property>
+            <name>force</name>
+            <table>aw_user_bookmark_item</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>force</field>
+            <caption>Kohustuslik</caption>
       </property>
       <property>
             <name>group</name>

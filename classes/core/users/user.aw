@@ -2429,7 +2429,7 @@ SQL;
 		}
 		header("Content-type: text/html; charset=".languages::USER_CHARSET);
 		die($pm->get_menu(array(
-			"text" => '<img src="/automatweb/images/aw06/ikoon_ajalugu.gif" alt="" width="13" height="13" border="0" class="ikoon" />'.t("Ajalugu").' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
+			"text" => '<img src="/automatweb/images/aw06/ikoon_ajalugu.gif" alt="" width="13" height="13" border="0" class="ikoon" /> <span class="menu_text">'.t("Ajalugu").'</span> <img width="5" height="3" border="0" alt="#" src="/automatweb/images/aw06/ikoon_nool_alla.gif" class="down_arrow">'
 		)));
 	}
 

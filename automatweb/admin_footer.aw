@@ -158,16 +158,17 @@ $sf->vars(array(
 
 				"bm_pop" => acl_base::prog_acl("view", "can_bm") ? $bm->get_menu(array(
 					"load_on_demand_url" => $bm->mk_my_orb("pm_lod", array("url" => get_ru()), "user_bookmarks"),
-					"text" => '<img src="/automatweb/images/aw06/ikoon_jarjehoidja.gif" alt="" width="16" height="14" border="0" class="ikoon" />'.t("J&auml;rjehoidja")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
+					"text" => '<img src="/automatweb/images/aw06/ikoon_jarjehoidja.gif" alt="" width="16" height="14" border="0" class="ikoon" /> <span class="menu_text">'.t("J&auml;rjehoidja").'</span> <img width="5" height="3" border="0" alt="#" src="/automatweb/images/aw06/ikoon_nool_alla.gif" class="down_arrow">'//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
 				)) : "",
 				"history_pop" => acl_base::prog_acl("view", "can_history") ? $bm_h->get_menu(array(
 					"load_on_demand_url" => $bm->mk_my_orb("hist_lod", array("url" => get_ru()), "user"),
-					"text" => '<img src="/automatweb/images/aw06/ikoon_ajalugu.gif" alt="" width="13" height="13" border="0" class="ikoon" />'.t("Ajalugu")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
+					"text" => '<img src="/automatweb/images/aw06/ikoon_ajalugu.gif" alt="" width="13" height="13" border="0" class="ikoon" /> <span class="menu_text">'.t("Ajalugu").'</span> <img width="5" height="3" border="0" alt="#" src="/automatweb/images/aw06/ikoon_nool_alla.gif" class="down_arrow">'//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
 				)) : "",
 
-				"qa_pop" => acl_base::prog_acl("view", "can_quick_add") ? $bmq->get_menu(array(
+				"qa_pop" => acl_base::prog_acl("view", "can_quick_add") ? 
+				$bmq->get_menu(array(
 					"load_on_demand_url" => $bm->mk_my_orb("qa_lod", array("url" => get_ru()), "obj_quick_add"),
-					"text" => '<img alt="" title="" border="0" src="'.aw_ini_get("baseurl").'automatweb/images/aw06/ikoon_lisa.gif" id="mb_user_qa" border="0" class="ikoon" />'.t("Lisa kiiresti")//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" /></a>'
+					"text" => '<img alt="" title="" border="0" src="'.aw_ini_get("baseurl").'automatweb/images/aw06/ikoon_lisa.gif" id="mb_user_qa" border="0" class="ikoon" /> <span class="menu_text">'.t("Lisa kiiresti").'</span><img width="5" height="3" border="0" alt="#" src="/automatweb/images/aw06/ikoon_nool_alla.gif" class="down_arrow">'//.' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" /></a>'
 				)) : "",
 
 
@@ -237,6 +238,62 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 
 				$popup_menu->add_sub_menu($params);
 
+
+			$gopts = array();
+			foreach($groups as $gid => $group)
+			{
+				$gopts[$gid] = $group;
+			}
+
+			foreach($gopts as $gid => $group)
+			{
+				if(!empty($group["parent"]))
+				{
+					if(empty($gopts[$group["parent"]]["subclasses"]))
+					{
+						$gopts[$group["parent"]]["subclasses"] = 1;
+					}
+					else
+					{
+						$gopts[$group["parent"]]["subclasses"]++;
+					}
+				}
+			}
+
+
+					foreach($gopts as $gid => $group)
+					{
+						if(!empty($group["parent"]))
+						{
+							$popup_menu->add_item(array(
+								"text" => $group["caption"],
+								"link" => $cfg->mk_my_orb("change", array("group" => $gid, "id" => $person->id()), CL_CRM_PERSON),
+								"parent" => $group["parent"]."_".$group["parent"]
+							));
+						
+						}
+						elseif(empty($group["subclasses"]))
+						{
+							$popup_menu->add_item(array(
+								"text" => $group["caption"],
+								"link" => $cfg->mk_my_orb("change", array("group" => $gid, "id" => $person->id()), CL_CRM_PERSON),
+								"parent" => "currentpersonmenu"
+							));
+						}
+						else
+						{
+							$params = array(
+								"name" => $gid."_".$gid,
+								"text" => $group["caption"],
+								"parent" => "currentpersonmenu"
+							);
+							$popup_menu->add_sub_menu($params);
+						}
+					}
+
+
+
+/*
 				foreach($groups as $gid => $group)
 				{
 					if(empty($group["parent"]))
@@ -247,7 +304,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 							"parent" => "currentpersonmenu"
 						));
 					}
-				}
+				}*/
 			}
 
 			if(acl_base::can("edit", aw_global_get("uid_oid")))
@@ -264,7 +321,59 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 
 				$popup_menu->add_sub_menu($params);
 
-				foreach($groups as $gid => $group)
+			$gopts = array();
+			foreach($groups as $gid => $group)
+			{
+				$gopts[$gid] = $group;
+			}
+
+			foreach($gopts as $gid => $group)
+			{
+				if(!empty($group["parent"]))
+				{
+					if(empty($gopts[$group["parent"]]["subclasses"]))
+					{
+						$gopts[$group["parent"]]["subclasses"] = 1;
+					}
+					else
+					{
+						$gopts[$group["parent"]]["subclasses"]++;
+					}
+				}
+			}
+
+
+					foreach($gopts as $gid => $group)
+					{
+						if(!empty($group["parent"]))
+						{
+							$popup_menu->add_item(array(
+								"text" => $group["caption"],
+								"link" => $cfg->mk_my_orb("change", array("group" => $gid, "id" => aw_global_get("uid_oid")), CL_USER),
+								"parent" => $group["parent"]."_".$group["parent"]
+							));
+						
+						}
+						elseif(empty($group["subclasses"]))
+						{
+							$popup_menu->add_item(array(
+								"text" => $group["caption"],
+								"link" => $cfg->mk_my_orb("change", array("group" => $gid, "id" => aw_global_get("uid_oid")), CL_USER),
+								"parent" => "currentusermenu"
+							));
+						}
+						else
+						{
+							$params = array(
+								"name" => $gid."_".$gid,
+								"text" => $group["caption"],
+								"parent" => "currentusermenu"
+							);
+							$popup_menu->add_sub_menu($params);
+						}
+					}
+
+/*				foreach($groups as $gid => $group)
 				{
 					if(empty($group["parent"]))
 					{
@@ -274,7 +383,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 							"parent" => "currentusermenu"
 						));
 					}
-				}
+				}*/
 			}
 
 			$popup_menu->add_item(array(

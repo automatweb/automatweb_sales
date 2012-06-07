@@ -202,6 +202,179 @@ class crm_company_bills_impl extends class_base
 			return class_base::PROP_IGNORE;
 		}
 
+	//-----------------------konvertimise algoritm
+/*	$cnt = 0;
+
+	if(aw_global_get("uid") == "marko"){
+		$tasks = new object_list(array(
+			"class_id" => CL_TASK,
+			"lang_id" => array(),
+			"site_id" => array(),
+			"brother_of" => new obj_predicate_prop("id"),
+		));
+		arr($tasks->count());
+		foreach($tasks->arr() as $task)
+		{
+			foreach($task->get_all_rows() as $row_id)
+			{$row = obj($row_id);
+				if($row->prop("task")) continue;
+				$cnt++;
+
+				print "rida id=".$row_id." nimi=".$row->name()." saab taski id=".$task->id()." nimega ".$task->name()."<br>\n";
+				$row->set_prop("task", $task->id());
+				$row->save();
+			}
+		}
+		arr($cnt);
+	}
+*/
+
+/*
+		$bc = new object_list(array(
+			"class_id" => CL_BUG_COMMENT,
+	//		"bug" => new obj_predicate_compare(OBJ_COMP_LESS, 1),
+	//		"is_done" => 1,
+			"created" => new obj_predicate_compare(OBJ_COMP_GREATER,  1204351200),
+			"lang_id" => array(),
+//			"brother_of" => new obj_predicate_prop("id"),
+		));
+*//*
+		$org_arr = new object_data_list(
+		array(
+			"class_id" => CL_BUG_COMMENT,
+	//		"bug" => new obj_predicate_compare(OBJ_COMP_LESS, 1),
+	//		"is_done" => 1,
+			"created" => new obj_predicate_compare(OBJ_COMP_GREATER,   1199167200),
+			"lang_id" => array(),
+//			"brother_of" => new obj_predicate_prop("id"),
+		),
+			array
+			(
+				CL_BUG_COMMENT => array(
+					"oid" => "oid",
+					"name" => "name",
+					"bug" => "bug",
+				)
+			)
+		);
+
+
+*/
+
+
+//---------------------kokkuleppehinna konvertimise algoritm
+
+/*			$this->db_add_col("planner", array(
+					"name" => "deal_has_tax",
+					"type" => "int"
+				));
+				$this->db_add_col("planner", array(
+					"name" => "deal_unit",
+					"type" => "varchar(31)"
+				));
+				$this->db_add_col("planner", array(
+					"name" => "deal_amount",
+					"type" => "double"
+				));
+				$this->db_add_col("planner", array(
+					"name" => "deal_price",
+					"type" => "double"
+				));*/
+/*		$all_tasks = new object_list(array(
+			"class_id" => array(CL_TASK, CL_CRM_MEETING,CL_CRM_CALL),
+	//		"send_bill" => 1,
+	//		"is_done" => 1,
+			"lang_id" => array(),
+			"brother_of" => new obj_predicate_prop("id"),
+		));
+		foreach($all_tasks->arr() as $row)
+		{
+			if($row->meta("deal_price"))
+			{
+				$row->set_prop("deal_price" , $row->meta("deal_price"));
+				$row->set_prop("deal_amount" , $row->meta("deal_amount"));
+				$row->set_prop("deal_unit" , $row->meta("deal_unit"));
+				$row->set_prop("deal_unit" , $row->meta("deal_has_tax"));
+			$row->save();
+			}
+		}*/
+/*
+if(aw_global_get("uid") == "marko")
+{
+aw_set_exec_time(AW_LONG_PROCESS);
+ini_set("memory_limit", "800M");
+	$all_tasks = new object_list(array(
+		"class_id" => CL_TASK_ROW,
+		"lang_id" => array(),
+		"name" => "konverditudbugikommentaarist",
+//		"limit" => 100,
+	));
+	$u = get_instance(CL_USER);
+
+	arr($all_tasks->count());flush();
+	foreach($all_tasks->arr() as $bug_comment)
+	{
+		foreach($bug_comment->connections_from(array("type" => 2,)) as $delconnection)
+		{
+			$delconnection->delete();
+		}
+		$person = $u->get_person_for_uid($bug_comment->createdby());
+		$bug_comment->set_prop("impl",$person->id());
+		$bug_comment->save();
+	}
+}
+*/
+
+/*
+if(aw_global_get("uid") == "marko")
+{
+aw_set_exec_time(AW_LONG_PROCESS);
+ini_set("memory_limit", "800M");
+//bugi kommentaaride toimetuse ridadeks konvertimise algoritm
+		$all_tasks = new object_list(array(
+			"class_id" => CL_BUG_COMMENT,
+			"lang_id" => array(),
+ //			"limit" => 1,
+			"created" => new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, 1212296400),
+		));
+//$all_tasks = new object_list();
+//$all_tasks->add(221302);
+arr($all_tasks->count());flush();
+$x = 0;
+		foreach($all_tasks->arr() as $bug_comment)
+		{//arr($bug_comment->properties()); die();
+			$tr = obj();
+			$tr->set_class_id(1050);
+			$tr->set_parent($bug_comment->parent());
+			$tr->set_name("konverditudbugikommentaarist");
+			$tr->save();
+
+			$tr->set_prop("date" , $bug_comment->created());
+			$tr->set_prop("done" , 1);
+			$asd = array("acldata" , "meta","subclass" , "flags","site_id", "lang_id" , "alias" , "visible" , "jrk" , "last" , "hits" , "oid" , "status" , "name" ,"brother_of" , "parent", "class_id","metadata", "period", "created", "modified", "periodic", "createdby", "modifiedby");
+			foreach($bug_comment->properties() as $prop => $val)
+			{
+				if(in_array($prop , $asd))continue;
+				$tr->set_prop($prop , $val);
+			}
+
+			$bug = obj($bug_comment->parent());
+			if(is_oid($bug->id()))
+			$bug->connect(array(
+				"to" => $tr->id(),
+				"type" => "RELTYPE_COMMENT",
+			));
+			$tr->save();
+			$this->db_query("UPDATE objects set createdby='".$bug_comment->createdby()."' , created='".$bug_comment->created()."'  WHERE oid=".$tr->id());
+print $x."<br>";flush();
+	$bug_comment->delete();
+$x++;
+//arr($tr);
+		}
+
+}
+*/
+
 		$t = $arr["prop"]["vcl_inst"];
 		$this->get_time_between($arr["request"]);
 
@@ -218,6 +391,7 @@ class crm_company_bills_impl extends class_base
 		$deal_task_ol = new object_list(array(
 			"class_id" => array(CL_TASK, CL_CRM_MEETING,CL_CRM_CALL),
 			"send_bill" => 1,
+			"lang_id" => array(),
 			"brother_of" => new obj_predicate_prop("id"),
 			"deal_price" => new obj_predicate_compare(obj_predicate_compare::GREATER, 0),
 		));
@@ -1654,15 +1828,13 @@ class crm_company_bills_impl extends class_base
 			$cust = "";
 			$cm = "";
 			$payments_total = 0;
-			$cro_oid = $bill->prop("customer_relation");
-			if (acl_base::can("", $cro_oid))
+			if (is_oid($customer_id = $bill->get_bill_customer()))
 			{
-				$tmp = obj($cro_oid);
-				$cust = $tmp->prop("buyer.name") ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("buyer.short_name") ? $tmp->prop("buyer.short_name") : $tmp->prop("buyer.name")) , $tmp->prop("buyer.name")) : "";
+				$tmp = obj($customer_id);
+				$cust = $tmp->name() ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("short_name") ? $tmp->prop("short_name") : $tmp->name()) , $tmp->name()) : "";
 				$cm = html::obj_change_url($tmp->prop("client_manager"));
 			}
-
-			if ($arr["request"]["group"] === "bills_search")
+			if ($arr["request"]["group"] == "bills_search")
 			{
 				$state = $bill_i->states[$bill->prop("state")];
 			}
@@ -2090,7 +2262,9 @@ class crm_company_bills_impl extends class_base
 				// change bill numbers for all tasks that this bill is to
 				$ol = new object_list(array(
 					"class_id" => CL_TASK,
-					"bill_no" => $b->prop("bill_no")
+					"bill_no" => $b->prop("bill_no"),
+					"lang_id" => array(),
+					"site_id" => array()
 				));
 				foreach($ol->arr() as $task)
 				{
@@ -2112,19 +2286,20 @@ class crm_company_bills_impl extends class_base
 			}
 			$rfn = join(",", $tmp);
 
-			if ($rfn == "" && $this->can("", $b->prop("customer")))
+			if ($rfn == "" && $this->can("view", $b->prop("customer")))
 			{
-				$cc = new crm_company();
+				$cc = get_instance(CL_CRM_COMPANY);
 				$crel = $cc->get_cust_rel(obj($b->prop("customer")));
 				if ($crel)
 				{
-					if ($this->can("", $crel->prop("client_manager")))
+					if ($this->can("view", $crel->prop("client_manager")))
 					{
 						$clm = obj($crel->prop("client_manager"));
 						$rfn = $clm->prop("comment");
 					}
 				}
-				elseif ($this->can("", $b->prop("customer.client_manager")))
+				else
+				if ($this->can("view", $b->prop("customer.client_manager")))
 				{
 					$clm = obj($b->prop("customer.client_manager"));
 					$rfn = $clm->prop("comment");
@@ -2814,7 +2989,9 @@ class crm_company_bills_impl extends class_base
 	function _get_bills_filter($arr)
 	{
 		$filter = array(
-			"class_id" => CL_CRM_BILL
+			"class_id" => CL_CRM_BILL,
+			"lang_id" => array(),
+			"site_id" => array(),
 		);
 
 		$stuff = empty($arr["request"]["st"]) ?  array("default") : explode("_" , $arr["request"]["st"]);

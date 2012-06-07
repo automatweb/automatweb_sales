@@ -1503,7 +1503,6 @@ class crm_bill extends class_base
 				"name" => "address_meta[".$prop."]",
 				"type" => "textbox",
 				"parent" => "top_right",
-				"store" => "class_base",
 				"caption" => $caption,
 				"size" => 20,
 				"value" => $arr["obj_inst"]->get_customer_address($prop)
@@ -2678,7 +2677,7 @@ class crm_bill extends class_base
 				break;
 
 			case "code":
-				$ret.="";
+				$ret.=$row->prop("code");
 				break;
 
 			case "unit":
@@ -2695,7 +2694,7 @@ class crm_bill extends class_base
 					$date = $row->get_bill_date();
 				}
 				$ccurrency = $this->get_co_currency();
-				if ($bcurrency && $ccurrency && $ccurrency != $bcurrency)
+				if($bcurrency && $ccurrency && $ccurrency != $bcurrency)
 				{
 					$this->set_currency_inst();
 					$cc_price = $this->currency_inst->convert(array(
@@ -2705,23 +2704,15 @@ class crm_bill extends class_base
 						"date" =>  $date,
 					));
 					$ccurrency_o = new object($ccurrency);
-					$price_cc = " (".$ccurrency_o->sum_with_currency($cc_price, 2).")";
-					$sum_cc = " (".$ccurrency_o->sum_with_currency($cc_price*$row->prop("amt"), 2).")";
-				}
-
-				try
-				{ //FIXME: ajutine lahendus probleemile:  Invalid property name 'unit_code' for object '1' of class 'menu'
-					$uc = $row->prop("unit.unit_code");
-				}
-				catch (Exception $e)
-				{
-					$uc = "";
+					$ccurrency_str = $ccurrency_o->prop("unit_name_after_sum") ? $ccurrency_o->prop("unit_name_after_sum") : $ccurrency_o->name();
+					$price_cc = html::linebreak().round($cc_price , 2)." ".$ccurrency_str;
+					$sum_cc = html::linebreak().round($cc_price*$row->prop("amt") , 2)." ".$ccurrency_str;
 				}
 
 				$ret.=
-					t("Hind").": ".$row->prop("price").$price_cc.html::linebreak().
-					t("Kogus").": ".$row->prop("amt").html::space().$uc.html::linebreak().
-					t("Summa").": ".$row->prop("price")*$row->prop("amt").$sum_cc;
+					t("Hind").": ".$row->prop("price").html::linebreak().$price_cc.
+					t("Kogus").": ".$row->prop("amt").html::space().$row->prop("unit.unit_code").html::linebreak().$sum_cc.
+					t("Summa").": ".$row->prop("price")*$row->prop("amt");
 				break;
 
 			case "has_tax":
@@ -3301,7 +3292,6 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 		));
 
 		$sum = $this_o->get_bill_sum();
-		$tax_sum = $this_o->get_bill_sum(crm_bill_obj::BILL_SUM_TAX);
 		$discount = $this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX) - $this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX_WO_DISCOUNT);
 
 		try
@@ -3325,7 +3315,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 			"discount_pct" => $this_o->prop("disc"),
 			"discount" => number_format($discount, 2,".", " "),
 			"total_wo_tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2,".", " "),
-			"tax" => $tax_sum,
+			"tax" => number_format($this_o->get_bill_sum(crm_bill_obj::BILL_SUM_TAX), 2,".", " "),
 			"total" => number_format($sum, 2, ".", " "),
 			"total_text" => $total_text,
 			"rows" => $rows

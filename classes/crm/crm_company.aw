@@ -324,13 +324,16 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 			@property cedit_bank_account_tbl type=table store=no no_caption=1 parent=ceditbank
 
 		@layout ceditadr type=vbox closeable=1 area_caption=Aadressid
+			
+			@property address_toolbar type=toolbar store=no no_caption=1 parent=ceditadr
+
 			@property cedit_adr_tbl type=table store=no no_caption=1 parent=ceditadr
 
 	@layout cedit_layout_other type=vbox area_caption=Andmed closeable=1
 		@layout ce_oth_split type=hbox parent=cedit_layout_other
 			@layout ce_other_top type=vbox parent=ce_oth_split
 
-				@property contact type=relpicker reltype=RELTYPE_ADDRESS table=kliendibaas_firma parent=ce_other_top captionside=top
+				@property contact type=relpicker reltype=RELTYPE_ADDRESS_ALT table=kliendibaas_firma parent=ce_other_top captionside=top
 				@caption Vaikimisi aadress
 
 				@property receptionist_name type=textbox field=meta method=serialize parent=ce_other_top captionside=top
@@ -1821,6 +1824,13 @@ class crm_company extends class_base
 		}
 	}
 
+	function convert_objects($arr)
+	{
+		$i = new crm_company_cedit_impl();
+		$i->convert_addresses($arr["id"] , $_POST["select"]);
+		return  $arr["post_ru"];
+	}
+
 	//hardcoded
 	function tree_node_items($tree,$obj,$this_level_id,&$node_id, $show_people, $origurl = NULL)
 	{
@@ -1972,6 +1982,35 @@ class crm_company extends class_base
 				}
 				break;
 
+			case "address_toolbar":
+				$tb =&$arr["prop"]["toolbar"];
+
+				$tb->add_button(array(
+					"name" => "new",
+					"img" => "new.gif",
+					"tooltip" => t("Lisa uus aadress"),
+					"url" => $this->mk_my_orb("new", array(
+						"alias_to" => $arr["obj_inst"]->id(),
+						"reltype" => 87,
+						"return_url" => get_ru(),
+						"parent" => $arr["obj_inst"]->id()
+					), CL_ADDRESS),
+				));
+				$tb->add_button(array(
+					"name" => "delete",
+					"img" => "delete.gif",
+					"tooltip" => t("Kustuta aadressid"),
+					"action" => "delete_selected_objects",
+					"confirm" => t("Oled kindel, et kustutada?"),
+				));
+				$tb->add_button(array(
+					"name" => "convert",
+					"img" => "restore.gif",
+					"tooltip" => t("Konverdi uude aadressis&uuml;steemi"),
+					"action" => "convert_objects",
+				));
+				break;
+
  			case "language":
  				if(empty($data["value"]))
  				{
@@ -2083,12 +2122,16 @@ class crm_company extends class_base
 				$i = new crm_company_cedit_impl();
 				$t = $data["vcl_inst"];
 				$fields = array(
-					"aadress" => t("T&auml;nav"),
-					"postiindeks" => t("Postiindeks"),
-					"linn" => t("Linn"),
-					"maakond" => t("Maakond"),
-					"piirkond" => t("Piirkond"),
-					"riik" => t("Riik")
+					"country" => t("Riik"),
+					"county" => t("Maakond"),
+					"city" => t("Linn"),
+					"vald" => t("Vald"),
+				//					"location" => t("Asukoht"),
+					"street" => t("T&auml;nav/k&uuml;la"),
+					"house" => t("Maja"),
+					"apartment" => t("Korter"),
+					"postal_code" => t("Postiindeks"),
+					"po_box" => t("Postkast")
 				);
 				$i->init_cedit_tables($t, $fields);
 				$i->_get_adr_tbl($t, $arr);
@@ -7751,6 +7794,7 @@ END;
 				case "aw_bank_account":
 				case "bill_due_date_days":
 				case "language":
+				case "year_founded":
 					$this->db_add_col($tbl, array(
 						"name" => $field,
 						"type" => "int",
@@ -8659,7 +8703,7 @@ Bank accounts: yksteise all
 		$this->init_short_description_table($t);
 //		$t->define_data(array("caption" => t("Aadress:")));
 
-		$conns = $p->connections_from(array(
+/*		$conns = $p->connections_from(array(
 			"type" => "RELTYPE_ADDRESS",
 		));
 		$multi_addr = (count($conns) > 1);
@@ -8684,6 +8728,25 @@ Bank accounts: yksteise all
 				));
 			}
 		}
+*/
+
+		$conns = $p->connections_from(array(
+			"type" => "RELTYPE_ADDRESS_ALT",
+		));
+		$multi_addr = (count($conns) > 1);
+		$count = 0;
+		foreach($conns as $c)
+		{
+			$count++;
+			$a = $c->to();
+			$caption = t("Aadress")." ".($multi_addr ? $count:"").":";
+			$t->define_data(array(
+				"caption" => $caption,
+				"data" => $a->name(),
+			));
+		}
+
+
 		$conns = $p->connections_from(array(
 			"type" => "RELTYPE_PHONE"
 		));

@@ -498,7 +498,7 @@
             <table>kliendibaas_isik</table>
             <group>contact</group>
             <type>relpicker</type>
-            <reltype>RELTYPE_ADDRESS</reltype>
+            <reltype>RELTYPE_ADDRESS_ALT</reltype>
             <parent>contact_l</parent>
             <captionside>top</captionside>
             <field>address</field>
@@ -575,6 +575,16 @@
             <field>cedit_profession_tbl</field>
       </property>
       <property>
+            <name>address_toolbar</name>
+            <table>kliendibaas_isik</table>
+            <group>contact</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>ceditadr</parent>
+            <field>address_toolbar</field>
+      </property>
+      <property>
             <name>cedit_adr_tbl</name>
             <table>kliendibaas_isik</table>
             <group>contact</group>
@@ -594,33 +604,6 @@
             <parent>ceditmsn</parent>
             <no_caption>1</no_caption>
             <field>messenger</field>
-      </property>
-      <property>
-            <name>address2_edit</name>
-            <table>kliendibaas_isik</table>
-            <group>contact</group>
-            <type>releditor</type>
-            <mode>manager</mode>
-            <store>connect</store>
-            <props>
-                  <num_0>country</num_0>
-                  <num_1>location_data</num_1>
-                  <num_2>location</num_2>
-                  <num_3>street</num_3>
-                  <num_4>house</num_4>
-                  <num_5>apartment</num_5>
-                  <num_6>postal_code</num_6>
-                  <num_7>po_box</num_7>
-            </props>
-            <table_fields>
-                  <num_0>name</num_0>
-                  <num_1>location</num_1>
-                  <num_2>street</num_2>
-                  <num_3>house</num_3>
-                  <num_4>apartment</num_4>
-            </table_fields>
-            <reltype>RELTYPE_ADDRESS_ALT</reltype>
-            <field>address2_edit</field>
       </property>
       <property>
             <name>email</name>

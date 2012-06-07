@@ -379,7 +379,7 @@ class cfgform extends class_base
 		), ...
 	)
 	*/
-
+	
 	private $default_values = array();
 	private $cfgview_actions = array();
 	private $default_new_layout_name = "new_layout_temporary_name";
@@ -389,6 +389,8 @@ class cfgform extends class_base
 		"groups" => array("groups"),
 		"layouts" => array("layouts")
 	);
+
+	public $prplist = array();
 
 	function cfgform($arr = array())
 	{

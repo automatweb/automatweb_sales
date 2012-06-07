@@ -63,7 +63,7 @@ class crm_company_employees_view extends class_base
 		$arr["prop"]["options"] = crm_employee_search::get_employment_status_options();
 		unset($arr["prop"]["options"][crm_employee_search::EMPLOYMENT_STATUS_PROSPECTIVE]);
 
-		if (empty($arr["prop"]["value"]))
+		if (!isset($arr["prop"]["value"]))
 		{
 			$arr["prop"]["value"] = crm_employee_search::EMPLOYMENT_STATUS_ACTIVE;
 		}
@@ -183,18 +183,21 @@ class crm_company_employees_view extends class_base
 			));
 		}
 
-		// profession add, no specific item selection in tree required
-		$tb->add_menu_item(array(
-			"parent" => "add_item",
-			"text"=> t("Ametikoht"),
-			"link" => $this->mk_my_orb("add_profession", array(
-					"id" => $arr["obj_inst"]->id(),
-					"return_url" => get_ru(),
-					"section" => $parent
-				),
-				"crm_company"
-			)
-		));
+		if (!$this->selected_object or !$this->selected_object->is_a(crm_profession_obj::CLID))
+		{
+			// profession add, no specific item selection in tree required
+			$tb->add_menu_item(array(
+				"parent" => "add_item",
+				"text"=> t("Ametikoht"),
+				"link" => $this->mk_my_orb("add_profession", array(
+						"id" => $arr["obj_inst"]->id(),
+						"return_url" => get_ru(),
+						"section" => $parent
+					),
+					"crm_company"
+				)
+			));
+		}
 
 		$tb->add_save_button();
 
@@ -389,7 +392,7 @@ class crm_company_employees_view extends class_base
 				elseif ($this->selected_object->is_a(crm_profession_obj::CLID))
 				{
 					$employee_search->profession = $this->selected_object;
-					$section = $this->selected_object->prop("parent_section");
+					$section = $this->selected_object->prop("company_section");
 					$search_params_set = true;
 				}
 			}
@@ -466,6 +469,11 @@ class crm_company_employees_view extends class_base
 				$search_params_set = true;
 			}
 
+			if(isset($arr["request"]["meta"]))
+			{
+				$search_params_set = true;
+			}
+
 			if ($search_params_set)
 			{
 				// set employment status (if search parameter not specified, display only active -- active is default)
@@ -474,7 +482,7 @@ class crm_company_employees_view extends class_base
 				$clipboard = (array) aw_session::get(self::CLIPBOARD_DATA_VAR);
 
 				// get employees and fill table
-
+				
 				$employee_oids = $employee_search->get_oids();
 				foreach ($employee_oids as $employee_oid => $work_relations)
 				{
@@ -719,7 +727,7 @@ class crm_company_employees_view extends class_base
 						"name" => $name,
 						"ord" => $order_edit,
 						"icon" => html::img(array("url" => icons::get_icon_url(crm_section_obj::CLID))),
-
+						
 						"editor" => $this->get_person_name_by_uid($section->modifiedby()),//$section->modifiedby(),
 						"members" => $members->count(),
 							"last_members" => join(", " , $m3)
@@ -731,7 +739,7 @@ class crm_company_employees_view extends class_base
 
 		return $r;
 	}
-
+ 
 	private function get_person_name_by_uid($uid)
 	{
 		$persons = new object_list(array(

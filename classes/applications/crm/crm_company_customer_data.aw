@@ -616,10 +616,10 @@ Aadress: %s
 			$cust = "";
 			$cm = "";
 			$payments_total = 0;
-			if (is_oid($customer_id = $bill->prop("customer_relation")))
+			if (is_oid($customer_id = $bill->get_bill_customer()))
 			{
 				$tmp = obj($customer_id);
-				$cust = $tmp->prop("buyer.name") ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("buyer.short_name") ? $tmp->prop("buyer.short_name") : $tmp->prop("buyer.name")) , $tmp->prop("buyer.name")) : "";
+				$cust = $tmp->name() ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("short_name") ? $tmp->prop("short_name") : $tmp->name()) , $tmp->name()) : "";
 				$cm = html::obj_change_url($tmp->prop("client_manager"));
 			}
 			$state = $bill_i->states[$bill->prop("state")];

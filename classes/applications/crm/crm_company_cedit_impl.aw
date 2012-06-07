@@ -1161,6 +1161,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 			"name" => "select",
 			"field" => "sel",
 			"width" => "60",
+			"chgbgcolor" => "color",
 		));
 		foreach($fields as $name => $caption)
 		{
@@ -1180,6 +1181,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 				"name" => $name,
 				"caption" => $caption,
 				"width" => $width,
+			"chgbgcolor" => "color",
 			));
 		}
 		$t->define_field(array(
@@ -1187,22 +1189,169 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 			"caption" => t("Muuda"),
 			"width" => "80",
 			"align" => "center",
+			"chgbgcolor" => "color",
 		));
 		$t->define_field(array(
 			"name" => "choose",
 			"caption" => t("Vali &uuml;ks"),
 			"width" => "60",
 			"align" => "center",
+			"chgbgcolor" => "color",
 		));
+	}
+
+	function _get_old_address_text($arr)
+	{
+		$ret = "";
+		if (is_oid($arr["obj_inst"]->id()))
+		{
+			$ret = "Vanad aadressid: ";
+			$conns = $arr["obj_inst"]->connections_from(array(
+				"type" => "RELTYPE_ADDRESS",
+			));
+			foreach($conns as $conn)
+			{
+				$obj = $conn->to();
+				$ret.= $obj->name();
+				$ret.= " ".html::button(array(
+					"value" => "Konverdi uude aadressis&uuml;steemi",
+					"onclick" => "javascript:alert('asdasd')"
+				)); 
+				$ret.= "<br>";
+			}
+		}
+		return $ret;
+	}
+
+	public function convert_addresses($id , $selection)
+	{
+		$asd = obj($id);
+		foreach($selection as $convert)
+		{
+			$old = obj($convert);
+			if($old->class_id() != CL_CRM_ADDRESS) continue;
+			$parent = 0;
+
+			if($old->prop("linn"))
+			{
+				$place = obj($old->prop("linn"));
+				$f = array(
+					"class_id" => CL_COUNTRY_CITY,
+					"name" => substr($place->name() , 0 , 5)."%"
+				);
+				$units = new object_list($f);
+				if($unit = $units->begin())
+				{
+					$parent = $unit->id();
+				}
+			}
+
+			if(!$parent && $old->prop("maakond"))
+			{
+				$place = obj($old->prop("maakond"));
+				$f = array(
+					"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT,
+					"name" => substr($place->name() , 0 , 5)."%"
+				);
+				$units = new object_list($f);
+				if($unit = $units->begin())
+				{
+					$parent = $unit->id();
+				}
+			}
+
+			if($parent)
+			{
+				$parent_obj = obj($parent);
+				$cuntries = new object_list(array(
+					"administrative_structure" => $parent_obj->prop("administrative_structure"),
+					"class_id" => CL_COUNTRY
+				));
+	
+				$pc = new object();
+				$pc->set_class_id(CL_ADDRESS);
+				$pc->set_parent($parent);
+				$pc->set_prop("street" , $old->prop("aadress"));
+				$pc->set_prop("postal_code" , $old->prop("postiindeks"));
+				if($cntr = $cuntries->begin())
+				{
+					$pc->set_prop("country" , $cntr->id());
+				}
+				$pc->save();
+				$asd->connect(array(
+					"to" => $pc->id(),
+					"type" => "RELTYPE_ADDRESS_ALT"
+				));
+			}
+		}
 	}
 
 	function _get_adr_tbl($t, $arr)
 	{
+		$as = new country();
+/*		if($arr["request"]["convert"])
+		{
+			$old = obj($arr["request"]["convert"]);
+			$parent = 0;
+
+			if($old->prop("linn"))
+			{
+				$place = obj($old->prop("linn"));
+				$f = array(
+					"class_id" => CL_COUNTRY_CITY,
+					"name" => $place->name()
+				);
+				$units = new object_list($f);
+				if($unit = $units->begin())
+				{
+					$parent = $unit->id();
+				}
+			}
+
+			if(!$parent && $old->prop("maakond"))
+			{
+				$place = obj($old->prop("maakond"));
+				$f = array(
+					"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT,
+					"name" => $place->name()
+				);
+				$units = new object_list($f);
+				if($unit = $units->begin())
+				{
+					$parent = $unit->id();
+				}
+			}
+
+			if($parent)
+			{
+				$parent_obj = obj($parent);
+				$cuntries = new object_list(array(
+					"administrative_structure" => $parent_obj->prop("administrative_structure"),
+					"class_id" => CL_COUNTRY
+				));
+	
+				$pc = new object();
+				$pc->set_class_id(CL_ADDRESS);
+				$pc->set_parent($parent);
+				$pc->set_prop("street" , $old->prop("aadress"));
+				$pc->set_prop("postal_code" , $old->prop("postiindeks"));
+				if($cntr = $cuntries->begin())
+				{
+					$pc->set_prop("country" , $cntr->id());
+				}
+				$pc->save();
+				$arr["obj_inst"]->connect(array(
+					"to" => $pc->id(),
+					"type" => "RELTYPE_ADDRESS_ALT"
+				));
+			}
+		}*/
+
 		$conns = array();
 		if (is_oid($arr["obj_inst"]->id()))
 		{
 			$conns = $arr["obj_inst"]->connections_from(array(
-				"type" => "RELTYPE_ADDRESS",
+				"type" => "RELTYPE_ADDRESS_ALT",
 			));
 		}
 
@@ -1221,6 +1370,47 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 				"checked" => $arr["obj_inst"]->prop($pp) == $obj->id()?1:0,
 			));
 			$ch_url = aw_url_change_var("cedit_tbl_edit_a", $obj->id());
+
+			$country_list = new object_list(array(
+				"class_id" => CL_COUNTRY
+			));
+			$cl = array();
+			foreach($country_list->arr() as $country)
+			{
+				if($country->prop("administrative_structure"))
+				{
+					$cl[$country->id()] = $country->name();
+				}
+			}
+
+
+				$city = $county = $vald = "";
+				$parent = obj($obj->parent());
+				$parent2 = obj($parent->parent());
+				$parent3 = obj($parent2->parent());
+
+				if($parent->class_id() == CL_COUNTRY_CITY)
+				{
+					$city = $parent->name();
+				}
+				else
+				{
+					$vald = $parent->name();
+				}
+
+				if($parent3->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
+				{
+					$county = $parent3->name();
+				}
+				elseif($parent2->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
+				{
+					$county = $parent2->name();
+				}
+				elseif($parent->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
+				{
+					$county = $parent->name();
+				}
+
 
 			if (isset($arr["request"]["cedit_tbl_edit_a"]) and $arr["request"]["cedit_tbl_edit_a"] == $obj->id())
 			{
@@ -1269,11 +1459,103 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 						"caption" => t("Muuda"),
 						"url" => $ch_url,
 					)),
+				"country" => html::select(array(
+					"options" => $cl,
+					"name" => "cedit_adr[".$obj->id()."][country]",
+					"value" => $obj->prop("country")
+				)),
+				"change" => "",
+				"city" => html::textbox(array(
+					"name" => "cedit_adr[".$obj->id()."][city]",
+					"value" => $city,
+					"size" => 15,
+					"autocomplete_source" => $as->mk_my_orb("ac_city"),
+					"autocomplete_params" => array("cedit_adr[".$obj->id()."][city]","cedit_adr[".$obj->id()."][county]")
+				)),
+				"county" => html::textbox(array(
+					"name" => "cedit_adr[".$obj->id()."][county]",
+					"value" => $county,
+					"size" => 15,
+					"autocomplete_source" => $as->mk_my_orb("ac_county"),
+					"autocomplete_params" => array("cedit_adr[".$obj->id()."][county]")
+				)),
+				"vald" => html::textbox(array(
+					"name" => "cedit_adr[".$obj->id()."][vald]",
+					"value" => $vald,
+					"size" => 15,
+					"autocomplete_source" => $as->mk_my_orb("ac_vald"),
+					"autocomplete_params" => array("cedit_adr[".$obj->id()."][vald]","cedit_adr[".$obj->id()."][county]")
+				)),
+//				"location" => $location,
+				"street" => html::textbox(array(
+					"name" => "cedit_adr[".$obj->id()."][street]",
+					"value" => "",
+					"size" => 15,
+					"value" => $obj->prop("street")
+				)),
+				"house" => html::textbox(array(
+					"name" => "cedit_adr[".$obj->id()."][house]",
+					"value" => "",
+					"size" => 15,
+					"value" => $obj->prop("house")
+				)),
+				"apartment" => html::textbox(array(
+					"name" => "cedit_adr[".$obj->id()."][apartment]",
+					"value" => "",
+					"size" => 5,
+					"value" => $obj->prop("apartment")
+				)),
+				"postal_code" => html::textbox(array(
+					"name" => "cedit_adr[".$obj->id()."][postal_code]",
+					"value" => "",
+					"size" => 5,
+					"value" => $obj->prop("postal_code")
+				)),
+				"po_box" => html::textbox(array(
+					"name" => "cedit_adr[".$obj->id()."][po_box]",
+					"value" => "",
+					"size" => 5,
+					"value" => $obj->prop("po_box")
+				)),
+
+
 				));
 			}
 			else
 			{
+/*
+				$location = $parent->name();
+				if($parent2->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
+				{
+					$location = $parent2->name().", ".$location;
+				}
+*/
+				//arr($obj->properties());
 				$t->define_data(array(
+					"sel" => $obj->id(),
+					"choose" => $chooser,
+					"city" => $city,
+					"county" => $county,
+					"vald" => $vald,
+	/*				"aadress" => $obj->prop("aadress"),
+					"postiindeks" => $obj->prop_str("postiindeks"),
+					"linn" => $obj->prop("linn.name"),
+					"maakond" => $obj->prop("maakond.name"),
+					"piirkond" => $obj->prop("piirkond.name"),*/
+//					"location" => $location,
+					"street" => $obj->prop("street"),
+					"house" => $obj->prop("house"),
+					"apartment" => $obj->prop("apartment"),
+					"postal_code" => $obj->prop("postal_code"),
+					"po_box" => $obj->prop("po_box"),
+					"country" => $obj->prop("country.name"),				"change" => html::href(array(
+						"caption" => t("Muuda"),
+						"url" => $ch_url,
+					)),
+//					"change" => html::obj_change_url($obj->id(), t("Muuda")), 
+				)); 
+
+/*				$t->define_data(array(
 					"sel" => $obj->id(),
 					"choose" => $chooser,
 					"aadress" => $obj->prop("aadress"),
@@ -1286,9 +1568,35 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 						"caption" => t("Muuda"),
 						"url" => $ch_url,
 					)),
-				));
+				));*/
 			}
 		}
+
+
+//---------- vana süsteemi päästmiseks---
+		$conns = $arr["obj_inst"]->connections_from(array(
+			"type" => "RELTYPE_ADDRESS",
+		));
+		foreach($conns as $conn)
+		{
+			$obj = $conn->to();
+			$ch_url = aw_url_change_var("convert", $obj->id());
+			$t->define_data(array(
+				"sel" => $obj->id(),
+				"location" => $obj->name(),
+				"postal_code" => $obj->prop("postiindeks"),
+				"country" => $obj->prop("riik.name"),
+				"city" => $obj->prop("linn.name"),
+				"county" => $obj->prop("maakond.name"),
+				"street" => $obj->prop("aadress"),
+	/*			"change" => html::href(array(
+					"caption" => t("Konverdi uude süsteemi"),
+					"url" => $ch_url,
+				)),*/
+				"color" => "grey"
+			));
+		}
+//-------------------------------------
 		if (empty($arr["request"]["cedit_tbl_edit_a"]))
 		{
 			$chooser = html::radiobutton(array(
@@ -1296,9 +1604,44 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 				"value" => -1,
 				"checked" => $this->can("view", $arr["obj_inst"]->prop($pp)) ? 0 : 1,
 			));
+
+/*
+
+				$t->define_data(array(
+					"sel" => $obj->id(),
+					"choose" => $chooser,
+					"city" => $city,
+					"county" => $county,
+					"vald" => $vald,
+
+//					"location" => $location,
+					"street" => $obj->prop("street"),
+					"house" => $obj->prop("house"),
+					"apartment" => $obj->prop("apartment"),
+					"postal_code" => $obj->prop("postal_code"),
+					"po_box" => $obj->prop("po_box"),
+					"country" => $obj->prop("country.name"),
+					"change" => html::obj_change_url($obj->id(), t("Muuda")), 
+				)); */
+
+			$country_list = new object_list(array(
+				"class_id" => CL_COUNTRY
+			));
+			$cl = array();
+			foreach($country_list->arr() as $country)
+			{
+				if($country->prop("administrative_structure"))
+				{
+					$cl[$country->id()] = $country->name();
+				}
+			}
+
+		
+
 			$t->define_data(array(
 				"choose" => $chooser,
-				"aadress" => html::textbox(array(
+			//	"country" => 
+/*				"aadress" => html::textbox(array(
 					"name" => "cedit_adr[-1][aadress]",
 					"value" => "",
 					"size" => 15
@@ -1335,72 +1678,410 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 					"size" => 15,
 					"autocomplete_source" => $this->mk_my_orb("adr_city_ac"),
 					"autocomplete_params" => array("cedit_adr[-1][riik]")
+				)),*/
+				"country" => html::select(array(
+					"options" => $cl,
+					"name" => "cedit_adr[-1][country]",
 				)),
-				"change" => ""
+				"change" => "",
+				"city" => html::textbox(array(
+					"name" => "cedit_adr[-1][city]",
+					"value" => "",
+					"size" => 15,
+					"autocomplete_source" => $as->mk_my_orb("ac_city"),
+					"autocomplete_params" => array("cedit_adr[-1][city]","cedit_adr[-1][county]")
+				)),
+				"county" => html::textbox(array(
+					"name" => "cedit_adr[-1][county]",
+					"value" => "",
+					"size" => 15,
+					"autocomplete_source" => $as->mk_my_orb("ac_county"),
+					"autocomplete_params" => array("cedit_adr[-1][county]")
+				)),
+				"vald" => html::textbox(array(
+					"name" => "cedit_adr[-1][vald]",
+					"value" => "",
+					"size" => 15,
+					"autocomplete_source" => $as->mk_my_orb("ac_vald"),
+					"autocomplete_params" => array("cedit_adr[-1][vald]","cedit_adr[-1][county]")
+				)),
+//				"location" => $location,
+				"street" => html::textbox(array(
+					"name" => "cedit_adr[-1][street]",
+					"value" => "",
+					"size" => 15
+				)),
+				"house" => html::textbox(array(
+					"name" => "cedit_adr[-1][house]",
+					"value" => "",
+					"size" => 15
+				)),
+				"apartment" => html::textbox(array(
+					"name" => "cedit_adr[-1][apartment]",
+					"value" => "",
+					"size" => 5
+				)),
+				"postal_code" => html::textbox(array(
+					"name" => "cedit_adr[-1][postal_code]",
+					"value" => "",
+					"size" => 5
+				)),
+				"po_box" => html::textbox(array(
+					"name" => "cedit_adr[-1][po_box]",
+					"value" => "",
+					"size" => 5
+				)),
+		//		"country" => $obj->prop("country.name"),
 			));
 		}
 		$t->set_sortable(false);
 	}
 
+	/**
+		@attrib name=ac_city all_args=1
+	**/
+	function ac_city($arr)
+	{
+		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
+		$cl_json = get_instance("protocols/data/json");
+
+		$errorstring = "";
+		$error = false;
+		$autocomplete_options = array();
+
+		$option_data = array(
+			"error" => &$error,// recommended
+			"errorstring" => &$errorstring,// optional
+			"options" => &$autocomplete_options,// required
+			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
+		);
+
+		$opts = reset($arr["cedit_adr"]);
+
+		if(!empty($opts["city"]) || !empty($opts["county"]))
+		{
+			$params = array(
+				"class_id" => CL_COUNTRY_CITY	
+			);
+			if(!empty($opts["city"]))
+			{
+				$params["name"] = $opts["city"]."%";
+			}
+			if(!empty($opts["county"]))
+			{
+				$subclasses = new object_list(array(
+					"class_id" => CL_COUNTRY_ADMINISTRATIVE_DIVISION,
+					"name" => "Maakond"
+				));
+				$subclass = $subclasses->begin();
+				$params2 = array(
+					"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT,
+					"subclass" => $subclass->id()
+				);
+				$params2["name"] = $opts["county"]."%";
+				$ol2 = new object_list($params2);
+				$params["parent"] = $ol2->ids();
+			}
+			$ol = new object_list($params);
+		}
+		else
+		{
+			$ol = new object_list();
+		}
+//arr($params);
+		$autocomplete_options = $ol->names();
+		asort($autocomplete_options);
+/*		foreach($autocomplete_options as $k => $v)
+		{
+			$autocomplete_options[$k] = iconv(aw_global_get("charset"), "UTF-8", parse_obj_name($v));
+		}*/
+		$autocomplete_options = array_unique($autocomplete_options);
+		header("Content-type: text/html; charset=utf-8");
+		exit ($cl_json->encode($option_data));
+	}
+
+	/**
+		@attrib name=ac_county all_args=1
+	**/
+	function ac_county($arr)
+	{
+		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
+		$cl_json = get_instance("protocols/data/json");
+
+		$errorstring = "";
+		$error = false;
+		$autocomplete_options = array();
+
+		$option_data = array(
+			"error" => &$error,// recommended
+			"errorstring" => &$errorstring,// optional
+			"options" => &$autocomplete_options,// required
+			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
+		);
+
+		$opts = reset($arr["cedit_adr"]);
+
+		if(!empty($opts["county"]))
+		{
+			$subclasses = new object_list(array(
+				"class_id" => CL_COUNTRY_ADMINISTRATIVE_DIVISION,
+				"name" => "Maakond"
+			));
+			$subclass = $subclasses->begin();
+
+			$params = array(
+				"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT,
+				"subclass" => $subclass->id()
+			);
+			if(!empty($opts["county"]))
+			{
+				$params["name"] = $opts["county"]."%";
+			}
+
+			$ol = new object_list($params);
+		}
+		else
+		{
+			$ol = new object_list();
+		}
+//arr($params);
+		$autocomplete_options = $ol->names();
+		asort($autocomplete_options);
+/*		foreach($autocomplete_options as $k => $v)
+		{
+			$autocomplete_options[$k] = iconv(aw_global_get("charset"), "UTF-8", parse_obj_name($v));
+		}*/
+		$autocomplete_options = array_unique($autocomplete_options);
+		header("Content-type: text/html; charset=utf-8");
+		exit ($cl_json->encode($option_data));
+	}
+
+	/**
+		@attrib name=ac_vald all_args=1
+	**/
+	function ac_vald($arr)
+	{
+		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
+		$cl_json = get_instance("protocols/data/json");
+
+		$errorstring = "";
+		$error = false;
+		$autocomplete_options = array();
+
+		$option_data = array(
+			"error" => &$error,// recommended
+			"errorstring" => &$errorstring,// optional
+			"options" => &$autocomplete_options,// required
+			"limited" => false,// whether option count limiting applied or not. applicable only for real time autocomplete.
+		);
+
+		$opts = reset($arr["cedit_adr"]);
+
+		if(!empty($opts["vald"]) || !empty($opts["county"]))
+		{
+			$params = array(
+				"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT	
+			);
+			if(!empty($opts["vald"]))
+			{
+				$params["name"] = $opts["vald"]."%";
+			}
+			if(!empty($opts["county"]))
+			{
+				$subclasses = new object_list(array(
+					"class_id" => CL_COUNTRY_ADMINISTRATIVE_DIVISION,
+					"name" => "Maakond"
+				));
+				$subclass = $subclasses->begin();
+				$params2 = array(
+					"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT,
+					"subclass" => $subclass->id()
+				);
+				$params2["name"] = $opts["county"]."%";
+				$ol2 = new object_list($params2);
+				$params["parent"] = $ol2->ids();
+			}
+			$ol = new object_list($params);
+		}
+		else
+		{
+			$ol = new object_list();
+		}
+//arr($params);
+		$autocomplete_options = $ol->names();
+		asort($autocomplete_options);
+/*		foreach($autocomplete_options as $k => $v)
+		{
+			$autocomplete_options[$k] = iconv(aw_global_get("charset"), "UTF-8", parse_obj_name($v));
+		}*/
+		$autocomplete_options = array_unique($autocomplete_options);
+		header("Content-type: text/html; charset=utf-8");
+		exit ($cl_json->encode($option_data));
+	}
+
 	function _set_cedit_adr_tbl($arr)
 	{
-		foreach(safe_array($arr["request"]["cedit_adr"]) as $id => $data)
+		if(isset($arr["request"]["cedit_adr"]))
 		{
-			if ($this->can("view", $id))
+			foreach(safe_array($arr["request"]["cedit_adr"]) as $id => $data)
 			{
-				$o = obj($id);
-				$o->set_prop("aadress", $data["aadress"]);
-				$o->set_prop("postiindeks", $data["postiindeks"]);
-				$this->set_rel_by_val($o, "linn", $data["linn"]);
-				$this->set_rel_by_val($o, "maakond", $data["maakond"]);
-				$this->set_rel_by_val($o, "piirkond", $data["piirkond"]);
-				$this->set_rel_by_val($o, "riik", $data["riik"]);
-				$i = get_instance(CL_CRM_ADDRESS);
-				$o->set_name($i->get_name_from_adr($o));
-				$o->save();
-			}
-			else
-			if ($id == -1)
-			{
-				$o = obj();
-				$o->set_parent($arr["obj_inst"]->id());
-				$o->set_class_id(CL_CRM_ADDRESS);
-				$has = false;
-				foreach($data as $k => $v)
+				$params = array();
+				if($data["city"])
 				{
-					if ($v != "")
-					{
-						$has = true;
+					$params["class_id"] = CL_COUNTRY_CITY;
+					$params["name"] = $data["city"];
+
+					if($data["county"])
+					{					
+						$subclasses = new object_list(array(
+							"class_id" => CL_COUNTRY_ADMINISTRATIVE_DIVISION,
+							"name" => "Maakond"
+						));
+						$subclass = $subclasses->begin();
+						$params2 = array(
+							"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT,
+							"subclass" => $subclass->id()
+						);
+						$params2["name"] = $data["county"];
+						$ol2 = new object_list($params2);
+						$params["parent"] = $ol2->ids();
+					}
+
+				}
+				elseif($data["vald"])
+				{
+					$params["class_id"] = CL_COUNTRY_ADMINISTRATIVE_UNIT;
+					$params["name"] = $data["vald"];
+					if($data["county"])
+					{					
+						$subclasses = new object_list(array(
+							"class_id" => CL_COUNTRY_ADMINISTRATIVE_DIVISION,
+							"name" => "Maakond"
+						));
+						$subclass = $subclasses->begin();
+						$params2 = array(
+							"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT,
+							"subclass" => $subclass->id()
+						);
+						$params2["name"] = $data["county"];
+						$ol2 = new object_list($params2);
+						$params["parent"] = $ol2->ids();
 					}
 				}
-				$o->set_prop("aadress", $data["aadress"]);
-				$o->set_prop("postiindeks", $data["postiindeks"]);
-				$this->set_rel_by_val($o, "linn", $data["linn"]);
-				$this->set_rel_by_val($o, "maakond", $data["maakond"]);
-				$this->set_rel_by_val($o, "piirkond", $data["piirkond"]);
-				$this->set_rel_by_val($o, "riik", $data["riik"]);
-
-				if ($has)
+				elseif($data["county"])
 				{
-					$i = get_instance(CL_CRM_ADDRESS);
-					$o->set_name($i->get_name_from_adr($o));
-					$o->save();
-					$arr["obj_inst"]->connect(array(
-						"to" => $o->id(),
-						"type" => "RELTYPE_ADDRESS"
+					$params["class_id"] = COUNTRY_ADMINISTRATIVE_UNIT;
+					$params["name"] = $data["county"];
+
+					$subclasses = new object_list(array(
+						"class_id" => CL_COUNTRY_ADMINISTRATIVE_DIVISION,
+						"name" => "Maakond"
 					));
-					if ($arr["request"]["cedit"]["cedit_adr_tbl"] == -1)
+					$subclass = $subclasses->begin();
+					
+					$params["subclass"] = $subclass->id();
+				}
+
+				$parents = new object_list($params);
+
+				if($parent = $parents->begin())
+				{
+					if ($this->can("view", $id))
+					{
+						$a = obj($id);
+					}
+					elseif ($id == -1)
+					{
+						$a = new object();
+						$a->set_class_id(CL_ADDRESS);
+
+					}
+					$a->set_parent($parent->id());
+
+					$a->set_prop("street" , $data["street"]);
+					$a->set_prop("house" , $data["house"]);
+					$a->set_prop("apartment" , $data["apartment"]);
+					$a->set_prop("postal_code" , $data["postal_code"]);
+					$a->set_prop("po_box" , $data["po_box"]);
+					$a->set_prop("country" , $data["country"]);
+
+					$a->save();
+//arr($a); die();
+					$arr["obj_inst"]->connect(array(
+						"to" => $a->id(),
+						"type" => "RELTYPE_ADDRESS_ALT"
+					));
+
+					if ($arr["request"]["cedit"]["cedit_adr_tbl"] == $id)
 					{
 						if ($arr["obj_inst"]->is_property("contact"))
 						{
-							$arr["obj_inst"]->set_prop("contact", $o->id());
+							$arr["obj_inst"]->set_prop("contact", $a->id());
 						}
 						else
 						{
-							$arr["obj_inst"]->set_prop("address", $o->id());
+							$arr["obj_inst"]->set_prop("address", $a->id());
 						}
 					}
 				}
+
+
+/*				if ($this->can("view", $id))
+				{
+					$o = obj($id);
+					$o->set_prop("aadress", $data["aadress"]);
+					$o->set_prop("postiindeks", $data["postiindeks"]);
+					$this->set_rel_by_val($o, "linn", $data["linn"]);
+					$this->set_rel_by_val($o, "maakond", $data["maakond"]);
+					$this->set_rel_by_val($o, "piirkond", $data["piirkond"]);
+					$this->set_rel_by_val($o, "riik", $data["riik"]);
+					$i = get_instance(CL_CRM_ADDRESS);
+					$o->set_name($i->get_name_from_adr($o));
+					$o->save();
+				}
+				else
+				if ($id == -1)
+				{
+					$o = obj();
+					$o->set_parent($arr["obj_inst"]->id());
+					$o->set_class_id(CL_CRM_ADDRESS);
+					$has = false;
+					foreach($data as $k => $v)
+					{
+						if ($v != "")
+						{
+							$has = true;
+						}
+					}
+					$o->set_prop("aadress", $data["aadress"]);
+					$o->set_prop("postiindeks", $data["postiindeks"]);
+					$this->set_rel_by_val($o, "linn", $data["linn"]);
+					$this->set_rel_by_val($o, "maakond", $data["maakond"]);
+					$this->set_rel_by_val($o, "piirkond", $data["piirkond"]);
+					$this->set_rel_by_val($o, "riik", $data["riik"]);
+
+					if ($has)
+					{
+						$i = get_instance(CL_CRM_ADDRESS);
+						$o->set_name($i->get_name_from_adr($o));
+						$o->save();
+						$arr["obj_inst"]->connect(array(
+							"to" => $o->id(),
+							"type" => "RELTYPE_ADDRESS"
+						));
+						if ($arr["request"]["cedit"]["cedit_adr_tbl"] == -1)
+						{
+							if ($arr["obj_inst"]->is_property("contact"))
+							{
+								$arr["obj_inst"]->set_prop("contact", $o->id());
+							}
+							else
+							{
+								$arr["obj_inst"]->set_prop("address", $o->id());
+							}
+						}
+					}
+				}*/
 			}
 		}
 

@@ -25,6 +25,13 @@
 			</function>
 		</action>
 
+		<action name="convert_objects">
+			<function name="convert_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="delete_obj">
 			<function name="delete_obj">
 				<arguments>

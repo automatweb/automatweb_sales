@@ -3436,23 +3436,35 @@ class crm_bill_obj extends _int_object
 			switch($prop)
 			{
 				case "street":
-					return $cust_obj->prop($a.".aadress");
+					return $cust_obj->prop($a.".street");
 				break;
 				case "index":
-					return $cust_obj->prop($a.".postiindeks");
+					return $cust_obj->prop($a.".postal_code");
 				break;
 				case "country":
-					return $cust_obj->prop($a.".riik.name");
+					return $cust_obj->prop($a.".country.name");
 				break;
 				case "county":
-					return $cust_obj->prop($a.".maakond.name");
+					if($this->can("view", $cust_obj->prop($a)))
+					{
+						$address = obj($cust_obj->prop($a));
+						$parent = obj($address->parent());					$parent2 = obj($parent->parent());
+						return $parent2->name();
+					}
+					return "";//$cust_obj->prop($a.".maakond.name");
 				break;
 				case "city":
-					return $cust_obj->prop($a.".linn.name");
+					if($this->can("view", $cust_obj->prop($a)))
+					{
+						$address = obj($cust_obj->prop($a));
+						$parent = obj($address->parent());
+						return $parent->name();
+					}
+					return "";//$cust_obj->prop($a.".linn.name");
 				break;
 				case "country_en":
-					if($cust_obj->prop($a.".riik.name_en")) return $cust_obj->prop($a.".riik.name_en");
-					else return $cust_obj->prop($a.".riik.name");
+					if($cust_obj->prop($a.".cuntry.name_en")) return $cust_obj->prop($a.".country.name_en");
+					else return $cust_obj->prop($a.".country.name");
 				break;
 			}
 		}
@@ -3558,9 +3570,15 @@ class crm_bill_obj extends _int_object
 		$bpct = $this->prop("overdue_charge");
 		if (!$bpct)
 		{
-			if($this->prop("customer_relation.bill_penalty_pct"))
+			$cust_data = $this->prop("");
+			if(is_object($cust_data) && $cust_data->prop("bill_penalty_pct"))
 			{
 				return $cust_data->prop("bill_penalty_pct");
+			}
+			$bpct = $this->prop("customer.bill_penalty_pct");
+			if (!$bpct)
+			{
+				$bpct = $this->prop("impl.bill_penalty_pct");
 			}
 		}
 		return $bpct;
@@ -3646,11 +3664,18 @@ class crm_bill_obj extends _int_object
 		if ($translated)
 		{
 			$language_id = $this->prop("language.aw_lang_id");
-			$bill_text = $this->trans_get_val("bill_text", $language_id);
+
+			if(!strlen($bill_text = $this->trans_get_val("bill_text", $language_id)) and $this->set_crm_settings())
+			{
+				$bill_text = $this->crm_settings->trans_get_val("bill_text", $language_id);
+			}
 		}
 		else
 		{
-			$bill_text = $this->prop("bill_text");
+			if(!strlen($bill_text = $this->prop("bill_text")) and $this->set_crm_settings())
+			{
+				$bill_text = $this->crm_settings->prop("bill_text");
+			}
 		}
 
 		return $bill_text;
