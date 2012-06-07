@@ -33,6 +33,7 @@ class msg_index
 
 				try
 				{
+					$cache[$id] = array();
 					$msgmap = new DOMDocument();
 					$msgmap->load($msgmap_file);
 					$xpath = new DOMXPath($msgmap);

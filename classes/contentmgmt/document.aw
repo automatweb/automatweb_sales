@@ -392,7 +392,7 @@ class document extends aw_template implements orb_public_interface
 //			$_ld = languages::fetch($lang_id);
 			$this->vars(array(
 				"charset" => languages::USER_CHARSET,
-			)); 
+			));
 		}
 
 		// load localization settings and put them in the template
@@ -2548,33 +2548,33 @@ class document extends aw_template implements orb_public_interface
 		$a = new aw_array($feedback->tekst);
 		foreach($a->get() as $k => $v)
 		{
-			$tekst .= "<tr><td align='right'><input type='radio' name='tekst' value='$k'></td><td align=\"left\" class=\"text2\">$v</td></tr>";
+			$tekst .= "<tr><td align='right'><input type='radio' name='tekst' value='$k' /></td><td align=\"left\" class=\"text2\">$v</td></tr>";
 		}
 
 		$kujundus = "";
 		$a = new aw_array($feedback->kujundus);
 		foreach($a->get() as $k => $v)
 		{
-			$kujundus .= "<tr><td align='right'><input type='radio' name='kujundus' value='$k'></td><td align=\"left\" class=\"text2\">$v</td></tr>";
-		};
+			$kujundus .= "<tr><td align='right'><input type='radio' name='kujundus' value='$k' /></td><td align=\"left\" class=\"text2\">$v</td></tr>";
+		}
 
 		$struktuur = ""; $tehnika = ""; $ala = "";
 		$a = new aw_array($feedback->struktuur);
 		foreach($a->get() as $k => $v)
 		{
-			$struktuur .= "<tr><td align='right'><input type='radio' name='struktuur' value='$k'></td><td align=\"left\" class=\"text2\">$v</td></tr>";
-		};
+			$struktuur .= "<tr><td align='right'><input type='radio' name='struktuur' value='$k' /></td><td align=\"left\" class=\"text2\">$v</td></tr>";
+		}
 
 		$a = new aw_array($feedback->ala);
 		foreach($a->get() as $k => $v)
 		{
-			$ala .= "<tr><td align='right'><input type='radio' name='ala' value='$k'></td><td align=\"left\" class=\"text2\">$v</td></tr>";
+			$ala .= "<tr><td align='right'><input type='radio' name='ala' value='$k' /></td><td align=\"left\" class=\"text2\">$v</td></tr>";
 		}
 
 		$a = new aw_array($feedback->tehnika);
 		foreach($a->get() as $k => $v)
 		{
-			$tehnika .= "<tr><td align='right'><input type='checkbox' name='tehnika[]'  value='$k'></td><td align=\"left\" class=\"text2\">$v</td></tr>";
+			$tehnika .= "<tr><td align='right'><input type='checkbox' name='tehnika[]'  value='$k' /></td><td align=\"left\" class=\"text2\">$v</td></tr>";
 		}
 
 	   	$this->vars(array(
@@ -2591,7 +2591,7 @@ class document extends aw_template implements orb_public_interface
 	}
 
 	/**
-		@attrib name=submit_feedback params=name nologin="1" default="0"
+		@attrib name=submit_feedback params=name nologin=1
 	**/
 	function submit_feedback($arr)
 	{
@@ -2610,7 +2610,7 @@ class document extends aw_template implements orb_public_interface
 	}
 
 	/**
-		@attrib name=thanks params=name nologin="1" default="0"
+		@attrib name=thanks params=name nologin=1
 		@param eesnimi optional
 	**/
 	function thanks($arr)
@@ -2618,13 +2618,13 @@ class document extends aw_template implements orb_public_interface
 		extract($arr);
 		$this->read_template("feedback_thanks.tpl");
 		$this->vars(array(
-			"eesnimi" => strip_tags($eesnimi),
+			"eesnimi" => htmlspecialchars($eesnimi, ENT_COMPAT, languages::USER_CHARSET)
 		));
 		return $this->parse();
 	}
 
 	/**
-		@attrib name=print params=name nologin="1" default="0"
+		@attrib name=print params=name nologin=1
 		@param section required
 	**/
 	function do_print($arr)
