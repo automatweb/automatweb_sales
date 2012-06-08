@@ -1823,18 +1823,20 @@ $x++;
 
 		$sum_in_curr = $bal_in_curr = array();
 		$balance = $sum = $tax = 0;
-		foreach($bills->arr() as $bill)
+		for ($bill = $bills->begin(); !$bills->end(); $bill = $bills->next())
 		{
 			$cust = "";
 			$cm = "";
 			$payments_total = 0;
-			if (is_oid($customer_id = $bill->get_bill_customer()))
+			$crel_oid = $bill->prop("customer_relation");
+			if (acl_base::can("", $crel_oid))
 			{
-				$tmp = obj($customer_id);
-				$cust = $tmp->name() ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("short_name") ? $tmp->prop("short_name") : $tmp->name()) , $tmp->name()) : "";
+				$tmp = obj($$crel_oid);
+				$cust = $tmp->prop("buyer.name") ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("buyer.short_name") ? $tmp->prop("buyer.short_name") : $tmp->prop("buyer.name")) , $tmp->prop("buyer.name")) : "";
 				$cm = html::obj_change_url($tmp->prop("client_manager"));
 			}
-			if ($arr["request"]["group"] == "bills_search")
+
+			if ($arr["request"]["group"] === "bills_search")
 			{
 				$state = $bill_i->states[$bill->prop("state")];
 			}
@@ -2262,9 +2264,7 @@ $x++;
 				// change bill numbers for all tasks that this bill is to
 				$ol = new object_list(array(
 					"class_id" => CL_TASK,
-					"bill_no" => $b->prop("bill_no"),
-					"lang_id" => array(),
-					"site_id" => array()
+					"bill_no" => $b->prop("bill_no")
 				));
 				foreach($ol->arr() as $task)
 				{
@@ -2292,7 +2292,7 @@ $x++;
 				$crel = $cc->get_cust_rel(obj($b->prop("customer")));
 				if ($crel)
 				{
-					if ($this->can("view", $crel->prop("client_manager")))
+					if ($this->can("", $crel->prop("client_manager")))
 					{
 						$clm = obj($crel->prop("client_manager"));
 						$rfn = $clm->prop("comment");
