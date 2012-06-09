@@ -11,7 +11,6 @@ class shop_product_search_obj extends _int_object
 
 	public function get_search_results()
 	{
-		enter_function("shop_product_search_obj::get_search_results");
 		$no_products = array();
 		$args = array(
 			'class_id' => CL_SHOP_PACKET,
@@ -69,7 +68,6 @@ class shop_product_search_obj extends _int_object
 			eval($this->prop("products_object_list_filter_controller.formula"));
 		}
 		$products = $no_products ? new object_list() : new object_list($args);
-		exit_function("shop_product_search_obj::get_search_results");
 		return $products;
 	}
 
