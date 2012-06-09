@@ -110,7 +110,7 @@ class shop_product_search extends class_base
 
 	function get_property($arr)
 	{
-		$prop = &$arr["prop"];
+		$prop = $arr["prop"];
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
@@ -151,7 +151,7 @@ class shop_product_search extends class_base
 
 	function set_property($arr = array())
 	{
-		$prop = &$arr["prop"];
+		$prop = $arr["prop"];
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
@@ -208,7 +208,6 @@ class shop_product_search extends class_base
 	**/
 	function show($arr)
 	{
-		enter_function("product_search::show");
 		aw_session_set("no_cache", 1);
 		$o = obj($arr["id"]);
 
@@ -246,15 +245,15 @@ class shop_product_search extends class_base
 		else
 		{
 			$this->_s_res(array(
-				"obj_inst" => &$o,
+				"obj_inst" => $o,
 				"request" => $request,
-				"prop" => &$prop
+				"prop" => $prop
 			));
 			$table = $prop["value"];
 		}
 
 		$this->read_template("show.tpl");
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 		$this->vars(array(
 			"form" => $html,
 			"section" => aw_global_get("section"),
@@ -266,8 +265,6 @@ class shop_product_search extends class_base
 			), "shop_order_cart")
 		));
 
-
-		exit_function("product_search::show");
 		if (!empty($_GET["die"]))
 		{
 			die($this->parse());
@@ -278,7 +275,7 @@ class shop_product_search extends class_base
 	// this can be called from site.aw as well, to draw simple search form, but it should be more generic solution, which will be able to draw any kind of searchform according to a template
 	// or according to the configuration
 	function draw_search_form($arr)
-	{		enter_function("product_search::show_form");
+	{
 		if (!empty($arr['template']))
 		{
 			$this->read_template($arr['template']);
@@ -288,7 +285,7 @@ class shop_product_search extends class_base
 			$this->read_template('form.tpl');
 		}
 
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		// actually it is a pretty bold move to get the first object of this type and to expect, that this is the right one
 		$ol = new object_list(array(
@@ -322,13 +319,13 @@ class shop_product_search extends class_base
 			"search_term" => htmlentities(automatweb::$request->arg("search_term"), ENT_COMPAT, aw_global_get('charset')),
 			'SEARCH_CATEGORY' => $categories_str,
 			"SEARCH_CATEGORY_SELECTED" => "",
-		));		exit_function("product_search::show_form");
+		));
 		return $this->parse();
 	}
 
 	function _fld_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_search_button(array(
 			"pn" => "add_fld",
 			"clid" => CL_MENU,
@@ -340,7 +337,7 @@ class shop_product_search extends class_base
 
 	function _fld_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -392,7 +389,7 @@ class shop_product_search extends class_base
 		$arr["obj_inst"]->save();
 	}
 
-	function _init_s_form_t(&$t)
+	function _init_s_form_t($t)
 	{
 		$t->define_field(array(
 			"name" => "class",
@@ -489,7 +486,7 @@ class shop_product_search extends class_base
 
 	function _get_search_form_elements_toolbar($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->add_menu_button(array(
 			'name' => 'elements_menu',
 			'tooltip' => t('Elementide men&uuml;&uuml;'),
@@ -514,7 +511,7 @@ class shop_product_search extends class_base
 
 	function _get_search_form_elements($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_dom_id('form_elements_table');
 
 		$t->define_field(array(
@@ -659,7 +656,7 @@ class shop_product_search extends class_base
 		$arr["obj_inst"]->set_meta("s_form", $arr["request"]["dat"]);
 	}
 
-	function _init_s_tbl_t(&$t)
+	function _init_s_tbl_t($t)
 	{
 		$t->define_field(array(
 			"name" => "class",
@@ -1137,7 +1134,7 @@ class shop_product_search extends class_base
 				}
 				foreach($transforms as $coln => $tr)
 				{
-					$tr_i->transform($tr, &$data[$coln], $data);
+					$tr_i->transform($tr, $data[$coln], $data);
 				}
 				$t->define_data($data);
 			}
@@ -1153,12 +1150,9 @@ class shop_product_search extends class_base
 
 	function draw_search_results_with_templates($arr)
 	{
-		enter_function("products_show::show");
-
 		// get the order center object from shop_product_search
 		$oc = $arr['obj_inst']->get_order_center();
 
-		enter_function("products_show::start");
 		/*
 		$this->read_template($ob->get_template());
 		$this->vars(array(
@@ -1167,7 +1161,7 @@ class shop_product_search extends class_base
 		*/
 
 		// is it required?
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		$products = $arr["obj_inst"]->get_search_results();
 		if ($products->count() === 0)
@@ -1216,8 +1210,6 @@ class shop_product_search extends class_base
 	//	}
 
 		$count = $count_all = 0;
-		exit_function("products_show::start");
-		enter_function("products_show::loop");
 		foreach($products->ids() as $product_id)
 		{
 			$count_all++;
@@ -1283,8 +1275,6 @@ class shop_product_search extends class_base
 				break;
 			}
 		}
-		exit_function("products_show::loop");
-		exit_function("products_show::enter");
 		$this->vars(array(
 			"ROW" => $rows
 		));
@@ -1351,8 +1341,6 @@ class shop_product_search extends class_base
 
 		$data["section"] = aw_global_get("section");
 		$this->vars($data);
-		exit_function("products_show::end");
-		exit_function("products_show::show");
 		return $this->parse();
 	}
 
@@ -1440,7 +1428,7 @@ class shop_product_search extends class_base
 
 				$v = "%".$pv."%";
 				// now, based on the result object we must calc the way to search
-				$this->_get_filt_param($clid, $res_type, $pn, $v, &$filt);
+				$this->_get_filt_param($clid, $res_type, $pn, $v, $filt);
 				arr($filt);
 			}
 		}
@@ -1563,7 +1551,7 @@ class shop_product_search extends class_base
 		$arr = array(
 			"obj_inst" => $o,
 			"request" => $request,
-			"prop" => &$prop
+			"prop" => $prop
 		);
 		$this->_s_res($arr);
 		$table =  $arr["prop"]["value"];
