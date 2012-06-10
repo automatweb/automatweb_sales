@@ -236,26 +236,13 @@ class shop_product_search extends class_base
 
 		$prop = array();
 
-		// It should be somehow configurable, should the search page use vcl/table or templates
-		// I think it is rather reasonable to use htmlclient for form drawing ... or not? --dragut@19.08.2009
-		if (true)
-		{
-			$table = $this->draw_search_results_with_templates(array('obj_inst' => $o, 'request' => $request));
-		}
-		else
-		{
-			$this->_s_res(array(
-				"obj_inst" => $o,
-				"request" => $request,
-				"prop" => $prop
-			));
-			$table = $prop["value"];
-		}
+		$table = $this->draw_search_results_with_templates(array('obj_inst' => $o, 'request' => $request));
 
 		$this->read_template("show.tpl");
 		lc_site_load("shop", $this);
 		$this->vars(array(
 			"form" => $html,
+			"search_term" => htmlentities(automatweb::$request->arg("search_term"), ENT_COMPAT, aw_global_get('charset')),
 			"section" => aw_global_get("section"),
 			"table" => $table,
 			"results" => $table, // need to refactor it
@@ -1225,14 +1212,14 @@ class shop_product_search extends class_base
 				$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
 			}
 
-			// WTF is pask???
+			// FIXME: WTF is pask???
 			$pask = $product->get_pask();
-			$product_data["product_link"] = "/".reset($pask)."?product=".$product->id()."&oc=".$oc->id();
+			$product_data["product_link"] = "/".(!empty($pask) ? reset($pask) : "")."?product=".$product->id()."&oc=".$oc->id();
 			$ids = !$product->is_a(shop_product_obj::CLID) ? $product->get_categories()->ids() : $product->get_categories();
 			$category = reset($ids);
 
 		//	$product_data["menu"] = $ob->get_category_menu($category);
-			$product_data["menu_name"] = get_name($product_data["menu"]);
+			$product_data["menu_name"] = get_name(isset($product_data["menu"]) ? $product_data["menu"] : null);
 			$this->vars($product_data);
 
 			if($count >= $max && $this->is_template("ROW"))//viimane tulp yksk6ik mis reas
