@@ -110,7 +110,7 @@ class shop_product_search extends class_base
 
 	function get_property($arr)
 	{
-		$prop = $arr["prop"];
+		$prop = &$arr["prop"];
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
@@ -1198,17 +1198,6 @@ class shop_product_search extends class_base
 			$per_page = $oc->prop("per_page");
 		}
 
-	// The idea here should be, that if the search will be by product code and therefore only one packet will be found, then 
-	// I should redirect the user right to the product detail view
-	// But I need to be sure somehow, that there is product code in the search field - how do i know that? are there only numbers maybe?
-	//	if ($products->count() == 1)
-	//	{
-	//		$product = $products->begin();
-	//		$url = "/".reset($product->get_pask())."?product=".$product->id()."&oc=".$oc->id();
-	//		header("Location: ".$url);
-	//		exit();
-	//	}
-
 		$count = $count_all = 0;
 		foreach($products->ids() as $product_id)
 		{
@@ -1224,7 +1213,7 @@ class shop_product_search extends class_base
 
 			// this one should be coming from the get_data() fn. probably, but i don't know at the moment how to make that object data list query to work
 			// so i just use this one here:
-			$min_special_price = min($product_data['special_prices']);
+			$min_special_price = !empty($product_data['special_prices']) ? min($product_data['special_prices']) : 0;
 			$product_data['PRODUCT_SPECIAL_PRICE'] = '';
 			$product_data['special_price_visibility'] = '';
 			if ($min_special_price > 0)
@@ -1236,8 +1225,10 @@ class shop_product_search extends class_base
 				$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
 			}
 
-			$product_data["product_link"] = "/".reset($product->get_pask())."?product=".$product->id()."&oc=".$oc->id();
-			$ids = $product->get_categories()->ids();
+			// WTF is pask???
+			$pask = $product->get_pask();
+			$product_data["product_link"] = "/".reset($pask)."?product=".$product->id()."&oc=".$oc->id();
+			$ids = !$product->is_a(shop_product_obj::CLID) ? $product->get_categories()->ids() : $product->get_categories();
 			$category = reset($ids);
 
 		//	$product_data["menu"] = $ob->get_category_menu($category);
@@ -1275,13 +1266,15 @@ class shop_product_search extends class_base
 				break;
 			}
 		}
+
 		$this->vars(array(
+      "PRODUCT" => $prod,
 			"ROW" => $rows
 		));
 
 		$pages = $products->count() / $per_page;
 		$pages = (int)$pages;
-		if($products->count() % $per_page) $pages++;
+		if ($products->count() % $per_page) $pages++;
 		if($pages > 1)
 		{
 			if($page > 2)
