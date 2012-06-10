@@ -889,10 +889,10 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		if(is_object($packet))
 		{
 			$stuff = $packet->get_pask();
-		}
-		if(is_array($stuff))
-		{
-			return reset($stuff);
+			if(is_array($stuff))
+			{
+				return reset($stuff);
+			}
 		}
 		return null;
 	}
