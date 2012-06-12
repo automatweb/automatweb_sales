@@ -1,6 +1,24 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>purveyance_tlb</name>
+            <table>aw_shop_warehouse_item</table>
+            <group>purveyance</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>purveyance_tlb</field>
+      </property>
+      <property>
+            <name>purveyance_tbl</name>
+            <table>aw_shop_warehouse_item</table>
+            <group>purveyance</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>purveyance_tbl</field>
+      </property>
+      <property>
             <name>name</name>
             <table>objects</table>
             <group>general_general</group>
@@ -1379,11 +1397,16 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_SHOP_PRODUCT</syslog_type>
             <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
             <prop_cb>1</prop_cb>
+            <syslog_type>ST_SHOP_PRODUCT</syslog_type>
       </classinfo>
       <groupinfo>
+            <purveyance>
+                  <caption>Tarneinfo</caption>
+            </purveyance>
             <general_general>
                   <caption>&amp;amp;Uuml;ldine</caption>
                   <parent>general</parent>
@@ -1454,6 +1477,11 @@
             </transl>
       </groupinfo>
       <tableinfo>
+            <aw_shop_warehouse_item>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_shop_warehouse_item>
             <aw_shop_products>
                   <index>aw_oid</index>
                   <master_table>objects</master_table>
@@ -1466,6 +1494,11 @@
             </aw_account_balances>
       </tableinfo>
       <reltypes>
+            <WAREHOUSE>
+                  <value>25</value>
+                  <clid>CL_SHOP_WAREHOUSE</clid>
+                  <caption>Ladu</caption>
+            </WAREHOUSE>
             <IMAGE>
                   <value>1</value>
                   <clid>CL_IMAGE</clid>
