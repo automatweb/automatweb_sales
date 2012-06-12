@@ -70,11 +70,11 @@
 			<!-- SUB: HAS_WARNING -->
 			<a href="javascript:showhide_help('warn_layer');">Hoiatus</a>
 			<!-- END SUB: HAS_WARNING -->
-			<img src="{VAR:baseurl}/automatweb/images/aw06/ikoon_tagasiside.gif" name="ico1" alt="tagasiside" width="19" height="16" vspace="2" /><a href="{VAR:feedback_link}" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('ico1','','{VAR:baseurl}/automatweb/images/aw06/ikoon_tagasiside_ov.gif',1)">{VAR:feedback_text}</a>
+<!--			<img src="{VAR:baseurl}/automatweb/images/aw06/ikoon_tagasiside.gif" name="ico1" alt="tagasiside" width="19" height="16" vspace="2" /><a href="{VAR:feedback_link}" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('ico1','','{VAR:baseurl}/automatweb/images/aw06/ikoon_tagasiside_ov.gif',1)">{VAR:feedback_text}</a>
 
 			<img src="{VAR:baseurl}/automatweb/images/aw06/ikoon_kasutajatugi.gif" name="ico2" alt="kasutajatugi" width="16" height="16" /><a href="{VAR:feedback_m_link}" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('ico2','','{VAR:baseurl}/automatweb/images/aw06/ikoon_kasutajatugi_ov.gif',1)">{VAR:feedback_m_text}</a>
 
-			<img src="{VAR:baseurl}/automatweb/images/aw06/ikoon_abi.gif" name="ico3" alt="abi" width="16" height="16" /><a href="javascript:showhide_help();"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('ico3','','{VAR:baseurl}/automatweb/images/aw06/ikoon_abi_ov.gif',1)">{VAR:help_text}</a>
+			<img src="{VAR:baseurl}/automatweb/images/aw06/ikoon_abi.gif" name="ico3" alt="abi" width="16" height="16" /><a href="javascript:showhide_help();"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('ico3','','{VAR:baseurl}/automatweb/images/aw06/ikoon_abi_ov.gif',1)">{VAR:help_text}</a>-->
 		</div>
 		<br class="clear" />
 	</div>

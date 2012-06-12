@@ -28,9 +28,10 @@ a img { border: 0; }
 /* päis */
 #pais
 {
-	background: #e2e2e2 url('/automatweb/images/aw06/pais_t.gif') repeat-x;
+	background: #F6F6F6;
+	/*url('/automatweb/images/aw06/pais_t.gif') repeat-x;*/
 	min-width: 550px;
-	height: 90px;
+	height: 150px;
 	border-bottom: 1px solid #f1f8fc
 }
 
@@ -72,15 +73,77 @@ a img { border: 0; }
 
 #pais .top-left-menyy
 {
-	background: url('/automatweb/images/aw06/y_menyy_left_t.gif') no-repeat;
+/*	background: url('/automatweb/images/aw06/y_menyy_left_t.gif') no-repeat;*/
 	padding: 4px 0 2px 8px;
 	color: #545454;
 	font-size: 12px;
 	font-weight: bold;
-	left: 239px;
-	z-index: 11;
+	left: 10px;
+	top:75px;
+	z-index: 1;
 	position: absolute
 }
+
+.bottom_links
+{
+	padding:9px;
+	float:right;
+}
+
+#jalus .bottom_links a
+{
+/*	color:#000000;
+	padding:10px;
+	padding-left:2px;
+	padding-top:0px;*/
+/*	position:relative;
+	top:-7px;
+*/
+
+    color: #FFFFFF;
+    display: block;
+    float: right;
+    font-size: 11px;
+    height: 24px;
+    margin: 0 0 0 12px;
+    padding: 5px 0 0 20px;
+    outline: medium none;
+    text-decoration: none;
+	background-position: 0px 5px;
+	background-repeat:no-repeat;
+}
+
+#jalus .bottom_links a:hover
+{
+	text-decoration: underline;
+/*	color:#00AAD5;*/
+}
+
+#tagasisidelink
+{
+	background-image:url('../images/aw06/ikoon_tagasiside.gif');
+}
+#tagasisidelink:hover
+{
+	background-image:url('../images/aw06/ikoon_tagasiside_ov.gif');
+}
+#kasutajatugilink
+{
+	background-image:url('../images/aw06/ikoon_kasutajatugi.gif');
+}
+#kasutajatugilink:hover
+{
+	background-image:url('../images/aw06/ikoon_kasutajatugi_ov.gif');
+}
+#abilink
+{
+	background-image:url('../images/aw06/ikoon_abi.gif');
+}
+#abilink:hover
+{
+    background-image:url("../images/aw06/ikoon_abi_ov.gif");
+}
+
 
 #pais .top-left-menyy a
 {
@@ -90,8 +153,8 @@ a img { border: 0; }
 #pais .top-right-menyy
 {
 	float: right;
-	background: url('/automatweb/images/aw06/y_menyy_right_t.gif') no-repeat;
-	top: 0px;
+/*	background: url('/automatweb/images/aw06/y_menyy_right_t.gif') no-repeat;*/
+	top: 10px;
 	/*position: relative*/
 	height: 19px;
 	padding: 0;
@@ -108,11 +171,17 @@ a img { border: 0; }
 	font-size: 11px;
 	float: left;
 	color: #000;
-	border-left: 1px solid #fff;
+	border-left: 1px solid #AAAAAA;
 	padding: 5px 8px 0 6px;
 	margin-right: 0px;
 	height: 100%;
 	white-space: nowrap;
+}
+
+
+#pais div.top-right-menu-item.language
+{
+	border-left: 9px solid #AAAAAA;
 }
 
 #pais .top-right-menyy a
@@ -150,13 +219,13 @@ a img { border: 0; }
 }
 
 #pais .olekuriba {
-	background: url('/automatweb/images/aw06/olek_t.gif') no-repeat;
+/*	background: url('/automatweb/images/aw06/olek_t.gif') no-repeat;*/
 	color: #545454;
 	/*min-width: 400px;*/
 	font-size: 11px;
 	padding: 4px 0 0 8px;
-	top: 24px;
-	left: 239px;
+/*	top: 10px;*/
+	left: 10px;
 	position: absolute;
 	z-index: 0;
 	white-space: nowrap
@@ -166,8 +235,8 @@ a img { border: 0; }
 }
 #pais .tabs {
 	float: left;
-	padding-left: 30px;
-	top: 72px;
+	padding-left: 42px;
+	top: 132px;
 	position: absolute;
 }
 #pais .tabs .norm, #pais .tabs .akt {
@@ -214,9 +283,8 @@ a img { border: 0; }
 #pais .application_links
 {
 	float: left;
-	height: 55px;
-	margin-left:247px;
-	margin-top:28px;
+	margin-left:10px;
+	margin-top:20px;
 	z-index: 2;
 /*	position: relative;*/
 
@@ -225,13 +293,15 @@ a img { border: 0; }
 	top:47px;
 	left:247px;*/
 	vertical-align:middle;
-	height:14px;
+/*	height:40px;*/
+	padding-top:18px;
 	line-height:14px;
+	width:90%;
 }
 
 #pais .application_links a
 {
-	padding: 2px 10px 3px 25px;
+/*	padding: 0px 5px 5px 5px;*/
 	position:relative;
 	top:0px;
 	left:0px;
@@ -239,14 +309,25 @@ a img { border: 0; }
 
 #pais .application_links .icon img
 {
-	margin-left: -21px;
-	margin-top:1px;
-	height:14px;
-	position: absolute;
+/*	margin-left: -21px;
+	margin-top:1px;*/
+	height:32px;
+/*	position: absolute;*/
 }
+
+#pais .application_links .icon
+{
+
+	position: absolute;
+	top:-32px;
+	margin-left:50%;
+	left:-16px;
+}
+
 
 #pais .toiming
 {
+display:none;
 	float: right;
 	height: 55px;
 	/*position: relative;*/
@@ -291,8 +372,45 @@ a img { border: 0; }
 #pais .application_links a.menuButton {
 	color: #000;
 	font-size: 11px;
-	margin-right:5px;
-	border: 1px solid #fff
+/*	margin-right:5px;*/
+/*	border: 1px solid #fff*/
+	border:none;
+}
+
+
+
+#pais .application_links .oneappmenu
+{
+	margin-right:4px;
+cursor:pointer;
+/*	height:88px;*/
+	border: 1px solid #bbb;
+	display:inline;
+	width:55px;
+	padding-top:35px;
+	padding-bottom:5px;
+	padding-right:5px;
+	padding-left:5px;
+    border-radius: 5px 5px 5px 5px;
+background: -moz-linear-gradient(center top , #FFFFFF, #F2F2F2 50%, #EEEEEE 51%, #D0D0D0) repeat scroll 0 0 transparent;
+}
+
+#pais .top-left-menyy .bottom{
+	font-size:11px;
+	font-weight:normal;
+}
+#pais .top-left-menyy .top a{
+	color:#000000;
+	font-size:14px;
+	}
+
+#pais .top-left-menyy .prod_family {
+    color: #000000;
+    font-size: 14px;
+}
+
+#pais .application_links .oneappmenu:hover {
+border: 1px solid #05a6e9;
 }
 #pais .application_links .menuBar a.menuButton {
 	color: #000;
@@ -300,11 +418,11 @@ a img { border: 0; }
 	border: 1px solid #fff;
 }
 
-/*#pais .application_links  a:hover {
-	border: 1px solid #05a6e9;
+#pais .application_links a.menuButton:hover {
+/*	border: 1px solid #05a6e9;*/
 	text-decoration: none
 }
-*/
+
 
 #pais .toiming .menuBar a.menuButton {
 	float: left;
@@ -593,8 +711,8 @@ a img { border: 0; }
 /* sisu kast */
 #sisu {
 	background: #fff;
-	margin-left: 3px;
-	margin-right: 3px;
+	margin-left: 9px;
+	margin-right: 9px;
 	border-top: 1px solid #0373ac;
 	border-bottom: 1px solid #0373ac;
 	font-size: 11px;
@@ -733,11 +851,25 @@ span.kast {
 }
 /* jalus */
 #jalus {
-	background: #05a6e9 url('/automatweb/images/aw06/jalus_t.gif') repeat-x left bottom;
-	padding: 7px 0 9px 12px;
+/*	padding: 7px 0 9px 12px;*/
 	color: #82d2f3;
 	font-size: 10px
 }
+
+#jalus .top
+{
+	background-color:#F6F6F6;
+	height:63px;
+	width:100%;
+}
+
+#jalus .bottom
+{
+	
+	background: #05a6e9 url('/automatweb/images/aw06/jalus_t.gif') repeat-x left bottom;
+}
+
+
 #jalus a { color: #fff }
 .clear {
 	display: block;
@@ -1333,8 +1465,8 @@ td.awcbPropErr
 
 /*tabeli box*/
 	#tablebox {
-		margin-top: 10px;
-		margin-left: 10px;
+		margin-top: 1px;
+		margin-left: 1px;
 	}
 	#tablebox .pais {
 		background-color: #e1e1e1;
@@ -1740,4 +1872,96 @@ div.menu a.menuItem_sub span.menuItemText {background: url(/automatweb/images/ar
 {
 	left:3px;
 	top:-4px;
+}
+
+/*
+3 üles alla 2 px
+tabeli vahed
+jaluses kujundus
+logo keskele
+or root üles  püstkriips
+ülval vahekriipsud ülespoole
+*/
+
+.jalus2
+{
+/*	margin-left:250px;*/
+	float:left;
+	padding:9px;
+}
+#jalus .logo
+{
+/*	background: url('/automatweb/images/aw06/logo_t.gif') no-repeat;*/
+	left:50%;
+	margin-left:-72px;
+	width: 144px;
+	height: 57px;
+/*	overflow: hidden;*/
+	position: absolute;
+	z-index: 10;
+
+}
+
+#jalus .logo img
+{
+	margin:7px 0 0 15px
+}
+
+#jalus .logo span
+{
+	color: #FFFFFF;
+/*	width: 239px;*/
+	font-size: 10px;
+	text-transform: uppercase;
+/*	text-align: center;*/
+	display: block;
+	font-weight: bold;
+	top: 16px;
+	left:168px;
+	position: absolute;
+	font-size:12px;
+}
+
+.application_links div.menu a.menuItem:hover, .application_links div.menu a.menuItem.menuItemHighlight {
+  background-color: #05A6E9;
+  color: #000000;
+  font-weight: normal;
+  border-top: solid 1px #ffffff;
+  border-left: solid 1px #ffffff;
+  border-right: solid 1px #ffffff;
+  cursor: pointer;
+  background-image: url(/automatweb/images/aw06/bullet_gray.gif);
+  background-repeat: no-repeat;
+	background-position: 4px 9px;
+  text-decoration: none;
+}
+
+div.menu a.menuItem:hover, div.menu a.menuItem.menuItemHighlight {
+  background-color: #05A6E9;
+  color: #000000;
+  background-image: url(/automatweb/images/aw06/bullet_gray.gif);
+  text-decoration: none;
+}
+
+.application_links div.menu a.menuItem
+{
+	position:relative;
+	top:0px;
+	left:0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px ! important;
+/*	background-color: #e1e1e1;*/
+	background-color: #F6F6F6;
+	border-top: solid 1px #ffffff;
+	border-left: solid 1px #ffffff;
+	border-right: solid 1px #ffffff;
+	color: #000000;
+	cursor: pointer;
+	display: block;
+	text-decoration: none;
+	white-space: nowrap;
+	background-image: url(/automatweb/images/aw06/bullet_full.gif);
+	background-repeat: no-repeat;
+	background-position: 4px 9px;
+	padding: 3px 1em;
 }

@@ -108,14 +108,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 @property crm_settings type=text store=no
 @caption CRM Seaded
 
-@property cvactive type=checkbox ch_value=1 table=kliendibaas_isik
-@caption CV aktiivne
+@property nationality type=relpicker reltype=RELTYPE_NATIONALITY store=connect
+@caption Rahvus
 
-@property cvapproved type=checkbox ch_value=1 table=kliendibaas_isik
-@caption CV kinnitatud
-
-@property not_working type=checkbox ch_value=1 table=kliendibaas_isik field=not_working
-@caption Hetkel ei t&ouml;&ouml;ta
+@property notes type=textarea cols=60 rows=10
+@caption Kirjeldus
 
 @property submit_cv type=submit store=no
 @caption Salvesta
@@ -266,23 +263,13 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 @property person_tb type=toolbar submit=no no_caption=1
 @caption Isiku toolbar
 
-@property nationality type=relpicker reltype=RELTYPE_NATIONALITY store=connect
-@caption Rahvus
+
 
 @property citizenship_table type=table submit=no editonly=1
 @caption Kodakondsuse tabel
 
-@property cv_file_url type=text store=no
-@caption CV fail
 
-@property cv_file type=releditor reltype=RELTYPE_CV_FILE rel_id=first props=file store=connect
-@caption CV failina
 
-@property notes type=textarea cols=60 rows=10
-@caption Vabas vormis tekst
-
-@property aliasmgr type=aliasmgr no_caption=1 store=no
-@caption Seostehaldur
 
 ------------------------------------------------------------------
 
@@ -369,7 +356,7 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 @caption Kataloog serveris, kus asuvad failid
 
 @property languages type=relpicker multiple=1 automatic=1 reltype=RELTYPE_LANGUAGE store=connect
-@caption Keeled
+@caption Keekteoskus
 
 @property bill_due_days type=textbox size=5  table=objects field=meta method=serialize
 @caption Makset&auml;htaeg (p&auml;evi)
@@ -393,8 +380,6 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 	@comment Formaat: 15.03.2007 - 18.03.2007
 
 ------------------------------------------------------------------
-@groupinfo cv caption="Elulugu" parent=general
-
 
 @default group=education
 	@property education_tb type=toolbar no_caption=1 store=no
@@ -472,34 +457,9 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 	@property dl_can_use type=checkbox ch_value=1 table=kliendibaas_isik no_caption=1
 	@caption Kas v&otilde;imalik kasutada isiklikku autot t&ouml;&ouml;eesm&auml;rkidel
 
-@default group=addinfo_new
+
 @default table=objects
 
-	@property add_info_tlb type=toolbar no_caption=1 store=no
-
-	@property skills_tbl type=table store=no
-	@caption Oskused
-
-	@property skills_releditor1 type=releditor mode=manager2 reltype=RELTYPE_SKILL_LEVEL props=skill,level,other table_fields=skill,level store=no
-	@caption Oskused releditor1
-
-	@property skills_releditor2 type=releditor mode=manager2 reltype=RELTYPE_SKILL_LEVEL2 props=skill,level,other table_fields=skill,level store=no
-	@caption Oskused releditor2
-
-	@property skills_releditor3 type=releditor mode=manager2 reltype=RELTYPE_SKILL_LEVEL3 props=skill,level,other table_fields=skill,level store=no
-	@caption Oskused releditor3
-
-	@property skills_releditor4 type=releditor mode=manager2 reltype=RELTYPE_SKILL_LEVEL4 props=skill,level,other table_fields=skill,level store=no
-	@caption Oskused releditor4
-
-	@property skills_releditor5 type=releditor mode=manager2 reltype=RELTYPE_SKILL_LEVEL5 props=skill,level,other table_fields=skill,level store=no
-	@caption Oskused releditor5
-
-	@property languages_releditor type=releditor mode=manager2 reltype=RELTYPE_LANGUAGE_SKILL props=language,talk,understand,write,other table_fields=language,talk,understand,write store=no
-	@caption Keeled releditor
-
-	@property addinfo type=textarea table=kliendibaas_isik field=addinfo
-	@caption Muud oskused
 
 ------------------------------------------------------------------
 @default group=org_relations
@@ -536,7 +496,6 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 
 ------------------------------------------------------------------
 
-@groupinfo work_projects caption="Projektid" parent=general
 
 	@property work_projects group=work_projects type=table store=no no_caption=1
 	@caption Projektid
@@ -565,19 +524,6 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 
 ------------------------------------------------------------------
 
-
-@default group=skills
-
-	@property skills_tb type=toolbar no_caption=1 store=no
-	@property skills_table type=table no_caption=1 store=no
-
-@groupinfo atwork caption="T&ouml;&ouml;ajad" parent=general submit=no
-@default group=atwork
-
-	@property atwork_table type=text no_caption=1 store=no
-
-------------------------------------------------------------------
-
 @groupinfo overview caption="Tegevused" parent=general
 @groupinfo all_actions caption="K&otilde;ik" parent=overview submit=no
 @groupinfo calls caption="K&otilde;ned" parent=overview submit=no
@@ -598,11 +544,8 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 
 ------------------------------------------------------------------
 
-@groupinfo data caption="Andmed" parent=general
-@default group=data
 
-@property correspond_address type=relpicker reltype=RELTYPE_CORRESPOND_ADDRESS
-@caption Kirjavahetuse aadress
+@default group=data
 
 @property fake_phone type=textbox user=1
 @caption Telefon
@@ -629,20 +572,15 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 @property fake_address_city type=textbox user=1
 @caption Linn
 
-@property fake_address_city_relp type=relpicker reltype=RELTYPE_FAKE_CITY automatic=1
-@caption Linn
 
 @property fake_address_county type=textbox user=1
 @caption Maakond
 
-@property fake_address_county_relp type=relpicker reltype=RELTYPE_FAKE_COUNTY automatic=1
-@caption Maakond
 
 @property fake_address_country type=textbox user=1
 @caption Riik
 
-@property fake_address_country_relp type=relpicker reltype=RELTYPE_FAKE_COUNTRY automatic=1
-@caption Riik
+
 
 
 
@@ -682,12 +620,27 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 
 ------------------------------------------------------------------
 
-@groupinfo cv_view caption="CV vaade" submit=no  parent=general
 @default group=cv_view
 
 @property cv_view_tb type=toolbar no_caption=1 store=no
 
 @property cv_view type=text no_caption=1 store=no
+
+@property cv_file_url type=text store=no
+@caption CV fail
+
+@property cv_file type=releditor reltype=RELTYPE_CV_FILE rel_id=first props=file store=connect
+@caption CV failina
+
+@property cvactive type=checkbox ch_value=1 table=kliendibaas_isik
+@caption CV aktiivne
+
+@property cvapproved type=checkbox ch_value=1 table=kliendibaas_isik
+@caption CV kinnitatud
+
+@property not_working type=checkbox ch_value=1 table=kliendibaas_isik field=not_working
+@caption Hetkel ei t&ouml;&ouml;ta
+
 
 ----------------------------------------------
 
@@ -720,12 +673,9 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 
 	@property sms_tbl type=table store=no no_caption=1
 
-	@groupinfo skills caption="P&auml;devused-vana" parent=general submit=no
 
-@groupinfo addinfo_new caption="Oskused-vana" parent=general
-
-
-
+	@property addinfo type=textarea table=kliendibaas_isik field=addinfo group=free_skills
+	@caption Muud oskused
 
 
 @default group=other_skills,computer_skills,device_skills,art_skills
@@ -738,19 +688,26 @@ property address2_edit type=releditor mode=manager store=connect props=country,l
 	@groupinfo work_wanted caption="Soovitud t&ouml;&ouml;kohad" parent=work submit=no
 	@groupinfo recommends caption="Soovitajad" parent=work
 	@groupinfo candidate caption="Kandideerimised" parent=work submit=no
+	@groupinfo atwork caption="Vaikimisi t&ouml;&ouml;ajad" parent=work submit=no
+	@groupinfo cv_view caption="CV vaade" submit=no  parent=general
+	@groupinfo work_projects caption="Osalemine projektides" parent=work
+
+
 @groupinfo customer_relations caption="Kliendisuhted"
 	@groupinfo cust_rel caption="Aktiivsed ja varasemad kliendisuhted" parent=customer_relations
 @groupinfo education_and_improvement caption="Haridus ja t&auml;ienduskoolitus"
 	@groupinfo education caption="Haridustee" parent=education_and_improvement
 	@groupinfo add_edu caption="T&auml;ienduskoolitus" parent=education_and_improvement
 
+
 @groupinfo all_skills caption="Oskused"
-	@groupinfo languages caption="Keeled" parent=all_skills
+	@groupinfo languages caption="Keelteoskus" parent=all_skills
 	@groupinfo vehicles caption="S&otilde;idukite juhtimine" parent=all_skills
 	@groupinfo computer_skills caption="Arvutioskused" parent=all_skills
 	@groupinfo device_skills caption="Seadmete juhtimine" parent=all_skills
 	@groupinfo art_skills caption="Kaunid kunstid" parent=all_skills
 	@groupinfo other_skills caption="Muud oskused" parent=all_skills
+	@groupinfo free_skills caption="Oskused vabas vormis" parent=all_skills
 
 @groupinfo org_relations caption="Kuulumine organisatsioonidesse" submit=no
 @groupinfo documents_all caption="Dokumendid" submit=no
@@ -2528,7 +2485,7 @@ class crm_person extends class_base
 				break;
 
 			case "gender":
-		//		$data["options"] = $arr["obj_inst"]->gender_options();
+				$data["options"] = $arr["obj_inst"]->gender_options();
 				break;
 
 			case "email":
@@ -5537,7 +5494,16 @@ fnCallbackAddNew = function()
 	{
 		$ret = array();
 
-		$dir = aw_ini_get("tpldir")."/crm/person/cv/";
+		if (!is_dir(aw_ini_get("tpldir")."crm/person")) {
+			mkdir(aw_ini_get("tpldir")."crm/person");
+		}
+
+		$dir = aw_ini_get("tpldir")."crm/person/cv/";
+
+		if (!is_dir($dir)) {
+			mkdir($dir);
+		}
+
 		$handle = opendir($dir);
 		while(false !== ($file = readdir($handle)))
 		{
@@ -5606,13 +5572,26 @@ fnCallbackAddNew = function()
 			$arr["cv"] = "cv/".basename(key($this->get_cv_tpl()));
 		}
 		$ob = new object($arr["id"]);
-		$person_obj = current($ob->connections_to(/*array("from.class_id" => CL_CRM_PERSON)*/));
+//		$person_obj = current($ob->connections_to(/*array("from.class_id" => CL_CRM_PERSON)*/));--- misasi see on?
 		if(!is_object($person_obj))
 		{
 			$person_obj = $ob;
 			//return false;
 		}
-		$person_obj = obj($person_obj->prop("from"));
+	//	$person_obj = obj($person_obj->prop("from"));
+
+		// Why did I write the next line of code? Good question. See init.aw:319. -kaarel
+
+//------------------- mis kuramuse porno selle templeidi valikuga toimub
+return;
+
+
+		$this->template_dir = aw_ini_get("site_tpldir")."/crm/person";
+		$this->read_template($arr["cv"]);
+
+
+
+		$phone_obj = obj($person_obj->prop("phone"));
 
 		// Dunno where prop("email") gets its value, but it's not OID!
 		if(is_oid($person_obj->prop("email")))
@@ -5620,11 +5599,6 @@ fnCallbackAddNew = function()
 		else
 			// Not the neatest way to solve it, but seriously. What if person has no e-mail??
 			$email_obj = new object();
-		$phone_obj = obj($person_obj->prop("phone"));
-
-		// Why did I write the next line of code? Good question. See init.aw:319. -kaarel
-		$this->template_dir = aw_ini_get("site_tpldir")."/crm/person";
-		$this->read_template($arr["cv"]);
 
 		if($person_obj->prop("gender") == 1)
 		{
@@ -9748,7 +9722,6 @@ foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_HAS_SKILL"))
 			'text'=>t('Kodakondsus'),
 			"tooltip" => t("Lisa uus kodakondsus"),
 			"action" => "add_new_citizenship",
-			"confirm" => t("Lisan uue kodakondsuse?"),
 		));
 		$tb->add_button(array(
 			"name" => "delete",

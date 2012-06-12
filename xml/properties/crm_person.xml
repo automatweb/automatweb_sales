@@ -291,31 +291,24 @@
             <caption>CRM Seaded</caption>
       </property>
       <property>
-            <name>cvactive</name>
+            <name>nationality</name>
             <table>kliendibaas_isik</table>
             <group>general2</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>cvactive</field>
-            <caption>CV aktiivne</caption>
+            <type>relpicker</type>
+            <reltype>RELTYPE_NATIONALITY</reltype>
+            <store>connect</store>
+            <field>nationality</field>
+            <caption>Rahvus</caption>
       </property>
       <property>
-            <name>cvapproved</name>
+            <name>notes</name>
             <table>kliendibaas_isik</table>
             <group>general2</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>cvapproved</field>
-            <caption>CV kinnitatud</caption>
-      </property>
-      <property>
-            <name>not_working</name>
-            <table>kliendibaas_isik</table>
-            <group>general2</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>not_working</field>
-            <caption>Hetkel ei t&amp;amp;ouml;&amp;amp;ouml;ta</caption>
+            <type>textarea</type>
+            <cols>60</cols>
+            <rows>10</rows>
+            <field>notes</field>
+            <caption>Kirjeldus</caption>
       </property>
       <property>
             <name>submit_cv</name>
@@ -657,16 +650,6 @@
             <caption>Isiku toolbar</caption>
       </property>
       <property>
-            <name>nationality</name>
-            <table>kliendibaas_isik</table>
-            <group>description</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_NATIONALITY</reltype>
-            <store>connect</store>
-            <field>nationality</field>
-            <caption>Rahvus</caption>
-      </property>
-      <property>
             <name>citizenship_table</name>
             <table>kliendibaas_isik</table>
             <group>description</group>
@@ -676,47 +659,6 @@
             <store>no</store>
             <field>citizenship_table</field>
             <caption>Kodakondsuse tabel</caption>
-      </property>
-      <property>
-            <name>cv_file_url</name>
-            <table>kliendibaas_isik</table>
-            <group>description</group>
-            <type>text</type>
-            <store>no</store>
-            <field>cv_file_url</field>
-            <caption>CV fail</caption>
-      </property>
-      <property>
-            <name>cv_file</name>
-            <table>kliendibaas_isik</table>
-            <group>description</group>
-            <type>releditor</type>
-            <reltype>RELTYPE_CV_FILE</reltype>
-            <rel_id>first</rel_id>
-            <props>file</props>
-            <store>connect</store>
-            <field>cv_file</field>
-            <caption>CV failina</caption>
-      </property>
-      <property>
-            <name>notes</name>
-            <table>kliendibaas_isik</table>
-            <group>description</group>
-            <type>textarea</type>
-            <cols>60</cols>
-            <rows>10</rows>
-            <field>notes</field>
-            <caption>Vabas vormis tekst</caption>
-      </property>
-      <property>
-            <name>aliasmgr</name>
-            <table>kliendibaas_isik</table>
-            <group>description</group>
-            <type>aliasmgr</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>aliasmgr</field>
-            <caption>Seostehaldur</caption>
       </property>
       <property>
             <name>docs_tb</name>
@@ -932,7 +874,7 @@
             <reltype>RELTYPE_LANGUAGE</reltype>
             <store>connect</store>
             <field>languages</field>
-            <caption>Keeled</caption>
+            <caption>Keekteoskus</caption>
       </property>
       <property>
             <name>bill_due_days</name>
@@ -1305,156 +1247,6 @@
             <caption>Kas v&amp;amp;otilde;imalik kasutada isiklikku autot t&amp;amp;ouml;&amp;amp;ouml;eesm&amp;amp;auml;rkidel</caption>
       </property>
       <property>
-            <name>add_info_tlb</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
-            <type>toolbar</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>add_info_tlb</field>
-      </property>
-      <property>
-            <name>skills_tbl</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
-            <type>table</type>
-            <store>no</store>
-            <field>skills_tbl</field>
-            <caption>Oskused</caption>
-      </property>
-      <property>
-            <name>skills_releditor1</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
-            <type>releditor</type>
-            <mode>manager2</mode>
-            <reltype>RELTYPE_SKILL_LEVEL</reltype>
-            <props>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-                  <num_2>other</num_2>
-            </props>
-            <table_fields>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-            </table_fields>
-            <store>no</store>
-            <field>skills_releditor1</field>
-            <caption>Oskused releditor1</caption>
-      </property>
-      <property>
-            <name>skills_releditor2</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
-            <type>releditor</type>
-            <mode>manager2</mode>
-            <reltype>RELTYPE_SKILL_LEVEL2</reltype>
-            <props>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-                  <num_2>other</num_2>
-            </props>
-            <table_fields>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-            </table_fields>
-            <store>no</store>
-            <field>skills_releditor2</field>
-            <caption>Oskused releditor2</caption>
-      </property>
-      <property>
-            <name>skills_releditor3</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
-            <type>releditor</type>
-            <mode>manager2</mode>
-            <reltype>RELTYPE_SKILL_LEVEL3</reltype>
-            <props>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-                  <num_2>other</num_2>
-            </props>
-            <table_fields>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-            </table_fields>
-            <store>no</store>
-            <field>skills_releditor3</field>
-            <caption>Oskused releditor3</caption>
-      </property>
-      <property>
-            <name>skills_releditor4</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
-            <type>releditor</type>
-            <mode>manager2</mode>
-            <reltype>RELTYPE_SKILL_LEVEL4</reltype>
-            <props>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-                  <num_2>other</num_2>
-            </props>
-            <table_fields>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-            </table_fields>
-            <store>no</store>
-            <field>skills_releditor4</field>
-            <caption>Oskused releditor4</caption>
-      </property>
-      <property>
-            <name>skills_releditor5</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
-            <type>releditor</type>
-            <mode>manager2</mode>
-            <reltype>RELTYPE_SKILL_LEVEL5</reltype>
-            <props>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-                  <num_2>other</num_2>
-            </props>
-            <table_fields>
-                  <num_0>skill</num_0>
-                  <num_1>level</num_1>
-            </table_fields>
-            <store>no</store>
-            <field>skills_releditor5</field>
-            <caption>Oskused releditor5</caption>
-      </property>
-      <property>
-            <name>languages_releditor</name>
-            <table>objects</table>
-            <group>addinfo_new</group>
-            <type>releditor</type>
-            <mode>manager2</mode>
-            <reltype>RELTYPE_LANGUAGE_SKILL</reltype>
-            <props>
-                  <num_0>language</num_0>
-                  <num_1>talk</num_1>
-                  <num_2>understand</num_2>
-                  <num_3>write</num_3>
-                  <num_4>other</num_4>
-            </props>
-            <table_fields>
-                  <num_0>language</num_0>
-                  <num_1>talk</num_1>
-                  <num_2>understand</num_2>
-                  <num_3>write</num_3>
-            </table_fields>
-            <store>no</store>
-            <field>languages_releditor</field>
-            <caption>Keeled releditor</caption>
-      </property>
-      <property>
-            <name>addinfo</name>
-            <table>kliendibaas_isik</table>
-            <group>addinfo_new</group>
-            <type>textarea</type>
-            <field>addinfo</field>
-            <caption>Muud oskused</caption>
-      </property>
-      <property>
             <name>org_relations_tb</name>
             <table>objects</table>
             <group>org_relations</group>
@@ -1747,33 +1539,6 @@
             <field>candidate_table</field>
       </property>
       <property>
-            <name>skills_tb</name>
-            <table>objects</table>
-            <group>skills</group>
-            <type>toolbar</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>skills_tb</field>
-      </property>
-      <property>
-            <name>skills_table</name>
-            <table>objects</table>
-            <group>skills</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>skills_table</field>
-      </property>
-      <property>
-            <name>atwork_table</name>
-            <table>objects</table>
-            <group>atwork</group>
-            <type>text</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>atwork_table</field>
-      </property>
-      <property>
             <name>org_actions</name>
             <table>objects</table>
             <group>all_actions</group>
@@ -1816,15 +1581,6 @@
             <store>no</store>
             <field>org_tasks</field>
             <caption>Toimetused</caption>
-      </property>
-      <property>
-            <name>correspond_address</name>
-            <table>objects</table>
-            <group>data</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_CORRESPOND_ADDRESS</reltype>
-            <field>correspond_address</field>
-            <caption>Kirjavahetuse aadress</caption>
       </property>
       <property>
             <name>fake_phone</name>
@@ -1899,16 +1655,6 @@
             <caption>Linn</caption>
       </property>
       <property>
-            <name>fake_address_city_relp</name>
-            <table>objects</table>
-            <group>data</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_FAKE_CITY</reltype>
-            <automatic>1</automatic>
-            <field>fake_address_city_relp</field>
-            <caption>Linn</caption>
-      </property>
-      <property>
             <name>fake_address_county</name>
             <table>objects</table>
             <group>data</group>
@@ -1918,32 +1664,12 @@
             <caption>Maakond</caption>
       </property>
       <property>
-            <name>fake_address_county_relp</name>
-            <table>objects</table>
-            <group>data</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_FAKE_COUNTY</reltype>
-            <automatic>1</automatic>
-            <field>fake_address_county_relp</field>
-            <caption>Maakond</caption>
-      </property>
-      <property>
             <name>fake_address_country</name>
             <table>objects</table>
             <group>data</group>
             <type>textbox</type>
             <user>1</user>
             <field>fake_address_country</field>
-            <caption>Riik</caption>
-      </property>
-      <property>
-            <name>fake_address_country_relp</name>
-            <table>objects</table>
-            <group>data</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_FAKE_COUNTRY</reltype>
-            <automatic>1</automatic>
-            <field>fake_address_country_relp</field>
             <caption>Riik</caption>
       </property>
       <property>
@@ -2039,6 +1765,54 @@
             <field>cv_view</field>
       </property>
       <property>
+            <name>cv_file_url</name>
+            <table>objects</table>
+            <group>cv_view</group>
+            <type>text</type>
+            <store>no</store>
+            <field>cv_file_url</field>
+            <caption>CV fail</caption>
+      </property>
+      <property>
+            <name>cv_file</name>
+            <table>objects</table>
+            <group>cv_view</group>
+            <type>releditor</type>
+            <reltype>RELTYPE_CV_FILE</reltype>
+            <rel_id>first</rel_id>
+            <props>file</props>
+            <store>connect</store>
+            <field>cv_file</field>
+            <caption>CV failina</caption>
+      </property>
+      <property>
+            <name>cvactive</name>
+            <table>kliendibaas_isik</table>
+            <group>cv_view</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>cvactive</field>
+            <caption>CV aktiivne</caption>
+      </property>
+      <property>
+            <name>cvapproved</name>
+            <table>kliendibaas_isik</table>
+            <group>cv_view</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>cvapproved</field>
+            <caption>CV kinnitatud</caption>
+      </property>
+      <property>
+            <name>not_working</name>
+            <table>kliendibaas_isik</table>
+            <group>cv_view</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>not_working</field>
+            <caption>Hetkel ei t&amp;amp;ouml;&amp;amp;ouml;ta</caption>
+      </property>
+      <property>
             <name>ext_sys_t</name>
             <table>objects</table>
             <group>ext_sys</group>
@@ -2117,6 +1891,14 @@
             <field>sms_tbl</field>
       </property>
       <property>
+            <name>addinfo</name>
+            <table>kliendibaas_isik</table>
+            <group>free_skills</group>
+            <type>textarea</type>
+            <field>addinfo</field>
+            <caption>Muud oskused</caption>
+      </property>
+      <property>
             <name>skill_tb</name>
             <table>objects</table>
             <group>
@@ -2173,24 +1955,11 @@
                   <caption>T&amp;amp;ouml;&amp;amp;ouml;ajad</caption>
                   <parent>general</parent>
             </work_hrs>
-            <cv>
-                  <caption>Elulugu</caption>
-                  <parent>general</parent>
-            </cv>
             <orgs>
                   <caption>Organisatoorne kuuluvus</caption>
                   <parent>cv</parent>
                   <submit>no</submit>
             </orgs>
-            <work_projects>
-                  <caption>Projektid</caption>
-                  <parent>general</parent>
-            </work_projects>
-            <atwork>
-                  <caption>T&amp;amp;ouml;&amp;amp;ouml;ajad</caption>
-                  <parent>general</parent>
-                  <submit>no</submit>
-            </atwork>
             <overview>
                   <caption>Tegevused</caption>
                   <parent>general</parent>
@@ -2215,10 +1984,6 @@
                   <parent>overview</parent>
                   <submit>no</submit>
             </tasks>
-            <data>
-                  <caption>Andmed</caption>
-                  <parent>general</parent>
-            </data>
             <my_stats>
                   <caption>Minu statistika</caption>
                   <submit>no</submit>
@@ -2228,11 +1993,6 @@
             <transl>
                   <caption>T&amp;amp;otilde;lgi</caption>
             </transl>
-            <cv_view>
-                  <caption>CV vaade</caption>
-                  <submit>no</submit>
-                  <parent>general</parent>
-            </cv_view>
             <ext_sys>
                   <caption>Siduss&amp;amp;uuml;steemid</caption>
                   <parent>general</parent>
@@ -2250,15 +2010,6 @@
                   <parent>general</parent>
                   <submit>no</submit>
             </sms>
-            <skills>
-                  <caption>P&amp;amp;auml;devused-vana</caption>
-                  <parent>general</parent>
-                  <submit>no</submit>
-            </skills>
-            <addinfo_new>
-                  <caption>Oskused-vana</caption>
-                  <parent>general</parent>
-            </addinfo_new>
             <contact>
                   <caption>Kontaktandmed</caption>
             </contact>
@@ -2284,6 +2035,20 @@
                   <parent>work</parent>
                   <submit>no</submit>
             </candidate>
+            <atwork>
+                  <caption>Vaikimisi t&amp;amp;ouml;&amp;amp;ouml;ajad</caption>
+                  <parent>work</parent>
+                  <submit>no</submit>
+            </atwork>
+            <cv_view>
+                  <caption>CV vaade</caption>
+                  <submit>no</submit>
+                  <parent>general</parent>
+            </cv_view>
+            <work_projects>
+                  <caption>Osalemine projektides</caption>
+                  <parent>work</parent>
+            </work_projects>
             <customer_relations>
                   <caption>Kliendisuhted</caption>
             </customer_relations>
@@ -2306,7 +2071,7 @@
                   <caption>Oskused</caption>
             </all_skills>
             <languages>
-                  <caption>Keeled</caption>
+                  <caption>Keelteoskus</caption>
                   <parent>all_skills</parent>
             </languages>
             <vehicles>
@@ -2329,6 +2094,10 @@
                   <caption>Muud oskused</caption>
                   <parent>all_skills</parent>
             </other_skills>
+            <free_skills>
+                  <caption>Oskused vabas vormis</caption>
+                  <parent>all_skills</parent>
+            </free_skills>
             <org_relations>
                   <caption>Kuulumine organisatsioonidesse</caption>
                   <submit>no</submit>
