@@ -286,17 +286,10 @@ a img { border: 0; }
 	margin-left:10px;
 	margin-top:20px;
 	z-index: 2;
-/*	position: relative;*/
-
-/*	position:absolute;
-	z-index: 15;
-	top:47px;
-	left:247px;*/
 	vertical-align:middle;
-/*	height:40px;*/
 	padding-top:18px;
 	line-height:14px;
-	width:90%;
+	width:100%;
 }
 
 #pais .application_links a
@@ -305,6 +298,8 @@ a img { border: 0; }
 	position:relative;
 	top:0px;
 	left:0px;
+	padding-right:5px;
+	padding-left:5px;
 }
 
 #pais .application_links .icon img
@@ -389,8 +384,8 @@ cursor:pointer;
 	width:55px;
 	padding-top:35px;
 	padding-bottom:5px;
-	padding-right:5px;
-	padding-left:5px;
+/*	padding-right:5px;
+	padding-left:5px;*/
     border-radius: 5px 5px 5px 5px;
 background: -moz-linear-gradient(center top , #FFFFFF, #F2F2F2 50%, #EEEEEE 51%, #D0D0D0) repeat scroll 0 0 transparent;
 }
@@ -719,7 +714,7 @@ border: 1px solid #05a6e9;
 	margin-top: -1px;
 	/*position: relative;*/
 	z-index: 0;
-	padding-bottom: 20px;
+	padding-bottom: 2px;
 }
 #toimingud {
 	background: #e1e1e1;
@@ -1371,8 +1366,8 @@ td.awcbPropErr
 
 #vbox
 {
-	margin-top: 10px;
-	margin-left: 10px;
+	margin-top: 2px;
+	margin-left: 2px;
 
 }
 
@@ -1875,6 +1870,15 @@ div.menu a.menuItem_sub span.menuItemText {background: url(/automatweb/images/ar
 }
 
 /*
+site_id = 170
+db.user = root
+db.host = localhost
+db.base = avatudvabariikstruktuuree
+db.pass = Hsm0jtFy2rysUEk
+
+
+
+
 3 üles alla 2 px
 tabeli vahed
 jaluses kujundus
