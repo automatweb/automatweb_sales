@@ -298,9 +298,14 @@ a img { border: 0; }
 	position:relative;
 	top:0px;
 	left:0px;
+}
+
+#pais .application_links a.menuButton
+{
 	padding-right:5px;
 	padding-left:5px;
 }
+
 
 #pais .application_links .icon img
 {
