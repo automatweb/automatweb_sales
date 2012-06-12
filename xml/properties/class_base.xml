@@ -40,7 +40,7 @@
       </property>
       <groupinfo>
             <general>
-                  <caption>&amp;amp;Uuml;ldine</caption>
+                  <caption>&amp;amp;Uuml;ldkirjeldus</caption>
                   <default>1</default>
                   <icon>edit</icon>
                   <focus>name</focus>

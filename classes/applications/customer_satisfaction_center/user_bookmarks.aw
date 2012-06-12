@@ -451,6 +451,28 @@ class user_bookmarks extends class_base
 		}
 	}
 
+	function get_icon($clid)
+	{
+		$url = $GLOBALS["cfg"]["icons"]["server"]."32/";
+		$dir = $GLOBALS["aw_dir"]."automatweb/images/icons/32/";
+		if($clid)
+		{
+			if(file_exists($dir.$clid.".png"))
+			{
+				$main_icon = $url.$clid.".png";
+			}
+			else
+			{
+				$main_icon = $url."default.png";
+			}
+		}
+		else
+		{
+			$main_icon = $url."default.png";
+		}
+		return $main_icon;
+	}
+
 	function get_application_links()
 	{
 		$application_links = "";
@@ -560,7 +582,7 @@ arr($apps);*/
 			$k = explode("_" , $key);
 			$key = $k[0];
 			$ico = '<span class="icon">'.html::img(array(
-				"url" => icons::get_icon_url((empty($key) ? 123 : $key),empty($app["name"]) ? "" :$app["name"]),
+				"url" => $this->get_icon($key),
 			)).'</span>';
 
 			$uprops = $cfg->load_properties(array(
@@ -615,7 +637,7 @@ arr($apps);*/
 							{
 								$am->add_item(array(
 									"text" => $group["caption"],
-									"link" => aw_url_change_var("group" ,$k , $v["url"]),
+									"link" => aw_url_change_var("group" ,$gid , $v["url"]),
 									"parent" => $v["class_id"]."_".$v["id"]."_".$group["parent"]
 								));
 							}
@@ -631,7 +653,7 @@ arr($apps);*/
 							{
 								$params = array(
 									"name" => $v["class_id"]."_".$v["id"]."_".$gid,
-									"text" => $group["caption"],
+									"text" => empty($group["caption"]) ? "" : $group["caption"],
 									"parent" => $v["class_id"]."_".$v["id"]
 								);
 								$am->add_sub_menu($params);
@@ -654,8 +676,8 @@ arr($apps);*/
 					$gn = $v["group_text"];
 				}
 
-				$application_links.= $am->get_menu(
-					array("text" =>$ico. $gn.'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">'));
+				$application_links.= '<div class="oneappmenu">'.$am->get_menu(
+					array("text" =>$ico. $gn.'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')).'</div>';
 			}
 			elseif(is_array($app) && sizeof($app) == 1)
 			{
@@ -704,24 +726,25 @@ arr($apps);*/
 						}
 					}
 
-					$application_links.= $am->get_menu(
+					$application_links.= '<div class="oneappmenu">'.$am->get_menu(
 						array("text" => $ico.$a["name"].'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')
-					);
+					).'</div>';
 				}
 				else
 				{
-					$application_links.= '
+					$application_links.= '<div class="oneappmenu">
 						<span style="height:15px;text-align: center; background-color: transparent; " id="menuBar">
 						<a id="href_user_applications_1134" title="" alt=""  href="'.$a["url"].'" class="menuButton">
 						<span>'.$ico.(empty($a["name"]) ? $key : $a["name"]).'</span>
 						</a>
-						</span>
+						</span></div>
 					';
 				}
 			}
 		}
 
 		cache::file_set(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id(), $application_links);
+
 		return $application_links;
 	}
 

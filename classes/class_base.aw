@@ -27,7 +27,7 @@
 	@property needs_translation type=checkbox field=flags method=bitmask ch_value=2 // OBJ_NEEDS_TRANSLATION
 	@caption Vajab t&otilde;lget
 
-	@groupinfo general caption=&Uuml;ldine default=1 icon=edit focus=name
+	@groupinfo general caption=&Uuml;ldkirjeldus default=1 icon=edit focus=name
 
 	@forminfo add onload=init_storage_object
 	@forminfo edit onload=load_storage_object
@@ -4883,7 +4883,7 @@ class class_base extends aw_template implements orb_public_interface
 			"name" => "relationmgr",
 			"type" => "relationmgr",
 			"store" => "class_base",
-			"caption" => t("Seostehaldur"),
+			"caption" => t("Seosed"),
 			"group" => "relationmgr"
 		);
 		$this->_cfg_props = $cfg_props;
@@ -5346,7 +5346,7 @@ class class_base extends aw_template implements orb_public_interface
 		$this->classinfo = array_merge($this->classinfo,$cfgu->get_classinfo());
 
 		$this->groupinfo["relationmgr"] = array(
-			"caption" => t("Seostehaldur"),
+			"caption" => t("Seosed"),
 			"submit" => "no",
 		);
 
@@ -5358,7 +5358,7 @@ class class_base extends aw_template implements orb_public_interface
 		$defaults["relationmgr"] = array(
 			"name" => "relationmgr",
 			"type" => "relationmgr",
-			"caption" => t("Seostehaldur"),
+			"caption" => t("Seosed"),
 			"store" => "class_base",
 			"group" => "relationmgr"
 		);
