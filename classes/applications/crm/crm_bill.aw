@@ -1502,6 +1502,7 @@ class crm_bill extends class_base
 			$retval["address_meta[".$prop."]"] = array(
 				"name" => "address_meta[".$prop."]",
 				"type" => "textbox",
+				"store" => "class_base",
 				"parent" => "top_right",
 				"caption" => $caption,
 				"size" => 20,
@@ -1661,7 +1662,6 @@ class crm_bill extends class_base
 
 			$t->define_data(array(
 				"name" => $this->get_row_html($row["id"],"name",$arr),
-				"code" => $this->get_row_html($row["id"],"code",$arr),
 				"unit" => $this->get_row_html($row["id"],"unit",$arr),
 				"has_tax" => $this->get_row_html($row["id"],"has_tax",$arr),
 				"prod" => $this->get_row_html($row["id"],"prod",$arr),
@@ -1883,7 +1883,6 @@ class crm_bill extends class_base
 				$row_oid = $row_o->id();
 				$table->define_data(array(
 					"name" => $this->get_row_html($row_oid,"name",$arr),
-					"code" => $this->get_row_html($row_oid,"code",$arr),
 					"unit" => $this->get_row_html($row_oid,"unit",$arr),
 					"has_tax" => $this->get_row_html($row_oid,"has_tax",$arr),
 					"prod" => $this->get_row_html($row_oid,"prod",$arr),
@@ -2388,14 +2387,6 @@ class crm_bill extends class_base
 				$ret .= $element;
 				break;
 
-			case "code":
-				$ret.=html::textbox(array(
-					"name" => "rows[".$row->id()."][code]",
-					"value" => $row->prop("code"),
-					"size" => 10
-				));
-				break;
-
 			case "unit":
 				$ut = new vcl_table(array(
 					"layout" => "generic",
@@ -2676,10 +2667,6 @@ class crm_bill extends class_base
 					"</div>";
 				break;
 
-			case "code":
-				$ret.=$row->prop("code");
-				break;
-
 			case "unit":
 				$price_cc = "";//hind oma organisatsiooni valuutas
 				$sum_cc = "";//summa oma organisatsiooni valuutas
@@ -2704,7 +2691,7 @@ class crm_bill extends class_base
 						"date" =>  $date,
 					));
 					$ccurrency_o = new object($ccurrency);
-					$ccurrency_str = $ccurrency_o->prop("unit_name_after_sum") ? $ccurrency_o->prop("unit_name_after_sum") : $ccurrency_o->name();
+					$ccurrency_str = $ccurrency_o->prop("unit_name") ? $ccurrency_o->prop("unit_name") : $ccurrency_o->name();
 					$price_cc = html::linebreak().round($cc_price , 2)." ".$ccurrency_str;
 					$sum_cc = html::linebreak().round($cc_price*$row->prop("amt") , 2)." ".$ccurrency_str;
 				}

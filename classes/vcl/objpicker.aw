@@ -17,28 +17,30 @@ class objpicker extends core implements vcl_interface, orb_public_interface
 	/**
 		@attrib params=name api=1
 
-		@param name required type=string
+		@param name type=string
 			String to indetify the object picker. Chars: A-z, 0-9, _ (first character not numeric)
 
-		@param object required type=object
+		@param object type=object
 			The object the picker picks objects for
 
-		@param clid required type=array
+		@param clid type=array
 			Class id-s of objects to be picked from. Default is empty array, meaning any class object can be picked. If not specified, options must be defined or mode 'autocomplete'
 
-		@param mode optional type=string default=text
+		@param mode type=string default=text
 			Values: "text", "select"
 
-		@param disabled optional type=boolean default=false
+		@param disabled type=boolean default=FALSE
 
-		@param view optional type=boolean default=false
+		@param search_enabled type=boolean default=FALSE
 
-		@param size optional type=int
+		@param view type=boolean default=FALSE
+
+		@param size type=string default=""
 			Textbox size
 
-		@param value optional type=int
+		@param value type=int
 
-		@param options_callback optional
+		@param options_callback type=string default=""
 
 		@returns string
 			The HTML of the object picker.
@@ -168,9 +170,7 @@ SCRIPT;
 			{
 				$clids = is_array($args["clid"]) ? implode(",", $args["clid"]) : $args["clid"];
 				$list = new object_list(array(
-					"class_id" => $clids,
-					"site_id" => array(),
-					"lang_id" => array()
+					"class_id" => $clids
 				));
 
 				$element = html::select(array(
@@ -251,7 +251,7 @@ SCRIPT;
 				{
 					$value = $o->prop_xml("name");
 					$info = "";
-					$results[] = array("id" => $o->id(), "value" => iconv("iso-8859-4", "UTF-8", $value), "info" => $info);
+					$results[] = array("id" => $o->id(), "value" => $value, "info" => $info);
 				}
 				while ($o = $list->next());
 				$choices["results"] = $results;

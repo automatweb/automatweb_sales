@@ -3664,18 +3664,11 @@ class crm_bill_obj extends _int_object
 		if ($translated)
 		{
 			$language_id = $this->prop("language.aw_lang_id");
-
-			if(!strlen($bill_text = $this->trans_get_val("bill_text", $language_id)) and $this->set_crm_settings())
-			{
-				$bill_text = $this->crm_settings->trans_get_val("bill_text", $language_id);
-			}
+			$bill_text = $this->trans_get_val("bill_text", $language_id);
 		}
 		else
 		{
-			if(!strlen($bill_text = $this->prop("bill_text")) and $this->set_crm_settings())
-			{
-				$bill_text = $this->crm_settings->prop("bill_text");
-			}
+			$bill_text = $this->prop("bill_text");
 		}
 
 		return $bill_text;

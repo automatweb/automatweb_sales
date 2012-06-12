@@ -53,7 +53,7 @@ class object_type extends class_base
 				if (!empty($old_type))
 				{
 					$data["selected"] = $old_type;
-				};
+				}
 				break;
 
 			case "default_object":
@@ -178,7 +178,7 @@ class object_type extends class_base
 		foreach($conns as $item)
 		{
 			$opts[$item->prop("to")] = $item->prop("to.name");
-		};
+		}
 
 		$mx = $obj->meta("classificator");
 		$ct = $obj->meta("clf_type");
@@ -214,6 +214,7 @@ class object_type extends class_base
 				"name" => "classificator[" . $key . "]",
 				"selected" => $mx[$key],
 				"type" => "select",
+				"store" => "class_base",
 				"caption" => $key . " " . t("Oks"),
 				"options" => $opts,
 				"parent" => "c".$key,
@@ -222,6 +223,7 @@ class object_type extends class_base
 			$rv["x".$key] = array(
 				"name" => "clf_type[" . $key . "]",
 				"type" => "select",
+				"store" => "class_base",
 				"caption" => t("T&uuml;&uuml;p"),
 				"options" => $types,
 				"selected" => $ct[$key],
@@ -238,6 +240,7 @@ class object_type extends class_base
 				list ($options, $name, $use_type) = $classificator->get_choices($prop_args);
 				$rv["d".$key] = array(
 					"name" => "clf_default[" . $key . "]",
+					"store" => "class_base",
 					"caption" => t("Vaikimisi v&auml;limus"),
 					"options" => $options ? $options->names() : array(),
 					"value" => $clf_defaults[$key],
@@ -403,8 +406,7 @@ class object_type extends class_base
 			"class_id" => CL_META,
 			"parent" => $conf["classificator"][$arr["classificator"]],
 			"status" => object::STAT_ACTIVE,
-			"sort_by" => "jrk",
-			"lang_id" => array(),
+			"sort_by" => "jrk"
 		));
 		//return $ol->names();
 		$ops = array();
