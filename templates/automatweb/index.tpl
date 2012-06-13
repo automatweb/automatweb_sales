@@ -50,7 +50,7 @@ function aw_keyhandler_init(event)
 
 	$("body").append(html);
 
-	$.get("{VAR:baseurl}automatweb/orb.aw?class=shortcut_manager&amp;action=parse_shortcuts_from_xml", {}, function (d){
+	$.get("{VAR:baseurl}automatweb/orb.aw?class=shortcut_manager\u0026action=parse_shortcuts_from_xml", {}, function (d){
 			eval(d);
 			// fetch items on demand
 			$("#aw_object_quickadd").aw_object_quickadd(null, options);
@@ -71,7 +71,7 @@ function aw_keyhandler_init(event)
 			});
 
 			$(window).unbind("keydown", aw_keyhandler_rec);
-			for(var i = 0; i < recKp.length; i++){
+			for(var i = 0; i != recKp.length; i++){
 				$(window).trigger("keydown", recKp[i]);
 			}
 		}
