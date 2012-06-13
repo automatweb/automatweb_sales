@@ -777,7 +777,7 @@ class crm_customer_view extends class_base
 		}
 */
 
-		
+
 			if (!empty($arr["request"]["cs_n"]))
 			{
 				$customer_relations_search->name = "%{$arr["request"]["cs_n"]}%";
@@ -956,7 +956,7 @@ class crm_customer_view extends class_base
 		$tf = $arr["prop"]["vcl_inst"];
 		$manager = obj($arr["request"]["id"]);
 		$org = obj($manager->prop("company"));
-		
+
 
 		$format = t("%s kliendid");
 		$requested_category = isset($arr["request"][crm_company::REQVAR_CATEGORY]) ? $arr["request"][crm_company::REQVAR_CATEGORY] : null;
@@ -1055,6 +1055,29 @@ class crm_customer_view extends class_base
 				continue;
 			}
 
+			// get customer relation object
+			$cro_oid = 0;
+			if(sizeof($idx_cro_by_customer[$o->id()]) == 1)
+			{
+				$cro_obj = reset($idx_cro_by_customer[$o->id()]);
+				$cro_oid = $cro_obj->id();
+			}
+			else
+			{
+				foreach($idx_cro_by_customer[$o->id()] as $cro_obj)
+				{
+					if($cro_obj->prop("seller") == $org->id())
+					{
+						$cro_oid = $cro_obj->id();
+					}
+				}
+				if(!$cro_oid)
+				{
+					$cro_obj = reset($idx_cro_by_customer[$o->id()]);
+					$cro_oid = $cro_obj->id();
+				}
+			}
+
 			// aga &uuml;lej&auml;&auml;nud on k&otilde;ik seosed!
 			$name = $client_manager = $pm = $vorm = $tegevus = $contact = $juht = $juht_id = $phone = $fax = $url = $mail = $ceo = "";
 
@@ -1103,7 +1126,7 @@ class crm_customer_view extends class_base
 				}
 
 				# url
-				if (($default_cfg or in_array("url", $visible_fields)) and ($this->can("view", $o->prop("url_id"))))
+				if (($default_cfg or in_array("url", $visible_fields)) and ($this->can("", $o->prop("url_id"))))
 				{
 					$url_o = obj($o->prop("url_id"));
 					$url_str = $url_o->name();
@@ -1179,7 +1202,7 @@ class crm_customer_view extends class_base
 			}
 
 			# fax
-			if (($default_cfg or  in_array("fax", $visible_fields)) and object_loader::can("view", $o->prop("telefax_id")))
+			if (($default_cfg or  in_array("fax", $visible_fields)) and object_loader::can("", $o->prop("telefax_id")))
 			{
 				$fax = obj($o->prop("telefax_id"));
 				$fax = $fax->name();
@@ -1188,7 +1211,7 @@ class crm_customer_view extends class_base
 			# client_manager
 			if ($default_cfg or in_array("client_manager", $visible_fields))
 			{
-				$client_manager = html::obj_change_url($o->prop("client_manager"));
+				$client_manager = html::obj_change_url($cro_obj->prop("client_manager"));
 			}
 
 			# pop
@@ -1205,9 +1228,8 @@ class crm_customer_view extends class_base
 					"link" => html::get_change_url($o->id(), array("return_url" => get_ru()))
 				));
 
-				foreach($idx_cro_by_customer[$o->id()] as $cro)
+				foreach ($idx_cro_by_customer[$o->id()] as $cro)
 				{
-
 					$pm->add_item(array(
 						"text" => t("Muuda kliendisuhet"),
 						"link" => html::get_change_url($cro, array("return_url" => get_ru()))
@@ -1266,30 +1288,7 @@ class crm_customer_view extends class_base
 				$classif1 = t("N/A");
 			}
 
-			$cro_oid = 0;
-			if(sizeof($idx_cro_by_customer[$o->id()]) == 1)
-			{
-				$cro_obj = reset($idx_cro_by_customer[$o->id()]);
-				$cro_oid = $cro_obj->id();
-			}
-			else
-			{
-				foreach($idx_cro_by_customer[$o->id()] as $cro_obj)
-				{
-					if($cro_obj->prop("seller") == $org->id())
-					{
-						$cro_oid = $cro_obj->id();
-					}
-				}
-				if(!$cro_oid)
-				{
-					$cro_obj = reset($idx_cro_by_customer[$o->id()]);
-					$cro_oid = $cro_obj->id();
-				}
-			}
-
 			$customer_rel_order = "";
-
 			foreach($idx_cro_by_customer[$o->id()] as $cro)
 			{
 				$customer_rel_order.= html::href(array(
@@ -1478,7 +1477,7 @@ class crm_customer_view extends class_base
 	function _get_customer_responsible_tree($arr)
 	{
 		$tree_inst = $arr["prop"]["vcl_inst"];
-		$reset_tree_params_url = aw_url_change_var("cmgr", null, aw_url_change_var("pmgr", null));		
+		$reset_tree_params_url = aw_url_change_var("cmgr", null, aw_url_change_var("pmgr", null));
 		$tree_inst->add_item(0, array(
 			"id" => "people_who_are_responsible_for_that_s__t",
 			"name" => t("Vastutajad"),
@@ -1580,7 +1579,7 @@ class crm_customer_view extends class_base
 		));
 
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_AREA	
+			"class_id" => CL_CRM_AREA
 		));
 
 		foreach($ol->arr() as $o)
