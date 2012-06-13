@@ -727,7 +727,7 @@ arr($apps);*/
 						{
 							$params = array(
 								"name" => $key."__".$gid,
-								"text" => $group["caption"],
+								"text" => isset($group["caption"]) ? $group["caption"] : null,
 						//		"parent" => $v["class_id"]."_".$v["id"]
 							);
 							$am->add_sub_menu($params);

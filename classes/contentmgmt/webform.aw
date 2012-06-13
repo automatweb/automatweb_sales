@@ -1665,9 +1665,7 @@ class webform extends class_base
 		{
 			$objs = new object_list(array(
 				"parent" => $folder_id,
-				"class_id" => constant("CL_".$vars[$prop]["obj"]),
-				"site_id" => array(),
-				"lang_id" => array(),
+				"class_id" => constant("CL_".$vars[$prop]["obj"])
 			));
 			$this->all_rels = $this->all_rels + $objs->names();
 		}
@@ -1676,9 +1674,8 @@ class webform extends class_base
 			$this->all_rels[$rel->prop("to")] = $rel->prop("to.name");
 		}
 		asort($this->all_rels);
-		if($prop == "style")
+		if($prop === "style")
 		{
-			classload("layout/active_page_data");
 			foreach($this->all_rels as $key => $val)
 			{
 				active_page_data::add_site_css_style($key);
@@ -3065,9 +3062,7 @@ class webform extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_ML_MEMBER,
 			"mail" => $arr["search_mail_email"]."%",
-			"lang_id" => array(),
-			"site_id" => array(),
-			"limit" => 200
+			new obj_predicate_limit(200)
 		));
 		$res = array();
 		foreach($ol->arr() as $o)
@@ -3090,7 +3085,7 @@ class webform extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_ML_MEMBER,
 			"CL_ML_MEMBER.name" => $arr["search_mail_name"]."%",
-			"limit" => 200
+			new obj_predicate_limit(200)
 		));
 		$res = array();
 		foreach($ol->arr() as $o)

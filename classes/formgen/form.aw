@@ -18,6 +18,9 @@ define("RET_ALL", 2);
 
 class form extends form_base
 {
+	var $style_instance;//TODO: scope?
+	var $controller_instance;//TODO: scope?
+
 	function form()
 	{
 		$this->form_base();
@@ -40,9 +43,9 @@ class form extends form_base
 
 		if (!$this->controller_instance)
 		{
-			$this->controller_instance = get_instance(CL_FORM_CONTROLLER);
+			$this->controller_instance = new form_controller();
 		}
-		$this->style_instance = get_instance(CL_STYLE);
+		$this->style_instance = new style();
 	}
 
 	////

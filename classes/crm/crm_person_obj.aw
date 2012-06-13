@@ -1418,7 +1418,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		{
 			return 0;
 		}
-		elseif (null === self::$company_id_cache[$this->id()])
+		elseif (!isset(self::$company_id_cache[$this->id()]))
 		{
 			$this_persons_work_rels = crm_person_work_relation_obj::find($this->ref());
 			if ($this_persons_work_rels->count())

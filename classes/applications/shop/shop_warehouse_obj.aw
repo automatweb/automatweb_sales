@@ -168,6 +168,7 @@ class shop_warehouse_obj extends _int_object
 				}
 			}
 		}
+
 		if(isset($arr["name"]))
 		{
 			$filter["name"] = "%".$arr["name"]."%";

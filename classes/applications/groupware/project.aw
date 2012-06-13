@@ -5043,8 +5043,7 @@ class project extends class_base
 					"target" => "_blank"
 				)),
 				"oid" => $goal->id(),
-				"class" => $goal->class_id(),
-				"end" => $goal->prop("end") ? date("d.m.Y H:i",  $goal->prop("end")) : "",
+				"class" => $goal->class_id()
 			);
 			switch($goal->class_id())
 			{
@@ -5053,6 +5052,7 @@ class project extends class_base
 				case CL_CRM_CALL:
 					$goal_data["impl"] = join(", " ,$goal->get_participants()->names());
 					$goal_data["start1"] = $goal->prop("start1") ? date("d.m.Y H:i",  $goal->prop("start1")) : "";
+					$goal_data["end"] = $goal->prop("end") ? date("d.m.Y H:i",  $goal->prop("end")) : "";
 					break;
 				case CL_BUG:
 					$goal_data["start1"] = date("d.m.Y H:i",  $goal->created());
