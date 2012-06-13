@@ -264,6 +264,12 @@ class user_bookmarks extends class_base
 			"align" => "left"
 		));
 		$t->define_field(array(
+			"name" => "class",
+			"caption" => t("Klassi nimi"),
+			"align" => "left"
+		));
+
+		$t->define_field(array(
 			"name" => "show_group",
 			"caption" => t("Grupp"),
 			"align" => "left"
@@ -384,7 +390,7 @@ class user_bookmarks extends class_base
 			}
 
 			$t->define_data(array(
-				"name" => $obj->name(),
+				"name" => html::obj_change_url($obj),//$obj->name(),
 				"link_text_type" => html::select(array(
 					"value" => $o->prop("link_text_type"),
 					"options" => $link_text_types,
@@ -418,6 +424,8 @@ class user_bookmarks extends class_base
 					"options" => $force_opts,
 					"name" => "app_bookmark[".$o->id()."][force]"
 				)),
+				"class" => $GLOBALS["cfg"]["classes"][$obj->class_id()]["name"],
+
 
 /*				"force_all" => html::checkbox(array(
 					"checked" => $o->prop("force_all"),
