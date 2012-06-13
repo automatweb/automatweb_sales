@@ -105,5 +105,4 @@ if ( typeof jQuery == "undefined" )
 <!-- END SUB: end -->
 <!-- SUB: real_end -->
 </table>
-<br class="clear" />
 <!-- END SUB: real_end -->

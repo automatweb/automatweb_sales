@@ -30,11 +30,6 @@
             </purveyance>
       </groupinfo>
       <tableinfo>
-            <aw_product>
-                  <master_index>brother_of</master_index>
-                  <master_table>objects</master_table>
-                  <index>aw_oid</index>
-            </aw_product>
             <aw_shop_warehouse_item>
                   <master_index>brother_of</master_index>
                   <master_table>objects</master_table>
@@ -42,11 +37,6 @@
             </aw_shop_warehouse_item>
       </tableinfo>
       <reltypes>
-            <DESCRIPTION_DOCUMENT>
-                  <value>32</value>
-                  <clid>CL_DOCUMENT</clid>
-                  <caption>Tootekirjeldus</caption>
-            </DESCRIPTION_DOCUMENT>
             <WAREHOUSE>
                   <value>25</value>
                   <clid>CL_SHOP_WAREHOUSE</clid>

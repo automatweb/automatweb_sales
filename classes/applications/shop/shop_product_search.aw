@@ -151,7 +151,7 @@ class shop_product_search extends class_base
 
 	function set_property($arr = array())
 	{
-		$prop = &$arr["prop"];
+		$prop = $arr["prop"];
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
@@ -208,7 +208,6 @@ class shop_product_search extends class_base
 	**/
 	function show($arr)
 	{
-		enter_function("product_search::show");
 		aw_session_set("no_cache", 1);
 		$o = obj($arr["id"]);
 
@@ -237,26 +236,13 @@ class shop_product_search extends class_base
 
 		$prop = array();
 
-		// It should be somehow configurable, should the search page use vcl/table or templates
-		// I think it is rather reasonable to use htmlclient for form drawing ... or not? --dragut@19.08.2009
-		if (true)
-		{
-			$table = $this->draw_search_results_with_templates(array('obj_inst' => $o, 'request' => $request));
-		}
-		else
-		{
-			$this->_s_res(array(
-				"obj_inst" => &$o,
-				"request" => $request,
-				"prop" => &$prop
-			));
-			$table = $prop["value"];
-		}
+		$table = $this->draw_search_results_with_templates(array('obj_inst' => $o, 'request' => $request));
 
 		$this->read_template("show.tpl");
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 		$this->vars(array(
 			"form" => $html,
+			"search_term" => htmlentities(automatweb::$request->arg("search_term"), ENT_COMPAT, aw_global_get('charset')),
 			"section" => aw_global_get("section"),
 			"table" => $table,
 			"results" => $table, // need to refactor it
@@ -266,8 +252,6 @@ class shop_product_search extends class_base
 			), "shop_order_cart")
 		));
 
-
-		exit_function("product_search::show");
 		if (!empty($_GET["die"]))
 		{
 			die($this->parse());
@@ -278,7 +262,7 @@ class shop_product_search extends class_base
 	// this can be called from site.aw as well, to draw simple search form, but it should be more generic solution, which will be able to draw any kind of searchform according to a template
 	// or according to the configuration
 	function draw_search_form($arr)
-	{		enter_function("product_search::show_form");
+	{
 		if (!empty($arr['template']))
 		{
 			$this->read_template($arr['template']);
@@ -288,7 +272,7 @@ class shop_product_search extends class_base
 			$this->read_template('form.tpl');
 		}
 
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		// actually it is a pretty bold move to get the first object of this type and to expect, that this is the right one
 		$ol = new object_list(array(
@@ -322,13 +306,13 @@ class shop_product_search extends class_base
 			"search_term" => htmlentities(automatweb::$request->arg("search_term"), ENT_COMPAT, aw_global_get('charset')),
 			'SEARCH_CATEGORY' => $categories_str,
 			"SEARCH_CATEGORY_SELECTED" => "",
-		));		exit_function("product_search::show_form");
+		));
 		return $this->parse();
 	}
 
 	function _fld_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_search_button(array(
 			"pn" => "add_fld",
 			"clid" => CL_MENU,
@@ -340,7 +324,7 @@ class shop_product_search extends class_base
 
 	function _fld_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -392,7 +376,7 @@ class shop_product_search extends class_base
 		$arr["obj_inst"]->save();
 	}
 
-	function _init_s_form_t(&$t)
+	function _init_s_form_t($t)
 	{
 		$t->define_field(array(
 			"name" => "class",
@@ -489,7 +473,7 @@ class shop_product_search extends class_base
 
 	function _get_search_form_elements_toolbar($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->add_menu_button(array(
 			'name' => 'elements_menu',
 			'tooltip' => t('Elementide men&uuml;&uuml;'),
@@ -514,7 +498,7 @@ class shop_product_search extends class_base
 
 	function _get_search_form_elements($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_dom_id('form_elements_table');
 
 		$t->define_field(array(
@@ -659,7 +643,7 @@ class shop_product_search extends class_base
 		$arr["obj_inst"]->set_meta("s_form", $arr["request"]["dat"]);
 	}
 
-	function _init_s_tbl_t(&$t)
+	function _init_s_tbl_t($t)
 	{
 		$t->define_field(array(
 			"name" => "class",
@@ -1137,7 +1121,7 @@ class shop_product_search extends class_base
 				}
 				foreach($transforms as $coln => $tr)
 				{
-					$tr_i->transform($tr, &$data[$coln], $data);
+					$tr_i->transform($tr, $data[$coln], $data);
 				}
 				$t->define_data($data);
 			}
@@ -1153,12 +1137,9 @@ class shop_product_search extends class_base
 
 	function draw_search_results_with_templates($arr)
 	{
-		enter_function("products_show::show");
-
 		// get the order center object from shop_product_search
 		$oc = $arr['obj_inst']->get_order_center();
 
-		enter_function("products_show::start");
 		/*
 		$this->read_template($ob->get_template());
 		$this->vars(array(
@@ -1167,7 +1148,7 @@ class shop_product_search extends class_base
 		*/
 
 		// is it required?
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		$products = $arr["obj_inst"]->get_search_results();
 		if ($products->count() === 0)
@@ -1204,20 +1185,7 @@ class shop_product_search extends class_base
 			$per_page = $oc->prop("per_page");
 		}
 
-	// The idea here should be, that if the search will be by product code and therefore only one packet will be found, then 
-	// I should redirect the user right to the product detail view
-	// But I need to be sure somehow, that there is product code in the search field - how do i know that? are there only numbers maybe?
-	//	if ($products->count() == 1)
-	//	{
-	//		$product = $products->begin();
-	//		$url = "/".reset($product->get_pask())."?product=".$product->id()."&oc=".$oc->id();
-	//		header("Location: ".$url);
-	//		exit();
-	//	}
-
 		$count = $count_all = 0;
-		exit_function("products_show::start");
-		enter_function("products_show::loop");
 		foreach($products->ids() as $product_id)
 		{
 			$count_all++;
@@ -1232,7 +1200,7 @@ class shop_product_search extends class_base
 
 			// this one should be coming from the get_data() fn. probably, but i don't know at the moment how to make that object data list query to work
 			// so i just use this one here:
-			$min_special_price = min($product_data['special_prices']);
+			$min_special_price = !empty($product_data['special_prices']) ? min($product_data['special_prices']) : 0;
 			$product_data['PRODUCT_SPECIAL_PRICE'] = '';
 			$product_data['special_price_visibility'] = '';
 			if ($min_special_price > 0)
@@ -1244,12 +1212,14 @@ class shop_product_search extends class_base
 				$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
 			}
 
-			$product_data["product_link"] = "/".reset($product->get_pask())."?product=".$product->id()."&oc=".$oc->id();
-			$ids = $product->get_categories()->ids();
+			// FIXME: WTF is pask???
+			$pask = $product->get_pask();
+			$product_data["product_link"] = "/".(!empty($pask) ? reset($pask) : "")."?product=".$product->id()."&oc=".$oc->id();
+			$ids = !$product->is_a(shop_product_obj::CLID) ? $product->get_categories()->ids() : $product->get_categories();
 			$category = reset($ids);
 
 		//	$product_data["menu"] = $ob->get_category_menu($category);
-			$product_data["menu_name"] = get_name($product_data["menu"]);
+			$product_data["menu_name"] = get_name(isset($product_data["menu"]) ? $product_data["menu"] : null);
 			$this->vars($product_data);
 
 			if($count >= $max && $this->is_template("ROW"))//viimane tulp yksk6ik mis reas
@@ -1283,15 +1253,15 @@ class shop_product_search extends class_base
 				break;
 			}
 		}
-		exit_function("products_show::loop");
-		exit_function("products_show::enter");
+
 		$this->vars(array(
+      "PRODUCT" => $prod,
 			"ROW" => $rows
 		));
 
 		$pages = $products->count() / $per_page;
 		$pages = (int)$pages;
-		if($products->count() % $per_page) $pages++;
+		if ($products->count() % $per_page) $pages++;
 		if($pages > 1)
 		{
 			if($page > 2)
@@ -1351,8 +1321,6 @@ class shop_product_search extends class_base
 
 		$data["section"] = aw_global_get("section");
 		$this->vars($data);
-		exit_function("products_show::end");
-		exit_function("products_show::show");
 		return $this->parse();
 	}
 
@@ -1440,7 +1408,7 @@ class shop_product_search extends class_base
 
 				$v = "%".$pv."%";
 				// now, based on the result object we must calc the way to search
-				$this->_get_filt_param($clid, $res_type, $pn, $v, &$filt);
+				$this->_get_filt_param($clid, $res_type, $pn, $v, $filt);
 				arr($filt);
 			}
 		}
@@ -1563,7 +1531,7 @@ class shop_product_search extends class_base
 		$arr = array(
 			"obj_inst" => $o,
 			"request" => $request,
-			"prop" => &$prop
+			"prop" => $prop
 		);
 		$this->_s_res($arr);
 		$table =  $arr["prop"]["value"];

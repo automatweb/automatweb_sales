@@ -109,22 +109,39 @@ function cfEditClickGroup(group, oid)
 <div id="pais">
 <!-- p2is -->
 <div id="awMainHeaderContainer">
-	<div class="logo">
-		<span>{VAR:prod_family}</span>
-		<a href="{VAR:prod_family_href}" title="AutomatWeb"><img src="{VAR:baseurl}automatweb/images/aw06/aw_logo.gif" alt="AutomatWeb.com" width="183" height="34" border="0" /></a>
-	</div>
+
 	<div class="top-left-menyy">
+		<table>
+		<tr><td>
+		<img src="{VAR:main_icon}">
+		</td><td>
+		<span class="top">
 		<!-- SUB: SHOW_CUR_CLASS -->
-		<span class="currentClassTitle">{VAR:cur_class}</span>
+		<a href="{VAR:prod_family_href}">{VAR:cur_class}</a>
 		<!-- END SUB: SHOW_CUR_CLASS -->
+		<img style="height:10px;" src="{VAR:baseurl}automatweb/images/aw04/tab2small_sel_back.gif">
 		<!-- SUB: SHOW_CUR_OBJ -->
-		"<a href="{VAR:cur_obj_url}">{VAR:cur_obj_name}</a>"
+		<a href="{VAR:cur_obj_url}">{VAR:cur_obj_name}</a>
 		<!-- END SUB: SHOW_CUR_OBJ -->
+		<img style="height:10px;" src="{VAR:baseurl}automatweb/images/aw04/tab2small_sel_back.gif">
+		<a href="{VAR:prod_family_href}" title="AutomatWeb">{VAR:prod_family}</a>
+		</span>
+		<br>
+		<span class="bottom">
+		Loodud: {VAR:created} 
+		<img style="height:10px;" src="{VAR:baseurl}automatweb/images/aw04/tab2small_sel_back.gif">
+		Muudetud: 
+		{VAR:modified}
+		<img style="height:10px;" src="{VAR:baseurl}automatweb/images/aw04/tab2small_sel_back.gif">
+
+		Staatus: 
+		{VAR:status}
+		</span></td></tr></table>
 	</div>
+
+	
 	<div class="top-right-menyy">
-		<div class="top-right-menu-item">
-			{VAR:lang_pop}
-		</div>
+
 		<div class="top-right-menu-item">
 		<!--{VAR:settings_pop}-->
 		{VAR:qa_pop}
@@ -137,9 +154,27 @@ function cfEditClickGroup(group, oid)
 		<div class="top-right-menu-item">
 			{VAR:history_pop}
 		</div>
+		<div class="top-right-menu-item">
+		<a href="{VAR:srch_link}" class="nupp"><img src="{VAR:baseurl}/automatweb/images/aw06/ikoon_luup.gif" alt="" width="13" height="13" border="0" class="ikoon" />{VAR:search_text}</a>
 
+		</div>
+
+
+		<div class="top-right-menu-item language">
+			{VAR:lang_pop}
+		</div>
 		<div class="top-right-menu-item">
 			<div style="padding-right: 2px;">
+
+			<!-- SUB: SHOW_CUR_CO -->
+			<a href="{VAR:cur_co_url}">{VAR:cur_co_name}</a>
+			<!-- END SUB: SHOW_CUR_CO -->
+			<!-- SUB: SHOW_CUR_CO_VIEW -->
+			<a href="{VAR:cur_co_url_view}">{VAR:cur_co_name}</a>
+			<!-- END SUB: SHOW_CUR_CO_VIEW -->
+</div></div>
+		<div class="top-right-menu-item">
+
 			<!-- SUB: SHOW_CUR_P -->
 			{VAR:logged_in_text} <a href="{VAR:cur_p_url}">{VAR:cur_p_name}</a>
 			<!-- END SUB: SHOW_CUR_P -->
@@ -149,16 +184,9 @@ function cfEditClickGroup(group, oid)
 			<!-- SUB: SHOW_CUR_P_TEXT -->
 			{VAR:logged_in_text} {VAR:cur_p_name}
 			<!-- END SUB: SHOW_CUR_P_TEXT -->
-			<!-- SUB: SHOW_CUR_CO -->
-			<a href="{VAR:cur_co_url}">({VAR:cur_co_name})</a>
-			<!-- END SUB: SHOW_CUR_CO -->
-			<!-- SUB: SHOW_CUR_CO_VIEW -->
-			<a href="{VAR:cur_co_url_view}">({VAR:cur_co_name})</a>
-			<!-- END SUB: SHOW_CUR_CO_VIEW -->
 			<!-- SUB: SHOW_CUR_CO_TEXT -->
 			({VAR:cur_co_name})
 			<!-- END SUB: SHOW_CUR_CO_TEXT -->
-			</div>
 			<!-- <a href="{VAR:baseurl}automatweb/orb.aw?class=users&action=logout" title="{VAR:logout_text}"><img src="{VAR:baseurl}automatweb/images/aw06/ikoon_logout.gif" width="26" height="14" border="0" alt="{VAR:logout_text}"></a>-->
 		</div>
 	</div>
@@ -182,8 +210,19 @@ function cfEditClickGroup(group, oid)
 <!-- jalus -->
 <!-- SUB: YAH2 -->
 <div id="jalus">
-	{VAR:footer_l1} <br />
-	{VAR:footer_l2} <a href="http://www.struktuur.ee">Struktuur Varahaldus</a>, <a href="http://www.automatweb.com/">AutomatWeb</a>.
+	<div class="jalus2">
+		{VAR:footer_l1} <br />
+		{VAR:footer_l2} <a href="http://www.struktuur.ee">Struktuur Varahaldus</a>, <a href="http://www.automatweb.com/">AutomatWeb</a>.
+	</div>
+
+	<div class="logo"><a href="{VAR:prod_family_href}" title="AutomatWeb">
+		<img src="{VAR:baseurl}automatweb/images/aw_logo_valge_koos_sloganiga.gif" alt="AutomatWeb.com" width="144" height="30" border="0" /></a>
+	</div>
+	<div class="bottom_links">
+		<a href="{VAR:feedback_link}" id="tagasisidelink">Tagasiside</a>
+		<a href="{VAR:feedback_m_link}" id="kasutajatugilink">Kasutajatugi</a>
+		<a href="javascript:showhide_help();" id="abilink">Abi</a>
+	</div>
 </div>
 <!-- END SUB: YAH2 -->
 <!--//jalus -->

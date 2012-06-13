@@ -302,6 +302,8 @@ class admin_if extends class_base
 			"get_branch_func" => $this->mk_my_orb("gen_folders",array("selp" => $this->selp, "curl" => $this->curl, "period" => $this->period, "parent" => "0")),
 		));
 
+		if(is_array($rn) && isset($rn[0])) unset($rn[0]);
+
 		$has_items = array();
 		if (is_array($rn) && count($rn) >1)
 		{
@@ -330,6 +332,7 @@ class admin_if extends class_base
 				$rn = reset($rn);
 			}
 		}
+
 		$filt = array(
 			"class_id" => array(CL_MENU, CL_BROTHER, CL_GROUP),
 			"parent" => $rn,
@@ -1393,7 +1396,7 @@ class admin_if extends class_base
 			"logout_text" => t("Logi v&auml;lja"),
 			"logged_in_text" => t("Kasutaja:"),
 			"location_text" => t("Asukoht:"),
-			"footer_l1" => sprintf(t("AutomatWeb&reg; on registreeritud kaubam&auml;rk. K&otilde;ik &otilde;igused kaitstud, &copy; 1999-%s."), date("Y")),
+			"footer_l1" => sprintf(t("AutomatWeb&reg; on AutomatWeb Eesti registreeritud kaubam&auml;rk. K&otilde;ik &otilde;igused kaitstud, &copy; 1999-%s."), date("Y")),
 			"footer_l2" => t("Palun k&uuml;lasta meie kodulehek&uuml;lgi:"),
 			"st" => t("Seaded")
 		));

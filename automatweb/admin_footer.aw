@@ -76,11 +76,17 @@ if (!empty($_GET["id"]) and acl_base::can("view", $_GET["id"]))
 {
 	$cur_obj = obj($_GET["id"]);
 	$cur_obj_name = $cur_obj->prop_xml("name");
+	$created = date("d.m.Y" , $cur_obj->created());
+	$modified = date("d.m.Y" , $cur_obj->modified());
+	$status = $cur_obj->status() == 2 ? t("Aktiivne") : t("Mittektiivne");
 }
 else
 {
 	$cur_obj = obj();
 	$cur_obj_name = "";
+	$created = "";
+	$modified = "";
+	$status = "";
 }
 
 // do not display the YAH bar, if site_title is empty
@@ -102,7 +108,14 @@ else
 {
 	$languages_menu = $ld["name"];
 }
-
+	function my_get_ru($class)
+	{
+		if($class == $_GET["class"])
+		{
+			return isset($_GET["return_url"]) ? $_GET["return_url"] : (isset($_GET["url"]) ? $_GET["url"] : NULL);
+		}
+		return get_ru();
+	}
 if (empty($pf_url))
 {
 	$pf_url = aw_global_get("REQUEST_URI");
@@ -112,6 +125,7 @@ $class_names = array(
 	"doc" => t("Dokument"),
 	"config" => t("Seaded")
 );
+
 
 $cur_class = "";
 if (!empty($_GET["class"]))
@@ -142,6 +156,31 @@ catch (aw_lock_exception $e)
 	$parent = 0;
 }
 
+
+
+//--------------suur ikoon -----------------------------
+$url = $GLOBALS["cfg"]["icons"]["server"]."48/";
+$dir = $GLOBALS["aw_dir"]."automatweb/images/icons/48/";
+if($clid)
+{
+	if(file_exists($dir.$clid.".png"))
+	{
+		$main_icon = $url.$clid.".png";
+	}
+	else
+	{
+		$main_icon = $url."default.png";
+	}
+}
+else
+{
+	$main_icon = $url."default.png";
+}
+
+//--------------------
+
+
+
 			$bm = new popup_menu();
 			$bm->begin_menu("user_bookmarks");
 			$bmq = new popup_menu();
@@ -154,6 +193,12 @@ catch (aw_lock_exception $e)
 
 
 $sf->vars(array(
+				"created" => $created,
+				"modified" => $modified,
+				"status" => $status,
+				"srch_link" => $bm->mk_my_orb("redir_search", array("url" => my_get_ru("aw_object_search_if")), "aw_object_search_if"),
+				"search_text" => t("Otsi"),
+				"main_icon" => $main_icon,
 
 
 				"bm_pop" => acl_base::prog_acl("view", "can_bm") ? $bm->get_menu(array(
@@ -260,7 +305,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 				}
 			}
 
-
+ 
 					foreach($gopts as $gid => $group)
 					{
 						if(!empty($group["parent"]))
@@ -284,7 +329,7 @@ if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 						{
 							$params = array(
 								"name" => $gid."_".$gid,
-								"text" => $group["caption"],
+								"text" => empty($group["caption"]) ? "" : $group["caption"],
 								"parent" => "currentpersonmenu"
 							);
 							$popup_menu->add_sub_menu($params);
