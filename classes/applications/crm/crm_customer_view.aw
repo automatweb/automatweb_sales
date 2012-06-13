@@ -1179,7 +1179,7 @@ class crm_customer_view extends class_base
 			}
 
 			# fax
-			if (($default_cfg or  in_array("fax", $visible_fields)) and object_loader::can("view", $o->prop("telefax_id")))
+			if (($default_cfg or  in_array("fax", $visible_fields)) and $o->is_a(crm_company_obj::CLID) and acl_base::can("", $o->prop("telefax_id")))
 			{
 				$fax = obj($o->prop("telefax_id"));
 				$fax = $fax->name();
