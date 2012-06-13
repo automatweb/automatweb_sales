@@ -8928,6 +8928,9 @@ die();
 
 	function _get_orders_ol($arr)
 	{
+		$this_o = $arr["obj_inst"];
+		$arr["obj_inst"] = $this_o->id();// for serializing
+		$arr["prop"]["vcl_inst"] = null;// contains a pdo instance, wouldn't be serializable
 		$hash = md5(serialize($arr));
 
 		static $ol_by_hash;
@@ -8964,15 +8967,18 @@ die();
 		{
 			$params["oid"] = $arr["request"]["sel"];
 		}
+
 		if(isset($arr["request"]["channel"]) and is_oid($arr["request"]["channel"]))
 		{
 			$params["channel"] = $arr["request"]["channel"];
 		}
+
 		if(!empty($arr["request"][$group."_s_number"]) and $n = $arr["request"][$group."_s_number"])
 		{
 			$params["number"] = "%".$n."%";
 		}
-		if($purchaser = $arr["request"][$group."_s_purchaser_id"])
+
+		if(isset($arr["request"][$group."_s_purchaser_id"]) and $purchaser = $arr["request"][$group."_s_purchaser_id"])
 		{
 			$purchaser_ids_odl = new object_data_list(
 				array(
@@ -8986,7 +8992,8 @@ die();
 			);
 			$params["purchaser"] = array_merge(array(-1), $purchaser_ids_odl->get_element_from_all("buyer"));
 		}
-		if($purchaser_other = $arr["request"][$group."_s_purchaser_other_id"])
+
+		if(isset($arr["request"][$group."_s_purchaser_other_id"]) and $purchaser_other = $arr["request"][$group."_s_purchaser_other_id"])
 		{
 			/*
 			$params[] = new object_list_filter(array(
@@ -9087,9 +9094,9 @@ die();
 		}
 		if(count($params) || $arr["request"]["just_saved"] || $arr["request"]["filt_time"] === "all")
 		{
-			if(empty($arr["warehouses"]) and $arr["obj_inst"]->class_id() == CL_SHOP_WAREHOUSE)
+			if(empty($arr["warehouses"]) and $this_o->class_id() == CL_SHOP_WAREHOUSE)
 			{
-				$wh = $arr["obj_inst"]->id();
+				$wh = $this_o->id();
 			}
 			else
 			{
@@ -9109,19 +9116,24 @@ die();
 		$user_instance = new user();
 		$t = $arr["prop"]["vcl_inst"];
 		$group = $this->get_search_group($arr);
+
 		if(($arr["obj_inst"]->class_id() == CL_SHOP_PURCHASE_MANAGER_WORKSPACE and $group === "purchase_orders") || ($arr["obj_inst"]->class_id() == CL_SHOP_SALES_MANAGER_WORKSPACE and $group === "sell_orders"))
 		{
 			$arr["extra"] = 1;
 		}
+
+		/* mrp_workspace propertyt hetkel shopwarehouse klassis pole -- voldemar 13 juuni 2012
 		if($group === "sell_orders" and $ws = $arr["obj_inst"]->prop("mrp_workspace"))
 		{
 			$schedule = new mrp_schedule();
 			$schedule->create(array(
 				"mrp_workspace" => obj($ws)->id(),
-				"mrp_force_replan" => 1,
+				"mrp_force_replan" => 1
 			));
 			$arr["obj_inst"]->update_orders();
 		}
+		*/
+
 		$this->_init_purchase_orders_tbl($t, $arr);
 		$odl = $this->_get_orders_odl($arr);
 		$count = 0;

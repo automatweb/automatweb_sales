@@ -777,7 +777,7 @@ class crm_customer_view extends class_base
 		}
 */
 
-		
+
 			if (!empty($arr["request"]["cs_n"]))
 			{
 				$customer_relations_search->name = "%{$arr["request"]["cs_n"]}%";
@@ -956,7 +956,7 @@ class crm_customer_view extends class_base
 		$tf = $arr["prop"]["vcl_inst"];
 		$manager = obj($arr["request"]["id"]);
 		$org = obj($manager->prop("company"));
-		
+
 
 		$format = t("%s kliendid");
 		$requested_category = isset($arr["request"][crm_company::REQVAR_CATEGORY]) ? $arr["request"][crm_company::REQVAR_CATEGORY] : null;
@@ -1188,7 +1188,7 @@ class crm_customer_view extends class_base
 			# client_manager
 			if ($default_cfg or in_array("client_manager", $visible_fields))
 			{
-				$client_manager = html::obj_change_url($o->prop("client_manager"));
+				$client_manager = html::obj_change_url($cro->prop("client_manager"));
 			}
 
 			# pop
@@ -1478,7 +1478,7 @@ class crm_customer_view extends class_base
 	function _get_customer_responsible_tree($arr)
 	{
 		$tree_inst = $arr["prop"]["vcl_inst"];
-		$reset_tree_params_url = aw_url_change_var("cmgr", null, aw_url_change_var("pmgr", null));		
+		$reset_tree_params_url = aw_url_change_var("cmgr", null, aw_url_change_var("pmgr", null));
 		$tree_inst->add_item(0, array(
 			"id" => "people_who_are_responsible_for_that_s__t",
 			"name" => t("Vastutajad"),
@@ -1580,7 +1580,7 @@ class crm_customer_view extends class_base
 		));
 
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_AREA	
+			"class_id" => CL_CRM_AREA
 		));
 
 		foreach($ol->arr() as $o)

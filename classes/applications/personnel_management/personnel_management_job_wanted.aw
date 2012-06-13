@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/personnel_management/personnel_management_job_wanted.aw,v 1.21 2008/12/18 11:15:20 instrumental Exp $
+
 // personnel_management_job_wanted.aw - T&ouml;&ouml; soov
 /*
 
@@ -7,7 +7,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_PERSON, on_connect_
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disconnect_person_from_job_wanted)
 
-@classinfo syslog_type=ST_PERSONNEL_MANAGEMENT_JOB_WANTED relationmgr=yes r2=yes no_status=1 no_comment=1 maintainer=instrumental
+@classinfo relationmgr=yes r2=yes no_status=1 no_comment=1
 @tableinfo personnel_management_job_wanted master_table=objects master_index=oid index=oid
 
 @default table=personnel_management_job_wanted
@@ -221,16 +221,6 @@ class personnel_management_job_wanted extends class_base
 		}
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-		};
-		return $retval;
-	}
-
 	function do_db_upgrade($tbl, $field, $q, $err)
 	{
 		if ($tbl == "personnel_management_job_wanted" && $field == "")
@@ -294,4 +284,3 @@ class personnel_management_job_wanted extends class_base
 		};
 	}
 }
-?>

@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
+
 class quick_add extends class_base
 {
 	function quick_add()
@@ -12,7 +10,7 @@ class quick_add extends class_base
 	{
 		// read props from the given class
 		$prop = $arr["prop"];
-	
+
 		$tmp = obj();
 		$tmp->set_class_id(@constant($prop["clid"]));
 		$pl = $tmp->get_property_list();
@@ -26,7 +24,7 @@ class quick_add extends class_base
 			$ret[$pn]["name"] = $pn;
 			$ret[$pn]["size"] = 18;
 			$ret[$pn]["captionside"] = "top";
-			$ret[$pn]["store"] = "no";
+			$ret[$pn]["store"] = "class_base";
 			$ret[$pn]["value"] = "";
 		}
 		$ret[$prop["name"]."[sbt]"] = array(
@@ -34,7 +32,7 @@ class quick_add extends class_base
 			"name" => $prop["name"]."[sbt]",
 			"parent" => $prop["parent"],
 			"no_caption" => 1,
-			"store" => "no",
+			"store" => "class_base",
 			"value" => html::submit(array(
 				"name" => $prop["name"]."[sbt]",
 				"class" => "sbtbutton",
@@ -88,4 +86,3 @@ class quick_add extends class_base
 		}
 	}
 }
-?>

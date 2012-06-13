@@ -249,7 +249,7 @@ class connection
 		$rv = array();
 		foreach($retval as $k => $v)
 		{
-			if (object_loader::can("", $v["to"]) and object_loader::can("", $v["from"]))//TODO: viia p2ringusse
+			if (acl_base::can("", $v["to"]) and acl_base::can("", $v["from"]))//TODO: viia p2ringusse
 			{
 				$rv[$k] = $v;
 			}
