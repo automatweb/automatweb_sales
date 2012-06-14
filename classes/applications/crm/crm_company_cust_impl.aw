@@ -148,6 +148,7 @@ class crm_company_cust_impl extends class_base
 		$table = $arr["prop"]["vcl_inst"];
 
 		$i = new crm_company();
+		$participants_name = "";
 		// if this is my co, then list all projects where my co is implementor
 
 		// setting table caption:
@@ -195,12 +196,10 @@ class crm_company_cust_impl extends class_base
 			$conns_ol = new object_list(array(
 				"class_id" => CL_PROJECT,
 				"CL_PROJECT.RELTYPE_ORDERER" => $arr["obj_inst"]->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
-				"state" => $arr["request"]["do_proj_search"] == 1 ? null : 1
+				"state" => !empty($arr["request"]["do_proj_search"]) ? null : 1
 			));
 
-			if ($arr["request"]["do_proj_search"] == 1)
+			if (!empty($arr["request"]["do_proj_search"]))
 			{
 				$filt = $this->_get_my_proj_search_filt($arr["request"], $conns_ol->ids());
 				if ($filt == -1)
@@ -2428,7 +2427,7 @@ class crm_company_cust_impl extends class_base
 	{
 		if (!empty($arr["request"]["customer_search"]))
 		{
-			return PROP_IGNORE;
+			return class_base::PROP_IGNORE;
 		}
 
 		$customer_list = array();

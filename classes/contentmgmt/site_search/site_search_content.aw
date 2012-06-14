@@ -173,7 +173,7 @@ class site_search_content extends class_base
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		switch($prop["name"])
 		{
 			case "default_order":
@@ -238,7 +238,7 @@ class site_search_content extends class_base
 				if (empty($arr["request"][$prop["name"]]))
 				{
 					$prop["value"] = -1;
-					return PROP_OK;
+					return class_base::PROP_OK;
 				}
 				$prop["value"] = $arr["request"][$prop["name"]];
 				break;
@@ -285,13 +285,13 @@ class site_search_content extends class_base
 					$arr["request"]["str"] != "")
 				{
 					$prop["error"] = sprintf(t("Otsingus&otilde;na pikkus peab olema v&auml;hemalt %s t&auml;hem&auml;rki!"), $arr["obj_inst"]->prop("min_s_len"));
-					return PROP_FATAL_ERROR;
+					return class_base::PROP_FATAL_ERROR;
 				}
 				if ($arr["obj_inst"]->prop("max_s_len") &&
 					strlen($arr["request"]["str"]) > $arr["obj_inst"]->prop("max_s_len"))
 				{
 					$prop["error"] = sprintf(t("Otsingus&otilde;na peab olema l&uuml;hem kui %s t&auml;hem&auml;rki!"), $arr["obj_inst"]->prop("max_s_len"));
-					return PROP_FATAL_ERROR;
+					return class_base::PROP_FATAL_ERROR;
 				}
 				$this->_search_results($arr);
 				break;
@@ -304,7 +304,8 @@ class site_search_content extends class_base
 					$i->eval_controller_ref($o->id(), $arr, $arr["prop"], $arr["prop"]);
 				}
 				break;
-		};
+		}
+
 		return $retval;
 	}
 
@@ -405,7 +406,7 @@ class site_search_content extends class_base
 	function set_property($arr)
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$retval = class_base::PROP_OK;
 		$o = $arr["obj_inst"];
 		switch($prop["name"])
 		{
@@ -428,7 +429,7 @@ class site_search_content extends class_base
 
 			case "static_gen_repeater":
 				// set it to scheduler
-				$sc = get_instance("scheduler");
+				$sc = new scheduler();
 				if ($prop["value"])
 				{
 					$sc->add(array(
@@ -450,7 +451,7 @@ class site_search_content extends class_base
 
 			case "activity":
 				$ol = new object_list(array(
-					"class_id" => CL_SITE_SEARCH_CONTENT,
+					"class_id" => CL_SITE_SEARCH_CONTENT
 				));
 				for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 				{
@@ -501,12 +502,12 @@ class site_search_content extends class_base
 			{
 				$rec = reset($recur_conns);
 				$recur_obj_id = $rec->prop("to");
-				$rec = get_instance(CL_RECURRENCE);
+				$rec = new recurrence();
 				$stamp = $rec->get_next_event(array(
 					"id" => $recur_obj_id
 				));
 				// set it to scheduler
-				$sc = get_instance("scheduler");
+				$sc = new scheduler();
 				$sc->add(array(
 					"event" => $this->mk_my_orb("generate_static", array(
 						"id" => $arr["obj_inst"]->id(),
@@ -603,7 +604,6 @@ class site_search_content extends class_base
 			$cid = obj($conn->prop("to"));
 			if($cid->class_id() == CL_CRM_DB_SEARCH)
 			{
-
 				break;
 			}
 		}
@@ -704,17 +704,21 @@ class site_search_content extends class_base
 				}
 			}
 		}
-		$keywords_by_parent = array();
-		$keywords = $keywords_by_parent[0] = explode("," , $cid->prop("keywords"));
-		$kd = $cid->prop("keywords2");
+		$keywords_by_parent = $kd = $keywords = array();
+
+		if ($cid->is_a(CL_CRM_DB_SEARCH))
+		{
+			$keywords = $keywords_by_parent[0] = explode("," , $cid->prop("keywords"));
+			$kd = $cid->prop("keywords2");
+		}
+
 		if(sizeof($kd))
 		{
 			$kw_odl = new object_data_list(
 				array(
 					"class_id" => CL_KEYWORD,
-					"lang_id" => array(),
 					"parent" => $kd,
-					"sort_by" => "objects.jrk, objects.name",
+					"sort_by" => "objects.jrk, objects.name"
 				),
 				array(
 					CL_KEYWORD => array("name, parent"),
@@ -729,8 +733,6 @@ class site_search_content extends class_base
 			{
 				$kwp_ol = new object_list(array(
 					"class_id" => menu_obj::CLID,
-					"lang_id" => array(),
-					"site_id" => array(),
 					"oid" => array_keys($keywords_by_parent),
 					"sort_by" => "objects.jrk ASC"
 				));
@@ -740,7 +742,7 @@ class site_search_content extends class_base
 			{
 				$keywords_by_parent[0] = $keywords;
 			}
-			$keyword_parents[o] = t("V&otilde;tmes&otilde;nad");
+			$keyword_parents[0] = t("V&otilde;tmes&otilde;nad");
 		}
 
 		$key_opt = "";
@@ -882,13 +884,13 @@ class site_search_content extends class_base
 		$rep = $o->get_first_obj_by_reltype("RELTYPE_REPEATER");
 		if (is_object($rep))
 		{
-			$rec = get_instance(CL_RECURRENCE);
+			$rec = new recurrence();
 			$stamp = $rec->get_next_event(array(
 				"id" => $rep->id(),
 				"time" => time()+600
 			));
 			// set it to scheduler
-			$sc = get_instance("scheduler");
+			$sc = new scheduler();
 			$sc->add(array(
 				"event" => $this->mk_my_orb("generate_static", array(
 					"id" => $arr["id"],
@@ -915,7 +917,7 @@ class site_search_content extends class_base
 	{
 		// right. now we will have to crawl the site and write all the info to a database table
 		// we use export_lite class for this.
-		$ex = get_instance("export/export_lite");
+		$ex = new export_lite();
 		$ex->do_crawl();
 	}
 
@@ -1259,7 +1261,7 @@ class site_search_content extends class_base
 		$keyword_list = new object_list(array(
 			"class_id" => CL_KEYWORD,
 			"name" => "%$str%",
-			"site_id" => array()
+			"lang_id" => AW_REQUEST_CT_LANG_ID
 		));
 		//If keyword not found, no point to process it futher
 		if($keyword_list->count() == 0)
@@ -1341,7 +1343,7 @@ class site_search_content extends class_base
 				continue;
 			}
 			$ret[] = array(
-				"url" => $this->cfg["baseurl"]."/".$obj->id(),
+				"url" => aw_ini_get("baseurl").$obj->id(),
 				"title" => $obj->name(),
 				"modified" => $obj->modified(),
 				"content" => $obj->prop("content"),
@@ -1483,7 +1485,7 @@ class site_search_content extends class_base
 
 			case S_ORD_POPULARITY:
 				// init popularity table
-				$stats = get_instance(CL_DOCUMENT_STATISTICS);
+				$stats = new document_statistics();
 				$this->_pops = $stats->get_all_doc_stats();
 				usort($arr["results"], array($this, "_sort_popularity"));
 				break;
@@ -1680,7 +1682,7 @@ class site_search_content extends class_base
 		$results = $tr;
 
 		$si = __get_site_instance();
-		$di = get_instance("doc_display");
+		$di = new doc_display();
 
 		for ($i = $from; $i < $to; $i++)
 		{
@@ -1714,7 +1716,7 @@ class site_search_content extends class_base
 						{
 							$sp[] = $pi->id();
 						}
-						$url = aw_ini_get("baseurl")."/?section=".$results[$i]["docid"]."&path=".join(",", array_reverse($sp));
+						$url = aw_ini_get("baseurl")."?section=".$results[$i]["docid"]."&path=".join(",", array_reverse($sp));
 						$results[$i]["url"] = $url;
 					}
 					$sp[] = $parent;
@@ -2228,7 +2230,7 @@ class site_search_content extends class_base
 
 	function on_site_init(&$dbi, &$site, &$ini_opts, &$log, &$osi_vars)
 	{
-		$conv = get_instance("admin/converters");
+		$conv = new converters();
 		$conv->dc = $dbi->dc;
 
 		// connect rootmenu to search grp
@@ -2499,7 +2501,7 @@ class site_search_content extends class_base
 		$v1 = $a[$this->__sort_by];
 		$v2 = $b[$this->__sort_by];
 
-		if ($this->__sort_by == "title")
+		if ($this->__sort_by === "title")
 		{
 			return $v1 == $v2 ? 0 : ($v1 > $v2 ? 1 : -1);
 		}
@@ -2670,7 +2672,7 @@ class site_search_content extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "search_complex")
+		if ($arr["id"] === "search_complex")
 		{
 			$o = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_CPLX_EL_CTR");
 			if (!$o)
@@ -2725,7 +2727,7 @@ class site_search_content extends class_base
 
 	function _draw_aif_grp_props($o, $props, $group)
 	{
-		$rd = get_instance(CL_SITE_SEARCH_CONTENT);
+		$rd = new site_search_content(); //FIXME: milleks iseenda instants???
 		$rd->init_class_base();
 		$rd->request = $_GET;
 		$els = $rd->parse_properties(array(
@@ -2734,7 +2736,7 @@ class site_search_content extends class_base
 			"obj_inst" => $o
 		));
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output(array(
 			"handler" => "index"
 		));
@@ -2764,7 +2766,7 @@ class site_search_content extends class_base
 		$tp->add_tab(array(
 			"active" => $grp == "search_simple",
 			"caption" => t("Lihtne otsing"),
-			"link" => aw_ini_get("baseurl")."/index.".aw_ini_get("ext")."?section=".aw_global_get("section")."&group=search_simple"
+			"link" => aw_ini_get("baseurl")."index".AW_FILE_EXT."?section=".aw_global_get("section")."&group=search_simple"
 		));
 		$ctr_o = $o->get_first_obj_by_reltype("RELTYPE_CPLX_EL_CTR");
 		if ($ctr_o)
@@ -2772,7 +2774,7 @@ class site_search_content extends class_base
 			$tp->add_tab(array(
 				"active" => $grp != "search_simple",
 				"caption" => t("Detailotsing"),
-				"link" => aw_ini_get("baseurl")."/index.".aw_ini_get("ext")."?section=".aw_global_get("section")."&group=search_complex"
+				"link" => aw_ini_get("baseurl")."index".AW_FILE_EXT."?section=".aw_global_get("section")."&group=search_complex"
 			));
 		}
 		return $tp->get_tabpanel(array(
@@ -2787,7 +2789,7 @@ class site_search_content extends class_base
 	**/
 	function add_single_object_to_index($arr)
 	{
-		if (!$this->can("view", $arr["oid"]))
+		if (!acl_base::can("view", $arr["oid"]))
 		{
 			return false;
 		}
@@ -2796,8 +2798,7 @@ class site_search_content extends class_base
 		{
 			return false;
 		}
-		$i = get_instance(CL_SITE_SEARCH_CONTENT_GRP_HTML);
-		$f = get_instance(CL_FILE);
+		$i = new site_search_content_grp_html();
 		$i->add_single_url_to_index(file::get_url($o->id(), $o->name()));
 	}
 }
