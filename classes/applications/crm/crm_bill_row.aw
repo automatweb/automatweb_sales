@@ -19,7 +19,7 @@
 		@property amt type=textbox size=10 field=aw_amt
 		@caption Kogus
 
-		@property unit type=objpicker field=aw_unit
+		@property unit type=objpicker field=aw_unit clid=CL_UNIT
 		@caption &Uuml;hik
 
 		@property price type=textbox size=10 field=aw_price

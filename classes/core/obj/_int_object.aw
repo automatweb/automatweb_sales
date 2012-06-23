@@ -851,18 +851,13 @@ class _int_object
 
 	public function get_original()
 	{
-		$ib = $this->is_brother();
-		$cv = acl_base::can("", $this->obj["brother_of"]);
-		if ($ib && $cv)
-		{
-			$rv =  new object($this->obj["brother_of"]);
-			if (isset($GLOBALS["aw_is_error"]) && $GLOBALS["aw_is_error"] == 1)
-			{
-				return $this;
-			}
-			return $rv;
-		}
-		return $this;
+		return
+			($this->is_brother() and acl_base::can("", $this->obj["brother_of"]))
+				?
+			new object($this->obj["brother_of"])
+				:
+			$this
+		;
 	}
 
 	public function subclass()
