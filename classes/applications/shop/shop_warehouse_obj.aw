@@ -756,7 +756,17 @@ class shop_warehouse_obj extends _int_object
 		return $cats;
 
 	}
+  
+  public function get_categories_tree () {
+		$categories_folder = $this->get_conf("prod_cat_fld");
 
+		$categories_tree = new object_tree(array(
+			"class_id" => shop_product_category_obj::CLID,
+			"parent" => $categories_folder
+		));
+
+		return $categories_tree;
+  }
 
 	public function get_packet_products($packets)
 	{
