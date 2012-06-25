@@ -3357,7 +3357,7 @@
             <product_management_tree_layout2>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Tootekategooriate&amp;amp;nbsp;t&amp;amp;uuml;&amp;amp;uuml;bid</area_caption>
+                  <area_caption>Tootekategooriate&amp;amp;nbsp;sildid</area_caption>
                   <parent>product_managementleft</parent>
                   <group>product_management</group>
             </product_management_tree_layout2>

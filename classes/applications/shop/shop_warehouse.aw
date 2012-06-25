@@ -72,7 +72,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_se
 			@layout product_managementtree_layout type=vbox closeable=1 area_caption=Tootekategooriad parent=product_managementleft
 				@property product_management_tree type=text parent=product_managementtree_layout store=no no_caption=1
 
-			@layout product_management_tree_layout2 type=vbox closeable=1 area_caption=Tootekategooriate&nbsp;t&uuml;&uuml;bid parent=product_managementleft
+			@layout product_management_tree_layout2 type=vbox closeable=1 area_caption=Tootekategooriate&nbsp;sildid parent=product_managementleft
 				@property product_management_category_tree type=text parent=product_management_tree_layout2 store=no no_caption=1
 
 			@layout product_managementleft_search type=vbox parent=product_managementleft area_caption=Otsing closeable=1
@@ -6975,6 +6975,26 @@ $tb->add_delete_button();
 		return $arr["post_ru"];
 	}
 
+	/** cuts the selected items
+		@attrib name=cut_categories params=name all_args=1
+	**/
+	function cut_categories($arr)
+	{
+		$_SESSION["shop_warehouse"]["copy_categories"] = null;
+		$_SESSION["shop_warehouse"]["cut_categories"] = $arr["sel"];
+		return $arr["post_ru"];
+	}
+
+	/** copys the selected items
+		@attrib name=copy_categories params=name all_args=1
+	**/
+	function copy_categories($arr)
+	{
+		$_SESSION["shop_warehouse"]["cut_categories"] = null;
+		$_SESSION["shop_warehouse"]["copy_categories"] = $arr["sel"];
+		return $arr["post_ru"];
+	}
+
 	/** pastes items to menu
 		@attrib name=paste_products params=name all_args=1
 	**/
@@ -7055,6 +7075,43 @@ $tb->add_delete_button();
 		$_SESSION["shop_warehouse"]["cut_products"] = null;
 		return $arr["return_url"];
 	}
+  
+  /**
+    @attrib name=paste_categories params=name all_args=1
+  **/
+  public function paste_categories ($arr) {
+    $warehouse = obj($arr["id"], null, shop_warehouse_obj::CLID);
+  
+    if (!empty($_SESSION["shop_warehouse"]["cut_categories"])) {
+      foreach ((array)$_SESSION["shop_warehouse"]["cut_categories"] as $category_id) {
+        obj($category_id, null, shop_product_category_obj::CLID)->remove_all_categories();
+      }
+    }
+
+    $category_ids = array();
+    if (!empty($_SESSION["shop_warehouse"]["cut_categories"])) {
+      $category_ids += (array)$_SESSION["shop_warehouse"]["cut_categories"];
+    }
+    if (!empty($_SESSION["shop_warehouse"]["copy_categories"])) {
+      $category_ids += (array)$_SESSION["shop_warehouse"]["copy_categories"];
+    }
+    if (!empty($arr["cat"]) && is_oid($arr["cat"]) && obj($arr["cat"])->is_a(shop_product_category_obj::CLID)) {
+      foreach ($category_ids as $category_id) {
+        $category = obj($category_id, null, shop_product_category_obj::CLID);
+        $category->set_category($arr["cat"]);
+      }
+    } else {
+      foreach ($category_ids as $category_id) {
+        $category = obj($category_id, null, shop_product_category_obj::CLID);
+        $category->set_parent($warehouse->get_conf("prod_cat_fld"));
+        $category->save();
+      }
+    }
+  
+		$_SESSION["shop_warehouse"]["copy_categories"] = null;
+		$_SESSION["shop_warehouse"]["cut_categories"] = null;
+		return $arr["return_url"];
+  }
 
 	/** checks if the company $id is a manager company for  warehouse $wh
 
@@ -7447,10 +7504,10 @@ $tb->add_delete_button();
 						}
 					";
 					$js.= "
-						function copy_products()
+						function copy_products(id)
 						{
-							result = $('input[name^=sel]');
-							$.get('/automatweb/orb.aw?class=shop_warehouse&action=copy_products&id=".$arr["obj_inst"]->id()."&' + result.serialize(), {
+							result = (typeof id != 'undefined') ? ('sel=' + id) : $('input[name^=sel]').serialize();
+							$.get('/automatweb/orb.aw?class=shop_warehouse&action=copy_products&id=".$arr["obj_inst"]->id()."&' + result, {
 								}, function (html) {
 									reload_property('product_management_toolbar');
 									reload_property('product_management_list');
@@ -7459,13 +7516,37 @@ $tb->add_delete_button();
 						}
 					";
 					$js.= "
-						function cut_products()
+						function cut_products(id)
 						{
-							result = $('input[name^=sel]');
-							$.get('/automatweb/orb.aw?class=shop_warehouse&action=cut_products&id=".$arr["obj_inst"]->id()."&' + result.serialize(), {
+							result = (typeof id != 'undefined') ? ('sel=' + id) : $('input[name^=sel]').serialize();
+							$.get('/automatweb/orb.aw?class=shop_warehouse&action=cut_products&id=".$arr["obj_inst"]->id()."&' + result, {
 								}, function (html) {
 									reload_property('product_management_toolbar');
 									reload_property('product_management_list');
+								}
+							);
+						}
+					";
+					$js.= "
+						function copy_categories(id)
+						{
+							result = (typeof id != 'undefined') ? ('sel=' + id) : $('input[name^=sel]').serialize();
+							$.get('/automatweb/orb.aw?class=shop_warehouse&action=copy_categories&id=".$arr["obj_inst"]->id()."&' + result, {
+								}, function (html) {
+									reload_property('product_management_toolbar');
+									reload_property('category_list');
+								}
+							);
+						}
+					";
+					$js.= "
+						function cut_categories(id)
+						{
+							result = (typeof id != 'undefined') ? ('sel=' + id) : $('input[name^=sel]').serialize();
+							$.get('/automatweb/orb.aw?class=shop_warehouse&action=cut_categories&id=".$arr["obj_inst"]->id()."&' + result, {
+								}, function (html) {
+									reload_property('product_management_toolbar');
+									reload_property('category_list');
 								}
 							);
 						}
@@ -7487,6 +7568,16 @@ $tb->add_delete_button();
 								}
 							);
 
+						}
+            
+						function paste_categories()
+						{
+							var cat = get_property_data['cat'];
+							$.get('/automatweb/orb.aw', {'class': 'shop_warehouse', 'action': 'paste_categories',
+								'id': '".$arr["obj_inst"]->id()."', 'cat': cat}, function () {
+									reload_property(['product_management_toolbar', 'category_list', 'packets_list', 'product_management_list']);
+								}
+							);
 						}
 
 				function add_cat()
@@ -7534,7 +7625,7 @@ $tb->add_delete_button();
 				}
 				function save_categories()
 				{
-					result = $('input[name^=ord]');
+					result = $('input[name^=ord],input[name^=status]');
 					$.get('/automatweb/orb.aw?class=shop_warehouse&action=save_categories&id=".$arr["obj_inst"]->id()."& ' + result.serialize(), {
 							}, function (html) {
 								reload_property('category_list');
@@ -8928,6 +9019,9 @@ die();
 
 	function _get_orders_ol($arr)
 	{
+    $hash = "";
+    /*
+    The following line will through PDOException "You cannot serialize or unserialize PDO instances"
 		$hash = md5(serialize($arr));
 
 		static $ol_by_hash;
@@ -8935,6 +9029,7 @@ die();
 		{
 			return $ol_by_hash[$hash];
 		}
+    */
 
 		if(empty($arr["request"]["sell_orders_s_status"]))
 		{
@@ -8972,12 +9067,12 @@ die();
 		{
 			$params["number"] = "%".$n."%";
 		}
-		if($purchaser = $arr["request"][$group."_s_purchaser_id"])
+		if(!empty($arr["request"][$group."_s_purchaser_id"]))
 		{
 			$purchaser_ids_odl = new object_data_list(
 				array(
 					"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-					"oid" => "%".$purchaser."%",
+					"oid" => "%".$arr["request"][$group."_s_purchaser_id"]."%",
 					"buyer" => new obj_predicate_compare(OBJ_COMP_GREATER, 0, NULL, "int"),
 				),
 				array(
@@ -8986,7 +9081,7 @@ die();
 			);
 			$params["purchaser"] = array_merge(array(-1), $purchaser_ids_odl->get_element_from_all("buyer"));
 		}
-		if($purchaser_other = $arr["request"][$group."_s_purchaser_other_id"])
+		if(!empty($arr["request"][$group."_s_purchaser_other_id"]))
 		{
 			/*
 			$params[] = new object_list_filter(array(
@@ -8997,7 +9092,7 @@ die();
 				)
 			));
 			*/
-			$params["purchaser(CL_CRM_PERSON).external_id"] = "%".$purchaser_other."%";
+			$params["purchaser(CL_CRM_PERSON).external_id"] = "%".$arr["request"][$group."_s_purchaser_other_id"]."%";
 		}
 		if(!empty($arr["request"][$group."_s_".$co_filt]) and $co = $arr["request"][$group."_s_".$co_filt])
 		{
@@ -9113,7 +9208,8 @@ die();
 		{
 			$arr["extra"] = 1;
 		}
-		if($group === "sell_orders" and $ws = $arr["obj_inst"]->prop("mrp_workspace"))
+    /* FIXME: Invalid property name 'mrp_workspace' for object '751706' of class 'shop_warehouse' */
+		if(false && $group === "sell_orders" and $ws = $arr["obj_inst"]->prop("mrp_workspace"))
 		{
 			$schedule = new mrp_schedule();
 			$schedule->create(array(
@@ -12700,10 +12796,14 @@ die();
 			'records_per_page' => $per_page
 		));
 
+ 		$t->define_chooser(array(
+			"name" => "sel",
+			"field" => "id",
+		));
+
 		$t->define_field(array(
-			"name" => "ord",
-			"caption" => t("Jrk"),
-			"align" => "left",
+			"name" => "icon",
+			"align" => "center",
 		));
 
 		$t->define_field(array(
@@ -12713,14 +12813,38 @@ die();
 		));
 
 		$t->define_field(array(
+			"name" => "ord",
+			"caption" => t("Jrk"),
+			"align" => "center",
+		));
+
+		$t->define_field(array(
+			"name" => "status",
+			"caption" => t("Aktiivne"),
+			"align" => "center",
+		));
+
+		$t->define_field(array(
+			"name" => "modifiedby",
+			"caption" => t("Muutja"),
+			"align" => "left",
+		));
+
+		$t->define_field(array(
+			"name" => "modified",
+			"caption" => t("Muudetud"),
+			"align" => "center",
+		));
+
+		$t->define_field(array(
 			"name" => "types",
 			"caption" => t("Seotud tootekategooriate t&uuml;&uuml;bid"),
 			"align" => "left",
 		));
 
- 		$t->define_chooser(array(
-			"name" => "sel",
-			"field" => "id",
+		$t->define_field(array(
+			"name" => "action",
+			"align" => "left",
 		));
 
 		$caption = sprintf(t('Lao "%s" tootekategooriad'), $arr["obj_inst"] -> name());
@@ -12776,11 +12900,40 @@ die();
 					)),
 				));
 			}
+      
+      $action_menu = new popup_menu();
+      $action_menu->begin_menu("action_".$o->id());
+      $action_menu->add_item(array(
+        "text" => t("Muuda"),
+        "link" => html::get_change_url($o, array("return_url" => $this->mk_my_orb("change" , array("class" => "shop_warehouse","id" => $arr["obj_inst"]->id() , "group" => "category" ))))
+      ));
+      $action_menu->add_item(array(
+        "text" => t("Kustuta"),
+        "link" => "javascript:void()",
+        "onclick" => ""
+      ));
+      $action_menu->add_item(array(
+        "text" => t("L&otilde;ika"),
+        "link" => "javascript:void()",
+        "onclick" => 'cut_categories("'.$o->id().'")',
+      ));
+      $action_menu->add_item(array(
+        "text" => t("Kopeeri"),
+        "link" => "javascript:void()",
+        "onclick" => 'copy_categories("'.$o->id().'")',
+      ));
+      
 			$t->define_data(array(
 				"name" => html::obj_change_url($o,null,array("return_url" => $this->mk_my_orb("change" , array("class" => "shop_warehouse","id" => $arr["obj_inst"]->id() , "group" => "category" )))),
 				"id" => $o->id(),
 				"types" => join(", " , $types),
-				"ord" => html::textbox(array("name" => "ord[".$o->id()."]" , "value" => $o->ord() , "size" => 3)),
+				"ord" => html::textbox(array("name" => "ord[".$o->id()."]" , "value" => $o->ord(), "size" => 3)),
+				"status" => html::hidden(array("name" => "status[".$o->id()."]", "value" => object::STAT_NOTACTIVE)).
+          html::checkbox(array("name" => "status[".$o->id()."]", "value" => object::STAT_ACTIVE, "checked" => $o->status() == object::STAT_ACTIVE)),
+        "icon" => html::img(array("url" => icons::get_icon_url($o->class_id(), $o->name()))),
+        "modified" => date("d.m.Y H:i", $o->modified()),
+        "modifiedby" => $o->prop("modifiedby"),
+        "action" => $action_menu->get_menu(),
 			));
 		}
 		$t->set_sortable(false);
@@ -12903,6 +13056,14 @@ die();
 			"link" => "javascript:add_cat_type();"
 		));
 
+		$tb->add_button(array(
+			"name" => "save",
+			"img" => "save.gif",
+			"text" => t("Salvesta kategooriad"),
+			"url" => "javascript:save_categories();",
+//			"url" => "javascript:javascript:submit_changeform();",
+		));
+
 		$tb->add_menu_button(array(
 			"name" => "change",
 			"img" => "edit.gif",
@@ -12919,14 +13080,6 @@ die();
 				"link" => html::get_change_url($id,array("return_url" => get_ru())),
 			));
 		}
-
-		$tb->add_button(array(
-			"name" => "save",
-			"img" => "save.gif",
-			"text" => t("Salvesta kategooriad"),
-			"url" => "javascript:save_categories();",
-//			"url" => "javascript:javascript:submit_changeform();",
-		));
 
 		$tb->add_button(array(
 			"name" => "search",
@@ -13019,6 +13172,14 @@ die();
 		));
 
 		$tb->add_button(array(
+			"name" => "save",
+			"img" => "save.gif",
+			"text" => t("Salvesta kategooriad"),
+			"url" => "javascript:save_categories();",
+//			"url" => "javascript:javascript:submit_changeform();",
+		));
+
+		$tb->add_button(array(
 			"name" => "copy",
 			"img" => "copy.gif",
 			"tooltip" => t("Kopeeri tooted teise kategooriasse"),
@@ -13032,14 +13193,29 @@ die();
 			"url" => "javascript:cut_products();"
 		));
 
-		if(isset($_SESSION["shop_warehouse"]) and ($_SESSION["shop_warehouse"]["cut_products"] || $_SESSION["shop_warehouse"]["copy_products"]))
+		if(isset($_SESSION["shop_warehouse"]))
 		{
-			$tb->add_button(array(
-				"name" => "paste",
-				"img" => "paste.gif",
-				"tooltip" => t("Paigalda kopeeritud/l&otilde;igatud tooted valitud kategooriatesse"),
-				"url" => "javascript:paste_products();"
-			));
+      $tb->add_menu_button(array(
+        "name" => "paste",
+        "img" => "paste.gif",
+        "tooltip" => t("Kleebi"),
+      ));
+      if (!empty($_SESSION["shop_warehouse"]["cut_products"]) || !empty($_SESSION["shop_warehouse"]["copy_products"])) {
+        $tb->add_menu_item(array(
+          "parent" => "paste",
+          "name" => "paste_products",
+          "text" => t("Tooted"),
+          "link" => "javascript:paste_products();"
+        ));
+      }
+      if (!empty($_SESSION["shop_warehouse"]["cut_categories"]) || !empty($_SESSION["shop_warehouse"]["copy_categories"])) {
+        $tb->add_menu_item(array(
+          "parent" => "paste",
+          "name" => "paste_categories",
+          "text" => t("Kategooriad"),
+          "link" => "javascript:paste_categories();"
+        ));
+      }
 		}
 
 		$tb->add_menu_button(array(
@@ -13081,14 +13257,6 @@ die();
 				"link" => html::get_change_url($id,array("return_url" => get_ru())),
 			));
 		}
-
-		$tb->add_button(array(
-			"name" => "save",
-			"img" => "save.gif",
-			"text" => t("Salvesta kategooriad"),
-			"url" => "javascript:save_categories();",
-//			"url" => "javascript:javascript:submit_changeform();",
-		));
 
 		$tb->add_button(array(
 			"name" => "search",
@@ -13753,12 +13921,31 @@ die();
 	**/
 	public function save_categories($arr)
 	{
-		if(is_array($arr["ord"]))
+		if(is_array($arr["ord"]) || is_array($arr["status"]))
 		{
-			$this->set_order($arr["ord"]);
+      if (!isset($arr["ord"])) {
+        $arr["ord"] = array();
+      }
+      if (!isset($arr["status"])) {
+        $arr["status"] = array();
+      }
+			$this->set_order_and_status($arr["ord"], $arr["status"]);
 		}
 		die("1");
 	}
+  
+  protected function set_order_and_status ($ord, $status) {
+    foreach (array_merge(array_keys($ord), array_keys($status)) as $id) {
+      $o = obj($id);
+      if (isset($ord[$id])) {
+        $o->set_ord($ord[$id]);
+      }
+      if (isset($status[$id])) {
+        $o->set_prop("status", $status[$id]);
+      }
+      $o->save();
+    }
+  }
 
 	/** searches and connects bill row to task row
 		@attrib name=search_categories
@@ -14006,4 +14193,29 @@ die();
 		}
 		die();
 	}
+  
+  /**
+  @attrib name=get_categories nologin=1 all_args=1
+  **/
+  public function get_categories ($arr) {
+    $warehouse = new object($arr["id"]);
+    $root_categories_tree = $warehouse->get_categories_tree();
+    
+    $categories = $this->__prepare_categories_hierarchy($root_categories_tree->ids_hierarchy(), $root_categories_tree->names());
+    
+    die(json_encode($categories));
+  }
+  
+  protected function __prepare_categories_hierarchy ($ids_hierarchy, $names) {
+    $hierarchy = array();
+    foreach ($ids_hierarchy as $category_id => $sub_categories) {
+      $hierarchy[] = array(
+        "id" => $category_id,
+        "name" => $names[$category_id],
+        "categories" => $this->__prepare_categories_hierarchy($sub_categories, $names)
+      );
+    }
+    
+    return $hierarchy;
+  }
 }

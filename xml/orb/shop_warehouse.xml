@@ -114,6 +114,27 @@
 			</function>
 		</action>
 
+		<action name="cut_categories" all_args="1">
+			<function name="cut_categories">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_categories" all_args="1">
+			<function name="copy_categories">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_categories" all_args="1">
+			<function name="paste_categories">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="send_cur_order">
 			<function name="sent_cur_order">
 				<arguments>
@@ -272,6 +293,22 @@
 				<arguments>
 					<required name="id" />
 					<optional name="node" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_products" nologin="1" params="pos">
+			<function name="get_products">
+				<arguments>
+          <required name="id" />
+				</arguments>
+			</function>
+		</action>
+    
+		<action name="get_categories" nologin="1" params="pos">
+			<function name="get_categories">
+				<arguments>
+          <required name="id" type="int" />
 				</arguments>
 			</function>
 		</action>
