@@ -243,6 +243,7 @@ class shop_product_search extends class_base
 		$this->vars(array(
 			"form" => $html,
 			"search_term" => htmlentities(automatweb::$request->arg("search_term"), ENT_COMPAT, aw_global_get('charset')),
+			"search_category" => htmlentities(automatweb::$request->arg("search_category"), ENT_COMPAT, aw_global_get('charset')),
 			"section" => aw_global_get("section"),
 			"table" => $table,
 			"results" => $table, // need to refactor it
