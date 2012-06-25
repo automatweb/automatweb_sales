@@ -101,6 +101,18 @@ class shop_product_category_obj extends _int_object
 		));
 	}
 
+	/**
+		@attrib api=1 params=pos
+		@param id required type=oid
+			category object id
+	**/
+	public function remove_all_categories()
+	{
+    foreach ($this->connections_from(array("type" => "RELTYPE_CATEGORY")) as $connection) {
+      $connection->delete();
+    }
+	}
+
 	/** adds cate3gory type to category... type in category
 		@attrib api=1
 	**/
