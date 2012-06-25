@@ -41,6 +41,8 @@ class shop_product_search_obj extends _int_object
             "logic" => "OR",
             "conditions" => array(
               'name' => '%'.str_replace(".", "" , automatweb::$request->arg('search_term')).'%',
+              'short_description' => '%'.str_replace(".", "" , automatweb::$request->arg('search_term')).'%',
+              'description' => '%'.str_replace(".", "" , automatweb::$request->arg('search_term')).'%',
               'code' => '%'.str_replace(".", "" , automatweb::$request->arg('search_term')).'%',
               'short_code' => '%'.str_replace(".", "" , automatweb::$request->arg('search_term')).'%'
             ),
@@ -59,43 +61,47 @@ class shop_product_search_obj extends _int_object
 
 		if(is_oid(automatweb::$request->arg("search_category")))
 		{
-			$search_category_tree = new object_tree(array(
-				"class_id" => array(CL_MENU, CL_DOCUMENT),
-				"lang_id" => array(),
-				"site_id" => array(),
-				"parent" => automatweb::$request->arg("search_category"),
-			));
+      if (is_oid(automatweb::$request->arg("search_category")) && obj(automatweb::$request->arg("search_category"))->is_a(shop_product_category_obj::CLID)) {
+        $args["categories"] = automatweb::$request->arg("search_category");
+      } else {
+        $search_category_tree = new object_tree(array(
+          "class_id" => array(CL_MENU, CL_DOCUMENT),
+          "lang_id" => array(),
+          "site_id" => array(),
+          "parent" => automatweb::$request->arg("search_category"),
+        ));
 
-			$search_category_ids = $search_category_tree->ids();
-			if(count($search_category_ids) > 0)
-			{
-				$ol = new object_list(array(
-					"class_id" => CL_SHOP_PRODUCT_CATEGORY,
-					"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY(CL_PRODUCTS_SHOW).RELTYPE_ALIAS(CL_DOCUMENT)" => $search_category_ids,
-					"lang_id" => array(),
-					"site_id" => array(),
-				));
-				if($ol->count() > 0)
-				{ 
-          switch ($this->prop("objs_in_res")) {
-            case shop_packet_obj::CLID:
-              $args["CL_SHOP_PACKET.RELTYPE_CATEGORY"] = $ol->ids();
-              break;
-              
-            case shop_product_obj::CLID:
-              $args["categories"] = $ol->ids();
-              break;
+        $search_category_ids = $search_category_tree->ids();
+        if(count($search_category_ids) > 0)
+        {
+          $ol = new object_list(array(
+            "class_id" => CL_SHOP_PRODUCT_CATEGORY,
+            "CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY(CL_PRODUCTS_SHOW).RELTYPE_ALIAS(CL_DOCUMENT)" => $search_category_ids,
+            "lang_id" => array(),
+            "site_id" => array(),
+          ));
+          if($ol->count() > 0)
+          { 
+            switch ($this->prop("objs_in_res")) {
+              case shop_packet_obj::CLID:
+                $args["CL_SHOP_PACKET.RELTYPE_CATEGORY"] = $ol->ids();
+                break;
+                
+              case shop_product_obj::CLID:
+                $args["categories"] = $ol->ids();
+                break;
+            }
           }
-				}
-				else
-				{
-					$no_products = true;
-				}
-			}
-			else
-			{
-				$no_products = true;
-			}
+          else
+          {
+            $no_products = true;
+          }
+        }
+        else
+        {
+          $no_products = true;
+        }
+      }
 		}
 		if(is_oid($this->prop("products_object_list_filter_controller")))
 		{
