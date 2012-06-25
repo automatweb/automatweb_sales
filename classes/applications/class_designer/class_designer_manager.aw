@@ -1,12 +1,12 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/class_designer_manager.aw,v 1.29 2009/08/19 08:11:27 dragut Exp $
+
 // class_designer_manager.aw - Klasside brauser
 
 //			automatweb::$instance->mode(automatweb::MODE_DBG);
 
 /*
 
-@classinfo syslog_type=ST_CLASS_DESIGNER_MANAGER relationmgr=yes no_comment=1 no_status=1 maintainer=kristo prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -927,9 +927,12 @@ class class_designer_manager extends class_base
 		$bytes = $lines = 0;
 		foreach($clss as $cld)
 		{
-			$fqfn = aw_ini_get("classdir")."/".$cld["file"].".".aw_ini_get("ext");
-			$bytes += filesize($fqfn);
-			$lines += count(file($fqfn));
+			$fqfn = aw_ini_get("classdir").$cld["file"].AW_FILE_EXT;
+			if (file_exists($fqfn))
+			{
+				$bytes += filesize($fqfn);
+				$lines += count(file($fqfn));
+			}
 		}
 
 		return number_format($bytes / 1024, 2)." kb / ".$lines." rida / ".count($clss)." klassi";
@@ -3737,4 +3740,3 @@ window.location.href='".html::get_new_url(CL_SM_SITE_GROUP, $pt, array("return_u
 		$c->add_axis_range(0, array(0, $max));
 	}
 }
-?>

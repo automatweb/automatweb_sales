@@ -1759,7 +1759,7 @@ class bug extends class_base
 					foreach($conn as $c)
 					{
 						$cmo = $c->to();
-						if($cmo->createdby() == aw_global_get("uid"))
+						if($cmo->createdby() === aw_global_get("uid"))
 						{
 							$old += $cmo->prop("add_wh_guess");
 							$old_real += $cmo->prop("add_wh");
@@ -2368,8 +2368,6 @@ class bug extends class_base
 			}
 
 
-
-
 /*			$comt_arr = explode("\n&gt;",$comt);
 			if(sizeof($comt_arr) > 1)
 			{
@@ -2400,11 +2398,9 @@ class bug extends class_base
 			));
 			$com_str .= $this->parse("COMMENT");
 		}
-		$base_author = $o->prop("bug_createdby");
-		if(!$base_author)
-		{
-			$base_author = $o->createdby();
-		}
+
+		$base_author = $o->createdby();
+
 		if($base_com)
 		{
 			$main_c = "<b>".$base_author." @ ".date("d.m.Y H:i", $o->created())."</b><br>".$this->_split_long_words(nl2br(create_links(preg_replace("/(\&amp\;#([0-9]{4});)/", "&#\\2", htmlspecialchars($o->prop("bug_content"), ENT_NOQUOTES)))));
@@ -2417,11 +2413,13 @@ class bug extends class_base
 		{
 			$main_c = '<b>'.$base_author." @ ".date("d.m.Y H:i", $o->created())."</b><br> Tellimus loodi";
 		}
+
 		$this->vars(array(
 			"main_text" => $so == "asc" ? $main_c : "",
 			"main_text_after" => $so == "asc" ? "" : $main_c,
 			"COMMENT" => $com_str
 		));
+
 		load_javascript ("applications/bug_o_matic_3000/bug.js", "bottom");
 		return $this->parse();
 	}

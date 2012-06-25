@@ -239,7 +239,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 		@layout ceditadr type=vbox closeable=1 area_caption=Aadressid
 			property cedit_address_old type=text store=no no_caption=1 parent=ceditadr
-			
+
 			@property address_toolbar type=toolbar store=no no_caption=1 parent=ceditadr
 
 			@property cedit_adr_tbl type=table store=no no_caption=1 parent=ceditadr
@@ -1543,7 +1543,7 @@ class crm_person extends class_base
 		));
 
 		$t->set_caption(sprintf(t('Isiku %s sõidukijuhi oskused'),$arr["obj_inst"]->name()));
- 
+
 		foreach($arr["obj_inst"]->get_drivers_licenses()->arr() as $licence)
 		{
 			$t->define_data(array(
@@ -1617,7 +1617,7 @@ class crm_person extends class_base
 			"align" => "center",
 		));
 		$t->set_caption(sprintf(t('Isiku %s keeleoskused'),$arr["obj_inst"]->name()));
- 
+
 		$lang_ops[0] = t("--vali--");
 		$lang_ops += get_instance("crm_person_language")->lang_lvl_options;
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_LANGUAGE_SKILL")) as $conn)
@@ -3086,7 +3086,7 @@ class crm_person extends class_base
 				"name" => html::obj_change_url($to->id()),
 				"field" => $field,
 				"load" => $to->prop("load.name"),
-				"wage" => $to->prop("pay")." kuni ".$to->prop("pay2"),
+				"wage" => $to->prop("pay")//." kuni ".$to->prop("pay2"), //pay2 on hetkel v2lja kommenteeritud -- voldemar 13 juuni 2012
 			));
 		}
 	}
@@ -5479,7 +5479,15 @@ fnCallbackAddNew = function()
 	{
 		$pdf_gen = get_instance("core/converters/html2pdf");
 		//session_cache_limiter("public");
-		$tpl = $arr["cv_tpl"] ? ("cv/".basename($arr["cv_tpl"])) : false;
+		try
+		{
+			$tpl = !empty($arr["cv_tpl"]) ? ("cv/".basename($arr["cv_tpl"])) : false;
+		}
+		catch (ErrorException $e)
+		{
+			$tpl = false;
+		}
+
 		die($pdf_gen->gen_pdf(array(
 			"filename" => $arr["id"],
 			"source" => $this->show_cv(array(
@@ -8567,7 +8575,7 @@ return;
 				"name" => "new",
 				"img" => "new.gif",
 			));
-		
+
 			$ol = new object_list(array(
 				"class_id" => CL_PERSON_SKILL,
 				"parent" => $persontab[$group]
@@ -8711,7 +8719,7 @@ return;
 				$ignore[$val] = $val;
 			}
 		}
-//	arr($skills);arr($group);	
+//	arr($skills);arr($group);
 foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_HAS_SKILL")) as $c)
 		{
 			$rel = $c->to();

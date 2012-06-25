@@ -19,17 +19,17 @@ class aw_template
 	{
 	}
 }
-
-class core
+/* see asi annab veateadet, et cannot redecleare - Marko 6/13/2012*/
+/*class core
 {
 	function db_init()
 	{
 	}
-}
+}*/
 
 class class_base extends core
 {
-	function init()
+	function init($arg = array())
 	{
 		aw_config_init_class($this);
 	}

@@ -324,7 +324,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 			@property cedit_bank_account_tbl type=table store=no no_caption=1 parent=ceditbank
 
 		@layout ceditadr type=vbox closeable=1 area_caption=Aadressid
-			
+
 			@property address_toolbar type=toolbar store=no no_caption=1 parent=ceditadr
 
 			@property cedit_adr_tbl type=table store=no no_caption=1 parent=ceditadr
@@ -1827,7 +1827,10 @@ class crm_company extends class_base
 	function convert_objects($arr)
 	{
 		$i = new crm_company_cedit_impl();
-		$i->convert_addresses($arr["id"] , $_POST["select"]);
+		if (!empty($arr["request"]["select"]))
+		{
+			$i->convert_addresses($arr["id"] , $arr["request"]["select"]);
+		}
 		return  $arr["post_ru"];
 	}
 
@@ -2331,7 +2334,7 @@ END;
 			case "priority":
 			case "bill_penalty_pct":
 				// read from rel
-				if (($rel = $this->get_cust_rel($arr["obj_inst"])))
+				if (($rel = $this->get_cust_rel($arr["obj_inst"])) and $rel->is_property($data["name"]))
 				{
 					if ($arr["request"]["action"] === "view")
 					{
@@ -2342,7 +2345,8 @@ END;
 						$data["value"] = $rel->prop($data["name"]);
 					}
 				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("view", $data["value"]))
+
+				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && acl_base::can("view", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$data["value"]] = $tmp->name();

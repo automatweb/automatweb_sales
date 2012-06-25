@@ -33,6 +33,7 @@
             <parent>left_container</parent>
             <type>objpicker</type>
             <field>aw_unit</field>
+            <clid>CL_UNIT</clid>
             <caption>&amp;amp;Uuml;hik</caption>
       </property>
       <property>

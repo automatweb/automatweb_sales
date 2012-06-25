@@ -2,7 +2,7 @@
 // recurrence.aw - Kordus
 /*
 
-@classinfo syslog_type=ST_RECURRENCE relationmgr=yes no_status=1
+@classinfo relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -63,12 +63,15 @@
 // on those. It needs a way to gather events in the requested range only.
 
 */
+
+///DEPRECATED
 define("RECUR_DAILY",1);
 define("RECUR_WEEKLY",2);
 define("RECUR_MONTHLY",3);
 define("RECUR_YEARLY",4);
 define("RECUR_HOURLY",5);
 define("RECUR_MINUTELY",6);
+///END DEPRECATED
 
 class recurrence extends class_base
 {
@@ -92,12 +95,12 @@ class recurrence extends class_base
 		$retval = class_base::PROP_OK;
 		$filtered = array("interval_hourly","interval_minutely","interval_daily","weekdays","interval_weekly","interval_monthly","interval_yearly","month_weekdays","month_rel_weekdays", "month_days");
 		$prop_filter = array(
-			RECUR_MINUTELY => array("interval_minutely"),
-			RECUR_HOURLY => array("interval_hourly"),
-			RECUR_DAILY => array("interval_daily"),
-			RECUR_WEEKLY => array("weekdays","interval_weekly"),
-			RECUR_MONTHLY => array("interval_monthly","month_weekdays","month_rel_weekdays","month_days"),
-			RECUR_YEARLY => array("interval_yearly"),
+			self::RECUR_MINUTELY => array("interval_minutely"),
+			self::RECUR_HOURLY => array("interval_hourly"),
+			self::RECUR_DAILY => array("interval_daily"),
+			self::RECUR_WEEKLY => array("weekdays","interval_weekly"),
+			self::RECUR_MONTHLY => array("interval_monthly","month_weekdays","month_rel_weekdays","month_days"),
+			self::RECUR_YEARLY => array("interval_yearly"),
 		);
 		$type = false;
 		if (is_object($arr["obj_inst"]))
@@ -106,8 +109,8 @@ class recurrence extends class_base
 		};
 		if (empty($type))
 		{
-			$type = RECUR_DAILY;
-		};
+			$type = self::RECUR_DAILY;
+		}
 		$cur_filter = $prop_filter[$type];
 		if (in_array($data["name"],$filtered) && !in_array($data["name"],$cur_filter))
 		{
@@ -156,12 +159,12 @@ class recurrence extends class_base
 
 			case "recur_type":
 				$data["options"] = array(
-					RECUR_DAILY => t("p&auml;ev"),
-					RECUR_WEEKLY => t("n&auml;dal"),
-					RECUR_MONTHLY => t("kuu"),
-					RECUR_YEARLY => t("aasta"),
-					RECUR_MINUTELY => t("minut"),
-					RECUR_HOURLY => t("tund"),
+					self::RECUR_DAILY => t("p&auml;ev"),
+					self::RECUR_WEEKLY => t("n&auml;dal"),
+					self::RECUR_MONTHLY => t("kuu"),
+					self::RECUR_YEARLY => t("aasta"),
+					self::RECUR_MINUTELY => t("minut"),
+					self::RECUR_HOURLY => t("tund"),
 				);
 				break;
 
@@ -345,7 +348,7 @@ class recurrence extends class_base
 			$evt_start = $day_start + (3600 * $start_hour) + (60 * $start_min);
 			$evt_end = $day_start + (3600 * $end_hour) + (60 * $end_min);
 			$rv[$evt_start] = $evt_end;
-		};
+		}
 
 		return $rv;
 	}
@@ -361,7 +364,7 @@ class recurrence extends class_base
 			$new_name .= " - ";
 			$new_name .= date("Y/m/d",$arr["obj_inst"]->prop("end"));
 			$arr["obj_inst"]->set_name($new_name);
-		};
+		}
 	}
 
 	////
@@ -426,33 +429,33 @@ class recurrence extends class_base
 			"end" => $recur_end,
 		);
 
-		if (RECUR_WEEKLY == $recur_type)
+		if (self::RECUR_WEEKLY == $recur_type)
 		{
 			$range_data["weekdays"] = $arr["obj_inst"]->prop("weekdays");
 			$range_data["interval"] = $arr["obj_inst"]->prop("interval_weekly");
 			$rx = $this->calc_range_weekly($range_data);
 		}
-		elseif (RECUR_DAILY == $recur_type)
+		elseif (self::RECUR_DAILY == $recur_type)
 		{
 			$range_data["interval"] = $arr["obj_inst"]->prop("interval_daily");
 			$rx = $this->calc_range_daily($range_data);
 		}
-		elseif (RECUR_YEARLY == $recur_type)
+		elseif (self::RECUR_YEARLY == $recur_type)
 		{
 			$range_data["interval"] = $arr["obj_inst"]->prop("interval_yearly");
 			$rx = $this->calc_range_yearly($range_data);
 		}
-		elseif (RECUR_HOURLY == $recur_type)
+		elseif (self::RECUR_HOURLY == $recur_type)
 		{
 			$range_data["interval"] = $arr["obj_inst"]->prop("interval_hourly");
 			$rx = $this->calc_range_hourly($range_data);
 
 		}
-		elseif (RECUR_MINUTELY == $recur_type)
+		elseif (self::RECUR_MINUTELY == $recur_type)
 		{
 			$range_data["interval"] = $arr["obj_inst"]->prop("interval_minutely");
 			$rx = $this->calc_range_minutely($range_data);
-		};
+		}
 
 		if (is_array($rx) && sizeof($rx) > 0)
 		{
@@ -478,7 +481,7 @@ class recurrence extends class_base
 		if (!is_array($tm_list) || sizeof($tm_list) == 0)
 		{
 			return false;
-		};
+		}
 		$parts = array();
 		foreach($tm_list as $recur_start => $recur_end)
 		{

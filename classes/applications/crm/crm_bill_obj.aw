@@ -3570,15 +3570,12 @@ class crm_bill_obj extends _int_object
 		$bpct = $this->prop("overdue_charge");
 		if (!$bpct)
 		{
-			$cust_data = $this->prop("");
-			if(is_object($cust_data) && $cust_data->prop("bill_penalty_pct"))
+			// try customer relation
+			$bpct = $this->prop("customer_relation.bill_penalty_pct");
+			if (!$bpct and $this->set_crm_settings())
 			{
-				return $cust_data->prop("bill_penalty_pct");
-			}
-			$bpct = $this->prop("customer.bill_penalty_pct");
-			if (!$bpct)
-			{
-				$bpct = $this->prop("impl.bill_penalty_pct");
+				// try global crm settings
+				$bpct = $this->crm_settings->prop("bill_default_overdue_interest");
 			}
 		}
 		return $bpct;

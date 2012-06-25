@@ -5269,7 +5269,7 @@ die("a");
 	}
 
 	function get_user2person_arr_from_list($user_list)
-	{ throw new awex_not_implemented("FIXME");
+	{
 		$u2p = array();
 		if (count($user_list))
 		{
@@ -5278,26 +5278,10 @@ die("a");
 				"uid" => $user_list
 			));
 			$oid_list = array();
-			foreach($ol->arr() as $uo)
+			for ($uo = $ol->begin(); !$ol->end(); $uo = $ol->next())
 			{
-				$oid_list[$uo->id()] = $uo->prop("uid");
+				$u2p[$uo->id()] = $uo->prop("person");
 			}
-//FIXME: kasutaja isik on nyyd - $person_oid = $user_object->prop("person")
-			$c = new connection();
-			$u2p_conns = $c->find(array(
-				"from.class_id" => CL_USER,
-				"from" => array_keys($oid_list),
-				"type" => "RELTYPE_PERSON"
-			));
-			$person_oids = array();
-			foreach($u2p_conns as $con)
-			{
-				$person_oids[] = $con["to"];
-				$u2p[$oid_list[$con["from"]]] = $con["to"];
-			}
-
-			$person_ol = new object_list(array("class_id" => CL_CRM_PERSON, "oid" => $person_oids));
-			$person_ol->arr();
 		}
 		return $u2p;
 	}

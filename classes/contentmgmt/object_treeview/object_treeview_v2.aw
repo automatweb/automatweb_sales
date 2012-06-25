@@ -1052,7 +1052,8 @@ class object_treeview_v2 extends class_base
 			{
 				foreach ($controllers as $controller)
 				{
-					if ($view_controller_inst->check_property(&$odata, $controller, array()) == PROP_IGNORE)
+					$V2GAT2HTISMUUTUJA = array();
+					if ($view_controller_inst->check_property(&$odata, $controller, $V2GAT2HTISMUUTUJA) == PROP_IGNORE)
 					{
 						continue;
 					}

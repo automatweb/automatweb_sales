@@ -1,12 +1,12 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/class_designer.aw,v 1.36 2008/05/20 11:43:54 kristo Exp $
-// class_designer.aw - Vormidisainer 
+
+// class_designer.aw - Vormidisainer
 
 // üldine, soovituslik, kohustuslik
 // nõude number, ext_id
 /*
 
-@classinfo syslog_type=ST_CLASS_DESIGNER relationmgr=yes maintainer=kristo
+@classinfo relationmgr=yes
 @classinfo no_status=1
 
 @default table=objects
@@ -40,7 +40,7 @@
 @caption Olemasoleva klassi fail
 
 property preview type=text store=no
-caption 
+caption
 
 @default group=settings
 @property reg_class_id type=text table=aw_class field=class_id
@@ -136,13 +136,13 @@ caption
 @layout hbox3 type=hbox group=designer
 
 @property helper type=text no_caption=1 parent=hbox3
-@property group_parent type=hidden 
+@property group_parent type=hidden
 @property tmp_name type=hidden
 @property element_type type=hidden
 
 @default group=relations_sub
 
-	@property relations_mgr type=releditor reltype=RELTYPE_RELATION mode=manager no_caption=1 props=name,r_class_id,value table_fields=name,r_class_id,value 
+	@property relations_mgr type=releditor reltype=RELTYPE_RELATION mode=manager no_caption=1 props=name,r_class_id,value table_fields=name,r_class_id,value
 	@caption Seosed
 
 @default group=dev_request
@@ -163,7 +163,7 @@ caption
 @groupinfo general_sub caption="Üldine" parent=general
 @groupinfo settings caption="Seaded" parent=general
 
-//@groupinfo cl_planner caption="Planeerija" 
+//@groupinfo cl_planner caption="Planeerija"
 @groupinfo planner caption="Planeerija" submit=no
 
 @groupinfo relations caption="Seosed"
@@ -188,7 +188,7 @@ caption
 @groupinfo general_sub caption="Üldine" parent=general
 @groupinfo settings caption="Seaded" parent=general
 
-//@groupinfo cl_planner caption="Planeerija" 
+//@groupinfo cl_planner caption="Planeerija"
 @groupinfo planner caption="Planeerija" submit=no
 
 @groupinfo relations caption="Seosed"
@@ -224,7 +224,7 @@ class class_designer extends class_base
 			"tpldir" => "applications/class_designer",
 			"clid" => CL_CLASS_DESIGNER
 		));
-		
+
 		$this->elements = array(
 			CL_PROPERTY_TEXTBOX,CL_PROPERTY_CHOOSER,
 			CL_PROPERTY_CHECKBOX,CL_PROPERTY_TABLE,
@@ -238,7 +238,7 @@ class class_designer extends class_base
 
 		// list of all elements that can be saved to a table
 		$this->saveable = array(CL_PROPERTY_TEXTBOX,CL_PROPERTY_TEXTAREA,CL_PROPERTY_CHOOSER,CL_PROPERTY_CHECKBOX);
-		
+
 		$this->gen_folder = $this->cfg["site_basedir"]."/files/classes";
 	}
 
@@ -300,7 +300,7 @@ class class_designer extends class_base
 			case "planner_toolbar":
 				$this->create_planner_toolbar($arr);
 				break;
-			
+
 			case "planner_tree":
 				$this->create_planner_tree($arr);
 				break;
@@ -333,7 +333,7 @@ class class_designer extends class_base
 
 			case "alter_sql":
 				$sql = $this->gen_alter_sql(array("id" => $arr["obj_inst"]->id()));
-				if (empty($sql))	
+				if (empty($sql))
 				{
 					$prop["value"] = t("SQL table is up to date");
 				}
@@ -427,11 +427,11 @@ class class_designer extends class_base
 			case "el_defs_toolbar":
 				$this->do_el_defs_toolbar($arr);
 				break;
-			
+
 			case "int_refs_toolbar":
 				$this->do_int_refs_toolbar($arr);
 				break;
-			
+
 			case "ext_refs_toolbar":
 				$this->do_ext_refs_toolbar($arr);
 				break;
@@ -450,7 +450,7 @@ class class_designer extends class_base
 					return PROP_IGNORE;
 				}
 				// find some objects
-				
+
 				$ol = new object_list(array("class_id" => $arr["obj_inst"]->prop("reg_class_id"),"limit" => 2));
 				if ($ol->count())
 				{
@@ -489,8 +489,8 @@ class class_designer extends class_base
 
 		}
 		return $retval;
-	}	
-	
+	}
+
 	/** Creates a hierarchy of groups for the planner
 	**/
 	function create_planner_tree(&$arr)
@@ -507,7 +507,7 @@ class class_designer extends class_base
 				"group" => $arr["request"]["group"],
 			)),
 		));
-		
+
 		$el_tree = new object_tree(array(
 			"parent" => $oid,
 			"class_id" => array(CL_PROPERTY_GROUP,CL_PROPERTY_GRID),
@@ -624,7 +624,7 @@ class class_designer extends class_base
 			"parent" => "new",
 			"name" => "newgrp",
 			"link" => $this->mk_my_orb("create_group", array(
-				"group_parent" => $this->group_parent, 
+				"group_parent" => $this->group_parent,
 				"return_url" => get_ru(),
 				"id" => $arr["obj_inst"]->id()
 			)),
@@ -634,8 +634,8 @@ class class_designer extends class_base
 			"parent" => "new",
 			"name" => "newprop",
 			"link" => $this->mk_my_orb("create_element", array(
-				"element_type" => CL_PROPERTY, 
-				"group_parent" => $this->group_parent, 
+				"element_type" => CL_PROPERTY,
+				"group_parent" => $this->group_parent,
 				"return_url" => get_ru(),
 				"id" => $arr["obj_inst"]->id()
 			)),
@@ -662,7 +662,7 @@ class class_designer extends class_base
 			"parent" => "new",
 			"text" => t("tab"),
 			"link" => $this->mk_my_orb("create_group", array(
-				"group_parent" => $this->group_parent, 
+				"group_parent" => $this->group_parent,
 				"return_url" => get_ru(),
 				"id" => $arr["obj_inst"]->id()
 			)),
@@ -673,19 +673,19 @@ class class_designer extends class_base
 			"parent" => "new",
 			"text" => t("vbox"),
 			"link" => $this->mk_my_orb("create_grid", array(
-				"group_parent" => $this->group_parent, 
+				"group_parent" => $this->group_parent,
 				"return_url" => get_ru(),
-				"gtype" => 0, 
+				"gtype" => 0,
 				"id" => $arr["obj_inst"]->id()
 			)),
 			"disabled" => !$this->can_add["grid"],
 		));
-		
+
 		$tb->add_menu_item(array(
 			"parent" => "new",
 			"text" => t("hbox"),
 			"link" => $this->mk_my_orb("create_grid", array(
-				"group_parent" => $this->group_parent, 
+				"group_parent" => $this->group_parent,
 				"return_url" => get_ru(),
 				"gtype" => 1,
 				"id" => $arr["obj_inst"]->id()
@@ -747,8 +747,8 @@ class class_designer extends class_base
 				"parent" => $el_clid,
 				"text" => parse_obj_name($el_o->name()),
 				"link" => $this->mk_my_orb("place_element", array(
-					"el_id" => $el_o->id(), 
-					"group_parent" => $this->group_parent, 
+					"el_id" => $el_o->id(),
+					"group_parent" => $this->group_parent,
 					"return_url" => get_ru(),
 					"id" => $arr["obj_inst"]->id()
 				)),
@@ -761,7 +761,7 @@ class class_designer extends class_base
 		*/
 
 
-		// aga ma tahan ikkagi 
+		// aga ma tahan ikkagi
 		/*
 		$clinf = aw_ini_get("classes");
 		foreach($this->elements as $element)
@@ -770,8 +770,8 @@ class class_designer extends class_base
 				"parent" => "new",
 				"text" => $clinf[$element]["name"],
 				"link" => $this->mk_my_orb("create_element", array(
-					"element_type" => $element, 
-					"group_parent" => $this->group_parent, 
+					"element_type" => $element,
+					"group_parent" => $this->group_parent,
 					"return_url" => get_ru(),
 					"id" => $arr["obj_inst"]->id()
 				)),
@@ -848,14 +848,14 @@ class class_designer extends class_base
 			"align" => "center",
 			"width" => 100,
 		));
-		
+
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "id",
 		));
-		
+
 		//$t->set_sortable(false);
-	
+
 		$o = $arr["obj_inst"];
 
 		$elist = new object_list(array(
@@ -911,7 +911,7 @@ class class_designer extends class_base
 		$t->sort_by();
 	}
 
-	/** 
+	/**
 		@attrib name=create_group
 
 		@param id required type=int acl=view
@@ -978,7 +978,7 @@ class class_designer extends class_base
 
 	/**
 		@attrib name=create_element
-		
+
 		@param id required type=int acl=view
 		@param element_type required
 		@param group_parent required
@@ -1153,7 +1153,7 @@ class class_designer extends class_base
 				"el_id" => $el_dat["el_id"],
 			);
 		};
-		
+
 		foreach($tables as $name => $fields)
 		{
 			// kõigepealt vaatame, kas nimetatud tabel on üldse olemas
@@ -1187,7 +1187,7 @@ class class_designer extends class_base
 				$field_type = $val["field_type"];
 				$field_length = $val["field_length"];
 				$el_id = $val["el_id"];
-				// if it is not in the existing table and is not registerd either, then it 
+				// if it is not in the existing table and is not registerd either, then it
 				// must be a new name
 				if (empty($prev_table[$field_name]) && !$reg_els[$el_id])
 				{
@@ -1228,7 +1228,7 @@ class class_designer extends class_base
 
 						$columns[] = $change;
 						$reg_els[$el_id] = $field_name;
-					};	
+					};
 				};
 
 			};
@@ -1251,7 +1251,7 @@ class class_designer extends class_base
 		};
 
 		return $alter;
-	}	
+	}
 
 	// id - designer object id
 	function gen_create_sql($arr)
@@ -1324,13 +1324,13 @@ class class_designer extends class_base
 			"parent" => $c,
 		));
 		$cl_list = $cltree->to_list();
-		
+
 		$this->__elord = $c->meta("element_ords");
 		$ellist = $cl_list->arr();
 		usort($ellist, array($this, "__ellist_comp"));
 
 		$rv = array();
-		
+
 		foreach($ellist as $el)
 		{
 			$el_clid = $el->class_id();
@@ -1354,12 +1354,12 @@ class class_designer extends class_base
 			if (CL_PROPERTY != $el_clid && $arr["cl_prop_only"])
 			{
 				continue;
-			};	
+			};
 
 			$props = $el->properties();
 			$props["class_id"] = $el_clid;
 			$props["id"] = $el_id;
-			
+
 			$rv[] = $props;
 		};
 		return $rv;
@@ -1464,7 +1464,7 @@ class class_designer extends class_base
 					if (is_array($gpdata["generate_methods"]))
 					{
 						$generate_methods = array_merge($generate_methods,$gpdata["generate_methods"]);
-					};	
+					};
 			};
 
 				// nii .. midagi peaks nende asjadega ka ette võtma, sest vastutavad klassid peaks
@@ -1488,13 +1488,13 @@ class class_designer extends class_base
 						$rv .= " size=" . $el["size"];
 					};
 				};
-				
+
 				if ($can_save)
 				{
 					$gen_table = true;
 					$rv .= " table=${sql_table}";
 				};
-				
+
 				$rv .= "\n";
 				$rv .= "@caption $name\n\n";
 
@@ -1542,18 +1542,18 @@ class class_designer extends class_base
 				$rv .= "@layout $el_id type=${grid_type} $group\n";
 
 				// @layout hbox_oc type=hbox group=order_orderer_cos
-				
+
 				//arr($el->properties());
 			};
 		};
-		
+
 		if ($c->prop("relationmgr") == 1)
 		{
 			$gpblock .= "\n\t\t\tcase 'relationmgr':\n";
 			$gpblock .= "\t\t\t\t\$this->configure_relationmgr(\$arr);\n";
 			$gpblock .= "\t\t\t\t\$retval = PROP_OK;\n";
 			$gpblock .= "\t\t\t\tbreak;\n";
-		
+
 			$methods .= $this->generate_relationmgr_config($arr["obj_inst"]->id());
 
 			$rv .= $this->generate_reltypes($arr["obj_inst"]->id());
@@ -1608,12 +1608,12 @@ class class_designer extends class_base
 			{
 				$export_rels[$rel_id][$rclass] = $classes[$rclass]["name"];
 				$rv .= "\t\t\$arr['prop']['configured_rels'][$rel_id][$rclass] = '" . $classes[$rclass]["name"] . "';\n";
-				
+
 			};
 			$rv .= "\t\t\$arr['prop']['configured_rel_names'][" . $rel_id ."] = '" . $relobj->name() . "';\n";
 			//$export_rel_names[$rel_id] = $relobj->name();
 		};
-			
+
 		$rv .= "\t}\n\n";
 		return $rv;
 
@@ -1888,7 +1888,7 @@ class class_designer extends class_base
 			"img" => "save.gif",
 		));
 	}
-	
+
 	function do_int_refs_toolbar(&$arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
@@ -1899,7 +1899,7 @@ class class_designer extends class_base
 			"img" => "save.gif",
 		));
 	}
-	
+
 	function do_ext_refs_toolbar(&$arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
@@ -2025,9 +2025,9 @@ class class_designer extends class_base
 				"name" => parse_obj_name($o->name()),
 				"id" => $o->id(),
 				"parent" => parse_obj_name($parent_o->name()),
-				"type" => $clinf[$o->prop("property_type")]["name"],
+				"type" => "", //$clinf[$o->prop("property_type")]["name"], // property property_type puudub -- voldemar 13 juuni 2012
 			));
-		};
+		}
 	}
 
 	function update_el_defs_table($arr)
@@ -2099,7 +2099,7 @@ class class_designer extends class_base
 			$lines = $this->_insert_at_end($lines, $methods);
 		}
 		$src = join("\n", $lines);
-		
+
 		$orig_name = basename($clss[$cd->prop("reg_class_id")]["orig_file"]);
 		return $src;//str_replace("class $orig_name extends class_base", "class ".$cd->name()." extends class_base", $src);
 	}
@@ -2142,7 +2142,7 @@ class class_designer extends class_base
 				{
 					$tmp[] = $pl;
 				}
-		
+
 			}
 			$tmp[] = $line;
 		}
@@ -2261,7 +2261,7 @@ class class_designer extends class_base
 				$rv .= "@layout $el_id type=${grid_type} $group\n";
 
 				// @layout hbox_oc type=hbox group=order_orderer_cos
-				
+
 				//arr($el->properties());
 			};
 		};
@@ -2298,7 +2298,7 @@ class class_designer extends class_base
 				$sys_name = $this->_valid_id($name);
 				$inst = $el->instance();
 				$generate_methods = array();
-					
+
 				if (method_exists($inst,"generate_get_property"))
 				{
 					$gpdata = $inst->generate_get_property(array(
@@ -2330,7 +2330,7 @@ class class_designer extends class_base
 
 			};
 		};
-		
+
 		return array($gpblock, $methods);
 	}
 
@@ -2452,4 +2452,3 @@ class class_designer extends class_base
 		return $grpi;
 	}
 }
-?>

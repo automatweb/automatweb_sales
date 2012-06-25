@@ -212,7 +212,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 
-@default group=rows,rowsnew
+@default group=rows
 	@layout bill_rows_container type=vbox
 	@layout bill_writeoff_rows_container type=hbox
 		@property rows_toolbar type=toolbar store=no no_caption=1 editonly=1 parent=bill_rows_container
@@ -221,8 +221,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 		@property bill_rows type=text store=no no_caption=1 editonly=1 parent=bill_rows_container group=rows
 		@caption Arve read
 
-		@property bill_rows_table type=table store=no no_caption=1 editonly=1 parent=bill_rows_container group=rowsnew
-		@caption Arve read
+		// @property bill_rows_table type=table store=no no_caption=1 editonly=1 parent=bill_rows_container group=rowsnew
+		// @caption Arve read
 
 		@property writeoffs type=table store=no no_caption=1 editonly=1 parent=bill_writeoff_rows_container
 		@caption Mahakantud read

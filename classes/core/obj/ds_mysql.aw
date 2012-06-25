@@ -1354,7 +1354,21 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		if (!empty($arr["type"]))
 		{
 			$awa = new aw_array($arr["type"]);
-			$sql .= " AND reltype IN (".$awa->to_sql().") ";
+			$sql .= " AND reltype IN (".$awa->to_sql().")";
+
+			// ensure only valid class target objects are returned
+			if (!empty($arr["from.class_id"]))
+			{
+				$cfgu = new cfgutils();
+				$cfgu->load_properties(array("load_trans" => false, "clid" => $arr["from.class_id"]));
+				$reltype_clids = isset($cfgu->relinfo[$arr["type"]]["clid"]) ? $cfgu->relinfo[$arr["type"]]["clid"] : array();
+
+				if ($reltype_clids)
+				{
+					$reltype_clids = implode(", ", $reltype_clids);
+					$sql .= " AND o_t.class_id IN ({$reltype_clids})";
+				}
+			}
 		}
 
 		if (!empty($arr["class"]))
