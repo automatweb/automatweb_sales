@@ -52,6 +52,25 @@ class object_tree extends _int_obj_container_base
 			$this->_int_load($param);
 		}
 	}
+  
+  /** returns all object names in the current tree
+		@attrib api=1
+
+		@errors
+			none
+
+		@returns
+			array of names that are currently in the tree
+
+		@examples
+			$ot = new object_tree(array(
+            	"parent" => 90
+		));
+		$ids = $ot->names();
+	**/
+  function names() {
+    return $this->tree_names;
+  }
 
 	/** filters the object tree, or creates a new tree from the filter
 		@attrib api=1
