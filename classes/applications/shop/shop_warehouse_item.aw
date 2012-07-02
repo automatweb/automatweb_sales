@@ -17,8 +17,6 @@
 @reltype WAREHOUSE value=25 clid=CL_SHOP_WAREHOUSE
 @caption Ladu
 
-@message MSG_STORAGE_ALIAS_ADD_TO
-
 */
 
 class shop_warehouse_item extends aw_product

@@ -1181,7 +1181,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 				"name" => $name,
 				"caption" => $caption,
 				"width" => $width,
-			"chgbgcolor" => "color",
+				"chgbgcolor" => "color",
 			));
 		}
 		$t->define_field(array(
@@ -1216,7 +1216,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 				$ret.= " ".html::button(array(
 					"value" => "Konverdi uude aadressis&uuml;steemi",
 					"onclick" => "javascript:alert('asdasd')"
-				)); 
+				));
 				$ret.= "<br>";
 			}
 		}
@@ -1267,7 +1267,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 					"administrative_structure" => $parent_obj->prop("administrative_structure"),
 					"class_id" => CL_COUNTRY
 				));
-	
+
 				$pc = new object();
 				$pc->set_class_id(CL_ADDRESS);
 				$pc->set_parent($parent);
@@ -1329,7 +1329,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 					"administrative_structure" => $parent_obj->prop("administrative_structure"),
 					"class_id" => CL_COUNTRY
 				));
-	
+
 				$pc = new object();
 				$pc->set_class_id(CL_ADDRESS);
 				$pc->set_parent($parent);
@@ -1552,8 +1552,8 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 						"caption" => t("Muuda"),
 						"url" => $ch_url,
 					)),
-//					"change" => html::obj_change_url($obj->id(), t("Muuda")), 
-				)); 
+//					"change" => html::obj_change_url($obj->id(), t("Muuda")),
+				));
 
 /*				$t->define_data(array(
 					"sel" => $obj->id(),
@@ -1575,7 +1575,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 
 //---------- vana süsteemi päästmiseks---
 		$conns = $arr["obj_inst"]->connections_from(array(
-			"type" => "RELTYPE_ADDRESS",
+			"type" => "RELTYPE_ADDRESS"
 		));
 		foreach($conns as $conn)
 		{
@@ -1621,7 +1621,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 					"postal_code" => $obj->prop("postal_code"),
 					"po_box" => $obj->prop("po_box"),
 					"country" => $obj->prop("country.name"),
-					"change" => html::obj_change_url($obj->id(), t("Muuda")), 
+					"change" => html::obj_change_url($obj->id(), t("Muuda")),
 				)); */
 
 			$country_list = new object_list(array(
@@ -1636,11 +1636,11 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 				}
 			}
 
-		
+
 
 			$t->define_data(array(
 				"choose" => $chooser,
-			//	"country" => 
+			//	"country" =>
 /*				"aadress" => html::textbox(array(
 					"name" => "cedit_adr[-1][aadress]",
 					"value" => "",
@@ -1761,7 +1761,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 		if(!empty($opts["city"]) || !empty($opts["county"]))
 		{
 			$params = array(
-				"class_id" => CL_COUNTRY_CITY	
+				"class_id" => CL_COUNTRY_CITY
 			);
 			if(!empty($opts["city"]))
 			{
@@ -1880,7 +1880,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 		if(!empty($opts["vald"]) || !empty($opts["county"]))
 		{
 			$params = array(
-				"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT	
+				"class_id" => CL_COUNTRY_ADMINISTRATIVE_UNIT
 			);
 			if(!empty($opts["vald"]))
 			{
@@ -1932,7 +1932,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 					$params["name"] = $data["city"];
 
 					if($data["county"])
-					{					
+					{
 						$subclasses = new object_list(array(
 							"class_id" => CL_COUNTRY_ADMINISTRATIVE_DIVISION,
 							"name" => "Maakond"
@@ -1953,7 +1953,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 					$params["class_id"] = CL_COUNTRY_ADMINISTRATIVE_UNIT;
 					$params["name"] = $data["vald"];
 					if($data["county"])
-					{					
+					{
 						$subclasses = new object_list(array(
 							"class_id" => CL_COUNTRY_ADMINISTRATIVE_DIVISION,
 							"name" => "Maakond"
@@ -1978,7 +1978,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 						"name" => "Maakond"
 					));
 					$subclass = $subclasses->begin();
-					
+
 					$params["subclass"] = $subclass->id();
 				}
 

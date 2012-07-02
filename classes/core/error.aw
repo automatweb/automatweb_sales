@@ -71,18 +71,6 @@ class error
 		$inst->raise_error($arr["id"], $arr["msg"], $arr["fatal"], !$arr["show"]);
 	}
 
-	public static function throw_acl($arr)
-	{
-		$sct = isset($arr["access"]) ? "can_".$arr["access"] : t("not specified");
-		$objn = isset($arr["oid"]) ? $arr["oid"] : t("not specified");
-		$func = isset($arr["func"]) ? $arr["func"] : t("not specified");
-		error::raise(array(
-			"id" => "ERR_ACL",
-			"msg" => sprintf(t("Acl error, access %s was denied for object %s in function %s"), $sct,$objn, $func),
-			"fatal" => true,
-			"show" => true
-		));
-	}
 
 	/** throws an error if a condition is true
 		@attrib api=1 params=pos

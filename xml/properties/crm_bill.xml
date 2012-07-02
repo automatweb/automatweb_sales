@@ -536,10 +536,7 @@
       <property>
             <name>rows_toolbar</name>
             <table>objects</table>
-            <group>
-                  <num_0>rows</num_0>
-                  <num_1>rowsnew</num_1>
-            </group>
+            <group>rows</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -561,24 +558,9 @@
             <caption>Arve read</caption>
       </property>
       <property>
-            <name>bill_rows_table</name>
-            <table>objects</table>
-            <group>rowsnew</group>
-            <type>table</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <editonly>1</editonly>
-            <parent>bill_rows_container</parent>
-            <field>bill_rows_table</field>
-            <caption>Arve read</caption>
-      </property>
-      <property>
             <name>writeoffs</name>
             <table>objects</table>
-            <group>
-                  <num_0>rows</num_0>
-                  <num_1>rowsnew</num_1>
-            </group>
+            <group>rows</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -590,10 +572,7 @@
       <property>
             <name>group_id</name>
             <table>objects</table>
-            <group>
-                  <num_0>rows</num_0>
-                  <num_1>rowsnew</num_1>
-            </group>
+            <group>rows</group>
             <type>hidden</type>
             <store>no</store>
             <field>group_id</field>
@@ -1098,18 +1077,12 @@
             </misc>
             <bill_rows_container>
                   <type>vbox</type>
-                  <group>
-                        <num_0>rows</num_0>
-                        <num_1>rowsnew</num_1>
-                  </group>
+                  <group>rows</group>
                   <area_caption></area_caption>
             </bill_rows_container>
             <bill_writeoff_rows_container>
                   <type>hbox</type>
-                  <group>
-                        <num_0>rows</num_0>
-                        <num_1>rowsnew</num_1>
-                  </group>
+                  <group>rows</group>
                   <area_caption></area_caption>
             </bill_writeoff_rows_container>
             <sendmail_settings>

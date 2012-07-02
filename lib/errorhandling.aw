@@ -114,7 +114,7 @@ class aw_errorhandler
 				$url = aw_ini_get("baseurl");
 			}
 
-			header ("Location: $url");
+			header ("Location: {$url}");
 			exit;
 		}
 		else
@@ -285,6 +285,103 @@ ENDMSG;
 		if (ob_get_status())
 		{
 			ob_flush();
+		}
+	}
+
+	private static function notify_by_email($e)
+	{
+		if ($e instanceof Exception)
+		{
+			$msg = "[" . get_class($e) . "] " . $e->getMessage();
+			$msg .= "\nFile: " . $e->getFile();
+			$msg .= "\nLine: " . $e->getLine();
+			$msg .= "\nBacktrace:" . str_replace("#", "\n#", $e->getTraceAsString());
+		}
+		elseif (function_exists("debug_backtrace"))
+		{
+			$msg = "[UNKNOWN ERROR] " . $e;
+			$msg .= dbg::process_backtrace(debug_backtrace());
+		}
+
+		$subj = str_replace(array("http://", "https://"), "", aw_ini_get("baseurl"));
+
+		$content = "\nVeateade: " . htmlspecialchars_decode(strip_tags($msg));
+		$content.= "\nPHP_SELF: ".aw_global_get("PHP_SELF");
+		$content.= "\nlang_id: ".aw_global_get("lang_id");
+		$content.= "\nuid: ".aw_global_get("uid");
+		$content.= "\nsection: ".aw_global_get("section");
+		$content.= "\nurl: " . aw_ini_get("baseurl") . aw_global_get("REQUEST_URI");
+		$content.= "\nreferer: " . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "");
+		$content.= "\nis_rpc_call: " . (int) aw_global_get("__is_rpc_call");
+		$content.= "\nrpc_call_type: " . aw_global_get("__rpc_call_type");
+
+		if (isset($_GET["password"]))
+		{
+			$_GET["password"] = "***";
+		}
+
+		if (isset($_POST["password"]))
+		{
+			$_POST["password"] = "***";
+		}
+
+		$content .= "\n\n\$_GET:\n";
+		$content .= print_r($_GET, true);
+		$content .= "\n\n\$_POST:\n";
+		$content .= print_r($_POST, true);
+		$content .= "\n\n\$_COOKIE:\n";
+		$content .= print_r($_COOKIE, true);
+		$content .= "\n\n\$_SERVER:\n\n";
+		$content .= print_r($_SERVER, true);
+
+		// try to find the user's email;
+		$head = "";
+		if ($uid = aw_global_get("uid"))
+		{
+			$uso = obj(aw_global_get("uid_oid"));
+			$eml = $uso->prop("email");
+			if (!$eml)
+			{
+				$eml = "automatweb@automatweb.com";
+			}
+			$head="From: {$uid} <{$eml}>\n";
+		}
+		else
+		{
+			$head="From: automatweb@automatweb.com\n";
+		}
+
+		if (substr(ifset($_REQUEST, "class"), 0, 4) === "http" || substr(ifset($_REQUEST, "entry_id"), 0, 4) === "http")
+		{
+			$send_mail = false;
+		}
+
+		if (isset($_SERVER["REQUEST_METHOD"]) and $_SERVER["REQUEST_METHOD"] === "OPTIONS")
+		{
+			$send_mail = false;
+		}
+
+		if (isset($_SERVER["REDIRECT_REQUEST_METHOD"]) and $_SERVER["REDIRECT_REQUEST_METHOD"] === "PROPFIND")
+		{
+			$send_mail = false;
+		}
+
+		$mh = md5($content);
+		if (isset($_SESSION["aw_errorhandler"]["last_mail"]) and $_SESSION["aw_errorhandler"]["last_mail"] === $mh and isset($_SESSION["aw_errorhandler"]["last_mail_time"]) and $_SESSION["aw_errorhandler"]["last_mail_time"] > (time() - 60))
+		{
+			$send_mail = false;
+		}
+
+		if ($send_mail)
+		{
+			if (aw_ini_get("errors.send_to"))
+			{
+				$bug_receiver = aw_ini_get("errors.send_to");
+			}
+
+			send_mail($bug_receiver, $subj, $content, $head);
+			$_SESSION["aw_errorhandler"]["last_mail"] = $mh;
+			$_SESSION["aw_errorhandler"]["last_mail_time"] = time();
 		}
 	}
 }

@@ -1827,7 +1827,10 @@ class crm_company extends class_base
 	function convert_objects($arr)
 	{
 		$i = new crm_company_cedit_impl();
-		$i->convert_addresses($arr["id"] , $_POST["select"]);
+		if (!empty($arr["request"]["select"]))
+		{
+			$i->convert_addresses($arr["id"] , $arr["request"]["select"]);
+		}
 		return  $arr["post_ru"];
 	}
 
