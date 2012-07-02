@@ -2095,13 +2095,14 @@ class bug extends class_base
 				$rv++;
 			}
 
+/*  cust_priority on customer relationi property, kui bug saab olema sellega seostatud siis v6tta sealt
 			//if customer priority set, up the bug's priority
 			if($cust_priority = $bug->prop("customer.cust_priority"))
 			{
 				$cust_priority = ($cust_priority>99999)?99999:$cust_priority;
 				$rv += 1.0 - ((double)1.0/((double)100000.0 + (double)$cust_priority));
 			}
-
+ */
 			$rv += 1.0 - ((double)1.0/((double)1000000.0 - (double)$bug->id()));
 		}
 		else

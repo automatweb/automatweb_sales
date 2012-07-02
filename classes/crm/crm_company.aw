@@ -7766,7 +7766,7 @@ END;
 			$i = get_instance(CL_CRM_CATEGORY);
                         return $i->do_db_upgrade($tbl, $field);
 		}
-		if ("kliendibaas_firma" === $tbl)
+		elseif ("kliendibaas_firma" === $tbl)
 		{
 			switch($field)
 			{
@@ -7778,11 +7778,9 @@ END;
 				case "cust":
 				case "cust_contract_date":
 				case "cust_contract_creator":
-				case "cust_priority":
 				case "contact_person":
 				case "contact_person2":
 				case "contact_person3":
-				case "client_manager":
 				case "buyer":
 				case "buyer_contract_creator":
 				case "buyer_contract_person":

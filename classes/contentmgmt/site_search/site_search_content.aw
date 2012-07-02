@@ -747,7 +747,7 @@ class site_search_content extends class_base
 
 		$key_opt = "";
 		$key_opt_row = "";
-		if($cid->prop("keywords_in_row"))
+		if($cid->is_property("keywords_in_row") and $cid->prop("keywords_in_row"))
 		{
 			$in_row = $cid->prop("keywords_in_row");
 			$kw_cnt = 0;

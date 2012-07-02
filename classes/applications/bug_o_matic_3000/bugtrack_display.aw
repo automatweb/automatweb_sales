@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/bug_o_matic_3000/bugtrack_display.aw,v 1.28 2009/05/11 07:56:04 robert Exp $
-// bugtrack_display.aw - &Uuml;lesannete kuvamine 
+
+// bugtrack_display.aw - &Uuml;lesannete kuvamine
 /*
 
-@classinfo syslog_type=ST_BUGTRACK_DISPLAY relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -34,22 +34,22 @@
 
 	@groupinfo groups caption=Kasutajad submit=no parent=general
 	@default group=groups
-		
+
 		@property type_var_table type=table store=no
 		@caption Peakasutajad
-	
+
 	@groupinfo approvals caption=Koosk&otilde;lastamisel submit=no parent=general
 	@default group=approvals
-		
+
 		@property approvals_table type=table no_caption=1 store=no
 
 	@groupinfo tables caption=Tabelid
-		
+
 		@groupinfo task_settings caption=&Uuml;lesanded parent=tables
-			
+
 			@property table_settings_tb type=toolbar store=no no_caption=1 group=task_settings,solved_settings,devo_settings,closed_settings
 			@property table_settings_table type=table store=no no_caption=1 group=task_settings,solved_settings,devo_settings,closed_settings
-		
+
 			@property table_settings_sort type=chooser field=meta method=serialize group=task_settings,solved_settings,devo_settings,closed_settings
 			@caption Tabeli sorteerimine
 
@@ -60,11 +60,11 @@
 		@groupinfo closed_settings caption=Suletud parent=tables
 
 	@groupinfo tasks caption=&Uuml;lesanded submit=no
-		
+
 		@property tasks_table type=table no_caption=1 store=no group=tasks,solved,closed
 
 	@groupinfo devos caption="Koosk&otilde;lastamisel" submit=no
-		
+
 		@property devo_confirm_needed type=table no_caption=1 store=no group=devos
 		@property table_filter type=select store=no group=devos,tasks,solved,closed
 		@caption Filtreeri
@@ -72,8 +72,8 @@
 	@groupinfo solved caption=Lahendatud submit=no
 	@groupinfo closed caption=Suletud submit=no
 
-	
-	
+
+
 @reltype BUGTRACK value=1 clid=CL_BUG_TRACKER
 @caption Bugtrack
 
@@ -95,6 +95,8 @@
 
 class bugtrack_display extends class_base
 {
+	var $_sect_level;
+
 	function bugtrack_display()
 	{
 		$this->init(array(
@@ -102,7 +104,7 @@ class bugtrack_display extends class_base
 			"clid" => CL_BUGTRACK_DISPLAY
 		));
 	}
-	
+
 	function _get_approvals_table($arr)
 	{
 		$t = &$arr["prop"]["vcl_inst"];
@@ -324,7 +326,7 @@ class bugtrack_display extends class_base
 				$data = $arr["obj_inst"]->meta("task_settings");
 		}
 
-		$this->_define_table_from_settings($data, $t, $arr);		
+		$this->_define_table_from_settings($data, $t, $arr);
 
 		$u = get_instance(CL_USER);
 		$cur_p = get_current_person();
@@ -393,7 +395,7 @@ class bugtrack_display extends class_base
 		$filt["lang_id"] = array();
 		$ol = new object_list($filt);
 		$this->_insert_data_to_table_from_settings($data, $t, $ol, $arr);
-		
+
 	}
 	function _get_type_var_table($arr)
 	{
@@ -401,7 +403,7 @@ class bugtrack_display extends class_base
 		$type_var = $cur->prop("type_var");
 		if(is_oid($type_var))
 		{
-			
+
 			$t = &$arr["prop"]["vcl_inst"];
 			$t->set_caption(t("T&uuml;&uuml;bid"));
 			$t->define_field(array(
@@ -478,7 +480,7 @@ class bugtrack_display extends class_base
 			"onClick" => "document.changeform.submit()"
 		));
 	}
-	
+
 	function _get_table_settings_table($arr)
 	{
 		$t = &$arr["prop"]["vcl_inst"];
@@ -618,7 +620,7 @@ class bugtrack_display extends class_base
 			}
 		}
 	}
-	
+
 	function _set_table_settings_table($arr)
 	{
 		$data = $arr["request"];
@@ -711,7 +713,7 @@ class bugtrack_display extends class_base
 				return PROP_IGNORE;
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
@@ -730,7 +732,7 @@ class bugtrack_display extends class_base
 		}
 		$arr["post_ru"] = post_ru();
 	}
-	
+
 
 	function show($arr)
 	{
@@ -956,4 +958,3 @@ class bugtrack_display extends class_base
 		return $data;
 	}
 }
-?>

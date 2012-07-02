@@ -7075,13 +7075,13 @@ $tb->add_delete_button();
 		$_SESSION["shop_warehouse"]["cut_products"] = null;
 		return $arr["return_url"];
 	}
-  
+
   /**
     @attrib name=paste_categories params=name all_args=1
   **/
   public function paste_categories ($arr) {
     $warehouse = obj($arr["id"], null, shop_warehouse_obj::CLID);
-  
+
     if (!empty($_SESSION["shop_warehouse"]["cut_categories"])) {
       foreach ((array)$_SESSION["shop_warehouse"]["cut_categories"] as $category_id) {
         obj($category_id, null, shop_product_category_obj::CLID)->remove_all_categories();
@@ -7107,7 +7107,7 @@ $tb->add_delete_button();
         $category->save();
       }
     }
-  
+
 		$_SESSION["shop_warehouse"]["copy_categories"] = null;
 		$_SESSION["shop_warehouse"]["cut_categories"] = null;
 		return $arr["return_url"];
@@ -7569,7 +7569,7 @@ $tb->add_delete_button();
 							);
 
 						}
-            
+
 						function paste_categories()
 						{
 							var cat = get_property_data['cat'];
@@ -11697,7 +11697,7 @@ die();
 		$arr["start"] = $arr["end"] = 0;
 		if($start_o)
 		{
-			$arr["start"] = $start_o->prop("delivery_date");
+			// $arr["start"] = $start_o->prop("delivery_date"); crm_bill //FIXME: crm bill=il pole sellist propertyt
 			$ol = new object_list(array(
 				"class_id" => CL_CRM_BILL,
 				($arr["prop"]["name"] === "purchase_bills_time_tree" ? "customer" : "impl") => $cos,
@@ -12907,7 +12907,7 @@ die();
 					)),
 				));
 			}
-      
+
       $action_menu = new popup_menu();
       $action_menu->begin_menu("action_".$o->id());
       $action_menu->add_item(array(
@@ -12929,7 +12929,7 @@ die();
         "link" => "javascript:void()",
         "onclick" => 'copy_categories("'.$o->id().'")',
       ));
-      
+
 			$t->define_data(array(
 				"name" => html::obj_change_url($o,null,array("return_url" => $this->mk_my_orb("change" , array("class" => "shop_warehouse","id" => $arr["obj_inst"]->id() , "group" => "category" )))),
 				"id" => $o->id(),
@@ -13940,7 +13940,7 @@ die();
 		}
 		die("1");
 	}
-  
+
   protected function set_order_and_status ($ord, $status) {
     foreach (array_merge(array_keys($ord), array_keys($status)) as $id) {
       $o = obj($id);
@@ -14200,19 +14200,19 @@ die();
 		}
 		die();
 	}
-  
+
   /**
   @attrib name=get_categories nologin=1 all_args=1
   **/
   public function get_categories ($arr) {
     $warehouse = new object($arr["id"]);
     $root_categories_tree = $warehouse->get_categories_tree();
-    
+
     $categories = $this->__prepare_categories_hierarchy($root_categories_tree->ids_hierarchy(), $root_categories_tree->names());
-    
+
     die(json_encode($categories));
   }
-  
+
   protected function __prepare_categories_hierarchy ($ids_hierarchy, $names) {
     $hierarchy = array();
     foreach ($ids_hierarchy as $category_id => $sub_categories) {
@@ -14222,7 +14222,7 @@ die();
         "categories" => $this->__prepare_categories_hierarchy($sub_categories, $names)
       );
     }
-    
+
     return $hierarchy;
   }
 }
