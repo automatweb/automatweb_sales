@@ -135,7 +135,7 @@ class htmlclient extends aw_template
 					"form_target" => "target='" . $this->form_target . "' ",
 				));
 			}
-		};
+		}
 	}
 
 	function add_content_element($location,$content)

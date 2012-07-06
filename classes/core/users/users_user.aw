@@ -228,7 +228,6 @@ class users_user extends aw_template
 			$url = $params["return"];
 		}
 
-
 		if (!$url)
 		{
 			$ld = languages::fetch(aw_global_get("lang_id"));

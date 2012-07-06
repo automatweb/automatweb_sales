@@ -824,6 +824,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		{
 			$rv["contents"] = array(
 				"type" => "text",
+				"store" => "class_base",
 				"name" => "contents",
 				"value" => $this->draw_folder($arr),
 				"no_caption" => 1,
@@ -835,6 +836,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			// shows all folders
 			$rv["contents"] = array(
 				"type" => "text",
+				"store" => "class_base",
 				"name" => "contents",
 				"value" => $this->draw_all_folders($arr),
 				"no_caption" => 1,
@@ -852,7 +854,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		$this_o = $arr["obj_inst"];
 
 		// init table
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "comment",
 		));

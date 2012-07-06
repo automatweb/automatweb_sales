@@ -1391,7 +1391,7 @@ class site_search_content extends class_base
 		if (1 == $obj->prop("search_live"))
 		{
 			$go = obj($group);
-			$opts["search_notactive"] = $go->prop("search_notactive");
+			// $opts["search_notactive"] = $go->prop("search_notactive"); //FIXME: search_notactive propertyt pole olemas
 
 			$ret = $this->merge_result_sets($ret, $this->fetch_live_search_results(array(
 				"menus" => $ms,

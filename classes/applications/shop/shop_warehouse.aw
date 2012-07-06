@@ -10644,7 +10644,7 @@ die();
 		$ol = new object_list(array(
 			"class_id" => CL_MRP_JOB,
 			"RELTYPE_JOB(CL_MATERIAL_EXPENSE).class_id" => CL_MATERIAL_EXPENSE,
-			"RELTYPE_MRP_PROJECT.workspace" => $o->prop("mrp_workspace"),
+			//"RELTYPE_MRP_PROJECT.workspace" => $o->prop("mrp_workspace"), //FIXME: mrp_workspace propertyt pole
 			"starttime" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 			"sort_by" => "mrp_schedule.starttime desc",
 			"limit" => "0,1",
@@ -10762,9 +10762,11 @@ die();
 
 	function _get_status_orders_res_tree($arr)
 	{
-		$t = $arr["prop"]["vcl_inst"];
+		/*
+		//FIXME: mrp_workspace propertyt pole
 		if($ws = $arr["obj_inst"]->prop("mrp_workspace"))
 		{
+			$t = $arr["prop"]["vcl_inst"];
 			$t->start_tree(array(
 				"type" => TREE_DHTML,
 				"tree_id" => "status_orders_res_tree",
@@ -10804,9 +10806,9 @@ die();
 			$t->set_selected_item(($f = automatweb::$request->arg("filt_res")) ? "res".$f : "filt_all");
 		}
 		else
-		{
+		{*/
 			return PROP_IGNORE;
-		}
+		// }
 	}
 
 	private function _insert_res_tree_level($t, $pt)
@@ -10923,7 +10925,7 @@ die();
 		$params = array(
 			"class_id" => CL_MRP_JOB,
 			"starttime" => $filt,
-			"RELTYPE_MRP_PROJECT.workspace" => $arr["obj_inst"]->prop("mrp_workspace"),
+			// "RELTYPE_MRP_PROJECT.workspace" => $arr["obj_inst"]->prop("mrp_workspace"), //FIXME: mrp_workspace propertyt pole
 			"RELTYPE_JOB(CL_MATERIAL_EXPENSE).class_id" => CL_MATERIAL_EXPENSE,
 		);
 
@@ -11180,15 +11182,18 @@ die();
 
 	function _get_status_orders($arr)
 	{
-		if($ws = $arr["obj_inst"]->prop("mrp_workspace"))
-		{
-			$schedule = new mrp_schedule();
-			$schedule->create(array(
-				"mrp_workspace" => obj($ws)->id(),
-				"mrp_force_replan" => 1,
-			));
-			$arr["obj_inst"]->update_orders();
-		}
+		//FIXME: mrp_workspace propertyt pole
+		// if($ws = $arr["obj_inst"]->prop("mrp_workspace"))
+		// {
+			// $schedule = new mrp_schedule();
+			// $schedule->create(array(
+				// "mrp_workspace" => obj($ws)->id(),
+				// "mrp_force_replan" => 1,
+			// ));
+			// $arr["obj_inst"]->update_orders();
+		// }
+		//FIXME: mrp_workspace propertyt pole
+
 
 		$t = $arr["prop"]["vcl_inst"];
 

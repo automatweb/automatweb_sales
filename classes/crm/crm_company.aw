@@ -7755,7 +7755,7 @@ END;
 	**/
 	function p_view_switch($arr)
 	{
-		$_SESSION["crm"]["people_view"] = ($_SESSION["crm"]["people_view"] == "edit" ? "view" : "edit");
+		$_SESSION["crm"]["people_view"] = ($_SESSION["crm"]["people_view"] === "edit" ? "view" : "edit");
 		return $arr["post_ru"];
 	}
 

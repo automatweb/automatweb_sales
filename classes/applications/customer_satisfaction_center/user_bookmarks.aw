@@ -257,7 +257,7 @@ class user_bookmarks extends class_base
 			"caption" => t("J&auml;rjekord"),
 			"align" => "center"
 		));
-		
+
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Objekti nimi"),
@@ -342,7 +342,7 @@ class user_bookmarks extends class_base
 		$link_text_types = array("Objekti nimi" , "Klassi nimi" , "Omaduste grupi nimi", "Kirjutatud string");
 		$cfg = new cfgutils();
 
-		$bm = $this->init_bm();	
+		$bm = $this->init_bm();
 		$ol = new object_list(array(
 			"parent" => $bm->id(),
 			"class_id" => CL_USER_BOOKMARK_ITEM,
@@ -350,7 +350,7 @@ class user_bookmarks extends class_base
 		));
 
 		$force_opts = array(
-			"" , 
+			"" ,
 			"1" => t("K&otilde;igile"),
 		);
 
@@ -484,7 +484,7 @@ class user_bookmarks extends class_base
 	function get_application_links()
 	{
 		$application_links = "";
-		$bmobj = $this->init_bm();	
+		$bmobj = $this->init_bm();
 //		$app_menu = cache::file_get(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id());
 		if (!empty($app_menu))
 		{
@@ -576,7 +576,7 @@ class user_bookmarks extends class_base
 			$apps[$key][$obj->id()] = array(
 				"url" => $url,
 				"name" => $nm,
-                "class_id" => $obj->class_id(),
+				"class_id" => $obj->class_id(),
 				"show_groups" => $o->prop("show_groups"),
 				"group_text" => $o->prop("group_text"),
 				"id" => $obj->id()
@@ -685,7 +685,7 @@ arr($apps);*/
 				}
 
 				$application_links.= '<div class="oneappmenu">'.$am->get_menu(
-					array("text" =>$ico. $gn.'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')).'</div>';
+					array("text" =>$ico. $gn.'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'automatweb/images/aw06/ikoon_nool_alla.gif">')).'</div>';
 			}
 			elseif(is_array($app) && sizeof($app) == 1)
 			{
@@ -735,7 +735,7 @@ arr($apps);*/
 					}
 
 					$application_links.= '<div class="oneappmenu">'.$am->get_menu(
-						array("text" => $ico.$a["name"].'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')
+						array("text" => $ico.$a["name"].'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'automatweb/images/aw06/ikoon_nool_alla.gif">')
 					).'</div>';
 				}
 				else

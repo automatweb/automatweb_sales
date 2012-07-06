@@ -430,7 +430,7 @@ class class_designer_manager extends class_base
 		foreach($clsf as $id => $inf)
 		{
 			$t->add_item((int)$inf["parent"], array(
-				"name" => $arr["request"]["tf"] == $id ? "<b>".$inf["name"]."</b>" : $inf["name"],
+				"name" => isset($arr["request"]["tf"]) && $arr["request"]["tf"] == $id ? html::bold($inf["name"]) : $inf["name"],
 				"id" => $id,
 				"url" => aw_url_change_var("tf", $id)
 			));
@@ -536,7 +536,7 @@ class class_designer_manager extends class_base
 			else
 			{
 				$parents = $this->make_keys(explode(",", $cld["parents"]));
-				if ($parents[$tf])
+				if (!empty($parents[$tf]))
 				{
 					$show = true;
 				}
@@ -722,7 +722,7 @@ class class_designer_manager extends class_base
 	function get_class_size($fn)
 	{
 		$fqfn = aw_ini_get("classdir")."/".$fn.".".aw_ini_get("ext");
-		return number_format(filesize($fqfn) / 1024, 2)." kb / ".count(file($fqfn))." rida";
+		return file_exists($fqfn) ? number_format(filesize($fqfn) / 1024, 2)." kb / ".count(file($fqfn))." rida" : "";
 	}
 
 	/**
@@ -952,7 +952,7 @@ class class_designer_manager extends class_base
 		$c = aw_ini_get("classes");
 		foreach($c as $id => $d)
 		{
-			if (in_array($clf, explode(",", $d["parents"])))
+			if (isset($d["parents"]) and in_array($clf, explode(",", $d["parents"])))
 			{
 				$arr[] = $d;
 			}
