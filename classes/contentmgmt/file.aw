@@ -1087,7 +1087,7 @@ class file extends class_base
 
 	function get_special_file($args = array())
 	{
-		if ($args["sys"])
+		if (!empty($args["sys"]))
 		{
 			$path = aw_ini_get("basedir") . "files";
 		}
@@ -1096,7 +1096,7 @@ class file extends class_base
 			$path = aw_ini_get("site_basedir") . "files";
 		}
 
-		if ($args["path"])
+		if (!empty($args["path"]))
 		{
 			$path .= "/" . $args["path"];
 		}

@@ -163,7 +163,7 @@ class crm_company_workers_manager extends class_base
 			}
 
 			$fn = "_get_{$data["name"]}";
-			if (method_exists($employees_view, $fn))
+			if (acl_base::can("view" ,$arr["obj_inst"]->prop("company")) && method_exists($employees_view, $fn))
 			{
 				$params = array();
 				$params["obj_inst"] = obj($arr["obj_inst"]->prop("company"));
@@ -193,7 +193,7 @@ class crm_company_workers_manager extends class_base
 		if (!empty($arr["request"]["id"]))
 		{
 			$o = obj($arr["request"]["id"], array(), crm_company_workers_manager_obj::CLID);
-			if ($o->prop("company"))
+			if (acl_base::can("view", $o->prop("company")))
 			{
 				$default_group = "employees_management";
 			}
@@ -341,11 +341,9 @@ class crm_company_workers_manager extends class_base
 	{
 		if ($arr["name"] === "unit_list_container")
 		{
-			if($arr["obj_inst"]->prop("company"))
+			if(acl_base::can("view" ,$arr["obj_inst"]->prop("company")))
 			{
 				$company = obj($arr["obj_inst"]->prop("company"));
-
-
 				$arr["area_caption"] = sprintf(t('Organisatsiooni "%s" üksused'), $company->name());
 			}
 		}

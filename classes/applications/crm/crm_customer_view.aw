@@ -269,7 +269,7 @@ class crm_customer_view extends class_base
 			case "proj_search_part":
 			case "customer_toolbar":
 			case "customer_listing_tree":
-				if(!$arr["obj_inst"]->prop("company"))
+				if(!acl_base::can("view" ,$arr["obj_inst"]->prop("company")))
 				{
 					return PROP_IGNORE;
 				}
@@ -759,6 +759,7 @@ class crm_customer_view extends class_base
 
 	function _get_my_customers_table(&$arr)
 	{ // lists customers, filters by search parameters
+		if(!acl_base::can("view" ,$arr["obj_inst"]->prop("company"))) return;
 		$company = obj($arr['obj_inst']->prop("company"));
 		$customer_relations_list = array();
 
@@ -1202,11 +1203,8 @@ class crm_customer_view extends class_base
 			}
 
 			# fax
-<<<<<<< HEAD
-			if (($default_cfg or  in_array("fax", $visible_fields)) and object_loader::can("", $o->prop("telefax_id")))
-=======
+
 			if (($default_cfg or  in_array("fax", $visible_fields)) and $o->is_a(crm_company_obj::CLID) and acl_base::can("", $o->prop("telefax_id")))
->>>>>>> 8b23b9d051da51a14608c7a9220c95130108fb5d
 			{
 				$fax = obj($o->prop("telefax_id"));
 				$fax = $fax->name();
@@ -1215,11 +1213,7 @@ class crm_customer_view extends class_base
 			# client_manager
 			if ($default_cfg or in_array("client_manager", $visible_fields))
 			{
-<<<<<<< HEAD
-				$client_manager = html::obj_change_url($cro_obj->prop("client_manager"));
-=======
 				$client_manager = html::obj_change_url($cro->prop("client_manager"));
->>>>>>> 8b23b9d051da51a14608c7a9220c95130108fb5d
 			}
 
 			# pop
