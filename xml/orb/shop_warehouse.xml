@@ -312,6 +312,23 @@
 				</arguments>
 			</function>
 		</action>
+    
+		<action name="delete_category" nologin="1" params="name">
+			<function name="delete_category">
+				<arguments>
+          <required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+    
+		<action name="remove_category" nologin="1" params="name">
+			<function name="remove_category">
+				<arguments>
+          <required name="id" type="int" />
+          <required name="parent" type="int" />
+				</arguments>
+			</function>
+		</action>
 
 	</class>
 </orb>
