@@ -89,14 +89,15 @@ class crm_section_webside extends class_base
 				$org = $arr["obj_inst"]->get_first_obj_by_reltype('RELTYPE_ORG');
 				if($org)
 				{
+					$sections = $org->get_sections();/*
 					$org_inst = get_instance(CL_CRM_COMPANY);
 					$sections = $org_inst->get_all_org_sections($org);
 					
 					$ol =& new object_list(array(
 						"oid" => $sections,
 					));
-					
-					foreach($ol->arr() as $tmp)
+					*/
+					foreach($sections->arr() as $tmp)
 					{
 						$prop["options"][$tmp->id()] = $tmp->prop("name"); 
 					}
@@ -292,9 +293,10 @@ class crm_section_webside extends class_base
 	
 	function callback_post_save($arr)
 	{
-		$section = get_instance(CL_CRM_SECTION);
+		//miks see? kuskil ju ei kasuta sellist muutujat rohkem
+	/*	$section = get_instance(CL_CRM_SECTION);
 		$workers = $section->get_section_workers($arr["obj_inst"]->id(), true);
-		
+	*/	
 		if(is_array($arr["request"]["ord"]))
 		{
 			$arr["obj_inst"]->set_meta("order" ,$arr["request"]["ord"]);
@@ -307,10 +309,77 @@ class crm_section_webside extends class_base
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
 	
+	function parse_company_sections($obj)
+	{
+		$org = $obj->get_first_obj_by_reltype('RELTYPE_ORG');
+		
+		if(!$org)
+		{
+			return t("Organisatsioon määramata");
+		}
+		if($obj->prop("show_sub_sections"))
+		{
+			$parent = null;
+			if($obj->prop("section_picker"))
+			{
+				$parent = obj($obj->prop("section_picker"));
+			}
+			$sections = $org->get_sections($parent);
+		}
+		else
+		{
+			$sections = $org->get_root_sections();
+		}
+
+		if(!$sections->count())
+		{
+			return sprintf(t("organisatsioonil %s pole määratud ühtegi üksust"), $org->name());
+		}
+		
+//--------- kõik vajalik olemas, siis hakkab õige asjaga pihta--------
+		$this->read_template("sections.tpl");
+
+		$this->vars(array(
+			"co_name" => $org->name(),
+			"co_reg" => $org->prop("reg_nr"),
+			"co_tax" => $org->prop("tax_nr"),
+		));
+
+		$section_list_sub = "";
+		$sections_sub = "";
+		$o = $sections->begin();
+		do
+		{
+			$data = array();
+			$data["address"] = $o->get_address_string();
+			$data["name"] = $o->name();
+			$data["name_small"] = strtolower($o->name());
+			$data["phone"] = $o->prop("phone_id.name");
+			$this->vars($data);
+
+			$section_list_sub.=$this->parse("SECTION_LIST");
+			$sections_sub.=$this->parse("SECTIONS");
+
+		}
+		while ($o = $sections->next());
+	
+		$this->vars(array(
+			"SECTION_LIST" => $section_list_sub,
+			"SECTIONS" => $sections_sub
+		));
+
+		return $this->parse();
+	}
+
 	function show($arr)
 	{
 		$ob = &obj($arr["id"]);
 		$section = get_instance(CL_CRM_SECTION);
+
+//---------------- töötajate näitamine uues koodis niikuinii ei toimi ja ei tea kas kuskil üldse kasutuses on. Kui kuskil vaja läheb ja korda tegemiseks, peaks miskit vahele kirjutama, et saaks valida, kas näitab töötajaid, või sektsioonide nimekirja
+//või siis töötajad ka sinna uude kohta sisse kirjutada üldse ja seadistamine jätta ainult templeiti
+		return $this->parse_company_sections($ob);
+
 		
 		if($ob->prop("show_sub_sections"))
 		{

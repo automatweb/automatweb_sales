@@ -290,15 +290,16 @@ class crm_customer_view extends class_base
 
 	function callback_get_default_group($arr)
 	{
-		$o = obj($arr["request"]["id"]);
-		if($o->prop("company"))
+		$default_grp = "general";
+		if (!empty($arr["request"]["id"]) and acl_base::can("", $arr["request"]["id"]))
 		{
-			return "relorg";
+			$o = obj($arr["request"]["id"]);
+			if($o->prop("company"))
+			{
+				$default_grp = "relorg";
+			}
 		}
-		else
-		{
-			return "general";
-		}
+		return $default_grp;
 	}
 
 	function callback_mod_retval(&$arr)
@@ -1203,7 +1204,6 @@ class crm_customer_view extends class_base
 			}
 
 			# fax
-
 			if (($default_cfg or  in_array("fax", $visible_fields)) and $o->is_a(crm_company_obj::CLID) and acl_base::can("", $o->prop("telefax_id")))
 			{
 				$fax = obj($o->prop("telefax_id"));
@@ -1213,7 +1213,7 @@ class crm_customer_view extends class_base
 			# client_manager
 			if ($default_cfg or in_array("client_manager", $visible_fields))
 			{
-				$client_manager = html::obj_change_url($cro->prop("client_manager"));
+				$client_manager = html::obj_change_url($cro_obj->prop("client_manager"));
 			}
 
 			# pop
@@ -1308,7 +1308,7 @@ class crm_customer_view extends class_base
 				"cutcopied" => !empty($_SESSION["awcb_customer_selection_clipboard"][$cro_oid]) ? self::CUTCOPIED_COLOUR : "",
 				"classif1" => $classif1,
 				"customer_rel_creator" => method_exists($o, "get_cust_rel_creator_name") ? $o->get_cust_rel_creator_name() : "n/a",///!!!! teha korda
-				"reg_nr" => $o->prop("reg_nr"),
+				"reg_nr" => $o->is_a(crm_company_obj::CLID) ? $o->prop("reg_nr") : "",
 				"address" => $o->class_id() == crm_company_obj::CLID ? $o->prop_str("contact") : $o->prop("RELTYPE_ADDRESS.name"),
 				"ceo" => $ceo,
 				"phone" => $phone,
