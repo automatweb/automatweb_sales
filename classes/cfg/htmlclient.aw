@@ -1115,6 +1115,56 @@ class htmlclient extends aw_template
 		// to register it.
 		switch($args["type"])
 		{
+      case "yui-chooser":
+				$options = isset($arr["options"]) ? new aw_array($arr["options"]) : new aw_array();
+        
+				$retval = "<div id=\"{$arr["name"]}-chooser-group\">";
+				foreach($options->get() as $key => $val)
+				{
+					$caption = $val;
+          $name = $arr["name"] . "[" . $key . "]";
+          $retval .= html::button(array(
+            "name" => str_replace(array("[", "]"), "_", $name),
+            "value" => $caption,
+            "disabled" => ifset($arr, "disabled", $key),
+            "class" => !empty($arr["value"][$key]) ? "yui3-button yui3-button-selected" : "yui3-button",
+            "post_append_text" => html::checkbox(array(
+							"name" => $arr["name"] . "[" . $key . "]",
+							"checked" => !empty($arr["value"][$key]),
+							"value" => $key,
+              "style" => "display: none",
+						))
+          ));
+					if (isset($arr["orient"]) and $arr["orient"] === "vertical")
+					{
+						$retval .= html::linebreak();
+					}
+				}
+        $retval .= "</div>";
+				$chooser_type = !empty($arr["multiple"]) ? "checkbox" : "radio";
+        $retval .= <<<SCRIPT
+          <script type="text/javascript">
+            YUI().use('button-group', function(Y) {
+              Y.one('body').addClass('yui3-skin-sam');
+                var buttonGroupCB = new Y.ButtonGroup({
+                srcNode: '#{$arr["name"]}-chooser-group',
+                type: '{$chooser_type}',
+                after: {
+                  'selectionChange': function(e){
+                    buttonGroupCB.getButtons().each(function(option) {
+                      Y.one('#' + option.get('name')).set('checked', false);
+                    });
+                    Y.Array.each(buttonGroupCB.getSelectedButtons(), function(option) {
+                      Y.one('#' + option.get('name')).set('checked', true);
+                    });
+                  }
+                }
+              }).render();
+            });
+          </script>
+SCRIPT;
+        break;
+
 			case "chooser":
 				$options = isset($arr["options"]) ? new aw_array($arr["options"]) : new aw_array();
 				$retval = "";

@@ -330,6 +330,13 @@
 			<reltype />
 			<size />
 		</chooser>
+    
+    <yui-chooser>
+			<orient />
+			<options />
+			<multiple />
+			<reltype />
+		</yui-chooser>
 
 		<submit>
 			<value />
