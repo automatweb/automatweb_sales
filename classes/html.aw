@@ -727,6 +727,7 @@ ENDJAVASCRIPT
 	@param nbsp optional type=bool default=false
 		If set, the caption is separated from checbox with non-breaking spaces.
 	@param span optional type=bool
+  @param style optional type=string
 
 	@returns string/html checkbox
 	**/
@@ -780,7 +781,8 @@ ENDJAVASCRIPT
 		$id = str_replace(array("[", "]"), "_", $name);
 
 		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : '';
-
+    
+    $style = isset($style) ? " style=\"{$style}\"" : "";
 
 		//$tpl = get_instance("cfg/htmlclient");//ma ei tea, yle 1.5 sekundi v6idab m6nest vaatest selle v6lja kommenteerimisega n2iteks
 		//$tpl->read_template("default.tpl");
@@ -800,7 +802,7 @@ ENDJAVASCRIPT
 		}
 		else
 		{
-			$rv = "$span<input class=\"checkbox\" type=\"checkbox\" id=\"{$id}\" name=\"{$name}\" value=\"{$value}\"{$onblur}{$title}{$onc}{$checked}{$disabled} />{$capt}{$span_}{$post_append_text}\n";
+			$rv = "$span<input class=\"checkbox\" type=\"checkbox\" id=\"{$id}\" name=\"{$name}\" value=\"{$value}\"{$onblur}{$title}{$onc}{$checked}{$disabled}{$style} />{$capt}{$span_}{$post_append_text}\n";
 		}
 		return $rv;
 	}
