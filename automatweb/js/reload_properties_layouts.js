@@ -11,7 +11,7 @@ function reload_property(props, params, no_ajax_loader) {
 		property = props[i];
 		(function(prop) {
 			$("div[name='"+prop+"']").each(function(){
-				div = $(this);
+				var div = $(this);
 				if(typeof no_ajax_loader == "undefined" || no_ajax_loader != true)
 				{
 					$.please_wait_window.show({

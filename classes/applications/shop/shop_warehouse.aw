@@ -7378,7 +7378,10 @@ $tb->add_delete_button();
 
 	public function callback_generate_scripts($arr)
 	{
+    load_javascript("applications/shop/shop_warehouse/shop_warehouse.js");
+
 		$js = "";
+    
 		if(!empty($arr['request']['group']))
 		{
 			switch($this->use_group)
@@ -12917,7 +12920,7 @@ die();
       $action_menu->add_item(array(
         "text" => t("Kustuta"),
         "link" => "javascript:void()",
-        "onclick" => ""
+        "onclick" => "AW.shop_warehouse({$arr["obj_inst"]->id()}).delete_category({$o->id()});"
       ));
       $action_menu->add_item(array(
         "text" => t("L&otilde;ika"),
@@ -14224,5 +14227,19 @@ die();
     }
     
     return $hierarchy;
+  }
+  
+  /**
+    @attrib name=delete_category
+  **/
+  public function delete_category ($arr) {
+    return obj($arr["id"], null, shop_product_category_obj::CLID)->delete();
+  }
+  
+  /**
+    @attrib name=remove_category
+  **/
+  public function remove_category ($arr) {
+    return obj($arr["id"], null, shop_product_category_obj::CLID)->remove_category($arr["parent"]);
   }
 }
