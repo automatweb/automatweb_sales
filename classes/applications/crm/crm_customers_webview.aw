@@ -13,6 +13,12 @@
 	@property clids type=chooser orient=vertical multiple=1 field=aw_clids
 	@caption Kuvatavad klassid
 
+	@property address type=relpicker reltype=RELTYPE_ADDRESS store=connect multiple=1
+	@caption Aadress
+
+	@reltype ADDRESS value=1 clid=CL_COUNTRY_ADMINISTRATIVE_UNIT
+	@caption Kõrgem halduspiirkond
+
 */
 
 class crm_customers_webview extends class_base
@@ -47,20 +53,13 @@ class crm_customers_webview extends class_base
 		return PROP_OK;
 	}
 
-	/**
-		@attrib name=show params=name
-		@param id required type=int
-		@param charset optional type=string
-	**/
-	public function show($arr)
+	function parse_alias($arr = array())
 	{
-		$webview = obj($arr["id"], array(), crm_customers_webview_obj::CLID);
-
+		// okey, I need to determine whether that template has a place for showing
+		// a list of authors documents. If it does, then I need to create that list
+		extract($arr);
+		$webview = new object($arr["alias"]["target"]);
 		$this->read_template("show.tpl");
-		
-		$this->vars(array(
-			"webview.id" => $webview->id(),
-		));
 
 		switch ($webview->prop("mode"))
 		{
@@ -71,6 +70,8 @@ class crm_customers_webview extends class_base
 		}
 
 		$customers = $webview->get_customers();
+
+
 		$CUSTOMER = "";
 		if ($customers->count() > 0)
 		{
@@ -96,12 +97,81 @@ class crm_customers_webview extends class_base
 		return $html;
 	}
 
+	/**
+		@attrib name=show params=name
+		@param id required type=int
+		@param charset optional type=string
+	**/
+	public function show($arr)
+	{
+		$webview = obj($arr["id"], array(), crm_customers_webview_obj::CLID);
+
+		$this->read_template("show.tpl");
+		
+		$this->vars(array(
+			"webview.id" => $webview->id(),
+		));
+
+		switch ($webview->prop("mode"))
+		{
+			case crm_customers_webview_obj::MODE_USER_COMPANY_CUSTOMERS:
+				$this->vars(array(
+					"webview.company" => user::get_current_company(),
+				));
+		}
+
+		$customers = $webview->get_customers();
+
+		$count = 0;
+		$CUSTOMER = "";
+		if ($customers->count() > 0)
+		{
+			$customer = $customers->begin();
+			do
+			{
+				$count ++;
+				$this->vars(array(
+					"tr_class" => $count%2 ? "dr" : "dr2"
+				));
+		
+				$this->__parse_customer($customer);
+				$CUSTOMER .= $this->parse("CUSTOMER");
+			} while ($customer = $customers->next());
+		}
+
+		$this->vars_safe(array(
+			"CUSTOMER" => $CUSTOMER,
+		));
+
+		$html = $this->parse();
+
+		if (!empty($arr["charset"]))
+		{
+			$html = iconv(aw_global_get("charset"), $arr["charset"], $html);
+		}
+
+		return $html;
+	}
+
 	//	TODO: Generalize this!
 	protected function __parse_customer($customer)
 	{
+		$address = $customer->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
+		$location = $address_str = "";
+
+		if ($address)
+		{
+			$address_str = $address->name();
+			$location = $address->prop("parent.name");
+		}
+
 		$this->vars(array(
 			"id" => $customer->id(),
-			"name" => $customer->name()
+			"name" => $customer->name(),
+			"phone" => $customer->phone()->name(),
+			"email" => $customer->email()->name(),
+			"address" => $address_str,
+			"location" => $location,
 		));
 		if ($customer->is_a(crm_person_obj::CLID))
 		{

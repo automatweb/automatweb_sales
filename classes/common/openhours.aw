@@ -25,12 +25,23 @@
 
 class openhours extends class_base
 {
+
 	function openhours()
 	{
 		$this->init(array(
 			"tpldir" => "common",
 			"clid" => CL_OPENHOURS
 		));
+		$this->days_short = array (
+			0 => " ",
+			1 => t("E"), 
+			2 => t("T"), 
+			3 => t("K"), 
+			4 => t("N"), 
+			5 => t("R"), 
+			6 => t("L"), 
+			7 => t("P"), 
+		);
 	}
 
 	function get_property($arr)
@@ -145,16 +156,7 @@ class openhours extends class_base
 	{
 		$this->vars(array('ONEDAY' => '', 'TWODAYS' => '', 'TIMES' => '', 'TIMES_24H' => '', 'ALLBUTFIRST' => '', 'ALLBUTFIRST_SHORT' => '', 'LINE' => ''));
 		$this->sub_merge = 1;
-		$days_short = array (
-			0 => " ",
-			1 => t("E"), 
-			2 => t("T"), 
-			3 => t("K"), 
-			4 => t("N"), 
-			5 => t("R"), 
-			6 => t("L"), 
-			7 => t("P"), 
-		);
+
 		$ob = new object($arr["id"]);
 		$this->read_template("openhours.tpl");
 
@@ -181,8 +183,8 @@ class openhours extends class_base
 			$show['h2'] = $val['h2'];//sprintf("%02d", $val['h2']);
 			$show['m1'] = sprintf("%02d", $val['m1']);
 			$show['m2'] = sprintf("%02d", $val['m2']);
-			$show['day1'] = $days_short[$val['day1']];
-			$show['day2'] = $days_short[$val['day2']];
+			$show['day1'] = $this->days_short[$val['day1']];
+			$show['day2'] = $this->days_short[$val['day2']];
 			
 			$this->vars($show);
 			if ($val['day2'] == 0 || $val['day1'] == $val['day2'])

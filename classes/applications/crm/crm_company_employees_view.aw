@@ -159,7 +159,6 @@ class crm_company_employees_view extends class_base
 
 		if ($this->selected_object and $this->selected_object->is_a(crm_section_obj::CLID))
 		{
-
 			$url = $this->mk_my_orb("do_search", array(
 				"clid" => crm_profession_obj::CLID,
 				"pn" => "add_existing_profession_oid"

@@ -60,19 +60,35 @@ class crm_customers_webview_obj extends _int_object
 	**/
 	public function get_customers()
 	{
-		switch ($this->prop("mode"))
+		$addresses = $this->connections_from(array("type" => "RELTYPE_ADDRESS"));
+		$addr_array = array();
+		foreach ($addresses as $conn)
 		{
-			case self::MODE_USER_COMPANY_CUSTOMERS:
-				$current_company_id = user::get_current_company();
-				if (!is_oid($current_company_id))
-				{
-					return new object_list();
-				}
-				$current_company = obj($current_company_id, array(), crm_company_obj::CLID);
-				return $current_company->get_customers_by_customer_data_objs($this->awobj_get_clids());
+			$addr_array[] = "%".$conn->prop("to.name")."%";
+		}
+		if(sizeof($addr_array))
+		{
+			return new object_list(array(
+				"class_id" => CL_CRM_PERSON,
+				"RELTYPE_ADDRESS_ALT.name" => $addr_array
+			));
+		}
+		else
+		{
+			switch ($this->prop("mode"))
+			{
+				case self::MODE_USER_COMPANY_CUSTOMERS:
+					$current_company_id = user::get_current_company();
+					if (!is_oid($current_company_id))
+					{
+						return new object_list();
+					}
+					$current_company = obj($current_company_id, array(), crm_company_obj::CLID);
+					return $current_company->get_customers_by_customer_data_objs($this->awobj_get_clids());
 
-			default: 
-				return new object_list();
+				default: 
+					return new object_list();
+			}
 		}
 	}
 

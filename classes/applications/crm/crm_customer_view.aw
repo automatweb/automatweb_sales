@@ -103,6 +103,7 @@
 
 class crm_customer_view extends class_base
 {
+	const CUTCOPIED_COLOUR = "silver";
 	const REQVAR_CATEGORY = "cs_c"; // request parameter name for customer category
 
 	function __construct()
@@ -252,7 +253,7 @@ class crm_customer_view extends class_base
 			case "customer_rel_creator":
 			case "customer_search_cust_mgr":
 			case "customer_search_is_co":
-			case "my_customers_toolbar":
+//			case "my_customers_toolbar":
 //			case "my_customers_table":
 			case "customer_categories_table":
 			case "offers_listing_toolbar":
@@ -757,6 +758,226 @@ class crm_customer_view extends class_base
 
 		return $arr["post_ru"];
 	}
+
+	function _get_my_customers_toolbar($arr)
+	{
+		if(!acl_base::can("view" ,$arr["obj_inst"]->prop("company"))) return;
+
+		$tb = $arr["prop"]["vcl_inst"];
+		$category = 0;
+
+
+
+		if (isset($arr["request"][crm_company::REQVAR_CATEGORY]))
+		{
+			$category = is_numeric($arr["request"][crm_company::REQVAR_CATEGORY]) ? (int) $arr["request"][crm_company::REQVAR_CATEGORY] : 0;
+		}
+
+		$tb->add_menu_button(array(
+			"name"=>"add_item",
+			"icon" => "add",
+			"tooltip"=> t("Uus")
+		));
+
+		$tb->add_menu_button(array(
+			"name" => "search_item",
+			"icon" => "magnifier",
+			"tooltip" => t("Otsi")
+		));
+
+		// add category
+		$tb->add_menu_item(array(
+			"parent"=>"add_item",
+			"text" => t("Kliendikategooria"),
+			"link" => $this->mk_my_orb("add_customer_category",array(
+				"id" => $arr["obj_inst"]->prop("company"),
+				"save_autoreturn" => "1",
+				"c" => $category,
+				"return_url" => get_ru()
+			), "crm_company")
+		));
+
+		$tb->add_sub_menu(array(
+			'parent'=> "add_item",
+			"name" => "add_buyer",
+			'text' => t("Ostja"),
+		));
+
+		// menu items for adding customers
+		$tb->add_menu_item(array(
+			"parent"=> "add_buyer",
+			"text" => t("Organisatsioon"),
+			"link" => $this->mk_my_orb("add_customer", array(
+				"id" => $arr["obj_inst"]->prop("company"),
+				"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
+				"c" => crm_company_obj::CLID,
+				"s" => $category,
+				"return_url" => get_ru()
+			), "crm_company")
+		));
+
+		$tb->add_menu_item(array(
+			"parent"=> "add_buyer",
+			"text" => t("Eraisik"),
+			"link" => $this->mk_my_orb("add_customer", array(
+				"id" => $arr["obj_inst"]->prop("company"),
+				"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
+				"c" => CL_CRM_PERSON,
+				"s" => $category,
+				"return_url" => get_ru()
+			), "crm_company")
+		));
+
+			// search and add customer from existing persons/organizations in database
+		$url = $this->mk_my_orb("do_search", array(
+			"clid" => array(crm_company_obj::CLID, CL_CRM_PERSON),
+			"pn" => "sbt_data_add_buyer"
+		), "popup_search");
+		$tb->add_menu_item(array(
+			"parent" => "search_item",
+			"text" => t("Lisa ostja olemasolevate isikute/organisatsioonide hulgast"),
+			"link" => "#",
+			"url" => "#",
+			"onClick" => html::popup(array(
+				"url" => $url,
+				"resizable" => true,
+				"scrollbars" => "auto",
+				"height" => 500,
+				"width" => 700,
+				"no_link" => true,
+				"quote" => "'"
+			))
+		));
+
+		$tb->add_sub_menu(array(
+			'parent'=> "add_item",
+			"name" => "add_seller",
+			'text' => t("Müüja"),
+		));
+		
+		$tb->add_menu_item(array(
+			"parent"=> "add_seller",
+			"text" => t("Organisatsioon"),
+			"link" => $this->mk_my_orb("add_customer", array(
+				"id" => $arr["obj_inst"]->prop("company"),
+				"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
+				"c" => crm_company_obj::CLID,
+				"s" => $category,
+				"return_url" => get_ru()
+			), "crm_company")
+		));
+
+		$tb->add_menu_item(array(
+			"parent"=> "add_seller",
+			"text" => t("Eraisik"),
+			"link" => $this->mk_my_orb("add_customer", array(
+				"id" => $arr["obj_inst"]->prop("company"),
+				"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
+				"c" => CL_CRM_PERSON,
+				"s" => $category,
+				"return_url" => get_ru()
+			), "crm_company")
+		));
+
+		//  search and add customer from existing persons/organizations in database
+		$url = $this->mk_my_orb("do_search", array(
+			"clid" => array(crm_company_obj::CLID, CL_CRM_PERSON),
+			"pn" => "sbt_data_add_seller"
+		), "popup_search");
+		$tb->add_menu_item(array(
+			"parent" => "search_item",
+			"text" => t("Lisa m&uuml;&uuml;ja olemasolevate isikute/organisatsioonide hulgast"),
+			"link" => "#",
+			"url" => "#",
+			"onClick" => html::popup(array(
+				"url" => $url,
+				"resizable" => true,
+				"scrollbars" => "auto",
+				"height" => 500,
+				"width" => 700,
+				"no_link" => true,
+				"quote" => "'"
+			))
+		));
+		
+
+		$tb->add_separator();
+
+		// cut, copy, paste
+		$tb->add_button(array(
+			"name" => "cut",
+			"tooltip" => t("L&otilde;ika"),
+			"action" => "customer_view_cut",
+			"icon" => "cut"
+		));
+
+		$tb->add_button(array(
+			"name"=>"copy",
+			"tooltip"=> t("Kopeeri"),
+			"action" => "customer_view_copy",
+			"icon" => "copy"
+		));
+
+		if (aw_global_get("awcb_customer_selection_clipboard"))
+		{
+			$tb->add_button(array(
+				"name"=>"paste",
+				"tooltip"=> t("Kleebi"),
+				"action" => "customer_view_paste",
+				"icon" => "paste"
+			));
+		}
+
+
+		// customers delete button
+		$tb->add_menu_button(array(
+			"name"=>"delete_customers",
+			"tooltip"=> t("Eemalda valitud kliendid"),
+			"icon" => "link_delete"
+		));
+
+		$tb->add_menu_item(array(
+			"parent"=> "delete_customers",
+			"text" => t("Eemalda kategooriast"),
+			"action" => "remove_from_category"
+		));
+
+		$tb->add_menu_item(array(
+			"parent"=> "delete_customers",
+			"text" => t("L&otilde;peta kliendisuhe"),
+			"action" => "remove_cust_relations"
+		));
+
+		$tb->add_menu_item(array(
+			"parent"=> "delete_customers",
+			"text" => t("Kustuta klient t&auml;ielikult"),
+			"action" => "delete_selected_objects"
+		));
+
+		// categories delete button
+		$tb->add_button(array(
+			"name"=>"delete_categories",
+			"tooltip"=> t("Kustuta valitud kategooria(d)"),
+			"icon" => "folder_delete",
+			"action" => "delete_selected_objects"
+		));
+
+		////////////////////TODO: viia mujale, myygitarkvarasse n2iteks
+		// $seti = new crm_settings();
+		// $sts = $seti->get_current_settings();
+
+		// if ($sts && $sts->prop("send_mail_feature"))
+		// {
+			// $tb->add_button(array(
+				// "name"=>"send_email",
+				// "tooltip"=> t("Saada kiri"),
+				// "img" => "mail_send.gif",
+				// "action" => "send_mails"
+			// ));
+		// }
+	}
+
+
 
 	function _get_my_customers_table(&$arr)
 	{ // lists customers, filters by search parameters

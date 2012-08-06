@@ -33,6 +33,12 @@
 	@property po_box type=textbox maxlength=50
 	@caption Postkast
 
+	@property coord_x type=textbox maxlength=50
+	@caption X kordinaat (Longitude)
+
+	@property coord_y type=textbox maxlength=50
+	@caption Y kordinaat (Latitude)
+
 */
 
 require_once(AW_DIR . "classes/common/address/as_header.aw");
@@ -266,6 +272,13 @@ EOS;
 				$this->db_add_col($table, array(
 					"name" => "house",
 					"type" => "varchar(250)"
+				));
+			}
+			elseif ("coord_x" === $field || "coord_y" === $field)
+			{
+				$this->db_add_col($table, array(
+					"name" => $field,
+					"type" => "double"
 				));
 			}
 		}

@@ -8,6 +8,10 @@
 @default table=objects
 @default group=general
 
+@property company type=relpicker reltype=RELTYPE_COMPANY automatic=1 field=meta method=serialize
+@caption Ettev&otilde;te
+@comment Kui valitud, n&auml;itab vaid seda organisatsiooni.
+
 @property show_title type=checkbox field=flags ch_value=32 method=bitmask
 @caption Kuva pealkirja
 
@@ -64,6 +68,9 @@
 @reltype CRM_DB value=4 clid=CL_CRM_DB
 @caption Organisatsioonide andmebaas
 
+@reltype COMPANY value=4 clid=CL_CRM_COMPANY
+@caption Organisatsioon
+
 */
 
 class crm_company_webview extends class_base
@@ -89,6 +96,12 @@ class crm_company_webview extends class_base
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
+
+		if($prop["name"] != "company" && $prop["name"] != "name")
+		{
+			return PROP_IGNORE;
+		}
+
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
@@ -184,9 +197,216 @@ class crm_company_webview extends class_base
 	// !this will be called if the object is put in a document by an alias and the document is being shown
 	// parameters
 	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
+	}
+
+	function parse_section($section)
+	{
+		$section_vars = array(
+			"section_name" => $section->name()
+		);
+		$this->vars($section_vars);
+		foreach($section_vars as $var => $val)
+		{
+			if(strlen($val) > 1)
+			{
+				$this->vars(array("HAS_".strtoupper($var) => $this->parse("HAS_".strtoupper($var))));
+			}
+			else
+			{
+				$this->vars(array("HAS_".strtoupper($var) => ""));
+			}
+		}
+
+		$workers = $section->get_workers();
+		$w_sub = "";
+		foreach($workers->arr() as $worker)
+		{
+			$worker_vars = array(
+			//	"worker_phone" => $worker->phones(),
+				"section_worker_name" => $worker->name(),
+				"section_worker_work_phone" => $worker->get_phone(null,null,"work"),
+				"section_worker_mobile_phone" => $worker->get_phone(null,null,"mobile"),
+				"section_worker_fax" => $worker->get_phone(null,null,"fax"),
+				"section_worker_email" => $worker->get_mail(),
+				"section_worker_profession" => reset($worker->get_profession_names()),
+			);
+			$this->vars($worker_vars);
+			foreach($worker_vars as $var => $val)
+			{
+				if(strlen($val) > 1)
+				{
+					$this->vars(
+						array(
+						"HAS_".strtoupper($var) => $this->parse("HAS_".strtoupper($var))
+						));
+				}
+				else
+				{
+					$this->vars(array("HAS_".strtoupper($var) => ""));
+				}
+			}
+			$w_sub.= $this->parse("SECTION_WORKERS");
+		}
+		$this->vars(array("SECTION_WORKERS" => $w_sub));
+
+/*------------- avamisajad ------------*/
+
+		$oinst = new openhours();
+		$o_sub = "";
+
+		foreach($section->connections_from(array("type" => "RELTYPE_OPENHOURS")) as $c)
+		{
+			$oh = $c->to();
+			$ohdata = $oh->meta('openhours');
+			$oh_vars = array(
+				"soh_name" => $oh->name(),
+			);
+			$this->vars($oh_vars);
+			
+			$oh_rows = "";
+
+			if($ohdata && is_array($ohdata) && sizeof($ohdata))
+			{
+				foreach($ohdata as $ohrow)
+				{
+					$ohrow["day_short"] = $oinst->days_short[$ohrow["day1"]];
+					$ohrow["day2_short"] = $oinst->days_short[$ohrow["day2"]];
+					$this->vars($ohrow);
+					$this->vars(array("SECTION_HAS_DAY2" =>  $ohrow["day2"] ? $this->parse("SECTION_HAS_DAY2"):""));
+					$oh_rows.= $this->parse("SECTION_OPEN_HOURS_ROW");
+				}
+			}
+			$this->vars(array("SECTION_OPEN_HOURS_ROW" => $oh_rows));
+			$o_sub.= $this->parse("SECTION_OPEN_HOURS");
+		}
+		$this->vars(array("SECTION_OPEN_HOURS" => $o_sub));
+
+
+		return $this->parse("SECTIONS");
+	}
+
+
+	function parse_company($o)
+	{
+
+		$company = obj($o->prop("company"));
+		$this->read_template("company.tpl");
+		$this->vars($company->properties());
+
+		$vars = array();
+		$vars["address"] = $company->get_address_string();
+		$vars["email"] = $company->get_mail();
+		$vars["phone"] = join(", " , $company->get_phones());
+
+//		$vars["workers"] = join(", ", $workers->names());
+		$this->vars($vars);
+/*----------------- aadress ------------------------*/
+		
+		$address_vars = array();
+		$o = $company->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
+		if($o)
+		{
+			foreach($o->properties() as $var => $val)
+			{
+				$address_vars["address_".$var] = $val;
+			}
+
+			if($o->prop("coord_x") && $o->prop("coord_y"))
+			{
+ 				$address_vars["google_map_url"] = 'https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;q='.urlencode($o->prop("street")).'+'.$o->prop("house").',+'.urlencode($o->prop("parent.name")).',+Eesti&amp;aq=0&amp;ie=UTF8&amp;hq=&amp;hnear='.urlencode($o->prop("street")).'+'.$o->prop("house").',+'.urlencode($o->prop("parent.name")).',+80042+'.urlencode($o->prop("parent.parent.name")).',+Estonia&amp;t=m&amp;z=13&amp;ll='.$o->prop("coord_y").','.$o->prop("coord_x").'&amp;output=embed';
+			}
+		}
+
+		$this->vars($address_vars);
+		$this->vars(array("GOOGLE_MAP" => empty($address_vars["google_map_url"]) ? "" : $this->parse("GOOGLE_MAP")));
+
+
+/*---------------- t88tajad ------------------------*/
+		$workers = $company->get_workers();
+		$w_sub = "";
+		foreach($workers->arr() as $worker)
+		{
+			$worker_vars = array(
+			//	"worker_phone" => $worker->phones(),
+				"worker_name" => $worker->name(),
+				"worker_work_phone" => $worker->get_phone(null,null,"work"),
+				"worker_mobile_phone" => $worker->get_phone(null,null,"mobile"),
+				"worker_fax" => $worker->get_phone(null,null,"fax"),
+				"worker_email" => $worker->get_mail(),
+				"worker_profession" => reset($worker->get_profession_names()),
+			);
+		//	arr($worker_vars);
+			$this->vars($worker_vars);
+			foreach($worker_vars as $var => $val)
+			{
+				if(strlen($val) > 1)
+				{
+					$this->vars(
+						array(
+						"HAS_".strtoupper($var) => $this->parse("HAS_".strtoupper($var))
+						));
+				}
+				else
+				{
+					$this->vars(array("HAS_".strtoupper($var) => ""));
+				}
+			}
+			$w_sub.= $this->parse("WORKERS");
+		}
+		$this->vars(array("WORKERS" => $w_sub));
+
+/*-------------- osakonnad ------------*/
+		$sections = $company->get_sections();
+		$s_sub = "";
+		$cnt = 1;
+		foreach($sections->arr() as $section)
+		{
+			$section_vars = array(
+				"section_name" => $section->name(),
+				"section_count" => $cnt,
+			);
+			$this->vars($section_vars);
+			$cnt++;
+			$s_sub.= $this->parse_section($section);
+		}
+		$this->vars(array("SECTIONS" => $s_sub));
+
+/*------------- avamisajad ------------*/
+
+		$oinst = new openhours();
+		$o_sub = "";
+
+		foreach($company->connections_from(array("type" => "RELTYPE_OPENHOURS")) as $c)
+		{
+			$oh = $c->to();
+			$ohdata = $oh->meta('openhours');
+			$oh_vars = array(
+				"oh_name" => $oh->name(),
+			);
+			$this->vars($oh_vars);
+			
+			$oh_rows = "";
+
+			if($ohdata && is_array($ohdata) && sizeof($ohdata))
+			{
+				foreach($ohdata as $ohrow)
+				{
+					$ohrow["day_short"] = $oinst->days_short[$ohrow["day1"]];
+					$ohrow["day2_short"] = $oinst->days_short[$ohrow["day2"]];
+					$this->vars($ohrow);
+					$this->vars(array("HAS_DAY2" =>  $ohrow["day2"] ? $this->parse("HAS_DAY2"):""));
+					$oh_rows.= $this->parse("OPEN_HOURS_ROW");
+				}
+			}
+			$this->vars(array("OPEN_HOURS_ROW" => $oh_rows));
+			$o_sub.= $this->parse("OPEN_HOURS");
+		}
+		$this->vars(array("OPEN_HOURS" => $o_sub));
+
+		return $this->parse();
 	}
 
 	////
@@ -202,6 +422,12 @@ class crm_company_webview extends class_base
 		{
 			return;
 		}
+
+		if(is_oid($o->prop("company")) && $this->can('view', $o->prop("company")))
+		{
+			return $this->parse_company($o);
+		}
+
 		$tmpl = $o->prop('template');
 		if (!preg_match('/^[^\\\/]+\.tpl$/', $tmpl))
 		{

@@ -1247,6 +1247,16 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return $ret;
 	}
 
+	public function get_url()
+	{
+		$url = $this->get_first_obj_by_reltype("RELTYPE_URL");
+		if($url)
+		{
+			return $url->prop($url);
+		}
+		return "";
+	}
+
 	/** returns all organisations
 		@attrib api=1
 		@param active optional type=bool

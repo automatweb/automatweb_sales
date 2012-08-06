@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_companies_webview" folder="applications/crm" extends="class_base">
+	</class>
+</orb>
+		

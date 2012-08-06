@@ -37,6 +37,13 @@
 			</function>
 		</action>
 
+		<action name="remove_oh" all_args="1">
+			<function name="remove_oh">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="search_for_contacts">
 			<function name="search_for_contacts">
 				<arguments>

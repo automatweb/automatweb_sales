@@ -56,13 +56,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 			@caption Kliendikategooria
 
 
+
 @default group=open_hrs
 
-	property openhours type=releditor reltype=RELTYPE_OPENHOURS rel_id=first use_form=emb
-	caption Avamisajad
-
 	@property oh_tb type=toolbar no_caption=1 store=no
-	@property oh_t type=table store=no no_caption=1 parent=oh
+	@property oh_t type=table store=no no_caption=1
 
 ------ Yldine - Tegevused grupp -----
 @default group=org_sections
@@ -7755,7 +7753,7 @@ END;
 	**/
 	function p_view_switch($arr)
 	{
-		$_SESSION["crm"]["people_view"] = ($_SESSION["crm"]["people_view"] == "edit" ? "view" : "edit");
+		$_SESSION["crm"]["people_view"] = ($_SESSION["crm"]["people_view"] === "edit" ? "view" : "edit");
 		return $arr["post_ru"];
 	}
 
@@ -7766,7 +7764,7 @@ END;
 			$i = get_instance(CL_CRM_CATEGORY);
                         return $i->do_db_upgrade($tbl, $field);
 		}
-		if ("kliendibaas_firma" === $tbl)
+		elseif ("kliendibaas_firma" === $tbl)
 		{
 			switch($field)
 			{
@@ -7778,11 +7776,9 @@ END;
 				case "cust":
 				case "cust_contract_date":
 				case "cust_contract_creator":
-				case "cust_priority":
 				case "contact_person":
 				case "contact_person2":
 				case "contact_person3":
-				case "client_manager":
 				case "buyer":
 				case "buyer_contract_creator":
 				case "buyer_contract_person":
@@ -9853,4 +9849,138 @@ Bank accounts: yksteise all
 
 		return $r;
 	}
+
+	/* avamisajad */
+	
+	function _get_oh_tb($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->add_menu_button(array(
+			"name" => "new",
+			"img" => "new.gif"
+		));
+		$t->add_menu_item(array(
+			"parent" => "new",
+			"text" => t("Avamisaeg"),
+			"link" => html::get_new_url(CL_OPENHOURS, $arr["obj_inst"]->id(), array("alias_to" => $arr["obj_inst"]->id(), "reltype" => 44, "return_url" => get_ru())),
+		));/*
+		$t->add_menu_item(array(
+			"parent" => "new",
+			"text" => t("Paus"),
+			"link" => html::get_new_url(CL_OPENHOURS, $arr["obj_inst"]->id(), array("alias_to" => $arr["obj_inst"]->id(), "reltype" => 45, "return_url" => get_ru())),
+		));/*
+		$t->add_menu_button(array(
+			"name" => "search",
+			"img" => "search.gif"
+		));
+		$url = $this->mk_my_orb("do_search", array(
+			"pn" => "set_oh",
+			"clid" => CL_OPENHOURS
+		), "popup_search");
+		$t->add_menu_item(array(
+			"parent" => "search",
+			"text" => t("Avamisaeg"),
+			"link" => "javascript:aw_popup_scroll('$url','".t("Otsi")."',550,500)"
+		));
+		$url = $this->mk_my_orb("do_search", array(
+                        "pn" => "set_ps",
+                        "clid" => CL_OPENHOURS
+                ), "popup_search");
+                $t->add_menu_item(array(
+                        "parent" => "search",
+                        "text" => t("Paus"),
+                        "link" => "javascript:aw_popup_scroll('$url','".t("Otsi")."',550,500)"
+                ));*/
+		$t->add_button(array(
+			"name" => "remove_oh",
+			"tooltip" => t("Eemalda avamisaeg"),
+			"img" => "delete.gif",
+			"action" => "remove_oh",
+		));
+	}
+
+	function _init_oh_t(&$t,$pause)
+	{
+		$t->define_field(array(
+			"name" => "name",
+			"caption" => t("Nimi"),
+			"align" => "center",
+		));
+		$t->define_field(array(
+			"name" => "date_from",
+			"caption" => t("Kehtib alates"),
+			"align" => "center",
+			"width" => "10%",
+			"type" => "time",
+			"format" => "d.m.Y"
+		));
+		$t->define_field(array(
+			"name" => "date_to",
+			"caption" => t("Kehtib kuni"),
+			"align" => "center",
+			"width" => "10%",
+			"type" => "time",
+			"format" => "d.m.Y"
+		));
+		$t->define_field(array(
+			"name" => "apply_group",
+			"caption" => t("Kehtib gruppidele"),
+			"align" => "center",
+			"width" => "50%"
+		));
+		$t->define_field(array(
+			"name" => "oh",
+			"caption" => $pause ? t("Pausid") : t("Avamisajad"),
+			"align" => "center",
+			"width" => "50%"
+		));
+		$t->define_field(array(
+			"name" => "edit",
+			"caption" => t("Muuda"),
+			"align" => "center",
+			"width" => "100"
+		));
+		$t->define_chooser(array(
+			"name" => "sel",
+			"field" => "oid",
+			"width" => "20"
+		));
+	}
+
+	function _get_oh_t($arr)
+	{
+		$t =& $arr["prop"]["vcl_inst"];
+		$this->_init_oh_t($t);
+		$t->set_caption(t("Avamisajad"));
+		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_OPENHOURS")) as $c)
+		{
+			$oh = $c->to();
+			$i = $oh->instance();
+			$t->define_data(array(
+				"name" => $oh->name(),
+				"apply_group" => $oh->prop_str("apply_group"),
+				"oh" => $i->show(array("id" => $oh->id())),
+				"edit" => html::get_change_url($oh->id(), array("return_url" => get_ru()), t("Muuda")),
+				"oid" => $oh->id(),
+				"date_from" => $oh->prop("date_from"),
+				"date_to" => $oh->prop("date_to"),
+			));
+		}
+	}
+
+	/**
+		@attrib name=remove_images params=name all_args=1
+	**/
+	function remove_oh($arr)
+	{
+		$o = obj($arr["id"]);
+		if(count($arr["sel"]))
+		{
+			$o->disconnect(array(
+				"from" => $arr["sel"]
+			));
+		}
+		return $arr["post_ru"];
+	}
+
 }

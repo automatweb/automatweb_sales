@@ -147,7 +147,6 @@
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>oh</parent>
             <field>oh_t</field>
       </property>
       <property>

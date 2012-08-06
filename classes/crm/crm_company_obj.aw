@@ -1635,6 +1635,16 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $mo->id();
 	}
 
+	public function get_url()
+	{
+		$url = $this->get_first_obj_by_reltype("RELTYPE_URL");
+		if($url)
+		{
+			return $url->prop("url");
+		}
+		return "";
+	}
+
 	public function change_url($address)
 	{
 		$conns = $this->connections_from(array("type" => "RELTYPE_URL"));
@@ -2642,7 +2652,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 				}
 				elseif ($parent->is_a(crm_company_obj::CLID))
 				{
-					$filter["parent_category"] = 0;
+					$filter["parent_category"] = new obj_predicate_compare(OBJ_COMP_LESS, 1);
 				}
 				else
 				{
