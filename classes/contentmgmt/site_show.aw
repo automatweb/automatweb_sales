@@ -60,6 +60,7 @@ class site_show extends aw_template
 	var $brother_level_from;
 	var $current_login_menu_id;
 	var $title_yah_arr;
+	var $menu_image;
 
 	var $cache;				// cache class instance
 
@@ -1918,6 +1919,12 @@ class site_show extends aw_template
 				}
 				$this->title_yah.=" / ".str_replace("&nbsp;"," ",strip_tags($ref->trans_get_val("name")));
 				$this->title_yah_arr[] = str_replace("&nbsp;"," ",strip_tags($ref->trans_get_val("name")));
+
+				if($ref->is_a(menu_obj::CLID) && acl_base::can("view" , $ref->prop("img_act")))
+				{
+					$image = obj($ref->prop("img_act"));
+					$this->menu_image = $image->get_url();
+				}
 			}
 
 			if ($prev && $prev->id() == $rootmenu)
@@ -2522,6 +2529,7 @@ class site_show extends aw_template
 			"site_loginmenu" => $site_loginmenu,
 			"javascript" => active_page_data::get_javascript(),
 			"javascript_bottom" => active_page_data::get_javascript("bottom"),
+			"menu_image" => $this->menu_image,
 		));
 
 		if ($this->_is_in_document_list)

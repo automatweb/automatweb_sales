@@ -328,7 +328,9 @@ class persons_webview extends class_base
 		if ($handle = opendir(aw_ini_get("site_tpldir")."crm/persons_webview/")) {
 			while (false !== ($entry = readdir($handle))) {
 				if($entry !== '.' && $entry !== '..') {
-				$template_selection[$entry] = $entry;
+					$entry_str = str_replace("_" , " " , $entry);
+					$entry_str = str_replace(".tpl" , "" , $entry_str);
+					$template_selection[$entry] = $entry_str;
 				}
 			}
 		}
@@ -984,7 +986,10 @@ class persons_webview extends class_base
 			$profession_with_directive = '<a href ="'.$directive_link.'"  target=_new> '. $profession.' </a>';
 		}
 
-		$professions = join (", " , $worker->get_profession_selection($this->company->id() , ($this->section ? array($this->section->id()) : null)));
+		
+
+//		$professions = join (", " , $worker->get_profession_selection($this->company->id() , ($this->section ? array($this->section->id()) : null)));
+		$professions = join (", " , $worker->get_profession_selection($this->company->id()));
 
 		$this->vars_safe(array(
 			"profession" => $profession,
@@ -1198,6 +1203,8 @@ class persons_webview extends class_base
 				}
 			}
 		}
+
+		$phones = join(", ", $phone_array["phones"]);
 
 		//url
 		$url = $url_obj = $urls = "";
@@ -1423,7 +1430,7 @@ class persons_webview extends class_base
 		$vars["STOPPED"] = $stopped;
 		$vars = $this->to_ent($vars);
 		$this->vars_safe($vars);
-
+//var_dump($vars);
 		$subs = array();
 		foreach($vars as $key => $val)
 		{
@@ -1445,6 +1452,22 @@ class persons_webview extends class_base
 		$this->vars_safe(array(
 			"EDU_SUB" => $this->parse("EDU_SUB")
 		));
+
+		$section = "";
+		if($sec = $worker->get_org_section())
+		{
+			if($this->can("view" ,$sec))
+			{
+				$section_object = obj($sec);
+				$section = $section_object->name();
+			}
+		}
+
+		$this->vars_safe(array(
+			"section" => $section
+		));
+
+		//osakond ka eraldi, ei pruugi järjest tulla ju
 	}
 
 	function get_cols_num($row)

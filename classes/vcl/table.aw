@@ -710,6 +710,7 @@ class aw_table extends aw_template
 			$this->sorder = "asc";
 		}
 
+//var_dump($this->sorder);
 
 		// we should mark this down only when we have clicked on a link and thus changed something from the default
 		// what's the difference? well - if the defaults change and this is written a reload does not change things
@@ -2840,7 +2841,7 @@ END;
 				$so = "asc";
 
 				// kui on sorteeritud selle v&auml;lja j&auml;rgi
-				if (isset($this->sortby[$v["name"]]))
+				if (isset($this->sortby[$v["name"]]) || in_array($v["name"] , $this->sortby))
 				{
 					$sufix = $this->sorder[$v["name"]] == "desc" ? $this->up_arr : $this->dn_arr;
 					$so = $this->sorder[$v["name"]] == "desc" ? "asc" : "desc";

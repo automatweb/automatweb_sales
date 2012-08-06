@@ -2131,6 +2131,7 @@ class webform extends class_base
 				}
 			}
 		}
+
 		$id = $arr["obj_inst"]->id();
 		$aliasmgr = new alias_parser();
 		$tmp = $els;
@@ -2145,6 +2146,15 @@ class webform extends class_base
 					if(strpos($key, $iv) !== false)
 					{
 						$els[$key]["caption"] = $nm;
+						if(!empty($sel_styles[$iv]["caption"]))
+						{
+							$els[$key]["style"]["caption"] = $sel_styles[$iv]["caption"];
+						}
+						if(!empty($sel_styles[$iv]["prop"]))
+						{
+							$els[$key]["style"]["prop"] = $sel_styles[$iv]["prop"];
+						}
+
 						break;
 					}
 				}
@@ -2284,6 +2294,7 @@ class webform extends class_base
 				}
 			}
 		}
+
 		$layout = array(
 			"submitx" => array(
 				"type" => "hbox",

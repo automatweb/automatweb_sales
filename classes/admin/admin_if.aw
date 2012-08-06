@@ -60,6 +60,8 @@ class admin_if extends class_base
 
 		$this->data_list_ot_flds = array(
 			"" => array(
+				"createdby" => "createdby",
+				"created" => "created",
 				"modifiedby" => "modifiedby",
 				"modified" => "modified",
 				"oid" => "oid",
@@ -596,7 +598,28 @@ class admin_if extends class_base
 			"chgbgcolor" => "cutcopied",
 			"sortable" => 1
 		));
+		$t->define_field(array(
+			"name" => "createdby",
+			"caption" => t("Looja"),
+			"width" => 50,
+			"align" => "center",
+			"talign" => "center",
+			"sortable" => 1,
+			"chgbgcolor" => "cutcopied"
+		));
 
+		$t->define_field(array(
+			"name" => "created",
+			"caption" => t("Loodud"),
+			"width" => 100,
+			"align" => "center",
+			"talign" => "center",
+			"type" => "time",
+			"format" => "d-M-y / H:i",
+			"sortable" => 1,
+			"numeric" => 1,
+			"chgbgcolor" => "cutcopied"
+		));
 		$t->define_field(array(
 			"name" => "modifiedby",
 			"caption" => t("Muutja"),
@@ -694,6 +717,8 @@ class admin_if extends class_base
 		foreach($ob->arr() as $row_d)
 		{
 			$row = array(
+				"createdby" => $row_d["createdby"],
+				"created" => $row_d["created"],
 				"modifiedby" => $row_d["modifiedby"],
 				"modified" => $row_d["modified"],
 				"oid" => $row_d["oid"]
@@ -788,6 +813,8 @@ class admin_if extends class_base
 
 			$t->define_data($row);
 		}
+	//	var_dump($parent);
+	//	$t->sort_by(array("field" => $_GET["sortby"], "sort_order" => $_GET["sort_order"]));
 		$this->_do_o_tbl_sorting($t, $parent);
 	}
 

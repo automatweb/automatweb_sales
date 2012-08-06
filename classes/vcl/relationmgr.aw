@@ -1075,7 +1075,7 @@ class relationmgr extends aw_template implements orb_public_interface
 				}
 
 				$astr = sprintf("#%s%d#", $astr, $alias->prop("idx"));
-				$adat["alias"] = sprintf("<input type='text' size='10' value='%s' onClick='this.select()' onblur='this.value=\"%s\"'>", $astr, $astr);
+				$adat["alias"] = sprintf("<input type='text' size='30' value='%s' onClick='this.select()' onblur='this.value=\"%s\"'>", $astr, $astr);
 			}
 
 			$adat["link"] = html::checkbox(array(

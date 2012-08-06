@@ -730,8 +730,10 @@ class gallery_v2 extends class_base
 		}
 		// get it from conf
 		$cf = get_instance(CL_GALLERY_CONF);
-		$tmp = $cf->get_image_folder($this->_get_conf_for_folder($parent));
-
+		if($this->_get_conf_for_folder($parent))
+		{
+			$tmp = $cf->get_image_folder($this->_get_conf_for_folder($parent));
+		}
 		if (is_oid($tmp) && $this->can("view", $tmp))
 		{
 			return $tmp;

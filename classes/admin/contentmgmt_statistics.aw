@@ -65,15 +65,18 @@ class contentmgmt_statistics extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 
 		$t->set_default_sortby("modified");
+		$limit = 100;
+		if($arr["obj_inst"]->prop("num_docs"))
+		{
+			$limit = $arr["obj_inst"]->prop("num_docs");
+		}
 		if ($arr["request"]["group"] == "stats_unmod")
 		{
 			$ol = new object_list(array(	
 				"class_id" => CL_DOCUMENT,
-				"sort_by" => "objects.modified desc",
-				"limit" => $arr["obj_inst"]->prop("num_docs"),
-				"parent" => $this->_get_parent($arr["obj_inst"]),
-				"lang_id" => array(),
-				"site_id" => array()
+				"sort_by" => "objects.modified asc",
+				"limit" => $limit,
+				"parent" => $this->_get_parent($arr["obj_inst"])
 			));
 			$t->set_default_sorder("asc");
 		}
@@ -81,12 +84,11 @@ class contentmgmt_statistics extends class_base
 		{
 			$ol = new object_list(array(	
 				"class_id" => CL_DOCUMENT,
-				"sort_by" => "objects.modified asc",
-				"limit" => $arr["obj_inst"]->prop("num_docs"),
-				"parent" => $this->_get_parent($arr["obj_inst"]),
-				"lang_id" => array(),
-				"site_id" => array()
+				"limit" => $limit,
+				"sort_by" => "objects.modified desc",
+				"parent" => $this->_get_parent($arr["obj_inst"])
 			));
+
 			$t->set_default_sorder("desc");
 		}
 
@@ -119,7 +121,8 @@ class contentmgmt_statistics extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_EXTLINK,
 			"lang_id" => array(),
-			"site_id" => array()
+			"site_id" => array(),
+			"parent" => $this->_get_parent($arr["obj_inst"])
 		));
 		echo sprintf(t("Leidsin %s linki<br>\n"), $ol->count());
 		foreach($ol->arr() as $o)
