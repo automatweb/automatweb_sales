@@ -485,7 +485,7 @@ class user_bookmarks extends class_base
 	{
 		$application_links = "";
 		$bmobj = $this->init_bm();	
-//		$app_menu = cache::file_get(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id());
+		$app_menu = cache::file_get(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id());
 		if (!empty($app_menu))
 		{
 			return $app_menu;
@@ -585,10 +585,15 @@ class user_bookmarks extends class_base
 
 /*		$apps = safe_array($bmobj->meta("apps"));
 arr($apps);*/
+		$tmp = aw_ini_get("classes");
 		foreach($apps as $key => $app)
 		{
 			$k = explode("_" , $key);
 			$key = $k[0];
+			if(empty($tmp[$key]))
+			{
+				continue;
+			}
 			$ico = '<span class="icon">'.html::img(array(
 				"url" => $this->get_icon($key),
 			)).'</span>';
