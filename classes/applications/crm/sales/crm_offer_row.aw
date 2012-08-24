@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CRM_OFFER_ROW relationmgr=yes no_status=1 prop_cb=1 maintainer=kaarel
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 @tableinfo aw_crm_offer_row master_index=brother_of master_table=objects index=aw_oid
 @tableinfo aw_crm_offer_row_price_components index=aw_row_id,aw_price_component_id
 
@@ -30,10 +30,10 @@
 
 	@property responsible_person type=objpicker clid=CL_CRM_PERSON field=aw_responsible_person
 	@caption Vastutav isik
-				
+
 	@property date type=datepicker time=0 field=aw_date
 	@caption Kuup&auml;ev
-				
+
 	@property date type=timepicker field=aw_time
 	@caption Kellaaeg
 
@@ -110,5 +110,3 @@ class crm_offer_row extends class_base
 		}
 	}
 }
-
-?>

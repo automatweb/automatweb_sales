@@ -2,7 +2,7 @@
 // otv_ds_obj.aw - Objektinimekirja AW datasource
 /*
 
-@classinfo syslog_type=ST_OTV_DS_OBJ relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1 no_comment=1
 @default table=objects
 
 
@@ -160,7 +160,6 @@ class otv_ds_obj extends class_base
 		$nodes = array();
 
 		// now I have to go through the process of setting up a generic table once again
-		load_vcl("table");
 		$this->t = new aw_table(array(
 			"prefix" => "ot_menus",
 			"layout" => "generic"
@@ -241,10 +240,11 @@ class otv_ds_obj extends class_base
 					"checked" => $ignoreself[$c_o_id],
 				)),
 			));
-		};
+		}
 
 		$nodes[$prop["name"]] = array(
 			"type" => "text",
+			"store" => "class_base",
 			"caption" => $prop["caption"],
 			"value" => $this->t->draw(),
 		);
@@ -1004,4 +1004,3 @@ foreach($images as $i)
 		}
 	}
 }
-?>

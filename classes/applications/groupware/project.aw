@@ -5716,7 +5716,7 @@ class project extends class_base
 				"reltype" => "RELTYPE_SIDE"
 			));
 		}
-		return aw_ini_get("baseurl")."/automatweb/closewin.html";
+		return aw_ini_get("baseurl")."automatweb/closewin.html";
 	}
 /*
 	function _get_team($arr)
@@ -6910,6 +6910,7 @@ class project extends class_base
 		{
 			return;
 		}
+
 		foreach($arr["obj_inst"]->connections_from(array("type" => 9)) as $c)
 		{
 			$c = $c->to();
@@ -6926,7 +6927,7 @@ class project extends class_base
 				"oid" => $c->id(),
 				"orderer" => html::obj_change_url($c),
 				"phone" => html::obj_change_url($c->prop("phone_id")),
-				"contact" => html::obj_change_url($c->prop("contact_person"))
+				// "contact" => html::obj_change_url($c->prop("contact_person")) //FIXME: contact_person pole crmcompany property
 			));
 		}
 	}
@@ -8328,14 +8329,10 @@ arr($stats_by_ppl);
 		// get prords from co
 		$filter = array(
 			"class_id" => CL_SHOP_WAREHOUSE,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"limit" => 20,
+			new obj_predicate_limit(20)
 		);
 
 		$ol = new object_list($filter);
-
-
 		$this->suply_selection = $ol->names();
 		return $this->suply_selection;
 	}
@@ -8344,11 +8341,11 @@ arr($stats_by_ppl);
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"name" => $name,
+			new obj_predicate_limit(1)
 		));
-		return reset($ol->ids());
+		$ids = $ol->ids();
+		return reset($ids);
 	}
 
 	/**

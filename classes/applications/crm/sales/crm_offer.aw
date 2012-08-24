@@ -20,10 +20,10 @@
 
 				@property name type=textbox table=objects field=name parent=general_info
 				@caption Pakkumuse nimi
-				
+
 				@property date type=datepicker time=0 field=aw_date parent=general_info
 				@caption Kuup&auml;ev
-				
+
 				@property validity_period type=textbox field=aw_validity_period size=5 parent=general_info
 				@caption Kehtivus (p&auml;evi)
 
@@ -144,7 +144,7 @@
 			@layout send_reply type=vbox closeable=0 area_caption=Vastamise&nbsp;viis&nbsp;ja&nbsp;aeg parent=send_settings_left
 				@property mail_reply_method type=select store=no parent=send_reply
 				@caption Vastamise viis
-				
+
 				@property mail_reply_time type=datepicker store=no parent=send_reply
 				@caption Vastamise aeg
 
@@ -1008,7 +1008,7 @@ class crm_offer extends class_base
 	{
 		$offer = obj($arr["id"], array(), crm_offer_obj::CLID);
 		$data = $arr["data"];
-		
+
 		if (!empty($arr["charset"]))
 		{
 			$data = iconv_array($arr["charset"], aw_global_get("charset"), $data);
@@ -1550,7 +1550,7 @@ class crm_offer extends class_base
 						"name" => $row->prop("unit.name"),
 						"options" => $object->get_units()->names(),
 					),
-					"price" => $row->prop("price"),
+					"price" => $row->get_price(),
 					"price_components" => array(),
 				);
 
@@ -1592,7 +1592,7 @@ class crm_offer extends class_base
 						"prerequisites" => array_values($price_component->get_all_prerequisites()),
 					);
 				}
-			}			
+			}
 
 			$json = new json(0, aw_global_get("charset"));
 

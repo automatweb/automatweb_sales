@@ -1,10 +1,10 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/crm_special_offer_manager.aw,v 1.5 2009/03/11 10:39:45 instrumental Exp $
-// crm_special_offer_manager.aw - Organisatsiooni eripakkumiste haldus 
+
+// crm_special_offer_manager.aw - Organisatsiooni eripakkumiste haldus
 // Valitud eripakkumiste veebi kuvamiseks
 /*
 
-@classinfo syslog_type=ST_CRM_SPECIAL_OFFER_MANAGER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -12,7 +12,7 @@
 @property listtype type=chooser orient=vertical field=meta method=serialize
 @caption Kuvatava nimekirja t&uuml;&uuml;p
 
-@property url_to type=textbox field=meta method=serialize 
+@property url_to type=textbox field=meta method=serialize
 @caption Aadress, kuhu nimekirjast suunata
 
 @groupinfo list_all caption="K&otilde;ik eripakkumised"
@@ -35,10 +35,10 @@
 
 	@property crm_db type=objpicker clid=CL_CRM_DB method=serialize field=meta
 	@caption Hallatav kliendibaas
-	
+
 	@property num_offers type=textbox default=10 method=serialize field=meta
 	@caption Kuvatavate eripakkumiste arv
-	
+
 @reltype CRM_SPECIAL_OFFER value=1 clid=CL_CRM_SPECIAL_OFFER
 @caption Eripakkumine
 
@@ -51,7 +51,7 @@ class crm_special_offer_manager extends class_base
 {
 	function crm_special_offer_manager()
 	{
-		// change this to the folder under the templates folder, where this classes templates will be, 
+		// change this to the folder under the templates folder, where this classes templates will be,
 		// if they exist at all. Or delete it, if this class does not use templates
 		$this->init(array(
 			"tpldir" => "crm/crm_special_offer_manager",
@@ -75,7 +75,7 @@ class crm_special_offer_manager extends class_base
 				);
 			break;
 			case 'all_offers_table':
-				$this->_mk_all_offers_table(&$prop['vcl_inst'], $arr);
+				$this->_mk_all_offers_table($prop['vcl_inst'], $arr);
 			break;
 		};
 		return $retval;
@@ -114,7 +114,7 @@ class crm_special_offer_manager extends class_base
 						$mustconnect[$ofid] = $ofid;
 					}
 				}
-				
+
 				// Loop through existing connections, removing unneeded ones
 				$conns = $o->connections_from(array(
 					'type' => 'RELTYPE_CRM_SPECIAL_OFFER',
@@ -131,7 +131,7 @@ class crm_special_offer_manager extends class_base
 						$conn->delete();
 					}
 				}
-				
+
 				// Connect ones still left
 				foreach ($mustconnect as $to)
 				{
@@ -144,15 +144,10 @@ class crm_special_offer_manager extends class_base
 
 		}
 		return $retval;
-	}	
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
-	
+
 	// Generates table of all special offers in syste
-	function _mk_all_offers_table (&$t, $arr)
+	function _mk_all_offers_table ($t, $arr)
 	{
 		$fields = array(
 			array(
@@ -194,7 +189,7 @@ class crm_special_offer_manager extends class_base
 		$ol = new object_list(array(
 			'class_id' => CL_CRM_SPECIAL_OFFER,
 		));
-		
+
 		// Find a date format
 		$df = aw_ini_get('config.dateformats');
 
@@ -208,7 +203,7 @@ class crm_special_offer_manager extends class_base
 		{
 			$selected_offers[$con->conn['to']] = true;
 		}
-		
+
 		// Populate table
 		$target = $ol->arr();
 		foreach ($target as $oid => $o)
@@ -217,7 +212,7 @@ class crm_special_offer_manager extends class_base
 			{
 				continue;
 			}
-		
+
 			// Find company and sectors
 			$company = $sectors = $company_name = "";
 			$conns = $o->connections_to(array(
@@ -243,11 +238,9 @@ class crm_special_offer_manager extends class_base
 						"logic" => "OR",
 						"conditions" => array(
 							"CL_CRM_SECTOR.RELTYPE_TEGEVUSALAD(CL_CRM_COMPANY).id" => $co->id(),
-							"CL_CRM_SECTOR.RELTYPE_SECTOR(CL_CRM_COMPANY_SECTOR_MEMBERSHIP).company" => $co->id(),
+							"CL_CRM_SECTOR.RELTYPE_SECTOR(CL_CRM_COMPANY_SECTOR_MEMBERSHIP).company" => $co->id()
 						),
-					)),
-					"lang_id" => array(),
-					"site_id" => array(),
+					))
 				));
 				$sectors = array();
 				foreach($ol->names() as $sid => $name)
@@ -264,8 +257,8 @@ class crm_special_offer_manager extends class_base
 				}
 				$sectors = join(", ", $sectors);
 			}
-			
-			
+
+
 			$row = array(
 				'company' => $company,
 				'sectors' => $sectors,
@@ -383,9 +376,9 @@ class crm_special_offer_manager extends class_base
 						'prop'	=> 'modified',
 						'order'	=> 'desc',
 					));
-					
+
 					$togo = $ob->prop('num_offers');
-					
+
 					for ($o =& $ol->begin(); $togo > 0 && !$ol->end(); $o =& $ol->next())
 					{
 						$ok = false;
@@ -398,7 +391,7 @@ class crm_special_offer_manager extends class_base
 								$ok = true;
 							}
 						}
-						
+
 						if ($ok)
 						{
 							$togo--;
@@ -414,7 +407,4 @@ class crm_special_offer_manager extends class_base
 		}
 		return $this->parse('offer_list');
 	}
-
-//-- methods --//
 }
-?>

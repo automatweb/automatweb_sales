@@ -792,7 +792,6 @@ class releditor extends core implements orb_public_interface
 			);
 		}
 
-
 		if (($visual === "manager" && (is_object($obj_inst) || ($form_type === "new" || (isset($arr["prop"]["always_show_add"]) && $arr["prop"]["always_show_add"] == 1 && !is_oid($edit_id))))))
 		//if ($visual == "form" || ($visual == "manager" && (is_object($obj_inst) || $form_type == "new")))
 		{
@@ -830,8 +829,7 @@ class releditor extends core implements orb_public_interface
 		if (isset($arr["cb_values"]) && $arr["cb_values"])
 		{
 			$t->cb_values = $arr["cb_values"];
-		};
-
+		}
 
 		// parse_properties fills the thing with values and stuff. And it eats my precious toolbar
 		$xprops = $t->parse_properties(array(

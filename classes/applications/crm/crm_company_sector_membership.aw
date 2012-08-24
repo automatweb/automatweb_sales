@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CRM_COMPANY_SECTOR_MEMBERSHIP relationmgr=yes no_comment=1 prop_cb=1 maintainer=instrumental
+@classinfo relationmgr=yes no_comment=1 prop_cb=1
 #@tableinfo aw_crm_company_sector_membership master_index=brother_of master_table=objects index=aw_oid
 
 #@default table=aw_crm_company_sector_membership
@@ -32,35 +32,6 @@ class crm_company_sector_membership extends class_base
 		));
 	}
 
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function show($arr)
 	{
 		$ob = new object($arr["id"]);
@@ -90,5 +61,3 @@ class crm_company_sector_membership extends class_base
 		}
 	}
 }
-
-?>

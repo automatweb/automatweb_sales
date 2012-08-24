@@ -1762,7 +1762,7 @@ class class_base extends aw_template implements orb_public_interface
 		// create an instance of the class servicing the object ($this->inst)
 		// set $this->clid and $this->clfile
 		$cfgu = new cfgutils();
-		$orb_class = aw_ini_get("classes.{$this->clid}.file");
+		$orb_class = aw_ini_isset("classes.{$this->clid}.file") ?  aw_ini_get("classes.{$this->clid}.file") : "";
 		if (empty($orb_class) && is_object($this->orb_class))
 		{
 			$orb_class = get_class($this->orb_class);
