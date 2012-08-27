@@ -58,6 +58,15 @@ class crm_companies_webview extends class_base
 		));
 	}
 
+	function add_to_cat_selection($co, &$sel , $o , $level)
+	{
+		foreach($co->get_customer_categories($o)->arr() as $id => $o)
+		{
+			$sel[$id] = str_repeat("--" , $level)." ".$o->name();
+			$this->add_to_cat_selection($co, $sel , $o , $level+1);
+		}
+	}
+
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
@@ -82,9 +91,16 @@ class crm_companies_webview extends class_base
 				$prop["options"] = array();
 				foreach($arr["obj_inst"]->get_companies()->arr() as $co)
 				{
-					foreach($co->get_customer_categories()->names() as $id => $name)
+			/*		$opts = $co->get_customer_categories_hierarchy(null,100); 
+					var_dump($opts);*/
+					foreach($co->get_customer_categories()->arr() as $id => $o)
 					{
-						$prop["options"][$id] = $name;
+					//	var_dump($o->properties());
+						if(!$o->prop("parent_category"))
+						{
+							$prop["options"][$id] = $o->name();
+							$this->add_to_cat_selection($co, $prop["options"] , $o , 1);
+						}
 					}
 				}
 				break;
@@ -92,7 +108,7 @@ class crm_companies_webview extends class_base
 				$prop["options"] = array(
 					"ainult ostjad",
 					"ainult m&uuml;&uuml;jad",
-					"m&auml;lemad"
+					"m&otilde;lemad"
 				);
 				break;
 			case "relation_status":
@@ -125,6 +141,9 @@ class crm_companies_webview extends class_base
 					"m&auml;&auml;ra ise"
 				);
 			break;
+			case "urls_table":
+				return PROP_IGNORE;
+			break;
 		}
 		return $retval;
 	}
@@ -136,7 +155,40 @@ class crm_companies_webview extends class_base
 		switch($prop["name"])
 		{
 			case "result_table":
-				$arr["obj_inst"]->set_meta("orders" , $arr["request"]["ord"]);
+				$show = $arr["obj_inst"]->meta("show");
+				foreach($arr["request"]["show"] as $key => $val)
+				{
+					$show[$key] = $val;
+				}
+				$arr["obj_inst"]->set_meta("show" , $show);
+
+				$mod_url = $arr["obj_inst"]->meta("mod_url");
+				foreach($arr["request"]["mod_url"] as $key => $val)
+				{
+					$mod_url[$key] = $val;
+				}
+				$arr["obj_inst"]->set_meta("mod_url" , $mod_url);
+
+				$orders = $arr["obj_inst"]->meta("orders");
+				foreach($arr["request"]["ord"] as $key => $val)
+				{
+					$orders[$key] = $val;
+				}
+				$arr["obj_inst"]->set_meta("orders" , $orders);
+
+				$dont_show = $arr["obj_inst"]->meta("dont_show");
+				foreach($arr["request"]["dont_show"] as $key => $val)
+				{
+					$dont_show[$key] = $val;
+				}
+				$arr["obj_inst"]->set_meta("dont_show" , $dont_show);
+
+
+		//		$arr["obj_inst"]->set_meta("orders" , $arr["request"]["ord"]);
+		//		$arr["obj_inst"]->set_meta("show_what" , $arr["request"]["show_what"]);
+				$arr["obj_inst"]->set_meta("dont_show" , $arr["request"]["dont_show"]);
+//				$arr["obj_inst"]->set_meta("mod_url" , $arr["request"]["mod_url"]);
+				
 				break;
 			case "urls_table":
 				$arr["obj_inst"]->set_meta("mod_url" , $arr["request"]["mod_url"]);
@@ -154,6 +206,10 @@ class crm_companies_webview extends class_base
 			"caption" => t("Nimi"),
 		));
 		$t->define_field(array(
+			"name" => "dont_show",
+			"caption" => t("&Auml;ra n&auml;ita"),
+		));
+		$t->define_field(array(
 			"name" => "leader",
 			"caption" => t("Juhi nimi"),
 		));
@@ -166,23 +222,71 @@ class crm_companies_webview extends class_base
 			"caption" => t("Kliendihaldur"),
 		));
 		$t->define_field(array(
+			"name" => "show",
+			"caption" => t("Kuva"),
+		));
+		$t->define_field(array(
+			"name" => "show_what"
+		));
+		$t->define_field(array(
 			"name" => "ord",
 			"caption" => t("J&auml;rjekord"),
 		));
+		$t->define_field(array(
+			"name" => "real_url",
+			"caption" => t("Veebiaadress"),
+		));
+		$t->define_field(array(
+			"name" => "mod_url",
+			"caption" => t("Veebiaadress"),
+		));
+
 
 		$customers = $arr["obj_inst"]->get_customers();
+
 		foreach($customers as $cust)
 		{
+			$o = obj($cust["id"]);
+			if($o->class_id() != crm_company_obj::CLID) continue;
+			$cust["name"] = html::obj_change_url($cust["id"],$cust["name"]);
 			$cust["ord"] = html::textbox(array(
 				"name" => "ord[".$cust["id"]."]",
 				"value" => $cust["ord"],
+				"size" => 5
 			));
+			$cust["dont_show"] = html::checkbox(array(
+				"name" => "dont_show[".$cust["id"]."]",
+				"value" => 1,
+				"checked" => $cust["dont_show"],
+			));
+			if($cust["show"])
+			{
+				$cust["show_what"] = html::select(array(
+					"name" => "show_what[".$cust["id"]."]",
+					"value" => $cust["show_what"],
+					"options" => $o->get_sections()->names(),
+					"multiple" => 1
+				));
+			}
 
+			$cust["show"] = html::select(array(
+				"name" => "show[".$cust["id"]."]",
+				"value" => $cust["show"],
+				"options" => array(t("Organisatsiooni") , t("&Uuml;ksuseid"))
+			));
+			$cust["mod_url"] = html::textbox(array(
+				"name" => "mod_url[".$cust["id"]."]",
+				"value" => $cust["mod_url"],
+			));
+			$cust["real_url"] = $cust["real_url"] ? html::href(array(
+				"url" => $cust["real_url"],
+				"caption" => $cust["real_url"],
+			)) : "";
 			$t->define_data($cust);
 		}
 	}
 
-	function _get_urls_table($arr)
+/*	function _get_urls_table($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
@@ -212,6 +316,16 @@ class crm_companies_webview extends class_base
 			$t->define_data($cust);
 		}
 
+	}
+*/
+
+	function callback_mod_tab($arr)
+	{
+		if($arr["id"] === "urls")
+		{
+			return false;
+		}
+		return true;
 	}
 
 	function parse_alias($arr = array())
@@ -244,6 +358,10 @@ class crm_companies_webview extends class_base
 
 		foreach($customers as $customerid => $data)
 		{
+			if($data["show"] || $data["dont_show"]) //n2itab yksusi
+			{
+				continue;
+			}
 			if($active_customer == $customerid)
 			{
 				$data["active"] = "active";
@@ -290,7 +408,8 @@ class crm_companies_webview extends class_base
 
 		$this->vars_safe(array(
 			"CUSTOMER_LIST" => $customer_list_sub,
-			"CUSTOMERS" => $customer_sub
+			"CUSTOMERS" => $customer_sub,
+			"name" => $obj->name()
 		));
 
 		return $this->parse();

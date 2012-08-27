@@ -1,14 +1,18 @@
 <?php
 /*
-@classinfo syslog_type=ST_ADDRESS relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo syslog_type=ST_ADDRESS relationmgr=yes no_status=1 prop_cb=1
 
 @tableinfo aw_address index=aw_oid master_index=brother_of master_table=objects
 
 	@property name type=text table=objects field=name
 	@caption Aadress
 
-@default table=aw_address
 @default group=general
+	@property comment type=textbox table=objects field=comment
+	@caption L&uuml;hinimi
+
+@default table=aw_address
+
 	@property administrative_structure type=hidden
 
 	@property country type=select

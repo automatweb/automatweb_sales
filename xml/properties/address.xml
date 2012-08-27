@@ -8,32 +8,40 @@
             <caption>Aadress</caption>
       </property>
       <property>
-            <name>administrative_structure</name>
-            <table>aw_address</table>
+            <name>comment</name>
             <group>general</group>
+            <type>textbox</type>
+            <table>objects</table>
+            <field>comment</field>
+            <caption>L&amp;amp;uuml;hinimi</caption>
+      </property>
+      <property>
+            <name>administrative_structure</name>
+            <group>general</group>
+            <table>aw_address</table>
             <type>hidden</type>
             <field>administrative_structure</field>
       </property>
       <property>
             <name>country</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>select</type>
             <field>country</field>
             <caption>Riik</caption>
       </property>
       <property>
             <name>location_data</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>hidden</type>
             <store>no</store>
             <field>location_data</field>
       </property>
       <property>
             <name>location</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>textbox</type>
             <store>no</store>
             <field>location</field>
@@ -41,8 +49,8 @@
       </property>
       <property>
             <name>street</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>textbox</type>
             <maxlength>250</maxlength>
             <field>street</field>
@@ -50,8 +58,8 @@
       </property>
       <property>
             <name>house</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>textbox</type>
             <maxlength>250</maxlength>
             <field>house</field>
@@ -59,8 +67,8 @@
       </property>
       <property>
             <name>apartment</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>textbox</type>
             <maxlength>50</maxlength>
             <field>apartment</field>
@@ -68,8 +76,8 @@
       </property>
       <property>
             <name>postal_code</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>textbox</type>
             <maxlength>25</maxlength>
             <field>postal_code</field>
@@ -77,8 +85,8 @@
       </property>
       <property>
             <name>po_box</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>textbox</type>
             <maxlength>50</maxlength>
             <field>po_box</field>
@@ -86,8 +94,8 @@
       </property>
       <property>
             <name>coord_x</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>textbox</type>
             <maxlength>50</maxlength>
             <field>coord_x</field>
@@ -95,8 +103,8 @@
       </property>
       <property>
             <name>coord_y</name>
-            <table>aw_address</table>
             <group>general</group>
+            <table>aw_address</table>
             <type>textbox</type>
             <maxlength>50</maxlength>
             <field>coord_y</field>
@@ -105,7 +113,6 @@
       <classinfo>
             <syslog_type>ST_ADDRESS</syslog_type>
             <relationmgr>yes</relationmgr>
-            <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
       </classinfo>
