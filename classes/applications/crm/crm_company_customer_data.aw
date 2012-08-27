@@ -14,6 +14,9 @@ and acquisition contracts are represented in separate customer relation objects
 	@property name type=text table=objects field=name store=no
 	@caption Nimi
 
+	@property short_name type=textbox table=aw_crm_customer_data field=short_name
+	@caption Nime l&uuml;hend
+
 	@property buyer type=relpicker reltype=RELTYPE_BUYER table=aw_crm_customer_data field=aw_buyer
 	@caption Ostja
 
@@ -1007,6 +1010,12 @@ Aadress: %s
 				$this->db_add_col($tbl, array(
 					"name" => $fld,
 					"type" => "double"
+				));
+				return true;
+			case "short_name":
+				$this->db_add_col($tbl, array(
+					"name" => $fld,
+					"type" => "VARCHAR(24)"
 				));
 				return true;
 		}
