@@ -135,7 +135,8 @@ class crm_company_employees_view extends class_base
 		{
 			$url = $this->mk_my_orb("do_search", array(
 				"clid" => crm_person_obj::CLID,
-				"pn" => "add_existing_employee_oid"
+				"pn" => "add_existing_employee_oid",
+				"in_popup" => 1
 			), "popup_search");
 
 			$tb->add_button(array(
@@ -161,7 +162,8 @@ class crm_company_employees_view extends class_base
 		{
 			$url = $this->mk_my_orb("do_search", array(
 				"clid" => crm_profession_obj::CLID,
-				"pn" => "add_existing_profession_oid"
+				"pn" => "add_existing_profession_oid",
+				"in_popup" => 1
 			), "popup_search");
 
 			$tb->add_button(array(
@@ -259,6 +261,16 @@ class crm_company_employees_view extends class_base
 		return $r;
 	}
 
+	public function get_tree_state($parent,$organization_o)
+	{
+		if($parent == $organization_o) return "closed";
+		$sections = $organization_o->get_sections($parent);
+		if($sections->count()) return "closed";
+		$professions = $organization_o->get_professions($parent);
+		if($professions->count()) return "closed";
+		return "";
+	}
+
 	/**
 		@attrib name=get_organization_tree_nodes
 		@param id required type=oid acl=view
@@ -282,7 +294,7 @@ class crm_company_employees_view extends class_base
 			do
 			{
 				$url->set_arg(self::REQVAR_NODE, $section->id());
-				$data[] = array(
+				$adata = array(
 					"data" => array(
 						"title" => $section->prop_str("name"),
 						"icon" => icons::get_icon_url($section->class_id())
@@ -290,9 +302,17 @@ class crm_company_employees_view extends class_base
 					"attr" => array(
 						"id" => $section->id(),
 						"url" => $url->get()
-					),
-					"state" => "closed"
+					)
 				);
+				$state = $this->get_tree_state($section,$organization_o);
+				if($state)
+				{
+					$adata["state"] = $state;
+				}
+//"state" => "closed"
+				$data[] = $adata;
+					
+
 			}
 			while ($section = $sections->next());
 		}

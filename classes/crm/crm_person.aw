@@ -8687,7 +8687,8 @@ return;
 			}
 			else
 			{
-				print "Pädevuste haldust pole";
+				$prop["error"] = t('Oskusi ei saa valida, kuna on seadistamata P&auml;devuste halduse t&ouml;&ouml;laud".');
+			//	return class_base::PROP_ERROR;
 			}
 		}
 		elseif($manager)
