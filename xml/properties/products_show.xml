@@ -25,6 +25,18 @@
             <comment>Tootekategooriad millesse toode peaks kuuluma, et teda kuvataks</comment>
       </property>
       <property>
+            <name>products</name>
+            <table>aw_products_show</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <reltype>RELTYPE_PRODUCTS</reltype>
+            <field>products</field>
+            <caption>Tooted</caption>
+            <comment>Konkreetne toodete valik</comment>
+      </property>
+      <property>
             <name>columns</name>
             <table>aw_products_show</table>
             <group>general</group>
@@ -68,12 +80,10 @@
             <comment>veebipood, mille tooteid see n&amp;amp;auml;itamise objekt n&amp;amp;auml;itab</comment>
       </property>
       <classinfo>
-            <syslog_type>ST_PRODUCTS_SHOW</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>smeedia</maintainer>
       </classinfo>
       <tableinfo>
             <aw_products_show>
@@ -98,5 +108,15 @@
                   <clid>CL_SHOP_ORDER_CENTER</clid>
                   <caption>Tellimiskeskkond</caption>
             </OC>
+            <PRODUCTS>
+                  <value>4</value>
+                  <clid>
+                        <num_0>CL_SHOP_PRODUCT</num_0>
+                        <num_1>CL_SHOP_PRODUCT_PACKAGING</num_1>
+                        <num_2>CL_SHOP_PACKET</num_2>
+                  </clid>
+                  <caption>Toode</caption>
+            </PRODUCTS>
       </reltypes>
 </properties>
+

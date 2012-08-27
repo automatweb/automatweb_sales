@@ -14,6 +14,10 @@
 	@caption Tootekategooriad
 	@comment Tootekategooriad millesse toode peaks kuuluma, et teda kuvataks
 
+	@property products type=relpicker multiple=1 store=connect reltype=RELTYPE_PRODUCTS
+	@caption Tooted
+	@comment Konkreetne toodete valik
+
 	@property columns type=textbox field=aw_columns
 	@caption Tulpasid
 
@@ -42,6 +46,8 @@
 @reltype OC value=3 clid=CL_SHOP_ORDER_CENTER
 @caption Tellimiskeskkond
 
+@reltype PRODUCTS value=4 clid=CL_SHOP_PRODUCT,CL_SHOP_PRODUCT_PACKAGING,CL_SHOP_PACKET
+@caption Toode
 
 */
 
@@ -239,6 +245,7 @@ class products_show extends class_base
 		}
 
 		$oc = $ob->get_oc();
+
 		$this->read_template($ob->get_template());
 		$this->vars(array(
 			"name" => $ob->trans_get_val("name"),
