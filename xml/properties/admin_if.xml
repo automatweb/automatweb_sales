@@ -16,8 +16,43 @@
             <type>treeview</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <parent>o_bot_left</parent>
+            <parent>o_tree_layout</parent>
             <field>o_tree</field>
+      </property>
+      <property>
+            <name>search_name</name>
+            <table>objects</table>
+            <group>o</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>o_search_layout</parent>
+            <size>30</size>
+            <captionside>top</captionside>
+            <field>search_name</field>
+            <caption>Objekti nimi</caption>
+      </property>
+      <property>
+            <name>search_class</name>
+            <table>objects</table>
+            <group>o</group>
+            <type>select</type>
+            <store>no</store>
+            <parent>o_search_layout</parent>
+            <captionside>top</captionside>
+            <field>search_class</field>
+            <caption>Objekti t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>sbt</name>
+            <table>objects</table>
+            <group>o</group>
+            <type>submit</type>
+            <size>15</size>
+            <store>no</store>
+            <parent>o_search_layout</parent>
+            <no_caption>1</no_caption>
+            <field>sbt</field>
+            <caption>Otsi objekte</caption>
       </property>
       <property>
             <name>o_tbl</name>
@@ -55,6 +90,35 @@
             <field>uploader</field>
             <caption>Lae faile</caption>
       </property>
+      <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>settings</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>root_menus</name>
+            <table>objects</table>
+            <group>settings</group>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <reltype>RELTYPE_ROOT_MENU</reltype>
+            <field>root_menus</field>
+            <caption>Juurkataloogid</caption>
+      </property>
+      <property>
+            <name>tree_settings</name>
+            <table>objects</table>
+            <group>settings</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_TREE_SETTINGS</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Lisamise puu seaded</caption>
+      </property>
       <classinfo>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
@@ -69,21 +133,49 @@
             <fu>
                   <caption>Failide &amp;amp;uuml;leslaadimine</caption>
             </fu>
+            <settings>
+                  <caption>Seaded</caption>
+            </settings>
       </groupinfo>
+      <reltypes>
+            <ROOT_MENU>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Juurkataloog</caption>
+            </ROOT_MENU>
+            <TREE_SETTINGS>
+                  <value>2</value>
+                  <clid>CL_ADD_TREE_CONF</clid>
+                  <caption>Lisamise puu seaded</caption>
+            </TREE_SETTINGS>
+      </reltypes>
       <layout>
             <o_bottom>
                   <type>hbox</type>
-                  <width>30%:80%</width>
+                  <width>20%:80%</width>
                   <group>o</group>
                   <area_caption></area_caption>
             </o_bottom>
             <o_bot_left>
                   <type>vbox</type>
                   <parent>o_bottom</parent>
+                  <group>o</group>
+                  <area_caption></area_caption>
+            </o_bot_left>
+            <o_tree_layout>
+                  <type>vbox</type>
+                  <parent>o_bot_left</parent>
                   <closeable>1</closeable>
                   <area_caption>Kataloogid</area_caption>
                   <group>o</group>
-            </o_bot_left>
+            </o_tree_layout>
+            <o_search_layout>
+                  <type>vbox</type>
+                  <parent>o_bot_left</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Otsing</area_caption>
+                  <group>o</group>
+            </o_search_layout>
             <o_bot_right>
                   <type>vbox</type>
                   <parent>o_bottom</parent>

@@ -7,16 +7,28 @@
 
 	@property o_tb type=toolbar no_caption=1 store=no
 
-	@layout o_bottom type=hbox width=30%:80%
+	@layout o_bottom type=hbox width=20%:80%
 
-		@layout o_bot_left type=vbox parent=o_bottom closeable=1 area_caption=Kataloogid
+		@layout o_bot_left type=vbox parent=o_bottom
 
-			@property o_tree type=treeview no_caption=1 store=no parent=o_bot_left
+			@layout o_tree_layout type=vbox parent=o_bot_left closeable=1 area_caption=Kataloogid
+
+				@property o_tree type=treeview no_caption=1 store=no parent=o_tree_layout
+
+			@layout o_search_layout type=vbox parent=o_bot_left closeable=1 area_caption=Otsing
+
+				@property search_name type=textbox store=no parent=o_search_layout size=30  captionside=top
+				@caption Objekti nimi
+
+				@property search_class type=select store=no parent=o_search_layout  captionside=top
+				@caption Objekti t&uuml;&uuml;p
+
+				@property sbt type=submit size=15 store=no parent=o_search_layout no_caption=1
+				@caption Otsi objekte
 
 		@layout o_bot_right type=vbox parent=o_bottom
 
 			@property o_tbl type=table no_caption=1 store=no parent=o_bot_right
-
 
 @default group=fu
 
@@ -29,8 +41,28 @@
 	@property uploader type=text store=no
 	@caption Lae faile
 
+@default group=settings
+
+	@property name type=textbox
+	@caption Nimi
+
+	@property root_menus type=relpicker multiple=1 store=connect reltype=RELTYPE_ROOT_MENU
+	@caption Juurkataloogid
+
+	@property tree_settings type=relpicker reltype=RELTYPE_TREE_SETTINGS field=meta method=serialize
+	@caption Lisamise puu seaded
+
 @groupinfo o caption="Objektid" save=no submit=no
 @groupinfo fu caption="Failide &uuml;leslaadimine"
+@groupinfo settings caption="Seaded"
+
+@reltype ROOT_MENU value=1 clid=CL_MENU
+@caption Juurkataloog
+
+@reltype TREE_SETTINGS value=2 clid=CL_ADD_TREE_CONF
+@caption Lisamise puu seaded
+
+
 
 */
 
@@ -43,6 +75,7 @@ class admin_if extends class_base
 	var $curl;
 	var $selp;
 	var $force_0_parent;
+	var $objects_table_caption;
 
 	/** this stores a list of {clid => class name } for each class that implements the admin if modifier interface **/
 	private $modifiers_by_clid;
@@ -112,6 +145,69 @@ class admin_if extends class_base
 		), "admin_if",true,true));
 	}
 
+	function get_property($arr)
+	{
+		$prop = &$arr["prop"];
+
+		$retval = PROP_OK;
+		switch($prop["name"])
+		{
+			//-- get_property --//
+			case 'search_class':
+				$odl = new object_data_list(
+					array(
+					),
+					array(
+						"" => array(new obj_sql_func(OBJ_SQL_UNIQUE, "clid", "class_id"))
+					)
+				);
+				$cls = array();
+				$cldata = aw_ini_get("classes");
+				foreach($odl->arr() as $od)
+				{
+					if(isset($cldata[$od["clid"]]["name"]))
+					{
+						$cls[$od["clid"]] = aw_html_entity_decode($cldata[$od["clid"]]["name"]);
+					}
+				}
+				natsort($cls);
+				$prop["options"] = array("") + $cls;
+
+				$atc = new add_tree_conf();
+//				$ccf = $atc->get_current_conf();
+				if($arr["obj_inst"]->prop("tree_settings"))
+				{
+					$ccf = $arr["obj_inst"]->prop("tree_settings");
+				}
+				if ($ccf)
+				{
+					$filt = $atc->get_usable_filter($ccf);
+					foreach($prop["options"] as $key => $val)
+					{
+						if($key && empty($filt[$key]))
+						{
+							unset($prop["options"][$key]);
+						}
+					}
+				}
+				if(!empty($arr["request"]["search_class"]))
+				{
+					$prop["value"] = $arr["request"]["search_class"];
+				}
+
+				break;
+
+			case 'search_name':
+				if(!empty($arr["request"]["search_name"]))
+				{
+					$prop["value"] = $arr["request"]["search_name"];
+				}
+				break;
+
+		}
+	}
+
+
 	function _get_info_text($arr)
 	{
 		if (!empty($_SESSION["fu_tm_text"]))
@@ -131,6 +227,8 @@ class admin_if extends class_base
 		{
 			$arr["parent"] = $request["parent"];
 		}
+		if(isset($request["search_name"])) $arr["search_name"] = $request["search_name"];
+		if(isset($request["search_class"])) $arr["search_class"] = $request["search_class"];
 	}
 
 	function callback_mod_retval(&$arr)
@@ -139,6 +237,22 @@ class admin_if extends class_base
 		{
 			$arr["args"]["parent"] = $arr["request"]["parent"];
 		}
+		$arr["args"]["search_name"] = $arr["request"]["search_name"];
+		$arr["args"]["search_class"] = $arr["request"]["search_class"];
+	}
+
+	function callback_mod_layout(&$arr)
+	{
+		if ($arr["name"] === "o_bot_right")
+		{
+			if(!empty($arr["request"]["parent"]) && acl_base::can("view", $arr["request"]["parent"]))
+			{
+				$parent = obj($arr["request"]["parent"]);
+				$arr["area_caption"] = sprintf(t("Objektid kaustas %s"), $parent->name());
+			}
+		//	$arr["area_caption"] = $this->objects_table_caption; 
+		}
+		return true;
 	}
 
 	function _get_o_tb($arr)
@@ -156,7 +270,7 @@ class admin_if extends class_base
 				"icon" => "add"
 			));
 
-			$this->generate_new($tb, $parent, (isset($arr["request"]["period"]) ? $arr["request"]["period"] : null));
+			$this->generate_new($tb, $parent, (isset($arr["request"]["period"]) ? $arr["request"]["period"] : null) , $arr["obj_inst"]);
 		}
 
 		$tb->add_button(array(
@@ -292,6 +406,10 @@ class admin_if extends class_base
 			$admrm = reset($admrm);
 		}
 		$this->curl = isset($arr["request"]["curl"]) ? $arr["request"]["curl"] : get_ru();
+
+		$this->curl = aw_url_change_var("search_name", null, $this->curl);	
+		$this->curl = aw_url_change_var("search_class", null, $this->curl);	
+
 		$this->selp = isset($arr["request"]["selp"]) ? $arr["request"]["selp"] : (isset($arr["request"]["parent"]) ? $arr["request"]["parent"] : null);
 
 		$tree->start_tree(array(
@@ -305,6 +423,11 @@ class admin_if extends class_base
 		));
 
 		if(is_array($rn) && isset($rn[0])) unset($rn[0]);
+
+		if(isset($arr["obj_inst"]) && $arr["obj_inst"]->prop("root_menus") && is_array($arr["obj_inst"]->prop("root_menus")) && sizeof($arr["obj_inst"]->prop("root_menus")))
+		{
+			$rn = $arr["obj_inst"]->prop("root_menus");
+		}
 
 		$has_items = array();
 		if (is_array($rn) && count($rn) >1)
@@ -692,7 +815,8 @@ class admin_if extends class_base
 		$clss = aw_ini_get("classes");
 		$sel_objs = $this->get_cutcopied_objects();
 
-		$filt = $this->_get_object_list_filter($parent, $period);
+		$filt = $this->_get_object_list_filter($parent, $period, $arr);
+
 		$ob_cnt = new object_data_list(
 			$filt,
 			array(
@@ -714,6 +838,7 @@ class admin_if extends class_base
 		$this->setup_rf_table($t, $object_count, $per_page);
 
 		$this->_init_admin_modifier_list();
+		$cnt = 0;
 		foreach($ob->arr() as $row_d)
 		{
 			$row = array(
@@ -810,12 +935,23 @@ class admin_if extends class_base
 			}
 
 			$this->_call_admin_modifier_for_row($row_d["class_id"], $row);
-
+			$cnt++;
 			$t->define_data($row);
 		}
 	//	var_dump($parent);
 	//	$t->sort_by(array("field" => $_GET["sortby"], "sort_order" => $_GET["sort_order"]));
 		$this->_do_o_tbl_sorting($t, $parent);
+		if(!empty($_GET["search_name"]) || !empty($_GET["search_class"]))
+		{
+		//	$t->set_header("&nbsp;Leiti ".$cnt." objekti");
+			$this->objects_table_caption = "&nbsp;Leiti ".$cnt." objekti";
+		}
+		else
+		{
+			//$t->set_header("&nbsp;Objektid kaustas ".get_name($parent));
+			$this->objects_table_caption = "&nbsp;Objektid kaustas ".get_name($parent);
+		}
+	
 	}
 
 	private function _do_o_tbl_sorting($t, $parent)
@@ -942,7 +1078,7 @@ class admin_if extends class_base
 		return $this->pm->get_menu();
 	}
 
-	private function generate_new($tb, $i_parent, $period)
+	private function generate_new($tb, $i_parent, $period,$fao)
 	{
 		$cache_key = self::NEW_MENU_CACHE_KEY . aw_global_get("uid");
 		$atc = new add_tree_conf();
@@ -961,7 +1097,8 @@ class admin_if extends class_base
 				"docforms" => 1,
 				// those are for docs menu only
 				"parent" => "--pt--",
-				"period" => "--pr--"
+				"period" => "--pr--",
+				"conf_obj_id" => $fao->prop("tree_settings"),
 			));
 			cache::file_set($cache_key, serialize($tree));//XXX: tundub m6ttetu, get_class_tree v6iks ise cacheda kui ainult seda vaja cacheda
 		}
@@ -1409,7 +1546,12 @@ class admin_if extends class_base
 		{
 			return true;
 		}
-		if ($arr["id"] != "o")
+/*		if ($arr["id"] != "o")
+		{
+			return false;
+		}*/
+
+		if ($arr["id"] == "relationmgr")
 		{
 			return false;
 		}
@@ -1638,8 +1780,9 @@ class admin_if extends class_base
 		return $parent;
 	}
 
-	private function _get_object_list_filter($parent, $period)
+	private function _get_object_list_filter($parent, $period, $arr)
 	{
+		
 		$filter = array(
 			"parent" => $parent,
 			new object_list_filter(array(
@@ -1654,6 +1797,35 @@ class admin_if extends class_base
 			"class_id" => new obj_predicate_not(CL_RELATION),
 			"site_id" => array(),
 		);
+
+		if(!empty($arr["request"]["search_name"]))
+		{
+			$filter["parent"] = array();
+			$filter["name"] = $arr["request"]["search_name"]."%";
+		}
+
+		if(!empty($arr["request"]["search_class"]))
+		{
+			$filter["parent"] = array();
+			$filter["class_id"] = $arr["request"]["search_class"];
+		}
+		else
+		{
+			$atc = new add_tree_conf();
+			if($arr["obj_inst"]->prop("tree_settings"))
+			{
+				$ccf = $arr["obj_inst"]->prop("tree_settings");
+			}
+			if ($ccf)
+			{
+				$filt = $atc->get_usable_filter($ccf);
+				if(sizeof($filt))
+				{
+					$filter["class_id"] = $filt;
+				}
+			}
+		}
+
 		$menu_obj = obj($parent);
 		if (!$menu_obj->prop("all_pers"))
 		{
