@@ -125,6 +125,7 @@
             <group>Kontaktid</group>
             <type>releditor</type>
             <mode>manager</mode>
+            <delete_objects>1</delete_objects>
             <props>
                   <num_0>country</num_0>
                   <num_1>location_data</num_1>
@@ -186,6 +187,35 @@
             <caption>Veebiaadress</caption>
       </property>
       <property>
+            <name>address</name>
+            <table>objects</table>
+            <group>Kontaktid</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>address_toolbar</name>
+            <table>objects</table>
+            <group>Kontaktid</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>address_editor_container</parent>
+            <field>address_toolbar</field>
+      </property>
+      <property>
+            <name>cedit_adr_tbl</name>
+            <table>objects</table>
+            <group>Kontaktid</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>address_editor_container</parent>
+            <field>cedit_adr_tbl</field>
+      </property>
+      <property>
             <name>wpls</name>
             <table>objects</table>
             <group>wpls</group>
@@ -196,6 +226,24 @@
             <automatic>1</automatic>
             <field>wpls</field>
             <caption>T&amp;amp;ouml;&amp;amp;ouml;kohad</caption>
+      </property>
+      <property>
+            <name>oh_tb</name>
+            <table>objects</table>
+            <group>open_hrs</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>oh_tb</field>
+      </property>
+      <property>
+            <name>oh_t</name>
+            <table>objects</table>
+            <group>open_hrs</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>oh_t</field>
       </property>
       <property>
             <name>transl</name>
@@ -217,6 +265,9 @@
             <wpls>
                   <caption>T&amp;amp;ouml;&amp;amp;ouml;kohad</caption>
             </wpls>
+            <open_hrs>
+                  <caption>Avamisajad</caption>
+            </open_hrs>
             <transl>
                   <caption>T&amp;amp;otilde;lgi</caption>
             </transl>
@@ -274,6 +325,11 @@
                   <clid>CL_ADDRESS</clid>
                   <caption>Asukoht</caption>
             </LOCATION>
+            <OPENHOURS>
+                  <value>14</value>
+                  <clid>CL_OPENHOURS</clid>
+                  <caption>Avamisajad</caption>
+            </OPENHOURS>
             <SECTION>
                   <value>1</value>
                   <clid>CL_CRM_SECTION</clid>
@@ -296,24 +352,18 @@
             </ADDRESS>
       </reltypes>
       <layout>
-            <main_container>
-                  <type>hbox</type>
-                  <width>50%:50%</width>
-                  <group>Kontaktid</group>
-                  <area_caption></area_caption>
-            </main_container>
-            <address_editor_container>
-                  <type>vbox</type>
-                  <area_caption>Aadressid</area_caption>
-                  <parent>main_container</parent>
-                  <group>Kontaktid</group>
-            </address_editor_container>
             <other_contact_data_container>
                   <type>vbox</type>
                   <area_caption>Muud&amp;amp;nbsp;kontaktandmed</area_caption>
-                  <parent>main_container</parent>
+                  <parent>Kontaktid</parent>
                   <group>Kontaktid</group>
             </other_contact_data_container>
+            <address_editor_container>
+                  <type>vbox</type>
+                  <area_caption>Aadressid</area_caption>
+                  <parent>Kontaktid</parent>
+                  <group>Kontaktid</group>
+            </address_editor_container>
       </layout>
 </properties>
 

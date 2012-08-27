@@ -1350,8 +1350,13 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 		$conns = array();
 		if (is_oid($arr["obj_inst"]->id()))
 		{
+			$rltype = "RELTYPE_ADDRESS_ALT";
+			if($arr["obj_inst"]->class_id() == CL_CRM_SECTION)
+			{
+				$rltype = "RELTYPE_LOCATION";
+			}
 			$conns = $arr["obj_inst"]->connections_from(array(
-				"type" => "RELTYPE_ADDRESS_ALT",
+				"type" => $rltype,
 			));
 		}
 
@@ -1416,6 +1421,11 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 			{
 				$t->define_data(array(
 					"sel" => $obj->id(),
+					"comment" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][comment]",
+						"value" => $obj->comment(),
+						"size" => 15
+					)),
 					"choose" => $chooser,
 					"aadress" => html::textbox(array(
 						"name" => "cedit_adr[".$obj->id()."][aadress]",
@@ -1545,6 +1555,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 //					"location" => $location,
 					"street" => $obj->prop("street"),
 					"house" => $obj->prop("house"),
+					"comment" => $obj->comment(),
 					"apartment" => $obj->prop("apartment"),
 					"postal_code" => $obj->prop("postal_code"),
 					"po_box" => $obj->prop("po_box"),
@@ -1718,6 +1729,11 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 				)),
 				"apartment" => html::textbox(array(
 					"name" => "cedit_adr[-1][apartment]",
+					"value" => "",
+					"size" => 5
+				)),
+				"comment" => html::textbox(array(
+					"name" => "cedit_adr[-1][comment]",
 					"value" => "",
 					"size" => 5
 				)),
@@ -2001,15 +2017,22 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 					$a->set_prop("street" , $data["street"]);
 					$a->set_prop("house" , $data["house"]);
 					$a->set_prop("apartment" , $data["apartment"]);
+					$a->set_prop("comment" , $data["comment"]);
 					$a->set_prop("postal_code" , $data["postal_code"]);
 					$a->set_prop("po_box" , $data["po_box"]);
 					$a->set_prop("country" , $data["country"]);
 
 					$a->save();
 //arr($a); die();
+
+					$rltype = "RELTYPE_ADDRESS_ALT";
+					if($arr["obj_inst"]->class_id() == CL_CRM_SECTION)
+					{
+						$rltype = "RELTYPE_LOCATION";
+					}
 					$arr["obj_inst"]->connect(array(
 						"to" => $a->id(),
-						"type" => "RELTYPE_ADDRESS_ALT"
+						"type" => $rltype
 					));
 
 					if ($arr["request"]["cedit"]["cedit_adr_tbl"] == $id)
