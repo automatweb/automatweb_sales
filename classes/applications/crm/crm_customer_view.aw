@@ -895,7 +895,7 @@ class crm_customer_view extends class_base
 			"name" => "add_seller",
 			'text' => t("Müüja"),
 		));
-		
+
 		$tb->add_menu_item(array(
 			"parent"=> "add_seller",
 			"text" => t("Organisatsioon"),
@@ -940,7 +940,7 @@ class crm_customer_view extends class_base
 				"quote" => "'"
 			))
 		));
-		
+
 
 		$tb->add_separator();
 
@@ -990,7 +990,7 @@ class crm_customer_view extends class_base
 			"parent"=> "delete_customers",
 			"text" => t("L&otilde;peta kliendisuhe"),
 			"action" => "remove_cust_relations"
-		)); 
+		));
 
 /*
 		$tb->add_sub_menu(array(
@@ -1003,13 +1003,13 @@ class crm_customer_view extends class_base
 			"parent"=> "remove_relation",
 			"text" => t("L&otilde;peta m&uuml;&uuml;gisuhe"),
 			"action" => "remove_sell_relations"
-		)); 
+		));
 
 		$tb->add_menu_item(array(
 			"parent"=> "remove_relation",
 			"text" => t("L&otilde;peta ostusuhe"),
 			"action" => "remove_buy_relations"
-		)); 
+		));
 */
 
 		$tb->add_menu_item(array(
@@ -1230,7 +1230,7 @@ class crm_customer_view extends class_base
 
 	function _finish_org_tbl($arr, $customer_relations_list)
 	{
-		
+
 		$mail_inst = get_instance(CL_ML_MEMBER);
 /*		if ("relorg_s" === $this->use_group)
 		{ // list sellers
@@ -1542,11 +1542,35 @@ class crm_customer_view extends class_base
 			# name
 			if ($default_cfg or in_array("name", $visible_fields))
 			{
-				$sn = $cro_obj->prop("short_name") ? $cro_obj->prop("short_name") : ($o->prop("short_name") ? $o->prop("short_name") : "");
+				if ($cro_obj->prop("short_name"))
+				{
+					$short_name = $cro_obj->prop("short_name");
+				}
+				elseif ($o->is_a(CL_CRM_COMPANY) and $o->prop("short_name"))
+				{
+					$short_name = $o->prop("short_name");
+				}
+				elseif ($o->is_a(CL_CRM_PERSON))
+				{
+					$short_name = $o->prop("lastname");
+				}
+				else
+				{
+					$short_name = "";
+				}
+
 				$name = html::span(array(
 					"nowrap" => true,
-					"content" => icons::get_class_icon($o->class_id()) . html::space() . html::get_change_url($o->id(), array("return_url" => get_ru()),
-					($o->name() ? $o->name() : t("[Nimetu]")).$vorm).html::linebreak().$sn
+					"content" =>
+						icons::get_class_icon($o->class_id()) .
+						html::space() .
+						html::get_change_url(
+							$o->id(),
+							array("return_url" => get_ru()),
+							($o->name() ? $o->name() : t("[Nimetu]")) . $vorm
+						) .
+						html::linebreak() .
+						$short_name
 				));
 
 	/*			if ($o->is_a(crm_company_obj::CLID))
@@ -1560,7 +1584,7 @@ class crm_customer_view extends class_base
 					));
 				}*/
 			}
- 
+
 			$c = $o->connections_from(array(
 				"type" => "RELTYPE_METAMGR"
 			));
@@ -1606,11 +1630,11 @@ class crm_customer_view extends class_base
 			$customer_rel_order = join(html::linebreak() , $customer_rel_order_a);
 
 			$bp = array();
-			
-			if($cro_obj->prop("buyer.firmajuht")) $bp[] = $this->get_person_data( $cro_obj->prop("buyer.firmajuht"), $cro_obj->prop("buyer"), t("&Uuml;ldjuht"));
+
+			if($cro_obj->is_property("buyer.firmajuht") and $cro_obj->prop("buyer.firmajuht")) $bp[] = $this->get_person_data( $cro_obj->prop("buyer.firmajuht"), $cro_obj->prop("buyer"), t("&Uuml;ldjuht"));
 
 			if($cro_obj->prop("buyer_contract_creator"))$bp[] =$this->get_person_data( $cro_obj->prop("buyer_contract_creator"), $cro_obj->prop("buyer"), t("Hankijasuhte looja"));
-			
+
 
 			$bill_person_ol = new object_list($cro_obj->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
 			if($bill_person_ol->count())
@@ -1629,29 +1653,30 @@ class crm_customer_view extends class_base
 			if($cro_obj->prop("client_manager")) $sp[] = $this->get_person_data( $cro_obj->prop("client_manager"), $cro_obj->prop("seller"), t("Kliendihaldur"));
 			if($cro_obj->prop("salesman")) $sp[] = $this->get_person_data( $cro_obj->prop("salesman"), $cro_obj->prop("seller"), t("M&uuml;&uuml;giesindaja"));
 
-			$address_row = "";
-			if($o->class_id() == crm_company_obj::CLID)
+			if ($o->class_id() == crm_company_obj::CLID and acl_base::can("view" ,$o->prop("contact")))
 			{
-				if(acl_base::can("view" ,$o->prop("contact")))
-				{
-					$address_object = obj($o->prop("contact"));
-				}
+				$address_object = obj($o->prop("contact"));
 			}
-			if($o->class_id() == crm_person_obj::CLID)
+			elseif ($o->class_id() == crm_person_obj::CLID and acl_base::can("view" ,$o->prop("address")))
 			{
-				if(acl_base::can("view" ,$o->prop("address")))
-				{
-					$address_object = obj($o->prop("address"));
-				}
+				$address_object = obj($o->prop("address"));
+			}
+			else
+			{
+				$address_object = null;
 			}
 
-			if($address_object)
+			if ($address_object and $address_object->is_a(address_object::CLID))
 			{
 				$city = $address_object->prop("parent.name");
 				$county = $address_object->prop("parent.parent.name");
 				$address_row.= $address_object->prop("street")." ".$address_object->prop("house");
 				$address_row.= html::linebreak().$address_object->prop("postal_code")." ".$city;
 				$address_row.= html::linebreak().$county." ".$address_object->prop("parent.parent.parent.name");
+			}
+			else
+			{
+				$address_row = "";
 			}
 
 			if($url)
@@ -1669,7 +1694,7 @@ class crm_customer_view extends class_base
 				$obj = $conn->to();
 				$obj->conn_id = $conn->id();
 				$address_row.= html::linebreak().($obj->prop("contact_type") ? $mail_inst->types[$obj->prop("contact_type")].": " : "").$obj->name();
-			}				
+			}
 
 //-------- telefonid
 
@@ -1703,7 +1728,7 @@ class crm_customer_view extends class_base
 			$address_row.= html::linebreak().t("faks").": ".$obj->name();
 		}
 /*
-Viadukti 42 
+Viadukti 42
 11313, Tallinn
 Harjumaa, Eesti
 http://www.espak.ee
