@@ -913,7 +913,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		$ot_sets = array();
 		if (!isset($arr["ot_modified"]))
 		{
-			$arr["ot_modified"] = $GLOBALS["object_loader"]->all_ot_flds;
+			$arr["ot_modified"] = object_loader::$all_ot_flds;
 		}
 
 		foreach(safe_array($arr["ot_modified"]) as $_field => $one)
@@ -2258,7 +2258,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							list($table, $field) = $this->_do_proc_complex_param(array("key" => $sl_item["prop"], "val" => null, "params" => $p_tmp));
 							$pd = array("table" => $table, "field" => $field);
 						}
-						elseif (isset($GLOBALS["object_loader"]->all_ot_flds[$sl_item["prop"]]) || $sl_item["prop"] === "oid")
+						elseif (isset(object_loader::$all_ot_flds[$sl_item["prop"]]) || $sl_item["prop"] === "oid")
 						{
 							$pd = array("table" => "objects", "field" => $sl_item["prop"]);
 						}
@@ -3412,7 +3412,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		}
 
 		$ot_sets = array();
-		$arr["ot_modified"] = $GLOBALS["object_loader"]->all_ot_flds;
+		$arr["ot_modified"] = object_loader::$all_ot_flds;
 		foreach(safe_array($arr["ot_modified"]) as $_field => $one)
 		{
 			$ot_sets[] = " o_".$_field." = '".$objdata[$_field]."' ";
@@ -3753,7 +3753,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		$objdata["metadata"] = $this->db_fetch_field("SELECT metadata FROM objects WHERE oid = '$id'", "metadata");
 
 		$ot_sets = array();
-		$arr["ot_modified"] = $GLOBALS["object_loader"]->all_ot_flds;
+		$arr["ot_modified"] = object_loader::$all_ot_flds;
 		foreach(safe_array($arr["ot_modified"]) as $_field => $one)
 		{
 			$this->quote($objdata[$_field]);

@@ -124,7 +124,7 @@ class obj_xml_gen
 		$xml .= "\t\t<id>".$o->id()."</id>\n";
 
 		// all object table fields
-		$flds = $GLOBALS["object_loader"]->all_ot_flds;
+		$flds = object_loader::$all_ot_flds;
 		$xml .= "\t\t<ot_flds>\n";
 		foreach($flds as $fld => $t)
 		{

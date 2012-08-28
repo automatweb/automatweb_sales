@@ -18,6 +18,28 @@ All methods should be static
 **/
 class object_loader
 {
+	public static $all_ot_flds = array(
+		"parent" => 			"parent",
+		"name" =>               "name",
+		"createdby" =>     "createdby",
+		"class_id" =>           "class_id",
+		"created" =>            "created",
+		"modified" =>          "modified",
+		"status" =>              "status",
+		"lang_id" =>            "lang_id",
+		"comment" =>        "comment",
+		"modifiedby" =>     "modifiedby",
+		"jrk" =>                     "jrk",
+		"period" =>              "period",
+		"alias" =>                 "alias",
+		"periodic" =>           "periodic",
+		"site_id" =>             "site_id",
+		"brother_of" =>      "brother_of",
+		"metadata" =>        "metadata",
+		"subclass" =>          "subclass",
+		"flags" =>                 "flags"
+	);
+
 	private static $instance = false;
 
 	/** Returns object loader singleton instance
@@ -99,15 +121,6 @@ class _int_object_loader
 
 	function _int_object_loader()
 	{
-		$this->all_ot_flds = array_flip(array(
-			"parent", "name", "class_id",
-			"modified", "created", "status", "lang_id",
-			"comment", "modifiedby", "jrk",
-			"period", "alias", "periodic",
-			"site_id", "metadata",
-			"subclass", "flags", "brother_of"
-		));
-
 		// init the datasource from the ini file setting
 		$datasources = aw_ini_get("objects.default_datasource");
 		if ($datasources == "")

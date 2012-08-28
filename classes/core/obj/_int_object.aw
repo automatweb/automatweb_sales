@@ -1898,7 +1898,7 @@ class _int_object
 			$cv2 = serialize($cv2);
 		}
 
-		if ($cv1 != $cv2 && isset(object_loader::instance()->all_ot_flds[$fld]))
+		if ($cv1 != $cv2 && isset(object_loader::$all_ot_flds[$fld]))
 		{
 			$this->ot_modified[$fld] = 1;
 		}
