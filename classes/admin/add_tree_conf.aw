@@ -698,7 +698,14 @@ class add_tree_conf extends class_base
 	**/
 	function get_class_tree($arr = array())
 	{
-		$conf_obj_id = $this->get_current_conf();
+		if($arr["conf_obj_id"])
+		{
+			$conf_obj_id = $arr["conf_obj_id"];
+		}
+		else
+		{
+			$conf_obj_id = $this->get_current_conf();
+		}
 		$this->conf_exists = false;
 
 		$clss = aw_ini_get("classes");

@@ -7,6 +7,10 @@
 
 @default table=objects
 @default group=general
+
+	@property long_name type=textbox size=40 table=aw_crm_category field=long_name
+	@caption Kategooria nimi pikalt
+
 	@property jrk type=textbox size=5 table=objects field=jrk
 	@caption J&auml;rjekord
 
@@ -87,6 +91,13 @@ class crm_category extends class_base
 				$this->db_add_col($table, array(
 					"name" => "aw_category_type",
 					"type" => "tinyint UNSIGNED NOT NULL default '1'"
+				));
+			}
+			elseif ("long_name" === $field)
+			{
+				$this->db_add_col($table, array(
+					"name" => "long_name",
+					"type" => "varchar(64)"
 				));
 			}
 		}

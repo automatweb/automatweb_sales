@@ -49,7 +49,10 @@ class crm_companies_webview_obj extends _int_object
 		$ret = new object_list();
 		foreach($ol->arr() as $rel)
 		{
-			$ret->add($rel->prop("client_manager"));
+			if(acl_base::can("view" ,$rel->prop("client_manager")))
+			{
+				$ret->add($rel->prop("client_manager"));
+			}
 		}
 		return $ret;
 	}
@@ -107,6 +110,9 @@ class crm_companies_webview_obj extends _int_object
 
 		$ret = array();
 		$orders = $this->meta("orders");
+		$show = $this->meta("show");
+		$show_what = $this->meta("show_what");
+		$dont_show = $this->meta("dont_show");
 		if(empty($orders)) $orders = array(0);
 		$mod_url = $this->meta("mod_url");
 		foreach($ol->arr() as $o)
@@ -137,16 +143,21 @@ class crm_companies_webview_obj extends _int_object
 			$cust_obj = obj($cust);
 			$ret[$cust] = array(
 				"id" => $cust,
+				"co_id" => $cust,
 				"name" => $cust_obj->name(),
+				"company_name" => $cust_obj->name(),
 				"phone" => join("," , $cust_obj->get_phones()),
 				"leader" => $cust_obj->class_id() == CL_CRM_PERSON ? "" : $cust_obj->prop("firmajuht.name"),
 				"co_reg" => $cust_obj->class_id() == CL_CRM_PERSON ? "" : $cust_obj->prop("reg_nr"),
 				"co_tax" => $cust_obj->class_id() == CL_CRM_PERSON ? "" : $cust_obj->prop("tax_nr"),
 				"client_manager" => $o->prop("client_manager.name"),
-				"ord" => isset($orders[$cust]) ? $orders[$cust] : max($orders)+100,
-				"mod_url" => $mod_url[$cust],
+				"ord" => isset($orders[$cust]) ? (double)$orders[$cust] : (double)(max($orders)+100),
+				"show" => isset($show[$cust]) ? $show[$cust] : 0,
+				"dont_show" => isset($dont_show[$cust]) ? $dont_show[$cust] : 0,
+				"show_what" => isset($show_what[$cust]) ? $show_what[$cust] : array(),
+				"mod_url" => isset($mod_url[$cust]) ? $mod_url[$cust] : "",
 				"real_url" => $cust_obj->get_url(),
-				"url" => $mod_url[$cust] ? $mod_url[$cust] : $cust_obj->get_url(),
+				"url" => !empty($mod_url[$cust]) ? $mod_url[$cust] : $cust_obj->get_url(),
 				"name_small" => str_replace(" ","_",strtolower($cust_obj->name())),
 				"short_name" => $cust_obj->class_id() == CL_CRM_PERSON ? $cust_obj->prop("name") : ($cust_obj->prop("short_name") ? $cust_obj->prop("short_name") : $cust_obj->prop("name")),
 				"start" => $start,
@@ -162,18 +173,26 @@ class crm_companies_webview_obj extends _int_object
 				$ret[$cust]["logo"] = $img_i->make_img_tag_wl($logoo->id());
 			}
 
-			$address = $cust_obj->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
-			if($address)
-			{
-				foreach($address->properties() as $var => $val)
-				{
-					$ret[$cust]["address_".$var] = $val;
-				}
+			$ret[$cust]+= $this->get_address_vars($cust_obj);
 
-				if($address->prop("coord_x") && $address->prop("coord_y"))
+			if($show[$cust])
+			{
+				$cust_data = $ret[$cust];
+				foreach($show_what[$cust] as $section)
 				{
- 					$ret[$cust]["google_map_url"] =
-'https://maps.google.com/maps?q='.urlencode($address->prop("street")).'+'.$address->prop("house").',+'.urlencode($address->prop("parent.name")).',+Eesti&hl=en&ie=UTF8&ll='.$address->prop("coord_y").','.$address->prop("coord_x").'&spn=0.011141,0.038581&sll=37.0625,-95.677068&sspn=34.450489,79.013672&oq='.urlencode($address->prop("street")).'+'.$address->prop("house").'+p&hnear='.urlencode($address->prop("street")).'+'.$address->prop("house").',+'.urlencode($address->prop("parent.name")).',+80042+'.urlencode($address->prop("parent.parent.name")).',+Estonia&t=m&z=15';					
+					$sobj = obj($section);
+					$cust_data["id"] = $sobj->id();
+					$cust_data["show"] = null;
+					$cust_data["name"] = $sobj->name();
+					$cust_data["name_small"] = str_replace(" ","_",strtolower($sobj->name()));
+					$cust_data["short_name"] = $sobj->prop("short_name") ? $sobj->prop("short_name") : $sobj->prop("name");
+					$avars = $this->get_address_vars($sobj);
+					foreach($avars as $key => $val)
+					{
+						$cust_data[$key] = $val;
+					}
+					$cust_data["ord"] = (double)($ret[$cust]["ord"].".".$sobj->prop("jrk"));
+					$ret[$section] = $cust_data;
 				}
 			}
 
@@ -181,6 +200,33 @@ class crm_companies_webview_obj extends _int_object
 		}
 
 		uasort($ret, array(&$this , "cmp"));
+		return $ret;
+	}
+
+	function get_address_vars($o)
+	{
+		$ret = array();
+		if($o->class_id() == CL_CRM_SECTION)
+		{
+			$address = $o->get_first_obj_by_reltype("RELTYPE_LOCATION");
+		}
+		else
+		{
+			$address = $o->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
+		}
+	//	var_dump($o->name()); var_dump($address);
+		if($address)
+		{
+			foreach($address->properties() as $var => $val)
+			{
+				$ret["address_".$var] = $val;
+			}
+			if($address->prop("coord_x") && $address->prop("coord_y"))
+			{
+				$ret["google_map_url"] =
+'https://maps.google.com/maps?q='.urlencode($address->prop("street")).'+'.$address->prop("house").',+'.urlencode($address->prop("parent.name")).',+Eesti&hl=en&ie=UTF8&ll='.$address->prop("coord_y").','.$address->prop("coord_x").'&spn=0.011141,0.038581&sll=37.0625,-95.677068&sspn=34.450489,79.013672&oq='.urlencode($address->prop("street")).'+'.$address->prop("house").'+p&hnear='.urlencode($address->prop("street")).'+'.$address->prop("house").',+'.urlencode($address->prop("parent.name")).',+80042+'.urlencode($address->prop("parent.parent.name")).',+Estonia&t=m&z=15';					
+			}
+		}
 		return $ret;
 	}
 
@@ -221,16 +267,20 @@ class crm_companies_webview_obj extends _int_object
 				}
 				return ($a["start"] > $b["start"]) ? -1 : 1;
 			case "3":
-				$ord = $this->meta("ord");
-				if ($ord[$a["id"]] == $ord[$b["id"]]) {
+				if ($a["ord"] == $b["ord"]) {
 					return 0;
 				}
-				return ($ord[$a["id"]] < $ord[$b["id"]]) ? -1 : 1;
+				return ($a["ord"] < $b["ord"]) ? -1 : 1;
+			/*	$ord = $this->meta("orders");
+				if ($ord[$a["co_id"]] == $ord[$b["co_id"]]) {
+					return 0;
+				}
+				return ($ord[$a["co_id"]] < $ord[$b["co_id"]]) ? -1 : 1;*/
 			default:
-				if ($a["name"] == $b["name"]) {
+				if ($a["short_name"] == $b["short_name"]) {
 					return 0;
 				}
-				return ($a["name"] < $b["name"]) ? -1 : 1;
+				return ($a["short_name"] < $b["short_name"]) ? -1 : 1;
 		}
 	}
 

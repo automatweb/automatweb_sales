@@ -109,10 +109,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 	function set_prop($name, $value, $set_into_meta = true)
 	{
-		if($name === "name")
+		//Selline asi ei lase ju nimedes & märke kasutada, miks see hea on? - Marko
+/*		if($name === "name")
 		{
 			$value = htmlspecialchars($value);
-		}
+		}*/
 
 		if(substr($name, 0, 5) === "fake_")
 		{
@@ -147,7 +148,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 	function set_name($v)
 	{
-		$v = htmlspecialchars($v);
+	//	$v = htmlspecialchars($v);
 		return parent::set_name($v);
 	}
 
@@ -2365,11 +2366,12 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		{
 			throw new awex_obj_type("Customer can be either company or person. Given class id: " . $customer->class_id());
 		}
-
+//no on vaja ise enda kliendiks - Ahto arvates
+/*
 		if ($this->id() === $customer->id())
 		{
 			throw new awex_obj_type("Company can't be its own customer. Id: " . $customer->id());
-		}
+		}*/
 
 		return $this->_create_customer_relation($type, $customer);
 	}

@@ -12,6 +12,7 @@
 @caption Ettev&otilde;te
 @comment Kui valitud, n&auml;itab vaid seda organisatsiooni.
 
+
 @property show_title type=checkbox field=flags ch_value=32 method=bitmask
 @caption Kuva pealkirja
 
@@ -30,6 +31,10 @@
 
 @property template type=select field=meta method=serialize
 @caption Template
+
+@property tabs type=table store=no
+@caption Kaardid
+
 
 @property ord1 type=select field=meta method=serialize
 @caption J&auml;rjestamisprintsiip 1
@@ -97,7 +102,7 @@ class crm_company_webview extends class_base
 	{
 		$prop = &$arr["prop"];
 
-		if($prop["name"] != "company" && $prop["name"] != "name")
+		if($prop["name"] != "company" && $prop["name"] != "name" && $prop["name"] != "template" && $prop["name"] != "tabs")
 		{
 			return PROP_IGNORE;
 		}
@@ -124,7 +129,7 @@ class crm_company_webview extends class_base
 				$inst = get_instance(CL_CRM_COMPANY_WEBVIEW);
 				$sys_tpldir = $inst->adm_template_dir;
 				$site_tpldir = $inst->site_template_dir;
-				$prop['options'] = array('default.tpl' => t("Vaikimisi"));
+			//	$prop['options'] = array('default.tpl' => t("Vaikimisi"));
 				foreach (glob($site_tpldir.'/*.tpl') as $file)
 				{
 					$base = basename($file);
@@ -293,14 +298,26 @@ class crm_company_webview extends class_base
 	{
 
 		$company = obj($o->prop("company"));
-		$this->read_template("company.tpl");
+		$this->read_template($o->prop("template"));
 		$this->vars($company->properties());
+
+		$tabs = $o->meta("tabs");
+		$hide = $o->meta("hide");
+
 
 		$vars = array();
 		$vars["address"] = $company->get_address_string();
 		$vars["email"] = $company->get_mail();
 		$vars["phone"] = join(", " , $company->get_phones());
 
+		foreach($tabs as $key => $val)
+		{
+			$vars["caption".$key] = $val;
+		}
+		foreach($hide as $key => $val)
+		{
+			$vars["class".$key] = "hide";
+		}
 //		$vars["workers"] = join(", ", $workers->names());
 		$this->vars($vars);
 /*----------------- aadress ------------------------*/
@@ -407,6 +424,63 @@ class crm_company_webview extends class_base
 		$this->vars(array("OPEN_HOURS" => $o_sub));
 
 		return $this->parse();
+	}
+
+	function _get_tabs($arr)
+	{
+		if(!$arr["obj_inst"]->prop("template"))
+		{
+			return PROP_IGNORE;
+		}
+		$this->read_site_template($arr["obj_inst"]->prop("template"));
+		$tabs = $arr["obj_inst"]->meta("tabs");
+		$hide = $arr["obj_inst"]->meta("hide");
+		$t = $arr["prop"]["vcl_inst"];
+
+		$x = 0;
+
+		while($x < 100)
+		{
+			if($this->is_template("TAB".$x))
+			{
+				$t->define_data(array(
+					"caption" => html::textbox(array(
+						"name" => "tabs[".$x."]",
+						"value" => $tabs[$x] ? $tabs[$x] : $this->parse("TAB".$x),
+					)),
+					
+					"hide" => html::checkbox(array(
+						"name" => "hide[".$x."]",
+						"value" => 1,
+						"checked" => $hide[$x],
+					))
+				));
+			}
+			else
+			{
+				break;
+			}
+			$x++;
+		}
+
+		if($x)
+		{
+			$t->define_field(array(
+				"name" => "caption",
+				"caption" => t("Nimi")
+			));
+
+			$t->define_field(array(
+				"name" => "hide",
+				"caption" => t("Peida")
+			));
+		}
+	}
+
+	function _set_tabs($arr)
+	{
+		$arr["obj_inst"]->set_meta("tabs" , $arr["request"]["tabs"]);
+		$arr["obj_inst"]->set_meta("hide" , $arr["request"]["hide"]);
 	}
 
 	////

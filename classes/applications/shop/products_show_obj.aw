@@ -58,10 +58,9 @@ class products_show_obj extends _int_object
 		}
 
 		$ol = new object_list();
+		$types = $this->awobj_get_type();
 		if($categories->count())
 		{
-			$types = $this->awobj_get_type();
-
 			if (in_array(shop_product_obj::CLID, $types))
 			{
 				foreach($categories->arr() as $c)
@@ -89,6 +88,17 @@ class products_show_obj extends _int_object
 					"sort_by" => "objects.modified desc",
 				);
 				$ol->add(new object_list($filter));
+			}
+		}
+		else
+		{
+			if (in_array(shop_product_obj::CLID, $types))
+			{
+				foreach($this->connections_from(array("to.class_id" => shop_product_obj::CLID)) as $c)
+				{
+					$ol->add($c->prop("to"));
+				}
+
 			}
 		}
 

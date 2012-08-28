@@ -339,6 +339,7 @@ class crm_company_workers_manager extends class_base
 
 	function callback_mod_layout(&$arr)
 	{
+
 		if ($arr["name"] === "unit_list_container")
 		{
 			if(acl_base::can("view" ,$arr["obj_inst"]->prop("company")))
@@ -347,6 +348,38 @@ class crm_company_workers_manager extends class_base
 				$arr["area_caption"] = sprintf(t('Organisatsiooni "%s" üksused'), $company->name());
 			}
 		}
+		if ($arr["name"] === "employees_list_container")
+		{
+			if(acl_base::can("view" ,$_GET["es_c"]))
+			{
+				$o = obj($_GET["es_c"]);
+				switch($o->class_id())
+				{
+					case CL_CRM_PROFESSION:
+						$filt = array(
+							"class_id" => array(CL_CRM_PERSON_WORK_RELATION),
+							"profession" => $o->id(),
+							"employer" => $arr["obj_inst"]->prop("company")
+						);
+						$ol = new object_list($filt);
+						$wr = $ol->begin();
+						if($wr)
+						{
+							$sect = $wr->prop("company_section.name");
+						}
+							else
+							$sect = "";
+
+						$arr["area_caption"] = sprintf(t('Töötajad üksuses "%s" ametinimetusega "%s"'), $sect,$o->name());
+						break;
+					default:
+						$arr["area_caption"] = sprintf(t('Töötajad üksuses "%s"'), $o->name());
+						break;
+				}
+
+			}
+		}
+		
 		return true;
 	}
 }

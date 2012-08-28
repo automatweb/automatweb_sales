@@ -1,5 +1,20 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="crm_section" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+
+		<action name="remove_oh" all_args="1">
+			<function name="remove_oh">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_selected_objects" all_args="1">
+			<function name="delete_selected_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

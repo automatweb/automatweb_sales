@@ -3182,6 +3182,7 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 					$table->define_data(array(
 						"oid" => $category->id(),
 						"actions" => $menu->get_menu(),
+						"long_name" => $category->prop("long_name"),
 						"customer_count" => $customer_count,
 						"name" => icons::get_std_icon("folder") . html::space() . html::href(array("url" => $url->get(), "caption" => $category->name())),
 						"modified" => $category->modified(),
@@ -3215,14 +3216,15 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 
 	private function _customer_categories_table_header($table)
 	{
-		$table->define_field(array(
-			"name" => "actions",
-			"width" => "1%",
-			"caption" => ""
-		));
+
 		$table->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
+			"sortable" => 1
+		));
+		$table->define_field(array(
+			"name" => "long_name",
+			"caption" => t("Kategooria pikemalt"),
 			"sortable" => 1
 		));
 		$table->define_field(array(
@@ -3245,6 +3247,11 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 			"field" => "oid",
 			"width" => "1%",
 			"name" => "cat_check"
+		));
+		$table->define_field(array(
+			"name" => "actions",
+			"width" => "1%",
+			"caption" => ""
 		));
 	}
 }

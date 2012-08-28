@@ -719,7 +719,48 @@ class crm_customer_view extends class_base
 	}
 
 	/**
-		@attrib name=remove_cust_relations all_args=1
+		@attrib name=remove_buy_relations all_args=1
+	**/
+	function remove_buy_relations($arr)
+	{
+		if (is_array($arr["cust_check"]) and count($arr["cust_check"]))
+		{
+			try
+			{
+				$manager = obj($arr["id"]);
+				$this_o = obj($manager->prop("company"), array(), crm_company_obj::CLID);
+			}
+			catch (Exception $e)
+			{
+				$this->show_error_text(t("Organisatsiooniobjekt polnud loetav."));
+				return $arr["post_ru"];
+			}
+
+			$errors = array();
+			foreach($arr["cust_check"] as $customer_relation_oid)
+			{
+				try
+				{
+					$customer_relation_o = obj($customer_relation_oid);
+					$this_o->delete_customer($customer_relation_o);
+				}
+				catch (Exception $e)
+				{
+					$errors[] = $customer_relation_o->name();
+				}
+			}
+
+			if ($errors)
+			{
+				$this->show_error_text(sprintf(t("Kliendisuhteid %s l&otilde;petada ei &otilde;nnestunud."), ("'" . implode("', '", $errors) . "'")));
+			}
+		}
+
+		return $arr["post_ru"];
+	}
+
+	/**
+		@attrib name=remove_sell_relations all_args=1
 	**/
 	function remove_cust_relations($arr)
 	{
@@ -936,17 +977,40 @@ class crm_customer_view extends class_base
 			"icon" => "link_delete"
 		));
 
-		$tb->add_menu_item(array(
-			"parent"=> "delete_customers",
-			"text" => t("Eemalda kategooriast"),
-			"action" => "remove_from_category"
-		));
+		if(!empty($_GET["cs_c"]))
+		{
+			$tb->add_menu_item(array(
+				"parent"=> "delete_customers",
+				"text" => t("Eemalda kategooriast"),
+				"action" => "remove_from_category"
+			));
+		}
 
 		$tb->add_menu_item(array(
 			"parent"=> "delete_customers",
 			"text" => t("L&otilde;peta kliendisuhe"),
 			"action" => "remove_cust_relations"
+		)); 
+
+/*
+		$tb->add_sub_menu(array(
+			'parent'=> "delete_customers",
+			"name" => "remove_relation",
+			'text' => t("L&otilde;peta kliendisuhe"),
 		));
+
+		$tb->add_menu_item(array(
+			"parent"=> "remove_relation",
+			"text" => t("L&otilde;peta m&uuml;&uuml;gisuhe"),
+			"action" => "remove_sell_relations"
+		)); 
+
+		$tb->add_menu_item(array(
+			"parent"=> "remove_relation",
+			"text" => t("L&otilde;peta ostusuhe"),
+			"action" => "remove_buy_relations"
+		)); 
+*/
 
 		$tb->add_menu_item(array(
 			"parent"=> "delete_customers",
@@ -1166,6 +1230,8 @@ class crm_customer_view extends class_base
 
 	function _finish_org_tbl($arr, $customer_relations_list)
 	{
+		
+		$mail_inst = get_instance(CL_ML_MEMBER);
 /*		if ("relorg_s" === $this->use_group)
 		{ // list sellers
 			$customer_relation_type_prop = "seller";
@@ -1476,12 +1542,14 @@ class crm_customer_view extends class_base
 			# name
 			if ($default_cfg or in_array("name", $visible_fields))
 			{
+				$sn = $cro_obj->prop("short_name") ? $cro_obj->prop("short_name") : ($o->prop("short_name") ? $o->prop("short_name") : "");
 				$name = html::span(array(
 					"nowrap" => true,
-					"content" => icons::get_class_icon($o->class_id()) . html::space() . html::get_change_url($o->id(), array("return_url" => get_ru()), ($o->name() ? $o->name() : t("[Nimetu]")) . $vorm
-				)));
+					"content" => icons::get_class_icon($o->class_id()) . html::space() . html::get_change_url($o->id(), array("return_url" => get_ru()),
+					($o->name() ? $o->name() : t("[Nimetu]")).$vorm).html::linebreak().$sn
+				));
 
-				if ($o->is_a(crm_company_obj::CLID))
+	/*			if ($o->is_a(crm_company_obj::CLID))
 				{
 					$_url = $this->mk_my_orb("get_cust_contact_table", array("id" => $o->id(), "return_url" => post_ru()));
 					$name .= html::href(array(
@@ -1490,9 +1558,9 @@ class crm_customer_view extends class_base
 						"caption" => t("(Kontaktid)"),
 						"onclick" => "co_contact(" . $o->id() . ",\"{$_url}\");"
 					));
-				}
+				}*/
 			}
-
+ 
 			$c = $o->connections_from(array(
 				"type" => "RELTYPE_METAMGR"
 			));
@@ -1511,26 +1579,150 @@ class crm_customer_view extends class_base
 				$classif1 = t("N/A");
 			}
 
-			$customer_rel_order = "";
+			$customer_rel_order_a = array();
 			foreach($idx_cro_by_customer[$o->id()] as $cro)
 			{
-				$customer_rel_order.= html::href(array(
-					"caption" => $cro->prop("buyer") == $org->id() ? "M" : "O",
+				if($cro->prop("buyer") == $org->id())
+				{
+					$customer_rel_order_a[]= html::href(array(
+						"caption" => sprintf(t("AS %s ostab AS-lt %s"), $cro->prop("buyer.name") , $cro->prop("seller.name")),
+						"url" => html::get_change_url($cro, array("return_url" => get_ru()))
+					));
+				}
+				else
+				{
+					$customer_rel_order_a[]= html::href(array(
+						"caption" => sprintf(t("AS %s müüb AS-le %s"), $cro->prop("seller.name") , $cro->prop("buyer.name")),
+						"url" => html::get_change_url($cro, array("return_url" => get_ru()))
+					));
+
+				}
+
+	/*			$customer_rel_order_a[]= html::href(array(
+					"caption" => $cro->prop("buyer") == $org->id() ? "M&uuml;&uuml;me" : "Ostame",
 					"url" => html::get_change_url($cro, array("return_url" => get_ru()))
-				));
+				));*/
+			}
+			$customer_rel_order = join(html::linebreak() , $customer_rel_order_a);
+
+			$bp = array();
+			
+			if($cro_obj->prop("buyer.firmajuht")) $bp[] = $this->get_person_data( $cro_obj->prop("buyer.firmajuht"), $cro_obj->prop("buyer"), t("&Uuml;ldjuht"));
+
+			if($cro_obj->prop("buyer_contract_creator"))$bp[] =$this->get_person_data( $cro_obj->prop("buyer_contract_creator"), $cro_obj->prop("buyer"), t("Hankijasuhte looja"));
+			
+
+			$bill_person_ol = new object_list($cro_obj->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
+			if($bill_person_ol->count())
+			{
+				$person = $bill_person_ol->begin();
+				do
+				{
+					if($cro_obj->prop("buyer_contract_creator"))$bp[] =$this->get_person_data( $person->id(), $cro_obj->prop("buyer"), t("Arve saaja"));
+				}
+				while ($person = $bill_person_ol->next());
+			}
+
+			$sp = array();
+			if($cro_obj->prop("seller.firmajuht")) $sp[] = $this->get_person_data( $cro_obj->prop("seller.firmajuht"), $cro_obj->prop("seller"), t("&Uuml;ldjuht"));
+			if($cro_obj->prop("cust_contract_creator")) $sp[] = $this->get_person_data( $cro_obj->prop("cust_contract_creator"), $cro_obj->prop("seller"), t("Kliendisuhte looja"));
+			if($cro_obj->prop("client_manager")) $sp[] = $this->get_person_data( $cro_obj->prop("client_manager"), $cro_obj->prop("seller"), t("Kliendihaldur"));
+			if($cro_obj->prop("salesman")) $sp[] = $this->get_person_data( $cro_obj->prop("salesman"), $cro_obj->prop("seller"), t("M&uuml;&uuml;giesindaja"));
+
+			$address_row = "";
+			if($o->class_id() == crm_company_obj::CLID)
+			{
+				if(acl_base::can("view" ,$o->prop("contact")))
+				{
+					$address_object = obj($o->prop("contact"));
+				}
+			}
+			if($o->class_id() == crm_person_obj::CLID)
+			{
+				if(acl_base::can("view" ,$o->prop("address")))
+				{
+					$address_object = obj($o->prop("address"));
+				}
+			}
+
+			if($address_object)
+			{
+				$city = $address_object->prop("parent.name");
+				$county = $address_object->prop("parent.parent.name");
+				$address_row.= $address_object->prop("street")." ".$address_object->prop("house");
+				$address_row.= html::linebreak().$address_object->prop("postal_code")." ".$city;
+				$address_row.= html::linebreak().$county." ".$address_object->prop("parent.parent.parent.name");
+			}
+
+			if($url)
+			{
+				$address_row.= html::linebreak().$url;
+			}
+
+//-------- mailid
+
+			$conns = $o->connections_from(array(
+				"type" => "RELTYPE_EMAIL",
+			));
+			foreach($conns as $conn)
+			{
+				$obj = $conn->to();
+				$obj->conn_id = $conn->id();
+				$address_row.= html::linebreak().($obj->prop("contact_type") ? $mail_inst->types[$obj->prop("contact_type")].": " : "").$obj->name();
+			}				
+
+//-------- telefonid
+
+			$conns = $o->connections_from(array(
+				"type" => "RELTYPE_PHONE",
+			));
+
+			$ptypes = crm_phone_obj::get_old_type_options();
+
+			foreach($conns as $conn)
+			{
+				$obj = $conn->to();
+				$address_row.= html::linebreak().($obj->prop("type") ? $ptypes[$obj->prop("type")] . ": " : "").$obj->name();
 			}
 
 
+//faksid
+		$tp = "RELTYPE_TELEFAX";
+		if ($o->class_id() == CL_CRM_PERSON)
+		{
+			$tp = "RELTYPE_FAX";
+		}
 
-			//TODO: define and get data only for fields configured to be shown in current crm settings.
+		$conns = $o->connections_from(array(
+			"type" => $tp,
+		));
+
+		foreach($conns as $conn)
+		{
+			$obj = $conn->to();
+			$address_row.= html::linebreak().t("faks").": ".$obj->name();
+		}
+/*
+Viadukti 42 
+11313, Tallinn
+Harjumaa, Eesti
+http://www.espak.ee
+üldkontakt: info@espak.ee
+tööl: 6512 301
+tööl: 6512 333
+faks: 6556 235
+*/
+
 			$tf->define_data(array(
+				"seller_people" => join(html::linebreak() , $sp),
+				"buyer_people" => join(html::linebreak() , $bp),
 				"id" => $cro_oid,
 				"name" => $name,
 				"cutcopied" => !empty($_SESSION["awcb_customer_selection_clipboard"][$cro_oid]) ? self::CUTCOPIED_COLOUR : "",
 				"classif1" => $classif1,
 				"customer_rel_creator" => method_exists($o, "get_cust_rel_creator_name") ? $o->get_cust_rel_creator_name() : "n/a",///!!!! teha korda
 				"reg_nr" => $o->is_a(crm_company_obj::CLID) ? $o->prop("reg_nr") : "",
-				"address" => $o->class_id() == crm_company_obj::CLID ? $o->prop_str("contact") : $o->prop("RELTYPE_ADDRESS.name"),
+				"address" => $address_row ,
 				"ceo" => $ceo,
 				"phone" => $phone,
 				"fax" => $fax,
@@ -1571,13 +1763,32 @@ class crm_customer_view extends class_base
 		));
 	}
 
+	private function get_person_data($id , $co,$role)
+	{
+		$ret = array();
+		if(acl_base::can("view" ,$id))
+		{
+			$person = obj($id);
+			if($person->class_id() == CL_USER)
+			{
+				$person = obj($person->get_person_for_user());
+			}
+
+			$professions = $person->get_profession_names(obj($co));
+
+			$ret[]= $person->name()." (".$role.(sizeof($professions) ? "," : "")." ".join(", " , $professions).")";
+
+			$phone = $person->get_phone($co);
+			if($phone) $ret[]= $phone;
+			$email = $person->get_mail($co);
+			if($email) $ret[]= $email;
+		}
+		return join(", ", $ret);
+	}
+
 
 	function _org_table_header($tf)
 	{
-		$tf->define_field(array(
-			"name" => "pop",
-			"caption" => t("&nbsp;")
-		));
 
 		$tf->define_field(array(
 			"name" => "name",
@@ -1589,9 +1800,17 @@ class crm_customer_view extends class_base
 		$tf->define_field(array(
 			"name" => "address",
 			"chgbgcolor" => "cutcopied",
-			"caption" => t("Aadress")
+			"caption" => t("Aadress ja &uuml;ldkontaktid")
 		));
 
+		$tf->define_field(array(
+			"name" => "customer_rel_order",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("Suhte suund"),
+			"sortable" => 1
+		));
+
+/*
 		$tf->define_field(array(
 			"name" => "email",
 			"caption" => t("Kontakt"),
@@ -1616,20 +1835,20 @@ class crm_customer_view extends class_base
 			"chgbgcolor" => "cutcopied",
 			"caption" => t('Faks')
 		));
-
-		$tf->define_field(array(
+*/
+/*		$tf->define_field(array(
 			"name" => "ceo",
 			"chgbgcolor" => "cutcopied",
 			"caption" => t("Juht")
-		));
-
+		));*/
+/*
 		$tf->define_field(array(
 			"name" => "rollid",
 			"chgbgcolor" => "cutcopied",
 			"caption" => t("Rollid")
 		));
-
-		$tf->define_field(array(
+*/
+/*		$tf->define_field(array(
 			"name" => "client_manager",
 			"chgbgcolor" => "cutcopied",
 			"caption" => t("Kliendihaldur"),
@@ -1642,20 +1861,35 @@ class crm_customer_view extends class_base
 			"caption" => t("Kliendisuhte looja"),
 			"sortable" => 1
 		));
+*/
 
 		$tf->define_field(array(
-			"name" => "customer_rel_order",
+			"name" => "buyer_people",
 			"chgbgcolor" => "cutcopied",
-			"caption" => t("Suund"),
+			"caption" => t("Ostja isikud"),
 			"sortable" => 1
 		));
+
+		$tf->define_field(array(
+			"name" => "seller_people",
+			"chgbgcolor" => "cutcopied",
+			"caption" => t("M&uuml;&uuml;ja isikud"),
+			"sortable" => 1
+		));
+
+
 
 		$tf->define_chooser(array(
 			"field" => "id",
 			"name" => "cust_check"
 		));
-	}
 
+		$tf->define_field(array(
+			"name" => "pop",
+			"caption" => t("&nbsp;")
+		));
+
+	}
 
 	function _get_role_html($arr)
 	{

@@ -8744,7 +8744,7 @@ Bank accounts: yksteise all
 			$caption = t("Aadress")." ".($multi_addr ? $count:"").":";
 			$t->define_data(array(
 				"caption" => $caption,
-				"data" => $a->name(),
+				"data" => $a->name()." ".$a->prop("postal_code"),
 			));
 		}
 

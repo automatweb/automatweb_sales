@@ -419,7 +419,7 @@ class aw_object_search_if extends class_base
 	function delete_bms($arr)
 	{
 		object_list::iterate_list($_GET["sel"], "delete");
-		die("<script>window.back();</script>");
+		die("<script>history.back(1);</script>");
 	}
 
 	function _init_s_res_t($t)

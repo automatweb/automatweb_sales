@@ -78,6 +78,15 @@
             <caption>Template</caption>
       </property>
       <property>
+            <name>tabs</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>table</type>
+            <store>no</store>
+            <field>tabs</field>
+            <caption>Kaardid</caption>
+      </property>
+      <property>
             <name>ord1</name>
             <table>objects</table>
             <group>general</group>
