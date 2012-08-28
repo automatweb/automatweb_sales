@@ -174,11 +174,13 @@ class admin_if extends class_base
 				$prop["options"] = array("") + $cls;
 
 				$atc = new add_tree_conf();
-//				$ccf = $atc->get_current_conf();
+				$ccf = $atc->get_current_conf();
+
 				if($arr["obj_inst"]->prop("tree_settings"))
 				{
 					$ccf = $arr["obj_inst"]->prop("tree_settings");
 				}
+
 				if ($ccf)
 				{
 					$filt = $atc->get_usable_filter($ccf);
@@ -190,11 +192,11 @@ class admin_if extends class_base
 						}
 					}
 				}
+
 				if(!empty($arr["request"]["search_class"]))
 				{
 					$prop["value"] = $arr["request"]["search_class"];
 				}
-
 				break;
 
 			case 'search_name':
@@ -250,7 +252,7 @@ class admin_if extends class_base
 				$parent = obj($arr["request"]["parent"]);
 				$arr["area_caption"] = sprintf(t("Objektid kaustas %s"), $parent->name());
 			}
-		//	$arr["area_caption"] = $this->objects_table_caption; 
+		//	$arr["area_caption"] = $this->objects_table_caption;
 		}
 		return true;
 	}
@@ -407,8 +409,8 @@ class admin_if extends class_base
 		}
 		$this->curl = isset($arr["request"]["curl"]) ? $arr["request"]["curl"] : get_ru();
 
-		$this->curl = aw_url_change_var("search_name", null, $this->curl);	
-		$this->curl = aw_url_change_var("search_class", null, $this->curl);	
+		$this->curl = aw_url_change_var("search_name", null, $this->curl);
+		$this->curl = aw_url_change_var("search_class", null, $this->curl);
 
 		$this->selp = isset($arr["request"]["selp"]) ? $arr["request"]["selp"] : (isset($arr["request"]["parent"]) ? $arr["request"]["parent"] : null);
 
@@ -951,7 +953,7 @@ class admin_if extends class_base
 			//$t->set_header("&nbsp;Objektid kaustas ".get_name($parent));
 			$this->objects_table_caption = "&nbsp;Objektid kaustas ".get_name($parent);
 		}
-	
+
 	}
 
 	private function _do_o_tbl_sorting($t, $parent)
@@ -1782,7 +1784,7 @@ class admin_if extends class_base
 
 	private function _get_object_list_filter($parent, $period, $arr)
 	{
-		
+
 		$filter = array(
 			"parent" => $parent,
 			new object_list_filter(array(
@@ -1816,6 +1818,11 @@ class admin_if extends class_base
 			{
 				$ccf = $arr["obj_inst"]->prop("tree_settings");
 			}
+			else
+			{
+				$ccf = null;
+			}
+
 			if ($ccf)
 			{
 				$filt = $atc->get_usable_filter($ccf);
