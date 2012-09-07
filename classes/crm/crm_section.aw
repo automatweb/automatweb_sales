@@ -12,8 +12,14 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 @property organization type=hidden table=aw_crm_section
 @property parent_section type=hidden table=aw_crm_section
 
+
+
+
 @default table=objects
 @default group=general
+
+@property long_name type=textbox table=aw_crm_section field=long_name
+@caption Nimi pikalt
 
 @property description type=textarea rows=7 resize_height=-1 field=meta method=serialize
 @caption Kirjeldus
@@ -58,19 +64,24 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 
 	@property address_edit type=releditor mode=manager delete_objects=1 props=country,location_data,location,street,house,apartment,postal_code,po_box table_fields=name reltype=RELTYPE_LOCATION parent=address_editor_container no_caption=1
 
-	@property phone_id type=relpicker reltype=RELTYPE_PHONE field=meta method=serialize parent=other_contact_data_container
-	@caption Telefon
+		@layout ceditphf type=hbox width=50%:50%
+			@layout cedit_phone type=vbox parent=ceditphf closeable=1 area_caption=Telefonid
+				@property cedit_phone_tbl type=table no_caption=1 parent=cedit_phone store=no
 
-	@property telefax_id type=relpicker reltype=RELTYPE_TELEFAX field=meta method=serialize parent=other_contact_data_container
-	@caption Faks
+			@layout cedit_fax type=vbox parent=ceditphf closeable=1 area_caption=Faksid
+				@property cedit_telefax_tbl type=table no_caption=1 parent=cedit_fax store=no
 
-	@property email_id type=relpicker reltype=RELTYPE_EMAIL field=meta method=serialize parent=other_contact_data_container
-	@caption E-posti aadress
 
-	@property url type=relpicker reltype=RELTYPE_URL field=meta method=serialize parent=other_contact_data_container
-	@caption Veebiaadress
+		@layout ceditemlurl type=hbox width=50%:50%
+			@layout cedit_email type=vbox parent=ceditemlurl closeable=1 area_caption=E-mail
+				@property cedit_email_tbl type=table store=no no_caption=1 parent=cedit_email store=no
 
-	@property address type=hidden field=meta method=serialize no_caption=1
+			@layout cedit_url type=vbox parent=ceditemlurl closeable=1 area_caption=URL
+				@property cedit_url_tbl type=table store=no no_caption=1 parent=cedit_url store=no
+
+
+
+
 
 
 	@layout address_editor_container type=vbox area_caption=Aadressid parent=Kontaktid
@@ -100,6 +111,22 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 @default group=transl
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
+
+
+
+	@property phone_id type=hidden field=meta method=serialize
+	@caption Telefon
+
+	@property telefax_id type=hidden field=meta method=serialize
+	@caption Faks
+
+	@property email_id type=hidden field=meta method=serialize
+	@caption E-posti aadress
+
+	@property url_id type=hidden field=meta method=serialize
+	@caption Veebiaadress
+
+	@property address type=hidden field=meta method=serialize no_caption=1
 
 
 
@@ -294,6 +321,49 @@ class crm_section extends class_base
 				$prop["value"]["has_group_subs"] = $arr["obj_inst"]->prop("has_group_subs");
 				$prop["value"]["has_group_subs_prof"] = $arr["obj_inst"]->prop("has_group_subs_prof");
 				break;
+
+			case "cedit_phone_tbl":
+				$i = new crm_company_cedit_impl();
+				$t = $prop["vcl_inst"];
+				$fields = array(
+					"number" => t("Telefoninumber"),
+					"type" => t("T&uuml;&uuml;p"),
+					"is_public" => t("Avalik"),
+				);
+				$i->init_cedit_tables($t, $fields);
+				$i->_get_phone_tbl($t, $arr);
+				break;
+
+			case "cedit_telefax_tbl":
+				$i = new crm_company_cedit_impl();
+				$t = $prop["vcl_inst"];
+				$fields = array(
+					"number" => t("Faksi number"),
+				);
+				$i->init_cedit_tables($t, $fields);
+				$i->_get_fax_tbl($t, $arr);
+				break;
+
+			case "cedit_url_tbl":
+				$i = new crm_company_cedit_impl();
+				$t = $prop["vcl_inst"];
+				$fields = array(
+					"url" => t("Veebiaadress"),
+				);
+				$i->init_cedit_tables($t, $fields);
+				$i->_get_url_tbl($t, $arr);
+				break;
+
+			case "cedit_email_tbl":
+				$i = new crm_company_cedit_impl();
+				$t = $prop["vcl_inst"];
+				$fields = array(
+					"email" => t("Emaili aadress"),
+				);
+				$i->init_cedit_tables($t, $fields);
+				$i->_get_email_tbl($t, $arr);
+				break;
+
 		};
 		return $retval;
 	}
@@ -304,6 +374,7 @@ class crm_section extends class_base
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
+
 			case "transl":
 				$this->trans_save($arr, $this->trans_props);
 				break;
@@ -320,6 +391,10 @@ class crm_section extends class_base
 				$arr["obj_inst"]->set_prop("has_group_subs_prof", isset($prop["value"]["has_group_subs_prof"]) ? 1 : 0);
 				break;
 			case "cedit_adr_tbl":
+			case "cedit_phone_tbl":
+			case "cedit_telefax_tbl":
+			case "cedit_url_tbl":
+			case "cedit_email_tbl":
 				static $i;
 				if (!$i)
 				{
@@ -327,6 +402,8 @@ class crm_section extends class_base
 				}
 				$fn = "_set_".$prop["name"];
 				$i->$fn($arr);
+				$arr["obj_inst"]->save();
+		//		var_dump($arr["obj_inst"]->prop("phone_id"));die();
 				break;
 		}
 		return $retval;
@@ -570,6 +647,19 @@ class crm_section extends class_base
 					);
 				");
 				$ret_val = true;
+			}
+			else
+			{
+				switch($field)
+				{
+					case "long_name":
+						$this->db_add_col($table, array(
+							"name" => $field,
+							"type" => "varchar(255)"
+						));
+						return true;
+				}
+				
 			}
 		}
 

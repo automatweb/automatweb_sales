@@ -58,12 +58,21 @@ class crm_companies_webview extends class_base
 		));
 	}
 
-	function add_to_cat_selection($co, &$sel , $o , $level)
+	private function add_to_cat_selection($co, &$sel , $o , $level)
 	{
 		foreach($co->get_customer_categories($o)->arr() as $id => $o)
 		{
 			$sel[$id] = str_repeat("--" , $level)." ".$o->name();
 			$this->add_to_cat_selection($co, $sel , $o , $level+1);
+		}
+	}
+
+	private function add_to_sec_selection($co, &$sel , $o , $level)
+	{
+		foreach($co->get_sections($o)->arr() as $id => $o)
+		{
+			$sel[$id] = str_repeat("--" , $level)." ".$o->name();
+			$this->add_to_sec_selection($co, $sel , $o , $level+1);
 		}
 	}
 
@@ -261,10 +270,18 @@ class crm_companies_webview extends class_base
 			));
 			if($cust["show"])
 			{
+				$options = array();
+				foreach($o->get_sections()->arr() as $id => $sec)
+				{
+					if($sec->prop("parent_section")) continue;
+					$options[$id] = $sec->name();
+					$this->add_to_sec_selection($o, $options , $sec , 1);
+				}
+
 				$cust["show_what"] = html::select(array(
 					"name" => "show_what[".$cust["id"]."]",
 					"value" => $cust["show_what"],
-					"options" => $o->get_sections()->names(),
+					"options" => $options,
 					"multiple" => 1
 				));
 			}

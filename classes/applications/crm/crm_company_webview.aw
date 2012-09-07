@@ -302,6 +302,7 @@ class crm_company_webview extends class_base
 		$this->vars($company->properties());
 
 		$tabs = $o->meta("tabs");
+		$ord = $o->meta("ord");
 		$hide = $o->meta("hide");
 
 
@@ -423,8 +424,37 @@ class crm_company_webview extends class_base
 		}
 		$this->vars(array("OPEN_HOURS" => $o_sub));
 
+		$content = "";
+		$toolbar = "";
+
+		$this->order = $ord;
+		uksort($tabs, array($this, "sort_order"));
+
+		foreach($tabs as $key => $val)
+		{
+			if(!empty($hide["key"]))
+			{
+				continue;
+			}
+
+			$toolbar.= $this->parse("TOOLBAR".$key);
+			$content.= $this->parse("CONTENT".$key);
+		}
+
+		$this->vars(array("content" => $content));
+		$this->vars(array("toolbar" => $toolbar));
+
 		return $this->parse();
 	}
+
+	function sort_order($a, $b)
+	{
+		$ao = empty($this->order[$a]) ? 0 : $this->order[$a];
+		$bo = empty($this->order[$b]) ? 0 : $this->order[$b];
+		return $ao - $bo;
+	}
+
+
 
 	function _get_tabs($arr)
 	{
@@ -434,33 +464,47 @@ class crm_company_webview extends class_base
 		}
 		$this->read_site_template($arr["obj_inst"]->prop("template"));
 		$tabs = $arr["obj_inst"]->meta("tabs");
+		$ord = $arr["obj_inst"]->meta("ord");
 		$hide = $arr["obj_inst"]->meta("hide");
 		$t = $arr["prop"]["vcl_inst"];
 
+		$possible_tabs = array();
 		$x = 0;
 
 		while($x < 100)
 		{
 			if($this->is_template("TAB".$x))
 			{
-				$t->define_data(array(
-					"caption" => html::textbox(array(
-						"name" => "tabs[".$x."]",
-						"value" => $tabs[$x] ? $tabs[$x] : $this->parse("TAB".$x),
-					)),
-					
-					"hide" => html::checkbox(array(
-						"name" => "hide[".$x."]",
-						"value" => 1,
-						"checked" => $hide[$x],
-					))
-				));
+				$possible_tabs[$x] =  $tabs[$x] ? $tabs[$x] : $this->parse("TAB".$x);
 			}
 			else
 			{
 				break;
 			}
 			$x++;
+		}
+
+		$this->order = $ord;
+		uksort($possible_tabs, array($this, "sort_order"));
+
+		foreach($possible_tabs as $key => $val)
+		{
+			$t->define_data(array(
+				"caption" => html::textbox(array(
+					"name" => "tabs[".$key."]",
+					"value" => $val,
+				)),
+				"hide" => html::checkbox(array(
+					"name" => "hide[".$key."]",
+					"value" => 1,
+					"checked" => $hide[$key],
+				)),
+				"ord" => html::textbox(array(
+					"name" => "ord[".$key."]",
+					"value" => $ord[$key] ? $ord[$key] : "",
+					"size" => 3
+				)),
+			));
 		}
 
 		if($x)
@@ -474,12 +518,17 @@ class crm_company_webview extends class_base
 				"name" => "hide",
 				"caption" => t("Peida")
 			));
+			$t->define_field(array(
+				"name" => "ord",
+				"caption" => t("Jrk")
+			));
 		}
 	}
 
 	function _set_tabs($arr)
 	{
 		$arr["obj_inst"]->set_meta("tabs" , $arr["request"]["tabs"]);
+		$arr["obj_inst"]->set_meta("ord" , $arr["request"]["ord"]);
 		$arr["obj_inst"]->set_meta("hide" , $arr["request"]["hide"]);
 	}
 

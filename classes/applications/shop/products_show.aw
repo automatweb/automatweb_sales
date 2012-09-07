@@ -46,7 +46,7 @@
 @reltype OC value=3 clid=CL_SHOP_ORDER_CENTER
 @caption Tellimiskeskkond
 
-@reltype PRODUCTS value=4 clid=CL_SHOP_PRODUCT,CL_SHOP_PRODUCT_PACKAGING,CL_SHOP_PACKET
+@reltype PRODUCTS value=4 clid=CL_SHOP_PRODUCT,CL_SHOP_PRODUCT_PACKAGING
 @caption Toode
 
 */
