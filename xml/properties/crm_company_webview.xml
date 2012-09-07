@@ -6,7 +6,6 @@
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_COMPANY</reltype>
-            <automatic>1</automatic>
             <field>meta</field>
             <method>serialize</method>
             <caption>Ettev&amp;amp;otilde;te</caption>
@@ -28,7 +27,6 @@
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CRM_DB</reltype>
-            <automatic>1</automatic>
             <field>meta</field>
             <method>serialize</method>
             <caption>Andmebaas, mille organisatsioone kuvatakse</caption>
@@ -52,7 +50,6 @@
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_LIMIT_CITY</reltype>
-            <automatic>1</automatic>
             <field>meta</field>
             <method>serialize</method>
             <caption>Linna piirang</caption>
@@ -63,7 +60,6 @@
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_LIMIT_COUNTY</reltype>
-            <automatic>1</automatic>
             <field>meta</field>
             <method>serialize</method>
             <caption>Maakonna piirang</caption>
@@ -152,7 +148,6 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_COMPANY_WEBVIEW</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>

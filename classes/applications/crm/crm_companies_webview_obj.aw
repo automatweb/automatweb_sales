@@ -105,7 +105,6 @@ class crm_companies_webview_obj extends _int_object
 			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $this->prop("groups");
 		}
 
-//var_dump($filter);
 		$ol = new object_list($filter);
 
 		$ret = array();
@@ -199,7 +198,7 @@ class crm_companies_webview_obj extends _int_object
 			$orders[$cust] = $ret[$cust]["ord"];
 		}
 
-		uasort($ret, array(&$this , "cmp"));
+		uasort($ret, array($this , "cmp"));
 		return $ret;
 	}
 
@@ -214,17 +213,18 @@ class crm_companies_webview_obj extends _int_object
 		{
 			$address = $o->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
 		}
-	//	var_dump($o->name()); var_dump($address);
+
 		if($address)
 		{
 			foreach($address->properties() as $var => $val)
 			{
 				$ret["address_".$var] = $val;
 			}
+
 			if($address->prop("coord_x") && $address->prop("coord_y"))
 			{
 				$ret["google_map_url"] =
-'https://maps.google.com/maps?q='.urlencode($address->prop("street")).'+'.$address->prop("house").',+'.urlencode($address->prop("parent.name")).',+Eesti&hl=en&ie=UTF8&ll='.$address->prop("coord_y").','.$address->prop("coord_x").'&spn=0.011141,0.038581&sll=37.0625,-95.677068&sspn=34.450489,79.013672&oq='.urlencode($address->prop("street")).'+'.$address->prop("house").'+p&hnear='.urlencode($address->prop("street")).'+'.$address->prop("house").',+'.urlencode($address->prop("parent.name")).',+80042+'.urlencode($address->prop("parent.parent.name")).',+Estonia&t=m&z=15';					
+'https://maps.google.com/maps?q='.urlencode($address->prop("street")).'+'.$address->prop("house").',+'.urlencode($address->prop("parent.name")).',+Eesti&hl=en&ie=UTF8&ll='.$address->prop("coord_y").','.$address->prop("coord_x").'&spn=0.011141,0.038581&sll=37.0625,-95.677068&sspn=34.450489,79.013672&oq='.urlencode($address->prop("street")).'+'.$address->prop("house").'+p&hnear='.urlencode($address->prop("street")).'+'.$address->prop("house").',+'.urlencode($address->prop("parent.name")).',+80042+'.urlencode($address->prop("parent.parent.name")).',+Estonia&t=m&z=15';
 			}
 		}
 		return $ret;

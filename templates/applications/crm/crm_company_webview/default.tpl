@@ -29,7 +29,7 @@
 <!-- END SUB: company_list -->
 
 <!-- SUB: company_show -->
-<script type="text/javascript" src="{VAR:baseurl}/automatweb/js/aw.js"></script>
+<script type="text/javascript" src="{VAR:baseurl}automatweb/js/aw.js"></script>
 <!-- SUB: line_name -->
 <h1><a href="">{VAR:value}</a></h1>
 <!-- END SUB: line_name -->
@@ -152,7 +152,7 @@
 	</tr>
 	<tr>
 		<td colspan="3">
-			<form method="POST" action="/orb.aw">
+			<form method="post" action="/orb.aw">
 			<!-- SUB: rating -->
 				<b>{VAR:rating_caption}:</b><br>
 			<!-- SUB: rating_value -->
