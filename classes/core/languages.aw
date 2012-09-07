@@ -10,7 +10,7 @@ manages languages related system state
 class languages extends aw_core_module implements orb_public_interface
 {
 	const USER_CHARSET = "UTF-8"; // charset for all user data in automatweb
-	const CODE_CHARSET = "us-ascii"; // charset for automatweb program code files
+	const CODE_CHARSET = "UTF-8"; // charset for automatweb program code files
 
 	// language code constant names correspond to ISO_639-3 codes
 	// values can be calculated by languages::get_aw_lc()
