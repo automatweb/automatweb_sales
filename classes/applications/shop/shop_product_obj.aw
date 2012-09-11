@@ -659,6 +659,7 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		$data["id"] = $this->id();
 		$data["image"] = $this->get_product_image();
 		$data["image_url"] = $this->get_product_image_url();
+		$data["big_image_url"] = $this->get_product_big_image_url();
 		$data["purveyance"] = $this->get_purveyance_comment();
 		$data["min_price"] = $this->get_min_price();
 		if($this->class_id() == CL_SHOP_PRODUCT_PACKAGING)
@@ -677,6 +678,9 @@ class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_pric
 		{
 			$data["code"] =  $this->prop("code");
 		}
+
+		$data["min_price_width_special"] = empty($data["special_price"]) ? $data["min_price"] : ($data["min_price"] > $data["special_price"] ? $data["special_price"] : $data["min_price"]);
+
 		$packet = $this->get_packet();
 		if(is_object($packet))
 		{

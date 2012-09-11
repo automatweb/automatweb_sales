@@ -58,7 +58,7 @@ class crm_companies_webview extends class_base
 		));
 	}
 
-	function add_to_cat_selection($co, &$sel , $o , $level)
+	private function add_to_cat_selection($co, &$sel , $o , $level)
 	{
 		foreach($co->get_customer_categories($o)->arr() as $id => $o)
 		{
@@ -67,10 +67,19 @@ class crm_companies_webview extends class_base
 		}
 	}
 
+	private function add_to_sec_selection($co, &$sel , $o , $level)
+	{
+		foreach($co->get_sections($o)->arr() as $id => $o)
+		{
+			$sel[$id] = str_repeat("--" , $level)." ".$o->name();
+			$this->add_to_sec_selection($co, $sel , $o , $level+1);
+		}
+	}
+
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
-		$retval = class_base::PROP_OK;
+		$retval = PROP_OK;
 
 		switch($prop["name"])
 		{
@@ -81,7 +90,7 @@ class crm_companies_webview extends class_base
 			case "relation_status":
 				if(!$arr["obj_inst"]->get_companies()->count())
 			{
-				return class_base::PROP_IGNORE;
+				return PROP_IGNORE;
 			}
 		}
 
@@ -91,7 +100,7 @@ class crm_companies_webview extends class_base
 				$prop["options"] = array();
 				foreach($arr["obj_inst"]->get_companies()->arr() as $co)
 				{
-			/*		$opts = $co->get_customer_categories_hierarchy(null,100);
+			/*		$opts = $co->get_customer_categories_hierarchy(null,100); 
 					var_dump($opts);*/
 					foreach($co->get_customer_categories()->arr() as $id => $o)
 					{
@@ -121,14 +130,11 @@ class crm_companies_webview extends class_base
 				if(!file_exists (aw_ini_get("site_tpldir")."applications/crm/crm_companies_webview"))
 				{
 					$prop["type"] = "text";
-					$prop["value"] = t("Ei ole &uuml;htegi kujundusmalli")."  ".aw_ini_get("site_tpldir")."applications/crm/crm_companies_webview";
+					$prop["value"] = t("Ei ole &uuml;htegi templeiti")."  ".aw_ini_get("site_tpldir")."applications/crm/crm_companies_webview";
 				}
-				elseif ($handle = opendir(aw_ini_get("site_tpldir")."applications/crm/crm_companies_webview"))
-				{
-					while (false !== ($entry = readdir($handle)))
-					{
-						if($entry !== '.' && $entry !== '..')
-						{
+				elseif ($handle = opendir(aw_ini_get("site_tpldir")."applications/crm/crm_companies_webview")) {
+					while (false !== ($entry = readdir($handle))) {
+						if($entry !== '.' && $entry !== '..') {
 							$entry_str = str_replace("_" , " " , $entry);
 							$entry_str = str_replace(".tpl" , "" , $entry_str);
 							$prop["options"][$entry] = $entry_str;
@@ -136,7 +142,6 @@ class crm_companies_webview extends class_base
 					}
 				}
 				break;
-
 			case "order_by":
 				$prop["options"] = array(
 					"alfabeetiline",
@@ -144,19 +149,18 @@ class crm_companies_webview extends class_base
 					"vanemad enne",
 					"m&auml;&auml;ra ise"
 				);
-				break;
-
+			break;
 			case "urls_table":
-				return class_base::PROP_IGNORE;
+				return PROP_IGNORE;
+			break;
 		}
-
 		return $retval;
 	}
 
 	function set_property($arr)
 	{
 		$prop = &$arr['prop'];
-
+	
 		switch($prop["name"])
 		{
 			case "result_table":
@@ -193,7 +197,7 @@ class crm_companies_webview extends class_base
 		//		$arr["obj_inst"]->set_meta("show_what" , $arr["request"]["show_what"]);
 				$arr["obj_inst"]->set_meta("dont_show" , $arr["request"]["dont_show"]);
 //				$arr["obj_inst"]->set_meta("mod_url" , $arr["request"]["mod_url"]);
-
+				
 				break;
 			case "urls_table":
 				$arr["obj_inst"]->set_meta("mod_url" , $arr["request"]["mod_url"]);
@@ -266,10 +270,18 @@ class crm_companies_webview extends class_base
 			));
 			if($cust["show"])
 			{
+				$options = array();
+				foreach($o->get_sections()->arr() as $id => $sec)
+				{
+					if($sec->prop("parent_section")) continue;
+					$options[$id] = $sec->name();
+					$this->add_to_sec_selection($o, $options , $sec , 1);
+				}
+
 				$cust["show_what"] = html::select(array(
 					"name" => "show_what[".$cust["id"]."]",
 					"value" => $cust["show_what"],
-					"options" => $o->get_sections()->names(),
+					"options" => $options,
 					"multiple" => 1
 				));
 			}
@@ -337,10 +349,10 @@ class crm_companies_webview extends class_base
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
-
+	
 	function show($arr)
 	{
-		$obj = obj($arr["id"]);
+		$obj = &obj($arr["id"]);
 
 		$this->read_template($obj->prop("template"));
 
@@ -386,7 +398,7 @@ class crm_companies_webview extends class_base
 				"oh_name" => $oh->name(),
 			);
 			$this->vars($oh_vars);
-
+			
 			$oh_rows = "";
 
 			if($ohdata && is_array($ohdata) && sizeof($ohdata))
@@ -419,7 +431,7 @@ class crm_companies_webview extends class_base
 
 		return $this->parse();
 	}
-
+		
 	function do_db_upgrade($table, $field, $query, $error)
 	{
 		$r = false;

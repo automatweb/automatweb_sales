@@ -1230,7 +1230,8 @@ class crm_customer_view extends class_base
 
 	function _finish_org_tbl($arr, $customer_relations_list)
 	{
-		$mail_inst = new ml_member();
+
+		$mail_inst = get_instance(CL_ML_MEMBER);
 /*		if ("relorg_s" === $this->use_group)
 		{ // list sellers
 			$customer_relation_type_prop = "seller";
@@ -1630,7 +1631,7 @@ class crm_customer_view extends class_base
 
 			$bp = array();
 
-			if($cro_obj->is_property("buyer.firmajuht") and $cro_obj->prop("buyer.firmajuht")) $bp[] = $this->get_person_data( $cro_obj->prop("buyer.firmajuht"), $cro_obj->prop("buyer"), t("Üldjuht"));
+			if($cro_obj->is_property("buyer.firmajuht") and $cro_obj->prop("buyer.firmajuht")) $bp[] = $this->get_person_data( $cro_obj->prop("buyer.firmajuht"), $cro_obj->prop("buyer"), t("&Uuml;ldjuht"));
 
 			if($cro_obj->prop("buyer_contract_creator"))$bp[] =$this->get_person_data( $cro_obj->prop("buyer_contract_creator"), $cro_obj->prop("buyer"), t("Hankijasuhte looja"));
 
@@ -1787,7 +1788,7 @@ faks: 6556 235
 		));
 	}
 
-	private function get_person_data($id, $co, $role)
+	private function get_person_data($id , $co,$role)
 	{
 		$ret = array();
 		if(acl_base::can("view" ,$id))

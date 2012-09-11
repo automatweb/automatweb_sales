@@ -13,6 +13,14 @@
             <field>parent_section</field>
       </property>
       <property>
+            <name>long_name</name>
+            <table>aw_crm_section</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>long_name</field>
+            <caption>Nimi pikalt</caption>
+      </property>
+      <property>
             <name>description</name>
             <table>objects</table>
             <group>general</group>
@@ -143,57 +151,44 @@
             <field>address_edit</field>
       </property>
       <property>
-            <name>phone_id</name>
+            <name>cedit_phone_tbl</name>
             <table>objects</table>
             <group>Kontaktid</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_PHONE</reltype>
-            <field>meta</field>
-            <method>serialize</method>
-            <parent>other_contact_data_container</parent>
-            <caption>Telefon</caption>
-      </property>
-      <property>
-            <name>telefax_id</name>
-            <table>objects</table>
-            <group>Kontaktid</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_TELEFAX</reltype>
-            <field>meta</field>
-            <method>serialize</method>
-            <parent>other_contact_data_container</parent>
-            <caption>Faks</caption>
-      </property>
-      <property>
-            <name>email_id</name>
-            <table>objects</table>
-            <group>Kontaktid</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_EMAIL</reltype>
-            <field>meta</field>
-            <method>serialize</method>
-            <parent>other_contact_data_container</parent>
-            <caption>E-posti aadress</caption>
-      </property>
-      <property>
-            <name>url</name>
-            <table>objects</table>
-            <group>Kontaktid</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_URL</reltype>
-            <field>meta</field>
-            <method>serialize</method>
-            <parent>other_contact_data_container</parent>
-            <caption>Veebiaadress</caption>
-      </property>
-      <property>
-            <name>address</name>
-            <table>objects</table>
-            <group>Kontaktid</group>
-            <type>hidden</type>
-            <field>meta</field>
-            <method>serialize</method>
+            <type>table</type>
             <no_caption>1</no_caption>
+            <parent>cedit_phone</parent>
+            <store>no</store>
+            <field>cedit_phone_tbl</field>
+      </property>
+      <property>
+            <name>cedit_telefax_tbl</name>
+            <table>objects</table>
+            <group>Kontaktid</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <parent>cedit_fax</parent>
+            <store>no</store>
+            <field>cedit_telefax_tbl</field>
+      </property>
+      <property>
+            <name>cedit_email_tbl</name>
+            <table>objects</table>
+            <group>Kontaktid</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>cedit_email</parent>
+            <field>cedit_email_tbl</field>
+      </property>
+      <property>
+            <name>cedit_url_tbl</name>
+            <table>objects</table>
+            <group>Kontaktid</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>cedit_url</parent>
+            <field>cedit_url_tbl</field>
       </property>
       <property>
             <name>address_toolbar</name>
@@ -254,6 +249,51 @@
             <store>no</store>
             <field>transl</field>
             <caption>T&amp;amp;otilde;lgi</caption>
+      </property>
+      <property>
+            <name>phone_id</name>
+            <table>objects</table>
+            <group>transl</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Telefon</caption>
+      </property>
+      <property>
+            <name>telefax_id</name>
+            <table>objects</table>
+            <group>transl</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Faks</caption>
+      </property>
+      <property>
+            <name>email_id</name>
+            <table>objects</table>
+            <group>transl</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>E-posti aadress</caption>
+      </property>
+      <property>
+            <name>url_id</name>
+            <table>objects</table>
+            <group>transl</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Veebiaadress</caption>
+      </property>
+      <property>
+            <name>address</name>
+            <table>objects</table>
+            <group>transl</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <no_caption>1</no_caption>
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
@@ -358,6 +398,46 @@
                   <parent>Kontaktid</parent>
                   <group>Kontaktid</group>
             </other_contact_data_container>
+            <ceditphf>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>Kontaktid</group>
+                  <area_caption></area_caption>
+            </ceditphf>
+            <cedit_phone>
+                  <type>vbox</type>
+                  <parent>ceditphf</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Telefonid</area_caption>
+                  <group>Kontaktid</group>
+            </cedit_phone>
+            <cedit_fax>
+                  <type>vbox</type>
+                  <parent>ceditphf</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Faksid</area_caption>
+                  <group>Kontaktid</group>
+            </cedit_fax>
+            <ceditemlurl>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>Kontaktid</group>
+                  <area_caption></area_caption>
+            </ceditemlurl>
+            <cedit_email>
+                  <type>vbox</type>
+                  <parent>ceditemlurl</parent>
+                  <closeable>1</closeable>
+                  <area_caption>E-mail</area_caption>
+                  <group>Kontaktid</group>
+            </cedit_email>
+            <cedit_url>
+                  <type>vbox</type>
+                  <parent>ceditemlurl</parent>
+                  <closeable>1</closeable>
+                  <area_caption>URL</area_caption>
+                  <group>Kontaktid</group>
+            </cedit_url>
             <address_editor_container>
                   <type>vbox</type>
                   <area_caption>Aadressid</area_caption>

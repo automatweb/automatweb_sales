@@ -862,7 +862,7 @@ class crm_company_cust_impl extends class_base
 	{
 		$core = new core();
 		$url = new aw_uri($core->mk_my_orb($arr["request"]["action"], array(
-			"group" => isset($arr["request"]["group"]) ? $arr["request"]["group"] : "",
+			"group" => $arr["request"]["group"],
 			"id" => $arr["request"]["id"],
 		), $arr["request"]["class"]));
 
