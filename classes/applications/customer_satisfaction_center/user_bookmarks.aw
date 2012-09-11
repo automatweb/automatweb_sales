@@ -2029,7 +2029,7 @@ arr($apps);*/
 			$set = 1;
 			foreach($pth as $po)
 			{
-				if($paths[$po->id()] && $po->id() != $bmid)
+				if(!empty($paths[$po->id()]) && $po->id() != $bmid)
 				{
 					$set = 0;
 				}
