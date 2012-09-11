@@ -318,7 +318,7 @@ class task extends class_base
         {
 
                $p = array();
-                if ($this->can("view", $arr["request"]["alias_to_org"]))
+                if (acl_base::can("view", $arr["request"]["alias_to_org"]))
                 {
                         $ao = obj($arr["request"]["alias_to_org"]);
                         if ($ao->class_id() == CL_CRM_PERSON)
@@ -501,7 +501,7 @@ class task extends class_base
 
 	function draw_alternative_stoppers($stoppers, $arr)
 	{
-		$htmlclient = get_instance("cfg/htmlclient");
+		$htmlclient = new htmlclient();
 		$htmlclient->start_output(array(
 			"template" => "default"
 		));
@@ -600,7 +600,7 @@ class task extends class_base
 				));
 			}
 
-			if($stopper["type"] && !$this->can("view", $stopper["oid"]))
+			if($stopper["type"] && !acl_base::can("view", $stopper["oid"]))
 			{
 				$search_butt = new popup_search();
 				$sb = $search_butt->get_popup_search_link(array(
@@ -701,7 +701,7 @@ class task extends class_base
 			{
 
 				$i = get_instance($stopper["type"]);
-				$method = $this->can("view", $stopper["oid"])?"gen_existing_stopper_addon":"gen_stopper_addon";
+				$method = acl_base::can("view", $stopper["oid"])?"gen_existing_stopper_addon":"gen_stopper_addon";
 				$props = method_exists($i, $method)?$i->$method($stopper):array();
 				unset($params);
 				foreach($props as $prop)
@@ -1006,7 +1006,7 @@ class task extends class_base
 					if($ob->class_id() == CL_CRM_EXPENSE)
 					{
 						$bno = "";
-						if ($this->can("view", $ob->prop("bill_id")))
+						if (acl_base::can("view", $ob->prop("bill_id")))
 						{
 							if($on_bill_str == t("Arveta"))
 							{
@@ -1145,26 +1145,26 @@ class task extends class_base
 
 				// read cfgform and check if the props are set in the form
 				$cff = get_instance(CL_CFGFORM);
- $cfgform_id = $this->get_cfgform_for_object(array(
-                                "obj_inst" => $this->obj_inst,
-                                "args" => $arr["request"],
-                        ));
+ 				$cfgform_id = $this->get_cfgform_for_object(array(
+						"obj_inst" => $this->obj_inst,
+						"args" => $arr["request"],
+				));
 				if ($cfgform_id)
 				{
-				$grps = $cff->get_cfg_groups($cfgform_id);
-				$ps = $cff->get_cfg_proplist($cfgform_id);
-				foreach($data["options"] as $k => $v)
-				{
-					if (!isset($ps[$k]) /*|| !isset($grps[$ps[$k]["group"]])*/)
+					$grps = $cff->get_cfg_groups($cfgform_id);
+					$ps = $cff->get_cfg_proplist($cfgform_id);
+					foreach($data["options"] as $k => $v)
 					{
-						unset($data["options"][$k]);
+						if (!isset($ps[$k]) /*|| !isset($grps[$ps[$k]["group"]])*/)
+						{
+							unset($data["options"][$k]);
+						}
+						else
+						if ( $ps[$k]["caption"] != "")
+						{
+							$data["options"][$k] = $ps[$k]["caption"];
+						}
 					}
-					else
-					if ( $ps[$k]["caption"] != "")
-					{
-						$data["options"][$k] = $ps[$k]["caption"];
-					}
-				}
 				}
 				break;
 			case "priority":
@@ -1191,7 +1191,7 @@ class task extends class_base
 			case "controller_disp":
 				$cs = get_instance(CL_CRM_SETTINGS);
 				$pc = $cs->get_task_controller($cs->get_current_settings());
-				if ($this->can("view", $pc))
+				if (acl_base::can("view", $pc))
 				{
 					$pco = obj($pc);
 					$pci = $pco->instance();
@@ -1344,7 +1344,7 @@ class task extends class_base
 				return PROP_IGNORE;
 				$data["options"] = $this->_get_possible_participants($arr["obj_inst"]);
 				$p = array();
-				if ($this->can("view", $arr["request"]["alias_to_org"]))
+				if (acl_base::can("view", $arr["request"]["alias_to_org"]))
 				{
 					$ao = obj($arr["request"]["alias_to_org"]);
 					if ($ao->class_id() == CL_CRM_PERSON)
@@ -1379,7 +1379,7 @@ class task extends class_base
 				if (is_object($arr["obj_inst"]))
 				{
 					$pj = $arr["obj_inst"]->prop("project");
-					if ($this->can("view", $pj))
+					if (acl_base::can("view", $pj))
 					{
 						$proj = obj($pj);
 						$data["value"] = $proj->prop("code");
@@ -1399,7 +1399,7 @@ class task extends class_base
 							$pers = $conn->from();
 							// get profession
 							$rank = $pers->prop("rank");
-							if (is_oid($rank) && $this->can("view", $rank))
+							if (is_oid($rank) && acl_base::can("view", $rank))
 							{
 								$rank = obj($rank);
 								$data["value"] = $rank->prop("hr_price");
@@ -1458,7 +1458,7 @@ class task extends class_base
 
 			case "project":
 				return PROP_IGNORE;
-				if ($this->can("view",$arr["request"]["alias_to_org"]))
+				if (acl_base::can("view",$arr["request"]["alias_to_org"]))
 				{
 					$ol = new object_list(array(
 						"class_id" => CL_PROJECT,
@@ -1466,7 +1466,7 @@ class task extends class_base
 					));
 				}
 				else
-				if (is_object($arr["obj_inst"]) && $this->can("view", $arr["obj_inst"]->prop("customer")))
+				if (is_object($arr["obj_inst"]) && acl_base::can("view", $arr["obj_inst"]->prop("customer")))
 				{
 					$filt = array(
 						"class_id" => CL_PROJECT,
@@ -1503,7 +1503,7 @@ class task extends class_base
 					$data["value"] = $arr["request"]["set_proj"];
 				}
 
-				if (!isset($data["options"][$data["value"]]) && $this->can("view", $data["value"]))
+				if (!isset($data["options"][$data["value"]]) && acl_base::can("view", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$tmp->id()] = $tmp->name();
@@ -1529,7 +1529,7 @@ class task extends class_base
 					$ol = new object_list(array("oid" => $cst));
 					$data["options"] = array("" => "") + $ol->names();
 				}
-				if ($this->can("view", $arr["request"]["alias_to_org"]))
+				if (acl_base::can("view", $arr["request"]["alias_to_org"]))
 				{
 					$ao = obj($arr["request"]["alias_to_org"]);
 					if ($ao->class_id() == CL_CRM_PERSON)
@@ -1551,7 +1551,7 @@ class task extends class_base
 					}
 				}
 
-				if (!isset($data["options"][$data["value"]]) && $this->can("view", $data["value"]))
+				if (!isset($data["options"][$data["value"]]) && acl_base::can("view", $data["value"]))
 				{
 					$tmp = obj($data["value"]);
 					$data["options"][$tmp->id()] = $tmp->name();
@@ -1697,7 +1697,7 @@ class task extends class_base
 
 			case "code":
 				$pj = $arr["obj_inst"]->prop("project");
-				if ($this->can("view", $pj))
+				if (acl_base::can("view", $pj))
 				{
 					$proj = obj($pj);
 					$prop["value"] = $proj->prop("code");
@@ -1733,7 +1733,7 @@ class task extends class_base
 					$prop["value"] = $_POST["project"];
 				}
 				// add to proj
-				if (is_oid($prop["value"]) && $this->can("view", $prop["value"]))
+				if (is_oid($prop["value"]) && acl_base::can("view", $prop["value"]))
 				{
 					$this->add_to_proj = $prop["value"];
 				}
@@ -1742,7 +1742,7 @@ class task extends class_base
 			case "other_expenses":
 				foreach(safe_array($_POST["exp"]) as $key => $entry)
 				{
-					if(is_oid($key) && $this->can("view" ,$key)){
+					if(is_oid($key) && acl_base::can("view" ,$key)){
 						$obj = obj($key);
 						if($obj->class_id() == CL_CRM_EXPENSE)
 						{
@@ -1901,7 +1901,7 @@ class task extends class_base
 			$predicates = explode(",", $arr["request"]["predicates"]);
 			foreach($predicates as $pred)
 			{
-				if ($this->can("view", $pred))
+				if (acl_base::can("view", $pred))
 				{
 					$arr["obj_inst"]->connect(array(
 						"to" => $pred,
@@ -1916,7 +1916,7 @@ class task extends class_base
 			$this->post_save_add_parts = explode(",", $arr["request"]["participants_h"]);
 		}
 
-		if (!empty($arr["request"]["orderer_h"]) and $this->can("view", $arr["request"]["orderer_h"]))
+		if (!empty($arr["request"]["orderer_h"]) and acl_base::can("view", $arr["request"]["orderer_h"]))
 		{
 			$arr["obj_inst"]->connect(array(
 				"to" => $arr["request"]["orderer_h"],
@@ -1931,7 +1931,7 @@ class task extends class_base
 			$projects = explode(",", $arr["request"]["project_h"]);
 			foreach($projects as $proj)
 			{
-				if ($this->can("view", $proj))
+				if (acl_base::can("view", $proj))
 				{
 					$arr["obj_inst"]->connect(array(
 						"to" => $proj,
@@ -1947,7 +1947,7 @@ class task extends class_base
 			$files = explode(",", $arr["request"]["files_h"]);
 			foreach($files as $file)
 			{
-				if ($this->can("view", $file))
+				if (acl_base::can("view", $file))
 				{
 					$arr["obj_inst"]->connect(array(
 						"to" => $file,
@@ -2115,7 +2115,7 @@ class task extends class_base
 			if($ob->class_id() == CL_CRM_EXPENSE)
 			{
 				$bno = "";
-				if ($this->can("view", $ob->prop("bill_id")))
+				if (acl_base::can("view", $ob->prop("bill_id")))
 				{
 					$bo = obj($ob->prop("bill_id"));
 					$bno = $bo->prop("bill_no");
@@ -2573,7 +2573,7 @@ class task extends class_base
 				$is_str[] = $iso->name();
 			}
 			$bno = "";
-			if ($this->can("view", $row->prop("bill_id")))
+			if (acl_base::can("view", $row->prop("bill_id")))
 			{
 				$bo = obj($row->prop("bill_id"));
 				$bno = $bo->prop("bill_no");
@@ -2669,7 +2669,7 @@ class task extends class_base
 			$this->sum+= $time_to_cust;
 
 			//kui arve on olemas, siis ei tahaks lasta muuta enam asju
-			if($this->can("view" , $row->prop("bill_id")))
+			if(acl_base::can("view" , $row->prop("bill_id")))
 			{
 				$date = date("d/m/y",($row->prop("date") > 100 ? $row->prop("date") : $row->created()));
 				$imps = "";
@@ -2832,7 +2832,7 @@ class task extends class_base
 	{
 		if(!empty($val["date_val"]))
 		{
-			if(isset($val["bill_id"]) and $this->can("view", $val["bill_id"]))
+			if(isset($val["bill_id"]) and acl_base::can("view", $val["bill_id"]))
 			{
 				return $val["date_val"];
 			}
@@ -2965,7 +2965,7 @@ class task extends class_base
 			$ob = $ro->to();
 			if($ob->class_id() == CL_CRM_EXPENSE)
 			{
-				if (($bill_id === null || $ob->prop("bill_id") == $bill_id || !(is_oid($ob->prop("bill_id")) && $this->can("view" , $ob->prop("bill_id")))))
+				if (($bill_id === null || $ob->prop("bill_id") == $bill_id || !(is_oid($ob->prop("bill_id")) && acl_base::can("view" , $ob->prop("bill_id")))))
 
 				{
 					$id = $task->id()."_oe_".$ob->id();
@@ -3124,7 +3124,7 @@ class task extends class_base
 	**/
 	function paste_task_rows($arr)
 	{
-		if(is_oid($_SESSION["task_rows"]["remove_conn"]) && $this->can("view" , $_SESSION["task_rows"]["remove_conn"]))
+		if(is_oid($_SESSION["task_rows"]["remove_conn"]) && acl_base::can("view" , $_SESSION["task_rows"]["remove_conn"]))
 		{
 			$rem_task = obj($_SESSION["task_rows"]["remove_conn"]);
 		}
@@ -3148,7 +3148,7 @@ class task extends class_base
 			$nc_props = array("on_bill", "bill_id" , "to_bill_date");
 			foreach($_SESSION["task_rows"]["sel"] as $row)
 			{
-				if(!$this->can("view" , $row)) continue;
+				if(!acl_base::can("view" , $row)) continue;
 				$ro = obj($row);
 //				$new_row = new object();
 //				$new_row->set_class_id(CL_TASK_ROW);
@@ -3245,7 +3245,7 @@ class task extends class_base
 		if ($proj_only)
 		{
 			// filter by project participants
-			if ($this->can("view", $o->prop("project")))
+			if (acl_base::can("view", $o->prop("project")))
 			{
 				$p = obj($o->prop("project"));
 				$p_p = array();
@@ -3539,7 +3539,7 @@ class task extends class_base
 		{
 			foreach($arr["searched_oid"] as $sto_ident => $oid)
 			{
-				if($this->can("view", $oid) && !$this->can("view", $stos[$sto_ident]))
+				if(acl_base::can("view", $oid) && !acl_base::can("view", $stos[$sto_ident]))
 				{
 					$o = obj($oid);
 					$stos[$sto_ident]["oid"] = $oid;
@@ -3621,7 +3621,7 @@ class task extends class_base
 				$arr["name"] = $o->name();
 			}
 
-			if($this->can("view", $arr["source_id"]))
+			if(acl_base::can("view", $arr["source_id"]))
 			{
 				$o = obj($arr["source_id"]);
 				if(in_array($o->class_id(), $this->default_stoppers))
@@ -3725,7 +3725,7 @@ class task extends class_base
 		}
 		foreach(safe_array($_POST["rows"]) as $_oid => $e)
 		{
-			if (!is_oid($_oid) || !$this->can("view", $_oid))
+			if (!is_oid($_oid) || !acl_base::can("view", $_oid))
 			{
 				if ($e["task"] == "")
 				{
@@ -3781,7 +3781,7 @@ class task extends class_base
 			{
 				foreach(safe_array($e["impl"]) as $i)
 				{
-					if ($this->can("view", $i))
+					if (acl_base::can("view", $i))
 					{
 						$this->add_participant($task, obj($i));
 					}
@@ -4062,9 +4062,9 @@ class task extends class_base
 
 	function handle_stopper_stop($arr)
 	{
-		if(!$this->can("view", $arr["oid"]))
+		if(!acl_base::can("view", $arr["oid"]))
 		{
-			if($arr["data"]["name"]["value"] && $this->can("view", $arr["data"]["part"]["value"]) && $this->can("view", $arr["data"]["project"]["value"]))
+			if($arr["data"]["name"]["value"] && acl_base::can("view", $arr["data"]["part"]["value"]) && acl_base::can("view", $arr["data"]["project"]["value"]))
 			{
 				$o = new object();
 				$o->set_parent($arr["data"]["project"]["value"]);
@@ -4135,7 +4135,7 @@ class task extends class_base
 			"args" => $arr["request"],
 		));
 		$has = false;
-		if ($this->can("view", $cfgform_id))
+		if (acl_base::can("view", $cfgform_id))
 		{
 			$has = true;
 			$ps = $cff->get_cfg_proplist($cfgform_id);
@@ -4368,7 +4368,7 @@ class task extends class_base
 
 
 		// small conversion - if set, create a relation instead and clear, so that we can have multiple
-/*		if ($this->can("view", $arr["obj_inst"]->prop("bill_no") ))
+/*		if (acl_base::can("view", $arr["obj_inst"]->prop("bill_no") ))
 		{
 			$arr["obj_inst"]->connect(array(
 				"to" => $arr["obj_inst"]->prop("bill_no"),
@@ -5048,7 +5048,7 @@ class task extends class_base
 	function add_part_popup($arr)
 	{
 		extract($arr);
-		if(!(is_oid($task) && $this->can("view" , $task)))
+		if(!(is_oid($task) && acl_base::can("view" , $task)))
 		{
 			die('<script src="http://intranet.automatweb.com/orb.aw?class=minify_js_and_css&action=get_js&name=aw_admin.js" type="text/javascript"></script>
 			<script type="text/javascript">
@@ -5372,7 +5372,7 @@ class task extends class_base
 		{
 			foreach($_SESSION["event"]["participants"] as $pa)
 			{
-				if(!(is_oid($pa) && $this->can("view" , $pa)))
+				if(!(is_oid($pa) && acl_base::can("view" , $pa)))
 				{
 					continue;
 				}
@@ -5408,7 +5408,7 @@ class task extends class_base
 					break;
 				}
 			}*/
-			if($set && $this->can("view"  , $key))
+			if($set && acl_base::can("view"  , $key))
 			{
 				$row["person"] = $key;
 				$arr["obj_inst"]->set_primary_row($row);
@@ -5436,7 +5436,7 @@ class task extends class_base
 			return PROP_IGNORE;
 		}
 
-		foreach($parts->arr() as $c)
+		for ($c = $parts->begin(); !$parts->end(); $c = $parts->next())
 		{
 			$name = obj($c);
 			$name = $name->name();
@@ -5446,10 +5446,11 @@ class task extends class_base
 				$obj = obj($oid);
 				$name = strlen($tmp = $obj->prop("short_name"))?$name." (".$tmp.")":$name;
 			}
+
 			$data = array(
 				"oid" => $c->id(),
 				"part" => html::obj_change_url($c, $name),
-				"prof" => html::obj_change_url($c->prop("rank")),
+				"prof" => "", //TODO: determine organization context to get profession(s)
 				"phone" => html::obj_change_url($c->prop("phone"))
 			);
 
@@ -5496,7 +5497,7 @@ class task extends class_base
 
 		$u = get_instance(CL_USER);
 		$arr["obj_inst"] = obj($arr["obj_inst"]);
- 		if ($arr["obj_inst"] && $this->can("view", $arr["obj_inst"]->prop("customer")))
+ 		if ($arr["obj_inst"] && acl_base::can("view", $arr["obj_inst"]->prop("customer")))
  		{
  			$impl = $arr["obj_inst"]->prop("customer");
  			$impl_o = obj($impl);
@@ -5510,61 +5511,7 @@ class task extends class_base
  			$impl = $u->get_current_company();
  		}
 
- 		if ($this->can("view", $impl))
- 		{
- 			$implo = obj($impl);
- 			$f = get_instance("applications/crm/crm_company_docs_impl");
- 			$fldo = $f->_init_docs_fld($implo);
- 			$ot = new object_tree(array(
- 				"parent" => $fldo->id(),
- 				"class_id" => CL_MENU
- 			));
- 			$folders = array($fldo->id() => $fldo->name());
- 			$tb->add_sub_menu(array(
- 	//			"parent" => "nemw",
- 				"name" => "mainf",
- 				"text" => $fldo->name(),
- 			));
- 			$this->_add_fa($tb, "mainf", $fldo->id(),$arr["obj_inst"]->id());
- 			$this->_req_level = 0;
- 			$this->_req_get_folders_tb($ot, $folders, $fldo->id(), $tb, "mainf",$arr["obj_inst"]->id());
- 		}
-
-		header("Content-type: text/html; charset=".aw_global_get("charset"));
-		//arr($tb);
-		die($tb->get_menu(array(
-			"text" => '<img src="/automatweb/images/icons/new.gif" alt="seaded" width="17" height="17" border="0" align="left" style="margin: -1px 5px -3px -2px" />
-			<img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
-		)));
-
-	}
-
-	/**
-		@attrib name=new_files_on_demand all_args=1
-	**/
-	function new_files_on_demand_____redeclared ($arr)//to author: fix or remove
-	{
-
-		$tb = new popup_menu();
-		$tb->begin_menu("new_pop");
-
-		$u = get_instance(CL_USER);
-		$arr["obj_inst"] = obj($arr["obj_inst"]);
- 		if ($arr["obj_inst"] && $this->can("view", $arr["obj_inst"]->prop("customer")))
- 		{
- 			$impl = $arr["obj_inst"]->prop("customer");
- 			$impl_o = obj($impl);
- 			if (!$impl_o->get_first_obj_by_reltype("RELTYPE_DOCS_FOLDER"))
- 			{
- 				$impl = $u->get_current_company();
- 			}
- 		}
- 		else
- 		{
- 			$impl = $u->get_current_company();
- 		}
-
- 		if ($this->can("view", $impl))
+ 		if (acl_base::can("view", $impl))
  		{
  			$implo = obj($impl);
  			$f = new crm_company_docs_impl();
@@ -5585,7 +5532,59 @@ class task extends class_base
  		}
 
 		header("Content-type: text/html; charset=".aw_global_get("charset"));
-		//arr($tb);
+		die($tb->get_menu(array(
+			"text" => '<img src="/automatweb/images/icons/new.gif" alt="seaded" width="17" height="17" border="0" align="left" style="margin: -1px 5px -3px -2px" />
+			<img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
+		)));
+
+	}
+
+	/**
+		@attrib name=new_files_on_demand all_args=1
+	**/
+	function new_files_on_demand_____redeclared ($arr)//to author: fix or remove
+	{
+
+		$tb = new popup_menu();
+		$tb->begin_menu("new_pop");
+
+		$u = get_instance(CL_USER);
+		$arr["obj_inst"] = obj($arr["obj_inst"]);
+ 		if ($arr["obj_inst"] && acl_base::can("view", $arr["obj_inst"]->prop("customer")))
+ 		{
+ 			$impl = $arr["obj_inst"]->prop("customer");
+ 			$impl_o = obj($impl);
+ 			if (!$impl_o->get_first_obj_by_reltype("RELTYPE_DOCS_FOLDER"))
+ 			{
+ 				$impl = $u->get_current_company();
+ 			}
+ 		}
+ 		else
+ 		{
+ 			$impl = $u->get_current_company();
+ 		}
+
+ 		if (acl_base::can("view", $impl))
+ 		{
+ 			$implo = obj($impl);
+ 			$f = new crm_company_docs_impl();
+ 			$fldo = $f->_init_docs_fld($implo);
+ 			$ot = new object_tree(array(
+ 				"parent" => $fldo->id(),
+ 				"class_id" => CL_MENU
+ 			));
+ 			$folders = array($fldo->id() => $fldo->name());
+ 			$tb->add_sub_menu(array(
+ 	//			"parent" => "nemw",
+ 				"name" => "mainf",
+ 				"text" => $fldo->name(),
+ 			));
+ 			$this->_add_fa($tb, "mainf", $fldo->id(),$arr["obj_inst"]->id());
+ 			$this->_req_level = 0;
+ 			$this->_req_get_folders_tb($ot, $folders, $fldo->id(), $tb, "mainf",$arr["obj_inst"]->id());
+ 		}
+
+		header("Content-type: text/html; charset=".aw_global_get("charset"));
 		die($tb->get_menu(array(
 			"text" => '<img src="/automatweb/images/icons/new.gif" alt="seaded" width="17" height="17" border="0" align="left" style="margin: -1px 5px -3px -2px" />
 			<img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" class="nool" />'
@@ -5604,7 +5603,7 @@ class task extends class_base
 
 		// insert folders where to add
 /* 		$u = get_instance(CL_USER);
- 		if ($arr["obj_inst"] && $this->can("view", $arr["obj_inst"]->prop("customer")))
+ 		if ($arr["obj_inst"] && acl_base::can("view", $arr["obj_inst"]->prop("customer")))
  		{
  			$impl = $arr["obj_inst"]->prop("customer");
  			$impl_o = obj($impl);
@@ -5617,7 +5616,7 @@ class task extends class_base
  		{
  			$impl = $u->get_current_company();
  		}
- 		if ($this->can("view", $impl))
+ 		if (acl_base::can("view", $impl))
  		{
  			$implo = obj($impl);
  			$f = get_instance("applications/crm/crm_company_docs_impl");
@@ -5728,7 +5727,7 @@ class task extends class_base
 		{
 			return;
 		}
-		$clss = aw_ini_get("classes");
+
 		$u = get_instance(CL_USER);
 		$objs = array();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_FILE")) as $c)
@@ -5758,7 +5757,7 @@ class task extends class_base
 			$t->define_data(array(
 				"oid" => "o_".$c->id(),
 				"name" => html::obj_change_url($c),
-				"type" => $clss[$c->class_id()]["name"],
+				"type" => aw_ini_get("classes." . $c->class_id() . ".name"),
 				"modifiedby" => html::obj_change_url($m),
 				"parent_name" => $po->name()
 			));
@@ -5880,7 +5879,7 @@ class task extends class_base
 			$t->define_data(array(
 				"oid" => "o_".$c->id(),
 				"name" => html::obj_change_url($c),
-				"type" => $clss[$c->class_id()]["name"],
+				"type" => aw_ini_get("classes." . $c->class_id() . ".name"),
 				"modifiedby" => html::obj_change_url($m),
 				"parent_name" => $po->name()
 			));
