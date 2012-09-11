@@ -1831,7 +1831,7 @@ $x++;
 			$crel_oid = $bill->prop("customer_relation");
 			if (acl_base::can("", $crel_oid))
 			{
-				$tmp = obj($$crel_oid);
+				$tmp = obj($crel_oid);
 				$cust = $tmp->prop("buyer.name") ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("buyer.short_name") ? $tmp->prop("buyer.short_name") : $tmp->prop("buyer.name")) , $tmp->prop("buyer.name")) : "";
 				$cm = html::obj_change_url($tmp->prop("client_manager"));
 			}
