@@ -602,57 +602,40 @@ class task_object extends _int_object
 		return $s_out;
 	}
 
-	/** returns bug participants object list
+	/** Returns task participants object list
 		@attrib api=1
+		@return object_list[CL_CRM_PERSON]
 	**/
 	public function get_participants()
 	{
-		$ol = new object_list();
-
+		$participants = new object_list();
 		$rows = new object_list(array(
 			"class_id" =>  CL_TASK_ROW,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"primary" => 1,
-			"task" => $this->id(),
+			"task" => $this->id()
 		));
-		foreach($rows->arr() as $row)
+
+		for ($row = $rows->begin(); !$rows->end(); $row = $rows->next())
 		{
-			$ol->add($row->prop("impl"));
-		}
-		//kunagi peaks edasise 2ra kustutama
-		$types = array(10, 8);
-		if ($this->class_id() == CL_CRM_CALL)
-		{
-			$types = 9;
-		}
-		if ($this->class_id() == CL_CRM_MEETING)
-		{
-			$types = 8;
+			$participants->add($row->prop("impl"));
 		}
 
-		foreach($this->connections_to(array("type" => $types)) as $c)
-		{
-			$ol->add($c->prop("from"));
-		}
-		return $ol;
+		return $participants;
 	}
 
 
 
 	/** returns task projects
 		@attrib api=1
-		@return object list
+		@return object_list
 	**/
 	public function get_projects()
 	{
 		$ol = new object_list(array(
 			"class_id" =>  CL_CRM_PARTY,
-			"lang_id" => array(),
 			"participant.class_id" => CL_PROJECT,
-			"site_id" => array(),
 			"task" => $this->id(),
-			"limit" => 1,
+			new obj_predicate_limit(1)
 		));
 		$projects = new object_list();
 		foreach($ol->arr() as $party)

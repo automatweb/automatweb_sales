@@ -257,7 +257,7 @@ class user_bookmarks extends class_base
 			"caption" => t("J&auml;rjekord"),
 			"align" => "center"
 		));
-		
+
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Objekti nimi"),
@@ -342,7 +342,7 @@ class user_bookmarks extends class_base
 		$link_text_types = array("Objekti nimi" , "Klassi nimi" , "Omaduste grupi nimi", "Kirjutatud string");
 		$cfg = new cfgutils();
 
-		$bm = $this->init_bm();	
+		$bm = $this->init_bm();
 		$ol = new object_list(array(
 			"parent" => $bm->id(),
 			"class_id" => CL_USER_BOOKMARK_ITEM,
@@ -350,7 +350,7 @@ class user_bookmarks extends class_base
 		));
 
 		$force_opts = array(
-			"" , 
+			"" ,
 			"1" => t("K&otilde;igile"),
 		);
 
@@ -484,7 +484,7 @@ class user_bookmarks extends class_base
 	function get_application_links()
 	{
 		$application_links = "";
-		$bmobj = $this->init_bm();	
+		$bmobj = $this->init_bm();
 		$app_menu = cache::file_get(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id());
 		if (!empty($app_menu))
 		{
@@ -1111,7 +1111,7 @@ arr($apps);*/
 				"share" => html::checkbox(array(
 					"name" => "share[".$o->id()."]",
 					"value" => 1,
-					"checked" => $shared[$o->id()]?1:0,
+					"checked" => !empty($shared[$o->id()]),
 				)),
 				"name" => html::obj_change_url($o),
 				"oid" => $o->id(),
