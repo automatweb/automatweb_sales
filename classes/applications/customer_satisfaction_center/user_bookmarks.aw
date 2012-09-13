@@ -376,6 +376,12 @@ class user_bookmarks extends class_base
 				continue;
 			}
 			$obj = obj($o->prop("obj"));
+			if(empty($GLOBALS["cfg"]["classes"][$obj->class_id()]))
+			{
+				continue;
+			}
+
+
 			$uprops = $cfg->load_properties(array(
 				"clid" => $obj->class_id(),
 			));
@@ -496,7 +502,7 @@ class user_bookmarks extends class_base
 			"class_id" => CL_USER_BOOKMARK_ITEM,
 			"sort_by" => "objects.jrk"
 		));
-
+		$tmp = aw_ini_get("classes");
 
 		$force_opts = array("1");
 
@@ -534,6 +540,11 @@ class user_bookmarks extends class_base
 				continue;
 			}
 			$obj = obj($o->prop("obj"));
+			if(empty($tmp[$obj->class_id()]))
+			{
+				continue;
+			}
+
 			if($o->prop("group"))
 			{
 				$key = $obj->class_id();
@@ -585,7 +596,6 @@ class user_bookmarks extends class_base
 
 /*		$apps = safe_array($bmobj->meta("apps"));
 arr($apps);*/
-		$tmp = aw_ini_get("classes");
 		foreach($apps as $key => $app)
 		{
 			$k = explode("_" , $key);
