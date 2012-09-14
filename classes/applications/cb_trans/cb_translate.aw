@@ -1096,7 +1096,7 @@ class cb_translate extends class_base
 		}
 
 		// gen title
-		$title = sprintf("Klassi '%s' seos '%s' ('%s' t&uuml;&uuml;pi)", $cls[$arr["clid"]]["name"], "<b>".$rels[$arr["reltype"]]["caption"])."</b>", $arr["reltype"];
+		$title = sprintf("Klassi '%s' seos '%s' ('%s' t&uuml;&uuml;pi)", $cls[$arr["clid"]]["name"], "<b>".$rels[$arr["reltype"]]["caption"]."</b>", $arr["reltype"]);
 
 		$callback_data[] = array(
 			"name" => "general_title",
@@ -1843,8 +1843,8 @@ class cb_translate extends class_base
 			$t->define_data(array(
 				"lang" => $change["langname"],
 				"object" => $change["msgid"],
-				"from" => (strlen($change["prev_contents"]) < 1) ? sprintf("<i>%s</i>", t("tekst puudus"))) : nl2br($change["prev_contents"]),
-				"to" => (strlen($change["contents"]) < 1) ? sprintf("<i>%s</i>", t("tekst eemaldati"))) : nl2br($change["contents"]),
+				"from" => (strlen($change["prev_contents"]) < 1) ? sprintf("<i>%s</i>", t("tekst puudus")) : nl2br($change["prev_contents"]),
+				"to" => (strlen($change["contents"]) < 1) ? sprintf("<i>%s</i>", t("tekst eemaldati")) : nl2br($change["contents"]),
 				"write_err" => !$writable?"#F11111":"",
 			));
 		}
