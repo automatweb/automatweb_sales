@@ -121,6 +121,8 @@
 
 class mail_message extends class_base
 {
+	var $msgdata = array(); //TODO: scope
+
 	function mail_message()
 	{
 		$this->init(array(
@@ -1042,7 +1044,7 @@ arr($row);*/
 			$bt = $msgr->get_first_obj_by_reltype("RELTYPE_BUGTRACKER");
 			if ($bt)
 			{
-				
+
 				/*$tb->add_button(array(
 					"name" => "add_bug",
 					"tooltip" => t("Lisa bugiks"),

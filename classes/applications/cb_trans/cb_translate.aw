@@ -49,18 +49,15 @@ class cb_translate extends class_base
 			"tpldir" => "applications/cb_translate",
 			"clid" => CL_CB_TRANSLATE,
 		));
-		if(isset($_GET["class"]) and $_GET["class"] === "cb_translate")
-		{
-			aw_global_set("output_charset", "utf-8");
-		}
 	}
 
 	function init_cfgu($clid = false)
 	{
 		if(!$this->cfgu)
 		{
-			$this->cfgu = get_instance("cfg/cfgutils");
+			$this->cfgu = new cfgutils();
 		}
+
 		if($clid)
 		{
 			return $this->cfgu->load_properties(array(
@@ -72,7 +69,7 @@ class cb_translate extends class_base
 
 	function _get_remove_changes($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_save_button();
 		$tb->add_delete_button();
 	}
@@ -96,6 +93,7 @@ class cb_translate extends class_base
 		$data = $this->$arr["request"]["area"]($arr["request"]);
 		foreach($data as $k => $el)
 		{
+			$data[$k]["store"] = "class_base";
 			$data[$k]["parent"] = "translation_vsplit_right";
 		}
 		return $data;
@@ -112,7 +110,7 @@ class cb_translate extends class_base
 	{
 		// this is supposed to return a list of all active polls
 		// to let the user choose the active one
-		$table = &$arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 		$table->parse_xml_def("activity_list");
 
 		$pl = new object_list(array(
@@ -161,15 +159,9 @@ class cb_translate extends class_base
 		return $pl->begin();
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["return_url"] = post_ru();
-	}
-
-// get props
 	function _get_translation_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "fafa",
 			"caption" => "fafa",
@@ -186,12 +178,12 @@ class cb_translate extends class_base
 			//"open_path" => array("fld_10","fld_37","fld_59"),
 			//"open_path" => array("fld_1"),
 			//"open_path" => array("fld_10","fld_37","fld_59","867"),
-			"root_name" => iconv("iso-8859-1", "utf-8", t("AW KLASSIDE T&Otilde;LKIMINE")),
+			"root_name" => t("AW KLASSIDE TÕLKIMINE"),
 			//"url_target" => "editorcontent",
 			"get_branch_func" => $this->mk_my_orb("get_node",array("clid" => $clid, "parent" => " ")),
 			"has_root" => 1,
 			"baseurl" => aw_ini_get("baseurl"),
-			"ext" => aw_ini_get("ext"),
+			"ext" => aw_ini_get("ext")
 		));
 		$this->_gen_tree($arr["prop"]["vcl_inst"], $clid);
 	}
@@ -205,12 +197,11 @@ class cb_translate extends class_base
 	**/
 	function editor($arr)
 	{
-		aw_global_set("output_charset", "utf-8");
 		// now, I have got clid .. how to I generate the bloody interface?
 		$this->read_template("editor.tpl");
 		$clid = $arr["clid"];
 
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 // toolbar
 		$tb = new toolbar();
@@ -244,7 +235,7 @@ class cb_translate extends class_base
 
 		$tb->add_separator();
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 		$cdata = html::textbox(array(
 			"name" => "trans_url",
@@ -283,7 +274,7 @@ class cb_translate extends class_base
 		$clfinf = aw_ini_get("classfolders");
 
 		$classdat = $clinf[$arr["clid"]];
-		$atc = get_instance("admin/add_tree_conf");
+		$atc = new add_tree_conf();
 		$tree = $atc->get_class_tree();
 
 		$groups = $cfgu->get_groupinfo();
@@ -301,7 +292,7 @@ class cb_translate extends class_base
 		if(!$parent_is_folder)
 		{
 			$current = $clinf[$arr["clid"]]["parents"];
-			$link[] = "<a style=\"color:white;\" href=\"orb.aw?class=cb_translate&action=editor&clid=".$arr["clid"]."\">".iconv("iso-8859-1", "utf-8", $clinf[$arr["clid"]]["name"].".aw")."</a>";
+			$link[] = "<a style=\"color:white;\" href=\"orb.aw?class=cb_translate&action=editor&clid=".$arr["clid"]."\">".$clinf[$arr["clid"]]["name"].".aw"."</a>";
 		}
 		else
 		{
@@ -310,7 +301,7 @@ class cb_translate extends class_base
 		while(true)
 		{
 			//$path[] = $cur_point;
-			$link[] = "<a style=\"color:white;\" href=\"orb.aw?class=cb_translate&action=editor&clid=fld_".$current."\">".iconv("iso-8859-1", "utf-8", $clfinf[$current]["name"])."</a>";
+			$link[] = "<a style=\"color:white;\" href=\"orb.aw?class=cb_translate&action=editor&clid=fld_".$current."\">".$clfinf[$current]["name"]."</a>";
 			//calc parent
 			$current = $clfinf[$current]["parent"];
 			if(!$current)
@@ -318,7 +309,7 @@ class cb_translate extends class_base
 				break;
 			}
 		}
-		$link[] = "<a style=\"color:white;\" href=\"orb.aw?class=cb_translate&action=editor&clid=fld_0\">".iconv("iso-8859-1", "utf-8", "root")."</a>";
+		$link[] = "<a style=\"color:white;\" href=\"orb.aw?class=cb_translate&action=editor&clid=fld_0\">root</a>";
 
 		foreach(array_reverse($link) as $el)
 		{
@@ -327,13 +318,13 @@ class cb_translate extends class_base
 		$class_tree = $tree;
 
 // start tree
-		$tree = get_instance("vcl/treeview");
+		$tree = new treeview();
 		$tree->start_tree (array (
 			"type" => TREE_DHTML,
 			//"open_path" => array("fld_10","fld_37","fld_59"),
 			//"open_path" => array("fld_1"),
 			//"open_path" => array("fld_10","fld_37","fld_59","867"),
-			"root_name" => iconv("iso-8859-1", "utf-8", t("AW KLASSIDE T&Otilde;LKIMINE")),
+			"root_name" => t("AW KLASSIDE TÕLKIMINE"),
 			//"url_target" => "editorcontent",
 			"get_branch_func" => $this->mk_my_orb("get_node",array("clid" => $arr["clid"], "parent" => " ")),
 			"has_root" => 1,
@@ -349,7 +340,7 @@ class cb_translate extends class_base
 		if($arr["clid"] && is_numeric($arr["clid"]) && !$parent_is_folder)
 		{
 			$tree->add_item(0,array(
-				"name" => iconv(aw_global_get("charset"), "utf-8", $classdat["name"]),
+				"name" => $classdat["name"],
 				"id" => "root",
 				"url" => $this->mk_my_orb("classeditor", array("clid" => $arr["clid"])),
 				"is_open" => 1,
@@ -366,7 +357,7 @@ class cb_translate extends class_base
 			{
 				$parent = isset($group_data["parent"]) ? "grp_".$group_data["parent"] : "root";
 				$tree->add_item($parent ,array(
-					"name" => iconv(aw_global_get("charset"), "utf-8", $group_data["caption"]),
+					"name" => $group_data["caption"],
 					"id" => "grp_".$group_key,
 					"url" => $this->mk_my_orb("groupedit",array(
 						"clid" => $arr["clid"],
@@ -393,7 +384,7 @@ class cb_translate extends class_base
 					if($ldata["closeable"])
 					{
 						$tree->add_item("layout_0",array(
-							"name" => iconv(aw_global_get("charset"), "utf-8", $ldata["area_caption"]?$ldata["area_caption"]:t("Nimetu")),
+							"name" => $ldata["area_caption"]?$ldata["area_caption"]:t("Nimetu"),
 							"id" => "lyt_".$lkey,
 							"url" => $this->mk_my_orb("layouttrans",array(
 								"clid" => trim($arr["clid"]),
@@ -421,7 +412,7 @@ class cb_translate extends class_base
 				{
 					$caption = strlen($pdata["caption"])? $pdata["caption"] : $pdata["name"];
 					$tree->add_item("grp_".$parent_group ,array(
-						"name" => iconv(aw_global_get("charset"), "utf-8", $caption),
+						"name" => $caption,
 						"id" => $parent."_".$pkey,
 						"url" => $this->mk_my_orb("proptrans",array(
 							"clid" => trim($arr["clid"]),
@@ -450,7 +441,7 @@ class cb_translate extends class_base
 					if(substr($key,0,8) == "RELTYPE_")
 					{
 						$tree->add_item("rel_root", array(
-							"name" => iconv(aw_global_get("charset"), "utf-8", html_entity_decode($rel["caption"])),
+							"name" => html_entity_decode($rel["caption"]),
 							"id" => $key,
 							"url" => $this->mk_my_orb("releditor",array(
 								"clid" => trim($arr["clid"]),
@@ -491,7 +482,7 @@ class cb_translate extends class_base
 						$tcnt++;
 
 						$tree->add_item(0,array(
-							"name" => iconv(aw_global_get("charset"), "utf-8", $el_data["name"]),
+							"name" => $el_data["name"],
 							"id" => $el_data["id"],
 							"url" => $this->mk_my_orb("classeditor", array("clid" => $el_data["id"])),
 							"is_open" => 0,
@@ -514,13 +505,13 @@ class cb_translate extends class_base
 				"url" => $this->mk_my_orb("commit_changes"),
 				"target" => "editorcontent",
 				"class" => "right_caption",
-				"caption" => iconv(aw_global_get("charset") , "utf-8", t("CVS commit")),
+				"caption" => t("CVS commit")
 			)),
 			"apply_link" => html::href(array(
 				"url" => $this->mk_my_orb("show_changes"),
 				"target" => "editorcontent",
 				"class" => "right_caption",
-				"caption" => iconv(aw_global_get("charset") , "utf-8", t("N&auml;ita muutusi")),
+				"caption" => t("Näita muutusi"),
 			)),
 			"editor_caption" => $path_string,
 			"editor_content_tree" => $tree->finalize_tree(),
@@ -569,7 +560,7 @@ class cb_translate extends class_base
 			));
 
 			$tree->add_item(0,array(
-				"name" => iconv(aw_global_get("charset"), "utf-8", $cls[$start_id]["name"]),
+				"name" => $cls[$start_id]["name"],
 				"id" => "root",
 				/*
 				"url" => $this->mk_my_orb("classeditor", array("clid" => $start_id)),
@@ -621,7 +612,7 @@ class cb_translate extends class_base
 			// the class_tree that has been generated by admin_menu does not contain enough information
 			// for me
 			$tcnt = 0;
-			$atc = get_instance("admin/add_tree_conf");
+			$atc = new add_tree_conf();
 			$class_tree = $atc->get_class_tree();
 
 			foreach($class_tree as $item_id => $item_collection)
@@ -634,7 +625,7 @@ class cb_translate extends class_base
 						$tcnt++;
 
 						$tree->add_item(0,array(
-							"name" => iconv(aw_global_get("charset"), "utf-8", $el_data["name"]),
+							"name" => $el_data["name"],
 							"id" => $el_data["id"],
 							/*
 							"url" => $this->mk_my_orb("classeditor", array("clid" => $el_data["id"])),
@@ -665,25 +656,16 @@ class cb_translate extends class_base
 	**/
 	function get_node($arr) // my god .. i've got to document this function.. inside!!
 	{
-		aw_global_set("output_charset", "UTF-8");
 		$this->read_template("editor.tpl");
-
-		$cfgu = get_instance("cfg/cfgutils");
-
-		$atc_inst = get_instance("admin/add_tree_conf");
-		$atc_id = $atc_inst->get_current_conf();
-
+		$cfgu = new cfgutils();
+		$atc = new add_tree_conf();
+		$atc_id = $atc->get_current_conf();
+		$class_tree = $atc->get_class_tree();
 
 		$clinf = aw_ini_get("classes");
 		$classdat = $clinf[$arr["clid"]];
 
-
-		$atc = get_instance("admin/add_tree_conf");
-		$tree = $atc->get_class_tree();
-
-		$class_tree = $tree;
-
-		$tree = get_instance("vcl/treeview");
+		$tree = new treeview();
 		$tree->start_tree (array (
 			"type" => TREE_DHTML,
 			//"url_target" => "editorcontent",
@@ -725,7 +707,7 @@ class cb_translate extends class_base
 					$parnt = is_numeric($item_id) && $item_id == 0 ? "root" : $item_id;
 					$tcnt++;
 					$tree->add_item(0,array(
-						"name" => iconv(aw_global_get("charset"), "utf-8",$el_data["name"]),
+						"name" => $el_data["name"],
 						"id" => $el_data["id"],
 						"url" => $this->_gen_trans_url(array(
 							"clid" => $el_data["id"],
@@ -811,7 +793,7 @@ class cb_translate extends class_base
 		{
 			$node_parent = isset($gdata["parent"]) ? $clid."_grp_".$gdata["parent"] : ($root === false?0:$root);
 			$tree->add_item($node_parent,array(
-				"name" => iconv(aw_global_get("charset"), "utf-8", $gdata["caption"]),
+				"name" => $gdata["caption"],
 				"id" => $clid."_grp_".$gkey,
 				/*
 				"url" => $this->mk_my_orb("groupedit",array(
@@ -848,7 +830,7 @@ class cb_translate extends class_base
 			{
 				$caption = strlen($pdata["caption"])? $pdata["caption"] : $pdata["name"];
 				$tree->add_item($clid."_grp_".$parent_group ,array(
-					"name" => iconv(aw_global_get("charset"), "utf-8", $caption),
+					"name" => $caption,
 					"id" => $parent."_".$pkey,
 					/*
 					"url" => $this->mk_my_orb("proptrans",array(
@@ -888,7 +870,7 @@ class cb_translate extends class_base
 				if(substr($key,0,8) == "RELTYPE_")
 				{
 					$tree->add_item("rel_root", array(
-						"name" => iconv(aw_global_get("charset"), "utf-8", html_entity_decode($rel["caption"])),
+						"name" => html_entity_decode($rel["caption"]),
 						"id" => $key,
 						/*
 						"url" => $this->mk_my_orb("releditor",array(
@@ -926,7 +908,7 @@ class cb_translate extends class_base
 				if($ldata["closeable"])
 				{
 					$tree->add_item("layout_0",array(
-						"name" => iconv(aw_global_get("charset"), "utf-8", $ldata["area_caption"]?$ldata["area_caption"]:t("Nimetu")),
+						"name" => $ldata["area_caption"]?$ldata["area_caption"]:t("Nimetu"),
 						"id" => "lyt_".$lkey,
 						/*
 						"url" => $this->mk_my_orb("layouttrans",array(
@@ -958,15 +940,12 @@ class cb_translate extends class_base
 	**/
 	function lineeditor($arr)
 	{
-		$charset_from_local = "iso-8859-1";
-		aw_global_set("output_charset", "UTF-8");
-
 		/*
 		$this->read_template("linetrans.tpl");
 		$this->sub_merge = 1;
 		*/
 
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		$languages = $pot_scanner->get_langs();
 
 		$cls = aw_ini_get("classes");
@@ -982,6 +961,7 @@ class cb_translate extends class_base
 		$title = sprintf("Klass '%s' tekstid.", $cls[$arr["clid"]]["name"]);
 		$callback_data[] = array(
 			"name" => "general_title",
+			"store" => "class_base",
 			"type" => "text",
 			"no_caption" => 1,
 			"value" => $title,
@@ -1006,26 +986,29 @@ class cb_translate extends class_base
 				$header = $entry["headers"][0];
 				if(is_numeric(trim(end(split(":", trim(substr($header,strpos($header, " "))))))))
 				{
-					$data_to_be_shown[$entry["msgid"]][$language]["caption"] = iconv($lang["charset"], "utf-8", $entry["msgstr"]);
-					$data_to_be_shown[$entry["msgid"]][$language]["lang_name"] = iconv($lang["charset"], "utf-8", $lang["name"]);
+					$data_to_be_shown[$entry["msgid"]][$language]["caption"] = $entry["msgstr"];
+					$data_to_be_shown[$entry["msgid"]][$language]["lang_name"] = $lang["name"];
 				}
 
 			}
 		}
+
 		foreach($data_to_be_shown as $text => $data)
 		{
 			$callback_data[] = array(
 				"name" => "txt_".++$i,
+				"store" => "class_base",
 				"type" => "text",
 				"caption" => t("Tekst"),
-				"value" => iconv($charset_from_local, "utf-8", $text),
+				"value" => $text,
 			);
 			foreach($data as $lang => $inf)
 			{
 				$callback_data[] = array(
-					"name" => "vars[".$lang."][".iconv($charset_from_local, "utf-8", $text)."]",
+					"name" => "vars[".$lang."][".$text."]",
+					"store" => "class_base",
 					"type" => "textbox",
-					"caption" => iconv($charset_from_local, "utf-8", $inf["lang_name"]),
+					"caption" => $inf["lang_name"],
 					"value" => $inf["caption"],
 					"size" => 80,
 				);
@@ -1043,13 +1026,15 @@ class cb_translate extends class_base
 
 				$callback_data[] = array(
 					"name" => "vars[".$l."][".$text."]",
+					"store" => "class_base",
 					"type" => "textbox",
-					"caption" => iconv($charset_from_local, "utf-8", $lang_tmp["name"]),
+					"caption" => $lang_tmp["name"],
 					"size" => 80,
 				);
 			}
 			$callback_data[] = array(
 				"name" => "sp_".$i,
+				"store" => "class_base",
 				"no_caption" => 1,
 				"value" => "&nbsp;",
 			);
@@ -1060,13 +1045,16 @@ class cb_translate extends class_base
 		{
 			$this->gen_no_permission_error($no_writable_langs);
 		}
+
 		$callback_data[] = array(
 			"name" => "clid",
+			"store" => "class_base",
 			"value" => trim($arr["clid"]),
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "text",
+			"store" => "class_base",
 			"value" => "1",
 			"type" => "hidden",
 		);
@@ -1081,22 +1069,19 @@ class cb_translate extends class_base
 	**/
 	function releditor($arr)
 	{
-		$charset_from_local = "iso-8859-1";
-		aw_global_set("output_charset", "UTF-8");
-
 		/*
 		$this->read_template("reltrans.tpl");
 		$this->sub_merge = 1;
 		*/
 
-		$cu = get_instance("cfg/cfgutils");
+		$cu = new cfgutils();
 		$cu->load_properties(array(
 			"clid" => $arr["clid"],
 			"load_trans" => 0,
 		));
 		$rels = $cu->get_relinfo(array("clid" => $arr["clid"]));
 
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		$languages = $pot_scanner->get_langs();
 
 		$cls = aw_ini_get("classes");
@@ -1111,10 +1096,11 @@ class cb_translate extends class_base
 		}
 
 		// gen title
-		$title = sprintf("Klassi '%s' seos '%s' ('%s' t&uuml;&uuml;pi)", iconv($charset_from_local, "UTF-8", $cls[$arr["clid"]]["name"]), "<b>".iconv($charset_from_local, "UTF-8", $rels[$arr["reltype"]]["caption"])."</b>", $arr["reltype"]);
+		$title = sprintf("Klassi '%s' seos '%s' ('%s' t&uuml;&uuml;pi)", $cls[$arr["clid"]]["name"], "<b>".$rels[$arr["reltype"]]["caption"])."</b>", $arr["reltype"];
 
 		$callback_data[] = array(
 			"name" => "general_title",
+			"store" => "class_base",
 			"type" => "text",
 			"no_caption" => 1,
 			"value" => $title,
@@ -1124,7 +1110,7 @@ class cb_translate extends class_base
 		foreach($languages as $key => $language)
 		{
 			unset($caption);
-			$file_location = aw_ini_get("basedir")."/lang/trans/".$language."/po/".$po_file.".po";
+			$file_location = aw_ini_get("basedir")."lang/trans/".$language."/po/".$po_file.".po";
 			if(!$this->check_langfile($language, $po_file.".po"))
 			{
 				$no_writable_langs[] = $mod_lang[$language]["name"]."(".$language.")";
@@ -1135,7 +1121,7 @@ class cb_translate extends class_base
 			$charset_from = $lang["charset"];
 			foreach($class_po_file as $po)
 			{
-				//$comp = "Seose ".iconv($charset_from_local, $lang["charset"], $rels[$arr["reltype"]]["caption"])." (".$arr["reltype"].") tekst";
+				//$comp = "Seose ".$rels[$arr["reltype"]]["caption"]." (".$arr["reltype"].") tekst";
 				//$comp = "Seose ".htmlentities($rels[$arr["reltype"]]["caption"], $charset["from"])." (".$arr["reltype"].") tekst";
 				$comp = "Seose ".$rels[$arr["reltype"]]["caption"]." (".$arr["reltype"].") tekst";
 				if($po["msgid"] == $comp)
@@ -1146,19 +1132,22 @@ class cb_translate extends class_base
 
 			$callback_data[] = array(
 				"name" => "langname_".$language,
+				"store" => "class_base",
 				"type" => "text",
 				"caption" => t("Keel"),
-				"value" => iconv($charset_from_local, "utf-8", $lang["name"]),
+				"value" => $lang["name"]
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][caption]",
+				"store" => "class_base",
 				"type" => "textbox",
 				"caption" => t("Seose nimi"),
 				"size" => 50,
-				"value" => iconv($charset_from, "utf-8", $caption),
+				"value" => $caption
 			);
 			$callback_data[] = array(
 				"name" => "sp_".$language,
+				"store" => "class_base",
 				"no_caption" => 1,
 				"value" => "&nbsp;",
 			);
@@ -1170,16 +1159,19 @@ class cb_translate extends class_base
 		}
 		$callback_data[] = array(
 			"name" => "caption",
-			"value" => iconv($charset_from_local, "UTF-8", $rels[$arr["reltype"]]["caption"]),
+			"store" => "class_base",
+			"value" => $rels[$arr["reltype"]]["caption"],
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "clid",
+			"store" => "class_base",
 			"value" => trim($arr["clid"]),
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "reltype",
+			"store" => "class_base",
 			"value" => $arr["reltype"],
 			"type" => "hidden",
 		);
@@ -1199,8 +1191,6 @@ class cb_translate extends class_base
 			return array();
 		}
 
-		$charset_from_local = "iso-8859-1";
-		aw_global_set("output_charset", "UTF-8");
 		$obj_is_folder = false;
 		if(substr($arr["clid"],0,4) === "fld_")
 		{
@@ -1211,7 +1201,7 @@ class cb_translate extends class_base
 		$this->read_template("proptrans.tpl");
 		$this->sub_merge = 1;
 		*/
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		$languages = $pot_scanner->get_langs();
 		// where the fuck are langs???????
 		if(!$obj_is_folder)
@@ -1234,6 +1224,7 @@ class cb_translate extends class_base
 		$title = sprintf("%s '%s' nimi", $obj_is_folder?t("Kausta"):t("Klassi"), "<b>".($obj_is_folder?$clsfld[$arr["clid"]]["name"]:$cls[$arr["clid"]]["name"])."</b>");
 		$callback_data[] = array(
 			"name" => "general_title",
+			"store" => "class_base",
 			"type" => "text",
 			"no_caption" => 1,
 			"value" => $title,
@@ -1293,35 +1284,40 @@ class cb_translate extends class_base
 
 			$callback_data[] = array(
 				"name" => "langname_".$language,
+				"store" => "class_base",
 				"type" => "text",
 				"caption" => t("Keel"),
-				"value" => iconv($charset_from_local, "utf-8", $mod_lang[$language]["name"]),
+				"value" => $mod_lang[$language]["name"]
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][caption]",
+				"store" => "class_base",
 				"type" => "textbox",
 				"caption" => t("Nimi"),
-				"value" => iconv($charset_from, "utf-8", $caption),
+				"value" => $caption,
 				"size" => 50,
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][comment]",
+				"store" => "class_base",
 				"type" => "textarea",
 				"caption" => t("Kommentaar"),
-				"value" => iconv($charset_from, "utf-8", $comment),
+				"value" => $comment,
 				"cols" => 50,
 				"rows" => 5,
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][help]",
+				"store" => "class_base",
 				"type" => "textarea",
 				"caption" => t("Abitekst"),
-				"value" => iconv($charset_from, "utf-8", $help),
+				"value" => $help,
 				"cols" => 50,
 				"rows" => 10,
 			);
 			$callback_data[] = array(
 				"name" => "sp_".$language,
+				"store" => "class_base",
 				"no_caption" => 1,
 				"value" => "&nbsp;",
 			);
@@ -1329,16 +1325,17 @@ class cb_translate extends class_base
 
 		$callback_data[] = array(
 			"name" => "clid",
+			"store" => "class_base",
 			"value" => ($obj_is_folder)?"fld_".$arr["clid"]:"".$arr["clid"],
 			"type" => "hidden",
 		);
 
 		$callback_data[] = array(
 			"name" => "caption",
-			"value" => ($obj_is_folder)?iconv($charset_from_local, "utf-8",$clsfld[$arr["clid"]]["name"]):iconv($charset_from_local, "utf-8",$cls[$arr["clid"]]["name"]),
+			"store" => "class_base",
+			"value" => $obj_is_folder ? $clsfld[$arr["clid"]]["name"] : $cls[$arr["clid"]]["name"],
 			"type" => "hidden",
 		);
-
 
 		if(count($no_writable_langs))
 		{
@@ -1356,11 +1353,9 @@ class cb_translate extends class_base
 	**/
 	function groupedit($arr)
 	{
-		$charset_from_local = "iso-8859-1";
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		$languages = $pot_scanner->get_langs();
-		aw_global_set("output_charset", "UTF-8");
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 		$props = $cfgu->load_properties(array(
 			"clid" => $arr["clid"],
@@ -1378,6 +1373,7 @@ class cb_translate extends class_base
 
 		$callback_data[] = array(
 			"name" => "general_title",
+			"store" => "class_base",
 			"type" => "text",
 			"no_caption" => 1,
 			"value" => $title,
@@ -1428,57 +1424,65 @@ class cb_translate extends class_base
 			// new
 			$callback_data[] = array(
 				"name" => "langname_".$language,
+				"store" => "class_base",
 				"type" => "text",
 				"caption" => t("Keel"),
-				"value" => iconv($charset_from_local, "utf-8", $lang["name"]),
+				"value" => $lang["name"]
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][caption]",
 				"type" => "textbox",
+				"store" => "class_base",
 				"caption" => t("Grupi nimi"),
 				"size" => 50,
-				"value" => iconv($charset_from, "utf-8", $caption),
+				"value" => $caption
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][comment]",
 				"type" => "textarea",
+				"store" => "class_base",
 				"cols" => 50,
 				"rows" => 5,
 				"caption" => t("Kommentaar"),
-				"value" => iconv($charset_from, "utf-8", $comment),
+				"value" => $comment
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][help]",
 				"type" => "textarea",
+				"store" => "class_base",
 				"cols" => 50,
 				"rows" => 10,
 				"caption" => t("Abitekst"),
-				"value" => iconv($charset_from, "utf-8", $help),
+				"value" => $help
 			);
 			$callback_data[] = array(
 				"name" => "sp_".$language,
+				"store" => "class_base",
 				"no_caption" => 1,
 				"value" => "&nbsp;",
 			);
-		};
-
+		}
 
 		if(count($no_writable_langs))
 		{
 			$this->gen_no_permission_error($no_writable_langs);
 		}
+
 		$callback_data[] = array(
 			"name" => "caption",
-			"value" => iconv($charset_from_local, "utf-8", $groups[$arr["grpid"]]["caption"]),
+			"store" => "class_base",
+			"value" => $groups[$arr["grpid"]]["caption"],
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "clid",
+			"store" => "class_base",
 			"value" => trim($arr["clid"]),
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "grpid",
+			"store" => "class_base",
 			"value" => $arr["grpid"],
 			"type" => "hidden",
 		);
@@ -1495,13 +1499,11 @@ class cb_translate extends class_base
 	**/
 	function proptrans($arr)
 	{
-		$charset_from_local = "iso-8859-1";
-		aw_global_set("output_charset", "UTF-8");
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		$languages = $this->get_use_languages();
 		$this->read_template("proptrans.tpl");
 		$this->sub_merge = 1;
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$props = $cfgu->load_properties(array(
 				"clid" => trim($arr["clid"]),
 				"load_trans" => 0,
@@ -1519,6 +1521,7 @@ class cb_translate extends class_base
 
 		$callback_data[] = array(
 			"name" => "general_title",
+			"store" => "class_base",
 			"type" => "text",
 			"no_caption" => 1,
 			"value" => $title,
@@ -1567,39 +1570,44 @@ class cb_translate extends class_base
 			// new
 			$callback_data[] = array(
 				"name" => "langname_".$language,
+				"store" => "class_base",
 				"type" => "text",
 				"caption" => t("Keel"),
-				"value" => iconv($charset_from_local, "utf-8", $lang["name"]),
+				"value" => $lang["name"]
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][caption]",
+				"store" => "class_base",
 				"type" => "textbox",
 				"caption" => t("Omaduse nimi"),
-				"value" => iconv($charset_from, "utf-8", $caption),
+				"value" => $caption,
 				"size" => 50,
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][comment]",
+				"store" => "class_base",
 				"type" => "textarea",
 				"caption" => t("Kommentaar"),
-				"value" => iconv($charset_from, "utf-8", $comment),
+				"value" => $comment,
 				"rows" => 5,
 				"cols" => 50,
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][help]",
+				"store" => "class_base",
 				"type" => "textarea",
 				"caption" => t("Abitekst"),
-				"value" => iconv($charset_from, "utf-8", $help),
+				"value" => $help,
 				"rows" => 10,
 				"cols" => 50,
 			);
 			$callback_data[] = array(
 				"name" => "sp_".$language,
+				"store" => "class_base",
 				"no_caption" => 1,
 				"value" => "&nbsp;",
 			);
-		};
+		}
 
 		if(count($no_writable_langs))
 		{
@@ -1607,21 +1615,25 @@ class cb_translate extends class_base
 		}
 		$callback_data[] = array(
 			"name" => "caption",
-			"value" => iconv($charset_from_local, "utf-8", $props[$arr["propid"]]["caption"]),
+			"store" => "class_base",
+			"value" => $props[$arr["propid"]]["caption"],
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "clid",
+			"store" => "class_base",
 			"value" => trim($arr["clid"]),
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "grpid",
+			"store" => "class_base",
 			"value" => $arr["grpid"],
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "propid",
+			"store" => "class_base",
 			"value" => $arr["propid"],
 			"type" => "hidden",
 		);
@@ -1630,17 +1642,16 @@ class cb_translate extends class_base
 
 	function get_use_languages()
 	{
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		$languages = $pot_scanner->get_langs();
 		$uo = obj(aw_global_get("uid_oid"));
 		$use_langs = $uo->prop("target_lang");
 		if(is_array($use_langs) && count($use_langs))
 		{
-			$li = get_instance("core/languages");
 			$langs = array();
 			foreach($use_langs as $id=>$lang)
 			{
-				$lid = $li->get_langid($id);
+				$lid = languages::get_langid($id);
 				if($languages[$lid])
 				{
 					$langs[$lid] = $lid;
@@ -1659,9 +1670,7 @@ class cb_translate extends class_base
 	**/
 	function layouttrans($arr)
 	{
-		$charset_from_local = "iso-8859-1";
-		aw_global_set("output_charset", "UTF-8");
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		$languages = $pot_scanner->get_langs();
 
 		/*
@@ -1669,7 +1678,7 @@ class cb_translate extends class_base
 		$this->sub_merge = 1;
 		*/
 
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$props = $cfgu->load_properties(array(
 				"clid" => trim($arr["clid"]),
 				"load_trans" => 0,
@@ -1685,9 +1694,10 @@ class cb_translate extends class_base
 		$langs_info = aw_ini_get("languages.list");
 
 		// gen title
-		$title = sprintf("Klass '%s', Kujudusosa '%s' ('%s' t&uuml;&uuml;pi)", iconv($charset_from_local, "UTF-8", $cls[$arr["clid"]]["name"]), "<b>".iconv($charset_from_local, "UTF-8", $layouts[$arr["lid"]]["area_caption"])."</b>", $layouts[$arr["lid"]]["type"]);
+		$title = sprintf("Klass '%s', Kujudusosa '%s' ('%s' t&uuml;&uuml;pi)", $cls[$arr["clid"]]["name"], "<b>".$layouts[$arr["lid"]]["area_caption"]."</b>", $layouts[$arr["lid"]]["type"]);
 		$callback_data[] = array(
 			"name" => "general_title",
+			"store" => "class_base",
 			"type" => "text",
 			"no_caption" => 1,
 			"value" => $title,
@@ -1714,7 +1724,7 @@ class cb_translate extends class_base
 			$class_po_file = $pot_scanner->parse_po_file($file_location);
 			foreach($class_po_file as $po)
 			{
-				if($po["msgid"] == "Kujundusosa ".htmlentities(iconv($charset_from_local, $lang["charset"], $layouts[$arr["lid"]]["area_caption"]))." (".$arr["lid"].") pealkiri")
+				if($po["msgid"] == "Kujundusosa ".htmlentities($layouts[$arr["lid"]]["area_caption"])." (".$arr["lid"].") pealkiri")
 				{
 					$caption = $po["msgstr"];
 					break;
@@ -1724,22 +1734,25 @@ class cb_translate extends class_base
 			$callback_data[] = array(
 				"name" => "langname_".$language,
 				"type" => "text",
+				"store" => "class_base",
 				"caption" => t("Keel"),
-				"value" => iconv($charset_from_local, "utf-8", $lang["name"]),
+				"value" => $lang["name"]
 			);
 			$callback_data[] = array(
 				"name" => "vars[".$language."][pealkiri]",
 				"type" => "textbox",
+				"store" => "class_base",
 				"caption" => t("Kujundusosa nimi"),
-				"value" => iconv($lang["charset"], "utf-8", $caption),
+				"value" => $caption,
 				"size" => 50,
 			);
 			$callback_data[] = array(
 				"name" => "sp_".$language,
+				"store" => "class_base",
 				"no_caption" => 1,
 				"value" => "&nbsp;",
 			);
-		};
+		}
 
 		if(count($no_writable_langs))
 		{
@@ -1747,16 +1760,19 @@ class cb_translate extends class_base
 		}
 		$callback_data[] = array(
 			"name" => "caption",
-			"value" => str_replace("&#44;", ",", iconv($charset_from_local, "utf-8", $layouts[$arr["lid"]]["area_caption"])),
+			"store" => "class_base",
+			"value" => str_replace("&#44;", ",", $layouts[$arr["lid"]]["area_caption"]),
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "clid",
+			"store" => "class_base",
 			"value" => trim($arr["clid"]),
 			"type" => "hidden",
 		);
 		$callback_data[] = array(
 			"name" => "lid",
+			"store" => "class_base",
 			"value" => $arr["lid"],
 			"type" => "hidden",
 		);
@@ -1771,8 +1787,6 @@ class cb_translate extends class_base
 
 	function _get_show_changes($arr)
 	{
-		aw_global_set("output_charset", "utf-8");
-
 		$data = aw_unserialize(core::get_cval("trans_changes"));
 		$langs_info = aw_ini_get("languages.list");
 		foreach($langs_info as $lang)
@@ -1817,20 +1831,20 @@ class cb_translate extends class_base
 			$this->vars(array(
 				"bgcolor" => $writable?"FFFFFF":"F11111",
 				"bgcolor_lang" => $writable?"FF0000":"F11111",
-				"lang" => iconv($change["charset"], "utf-8",$change["langname"]),
-				"object" => iconv($change["charset"], "utf-8", $change["msgid"]),
-				"prev" => (strlen($change["prev_contents"]) < 1)?iconv(aw_global_get("charset"), "utf-8", sprintf("<i>%s</i>", t("tekst puudus"))):iconv($change["charset"], "utf-8", nl2br($change["prev_contents"])),
-				"new" => (strlen($change["contents"]) < 1)?iconv(aw_global_get("charset"), "utf-8", sprintf("<i>%s</i>", t("tekst eemaldati"))):iconv($change["charset"], "utf-8", nl2br($change["contents"])),
+				"lang" => $change["langname"],
+				"object" => $change["msgid"],
+				"prev" => (strlen($change["prev_contents"]) < 1) ? sprintf("<i>%s</i>", t("tekst puudus")) : nl2br($change["prev_contents"]),
+				"new" => (strlen($change["contents"]) < 1) ? sprintf("<i>%s</i>", t("tekst eemaldati")) : nl2br($change["contents"]),
 			));
 			$this->parse("SUB_CHANGE");
 			$is = true;
 
 			// new approach
 			$t->define_data(array(
-				"lang" => iconv($change["charset"], "utf-8",$change["langname"]),
-				"object" => iconv($change["charset"], "utf-8", $change["msgid"]),
-				"from" => (strlen($change["prev_contents"]) < 1)?iconv(aw_global_get("charset"), "utf-8", sprintf("<i>%s</i>", t("tekst puudus"))):iconv($change["charset"], "utf-8", nl2br($change["prev_contents"])),
-				"to" => (strlen($change["contents"]) < 1)?iconv(aw_global_get("charset"), "utf-8", sprintf("<i>%s</i>", t("tekst eemaldati"))):iconv($change["charset"], "utf-8", nl2br($change["contents"])),
+				"lang" => $change["langname"],
+				"object" => $change["msgid"],
+				"from" => (strlen($change["prev_contents"]) < 1) ? sprintf("<i>%s</i>", t("tekst puudus"))) : nl2br($change["prev_contents"]),
+				"to" => (strlen($change["contents"]) < 1) ? sprintf("<i>%s</i>", t("tekst eemaldati"))) : nl2br($change["contents"]),
 				"write_err" => !$writable?"#F11111":"",
 			));
 		}
@@ -1909,7 +1923,7 @@ class cb_translate extends class_base
 		$link = html::href(array(
 			//"url" => $this->mk_my_orb("actual_commit"),
 			"url" => "javascript:submit_changeform();",
-			"caption" => iconv(aw_global_get("charset") , "utf-8", t("CVS commit")),
+			"caption" => t("CVS commit"),
 			"target" => "editorcontent",
 		));
 		$this->vars(array(
@@ -1928,13 +1942,13 @@ class cb_translate extends class_base
 	**/
 	function apply_changes()
 	{
-		$t=get_instance("core/trans/pot_scanner");
+		$t = new pot_scanner();
 
 		$data = aw_unserialize(core::get_cval("trans_changes"));
 		$unwr_changes = array();
 		foreach($data as $change)
 		{
-			$aw_file = aw_ini_get("basedir")."/lang/trans/".$change["lang"]."/aw/".basename($change["file"], ".po").".aw";
+			$aw_file = aw_ini_get("basedir")."lang/trans/".$change["lang"]."/aw/".basename($change["file"], ".po").".aw";
 			if(is_writable($aw_file))
 			{
 				$files[] = $aw_file;
@@ -1951,7 +1965,7 @@ class cb_translate extends class_base
 		$files = array_unique($files);
 		foreach($files as $file)
 		{
-			$t->_make_aw_from_po(aw_ini_get("basedir")."/lang/trans/".$lang[$file]."/po/".basename($file, ".aw").".po",$file);
+			$t->_make_aw_from_po(aw_ini_get("basedir")."lang/trans/".$lang[$file]."/po/".basename($file, ".aw").".po",$file);
 		}
 
 
@@ -2007,7 +2021,7 @@ class cb_translate extends class_base
 		$tmp = array(
 			PRP => array(
 				"caption" =>
-					"caption",
+				"caption",
 				"comment" => "kommentaar",
 				"help" => "help",
 				"strid_start" => "Omaduse",
@@ -2054,7 +2068,7 @@ class cb_translate extends class_base
 		);
 		$cls = aw_ini_get("classes");
 
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		foreach($arr["vars"] as $lang => $vars)
 		{
 			foreach($langs_info as $lang_info)
@@ -2080,10 +2094,10 @@ class cb_translate extends class_base
 						foreach($vars as $varname => $var)
 						{
 							$comp = $tmp[$save_type]["strid_start"]." ".$arr["caption"]." (".$tmp[$save_type]["id"].") ".$tmp[$save_type][$varname];
-							if($comp == iconv($charset_to, "utf-8", $entry["msgid"]))
+							if($comp == $entry["msgid"])
 							{
 								$var_already_set[$varname] = $var;
-								if(iconv($charset_to, "utf-8", $entry["msgstr"]) != trim($var))
+								if($entry["msgstr"] !== trim($var))
 								{
 									$change_log[] = array(
 										"entry_no" => $entry_no,
@@ -2092,7 +2106,7 @@ class cb_translate extends class_base
 										"msgid" => $entry["msgid"],
 										"lang" => $lang,
 										"var" => $varname,
-										"contents" => iconv("utf-8", $charset_to, $var),
+										"contents" => $var,
 										"prev_contents" => $entry["msgstr"],
 										"file_exists" => 1,
 										"var_exists" => 1,
@@ -2113,7 +2127,7 @@ class cb_translate extends class_base
 									"file" => $file,
 									"var" => $varname,
 									"file_exists" => 1,
-									"contents" => iconv("utf-8", $charset_to, $var),
+									"contents" => $var,
 									"var_exists" => 0,
 								);
 							}
@@ -2131,7 +2145,7 @@ class cb_translate extends class_base
 								"file" => $file,
 								"var" => $varname,
 								"file_exists" => 0,
-								"contents" => iconv("utf-8", $charset_to, $var),
+								"contents" => $var,
 							);
 						}
 					}
@@ -2140,7 +2154,7 @@ class cb_translate extends class_base
 			if($save_type == CLS || $save_type == FLD)
 			{
 				// check for classfolders and class text changes
-				$file = aw_ini_get("basedir")."/lang/trans/".$lang."/po/aw.ini.po";
+				$file = aw_ini_get("basedir")."lang/trans/".$lang."/po/aw.ini.po";
 				if(is_file($file))
 				{
 					$po_contents = $pot_scanner->parse_po_file($file);
@@ -2150,10 +2164,10 @@ class cb_translate extends class_base
 						foreach($vars as $varname => $var)
 						{
 							$comp = $tmp[$save_type]["strid_start"]." ".$arr["caption"]." (".$tmp[$save_type]["id"].") ".$tmp[$save_type][$varname];
-							if(iconv($charset_to, "utf-8", $entry["msgid"]) == $comp)
+							if($entry["msgid"] == $comp)
 							{
 								$var_already_set[$varname] = $var;
-								if(iconv($charset_to, "utf-8", $entry["msgstr"]) != $var)
+								if($entry["msgstr"] !== $var)
 								{
 									$change_log[] = array(
 										"entry_no" => $entry_no,
@@ -2162,7 +2176,7 @@ class cb_translate extends class_base
 										"msgid" => $entry["msgid"],
 										"lang" => $lang,
 										"var" => $varname,
-										"contents" => iconv("utf-8", $charset_to, $var),
+										"contents" => $var,
 										"prev_contents" => $entry["msgstr"],
 										"file_exists" => 1,
 										"var_exists" => 1,
@@ -2183,7 +2197,7 @@ class cb_translate extends class_base
 									"file" => $file,
 									"var" => $varname,
 									"file_exists" => 1,
-									"contents" => iconv("utf-8", $charset_to, $var),
+									"contents" => $var,
 									"var_exists" => 0,
 								);
 							}
@@ -2202,7 +2216,7 @@ class cb_translate extends class_base
 								"file" => $file,
 								"var" => $varname,
 								"file_exists" => 0,
-								"contents" => iconv("utf-8", $charset_to, $var),
+								"contents" => $var,
 							);
 						}
 					}
@@ -2210,7 +2224,7 @@ class cb_translate extends class_base
 			}
 			if($save_type == TXT)
 			{
-				$file = aw_ini_get("basedir")."/lang/trans/".$lang."/po/".end(split("/",$cls[$arr["clid"]]["file"])).".po";
+				$file = aw_ini_get("basedir")."lang/trans/".$lang."/po/".end(split("/",$cls[$arr["clid"]]["file"])).".po";
 				if(is_file($file))
 				{
 					$po_contents = $pot_scanner->parse_po_file($file);
@@ -2227,7 +2241,7 @@ class cb_translate extends class_base
 							{
 								$var_exists = 1;
 								// checks if msgstr has been changed
-								if(iconv($charset_to, "utf-8", $entry["msgstr"]) != trim($msgstr))
+								if($entry["msgstr"] !== trim($msgstr))
 								{
 									$change_log[] = array(
 										"entry_no" => $entry_no,
@@ -2236,7 +2250,7 @@ class cb_translate extends class_base
 										"msgid" => $msgid,
 										"lang" => $lang,
 										"var" => $msgid,
-										"contents" => iconv("utf-8", $charset_to, $msgstr),
+										"contents" => $msgstr,
 										"prev_contents" => $entry["msgstr"],
 										"file_exists" => 1,
 										"var_exists" => 1,
@@ -2256,7 +2270,7 @@ class cb_translate extends class_base
 									"msgid" => $msgid,
 									"var" => $msgid,
 									"file_exists" => 1,
-									"contents" => iconv("utf-8", $charset_to, $msgstr),
+									"contents" => $msgstr,
 									"var_exists" => 0,
 								);
 							}
@@ -2277,7 +2291,7 @@ class cb_translate extends class_base
 								"lang" => $lang,
 								"msgid" => $msgid,
 								"var" => $msgid,
-								"contents" => iconv("utf-8", $charset_to, $msgstr),
+								"contents" => $msgstr,
 								"var_exists" => 0,
 							);
 						}
@@ -2440,23 +2454,24 @@ class cb_translate extends class_base
 				$return_params["lid"] = $tmp[LYT]["id"];
 				break;
 		}
+
 		if($save_type == PRP && $arr["forward"])
 		{
 			$languages = $this->get_use_languages();
-			$pot_scanner = get_instance("core/trans/pot_scanner");
+			$pot_scanner = new pot_scanner();
 			$cls = aw_ini_get("classes");
 			$aw_location = $cls[trim($arr["clid"])]["file"];
 			$po = split("[/]",$aw_location);
 			$po_file = $po[count($po)-1];
 			$useprop = array();
-			$cfgu = get_instance("cfg/cfgutils");
+			$cfgu = new cfgutils();
 			$props = $cfgu->load_properties(array(
 					"clid" => $arr["clid"],
 			));
 			foreach($languages as $language)
 			{
 				$look = 0;
-				$file_location = aw_ini_get("basedir")."/lang/trans/".$language."/po/".$po_file.".po";
+				$file_location = aw_ini_get("basedir")."lang/trans/".$language."/po/".$po_file.".po";
 				$lines = $pot_scanner->parse_po_file($file_location);
 				foreach($lines as $id => $data)
 				{
@@ -2496,7 +2511,7 @@ class cb_translate extends class_base
 
 	function _get_line_headers($class)
 	{
-		$pot_scanner = get_instance("core/trans/pot_scanner");
+		$pot_scanner = new pot_scanner();
 		$languages = $pot_scanner->get_langs();
 		$cls = aw_ini_get("classes");
 		foreach($languages as $key => $language)
@@ -2522,7 +2537,7 @@ class cb_translate extends class_base
 	function check_langfile($lang, $file, $aw = false)
 	{
 
-		if(is_writable(aw_ini_get("basedir")."/lang/trans/".$lang."/".($aw?"aw":"po")."/".$file))
+		if(is_writable(aw_ini_get("basedir")."lang/trans/".$lang."/".($aw?"aw":"po")."/".$file))
 		{
 			return true;
 		}
@@ -2545,7 +2560,6 @@ class cb_translate extends class_base
 			return false;
 		}
 
-
 		return $arr["trans_url"];
 	}
 
@@ -2554,7 +2568,7 @@ class cb_translate extends class_base
 	**/
 	function search_trans($arr)
 	{
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output(array(
 			"template" => "default",
 		));

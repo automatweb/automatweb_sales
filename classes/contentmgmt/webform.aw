@@ -256,6 +256,9 @@
 
 class webform extends class_base
 {
+	var $cfgform; //TODO: scope, default
+	var $cfgform_i; //TODO: scope, default
+
 	function webform()
 	{
 		$this->init(array(
@@ -302,7 +305,7 @@ class webform extends class_base
 
 	function callback_on_load($arr)
 	{
-		$this->cfgform_i = get_instance(CL_CFGFORM);
+		$this->cfgform_i = new cfgform();
 		if (isset($arr["request"]["id"]) and acl_base::can("view", $arr["request"]["id"]))
 		{
 			$obj_inst = obj($arr["request"]["id"]);
@@ -351,12 +354,6 @@ class webform extends class_base
 			}
 		}
 	}
-
-	function callback_get_transl($arr)
-	{
-		return $this->trans_callback($arr, $this->trans_props);
-	}
-
 
 	function callback_pre_save($arr)
 	{
@@ -539,7 +536,7 @@ class webform extends class_base
 			case "mails_tbl":
 				$this->get_mails_tbl($arr);
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -549,10 +546,6 @@ class webform extends class_base
 		$retval = class_base::PROP_OK;
 		switch($prop["name"])
 		{
-			case "transl":
-				$this->trans_save($arr, $this->trans_props);
-				break;
-
 			case "on_init":
 				if (empty($arr["new"]))
 				{
@@ -1697,6 +1690,7 @@ class webform extends class_base
 			"name" => "m_style[error]",
 			"caption" => t("Veateate stiil"),
 			"type" => "select",
+			"store" => "class_base",
 			"options" => $this->all_rels,
 			"selected" => isset($m_styles["error"]) ? $m_styles["error"] : null
 		);
@@ -1706,6 +1700,7 @@ class webform extends class_base
 				"name" => "style[$key][caption]",
 				"caption" => sprintf(t("%s pealkirja stiil"), $val["caption"]),
 				"type" => "select",
+				"store" => "class_base",
 				"options" => $this->all_rels,
 				"selected" => isset($sel_styles[$key]["caption"]) ? $sel_styles[$key]["caption"] : null
 			);
@@ -1713,6 +1708,7 @@ class webform extends class_base
 				"name" => "style[$key][comment]",
 				"caption" => sprintf(t("%s kommentaari stiil"), $val["caption"]),
 				"type" => "select",
+				"store" => "class_base",
 				"options" => $this->all_rels,
 				"selected" => isset($sel_styles[$key]["comment"]) ? $sel_styles[$key]["comment"] : null
 			);
@@ -1720,12 +1716,13 @@ class webform extends class_base
 				"name" => "style[$key][prop]",
 				"caption" => sprintf(t("%s elemendi stiil"), $val["caption"]),
 				"type" => "select",
+				"store" => "class_base",
 				"options" => $this->all_rels,
 				"selected" => isset($sel_styles[$key]["prop"]) ? $sel_styles[$key]["prop"] : null
 			);
 		}
+
 		return $props;
-		//foreach($this->cfg_proplist
 	}
 
 	function callback_preview($arr)
@@ -1734,6 +1731,7 @@ class webform extends class_base
 			"name" => "prop1",
 			"type" => "text",
 			"no_caption" => 1,
+			"store" => "class_base",
 			"value" => $this->show(array(
 				"id" => $arr["obj_inst"]->id(),
 				"group" => $arr["request"]["group"],
@@ -1755,6 +1753,7 @@ class webform extends class_base
 				"name" => "view_controllers[".$prop["name"]."]",
 				"caption" => $prop["caption"],
 				"type" => "select",
+				"store" => "class_base",
 				"multiple" => 1,
 				"size" => 3,
 				"value" => $controllers[$prop["name"]],
@@ -1778,6 +1777,7 @@ class webform extends class_base
 				"name" => "controllers[".$prop["name"]."]",
 				"caption" => $prop["caption"],
 				"type" => "select",
+				"store" => "class_base",
 				"multiple" => 1,
 				"size" => 3,
 				"value" => isset($controllers[$prop["name"]]) ? $controllers[$prop["name"]] : "",
@@ -2964,7 +2964,6 @@ class webform extends class_base
 		{
 			$arr["add_search_mail"] = 0;
 		}
-		$arr["post_ru"] = get_ru();//XXX: vaja?
 	}
 
 	function callback_generate_scripts($arr)

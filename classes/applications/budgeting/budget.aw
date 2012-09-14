@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budget.aw,v 1.11 2008/05/15 15:29:53 markop Exp $
-// budget.aw - Eelarve 
+
+// budget.aw - Eelarve
 /*
 
-@classinfo syslog_type=ST_BUDGET relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo aw_budgets index=aw_oid master_table=objects master_index=brother_of
 
@@ -22,7 +22,7 @@
 	@property end type=date_select field=aw_date_end default=-1
 	@caption Kuni
 
-	@property owner type=relpicker reltype=RELTYPE_OWNER field=aw_owner 
+	@property owner type=relpicker reltype=RELTYPE_OWNER field=aw_owner
 	@caption Vastutaja
 
 
@@ -33,7 +33,7 @@
 
 	@property m type=table store=no no_caption=1
 
-	@property desc type=text store=no 
+	@property desc type=text store=no
 	@caption Hetkel projekti kasum
 
 @groupinfo m caption="Raha"
@@ -83,13 +83,13 @@ class budget extends class_base
 		{
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
-		
+
 	function do_db_upgrade($t, $f)
 	{
 		if ($f == "")
@@ -258,7 +258,7 @@ class budget extends class_base
 		foreach($ol->arr() as $task)
 		{
 			$hr_price = $task->prop("hr_price");
-			$tax_amt = $task->prop("num_hrs_guess") * $hr_price;
+			$tax_amt = $task->prop("time_guess") * $hr_price;
 			$amt -= $tax_amt;
 			$t->define_data(array(
 				"tax_grp" => t("Muud maksud"),
@@ -288,7 +288,7 @@ class budget extends class_base
 				"rown" => ++$rown
 			));
 		}
-		
+
 		$ol = $arr["obj_inst"]->get_bugs();
 		foreach($ol->arr() as $bug)
 		{
@@ -390,7 +390,7 @@ class budget extends class_base
 			$tax_amt = $task->prop("num_hrs_guess") * $hr_price;
 			$amt -= $tax_amt;
 		}
-		
+
 		$ol = $arr["obj_inst"]->get_bugs();
 		foreach($ol->arr() as $bug)
 		{
@@ -430,7 +430,7 @@ class budget extends class_base
 		{
 			$ol->add($tax);
 		}
-		
+
 		$t->table_from_ol(
 			$ol,
 			array("name", "comment", "to_acct", "amount", "pri", "max_deviation_minus", "max_deviation_plus", "tax_grp"),

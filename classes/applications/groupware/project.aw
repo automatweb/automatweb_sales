@@ -7040,7 +7040,7 @@ class project extends class_base
 					"oid" => $c->id(),
 					"implementor" => html::obj_change_url($c),
 					"phone" => html::obj_change_url($c->prop("phone_id")),
-					"contact" => html::obj_change_url($c->prop("contact_person"))
+					"contact" => "", //html::obj_change_url($c->prop("contact_person")) //TODO: v6tta contact person kliendisuhtest
 				));
 			}
 		}

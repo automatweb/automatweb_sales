@@ -2095,20 +2095,22 @@ class bug extends class_base
 				$rv++;
 			}
 
+/*
+//TODO: get customaer priority from cust. rel
 			//if customer priority set, up the bug's priority
 			if($cust_priority = $bug->prop("customer.cust_priority"))
 			{
 				$cust_priority = ($cust_priority>99999)?99999:$cust_priority;
 				$rv += 1.0 - ((double)1.0/((double)100000.0 + (double)$cust_priority));
 			}
-
-			$rv += 1.0 - ((double)1.0/((double)1000000.0 - (double)$bug->id()));
+ */
+			 $rv += 1.0 - ((double)1.0/((double)1000000.0 - (double)$bug->id()));
 		}
 		else
 		{
 			$bs = $bug->prop("bug_status");
 			$bp = $bug->prop("bug_priority");
-			$cp = $bug->prop("customer.cust_priority");
+			$cp = 0; //$bug->prop("customer.cust_priority");//TODO: get customaer priority from cust. rel
 			$pp = $bug->prop("project.priority");
 			$bi = $bug->prop("bug_severity");
 			$dd = $bug->prop("deadline");

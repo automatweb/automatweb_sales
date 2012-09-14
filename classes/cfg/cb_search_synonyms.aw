@@ -1,11 +1,11 @@
 <?php
 /*
-@classinfo syslog_type=ST_CB_SEARCH_SYNONYMS relationmgr=yes no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
 
-@property desc type="text" store=no 
+@property desc type="text" store=no
 
 @property syntb type=callback callback=callback_get_syntb store=no
 @caption S&uuml;non&uuml;mise sisestamine
@@ -46,7 +46,7 @@ class cb_search_synonyms extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	private function do_save_syns($arr)
 	{
@@ -78,6 +78,7 @@ class cb_search_synonyms extends class_base
 			$ret["old[".$nr."]"] = array(
 				"name" => "old[".$nr."]",
 				"type" => "textbox",
+				"store" => "class_base",
 				"size" => 80,
 				"value" => $syn
 			);
@@ -88,6 +89,7 @@ class cb_search_synonyms extends class_base
 			$ret["new[".$i."]"] = array(
 				"name" => "new[".$i."]",
 				"type" => "textbox",
+				"store" => "class_base",
 				"size" => 80,
 			);
 		}
@@ -95,4 +97,3 @@ class cb_search_synonyms extends class_base
 		return $ret;
 	}
 }
-?>

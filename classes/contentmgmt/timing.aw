@@ -12,7 +12,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_DOCUMENT, on_tdisconne
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_MENU, on_tdisconnect_to)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_TIMING, init_scheduler)
 
-@classinfo syslog_type=ST_TIMING relationmgr=yes no_status=1 maintainer=dragut
+@classinfo relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -169,7 +169,8 @@ class timing extends class_base
 			case "objects":
 				$this->objects_table($arr);
 				break;
-		};
+		}
+
 		return $retval;
 	}
 
@@ -223,6 +224,7 @@ class timing extends class_base
 			$datrue = false;
 			$archive_true = false;
 		}
+
 		if($atrue)
 		{
 			$event = $this->mk_my_orb("init_action", array(
@@ -237,6 +239,7 @@ class timing extends class_base
 				"auth_as_local_user" => true,
 			));
 		}
+
 		if($datrue)
 		{
 			$event = $this->mk_my_orb("init_action", array(
@@ -272,7 +275,7 @@ class timing extends class_base
 
 	function objects_toolbar($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "delete",
 			"tooltip" => t("Eemalda valitud objektid"),
@@ -285,11 +288,11 @@ class timing extends class_base
 	function objects_table($arr)
 	{
 		$classes = aw_ini_get("classes");
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$var = array(
 			"id" => t("ID"),
 			"name" => t("Nimi"),
-			"type" => t("Tüüp"),
+			"type" => t("TÃ¼Ã¼p"),
 		);
 		foreach($var as $key => $val)
 		{
@@ -354,15 +357,12 @@ class timing extends class_base
 			$obj = $obz->to();
 			$oar = array($obj->id() => $obj);
 			$ol = new object_list(array(
-				"brother_of" => $obj->id(),
-				"lang_id" => array(),
-				"site_id" => array()
+				"brother_of" => $obj->id()
 			));
-			foreach($ol->arr() as $o)
+			for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 			{
 				$oar[$o->id()] = $o;
 			}
-
 
 			foreach($oar as $obj)
 			{
@@ -471,4 +471,3 @@ class timing extends class_base
 		}
 	}
 }
-?>

@@ -1,13 +1,13 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/cb_form_chain/cb_form_chain.aw,v 1.50 2007/11/23 07:06:27 dragut Exp $
-// cb_form_chain.aw - Vormiahel 
+
+// cb_form_chain.aw - Vormiahel
 /*
 
-@classinfo syslog_type=ST_CB_FORM_CHAIN relationmgr=yes no_comment=1 no_status=1 maintainer=dragut
+@classinfo relationmgr=yes no_comment=1 no_status=1
 
 @default table=objects
 @default group=general
-@default field=meta 
+@default field=meta
 @default method=serialize
 
 	@property confirm_sep_page type=checkbox ch_value=1
@@ -24,15 +24,15 @@
 	@caption Kinnitusevaate kontroller
 
 	@property disp_view_ctl type=relpicker reltype=RELTYPE_CONTROLLER
-	@caption V&auml;ljundi kontroller 
+	@caption V&auml;ljundi kontroller
 
-	@property confirm_view_tpl type=select 
+	@property confirm_view_tpl type=select
 	@caption Kinnitusvaate template
 
-	@property show_view_tpl type=select 
+	@property show_view_tpl type=select
 	@caption L&otilde;puvaate template
 
-	@property print_view_tpl type=select 
+	@property print_view_tpl type=select
 	@caption Printvaate template
 
 @default group=cfs_tbl
@@ -52,14 +52,14 @@
 
 @default group=mail_settings_general
 
-	@property mail_to type=textbox 
+	@property mail_to type=textbox
 	@caption Kellele
 
 	@property mail_to_form type=relpicker reltype=RELTYPE_CF
 	@caption Vorm, milles on saaja aadress
 
-	@property mail_to_prop type=select 
-	@caption Element, milles on saaja aadress	
+	@property mail_to_prop type=select
+	@caption Element, milles on saaja aadress
 
 	@property mail_from_addr type=textbox
 	@caption Kellelt (aadress)
@@ -90,8 +90,8 @@
 	@property confirm_mail_to_form type=relpicker reltype=RELTYPE_CF
 	@caption Vorm, milles on saaja aadress
 
-	@property confirm_mail_to_prop type=select 
-	@caption Element, milles on saaja aadress	
+	@property confirm_mail_to_prop type=select
+	@caption Element, milles on saaja aadress
 
 	@property confirm_mail_content_ctr type=relpicker reltype=RELTYPE_CONTROLLER
 	@caption Kinnitusmeili sisu kontroller
@@ -118,7 +118,7 @@
 
 @default group=entries_src
 
-	@property search_cb type=callback callback=callback_get_search 
+	@property search_cb type=callback callback=callback_get_search
 	@property search_res type=table no_caption=1 store=no
 
 @groupinfo cfs caption="Vormid"
@@ -234,13 +234,13 @@ class cb_form_chain extends class_base
 			case "cfs_entry_tbl":
 				$this->_cfs_entry_tbl($arr);
 				break;
-	
+
 			case "confirm_view_tpl":
 			case "show_view_tpl":
 			case "print_view_tpl":
 				$t = get_instance("templatemgr");
 				$prop["options"] = array("" => t("--vali--")) + $t->template_picker(array("folder" => "applications/cb_form_chain"));
-				break;	
+				break;
 		};
 		return $retval;
 	}
@@ -300,11 +300,6 @@ class cb_form_chain extends class_base
 				break;
 		}
 		return $retval;
-	}	
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	function _init_cfs_t($t)
@@ -372,7 +367,7 @@ class cb_form_chain extends class_base
 
 	function _cfs($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		if (method_exists($t, "set_caption"))
 		{
 			$t->set_caption(t('Vormiahela veebivormid'));
@@ -413,27 +408,27 @@ class cb_form_chain extends class_base
 				"repeat" => html::checkbox(array(
 					"name" => "d[".$o->id()."][repeat]",
 					"value" => 1,
-					"checked" => $d[$o->id()]["repeat"] == 1 
+					"checked" => $d[$o->id()]["repeat"] == 1
 				)),
 				"repeat_fix" => html::checkbox(array(
 					"name" => "d[".$o->id()."][repeat_fix]",
 					"value" => 1,
-					"checked" => $d[$o->id()]["repeat_fix"] == 1 
+					"checked" => $d[$o->id()]["repeat_fix"] == 1
 				)),
 				"el_table" => html::checkbox(array(
 					"name" => "d[".$o->id()."][el_table]",
 					"value" => 1,
-					"checked" => $d[$o->id()]["el_table"] == 1 
+					"checked" => $d[$o->id()]["el_table"] == 1
 				)),
 				"data_table" => html::checkbox(array(
 					"name" => "d[".$o->id()."][data_table]",
 					"value" => 1,
-					"checked" => $d[$o->id()]["data_table"] == 1 
+					"checked" => $d[$o->id()]["data_table"] == 1
 				)),
 				"data_table_confirm_vert" => html::checkbox(array(
 					"name" => "d[".$o->id()."][data_table_confirm_vert]",
 					"value" => 1,
-					"checked" => $d[$o->id()]["data_table_confirm_vert"] == 1 
+					"checked" => $d[$o->id()]["data_table_confirm_vert"] == 1
 				)),
 				"repeat_ctr" => $rc,
 				"def_ctr" => html::select(array(
@@ -475,14 +470,14 @@ class cb_form_chain extends class_base
 
 	function _cfs_headers($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_cfs_headers_t($t);
 
 		$hdrs = safe_array($arr["obj_inst"]->meta("cfs_headers"));
 
 		$def_ol = new object_list($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_GEN_CTR")));
 		$defs = array("" => "") + $def_ol->names();
-		
+
 		$pgs = $this->_get_page_list($arr["obj_inst"]);
 		foreach($pgs as $pg)
 		{
@@ -516,7 +511,7 @@ class cb_form_chain extends class_base
 	{
 		$ob = new object($arr["id"]);
 
-		if ($_GET["del_num"])
+		if (!empty($_GET["del_num"]))
 		{
 			unset($_SESSION["cbfc_data"][$_GET["del_wf"]][$_GET["del_num"]-1]);
 			$_SESSION["cbfc_data"][$_GET["del_wf"]] = array_values($_SESSION["cbfc_data"][$_GET["del_wf"]]);
@@ -738,7 +733,7 @@ class cb_form_chain extends class_base
 				$np = true;
 			}
 		}
-		
+
 		$fd = $this->_get_forms_for_page($o, $cur_pg);
 		$ed = max(1, $_GET["edit_num"]);
 		if ($fd[0]["repeat_fix"] == 1 && $ed < $fd[0]["rep_cnt"])
@@ -831,7 +826,7 @@ class cb_form_chain extends class_base
 					// to get around that
 					if (strpos($pd["name"], "userfile") !== false)
 					{
-						// get the uploaded file from the files array and store it ... somewhere. try to store it in the temp 
+						// get the uploaded file from the files array and store it ... somewhere. try to store it in the temp
 						// folder for now
 						$fn = tempnam(aw_ini_get("server.tmpdir"), "cbfc_f");
 						if (is_uploaded_file($_FILES[$k]["tmp_name"][$pd["name"]]["file"]))
@@ -915,7 +910,7 @@ class cb_form_chain extends class_base
 		{
 			return aw_url_change_var("edit_num", $ed+1, $arr["ret"]);
 		}
-		
+
 		return $arr["ret"];
 	}
 
@@ -976,7 +971,7 @@ class cb_form_chain extends class_base
 		// save data from session to objects
 
 		$_SESSION["no_cache"] = 1;
-		
+
 		// first, entry object
 		if ($this->can("view", $_SESSION["cbfc_current_entry_id"]))
 		{
@@ -1024,7 +1019,7 @@ class cb_form_chain extends class_base
 				}
 			}
 		}
-		
+
 		// send confirm and order mails
 		$this->_send_order_mail($o, $entry);
 		$this->_send_confirm_mail($o, $entry);
@@ -1040,14 +1035,14 @@ class cb_form_chain extends class_base
 		}
 
 		return aw_url_change_var(
-			"cbfc_pg", 
-			NULL, 
+			"cbfc_pg",
+			NULL,
 			aw_url_change_var(
-				"do_confirm", 
-				NULL, 
+				"do_confirm",
+				NULL,
 				aw_url_change_var(
-					"display", 
-					1, 
+					"display",
+					1,
 					$arr["ret"]
 				)
 			)
@@ -1106,7 +1101,7 @@ class cb_form_chain extends class_base
 
 		$ot = $wf->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE");
 		$o->set_meta("object_type", $ot->id());
-	
+
 		$o->set_meta("webform_id", $wf->id());
 
 		$o->set_name($this->_get_entry_data_name($wf, $dat));
@@ -1265,7 +1260,7 @@ class cb_form_chain extends class_base
 		{
 			return;
 		}
-		
+
 		foreach($entry->connections_from(array("type" => "RELTYPE_ENTRY")) as $c)
 		{
 			$d = $c->to();
@@ -1318,7 +1313,7 @@ class cb_form_chain extends class_base
 
 			send_mail(
 				$to,	// to
-				$o->prop("confirm_mail_subj"), // subj 
+				$o->prop("confirm_mail_subj"), // subj
 				$o->prop("confirm_mail"), // msg
 				"From: $from\n" // headers
 			);
@@ -1332,7 +1327,7 @@ class cb_form_chain extends class_base
 			return $this->_display_data_table_tpl($o, $fd);
 		}
 		// make table via component
-		
+
 		$t = new aw_table(array("layout" => "generic"));
 
 		$wf = get_instance(CL_WEBFORM);
@@ -1384,7 +1379,7 @@ class cb_form_chain extends class_base
 				{
 					$this->vars(array(
 						"caption" => $pd["caption"],
-						"value" => $this->_value_from_data($pd,$inf[$pn]) 
+						"value" => $this->_value_from_data($pd,$inf[$pn])
 					));
 					$pr_str .= $this->parse("E_PROPERTY");
 				}
@@ -1415,7 +1410,7 @@ class cb_form_chain extends class_base
 			"id" => $fd["form"]
 		));
 		$this->_apply_view_controllers($props, obj($fd["form"]), $o);
-		
+
 		$inf = $_SESSION["cbfc_data"][$fd["form"]][0];
 
 		foreach($props as $pn => $pd)
@@ -1438,7 +1433,7 @@ class cb_form_chain extends class_base
 				"caption" => $pd["caption"],
 				"value" => $val == "" ? "&nbsp;" : $val
 			));
-	
+
 			$ret .= $this->parse("PROPERTY");
 		}
 
@@ -1636,7 +1631,7 @@ class cb_form_chain extends class_base
 			{
 				$tmp = obj($val);
 				$val = $tmp->name();
-			}	
+			}
 		}
 		if ($pd["type"] == "date_select")
 		{
@@ -1772,21 +1767,18 @@ class cb_form_chain extends class_base
 			}
 
 			$props = $nps;
-			$rd = get_instance(CL_REGISTER_DATA);
+			$rd = new register_data();
 			$els = $rd->parse_properties(array(
 				"properties" => $props,
 				"name_prefix" => "f_".$wf->id()."_".$i,
 				"object_type_id" => $ot->id()
 			));
-		//	$htmlc = get_instance("cfg/htmlclient");
-			classload('cfg/htmlclient');
 			$htmlc = new htmlclient(array(
 				'template' => 'real_webform.tpl',
 			//	'styles' => safe_array($wf->meta('xstyles'))
 			));
 
 
-			
 			// XXX
 			// Adding webform style rules into page.
 			// Actually, I am not sure if form_chain should know _anything_ about how webform looks like and how elements are placed
@@ -1886,7 +1878,7 @@ class cb_form_chain extends class_base
 			));
 		}
 
-		$ap = get_instance("alias_parser");
+		$ap = new alias_parser();
 		$ap->parse_oo_aliases($wf->id(), $html);
 
 		return $html;
@@ -1972,7 +1964,7 @@ class cb_form_chain extends class_base
 		return $this->parse("TABLE_FORM");
 	}
 
-	function _get_titles($o)	
+	function _get_titles($o)
 	{
 		$hdrs = safe_array($o->meta("cfs_headers"));
 
@@ -1984,7 +1976,7 @@ class cb_form_chain extends class_base
 		ksort($ret);
 		return $ret;
 	}
-	
+
 	function _draw_page_titles($o)
 	{
 		$titles = $this->_get_titles($o);
@@ -2049,8 +2041,7 @@ class cb_form_chain extends class_base
 
 	function callback_get_redir($arr)
 	{
-		$l = get_instance("languages");
-		$ll = $l->get_list();
+		$ll = languages::get_list();
 		$ret = array();
 		$vals = $arr["obj_inst"]->meta("redir");
 		foreach($ll as $lid => $ln)
@@ -2060,9 +2051,7 @@ class cb_form_chain extends class_base
 				"name" => $nm,
 				"type" => "relpicker",
 				"reltype" => "RELTYPE_DOC",
-				"table" => "objects",
-				"field" => "meta",
-				"method" => "serialize",
+				"store" => "class_base",
 				"value" => $vals[$lid],
 				"caption" => sprintf(t("Kuhu suunata p&auml;rast sisestust (%s)"), $ln)
 			);
@@ -2129,13 +2118,13 @@ class cb_form_chain extends class_base
 					{
 						$nprops[$pn] = $pd;
 					}
-					$col_vals[$col_inf["col_num"]] .= 
+					$col_vals[$col_inf["col_num"]] .=
 						$col_inf["sep_before"].
 						$this->_value_from_data($pd, $_SESSION["cbfc_data"][$wf->id()][$i][$pn]).
 						$col_inf["sep_after"];
 //echo "add to col $col_inf[col_num] prop $pn str ".$this->_value_from_data($pd, $_SESSION["cbfc_data"][$wf->id()][$i][$pn])." <br>";
 				}
-		
+
 			}
 
 			foreach($col_vals as $col_val)
@@ -2176,7 +2165,7 @@ class cb_form_chain extends class_base
 			));
 			$row .= $this->parse("DT_ROW");
 		}
-		
+
 
 		$this->vars(array(
 			"DT_HEADER" => $this->_get_data_table_header($nprops, $form_dat),
@@ -2386,9 +2375,10 @@ class cb_form_chain extends class_base
 						$req["rsf"] = $v;
 					}
 				}
+
 				foreach($srch_i->get_sform_properties($srch, $req) as $pn => $pd)
 				{
-					if ($pd["type"] == "submit")
+					if ($pd["type"] === "submit")
 					{
 						$sbt = array($pn, $pd);
 					}
@@ -2396,12 +2386,14 @@ class cb_form_chain extends class_base
 					{
 						$pn = $wf->id()."_".$pn;
 						$pd["name"] = $wf->id()."_".$pd["name"];
+						$pd["store"] = "class_base";
 						$ret[$pn] = $pd;
 					}
 				}
 			}
 		}
 		$sbt[1]["caption"] = t("Otsi");
+		$sbt[1]["store"] = "class_base";
 		$ret[$sbt[0]] = $sbt[1];
 		return $ret;
 	}
@@ -2467,7 +2459,7 @@ class cb_form_chain extends class_base
 	function _search_res($arr)
 	{
 		$matches = array();
-		// get search results from all webforms, then get all matching 
+		// get search results from all webforms, then get all matching
 		$cfs = $arr["obj_inst"]->connections_from(array("type" => "RELTYPE_CF"));
 		$cfs_cnt = count($cfs);
 		foreach($cfs as $c)
@@ -2513,7 +2505,7 @@ class cb_form_chain extends class_base
 					{
 						$tmp[$c["from"]] = $c["from"];
 					}
-					
+
 					foreach($tmp as $c_id)
 					{
 						$matches[$c_id] = ((int)$matches[$c_id]) + 1;
@@ -2521,7 +2513,7 @@ class cb_form_chain extends class_base
 				}
 			}
 		}
-	
+
 		// leave all that have matches count that equals number of forms-1
 		$tm = array();
 		foreach($matches as $m_oid => $m_cnt)
@@ -2649,4 +2641,3 @@ class cb_form_chain extends class_base
 		}
 	}
 }
-?>

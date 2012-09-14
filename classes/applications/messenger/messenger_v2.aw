@@ -204,7 +204,7 @@ caption Identiteet
 
 class messenger_v2 extends class_base
 {
-	private $drv_inst;
+	public $drv_inst;
 
 	function messenger_v2()
 	{

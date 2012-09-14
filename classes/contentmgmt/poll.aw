@@ -1,10 +1,5 @@
 <?php
 // poll.aw - Generic poll handling class
-
-//session_register("poll_clicked");
-
-// poll.aw - it sucks more than my aunt jemimas vacuuming machine
-//
 // latest version - all answer data is in metadata "answers"[lang_id][answer_id] array, poll_answers is just to count clicks.
 
 /*
@@ -74,65 +69,8 @@ class poll extends class_base implements main_subtemplate_handler
 		lc_site_load("poll",$this);
 	}
 
-function array_walk_deep(&$items){
-    foreach ($items as &$item) {
-        if(is_array($item))
-          $this->array_walk_deep($item);
-        else
-          $item = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $item));
-    }
-}
-
-//array_walk_deep($array, 'strtoupper');
-
-
-
 	function get_answers($id)
 	{
-		$asd = obj(239);
-		aw_disable_acl();
-		$ol = new object_list(array(
-			"lang_id" => 182119,
-			"site_id" => array(),
-			"class_id" => array(119),
-		//	"modified" => new obj_predicate_compare(OBJ_COMP_LESS, 1328734555),
-	//		"limit" => "1,100"
-	//		"oid" => 19811
-		));
-
-		//1328734565
-		$x = 1;
-	//	arr($ol->count());
-
-	/*	foreach($ol->arr() as $asd)
-		{
-		//	if($asd->id() < 2377 || $asd->id() == 6123 || $asd->id() == 2426) continue;
-		//	$main = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $asd->name()));
-		//	$comment = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $asd->comment()))." ";
-	//		$title = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $asd->prop("title")))." ";
-		//	$content = iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $asd->prop("lead")))." ";
-			print $asd->name()." - ";
-		//	print $main." - ".$comment;
-			foreach($asd->meta() as $k => $val)
-			{
-
-			//	$this->array_walk_deep($val);
-			//	arr($val);
-		//		print $k." ---- ".iconv("windows-1251", "utf-8//TRANSLIT",iconv("utf-8", "ISO-8859-1//TRANSLIT", $val));
-			//	$asd->set_meta($k , $val);
-			}
-			print ' - '.$x. ' - '.$asd->id().'<br>';
-		//	$asd->set_name($main);
-		//	$asd->set_comment($comment);
-		//	$asd->set_prop("lead" , $content);
-		//	$asd->set_prop("title" , $title);
-		//	$asd->save();
-			$x++;
-		}*/
-		aw_restore_acl();
-		//2377
-		//Message: No access to load object with id '2424'.
-	//	print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 		$o = obj($id);
 		$ans = $o->meta("answers");
 
@@ -574,7 +512,6 @@ function array_walk_deep(&$items){
 	function clicks($arr)
 	{
 		extract($arr);
-		load_vcl("table");
 		$this->t = new aw_table(array("prefix" => "images"));
 		$this->t->parse_xml_def($this->cfg["basedir"]."/xml/generic_table.xml");
 		$this->t->define_field(array(
@@ -628,7 +565,6 @@ function array_walk_deep(&$items){
 	function clicks_stats($arr)
 	{
 		extract($arr);
-		load_vcl("table");
 		$this->t = new aw_table(array("prefix" => "images"));
 		$this->t->parse_xml_def($this->cfg["basedir"]."/xml/generic_table.xml");
 		$this->t->define_field(array(
@@ -747,6 +683,7 @@ function array_walk_deep(&$items){
 
 		$ret["answers[".$last_id."]"] = array(
 			"type" => "textbox",
+			"store" => "class_base",
 			"name" => "answers[".$last_id."]",
 			"caption" => sprintf(t("Vastus nr %s"), $idx),
 			"value" => ""
@@ -919,9 +856,7 @@ function array_walk_deep(&$items){
 		$names = $arr["obj_inst"]->meta("name");
 
 		$ret = array();
-
-		$l = get_instance("languages");
-		$lgs = $l->get_list();
+		$lgs = languages::get_list();
 		$lang_id = aw_global_get("lang_id");
 		foreach($lgs as $lid => $lname)
 		{
@@ -930,6 +865,7 @@ function array_walk_deep(&$items){
 
 			$ret["splitter_".$lid] = array(
 				"type" => "text",
+				"store" => "class_base",
 				"name" => "splitter_".$lid,
 				"caption" => t(""),
 				"no_caption" => 1,
@@ -938,6 +874,7 @@ function array_walk_deep(&$items){
 
 			$ret["question[$lid]"] = array(
 				"type" => "textbox",
+				"store" => "class_base",
 				"name" => "question[$lid]",
 				"caption" => t("K&uuml;simus"),
 				"value" => $names[$lid]
@@ -948,6 +885,7 @@ function array_walk_deep(&$items){
 				$idx++;
 				$ret["answers[$lid][".$a_id."]"] = array(
 					"type" => "textbox",
+					"store" => "class_base",
 					"name" => "answers[$lid][".$a_id."]",
 					"caption" => sprintf(t("Vastus nr %s "), $idx),
 					"value" => $ansa[$lid][$a_id]
@@ -958,4 +896,3 @@ function array_walk_deep(&$items){
 		return $ret;
 	}
 }
-?>

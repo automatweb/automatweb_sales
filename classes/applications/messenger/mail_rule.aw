@@ -1,8 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/messenger/mail_rule.aw,v 1.8 2007/12/06 14:33:40 kristo Exp $
-// mail_rule.aw - Maili ruul 
+
+// mail_rule.aw - Maili ruul
 /*
-@classinfo syslog_type=ST_MAIL_RULE relationmgr=yes maintainer=markop
+@classinfo relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -199,16 +199,11 @@ class mail_rule extends class_base
 					else
 					{
 						$new_rule_file = $fdat . $rule;
-					};
-				};
+					}
+				}
 
 				$t->put_file($rulefilename,$new_rule_file);
-			};
-
-		};
-
-
+			}
+		}
 	}
-
-};
-?>
+}
