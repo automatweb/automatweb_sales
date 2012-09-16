@@ -107,7 +107,11 @@ class templatemgr extends core
 				$cache[$row["id"]] = $row["filename"];
 			}
 		}
-		return ifset($cache, $id);
+
+		if (isset($cache[$id]) and file_exists(aw_ini_get("site_basedir").'templates/automatweb/documents/'.$cache[$id]))
+		{
+			return $cache[$id];
+		}
 	}
 
 	/** returns a list of all template folders that are for this site
