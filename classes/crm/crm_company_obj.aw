@@ -2617,10 +2617,37 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	public function get_customer_categories_hierarchy($root = NULL, $depth = NULL)
 	{
 		$retval = array();
-		$o = is_oid($root) && $GLOBALS["object_loader"]->can("view", $root) ? obj($root) : $this;
-		foreach($o->connections_from(array("type" => "RELTYPE_CATEGORY")) as $conn)
+
+		$filter = array(
+			"class_id" => crm_category_obj::CLID,
+			"organization" => $this->id()
+		);
+
+		if ($root !== NULL)
 		{
-			$retval[$conn->prop("to")] = $depth === NULL || $depth > 1 ? $this->get_customer_categories_hierarchy($conn->prop("to"), $depth -1) : array();
+			if (is_oid($root))
+			{
+				$root = obj($root);
+			}
+			if ($root->is_a(crm_category_obj::CLID))
+			{
+				$filter["parent_category"] = $root->id();
+			}
+			elseif ($root->is_a(crm_company_obj::CLID))
+			{
+				$filter["parent_category"] = 0;
+			}
+			else
+			{
+				throw new awex_obj_type("Given category " . $parent->id() . " is not a category object (clid is " . $parent->class_id() . ")");
+			}
+		}
+		
+		$categories = new object_list($filter);
+			
+		foreach($categories->ids() as $category_id)
+		{
+			$retval[$category_id] = $depth === NULL || $depth > 1 ? $this->get_customer_categories_hierarchy($category_id, $depth !== NULL ? $depth - 1 : NULL) : array();
 		}
 		return $retval;
 	}
