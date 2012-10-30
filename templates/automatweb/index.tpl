@@ -6,9 +6,12 @@
 	<link rel="shortcut icon" href="{VAR:baseurl}automatweb/images/aw06/favicon.ico" />
 
 	<link href="{VAR:baseurl}automatweb/css/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href='http://yui.yahooapis.com/3.5.1/build/cssbutton/cssbutton.css'></link>
+
 	{VAR:css_styles_head}
 
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/js-min.js"></script>
+  <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
 	{VAR:javascript}
 	<script type="text/javascript">
 	xchanged = 0;
