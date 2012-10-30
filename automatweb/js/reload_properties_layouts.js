@@ -1,3 +1,5 @@
+// TODO: Change URL params using HTML5 history shit!
+
 var get_property_data = $.gpnv_as_obj();
 
 (function(){
