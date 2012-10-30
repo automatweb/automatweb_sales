@@ -415,9 +415,7 @@
             <caption>temp</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CLASS_DESIGNER</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>kristo</maintainer>
             <no_status>1</no_status>
       </classinfo>
       <groupinfo>

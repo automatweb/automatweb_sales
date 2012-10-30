@@ -220,7 +220,6 @@
             <caption>Kuni</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_RECURRENCE</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
       </classinfo>
