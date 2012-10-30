@@ -388,6 +388,8 @@
 		</reset>
 
 		<button>
+			<class>
+			</class>
 		</button>
 
 		<aliasmgr>
