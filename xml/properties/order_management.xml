@@ -1,15 +1,6 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>mrp_workspace</name>
-            <table>aw_order_management</table>
-            <group>general</group>
-            <type>objpicker</type>
-            <clid>CL_MRP_WORKSPACE</clid>
-            <field>aw_mrp_workspace</field>
-            <caption>Ressursihalduskeskkond</caption>
-      </property>
-      <property>
             <name>owner</name>
             <table>aw_order_management</table>
             <group>general</group>
@@ -17,6 +8,15 @@
             <clid>CL_CRM_COMPANY</clid>
             <field>aw_owner</field>
             <caption>Omanikorganisatsioon</caption>
+      </property>
+      <property>
+            <name>mrp_workspace</name>
+            <table>aw_order_management</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_MRP_WORKSPACE</clid>
+            <field>aw_mrp_workspace</field>
+            <caption>Ressursihalduskeskkond</caption>
       </property>
       <property>
             <name>orders_toolbar</name>
@@ -42,10 +42,8 @@
             <name>orders_filter_time_period</name>
             <table>aw_order_management</table>
             <group>orders</group>
-            <type>yui-chooser</type>
-            <orient>vertical</orient>
+            <type>period_filter</type>
             <store>no</store>
-            <no_caption>true</no_caption>
             <parent>orders_filter_time_period</parent>
             <field>orders_filter_time_period</field>
       </property>
@@ -64,10 +62,11 @@
             <name>orders_filter_search_customer_name</name>
             <table>aw_order_management</table>
             <group>orders</group>
+            <size>30</size>
             <type>textbox</type>
             <store>no</store>
             <captionside>top</captionside>
-            <parent>orders_filter_search_fields</parent>
+            <parent>orders_filter_search_fields_1</parent>
             <field>orders_filter_search_customer_name</field>
             <caption>Kliendi nimi</caption>
       </property>
@@ -75,10 +74,11 @@
             <name>orders_filter_search_name</name>
             <table>aw_order_management</table>
             <group>orders</group>
+            <size>30</size>
             <type>textbox</type>
             <store>no</store>
             <captionside>top</captionside>
-            <parent>orders_filter_search_fields</parent>
+            <parent>orders_filter_search_fields_1</parent>
             <field>orders_filter_search_name</field>
             <caption>Tellimuse nimi</caption>
       </property>
@@ -86,10 +86,11 @@
             <name>orders_filter_search_order_number</name>
             <table>aw_order_management</table>
             <group>orders</group>
+            <size>15</size>
             <type>textbox</type>
             <store>no</store>
             <captionside>top</captionside>
-            <parent>orders_filter_search_fields</parent>
+            <parent>orders_filter_search_fields_1</parent>
             <field>orders_filter_search_order_number</field>
             <caption>Tellimuse number</caption>
       </property>
@@ -97,23 +98,35 @@
             <name>orders_filter_search_date_from</name>
             <table>aw_order_management</table>
             <group>orders</group>
+            <time>0</time>
             <type>datepicker</type>
             <store>no</store>
             <captionside>top</captionside>
-            <parent>orders_filter_search_fields</parent>
+            <parent>orders_filter_search_fields_1</parent>
             <field>orders_filter_search_date_from</field>
-            <caption>Tellimus esitatud alates</caption>
+            <caption>Esitatud alates</caption>
       </property>
       <property>
             <name>orders_filter_search_date_to</name>
             <table>aw_order_management</table>
             <group>orders</group>
+            <time>0</time>
             <type>datepicker</type>
             <store>no</store>
             <captionside>top</captionside>
-            <parent>orders_filter_search_fields</parent>
+            <parent>orders_filter_search_fields_1</parent>
             <field>orders_filter_search_date_to</field>
-            <caption>Tellimus esitatud kuni</caption>
+            <caption>Esitatud kuni</caption>
+      </property>
+      <property>
+            <name>orders_filter_search_dummy</name>
+            <table>aw_order_management</table>
+            <group>orders</group>
+            <type>hidden</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>orders_filter_search_buttons</parent>
+            <field>orders_filter_search_dummy</field>
       </property>
       <property>
             <name>orders_filter_search_submit</name>
@@ -122,7 +135,7 @@
             <type>button</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <class>yui3-button-selected</class>
+            <class>yui3-button</class>
             <parent>orders_filter_search_buttons</parent>
             <field>orders_filter_search_submit</field>
             <caption>Otsi tellimusi</caption>
@@ -193,6 +206,11 @@
             </configuration_table>
       </groupinfo>
       <tableinfo>
+            <aw_management_base>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_management_base>
             <aw_order_management>
                   <master_index>brother_of</master_index>
                   <master_table>objects</master_table>
@@ -202,7 +220,7 @@
       <layout>
             <orders_split>
                   <type>hbox</type>
-                  <width>25%75%</width>
+                  <width>26%74%</width>
                   <group>orders</group>
                   <area_caption></area_caption>
             </orders_split>
@@ -239,32 +257,33 @@
                   <closeable>1</closeable>
                   <group>orders</group>
             </orders_filter_customer_category>
-            <orders_filter_search>
-                  <type>vbox_sub</type>
-                  <parent>orders_filter</parent>
-                  <area_caption>Tellimuste&amp;amp;nbsp;otsing</area_caption>
-                  <closeable>1</closeable>
-                  <group>orders</group>
-            </orders_filter_search>
-            <orders_filter_search_fields>
-                  <type>vbox</type>
-                  <parent>orders_filter_search</parent>
-                  <group>orders</group>
-                  <area_caption></area_caption>
-            </orders_filter_search_fields>
-            <orders_filter_search_buttons>
-                  <type>hbox</type>
-                  <width>50%:50%</width>
-                  <parent>orders_filter_search</parent>
-                  <group>orders</group>
-                  <area_caption></area_caption>
-            </orders_filter_search_buttons>
             <orders_right>
                   <type>vbox</type>
                   <parent>orders_split</parent>
                   <group>orders</group>
                   <area_caption></area_caption>
             </orders_right>
+            <orders_filter_search>
+                  <type>vbox</type>
+                  <parent>orders_right</parent>
+                  <area_caption>Tellimuste&amp;amp;nbsp;otsing</area_caption>
+                  <closeable>1</closeable>
+                  <group>orders</group>
+            </orders_filter_search>
+            <orders_filter_search_fields_1>
+                  <type>hbox</type>
+                  <width>20%:20%:20%:20%:20%</width>
+                  <parent>orders_filter_search</parent>
+                  <group>orders</group>
+                  <area_caption></area_caption>
+            </orders_filter_search_fields_1>
+            <orders_filter_search_buttons>
+                  <type>hbox</type>
+                  <width>90%:5%:5%</width>
+                  <parent>orders_filter_search</parent>
+                  <group>orders</group>
+                  <area_caption></area_caption>
+            </orders_filter_search_buttons>
       </layout>
 </properties>
 

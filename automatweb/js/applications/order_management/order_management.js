@@ -14,7 +14,13 @@ YUI().use("node", function(Y) {
 		}
 	
 		return {
-			update_date_filter: function() {
+			reset_search: function() {
+				Y.all("#orders_filter_search input[type=text]").each(function(){
+					this.set("value", "");
+				});
+			},
+			update_date_filter: function(o) {
+				console.log(this, o);
 				var today = new Date();
 				var currentYear = today.getFullYear();
 				var currentMonth = today.getMonth();
@@ -27,8 +33,10 @@ YUI().use("node", function(Y) {
 					4: { from: "-"+(dayOfWeek + 7)+"d", to: "+"+(6 - dayOfWeek - 7)+"d" },
 					5: { from: new Date(currentYear, currentMonth, 1), to: new Date(currentYear, currentMonth + 1, 0) },
 					6: { from: new Date(currentYear, currentMonth - 1, 1), to: new Date(currentYear, currentMonth, 0) },
-					7: { from: new Date(currentYear, 0, 1), to: new Date(currentYear, 11, 31) },
-					8: { from: new Date(currentYear - 1, 0, 1), to: new Date(currentYear - 1, 11, 31) }
+					7: { from: new Date(currentYear, currentMonth - currentMonth % 3, 1), to: new Date(currentYear, currentMonth - currentMonth % 3 + 3, 0) },
+					8: { from: new Date(currentYear, currentMonth - currentMonth % 3 - 3, 1), to: new Date(currentYear, currentMonth - currentMonth % 3, 0) },
+					9: { from: new Date(currentYear, 0, 1), to: new Date(currentYear, 11, 31) },
+					10: { from: new Date(currentYear - 1, 0, 1), to: new Date(currentYear - 1, 11, 31) }
 				};
 				var time_period = Y.one("#orders_filter_time_period input[type=checkbox]:checked").get("value");
 				// TODO: To be replaced by YUI code once we replace datepicker with YUI datepicker!

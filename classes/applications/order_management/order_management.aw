@@ -19,7 +19,7 @@
 
 	@property orders_toolbar type=toolbar store=no no_caption=1
 
-	@layout orders_split type=hbox width=25%75%
+	@layout orders_split type=hbox width=26%74%
 
 		@layout orders_left type=vbox parent=orders_split
 		
@@ -31,42 +31,44 @@
 			
 				@layout orders_filter_time_period type=vbox_sub parent=orders_filter area_caption=Periood closeable=1
 				
-					@property orders_filter_time_period type=yui-chooser orient=vertical store=no no_caption=true parent=orders_filter_time_period
+					@property orders_filter_time_period type=period_filter store=no parent=orders_filter_time_period
 			
 				@layout orders_filter_customer_category type=vbox_sub parent=orders_filter area_caption=Kliendikategooria closeable=1
 				
 					@property orders_filter_customer_category type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_customer_category
-					
-				@layout orders_filter_search type=vbox_sub parent=orders_filter area_caption=Tellimuste&nbsp;otsing closeable=1
-				
-					@layout orders_filter_search_fields type=vbox parent=orders_filter_search
-				
-						@property orders_filter_search_customer_name type=textbox store=no captionside=top parent=orders_filter_search_fields
-						@caption Kliendi nimi
-					
-						@property orders_filter_search_name type=textbox store=no captionside=top parent=orders_filter_search_fields
-						@caption Tellimuse nimi
-					
-						@property orders_filter_search_order_number type=textbox store=no captionside=top parent=orders_filter_search_fields
-						@caption Tellimuse number
-					
-						@property orders_filter_search_date_from type=datepicker store=no captionside=top parent=orders_filter_search_fields
-						@caption Tellimus esitatud alates
-					
-						@property orders_filter_search_date_to type=datepicker store=no captionside=top parent=orders_filter_search_fields
-						@caption Tellimus esitatud kuni
-					
-					@layout orders_filter_search_buttons type=hbox width=50%:50% parent=orders_filter_search
-				
-						@property orders_filter_search_submit type=button store=no no_caption=1 class=yui3-button-selected parent=orders_filter_search_buttons
-						@caption Otsi tellimusi
-					
-						@property orders_filter_search_reset type=button store=no no_caption=1 class=yui3-button parent=orders_filter_search_buttons
-						@caption T&uuml;hista
 		
 		@layout orders_right type=vbox parent=orders_split
+					
+			@layout orders_filter_search type=vbox parent=orders_right area_caption=Tellimuste&nbsp;otsing closeable=1
+				
+				@layout orders_filter_search_fields_1 type=hbox width=20%:20%:20%:20%:20% parent=orders_filter_search
+		
+					@property orders_filter_search_customer_name size=30 type=textbox store=no captionside=top parent=orders_filter_search_fields_1
+					@caption Kliendi nimi
+				
+					@property orders_filter_search_name size=30 type=textbox store=no captionside=top parent=orders_filter_search_fields_1
+					@caption Tellimuse nimi
+				
+					@property orders_filter_search_order_number size=15 type=textbox store=no captionside=top parent=orders_filter_search_fields_1
+					@caption Tellimuse number
+				
+					@property orders_filter_search_date_from time=0 type=datepicker store=no captionside=top parent=orders_filter_search_fields_1
+					@caption Esitatud alates
+				
+					@property orders_filter_search_date_to time=0 type=datepicker store=no captionside=top parent=orders_filter_search_fields_1
+					@caption Esitatud kuni
+				
+				@layout orders_filter_search_buttons type=hbox width=90%:5%:5% parent=orders_filter_search
+				
+					@property orders_filter_search_dummy type=hidden store=no no_caption=1 parent=orders_filter_search_buttons
+			
+					@property orders_filter_search_submit type=button store=no no_caption=1 class=yui3-button parent=orders_filter_search_buttons
+					@caption Otsi tellimusi
+				
+					@property orders_filter_search_reset type=button store=no no_caption=1 class=yui3-button parent=orders_filter_search_buttons
+					@caption T&uuml;hista
 	
-			@property orders_table type=table store=no no_caption=1 parent=orders_right
+				@property orders_table type=table store=no no_caption=1 parent=orders_right
 	
 @groupinfo configuration caption=Seaded
 
@@ -233,25 +235,37 @@ class order_management extends management_base
 		$prop = &$arr["prop"];
 		// TODO: Make these configurable!
 		$prop["options"] = array(
-			1 => "T&auml;na",
-			2 => "Eile",
-			3 => "K&auml;esolev n&auml;dal",
-			4 => "M&ouml;&ouml;dunud n&auml;dal",
-			5 => "K&auml;esolev kuu",
-			6 => "M&ouml;&ouml;dunud kuu",
-			7 => "K&auml;esolev aasta",
-			8 => "M&ouml;&ouml;dunud aasta",
+			"current" => array(
+				1 => "P&auml;ev",
+				3 => "N&auml;dal",
+				5 => "Kuu",
+				7 => "Kvartal",
+				9 => "Aasta",
+			),
+			"previous" => array(
+				2 => "P&auml;ev",
+				4 => "N&auml;dal",
+				6 => "Kuu",
+				8 => "Kvartal",
+				10 => "Aasta",
+			),
 		);
 		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : null;
-
-		$prop["onclick"] = "AW.UI.order_management.update_date_filter(); AW.UI.order_management.refresh_orders();";
+		$prop["onclick"] = "AW.UI.order_management.update_date_filter(this); AW.UI.order_management.refresh_orders();";
 		
 		return PROP_OK;
 	}
 	
 	function _get_orders_filter_search_submit($arr)
 	{
+		$arr["prop"]["class"] = "yui3-button yui3-button-selected";
 		$this->set_filter_onchange_action($arr["prop"]);
+		return PROP_OK;
+	}
+	
+	function _get_orders_filter_search_reset($arr)
+	{
+		$arr["prop"]["onclick"] = "AW.UI.order_management.reset_search(); AW.UI.order_management.refresh_orders();";
 		return PROP_OK;
 	}
 	
