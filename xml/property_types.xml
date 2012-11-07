@@ -331,12 +331,16 @@
 			<size />
 		</chooser>
     
-    <yui-chooser>
+		<yui-chooser>
 			<orient />
 			<options />
 			<multiple />
 			<reltype />
 		</yui-chooser>
+		
+		<period_filter>
+			<multiple />
+		</period_filter>
 
 		<submit>
 			<value />
