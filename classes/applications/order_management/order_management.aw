@@ -86,6 +86,8 @@
 
 class order_management extends management_base
 {
+	private static $not_available_string = "NA";
+	
 	function __construct()
 	{
 		$this->init(array(
@@ -315,11 +317,12 @@ class order_management extends management_base
 		
 		foreach ($orders->arr() as $order)
 		{
-			$customer_relation = $order->customer()->find_customer_relation($arr["obj_inst"]->owner());
+			$customer = $order->customer();
+			$customer_relation = $customer->is_a(crm_company_obj::CLID) ? $customer->find_customer_relation($arr["obj_inst"]->owner()) : null;
 			$t->define_data(array(
 				"name" => html::obj_change_url($order),
-				"customer_name" => html::obj_change_url($order->customer(), $order->customer()->get_title()),
-				"customer_relation" => html::obj_change_url($customer_relation, $customer_relation->id()),
+				"customer_name" => $customer->is_a(crm_company_obj::CLID) ? html::obj_change_url($customer, $customer->get_title()) : self::$not_available_string,
+				"customer_relation" => $customer_relation !== null ? html::obj_change_url($customer_relation, $customer_relation->id()) : self::$not_available_string,
 				"date" => date("d/m/Y H:i", $order->created)
 			));
 		}
