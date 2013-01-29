@@ -117,7 +117,7 @@ class address_object extends _int_object
 		### get&validate admin division
 		if (is_oid ($unit))
 		{
-			$unit = obj ($unit);
+			$unit = obj ($unit, null, country_administrative_division_obj::CLID);
 		}
 		elseif (!is_object($unit) or !$unit->is_a(CL_COUNTRY_ADMINISTRATIVE_DIVISION))
 		{
