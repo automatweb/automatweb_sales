@@ -119,6 +119,11 @@ class releditor extends core implements orb_public_interface
 
 				foreach($property_list as $_pn => $_pd)
 				{
+					if ($_pn === "relationmgr")
+					{
+						continue;
+					}
+					
 					$data[$idx-1][$_pn] = $target->prop($_pn);
 
 					if (!in_array($_pn,$tb_fields) || (!isset($_pd["show_in_emb_tbl"]) || $_pd["show_in_emb_tbl"] != 1) && isset($arr["prop"]["cfgform_id"]) && is_oid($arr["prop"]["cfgform_id"]))
