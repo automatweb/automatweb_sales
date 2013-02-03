@@ -40,27 +40,277 @@
             <field>header</field>
       </property>
       <property>
-            <name>name</name>
+            <name>components_toolbar</name>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <group>grp_case_components</group>
+            <field>components_toolbar</field>
+      </property>
+      <property>
+            <name>customer</name>
+            <type>relpicker</type>
+            <reltype>RELTYPE_MRP_CUSTOMER</reltype>
+            <clid>CL_CRM_COMPANY</clid>
+            <table>mrp_case</table>
+            <editonly>1</editonly>
             <group>
-                  <num_0>grp_case_schedule_gantt</num_0>
-                  <num_1>grp_general</num_1>
-                  <num_2>grp_case_workflow</num_2>
-                  <num_3>grp_case_materials</num_3>
-                  <num_4>grp_case_data</num_4>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
             </group>
+            <parent>general_info_1</parent>
+            <captionside>top</captionside>
+            <field>customer</field>
+            <caption>Klient</caption>
+      </property>
+      <property>
+            <name>object_id</name>
+            <type>text</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <parent>general_info_2</parent>
+            <captionside>top</captionside>
+            <field>object_id</field>
+            <caption>Objekti ID:</caption>
+      </property>
+      <property>
+            <name>name</name>
             <type>textbox</type>
+            <size>25</size>
             <table>objects</table>
             <field>name</field>
-            <parent>general_info</parent>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <parent>general_info_2</parent>
+            <captionside>top</captionside>
             <caption>Projekti nr.</caption>
       </property>
       <property>
             <name>comment</name>
-            <group>grp_general</group>
             <type>textbox</type>
+            <size>25</size>
             <table>objects</table>
             <field>comment</field>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <parent>general_info_2</parent>
+            <captionside>top</captionside>
             <caption>Projekti nimetus</caption>
+      </property>
+      <property>
+            <name>starttime</name>
+            <type>datepicker</type>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <editonly>1</editonly>
+            <parent>general_info_3</parent>
+            <captionside>top</captionside>
+            <field>starttime</field>
+            <caption>Alustamisaeg (materjalide saabumine)</caption>
+      </property>
+      <property>
+            <name>due_date</name>
+            <table>mrp_case</table>
+            <type>datepicker</type>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <editonly>1</editonly>
+            <parent>general_info_3</parent>
+            <captionside>top</captionside>
+            <field>due_date</field>
+            <caption>Valmimist&amp;amp;auml;htaeg</caption>
+      </property>
+      <property>
+            <name>planned_date</name>
+            <type>text</type>
+            <table>mrp_case_schedule</table>
+            <editonly>1</editonly>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <parent>general_info_3</parent>
+            <captionside>top</captionside>
+            <field>planned_date</field>
+            <caption>Planeeritud valmimisaeg:</caption>
+      </property>
+      <property>
+            <name>state</name>
+            <type>text</type>
+            <table>mrp_case</table>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <editonly>1</editonly>
+            <parent>general_info_4</parent>
+            <captionside>top</captionside>
+            <field>state</field>
+            <caption>Staatus:</caption>
+      </property>
+      <property>
+            <name>started</name>
+            <type>text</type>
+            <editonly>1</editonly>
+            <table>mrp_case</table>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <parent>general_info_4</parent>
+            <captionside>top</captionside>
+            <field>started</field>
+            <caption>Alustatud:</caption>
+      </property>
+      <property>
+            <name>finished</name>
+            <type>text</type>
+            <editonly>1</editonly>
+            <table>mrp_case</table>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <parent>general_info_4</parent>
+            <captionside>top</captionside>
+            <field>finished</field>
+            <caption>L&amp;amp;otilde;petatud:</caption>
+      </property>
+      <property>
+            <name>archived</name>
+            <type>text</type>
+            <editonly>1</editonly>
+            <table>mrp_case</table>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <parent>general_info_4</parent>
+            <captionside>top</captionside>
+            <field>archived</field>
+            <caption>Arhiveeritud:</caption>
+      </property>
+      <property>
+            <name>last_modified</name>
+            <type>text</type>
+            <store>no</store>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <editonly>1</editonly>
+            <parent>general_info_5</parent>
+            <captionside>top</captionside>
+            <field>last_modified</field>
+            <caption>Viimati muudetud:</caption>
       </property>
       <property>
             <name>order_quantity</name>
@@ -68,47 +318,19 @@
             <table>mrp_case</table>
             <type>textbox</type>
             <datatype>int</datatype>
+            <parent>general_left</parent>
             <field>order_quantity</field>
             <caption>Tellimuse kogus</caption>
       </property>
       <property>
-            <name>workspace</name>
+            <name>order_source</name>
             <group>grp_general</group>
             <table>mrp_case</table>
-            <type>hidden</type>
-            <field>workspace</field>
-      </property>
-      <property>
-            <name>state</name>
-            <group>
-                  <num_0>grp_case_schedule_gantt</num_0>
-                  <num_1>grp_general</num_1>
-                  <num_2>grp_case_workflow</num_2>
-                  <num_3>grp_case_materials</num_3>
-                  <num_4>grp_case_data</num_4>
-            </group>
-            <table>mrp_case</table>
-            <type>text</type>
-            <editonly>1</editonly>
-            <parent>general_info</parent>
-            <field>state</field>
-            <caption>Staatus</caption>
-      </property>
-      <property>
-            <name>starttime</name>
-            <group>grp_general</group>
-            <table>mrp_case</table>
-            <type>datepicker</type>
-            <field>starttime</field>
-            <caption>Alustamisaeg (materjalide saabumine)</caption>
-      </property>
-      <property>
-            <name>due_date</name>
-            <group>grp_general</group>
-            <table>mrp_case</table>
-            <type>datepicker</type>
-            <field>due_date</field>
-            <caption>Valmimist&amp;amp;auml;htaeg</caption>
+            <type>objpicker</type>
+            <clid>CL_ORDER_SOURCE</clid>
+            <field>aw_order_source</field>
+            <parent>general_left</parent>
+            <caption>Kanal</caption>
       </property>
       <property>
             <name>project_priority</name>
@@ -116,26 +338,9 @@
             <table>mrp_case</table>
             <type>textbox</type>
             <maxlength>10</maxlength>
+            <parent>general_left</parent>
             <field>project_priority</field>
             <caption>Projekti prioriteet</caption>
-      </property>
-      <property>
-            <name>customer</name>
-            <group>
-                  <num_0>grp_case_schedule_gantt</num_0>
-                  <num_1>grp_general</num_1>
-                  <num_2>grp_case_workflow</num_2>
-                  <num_3>grp_case_materials</num_3>
-                  <num_4>grp_case_data</num_4>
-            </group>
-            <table>mrp_case</table>
-            <type>relpicker</type>
-            <reltype>RELTYPE_MRP_CUSTOMER</reltype>
-            <clid>CL_CRM_COMPANY</clid>
-            <editonly>1</editonly>
-            <parent>general_info</parent>
-            <field>customer</field>
-            <caption>Klient</caption>
       </property>
       <property>
             <name>customer_relation</name>
@@ -144,8 +349,37 @@
             <type>relpicker</type>
             <reltype>RELTYPE_CUSTOMER_RELATION</reltype>
             <editonly>1</editonly>
+            <parent>general_right</parent>
             <field>customer_relation</field>
             <caption>Kliendisuhe</caption>
+      </property>
+      <property>
+            <name>purchasing_manager</name>
+            <group>grp_general</group>
+            <table>mrp_case</table>
+            <type>select</type>
+            <editonly>1</editonly>
+            <parent>general_right</parent>
+            <field>purchasing_manager</field>
+            <caption>Ladu</caption>
+      </property>
+      <property>
+            <name>sales_priority</name>
+            <group>grp_general</group>
+            <table>objects</table>
+            <type>textbox</type>
+            <size>5</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>general_right</parent>
+            <caption>Prioriteedihinnang m&amp;amp;uuml;&amp;amp;uuml;gimehelt</caption>
+      </property>
+      <property>
+            <name>workspace</name>
+            <group>grp_general</group>
+            <table>mrp_case</table>
+            <type>hidden</type>
+            <field>workspace</field>
       </property>
       <property>
             <name>progress</name>
@@ -160,61 +394,6 @@
             <table>mrp_case</table>
             <type>hidden</type>
             <field>extern_id</field>
-      </property>
-      <property>
-            <name>planned_date</name>
-            <group>grp_general</group>
-            <table>mrp_case_schedule</table>
-            <type>text</type>
-            <editonly>1</editonly>
-            <field>planned_date</field>
-            <caption>Planeeritud valmimisaeg</caption>
-      </property>
-      <property>
-            <name>started</name>
-            <group>grp_general</group>
-            <table>mrp_case</table>
-            <type>text</type>
-            <editonly>1</editonly>
-            <field>started</field>
-            <caption>Alustatud</caption>
-      </property>
-      <property>
-            <name>finished</name>
-            <group>grp_general</group>
-            <table>mrp_case</table>
-            <type>text</type>
-            <editonly>1</editonly>
-            <field>finished</field>
-            <caption>L&amp;amp;otilde;petatud</caption>
-      </property>
-      <property>
-            <name>archived</name>
-            <group>grp_general</group>
-            <table>mrp_case</table>
-            <type>text</type>
-            <editonly>1</editonly>
-            <field>archived</field>
-            <caption>Arhiveeritud</caption>
-      </property>
-      <property>
-            <name>purchasing_manager</name>
-            <group>grp_general</group>
-            <table>mrp_case</table>
-            <type>select</type>
-            <editonly>1</editonly>
-            <field>purchasing_manager</field>
-            <caption>Ladu</caption>
-      </property>
-      <property>
-            <name>sales_priority</name>
-            <group>grp_general</group>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>textbox</type>
-            <size>5</size>
-            <caption>Prioriteedihinnang m&amp;amp;uuml;&amp;amp;uuml;gimehelt</caption>
       </property>
       <property>
             <name>format</name>
@@ -433,6 +612,36 @@
             <caption>Kommentaarid juhtumi ja t&amp;amp;ouml;&amp;amp;ouml;de kohta</caption>
       </property>
       <property>
+            <name>components_table</name>
+            <group>grp_case_components</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>components_new</name>
+            <group>grp_case_components</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>hidden</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>components_new_name</name>
+            <group>grp_case_components</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>hidden</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
             <name>resource_tree</name>
             <group>grp_case_workflow</group>
             <table>objects</table>
@@ -615,6 +824,9 @@
                   <caption>Projekti andmed</caption>
                   <parent>general</parent>
             </grp_case_data>
+            <grp_case_components>
+                  <caption>Komponendid</caption>
+            </grp_case_components>
             <grp_case_formula>
                   <caption>Tooteretsept</caption>
             </grp_case_formula>
@@ -697,6 +909,127 @@
             </MRP_OWNER>
       </reltypes>
       <layout>
+            <general_info>
+                  <type>hbox</type>
+                  <area_caption>Projekti&amp;amp;nbsp;&amp;amp;uuml;levaade</area_caption>
+                  <closeable>1</closeable>
+                  <group>
+                        <num_0>grp_general</num_0>
+                        <num_1>grp_case_data</num_1>
+                        <num_2>grp_case_components</num_2>
+                        <num_3>grp_case_workflow</num_3>
+                        <num_4>grp_case_materials</num_4>
+                        <num_5>grp_case_view</num_5>
+                        <num_6>grp_case_schedule_gantt</num_6>
+                        <num_7>grp_case_schedule_google</num_7>
+                        <num_8>grp_case_comments</num_8>
+                        <num_9>grp_case_log</num_9>
+                  </group>
+                  <width>20%:20%:20%:20%:20%</width>
+            </general_info>
+            <general_info_1>
+                  <type>vbox</type>
+                  <parent>general_info</parent>
+                  <group>
+                        <num_0>grp_general</num_0>
+                        <num_1>grp_case_data</num_1>
+                        <num_2>grp_case_components</num_2>
+                        <num_3>grp_case_workflow</num_3>
+                        <num_4>grp_case_materials</num_4>
+                        <num_5>grp_case_view</num_5>
+                        <num_6>grp_case_schedule_gantt</num_6>
+                        <num_7>grp_case_schedule_google</num_7>
+                        <num_8>grp_case_comments</num_8>
+                        <num_9>grp_case_log</num_9>
+                  </group>
+                  <area_caption></area_caption>
+            </general_info_1>
+            <general_info_2>
+                  <type>vbox</type>
+                  <parent>general_info</parent>
+                  <group>
+                        <num_0>grp_general</num_0>
+                        <num_1>grp_case_data</num_1>
+                        <num_2>grp_case_components</num_2>
+                        <num_3>grp_case_workflow</num_3>
+                        <num_4>grp_case_materials</num_4>
+                        <num_5>grp_case_view</num_5>
+                        <num_6>grp_case_schedule_gantt</num_6>
+                        <num_7>grp_case_schedule_google</num_7>
+                        <num_8>grp_case_comments</num_8>
+                        <num_9>grp_case_log</num_9>
+                  </group>
+                  <area_caption></area_caption>
+            </general_info_2>
+            <general_info_3>
+                  <type>vbox</type>
+                  <parent>general_info</parent>
+                  <group>
+                        <num_0>grp_general</num_0>
+                        <num_1>grp_case_data</num_1>
+                        <num_2>grp_case_components</num_2>
+                        <num_3>grp_case_workflow</num_3>
+                        <num_4>grp_case_materials</num_4>
+                        <num_5>grp_case_view</num_5>
+                        <num_6>grp_case_schedule_gantt</num_6>
+                        <num_7>grp_case_schedule_google</num_7>
+                        <num_8>grp_case_comments</num_8>
+                        <num_9>grp_case_log</num_9>
+                  </group>
+                  <area_caption></area_caption>
+            </general_info_3>
+            <general_info_4>
+                  <type>vbox</type>
+                  <parent>general_info</parent>
+                  <group>
+                        <num_0>grp_general</num_0>
+                        <num_1>grp_case_data</num_1>
+                        <num_2>grp_case_components</num_2>
+                        <num_3>grp_case_workflow</num_3>
+                        <num_4>grp_case_materials</num_4>
+                        <num_5>grp_case_view</num_5>
+                        <num_6>grp_case_schedule_gantt</num_6>
+                        <num_7>grp_case_schedule_google</num_7>
+                        <num_8>grp_case_comments</num_8>
+                        <num_9>grp_case_log</num_9>
+                  </group>
+                  <area_caption></area_caption>
+            </general_info_4>
+            <general_info_5>
+                  <type>vbox</type>
+                  <parent>general_info</parent>
+                  <group>
+                        <num_0>grp_general</num_0>
+                        <num_1>grp_case_data</num_1>
+                        <num_2>grp_case_components</num_2>
+                        <num_3>grp_case_workflow</num_3>
+                        <num_4>grp_case_materials</num_4>
+                        <num_5>grp_case_view</num_5>
+                        <num_6>grp_case_schedule_gantt</num_6>
+                        <num_7>grp_case_schedule_google</num_7>
+                        <num_8>grp_case_comments</num_8>
+                        <num_9>grp_case_log</num_9>
+                  </group>
+                  <area_caption></area_caption>
+            </general_info_5>
+            <general_split>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <area_caption>Projekti&amp;amp;nbsp;&amp;amp;uuml;ldandmed</area_caption>
+                  <group>grp_general</group>
+            </general_split>
+            <general_left>
+                  <type>vbox</type>
+                  <parent>general_split</parent>
+                  <group>grp_general</group>
+                  <area_caption></area_caption>
+            </general_left>
+            <general_right>
+                  <type>vbox</type>
+                  <parent>general_split</parent>
+                  <group>grp_general</group>
+                  <area_caption></area_caption>
+            </general_right>
             <vsplitbox>
                   <type>hbox</type>
                   <width>25%:75%</width>
@@ -717,17 +1050,6 @@
                   </group>
                   <area_caption></area_caption>
             </left_pane>
-            <general_info>
-                  <type>vbox</type>
-                  <parent>left_pane</parent>
-                  <area_caption>Projekti&amp;amp;nbsp;&amp;amp;uuml;ldandmed</area_caption>
-                  <closeable>1</closeable>
-                  <group>
-                        <num_0>grp_case_workflow</num_0>
-                        <num_1>grp_case_materials</num_1>
-                        <num_2>grp_case_schedule_gantt</num_2>
-                  </group>
-            </general_info>
             <resource_tree>
                   <type>vbox</type>
                   <parent>left_pane</parent>

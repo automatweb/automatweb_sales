@@ -79,5 +79,40 @@
 			</function>
 		</action>
 
+		<action name="get_components" all_args="1">
+			<function name="get_components">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_component" all_args="1">
+			<function name="add_component">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		
+		<action name="update_components" all_args="1">
+			<function name="update_components">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_components" all_args="1">
+			<function name="remove_components">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_units" all_args="1">
+			<function name="get_units">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

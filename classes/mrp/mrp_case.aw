@@ -11,6 +11,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 
 	@groupinfo grp_general caption="&Uuml;ldine" parent=general
 	@groupinfo grp_case_data caption="Projekti andmed" parent=general
+@groupinfo grp_case_components caption="Komponendid"
 @groupinfo grp_case_formula caption="Tooteretsept"
 	@groupinfo grp_case_workflow caption="T&ouml;&ouml;voog" parent=grp_case_formula
 	@groupinfo grp_case_materials caption="Materjalid" parent=grp_case_formula
@@ -21,68 +22,102 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 @groupinfo grp_case_comments caption="Kommentaarid"
 @groupinfo grp_case_log caption="Ajalugu" submit=no
 
+// TOOLBARS
 
 @property workflow_toolbar type=toolbar store=no no_caption=1 group=grp_case_schedule_gantt,grp_general,grp_case_workflow,grp_case_materials,grp_case_data editonly=1
 @property workflow_errors type=text store=no no_caption=1 group=grp_case_schedule_gantt,grp_general,grp_case_workflow,grp_case_data
 @property header type=text store=no no_caption=1 group=grp_general,grp_case_data
+@property components_toolbar type=toolbar store=no no_caption=1 group=grp_case_components
+
+// GENERAL INFO
+
+@layout general_info type=hbox area_caption=Projekti&nbsp;&uuml;levaade closeable=1 group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log width=20%:20%:20%:20%:20%
+	
+	@layout general_info_1 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
+
+		@property customer type=relpicker reltype=RELTYPE_MRP_CUSTOMER clid=CL_CRM_COMPANY table=mrp_case editonly=1 group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_1 captionside=top
+		@caption Klient
+	
+	@layout general_info_2 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
+
+		@property object_id type=text store=no editonly=1  group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_2 captionside=top
+		@caption Objekti ID:
+
+		@property name type=textbox size=25 table=objects field=name group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_2 captionside=top
+		@caption Projekti nr.
+
+		@property comment type=textbox size=25 table=objects field=comment group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_2 captionside=top
+		@caption Projekti nimetus
+		
+	@layout general_info_3 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
+
+		@property starttime type=datepicker  group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_3 captionside=top
+		@caption Alustamisaeg (materjalide saabumine)
+
+		@property due_date table=mrp_case type=datepicker group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_3 captionside=top
+		@caption Valmimist&auml;htaeg
+
+		@property planned_date type=text table=mrp_case_schedule editonly=1 group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_3 captionside=top
+		@caption Planeeritud valmimisaeg:
+		
+	@layout general_info_4 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
+
+		@property state type=text table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
+		@caption Staatus:
+
+		@property started type=text editonly=1 table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
+		@caption Alustatud:
+
+		@property finished type=text editonly=1 table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
+		@caption L&otilde;petatud:
+
+		@property archived type=text editonly=1 table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
+		@caption Arhiveeritud:
+		
+	@layout general_info_5 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
+		
+		@property last_modified type=text store=no group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_5 captionside=top
+		@caption Viimati muudetud:
 
 @default group=grp_general
-	@property name type=textbox table=objects field=name group=grp_case_schedule_gantt,grp_general,grp_case_workflow,grp_case_materials,grp_case_data parent=general_info
-	@caption Projekti nr.
 
-	@property comment type=textbox table=objects field=comment
-	@caption Projekti nimetus
+	@layout general_split type=hbox width=50%:50% area_caption=Projekti&nbsp;&uuml;ldandmed
+	
+		@layout general_left type=vbox parent=general_split
 
 @default table=mrp_case
-	@property order_quantity type=textbox datatype=int
-	@caption Tellimuse kogus
 
+			@property order_quantity type=textbox datatype=int parent=general_left
+			@caption Tellimuse kogus
+			
+			@property order_source type=objpicker clid=CL_ORDER_SOURCE field=aw_order_source parent=general_left
+			@caption Kanal
+
+			@property project_priority type=textbox maxlength=10 parent=general_left
+			@caption Projekti prioriteet
+		
+		@layout general_right type=vbox parent=general_split
+
+			@property customer_relation type=relpicker reltype=RELTYPE_CUSTOMER_RELATION editonly=1 parent=general_right
+			@caption Kliendisuhe
+
+@default table=mrp_case
+
+			@property purchasing_manager type=select editonly=1 parent=general_right
+			@caption Ladu
+
+			@property sales_priority type=textbox size=5 table=objects field=meta method=serialize parent=general_right
+			@caption Prioriteedihinnang m&uuml;&uuml;gimehelt
+
+@default table=mrp_case
+	
 	@property workspace type=hidden
-
-	@property state type=text group=grp_case_schedule_gantt,grp_general,grp_case_workflow,grp_case_materials,grp_case_data editonly=1 parent=general_info
-	@caption Staatus
-
-	@property starttime type=datepicker
-	@caption Alustamisaeg (materjalide saabumine)
-
-	@property due_date type=datepicker
-	@caption Valmimist&auml;htaeg
-
-	@property project_priority type=textbox maxlength=10
-	@caption Projekti prioriteet
-
-	@property customer type=relpicker reltype=RELTYPE_MRP_CUSTOMER clid=CL_CRM_COMPANY group=grp_case_schedule_gantt,grp_general,grp_case_workflow,grp_case_materials,grp_case_data editonly=1 parent=general_info
-	@caption Klient
-
-	@property customer_relation type=relpicker reltype=RELTYPE_CUSTOMER_RELATION editonly=1
-	@caption Kliendisuhe
-
 	@property progress type=hidden
 	@property extern_id type=hidden
 
-@default table=mrp_case_schedule
-	@property planned_date type=text editonly=1
-	@caption Planeeritud valmimisaeg
-
-@default table=mrp_case
-	@property started type=text editonly=1
-	@caption Alustatud
-
-	@property finished type=text editonly=1
-	@caption L&otilde;petatud
-
-	@property archived type=text editonly=1
-	@caption Arhiveeritud
-
-	@property purchasing_manager type=select editonly=1
-	@caption Ladu
-
 @default table=objects
 @default field=meta
-@default method=serialize
-	@property sales_priority type=textbox size=5
-	@caption Prioriteedihinnang m&uuml;&uuml;gimehelt
-
+@default method=serialize 
 
 @default group=grp_case_data
 	@property format type=textbox
@@ -162,11 +197,14 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 	@property user_comments type=comments
 	@caption Kommentaarid juhtumi ja t&ouml;&ouml;de kohta
 
+@default group=grp_case_components
+	@property components_table type=table store=no no_caption=1
+	@property components_new type=hidden store=no no_caption=1
+	@property components_new_name type=hidden store=no no_caption=1
 
 @default group=grp_case_workflow
 	@layout vsplitbox type=hbox width=25%:75% group=grp_case_workflow,grp_case_materials,grp_case_schedule_gantt
 		@layout left_pane type=vbox parent=vsplitbox group=grp_case_workflow,grp_case_materials,grp_case_schedule_gantt
-			@layout general_info type=vbox parent=left_pane area_caption=Projekti&nbsp;&uuml;ldandmed closeable=1 group=grp_case_workflow,grp_case_materials,grp_case_schedule_gantt
 			@layout resource_tree type=vbox parent=left_pane area_caption=Ressursid&nbsp;kategooriate&nbsp;kaupa closeable=1
 				@property resource_tree type=text store=no no_caption=1 parent=resource_tree
 		@property workflow_table type=table store=no no_caption=1 parent=vsplitbox
@@ -379,7 +417,7 @@ class mrp_case extends class_base
 		$retval = PROP_OK;
 		$this_object = $arr["obj_inst"];
 
-		$txt_grps = array("grp_case_schedule", "grp_case_schedule_gantt", "grp_case_workflow", "grp_case_formula", "grp_case_materials", "grp_case_view");
+		$txt_grps = array("grp_case_data", "grp_case_components", "grp_case_formula", "grp_case_workflow", "grp_case_materials", "grp_case_view", "grp_case_schedule", "grp_case_schedule_gantt", "grp_case_schedule_google", "grp_case_comments", "grp_case_log");
 
 		if(substr($prop["name"], 0, 4) === "vgi_")
 		{
@@ -389,6 +427,14 @@ class mrp_case extends class_base
 
 		switch($prop["name"])
 		{
+			case "object_id":
+				$prop["value"] = $arr["obj_inst"]->id;
+				break;
+				
+			case "last_modified":
+				$prop["value"] = date(MRP_DATE_FORMAT, $arr["obj_inst"]->modified);
+				break;
+		
 			case "name":
 			case "comment":
 				if(isset($arr["request"]["group"]) and in_array($arr["request"]["group"], $txt_grps))
@@ -399,11 +445,19 @@ class mrp_case extends class_base
 				break;
 
 			case "customer":
-				if(isset($arr["request"]["group"]) and in_array($arr["request"]["group"], $txt_grps))
+				// DEPRECATED!! Use customer_relation instead!
+				$prop["type"] = "text";
+				$prop["caption"] .= ":";
+				if (is_oid($arr["obj_inst"]->customer))
 				{
-					$prop["type"] = "text";
-					$prop["value"] = $arr["obj_inst"]->prop($prop["name"].".name");
-					$prop["caption"] .= ":";
+					$customer = obj($arr["obj_inst"]->customer);
+					$name = $customer->is_a(crm_company_obj::CLID) ? $customer->title : $customer->name;
+					$separator = html::linebreak();
+					$prop["value"] = sprintf("%s{$separator}%s{$separator}%s{$separator}%s", html::bold($name), ($email = $customer->get_email_address()) ? $email->mail : null, $customer->get_phone_number(), $customer->get_address_string());
+				}
+				else
+				{
+					$prop["value"] = t("M&auml;&auml;ramata");
 				}
 				break;
 
@@ -437,10 +491,6 @@ class mrp_case extends class_base
 
 			case "state":
 				$prop["value"] = isset($prop["value"]) && empty($this->states[$prop["value"]]) ? t("M&auml;&auml;ramata") : $this->states[$prop["value"]];
-				if(isset($arr["request"]["group"]) and in_array($arr["request"]["group"], $txt_grps))
-				{
-					$prop["caption"] .= ":";
-				}
 				break;
 
 			case "planned_date":
@@ -448,8 +498,8 @@ class mrp_case extends class_base
 				$prop["value"] = $date;
 				break;
 
-			case "due_date":
 			case "starttime":
+			case "due_date":
 				if ($arr["new"])
 				{
 					$prop["value"] = mktime (18, 00, 00);
@@ -458,8 +508,12 @@ class mrp_case extends class_base
 				{
 					$prop["type"] = "text";
 					$prop["caption"] .= ":";
-					$prop["value"] = aw_locale::get_lc_date($prop["value"], 7);
+					$prop["value"] = date(MRP_DATE_FORMAT, $prop["value"]);
 				}
+				break;
+
+			case "started":
+				$prop["value"] = !empty($prop["value"]) ? date(MRP_DATE_FORMAT, $prop["value"]) : t("Pole veel alustatud");
 				break;
 
 			case "finished":
@@ -641,6 +695,67 @@ class mrp_case extends class_base
 		}
 
 		return $retval;
+	}
+	
+	function _get_components_toolbar($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->add_button(array(
+			"name" => "new",
+			"img" => "new.gif",
+			"tooltip" => t("Lisa rida"),
+			"url" => "javascript:void(0)",
+			"onclick" => "AW.UI.mrp_case.add_component();"
+			// "disabled" => $disabled,
+		));
+		$t->add_button(array(
+			"name" => "save",
+			"img" => "save.gif",
+			"tooltip" => t("Salvesta"),
+			"url" => "javascript:void(0)",
+			"onclick" => "AW.UI.mrp_case.update_components();"
+			// "disabled" => $disabled,
+		));
+		$t->add_button(array(
+			"name" => "delete",
+			"img" => "delete.gif",
+			"tooltip" => t("Kustuta"),
+			"url" => "javascript:void(0)",
+			"onclick" => "void(0)"
+			// "disabled" => $disabled,
+		));
+	}
+	
+	function _get_components_table($arr)
+	{
+		$arr["prop"]["type"] = "text";
+		$arr["prop"]["value"] = <<<HTML
+<style>
+#example .expandable {
+	cell-spacing: 0;
+	border-collapse:collapse;
+	border: 0;
+	width: 100%;
+}
+#example .expandable td {
+	border: 0;
+	text-align: left;
+	width: 200px;
+}
+#example .expandable td.caption {
+	width: 60px;
+}
+</style>
+<table cellpadding="0" cellspacing="0" border="0" id="example" class="pretty"></table>';
+HTML;
+		
+		load_javascript("knockout/knockout-2.2.0.js");		
+		load_javascript("jquery/plugins/dataTables/jquery.dataTables.min.js");
+		load_javascript("applications/mrp/mrp_case/components_table.js");
+
+		active_page_data::load_stylesheet("css/jquery/dataTables/complete.css");
+	
+		return PROP_OK;
 	}
 
 	function _get_materials_tree($arr)
@@ -2473,6 +2588,9 @@ class mrp_case extends class_base
 			case "job_charts":
 				$arr["area_caption"] = sprintf(t("Projekti '%s' t&ouml;&ouml;de kestuste v&otilde;rdlused"), $arr["obj_inst"]->name());
 				break;
+			case "general_info":
+				$arr["area_caption"] = sprintf(t("TELLIMUSE ÜLDANDMED: Kliendi %s projekt '%s' numbriga %s staatusega '%s'"), $arr["obj_inst"]->prop("customer_relation.buyer.name"), $arr["obj_inst"]->comment, $arr["obj_inst"]->name, $this->states[$arr["obj_inst"]->state]);
+				break;
 		}
 		return true;
 	}
@@ -3071,6 +3189,7 @@ class mrp_case extends class_base
 
 			switch($field)
 			{
+				case "aw_order_source":
 				case "aw_trykiarv":
 					$this->db_add_col($table, array(
 						"name" => $field,
@@ -3209,5 +3328,92 @@ function add_material(mid, jid)
 }
 ';
 		}
+	}
+	
+	/**
+		@attrib name=get_components
+	**/
+	public function get_components($arr)
+	{
+		$mrp_case = obj($arr["id"], mrp_case_obj::CLID);
+		$components = array();
+		foreach($mrp_case->get_job_list() as $job) {
+			$components[] = $this->component_json($job);
+		}
+		die(json_encode($components));
+	}
+	
+	private function component_json($job)
+	{
+		return array(
+			"id" => $job->id,
+			"name" => $job->name,
+			"title" => $job->title,
+			"description" => $job->description,
+			"article" => $job->article,
+			"article_name" => $job->prop("article.name"),
+			"unit" => array("id" => (int)$job->unit, "name" => $job->prop("unit.name")),
+			"quantity" => $job->quantity,
+		);
+	}
+	
+	/**
+		@attrib name=add_component
+	**/
+	public function add_component($arr)
+	{
+		$mrp_case = obj($arr["id"], mrp_case_obj::CLID);
+		$job = $mrp_case->add_job();
+		die(json_encode($this->component_json($job)));
+	}
+	
+	/**
+		@attrib name=update_component
+	**/
+	public function update_components($arr)
+	{
+		foreach ($arr["components"] as $component)
+		{
+			$job = obj($component["id"], mrp_job_obj::CLID);
+			unset($component["id"]);
+			foreach($component as $key => $value)
+			{
+				// FIXME: Handle better property handling mechanism to check which properties a
+				try {
+					$job->set_prop($key, $value);
+				} catch (exception $e) {
+				}
+			}
+			$job->save();
+		}
+		die("OK");
+	}
+	
+	/**
+		@attrib name=remove_components
+	**/
+	public function remove_components($arr)
+	{
+		die("OK");
+	}
+	
+	/**
+		@attrib name=get_units
+	**/
+	public function get_units($arr)
+	{
+		$ol = new object_list(array(
+			"class_id" => unit_obj::CLID,
+			"oid" => array(213681, 258662, 319775, 322907, 323915)
+		));
+		$units = array();
+		foreach($ol->names() as $id => $name)
+		{
+			$units[$id] = array(
+				"id" => $id,
+				"name" => $name,
+			);
+		}
+		die(json_encode($units));
 	}
 }

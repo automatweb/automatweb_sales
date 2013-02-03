@@ -34,6 +34,15 @@
 			@property resource type=text parent=general_left table=mrp_job
 			@caption Ressurss:
 
+			@property article type=hidden parent=general_left table=mrp_job table=mrp_job field=aw_article
+			@caption Sisuartikkel
+
+			@property quantity type=hidden parent=general_left table=mrp_job table=mrp_job field=aw_quantity
+			@caption Kogus
+
+			@property unit type=hidden parent=general_left table=mrp_job table=mrp_job field=aw_unit
+			@caption &Uuml;hik
+
 			@property prerequisites type=text parent=general_left table=mrp_job
 			@caption Eeldust&ouml;&ouml;d:
 
@@ -43,6 +52,12 @@
 
 				@property name type=text parent=general_left_general
 				@caption Nimi
+				
+				@property title type=textbox table=mrp_job field=aw_title parent=general_left_general
+				@caption Pealkiri
+				
+				@property description type=textarea table=mrp_job field=aw_description rows=5 parent=general_left_general
+				@caption Kirjeldus
 
 				@property comment type=textarea table=objects field=comment rows=5 parent=general_left_general
 				@caption Tootmise kommentaar
@@ -1277,6 +1292,15 @@ class mrp_job extends class_base
 
 			switch($field)
 			{
+				case "aw_quantity":
+					$this->db_add_col($table, array(
+						"name" => $field,
+						"type" => "DECIMAL(12, 4)"
+					));
+					return true;
+
+				case "aw_article":
+				case "aw_unit":
 				case "workspace":
 				case "done":
 					$this->db_add_col($table, array(
@@ -1315,6 +1339,8 @@ class mrp_job extends class_base
 					));
 					return true;
 
+				case "aw_title":
+				case "aw_description":
 				case "aw_sales_comment":
 					$this->db_add_col($table, array(
 						"name" => $field,

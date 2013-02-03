@@ -96,6 +96,17 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		//!!! selle muutmine peab vist vaatama t88d l2bi ja kui on v2hem ekspemlare tehtud kui uus v22rtus siis panema nende staatused 'not done' lisaks, kui t88d on tehtud siis ei saa trykiarvu v2hendada, kui projekt on arhiveeritud (v6i ka valmis?) siis ei saa trykiarvu enam muuta
 		return parent::set_prop("trykiarv", $value);
 	}
+	
+	public function awobj_get_customer()
+	{
+		if (is_oid($this->prop("customer_relation")))
+		{
+			$customer_relation = obj($this->prop("customer_relation"), null, crm_company_customer_data_obj::CLID);
+			$this->awobj_set_customer($customer_relation->buyer);
+		}
+
+		return parent::prop("customer");
+	}
 
 	/**	Create customer data object for workspace owner and project customer if no customer data object for those two exists.
 		@attrib api=1 params=pos
@@ -116,7 +127,7 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		}
 		catch(awex_mrp_case_workspace $E)
 		{
-			// Damnit!
+			// FIXME: Damnit!
 		}
 		return parent::set_prop("customer", $oid);
 	}

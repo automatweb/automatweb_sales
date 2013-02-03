@@ -57,6 +57,33 @@
             <caption>Ressurss:</caption>
       </property>
       <property>
+            <name>article</name>
+            <group>general</group>
+            <type>hidden</type>
+            <parent>general_left</parent>
+            <table>mrp_job</table>
+            <field>aw_article</field>
+            <caption>Sisuartikkel</caption>
+      </property>
+      <property>
+            <name>quantity</name>
+            <group>general</group>
+            <type>hidden</type>
+            <parent>general_left</parent>
+            <table>mrp_job</table>
+            <field>aw_quantity</field>
+            <caption>Kogus</caption>
+      </property>
+      <property>
+            <name>unit</name>
+            <group>general</group>
+            <type>hidden</type>
+            <parent>general_left</parent>
+            <table>mrp_job</table>
+            <field>aw_unit</field>
+            <caption>&amp;amp;Uuml;hik</caption>
+      </property>
+      <property>
             <name>prerequisites</name>
             <group>general</group>
             <type>text</type>
@@ -72,6 +99,25 @@
             <parent>general_left_general</parent>
             <field>name</field>
             <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>title</name>
+            <group>general</group>
+            <type>textbox</type>
+            <table>mrp_job</table>
+            <field>aw_title</field>
+            <parent>general_left_general</parent>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>description</name>
+            <group>general</group>
+            <type>textarea</type>
+            <table>mrp_job</table>
+            <field>aw_description</field>
+            <rows>5</rows>
+            <parent>general_left_general</parent>
+            <caption>Kirjeldus</caption>
       </property>
       <property>
             <name>comment</name>
