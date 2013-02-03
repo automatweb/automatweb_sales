@@ -13,6 +13,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 	const PS_HEIGHT = 500;
 
 	const REQVAR_FILTER_CLASS_ID = "c";
+	const REQVAR_JAVASCRIPT_CALLBACK = "jcb";
 	const REQVAR_FILTER_CALLBACK = "fcb";
 	const REQVAR_RELOAD_LAYOUT = "rl";
 	const REQVAR_RELOAD_PROPERTY = "rp";
@@ -414,6 +415,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 		@param multiple optional
 		@param clid optional
 		@param fcb optional
+		@param jcb optional
 		@param s optional
 		@param append_html optional
 		@param no_submit optional
@@ -534,9 +536,11 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 		$data = array(
 			"id" => isset($arr["id"]) ? $arr["id"] : "",
 			"pn" => isset($arr["pn"]) ? $arr["pn"] : "",
+			"npn" => isset($arr["npn"]) ? $arr["npn"] : "",
 			"multiple" => isset($arr["multiple"]) ? $arr["multiple"] : "",
 			"clid" => isset($arr["clid"]) ? $arr["clid"] : "",
 			self::REQVAR_FILTER_CALLBACK => isset($arr[self::REQVAR_FILTER_CALLBACK]) ? $arr[self::REQVAR_FILTER_CALLBACK] : "",
+			self::REQVAR_JAVASCRIPT_CALLBACK => isset($arr[self::REQVAR_JAVASCRIPT_CALLBACK]) ? $arr[self::REQVAR_JAVASCRIPT_CALLBACK] : "",
 			"no_submit" => ifset($arr, "no_submit"),
 			"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
 			"orb_class" => $_GET["class"],
@@ -751,7 +755,7 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 					"select_this" => html::href(array(
 						"url" => "javascript:void(0)",
 						"caption" => t("Vali see"),
-						"onclick" => "el=aw_get_el(\"{$elname}\",window.opener.document.changeform);if (!el) { el=aw_get_el(\"{$elname_n}\", window.opener.document.changeform);} if (!el) { el=aw_get_el(\"{$elname_l}\", window.opener.document.changeform);} if (el.options) {sz= el.options.length;el.options.length=sz+1;el.options[sz].value=".$o->id()."; el.options[sz].selected = 1;} else {el.value = ".$o->id().";} ".(!empty($arr["no_submit"])?"":"window.opener.document.changeform.submit();")."window.close()"
+						"onclick" => "el=aw_get_el(\"{$elname}\",window.opener.document.changeform);if (!el) { el=aw_get_el(\"{$elname_n}\", window.opener.document.changeform);} if (!el) { el=aw_get_el(\"{$elname_l}\", window.opener.document.changeform);} if (el.options) {sz= el.options.length;el.options.length=sz+1;el.options[sz].value=".$o->id()."; el.options[sz].selected = 1;} else {el.value = ".$o->id().";} ".(!empty($arr["npn"])?("el=aw_get_el(\"{$arr["npn"]}\",window.opener.document.changeform);el.value=\"".str_replace('"', '\"', $o->name)."\";"):"").(!empty($arr["no_submit"])?"":"window.opener.document.changeform.submit();").(!empty($arr[self::REQVAR_JAVASCRIPT_CALLBACK])?("(function(){" . $arr[self::REQVAR_JAVASCRIPT_CALLBACK] . "})(); "):"")."window.close()"
 					)),
 					"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
 				);
