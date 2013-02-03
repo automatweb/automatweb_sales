@@ -1052,6 +1052,21 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		}
 		return $ret;
 	}
+	
+	public function get_phone_number($type = null)
+	{
+		$this->require_state("saved");
+		
+		$list = new object_list(array(
+			"class_id" => crm_phone_obj::CLID,
+			"CL_CRM_PHONE.RELTYPE_PHONE(CL_CRM_PERSON)" => $this->id(),
+			"type" => $type
+		));
+		
+		$phone = $list->begin();
+		
+		return $phone ? $phone->name : null;
+	}
 
 	/** returns one phone number
 		@attrib api=1 params=pos

@@ -27,6 +27,15 @@ interface crm_customer_interface
 		@attrib api=1 params=pos
 	**/
 	public function get_phones();
+	
+	/** Returns a single customer's phone number
+		@attrib api=1 params=pos
+		@param type type=int optional
+			phone number type, possible options: phone_obj::TYPE_WORK, phone_obj::TYPE_HOME, phone_obj::TYPE_SHORT, phone_obj::TYPE_MOBILE, phone_obj::TYPE_FAX, phone_obj::TYPE_SKYPE, phone_obj::TYPE_INTERCOM
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function get_phone_number($type = null);
 
 	/**
 		@attrib api=1 params=pos
