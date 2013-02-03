@@ -525,13 +525,18 @@ class shop_order_cart_obj extends _int_object
 
 	public function confirm_order()
 	{
-		if ($this->awobj_get_result_clid() === crm_offer_obj::CLID)
+		switch ($this->awobj_get_result_clid())
 		{
-			$result = $this->__confirm_crm_offer();
-		}
-		else
-		{
-			$result = $this->__confirm_shop_sell_order();
+			case crm_offer_obj::CLID:
+				$result = $this->__confirm_crm_offer();
+				break;
+			
+			case mrp_case_obj::CLID:
+				$result = $this->__confirm_mrp_case();
+				break;
+			
+			default:
+				$result = $this->__confirm_shop_sell_order();
 		}
 		$this->reset_cart();
 		return $result;
@@ -562,6 +567,36 @@ class shop_order_cart_obj extends _int_object
 		$offer = $sales->create_offer($salesman, $customer, $currency, $items);
 
 		return $offer;
+	}
+
+	/**	Will be used if shop_order_cart_obj::confirm_order() is called and the result class ID is set to CL_MRP_CASE
+	**/
+	private function __confirm_mrp_case()
+	{
+		$sell_order = $this->get_sell_order();
+
+		$order_management = obj($this->prop("order_management"), array(), order_management_obj::CLID);
+		
+		$customer = is_oid($sell_order->prop("purchaser")) ? obj($sell_order->prop("purchaser"), array(), crm_person_obj::CLID) : get_current_person();
+
+		$mrp_order = $order_management->create_order($customer);
+
+		$mrp_order->set_prop("order_source", $this->prop("order_source"));
+
+		foreach ($sell_order->get_rows() as $row)
+		{
+			if ($row->prop("amount") > 0)
+			{
+				$job = $mrp_order->add_job();
+				$job->set_prop("article", $row->prop("prod"));
+				$job->set_prop("quantity",$row->prop("amount"));
+				$job->save();
+			}
+		}
+		
+		$mrp_order->save();
+
+		return $mrp_order;
 	}
 
 	/**	Will be used if shop_order_cart_obj::confirm_order() is called and the result class ID is set to CL_SHOP_SELL_ORDER

@@ -55,6 +55,27 @@
             <comment>Vaikimisi m&amp;amp;uuml;&amp;amp;uuml;giesindaja, kes genereeritud pakkumuse m&amp;amp;uuml;&amp;amp;uuml;giesindajaks m&amp;auml;&amp;auml;ratakse</comment>
       </property>
       <property>
+            <name>order_management</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_ORDER_MANAGEMENT</clid>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>result_mrp_case</parent>
+            <caption>Pakkumuste&amp;amp;nbsp;haldus</caption>
+      </property>
+      <property>
+            <name>order_source</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>result_mrp_case</parent>
+            <caption>Pakkumuse&amp;amp;nbsp;kanal</caption>
+      </property>
+      <property>
             <name>postal_price</name>
             <table>objects</table>
             <group>general</group>
@@ -73,7 +94,7 @@
             <field>meta</field>
             <method>serialize</method>
             <parent>delivery_and_payment</parent>
-            <caption>N&amp;amp;auml;ita checkout'is ainult valiidseid k&amp;amp;auml;ttetoimetamise viise 	 </caption>
+            <caption>N&amp;amp;auml;ita checkout'is ainult valiidseid k&amp;amp;auml;ttetoimetamise viise</caption>
       </property>
       <property>
             <name>show_only_valid_payment_types</name>
@@ -277,10 +298,17 @@
             <result_offer>
                   <type>vbox_sub</type>
                   <no_padding>1</no_padding>
-                  <area_caption>Pakkumus&amp;amp;nbsp;seaded</area_caption>
+                  <area_caption>CRM&amp;amp;nbsp;pakkumus&amp;amp;nbsp;seaded</area_caption>
                   <parent>result</parent>
                   <group>general</group>
             </result_offer>
+            <result_mrp_case>
+                  <type>vbox_sub</type>
+                  <no_padding>1</no_padding>
+                  <area_caption>MRP&amp;amp;nbsp;pakkumus&amp;amp;nbsp;seaded</area_caption>
+                  <parent>result</parent>
+                  <group>general</group>
+            </result_mrp_case>
             <delivery_and_payment>
                   <type>vbox</type>
                   <parent>left</parent>

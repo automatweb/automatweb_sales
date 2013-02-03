@@ -25,7 +25,7 @@
 					@caption Tulemuse t&uuml;&uuml;p
 					@comment Milline object genereeritakse ostukorvi kinnitamise tulemusena?
 
-				@layout result_offer type=vbox_sub no_padding=1 area_caption=Pakkumus&nbsp;seaded parent=result
+				@layout result_offer type=vbox_sub no_padding=1 area_caption=CRM&nbsp;pakkumus&nbsp;seaded parent=result
 
 					@property crm_sales type=objpicker clid=CL_CRM_SALES field=meta method=serialize parent=result_offer
 					@caption M&uuml;&uuml;git&ouml;&ouml;laud
@@ -34,6 +34,14 @@
 					@property salesman type=objpicker clid=CL_CRM_PERSON field=meta method=serialize parent=result_offer
 					@caption M&uuml;&uuml;giesindaja
 					@comment Vaikimisi m&uuml;&uuml;giesindaja, kes genereeritud pakkumuse m&uuml;&uuml;giesindajaks määratakse
+
+				@layout result_mrp_case type=vbox_sub no_padding=1 area_caption=MRP&nbsp;pakkumus&nbsp;seaded parent=result
+
+					@property order_management type=objpicker clid=CL_ORDER_MANAGEMENT field=meta method=serialize parent=result_mrp_case
+					@caption Pakkumuste&nbsp;haldus
+
+					@property order_source type=select field=meta method=serialize parent=result_mrp_case
+					@caption Pakkumuse&nbsp;kanal
 
 			@layout delivery_and_payment type=vbox parent=left area_caption=K&auml;ttetoimetamine&nbsp;ja&nbsp;maksmine
 
@@ -169,12 +177,28 @@ class shop_order_cart extends class_base
 	{
 		$arr["prop"]["options"] = array(
 			shop_sell_order_obj::CLID => t("M&uuml;&uuml;gitellimus"),
-			crm_offer_obj::CLID => t("Pakkumus"),
+			crm_offer_obj::CLID => t("CRM pakkumus"),
+			mrp_case_obj::CLID => t("MRP pakkumus"),
 		);
 
 		return PROP_OK;
 	}
 
+	public function _get_order_source($arr)
+	{
+		if (is_oid($arr["obj_inst"]->order_management))
+		{
+			$order_management = obj($arr["obj_inst"]->order_management, null, order_management_obj::CLID);
+			$arr["prop"]["options"] = array(null => t("--Vali--")) + $order_management->get_order_sources()->names();
+		}
+		else
+		{
+			$arr["prop"]["type"] = "text";
+			$arr["prop"]["value"] = t("Vali esmalt tellimuste haldus");
+		}
+		
+		return PROP_OK;
+	}
 
 	public function _get_delivery_method_tlb($arr)
 	{
