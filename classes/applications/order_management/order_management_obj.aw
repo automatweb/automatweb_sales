@@ -17,19 +17,35 @@ class order_management_obj extends management_base_obj
 		if (!empty($filter["date_from"]["date"]) && !empty($filter["date_to"]["date"])) {
 			$date_filter = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING,
 				datepicker::get_timestamp($filter["date_from"]),
-				datepicker::get_timestamp($filter["date_to"]));
+				datepicker::get_timestamp($filter["date_to"]) + 24*3600 - 1);
 		} elseif (!empty($filter["date_from"]["date"])) {
 			$date_filter = new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, datepicker::get_timestamp($filter["date_from"]));
 		} elseif (!empty($filter["date_to"]["date"])) {
 			$date_filter = new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, datepicker::get_timestamp($filter["date_to"]));
 		}
-			
+		
+		foreach (array("customer_category", "order_source", "state") as $filter_type)
+		{		
+			if (isset($filter[$filter_type]) && is_array($filter[$filter_type]))
+			{
+				foreach ($filter[$filter_type] as $key => $value)
+				{
+					if (!is_oid($value))
+					{
+						unset($filter[$filter_type][$key]);
+					}
+				}
+			}
+		}
+
 		return new object_list(array(
 			"class_id" => mrp_case_obj::CLID,
 			"name" => isset($filter["name"]) ? "%".$filter["name"]."%" : null,
 			"customer_relation.seller" => $this->prop("owner"),
-			"customer_relation.RELTYPE_CATEGORY" => isset($filter["customer_category"]) ? $filter["customer_category"] : null,
-			"customer_relation.buyer.name" => isset($filter["customer_name"]) ? "%".$filter["customer_name"]."%" : null,
+			"customer_relation.RELTYPE_CATEGORY" => !empty($filter["customer_category"]) ? $filter["customer_category"] : null,
+			"customer_relation.buyer.name" => !empty($filter["customer_name"]) ? "%".$filter["customer_name"]."%" : null,
+			"order_source" => !empty($filter["order_source"]) ? $filter["order_source"] : null,
+			"state" => !empty($filter["state"]) ? $filter["state"] : null,
 			// FIXME: Create a separate date field!
 			"created" => $date_filter
 		));
@@ -96,6 +112,7 @@ class order_management_obj extends management_base_obj
 			"sales_channel",
 			"time_period",
 			"customer_category",
+			"order_sources",
 		);
 		
 		$filter = array();
@@ -155,6 +172,22 @@ class order_management_obj extends management_base_obj
 					"name" => "customer_relation",
 					"caption" => t("Kliendisuhe"),
 					"original_caption" => t("Kliendisuhe"),
+				),
+				"customer_manager" => array
+				(
+					"ord" => 30,
+					"active" => true,
+					"name" => "customer_manager",
+					"caption" => t("Kliendihaldur"),
+					"original_caption" => t("Kliendihaldur"),
+				),
+				"state" => array
+				(
+					"ord" => 35,
+					"active" => true,
+					"name" => "state",
+					"caption" => t("Staatus"),
+					"original_caption" => t("Staatus"),
 				),
 				"date" => array
 				(
@@ -232,6 +265,28 @@ class order_management_obj extends management_base_obj
 		}
 
 		return $a["ord"] - $b["ord"];
+	}
+	
+	function create_order (object $customer = null)
+	{
+		$owner = obj($this->prop("owner"), null, crm_company_obj::CLID);
+		$mrp_workspace = obj(mrp_workspace_obj::get_hr_manager($owner)->id, array(), mrp_workspace_obj::CLID);
+		$customer_relation = null;
+		if (is_object($customer) && is_object($owner))
+		{
+			$customer_relation = $customer->find_customer_relation($owner, true);
+		}
+		$order = $mrp_workspace->create_case($customer_relation);
+		return $order;
+	}
+	
+	function get_order_sources()
+	{
+		$ol = new object_list(array(
+			"class_id" => order_source_obj::CLID,
+			"parent" => $this->id(),
+		));
+		return $ol;
 	}
 }
 

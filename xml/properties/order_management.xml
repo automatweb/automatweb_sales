@@ -28,15 +28,26 @@
             <field>orders_toolbar</field>
       </property>
       <property>
-            <name>orders_filter_sales_channel</name>
+            <name>orders_filter_order_sources</name>
             <table>aw_order_management</table>
             <group>orders</group>
             <type>yui-chooser</type>
             <multiple>true</multiple>
             <store>no</store>
             <no_caption>true</no_caption>
-            <parent>orders_filter_sales_channel</parent>
-            <field>orders_filter_sales_channel</field>
+            <parent>orders_filter_order_sources</parent>
+            <field>orders_filter_order_sources</field>
+      </property>
+      <property>
+            <name>orders_filter_state</name>
+            <table>aw_order_management</table>
+            <group>orders</group>
+            <type>yui-chooser</type>
+            <multiple>true</multiple>
+            <store>no</store>
+            <no_caption>true</no_caption>
+            <parent>orders_filter_state</parent>
+            <field>orders_filter_state</field>
       </property>
       <property>
             <name>orders_filter_time_period</name>
@@ -163,12 +174,33 @@
             <field>orders_table</field>
       </property>
       <property>
+            <name>configuration_orders_sources_toolbar</name>
+            <table>aw_order_management</table>
+            <group>configuration_filter</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>true</no_caption>
+            <parent>configuration_filter_left</parent>
+            <field>configuration_orders_sources_toolbar</field>
+      </property>
+      <property>
+            <name>configuration_orders_filter_order_sources</name>
+            <table>aw_order_management</table>
+            <group>configuration_filter</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>true</no_caption>
+            <parent>configuration_filter_left</parent>
+            <field>configuration_orders_filter_order_sources</field>
+      </property>
+      <property>
             <name>configuration_orders_filter_customer_category</name>
             <table>aw_order_management</table>
             <group>configuration_filter</group>
             <type>table</type>
             <store>no</store>
             <no_caption>true</no_caption>
+            <parent>configuration_filter_right</parent>
             <field>configuration_orders_filter_customer_category</field>
       </property>
       <property>
@@ -236,13 +268,20 @@
                   <area_caption>Tellimuste&amp;amp;nbsp;filter</area_caption>
                   <group>orders</group>
             </orders_filter>
-            <orders_filter_sales_channel>
+            <orders_filter_order_sources>
                   <type>vbox_sub</type>
                   <parent>orders_filter</parent>
                   <area_caption>M&amp;amp;uuml;&amp;amp;uuml;gikanal</area_caption>
                   <closeable>1</closeable>
                   <group>orders</group>
-            </orders_filter_sales_channel>
+            </orders_filter_order_sources>
+            <orders_filter_state>
+                  <type>vbox_sub</type>
+                  <parent>orders_filter</parent>
+                  <area_caption>Staatus</area_caption>
+                  <closeable>1</closeable>
+                  <group>orders</group>
+            </orders_filter_state>
             <orders_filter_time_period>
                   <type>vbox_sub</type>
                   <parent>orders_filter</parent>
@@ -284,6 +323,26 @@
                   <group>orders</group>
                   <area_caption></area_caption>
             </orders_filter_search_buttons>
+            <configuration_filter_split>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>configuration_filter</group>
+                  <area_caption></area_caption>
+            </configuration_filter_split>
+            <configuration_filter_left>
+                  <type>vbox</type>
+                  <parent>configuration_filter_split</parent>
+                  <area_caption>Tellimuste&amp;amp;nbsp;filtris&amp;amp;nbsp;kuvatavad&amp;amp;nbsp;kanalid</area_caption>
+                  <closeable>1</closeable>
+                  <group>configuration_filter</group>
+            </configuration_filter_left>
+            <configuration_filter_right>
+                  <type>vbox</type>
+                  <parent>configuration_filter_split</parent>
+                  <area_caption>Tellimuste&amp;amp;nbsp;filtris&amp;amp;nbsp;kuvatavad&amp;amp;nbsp;kliendikategooriad</area_caption>
+                  <closeable>1</closeable>
+                  <group>configuration_filter</group>
+            </configuration_filter_right>
       </layout>
 </properties>
 

@@ -25,9 +25,13 @@
 		
 			@layout orders_filter type=vbox parent=orders_left area_caption=Tellimuste&nbsp;filter
 			
-				@layout orders_filter_sales_channel type=vbox_sub parent=orders_filter area_caption=M&uuml;&uuml;gikanal closeable=1
+				@layout orders_filter_order_sources type=vbox_sub parent=orders_filter area_caption=M&uuml;&uuml;gikanal closeable=1
 			
-					@property orders_filter_sales_channel type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_sales_channel
+					@property orders_filter_order_sources type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_order_sources
+			
+				@layout orders_filter_state type=vbox_sub parent=orders_filter area_caption=Staatus closeable=1
+				
+					@property orders_filter_state type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_state
 			
 				@layout orders_filter_time_period type=vbox_sub parent=orders_filter area_caption=Periood closeable=1
 				
@@ -75,7 +79,17 @@
 	@groupinfo configuration_filter parent=configuration caption=Filter
 	@default group=configuration_filter
 	
-		@property configuration_orders_filter_customer_category type=table store=no no_caption=true
+		@layout configuration_filter_split type=hbox width=50%:50%
+			
+			@layout configuration_filter_left type=vbox parent=configuration_filter_split area_caption=Tellimuste&nbsp;filtris&nbsp;kuvatavad&nbsp;kanalid closeable=1
+			
+				@property configuration_orders_sources_toolbar type=toolbar store=no no_caption=true parent=configuration_filter_left
+	
+				@property configuration_orders_filter_order_sources type=table store=no no_caption=true parent=configuration_filter_left
+			
+			@layout configuration_filter_right type=vbox parent=configuration_filter_split area_caption=Tellimuste&nbsp;filtris&nbsp;kuvatavad&nbsp;kliendikategooriad closeable=1
+	
+				@property configuration_orders_filter_customer_category type=table store=no no_caption=true parent=configuration_filter_right
 
 	@groupinfo configuration_table parent=configuration caption=Tabel
 	@default group=configuration_table
@@ -87,9 +101,32 @@
 class order_management extends management_base
 {
 	private static $not_available_string = "NA";
+	protected $states;
 	
 	function __construct()
 	{
+		$this->states = array (
+			mrp_case_obj::STATE_NEW => t("Uus"),
+			mrp_case_obj::STATE_PLANNED => t("Planeeritud"),
+			mrp_case_obj::STATE_INPROGRESS => t("T&ouml;&ouml;s"),
+			mrp_case_obj::STATE_ABORTED => t("Katkestatud"),
+			mrp_case_obj::STATE_DONE => t("Valmis"),
+			mrp_case_obj::STATE_LOCKED => t("Lukustatud"),
+			mrp_case_obj::STATE_DELETED => t("Kustutatud"),
+			mrp_case_obj::STATE_ONHOLD => t("Plaanist v&auml;ljas"),
+			mrp_case_obj::STATE_ARCHIVED => t("Arhiveeritud"),
+
+			mrp_job_obj::STATE_NEW => t("Uus"),
+			mrp_job_obj::STATE_PLANNED => t("Planeeritud"),
+			mrp_job_obj::STATE_INPROGRESS => t("T&ouml;&ouml;s"),
+			mrp_job_obj::STATE_ABORTED => t("Katkestatud"),
+			mrp_job_obj::STATE_DONE => t("Valmis"),
+			mrp_job_obj::STATE_LOCKED => t("Lukustatud"),
+			mrp_job_obj::STATE_PAUSED => t("Paus"),
+			mrp_job_obj::STATE_SHIFT_CHANGE => t("Paus"),
+			mrp_job_obj::STATE_DELETED => t("Kustutatud")
+		);
+
 		$this->init(array(
 			"tpldir" => "applications/order_management/order_management",
 			"clid" => order_management_obj::CLID
@@ -135,11 +172,54 @@ class order_management extends management_base
 		}
 	}
 	
-	function _get_configuration_orders_filter_customer_category($arr)
+	function _get_configuration_orders_sources_toolbar($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		
-		$t->set_caption(t("Tellimuste filtris kuvatavad kliendikategooriad"));
+		$t->add_new_button(array(order_source_obj::CLID), $arr["obj_inst"]->id());
+		$t->add_delete_button();
+		
+		return PROP_OK;
+	}
+	
+	function _get_configuration_orders_filter_order_sources($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		
+		$t->define_chooser();
+		$t->set_default("align", "center");
+		$t->add_fields(array(
+			"name" => "Kanal",
+			"checked_by_default" => "Vaikimisi valitud",
+		));
+		
+		$configuration = $arr["obj_inst"]->meta("configuration_orders_filter_order_sources");
+		foreach ($arr["obj_inst"]->get_order_sources()->arr() as $source)
+		{
+			$t->define_data(array(
+				"oid" => $source->id,
+				"name" => html::obj_change_url($source),
+				"checked_by_default" => html::checkbox(array(
+					"name" => "configuration_orders_filter_order_sources[{$source->id}][checked_by_default]",
+					"checked" => !empty($configuration[$source->id]["checked_by_default"])
+				)),
+			));
+		}
+		
+		return PROP_OK;
+	}
+	
+	function _set_configuration_orders_filter_order_sources($arr)
+	{
+		if(automatweb::$request->arg_isset("configuration_orders_filter_order_sources"))
+		{
+			$arr["obj_inst"]->set_meta("configuration_orders_filter_order_sources", automatweb::$request->arg("configuration_orders_filter_order_sources"));
+		}
+	}
+	
+	function _get_configuration_orders_filter_customer_category($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
 		
 		$t->add_fields(array(
 			"name" => "Kliendikategooria",
@@ -202,17 +282,12 @@ class order_management extends management_base
 		return PROP_OK;
 	}
 	
-	function _get_orders_filter_sales_channel($arr)
+	function _get_orders_filter_order_sources($arr)
 	{
 		$prop = &$arr["prop"];
 		// TODO: Make these configurable!
-		$prop["options"] = array(
-			"Veeb",
-			"E-post",
-			"Telefon",
-			"Otsem&uuml;&uuml;k"
-		);
-		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $prop["options"];
+		$prop["options"] = $arr["obj_inst"]->get_order_sources()->names();
+		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("orders_filter_order_sources");
 		
 		$this->set_filter_onchange_action($prop);
 
@@ -226,6 +301,16 @@ class order_management extends management_base
 		$prop = &$arr["prop"];
 		$prop["options"] = $customer_groups->names();
 		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("orders_filter_customer_category");
+		
+		$this->set_filter_onchange_action($prop);
+		
+		return PROP_OK;
+	}
+	
+	function _get_orders_filter_state($arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["options"] = $this->states;
 		
 		$this->set_filter_onchange_action($prop);
 		
@@ -310,6 +395,14 @@ class order_management extends management_base
 		{
 			$filter["date_to"] = automatweb::$request->arg("orders_filter_search_date_to");
 		}
+		if (automatweb::$request->arg_isset("orders_filter_order_sources"))
+		{
+			$filter["order_source"] = automatweb::$request->arg("orders_filter_order_sources");
+		}
+		if (automatweb::$request->arg_isset("orders_filter_state"))
+		{
+			$filter["state"] = automatweb::$request->arg("orders_filter_state");
+		}
 		
 		$orders = $arr["obj_inst"]->get_orders($filter);
 	
@@ -318,11 +411,14 @@ class order_management extends management_base
 		foreach ($orders->arr() as $order)
 		{
 			$customer = $order->customer();
-			$customer_relation = $customer->is_a(crm_company_obj::CLID) ? $customer->find_customer_relation($arr["obj_inst"]->owner()) : null;
+			$customer_relation = $customer->is_saved() ? $customer->find_customer_relation($arr["obj_inst"]->owner()) : null;
+			$order_inst = new mrp_case();
 			$t->define_data(array(
 				"name" => html::obj_change_url($order),
-				"customer_name" => $customer->is_a(crm_company_obj::CLID) ? html::obj_change_url($customer, $customer->get_title()) : self::$not_available_string,
+				"customer_name" => $customer->is_saved() ? html::obj_change_url($customer, ($customer->is_a(crm_company_obj::CLID) ? $customer->get_title() : $customer->name())) : self::$not_available_string,
+				"customer_manager" => $customer_relation !== null && is_oid($customer_relation->client_manager) ? html::obj_change_url($customer_relation->client_manager()) : self::$not_available_string,
 				"customer_relation" => $customer_relation !== null ? html::obj_change_url($customer_relation, $customer_relation->id()) : self::$not_available_string,
+				"state" => $this->states[$order->state],
 				"date" => date("d/m/Y H:i", $order->created)
 			));
 		}
