@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>join_site</name>
+            <table>aw_join_site_employment</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_join_site</field>
+      </property>
+      <property>
+            <name>organisation</name>
+            <table>aw_join_site_employment</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_COMPANY</clid>
+            <field>aw_organisation</field>
+            <caption>Organisatsioon</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_join_site_employment>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_join_site_employment>
+      </tableinfo>
+</properties>
+
