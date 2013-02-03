@@ -779,7 +779,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	private function set_fake_email($mail, $set_into_meta = true)
 	{
 		$n = false;
-		if (object_loader::can("", $this->prop("email")))
+		if ($set_into_meta === true)
 		{
 			$this->set_meta("tmp_fake_email", $mail);
 			$this->set_meta("sim_fake_email", 1);
