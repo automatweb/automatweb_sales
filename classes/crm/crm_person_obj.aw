@@ -6,6 +6,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	const GENDER_MALE = 1;
 	const GENDER_FEMALE = 2;
+	
+	const TITLE_MR = 3;
+	const TITLE_MISS = 2;
+	const TITLE_MRS = 1;
 
 	protected $all_jobs;
 	protected $current_jobs;

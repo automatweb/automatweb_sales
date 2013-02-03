@@ -2454,9 +2454,9 @@ class crm_person extends class_base
 
 			case "title":
 				$data["options"] = array(
-					3 => t("H&auml;rra"),
-					1 => t("Proua"),
-					2 => t("Preili")
+					crm_person_obj::TITLE_MR => t("H&auml;rra"),
+					crm_person_obj::TITLE_MRS => t("Proua"),
+					crm_person_obj::TITLE_MISS => t("Preili")
 				);
 				break;
 
