@@ -3,510 +3,191 @@
       <property>
             <name>name</name>
             <table>objects</table>
-            <group>general_sub</group>
-            <type>textbox</type>
             <field>name</field>
-            <caption>Nimi</caption>
-      </property>
-      <property>
-            <name>after_join_url</name>
-            <table>objects</table>
-            <group>general_sub</group>
+            <method>none</method>
+            <group>subgeneral</group>
             <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>P&amp;amp;auml;rast liitumist mine aadressile</caption>
+            <caption>Name</caption>
       </property>
       <property>
-            <name>obj_folder</name>
+            <name>autoactivate</name>
             <table>objects</table>
-            <group>general_sub</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_OBJ_FOLDER</reltype>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Kataloog, kuhu salvestatakse objektid</caption>
-      </property>
-      <property>
-            <name>autologin</name>
-            <table>objects</table>
-            <group>general_sub</group>
+            <group>subgeneral</group>
             <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kas kasutaja logitakse automaatselt sisse liitumisel</caption>
+            <caption>Autoaktiveerimine</caption>
+            <comment>Uued kasutajad aktiveeritakse automaatselt</comment>
       </property>
       <property>
-            <name>send_join_mail</name>
+            <name>authentication_toolbar</name>
             <table>objects</table>
-            <group>general_sub</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Kas 7.05.2009saadetakse meil</caption>
-      </property>
-      <property>
-            <name>users_blocked_by_default</name>
-            <table>objects</table>
-            <group>general_sub</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kasutajad vaikimisi blokeeritud</caption>
-      </property>
-      <property>
-            <name>check_sbt_controller</name>
-            <table>objects</table>
-            <group>general_ctrl</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_VALIDATE_CTR</reltype>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Andmete valideerimise kontroller</caption>
-      </property>
-      <property>
-            <name>join_properties</name>
-            <table>objects</table>
-            <group>sel_props</group>
-            <type>table</type>
+            <group>authentication</group>
+            <type>toolbar</type>
             <store>no</store>
-            <field>join_properties</field>
-            <caption>Liitumisel k&amp;amp;uuml;sitavad v&amp;amp;auml;ljad</caption>
+            <no_caption>1</no_caption>
       </property>
       <property>
-            <name>generate_password</name>
+            <name>extras_toolbar</name>
             <table>objects</table>
-            <group>sel_props</group>
-            <type>checkbox</type>
             <field>meta</field>
             <method>serialize</method>
-            <ch_value>1</ch_value>
-            <caption>Genereeri parool</caption>
-      </property>
-      <property>
-            <name>join_sep_pages</name>
-            <table>objects</table>
-            <group>sel_props</group>
-            <type>checkbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <ch_value>1</ch_value>
-            <caption>Eraldi lehtedel</caption>
-      </property>
-      <property>
-            <name>join_but_text</name>
-            <table>objects</table>
-            <group>sel_props</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Liitumise nupu tekst</caption>
-      </property>
-      <property>
-            <name>save_but_text</name>
-            <table>objects</table>
-            <group>sel_props</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Salvestamise nupu tekst</caption>
-      </property>
-      <property>
-            <name>cancel_but_text</name>
-            <table>objects</table>
-            <group>sel_props</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>T&amp;amp;uuml;hista nupu tekst</caption>
-      </property>
-      <property>
-            <name>join_properties_pages</name>
-            <table>objects</table>
-            <group>mk_pages</group>
-            <type>table</type>
+            <group>extras</group>
+            <type>toolbar</type>
             <store>no</store>
-            <field>join_properties_pages</field>
-            <caption>Liitumisel k&amp;amp;uuml;sitavad v&amp;amp;auml;ljad</caption>
+            <no_caption>1</no_caption>
       </property>
       <property>
-            <name>join_properties_page_titles</name>
+            <name>form_fields_table</name>
             <table>objects</table>
-            <group>page_titles</group>
-            <type>table</type>
-            <store>no</store>
-            <field>join_properties_page_titles</field>
-            <caption>Liitumise Lehtede Pealkirjad</caption>
-      </property>
-      <property>
-            <name>join_seps</name>
-            <table>objects</table>
-            <group>seps</group>
-            <type>table</type>
-            <store>no</store>
-            <field>join_seps</field>
-            <caption>Vahepealkirjad</caption>
-      </property>
-      <property>
-            <name>username_element</name>
-            <table>objects</table>
-            <group>prop_settings</group>
-            <type>select</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Kasutajanime element</caption>
-      </property>
-      <property>
-            <name>prop_settings</name>
-            <table>objects</table>
-            <group>prop_settings</group>
+            <group>form_fields</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>prop_settings</field>
       </property>
       <property>
-            <name>rules_show</name>
+            <name>form_groups_table</name>
             <table>objects</table>
-            <group>rules_show</group>
-            <type>table</type>
-            <store>no</store>
-            <field>rules_show</field>
-            <caption>Reeglid</caption>
-      </property>
-      <property>
-            <name>rule_name</name>
-            <table>objects</table>
-            <group>rules_add</group>
-            <type>textbox</type>
-            <store>no</store>
-            <field>rule_name</field>
-            <caption>Reegli nimi</caption>
-      </property>
-      <property>
-            <name>rules_add</name>
-            <table>objects</table>
-            <group>rules_add</group>
-            <type>text</type>
-            <store>no</store>
-            <field>rules_add</field>
-            <caption>Lisa Reegel</caption>
-      </property>
-      <property>
-            <name>rule_to_grp</name>
-            <table>objects</table>
-            <group>rules_add</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_RULE_GRP</reltype>
-            <store>no</store>
-            <field>rule_to_grp</field>
-            <caption>Vali grupp, kuhu reegel kasutaja paneb</caption>
-      </property>
-      <property>
-            <name>preview</name>
-            <table>objects</table>
-            <group>preview</group>
-            <type>text</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <field>preview</field>
-      </property>
-      <property>
-            <name>joinmail_legend</name>
-            <table>objects</table>
-            <group>joinmail</group>
-            <type>text</type>
-            <store>no</store>
-            <field>joinmail_legend</field>
-            <caption>Meili legend</caption>
-      </property>
-      <property>
-            <name>join_requires_confirm</name>
-            <table>objects</table>
-            <group>confirm_mail</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Liitumine n&amp;amp;otilde;uab kinnitust</caption>
-      </property>
-      <property>
-            <name>confirm_mail_legend</name>
-            <table>objects</table>
-            <group>confirm_mail</group>
-            <type>text</type>
-            <store>no</store>
-            <field>confirm_mail_legend</field>
-            <caption>Kinnitusmeili legend</caption>
-      </property>
-      <property>
-            <name>confirm_mail_from_name</name>
-            <table>objects</table>
-            <group>confirm_mail</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kinnitusmeili kellelt nimi</caption>
-      </property>
-      <property>
-            <name>confirm_mail_from</name>
-            <table>objects</table>
-            <group>confirm_mail</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kinnitusmeili kellelt</caption>
-      </property>
-      <property>
-            <name>confirm_mail_subj</name>
-            <table>objects</table>
-            <group>confirm_mail</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kinnitusmeili teema</caption>
-      </property>
-      <property>
-            <name>confirm_mail</name>
-            <table>objects</table>
-            <group>confirm_mail</group>
-            <type>textarea</type>
-            <rows>10</rows>
-            <cols>50</cols>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kinnitusmeili sisu</caption>
-      </property>
-      <property>
-            <name>confirm_redir</name>
-            <table>objects</table>
-            <group>confirm_mail</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Kuhu suunata p&amp;amp;auml;rast liitumist</caption>
-      </property>
-      <property>
-            <name>mf_mail_from_addr</name>
-            <table>objects</table>
-            <group>notify_mail</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>From aadress</caption>
-      </property>
-      <property>
-            <name>mf_mail_from_name</name>
-            <table>objects</table>
-            <group>notify_mail</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>From nimi</caption>
-      </property>
-      <property>
-            <name>mf_mail_to</name>
-            <table>objects</table>
-            <group>notify_mail</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_MAILADDR</reltype>
-            <field>meta</field>
-            <method>serialize</method>
-            <multiple>1</multiple>
-            <caption>Kellele saata</caption>
-      </property>
-      <property>
-            <name>mf_mail_subj</name>
-            <table>objects</table>
-            <group>notify_mail</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Meili teema</caption>
-      </property>
-      <property>
-            <name>mf_mail</name>
-            <table>objects</table>
-            <group>notify_mail</group>
-            <type>textarea</type>
-            <rows>10</rows>
-            <cols>50</cols>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Meili sisu</caption>
-      </property>
-      <property>
-            <name>mf_mail_legend</name>
-            <table>objects</table>
-            <group>notify_mail</group>
-            <type>text</type>
-            <rows>10</rows>
-            <cols>50</cols>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Legend</caption>
-      </property>
-      <property>
-            <name>jm_texts</name>
-            <table>objects</table>
-            <group>joinmail</group>
-            <type>callback</type>
-            <callback>callback_get_jm_texts</callback>
-            <store>no</store>
-            <field>jm_texts</field>
-      </property>
-      <property>
-            <name>trans_tb</name>
-            <table>objects</table>
-            <group>trans_eld</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>trans_tb</field>
-      </property>
-      <property>
-            <name>trans_ttl_t</name>
-            <table>objects</table>
-            <group>trans_ttl</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>trans_ttl_t</field>
-      </property>
-      <property>
-            <name>trans_errs</name>
-            <table>objects</table>
-            <group>trans_errs</group>
+            <group>form_groups</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>trans_errs</field>
+      </property>
+      <property>
+            <name>customer_relations_toolbar</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>customer_relations</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>customer_relations_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>customer_relations</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>customer_relations_new</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>customer_relations</group>
+            <type>hidden</type>
+            <store>no</store>
+      </property>
+      <property>
+            <name>employments_toolbar</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>employments</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>employments_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>employments</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>employments_new</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>employments</group>
+            <type>hidden</type>
+            <store>no</store>
+      </property>
+      <property>
+            <name>emails_toolbar</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>emails</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>emails_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>emails</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
       </property>
       <classinfo>
-            <syslog_type>ST_JOIN_SITE</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
-            <general_sub>
+            <subgeneral>
+                  <caption>Andmed</caption>
                   <parent>general</parent>
-                  <caption>&amp;amp;Uuml;ldine</caption>
-            </general_sub>
-            <general_ctrl>
+            </subgeneral>
+            <authentication>
+                  <caption>Autentimine</caption>
                   <parent>general</parent>
-                  <caption>Kontrollerid</caption>
-            </general_ctrl>
-            <props>
-                  <caption>Vormid</caption>
-            </props>
-            <sel_props>
-                  <parent>props</parent>
-                  <caption>Vali elemendid</caption>
-            </sel_props>
-            <mk_pages>
-                  <parent>props</parent>
-                  <caption>Koosta lehed</caption>
-            </mk_pages>
-            <page_titles>
-                  <parent>props</parent>
-                  <caption>Lehtede Pealkirjad</caption>
-            </page_titles>
-            <seps>
-                  <parent>props</parent>
-                  <caption>Vahepealkirjad</caption>
-            </seps>
-            <prop_settings>
-                  <parent>props</parent>
-                  <caption>Elementide seaded</caption>
-            </prop_settings>
-            <rules>
-                  <caption>Reeglid</caption>
-            </rules>
-            <rules_show>
-                  <parent>rules</parent>
-                  <caption>Nimekiri reeglitest</caption>
-            </rules_show>
-            <rules_add>
-                  <parent>rules</parent>
-                  <caption>Lisa Reegel</caption>
-            </rules_add>
-            <preview>
-                  <caption>Eelvaade</caption>
-            </preview>
-            <mails>
-                  <caption>Meilid</caption>
-            </mails>
-            <joinmail>
-                  <caption>Meil liitujale</caption>
-                  <parent>mails</parent>
-            </joinmail>
-            <confirm_mail>
-                  <caption>Kinnitamine</caption>
-                  <parent>mails</parent>
-            </confirm_mail>
-            <notify_mail>
-                  <caption>Meil administraatorile</caption>
-                  <parent>mails</parent>
-            </notify_mail>
-            <trans>
-                  <caption>T&amp;amp;otilde;lgi</caption>
-            </trans>
-            <trans_eld>
-                  <parent>trans</parent>
-                  <caption>Elemendid</caption>
-            </trans_eld>
-            <trans_ttl>
-                  <parent>trans</parent>
-                  <caption>Vahepealkirjad</caption>
-            </trans_ttl>
-            <trans_errs>
-                  <parent>trans</parent>
-                  <caption>Veateated</caption>
-            </trans_errs>
+            </authentication>
+            <extras>
+                  <caption>Lisategevused</caption>
+                  <parent>general</parent>
+            </extras>
+            <form>
+                  <caption>Vorm</caption>
+            </form>
+            <form_fields>
+                  <caption>Omadused</caption>
+                  <parent>form</parent>
+            </form_fields>
+            <form_groups>
+                  <caption>Jaotus</caption>
+                  <parent>form</parent>
+            </form_groups>
+            <relations>
+                  <caption>Suhted</caption>
+            </relations>
+            <customer_relations>
+                  <caption>Kliendisuhted</caption>
+                  <parent>relations</parent>
+            </customer_relations>
+            <employments>
+                  <caption>T&amp;Atilde;&amp;para;&amp;Atilde;&amp;para;suhted</caption>
+                  <parent>relations</parent>
+            </employments>
+            <emails>
+                  <caption>Kirjad</caption>
+            </emails>
       </groupinfo>
       <reltypes>
-            <JOIN_CLASS>
+            <MAIL_TEMPLATE>
+                  <clid>CL_MESSAGE_TEMPLATE</clid>
                   <value>1</value>
-                  <clid>CL_OBJECT_TYPE</clid>
-                  <caption>liitumise vorm</caption>
-            </JOIN_CLASS>
-            <JOIN_RULE>
-                  <value>2</value>
-                  <clid>CL_JOIN_SITE_RULE</clid>
-                  <caption>gruppi kuuluvuse reegel</caption>
-            </JOIN_RULE>
-            <OBJ_FOLDER>
-                  <value>3</value>
-                  <clid>CL_MENU</clid>
-                  <caption>objektide kataloog</caption>
-            </OBJ_FOLDER>
-            <RULE_GRP>
-                  <value>4</value>
-                  <clid>CL_GROUP</clid>
-                  <caption>reegli grupp</caption>
-            </RULE_GRP>
-            <REL_OBJ>
-                  <value>5</value>
-                  <clid>
-                        <num_0>CL_USER</num_0>
-                        <num_1>CL_CRM_COMPANY</num_1>
-                  </clid>
-                  <caption>default seoste objektid</caption>
-            </REL_OBJ>
-            <MAILADDR>
-                  <value>6</value>
-                  <clid>CL_ML_MEMBER</clid>
-                  <caption>Kellele</caption>
-            </MAILADDR>
-            <VALIDATE_CTR>
-                  <value>7</value>
-                  <clid>CL_FORM_CONTROLLER</clid>
-                  <caption>Valideerimise kontroller</caption>
-            </VALIDATE_CTR>
+                  <caption>E-kirja &amp;Aring;&amp;iexcl;abloon</caption>
+            </MAIL_TEMPLATE>
       </reltypes>
 </properties>
 
