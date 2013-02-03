@@ -17,6 +17,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		"general" => ml_member_obj::TYPE_GENERIC,
 		"invoice" => ml_member_obj::TYPE_INVOICE
 	);
+	protected $addresses_to_be_added = array();
 
 
 	//	Written solely for testing purposes!
@@ -214,6 +215,47 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$v = htmlspecialchars($v);
 		return parent::set_name($v);
+	}
+	
+	function add_address($data, $save = true)
+	{
+		$this->addresses_to_be_added[] = $data;
+		if ($save && $this->is_saved())
+		{
+			$this->__save_added_addresses();
+		}
+	}
+	
+	private function __save_added_addresses()
+	{
+		if (!empty($this->addresses_to_be_added))
+		{
+			foreach($this->addresses_to_be_added as $data)
+			{
+				$this->__save_added_address($data);
+			}
+		}
+	}
+	
+	private function __save_added_address($data)
+	{
+		$address = new object(array(
+			"class_id" => address_object::CLID,
+			"parent" => 765583,
+		));
+		foreach($data as $key => $value)
+		{
+			if ($address->is_property($key))
+			{
+				$address->set_prop($key, $value);
+			}
+		}
+		$address->save();
+		
+		$this->connect(array(
+			"type" => "RELTYPE_ADDRESS_ALT",
+			"to" => $address->id(),
+		));
 	}
 
 	function set_prop($k, $v, $set_into_meta = true)
@@ -2002,6 +2044,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				$this->set_meta("tmp_fake_".$fake, NULL);
 			}
 		}
+		$this->__save_added_addresses();
+		
 		$r =  parent::save($check_state);
 		return $r;
 	}
@@ -2105,7 +2149,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$ol = new object_list($filter);
 		return $ol;
 	}
-
 
 	/** Returns all kind of variables useful for this person
 		@attrib api=1
