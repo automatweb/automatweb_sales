@@ -16,9 +16,11 @@
 				<arguments>
 					<optional name="id" />
 					<required name="pn" />
+					<optional name="npn" />
 					<optional name="multiple" />
 					<optional name="clid" />
 					<optional name="fcb" />
+					<optional name="jcb" />
 					<optional name="s" />
 					<optional name="append_html" />
 					<optional name="tbl_props" />
