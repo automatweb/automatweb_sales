@@ -228,9 +228,8 @@ class join_site extends class_base
 			crm_company_customer_data_obj::CLID => "Kliendisuhe",
 		);
 		
-		$fields = $arr["obj_inst"]->get_default_form_fields();
+		$fields = $this->__get_form_fields($arr["obj_inst"]);
 		
-		$form_fields = $arr["obj_inst"]->meta("form_fields");
 		$form_groups = array(null => null);
 		$form_subgroups = array();
 		foreach($arr["obj_inst"]->meta("form_groups") as $form_group_id => $form_group)
@@ -261,46 +260,73 @@ class join_site extends class_base
 				$t->define_data(array(
 					"ord" => html::textbox(array(
 						"name" => "form_fields[{$clid}][{$field_id}][ord]",
-						"value" => !empty($form_fields[$clid][$field_id]["ord"]) ? $form_fields[$clid][$field_id]["ord"] : null,
+						"value" => !empty($fields[$clid][$field_id]["ord"]) ? (int)$fields[$clid][$field_id]["ord"] : 0,
 						"size" => 2,
 					)),
 					"active" => html::checkbox(array(
 						"name" => "form_fields[{$clid}][{$field_id}][active]",
-						"checked" => !empty($form_fields[$clid][$field_id]["active"])
+						"checked" => !empty($fields[$clid][$field_id]["active"])
 					)),
 					"field" => $field["caption"],
 					"caption" => html::textbox(array(
 						"name" => "form_fields[{$clid}][{$field_id}][caption]",
-						"value" => !empty($form_fields[$clid][$field_id]["caption"]) ? $form_fields[$clid][$field_id]["caption"] : $field["caption"],
+						"value" => !empty($fields[$clid][$field_id]["caption"]) ? $fields[$clid][$field_id]["caption"] : $field["caption"],
 					)),
 					"comment" => html::textbox(array(
 						"name" => "form_fields[{$clid}][{$field_id}][comment]",
-						"value" => !empty($form_fields[$clid][$field_id]["comment"]) ? $form_fields[$clid][$field_id]["comment"] : null,
+						"value" => !empty($fields[$clid][$field_id]["comment"]) ? $fields[$clid][$field_id]["comment"] : null,
 					)),
 					"type" => !empty($type_options) ? html::select(array(
 						"name" => "form_fields[{$clid}][{$field_id}][type]",
 						"options" => $type_options,
-						"value" => !empty($form_fields[$clid][$field_id]["type"]) ? $form_fields[$clid][$field_id]["type"] : $field["type"],
+						"value" => !empty($fields[$clid][$field_id]["type"]) ? $fields[$clid][$field_id]["type"] : $field["type"],
 					)) : "",
 					"group" => html::select(array(
 						"name" => "form_fields[{$clid}][{$field_id}][group]",
 						"options" => $form_groups,
-						"selected" => isset($form_fields[$clid][$field_id]["group"]) ? $form_fields[$clid][$field_id]["group"] : null,
+						"selected" => isset($fields[$clid][$field_id]["group"]) ? $fields[$clid][$field_id]["group"] : null,
 					)),
 					"subgroup" => html::select(array(
 						"name" => "form_fields[{$clid}][{$field_id}][subgroup]",
-						"options" => (isset($form_fields[$clid][$field_id]["group"]) && !empty($form_subgroups[$form_fields[$clid][$field_id]["group"]])) ? $form_subgroups[$form_fields[$clid][$field_id]["group"]] : null,
-						"selected" => isset($form_fields[$clid][$field_id]["subgroup"]) ? $form_fields[$clid][$field_id]["subgroup"] : null,
+						"options" => (isset($fields[$clid][$field_id]["group"]) && !empty($form_subgroups[$fields[$clid][$field_id]["group"]])) ? $form_subgroups[$fields[$clid][$field_id]["group"]] : null,
+						"selected" => isset($fields[$clid][$field_id]["subgroup"]) ? $fields[$clid][$field_id]["subgroup"] : null,
 					)),
 					"required" => html::checkbox(array(
 						"name" => "form_fields[{$clid}][{$field_id}][required]",
-						"checked" => !empty($form_fields[$clid][$field_id]["required"])
+						"checked" => !empty($fields[$clid][$field_id]["required"])
 					)),
 				));
 			}
 		}
 		
 		return PROP_OK;
+	}
+	
+	private function __get_form_fields($o)
+	{
+		$default_fields = $o->get_default_form_fields();
+		foreach($default_fields as $clid => $cl_fields)
+		{
+			foreach($cl_fields as $field_id => $field)
+			{
+				$default_fields[$clid][$field_id]["original_caption"] = $field["caption"];
+			}
+		}
+		
+		$form_fields = $o->meta("form_fields");
+		
+		$fields = array_replace_recursive($default_fields, $form_fields);
+		
+		foreach(array_keys($fields) as $clid)
+		{
+			uasort($fields[$clid], function($a, $b){
+				if (empty($a["active"]) && !empty($b["active"])) return 1;
+				if (!empty($a["active"]) && empty($b["active"])) return -1;
+				return $a["ord"] - $b["ord"];
+			});
+		}
+			
+		return $fields;
 	}
 	
 	public function _set_form_fields_table(&$arr)
