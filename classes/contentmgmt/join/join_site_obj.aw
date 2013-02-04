@@ -191,7 +191,7 @@ class join_site_obj extends _int_object
 		}
 	}
 	
-	function get_form_fields($group_id, $subgroup_id)
+	function get_form_fields($group_id, $subgroup_id = null)
 	{
 		$active_subgroup_fields = array();
 
@@ -199,7 +199,7 @@ class join_site_obj extends _int_object
 		{
 			foreach ($fields as $field_id => $field)
 			{
-				if (!empty($field["active"]) && $field["group"] == $group_id && $field["subgroup"] == $subgroup_id)
+				if ($this->__belongs_to_group($field, $group_id) && $this->__belongs_to_subgroup($field, $subgroup_id))
 				{
 					$field["clid"] = $clid;
 					$field["id"] = $field_id;
@@ -209,7 +209,19 @@ class join_site_obj extends _int_object
 			}
 		}
 		
+		uasort($active_subgroup_fields, function($a, $b){ return $a["ord"] - $b["ord"]; });
+		
 		return $active_subgroup_fields;
+	}
+	
+	private function __belongs_to_group($field, $group_id)
+	{
+		return !empty($field["active"]) && isset($field["group"]) && $field["group"] == $group_id;
+	}
+	
+	private function __belongs_to_subgroup($field, $subgroup_id)
+	{
+		return !empty($field["active"]) && (isset($field["subgroup"]) && $field["subgroup"] == $subgroup_id || !isset($field["subgroup"]) && $subgroup_id === null);
 	}
 	
 	private function __apply_field_specific_arguments(&$field)
