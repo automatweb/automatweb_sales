@@ -230,7 +230,7 @@ class join_site extends class_base
 		
 		$fields = $this->__get_form_fields($arr["obj_inst"]);
 		
-		$form_groups = array(null => null);
+		$form_groups = array(-1 => null);
 		$form_subgroups = array();
 		foreach($arr["obj_inst"]->meta("form_groups") as $form_group_id => $form_group)
 		{
@@ -549,24 +549,10 @@ class join_site extends class_base
 		foreach($groups as $group_id => $group)
 		{
 			$group_count++;
-			$SUBGROUP = "";
+			$SUBGROUP = $this->__parse_form_subgroup($o, $group_id, null, null);
 			foreach($group["subgroups"] as $subgroup_id => $subgroup)
 			{
-				$fields = $o->get_form_fields($group_id, $subgroup_id);
-				if (empty($fields))
-				{
-					continue;
-				}
-				$FIELD = "";
-				foreach($fields as $field_id => $field)
-				{
-					$FIELD .= $this->__parse_form_field($o, $field_id, $field);
-				}
-				$this->vars(array(
-					"subgroup.name" => $subgroup["name"],
-					"FORM.FIELD" => $FIELD,
-				));
-				$SUBGROUP .= $this->parse("FORM.SUBGROUP");
+				$SUBGROUP .= $this->__parse_form_subgroup($o, $group_id, $subgroup_id, $subgroup);
 			}
 			$this->vars(array(
 				"FORM.SUBMIT" => $group_count === count($groups) ? $this->parse("FORM.SUBMIT") : "",
@@ -584,6 +570,29 @@ class join_site extends class_base
 		));
 		
 		return $this->parse();
+	}
+	
+	private function __parse_form_subgroup($o, $group_id, $subgroup_id, $subgroup)
+	{
+		$fields = $o->get_form_fields($group_id, $subgroup_id);
+		if (empty($fields))
+		{
+			return "";
+		}
+		$FIELD = "";
+		foreach($fields as $field_id => $field)
+		{
+			$FIELD .= $this->__parse_form_field($o, $field_id, $field);
+		}
+		$this->vars(array(
+			"subgroup.name" => $subgroup_id !== null ? $subgroup["name"] : null,
+			"FORM.FIELD" => $FIELD,
+		));
+		$this->vars(array(
+			"FORM.SUBGROUP.HAS_NAME" => $subgroup_id !== null && isset($subgroup["name"]) && strlen($subgroup["name"]) > 0 ? $this->parse("FORM.SUBGROUP.HAS_NAME") : "",
+		));
+		
+		return $this->parse("FORM.SUBGROUP");
 	}
 	
 	private function __parse_form_header($groups)
