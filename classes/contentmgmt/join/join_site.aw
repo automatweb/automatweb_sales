@@ -101,7 +101,7 @@ class join_site extends class_base
 			"ord" => t("Jrk"),
 		));
 		
-		$i = 0;
+		$new_i = 0;
 		foreach($arr["obj_inst"]->get_form_groups() as $i => $form_group)
 		{
 			$t->define_data(array(
@@ -120,7 +120,7 @@ class join_site extends class_base
 				)),
 			));
 
-			$j = 0;
+			$new_j = 0;
 			if (!empty($form_group["subgroups"]))
 			{
 				foreach($form_group["subgroups"] as $j => $form_subgroup)
@@ -140,34 +140,33 @@ class join_site extends class_base
 							"size" => 2
 						)),
 					));
-					
+					$new_j = max($new_j, $j + 1);
 				}
 			}
-			$j++;
 			$t->define_data(array(
 				"name" => str_repeat("&nbsp;", 15).html::textbox(array(
-					"name" => "form_groups[{$i}][subgroups][{$j}][name]",
+					"name" => "form_groups[{$i}][subgroups][{$new_j}][name]",
 				)),
 				"comment" => html::textbox(array(
-					"name" => "form_groups[{$i}][subgroups][{$j}][comment]",
+					"name" => "form_groups[{$i}][subgroups][{$new_j}][comment]",
 				)),
 				"ord" => html::textbox(array(
-					"name" => "form_groups[{$i}][subgroups][{$j}][ord]",
+					"name" => "form_groups[{$i}][subgroups][{$new_j}][ord]",
 					"size" => 2
 				)),
 			));
+			$new_i = max($new_i, $i + 1);
 		}
-		$i++;
 		
 		$t->define_data(array(
 			"name" => html::textbox(array(
-				"name" => "form_groups[{$i}][name]",
+				"name" => "form_groups[{$new_i}][name]",
 			)),
 			"comment" => html::textbox(array(
-				"name" => "form_groups[{$i}][comment]",
+				"name" => "form_groups[{$new_i}][comment]",
 			)),
 			"ord" => html::textbox(array(
-				"name" => "form_groups[{$i}][ord]",
+				"name" => "form_groups[{$new_i}][ord]",
 				"size" => 2
 			)),
 		));
@@ -184,15 +183,13 @@ class join_site extends class_base
 			if (empty($form_group["name"]))
 			{
 				unset($form_groups[$i]);
+				continue;
 			}
-			else
+			foreach ($form_group["subgroups"] as $j => $form_subgroup)
 			{
-				foreach ($form_group["subgroups"] as $j => $form_subgroup)
+				if (empty($form_subgroup["name"]))
 				{
-					if (empty($form_subgroup["name"]))
-					{
-						unset($form_groups[$i]["subgroups"][$j]);
-					}
+					unset($form_groups[$i]["subgroups"][$j]);
 				}
 			}
 		}
