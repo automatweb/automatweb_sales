@@ -1361,7 +1361,14 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			{
 				$cfgu = new cfgutils();
 				$cfgu->load_properties(array("load_trans" => false, "clid" => $arr["from.class_id"]));
-				$reltype_clids = isset($cfgu->relinfo[$arr["type"]]["clid"]) ? $cfgu->relinfo[$arr["type"]]["clid"] : array();
+				$reltype_clids = array();
+				foreach((array)$arr["type"] as $type)
+				{
+					if (isset($cfgu->relinfo[$type]["clid"]))
+					{
+						$reltype_clids += $cfgu->relinfo[$type]["clid"];
+					}
+				}
 
 				if ($reltype_clids)
 				{
