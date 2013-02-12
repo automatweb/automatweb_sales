@@ -809,6 +809,17 @@
             <no_caption>1</no_caption>
             <store>no</store>
       </property>
+      <property>
+            <name>preview</name>
+            <group>grp_case_preview</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <editonly>1</editonly>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
@@ -859,6 +870,10 @@
             <grp_case_comments>
                   <caption>Kommentaarid</caption>
             </grp_case_comments>
+            <grp_case_preview>
+                  <caption>Eelvaade</caption>
+                  <submit>no</submit>
+            </grp_case_preview>
             <grp_case_log>
                   <caption>Ajalugu</caption>
                   <submit>no</submit>

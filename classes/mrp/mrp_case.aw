@@ -20,6 +20,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 	@groupinfo grp_case_schedule_gantt caption="T&ouml;&ouml;voo diagramm" submit=no parent=grp_case_schedule
 	@groupinfo grp_case_schedule_google caption="Graafikud" submit=no parent=grp_case_schedule
 @groupinfo grp_case_comments caption="Kommentaarid"
+@groupinfo grp_case_preview caption="Eelvaade" submit=no
 @groupinfo grp_case_log caption="Ajalugu" submit=no
 
 // TOOLBARS
@@ -268,6 +269,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 			@caption Alustamisaeg (materjalide saabumine)
 
 	@property case_view type=table no_caption=1 store=no
+	
+@default group=grp_case_preview
+	
+	@property preview type=text editonly=1 store=no no_caption=1
 
 
 // --------------- RELATION TYPES ---------------------
@@ -451,7 +456,7 @@ class mrp_case extends class_base
 				if (is_oid($arr["obj_inst"]->customer))
 				{
 					$customer = obj($arr["obj_inst"]->customer);
-					$name = $customer->is_a(crm_company_obj::CLID) ? $customer->title : $customer->name;
+					$name = $customer->is_a(crm_company_obj::CLID) ? $customer->get_title() : $customer->name;
 					$separator = html::linebreak();
 					$prop["value"] = sprintf("%s{$separator}%s{$separator}%s{$separator}%s", html::bold($name), ($email = $customer->get_email_address()) ? $email->mail : null, $customer->get_phone_number(), $customer->get_address_string());
 				}
@@ -695,6 +700,23 @@ class mrp_case extends class_base
 		}
 
 		return $retval;
+	}
+	
+	function _get_preview(&$arr)
+	{
+		if(!$arr["obj_inst"]->is_saved())
+		{
+			return PROP_IGNORE;
+		}
+		
+		$view_type = empty($arr["request"]["reminder"]) ? "main" : "reminder";
+		$this->show(array(
+			"id" => $arr["obj_inst"]->id(),
+			"pdf" => !empty($arr["request"]["pdf"]),
+			"view_type" => $view_type
+		));
+
+		return PROP_OK;
 	}
 	
 	function _get_components_toolbar($arr)
@@ -3415,5 +3437,319 @@ function add_material(mid, jid)
 			);
 		}
 		die(json_encode($units));
+	}
+	
+	/**
+		@attrib name=preview all_args=1
+	**/
+	public function preview($arr)
+	{
+		if (empty($arr["preview_type"]) or "main" === $arr["preview_type"])
+		{
+			$view_type = empty($arr["reminder"]) ? "main" : "reminder";
+		}
+		elseif ("descriptions" === $arr["preview_type"])
+		{
+			$view_type = "descriptions";
+		}
+
+		return $this->show(array(
+			"id" => $arr["id"],
+			"pdf" => !empty($arr["pdf"]),
+			"view_type" => $view_type
+		));
+	}
+	
+	/**
+		@attrib api=1 params=name
+		@param id type=oid
+			Order object id
+		#param view_type type=string default="main" set="main"|"descriptions"|"reminder"
+			Whether to show as reminder invoice
+		@param return type=bool default=FALSE
+			Output control -- return data or send to client
+		@param pdf type=bool default=FALSE
+			Show in pdf format
+		@param openprintdialog type=bool default=FALSE
+			Open print dialog in browser
+		@returns void|string
+		@errors none
+	**/
+	public function show($arr)
+	{
+		$this->load_storage_object($arr);
+		$this_o = $this->awcb_ds_id;
+		
+		$pdf = !empty($arr["pdf"]);
+		$return = !empty($arr["return"]);
+		
+		$lang_id = /* $this_o->prop("language.aw_lang_id") ? $this_o->prop("language.aw_lang_id") : */ languages::LC_EST;
+		aw_translations::load("mrp_case", $lang_id);
+		
+		$main_tpl = new aw_php_template("mrp_case", "main", $lang_id);
+		$footer_tpl = new aw_php_template("mrp_case", "footer", $lang_id);
+		
+		$doc = new aw_xhtml_document();
+		$doc->set_content_template($main_tpl);
+		$doc->set_title(sprintf(t("Tellimus nr. %s", $lang_id), $this_o->prop("name")));
+		$doc->add_stylesheet(style::get_url("crm_bill", "invoice_main"));
+		
+		if ($this->can("", $this_o->prop("customer_relation")))
+		{
+			$customer_relation = new object($this_o->prop("customer_relation"));
+		}
+		else
+		{
+			$this->__return_error_message(t("Klient valimata!"), $return);
+		}
+		
+		$seller = $customer_relation->get_seller();
+		$buyer = $customer_relation->get_buyer();
+		
+		// do according to requested view type
+		if (empty($arr["view_type"]) or "main" === $arr["view_type"] or "reminder" === $arr["view_type"])
+		{
+			$view_type = empty($arr["view_type"]) ? "main" : $arr["view_type"];
+			$content_tpl = new aw_php_template("mrp_case", "rows_overview", $lang_id);
+			$view_type_name = t("p&otilde;hivaade", $lang_id);
+			$rows = array();//$this_o->get_bill_rows_data(true, "comment"); // FIXME!
+			$document_title = $this_o->trans_get_val("comment", $lang_id);
+			$document_name = sprintf(t("Tellimus nr. %s", $lang_id), $this_o->prop("name"));
+
+			$intro_text = "";//nl2br($this_o->get_bill_text(true)); // FIXME
+
+			// add heading part (containing info about and for customer)
+			$heading_tpl = new aw_php_template("mrp_case", "customer_info", $lang_id);
+			$main_tpl->bind($heading_tpl, "heading");
+			$heading_tpl->add_vars(array(
+				"order_no" => $this_o->prop("name"),
+				"date" => aw_locale::get_lc_date($this_o->prop("created")), // FIXME!
+			));
+
+			if ($buyer)
+			{
+				$heading_tpl->add_vars($this->__get_order_party_vars($this_o, $buyer, "buyer", $pdf));
+			}
+		}
+		elseif ("descriptions" === $arr["view_type"])
+		{
+			$view_type = "descriptions";
+			$content_tpl = new aw_php_template("mrp_case", "rows_detailed", $lang_id);
+			$view_type_name = t("seletuskiri", $lang_id);
+			$main_tpl->set_var("heading", "");
+			$document_name = sprintf(t("Tellimuse nr. %s seletuskiri", $lang_id), $this_o->prop("name"));
+			$document_title = $this_o->trans_get_val("title", $lang_id);
+			$intro_text = "";//nl2br($this_o->trans_get_val("bill_appendix_comment", $lang_id)); // FIXME!
+			$rows_data = array();//$this_o->get_bill_rows_data(true); // FIXME!
+			$rows = array();
+
+			// FIXME: group rows by comment
+		}
+		else
+		{
+			throw new awex_mrp_case("Invalid view type");
+		}
+		
+		// bind content
+		$main_tpl->bind($content_tpl, "content");
+		
+		// proper footer (and header) is rendered by other means when pdf output
+		$pdf ? $main_tpl->set_var("footer", null) : $main_tpl->bind($footer_tpl, "footer");
+		
+		$main_tpl->add_vars(array(
+			"document_name" => $document_name,
+			"order_no" => $this_o->prop("name"),
+			"title" => $document_title
+		));
+		
+		// find buyer contact person/signer
+		$buyer_signer_name = $this_o->get_customer_contact_person_name();
+		$buyer_signer_profession = "";
+		if ($buyer_signer = $this_o->get_contact_person() and $buyer_signer_name === $buyer_signer->name())
+		{ // get profession only if contact person name isn't defined different in ctp_text prop
+			if ($buyer->is_a(crm_company_obj::CLID))
+			{
+				$buyer_signer_profession = implode(", ", $buyer_signer->get_profession_names($buyer));
+			}
+			elseif($buyer->is_a(crm_person_obj::CLID))
+			{
+				$buyer_signer_profession = implode(", ", $buyer_signer->get_profession_names()); // FIXME - Which company should we get profession names for?
+			}
+		}
+
+
+		// find seller contact person/signer
+		$seller_signer_profession = $seller_signer_name = "";
+		if (false)//$seller_signer = $this_o->get_creator()) // FIXME!
+		{
+			$seller_signer_name = $seller_signer->name();
+			$seller_signer_profession = implode(", ", $seller_signer->get_profession_names($seller));
+		}
+		
+		//FIXME!
+		$sum = 1337.50;//$this_o->get_bill_sum();
+		$discount = 0;//$this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX) - $this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX_WO_DISCOUNT);
+
+		try
+		{
+			// FIXME!
+			$currency = $this_o->get_currency();
+			$currency_code = $currency->prop("symbol");
+			$total_text = aw_locale::get_lc_money_text($sum, $currency, languages::get_code_for_id($lang_id));
+		}
+		catch (Exception $e)
+		{
+			$currency_code = $total_text = t("Valuuta m&auml;&auml;ramata");
+		}
+
+		$content_tpl->add_vars(array(
+			"currency_name" => $currency_code,
+			"intro_text" => $intro_text,
+			"buyer_signer_name" => $buyer_signer_name,
+			"buyer_signer_profession" => $buyer_signer_profession,
+			"seller_signer_name" => $seller_signer_name,
+			"seller_signer_profession" => $seller_signer_profession,
+			"discount_pct" => "0",//$this_o->prop("disc"),
+			"discount" => number_format($discount, 2,".", " "),
+			"total_wo_tax" => number_format(/*$this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX)*/ $sum, 2,".", " "),
+			"tax" => number_format(/*$this_o->get_bill_sum(crm_bill_obj::BILL_SUM_TAX)*/ 0, 2,".", " "),
+			"total" => number_format($sum, 2, ".", " "),
+			"total_text" => $total_text,
+			"rows" => $rows
+		));
+		
+		// add seller variables
+		if ($seller = $customer_relation->get_seller())
+		{
+			$seller_vars = $this->__get_order_party_vars($this_o, $seller, "seller", $pdf);
+			$main_tpl->add_vars($seller_vars);
+			$footer_tpl->add_vars($seller_vars);
+		}
+		
+		if($pdf)
+		{
+			$conv = new html2pdf();
+			if($conv->can_convert())
+			{
+				$pdf_args = array(
+					"source" => $doc->render(),
+					"footer" => $footer_tpl->render(),
+					"filename" => urlencode(str_replace(array(" ", "\t"), "_", $this_o->name())).".pdf",
+				);
+				if(!$return)
+				{
+					// FIXME: $res is never used!
+					$res = $conv->gen_pdf($pdf_args);
+				}
+				else
+				{
+					return $conv->convert($pdf_args);
+				}
+			}
+		}
+		
+		if($return)
+		{
+			return $doc->render();
+		}
+		
+		if(!empty($arr["openprintdialog"]))
+		{
+			$doc->add_javascript("setTimeout('window.close()',10000);window.print();if (navigator.userAgent.toLowerCase().indexOf('msie') == -1) {window.close(); }", "footer");
+		}
+		
+		automatweb::$result->set_data($doc);
+		automatweb::http_exit();
+	}
+	
+	private function __get_order_party_vars(object $this_o, object $party, $type, $pdf)
+	{
+		$vars = array();
+
+		$vars["{$type}_name"] = /* "buyer" === $type ? $this_o->get_customer_name() : */ $party->name();
+		$vars["{$type}_phone"] = $party->prop_str("fake_phone", true);
+		$vars["{$type}_email"] = $party->prop("fake_email");
+		
+		if ($party->is_a(crm_company_obj::CLID))
+		{		
+			$vars["{$type}_reg_nr"] = $party->prop("reg_nr");
+			$vars["{$type}_tax_reg_nr"] = $party->prop("tax_nr");
+			$vars["{$type}_fax"] = $party->prop_str("telefax_id", true);//TODO: use get_phone(), get_telefax(),... type methods instead -- seller could be a person. todo: create these methods in crmco crmperson and add them to customerinterface
+			$vars["{$type}_corpform"] = $party->prop("ettevotlusvorm.shortname");// logo
+			
+			$vars["{$type}_url"] = $party->prop_str("fake_url", true);
+			
+			$logo = $party->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
+			$vars["{$type}_logo"] = $logo ? image::make_img_tag($logo->instance()->get_url_by_id($logo->id()), $party->name(), array(), array("svg_img_tag" => $pdf)) : $party->name();
+
+			// address
+			$vars["{$type}_country"] = $party->prop_xml("contact.riik.name");
+			$vars["{$type}_county"] = $party->prop_xml("contact.maakond.name");
+			$vars["{$type}_city"] = $party->prop_xml("contact.linn.name");
+			$vars["{$type}_index"] = $party->prop_xml("contact.postiindeks");
+			$vars["{$type}_street"] = $party->prop_xml("contact.aadress");
+		}
+
+		// bank accounts
+		$vars["{$type}_bank_accounts"] = array();
+		foreach($party->connections_from(array("type" => "RELTYPE_BANK_ACCOUNT")) as $c)
+		{
+			$acc = $c->to();
+			$bank = obj();
+			if ($this->can("", $acc->prop("bank")))
+			{
+				$bank = obj($acc->prop("bank"));
+			}
+
+			$vars["{$type}_bank_accounts"][] = array(
+				"bank_name" => $bank->prop_xml("name"),
+				"account_nr" => $acc->prop("acct_no"),
+				"iban" => $acc->prop("iban_code")
+			);
+		}
+
+		// compacted address string
+		$vars["{$type}_address"] = array();
+		if (!empty($vars["{$type}_street"]))
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_street"];
+		}
+
+		if (!empty($vars["{$type}_index"]))
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_index"];
+		}
+
+		if (!empty($vars["{$type}_city"]))
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_city"];
+		}
+
+		if (!empty($vars["{$type}_county"]))
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_county"];
+		}
+
+		if (!empty($vars["{$type}_country"]))
+		{
+			$vars["{$type}_address"][] = $vars["{$type}_country"];
+		}
+
+		$vars["{$type}_address"] = implode(", ", $vars["{$type}_address"]);
+
+		return $vars;
+	}
+	
+	private function __return_message_error($error_message, $return)
+	{
+		if ($return)
+		{
+			return $error_message;
+		}
+		else
+		{
+			automatweb::$result->set_data($error_message);
+			automatweb::$instance->http_exit();
+		}
 	}
 }

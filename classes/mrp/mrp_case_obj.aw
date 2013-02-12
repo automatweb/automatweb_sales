@@ -842,6 +842,94 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 			);
 		}
 	}
+
+	/** Returns order customer contact person name as it is set in this invoice
+		@attrib api=1
+		@returns string
+	**/
+	public function get_customer_contact_person_name()
+	{
+		$contact_person_name = $this->prop("customer_relation.RELTYPE_BILL_PERSON.name") or
+		$contact_person_name = $this->prop("customer_relation.buyer_contact_person.name") or
+		$contact_person_name = $this->prop("customer_relation.buyer_contact_person2.name") or
+		$contact_person_name = $this->prop("customer_relation.buyer_contact_person3.name") or
+		$contact_person_name = "";
+		
+		if($contact_person_name === "" and $this->prop("customer_relation.buyer.class_id") === crm_company_obj::CLID)
+		{
+			$contact_person_name = $this->prop("customer_relation.buyer.firmajuht.name");
+		}
+		elseif ($contact_person_name === "" and $this->prop("customer_relation.buyer.class_id") === crm_person_obj::CLID)
+		{
+			$contact_person_name = $this->prop("customer_relation.buyer.name");
+		}
+
+		return $contact_person_name;
+	}
+
+	/** Returns bill customer contact person object
+		@attrib api=1
+		@returns CL_CRM_PERSON/NULL
+			returns NULL if contact person not found
+	**/
+	public function get_contact_person()
+	{
+		if(object_loader::can("" , $this->prop("customer_relation")))
+		{
+			$crel = obj($this->prop("customer_relation"));
+			$contact_person = $crel->get_first_obj_by_reltype("RELTYPE_BILL_PERSON");
+
+			if (!$contact_person)
+			{
+				try
+				{
+					if ($crel->prop("buyer_contact_person"))
+					{
+						$contact_person = new object((int) $crel->prop("buyer_contact_person"));
+					}
+					elseif ($crel->prop("buyer_contact_person2"))
+					{
+						$contact_person = new object((int) $crel->prop("buyer_contact_person2"));
+					}
+					elseif ($crel->prop("buyer_contact_person3"))
+					{
+						$contact_person = new object((int) $crel->prop("buyer_contact_person3"));
+					}
+				}
+				catch (Exception $e)
+				{
+					$contact_person = null;
+				}
+			}
+		}
+
+		if(!$contact_person)
+		{
+			if ($this->prop("customer_relation.buyer.class_id") === crm_company_obj::CLID and $this->prop("customer_relation.buyer.firmajuht"))
+			{
+				try
+				{
+					$contact_person = new object($this->prop("customer_relation.buyer.firmajuht"));
+				}
+				catch (Exception $e)
+				{
+					$contact_person = null;
+				}
+			}
+			elseif ($this->prop("customer_relation.buyer.class_id") === crm_person_obj::CLID)
+			{
+				$contact_person = new object($this->prop("customer_relation.buyer"));
+			}
+		}
+
+		return $contact_person;
+	}
+	
+	public function get_currency()
+	{
+		// FIXME!
+		return new object(378726);
+	}
 }
 
 /** Generic mrp_case exception **/
