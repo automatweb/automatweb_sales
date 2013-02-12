@@ -18,6 +18,9 @@ EMIT_MESSAGE(MSG_USER_JOINED)
 		@property autoactivate type=checkbox
 		@caption Autoaktiveerimine
 		@comment Uued kasutajad aktiveeritakse automaatselt
+		
+		@property languages type=chooser multiple=1 orient=vertical table=objects field=meta method=serialize
+		@caption Keeled
 
 	@groupinfo authentication caption=Autentimine parent=general
 	@default group=authentication
@@ -36,6 +39,11 @@ EMIT_MESSAGE(MSG_USER_JOINED)
 	@default group=form_fields
 	
 		@property form_fields_table type=table store=no no_caption=1
+		
+	@groupinfo form_translations caption=Omaduste&nbsp;tõlked parent=form
+	@default group=form_translations
+	
+		@property form_translations_table type=table store=no no_caption=1
 
 	@groupinfo form_groups caption=Jaotus parent=form
 	@default group=form_groups
@@ -90,21 +98,48 @@ class join_site extends class_base
 		));
 	}
 	
+	public function _get_languages(&$arr)
+	{
+		$languages = array();
+		
+		foreach(aw_ini_get("languages.list") as $language_id => $language)
+		{
+			$languages[$language_id] = $language["name"];
+		}
+		
+		$arr["prop"]["options"] = $languages;
+
+		return PROP_OK;
+	}
+	
 	public function _get_form_groups_table(&$arr)
 	{
+		$languages = $arr["obj_inst"]->get_languages();
+
 		$t = $arr["prop"]["vcl_inst"];
 		
 		$t->set_default("align", "center");
-		$t->add_fields(array(
-			"name" => t("Nimi"),
-			"comment" => t("Kommentaar"),
+		$table_fields = array(
 			"ord" => t("Jrk"),
-		));
+			"name" => sprintf(t("Nimi (%s)"), $languages[$arr["obj_inst"]->prop("lang_id")]["name"]),
+			"comment" => sprintf(t("Kommentaar (%s)"), $languages[$arr["obj_inst"]->prop("lang_id")]["name"]),
+		);
+		foreach($languages as $language_id => $language)
+		{
+			if ($language_id == $arr["obj_inst"]->prop("lang_id"))
+			{
+				// Handled by default fields!
+				continue;
+			}
+			$table_fields["name_{$language_id}"] = sprintf(t("Nimi (%s)"), $language["name"]);
+			$table_fields["comment_{$language_id}"] = sprintf(t("Kommentaar (%s)"), $language["name"]);
+		}
+		$t->add_fields($table_fields);
 		
 		$new_i = 0;
 		foreach($arr["obj_inst"]->get_form_groups() as $i => $form_group)
 		{
-			$t->define_data(array(
+			$data = array(
 				"name" => html::textbox(array(
 					"name" => "form_groups[{$i}][name]",
 					"value" => $form_group["name"],
@@ -118,14 +153,26 @@ class join_site extends class_base
 					"value" => $form_group["ord"],
 					"size" => 2
 				)),
-			));
+			);
+			foreach($languages as $language_id => $language)
+			{
+				$data["name_{$language_id}"] = html::textbox(array(
+					"name" => "form_groups[{$i}][translations][{$language_id}][name]",
+					"value" => isset($form_group["translations"][$language_id]["name"]) ? $form_group["translations"][$language_id]["name"] : null,
+				));
+				$data["comment_{$language_id}"] = html::textbox(array(
+					"name" => "form_groups[{$i}][translations][{$language_id}][comment]",
+					"value" => isset($form_group["translations"][$language_id]["comment"]) ? $form_group["translations"][$language_id]["comment"] : null,
+				));
+			}
+			$t->define_data($data);
 
 			$new_j = 0;
 			if (!empty($form_group["subgroups"]))
 			{
 				foreach($form_group["subgroups"] as $j => $form_subgroup)
 				{
-					$t->define_data(array(
+					$data = array(
 						"name" => str_repeat("&nbsp;", 15).html::textbox(array(
 							"name" => "form_groups[{$i}][subgroups][{$j}][name]",
 							"value" => $form_subgroup["name"],
@@ -139,11 +186,23 @@ class join_site extends class_base
 							"value" => $form_subgroup["ord"],
 							"size" => 2
 						)),
-					));
+					);
+					foreach($languages as $language_id => $language)
+					{
+						$data["name_{$language_id}"] = html::textbox(array(
+							"name" => "form_groups[{$i}][subgroups][{$j}][translations][{$language_id}][name]",
+							"value" => isset($form_subgroup["translations"][$language_id]["name"]) ? $form_subgroup["translations"][$language_id]["name"] : null,
+						));
+						$data["comment_{$language_id}"] = html::textbox(array(
+							"name" => "form_groups[{$i}][subgroups][{$j}][translations][{$language_id}][comment]",
+							"value" => isset($form_subgroup["translations"][$language_id]["comment"]) ? $form_subgroup["translations"][$language_id]["comment"] : null,
+						));
+					}
+					$t->define_data($data);
 					$new_j = max($new_j, $j + 1);
 				}
 			}
-			$t->define_data(array(
+			$data = array(
 				"name" => str_repeat("&nbsp;", 15).html::textbox(array(
 					"name" => "form_groups[{$i}][subgroups][{$new_j}][name]",
 				)),
@@ -154,11 +213,21 @@ class join_site extends class_base
 					"name" => "form_groups[{$i}][subgroups][{$new_j}][ord]",
 					"size" => 2
 				)),
-			));
+			);
+			foreach($languages as $language_id => $language)
+			{
+				$data["name_{$language_id}"] = html::textbox(array(
+					"name" => "form_groups[{$i}][subgroups][{$new_j}][translations][{$language_id}][name]"
+				));
+				$data["comment_{$language_id}"] = html::textbox(array(
+					"name" => "form_groups[{$i}][subgroups][{$new_j}][translations][{$language_id}][comment]"
+				));
+			}
+			$t->define_data($data);
 			$new_i = max($new_i, $i + 1);
 		}
 		
-		$t->define_data(array(
+		$data = array(
 			"name" => html::textbox(array(
 				"name" => "form_groups[{$new_i}][name]",
 			)),
@@ -169,7 +238,17 @@ class join_site extends class_base
 				"name" => "form_groups[{$new_i}][ord]",
 				"size" => 2
 			)),
-		));
+		);
+		foreach($languages as $language_id => $language)
+		{
+			$data["name_{$language_id}"] = html::textbox(array(
+				"name" => "form_groups[{$new_i}][translations][{$language_id}][name]"
+			));
+			$data["comment_{$language_id}"] = html::textbox(array(
+				"name" => "form_groups[{$new_i}][translations][{$language_id}][comment]"
+			));
+		}
+		$t->define_data($data);
 		
 		return PROP_OK;
 	}
@@ -267,7 +346,7 @@ class join_site extends class_base
 						"name" => "form_fields[{$clid}][{$field_id}][active]",
 						"checked" => !empty($fields[$clid][$field_id]["active"])
 					)),
-					"field" => $field["caption"],
+					"field" => $field["original_caption"],
 					"caption" => html::textbox(array(
 						"name" => "form_fields[{$clid}][{$field_id}][caption]",
 						"value" => !empty($fields[$clid][$field_id]["caption"]) ? $fields[$clid][$field_id]["caption"] : $field["caption"],
@@ -332,6 +411,63 @@ class join_site extends class_base
 	public function _set_form_fields_table(&$arr)
 	{
 		$arr["obj_inst"]->set_meta("form_fields", $arr["request"]["form_fields"]);
+		
+		return PROP_OK;
+	}
+	
+	public function _get_form_translations_table(&$arr)
+	{
+		$languages = $arr["obj_inst"]->get_languages();
+
+		$t = $arr["prop"]["vcl_inst"];
+		
+		$table_fields = array("field" => "Andmeväli");
+		foreach($languages as $language_id => $language)
+		{
+			$table_fields["caption_{$language_id}"] = sprintf(t("Pealkiri (%s)"), $language["name"]);
+			$table_fields["comment_{$language_id}"] = sprintf(t("Kommentaar (%s)"), $language["name"]);
+		}
+		$t->add_fields($table_fields);
+		
+		$fields = $this->__get_form_fields($arr["obj_inst"]);
+		$translations = $arr["obj_inst"]->get_translations();
+		
+		$classes = array(
+			crm_person_obj::CLID => "Isik",
+			crm_company_obj::CLID => "Organisatsioon",
+			crm_company_customer_data_obj::CLID => "Kliendisuhe",
+		);
+		foreach ($classes as $clid => $clcaption)
+		{
+			$t->define_data(array(
+				"field" => html::bold($clcaption)
+			));
+			foreach ($fields[$clid] as $field_id => $field)
+			{
+				$data = array(
+					"field" => $field["original_caption"],
+				);
+				foreach($languages as $language_id => $language)
+				{
+					$data["caption_{$language_id}"] = html::textbox(array(
+						"name" => "form_translations[{$clid}][{$field_id}][{$language_id}][caption]",
+						"value" => isset($translations[$clid][$field_id][$language_id]["caption"]) ? $translations[$clid][$field_id][$language_id]["caption"] : null,
+					));
+					$data["comment_{$language_id}"] = html::textbox(array(
+						"name" => "form_translations[{$clid}][{$field_id}][{$language_id}][comment]",
+						"value" => isset($translations[$clid][$field_id][$language_id]["comment"]) ? $translations[$clid][$field_id][$language_id]["comment"] : null,
+					));
+				}
+				$t->define_data($data);
+			}
+		}
+			
+		return PROP_OK;
+	}
+	
+	public function _set_form_translations_table(&$arr)
+	{
+		$arr["obj_inst"]->set_translations($arr["request"]["form_translations"]);
 		
 		return PROP_OK;
 	}
@@ -642,17 +778,23 @@ class join_site extends class_base
 	
 	private function __parse_form_field_select($field, $value)
 	{
-		$this->__parse_form_field_options($field, "SELECT", $value);
+		$this->vars(array(
+			"FORM.FIELD.ELEMENT.SELECT.OPTION" => $this->__parse_form_field_options($field, "SELECT", $value),
+		));
 	}
 	
 	private function __parse_form_field_radios($field, $value)
 	{
-		$this->__parse_form_field_options($field, "RADIOS", $value);
+		$this->vars(array(
+			"FORM.FIELD.ELEMENT.RADIOS.OPTION" => $this->__parse_form_field_options($field, "RADIOS", $value),
+		));
 	}
 	
 	private function __parse_form_field_checkboxes($field, $value)
 	{
-		$this->__parse_form_field_options($field, "CHECKBOXES", $value);
+		$this->vars(array(
+			"FORM.FIELD.ELEMENT.CHECKBOXES.OPTION" => $this->__parse_form_field_options($field, "CHECKBOXES", $value),
+		));
 	}
 	
 	private function __parse_form_field_options($field, $field_type, $value)
@@ -664,7 +806,7 @@ class join_site extends class_base
 		}
 		if (empty($options) || !is_array($options))
 		{
-			return;
+			return null;
 		}
 		$OPTION = "";
 		foreach($options as $option_value => $option_caption)
@@ -676,9 +818,7 @@ class join_site extends class_base
 			));
 			$OPTION .= $this->parse("FORM.FIELD.ELEMENT.{$field_type}.OPTION");
 		}
-		$this->vars(array(
-			"FORM.FIELD.ELEMENT.{$field_type}.OPTION" => $OPTION,
-		));
+		return $OPTION;
 	}
 	
 	private function __parse_form_field_address($field, $value)

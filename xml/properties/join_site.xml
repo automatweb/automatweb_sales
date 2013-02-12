@@ -20,6 +20,17 @@
             <comment>Uued kasutajad aktiveeritakse automaatselt</comment>
       </property>
       <property>
+            <name>languages</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>subgeneral</group>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <orient>vertical</orient>
+            <caption>Keeled</caption>
+      </property>
+      <property>
             <name>authentication_toolbar</name>
             <table>objects</table>
             <field>meta</field>
@@ -55,6 +66,16 @@
             <field>meta</field>
             <method>serialize</method>
             <group>form_groups</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>form_translations_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>form_translations</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -163,6 +184,10 @@
                   <caption>Omadused</caption>
                   <parent>form</parent>
             </form_fields>
+            <form_translations>
+                  <caption>Omaduste&amp;nbsp;tõlked</caption>
+                  <parent>form</parent>
+            </form_translations>
             <form_groups>
                   <caption>Jaotus</caption>
                   <parent>form</parent>
@@ -175,7 +200,7 @@
                   <parent>relations</parent>
             </customer_relations>
             <employments>
-                  <caption>T&amp;Atilde;&amp;para;&amp;Atilde;&amp;para;suhted</caption>
+                  <caption>Töösuhted</caption>
                   <parent>relations</parent>
             </employments>
             <emails>

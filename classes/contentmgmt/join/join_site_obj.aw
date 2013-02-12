@@ -116,6 +116,19 @@ class join_site_obj extends _int_object
 			"address" => array(
 				"caption" => "Aadress",
 				"type" => self::FIELD_TYPE_ADDRESS,
+				"address_fields" => array(
+					"country" => array(
+						"caption" => "Riik",
+						"type" => "select",
+						"options" => array("join_site_obj", "get_address_countries"),
+					),
+//					"location" => array("caption" => "Asukoht"),
+					"street" => array("caption" => "Tänav/asum"),
+					"house" => array("caption" => "Maja/number"),
+					"apartment" => array("caption" => "Korter/tuba"),
+					"postal_code" => array("caption" => "Postiindeks"),
+					"po_box" => array("caption" => "Postkast"),
+				),
 			),
 			"phone" => array(
 				"caption" => "Telefon",
@@ -141,9 +154,31 @@ class join_site_obj extends _int_object
 	function get_form_groups()
 	{
 		$groups = $this->meta("form_groups");
+		foreach($groups as $i => $group)
+		{
+			if (!empty($group["translations"][AW_REQUEST_CT_LANG_ID]["name"]))
+			{
+				$groups[$i]["name"] = $group["translations"][AW_REQUEST_CT_LANG_ID]["name"];
+			}
+			if (!empty($group["translations"][AW_REQUEST_CT_LANG_ID]["comment"]))
+			{
+				$groups[$i]["comment"] = $group["translations"][AW_REQUEST_CT_LANG_ID]["comment"];
+			}
+		}
 		uasort($groups, function($a, $b){ return $a["ord"] - $b["ord"]; });
 		foreach ($groups as $i => $group)
 		{
+			foreach($group["subgroups"] as $j => $subgroup)
+			{
+				if (!empty($subgroup["translations"][AW_REQUEST_CT_LANG_ID]["name"]))
+				{
+					$groups[$i]["subgroups"][$j]["name"] = $subgroup["translations"][AW_REQUEST_CT_LANG_ID]["name"];
+				}
+				if (!empty($subgroup["translations"][AW_REQUEST_CT_LANG_ID]["comment"]))
+				{
+					$groups[$i]["subgroups"][$j]["comment"] = $subgroup["translations"][AW_REQUEST_CT_LANG_ID]["comment"];
+				}
+			}
 			uasort($groups[$i]["subgroups"], function($a, $b){ return $a["ord"] - $b["ord"]; });
 		}
 		return $groups;
@@ -163,8 +198,7 @@ class join_site_obj extends _int_object
 	{
 		if ($this->is_saved())
 		{
-			$personnel_management = new personnel_management();
-			$this->form_fields[crm_company_obj::CLID]["ettevotlusvorm"]["options"] = $personnel_management->get_legal_forms();
+			$this->form_fields[crm_company_obj::CLID]["ettevotlusvorm"]["options"] = array(new personnel_management(), "get_legal_forms");
 
 			// FIXME: Abstract into a method.
 			$customer_relations = new object_list(array(
@@ -204,6 +238,7 @@ class join_site_obj extends _int_object
 					$field["clid"] = $clid;
 					$field["id"] = $field_id;
 					$this->__apply_field_specific_arguments($field);
+					$this->__apply_field_translations($field);
 					$active_subgroup_fields["data[{$clid}][{$field_id}]"] = $field;
 				}
 			}
@@ -230,6 +265,20 @@ class join_site_obj extends _int_object
 		if (isset($default_form_fields[$field["clid"]][$field["id"]]) && is_array($default_form_fields[$field["clid"]][$field["id"]]))
 		{
 			$field = $field + $default_form_fields[$field["clid"]][$field["id"]];
+		}
+	}
+	
+	private function __apply_field_translations(&$field)
+	{
+		$translations = $this->get_translations();
+		
+		if (!empty($translations[$field["clid"]][$field["id"]][AW_REQUEST_CT_LANG_ID]["caption"]))
+		{
+			$field["caption"] = $translations[$field["clid"]][$field["id"]][AW_REQUEST_CT_LANG_ID]["caption"];
+		}
+		if (!empty($translations[$field["clid"]][$field["id"]][AW_REQUEST_CT_LANG_ID]["comment"]))
+		{
+			$field["comment"] = $translations[$field["clid"]][$field["id"]][AW_REQUEST_CT_LANG_ID]["comment"];
 		}
 	}
 	
@@ -301,6 +350,74 @@ class join_site_obj extends _int_object
 			default:
 				return $person->is_property($field_id) ? $person->prop($field_id) : null;
 		}
+	}
+	
+	function get_languages()
+	{
+		$form_languages = $this->prop("languages");
+		$languages = array();
+		foreach(aw_ini_get("languages.list") as $language_id => $language)
+		{
+			if(!empty($form_languages[$language_id]))
+			{
+				$languages[$language_id] = $language;
+			}
+		}
+		return $languages;
+	}
+	
+	function get_translations()
+	{
+		static $translations;
+		if (!isset($translations))
+		{
+			$translations = $this->meta("form_translations");
+			if (!is_array($translations))
+			{
+				$translations = array();
+			}
+			// FIXME: Very poor naming!
+			$fieldss = array_replace_recursive($this->get_default_form_fields(), $this->meta("form_fields"));
+			foreach($fieldss as $clid => $fields)
+			{
+				if (!isset($translations[$clid]))
+				{
+					$translations[$clid] = array();
+				}
+				foreach($fields as $field_id => $field)
+				{
+					if (!isset($translations[$clid][$field_id]))
+					{
+						$translations[$clid][$field_id] = array();
+					}
+					$translations[$clid][$field_id][$this->prop("lang_id")] = array(
+						"caption" => $field["caption"],
+						"comment" => $field["comment"],
+					);
+				}
+			}
+		}
+		return $translations;
+	}
+	
+	function set_translations($translations)
+	{
+		$this->set_meta("form_translations", $translations);
+		$this->__save_field_translations_for_default_language($translations);
+	}
+	
+	function __save_field_translations_for_default_language($translationss)
+	{
+		$fields = $this->meta("form_fields");
+		foreach($translationss as $clid => $translations)
+		{
+			foreach($translations as $field => $translations)
+			{
+				$fields[$clid][$field]["caption"] = $translations[$this->prop("lang_id")]["caption"];
+				$fields[$clid][$field]["comment"] = $translations[$this->prop("lang_id")]["comment"];
+			}
+		}
+		$this->set_meta("form_fields", $fields);
 	}
 	
 	function save_form_data($data)
