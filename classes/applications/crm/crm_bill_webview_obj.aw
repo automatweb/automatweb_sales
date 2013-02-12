@@ -11,10 +11,16 @@ class crm_bill_webview_obj extends _int_object
 			return new object_list();
 		}
 		
+		$states = array();
+		foreach($this->prop("states_displayed") as $state)
+		{
+			$states[] = substr($state, 1);
+		}
+		
 		return new object_list(array(
 			"class_id" => crm_bill_obj::CLID,
 			"customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer" => $this->__get_buyer(),
-			"state" => $this->prop("states_displayed"),
+			"state" => $states,
 		));
 	}
 	

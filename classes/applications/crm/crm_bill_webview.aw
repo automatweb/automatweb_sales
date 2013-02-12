@@ -36,7 +36,11 @@ class crm_bill_webview extends class_base
 	
 	function _get_states_displayed(&$arr)
 	{
-		$arr["prop"]["options"] = crm_bill_obj::status_names();
+		$arr["prop"]["options"] = array();
+		foreach(crm_bill_obj::status_names() as $value => $caption)
+		{
+			$arr["prop"]["options"]["s{$value}"] = $caption;
+		}
 		return PROP_OK;	
 	}
 	
@@ -56,7 +60,8 @@ class crm_bill_webview extends class_base
 				"bill.bill_date" => $bill->prop("bill_date"),
 				"bill.due_date" => mktime(0, 0, 0, date("m", $bill->prop("bill_date")), date("d", $bill->prop("bill_date")) + $bill->prop("bill_due_date_days"), date("Y", $bill->prop("bill_date"))),
 				"bill.sum" => is_object($bill->currency()) ? $bill->currency()->sum_with_currency($bill->prop("sum"), 2) : number_format($bill->prop("sum"), 2),
-				"bill.state" => crm_bill_obj::status_names($bill->prop("state"))
+				"bill.state" => crm_bill_obj::status_names($bill->prop("state")),
+//				"bill.pdf_url" => $bill->get_invoice_pdf()->get_url(),
 			));
 			$BILL .= $this->parse("BILL");
 		}
