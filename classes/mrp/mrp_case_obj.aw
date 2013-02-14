@@ -843,7 +843,7 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		}
 	}
 
-	/** Returns order customer contact person name as it is set in this invoice
+	/** Returns order customer contact person name as it is set in this order
 		@attrib api=1
 		@returns string
 	**/
@@ -867,7 +867,7 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		return $contact_person_name;
 	}
 
-	/** Returns bill customer contact person object
+	/** Returns order customer contact person object
 		@attrib api=1
 		@returns CL_CRM_PERSON/NULL
 			returns NULL if contact person not found
@@ -930,6 +930,486 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		// FIXME!
 		return new object(378726);
 	}
+
+	public function get_mail_from_default()
+	{
+		$u = obj(aw_global_get("uid_oid"));
+		return $u->get_user_mail_address();
+	}
+
+	public function get_mail_from_name_default()
+	{
+		$person_oid = user::get_current_person();
+
+		if($person_oid)
+		{
+			try
+			{
+				$person = obj($person_oid, array(), CL_CRM_PERSON);
+				return $person->name();
+			}
+			catch (Exception $e)
+			{
+			}
+		}
+
+		return null;
+	}
+	
+	/**
+		@attrib api=1 params=pos obj_save=1
+		@param create type=bool default=TRUE
+			Create or get from cache if found
+		@returns CL_FILE
+		@errors
+	**/
+	function get_order_pdf($create = true)
+	{
+		$lang_id = /*$this->prop("language.aw_lang_id") ? $this->prop("language.aw_lang_id") : */languages::LC_EST;
+		$pdf = null;
+		if (object_loader::can("", $this->meta("send_mail_attachments_order_pdf_oid")))
+		{
+			try
+			{
+				$pdf = obj($this->meta("send_mail_attachments_order_pdf_oid"), array(), CL_FILE);
+			}
+			catch (awex_obj $e)
+			{
+			}
+		}
+
+		if ($create and !$pdf)
+		{
+			// get html content
+			$inst = new mrp_case();
+			$content = $inst->show(array(
+				"id" => $this->id(),
+				"pdf" => 1,
+				"return" => 1
+			));
+
+			// create file
+			$f = new file();
+			$id = $f->create_file_from_string(array(
+				"parent" => $this->id(),
+				"content" => $content,
+				"name" => sprintf(t("tellimus_nr_%s", $lang_id), $this->prop("name")) . ".pdf",
+				"type" => "application/pdf"
+			));
+			$this->set_meta("send_mail_attachments_order_pdf_oid", $id);
+			$this->clear_pdf_cache = false;
+			$this->save();
+			$pdf = obj($id, array(), CL_FILE);
+		}
+
+		return $pdf;
+	}
+
+	/** Returns order email recipients data
+		@attrib api=1 params=pos
+		@param type type=array default=array()
+			Type(s) of recipients to return. Empty/default means all.
+			Valid options for array elements:
+				'user' -- order creator and current user
+				'default' -- crm default order recipients
+				'customer_general' -- general customer email contacts
+				'custom' -- user defined custom recipients
+		@returns array
+			Associative multidimensional array
+				$string_recipient_email_address => array($string_recipient_oid_or_zero, $string_recipient_name)
+		@errors
+	**/
+	public function get_mail_recipients($type = array())
+	{
+		if (!is_array($type))
+		{
+			throw new awex_obj_type("Invalid type argument " . var_export($type, true));
+		}
+
+		$recipients = array();
+		$customer_oid = (int) $this->prop("customer");
+
+		if (!count($type) or in_array("user", $type))
+		{
+			// add current user
+			if (aw_global_get("uid_oid"))
+			{
+				$u = obj(aw_global_get("uid_oid"));
+				$person = obj(user::get_current_person());
+				$email = $u->get_user_mail_address();
+				if (is_email($email))
+				{
+					$recipients[$email] = array($person->id(), $person->name());
+				}
+			}
+		}
+
+		if (!count($type) or in_array("customer_general", $type))
+		{
+			$name = $this->get_customer_name();
+			foreach($this->get_customer_mails() as $email)
+			{
+				if (is_email($email))
+				{
+					$recipients[$email] = array($customer_oid, $name);
+				}
+			}
+		}
+
+		if (!count($type) or in_array("custom", $type))
+		{
+			// manually added recipients
+			$custom = $this->get_receivers();
+			foreach ($custom as $email => $person_oid)
+			{
+				if (is_email($email))
+				{
+					if ($person_oid)
+					{
+						$person = new object($person_oid);
+						$recipients[$email]  = array($person->id(), $person->name());
+					}
+					else
+					{
+						$recipients[$email]  = array(0, "");
+					}
+				}
+			}
+		}
+
+		return $recipients;
+	}
+	
+	/** Return all order e-mail receivers as associative array
+		@attrib api=1 params=pos
+		@comment
+		@returns array
+			e-mail address => person object id. Person object may be NULL or CL_CRM_PERSON oid
+		@errors
+	**/
+	public function get_receivers()
+	{
+		return safe_array($this->meta("order_receivers"));
+	}
+
+	public function get_customer_name()
+	{
+		return $this->prop("customer_relation.buyer.name");
+	}
+
+	public function get_customer_mails()
+	{
+		if(!is_oid($this->prop("customer_relation.buyer")))
+		{
+			return array();
+		}
+
+		$customer = obj($this->prop("customer_relation.buyer"));
+		if($customer->class_id() == CL_CRM_PERSON)
+		{
+			$mails = $customer->emails();
+		}
+		else
+		{
+			$mails = $customer->get_mails(array());
+		}
+
+		$customer_mails = array();
+		$default_mail = null;
+		foreach($mails->arr() as $mail)
+		{
+			if($mail->prop("mail"))
+			{
+				$default_mail = $mail;
+				if($mail->prop("contact_type") == 1)
+				{
+					$customer_mails[$mail->id()]= $mail->prop("mail");
+				}
+			}
+		}
+
+		if(!sizeof($customer_mails) && is_object($default_mail))
+		{
+			$customer_mails[$default_mail->id()]= $default_mail->prop("mail");
+		}
+		return $customer_mails;
+	}
+
+	/** Returns mail subject string
+		@attrib api=1 params=pos
+		@param parse type=bool default=TRUE
+			Whether to return parsed subject with special tags replaced by values or raw string
+		@comment
+		@returns string
+		@errors
+	**/
+	public function get_mail_subject($parse = true)
+	{
+		$subject = "Tellimus nr #order_no#";
+
+		if ($subject and $parse)
+		{
+			$subject = $this->parse_text_variables($subject);
+		}
+
+		return $subject;
+	}
+
+	/** Returns mail body/contents string
+		@attrib api=1 params=pos
+		@param parse type=bool default=TRUE
+			Whether to return parsed contents with special tags replaced by values or raw string
+		@comment
+		@returns string
+		@errors
+	**/
+	public function get_mail_body($parse = true)
+	{
+		$content = "Lugupeetav #contact_person#,
+
+Saadame Teile tellimuse nr #order_no#.
+
+Parimat,
+#signature#";
+
+		if ($content and $parse)
+		{
+			$content = $this->parse_text_variables($content);
+		}
+
+		return $content;
+	}
+
+	/** Parses variables in order e-mail body or subject text
+		@attrib api=1 params=pos
+		@param text type=string
+			Text to parse variables in
+		@comment
+			Available variables are
+			#order_no#
+			#customer_name#
+			#contact_person#
+			#signature#
+
+		@returns string
+		@errors
+	**/
+	public function parse_text_variables($text)
+	{
+		$replace = array(
+			"#order_no#" => $this->prop("name"),
+			"#customer_name#" => $this->get_customer_name(),
+			"#contact_person#" => $this->get_customer_contact_person_name(),
+			"#signature#" => $this->get_sender_signature()
+		);
+
+		foreach($replace as $key => $val)
+		{
+			$text = str_replace($key, $val , $text);
+		}
+
+		return $text;
+	}
+
+	private function get_sender_signature()
+	{
+		$ret = array();
+		$p = obj(user::get_current_person());
+		$ret[] = $p->name();
+		$names = $p->get_profession_names();
+		$ret[] = reset($names);
+		$names = $p->get_companies()->names();
+		$ret[] = reset($names);
+		$ret[] = $p->get_phone();
+		$ret[] = $p->get_mail();
+		return join("\n" , $ret);
+	}
+
+	public static function get_mail_variables_legend()
+	{
+		return '#order_no# => '.t("Tellimuse number").'
+#customer_name# => '.t("Kliendi nimi").'
+#contact_person# => '.t("Kliendi kontaktisiku nimi").'
+#signature# => '.t("Saatja allkiri").'
+';
+	}
+
+	/** Sends order document by mail
+		@attrib api=1 params=pos obj_save=1
+		@param to type=array
+			Associative array of email addresses => names to send e-mail to
+		@param subject type=string
+			E-mail subject
+		@param body type=string
+			E-mail body text
+		@param cc type=array
+			Associative array of email addresses => names to send e-mail copy to
+		@param bcc type=array
+			Associative array of email addresses => names to send e-mail blind copy to
+		@param from type=string default=""
+			Sender e-mail address, default means either defined system default or current user e-mail address
+		@param from_name type=string default=""
+			Sender name, default means either defined system default or current user name
+		@comment
+		@returns void
+		@errors
+			throws awex_mrp_case_email if an invalid e-mail address given. awex_mrp_case_email::$email empty if no recipients or the faulty email address if encountered
+			throws awex_mrp_case_send if sending e-mail fails
+			throws awex_mrp_case_file if file attachment fails
+	**/
+	public function send_by_mail($to, $subject, $body, $cc = array(), $bcc = array(), $from = "", $from_name = "")
+	{
+		if (!count($to) and !count($cc) and !count($bcc))
+		{
+			throw new awex_mrp_case_email("Can't send mail, no recipients specified");
+		}
+
+		// get or create file attachments
+		$pdf = $this->get_order_pdf();
+
+		if (!is_object($pdf))
+		{
+			throw new awex_mrp_case_file("Main order file lost or not created. Order id " . $this->id());
+		}
+
+		// FIXME: Refactor to remove code duplication! Next 3 foreach loops!
+		foreach ($to as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_mrp_case_email("Invalid email address '{$email_address}'. Sending order " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$to[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+		$to = implode(",", $to);
+
+		foreach ($cc as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_mrp_case_email("Invalid email address '{$email_address}'. Sending order " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$cc[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+		$cc = implode(",", $cc);
+
+		foreach ($bcc as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_mrp_case_email("Invalid email address '{$email_address}'. Sending order " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$bcc[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+
+		/// add crm default recipients
+		$default_recipients = $this->get_mail_recipients(array("default"));
+		foreach ($default_recipients as $email_address => $data)
+		{
+			$bcc[$email_address] = $email_address;
+		}
+
+		$bcc = implode(",", $bcc);
+
+		// compose mail
+		$from = is_email($from) ? $from : $this->prop("send_mail_from");
+		$from_name = empty($from_name) ? $this->prop("send_mail_from_name") : $from_name;
+		$att_comment = "";
+
+		$awm = new aw_mail();
+		$awm->set_send_method("mimemessage");
+		$awm->create_message(array(
+			"froma" => $from,
+			"fromn" => $from_name,
+			"subject" => $subject,
+			"body" => strip_tags($body),
+			"to" => $to,
+			"cc" => $cc,
+			"bcc" => $bcc
+		));
+		$awm->set_header("Reply-To", $from);
+
+		/// add attachments
+		$part_count = $awm->fattach(array(
+			"path" => $pdf->prop("file"),
+			"contenttype"=> aw_mime_types::type_for_file($pdf->name()),
+			"name" => $pdf->name()
+		));
+		$att_comment .= html::href(array(
+			"caption" => html::img(array(
+				"url" => aw_ini_get("icons.server")."pdf_upload.gif",
+				"border" => 0
+			)).$pdf->name(),
+			"url" => $pdf->get_url()
+		));
+
+		if (!$part_count)
+		{
+			throw new awex_mrp_case_file("Attaching main order file (id: " . $pdf->id() . ") failed. Order id " . $this->id());
+		}
+
+		// add mail html body
+		$awm->htmlbodyattach(array(
+			"data" => $body
+		));
+
+		// send mail
+		try
+		{
+			$awm->send();
+		}
+		catch (awex_awmail_send $e)
+		{
+			throw new awex_mrp_case_send ("Sending '".$this->id()."' failed. Mailer error: " . $e->getMessage());
+		}
+
+		// write log
+		/// mail message object for logging
+		$mail = obj(null, array(), CL_MESSAGE);
+		$mail->set_parent($this->id());
+		$mail->set_name(sprintf(t("Saadetud tellimus %s kliendile %s"), $this->prop("name"), $this->get_customer_name()));
+		$mail->save();
+
+		$attachments = array($pdf->id());
+		$pdf ->set_parent($mail->id());
+		$pdf->save();
+
+		$mail->set_prop("attachments", $attachments);
+		$mail->set_prop("customer", $this->prop("customer_relation.buyer"));
+		$mail->set_prop("message", $body);
+		$mail->set_prop("html_mail", 1);
+		$mail->set_prop("mfrom_name", $from_name);
+		$mail->set_prop("mto", $to);
+		$mail->set_prop("cc", $cc);
+		$mail->set_prop("bcc", $bcc);
+		$mail->save();
+
+		$comment = html_entity_decode(sprintf(t("Saadetud aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s."), $to, $cc, $body, $att_comment));
+
+//		$this->send(self::DELIVERY_EMAIL, $comment);
+		$this->save();
+	}
+
+	/** returns sent mail objects
+		@attrib api=1
+		@returns object list
+	**/
+	public function get_sent_mails()
+	{
+		return new object_list(array(
+			"class_id" => CL_MESSAGE,
+			"parent" => $this->id()
+		));
+	}
 }
 
 /** Generic mrp_case exception **/
@@ -946,3 +1426,16 @@ class awex_mrp_case_state extends awex_mrp_case {}
 
 /** Workspace not defined or invalid **/
 class awex_mrp_case_workspace extends awex_mrp_case {}
+
+/** E-mail address errors **/
+class awex_mrp_case_email extends awex_mrp_case
+{
+	public $email;
+}
+
+/** E-mail sending errors **/
+class awex_mrp_case_send extends awex_mrp_case {}
+
+/** PDF or other files related errors **/
+class awex_mrp_case_file extends awex_mrp_case {}
+

@@ -820,6 +820,142 @@
             <store>no</store>
             <no_caption>1</no_caption>
       </property>
+      <property>
+            <name>send_mail_toolbar</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>send_mail_from</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <parent>send_mail_sender</parent>
+            <caption>E-posti aadress</caption>
+      </property>
+      <property>
+            <name>send_mail_from_name</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <parent>send_mail_sender</parent>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>send_mail_attachments</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <parent>send_mail_attachments</parent>
+            <orient>vertical</orient>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>send_mail_recipients</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <parent>send_mail_recipients</parent>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>send_mail_recipient_name</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>send_mail_recipients</parent>
+            <comment>Otsi olemasolevate isikute hulgast v&amp;amp;otilde;i sisesta kehtiv suvaline e-posti aadress</comment>
+            <caption>Lisa tellimuse saaja</caption>
+      </property>
+      <property>
+            <name>send_mail_subject</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <parent>send_mail_content_l</parent>
+            <captionside>top</captionside>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>send_mail_body</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textarea</type>
+            <rows>20</rows>
+            <cols>53</cols>
+            <parent>send_mail_content_l</parent>
+            <captionside>top</captionside>
+            <caption>Sisu</caption>
+      </property>
+      <property>
+            <name>send_mail_legend</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <parent>send_mail_content_l</parent>
+            <captionside>top</captionside>
+            <comment>E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&amp;amp;auml;&amp;amp;auml;rtustega</comment>
+            <caption>Kasutatavad muutujad</caption>
+      </property>
+      <property>
+            <name>send_mail_subject_view</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <parent>send_mail_content_r</parent>
+            <captionside>top</captionside>
+            <store>no</store>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>send_mail_body_view</name>
+            <group>grp_case_send_mail</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <parent>send_mail_content_r</parent>
+            <captionside>top</captionside>
+            <caption>Sisu</caption>
+      </property>
+      <property>
+            <name>sent_mail_table</name>
+            <group>grp_case_sent_mails</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
@@ -874,6 +1010,18 @@
                   <caption>Eelvaade</caption>
                   <submit>no</submit>
             </grp_case_preview>
+            <grp_case_mails>
+                  <caption>Kirjad</caption>
+            </grp_case_mails>
+            <grp_case_send_mail>
+                  <caption>Tellimuse saatmine</caption>
+                  <parent>grp_case_mails</parent>
+                  <confirm_save_data>0</confirm_save_data>
+            </grp_case_send_mail>
+            <grp_case_sent_mails>
+                  <caption>Saadetud kirjad</caption>
+                  <parent>grp_case_mails</parent>
+            </grp_case_sent_mails>
             <grp_case_log>
                   <caption>Ajalugu</caption>
                   <submit>no</submit>
@@ -1124,6 +1272,54 @@
                   <group>grp_case_view</group>
                   <area_caption></area_caption>
             </view_general_info_right>
+            <send_mail_settings>
+                  <type>hbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;seaded</area_caption>
+                  <width>50%:50%</width>
+                  <group>grp_case_send_mail</group>
+            </send_mail_settings>
+            <send_mail_sender>
+                  <type>vbox</type>
+                  <closeable>0</closeable>
+                  <area_caption>Saatja</area_caption>
+                  <parent>send_mail_settings</parent>
+                  <group>grp_case_send_mail</group>
+            </send_mail_sender>
+            <send_mail_attachments>
+                  <type>vbox</type>
+                  <closeable>0</closeable>
+                  <area_caption>Lisatavad&amp;amp;nbsp;dokumendid</area_caption>
+                  <parent>send_mail_settings</parent>
+                  <group>grp_case_send_mail</group>
+            </send_mail_attachments>
+            <send_mail_recipients>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;saajad</area_caption>
+                  <group>grp_case_send_mail</group>
+            </send_mail_recipients>
+            <send_mail_content>
+                  <type>hbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;sisu</area_caption>
+                  <width>50%:50%</width>
+                  <group>grp_case_send_mail</group>
+            </send_mail_content>
+            <send_mail_content_l>
+                  <type>vbox</type>
+                  <parent>send_mail_content</parent>
+                  <closeable>0</closeable>
+                  <area_caption>Muutmine</area_caption>
+                  <group>grp_case_send_mail</group>
+            </send_mail_content_l>
+            <send_mail_content_r>
+                  <type>vbox</type>
+                  <parent>send_mail_content</parent>
+                  <closeable>0</closeable>
+                  <area_caption>Eelvaade&amp;amp;nbsp;(kliki&amp;amp;nbsp;tekstil&amp;amp;nbsp;et&amp;amp;nbsp;uuendada)</area_caption>
+                  <group>grp_case_send_mail</group>
+            </send_mail_content_r>
       </layout>
 </properties>
 

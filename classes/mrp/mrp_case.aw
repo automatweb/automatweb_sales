@@ -21,6 +21,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 	@groupinfo grp_case_schedule_google caption="Graafikud" submit=no parent=grp_case_schedule
 @groupinfo grp_case_comments caption="Kommentaarid"
 @groupinfo grp_case_preview caption="Eelvaade" submit=no
+@groupinfo grp_case_mails caption="Kirjad"
+	@groupinfo grp_case_send_mail caption="Tellimuse saatmine" parent=grp_case_mails confirm_save_data=0
+	@groupinfo grp_case_sent_mails caption="Saadetud kirjad" parent=grp_case_mails
 @groupinfo grp_case_log caption="Ajalugu" submit=no
 
 // TOOLBARS
@@ -273,6 +276,60 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 @default group=grp_case_preview
 	
 	@property preview type=text editonly=1 store=no no_caption=1
+	
+@default table=objects field=meta method=serialize
+@default group=grp_case_send_mail
+
+	@property send_mail_toolbar type=toolbar store=no no_caption=1
+	
+	@layout send_mail_settings type=hbox closeable=1 area_caption=Kirja&nbsp;seaded width=50%:50%
+	
+		@layout send_mail_sender type=vbox closeable=0 area_caption=Saatja parent=send_mail_settings
+	
+			@property send_mail_from type=textbox parent=send_mail_sender
+			@caption E-posti aadress
+	
+			@property send_mail_from_name type=textbox parent=send_mail_sender
+			@caption Nimi
+
+		@layout send_mail_attachments type=vbox closeable=0 area_caption=Lisatavad&nbsp;dokumendid parent=send_mail_settings
+		
+			@property send_mail_attachments type=chooser multiple=1 parent=send_mail_attachments orient=vertical no_caption=1
+
+	@layout send_mail_recipients type=vbox closeable=1 area_caption=Kirja&nbsp;saajad
+	
+		@property send_mail_recipients type=table store=no parent=send_mail_recipients no_caption=1
+
+		@property send_mail_recipient_name type=textbox store=no parent=send_mail_recipients
+		@comment Otsi olemasolevate isikute hulgast v&otilde;i sisesta kehtiv suvaline e-posti aadress
+		@caption Lisa tellimuse saaja
+
+	@layout send_mail_content type=hbox closeable=1 area_caption=Kirja&nbsp;sisu width=50%:50%
+	
+		@layout send_mail_content_l type=vbox parent=send_mail_content closeable=0 area_caption=Muutmine
+
+			@property send_mail_subject type=textbox parent=send_mail_content_l captionside=top
+			@caption Pealkiri
+		
+			@property send_mail_body type=textarea rows=20 cols=53 parent=send_mail_content_l captionside=top
+			@caption Sisu
+		
+			@property send_mail_legend type=text store=no parent=send_mail_content_l captionside=top
+			@comment E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&auml;&auml;rtustega
+			@caption Kasutatavad muutujad
+
+		@layout send_mail_content_r type=vbox parent=send_mail_content closeable=0 area_caption=Eelvaade&nbsp;(kliki&nbsp;tekstil&nbsp;et&nbsp;uuendada)
+
+			@property send_mail_subject_view type=text parent=send_mail_content_r captionside=top store=no
+			@caption Pealkiri
+
+			@property send_mail_body_view type=text store=no parent=send_mail_content_r captionside=top
+			@caption Sisu
+
+@default group=grp_case_sent_mails
+
+	@property sent_mail_table type=table no_caption=1 no_caption=1
+
 
 
 // --------------- RELATION TYPES ---------------------
@@ -3330,6 +3387,10 @@ HTML;
 
 	function callback_generate_scripts($arr)
 	{
+		if ("grp_case_send_mail" === $this->use_group)
+		{
+			load_javascript("applications/mrp/mrp_case/send_mail.js");
+		}
 		if (!empty($arr["request"]["id"]))
 		{
 			return '
@@ -3458,6 +3519,457 @@ function add_material(mid, jid)
 			"pdf" => !empty($arr["pdf"]),
 			"view_type" => $view_type
 		));
+	}
+
+	function _get_send_mail_toolbar(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		
+		$t->add_button(array(
+			"name" => "send",
+			"img" => "mail_send.gif",
+			"tooltip" => t("Saada tellimus"),
+			"confirm" => t("Oled kindel, et soovid tellimuse saata?"),
+			"action" => "send_order"
+		));
+
+		$t->add_button(array(
+			"name" => "save",
+			"icon" => "disk",
+			"tooltip" => t("Salvesta"),
+			"action" => "submit"
+		));
+
+		return PROP_OK;
+	}
+
+	function _get_send_mail_from(&$arr)
+	{
+		$arr["prop"]["value"] = empty($arr["prop"]["value"]) ? $arr["obj_inst"]->get_mail_from_default() : $arr["prop"]["value"];
+		return PROP_OK;
+	}
+
+	function _get_send_mail_from_name(&$arr)
+	{
+		$arr["prop"]["value"] = empty($arr["prop"]["value"]) ? $arr["obj_inst"]->get_mail_from_name_default() : $arr["prop"]["value"];
+		return PROP_OK;
+	}
+
+	function _get_send_mail_attachments(&$arr)
+	{
+		// load found or requested pdf-s
+		$order_pdf_o = $arr["obj_inst"]->get_order_pdf();
+
+		// make links to pdf files
+		$order_pdf_link = "";
+
+		if ($order_pdf_o)
+		{
+			$file_data = $order_pdf_o->get_file();
+			$order_pdf_link = " " . html::href(array(
+				"caption" => html::img(array(
+					"url" => aw_ini_get("icons.server")."pdf_upload.gif",
+					"border" => 0
+				)) . $order_pdf_o->name() . " (". aw_locale::bytes2string(filesize($file_data["properties"]["file"])) . ")",
+				"url" => $order_pdf_o->get_url(),
+			));
+		}
+
+		$arr["prop"]["options"] = array(
+			"p" => t("Tellimuse PDF") . $order_pdf_link,
+		);
+
+		return PROP_OK;
+	}
+
+	function _get_send_mail_recipients(&$arr)
+	{
+		$order = $arr["obj_inst"];
+		if(!$order->prop("customer_relation"))
+		{
+			return class_base::PROP_IGNORE;
+		}
+		
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->add_fields(array(
+			"email" => t("E-posti aadress"),
+			"send" => t("Saata"),
+			"name" => t("Nimi"),
+			"rank" => t("Ametinimetus"),
+			"phone" =>  t("Telefon"),
+			"co" => t("Organisatsioon")
+		));
+		$t->set_rgroupby(array("title" => "title"));
+
+		/// potential email recipients by type
+
+		// 'customer_general' -- general customer email contacts
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("customer_general"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "customer";
+				$prop_name = $this->__add_recipient_propdefn($t, $email_address, $data, $order, t("Kliendi &uuml;ldaadressid"));
+			}
+		}
+
+		// 'user' -- order creator and current user
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("user"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "implementor";
+				$prop_name = $this->__add_recipient_propdefn($t, $email_address, $data, $order, t("Kasutaja"));
+			}
+		}
+
+		// 'custom' -- user defined custom recipients
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("custom"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "";
+				$prop_name = $this->__add_recipient_propdefn($t, $email_address, $data, $order, t("Lisaaadressid"));
+			}
+		}
+
+		// 'default' -- crm default order recipients
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("default"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "";
+				$prop_name = $this->__add_recipient_propdefn($t, $email_address, $data, $order, t("Vaikimisi koopiasaajad"), true);
+			}
+		}
+
+		return class_base::PROP_OK;
+	}
+
+	private function __add_recipient_propdefn(vcl_table $t, $email_address, $recipient_data, $order, $title, $disabled = false)
+	{
+		static $i;
+		++$i;
+		$recipient_oid = $recipient_data[0];
+		$name = $recipient_data[1];
+		$phones = $organization = $profession = $chooser = "";
+
+		if ($recipient_oid)
+		{
+			$recipient = new object($recipient_oid);
+
+			if ($recipient->is_a(CL_CRM_PERSON))
+			{
+				$organization_o = new object($recipient->company_id());
+
+				$organization = html::obj_change_url($organization_o->id(), $organization_o->name());
+				$profession = implode(", " , $recipient->get_profession_names($organization_o));
+				$name = html::obj_change_url($recipient->id(), $recipient->name());
+			}
+			elseif ($recipient->is_a(CL_CRM_COMPANY))
+			{
+				$organization = html::obj_change_url($recipient->id(), $name);
+				$name = "";
+			}
+
+			if ($recipient->has_method("get_phones"))
+			{
+				$phones = implode(", ", $recipient->get_phones());
+			}
+		}
+
+		// recipient selector chooser
+		$checked_to = $checked_cc = $checked_bcc = 0;
+		if (!$disabled)
+		{ // temporarily saved mail send view data
+			$recipients_tmp = aw_global_get("mrp_case_send_mail_recipients_tmp");
+			$checked_to = !empty($recipients_tmp["{$email_address}-to"]);
+			$checked_cc = !empty($recipients_tmp["{$email_address}-cc"]);
+			$checked_bcc = !empty($recipients_tmp["{$email_address}-bcc"]);
+		}
+
+		$prop_name = "recipient[{$i}]";
+		$chooser = html::radiobutton(array(
+			"caption" => t("to"),
+			"name" => $prop_name,
+			"checked" => $checked_to,
+			"value" => "{$email_address}-to",
+			"disabled" => $disabled
+		));
+		$chooser .= " ";
+		$chooser .= html::radiobutton(array(
+			"caption" => t("cc"),
+			"name" => $prop_name,
+			"checked" => $checked_cc,
+			"value" => "{$email_address}-cc",
+			"disabled" => $disabled
+		));
+		$chooser .= " ";
+		$chooser .= html::radiobutton(array(
+			"caption" => t("bcc"),
+			"name" => $prop_name,
+			"checked" => $checked_bcc,
+			"value" => "{$email_address}-bcc",
+			"disabled" => $disabled
+		));
+		$chooser = html::span(array("content" => $chooser, "nowrap" => 1));
+
+		//
+		$t->define_data(array(
+			"title" => $title,
+			"send" => $chooser,
+			"email" => $email_address,
+			"name" => $name,
+			"phone" => $phones,
+			"rank" => $profession,
+			"co" => $organization
+		));
+	}
+
+	function _set_send_mail_recipients($arr)
+	{
+		if (isset($arr["request"]["recipient"]))
+		{
+			$recipients_tmp = array_flip($arr["request"]["recipient"]);
+			aw_session_set("mrp_case_send_mail_recipients_tmp", $recipients_tmp);
+		}
+		return class_base::PROP_IGNORE;
+	}
+
+	function _get_send_mail_recipient_name(&$arr)
+	{
+		$arr["prop"]["value"] = "";
+		
+		$ps = new popup_search();
+		$ps->set_class_id(array(CL_ML_MEMBER));
+		$ps->set_id($arr["obj_inst"]->id());
+		$ps->set_reload_layout("send_mail_settings_l");
+		$ps->set_property("send_mail_recipient_name");
+		$save_btn = " " . html::href(array(
+			"url" => "javascript:submit_changeform('submit')",
+			"title" => t("Lisa sisestatud e-posti aadress"),
+			"caption" => html::img(array("url" => icons::get_std_icon_url("disk")))
+		)) . " ";
+		$arr["prop"]["post_append_text"] = $save_btn . $ps->get_search_button();
+		
+		return class_base::PROP_OK;
+	}
+
+	function _get_send_mail_subject(&$arr)
+	{
+		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_subject(false);
+		$arr["prop"]["onblur"] = "AW.UI.mrp_case.refresh_mail_text_changes();";
+		return class_base::PROP_OK;
+	}
+
+	function _get_send_mail_subject_view(&$arr)
+	{
+		$arr["prop"]["value"] = html::span(array(
+			"content" => $arr["obj_inst"]->get_mail_subject(true),
+			"id" => "send_mail_subject_text_element"
+		)) . html::linebreak(2);
+		return class_base::PROP_OK;
+	}
+
+	function _get_send_mail_body(&$arr)
+	{
+		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_body(false);
+		$arr["prop"]["onblur"] = "AW.UI.mrp_case.refresh_mail_text_changes();";
+		return class_base::PROP_OK;
+	}
+
+	function _get_send_mail_body_view(&$arr)
+	{
+		$arr["prop"]["value"] = html::span(array(
+			"content" => nl2br($arr["obj_inst"]->get_mail_body(true)),
+			"id" => "send_mail_body_text_element"
+		));
+		return class_base::PROP_OK;
+	}
+
+	function _get_send_mail_legend(&$arr)
+	{
+		$arr["prop"]["value"] = nl2br(mrp_case_obj::get_mail_variables_legend());
+		return class_base::PROP_OK;
+	}
+
+	function _get_sent_mail_table(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		
+		$t->set_default("sortable", true);
+		$t->add_fields(array(
+			"sender" => t("Saatja nimi"),
+			"time" => t("Aeg"),
+			"to" => t("Adressaadid"),
+			"content" => t("Sisu"),
+			"attachments" => t("Manused"),
+		));
+
+		$user_inst = new user();
+
+		$mails = $arr["obj_inst"]->get_sent_mails();
+		foreach($mails->arr() as $mail)
+		{
+			$user = $mail->createdby();
+			$person = $user_inst->get_person_for_uid($user);
+			$data = array();
+			$data["time"] = date("d.m.Y H:i" , $mail->created());
+
+			$data["sender"] = $person->name();
+			$data["content"] = $mail->prop("message");
+			$addr = explode("," , htmlspecialchars($mail->prop("mto")));
+
+			$data["to"] = join(html::linebreak() , $addr);
+
+			$data["attachments"] = "";
+			$aos = safe_array($mail->prop("attachments"));
+			foreach($aos as $ao)
+			{
+				if (object_loader::can("view", $ao))
+				{
+					$o = obj($ao);
+					$file_data = $o->get_file();
+					$data["attachments"].= html::linebreak().html::href(array(
+						"caption" => html::img(array(
+							"url" => aw_ini_get("icons.server")."pdf_upload.gif",
+							"border" => 0,
+						)) . $o->name() . " (" . aw_locale::bytes2string(filesize($file_data["properties"]["file"])) . ")",
+						"url" => $o->get_url(),
+					));
+				}
+			}
+			$t->define_data($data);
+		}
+
+		return PROP_OK;
+	}
+
+	/**
+	@attrib name=send_order all_args=1
+	@param id required type=int
+		Order OID
+	@param post_ru required type=string
+	@returns string
+	**/
+	function send_order($arr)
+	{
+		$r = $arr["post_ru"];
+		try
+		{
+			$order = obj($arr["id"], array(), mrp_case_obj::CLID);
+		}
+		catch (awex_obj $e)
+		{
+			$this->show_error_text(t("Ebakorrektne tellimuse ID."));
+			return $r;
+		}
+
+		if (empty($arr["send_mail_attachments"]) or !is_array($arr["send_mail_attachments"]))
+		{
+			$this->show_error_text(t("Tellimust ei saa saata saadetavat dokumenti valimata."));
+			return $r;
+		}
+
+		if (empty($arr["recipient"]) or !is_array($arr["recipient"]))
+		{
+			$this->show_error_text(t("Tellimust ei saa saata saajaid valimata."));
+			return $r;
+		}
+
+		$to = $cc = $bcc = array();
+		$recipients = $order->get_mail_recipients();
+		$selected_recipients = array_flip($arr["recipient"]);
+		foreach ($recipients as $email_address => $data)
+		{
+			if (isset($selected_recipients[$email_address . "-to"]))
+			{
+				$to[$email_address] = $data[1] ? $data[1] : "";
+			}
+			elseif (isset($selected_recipients[$email_address . "-cc"]))
+			{
+				$cc[$email_address] = $data[1] ? $data[1] : "";
+			}
+			elseif (isset($selected_recipients[$email_address . "-bcc"]))
+			{
+				$bcc[$email_address] = $data[1] ? $data[1] : "";
+			}
+		}
+
+		$subject = $order->parse_text_variables($arr["send_mail_subject"]);
+		$body = nl2br($order->parse_text_variables($arr["send_mail_body"]));
+		$from = $arr["send_mail_from"];
+		$from_name = $arr["send_mail_from_name"];
+
+		try
+		{
+			$order->send_by_mail($to, $subject, $body, $cc, $bcc, $from, $from_name);
+			$this->show_completed_text(t("Tellimus edukalt saadetud!"));
+		}
+		catch (awex_mrp_case_email $e)
+		{
+			if ($e->email)
+			{
+				$this->show_error_text(sprintf(t("Tellimust ei saadetud. Antud vigane aadress: '%s'."), $e->email));
+			}
+			else
+			{
+				$this->show_error_text(sprintf(t("Tellimust ei saa saata saajaid m&auml;&auml;ramata."), $e->email));
+			}
+		}
+		catch (awex_mrp_case_file $e)
+		{
+			$this->show_error_text(t("Tellimust ei saadetud. Dokumendi lisamine eba&otilde;nnestus."));
+		}
+		catch (awex_mrp_case_send $e)
+		{
+			$this->show_error_text(t("Tellimust ei saadetud. Viga t&otilde;en&auml;oliselt serveri meiliseadetes."));
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Esines vigu. Tellimust ei saadetud."));
+		}
+
+		if (isset($e))
+		{
+			trigger_error("Caught exception " . get_class($e) . " while sending order. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
+		}
+
+		// remove temporary changes
+		$this->clear_send_mail_tmp();
+		
+		return $r;
+	}
+
+	private function clear_send_mail_tmp()
+	{
+		aw_session_del("mrp_case_send_mail_sender_email_tmp");
+		aw_session_del("mrp_case_send_mail_sender_name_tmp");
+		aw_session_del("mrp_case_send_mail_recipients_tmp");
+		aw_session_del("mrp_case_send_mail_attachments_tmp");
+	}
+
+	/**
+		@attrib name=ajax_parse_mail_text all_args=1
+	**/
+	// params id and text
+	function ajax_parse_mail_text($arr)
+	{
+		$text = null;
+		try {
+			$order = obj($arr["id"], array(), mrp_case_obj::CLID);
+			$text = nl2br($order->parse_text_variables($arr["text"]));
+		}
+		catch (Exception $e)
+		{
+		}
+		automatweb::$result->set_data($text);
+		automatweb::$instance->http_exit();
 	}
 	
 	/**

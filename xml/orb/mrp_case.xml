@@ -114,5 +114,21 @@
 			</function>
 		</action>
 
+		<action name="send_order" all_args="1">
+			<function name="send_order">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_parse_mail_text" all_args="1">
+			<function name="ajax_parse_mail_text">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>
