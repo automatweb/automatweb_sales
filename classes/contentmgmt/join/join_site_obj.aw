@@ -8,6 +8,7 @@ class join_site_obj extends _int_object
 	const FIELD_TYPE_RADIOS = "radios";
 	const FIELD_TYPE_CHECKBOXES = "checkboxes";
 	const FIELD_TYPE_ADDRESS = "address";
+	const FIELD_TYPE_PASSWORD = "password";
 
 	private $form_fields_initialised = false;
 	private $form_fields = array(
@@ -141,6 +142,15 @@ class join_site_obj extends _int_object
 			),
 		),
 		crm_company_customer_data_obj::CLID => array(),
+		user_obj::CLID => array(
+			"uid" => array(
+				"caption" => "Kasutajanimi",
+			),
+			"passwd" => array(
+				"caption" => "Parool",
+				"type" => self::FIELD_TYPE_PASSWORD,
+			),
+		)
 	);
 	
 	static function get_address_countries()
@@ -392,7 +402,7 @@ class join_site_obj extends _int_object
 					}
 					$translations[$clid][$field_id][$this->prop("lang_id")] = array(
 						"caption" => $field["caption"],
-						"comment" => $field["comment"],
+						"comment" => isset($field["comment"]) ? $field["comment"] : null,
 					);
 				}
 			}
@@ -433,11 +443,44 @@ class join_site_obj extends _int_object
 		}
 
 		$this->__save_customer_relations($person, isset($data[crm_company_customer_data_obj::CLID]) ? $data[crm_company_customer_data_obj::CLID] : null);
+		
+		if ($this->__create_new_objects() && !empty($data[user_obj::CLID]))
+		{
+			$data[user_obj::CLID]["person"] = $person->id();
+			$this->__create_user($data[user_obj::CLID]);
+		}
 	}
 	
 	private function __create_new_objects()
 	{
 		return !users::is_logged_in();
+	}
+	
+	private function __create_user($data)
+	{
+		if ($this->__validate_user_data($data))
+		{
+			$user_instance = new user();
+			$user = $user_instance->add_user($data);
+			return $user;
+		}
+		
+		return null;
+	}
+	
+	private function __validate_user_data(&$user_data)
+	{
+		$user_instance = new user();
+		
+		// FIXME: Allow passwords to be auto-generated!
+		if (!isset($user_data["passwd"][0]) || !isset($user_data["passwd"][1]) || $user_data["passwd"][0] !== $user_data["passwd"][1])
+		{
+			return false;
+		}
+		$user_data["password"] = $user_data["passwd"][0];
+		unset($user_data["passwd"]);
+		
+		return !empty($user_data["uid"]) && !$user_instance->username_is_taken($user_data["uid"]);
 	}
 	
 	private function __save_person($data)

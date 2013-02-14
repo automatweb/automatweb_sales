@@ -302,9 +302,10 @@ class join_site extends class_base
 		));
 		
 		$classes = array(
-			crm_person_obj::CLID => "Isik",
-			crm_company_obj::CLID => "Organisatsioon",
-			crm_company_customer_data_obj::CLID => "Kliendisuhe",
+			crm_person_obj::CLID => t("Isik"),
+			crm_company_obj::CLID => t("Organisatsioon"),
+			crm_company_customer_data_obj::CLID => t("Kliendisuhe"),
+			user_obj::CLID => t("Kasutaja"),
 		);
 		
 		$fields = $this->__get_form_fields($arr["obj_inst"]);
@@ -394,13 +395,16 @@ class join_site extends class_base
 		
 		$form_fields = $o->meta("form_fields");
 		
-		$fields = array_replace_recursive($default_fields, $form_fields);
+		$fields = is_array($form_fields) ? array_replace_recursive($default_fields, $form_fields) : $default_fields;
 		
 		foreach(array_keys($fields) as $clid)
 		{
 			uasort($fields[$clid], function($a, $b){
 				if (empty($a["active"]) && !empty($b["active"])) return 1;
 				if (!empty($a["active"]) && empty($b["active"])) return -1;
+				if (!isset($a["ord"]) && !isset($b["ord"])) return 0;
+				if (!isset($a["ord"]) && isset($b["ord"])) return 1;
+				if (isset($a["ord"]) && !isset($b["ord"])) return -1;
 				return $a["ord"] - $b["ord"];
 			});
 		}
@@ -433,9 +437,10 @@ class join_site extends class_base
 		$translations = $arr["obj_inst"]->get_translations();
 		
 		$classes = array(
-			crm_person_obj::CLID => "Isik",
-			crm_company_obj::CLID => "Organisatsioon",
-			crm_company_customer_data_obj::CLID => "Kliendisuhe",
+			crm_person_obj::CLID => t("Isik"),
+			crm_company_obj::CLID => t("Organisatsioon"),
+			crm_company_customer_data_obj::CLID => t("Kliendisuhe"),
+			user_obj::CLID => t("Kasutaja"),
 		);
 		foreach ($classes as $clid => $clcaption)
 		{
