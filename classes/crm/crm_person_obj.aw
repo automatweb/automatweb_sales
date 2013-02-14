@@ -325,11 +325,17 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				}
 				elseif(parent::prop("birthday") && parent::prop("birthday") != -1)
 				{
-					$bd_tm = explode("-", parent::prop("birthday"));
-					$bd_tm = mktime(0, 0, 0, $bd_tm[1], $bd_tm[2], $bd_tm[0]);
-					return $bd_tm;
+					$birthday = parent::prop("birthday");
+					if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $birthday) === 1)
+					{
+						$bd_tm = explode("-", parent::prop("birthday"));
+						$bd_tm = mktime(0, 0, 0, isset($bd_tm[1]) ? $bd_tm[1] : 1, isset($bd_tm[2]) ? $bd_tm[2] : 1, $bd_tm[0]);
+						return $bd_tm;
+					}
+					return $birthday;
 				}
 				return parent::prop($k);
+
 			case "fake_email":
 				return parent::prop("email.mail");
 
