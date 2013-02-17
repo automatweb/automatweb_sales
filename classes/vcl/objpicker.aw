@@ -168,14 +168,29 @@ SCRIPT;
 
 			if (empty($args["view"]) and empty($args["disabled"]))
 			{
-				$clids = is_array($args["clid"]) ? implode(",", $args["clid"]) : $args["clid"];
+				$clids = (array)$args["clid"];
+				foreach($clids as $i => $clid)
+				{
+					if (is_class_id($clid))
+					{
+						continue;
+					}
+					elseif(defined($clid))
+					{
+						$clids[$i] = constant($clid);
+					}
+					else
+					{
+						unset($clids[$i]);
+					}
+				}
 				$list = new object_list(array(
 					"class_id" => $clids
 				));
 
 				$element = html::select(array(
 					"name" => $name,
-					"options" => $list->names(),
+					"options" => array(t("--vali--")) + $list->names(),
 					"value" => $value
 				));
 			}
