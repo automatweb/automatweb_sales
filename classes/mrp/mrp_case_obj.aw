@@ -139,6 +139,20 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		}
 		return $state;
 	}
+	
+	public function awobj_set_order_state($state)
+	{
+		$state = (int)$state;
+		if ($state === self::ORDER_STATE_CONFIRMED and $this->prop("order_state") != $state)
+		{
+			$this->add_post_save_callback(array($this, "__log_order_status_confirmed"));
+		}
+		elseif ($state === self::ORDER_STATE_CANCELLED and $this->prop("order_state") != $state)
+		{
+			$this->add_post_save_callback(array($this, "__log_order_status_cancelled"));
+		}
+		return $this->set_prop("order_state", $state);
+	}
 
 	public function awobj_get_project_priority()
 	{
@@ -1461,9 +1475,18 @@ Parimat,
 
 		$this->set_prop("order_state", self::ORDER_STATE_SENT);
 
-		$comment = sprintf(t("Aadressidele: %s\nKoopia aadressidele: %s\nTekst: %s\nLisatud failid: %s."), htmlspecialchars($to), htmlspecialchars($cc), html_entity_decode($body), html_entity_decode($att_comment));
 		$ws = new mrp_workspace();
-		$ws->mrp_log($this->id(), NULL, t("Tellimus saadeti kliendile"), $comment);
+		$ws->mrp_log(
+			$this->id(),
+			NULL,
+			t("Tellimus saadeti kliendile"),
+			sprintf(t("Aadressidele: %s\nKoopia aadressidele: %s\nTekst: %s\nLisatud failid: %s."),
+				htmlspecialchars($to),
+				htmlspecialchars($cc),
+				html_entity_decode($body),
+				html_entity_decode($att_comment)
+			)
+		);
 
 		$this->save();
 	}
@@ -1478,6 +1501,28 @@ Parimat,
 			"class_id" => CL_MESSAGE,
 			"parent" => $this->id()
 		));
+	}
+	
+	protected function __log_order_status_confirmed()
+	{
+		$ws = new mrp_workspace();
+		$ws->mrp_log(
+			$this->id(),
+			NULL,
+			t("Tellimus kinnitati"),
+			sprintf(t("Kinnitaja: %s"), html::obj_change_url(get_current_person()))
+		);	
+	}
+	
+	protected function __log_order_status_cancelled()
+	{
+		$ws = new mrp_workspace();
+		$ws->mrp_log(
+			$this->id(),
+			NULL,
+			t("Tellimus tühistati"),
+			sprintf(t("Tühistaja: %s"), html::obj_change_url(get_current_person()))
+		);	
 	}
 }
 

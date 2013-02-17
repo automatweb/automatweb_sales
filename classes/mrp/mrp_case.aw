@@ -541,7 +541,15 @@ class mrp_case extends class_base
 				break;
 			
 			case "order_state":
-				$prop["options"] = $arr["obj_inst"]->get_order_state_names();
+				if(isset($arr["request"]["group"]) and in_array($arr["request"]["group"], $txt_grps))
+				{
+					$prop["type"] = "text";
+					$prop["value"] = $arr["obj_inst"]->get_order_state_names($arr["obj_inst"]->order_state);
+				}
+				else
+				{
+					$prop["options"] = $arr["obj_inst"]->get_order_state_names();
+				}
 				break;
 
 			case "state":
