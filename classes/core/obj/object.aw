@@ -2351,7 +2351,7 @@ class object
 		{
 			return $ref->$prop();
 		}
-		return $ref->prop($prop);
+		return $this->prop($prop);
 	}
 
 	public function __set($prop, $value)
@@ -2363,7 +2363,7 @@ class object
 		{
 			return $ref->$meth($value);
 		}
-		return $ref->set_prop($prop, $value);
+		return $this->set_prop($prop, $value);
 	}
 
 	public function __isset($prop)
