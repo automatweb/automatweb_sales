@@ -895,7 +895,7 @@ class mrp_case extends class_base
 	width: 60px;
 }
 </style>
-<table cellpadding="0" cellspacing="0" border="0" id="example" class="pretty"></table>';
+<table cellpadding="0" cellspacing="0" border="0" id="example" class="pretty"></table>
 HTML;
 		
 		load_javascript("knockout/knockout-2.2.0.js");		
