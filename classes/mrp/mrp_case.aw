@@ -40,7 +40,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 	@layout general_info_1 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
 	
 		@property seller type=select table=mrp_case field=aw_seller group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_1 captionside=top
-		@caption Müüja:
+		@caption M&uuml;&uuml;ja:
 
 		@property customer type=relpicker reltype=RELTYPE_MRP_CUSTOMER clid=CL_CRM_COMPANY table=mrp_case editonly=1 group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_1 captionside=top
 		@caption Ostja:
@@ -538,6 +538,10 @@ class mrp_case extends class_base
 						unset ($arr["request"]["errors"]);
 					}
 				}
+				break;
+			
+			case "order_state":
+				$prop["options"] = $arr["obj_inst"]->get_order_state_names();
 				break;
 
 			case "state":
@@ -2661,7 +2665,6 @@ HTML;
 		$t->define_field(array(
 			"name" => "comment",
 			"caption" => t("Kommentaar"),
-			"align" => "center",
 			"sortable" => 1
 		));
 	}
@@ -3385,6 +3388,7 @@ HTML;
 				case "workspace":
 				case "customer_relation":
 				case "aw_seller":
+				case "aw_order_state":
 				case "finished":
 				case "archived":
 				case "started":

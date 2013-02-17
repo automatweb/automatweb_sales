@@ -15,8 +15,15 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 	const STATE_VIRTUAL_PLANNED = 11; // project is scheduled for assessment purposes but no real operations can be performed (starting, ...)
 	const STATE_DELETED = 8; // project is deleted
 	const STATE_INPROGRESS = 3; // work is being done
+	
+	const ORDER_STATE_DRAFT = 1;
+	const ORDER_STATE_READY = 2;
+	const ORDER_STATE_SENT = 3;
+	const ORDER_STATE_CONFIRMED = 4;
+	const ORDER_STATE_CANCELLED = 5;
 
 	protected static $mrp_state_names = array(); // array of state => human_readable_name
+	protected static $mrp_order_state_names = array(); // array of state => human_readable_name
 	protected $workspace; // project owner
 
 	//	Written solely for testing purposes!
@@ -84,6 +91,53 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		}
 
 		return $names;
+	}
+
+	/**
+	@attrib api=1 params=pos
+	@param state optional type=int
+		State for which to get name. One of mrp_case_obj::ORDER_STATE_ constant values.
+	@comment
+	@returns mixed
+		Array of constant values (keys) and names (array values) if $state parameter not specified. String name corresponding to that status if $state parameter given. Names are in currently active language. Empty string if invalid state parameter given.
+	**/
+	public static function get_order_state_names($state = null)
+	{
+		if (empty(self::$mrp_order_state_names))
+		{
+			self::$mrp_order_state_names = array(
+				self::ORDER_STATE_DRAFT => t("Koostamisel"),
+				self::ORDER_STATE_READY => t("Koostatud"),
+				self::ORDER_STATE_SENT => t("Saadetud"),
+				self::ORDER_STATE_CONFIRMED => t("Kinnitatud"),
+				self::ORDER_STATE_CANCELLED => t("Tühistatud"),
+			);
+		}
+
+		if (!isset($state))
+		{
+			$names = self::$mrp_order_state_names;
+		}
+		elseif (is_scalar($state) and isset(self::$mrp_order_state_names[$state]))
+		{
+			$names = self::$mrp_order_state_names[$state];
+		}
+		else
+		{
+			$names = "";
+		}
+
+		return $names;
+	}
+	
+	public function awobj_get_order_state()
+	{
+		$state = $this->prop("order_state");
+		if (empty($state))
+		{
+			return self::ORDER_STATE_DRAFT;
+		}
+		return $state;
 	}
 
 	public function awobj_get_project_priority()
@@ -1405,9 +1459,12 @@ Parimat,
 		$mail->set_prop("bcc", $bcc);
 		$mail->save();
 
-		$comment = html_entity_decode(sprintf(t("Saadetud aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s."), $to, $cc, $body, $att_comment));
+		$this->set_prop("order_state", self::ORDER_STATE_SENT);
 
-//		$this->send(self::DELIVERY_EMAIL, $comment);
+		$comment = sprintf(t("Aadressidele: %s\nKoopia aadressidele: %s\nTekst: %s\nLisatud failid: %s."), htmlspecialchars($to), htmlspecialchars($cc), html_entity_decode($body), html_entity_decode($att_comment));
+		$ws = new mrp_workspace();
+		$ws->mrp_log($this->id(), NULL, t("Tellimus saadeti kliendile"), $comment);
+
 		$this->save();
 	}
 

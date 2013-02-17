@@ -66,7 +66,7 @@
             </group>
             <parent>general_info_1</parent>
             <captionside>top</captionside>
-            <caption>Müüja:</caption>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;ja:</caption>
       </property>
       <property>
             <name>customer</name>
@@ -224,6 +224,28 @@
             <caption>Planeeritud valmimisaeg:</caption>
       </property>
       <property>
+            <name>order_state</name>
+            <type>select</type>
+            <table>mrp_case</table>
+            <field>aw_order_state</field>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <editonly>1</editonly>
+            <parent>general_info_4</parent>
+            <captionside>top</captionside>
+            <caption>Staatus:</caption>
+      </property>
+      <property>
             <name>state</name>
             <type>text</type>
             <table>mrp_case</table>
@@ -243,7 +265,7 @@
             <parent>general_info_4</parent>
             <captionside>top</captionside>
             <field>state</field>
-            <caption>Staatus:</caption>
+            <caption>Tootmise staatus:</caption>
       </property>
       <property>
             <name>started</name>
