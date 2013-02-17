@@ -11,6 +11,28 @@
             <method>serialize</method>
             <caption>Kuvatakse</caption>
       </property>
+      <property>
+            <name>order_states_displayed</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <orient>vertical</orient>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kuvatavad staatused</caption>
+      </property>
+      <property>
+            <name>states_displayed</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <orient>vertical</orient>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kuvatavad tootmise staatused</caption>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>

@@ -1,5 +1,17 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="order_webview" extends="class_base">
+		<action name="confirm_order" all_args="1">
+			<function name="confirm_order">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="cancel_order" all_args="1">
+			<function name="cancel_order">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

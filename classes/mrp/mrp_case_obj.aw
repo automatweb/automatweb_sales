@@ -153,6 +153,18 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		}
 		return $this->set_prop("order_state", $state);
 	}
+	
+	public function confirm()
+	{
+		$this->awobj_set_order_state(self::ORDER_STATE_CONFIRMED);
+		$this->save();
+	}
+	
+	public function cancel()
+	{
+		$this->awobj_set_order_state(self::ORDER_STATE_CANCELLED);
+		$this->save();
+	}
 
 	public function awobj_get_project_priority()
 	{

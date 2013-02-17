@@ -14,6 +14,8 @@ class order_webview_obj extends _int_object
 		return new object_list(array(
 			"class_id" => mrp_case_obj::CLID,
 			"customer_relation.buyer" => $this->__get_buyer(),
+			"order_state" => $this->prop("order_states_displayed"),
+			"state" => $this->prop("states_displayed"),
 		));
 	}
 	
