@@ -48,6 +48,27 @@
             <field>components_toolbar</field>
       </property>
       <property>
+            <name>seller</name>
+            <type>select</type>
+            <table>mrp_case</table>
+            <field>aw_seller</field>
+            <group>
+                  <num_0>grp_general</num_0>
+                  <num_1>grp_case_data</num_1>
+                  <num_2>grp_case_components</num_2>
+                  <num_3>grp_case_workflow</num_3>
+                  <num_4>grp_case_materials</num_4>
+                  <num_5>grp_case_view</num_5>
+                  <num_6>grp_case_schedule_gantt</num_6>
+                  <num_7>grp_case_schedule_google</num_7>
+                  <num_8>grp_case_comments</num_8>
+                  <num_9>grp_case_log</num_9>
+            </group>
+            <parent>general_info_1</parent>
+            <captionside>top</captionside>
+            <caption>Müüja:</caption>
+      </property>
+      <property>
             <name>customer</name>
             <type>relpicker</type>
             <reltype>RELTYPE_MRP_CUSTOMER</reltype>
@@ -69,7 +90,7 @@
             <parent>general_info_1</parent>
             <captionside>top</captionside>
             <field>customer</field>
-            <caption>Klient</caption>
+            <caption>Ostja:</caption>
       </property>
       <property>
             <name>object_id</name>
@@ -113,7 +134,7 @@
             </group>
             <parent>general_info_2</parent>
             <captionside>top</captionside>
-            <caption>Projekti nr.</caption>
+            <caption>Tellimuse nr.</caption>
       </property>
       <property>
             <name>comment</name>
@@ -135,7 +156,7 @@
             </group>
             <parent>general_info_2</parent>
             <captionside>top</captionside>
-            <caption>Projekti nimetus</caption>
+            <caption>Tellimuse nimetus</caption>
       </property>
       <property>
             <name>starttime</name>
@@ -328,6 +349,7 @@
             <table>mrp_case</table>
             <type>objpicker</type>
             <clid>CL_ORDER_SOURCE</clid>
+            <mode>select</mode>
             <field>aw_order_source</field>
             <parent>general_left</parent>
             <caption>Kanal</caption>
@@ -340,7 +362,7 @@
             <maxlength>10</maxlength>
             <parent>general_left</parent>
             <field>project_priority</field>
-            <caption>Projekti prioriteet</caption>
+            <caption>Tellimuse prioriteet</caption>
       </property>
       <property>
             <name>customer_relation</name>
@@ -747,7 +769,7 @@
             <method>serialize</method>
             <type>text</type>
             <parent>view_general_info_left</parent>
-            <caption>Projekti nr.</caption>
+            <caption>Tellimuse nr.</caption>
       </property>
       <property>
             <name>vgi_comment</name>
@@ -757,7 +779,7 @@
             <method>serialize</method>
             <type>text</type>
             <parent>view_general_info_left</parent>
-            <caption>Projekti nimetus</caption>
+            <caption>Tellimuse nimetus</caption>
       </property>
       <property>
             <name>vgi_customer</name>
@@ -968,7 +990,7 @@
                   <parent>general</parent>
             </grp_general>
             <grp_case_data>
-                  <caption>Projekti andmed</caption>
+                  <caption>Tellimuse andmed</caption>
                   <parent>general</parent>
             </grp_case_data>
             <grp_case_components>
@@ -1068,13 +1090,13 @@
             <MRP_OWNER>
                   <value>5</value>
                   <clid>CL_MRP_WORKSPACE</clid>
-                  <caption>Projekti omanik</caption>
+                  <caption>Tellimuse omanik</caption>
             </MRP_OWNER>
       </reltypes>
       <layout>
             <general_info>
                   <type>hbox</type>
-                  <area_caption>Projekti&amp;amp;nbsp;&amp;amp;uuml;levaade</area_caption>
+                  <area_caption>Tellimuse&amp;amp;nbsp;&amp;amp;uuml;levaade</area_caption>
                   <closeable>1</closeable>
                   <group>
                         <num_0>grp_general</num_0>
@@ -1178,7 +1200,7 @@
             <general_split>
                   <type>hbox</type>
                   <width>50%:50%</width>
-                  <area_caption>Projekti&amp;amp;nbsp;&amp;amp;uuml;ldandmed</area_caption>
+                  <area_caption>Tellimuse&amp;amp;nbsp;&amp;amp;uuml;ldandmed</area_caption>
                   <group>grp_general</group>
             </general_split>
             <general_left>
@@ -1255,7 +1277,7 @@
             </job_charts>
             <view_general_info>
                   <type>hbox</type>
-                  <area_caption>Projekti&amp;amp;nbsp;&amp;amp;uuml;ldandmed</area_caption>
+                  <area_caption>Tellimuse&amp;amp;nbsp;&amp;amp;uuml;ldandmed</area_caption>
                   <closeable>1</closeable>
                   <width>50%:50%</width>
                   <group>grp_case_view</group>

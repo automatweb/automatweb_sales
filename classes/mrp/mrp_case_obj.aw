@@ -97,39 +97,30 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		return parent::set_prop("trykiarv", $value);
 	}
 	
+	public function awobj_get_seller()
+	{
+		if (is_oid($this->prop("customer_relation")))
+		{
+			$customer_relation = obj($this->prop("customer_relation"), null, crm_company_customer_data_obj::CLID);
+			$this->set_prop("seller", $customer_relation->seller);
+			
+			return $customer_relation->seller;
+		}
+
+		return parent::prop("seller");
+	}
+	
 	public function awobj_get_customer()
 	{
 		if (is_oid($this->prop("customer_relation")))
 		{
 			$customer_relation = obj($this->prop("customer_relation"), null, crm_company_customer_data_obj::CLID);
-			$this->awobj_set_customer($customer_relation->buyer);
+			$this->set_prop("customer", $customer_relation->buyer);
+			
+			return $customer_relation->buyer;
 		}
 
-		return parent::prop("customer");
-	}
-
-	/**	Create customer data object for workspace owner and project customer if no customer data object for those two exists.
-		@attrib api=1 params=pos
-
-		@param oid required type=int acl=view
-	**/
-	public function awobj_set_customer($oid)
-	{
-		try
-		{
-			$ws = $this->awobj_get_workspace();
-			if (is_oid($ws->prop("owner")))
-			{
-				$seller = $ws->prop("owner");
-				// Make customer data object if doesn't exist.
-				obj($oid)->find_customer_relation(obj($seller), true);
-			}
-		}
-		catch(awex_mrp_case_workspace $E)
-		{
-			// FIXME: Damnit!
-		}
-		return parent::set_prop("customer", $oid);
+		return null;
 	}
 
 /**
@@ -345,6 +336,27 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 			{
 				$this->awobj_set_order_quantity(1);
 			}
+		}
+
+		if (is_oid($seller_id = parent::prop("seller")) && is_oid($buyer_id = parent::prop("customer")))
+		{
+			try
+			{
+				$buyer = obj($buyer_id);
+				$customer_relation = $buyer->find_customer_relation(obj($seller_id, null, crm_company_obj::CLID));
+				if ($customer_relation !== null)
+				{
+					$this->set_prop("customer_relation", $customer_relation->id());
+				}
+			}
+			catch (Exception $e)
+			{
+				$this->set_prop("customer_relation", 0);
+			}
+		}
+		else
+		{
+			$this->set_prop("customer_relation", 0);
 		}
 
 		$r = parent::save($check_state);

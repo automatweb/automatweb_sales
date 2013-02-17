@@ -10,7 +10,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 @tableinfo mrp_case_schedule index=oid master_table=objects master_index=oid
 
 	@groupinfo grp_general caption="&Uuml;ldine" parent=general
-	@groupinfo grp_case_data caption="Projekti andmed" parent=general
+	@groupinfo grp_case_data caption="Tellimuse andmed" parent=general
 @groupinfo grp_case_components caption="Komponendid"
 @groupinfo grp_case_formula caption="Tooteretsept"
 	@groupinfo grp_case_workflow caption="T&ouml;&ouml;voog" parent=grp_case_formula
@@ -35,12 +35,15 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 
 // GENERAL INFO
 
-@layout general_info type=hbox area_caption=Projekti&nbsp;&uuml;levaade closeable=1 group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log width=20%:20%:20%:20%:20%
+@layout general_info type=hbox area_caption=Tellimuse&nbsp;&uuml;levaade closeable=1 group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log width=20%:20%:20%:20%:20%
 	
 	@layout general_info_1 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
+	
+		@property seller type=select table=mrp_case field=aw_seller group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_1 captionside=top
+		@caption Müüja:
 
 		@property customer type=relpicker reltype=RELTYPE_MRP_CUSTOMER clid=CL_CRM_COMPANY table=mrp_case editonly=1 group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_1 captionside=top
-		@caption Klient
+		@caption Ostja:
 	
 	@layout general_info_2 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
 
@@ -48,10 +51,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 		@caption Objekti ID:
 
 		@property name type=textbox size=25 table=objects field=name group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_2 captionside=top
-		@caption Projekti nr.
+		@caption Tellimuse nr.
 
 		@property comment type=textbox size=25 table=objects field=comment group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log parent=general_info_2 captionside=top
-		@caption Projekti nimetus
+		@caption Tellimuse nimetus
 		
 	@layout general_info_3 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
 
@@ -85,7 +88,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 
 @default group=grp_general
 
-	@layout general_split type=hbox width=50%:50% area_caption=Projekti&nbsp;&uuml;ldandmed
+	@layout general_split type=hbox width=50%:50% area_caption=Tellimuse&nbsp;&uuml;ldandmed
 	
 		@layout general_left type=vbox parent=general_split
 
@@ -94,11 +97,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 			@property order_quantity type=textbox datatype=int parent=general_left
 			@caption Tellimuse kogus
 			
-			@property order_source type=objpicker clid=CL_ORDER_SOURCE field=aw_order_source parent=general_left
+			@property order_source type=objpicker clid=CL_ORDER_SOURCE mode=select field=aw_order_source parent=general_left
 			@caption Kanal
 
 			@property project_priority type=textbox maxlength=10 parent=general_left
-			@caption Projekti prioriteet
+			@caption Tellimuse prioriteet
 		
 		@layout general_right type=vbox parent=general_split
 
@@ -247,15 +250,15 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 
 @default group=grp_case_view
 
-	@layout view_general_info type=hbox area_caption=Projekti&nbsp;&uuml;ldandmed closeable=1 width=50%:50%
+	@layout view_general_info type=hbox area_caption=Tellimuse&nbsp;&uuml;ldandmed closeable=1 width=50%:50%
 
 		@layout view_general_info_left type=vbox parent=view_general_info
 
 			@property vgi_name type=text parent=view_general_info_left
-			@caption Projekti nr.
+			@caption Tellimuse nr.
 
 			@property vgi_comment type=text parent=view_general_info_left
-			@caption Projekti nimetus
+			@caption Tellimuse nimetus
 
 			@property vgi_customer type=text parent=view_general_info_left
 			@caption Klient
@@ -351,7 +354,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 
 // DEPRECATED
 @reltype MRP_OWNER value=5 clid=CL_MRP_WORKSPACE
-@caption Projekti omanik
+@caption Tellimuse omanik
 
 */
 
@@ -445,7 +448,7 @@ class mrp_case extends class_base
 
 			if (!$this->workspace)
 			{
-				$this->mrp_error .= t("Projektil puudub ressursihalduskeskkond. ");
+				$this->mrp_error .= t("Tellimusel puudub ressursihalduskeskkond. ");
 			}
 		}
 
@@ -506,23 +509,6 @@ class mrp_case extends class_base
 				}
 				break;
 
-			case "customer":
-				// DEPRECATED!! Use customer_relation instead!
-				$prop["type"] = "text";
-				$prop["caption"] .= ":";
-				if (is_oid($arr["obj_inst"]->customer))
-				{
-					$customer = obj($arr["obj_inst"]->customer);
-					$name = $customer->is_a(crm_company_obj::CLID) ? $customer->get_title() : $customer->name;
-					$separator = html::linebreak();
-					$prop["value"] = sprintf("%s{$separator}%s{$separator}%s{$separator}%s", html::bold($name), ($email = $customer->get_email_address()) ? $email->mail : null, $customer->get_phone_number(), $customer->get_address_string());
-				}
-				else
-				{
-					$prop["value"] = t("M&auml;&auml;ramata");
-				}
-				break;
-
 			case "header":
 				if ($arr["new"])
 				{
@@ -570,7 +556,7 @@ class mrp_case extends class_base
 				{
 					$prop["type"] = "text";
 					$prop["caption"] .= ":";
-					$prop["value"] = date(MRP_DATE_FORMAT, $prop["value"]);
+					$prop["value"] = isset($prop["value"]) ? date(MRP_DATE_FORMAT, $prop["value"]) : html::italic(t("Määramata"));
 				}
 				break;
 
@@ -757,6 +743,74 @@ class mrp_case extends class_base
 		}
 
 		return $retval;
+	}
+	
+	function _get_customer_relation(&$arr)
+	{
+		return class_base::PROP_IGNORE;
+	}
+	
+	function _set_customer_relation(&$arr)
+	{
+		return class_base::PROP_IGNORE;
+	}
+	
+	function _get_seller(&$arr)
+	{
+		$current_person = obj(user::get_current_person(), null, crm_person_obj::CLID);
+		$arr["prop"]["options"] = $current_person->get_companies()->names();
+		
+		return class_base::PROP_OK;
+	}
+	
+	function _get_customer(&$arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["options"] = array(t("--vali--"));
+		
+		if (is_oid($arr["obj_inst"]->seller))
+		{
+			$seller = $arr["obj_inst"]->seller();
+			
+			// TODO: Use crm_company_obj::get_customers_by_customer_data_objs() instead. Currently fails for 4290+ objects.
+
+			$customer_relations = new object_data_list(array(
+				"class_id" => crm_company_customer_data_obj::CLID,
+				"seller" => $seller->id(),
+				"sales_state" => crm_company_customer_data_obj::SALESSTATE_SALE,
+				new obj_predicate_sort(array("created" => obj_predicate_sort::ASC)),
+				new obj_predicate_limit(100, 0),
+			),
+			array(
+				crm_company_customer_data_obj::CLID => array("buyer"),
+			));
+		
+			$customer_oids = $customer_relations->get_element_from_all("buyer");
+			
+			if (is_oid($arr["obj_inst"]->customer))
+			{
+				$customer_oids[] = $arr["obj_inst"]->customer;
+			}
+			
+			if (!empty($customer_oids))
+			{
+				$ol = new object_list(array(
+					"oid" => $customer_oids,
+					new obj_predicate_sort(array("name" => obj_predicate_sort::ASC)),
+				));
+				$prop["options"] += $ol->names();
+			}
+		}
+		
+		if (is_oid($arr["obj_inst"]->customer))
+		{
+			$customer = obj($arr["obj_inst"]->customer);
+			$name = $customer->is_a(crm_company_obj::CLID) ? $customer->get_title() : $customer->name;
+			$separator = html::linebreak();
+			$prop["post_append_text"] .= sprintf("<br />%s{$separator}%s{$separator}%s{$separator}%s", html::bold($name), ($email = $customer->get_email_address()) ? $email->mail : null, $customer->get_phone_number(), $customer->get_address_string());
+		}
+
+		return class_base::PROP_OK;
 	}
 	
 	function _get_preview(&$arr)
@@ -1334,8 +1388,7 @@ HTML;
 				{
 					return PROP_IGNORE;
 				}
-				$arr["obj_inst"]->awobj_set_customer($prop["value"]);
-				return PROP_IGNORE;
+				$arr["obj_inst"]->set_prop("customer", $prop["value"]);
 				break;
 
 			case "workflow_table":
@@ -1369,7 +1422,7 @@ HTML;
 			$this->mrp_log(
 				$arr["obj_inst"]->id(),
 				NULL,
-				"Projekti omaduse ".
+				"Tellimuse omaduse ".
 					$prop["caption"]." v&auml;&auml;rtust muudeti ".
 					$v1." => ".$v2
 			);
@@ -2042,7 +2095,7 @@ HTML;
 		$table->set_numeric_field ("exec_order");
 		$table->set_default_sortby ("exec_order");
 		$table->set_default_sorder ("asc");
-		$table->set_caption(t("Projekti t&ouml;&ouml;voog"));
+		$table->set_caption(t("Tellimuse t&ouml;&ouml;voog"));
 
 		### define data for each connected job
 		$connections = $this_object->connections_from(array ("type" => "RELTYPE_MRP_PROJECT_JOB", "class_id" => CL_MRP_JOB));
@@ -2657,18 +2710,30 @@ HTML;
 		switch($arr["name"])
 		{
 			case "states_chart":
-				$arr["area_caption"] = sprintf(t("Projekti '%s' t&ouml;&ouml;d staatuste kaupa"), $arr["obj_inst"]->name());
+				$arr["area_caption"] = sprintf(t("Tellimuse \"%s\" t&ouml;&ouml;d staatuste kaupa"), $arr["obj_inst"]->name());
 				break;
 
 			case "recources_chart":
-				$arr["area_caption"] = sprintf(t("Projekti '%s' planeeritud kestused ressursside kaupa"), $arr["obj_inst"]->name());
+				$arr["area_caption"] = sprintf(t("Tellimuse \"%s\" planeeritud kestused ressursside kaupa"), $arr["obj_inst"]->name());
 				break;
 
 			case "job_charts":
-				$arr["area_caption"] = sprintf(t("Projekti '%s' t&ouml;&ouml;de kestuste v&otilde;rdlused"), $arr["obj_inst"]->name());
+				$arr["area_caption"] = sprintf(t("Tellimuse \"%s\" t&ouml;&ouml;de kestuste v&otilde;rdlused"), $arr["obj_inst"]->name());
 				break;
 			case "general_info":
-				$arr["area_caption"] = sprintf(t("TELLIMUSE ÜLDANDMED: Kliendi %s projekt '%s' numbriga %s staatusega '%s'"), $arr["obj_inst"]->prop("customer_relation.buyer.name"), $arr["obj_inst"]->comment, $arr["obj_inst"]->name, $this->states[$arr["obj_inst"]->state]);
+				$area_caption = array();
+				if (is_oid($arr["obj_inst"]->prop("customer_relation.buyer")))
+				{
+					$area_caption[] = sprintf(t("Kliendi \"%s\""), $arr["obj_inst"]->prop("customer_relation.buyer.name"));
+				}
+				$area_caption[] = !empty($arr["obj_inst"]->comment) ? sprintf(t("projekt \"%s\""), $arr["obj_inst"]->comment) : t("projekt");
+				if (!empty($arr["obj_inst"]->name))
+				{
+					$area_caption[] = sprintf(t("numbriga \"%s\""), $arr["obj_inst"]->name);
+				}
+				$area_caption[] = sprintf(t("staatusega \"%s\""), $this->states[$arr["obj_inst"]->state]);
+
+				$arr["area_caption"] = ucfirst(implode(" ", $area_caption));
 				break;
 		}
 		return true;
@@ -2694,7 +2759,7 @@ HTML;
 		}
 		else
 		{
-			$errors[] = t("Projekti id vale");
+			$errors[] = t("Tellimuse id vale");
 			$errors = (serialize($errors));
 			return aw_url_change_var ("errors", $errors, $return_url);
 		}
@@ -2705,11 +2770,11 @@ HTML;
 		}
 		catch (awex_mrp_state $e)
 		{
-			$errors[] = t("Projekti staatus sobimatu");
+			$errors[] = t("Tellimuse staatus sobimatu");
 		}
 		catch (Exception $e)
 		{
-			$errors[] = t("Projekti ei saand alustada");
+			$errors[] = t("Tellimuse ei saand alustada");
 		}
 
 		if ($errors)
@@ -2743,7 +2808,7 @@ HTML;
 		}
 		else
 		{
-			$errors[] = t("Projekti id vale");
+			$errors[] = t("Tellimuse id vale");
 			$errors = (serialize($errors));
 			return aw_url_change_var ("errors", $errors, $return_url);
 		}
@@ -2754,15 +2819,15 @@ HTML;
 		}
 		catch (awex_mrp_state $e)
 		{
-			$errors[] = t("Projekti staatus sobimatu");
+			$errors[] = t("Tellimuse staatus sobimatu");
 		}
 		catch (awex_mrp_case_not_completed $e)
 		{
-			$errors[] = t("Projekti ei saa l&otilde;petada. K&otilde;ik projekti t&ouml;&ouml;d pole valmis");
+			$errors[] = t("Tellimuse ei saa l&otilde;petada. K&otilde;ik projekti t&ouml;&ouml;d pole valmis");
 		}
 		catch (Exception $e)
 		{
-			$errors[] = t("Projekti ei saand l&otilde;petada");
+			$errors[] = t("Tellimuse ei saand l&otilde;petada");
 		}
 
 		### ...
@@ -2797,7 +2862,7 @@ HTML;
 		}
 		else
 		{
-			$errors[] = t("Projekti id vale");
+			$errors[] = t("Tellimuse id vale");
 			$errors = (serialize($errors));
 			return aw_url_change_var ("errors", $errors, $return_url);
 		}
@@ -2808,11 +2873,11 @@ HTML;
 		}
 		catch (awex_mrp_state $e)
 		{
-			$errors[] = t("Projekti staatus sobimatu");
+			$errors[] = t("Tellimuse staatus sobimatu");
 		}
 		catch (Exception $e)
 		{
-			$errors[] = t("Projekti ei saand katkestada");
+			$errors[] = t("Tellimuse ei saand katkestada");
 		}
 
 		if ($errors)
@@ -2846,7 +2911,7 @@ HTML;
 		}
 		else
 		{
-			$errors[] = t("Projekti id vale");
+			$errors[] = t("Tellimuse id vale");
 			$errors = (serialize($errors));
 			return aw_url_change_var ("errors", $errors, $return_url);
 		}
@@ -2857,11 +2922,11 @@ HTML;
 		}
 		catch (awex_mrp_state $e)
 		{
-			$errors[] = t("Projekti staatus sobimatu");
+			$errors[] = t("Tellimuse staatus sobimatu");
 		}
 		catch (Exception $e)
 		{
-			$errors[] = t("Projekti ei saand arhiveerida");
+			$errors[] = t("Tellimuse ei saand arhiveerida");
 		}
 
 		if ($errors)
@@ -2896,7 +2961,7 @@ HTML;
 		}
 		else
 		{
-			$errors[] = t("Projekti id vale");
+			$errors[] = t("Tellimuse id vale");
 			$errors = (serialize($errors));
 			return aw_url_change_var ("errors", $errors, $return_url);
 		}
@@ -2907,11 +2972,11 @@ HTML;
 		}
 		catch (awex_mrp_state $e)
 		{
-			$errors[] = t("Projekti staatus sobimatu");
+			$errors[] = t("Tellimuse staatus sobimatu");
 		}
 		catch (Exception $e)
 		{
-			$errors[] = t("Projekti ei saand planeerida");
+			$errors[] = t("Tellimuse ei saand planeerida");
 		}
 
 		if ($errors)
@@ -2945,7 +3010,7 @@ HTML;
 		}
 		else
 		{
-			$errors[] = t("Projekti id vale");
+			$errors[] = t("Tellimuse id vale");
 			$errors = (serialize($errors));
 			return aw_url_change_var ("errors", $errors, $return_url);
 		}
@@ -2956,11 +3021,11 @@ HTML;
 		}
 		catch (awex_mrp_state $e)
 		{
-			$errors[] = t("Projekti staatus sobimatu");
+			$errors[] = t("Tellimuse staatus sobimatu");
 		}
 		catch (Exception $e)
 		{
-			$errors[] = t("Projekti ei saand ootele seada");
+			$errors[] = t("Tellimuse ei saand ootele seada");
 		}
 
 		if ($errors)
@@ -3315,6 +3380,7 @@ HTML;
 				case "purchasing_manager":
 				case "workspace":
 				case "customer_relation":
+				case "aw_seller":
 				case "finished":
 				case "archived":
 				case "started":
@@ -4252,7 +4318,7 @@ function add_material(mid, jid)
 		return $vars;
 	}
 	
-	private function __return_message_error($error_message, $return)
+	private function __return_error_message($error_message, $return)
 	{
 		if ($return)
 		{
