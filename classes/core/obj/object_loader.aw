@@ -642,18 +642,24 @@ class _int_object_loader
 		fflush($f);
 		if ($url != "")
 		{
-			aw_global_set("__from_raise_error", 1);
-			core::do_orb_method_call(array(
-				"server" => $url,
-				"method" => "xmlrpc",
-				"class" => "object_cache_updater",
-				"action" => "handle_remote_update",
-				"params" => array(
-					"data" => $data
-				),
-				"no_errors" => 1	// sites may not respond or be password protected or whatever and the user does not need to see that
-			));
-			aw_global_set("__from_raise_error", 0);
+			try {
+				aw_global_set("__from_raise_error", 1);
+				core::do_orb_method_call(array(
+					"server" => $url,
+					"method" => "xmlrpc",
+					"class" => "object_cache_updater",
+					"action" => "handle_remote_update",
+					"params" => array(
+						"data" => $data
+					),
+					"no_errors" => 1	// sites may not respond or be password protected or whatever and the user does not need to see that
+				));
+				aw_global_set("__from_raise_error", 0);
+			}
+			catch (Exception $e)
+			{
+				// TODO
+			}
 		}
 	}
 
