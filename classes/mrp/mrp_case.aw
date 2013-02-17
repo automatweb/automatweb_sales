@@ -69,8 +69,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 		
 	@layout general_info_4 type=vbox parent=general_info group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log
 
-		@property state type=text table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
+		@property order_state type=select table=mrp_case field=aw_order_state group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
 		@caption Staatus:
+
+		@property state type=text table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
+		@caption Tootmise staatus:
 
 		@property started type=text editonly=1 table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
 		@caption Alustatud:
@@ -759,6 +762,7 @@ class mrp_case extends class_base
 	{
 		$current_person = obj(user::get_current_person(), null, crm_person_obj::CLID);
 		$arr["prop"]["options"] = $current_person->get_companies()->names();
+		$arr["prop"]["width"] = 150;
 		
 		return class_base::PROP_OK;
 	}
@@ -766,6 +770,7 @@ class mrp_case extends class_base
 	function _get_customer(&$arr)
 	{
 		$prop = &$arr["prop"];
+		$prop["width"] = 150;
 		$prop["options"] = array(t("--vali--"));
 		
 		if (is_oid($arr["obj_inst"]->seller))
@@ -805,9 +810,8 @@ class mrp_case extends class_base
 		if (is_oid($arr["obj_inst"]->customer))
 		{
 			$customer = obj($arr["obj_inst"]->customer);
-			$name = $customer->is_a(crm_company_obj::CLID) ? $customer->get_title() : $customer->name;
 			$separator = html::linebreak();
-			$prop["post_append_text"] .= sprintf("<br />%s{$separator}%s{$separator}%s{$separator}%s", html::bold($name), ($email = $customer->get_email_address()) ? $email->mail : null, $customer->get_phone_number(), $customer->get_address_string());
+			$prop["post_append_text"] .= sprintf("<br />%s{$separator}%s{$separator}%s", ($email = $customer->get_email_address()) ? $email->mail : null, $customer->get_phone_number(), $customer->get_address_string());
 		}
 
 		return class_base::PROP_OK;
