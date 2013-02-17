@@ -1648,7 +1648,7 @@ class crm_customer_view extends class_base
 			}
 
 			$sp = array();
-			if($cro_obj->prop("seller.firmajuht")) $sp[] = $this->get_person_data( $cro_obj->prop("seller.firmajuht"), $cro_obj->prop("seller"), t("&Uuml;ldjuht"));
+			if($cro_obj->prop("seller.class_id") == crm_company_obj::CLID && $cro_obj->prop("seller.firmajuht")) $sp[] = $this->get_person_data( $cro_obj->prop("seller.firmajuht"), $cro_obj->prop("seller"), t("&Uuml;ldjuht"));
 			if($cro_obj->prop("cust_contract_creator")) $sp[] = $this->get_person_data( $cro_obj->prop("cust_contract_creator"), $cro_obj->prop("seller"), t("Kliendisuhte looja"));
 			if($cro_obj->prop("client_manager")) $sp[] = $this->get_person_data( $cro_obj->prop("client_manager"), $cro_obj->prop("seller"), t("Kliendihaldur"));
 			if($cro_obj->prop("salesman")) $sp[] = $this->get_person_data( $cro_obj->prop("salesman"), $cro_obj->prop("seller"), t("M&uuml;&uuml;giesindaja"));
@@ -1799,7 +1799,8 @@ faks: 6556 235
 				$person = obj($person->get_person_for_user());
 			}
 
-			$professions = $person->get_profession_names(obj($co));
+			$company = obj($co);
+			$professions = $company->is_a(crm_company_obj::CLID) ? $person->get_profession_names($company) : array();
 
 			$ret[]= $person->name()." (".$role.(sizeof($professions) ? "," : "")." ".join(", " , $professions).")";
 
