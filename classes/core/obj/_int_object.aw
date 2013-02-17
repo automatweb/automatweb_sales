@@ -35,6 +35,7 @@ class _int_object
 	protected $props_loaded = false;
 	protected $props_modified = array();
 	protected $ot_modified = array("modified" => 1);
+	private $post_save_callbacks = array();
 
 	protected static $global_save_count = 0;
 	protected static $cache_off = false;
@@ -66,6 +67,9 @@ class _int_object
 	{
 		$this->_int_can_save();
 		$tmp =  $this->_int_do_save($check_state);
+		
+		$this->_invoke_post_save_callbacks();
+		
 		return $tmp;
 	}
 
@@ -2798,6 +2802,26 @@ class _int_object
 		if (!$required_state)
 		{
 			throw new awex_obj_state();
+		}
+	}
+	
+	protected function add_post_save_callback($callback, array $args = null)
+	{
+		$this->post_save_callbacks[] = $args !== null ? array($callback, $args) : array($callback);
+	}
+	
+	private function _invoke_post_save_callbacks()
+	{
+		if (!empty($this->post_save_callbacks))
+		{
+			foreach($this->post_save_callbacks as $i => $post_save_callback)
+			{
+				if (is_callable($post_save_callback[0]))
+				{
+					isset($post_save_callback[1]) ? call_user_func_array($post_save_callback[0], $post_save_callback[1]) : call_user_func($post_save_callback[0]);
+				}
+			}
+			unset($this->post_save_callbacks[$i]);
 		}
 	}
 }
