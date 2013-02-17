@@ -45,6 +45,7 @@ class order_webview extends class_base
 				"order.id" => $order->id(),
 				"order.name" => $order->prop("name"),
 				"order.state" => mrp_case_obj::get_state_names($order->prop("state")),
+				"order.order_state" => mrp_case_obj::get_order_state_names($order->prop("order_state")),
 				"order.total" => "TODO",
 				"order.created" => $order->prop("created"),
 				"order.pdf_url" => $order->get_order_pdf()->get_url(),
