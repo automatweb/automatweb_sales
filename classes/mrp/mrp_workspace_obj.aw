@@ -204,7 +204,6 @@ class mrp_workspace_obj extends _int_object
 		{
 			$customer = new object($customer_relation->prop("buyer"));
 			$case->set_name(sprintf(t("Kliendi %s projekt"), $customer->name()));
-			$case->set_prop("customer", $customer->id());//!!! deprecated soon
 			$case->set_prop("customer_relation", $customer_relation->id());
 		}
 		$case->save();
