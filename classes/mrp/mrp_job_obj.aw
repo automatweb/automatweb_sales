@@ -297,7 +297,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 	function save($check_state = false)
 	{
 		$this->mrp_job_data_loaded = false;
-		if ($this->change_name)
+		if ($this->change_name && !$this->meta("name_manually_set"))
 		{
 			$project = is_oid($this->prop("project")) ? obj($this->prop("project"))->name() : t("Projektita");
 			$resource = is_oid($this->prop("resource")) ? obj($this->prop("resource"))->name() : t("Ressursita");
@@ -1900,6 +1900,12 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		}
 		parent::set_prop("prerequisites", $prerequisites_raw);
 		$this->request_rescheduling();
+	}
+	
+	public function awobj_set_name($name)
+	{
+		$this->set_meta("name_manually_set", true);
+		return $this->set_name($name);
 	}
 
 	public function awobj_set_state($value)
