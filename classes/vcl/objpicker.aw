@@ -151,20 +151,7 @@ SCRIPT;
 		}
 		elseif ("select" === $mode)
 		{
-			if (is_oid($args["object"]->prop($name)))
-			{
-				$o = new object($args["object"]->prop($name));
-				$value = $o->prop_xml("name");
-			}
-			elseif (isset($args["value"]) and is_oid($args["value"]))
-			{
-				$o = new object($args["value"]);
-				$value = $o->prop_xml("name");
-			}
-			else
-			{
-				$value = "";
-			}
+			$value = isset($args["value"]) ? $args["value"] : $args["object"]->prop($name);
 
 			if (empty($args["view"]) and empty($args["disabled"]))
 			{
