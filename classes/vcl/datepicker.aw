@@ -50,7 +50,7 @@ class datepicker extends core implements vcl_interface
 			"name" => $arr["name"]."[date]",
 			"value" => isset($arr["value"]["date"]) ? $arr["value"]["date"] : "",
 			"disabled" => isset($arr["disabled"]) ? $arr["disabled"] : false,
-			"size" => 6,
+			"size" => 10,
 			"textsize" => !empty($arr["textsize"]) ? $arr["textsize"] : null
 		));
 
