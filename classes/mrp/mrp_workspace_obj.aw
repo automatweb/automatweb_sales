@@ -203,7 +203,8 @@ class mrp_workspace_obj extends _int_object
 		if (is_object($customer_relation))
 		{
 			$customer = new object($customer_relation->prop("buyer"));
-			$case->set_name(sprintf(t("Kliendi %s projekt"), $customer->name()));
+			$case->set_name(date("Ymd") . strtoupper(base_convert(date("His") . rand(1000, 9999), 10, 32)));
+			$case->set_comment(sprintf(t("Kliendi %s projekt"), $customer->name()));
 			$case->set_prop("customer_relation", $customer_relation->id());
 		}
 		$case->save();
