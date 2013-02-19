@@ -20,197 +20,260 @@
       </property>
       <property>
             <name>orders_toolbar</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>orders_toolbar</field>
       </property>
       <property>
             <name>orders_filter_order_sources</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>yui-chooser</type>
             <multiple>true</multiple>
             <store>no</store>
             <no_caption>true</no_caption>
             <parent>orders_filter_order_sources</parent>
-            <field>orders_filter_order_sources</field>
+      </property>
+      <property>
+            <name>orders_filter_order_state</name>
+            <table>objects</table>
+            <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>yui-chooser</type>
+            <multiple>true</multiple>
+            <store>no</store>
+            <no_caption>true</no_caption>
+            <parent>orders_filter_order_state</parent>
       </property>
       <property>
             <name>orders_filter_state</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>yui-chooser</type>
             <multiple>true</multiple>
             <store>no</store>
             <no_caption>true</no_caption>
             <parent>orders_filter_state</parent>
-            <field>orders_filter_state</field>
       </property>
       <property>
             <name>orders_filter_time_period</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>period_filter</type>
             <store>no</store>
             <parent>orders_filter_time_period</parent>
-            <field>orders_filter_time_period</field>
       </property>
       <property>
             <name>orders_filter_customer_category</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>yui-chooser</type>
             <multiple>true</multiple>
             <store>no</store>
             <no_caption>true</no_caption>
             <parent>orders_filter_customer_category</parent>
-            <field>orders_filter_customer_category</field>
       </property>
       <property>
             <name>orders_filter_search_customer_name</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <size>30</size>
             <type>textbox</type>
             <store>no</store>
             <captionside>top</captionside>
             <parent>orders_filter_search_fields_1</parent>
-            <field>orders_filter_search_customer_name</field>
             <caption>Kliendi nimi</caption>
       </property>
       <property>
             <name>orders_filter_search_name</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <size>30</size>
             <type>textbox</type>
             <store>no</store>
             <captionside>top</captionside>
             <parent>orders_filter_search_fields_1</parent>
-            <field>orders_filter_search_name</field>
             <caption>Tellimuse nimi</caption>
       </property>
       <property>
             <name>orders_filter_search_order_number</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <size>15</size>
             <type>textbox</type>
             <store>no</store>
             <captionside>top</captionside>
             <parent>orders_filter_search_fields_1</parent>
-            <field>orders_filter_search_order_number</field>
             <caption>Tellimuse number</caption>
       </property>
       <property>
             <name>orders_filter_search_date_from</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <time>0</time>
             <type>datepicker</type>
             <store>no</store>
             <captionside>top</captionside>
             <parent>orders_filter_search_fields_1</parent>
-            <field>orders_filter_search_date_from</field>
             <caption>Esitatud alates</caption>
       </property>
       <property>
             <name>orders_filter_search_date_to</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <time>0</time>
             <type>datepicker</type>
             <store>no</store>
             <captionside>top</captionside>
             <parent>orders_filter_search_fields_1</parent>
-            <field>orders_filter_search_date_to</field>
             <caption>Esitatud kuni</caption>
       </property>
       <property>
             <name>orders_filter_search_dummy</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>hidden</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <parent>orders_filter_search_buttons</parent>
-            <field>orders_filter_search_dummy</field>
       </property>
       <property>
             <name>orders_filter_search_submit</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>button</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <class>yui3-button</class>
             <parent>orders_filter_search_buttons</parent>
-            <field>orders_filter_search_submit</field>
             <caption>Otsi tellimusi</caption>
       </property>
       <property>
             <name>orders_filter_search_reset</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>button</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <class>yui3-button</class>
             <parent>orders_filter_search_buttons</parent>
-            <field>orders_filter_search_reset</field>
             <caption>T&amp;amp;uuml;hista</caption>
       </property>
       <property>
             <name>orders_table</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>orders</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <parent>orders_right</parent>
-            <field>orders_table</field>
       </property>
       <property>
             <name>configuration_orders_sources_toolbar</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>configuration_filter</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>true</no_caption>
-            <parent>configuration_filter_left</parent>
-            <field>configuration_orders_sources_toolbar</field>
+            <parent>configuration_filter_order_sources</parent>
       </property>
       <property>
             <name>configuration_orders_filter_order_sources</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>configuration_filter</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <no_caption>true</no_caption>
-            <parent>configuration_filter_left</parent>
-            <field>configuration_orders_filter_order_sources</field>
+            <parent>configuration_filter_order_sources</parent>
+      </property>
+      <property>
+            <name>configuration_orders_filter_order_state</name>
+            <table>objects</table>
+            <group>configuration_filter</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>yui-chooser</type>
+            <multiple>1</multiple>
+            <captionside>top</captionside>
+            <parent>configuration_filter_states</parent>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;gi staatus</caption>
+      </property>
+      <property>
+            <name>configuration_orders_filter_state</name>
+            <table>objects</table>
+            <group>configuration_filter</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>yui-chooser</type>
+            <multiple>1</multiple>
+            <captionside>top</captionside>
+            <parent>configuration_filter_states</parent>
+            <caption>Tootmise staatus</caption>
+      </property>
+      <property>
+            <name>configuration_orders_filter_time_period</name>
+            <table>objects</table>
+            <group>configuration_filter</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>period_filter</type>
+            <parent>configuration_filter_time_period</parent>
       </property>
       <property>
             <name>configuration_orders_filter_customer_category</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>configuration_filter</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <no_caption>true</no_caption>
             <parent>configuration_filter_right</parent>
-            <field>configuration_orders_filter_customer_category</field>
       </property>
       <property>
             <name>configuration_orders_table</name>
-            <table>aw_order_management</table>
+            <table>objects</table>
             <group>configuration_table</group>
+            <field>meta</field>
+            <method>serialize</method>
             <type>table</type>
             <store>no</store>
             <no_caption>true</no_caption>
-            <field>configuration_orders_table</field>
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
@@ -275,10 +338,17 @@
                   <closeable>1</closeable>
                   <group>orders</group>
             </orders_filter_order_sources>
+            <orders_filter_order_state>
+                  <type>vbox_sub</type>
+                  <parent>orders_filter</parent>
+                  <area_caption>M&amp;amp;uuml;&amp;amp;uuml;gi&amp;amp;nbsp;staatus</area_caption>
+                  <closeable>1</closeable>
+                  <group>orders</group>
+            </orders_filter_order_state>
             <orders_filter_state>
                   <type>vbox_sub</type>
                   <parent>orders_filter</parent>
-                  <area_caption>Staatus</area_caption>
+                  <area_caption>Tootmise&amp;amp;nbsp;staatus</area_caption>
                   <closeable>1</closeable>
                   <group>orders</group>
             </orders_filter_state>
@@ -332,10 +402,30 @@
             <configuration_filter_left>
                   <type>vbox</type>
                   <parent>configuration_filter_split</parent>
+                  <group>configuration_filter</group>
+                  <area_caption></area_caption>
+            </configuration_filter_left>
+            <configuration_filter_order_sources>
+                  <type>vbox</type>
+                  <parent>configuration_filter_left</parent>
                   <area_caption>Tellimuste&amp;amp;nbsp;filtris&amp;amp;nbsp;kuvatavad&amp;amp;nbsp;kanalid</area_caption>
                   <closeable>1</closeable>
                   <group>configuration_filter</group>
-            </configuration_filter_left>
+            </configuration_filter_order_sources>
+            <configuration_filter_states>
+                  <type>vbox</type>
+                  <parent>configuration_filter_left</parent>
+                  <area_caption>Tellimuste&amp;amp;nbsp;filtris&amp;amp;nbsp;valitud&amp;amp;nbsp;staatused</area_caption>
+                  <closeable>1</closeable>
+                  <group>configuration_filter</group>
+            </configuration_filter_states>
+            <configuration_filter_time_period>
+                  <type>vbox_sub</type>
+                  <parent>configuration_filter_left</parent>
+                  <area_caption>Tellimuste&amp;amp;nbsp;filtris&amp;amp;nbsp;valitud&amp;amp;nbsp;periood</area_caption>
+                  <closeable>1</closeable>
+                  <group>configuration_filter</group>
+            </configuration_filter_time_period>
             <configuration_filter_right>
                   <type>vbox</type>
                   <parent>configuration_filter_split</parent>

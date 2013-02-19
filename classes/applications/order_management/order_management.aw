@@ -13,6 +13,8 @@
 
 	@property owner type=objpicker clid=CL_CRM_COMPANY field=aw_owner
 	@caption Omanikorganisatsioon
+	
+@default table=objects field=meta method=serialize
 
 @groupinfo orders caption="Tellimused" submit_method=get submit=no save=no
 @default group=orders
@@ -29,7 +31,11 @@
 			
 					@property orders_filter_order_sources type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_order_sources
 			
-				@layout orders_filter_state type=vbox_sub parent=orders_filter area_caption=Staatus closeable=1
+				@layout orders_filter_order_state type=vbox_sub parent=orders_filter area_caption=M&uuml;&uuml;gi&nbsp;staatus closeable=1
+				
+					@property orders_filter_order_state type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_order_state
+			
+				@layout orders_filter_state type=vbox_sub parent=orders_filter area_caption=Tootmise&nbsp;staatus closeable=1
 				
 					@property orders_filter_state type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_state
 			
@@ -80,12 +86,26 @@
 	@default group=configuration_filter
 	
 		@layout configuration_filter_split type=hbox width=50%:50%
+
+			@layout configuration_filter_left type=vbox parent=configuration_filter_split
 			
-			@layout configuration_filter_left type=vbox parent=configuration_filter_split area_caption=Tellimuste&nbsp;filtris&nbsp;kuvatavad&nbsp;kanalid closeable=1
+				@layout configuration_filter_order_sources type=vbox parent=configuration_filter_left area_caption=Tellimuste&nbsp;filtris&nbsp;kuvatavad&nbsp;kanalid closeable=1
 			
-				@property configuration_orders_sources_toolbar type=toolbar store=no no_caption=true parent=configuration_filter_left
-	
-				@property configuration_orders_filter_order_sources type=table store=no no_caption=true parent=configuration_filter_left
+					@property configuration_orders_sources_toolbar type=toolbar store=no no_caption=true parent=configuration_filter_order_sources
+		
+					@property configuration_orders_filter_order_sources type=table store=no no_caption=true parent=configuration_filter_order_sources
+			
+				@layout configuration_filter_states type=vbox parent=configuration_filter_left area_caption=Tellimuste&nbsp;filtris&nbsp;valitud&nbsp;staatused closeable=1
+				
+					@property configuration_orders_filter_order_state type=yui-chooser multiple=1 captionside=top parent=configuration_filter_states
+					@caption M&uuml;&uuml;gi staatus
+				
+					@property configuration_orders_filter_state type=yui-chooser multiple=1 captionside=top parent=configuration_filter_states
+					@caption Tootmise staatus
+			
+				@layout configuration_filter_time_period type=vbox_sub parent=configuration_filter_left area_caption=Tellimuste&nbsp;filtris&nbsp;valitud&nbsp;periood closeable=1
+				
+					@property configuration_orders_filter_time_period type=period_filter parent=configuration_filter_time_period
 			
 			@layout configuration_filter_right type=vbox parent=configuration_filter_split area_caption=Tellimuste&nbsp;filtris&nbsp;kuvatavad&nbsp;kliendikategooriad closeable=1
 	
@@ -105,28 +125,6 @@ class order_management extends management_base
 	
 	function __construct()
 	{
-		$this->states = array (
-			mrp_case_obj::STATE_NEW => t("Uus"),
-			mrp_case_obj::STATE_PLANNED => t("Planeeritud"),
-			mrp_case_obj::STATE_INPROGRESS => t("T&ouml;&ouml;s"),
-			mrp_case_obj::STATE_ABORTED => t("Katkestatud"),
-			mrp_case_obj::STATE_DONE => t("Valmis"),
-			mrp_case_obj::STATE_LOCKED => t("Lukustatud"),
-			mrp_case_obj::STATE_DELETED => t("Kustutatud"),
-			mrp_case_obj::STATE_ONHOLD => t("Plaanist v&auml;ljas"),
-			mrp_case_obj::STATE_ARCHIVED => t("Arhiveeritud"),
-
-			mrp_job_obj::STATE_NEW => t("Uus"),
-			mrp_job_obj::STATE_PLANNED => t("Planeeritud"),
-			mrp_job_obj::STATE_INPROGRESS => t("T&ouml;&ouml;s"),
-			mrp_job_obj::STATE_ABORTED => t("Katkestatud"),
-			mrp_job_obj::STATE_DONE => t("Valmis"),
-			mrp_job_obj::STATE_LOCKED => t("Lukustatud"),
-			mrp_job_obj::STATE_PAUSED => t("Paus"),
-			mrp_job_obj::STATE_SHIFT_CHANGE => t("Paus"),
-			mrp_job_obj::STATE_DELETED => t("Kustutatud")
-		);
-
 		$this->init(array(
 			"tpldir" => "applications/order_management/order_management",
 			"clid" => order_management_obj::CLID
@@ -136,6 +134,22 @@ class order_management extends management_base
 	function _get_mrp_workspace()
 	{
 		return PROP_IGNORE;
+	}
+	
+	function _get_configuration_orders_filter_order_state(&$arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["options"] = mrp_case_obj::get_order_state_names();
+		
+		return PROP_OK;
+	}
+	
+	function _get_configuration_orders_filter_state(&$arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["options"] = mrp_case_obj::get_state_names();
+		
+		return PROP_OK;
 	}
 
 	function _get_configuration_orders_table($arr)
@@ -310,9 +324,44 @@ class order_management extends management_base
 	function _get_orders_filter_state($arr)
 	{
 		$prop = &$arr["prop"];
-		$prop["options"] = $this->states;
+		$prop["options"] = mrp_case_obj::get_state_names();
+		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("orders_filter_state");
 		
 		$this->set_filter_onchange_action($prop);
+		
+		return PROP_OK;
+	}
+	
+	function _get_orders_filter_order_state($arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["options"] = mrp_case_obj::get_order_state_names();
+		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("orders_filter_order_state");
+		
+		$this->set_filter_onchange_action($prop);
+		
+		return PROP_OK;
+	}
+	
+	function _get_configuration_orders_filter_time_period(&$arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["options"] = array(
+			"current" => array(
+				order_management_obj::FILTER_DATE_CURRENT_DAY => "P&auml;ev",
+				order_management_obj::FILTER_DATE_CURRENT_WEEK => "N&auml;dal",
+				order_management_obj::FILTER_DATE_CURRENT_MONTH => "Kuu",
+				order_management_obj::FILTER_DATE_CURRENT_QUARTER => "Kvartal",
+				order_management_obj::FILTER_DATE_CURRENT_YEAR => "Aasta",
+			),
+			"previous" => array(
+				order_management_obj::FILTER_DATE_PREVIOUS_DAY => "P&auml;ev",
+				order_management_obj::FILTER_DATE_PREVIOUS_WEEK => "N&auml;dal",
+				order_management_obj::FILTER_DATE_PREVIOUS_MONTH => "Kuu",
+				order_management_obj::FILTER_DATE_PREVIOUS_QUARTER => "Kvartal",
+				order_management_obj::FILTER_DATE_PREVIOUS_YEAR => "Aasta",
+			),
+		);
 		
 		return PROP_OK;
 	}
@@ -320,25 +369,42 @@ class order_management extends management_base
 	function _get_orders_filter_time_period($arr)
 	{
 		$prop = &$arr["prop"];
-		// TODO: Make these configurable!
 		$prop["options"] = array(
 			"current" => array(
-				1 => "P&auml;ev",
-				3 => "N&auml;dal",
-				5 => "Kuu",
-				7 => "Kvartal",
-				9 => "Aasta",
+				order_management_obj::FILTER_DATE_CURRENT_DAY => "P&auml;ev",
+				order_management_obj::FILTER_DATE_CURRENT_WEEK => "N&auml;dal",
+				order_management_obj::FILTER_DATE_CURRENT_MONTH => "Kuu",
+				order_management_obj::FILTER_DATE_CURRENT_QUARTER => "Kvartal",
+				order_management_obj::FILTER_DATE_CURRENT_YEAR => "Aasta",
 			),
 			"previous" => array(
-				2 => "P&auml;ev",
-				4 => "N&auml;dal",
-				6 => "Kuu",
-				8 => "Kvartal",
-				10 => "Aasta",
+				order_management_obj::FILTER_DATE_PREVIOUS_DAY => "P&auml;ev",
+				order_management_obj::FILTER_DATE_PREVIOUS_WEEK => "N&auml;dal",
+				order_management_obj::FILTER_DATE_PREVIOUS_MONTH => "Kuu",
+				order_management_obj::FILTER_DATE_PREVIOUS_QUARTER => "Kvartal",
+				order_management_obj::FILTER_DATE_PREVIOUS_YEAR => "Aasta",
 			),
 		);
-		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : null;
+		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("orders_filter_time_period");
 		$prop["onclick"] = "AW.UI.order_management.update_date_filter(this); AW.UI.order_management.refresh_orders();";
+		
+		return PROP_OK;
+	}
+	
+	function _get_orders_filter_search_date_from(&$arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("orders_filter_date_from");
+		if (is_array($prop["value"])) $prop["value"] = datepicker::get_timestamp($prop["value"]);
+		
+		return PROP_OK;
+	}
+	
+	function _get_orders_filter_search_date_to(&$arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("orders_filter_date_to");
+		if (is_array($prop["value"])) $prop["value"] = datepicker::get_timestamp($prop["value"]);
 		
 		return PROP_OK;
 	}
@@ -397,11 +463,15 @@ class order_management extends management_base
 		}
 		if (automatweb::$request->arg_isset("orders_filter_order_sources"))
 		{
-			$filter["order_source"] = automatweb::$request->arg("orders_filter_order_sources");
+			$filter["order_sources"] = automatweb::$request->arg("orders_filter_order_sources");
 		}
 		if (automatweb::$request->arg_isset("orders_filter_state"))
 		{
 			$filter["state"] = automatweb::$request->arg("orders_filter_state");
+		}
+		if (automatweb::$request->arg_isset("orders_filter_order_state"))
+		{
+			$filter["order_state"] = automatweb::$request->arg("orders_filter_order_state");
 		}
 		
 		$orders = $arr["obj_inst"]->get_orders($filter);
@@ -418,7 +488,8 @@ class order_management extends management_base
 				"customer_name" => $customer->is_saved() ? html::obj_change_url($customer, ($customer->is_a(crm_company_obj::CLID) ? $customer->get_title() : $customer->name())) : self::$not_available_string,
 				"customer_manager" => $customer_relation !== null && is_oid($customer_relation->client_manager) ? html::obj_change_url($customer_relation->client_manager()) : self::$not_available_string,
 				"customer_relation" => $customer_relation !== null ? html::obj_change_url($customer_relation, $customer_relation->id()) : self::$not_available_string,
-				"state" => $this->states[$order->state],
+				"order_state" => mrp_case_obj::get_order_state_names($order->order_state),
+				"state" => mrp_case_obj::get_state_names($order->state),
 				"date" => date("d/m/Y H:i", $order->created)
 			));
 		}

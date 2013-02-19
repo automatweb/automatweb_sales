@@ -99,6 +99,7 @@ class order_webview extends class_base
 				"order.total" => "TODO",
 				"order.created" => $order->prop("created"),
 				"order.pdf_url" => $order->get_order_pdf()->get_url(),
+				"order.pdf_filename" => $order->get_order_pdf()->name(),
 				"order.confirm_url" => $this->__get_confirm_url($order),
 				"order.cancel_url" => $this->__get_cancel_url($order),
 			));

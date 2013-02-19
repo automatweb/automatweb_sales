@@ -4,6 +4,17 @@ class order_management_obj extends management_base_obj
 {
 	const CLID = 1816;
 	
+	const FILTER_DATE_CURRENT_DAY = 1;
+	const FILTER_DATE_PREVIOUS_DAY = 2;
+	const FILTER_DATE_CURRENT_WEEK = 3;
+	const FILTER_DATE_PREVIOUS_WEEK = 4;
+	const FILTER_DATE_CURRENT_MONTH = 5;
+	const FILTER_DATE_PREVIOUS_MONTH = 6;
+	const FILTER_DATE_CURRENT_QUARTER = 7;
+	const FILTER_DATE_PREVIOUS_QUARTER = 8;
+	const FILTER_DATE_CURRENT_YEAR = 9;
+	const FILTER_DATE_PREVIOUS_YEAR = 10;
+	
 	private $orders_table_fields;
  
 	public function get_orders($filter = array())
@@ -24,31 +35,42 @@ class order_management_obj extends management_base_obj
 			$date_filter = new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, datepicker::get_timestamp($filter["date_to"]));
 		}
 		
-		foreach (array("customer_category", "order_source", "state") as $filter_type)
+		foreach (array("customer_category", "order_sources", "state", "order_state") as $filter_type)
 		{		
 			if (isset($filter[$filter_type]) && is_array($filter[$filter_type]))
 			{
 				foreach ($filter[$filter_type] as $key => $value)
 				{
-					if (!is_oid($value))
+					if (empty($value))
 					{
 						unset($filter[$filter_type][$key]);
 					}
 				}
 			}
 		}
-
-		return new object_list(array(
+		
+		$object_list_filter = array(
 			"class_id" => mrp_case_obj::CLID,
 			"name" => isset($filter["name"]) ? "%".$filter["name"]."%" : null,
 			"customer_relation.seller" => $this->prop("owner"),
 			"customer_relation.RELTYPE_CATEGORY" => !empty($filter["customer_category"]) ? $filter["customer_category"] : null,
 			"customer_relation.buyer.name" => !empty($filter["customer_name"]) ? "%".$filter["customer_name"]."%" : null,
-			"order_source" => !empty($filter["order_source"]) ? $filter["order_source"] : null,
+			"order_source" => !empty($filter["order_sources"]) ? $filter["order_sources"] : null,
 			"state" => !empty($filter["state"]) ? $filter["state"] : null,
+			"order_state" => !empty($filter["order_state"]) ? $filter["order_state"] : null,
 			// FIXME: Create a separate date field!
 			"created" => $date_filter
-		));
+		);
+		
+		foreach(array_keys($object_list_filter) as $i)
+		{
+			if ($object_list_filter[$i] === null)
+			{
+				unset($object_list_filter[$i]);
+			}
+		}
+
+		return new object_list($object_list_filter);
 	}
   
 	public function get_customer_categories()
@@ -113,6 +135,10 @@ class order_management_obj extends management_base_obj
 			"time_period",
 			"customer_category",
 			"order_sources",
+			"order_state",
+			"state",
+			"date_from",
+			"date_to",
 		);
 		
 		$filter = array();
@@ -126,19 +152,101 @@ class order_management_obj extends management_base_obj
 	
 	private function default_filter_for_property($property)
 	{
+		if ($property === "orders_filter_date_from" || $property === "orders_filter_date_to")
+		{
+			$time_period_filter = $this->default_filter_for_property("orders_filter_time_period");
+			$date_from = $date_to = null;
+			switch(reset($time_period_filter))
+			{
+				case self::FILTER_DATE_CURRENT_DAY:
+					$date_from = mktime(0, 0, 0, date("n"), date("j"), date("Y"));
+					$date_to = mktime(23, 59, 59, date("n"), date("j"), date("Y"));
+					break;
+
+				case self::FILTER_DATE_PREVIOUS_DAY:
+					$date_from = mktime(0, 0, 0, date("n"), date("j") -1, date("Y"));
+					$date_to = mktime(23, 59, 59, date("n"), date("j") -1, date("Y"));
+					break;
+
+				case self::FILTER_DATE_CURRENT_WEEK:
+					$date_from = mktime(0, 0, 0, date("n"), date("j") - date("N") +1, date("Y"));
+					$date_to = mktime(23, 59, 59, date("n"), date("j") - date("N") +7, date("Y"));
+					break;
+
+				case self::FILTER_DATE_PREVIOUS_WEEK:
+					$date_from = mktime(0, 0, 0, date("n"), date("j") - date("N") -6, date("Y"));
+					$date_to = mktime(23, 59, 59, date("n"), date("j") - date("N"), date("Y"));
+					break;
+
+				case self::FILTER_DATE_CURRENT_MONTH:
+					$date_from = mktime(0, 0, 0, date("n"), 1, date("Y"));
+					$date_to = mktime(23, 59, 59, date("n") +1, 0, date("Y"));
+					break;
+
+				case self::FILTER_DATE_PREVIOUS_MONTH:
+					$date_from = mktime(0, 0, 0, date("n") -1, 1, date("Y"));
+					$date_to = mktime(23, 59, 59, date("n"), 0, date("Y"));
+					break;
+
+				case self::FILTER_DATE_CURRENT_QUARTER:
+					$date_from = mktime(0, 0, 0, date("n") - ((date("n") - 1) % 3), 1, date("Y"));
+					$date_to = mktime(23, 59, 59, date("n") - ((date("n") - 1) % 3) + 3, 0, date("Y"));
+					break;
+
+				case self::FILTER_DATE_PREVIOUS_QUARTER:
+					$date_from = mktime(0, 0, 0, date("n") - ((date("n") - 1) % 3) - 3, 1, date("Y"));
+					$date_to = mktime(23, 59, 59, date("n") - ((date("n") - 1) % 3), 0, date("Y"));
+					break;
+
+				case self::FILTER_DATE_CURRENT_YEAR:
+					$date_from = mktime(0, 0, 0, 1, 1, date("Y"));
+					$date_to = mktime(23, 59, 59, 12, 31, date("Y"));
+					break;
+
+				case self::FILTER_DATE_PREVIOUS_YEAR:
+					$date_from = mktime(0, 0, 0, 1, 1, date("Y") - 1);
+					$date_to = mktime(23, 59, 59, 12, 31, date("Y") - 1);
+					break;
+			}
+			$property = substr($property, strlen("orders_filter_"));
+			return $$property !== null ? array(
+				"date" => date("d.m.Y", $$property),
+				"time" => date("H:i", $$property)
+			) : null;
+		}
+		
 		$configurations = $this->meta("configuration_{$property}");
 		if (empty($configurations))
 		{
 			return null;
 		}
 		
-		$default_filter = array();
-		foreach($configurations as $id => $configuration)
+		switch ($property)
 		{
-			if(!empty($configuration["checked_by_default"]))
-			{
-				$default_filter[$id] = $id;
-			}
+			case "orders_filter_customer_category":
+				$default_filter = array();
+				foreach($configurations as $id => $configuration)
+				{
+					if(!empty($configuration["use_in_filter"]) and !empty($configuration["checked_by_default"]))
+					{
+						$default_filter[$id] = $id;
+					}
+				}
+				break;
+
+			case "orders_filter_order_sources":
+				$default_filter = array();
+				foreach($configurations as $id => $configuration)
+				{
+					if(!empty($configuration["checked_by_default"]))
+					{
+						$default_filter[$id] = $id;
+					}
+				}
+				break;
+			
+			default:
+				$default_filter = $configurations;
 		}
 		
 		return $default_filter;
@@ -181,13 +289,21 @@ class order_management_obj extends management_base_obj
 					"caption" => t("Kliendihaldur"),
 					"original_caption" => t("Kliendihaldur"),
 				),
+				"order_state" => array
+				(
+					"ord" => 37,
+					"active" => true,
+					"name" => "order_state",
+					"caption" => t("Staatus"),
+					"original_caption" => t("Staatus"),
+				),
 				"state" => array
 				(
 					"ord" => 35,
 					"active" => true,
 					"name" => "state",
-					"caption" => t("Staatus"),
-					"original_caption" => t("Staatus"),
+					"caption" => t("Tootmise staatus"),
+					"original_caption" => t("Tootmise staatus"),
 				),
 				"date" => array
 				(
