@@ -1,6 +1,12 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>price</name>
+            <type>hidden</type>
+            <table>mrp_job</table>
+            <field>aw_price</field>
+      </property>
+      <property>
             <name>job_toolbar</name>
             <type>toolbar</type>
             <no_caption>1</no_caption>

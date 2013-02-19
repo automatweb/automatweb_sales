@@ -11,6 +11,8 @@
 @groupinfo workflow caption="T&ouml;&ouml;voog"
 @groupinfo materials caption="Materjalid"
 
+@property price type=hidden table=mrp_job field=aw_price
+
 @property job_toolbar type=toolbar no_caption=1 store=no group=general,workflow
 
 @default group=general
@@ -1292,6 +1294,13 @@ class mrp_job extends class_base
 
 			switch($field)
 			{
+				case "aw_price":
+					$this->db_add_col($table, array(
+						"name" => $field,
+						"type" => "DECIMAL(19, 4)"
+					));
+					return true;
+
 				case "aw_quantity":
 					$this->db_add_col($table, array(
 						"name" => $field,
