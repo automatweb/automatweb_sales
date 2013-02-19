@@ -38,10 +38,13 @@
 				@layout result_mrp_case type=vbox_sub no_padding=1 area_caption=MRP&nbsp;pakkumus&nbsp;seaded parent=result
 
 					@property order_management type=objpicker clid=CL_ORDER_MANAGEMENT field=meta method=serialize parent=result_mrp_case
-					@caption Pakkumuste&nbsp;haldus
+					@caption Tellimuste haldus
 
 					@property order_source type=select field=meta method=serialize parent=result_mrp_case
-					@caption Pakkumuse&nbsp;kanal
+					@caption Tellimuse kanal
+
+					@property order_state type=select field=meta method=serialize parent=result_mrp_case
+					@caption Tellimuse staatus
 
 			@layout delivery_and_payment type=vbox parent=left area_caption=K&auml;ttetoimetamine&nbsp;ja&nbsp;maksmine
 
@@ -196,6 +199,13 @@ class shop_order_cart extends class_base
 			$arr["prop"]["type"] = "text";
 			$arr["prop"]["value"] = t("Vali esmalt tellimuste haldus");
 		}
+		
+		return PROP_OK;
+	}
+
+	public function _get_order_state($arr)
+	{
+		$arr["prop"]["options"] = mrp_case_obj::get_order_state_names();
 		
 		return PROP_OK;
 	}

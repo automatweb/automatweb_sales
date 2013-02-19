@@ -63,7 +63,7 @@
             <field>meta</field>
             <method>serialize</method>
             <parent>result_mrp_case</parent>
-            <caption>Pakkumuste&amp;amp;nbsp;haldus</caption>
+            <caption>Tellimuste haldus</caption>
       </property>
       <property>
             <name>order_source</name>
@@ -73,7 +73,17 @@
             <field>meta</field>
             <method>serialize</method>
             <parent>result_mrp_case</parent>
-            <caption>Pakkumuse&amp;amp;nbsp;kanal</caption>
+            <caption>Tellimuse kanal</caption>
+      </property>
+      <property>
+            <name>order_state</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>result_mrp_case</parent>
+            <caption>Tellimuse staatus</caption>
       </property>
       <property>
             <name>postal_price</name>

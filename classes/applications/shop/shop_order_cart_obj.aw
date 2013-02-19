@@ -582,6 +582,7 @@ class shop_order_cart_obj extends _int_object
 		$mrp_order = $order_management->create_order($customer);
 
 		$mrp_order->set_prop("order_source", $this->prop("order_source"));
+		$mrp_order->set_prop("order_state", $this->prop("order_state"));
 
 		foreach ($sell_order->get_rows() as $row)
 		{
