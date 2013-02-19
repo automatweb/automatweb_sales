@@ -140,6 +140,16 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 		return $state;
 	}
 	
+	public function awobj_set_customer_relation($oid)
+	{
+		if (object_loader::can("" , $oid))
+		{
+			$customer_relation = obj($oid, null, crm_company_customer_data_obj::CLID);
+			$this->set_prop("seller", $customer_relation->seller);
+			$this->set_prop("customer", $customer_relation->buyer);
+		}
+	}
+	
 	public function awobj_set_order_state($state)
 	{
 		$state = (int)$state;
@@ -192,7 +202,7 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 	
 	public function awobj_get_customer()
 	{
-		if (is_oid($this->prop("customer_relation")))
+		if (object_loader::can("", $this->prop("customer_relation")))
 		{
 			$customer_relation = obj($this->prop("customer_relation"), null, crm_company_customer_data_obj::CLID);
 			$this->set_prop("customer", $customer_relation->buyer);
@@ -403,6 +413,10 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 			$workspace = $this->awobj_get_workspace();
 			$projects_folder = $workspace->prop ("projects_folder");
 			$this->set_parent ($projects_folder);
+		}
+		if ($new and $this->prop("order_state") === null)
+		{
+			$this->awobj_set_order_state(self::ORDER_STATE_DRAFT);
 		}
 
 		// order_quantity must be set
@@ -1085,7 +1099,7 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 			$id = $f->create_file_from_string(array(
 				"parent" => $this->id(),
 				"content" => $content,
-				"name" => sprintf(t("tellimus_nr_%s", $lang_id), $this->prop("name")) . ".pdf",
+				"name" => sprintf("%s-%s-%s", $this->prop("customer_relation"), $this->prop("name"), date("d-m-Y")) . ".pdf",
 				"type" => "application/pdf"
 			));
 			$this->set_meta("send_mail_attachments_order_pdf_oid", $id);

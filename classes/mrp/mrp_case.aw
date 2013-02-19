@@ -553,7 +553,7 @@ class mrp_case extends class_base
 				break;
 
 			case "state":
-				$prop["value"] = isset($prop["value"]) && empty($this->states[$prop["value"]]) ? t("M&auml;&auml;ramata") : $this->states[$prop["value"]];
+				$prop["value"] = isset($prop["value"]) && !empty($this->states[$prop["value"]]) ? $this->states[$prop["value"]] : t("M&auml;&auml;ramata");
 				break;
 
 			case "planned_date":
@@ -2746,7 +2746,8 @@ HTML;
 				{
 					$area_caption[] = sprintf(t("numbriga \"%s\""), $arr["obj_inst"]->name);
 				}
-				$area_caption[] = sprintf(t("staatusega \"%s\""), $this->states[$arr["obj_inst"]->state]);
+				$area_caption[] = sprintf(t("staatusega \"%s\""), $arr["obj_inst"]->get_order_state_names($arr["obj_inst"]->state));
+				$area_caption[] = sprintf(t("tootmise staatusega \"%s\""), $this->states[$arr["obj_inst"]->state]);
 
 				$arr["area_caption"] = ucfirst(implode(" ", $area_caption));
 				break;
