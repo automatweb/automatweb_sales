@@ -1,6 +1,6 @@
 <?php
 
-class crm_sales_price_component_restriction_obj extends _int_object
+class price_component_restriction_obj extends _int_object
 {
 	const CLID = 1725;
 

@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <orb>
-	<class name="crm_sales_price_component" folder="applications/crm/sales" extends="class_base">
+	<class name="price_component" folder="common/pricing" extends="class_base">
 		<action name="remove_applicables">
 			<function name="remove_applicables">
 				<arguments>

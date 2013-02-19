@@ -1,6 +1,6 @@
 <?php
 
-class crm_company_obj extends _int_object implements crm_customer_interface, crm_sales_price_component_interface, crm_offer_row_interface
+class crm_company_obj extends _int_object implements crm_customer_interface, price_component_interface, crm_offer_row_interface
 {
 	const CLID = 129;
 	const CUSTOMER_TYPE_SELLER = 1;

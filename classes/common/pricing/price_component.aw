@@ -1,9 +1,9 @@
 <?php
 /*
-@classinfo syslog_type=ST_CRM_SALES_PRICE_COMPONENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kaarel
-@tableinfo aw_crm_sales_price_component master_index=brother_of master_table=objects index=aw_oid
+@classinfo syslog_type=ST_PRICE_COMPONENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kaarel
+@tableinfo aw_price_component master_index=brother_of master_table=objects index=aw_oid
 
-@default table=aw_crm_sales_price_component
+@default table=aw_price_component
 @default group=general
 
 	@property toolbar type=toolbar_standard_obj no_caption=1 store=no
@@ -66,7 +66,7 @@
 
 #### RELTYPES
 
-@reltype PREREQUISITE value=1 clid=CL_CRM_SALES_PRICE_COMPONENT
+@reltype PREREQUISITE value=1 clid=CL_PRICE_COMPONENT
 @caption Eelduskomponent
 
 @reltype APPLICABLE value=2
@@ -74,19 +74,19 @@
 
 */
 
-class crm_sales_price_component extends class_base
+class price_component extends class_base
 {
-	public function crm_sales_price_component()
+	public function price_component()
 	{
 		$this->init(array(
-			"tpldir" => "applications/crm/sales/crm_sales_price_component",
-			"clid" => CL_CRM_SALES_PRICE_COMPONENT
+			"tpldir" => "applications/crm/sales/price_component",
+			"clid" => CL_PRICE_COMPONENT
 		));
 
 		$this->type_options = array(
-			crm_sales_price_component_obj::TYPE_UNIT => t("Rakendub &uuml;hikule"),
-			crm_sales_price_component_obj::TYPE_ROW => t("Rakendub reale"),
-			crm_sales_price_component_obj::TYPE_TOTAL => t("Rakendub kogusummale"),
+			price_component_obj::TYPE_UNIT => t("Rakendub &uuml;hikule"),
+			price_component_obj::TYPE_ROW => t("Rakendub reale"),
+			price_component_obj::TYPE_TOTAL => t("Rakendub kogusummale"),
 		);
 
 		$this->no_application_error_text = t("Rakendus m&auml;&auml;ramata. Hinnakomponente peab olema lisatud l&auml;bi rakenduse (m&uuml;&uuml;gikeskkond).");
@@ -109,7 +109,7 @@ class crm_sales_price_component extends class_base
 
 	public function _get_category($arr)
 	{
-		if(is_object($this->application) and crm_sales_price_component_obj::TYPE_NET_VALUE !== (int) $arr["obj_inst"]->prop("type"))
+		if(is_object($this->application) and price_component_obj::TYPE_NET_VALUE !== (int) $arr["obj_inst"]->prop("type"))
 		{
 			$options = array(t("--Vali--"));
 			$price_components = $this->application->get_price_component_category_list();
@@ -304,7 +304,7 @@ class crm_sales_price_component extends class_base
 	public function _get_applicables_toolbar($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		$applicable_clids = crm_sales_price_component_obj::get_applicable_clids();
+		$applicable_clids = price_component_obj::get_applicable_clids();
 		$t->add_search_button(array(
 			"name" => "search_applicables",
 			"pn" => "applicables_add",
@@ -319,7 +319,7 @@ class crm_sales_price_component extends class_base
 
 	public function _get_prerequisites($arr)
 	{
-		if (crm_sales_price_component_obj::TYPE_NET_VALUE === (int) $arr["obj_inst"]->prop("type"))
+		if (price_component_obj::TYPE_NET_VALUE === (int) $arr["obj_inst"]->prop("type"))
 		{
 			return PROP_IGNORE;
 		}
@@ -356,8 +356,8 @@ class crm_sales_price_component extends class_base
 		}
 		else
 		{
-			//	Check for cycle. crm_sales_price_component_obj::check_prerequisites_cycle() will return the cycle details someday)
-			$cycle = crm_sales_price_component_obj::check_prerequisites_cycle($arr["obj_inst"]->id(), $arr["prop"]["value"]);
+			//	Check for cycle. price_component_obj::check_prerequisites_cycle() will return the cycle details someday)
+			$cycle = price_component_obj::check_prerequisites_cycle($arr["obj_inst"]->id(), $arr["prop"]["value"]);
 			if($cycle !== false)
 			{
 				$arr["prop"]["error"] = sprintf(t("Teie eelduskomponentide valik p&otilde;hjustab ts&uuml;kli!"));
@@ -369,9 +369,9 @@ class crm_sales_price_component extends class_base
 
 	public function _get_type($arr)
 	{
-		if (crm_sales_price_component_obj::TYPE_NET_VALUE === (int) $arr["obj_inst"]->prop("type"))
+		if (price_component_obj::TYPE_NET_VALUE === (int) $arr["obj_inst"]->prop("type"))
 		{
-			$arr["prop"]["options"] = array(crm_sales_price_component_obj::TYPE_NET_VALUE => t("Juurhind"));
+			$arr["prop"]["options"] = array(price_component_obj::TYPE_NET_VALUE => t("Juurhind"));
 		}
 		else
 		{
@@ -493,14 +493,14 @@ class crm_sales_price_component extends class_base
 
 	public function callback_generate_scripts($arr)
 	{
-		return file_get_contents(AW_DIR . "classes/applications/crm/sales/crm_sales_price_component.js");
+		return file_get_contents(AW_DIR . "classes/common/pricing/price_component.js");
 	}
 
 	public function do_db_upgrade($t, $f)
 	{
 		if ($f == "")
 		{
-			$this->db_query("CREATE TABLE aw_crm_sales_price_component(aw_oid int primary key)");
+			$this->db_query("CREATE TABLE aw_price_component(aw_oid int primary key)");
 			return true;
 		}
 

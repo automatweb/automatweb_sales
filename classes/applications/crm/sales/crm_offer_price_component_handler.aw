@@ -7,7 +7,7 @@ class crm_offer_price_component_handler extends _int_object
 
 	/**
 		@attrib api=1
-		@returns crm_sales_price_component_applied[]
+		@returns price_component_applied[]
 	**/
 	public function get_applied_price_components()
 	{
@@ -180,7 +180,7 @@ class crm_offer_price_component_handler extends _int_object
 
 		if (!isset($this->applied_price_components[$price_component_id]))
 		{
-			throw new awex_crm_offer_price_component(sprintf(t("No crm_sales_price_component_obj with OID %u applied to crm_offer_row_obj with OID %u!"), $price_component_id, $this->id()));
+			throw new awex_crm_offer_price_component(sprintf(t("No price_component_obj with OID %u applied to crm_offer_row_obj with OID %u!"), $price_component_id, $this->id()));
 		}
 
 		return $this->applied_price_components[$price_component][$prop];

@@ -115,7 +115,7 @@ class crm_offer_list extends object_list
 			{
 				if (is_oid($price_component["aw_price_component_id"]))
 				{
-					$applied_price_components[$price_component["aw_object_id"]][$price_component["aw_price_component_id"]] = new crm_sales_price_component_applied(
+					$applied_price_components[$price_component["aw_object_id"]][$price_component["aw_price_component_id"]] = new price_component_applied(
 						new object($price_component["aw_price_component_id"]),
 						aw_math_calc::string2float($price_component["aw_value"]),
 						aw_math_calc::string2float($price_component["aw_price_change"])

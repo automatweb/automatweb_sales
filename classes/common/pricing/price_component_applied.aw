@@ -1,6 +1,6 @@
 <?php
 
-class crm_sales_price_component_applied
+class price_component_applied
 {
 	protected $price_component;
 	protected $value = 0;

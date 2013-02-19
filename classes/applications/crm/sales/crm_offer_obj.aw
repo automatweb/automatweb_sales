@@ -1125,7 +1125,7 @@ Parimat,
 		@returns void
 		@error
 			Throws awex_crm_offer_new if this offer is not saved.
-			TODO: Throws awex_crm_offer if the object to be added doesn't implement crm_sales_price_component_interface.
+			TODO: Throws awex_crm_offer if the object to be added doesn't implement price_component_interface.
 	**/
 	public function add_object(object $o, $amount = 1)
 	{
@@ -1217,7 +1217,7 @@ Parimat,
 			}
 		}
 
-		return $this->price_components[crm_sales_price_component_obj::TYPE_TOTAL];
+		return $this->price_components[price_component_obj::TYPE_TOTAL];
 	}
 
 	/**	Returns true if given price component is compulsory for this offer, false otherwise
@@ -1228,7 +1228,7 @@ Parimat,
 	**/
 	public function price_component_is_compulsory($price_component)
 	{
-		if($price_component->type == crm_sales_price_component_obj::TYPE_NET_VALUE)
+		if($price_component->type == price_component_obj::TYPE_NET_VALUE)
 		{
 			return true;
 		}
@@ -1385,13 +1385,13 @@ Parimat,
 	{
 		$odl = new object_data_list(
 			array(
-				"class_id" => crm_sales_price_component_obj::CLID,
-				"type" => array(crm_sales_price_component_obj::TYPE_UNIT, crm_sales_price_component_obj::TYPE_ROW, crm_sales_price_component_obj::TYPE_NET_VALUE),
+				"class_id" => price_component_obj::CLID,
+				"type" => array(price_component_obj::TYPE_UNIT, price_component_obj::TYPE_ROW, price_component_obj::TYPE_NET_VALUE),
 				"applicables.id" => $row->prop("object"),
 //				"application" => automatweb::$request->get_application()->id()
 			),
 			array(
-				crm_sales_price_component_obj::CLID => array("applicables")
+				price_component_obj::CLID => array("applicables")
 			)
 		);
 
@@ -1406,8 +1406,8 @@ Parimat,
 
 		$ol = new object_list();
 		$ol->add($valid_price_components);
-		$ol->add($this->price_components[crm_sales_price_component_obj::TYPE_UNIT]);
-		$ol->add($this->price_components[crm_sales_price_component_obj::TYPE_ROW]);
+		$ol->add($this->price_components[price_component_obj::TYPE_UNIT]);
+		$ol->add($this->price_components[price_component_obj::TYPE_ROW]);
 
 		$this->load_all_prerequisites_for_price_component_ol($ol);
 
@@ -1427,7 +1427,7 @@ Parimat,
 				$this->all_prerequisites_by_price_component[$o->id()] = $o->get_all_prerequisites();
 			}
 
-			if($o->type == crm_sales_price_component_obj::TYPE_NET_VALUE)
+			if($o->type == price_component_obj::TYPE_NET_VALUE)
 			{
 				$net_value_price_components[$o->id()] = $o->id();
 			}
@@ -1455,7 +1455,7 @@ Parimat,
 		$q = sprintf("
 			SELECT o.oid
 			FROM objects o LEFT JOIN aliases a ON o.oid = a.source AND a.reltype = %u
-			WHERE a.target IS NULL AND o.class_id = %u;", 2 /* RELTYPE_APPLICABLE */, crm_sales_price_component_obj::CLID);
+			WHERE a.target IS NULL AND o.class_id = %u;", 2 /* RELTYPE_APPLICABLE */, price_component_obj::CLID);
 
 		$price_components_without_applicables = array();
 		foreach($this->instance()->db_fetch_array($q) as $row)
@@ -1467,46 +1467,46 @@ Parimat,
 		{
 			$odl = new object_data_list(
 				array(
-					"class_id" => crm_sales_price_component_obj::CLID,
+					"class_id" => price_component_obj::CLID,
 					"oid" => $price_components_without_applicables,
-					"type" => array(crm_sales_price_component_obj::TYPE_UNIT, crm_sales_price_component_obj::TYPE_ROW, crm_sales_price_component_obj::TYPE_TOTAL),
+					"type" => array(price_component_obj::TYPE_UNIT, price_component_obj::TYPE_ROW, price_component_obj::TYPE_TOTAL),
 //					"application" => automatweb::$request->get_application()->id()
 				),
 				array(
-					crm_sales_price_component_obj::CLID => array("type"),
+					price_component_obj::CLID => array("type"),
 				)
 			);
 			$price_component_ids_by_type = array(
-				crm_sales_price_component_obj::TYPE_UNIT => array(),
-				crm_sales_price_component_obj::TYPE_ROW => array(),
-				crm_sales_price_component_obj::TYPE_TOTAL => array(),
+				price_component_obj::TYPE_UNIT => array(),
+				price_component_obj::TYPE_ROW => array(),
+				price_component_obj::TYPE_TOTAL => array(),
 			);
 			foreach($odl->arr() as $oid => $odata)
 			{
 				$price_component_ids_by_type[$odata["type"]][] = $oid;
 			}
 			$ol = new object_list();
-			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_UNIT]);
-			$this->price_components[crm_sales_price_component_obj::TYPE_UNIT] = $ol;
+			$ol->add($price_component_ids_by_type[price_component_obj::TYPE_UNIT]);
+			$this->price_components[price_component_obj::TYPE_UNIT] = $ol;
 
 			$ol = new object_list();
-			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_ROW]);
-			$this->price_components[crm_sales_price_component_obj::TYPE_ROW] = $ol;
+			$ol->add($price_component_ids_by_type[price_component_obj::TYPE_ROW]);
+			$this->price_components[price_component_obj::TYPE_ROW] = $ol;
 
 			$ol = new object_list();
-			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_TOTAL]);
-			$this->price_components[crm_sales_price_component_obj::TYPE_TOTAL] = $ol;
+			$ol->add($price_component_ids_by_type[price_component_obj::TYPE_TOTAL]);
+			$this->price_components[price_component_obj::TYPE_TOTAL] = $ol;
 		}
 		else
 		{
 			$ol = new object_list();
-			$this->price_components[crm_sales_price_component_obj::TYPE_UNIT] = $ol;
+			$this->price_components[price_component_obj::TYPE_UNIT] = $ol;
 
 			$ol = new object_list();
-			$this->price_components[crm_sales_price_component_obj::TYPE_ROW] = $ol;
+			$this->price_components[price_component_obj::TYPE_ROW] = $ol;
 
 			$ol = new object_list();
-			$this->price_components[crm_sales_price_component_obj::TYPE_TOTAL] = $ol;
+			$this->price_components[price_component_obj::TYPE_TOTAL] = $ol;
 		}
 
 		$this->price_components_loaded = true;
@@ -1615,7 +1615,7 @@ Parimat,
 		{
 			$offer = obj($this->id(), array(), $this->class_id());
 			$currency = is_oid($this->prop("currency")) ? obj($this->prop("currency"), array(), currency_obj::CLID) : null;
-			$price_component = crm_sales_price_component_obj::create_net_value_price_component($application, $offer, $this->prop("sum"), $currency);
+			$price_component = price_component_obj::create_net_value_price_component($application, $offer, $this->prop("sum"), $currency);
 
 			$this->set_prop("price_object", $price_component->id());
 		}

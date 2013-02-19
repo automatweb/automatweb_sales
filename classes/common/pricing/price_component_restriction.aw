@@ -1,15 +1,15 @@
 <?php
 /*
-@classinfo syslog_type=ST_CRM_SALES_PRICE_COMPONENT_RESTRICTION relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=SYSTEM
-@tableinfo aw_crm_sales_price_component_restriction master_index=brother_of master_table=objects index=aw_oid
+@classinfo syslog_type=ST_PRICE_COMPONENT_RESTRICTION relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=SYSTEM
+@tableinfo aw_price_component_restriction master_index=brother_of master_table=objects index=aw_oid
 
-@default table=aw_crm_sales_price_component_restriction
+@default table=aw_price_component_restriction
 @default group=general
 
 	@property has_lower_tolerance type=hidden field=aw_has_lower_tolerance
 	@property has_upper_tolerance type=hidden field=aw_has_upper_tolerance
 
-	@property price_component type=objpicker clid=CL_CRM_SALES_PRICE_COMPONENT field=aw_price_component
+	@property price_component type=objpicker clid=CL_PRICE_COMPONENT field=aw_price_component
 	@caption Hinnakomponent
 
 	@property subject type=objpicker field=aw_subject
@@ -26,13 +26,13 @@
 
 */
 
-class crm_sales_price_component_restriction extends class_base
+class price_component_restriction extends class_base
 {
-	public function crm_sales_price_component_restriction()
+	public function price_component_restriction()
 	{
 		$this->init(array(
-			"tpldir" => "applications/crm/sales/crm_sales_price_component_restriction",
-			"clid" => CL_CRM_SALES_PRICE_COMPONENT_RESTRICTION
+			"tpldir" => "applications/crm/sales/price_component_restriction",
+			"clid" => price_component_restriction_obj::CLID
 		));
 	}
 
@@ -47,7 +47,7 @@ class crm_sales_price_component_restriction extends class_base
 	{
 		if ($f == "")
 		{
-			$this->db_query("CREATE TABLE aw_crm_sales_price_component_restriction(aw_oid int primary key)");
+			$this->db_query("CREATE TABLE aw_price_component_restriction(aw_oid int primary key)");
 			return true;
 		}
 

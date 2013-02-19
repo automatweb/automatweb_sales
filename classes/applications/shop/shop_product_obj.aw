@@ -1,6 +1,6 @@
 <?php
 
-class shop_product_obj extends shop_warehouse_item_obj implements crm_sales_price_component_interface, crm_offer_row_interface
+class shop_product_obj extends shop_warehouse_item_obj implements price_component_interface, crm_offer_row_interface
 {
 	const CLID = 295;
 

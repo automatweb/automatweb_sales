@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="price_component_restriction" folder="common/pricing" extends="class_base">
+	</class>
+</orb>
+		

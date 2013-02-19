@@ -1,6 +1,6 @@
 <?php
 
-class crm_sales_price_component_obj extends _int_object
+class price_component_obj extends _int_object
 {
 	const CLID = 1712;
 
@@ -26,18 +26,18 @@ class crm_sales_price_component_obj extends _int_object
 		@param value required type=real
 		@param currency optional type=CL_CURRENCY
 
-		@returns CL_CRM_SALES_PRICE_COMPONENT
+		@returns CL_PRICE_COMPONENT
 		@errors
 	**/
 	public static function create_net_value_price_component(object $application, object $object, $value, object $currency = null)
 	{
 		if ($currency !== null and !$currency->is_a(currency_obj::CLID))
 		{
-			throw new awex_crm_sales_price_component_class("Cannot create net value price component, invalid currency object given. Expected CL_CURRENCY, " . $currency->class_id() . " given.");
+			throw new awex_price_component_class("Cannot create net value price component, invalid currency object given. Expected CL_CURRENCY, " . $currency->class_id() . " given.");
 		}
 
 		$ol = new object_list(array(
-			"class_id" => crm_sales_price_component_obj::CLID,
+			"class_id" => price_component_obj::CLID,
 			"type" => self::TYPE_NET_VALUE,
 			"application" => $application->id(),
 			"applicables" => $object->id(),
@@ -61,7 +61,7 @@ class crm_sales_price_component_obj extends _int_object
 		{
 			$name = $currency !== null ? sprintf(t("Rakenduse '%s' juurhind objektile '%s' valuutas '%s'"), $application->name(), $object->name(), $currency->prop("name")) : sprintf(t("Rakenduse '%s' juurhind objektile '%s' ilma valuutata"), $application->name(), $object->name());
 
-			$price_component = obj(null, array(), crm_sales_price_component_obj::CLID);
+			$price_component = obj(null, array(), price_component_obj::CLID);
 			$price_component->set_parent($object->id());
 			$price_component->set_name($name);
 			$price_component->set_prop("type", self::TYPE_NET_VALUE);
@@ -110,7 +110,7 @@ class crm_sales_price_component_obj extends _int_object
 	**/
 	public static function get_applicable_clids()
 	{
-		$possible_classes = class_index::get_classes_by_interface("crm_sales_price_component_interface");
+		$possible_classes = class_index::get_classes_by_interface("price_component_interface");
 		$possible_clids = array();
 		foreach($possible_classes as $possible_class)
 		{
@@ -129,7 +129,7 @@ class crm_sales_price_component_obj extends _int_object
 		@param applicable_id required type=int
 			The OID of the object applicability is queried for.
 		@returns boolean
-		@errors Throws awex_crm_sales_price_component if this price component is not saved
+		@errors Throws awex_price_component if this price component is not saved
 	**/
 	public function is_applicable($applicable_id)
 	{
@@ -139,7 +139,7 @@ class crm_sales_price_component_obj extends _int_object
 			{
 				$this->load_applicables();
 			}
-			catch(awex_crm_sales_price_component $e)
+			catch(awex_price_component $e)
 			{
 				throw $e;
 			}
@@ -152,13 +152,13 @@ class crm_sales_price_component_obj extends _int_object
 		@attrib api=1 params=pos
 		@param applicable_id required type=int
 		@returns void
-		@errors Throws awex_crm_sales_price_component if this price component is not saved
+		@errors Throws awex_price_component if this price component is not saved
 	**/
 	public function add_applicable($applicable_id)
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_sales_price_component("Price component must be saved before applicables can be added!");
+			throw new awex_price_component("Price component must be saved before applicables can be added!");
 		}
 
 		if(!$this->applicables_loaded)
@@ -181,7 +181,7 @@ class crm_sales_price_component_obj extends _int_object
 		@attrib api=1 params=pos
 		@param applicable_id required type=int/int[]
 		@returns void
-		@errors Throws awex_crm_sales_price_component if this price component is not saved
+		@errors Throws awex_price_component if this price component is not saved
 	**/
 	public function remove_applicable($applicable_ids)
 	{
@@ -191,7 +191,7 @@ class crm_sales_price_component_obj extends _int_object
 			{
 				$this->load_applicables();
 			}
-			catch(awex_crm_sales_price_component $e)
+			catch(awex_price_component $e)
 			{
 				throw $e;
 			}
@@ -215,7 +215,7 @@ class crm_sales_price_component_obj extends _int_object
 		@param oid required type=int
 			The OID of the object restriction is queried for.
 		@returns boolean
-		@errors Throws awex_crm_sales_price_component if this price component is not saved
+		@errors Throws awex_price_component if this price component is not saved
 	**/
 	public function is_restricted($oid)
 	{
@@ -225,7 +225,7 @@ class crm_sales_price_component_obj extends _int_object
 			{
 				$this->load_restrictions();
 			}
-			catch(awex_crm_sales_price_component $e)
+			catch(awex_price_component $e)
 			{
 				throw $e;
 			}
@@ -247,13 +247,13 @@ class crm_sales_price_component_obj extends _int_object
 		@param oid required type=int
 			The OID of the object restriction is added for
 		@returns void
-		@errors Throws awex_crm_sales_price_component if this price component is not saved
+		@errors Throws awex_price_component if this price component is not saved
 	**/
 	public function add_restriction($oid)
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_sales_price_component("Price component must be saved before restrictions can be added!");
+			throw new awex_price_component("Price component must be saved before restrictions can be added!");
 		}
 
 		if(!$this->restrictions_loaded)
@@ -263,7 +263,7 @@ class crm_sales_price_component_obj extends _int_object
 
 		if(!$this->is_restricted($oid))
 		{
-			$restriction = obj(NULL, array(), CL_CRM_SALES_PRICE_COMPONENT_RESTRICTION);
+			$restriction = obj(NULL, array(), price_component_restriction_obj::CLID);
 			$restriction->set_parent($this->id());
 			$restriction->set_prop("subject", $oid);
 			$restriction->set_prop("price_component", $this->id());
@@ -278,7 +278,7 @@ class crm_sales_price_component_obj extends _int_object
 		@attrib api=1 params=pos
 		@param restriction_id required type=int/int[]
 		@returns void
-		@errors Throws awex_crm_sales_price_component if this price component is not saved
+		@errors Throws awex_price_component if this price component is not saved
 	**/
 	public function remove_restriction($restriction_ids)
 	{
@@ -288,7 +288,7 @@ class crm_sales_price_component_obj extends _int_object
 			{
 				$this->load_restrictions();
 			}
-			catch(awex_crm_sales_price_component $e)
+			catch(awex_price_component $e)
 			{
 				throw $e;
 			}
@@ -297,7 +297,7 @@ class crm_sales_price_component_obj extends _int_object
 		foreach((array)$restriction_ids as $restriction_id)
 		{
 			$restriction = obj($restriction_id);
-			if($restriction->is_a(CL_CRM_SALES_PRICE_COMPONENT_RESTRICTION))
+			if($restriction->is_a(price_component_restriction_obj::CLID))
 			{
 				$restriction->delete();
 				$this->restrictions->remove($restriction_id);
@@ -308,7 +308,7 @@ class crm_sales_price_component_obj extends _int_object
 	/**	Returns object list of applicable objects for this price component
 		@attrib api=1 params=pos
 		@returns object_list
-		@errors Throws awex_crm_sales_price_component if this price component is not saved
+		@errors Throws awex_price_component if this price component is not saved
 	**/
 	public function get_applicables()
 	{
@@ -318,7 +318,7 @@ class crm_sales_price_component_obj extends _int_object
 			{
 				$this->load_applicables();
 			}
-			catch(awex_crm_sales_price_component $e)
+			catch(awex_price_component $e)
 			{
 				throw $e;
 			}
@@ -330,7 +330,7 @@ class crm_sales_price_component_obj extends _int_object
 	/**	Returns object list of restriction objects for this price component
 		@attrib api=1 params=pos
 		@returns object_list
-		@errors Throws awex_crm_sales_price_component if this price component is not saved
+		@errors Throws awex_price_component if this price component is not saved
 	**/
 	public function get_restrictions()
 	{
@@ -340,7 +340,7 @@ class crm_sales_price_component_obj extends _int_object
 			{
 				$this->load_restrictions();
 			}
-			catch(awex_crm_sales_price_component $e)
+			catch(awex_price_component $e)
 			{
 				throw $e;
 			}
@@ -365,13 +365,13 @@ class crm_sales_price_component_obj extends _int_object
 		{
 			$odl = new object_data_list(
 				array(
-					"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+					"class_id" => price_component_obj::CLID,
 					"oid" => $new_prerequisites,
 					"site_id" => array(),
 					"lang_id" => array(),
 				),
 				array(
-					CL_CRM_SALES_PRICE_COMPONENT => array("prerequisites")
+					price_component_obj::CLID => array("prerequisites")
 				)
 			);
 
@@ -403,13 +403,13 @@ class crm_sales_price_component_obj extends _int_object
 			{
 				$odl = new object_data_list(
 					array(
-						"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+						"class_id" => price_component_obj::CLID,
 						"oid" => $new_prerequisites,
 						"site_id" => array(),
 						"lang_id" => array(),
 					),
 					array(
-						CL_CRM_SALES_PRICE_COMPONENT => array("prerequisites")
+						price_component_obj::CLID => array("prerequisites")
 					)
 				);
 
@@ -429,11 +429,11 @@ class crm_sales_price_component_obj extends _int_object
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_sales_price_component("Price component must be saved before restrictions can be loaded!");
+			throw new awex_price_component("Price component must be saved before restrictions can be loaded!");
 		}
 
 		$this->restrictions = new object_list(array(
-			"class_id" => CL_CRM_SALES_PRICE_COMPONENT_RESTRICTION,
+			"class_id" => price_component_restriction_obj::CLID,
 			"price_component" => $this->id(),
 		));
 		//	This should be integrated into object_list, but object list isn't happy with objpickers.
@@ -451,7 +451,7 @@ class crm_sales_price_component_obj extends _int_object
 	{
 		if(!$this->is_saved())
 		{
-			throw new awex_crm_sales_price_component("Price component must be saved before applicables can be loaded!");
+			throw new awex_price_component("Price component must be saved before applicables can be loaded!");
 		}
 
 		$this->applicables = new object_list($this->connections_from(array(
@@ -462,9 +462,9 @@ class crm_sales_price_component_obj extends _int_object
 }
 
 /** Generic crm sales price component error **/
-class awex_crm_sales_price_component extends awex_crm_sales {}
+class awex_price_component extends awex_crm_sales {}
 
 /** Invalid class **/
-class awex_crm_sales_price_component_class extends awex_crm_sales {}
+class awex_price_component_class extends awex_crm_sales {}
 
 ?>

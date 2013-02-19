@@ -2,7 +2,7 @@
 
 require_once "mrp_header.aw";
 
-class mrp_job_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
+class mrp_job_obj extends _int_object implements price_component_interface, crm_offer_row_interface
 {
 	const CLID = 826;
 

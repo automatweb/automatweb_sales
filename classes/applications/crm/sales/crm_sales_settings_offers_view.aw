@@ -58,7 +58,7 @@ class crm_sales_settings_offers_view
 	{
 		$t = $arr["prop"]["vcl_inst"];
 
-		$price_component_inst = new crm_sales_price_component();
+		$price_component_inst = new price_component();
 		$price_component_types = $price_component_inst->type_options;
 		$not_available_str = html::italic(t("M&auml;&auml;ramata"));
 
@@ -97,7 +97,7 @@ class crm_sales_settings_offers_view
 		
 		if(!isset($types))
 		{
-			$price_component_inst = new crm_sales_price_component();
+			$price_component_inst = new price_component();
 			$types = $price_component_inst->type_options;
 		}
 
@@ -143,7 +143,7 @@ class crm_sales_settings_offers_view
 		{
 			foreach($price_components as $price_component_id => $price_component_data)
 			{
-				$price_component = new object($price_component_id, array(), CL_CRM_SALES_PRICE_COMPONENT);
+				$price_component = new object($price_component_id, array(), price_component_obj::CLID);
 				$price_component->set_prop("type", $price_component_data["type"]);
 				$price_component->set_prop("value", $price_component_data["value"]);
 				$price_component->set_prop("category", $price_component_data["category"]);
@@ -300,7 +300,7 @@ class crm_sales_settings_offers_view
 			$t->add_menu_item(array(
 				"parent" => "new",
 				"text" => t("Hinnakomponent"),
-				"link" => html::get_new_url(CL_CRM_SALES_PRICE_COMPONENT, $this_o->prop("price_components_folder"), array(
+				"link" => html::get_new_url(price_component_obj::CLID, $this_o->prop("price_components_folder"), array(
 					"application" => $this_o->id(),
 					"return_url" => get_ru(),
 				)),
@@ -312,7 +312,7 @@ class crm_sales_settings_offers_view
 			$t->add_menu_item(array(
 				"parent" => "new",
 				"text" => t("Hinnakomponendi kategooria"),
-				"link" => html::get_new_url(CL_CRM_SALES_PRICE_COMPONENT_CATEGORY, $this_o->prop("price_component_categories_folder"), array(
+				"link" => html::get_new_url(price_component_category_obj::CLID, $this_o->prop("price_component_categories_folder"), array(
 					"application" => $this_o->id(),
 					"return_url" => get_ru(),
 				)),

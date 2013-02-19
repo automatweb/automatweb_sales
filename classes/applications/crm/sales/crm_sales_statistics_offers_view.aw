@@ -222,10 +222,10 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 	protected static function calculate_statistics_offers_list_sums($offer, $categories_to_be_shown)
 	{
 		$sums_by_type = array(
-			crm_sales_price_component_obj::TYPE_NET_VALUE => 0,
-			crm_sales_price_component_obj::TYPE_UNIT => 0,
-			crm_sales_price_component_obj::TYPE_ROW => 0,
-			crm_sales_price_component_obj::TYPE_TOTAL => 0,
+			price_component_obj::TYPE_NET_VALUE => 0,
+			price_component_obj::TYPE_UNIT => 0,
+			price_component_obj::TYPE_ROW => 0,
+			price_component_obj::TYPE_TOTAL => 0,
 		);
 		$sums_by_category = array("rest" => 0);
 		foreach($categories_to_be_shown as $category)
@@ -244,7 +244,7 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 			{
 				$sums_by_category[$price_component->category] += $price_component->price();
 			}
-			elseif (crm_sales_price_component_obj::TYPE_NET_VALUE != $price_component->type)
+			elseif (price_component_obj::TYPE_NET_VALUE != $price_component->type)
 			{
 				$sums_by_category["rest"] += $price_component->price();
 			}
@@ -263,7 +263,7 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 				{
 					$sums_by_category[$price_component->category] += $price_component->price();
 				}
-				elseif (crm_sales_price_component_obj::TYPE_NET_VALUE != $price_component->type)
+				elseif (price_component_obj::TYPE_NET_VALUE != $price_component->type)
 				{
 					$sums_by_category["rest"] += $price_component->price();
 				}
@@ -271,8 +271,8 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 		}
 
 		$sums = array(
-			"sum_net_value" => $sums_by_type[crm_sales_price_component_obj::TYPE_NET_VALUE],
-			"sum_price_components" => $sums_by_type[crm_sales_price_component_obj::TYPE_UNIT] + $sums_by_type[crm_sales_price_component_obj::TYPE_ROW] + $sums_by_type[crm_sales_price_component_obj::TYPE_TOTAL],
+			"sum_net_value" => $sums_by_type[price_component_obj::TYPE_NET_VALUE],
+			"sum_price_components" => $sums_by_type[price_component_obj::TYPE_UNIT] + $sums_by_type[price_component_obj::TYPE_ROW] + $sums_by_type[price_component_obj::TYPE_TOTAL],
 			"sum" => $offer->sum,
 		);
 

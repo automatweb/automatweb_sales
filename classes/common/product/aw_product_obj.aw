@@ -1,6 +1,6 @@
 <?php
 
-class aw_product_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
+class aw_product_obj extends _int_object implements price_component_interface, crm_offer_row_interface
 {
 	const CLID = 1711;
 

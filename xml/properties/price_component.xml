@@ -2,7 +2,7 @@
 <properties>
       <property>
             <name>toolbar</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>toolbar_standard_obj</type>
             <no_caption>1</no_caption>
@@ -11,7 +11,7 @@
       </property>
       <property>
             <name>application</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>hidden</type>
             <field>aw_application</field>
@@ -19,7 +19,7 @@
       </property>
       <property>
             <name>value</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>hidden</type>
             <field>aw_value</field>
@@ -27,7 +27,7 @@
       </property>
       <property>
             <name>is_ratio</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>hidden</type>
             <field>aw_is_ratio</field>
@@ -44,7 +44,7 @@
       </property>
       <property>
             <name>type</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>select</type>
             <field>aw_type</field>
@@ -53,7 +53,7 @@
       </property>
       <property>
             <name>category</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>select</type>
             <field>aw_category</field>
@@ -62,7 +62,7 @@
       </property>
       <property>
             <name>value_absolute</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>textbox</type>
             <store>no</store>
@@ -73,7 +73,7 @@
       </property>
       <property>
             <name>value_ratio</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>textbox</type>
             <store>no</store>
@@ -84,7 +84,7 @@
       </property>
       <property>
             <name>restrictions_add</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>hidden</type>
             <store>no</store>
@@ -93,7 +93,7 @@
       </property>
       <property>
             <name>restrictions_toolbar</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>toolbar</type>
             <store>no</store>
@@ -104,7 +104,7 @@
       </property>
       <property>
             <name>restrictions_table</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>table</type>
             <store>no</store>
@@ -115,7 +115,7 @@
       </property>
       <property>
             <name>prerequisites</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_PREREQUISITE</reltype>
@@ -130,7 +130,7 @@
       </property>
       <property>
             <name>applicables</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_APPLICABLE</reltype>
@@ -141,7 +141,7 @@
       </property>
       <property>
             <name>applicables_add</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>hidden</type>
             <store>no</store>
@@ -150,7 +150,7 @@
       </property>
       <property>
             <name>applicables_toolbar</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>toolbar</type>
             <store>no</store>
@@ -161,7 +161,7 @@
       </property>
       <property>
             <name>applicables_table</name>
-            <table>aw_crm_sales_price_component</table>
+            <table>aw_price_component</table>
             <group>general</group>
             <type>table</type>
             <store>no</store>
@@ -171,7 +171,7 @@
             <field>applicables_table</field>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_SALES_PRICE_COMPONENT</syslog_type>
+            <syslog_type>ST_PRICE_COMPONENT</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
@@ -179,16 +179,16 @@
             <maintainer>kaarel</maintainer>
       </classinfo>
       <tableinfo>
-            <aw_crm_sales_price_component>
+            <aw_price_component>
                   <master_index>brother_of</master_index>
                   <master_table>objects</master_table>
                   <index>aw_oid</index>
-            </aw_crm_sales_price_component>
+            </aw_price_component>
       </tableinfo>
       <reltypes>
             <PREREQUISITE>
                   <value>1</value>
-                  <clid>CL_CRM_SALES_PRICE_COMPONENT</clid>
+                  <clid>CL_PRICE_COMPONENT</clid>
                   <caption>Eelduskomponent</caption>
             </PREREQUISITE>
             <APPLICABLE>

@@ -1365,9 +1365,9 @@ EOQ;
 	public function get_price_component_list($additional_predicates = array())
 	{
 		$predicates = array(
-			"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+			"class_id" => price_component_obj::CLID,
 			"application" => $this->id(),
-			"type" => new obj_predicate_not(crm_sales_price_component_obj::TYPE_NET_VALUE),
+			"type" => new obj_predicate_not(price_component_obj::TYPE_NET_VALUE),
 			new obj_predicate_sort(array(
 				"name" => "ASC"
 			)),
@@ -1423,7 +1423,7 @@ EOQ;
 	public function get_price_component_category_list()
 	{
 		$ol = is_oid($this->id()) ? new object_list(array(
-			"class_id" => CL_CRM_SALES_PRICE_COMPONENT_CATEGORY,
+			"class_id" => price_component_category_obj::CLID,
 			"parent" => $this->prop("price_component_categories_folder"),
 		)) : new object_list();
 		return $ol;

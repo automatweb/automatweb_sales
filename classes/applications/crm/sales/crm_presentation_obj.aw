@@ -1,6 +1,6 @@
 <?php
 
-class crm_presentation_obj extends task_object implements crm_sales_price_component_interface, crm_offer_row_interface
+class crm_presentation_obj extends task_object implements price_component_interface, crm_offer_row_interface
 {
 	const CLID = 1560;
 	const RESULT_CALL = 1; // reserve for future use, check applicable code for integrity when starting to use

@@ -1,6 +1,6 @@
 <?php
 
-class doc_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
+class doc_obj extends _int_object implements price_component_interface, crm_offer_row_interface
 {
 	const CLID = 7;
 
