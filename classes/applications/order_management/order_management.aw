@@ -16,6 +16,14 @@
 	
 @default table=objects field=meta method=serialize
 
+	@property price_components_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@comment Kaust kuhu salvestatakse ning kust loetakse selle tellimuste halduse hinnakomponentide objekte
+	@caption Hinnakomponentide kaust
+
+	@property price_component_categories_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@comment Kaust kust loetakse selle tellimuste halduse hinnakomponendi kategooriate objekte
+	@caption Hinnakomponendi kategooriate kaust
+
 @groupinfo orders caption="Tellimused" submit_method=get submit=no save=no
 @default group=orders
 
@@ -115,13 +123,43 @@
 	@default group=configuration_table
 	
 		@property configuration_orders_table type=table store=no no_caption=true
+		
+	@groupinfo configuration_price_components caption="Hinnakomponendid" parent=configuration
+	@default group=configuration_price_components
+
+		@property price_components_toolbar type=toolbar store=no no_caption=1
+	
+		@layout price_components_vsplitbox type=hbox width=25%:75%
+	
+			@layout price_components_left type=vbox parent=price_components_vsplitbox
+	
+				@layout price_component_categories_tree type=vbox parent=price_components_left area_caption=Hinnakomponentide&nbsp;kategooriad
+	
+					@property price_component_categories_tree type=treeview parent=price_component_categories_tree
+	
+				@layout price_components_settings type=vbox parent=price_components_left area_caption=Hinnakomponentide&nbsp;seaded
+	
+					@property hide_mandatory_price_components type=checkbox parent=price_components_settings no_caption=1
+					@caption Peida kohustuslikud hinnakomponendid
+	
+			@layout price_components_right type=vbox parent=price_components_vsplitbox
+	
+				@property price_component_categories_table type=table store=no no_caption=1 parent=price_components_right
+	
+				@property price_components_table type=table store=no no_caption=1 parent=price_components_right
+				
+@reltype FOLDER value=1 clid=CL_MENU
+@caption Kaust
 
 */
 
 class order_management extends management_base
 {
+	const PRICE_COMPONENTS_ALL = "all";
+	
 	private static $not_available_string = "NA";
-	protected $states;
+	private $application;
+	private $price_components_list_view = self::PRICE_COMPONENTS_ALL;
 	
 	function __construct()
 	{
@@ -129,6 +167,16 @@ class order_management extends management_base
 			"tpldir" => "applications/order_management/order_management",
 			"clid" => order_management_obj::CLID
 		));
+	}
+	
+	function callback_on_load($arr)
+	{
+		$this->application = obj($arr["request"]["id"], null, order_management_obj::CLID);
+		
+		if ("configuration_price_components" === $this->use_group)
+		{
+			$this->price_components_list_view = automatweb::$request->arg_isset("category") ? automatweb::$request->arg("category") : self::PRICE_COMPONENTS_ALL;
+		}
 	}
 	
 	function _get_mrp_workspace()
@@ -494,6 +542,280 @@ class order_management extends management_base
 			));
 		}
 		
+		return PROP_OK;
+	}
+	public function _get_hide_mandatory_price_components(&$arr)
+	{
+		$arr["prop"]["label"] = t("Peida kohustuslikud hinnakomponendid");
+		return PROP_OK;
+	}
+
+	protected function define_price_components_tbl_header(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->set_caption(t("Pakkumustes kasutatavad hinnakomponendid"));
+
+		$t->define_chooser();
+		$t->define_field(array(
+			"name" => "name",
+			"caption" => t("Nimi"),
+			"sortable" => true
+		));
+		$t->define_field(array(
+			"name" => "type",
+			"caption" => t("T&uuml;&uuml;p"),
+			"align" => "center",
+			"callback" => array($this, "callback_price_components_table_type"),
+			"callb_pass_row" => true,
+			"sortable" => true
+		));
+		$t->define_field(array(
+			"name" => "value",
+			"caption" => t("Summa v&otilde;i protsent"),
+			"align" => "center",
+			"callback" => array($this, "callback_price_components_table_value"),
+			"callb_pass_row" => true,
+			"sortable" => true
+		));
+		$t->define_field(array(
+			"name" => "category",
+			"caption" => t("Kategooria"),
+			"align" => "center",
+			"callback" => array($this, "callback_price_components_table_category"),
+			"callb_pass_row" => true,
+			"sortable" => true
+		));
+	}
+
+	public function _get_price_components_table(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$price_component_inst = new price_component();
+		$price_component_types = $price_component_inst->type_options;
+		$not_available_str = html::italic(t("M&auml;&auml;ramata"));
+
+		$this->define_price_components_tbl_header($arr);
+
+		$price_component_predicates = array();
+		if(automatweb::$request->arg_isset("category"))
+		{
+			$category = automatweb::$request->arg("category");
+			// $category is either 'undefined' or 'pc_{$category_oid}'
+			$category = "undefined" === $category ? "undefined" : preg_replace("/[^0-9]/", "", $category);
+			$price_component_predicates = array("category" => $category);
+		}
+		$price_components = $this->application->get_price_component_list($price_component_predicates);
+
+		$categories = $this->application->get_price_component_category_list()->names();
+		foreach($price_components->arr() as $price_component)
+		{
+			$t->define_data(array(
+				"oid" => $price_component->id(),
+				"name" => html::obj_change_url($price_component),
+				"type" => $price_component->prop("type"),
+				"value" => $price_component->prop_str("value"),
+				"category" => $price_component->prop("category"),
+			));
+		}
+
+		return PROP_OK;
+	}
+
+	public function callback_price_components_table_type($row)
+	{
+		static $types;
+		
+		if(!isset($types))
+		{
+			$price_component_inst = new price_component();
+			$types = $price_component_inst->type_options;
+		}
+
+		return html::select(array(
+			"name" => "price_components[{$row["oid"]}][type]",
+			"options" => $types,
+			"value" => $row["type"],
+		));
+	}
+
+	public function callback_price_components_table_value($row)
+	{
+		return html::textbox(array(
+			"name" => "price_components[{$row["oid"]}][value]",
+			"size" => 10,
+			"value" => $row["value"],
+		));
+	}
+
+	public function callback_price_components_table_category($row)
+	{
+		static $options;
+		
+		if(!isset($options))
+		{
+			$options = array(t("--Vali--")) + $this->application->get_price_component_category_list()->names();
+		}
+
+		return html::select(array(
+			"name" => "price_components[{$row["oid"]}][category]",
+			"options" => $options,
+			"value" => $row["category"],
+		));
+	}
+
+	public function _set_price_components_table(&$arr)
+	{
+		$price_components = automatweb::$request->arg("price_components");
+		if(!empty($price_components) && is_array($price_components))
+		{
+			foreach($price_components as $price_component_id => $price_component_data)
+			{
+				$price_component = new object($price_component_id, array(), price_component_obj::CLID);
+				$price_component->set_prop("type", $price_component_data["type"]);
+				$price_component->set_prop("value", $price_component_data["value"]);
+				$price_component->set_prop("category", $price_component_data["category"]);
+				$price_component->save();
+			}
+		}
+	}
+
+	protected function define_price_component_categories_tbl_header(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->set_caption(t("Hinnakomponentide kategooriad"));
+
+		$t->define_chooser();
+		$t->define_field(array(
+			"name" => "name",
+			"caption" => t("Nimi"),
+			"sortable" => true
+		));
+		$t->define_field(array(
+			"name" => "edit",
+			"caption" => "",
+			"align" => "center",
+			"callback" => array($this, "callback_price_component_categories_table_edit"),
+			"callb_pass_row" => true
+		));
+	}
+
+	public function callback_price_component_categories_table_edit($row)
+	{
+		$menu = new popup_menu();
+		$menu->begin_menu("edit_{$row["oid"]}");
+		$menu->add_item(array(
+				"text" => t("Muuda"),
+				"link" => html::get_change_url($row["oid"]),
+		));
+
+		return $menu->get_menu();
+	}
+
+	public function _get_price_component_categories_tree(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		
+		$url = automatweb::$request->get_uri();
+		$url->unset_arg("category");
+
+		$t->add_item(0, array(
+			"id" => "all",
+			"name" => t("K&otilde;ik hinnakomponendid"),
+			"url" => $url->get(),
+		));
+
+		$categories = $this->application->get_price_component_category_list();
+		foreach($categories->arr() as $category)
+		{
+			$key = "pc_{$category->id()}";
+			$url->set_arg("category", $key);
+			$t->add_item("all", array(
+				"id" => $key,
+				"name" => $category->name(),
+				"url" => $url->get(),
+			));
+		}
+		
+		$key = "undefined";
+		$url->set_arg("category", $key);
+		$t->add_item("all", array(
+			"id" => $key,
+			"name" => html::italic(t("M&auml;&auml;ramata")),
+			"url" => $url->get(),
+		));
+
+		$t->set_selected_item($this->price_components_list_view);
+
+		return PROP_OK;
+	}
+
+	public function _get_price_component_categories_table(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$this->define_price_component_categories_tbl_header($arr);
+
+		$categories = $this->application->get_price_component_category_list();
+		$url = automatweb::$request->get_uri();
+		foreach($categories->names() as $category_id => $category_name)
+		{
+			$url->set_arg("category", "pc_{$category_id}");
+			$t->define_data(array(
+				"oid" => $category_id,
+				"name" => html::href(array(
+					"caption" => $category_name,
+					"url" => $url->get(),
+				)),
+			));
+		}
+
+		return PROP_OK;
+	}
+
+	public function _get_price_components_toolbar(&$arr)
+	{
+		$this_o = $arr["obj_inst"];
+		$t = $arr["prop"]["vcl_inst"];
+		$add_new_button = false;
+
+		if ($this_o->is_saved() && is_oid($this_o->prop("price_components_folder")))
+		{
+			$t->add_menu_item(array(
+				"parent" => "new",
+				"text" => t("Hinnakomponent"),
+				"link" => html::get_new_url(price_component_obj::CLID, $this_o->prop("price_components_folder"), array(
+					"application" => $this_o->id(),
+					"return_url" => get_ru(),
+				)),
+			));
+			$add_new_button = true;
+		}
+		if ($this_o->is_saved() && is_oid($this_o->prop("price_component_categories_folder")))
+		{
+			$t->add_menu_item(array(
+				"parent" => "new",
+				"text" => t("Hinnakomponendi kategooria"),
+				"link" => html::get_new_url(price_component_category_obj::CLID, $this_o->prop("price_component_categories_folder"), array(
+					"application" => $this_o->id(),
+					"return_url" => get_ru(),
+				)),
+			));
+			$add_new_button = true;
+		}
+
+		if($add_new_button)
+		{
+			$t->add_menu_button(array(
+				"name" => "new",
+				"img" => "new.gif",
+			));
+		}
+		$t->add_save_button();
+		$t->add_delete_button();
+
 		return PROP_OK;
 	}
 

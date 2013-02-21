@@ -5,12 +5,40 @@
 	AW.UI.mrp_case = (function() {
 		var id = $.gpnv_as_obj().id;
 		var viewModel;
-				
+
+		function PriceComponentViewModel (price_component) {
+			for (var key in price_component) {
+				this[key] = ko.observable(price_component[key]);
+			}
+		}
+
 		function RowViewModel (row) {
 			for (var key in row) {
 				this[key] = ko.observable(row[key]);
 			}
+			this.price_components = ko.observable({});
+			for (var key in row.price_components) {
+				this.price_components()[key] = new PriceComponentViewModel(row.price_components[key]);
+			}
 			this.unit = ko.observable({ id: row.unit.id, name: row.unit.name });
+			this.total = ko.computed(function(){
+				var total = this.price() * this.quantity();
+				for (var i in this.price_components()) {
+					if (!this.price_components()[i].applied()) {
+						continue;
+					}
+					/*
+					 * const TYPE_UNIT = 2;
+					 * const TYPE_ROW = 3;
+					*/
+					if (this.price_components()[i].is_ratio()) {
+						total *= (100 + this.price_components()[i].value() * 1) / 100;
+					} else {
+						total += this.price_components()[i].value() * (this.price_components()[i].value() == 2 ? this.quantity() : 1);
+					}
+				}
+				return total;
+			}, this);
 		}
 		function OrderViewModel (rows, units) {
 			this.availableUnits = [];
@@ -28,12 +56,28 @@
 		function bindElementTo (td, index, property) {
 			return td.attr("data-bind", "text: rows()[" + index + "]." + property);
 		}
+		function priceComponentsTable(id)
+		{
+			var html = '<table class="expandable">';
+			for (var i in viewModel.rows()[id].price_components()) {
+				var price_component = viewModel.rows()[id].price_components()[i];
+				html += '<tr>' +
+							'<td><input type="checkbox" data-bind="checked: rows()[' + id + '].price_components()[' + i + '].applied" /></td>' + 
+							'<td>' + price_component.name() + '</td>' +
+							'<td><input type="text" data-bind="value: rows()[' + id + '].price_components()[' + i + '].value, valueUpdate:\'afterkeydown\'"/>' + (price_component.is_ratio() ? '%' : '') + '</td>' + 
+						'</tr>';
+			}
+			html += '</table>';
+			html += 'Summa: <span data-bind="text: rows()[' + id + '].total"></span>'
+			
+			return html;
+		}
 		function rowEditForm(nTr) {
 			var aData = $('#example').dataTable().fnGetData(nTr);
 			var search = '<a href="javascript:aw_popup_scroll(\'http://ehta.dev.automatweb.com/automatweb/orb.aw?class=popup_search&action=do_search&no_submit=1&pn=components_new&npn=components_new_name&id=' + id + '&in_popup=1&start_empty=1&jcb=window.opener.AW.UI.mrp_case.add_article('+ aData.id +')\',\'Otsing\',800,500)" alt="Otsi" title="Otsi"><img src="/automatweb/images/icons/magnifier.png" border="0"></a>'
 			var html = '<table class="expandable">';
-			html += '<tr><td class="caption">Pealkiri:</td><td><input type="text" data-bind="value: rows()[' + aData.id + '].name, valueUpdate:\'afterkeydown\'" /></td><td class="caption">Komponent:</td><td><span data-bind="text: rows()[' + aData.id + '].article_name"></span>' + search + '</td><td class="caption">Kogus:</td><td><input type="text" data-bind="value: rows()[' + aData.id + '].quantity" /></td></tr>';
-			html += '<tr><td class="caption">Alapealkiri:</td><td colspan="3"><input type="text" data-bind="value: rows()[' + aData.id + '].title, valueUpdate:\'afterkeydown\'" /></td><td class="caption">Ühik:</td><td><select data-bind="options: availableUnits, optionsText: \'name\', value: rows()[' + aData.id + '].unit"></select></td></tr>';
+			html += '<tr><td class="caption">Pealkiri:</td><td><input type="text" data-bind="value: rows()[' + aData.id + '].name, valueUpdate:\'afterkeydown\'" /></td><td class="caption">Komponent:</td><td><span data-bind="text: rows()[' + aData.id + '].article_name"></span>' + search + '</td><td class="caption">Kogus:</td><td><input type="text" data-bind="value: rows()[' + aData.id + '].quantity, valueUpdate:\'afterkeydown\'" /></td><td>Ühiku hind: <input type="text" data-bind="value: rows()[' + aData.id + '].price, valueUpdate:\'afterkeydown\'" /></td></tr>';
+			html += '<tr><td class="caption">Alapealkiri:</td><td colspan="3"><input type="text" data-bind="value: rows()[' + aData.id + '].title, valueUpdate:\'afterkeydown\'" /></td><td class="caption">Ühik:</td><td><select data-bind="options: availableUnits, optionsText: \'name\', value: rows()[' + aData.id + '].unit"></select></td><td colspan="2">' + priceComponentsTable(aData.id) + '</td></tr>';
 			html += '<tr><td class="caption">Kokkuvõte:</td><td colspan="5"><textarea data-bind="value: rows()[' + aData.id + '].description, valueUpdate:\'afterkeydown\'"></textarea></td></tr>';
 			html += '</table>';
 			
@@ -81,7 +125,8 @@
 											   .append(bindElementTo($("<i></i>"), aData.id, "title")).append($("<br />"))
 											   .append(bindElementTo($("<span></span>"), aData.id, "description"));
 							$("td:eq(2)", nRow).html('').append(bindElementTo($("<span></span>"), aData.id, "article_name"));
-							$("td:eq(3)", nRow).html('').append(bindElementTo($("<span></span>"), aData.id, "unit().name"));
+							$("td:eq(3)", nRow).html('<b>Ühik:</b> ').append(bindElementTo($("<span></span>"), aData.id, "unit().name"));
+							$("td:eq(4)", nRow).html('<b>Summa:</b> ').append(bindElementTo($("<span></span>"), aData.id, "total()"));
 						},
 						"bFilter": false,
 						"bSort": false,

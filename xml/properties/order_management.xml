@@ -19,6 +19,32 @@
             <caption>Ressursihalduskeskkond</caption>
       </property>
       <property>
+            <name>price_components_folder</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <clid>CL_MENU</clid>
+            <parent>folders_box</parent>
+            <comment>Kaust kuhu salvestatakse ning kust loetakse selle tellimuste halduse hinnakomponentide objekte</comment>
+            <caption>Hinnakomponentide kaust</caption>
+      </property>
+      <property>
+            <name>price_component_categories_folder</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <clid>CL_MENU</clid>
+            <parent>folders_box</parent>
+            <comment>Kaust kust loetakse selle tellimuste halduse hinnakomponendi kategooriate objekte</comment>
+            <caption>Hinnakomponendi kategooriate kaust</caption>
+      </property>
+      <property>
             <name>orders_toolbar</name>
             <table>objects</table>
             <group>orders</group>
@@ -275,6 +301,59 @@
             <store>no</store>
             <no_caption>true</no_caption>
       </property>
+      <property>
+            <name>price_components_toolbar</name>
+            <table>objects</table>
+            <group>configuration_price_components</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>price_component_categories_tree</name>
+            <table>objects</table>
+            <group>configuration_price_components</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>treeview</type>
+            <parent>price_component_categories_tree</parent>
+            <store>no</store>
+      </property>
+      <property>
+            <name>hide_mandatory_price_components</name>
+            <table>objects</table>
+            <group>configuration_price_components</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <parent>price_components_settings</parent>
+            <no_caption>1</no_caption>
+            <caption>Peida kohustuslikud hinnakomponendid</caption>
+      </property>
+      <property>
+            <name>price_component_categories_table</name>
+            <table>objects</table>
+            <group>configuration_price_components</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>price_components_right</parent>
+      </property>
+      <property>
+            <name>price_components_table</name>
+            <table>objects</table>
+            <group>configuration_price_components</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>price_components_right</parent>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
@@ -299,6 +378,10 @@
                   <parent>configuration</parent>
                   <caption>Tabel</caption>
             </configuration_table>
+            <configuration_price_components>
+                  <caption>Hinnakomponendid</caption>
+                  <parent>configuration</parent>
+            </configuration_price_components>
       </groupinfo>
       <tableinfo>
             <aw_management_base>
@@ -312,6 +395,13 @@
                   <index>aw_oid</index>
             </aw_order_management>
       </tableinfo>
+      <reltypes>
+            <FOLDER>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Kaust</caption>
+            </FOLDER>
+      </reltypes>
       <layout>
             <orders_split>
                   <type>hbox</type>
@@ -433,6 +523,36 @@
                   <closeable>1</closeable>
                   <group>configuration_filter</group>
             </configuration_filter_right>
+            <price_components_vsplitbox>
+                  <type>hbox</type>
+                  <width>25%:75%</width>
+                  <group>configuration_price_components</group>
+                  <area_caption></area_caption>
+            </price_components_vsplitbox>
+            <price_components_left>
+                  <type>vbox</type>
+                  <parent>price_components_vsplitbox</parent>
+                  <group>configuration_price_components</group>
+                  <area_caption></area_caption>
+            </price_components_left>
+            <price_component_categories_tree>
+                  <type>vbox</type>
+                  <parent>price_components_left</parent>
+                  <area_caption>Hinnakomponentide&amp;amp;nbsp;kategooriad</area_caption>
+                  <group>configuration_price_components</group>
+            </price_component_categories_tree>
+            <price_components_settings>
+                  <type>vbox</type>
+                  <parent>price_components_left</parent>
+                  <area_caption>Hinnakomponentide&amp;amp;nbsp;seaded</area_caption>
+                  <group>configuration_price_components</group>
+            </price_components_settings>
+            <price_components_right>
+                  <type>vbox</type>
+                  <parent>price_components_vsplitbox</parent>
+                  <group>configuration_price_components</group>
+                  <area_caption></area_caption>
+            </price_components_right>
       </layout>
 </properties>
 

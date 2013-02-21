@@ -278,6 +278,16 @@ class mrp_job_obj extends _int_object implements price_component_interface, crm_
 
 		return $names;
 	}
+	
+	public function awobj_get_price()
+	{
+		$price = parent::prop("price");
+		if($price === null && is_oid($article_oid = $this->prop("article")))
+		{
+			// FIXME: Tagasta juurhind, kui see on artiklile m22ratud!
+		}
+		return $price;
+	}
 
 	public function set_prop($k, $v)
 	{
@@ -2536,6 +2546,15 @@ class mrp_job_obj extends _int_object implements price_component_interface, crm_
 	public function is_finished()
 	{
 		return (bool) $this->prop("finished");
+	}
+	
+	public function get_price_components()
+	{
+		return new object_list(array(
+			"class_id" => price_component_obj::CLID,
+			"type" => price_component_obj::TYPE_ROW,
+			"application" => 760364,
+		));
 	}
 }
 

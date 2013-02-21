@@ -404,6 +404,81 @@ class order_management_obj extends management_base_obj
 		));
 		return $ol;
 	}
+	
+	/**
+		@attrib api=1
+
+		@returns object_list
+	**/
+	function get_price_component_category_list()
+	{
+		return $this->is_saved() ? new object_list(array(
+			"class_id" => price_component_category_obj::CLID,
+			"parent" => $this->prop("price_component_categories_folder"),
+		)) : new object_list();
+	}
+	
+	/**
+	@attrib api=1 params=name
+
+	@param category optional type=int/array/string
+		The OIDs of the category of price components to be returned. If 'undefined' given, price components without category set will be returned. May give multiple categories.
+
+	@returns object_list
+		Returns an object list of all price component objects defined for current crm_sales object. If current crm_sales object is not yet saved empty object list is returned.
+	**/
+	public function get_price_component_list($additional_predicates = array())
+	{
+		$predicates = array(
+			"class_id" => price_component_obj::CLID,
+			"application" => $this->id(),
+			"type" => new obj_predicate_not(price_component_obj::TYPE_NET_VALUE),
+			new obj_predicate_sort(array(
+				"name" => "ASC"
+			)),
+		);
+		
+		foreach ($additional_predicates as $predicate_key => $predicate)
+		{
+			switch ($predicate_key)
+			{
+				case "category":
+					$predicate = (array)$predicate;
+					if (in_array("undefined", $predicate))
+					{
+						$predicates[] = new object_list_filter(array(
+							"logic" => "OR",
+							"conditions" => array(
+								"category" => $predicate,
+								new object_list_filter(array(
+									"logic" => "OR",
+									"conditions" => array(
+										"category" => new obj_predicate_compare(obj_predicate_compare::NULL),
+									)
+								)),
+								new object_list_filter(array(
+									"logic" => "OR",
+									"conditions" => array(
+										"category" => 0,
+									)
+								)),
+							),
+						));
+					}
+					else
+					{
+						$predicates[$predicate_key] = $predicate;
+					}
+					break;
+
+				default:
+					$predicates[$predicate_key] = $predicate;
+			}
+		}
+
+		$ol = is_oid($this->id()) ? new object_list($predicates) : new object_list();
+		return $ol;
+	}
 }
 
 /** Generic order_management_obj exception **/

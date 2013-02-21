@@ -3504,12 +3504,12 @@ function add_material(mid, jid)
 		$mrp_case = obj($arr["id"], mrp_case_obj::CLID);
 		$components = array();
 		foreach($mrp_case->get_job_list() as $job) {
-			$components[] = $this->component_json($job);
+			$components[] = $this->__component_json($job);
 		}
 		die(json_encode($components));
 	}
 	
-	private function component_json($job)
+	private function __component_json($job)
 	{
 		return array(
 			"id" => $job->id,
@@ -3520,7 +3520,30 @@ function add_material(mid, jid)
 			"article_name" => $job->prop("article.name"),
 			"unit" => array("id" => (int)$job->unit, "name" => $job->prop("unit.name")),
 			"quantity" => $job->quantity,
+			"price" => $job->price,
+			// FIXME: Should prolly get these from order_management!
+			"price_components" => $this->__price_components_json($job, $job->get_price_components()->arr()),
 		);
+	}
+	
+	public function __price_components_json($job ,$price_components)
+	{
+		$json = array();
+		
+		$data = $job->meta("price_components");
+		
+		foreach($price_components as $price_component)
+		{
+			$json[$price_component->id] = array(
+				"id" => $price_component->id,
+				"name" => $price_component->name,
+				"value" => isset($data[$price_component->id]["value"]) ? $data[$price_component->id]["value"] : $price_component->value,
+				"is_ratio" => (bool)$price_component->is_ratio,
+				"applied" => isset($data[$price_component->id]["applied"]) ? $data[$price_component->id]["applied"] : false,
+			);
+		}
+		
+		return $json;
 	}
 	
 	/**
@@ -3530,7 +3553,7 @@ function add_material(mid, jid)
 	{
 		$mrp_case = obj($arr["id"], mrp_case_obj::CLID);
 		$job = $mrp_case->add_job();
-		die(json_encode($this->component_json($job)));
+		die(json_encode($this->__component_json($job)));
 	}
 	
 	/**
@@ -3544,6 +3567,10 @@ function add_material(mid, jid)
 			unset($component["id"]);
 			foreach($component as $key => $value)
 			{
+				if ($key === "price_components")
+				{
+					$job->set_meta("price_components", $value);
+				}
 				// FIXME: Handle better property handling mechanism to check which properties a
 				try {
 					$job->set_prop($key, $value);
