@@ -10,6 +10,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 	const TITLE_MR = 3;
 	const TITLE_MISS = 2;
 	const TITLE_MRS = 1;
+	const TITLE_DR = 4;
 
 	protected $all_jobs;
 	protected $current_jobs;

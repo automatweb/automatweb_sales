@@ -2456,7 +2456,8 @@ class crm_person extends class_base
 				$data["options"] = array(
 					crm_person_obj::TITLE_MR => t("H&auml;rra"),
 					crm_person_obj::TITLE_MRS => t("Proua"),
-					crm_person_obj::TITLE_MISS => t("Preili")
+					crm_person_obj::TITLE_MISS => t("Preili"),
+					crm_person_obj::TITLE_Dr => t("Doktor")
 				);
 				break;
 
