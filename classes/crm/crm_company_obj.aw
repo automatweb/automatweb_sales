@@ -2265,7 +2265,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 			));
 		}
 
-		if (1 === $customer_relations->count())
+		if ($customer_relations->count() > 0)
 		{
 			$customer_relation = $customer_relations->begin();
 			aw_cache::set($customer_relation, self::CLID, $type, $customer->id());
