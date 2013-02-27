@@ -27,7 +27,6 @@
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
-            <parent>folders_box</parent>
             <comment>Kaust kuhu salvestatakse ning kust loetakse selle tellimuste halduse hinnakomponentide objekte</comment>
             <caption>Hinnakomponentide kaust</caption>
       </property>
@@ -40,9 +39,38 @@
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
-            <parent>folders_box</parent>
             <comment>Kaust kust loetakse selle tellimuste halduse hinnakomponendi kategooriate objekte</comment>
             <caption>Hinnakomponendi kategooriate kaust</caption>
+      </property>
+      <property>
+            <name>email_templates_folder</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <clid>CL_MENU</clid>
+            <comment>Kaust kust loetakse selle tellimuste halduse e-kirja &amp;amp;scaron;abloonide objekte</comment>
+            <caption>E-kirja &amp;amp;scaron;abloonide kaust</caption>
+      </property>
+      <property>
+            <name>default_email_from</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Vaikimisi e-kirja saatja aadress</caption>
+      </property>
+      <property>
+            <name>default_email_from_name</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Vaikimisi e-kirja saatja nimi</caption>
       </property>
       <property>
             <name>orders_toolbar</name>

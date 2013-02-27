@@ -479,6 +479,14 @@ class order_management_obj extends management_base_obj
 		$ol = is_oid($this->id()) ? new object_list($predicates) : new object_list();
 		return $ol;
 	}
+	
+	function get_email_templates()
+	{
+		return new object_list(array(
+			"class_id" => CL_MESSAGE_TEMPLATE,
+			"parent" => $this->prop("email_templates_folder"),
+		));
+	}
 }
 
 /** Generic order_management_obj exception **/

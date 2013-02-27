@@ -16,13 +16,23 @@
 	
 @default table=objects field=meta method=serialize
 
-	@property price_components_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@property price_components_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle tellimuste halduse hinnakomponentide objekte
 	@caption Hinnakomponentide kaust
 
-	@property price_component_categories_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@property price_component_categories_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU
 	@comment Kaust kust loetakse selle tellimuste halduse hinnakomponendi kategooriate objekte
 	@caption Hinnakomponendi kategooriate kaust
+	
+	@property email_templates_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU
+	@comment Kaust kust loetakse selle tellimuste halduse e-kirja &scaron;abloonide objekte
+	@caption E-kirja &scaron;abloonide kaust
+	
+	@property default_email_from type=textbox
+	@caption Vaikimisi e-kirja saatja aadress
+	
+	@property default_email_from_name type=textbox
+	@caption Vaikimisi e-kirja saatja nimi
 
 @groupinfo orders caption="Tellimused" submit_method=get submit=no save=no
 @default group=orders
