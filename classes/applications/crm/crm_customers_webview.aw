@@ -17,7 +17,7 @@
 	@caption Aadress
 
 	@reltype ADDRESS value=1 clid=CL_COUNTRY_ADMINISTRATIVE_UNIT
-	@caption Kõrgem halduspiirkond
+	@caption KÃµrgem halduspiirkond
 
 */
 
@@ -51,50 +51,6 @@ class crm_customers_webview extends class_base
 		}
 
 		return PROP_OK;
-	}
-
-	function parse_alias($arr = array())
-	{
-		// okey, I need to determine whether that template has a place for showing
-		// a list of authors documents. If it does, then I need to create that list
-		extract($arr);
-		$webview = new object($arr["alias"]["target"]);
-		$this->read_template("show.tpl");
-
-		switch ($webview->prop("mode"))
-		{
-			case crm_customers_webview_obj::MODE_USER_COMPANY_CUSTOMERS:
-				$this->vars(array(
-					"webview.company" => user::get_current_company(),
-				));
-		}
-
-		$customers = $webview->get_customers();
-
-
-		$CUSTOMER = "";
-		if ($customers->count() > 0)
-		{
-			$customer = $customers->begin();
-			do
-			{
-				$this->__parse_customer($customer);
-				$CUSTOMER .= $this->parse("CUSTOMER");
-			} while ($customer = $customers->next());
-		}
-
-		$this->vars_safe(array(
-			"CUSTOMER" => $CUSTOMER,
-		));
-
-		$html = $this->parse();
-
-		if (!empty($arr["charset"]))
-		{
-			$html = iconv(aw_global_get("charset"), $arr["charset"], $html);
-		}
-
-		return $html;
 	}
 
 	/**
