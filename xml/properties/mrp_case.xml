@@ -1017,6 +1017,7 @@
             </grp_case_data>
             <grp_case_components>
                   <caption>Komponendid</caption>
+                  <submit>no</submit>
             </grp_case_components>
             <grp_case_formula>
                   <caption>Tooteretsept</caption>

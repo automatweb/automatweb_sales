@@ -11,7 +11,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 
 	@groupinfo grp_general caption="&Uuml;ldine" parent=general
 	@groupinfo grp_case_data caption="Tellimuse andmed" parent=general
-@groupinfo grp_case_components caption="Komponendid"
+@groupinfo grp_case_components caption="Komponendid" submit=no
 @groupinfo grp_case_formula caption="Tooteretsept"
 	@groupinfo grp_case_workflow caption="T&ouml;&ouml;voog" parent=grp_case_formula
 	@groupinfo grp_case_materials caption="Materjalid" parent=grp_case_formula
@@ -4134,7 +4134,7 @@ function add_material(mid, jid)
 			$view_type = empty($arr["view_type"]) ? "main" : $arr["view_type"];
 			$content_tpl = new aw_php_template("mrp_case", "rows_overview", $lang_id);
 			$view_type_name = t("p&otilde;hivaade", $lang_id);
-			$rows = array();//$this_o->get_bill_rows_data(true, "comment"); // FIXME!
+			$rows = $this_o->get_job_list();
 			$document_title = $this_o->trans_get_val("comment", $lang_id);
 			$document_name = sprintf(t("Tellimus nr. %s", $lang_id), $this_o->prop("name"));
 
@@ -4163,7 +4163,7 @@ function add_material(mid, jid)
 			$document_title = $this_o->trans_get_val("title", $lang_id);
 			$intro_text = "";//nl2br($this_o->trans_get_val("bill_appendix_comment", $lang_id)); // FIXME!
 			$rows_data = array();//$this_o->get_bill_rows_data(true); // FIXME!
-			$rows = array();
+			$rows = $this_o->get_job_list();
 
 			// FIXME: group rows by comment
 		}
@@ -4209,7 +4209,7 @@ function add_material(mid, jid)
 		}
 		
 		//FIXME!
-		$sum = 1337.50;//$this_o->get_bill_sum();
+		$sum = $this_o->get_order_total();
 		$discount = 0;//$this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX) - $this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX_WO_DISCOUNT);
 
 		try

@@ -175,6 +175,17 @@ class mrp_case_obj extends _int_object implements price_component_interface, crm
 		$this->awobj_set_order_state(self::ORDER_STATE_CANCELLED);
 		$this->save();
 	}
+	
+	public function get_order_total()
+	{
+		$total = 0;
+		foreach($this->get_job_list() as $job)
+		{
+			$total += $job->total;
+		}
+		
+		return (double)$total;
+	}
 
 	public function awobj_get_project_priority()
 	{
@@ -1338,6 +1349,14 @@ Parimat,
 #contact_person# => '.t("Kliendi kontaktisiku nimi").'
 #signature# => '.t("Saatja allkiri").'
 ';
+	}
+	
+	public function send_template_mail($template, $recipient, $from = "", $from_name = "")
+	{
+		$subject = $this->parse_text_variables($template->subject);
+		$content = $this->parse_text_variables($template->subject);
+		
+		$this->send_by_mail(array($recipient->get_mail() => $recipient->name), $subject, $content, array(), array(), $from, $from_name);
 	}
 
 	/** Sends order document by mail
