@@ -7,6 +7,12 @@
             <field>aw_price</field>
       </property>
       <property>
+            <name>total</name>
+            <type>hidden</type>
+            <table>mrp_job</table>
+            <field>aw_total</field>
+      </property>
+      <property>
             <name>job_toolbar</name>
             <type>toolbar</type>
             <no_caption>1</no_caption>

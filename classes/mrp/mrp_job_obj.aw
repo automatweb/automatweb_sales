@@ -286,7 +286,17 @@ class mrp_job_obj extends _int_object implements price_component_interface, crm_
 		{
 			// FIXME: Tagasta juurhind, kui see on artiklile m22ratud!
 		}
-		return $price;
+		return (double)$price;
+	}
+	
+	public function awobj_get_total()
+	{
+		$total = parent::prop("total");
+		
+		// FIXME: V]tta arvesse katteid!
+		$total = $this->awobj_get_price() * $this->prop("quantity");
+		
+		return (double)$total;
 	}
 
 	public function set_prop($k, $v)
