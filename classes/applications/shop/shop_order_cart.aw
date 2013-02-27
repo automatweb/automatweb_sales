@@ -46,6 +46,9 @@
 					@property order_state type=select field=meta method=serialize parent=result_mrp_case
 					@caption Tellimuse staatus
 
+					@property order_email type=select field=meta method=serialize parent=result_mrp_case
+					@caption Tellimuse kinnituse e-kiri
+
 			@layout delivery_and_payment type=vbox parent=left area_caption=K&auml;ttetoimetamine&nbsp;ja&nbsp;maksmine
 
 				@property postal_price type=textbox field=meta method=serialize size=5 parent=delivery_and_payment
@@ -187,7 +190,7 @@ class shop_order_cart extends class_base
 		return PROP_OK;
 	}
 
-	public function _get_order_source($arr)
+	public function _get_order_source(&$arr)
 	{
 		if (is_oid($arr["obj_inst"]->order_management))
 		{
@@ -203,11 +206,27 @@ class shop_order_cart extends class_base
 		return PROP_OK;
 	}
 
-	public function _get_order_state($arr)
+	public function _get_order_state(&$arr)
 	{
 		$arr["prop"]["options"] = mrp_case_obj::get_order_state_names();
 		
 		return PROP_OK;
+	}
+	
+	public function _get_order_email(&$arr)
+	{
+		if (is_oid($arr["obj_inst"]->order_management))
+		{
+			$order_management = obj($arr["obj_inst"]->order_management, null, order_management_obj::CLID);
+			$arr["prop"]["options"] = array(null => t("--Vali--")) + $order_management->get_email_templates()->names();
+		}
+		else
+		{
+			$arr["prop"]["type"] = "text";
+			$arr["prop"]["value"] = t("Vali esmalt tellimuste haldus");
+		}
+		
+		return class_base::PROP_OK;
 	}
 
 	public function _get_delivery_method_tlb($arr)

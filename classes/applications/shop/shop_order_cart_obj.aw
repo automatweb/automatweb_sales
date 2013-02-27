@@ -589,13 +589,27 @@ class shop_order_cart_obj extends _int_object
 			if ($row->prop("amount") > 0)
 			{
 				$job = $mrp_order->add_job();
+				$job->set_prop("name", $row->prop("prod_name"));
 				$job->set_prop("article", $row->prop("prod"));
-				$job->set_prop("quantity",$row->prop("amount"));
+				$job->set_prop("quantity", $row->prop("amount"));
+				$job->set_prop("price", $row->prop("price"));
 				$job->save();
 			}
 		}
 		
 		$mrp_order->save();
+		
+		if (object_loader::can("", $this->prop("order_email")))
+		{
+			$email_template = obj($this->prop("order_email"), null, CL_MESSAGE_TEMPLATE);
+			
+			$recipient = obj(user::get_current_person());
+		
+			$from = $order_management->prop("default_email_from");
+			$from_name = $order_management->prop("default_email_from_name");
+			
+			$mrp_order->send_template_mail($email_template, $recipient, $from, $from_name);
+		}
 
 		return $mrp_order;
 	}

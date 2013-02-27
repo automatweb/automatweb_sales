@@ -86,6 +86,16 @@
             <caption>Tellimuse staatus</caption>
       </property>
       <property>
+            <name>order_email</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>result_mrp_case</parent>
+            <caption>Tellimuse kinnituse e-kiri</caption>
+      </property>
+      <property>
             <name>postal_price</name>
             <table>objects</table>
             <group>general</group>
