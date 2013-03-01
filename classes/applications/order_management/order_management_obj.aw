@@ -41,7 +41,7 @@ class order_management_obj extends management_base_obj
 			{
 				foreach ($filter[$filter_type] as $key => $value)
 				{
-					if (empty($value))
+					if (!is_numeric($value))
 					{
 						unset($filter[$filter_type][$key]);
 					}
@@ -486,6 +486,39 @@ class order_management_obj extends management_base_obj
 			"class_id" => CL_MESSAGE_TEMPLATE,
 			"parent" => $this->prop("email_templates_folder"),
 		));
+	}
+	
+	function create_bill_for_order($order)
+	{
+		$bill = obj();
+		$bill->set_class_id(crm_bill_obj::CLID);
+		$bill->set_parent($this->id());
+		$bill->save();
+
+		$ser = new crm_number_series();
+		$bno = $ser->find_series_and_get_next(crm_bill_obj::CLID, 0, time());
+		if (!$bno)
+		{
+			$bno = $bill->id();
+		}
+
+		$bill->customer_relation = $order->customer_relation;
+		$bill->bill_no = $bno;
+		$bill->set_impl();
+		$bill->save();
+		
+		foreach($order->get_job_list() as $job)
+		{
+			$row = $bill->add_row();
+			$row->comment = $job->name;
+			$row->row_title = $job->title;
+			$row->desc = $job->description;
+			$row->amt = $job->quantity;
+			$row->price = $job->price;
+			$row->save();
+		}
+		
+		return $bill;
 	}
 }
 

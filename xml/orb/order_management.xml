@@ -1,5 +1,11 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="order_management" extends="management_base">
+		<action name="create_bills" all_args="1">
+			<function name="create_bills">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

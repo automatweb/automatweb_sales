@@ -350,6 +350,12 @@ class order_management extends management_base
 		$t = $arr["prop"]["vcl_inst"];
 		
 		$t->add_new_button(array(mrp_case_obj::CLID), $arr["obj_inst"]->id(), null, array("mrp_workspace" => mrp_workspace_obj::get_hr_manager($owner)->id));
+		$t->add_button(array(
+			"name" => "create_bills",
+			"action" => "create_bills",
+			"tooltip" => t("Genereeri valitud arvetele arved"),
+			"icon" => "create_bill",
+		));
 		
 		return PROP_OK;
 	}
@@ -489,6 +495,8 @@ class order_management extends management_base
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		
+		$t->define_chooser();
+		
 		foreach ($arr["obj_inst"]->get_orders_table_fields() as $field)
 		{
 			if (!empty($field["active"]))
@@ -542,6 +550,7 @@ class order_management extends management_base
 			$customer_relation = $customer->is_saved() ? $customer->find_customer_relation($arr["obj_inst"]->owner()) : null;
 			$order_inst = new mrp_case();
 			$t->define_data(array(
+				"oid" => $order->id,
 				"name" => html::obj_change_url($order),
 				"customer_name" => $customer->is_saved() ? html::obj_change_url($customer, ($customer->is_a(crm_company_obj::CLID) ? $customer->get_title() : $customer->name())) : self::$not_available_string,
 				"customer_manager" => $customer_relation !== null && is_oid($customer_relation->client_manager) ? html::obj_change_url($customer_relation->client_manager()) : self::$not_available_string,
@@ -827,6 +836,24 @@ class order_management extends management_base
 		$t->add_delete_button();
 
 		return PROP_OK;
+	}
+	
+	/**
+		@attrib name=create_bills all_args=1
+	**/
+	function create_bills($arr)
+	{
+		$order_management = obj($arr["id"], null, order_management_obj::CLID);
+		if (!empty($arr["sel"]))
+		{
+			foreach($arr["sel"] as $id)
+			{
+				$order = obj($id, null, mrp_case_obj::CLID);
+				$bill = $order_management->create_bill_for_order($order);
+			}
+		}
+
+		return $arr["post_ru"];
 	}
 
 	function callback_pre_save($arr)
