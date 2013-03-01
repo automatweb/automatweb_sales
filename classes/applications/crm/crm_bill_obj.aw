@@ -3766,15 +3766,22 @@ class crm_bill_obj extends _int_object
 			}
 		}
 
-		if(!$contact_person and $this->prop("customer_relation.buyer.firmajuht"))
+		if(!$contact_person)
 		{
-			try
+			if($this->prop("customer_relation.buyer.class_id") == crm_company_obj::CLID && $this->prop("customer_relation.buyer.firmajuht"))
 			{
-				$contact_person = new object($this->prop("customer_relation.buyer.firmajuht"));
+				try
+				{
+					$contact_person = new object($this->prop("customer_relation.buyer.firmajuht"));
+				}
+				catch (Exception $e)
+				{
+					$contact_person = null;
+				}
 			}
-			catch (Exception $e)
+			elseif ($this->prop("customer_relation.buyer.class_id") == crm_person_obj::CLID)
 			{
-				$contact_person = null;
+				$contact_person = new object($this->prop("customer_relation.buyer"));
 			}
 		}
 

@@ -3257,7 +3257,7 @@ if (crm_bill_obj::STATUS_OFFER == $this_o->prop("state")) $this->_loadoffertmptr
 		// find buyer contact person/signer
 		$buyer_signer_name = $this_o->get_customer_contact_person_name();
 		$buyer_signer_profession = "";
-		if ($buyer_signer = $this_o->get_contact_person() and $buyer_signer_name === $buyer_signer->name())
+		if ($buyer_signer = $this_o->get_contact_person() and $buyer_signer_name === $buyer_signer->name() and $buyer->is_a(crm_company_obj::CLID))
 		{ // get profession only if contact person name isn't defined different in ctp_text prop
 			$buyer_signer_profession = implode(", ", $buyer_signer->get_profession_names($buyer));
 		}
@@ -3399,17 +3399,56 @@ $GLOBALS["TRANS"][51920]["seletuskiri"] = "n&otilde;uded";
 		$vars = array();
 
 		$vars["{$type}_name"] = "buyer" === $type ? $this_o->get_customer_name() : $party->name();
-		$vars["{$type}_reg_nr"] = $party->prop("reg_nr");
-		$vars["{$type}_tax_reg_nr"] = $party->prop("tax_nr");
-		$vars["{$type}_fax"] = $party->prop_str("telefax_id", true);//TODO: use get_phone(), get_telefax(),... type methods instead -- seller could be a person. todo: create these methods in crmco crmperson and add them to customerinterface
-		$vars["{$type}_url"] = $party->prop_str("url_id", true);
-		$vars["{$type}_phone"] = $party->prop_str("phone_id", true);
-		$vars["{$type}_email"] = $party->prop("email_id.mail");
-		$vars["{$type}_corpform"] = $party->prop("ettevotlusvorm.shortname");
+		if ($party->is_a(crm_company_obj::CLID))
+		{
+			$vars["{$type}_reg_nr"] = $party->prop("reg_nr");
+			$vars["{$type}_tax_reg_nr"] = $party->prop("tax_nr");
+			$vars["{$type}_fax"] = $party->prop_str("telefax_id", true);//TODO: use get_phone(), get_telefax(),... type methods instead -- seller could be a person. todo: create these methods in crmco crmperson and add them to customerinterface
+			$vars["{$type}_url"] = $party->prop_str("url_id", true);
+			$vars["{$type}_phone"] = $party->prop_str("phone_id", true);
+			$vars["{$type}_email"] = $party->prop("email_id.mail");
+			$vars["{$type}_corpform"] = $party->prop("ettevotlusvorm.shortname");
 
-		// logo
-		$logo = $party->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
-		$vars["{$type}_logo"] = $logo ? image::make_img_tag($logo->instance()->get_url_by_id($logo->id()), $party->name(), array(), array("svg_img_tag" => $pdf)) : $party->name();
+			// logo
+			$logo = $party->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
+			$vars["{$type}_logo"] = $logo ? image::make_img_tag($logo->instance()->get_url_by_id($logo->id()), $party->name(), array(), array("svg_img_tag" => $pdf)) : $party->name();
+	
+			// address
+			$vars["{$type}_country"] = $party->prop_xml("contact.riik.name");
+			$vars["{$type}_county"] = $party->prop_xml("contact.maakond.name");
+			$vars["{$type}_city"] = $party->prop_xml("contact.linn.name");
+			$vars["{$type}_index"] = $party->prop_xml("contact.postiindeks");
+			$vars["{$type}_street"] = $party->prop_xml("contact.aadress");
+	
+			// compacted address string
+			$vars["{$type}_address"] = array();
+			if ($vars["{$type}_street"])
+			{
+				$vars["{$type}_address"][] = $vars["{$type}_street"];
+			}
+	
+			if ($vars["{$type}_index"])
+			{
+				$vars["{$type}_address"][] = $vars["{$type}_index"];
+			}
+	
+			if ($vars["{$type}_city"])
+			{
+				$vars["{$type}_address"][] = $vars["{$type}_city"];
+			}
+	
+			if ($vars["{$type}_county"])
+			{
+				$vars["{$type}_address"][] = $vars["{$type}_county"];
+			}
+	
+			if ($vars["{$type}_country"])
+			{
+				$vars["{$type}_address"][] = $vars["{$type}_country"];
+			}
+	
+			$vars["{$type}_address"] = implode(", ", $vars["{$type}_address"]);
+		}
 
 		// bank accounts
 		$vars["{$type}_bank_accounts"] = array();
@@ -3428,42 +3467,6 @@ $GLOBALS["TRANS"][51920]["seletuskiri"] = "n&otilde;uded";
 				"iban" => $acc->prop("iban_code")
 			);
 		}
-
-		// address
-		$vars["{$type}_country"] = $party->prop_xml("contact.riik.name");
-		$vars["{$type}_county"] = $party->prop_xml("contact.maakond.name");
-		$vars["{$type}_city"] = $party->prop_xml("contact.linn.name");
-		$vars["{$type}_index"] = $party->prop_xml("contact.postiindeks");
-		$vars["{$type}_street"] = $party->prop_xml("contact.aadress");
-
-		// compacted address string
-		$vars["{$type}_address"] = array();
-		if ($vars["{$type}_street"])
-		{
-			$vars["{$type}_address"][] = $vars["{$type}_street"];
-		}
-
-		if ($vars["{$type}_index"])
-		{
-			$vars["{$type}_address"][] = $vars["{$type}_index"];
-		}
-
-		if ($vars["{$type}_city"])
-		{
-			$vars["{$type}_address"][] = $vars["{$type}_city"];
-		}
-
-		if ($vars["{$type}_county"])
-		{
-			$vars["{$type}_address"][] = $vars["{$type}_county"];
-		}
-
-		if ($vars["{$type}_country"])
-		{
-			$vars["{$type}_address"][] = $vars["{$type}_country"];
-		}
-
-		$vars["{$type}_address"] = implode(", ", $vars["{$type}_address"]);
 
 		return $vars;
 	}
