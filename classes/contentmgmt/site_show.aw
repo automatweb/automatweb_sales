@@ -92,6 +92,7 @@ class site_show extends aw_template
 	// tpldir - if set, templates are read from $tpldir/automatweb/menuedit folder
 	function show($arr)
 	{
+		aw_translations::load("menuedit");
 		if (!empty($arr["type"]) && $arr["type"] !== "html")
 		{
 			return $this->_show_type($arr);
