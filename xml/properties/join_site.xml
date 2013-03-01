@@ -20,6 +20,42 @@
             <comment>Uued kasutajad aktiveeritakse automaatselt</comment>
       </property>
       <property>
+            <name>tpl_new</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>subgeneral</group>
+            <type>select</type>
+            <caption>Lisamise templeit</caption>
+      </property>
+      <property>
+            <name>tpl_edit</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>subgeneral</group>
+            <type>select</type>
+            <caption>Muutmise templeit</caption>
+      </property>
+      <property>
+            <name>redirect_new</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>subgeneral</group>
+            <type>textbox</type>
+            <caption>URL, millele suunatakse p&amp;amp;auml;rast andmete lisamist</caption>
+      </property>
+      <property>
+            <name>redirect_edit</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>subgeneral</group>
+            <type>textbox</type>
+            <caption>URL, millele suunatakse p&amp;amp;auml;rast andmete muutmist</caption>
+      </property>
+      <property>
             <name>languages</name>
             <table>objects</table>
             <field>meta</field>
@@ -51,6 +87,15 @@
             <no_caption>1</no_caption>
       </property>
       <property>
+            <name>form_fields_duplicate</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>form_fields</group>
+            <type>hidden</type>
+            <store>no</store>
+      </property>
+      <property>
             <name>form_fields_table</name>
             <table>objects</table>
             <field>meta</field>
@@ -61,21 +106,21 @@
             <no_caption>1</no_caption>
       </property>
       <property>
-            <name>form_groups_table</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>form_groups</group>
-            <type>table</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-      </property>
-      <property>
             <name>form_translations_table</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
             <group>form_translations</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>form_groups_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>form_groups</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -185,7 +230,7 @@
                   <parent>form</parent>
             </form_fields>
             <form_translations>
-                  <caption>Omaduste&amp;nbsp;tõlked</caption>
+                  <caption>Omaduste&amp;amp;nbsp;t&amp;amp;otilde;lked</caption>
                   <parent>form</parent>
             </form_translations>
             <form_groups>
@@ -200,7 +245,7 @@
                   <parent>relations</parent>
             </customer_relations>
             <employments>
-                  <caption>Töösuhted</caption>
+                  <caption>T&amp;amp;ouml;&amp;amp;ouml;suhted</caption>
                   <parent>relations</parent>
             </employments>
             <emails>

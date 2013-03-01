@@ -4,11 +4,15 @@ class join_site_obj extends _int_object
 {
 	const CLID = 287;
 	
+	const FIELD_TYPE_TEXT = "text";
 	const FIELD_TYPE_SELECT = "select";
 	const FIELD_TYPE_RADIOS = "radios";
 	const FIELD_TYPE_CHECKBOXES = "checkboxes";
 	const FIELD_TYPE_ADDRESS = "address";
 	const FIELD_TYPE_PASSWORD = "password";
+	
+	const INSERT_MODE_NEW = 0;
+	const INSERT_MODE_EDIT = 1;
 
 	private $form_fields_initialised = false;
 	private $form_fields = array(
@@ -20,7 +24,8 @@ class join_site_obj extends _int_object
 				"options" => array(
 					crm_person_obj::TITLE_MR => "Härra",
 					crm_person_obj::TITLE_MRS => "Proua",
-					crm_person_obj::TITLE_MISS => "Preili"
+					crm_person_obj::TITLE_MISS => "Preili",
+					crm_person_obj::TITLE_DR => "Doktor"
 				),
 			),
 			"firstname" => array(
@@ -145,6 +150,7 @@ class join_site_obj extends _int_object
 		user_obj::CLID => array(
 			"uid" => array(
 				"caption" => "Kasutajanimi",
+				"mode" => self::INSERT_MODE_NEW,
 			),
 			"passwd" => array(
 				"caption" => "Parool",
@@ -246,10 +252,13 @@ class join_site_obj extends _int_object
 				if ($this->__belongs_to_group($field, $group_id) && $this->__belongs_to_subgroup($field, $subgroup_id))
 				{
 					$field["clid"] = $clid;
-					$field["id"] = $field_id;
+					$field["id"] = strpos($field_id, ".") !== false ? substr($field_id, 0, strpos($field_id, ".")) : $field_id;
 					$this->__apply_field_specific_arguments($field);
-					$this->__apply_field_translations($field);
-					$active_subgroup_fields["data[{$clid}][{$field_id}]"] = $field;
+					if ($this->__belongs_to_mode($field))
+					{
+						$this->__apply_field_translations($field);
+						$active_subgroup_fields["data[{$clid}][{$field_id}]"] = $field;
+					}
 				}
 			}
 		}
@@ -267,6 +276,12 @@ class join_site_obj extends _int_object
 	private function __belongs_to_subgroup($field, $subgroup_id)
 	{
 		return !empty($field["active"]) && (isset($field["subgroup"]) && $field["subgroup"] == $subgroup_id || !isset($field["subgroup"]) && $subgroup_id === null);
+	}
+	
+	private function __belongs_to_mode($field)
+	{
+		$mode = users::is_logged_in() ? self::INSERT_MODE_EDIT : self::INSERT_MODE_NEW;
+		return !isset($field["mode"]) || in_array($mode, (array)$field["mode"]);
 	}
 	
 	private function __apply_field_specific_arguments(&$field)
@@ -360,6 +375,12 @@ class join_site_obj extends _int_object
 			default:
 				return $person->is_property($field_id) ? $person->prop($field_id) : null;
 		}
+	}
+	
+	function get_template_name()
+	{
+		$tpl = $this->prop(users::is_logged_in() ? "tpl_edit" : "tpl_new");
+		return $tpl ? $tpl : "default.tpl"; 
 	}
 	
 	function get_languages()
@@ -647,5 +668,10 @@ class join_site_obj extends _int_object
 		));
 		
 		return $customer_relation_rules->arr();
+	}
+	
+	public function get_redirect_url()
+	{
+		return $this->prop(users::is_logged_in() ? "redirect_edit" : "redirect_new");
 	}
 }

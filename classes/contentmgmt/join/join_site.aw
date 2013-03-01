@@ -19,7 +19,19 @@ EMIT_MESSAGE(MSG_USER_JOINED)
 		@caption Autoaktiveerimine
 		@comment Uued kasutajad aktiveeritakse automaatselt
 		
-		@property languages type=chooser multiple=1 orient=vertical table=objects field=meta method=serialize
+		@property tpl_new type=select
+		@caption Lisamise templeit
+		
+		@property tpl_edit type=select
+		@caption Muutmise templeit
+		
+		@property redirect_new type=textbox
+		@caption URL, millele suunatakse p&auml;rast andmete lisamist
+		
+		@property redirect_edit type=textbox
+		@caption URL, millele suunatakse p&auml;rast andmete muutmist
+		
+		@property languages type=chooser multiple=1 orient=vertical
 		@caption Keeled
 
 	@groupinfo authentication caption=Autentimine parent=general
@@ -38,9 +50,11 @@ EMIT_MESSAGE(MSG_USER_JOINED)
 	@groupinfo form_fields caption=Omadused parent=form
 	@default group=form_fields
 	
+		@property form_fields_duplicate type=hidden store=no
+	
 		@property form_fields_table type=table store=no no_caption=1
 		
-	@groupinfo form_translations caption=Omaduste&nbsp;tõlked parent=form
+	@groupinfo form_translations caption=Omaduste&nbsp;t&otilde;lked parent=form
 	@default group=form_translations
 	
 		@property form_translations_table type=table store=no no_caption=1
@@ -61,7 +75,7 @@ EMIT_MESSAGE(MSG_USER_JOINED)
 		
 		@property customer_relations_new type=hidden store=no
 
-	@groupinfo employments caption=Töösuhted parent=relations
+	@groupinfo employments caption=T&ouml;&ouml;suhted parent=relations
 	@default group=employments
 
 		@property employments_toolbar type=toolbar store=no no_caption=1
@@ -88,6 +102,14 @@ class join_site extends class_base
 		join_site_obj::FIELD_TYPE_SELECT => "Rippvalik",
 		join_site_obj::FIELD_TYPE_RADIOS => "Raadionupud",
 		join_site_obj::FIELD_TYPE_CHECKBOXES => "Valikruudud",
+		join_site_obj::FIELD_TYPE_TEXT => "Tekst",
+	);
+	
+	private $__form_field_data = array(
+		crm_person_obj::CLID => array(),
+		crm_company_obj::CLID => array(),
+		crm_company_customer_data_obj::CLID => array(),
+		user_obj::CLID => array(),
 	);
 				
 	public function __construct()
@@ -96,6 +118,35 @@ class join_site extends class_base
 			"tpldir" => "contentmgmt/join/join_site",
 			"clid" => join_site_obj::CLID
 		));
+	}
+	
+	public function _get_tpl_new(&$arr)
+	{
+		$arr["prop"]["options"] = $this->__get_template_options();
+		return class_base::PROP_OK;
+	}
+	
+	public function _get_tpl_edit(&$arr)
+	{
+		$arr["prop"]["options"] = $this->__get_template_options();
+		return class_base::PROP_OK;
+	}
+	
+	private function __get_template_options()
+	{
+		$options = array(null => "-- default --");
+		
+		$handle = opendir(aw_ini_get("site_basedir").'templates/'.$this->tpldir);
+
+		while (false !== ($entry = readdir($handle)))
+		{
+			if(substr($entry, -4) === ".tpl")
+			{
+				$options[$entry] = $entry;
+			}
+		}
+		
+		return $options;
 	}
 	
 	public function _get_languages(&$arr)
@@ -336,7 +387,21 @@ class join_site extends class_base
 					{
 						$type_options[$type_option] = self::$__form_field_type_captions[$type_option];
 					}
+				} else {
+					$type_options[isset($field["type"]) ? $field["type"] : "default"] = t("-- default --");
 				}
+				$type_options[join_site_obj::FIELD_TYPE_TEXT] = self::$__form_field_type_captions[join_site_obj::FIELD_TYPE_TEXT];
+				
+				$duplicate_button = " ".html::href(array(
+					"url" => "javascript:void(0)",
+					"onclick" => "$(\"#changeform input[type=hidden][name=form_fields_duplicate]\").val(\"{$clid}.{$field_id}\"); $(\"#changeform\").submit();",
+					"caption" => html::img(array(
+						"url" => icons::get_std_icon_url("copy"),
+						"alt" => t("Duplikeeri"),
+						"title" => t("Duplikeeri"),
+					)),
+				));
+				
 				$t->define_data(array(
 					"ord" => html::textbox(array(
 						"name" => "form_fields[{$clid}][{$field_id}][ord]",
@@ -347,7 +412,7 @@ class join_site extends class_base
 						"name" => "form_fields[{$clid}][{$field_id}][active]",
 						"checked" => !empty($fields[$clid][$field_id]["active"])
 					)),
-					"field" => $field["original_caption"],
+					"field" => $field["original_caption"].$duplicate_button,
 					"caption" => html::textbox(array(
 						"name" => "form_fields[{$clid}][{$field_id}][caption]",
 						"value" => !empty($fields[$clid][$field_id]["caption"]) ? $fields[$clid][$field_id]["caption"] : $field["caption"],
@@ -356,11 +421,11 @@ class join_site extends class_base
 						"name" => "form_fields[{$clid}][{$field_id}][comment]",
 						"value" => !empty($fields[$clid][$field_id]["comment"]) ? $fields[$clid][$field_id]["comment"] : null,
 					)),
-					"type" => !empty($type_options) ? html::select(array(
+					"type" => html::select(array(
 						"name" => "form_fields[{$clid}][{$field_id}][type]",
 						"options" => $type_options,
-						"value" => !empty($fields[$clid][$field_id]["type"]) ? $fields[$clid][$field_id]["type"] : $field["type"],
-					)) : "",
+						"value" => !empty($fields[$clid][$field_id]["type"]) ? $fields[$clid][$field_id]["type"] : (isset($field["type"]) ? $field["type"] : null),
+					)),
 					"group" => html::select(array(
 						"name" => "form_fields[{$clid}][{$field_id}][group]",
 						"options" => $form_groups,
@@ -395,7 +460,22 @@ class join_site extends class_base
 		
 		$form_fields = $o->meta("form_fields");
 		
-		$fields = is_array($form_fields) ? array_replace_recursive($default_fields, $form_fields) : $default_fields;
+		if (is_array($form_fields))
+		{
+			$fields = array(crm_person_obj::CLID => array(), crm_company_obj::CLID => array(), crm_company_customer_data_obj::CLID => array(), user_obj::CLID => array());
+			foreach($form_fields as $clid => $fieldss)
+			{
+				foreach($fieldss as $field_id => $field)
+				{
+					$original_field_id = strpos($field_id, ".") !== false ? substr($field_id, 0, strpos($field_id, ".")) : $field_id;
+					$fields[$clid][$field_id] = $field + $default_fields[$clid][$original_field_id];
+				}
+			}
+		}
+		else
+		{
+			$fields = $default_fields;
+		}
 		
 		foreach(array_keys($fields) as $clid)
 		{
@@ -414,7 +494,18 @@ class join_site extends class_base
 	
 	public function _set_form_fields_table(&$arr)
 	{
-		$arr["obj_inst"]->set_meta("form_fields", $arr["request"]["form_fields"]);
+		$form_fields = $arr["request"]["form_fields"];
+		if (!empty($arr["request"]["form_fields_duplicate"]))
+		{
+			list($clid, $field_id) = explode(".", $arr["request"]["form_fields_duplicate"], 2);
+			$duplicate_id = "{$field_id}.copy";
+			while(isset($form_fields[$clid][$duplicate_id]))
+			{
+				$duplicate_id .= ".copy";
+			}
+			$form_fields[$clid][$duplicate_id] = $form_fields[$clid][$field_id];
+		}
+		$arr["obj_inst"]->set_meta("form_fields", $form_fields);
 		
 		return PROP_OK;
 	}
@@ -679,7 +770,7 @@ class join_site extends class_base
 	{
 		$o = obj($arr["id"], null, join_site_obj::CLID);
 		
-		$this->read_template("join.tpl");
+		$this->read_template($o->get_template_name());
 		
 		$groups = $o->get_form_groups();
 		
@@ -689,6 +780,12 @@ class join_site extends class_base
 		$group_count = 0;
 		foreach($groups as $group_id => $group)
 		{
+			// FIXME: Refactor to remove dulpicate code!
+			$this->vars(array(
+				"group.id" => $group_id,
+				"group.name" => $group["name"],
+				"group.comment" => $group["comment"],
+			));
 			$group_count++;
 			$SUBGROUP = $this->__parse_form_subgroup($o, $group_id, null, null);
 			foreach($group["subgroups"] as $subgroup_id => $subgroup)
@@ -702,15 +799,47 @@ class join_site extends class_base
 			$GROUP .= $this->parse("FORM.GROUP");
 		}
 		$this->vars(array(
+			"data.json" => $this->__construct_json_data()
+		));
+		$this->vars_safe(array(
 			"FORM.GROUP" => $GROUP,
 			"FORM.REFORB" => $this->parse("FORM.REFORB"),
 		));
-		$this->vars(array(
+		$this->vars_safe(array(
 			"HEADER" => $this->parse("HEADER"),
 			"FORM" => $this->parse("FORM"),
 		));
 		
 		return $this->parse();
+	}
+	
+	private function __construct_json_data()
+	{
+		return json_encode($this->__form_field_data);
+	}
+	
+	private function __construct_json_data_for_field($field, $value)
+	{
+		if ($field["type"] === join_site_obj::FIELD_TYPE_TEXT && isset($this->__form_field_data[$field["clid"]][$field["id"]]))
+		{
+			return;
+		}
+		
+		$options = array();
+		if (isset($field["options"]))
+		{
+			$options = is_callable($field["options"]) ? call_user_func($field["options"]) : $field["options"];
+			if ($options instanceof object_list)
+			{
+				$options = $options->names();
+			}
+		}
+
+		$this->__form_field_data[$field["clid"]][$field["id"]] = array(
+			"value" => $value,
+			"type" => isset($field["type"]) ? $field["type"] : "default",
+			"options" => $options,
+		);
 	}
 	
 	private function __parse_form_subgroup($o, $group_id, $subgroup_id, $subgroup)
@@ -742,12 +871,13 @@ class join_site extends class_base
 		foreach($groups as $group_id => $group)
 		{
 			$this->vars(array(
+				"group.id" => $group_id,
 				"group.name" => $group["name"],
 				"group.comment" => $group["comment"],
 			));
 			$GROUP .= $this->parse("HEADER.GROUP");
 		}
-		$this->vars(array(
+		$this->vars_safe(array(
 			"HEADER.GROUP" => $GROUP,
 		));
 	}
@@ -755,8 +885,12 @@ class join_site extends class_base
 	private function __parse_form_field($o, $field_id, $field)
 	{
 		$field_value = $o->get_form_field_value($field);
+		
+		$this->__construct_json_data_for_field($field, $field_value);
+		
 		$this->vars(array(
-			"field.id" => $field_id,
+			"field.id" => $field["id"],
+			"field.clid" => $field["clid"],
 			"field.caption" => $field["caption"],
 			"field.required" => !empty($field["required"]) ? trim($this->parse("FORM.FIELD.REQUIRED")) : "",
 			"field.value" => $field_value,
@@ -883,11 +1017,7 @@ class join_site extends class_base
 		$o = obj($arr["id"], null, join_site_obj::CLID);
 		$o->save_form_data($arr["data"]);
 		
-		var_dump($arr["data"]);
-		
-		die(".");
-		
-		header("Location: http://ehta.dev.automatweb.com/");
+		header("Location: ".$o->get_redirect_url());
 		exit;
 	}
 }
