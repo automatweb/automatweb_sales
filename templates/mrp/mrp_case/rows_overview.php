@@ -20,11 +20,11 @@
 			<tbody class="rows">
 			<?php foreach($rows as $row){?>
 				<tr>
-					<td><?php echo $row["comment"]?></td>
-					<td class="nowrap"><?php echo $row["quantity_str"]?></td>
-					<td><?php echo $row["price"]?></td>
-					<td><?php echo $row["sum"]?></td>
-					<?php if ($tax) {?><td><?php echo $row["tax_sum"]?></td><?php }?>
+					<td><?php echo $row->name?></td>
+					<td class="nowrap"><?php echo rtrim($row->quantity, ".0")?></td>
+					<td><?php echo number_format($row->price, 2, ".", " ")?></td>
+					<td><?php echo number_format($row->total, 2, ".", " ")?></td>
+					<?php /* FIXME: Katted and what not... */ if (false && $tax) {?><td><?php echo $row["tax_sum"]?></td><?php }?>
 				</tr>
 			<?php }?>
 			</tbody>
