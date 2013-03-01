@@ -586,7 +586,7 @@ class shop_sell_order_obj extends _int_object
 		*/
 		
 		$purchaser = obj($this->prop("purchaser"));
-		if (!$purchaser->is_saved())
+		if (true || !$purchaser->is_saved())
 		{
 			// FIXME: Only temporarily!
 			$__purchaser_id = users::is_logged_in() ? user::get_current_person() : null;
@@ -597,16 +597,15 @@ class shop_sell_order_obj extends _int_object
 			"name" => $purchaser->name(),
 			"customers" => array(),
 		);
-
 		if ($purchaser->is_a(crm_person_obj::CLID) and $purchaser->is_saved())
 		{
-			$customers = $purchaser->company()->get_customers_by_customer_data_objs(crm_person_obj::CLID);
+			$customers = $purchaser->company()->get_customers_by_customer_data_objs(array(crm_person_obj::CLID));
 			$order_data["purchaser"]["company"] = $purchaser->company()->id();
 			
 		}
 		elseif ($purchaser->is_a(crm_company_obj::CLID) and $purchaser->is_saved())
 		{
-			$customers = $purchaser->get_customers_by_customer_data_objs(crm_person_obj::CLID);
+			$customers = $purchaser->get_customers_by_customer_data_objs(array(crm_person_obj::CLID));
 		}
 		$customer_count = isset($customers) ? $customers->count() : 0;
 		if ($customer_count > 0)
