@@ -200,7 +200,7 @@ class mrp_case_obj extends _int_object implements price_component_interface, crm
 	
 	public function awobj_get_seller()
 	{
-		if (is_oid($this->prop("customer_relation")))
+		if (object_loader::can("", $this->prop("customer_relation")))
 		{
 			$customer_relation = obj($this->prop("customer_relation"), null, crm_company_customer_data_obj::CLID);
 			$this->set_prop("seller", $customer_relation->seller);
