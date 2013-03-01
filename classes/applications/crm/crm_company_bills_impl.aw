@@ -1832,7 +1832,7 @@ $x++;
 			if (acl_base::can("", $crel_oid))
 			{
 				$tmp = obj($crel_oid);
-				$cust = $tmp->prop("buyer.name") ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("buyer.short_name") ? $tmp->prop("buyer.short_name") : $tmp->prop("buyer.name")) , $tmp->prop("buyer.name")) : "";
+				$cust = $tmp->prop("buyer.name") ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("buyer.class_id") == crm_company_obj::CLID && $tmp->prop("buyer.short_name") ? $tmp->prop("buyer.short_name") : $tmp->prop("buyer.name")) , $tmp->prop("buyer.name")) : "";
 				$cm = html::obj_change_url($tmp->prop("client_manager"));
 			}
 
