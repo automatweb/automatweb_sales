@@ -2288,14 +2288,15 @@ class crm_company_cust_impl extends class_base
 			}
 
 			# fax
-			if (($default_cfg or  in_array("fax", $visible_fields)) and object_loader::can("view", $o->prop("telefax_id")))
+			if (($default_cfg or in_array("fax", $visible_fields)) and $o->is_a(crm_company_obj::CLID) and object_loader::can("view", $o->prop("telefax_id")))
 			{
 				$fax = obj($o->prop("telefax_id"));
 				$fax = $fax->name();
 			}
 
 			# client_manager
-			if ($default_cfg or in_array("client_manager", $visible_fields))
+			// FIXME: There is no crm_company.client_manager!
+			if (false and $o->is_a(crm_company_obj::CLID) and ($default_cfg or in_array("client_manager", $visible_fields)))
 			{
 				$client_manager = html::obj_change_url($o->prop("client_manager"));
 			}
@@ -2381,7 +2382,7 @@ class crm_company_cust_impl extends class_base
 				"cutcopied" => !empty($_SESSION["awcb_customer_selection_clipboard"][$cro_oid]) ? self::CUTCOPIED_COLOUR : "",
 				"classif1" => $classif1,
 				"customer_rel_creator" => method_exists($o, "get_cust_rel_creator_name") ? $o->get_cust_rel_creator_name() : "n/a",///!!!! teha korda
-				"reg_nr" => $o->prop("reg_nr"),
+				"reg_nr" => $o->is_a(crm_company_obj::CLID) ? $o->prop("reg_nr") : null,
 				"address" => $o->class_id() == crm_company_obj::CLID ? $o->prop_str("contact") : $o->prop("RELTYPE_ADDRESS.name"),
 				"ceo" => $ceo,
 				"phone" => $phone,
