@@ -2193,7 +2193,7 @@ class menu extends class_base implements main_subtemplate_handler
 				if ($this->can("view", $docid) && $dat["submenus"] == $docid)
 				{
 					$tpl = isset($dat["tpl"]) ? $dat["tpl"] : "SEEALSO_DOCUMENT";
-					if ($dat["ovr_parent"])
+					if (!empty($dat["ovr_parent"]))
 					{
 						$str[$tpl] = array();
 					}
@@ -2230,7 +2230,7 @@ class menu extends class_base implements main_subtemplate_handler
 					"no_doc_lead_break" => 1
 				));
 				aw_ini_set("document.lead_splitter", $iv);
-				$tmp[$tpl] .= $ttt;
+				$tmp[$tpl] = isset($tmp[$tpl]) ? $tmp[$tpl] . $ttt : $ttt;
 			}
 		}
 		foreach($tmp as $tpl => $docs)

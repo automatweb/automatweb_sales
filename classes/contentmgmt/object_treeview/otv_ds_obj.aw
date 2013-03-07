@@ -317,7 +317,7 @@ class otv_ds_obj extends class_base
 			}
 			$root_id = $c_o->id();
 			$cur_ids = array();
-			if ($sub[$root_id])
+			if (!empty($sub[$root_id]))
 			{
 				$_ot = new object_tree(array(
 					"class_id" => $opts['class'],
@@ -487,7 +487,7 @@ class otv_ds_obj extends class_base
 		// if use_meta_as_folders option is set, then ignore tv_sel here
 		$use_meta_as_folders = $ob->prop("use_meta_as_folders");
 
-		if ($GLOBALS["tv_sel"] && empty($use_meta_as_folders))
+		if (!empty($GLOBALS["tv_sel"]) && empty($use_meta_as_folders))
 		{
 			$parent = $GLOBALS["tv_sel"];
 		}
@@ -506,7 +506,7 @@ class otv_ds_obj extends class_base
 			foreach($con as $c)
 			{
 				$parent[$c->prop("to")] = $c->prop("to");
-				if ($inc_subs[$c->prop("to")])
+				if (!empty($inc_subs[$c->prop("to")]))
 				{
 					$ot = new object_tree(array(
 						"parent" => $c->prop("to"),
@@ -822,9 +822,9 @@ class otv_ds_obj extends class_base
 					{
 						if (isset($params["sel_cols"]))
 						{
-							if ($params["sel_cols"][$ff_n] == 1)
+							if (isset($params["sel_cols"][$ff_n]) && $params["sel_cols"][$ff_n] == 1)
 							{
-								if ($params['edit_columns'][$ff_n] == 1)
+								if (isset($params['edit_columns'][$ff_n]) and $params['edit_columns'][$ff_n] == 1)
 								{
 									$ret[$t->id()][$ff_n] = nl2br($t->prop($ff_n));
 								}
@@ -953,7 +953,7 @@ foreach($images as $i)
 		{
 			return array(false, $ret);
 		}
-		return array($GLOBALS["tv_sel"] ? $GLOBALS["tv_sel"] : $c->prop("to"), $ret);
+		return array(!empty($GLOBALS["tv_sel"]) ? $GLOBALS["tv_sel"] : $c->prop("to"), $ret);
 	}
 
 	function do_delete_objects($o, $arr)

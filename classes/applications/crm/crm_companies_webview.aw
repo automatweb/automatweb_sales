@@ -352,7 +352,7 @@ class crm_companies_webview extends class_base
 	
 	function show($arr)
 	{
-		$obj = &obj($arr["id"]);
+		$obj = obj($arr["id"], null, crm_companies_webview_obj::CLID);
 
 		$this->read_template($obj->prop("template"));
 

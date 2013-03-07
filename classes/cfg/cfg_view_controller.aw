@@ -69,7 +69,7 @@ class cfg_view_controller extends class_base
 			return PROP_OK;
 		}
 		$retval = PROP_OK;
-		$controller_inst = &obj($controller_oid);
+		$controller_inst = obj($controller_oid);
 		eval($controller_inst->prop("formula"));
 		return $retval;
 	}

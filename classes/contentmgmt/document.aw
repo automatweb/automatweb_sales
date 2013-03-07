@@ -128,7 +128,7 @@ class document extends aw_template implements orb_public_interface
 		if (!isset($doc) || !is_array($doc))
 		{
 			// we need to put the translation merging into this fetch function
-			$doc = $this->fetch($docid, $no_acl_checks);
+			$doc = $this->fetch($docid, !empty($no_acl_checks));
 			if ($doc == false)
 			{
 				return "";
@@ -493,11 +493,7 @@ class document extends aw_template implements orb_public_interface
 		}
 		else
 		{
-			$re = $GLOBALS["lc_document"]["LC_LOE_EDASI"];
-			if ($re == "")
-			{
-				$re = t("Loe edasi");
-			}
+			$re = !empty($GLOBALS["lc_document"]["LC_LOE_EDASI"]) ? $GLOBALS["lc_document"]["LC_LOE_EDASI"] : t("Loe edasi");
 
 			if (!(($pp = strpos($doc["content"],"#edasi#")) === false))
 			{
@@ -559,7 +555,7 @@ class document extends aw_template implements orb_public_interface
 				{
 					$no_strip_lead = $doc["no_strip_lead"];
 				};
-				if ($no_strip_lead != 1)
+				if (!isset($no_strip_lead) || $no_strip_lead != 1)
 				{
 					// here we only strip images
 					// because kirjastus.ee dites require it - there are images in lead that get shown in
@@ -572,7 +568,7 @@ class document extends aw_template implements orb_public_interface
 				}
 				$txt = "";
 
-				if ($boldlead)
+				if (!empty($boldlead))
 				{
 					$txt = "<b>";
 				}
@@ -602,7 +598,7 @@ class document extends aw_template implements orb_public_interface
 					$txt.=$this->cfg["no_lead_splitter"];
 				}
 
-				if ($boldlead)
+				if (!empty($boldlead))
 				{
 					$txt .= "</b>";
 				}
@@ -749,7 +745,7 @@ class document extends aw_template implements orb_public_interface
 		}
 
 		// where do I put that shit? that break conversion thingie?
-		if ($doc["nobreaks"] || $doc["meta"]["cb_nobreaks"]["content"])	// kui wysiwyg editori on kasutatud, siis see on 1 ja pole vaja breike lisada
+		if (!empty($doc["nobreaks"]) || !empty($doc["meta"]["cb_nobreaks"]["content"]))	// kui wysiwyg editori on kasutatud, siis see on 1 ja pole vaja breike lisada
 		{
 			if (aw_ini_get("content.doctype") === "xhtml")
 			{
@@ -863,7 +859,6 @@ class document extends aw_template implements orb_public_interface
 
 		// <mail to="bla@ee">lahe tyyp</mail>
  		$doc["content"] = preg_replace("/<mail to=\"(.*)\">(.*)<\/mail>/","<a class='mailto_link' href='mailto:\\1'>\\2</a>",$doc["content"]);
-		$doc["content"] = str_replace(LC_DOCUMENT_CURRENT_TIME,$this->time2date(time(),2),$doc["content"]);
 
 		$ab = "";
 
@@ -1301,8 +1296,8 @@ class document extends aw_template implements orb_public_interface
 			"tm_only" => $orig_doc_tm,
 			"link_text"	=> $doc["link_text"],
 			// please don't change the format
-			"start1" => date("d.m.Y", $doc["start1"]),
-			"start2" => date("d.m.Y H:i", $doc["start1"]),
+			"start1" => is_numeric($doc["start1"]) ? date("d.m.Y", $doc["start1"]) : null,
+			"start2" => is_numeric($doc["start1"]) ? date("d.m.Y H:i", $doc["start1"]) : null,
 			"subtitle"	=> $doc["subtitle"],
 			"RATE"			=> $pts,
 			"FORUM_ADD" => $fr,
@@ -1411,7 +1406,7 @@ class document extends aw_template implements orb_public_interface
 		$this->vars_safe(array(
 			"SHOW_TITLE" 	=> ($doc["show_title"] == 1 && $doc["title"] != "") ? $this->parse("SHOW_TITLE") : "",
 			"SHOW_TITLE2" 	=> ($doc["show_title"] == 1 && $doc["title"] != "") ? $this->parse("SHOW_TITLE2") : "",
-			"EDIT" 		=> (acl_base::prog_acl("view",PRG_MENUEDIT)) ? $this->parse("EDIT") : "",
+			"EDIT" 		=> (acl_base::prog_acl("view", "PRG_MENUEDIT")) ? $this->parse("EDIT") : "",
 			"SHOW_MODIFIED" => ($doc["show_modified"]) ? $this->parse("SHOW_MODIFIED") : "",
 			"COPYRIGHT"	=> !empty($doc["copyright"]) ? $this->parse("COPYRIGHT") : "",
 			"logged" => (aw_global_get("uid") != "" ? $this->parse("logged") : ""),

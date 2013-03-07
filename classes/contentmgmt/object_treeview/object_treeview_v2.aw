@@ -553,7 +553,7 @@ class object_treeview_v2 extends class_base
 		return $retval;
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array(
 			"id" => $arr["alias"]["target"],
@@ -580,7 +580,7 @@ class object_treeview_v2 extends class_base
 		$ob = obj($id);
 		$search_i = false;
 
-		if ("1" === $_GET["otv2srch"] and $ob->prop("show_search_btn") and $this->can("view", $ob->prop("search")))
+		if (!empty($_GET["otv2srch"]) and "1" === $_GET["otv2srch"] and $ob->prop("show_search_btn") and $this->can("view", $ob->prop("search")))
 		{// show search form and table instead
 			// toolbar
 			$tb = new toolbar();
@@ -686,17 +686,17 @@ class object_treeview_v2 extends class_base
 						"saved_filters" => new aw_array($ob->meta("saved_filters")),
 						"group_by_folder" => $ob->prop("group_by_folder"),
 						"filter_by_char_field" => $ih_ob->prop("filter_by_char_field"),
-						"char" =>  ($_GET['char'] == "all") ? $_GET['char'] : $_GET['char']{0},
+						"char" =>  isset($_GET['char']) ? ($_GET['char'] == "all" ? $_GET['char'] : $_GET['char']{0}) : null,
 					),
 					"sproc_params" => $ob->prop("sproc_params"),
 					"sel_cols" => $sc,
 					'edit_columns' => $edit_columns
 				);
-				$ol = $d_inst->get_objects($d_o, $fld, $_GET['tv_sel'], $params);
+				$ol = $d_inst->get_objects($d_o, $fld, isset($_GET['tv_sel']) ? $_GET['tv_sel'] : null, $params);
 			}
 			else
 			{
-				$ol = $d_inst->get_objects($d_o, $fld, $_GET['tv_sel'], $params);
+				$ol = $d_inst->get_objects($d_o, $fld, isset($_GET['tv_sel']) ? $_GET['tv_sel'] : null, $params);
 				$ol = $this->filter_data(array(
 					"ol" => $ol,
 					"otv_obj" => $ob,
@@ -727,7 +727,7 @@ class object_treeview_v2 extends class_base
 		// make yah -- top parent in tree to current selection
 		$yah = t("");
 
-		if ($this->can("view", $_GET["tv_sel"]) and array_key_exists($_GET["tv_sel"], $fld))
+		if (isset($_GET["tv_sel"]) and $this->can("view", $_GET["tv_sel"]) and array_key_exists($_GET["tv_sel"], $fld))
 		{
 			$yah_data = array();
 			$current = obj($_GET["tv_sel"]);
@@ -874,15 +874,18 @@ class object_treeview_v2 extends class_base
 			// third param of the check_property fn.
 			$controllers = $ih_ob->meta("sel_columns_controller");
 			$view_controller_inst = get_instance(CL_CFG_VIEW_CONTROLLER);
-			foreach ($controllers as $controller_key => $controller_value)
+			if (is_array($controllers))
 			{
-				// the controller have to be connected
-				if (!empty($controller_value) && $ih_ob->is_connected_to(array("to" => $controller_value)))
+				foreach ($controllers as $controller_key => $controller_value)
 				{
-					$null = null;
-					if ($view_controller_inst->check_property($null, $controller_value, array()) == PROP_IGNORE)
+					// the controller have to be connected
+					if (!empty($controller_value) && $ih_ob->is_connected_to(array("to" => $controller_value)))
 					{
-						unset($sel_cols[$controller_key]);
+						$null = null;
+						if ($view_controller_inst->check_property($null, $controller_value, array()) == PROP_IGNORE)
+						{
+							unset($sel_cols[$controller_key]);
+						}
 					}
 				}
 			}
@@ -904,7 +907,7 @@ class object_treeview_v2 extends class_base
 				));
 			}
 			else
-			if (array_key_exists($_GET['sort_by'], $col_list))
+			if (isset($_GET['sort_by']) and array_key_exists($_GET['sort_by'], $col_list))
 			{
 
 				$tmp = new aw_array($ih_ob->meta("itemsorts"));
@@ -1053,13 +1056,13 @@ class object_treeview_v2 extends class_base
 				foreach ($controllers as $controller)
 				{
 					$V2GAT2HTISMUUTUJA = array();
-					if ($view_controller_inst->check_property(&$odata, $controller, $V2GAT2HTISMUUTUJA) == PROP_IGNORE)
+					if ($view_controller_inst->check_property($odata, $controller, $V2GAT2HTISMUUTUJA) == PROP_IGNORE)
 					{
 						continue;
 					}
 				}
 
-				if(($group_name != $odata[$group_field]) && empty($_GET['char']))
+				if((!isset($odata[$group_field]) && $group_name != null || isset($odata[$group_field]) && $group_name != $odata[$group_field]) && empty($_GET['char']))
 				{
 					$this->vars(array(
 						"content" => "<a name=\"".$this->_mk_anch($odata[$ih_ob->prop("group_in_table")])."\" ></a>".$odata[$ih_ob->prop("group_in_table")],
@@ -1079,7 +1082,7 @@ class object_treeview_v2 extends class_base
 					"style_obj" => $style_obj,
 					"sel_columns_full_prop_info" => $sel_columns_full_prop_info,
 				));
-				$group_name = $odata[$group_field];
+				$group_name = isset($odata[$group_field]) ? $odata[$group_field] : null;
 			}
 
 			$tb = "";
@@ -1139,7 +1142,7 @@ class object_treeview_v2 extends class_base
 			}
 
 			$this->vars(array(
-				"ALPHABET" => $alphabet_parsed,
+				"ALPHABET" => isset($alphabet_parsed) ? $alphabet_parsed : null,
 				"FILE" => $c,
 				"HEADER_HAS_TOOLBAR" => $tb,
 				"HEADER_NO_TOOLBAR" => $no_tb,
@@ -1148,7 +1151,7 @@ class object_treeview_v2 extends class_base
 					"subact" => "0",
 					"id" => $ob->id(),
 					"edit_mode" => count($edit_columns),
-					"tv_sel" => $_GET["tv_sel"]
+					"tv_sel" => isset($_GET["tv_sel"]) ? $_GET["tv_sel"] : null
 				))
 			));
 
@@ -1169,9 +1172,9 @@ class object_treeview_v2 extends class_base
 				foreach($col_list as $colid => $coln)
 				{
 					$str = "";
-					if ($sel_cols[$colid] == 1)
+					if (isset($sel_cols[$colid]) && $sel_cols[$colid] == 1)
 					{
-						if ($sortable_cols[$colid] == 1)
+						if (isset($sortable_cols[$colid]) && $sortable_cols[$colid] == 1)
 						{
 							$tmp_url = aw_global_get("REQUEST_URI");
 							if ($_GET['sort_order'] == "asc" && $_GET['sort_by'] == $colid)
@@ -1800,7 +1803,7 @@ class object_treeview_v2 extends class_base
 		$formatv = array(
 			"show" => $url,
 			"name" => $name,
-			"oid" => $oid,
+			"oid" => isset($oid) ? $oid : null,
 			"target" => $target,
 			"sizeBytes" => $fileSizeBytes,
 			"sizeKBytes" => $fileSizeKBytes,
@@ -1812,9 +1815,9 @@ class object_treeview_v2 extends class_base
 			"createdby" => $adder,
 			"modifiedby" => $modder,
 			"icon" => $object_icon,
-			"act" => $act,
-			"delete" => $delete,
-			"bgcolor" => $bgcolor,
+			"act" => isset($act) ? $act : null,
+			"delete" => isset($delete) ? $delete : null,
+			"bgcolor" => isset($bgcolor) ? $bgcolor : null,
 			"size" => ($fileSizeMBytes > 1 ? $fileSizeMBytes."MB" : ($fileSizeKBytes > 1 ? $fileSizeKBytes."kb" : $fileSizeBytes."b")),
 			"change" => $change,
 			"select" => html::checkbox(array(
@@ -1856,7 +1859,7 @@ class object_treeview_v2 extends class_base
 		$str = "";//if(aw_global_get("uid") == "struktuur"){arr($date_as_text);}
 		foreach($col_list as $colid => $coln)
 		{
-			if ($sel_cols[$colid] == 1)
+			if (isset($sel_cols[$colid]) && $sel_cols[$colid] == 1)
 			{
 				if (isset($formatv[$colid]))
 				{
@@ -1888,7 +1891,7 @@ class object_treeview_v2 extends class_base
 					$y = strlen((int)$y) == 4 ? $y : ($y < 30 ? "20".$y : "19".$y);
 					$content = mktime($h,$min,0,$m, $d, $y);
 				}*/
-				if ($edit_columns[$colid] == 1)
+				if (isset($edit_columns[$colid]) && $edit_columns[$colid] == 1)
 				{
 					switch($sel_columns_full_prop_info[$colid]["type"])
 					{
@@ -2271,9 +2274,9 @@ class object_treeview_v2 extends class_base
 			{
 				$isd["element"] = "add_date";
 			}
-			$comp_a = $a[$isd["element"]];
-			$comp_b = $b[$isd["element"]];
-			if (1 == $isd["is_date"])
+			$comp_a = isset($a[$isd["element"]]) ? $a[$isd["element"]] : null;
+			$comp_b = isset($b[$isd["element"]]) ? $b[$isd["element"]] : null;
+			if (isset($isd["is_date"]) && 1 == $isd["is_date"])
 			{
 				list($d, $m,$y) = explode(".", $comp_a);
 				if ($y > 0)
@@ -2440,7 +2443,7 @@ class object_treeview_v2 extends class_base
 
 	function do_pageselector(&$list, $per_page)
 	{
-		$page = $GLOBALS["page"];
+		$page = isset($GLOBALS["page"]) ? (int)$GLOBALS["page"] : 0;
 		$start = $page * $per_page;
 		$end = ($page + 1) * $per_page;
 		$cnt = 0;
