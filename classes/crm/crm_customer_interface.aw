@@ -23,6 +23,11 @@ interface crm_customer_interface
 	**/
 	public function get_address_string();
 
+	/** Returns default address as an object
+		@attrib api=1
+	**/
+	public function get_address();
+
 	/** Returns customer's all phone numbers as array
 		@attrib api=1 params=pos
 	**/

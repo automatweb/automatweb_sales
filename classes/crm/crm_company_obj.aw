@@ -2532,6 +2532,14 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 
 	}
 
+	/** Returns default address as an object
+		@attrib api=1
+	**/
+	public function get_address()
+	{
+		return $this->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
+	}
+
 	/** Returns default address as a string
 		@attrib api=1
 	**/
