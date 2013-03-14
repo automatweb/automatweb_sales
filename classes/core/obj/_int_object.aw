@@ -1661,7 +1661,8 @@ class _int_object
 		}
 
 		$type = $pd["type"];
-		if ($is_oid)
+		// FIXME: WTF? $is_oid is never set!
+		if (!empty($is_oid))
 		{
 			$type = "oid";
 		}

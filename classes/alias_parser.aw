@@ -158,9 +158,9 @@ class alias_parser
 					// use that, instead of the one in the list.
 					//$idx = $val[3] - 1;
 					$idx = $val[3];
-					$target = $aliases[$clid][$idx]["to"];
+					$target = isset($aliases[$clid][$idx]["to"]) ? $aliases[$clid][$idx]["to"] : null;
 
-					$toreplace[$clid][$val[0]] = $aliases[$clid][$idx];
+					$toreplace[$clid][$val[0]] = isset($aliases[$clid][$idx]) ? $aliases[$clid][$idx] : null;
 					$toreplace[$clid][$val[0]]["val"] = $val;
 				}
 

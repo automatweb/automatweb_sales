@@ -763,10 +763,7 @@ class file extends class_base
 		}
 		else
 		{
-			if (!empty($fi["newwindow"]))
-			{
-				$ss = "target=\"_blank\"";
-			}
+			$ss = !empty($fi["newwindow"]) ? "target=\"_blank\"" : null;
 
 			$comment = $fi["comment"];
 			if (!isset($comment) or !strlen($comment))
@@ -774,7 +771,7 @@ class file extends class_base
 				$comment = $fi["name"];
 			}
 
-			if ($fi["meta"]["show_framed"])
+			if (!empty($fi["meta"]["show_framed"]))
 			{
 				$url = aw_ini_get("baseurl")."section=".aw_global_get("section")."/oid=$alias[target]";
 			}
