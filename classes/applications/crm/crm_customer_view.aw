@@ -1670,7 +1670,7 @@ class crm_customer_view extends class_base
 			{
 				$city = $address_object->prop("parent.name");
 				$county = $address_object->prop("parent.parent.name");
-				$address_row.= $address_object->prop("street")." ".$address_object->prop("house");
+				$address_row = $address_object->prop("street")." ".$address_object->prop("house");
 				$address_row.= html::linebreak().$address_object->prop("postal_code")." ".$city;
 				$address_row.= html::linebreak().$county." ".$address_object->prop("parent.parent.parent.name");
 			}
