@@ -2235,7 +2235,7 @@ class menu extends class_base implements main_subtemplate_handler
 		}
 		foreach($tmp as $tpl => $docs)
 		{
-			$arr["inst"]->vars(array(
+			$arr["inst"]->vars_safe(array(
 				$tpl => $docs
 			));
 		}
