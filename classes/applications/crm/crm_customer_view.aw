@@ -1609,14 +1609,14 @@ class crm_customer_view extends class_base
 				if($cro->prop("buyer") == $org->id())
 				{
 					$customer_rel_order_a[]= html::href(array(
-						"caption" => sprintf(t("AS %s ostab AS-lt %s"), $cro->prop("buyer.name") , $cro->prop("seller.name")),
+						"caption" => sprintf(t("%s ostab %s"), $this->__format_party_name($cro, "buyer", 0, true), $this->__format_party_name($cro, "seller", 2)),
 						"url" => html::get_change_url($cro, array("return_url" => get_ru()))
 					));
 				}
 				else
 				{
 					$customer_rel_order_a[]= html::href(array(
-						"caption" => sprintf(t("AS %s müüb AS-le %s"), $cro->prop("seller.name") , $cro->prop("buyer.name")),
+						"caption" => sprintf(t("%s müüb %s"), $this->__format_party_name($cro, "seller", 0, true), $this->__format_party_name($cro, "buyer", 1)),
 						"url" => html::get_change_url($cro, array("return_url" => get_ru()))
 					));
 
@@ -1786,6 +1786,62 @@ faks: 6556 235
 			"records_per_page"=>100,
 			"d_row_cnt" => $org_count,
 		));
+	}
+	
+	private function __format_party_name($cro, $party = "seller", $case = 0, $ucfirst = false)
+	{
+		if ($cro->prop("{$party}.class_id") == crm_company_obj::CLID)
+		{
+			if (object_loader::can("", $cro->prop("buyer.ettevotlusvorm")))
+			{
+				$corpform = $cro->prop("buyer.ettevotlusvorm.shortname") ? $cro->prop("buyer.ettevotlusvorm.shortname") : $cro->prop("buyer.ettevotlusvorm.name");
+				switch ($case)
+				{
+					case 1:
+						$corpform = t("%s-le", $corpform);
+						break;
+	
+					case 2:
+						$corpform = t("%s-lt", $corpform);
+						break;
+				}
+			}
+			else
+			{
+				switch ($case)
+				{
+					case 1:
+						$corpform = t("organisatsioonile");
+						break;
+	
+					case 2:
+						$corpform = t("organisatsioonilt");
+						break;
+	
+					default:
+						$corpform = t("organisatsioon");
+				}
+			}
+		}
+		else
+		{
+			switch ($case)
+			{
+				case 1:
+					$corpform = t("isikule");
+					break;
+
+				case 2:
+					$corpform = t("isikult");
+					break;
+
+				default:
+					$corpform = t("isik");
+			}
+		}
+		
+		$formatted_name = $corpform." ".$cro->prop("buyer.name");
+		return $ucfirst ? ucfirst($formatted_name) : $formatted_name;
 	}
 
 	private function get_person_data($id , $co,$role)
