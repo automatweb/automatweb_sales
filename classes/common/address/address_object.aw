@@ -90,6 +90,11 @@ class address_object extends _int_object
 				$address_text .= "-" . trim($this->prop("apartment"));
 			}
 		}
+		
+		if (strlen($this->prop("details")))
+		{
+			$address_text .= sprintf(t(" (%s)"), $this->prop("details"));
+		}
 
 		// location
 		$location = array();

@@ -93,6 +93,16 @@
             <caption>Postkast</caption>
       </property>
       <property>
+            <name>details</name>
+            <group>general</group>
+            <table>aw_address</table>
+            <type>textbox</type>
+            <maxlength>50</maxlength>
+            <field>details</field>
+            <caption>T&amp;amp;auml;psustus</caption>
+            <comment>N&amp;amp;auml;iteks: &amp;quot;III korrus&amp;quot;, &amp;quot;Viru Keskuse IV korrus&amp;quot;</comment>
+      </property>
+      <property>
             <name>coord_x</name>
             <group>general</group>
             <table>aw_address</table>

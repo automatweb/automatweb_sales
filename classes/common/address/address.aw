@@ -36,6 +36,10 @@
 
 	@property po_box type=textbox maxlength=50
 	@caption Postkast
+	
+	@property details type=textbox maxlength=50
+	@caption T&auml;psustus
+	@comment N&auml;iteks: "III korrus", "Viru Keskuse IV korrus"
 
 	@property coord_x type=textbox maxlength=50
 	@caption X kordinaat (Longitude)
@@ -283,6 +287,13 @@ EOS;
 				$this->db_add_col($table, array(
 					"name" => $field,
 					"type" => "double"
+				));
+			}
+			elseif ("details" === $field)
+			{
+				$this->db_add_col($table, array(
+					"name" => $field,
+					"type" => "varchar(50)"
 				));
 			}
 		}
