@@ -1183,26 +1183,6 @@ class crm_customer_view extends class_base
 			"tooltip" => t("Otsi")
 		));
 
-		// add category
-		$tb->add_sub_menu(array(
-			'parent'=> "add_item",
-			"name" => "add_category",
-			"text" => t("Kliendikategooria"),
-		));
-		foreach ($categories as $category_id => $category_name)
-		{
-			$tb->add_menu_item(array(
-				"parent"=>"add_category",
-				"text" => $category_name,
-				"link" => $this->mk_my_orb("add_customer_category",array(
-					"id" => $arr["obj_inst"]->prop("company"),
-					"save_autoreturn" => "1",
-					"c" => $category_id,
-					"return_url" => get_ru()
-				), "crm_company")
-			));
-		}
-
 		$tb->add_sub_menu(array(
 			'parent'=> "add_item",
 			"name" => "add_buyer",
@@ -1247,7 +1227,7 @@ class crm_customer_view extends class_base
 			));
 		}
 
-			// search and add customer from existing persons/organizations in database
+		// search and add customer from existing persons/organizations in database
 		$url = $this->mk_my_orb("do_search", array(
 			"clid" => array(crm_company_obj::CLID, CL_CRM_PERSON),
 			"pn" => "sbt_data_add_buyer"
@@ -1333,7 +1313,6 @@ class crm_customer_view extends class_base
 			))
 		));
 
-
 		$tb->add_separator();
 
 		// cut, copy, paste
@@ -1398,16 +1377,7 @@ class crm_customer_view extends class_base
 			"text" => t("Kustuta klient t&auml;ielikult"),
 			"action" => "delete_selected_objects"
 		));
-
-		$tb->add_button(array(
-			"name"=>"delete_categories",
-			"tooltip"=> t("Kustuta valitud kategooria(d)"),
-			"icon" => "folder_delete",
-			"action" => "delete_selected_objects"
-		));
 	}
-
-
 
 	function _get_my_customers_table(&$arr)
 	{ // lists customers, filters by search parameters
