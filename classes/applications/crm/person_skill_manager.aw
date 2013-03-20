@@ -276,7 +276,7 @@ class person_skill_manager extends class_base
 					"skill" =>  $skill->id(),
 				)),
 			));
-			if(is_array($skills_arr[$skill->id()]))
+			if(isset($skills_arr[$skill->id()]) && is_array($skills_arr[$skill->id()]))
 			{
 				$tree->add_item($skill->id(), array(
 					"id" => 123,

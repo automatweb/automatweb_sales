@@ -34,7 +34,7 @@ class person_skill_manager_obj extends _int_object
 		{
 			if($o->prop("parent.class_id") == CL_PERSON_SKILL)
 			{
-				$ol -> remove($o->id());
+				$ol->remove($o->id());
 			}
 		}
 		return $ol;
