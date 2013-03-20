@@ -273,11 +273,6 @@ class crm_company_customer_data_obj extends _int_object
 		if(is_oid($this->prop("buyer")) && is_oid($this->prop("seller")))
 		{
 			$ids = obj($this->prop("seller"))->get_all_org_customer_categories();
-			arr(array(
-				"class_id" => CL_CRM_CATEGORY,
-				"oid" => $ids,
-				"CL_CRM_CATEGORY.RELTYPE_CUSTOMER" => $this->prop("buyer"),
-			));
 			return !empty($ids) ? new object_list(array(
 				"class_id" => CL_CRM_CATEGORY,
 				"oid" => $ids,
