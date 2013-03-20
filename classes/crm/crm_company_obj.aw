@@ -2658,12 +2658,28 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 			}
 			elseif ($root->is_a(crm_company_obj::CLID))
 			{
-				$filter["parent_category"] = 0;
+				$root = null;
 			}
 			else
 			{
 				throw new awex_obj_type("Given category " . $parent->id() . " is not a category object (clid is " . $parent->class_id() . ")");
 			}
+		}
+		
+		if ($root === null)
+		{
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					"parent_category" => new obj_predicate_compare(obj_predicate_compare::IS_NULL),
+					new object_list_filter(array(
+						"logic" => "AND",
+						"conditions" => array(
+							"parent_category" => 0,
+						)
+					)),
+				)
+			));
 		}
 		
 		$categories = new object_list($filter);
