@@ -333,6 +333,10 @@ class crm_customer_view extends class_base
 					"suboptions" => $this->__create_customer_category_filter_options($subhierarchy, $names)
 				);
 			}
+			else
+			{
+				$options += $this->__create_customer_category_filter_options($subhierarchy, $names);
+			}
 		}
 		
 		return $options;
