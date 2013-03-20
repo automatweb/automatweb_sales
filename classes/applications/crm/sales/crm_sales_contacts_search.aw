@@ -320,11 +320,23 @@ class crm_sales_contacts_search
 
 	private function _set_customer_manager($value)
 	{
+		if (is_array($value))
+		{
+			foreach ($value as $_value)
+			{
+				$this->_set_customer_manager($_value);
+			}
+			return;
+		}
+		if ($this->p_customer_manager === false)
+		{
+			$this->p_customer_manager = array();
+		}
 		if (!is_oid($value))
 		{
 			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for customer manager parameter", self::PARAM_CUSTOMER_MANAGER);
 		}
-		$this->p_customer_manager = $value;
+		$this->p_customer_manager[] = $value;
 	}
 
 
