@@ -200,19 +200,32 @@ class crm_sales_contacts_search
 		$this->p_buyer = $buyer->id();
 	}
 
-	private function _set_category(object $category = null)
+	private function _set_category($category = null)
 	{
+		if (is_array($category))
+		{
+			foreach ($category as $_category)
+			{
+				$this->_set_category($_category);
+			}
+			return;
+		}
+
+		if ($this->p_category === false)
+		{
+			$this->p_category = array();
+		}
 		if (null === $category)
 		{
-			$this->p_category = new obj_predicate_compare(obj_predicate_compare::NULL);
+			$this->p_category[] = new obj_predicate_compare(obj_predicate_compare::NULL);
 		}
-		elseif (!$category->is_a(CL_CRM_CATEGORY))
+		elseif (!is_object($category) or !$category->is_a(CL_CRM_CATEGORY))
 		{
 			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($category, true) . "' for category parameter", self::PARAM_CATEGORY);
 		}
 		else
 		{
-			$this->p_category = $category->id();
+			$this->p_category[] = $category->id();
 		}
 	}
 
@@ -264,12 +277,25 @@ class crm_sales_contacts_search
 
 	private function _set_status($value)
 	{
+		if (is_array($value))
+		{
+			foreach($value as $_value)
+			{
+				$this->_set_status($_value);
+			}
+			return;
+		}
+
+		if ($this->p_status === false)
+		{
+			$this->p_status = array();
+		}
 		if (!is_int($value) or !crm_company_customer_data_obj::sales_state_names($value))
 		{
 			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for status parameter", self::PARAM_STATUS);
 		}
 
-		$this->p_status = $value;
+		$this->p_status[] = $value;
 	}
 
 	private function _set_address($value)
@@ -689,7 +715,8 @@ class crm_sales_contacts_search
 		}
 		else
 		{
-			$customer_status_constraint = "aw_crm_customer_data.`aw_sales_status`= {$this->p_status} AND";
+			$statuses = implode(",", $this->p_status);
+			$customer_status_constraint = "aw_crm_customer_data.`aw_sales_status` IN ({$statuses}) AND";
 		}
 
 		 // special case for address search
