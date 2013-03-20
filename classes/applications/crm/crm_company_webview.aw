@@ -1,6 +1,4 @@
 <?php
-
-// crm_company_webview.aw - Organisatsioonid veebis
 /*
 
 @classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
@@ -8,69 +6,27 @@
 @default table=objects
 @default group=general
 
-@property company type=relpicker reltype=RELTYPE_COMPANY field=meta method=serialize
-@caption Ettev&otilde;te
-@comment Kui valitud, n&auml;itab vaid seda organisatsiooni.
+	@property type type=chooser field=meta method=serialize
+	@caption T&uuml;&uuml;p
 
-@property show_title type=checkbox field=flags ch_value=32 method=bitmask
-@caption Kuva pealkirja
+	@property company type=relpicker reltype=RELTYPE_COMPANY field=meta method=serialize
+	@caption Ettev&otilde;te
+	@comment Kui valitud, n&auml;itab vaid seda organisatsiooni.
+	
+	@property template type=select field=meta method=serialize
+	@caption Template
 
-@property crm_db type=relpicker reltype=RELTYPE_CRM_DB field=meta method=serialize
-@caption Andmebaas, mille organisatsioone kuvatakse
+@groupinfo tabs caption=Kaardid
+@default group=tabs
 
-@property limit_sector type=popup_search style=relpicker reltype=RELTYPE_LIMIT_SECTOR clid=CL_CRM_SECTOR field=meta method=serialize
-@caption Tegevusala piirang
-@comment Kui otsitud on mitu tegevusala, kuvatakse nende kõigi firmasid, v.a. juhul, kui neist yks on valja valitud.
+	@property tabs type=table store=no
+	@caption Kaardid
 
-@property limit_city type=relpicker reltype=RELTYPE_LIMIT_CITY field=meta method=serialize
-@caption Linna piirang
-
-@property limit_county type=relpicker reltype=RELTYPE_LIMIT_COUNTY field=meta method=serialize
-@caption Maakonna piirang
-
-@property template type=select field=meta method=serialize
-@caption Template
-
-@property tabs type=table store=no
-@caption Kaardid
-
-
-@property ord1 type=select field=meta method=serialize
-@caption J&auml;rjestamisprintsiip 1
-
-@property ord2 type=select field=meta method=serialize
-@caption J&auml;rjestamisprintsiip 2
-
-@property ord3 type=select field=meta method=serialize
-@caption J&auml;rjestamisprintsiip 3
-
-@property clickable type=checkbox field=flags ch_value=16 method=bitmask
-@caption Organistatsioonide nimed on klikitavad
-
-@property field type=select field=meta method=serialize
-@caption Tegevusala
-
-@property only_active type=checkbox ch_value=1 field=meta method=serialize
-@caption Ainult aktiivsed
-
+@groupinfo transl caption=T&otilde;lgi
 @default group=transl
 
 	@property transl type=callback callback=callback_get_transl
 	@caption T&otilde;lgi
-
-@groupinfo transl caption=T&otilde;lgi
-
-@reltype LIMIT_SECTOR value=1 clid=CL_CRM_SECTOR
-@caption Tegevusala piirang
-
-@reltype LIMIT_CITY value=2 clid=CL_CRM_CITY
-@caption Linna piirang
-
-@reltype LIMIT_COUNTY value=3 clid=CL_CRM_COUNTY
-@caption Maakonna piirang
-
-@reltype CRM_DB value=4 clid=CL_CRM_DB
-@caption Organisatsioonide andmebaas
 
 @reltype COMPANY value=4 clid=CL_CRM_COMPANY
 @caption Organisatsioon
@@ -81,129 +37,55 @@ class crm_company_webview extends class_base
 {
 	function crm_company_webview()
 	{
-		// change this to the folder under the templates folder, where this classes templates will be,
-		// if they exist at all. Or delete it, if this class does not use templates
 		$this->init(array(
 			"tpldir" => "applications/crm/crm_company_webview",
-			"clid" => CL_CRM_COMPANY_WEBVIEW
+			"clid" => crm_company_webview_obj::CLID
 		));
 
 		$this->trans_props = array(
 			"name"
 		);
-
-		lc_site_load("crm_company_webview", $this);
 	}
-
-	//////
-	// class_base classes usually need those, uncomment them if you want to use them
-	function get_property($arr)
+	
+	function _get_type(&$arr)
 	{
-		$prop = &$arr["prop"];
-
-		if($prop["name"] !== "company" && $prop["name"] !== "name" && $prop["name"] !== "template" && $prop["name"] !== "tabs")
+		$arr["prop"]["options"] = array(
+			crm_company_webview_obj::TYPE_COMPANY_SELECTED => t("Vali organisatsioon"),
+			crm_company_webview_obj::TYPE_COMPANY_FROM_URL => t("Loe organisatsiooni ID URLi parameetrist"),
+		);
+	}
+	
+	function _get_company(&$arr)
+	{
+		if ($arr["obj_inst"]->type != crm_company_webview_obj::TYPE_COMPANY_SELECTED)
 		{
 			return class_base::PROP_IGNORE;
 		}
-
-		$retval = class_base::PROP_OK;
-		switch($prop["name"])
-		{
-			case 'limit_city':
-			case 'limit_county':
-				if (!empty($prop['value']))
-				{
-					$excl_name = $prop['name'].'_excl';
-					$val = $arr['obj_inst']->meta($excl_name);
-					$prop['post_append_text'] = html::checkbox(array(
-						'name' => $prop['name'].'_excl',
-						'value' => 1,
-						'caption' => t("V&auml;listav") .' / ',
-						'checked' => $val,
-					)) . $prop['post_append_text'];
-				}
-				break;
-
-			case 'template':
-				$sys_tpldir = $this->adm_template_dir;
-				$site_tpldir = $this->site_template_dir;
-
-				foreach (glob($sys_tpldir.'*.tpl') as $file)
-				{
-					$base = basename($file);
-					$prop['options'][$base] = $base;
-				}
-
-				foreach (glob($site_tpldir.'*.tpl') as $file)
-				{
-					$base = basename($file);
-					$prop['options'][$base] = $base;
-				}
-				break;
-
-			case 'ord1':
-			case 'ord2':
-			case 'ord3':
-				$options = array(
-					'jrk' => t("J&auml;rjekorranr"),
-					'name' => t("Nimi"),
-					'county' => t("Maakond"),
-					'city' => t("Linn"),
-				);
-				$prop['options'] = $options;
-			break;
-
-			case 'field':
-				$clss = aw_ini_get("classes");
-				$prop['options'][0] = t("K&otilde;ik");
-				foreach ($clss as $clid => $inf)
-				{
-					if (substr($inf['def'], 0, 13) == 'CL_CRM_FIELD_')
-					{
-						$prop['options'][$clid] = $inf['name'];
-					}
-				}
-				// Instead of:
-				/*
-				// We find out possible classes from CRM_COMPANY's FIELD reltype classes
-				$cfgu = get_instance("cfg/cfgutils");
-				$cfgu->load_properties(array(
-					'clid' => CL_CRM_COMPANY,
-				));
-				$cmp_reltypes = $cfgu->get_relinfo();
-				$classes = $cmp_reltypes['RELTYPE_FIELD']['clid'];
-				$prop['options'][0] = t('K&otilde;ik');
-				foreach ($classes as $i => $class)
-				{
-					$prop['options'][$class] = $clss[$class]['name'];
-				}
-				*/
-			break;
-		}
-
-		return $retval;
+		return class_base::PROP_OK;
 	}
-
-	function set_property($arr = array())
+	
+	function _get_template(&$arr)
 	{
 		$prop = &$arr["prop"];
-		$retval = class_base::PROP_OK;
-		switch($prop["name"])
+		
+		$sys_tpldir = $this->adm_template_dir;
+		$site_tpldir = $this->site_template_dir;
+
+		foreach (glob($sys_tpldir.'*.tpl') as $file)
 		{
-			case 'limit_city':
-			case 'limit_county':
-				$excl_name = $prop['name'].'_excl';
-				$val = empty($arr['request'][$excl_name]) ? 0 : 1;
-				$arr['obj_inst']->set_meta($excl_name, $val);
-			break;
+			$base = basename($file);
+			$prop['options'][$base] = $base;
 		}
-		return $retval;
+
+		foreach (glob($site_tpldir.'*.tpl') as $file)
+		{
+			$base = basename($file);
+			$prop['options'][$base] = $base;
+		}
+		
+		return class_base::PROP_OK;
 	}
 
-	////
-	// !this will be called if the object is put in a document by an alias and the document is being shown
-	// parameters
-	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
 	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
@@ -296,18 +178,31 @@ class crm_company_webview extends class_base
 	}
 
 
-	function parse_company($o)
+	function parse_company($o, $company)
 	{
-		$company = obj($o->prop("company"));
 		$this->read_template($o->prop("template"));
 		$this->vars($company->properties());
 
 		$tabs = $o->meta("tabs");
+		if(!is_array($tabs))
+		{
+			$tabs = array();
+		}
 		$ord = $o->meta("ord");
+		if(!is_array($ord))
+		{
+			$ord = array();
+		}
 		$hide = $o->meta("hide");
+		if(!is_array($hide))
+		{
+			$hide = array();
+		}
+		$tab_templates = $o->meta("tab_templates");
 
 
 		$vars = array();
+		$vars["title"] = $company->get_title();
 		$vars["address"] = $company->get_address_string();
 		$vars["email"] = $company->get_mail();
 		$vars["phone"] = join(", " , $company->get_phones());
@@ -320,7 +215,6 @@ class crm_company_webview extends class_base
 		{
 			$vars["class".$key] = "hide";
 		}
-//		$vars["workers"] = join(", ", $workers->names());
 		$this->vars($vars);
 /*----------------- aadress ------------------------*/
 
@@ -340,7 +234,7 @@ class crm_company_webview extends class_base
 		}
 
 		$this->vars($address_vars);
-		$this->vars(array("GOOGLE_MAP" => empty($address_vars["google_map_url"]) ? "" : $this->parse("GOOGLE_MAP")));
+		$this->vars_safe(array("GOOGLE_MAP" => empty($address_vars["google_map_url"]) ? "" : $this->parse("GOOGLE_MAP")));
 
 
 /*---------------- t88tajad ------------------------*/
@@ -348,34 +242,39 @@ class crm_company_webview extends class_base
 		$w_sub = "";
 		foreach($workers->arr() as $worker)
 		{
+			$professions = $worker->get_profession_names();
+
 			$worker_vars = array(
-			//	"worker_phone" => $worker->phones(),
 				"worker_name" => $worker->name(),
 				"worker_work_phone" => $worker->get_phone(null,null,"work"),
 				"worker_mobile_phone" => $worker->get_phone(null,null,"mobile"),
 				"worker_fax" => $worker->get_phone(null,null,"fax"),
 				"worker_email" => $worker->get_mail(),
-				"worker_profession" => reset($worker->get_profession_names()),
+				"worker_profession" => reset($professions),
 			);
 
 			$this->vars($worker_vars);
 			foreach($worker_vars as $var => $val)
 			{
-				if(strlen($val) > 1)
-				{
-					$this->vars(
-						array(
-						"HAS_".strtoupper($var) => $this->parse("HAS_".strtoupper($var))
-						));
-				}
-				else
-				{
-					$this->vars(array("HAS_".strtoupper($var) => ""));
-				}
+				$this->vars_safe(array(
+					"HAS_".strtoupper($var) => strlen($val) > 1 ? $this->parse("HAS_".strtoupper($var)) : null
+				));
 			}
+			
+			$SKILL = "";
+			foreach($worker->get_skill_names() as $skill_id => $skill_name)
+			{
+				$this->vars(array(
+					"skill_id" => $skill_id,
+					"skill_name" => $skill_name,
+				));
+				$SKILL .= $this->parse("SKILL");
+			}
+			$this->vars_safe(array("SKILL" => $SKILL));
+			
 			$w_sub.= $this->parse("WORKERS");
 		}
-		$this->vars(array("WORKERS" => $w_sub));
+		$this->vars_safe(array("WORKERS" => $w_sub));
 
 /*-------------- osakonnad ------------*/
 		$sections = $company->get_sections();
@@ -391,7 +290,7 @@ class crm_company_webview extends class_base
 			$cnt++;
 			$s_sub.= $this->parse_section($section);
 		}
-		$this->vars(array("SECTIONS" => $s_sub));
+		$this->vars_safe(array("SECTIONS" => $s_sub));
 
 /*------------- avamisajad ------------*/
 
@@ -420,10 +319,10 @@ class crm_company_webview extends class_base
 					$oh_rows.= $this->parse("OPEN_HOURS_ROW");
 				}
 			}
-			$this->vars(array("OPEN_HOURS_ROW" => $oh_rows));
+			$this->vars_safe(array("OPEN_HOURS_ROW" => $oh_rows));
 			$o_sub.= $this->parse("OPEN_HOURS");
 		}
-		$this->vars(array("OPEN_HOURS" => $o_sub));
+		$this->vars_safe(array("OPEN_HOURS" => $o_sub));
 
 		$content = "";
 		$toolbar = "";
@@ -433,7 +332,7 @@ class crm_company_webview extends class_base
 
 		foreach($tabs as $key => $val)
 		{
-			if(!empty($hide["key"]))
+			if(!empty($hide[$key]))
 			{
 				continue;
 			}
@@ -442,8 +341,8 @@ class crm_company_webview extends class_base
 			$content.= $this->parse("CONTENT".$key);
 		}
 
-		$this->vars(array("content" => $content));
-		$this->vars(array("toolbar" => $toolbar));
+		$this->vars_safe(array("content" => $content));
+		$this->vars_safe(array("toolbar" => $toolbar));
 
 		return $this->parse();
 	}
@@ -455,8 +354,6 @@ class crm_company_webview extends class_base
 		return $ao - $bo;
 	}
 
-
-
 	function _get_tabs($arr)
 	{
 		if(!$arr["obj_inst"]->prop("template"))
@@ -464,10 +361,17 @@ class crm_company_webview extends class_base
 			return class_base::PROP_IGNORE;
 		}
 
-		$this->read_template($arr["obj_inst"]->prop("template"));
+		$tpl = new aw_template();
+		$tpl->tpldir = "applications/crm/crm_company_webview";
+		$tpl->template_dir = "applications/crm/crm_company_webview";
+		$tpl->site_template_dir = "applications/crm/crm_company_webview";
+		$tpl->template_filename = aw_ini_get("site_basedir")."templates/applications/crm/crm_company_webview/".$arr["obj_inst"]->prop("template");
+		$res = $tpl->read_template(aw_ini_get("site_basedir")."templates/applications/crm/crm_company_webview/".$arr["obj_inst"]->prop("template"));
+
 		$tabs = $arr["obj_inst"]->meta("tabs");
 		$ord = $arr["obj_inst"]->meta("ord");
 		$hide = $arr["obj_inst"]->meta("hide");
+		$tab_templates = $arr["obj_inst"]->meta("tab_templates");
 		$t = $arr["prop"]["vcl_inst"];
 
 		$possible_tabs = array();
@@ -475,9 +379,9 @@ class crm_company_webview extends class_base
 
 		while($x < 100)
 		{
-			if($this->is_template("TAB".$x))
+			if($tpl->is_template("TAB".$x))
 			{
-				$possible_tabs[$x] =  $tabs[$x] ? $tabs[$x] : $this->parse("TAB".$x);
+				$possible_tabs[$x] = !empty($tabs[$x]) ? $tabs[$x] : $tpl->parse("TAB".$x);
 			}
 			else
 			{
@@ -499,23 +403,27 @@ class crm_company_webview extends class_base
 				"hide" => html::checkbox(array(
 					"name" => "hide[".$key."]",
 					"value" => 1,
-					"checked" => $hide[$key],
+					"checked" => !empty($hide[$key]),
 				)),
 				"ord" => html::textbox(array(
 					"name" => "ord[".$key."]",
-					"value" => $ord[$key] ? $ord[$key] : "",
+					"value" => !empty($ord[$key]) ? $ord[$key] : "",
 					"size" => 3
 				)),
+				"tab_template" => html::select(array(
+					"name" => "tab_templates[".$key."]",
+					"value" => !empty($tab_templates[$key]) ? $tab_templates[$key] : "",
+					"options" => !empty($temp_selection[$key]) ? $temp_selection[$key] : null,
+				))
 			));
 		}
 
-		if($x)
+		if(!empty($x))
 		{
 			$t->define_field(array(
 				"name" => "caption",
 				"caption" => t("Nimi")
 			));
-
 			$t->define_field(array(
 				"name" => "hide",
 				"caption" => t("Peida")
@@ -532,6 +440,7 @@ class crm_company_webview extends class_base
 		$arr["obj_inst"]->set_meta("tabs" , isset($arr["request"]["tabs"]) ? $arr["request"]["tabs"] : "");
 		$arr["obj_inst"]->set_meta("hide" , isset($arr["request"]["hide"]) ? $arr["request"]["hide"] : "");
 		$arr["obj_inst"]->set_meta("ord" , isset($arr["request"]["ord"]) ? $arr["request"]["ord"] : "");
+		$arr["obj_inst"]->set_meta("tab_templates" , isset($arr["request"]["tab_templates"]) ? $arr["request"]["tab_templates"] : "");
 	}
 
 	////
@@ -548,44 +457,18 @@ class crm_company_webview extends class_base
 			return;
 		}
 
-		if(is_oid($o->prop("company")) && $this->can('view', $o->prop("company")))
+		if ($o->type == crm_company_webview_obj::TYPE_COMPANY_FROM_URL && automatweb::$request->arg_isset("company") && object_loader::can("", automatweb::$request->arg("company")))
 		{
-			return $this->parse_company($o);
+			$company = obj(automatweb::$request->arg("company"), null, crm_company_obj::CLID);
+			return $this->parse_company($o, $company);
+		}
+		elseif($o->type == crm_company_webview_obj::TYPE_COMPANY_SELECTED && is_oid($o->prop("company")) && $this->can('view', $o->prop("company")))
+		{
+			$company = obj($o->prop("company"), null, crm_company_obj::CLID);
+			return $this->parse_company($o, $company);
 		}
 
-		$tmpl = $o->prop('template');
-		if (!preg_match('/^[^\\\/]+\.tpl$/', $tmpl))
-		{
-			$tmpl = "default.tpl";
-		}
-
-		$this->read_template($tmpl);
-		lc_site_load("crm_company_webview", $this);
-		$org = ifset($_REQUEST, 'org');
-		if (!$this->can('view', $org) || !($c = obj($org)) || $c->class_id() != CL_CRM_COMPANY)
-		{
-			$org = null;
-		}
-		$room = $_REQUEST["room"];
-		$room = acl_base::can('view', $room)?$room:false;
-
-		if($room)
-		{
-			$ret = $this->_get_conference_room_html($room);
-		}
-		elseif (is_null($org))
-		{
-			// LIST COMPANIES
-			$ret = $this->_get_companies_list_html(array('id' => $arr['id']));
-
-		}
-		else
-		{
-			// SHOW COMPANY
-			$ret = $this->_get_company_show_html(array('list_id' => $arr['id'], 'company_id' => $org));;
-		}
-
-		return $ret;
+		return null;
 	}
 
 	// Return html for company display

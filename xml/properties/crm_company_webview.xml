@@ -1,72 +1,24 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>type</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>chooser</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>T&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
             <name>company</name>
             <table>objects</table>
             <group>general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_COMPANY</reltype>
-            <automatic>1</automatic>
             <field>meta</field>
             <method>serialize</method>
             <caption>Ettev&amp;amp;otilde;te</caption>
             <comment>Kui valitud, n&amp;amp;auml;itab vaid seda organisatsiooni.</comment>
-      </property>
-      <property>
-            <name>show_title</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>checkbox</type>
-            <field>flags</field>
-            <ch_value>32</ch_value>
-            <method>bitmask</method>
-            <caption>Kuva pealkirja</caption>
-      </property>
-      <property>
-            <name>crm_db</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_CRM_DB</reltype>
-            <automatic>1</automatic>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Andmebaas, mille organisatsioone kuvatakse</caption>
-      </property>
-      <property>
-            <name>limit_sector</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>popup_search</type>
-            <style>relpicker</style>
-            <reltype>RELTYPE_LIMIT_SECTOR</reltype>
-            <clid>CL_CRM_SECTOR</clid>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Tegevusala piirang</caption>
-            <comment>Kui otsitud on mitu tegevusala, kuvatakse nende koigi firmasid, va. juhul, kui neist yks on valja valitud.</comment>
-      </property>
-      <property>
-            <name>limit_city</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_LIMIT_CITY</reltype>
-            <automatic>1</automatic>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Linna piirang</caption>
-      </property>
-      <property>
-            <name>limit_county</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_LIMIT_COUNTY</reltype>
-            <automatic>1</automatic>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Maakonna piirang</caption>
       </property>
       <property>
             <name>template</name>
@@ -80,67 +32,11 @@
       <property>
             <name>tabs</name>
             <table>objects</table>
-            <group>general</group>
+            <group>tabs</group>
             <type>table</type>
             <store>no</store>
             <field>tabs</field>
             <caption>Kaardid</caption>
-      </property>
-      <property>
-            <name>ord1</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>select</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>J&amp;amp;auml;rjestamisprintsiip 1</caption>
-      </property>
-      <property>
-            <name>ord2</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>select</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>J&amp;amp;auml;rjestamisprintsiip 2</caption>
-      </property>
-      <property>
-            <name>ord3</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>select</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>J&amp;amp;auml;rjestamisprintsiip 3</caption>
-      </property>
-      <property>
-            <name>clickable</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>checkbox</type>
-            <field>flags</field>
-            <ch_value>16</ch_value>
-            <method>bitmask</method>
-            <caption>Organistatsioonide nimed on klikitavad</caption>
-      </property>
-      <property>
-            <name>field</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>select</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Tegevusala</caption>
-      </property>
-      <property>
-            <name>only_active</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Ainult aktiivsed</caption>
       </property>
       <property>
             <name>transl</name>
@@ -152,38 +48,20 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_COMPANY_WEBVIEW</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
+            <tabs>
+                  <caption>Kaardid</caption>
+            </tabs>
             <transl>
                   <caption>T&amp;amp;otilde;lgi</caption>
             </transl>
       </groupinfo>
       <reltypes>
-            <LIMIT_SECTOR>
-                  <value>1</value>
-                  <clid>CL_CRM_SECTOR</clid>
-                  <caption>Tegevusala piirang</caption>
-            </LIMIT_SECTOR>
-            <LIMIT_CITY>
-                  <value>2</value>
-                  <clid>CL_CRM_CITY</clid>
-                  <caption>Linna piirang</caption>
-            </LIMIT_CITY>
-            <LIMIT_COUNTY>
-                  <value>3</value>
-                  <clid>CL_CRM_COUNTY</clid>
-                  <caption>Maakonna piirang</caption>
-            </LIMIT_COUNTY>
-            <CRM_DB>
-                  <value>4</value>
-                  <clid>CL_CRM_DB</clid>
-                  <caption>Organisatsioonide andmebaas</caption>
-            </CRM_DB>
             <COMPANY>
                   <value>4</value>
                   <clid>CL_CRM_COMPANY</clid>
