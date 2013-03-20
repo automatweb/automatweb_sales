@@ -15,7 +15,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>hidden</type>
             <store>no</store>
       </property>
@@ -24,7 +24,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
@@ -35,7 +35,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>yui-chooser</type>
             <indented>true</indented>
             <multiple>true</multiple>
@@ -48,7 +48,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>yui-chooser</type>
             <indented>true</indented>
             <multiple>true</multiple>
@@ -62,7 +62,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>yui-chooser</type>
             <multiple>true</multiple>
             <store>no</store>
@@ -74,7 +74,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>treeview</type>
             <no_caption>1</no_caption>
             <parent>customers_tree_areas</parent>
@@ -86,7 +86,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>textbox</type>
             <size>30</size>
             <store>no</store>
@@ -99,7 +99,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>textbox</type>
             <size>30</size>
             <store>no</store>
@@ -112,7 +112,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>textbox</type>
             <size>30</size>
             <store>no</store>
@@ -125,7 +125,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
@@ -138,7 +138,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
@@ -151,7 +151,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
@@ -164,7 +164,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
@@ -177,7 +177,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>select</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
@@ -189,7 +189,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>objpicker</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
@@ -204,7 +204,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>textbox</type>
             <parent>vbox_customers_left_top</parent>
             <store>no</store>
@@ -218,7 +218,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>submit</type>
             <size>15</size>
             <store>no</store>
@@ -231,7 +231,7 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -243,12 +243,44 @@
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
-            <group>relorg</group>
+            <group>customers</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <parent>customer_list_container</parent>
             <caption>Kliendid</caption>
+      </property>
+      <property>
+            <name>categories_toolbar</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>categories</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+      </property>
+      <property>
+            <name>categories_tree</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>categories</group>
+            <type>treeview</type>
+            <parent>categories_tree</parent>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>categories_table</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>categories</group>
+            <type>table</type>
+            <parent>categories_split</parent>
+            <store>no</store>
+            <no_caption>1</no_caption>
       </property>
       <property>
             <name>configuration_customers_filter_state</name>
@@ -304,9 +336,19 @@
       <groupinfo>
             <relorg>
                   <caption>Kliendid</caption>
+            </relorg>
+            <customers>
+                  <caption>Kliendid</caption>
                   <focus>cs_n</focus>
                   <submit>no</submit>
-            </relorg>
+                  <parent>relorg</parent>
+            </customers>
+            <categories>
+                  <caption>Kliendikategooriad</caption>
+                  <focus>cs_n</focus>
+                  <submit>no</submit>
+                  <parent>relorg</parent>
+            </categories>
             <configuration>
                   <caption>Seaded</caption>
             </configuration>
@@ -337,13 +379,13 @@
             <my_cust_bot>
                   <type>hbox</type>
                   <width>20%:80%</width>
-                  <group>relorg</group>
+                  <group>customers</group>
                   <area_caption></area_caption>
             </my_cust_bot>
             <tree_search_split>
                   <type>vbox</type>
                   <parent>my_cust_bot</parent>
-                  <group>relorg</group>
+                  <group>customers</group>
                   <area_caption></area_caption>
             </tree_search_split>
             <customers_filter_customer_category>
@@ -351,52 +393,52 @@
                   <parent>tree_search_split</parent>
                   <closeable>1</closeable>
                   <area_caption>Kliendikategooria</area_caption>
-                  <group>relorg</group>
+                  <group>customers</group>
             </customers_filter_customer_category>
             <customers_filter_customer_manager>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
                   <closeable>1</closeable>
                   <area_caption>Osapooled</area_caption>
-                  <group>relorg</group>
+                  <group>customers</group>
             </customers_filter_customer_manager>
             <customers_filter_state>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
                   <area_caption>Staatus</area_caption>
                   <closeable>1</closeable>
-                  <group>relorg</group>
+                  <group>customers</group>
             </customers_filter_state>
             <customers_tree_areas>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
                   <closeable>1</closeable>
                   <area_caption>Piirkonnad</area_caption>
-                  <group>relorg</group>
+                  <group>customers</group>
             </customers_tree_areas>
             <vbox_customers_left>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
                   <closeable>1</closeable>
                   <area_caption>Otsing</area_caption>
-                  <group>relorg</group>
+                  <group>customers</group>
             </vbox_customers_left>
             <vbox_customers_left_top>
                   <type>vbox</type>
                   <parent>vbox_customers_left</parent>
-                  <group>relorg</group>
+                  <group>customers</group>
                   <area_caption></area_caption>
             </vbox_customers_left_top>
             <vbox_customers_left_search_btn>
                   <type>hbox</type>
                   <parent>vbox_customers_left</parent>
-                  <group>relorg</group>
+                  <group>customers</group>
                   <area_caption></area_caption>
             </vbox_customers_left_search_btn>
             <list_container>
                   <type>vbox</type>
                   <parent>my_cust_bot</parent>
-                  <group>relorg</group>
+                  <group>customers</group>
                   <area_caption></area_caption>
             </list_container>
             <category_list_container>
@@ -406,7 +448,7 @@
                   <area_caption>Kategooriad</area_caption>
                   <no_padding>1</no_padding>
                   <default_state>closed</default_state>
-                  <group>relorg</group>
+                  <group>customers</group>
             </category_list_container>
             <customer_list_container>
                   <type>vbox</type>
@@ -414,8 +456,21 @@
                   <area_caption>Kliendid</area_caption>
                   <closeable>1</closeable>
                   <no_padding>1</no_padding>
-                  <group>relorg</group>
+                  <group>customers</group>
             </customer_list_container>
+            <categories_split>
+                  <type>hbox</type>
+                  <width>20%:80%</width>
+                  <group>categories</group>
+                  <area_caption></area_caption>
+            </categories_split>
+            <categories_tree>
+                  <type>vbox</type>
+                  <parent>categories_split</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Kliendikategooria</area_caption>
+                  <group>categories</group>
+            </categories_tree>
             <configuration_filter_split>
                   <type>hbox</type>
                   <width>50%:50%</width>

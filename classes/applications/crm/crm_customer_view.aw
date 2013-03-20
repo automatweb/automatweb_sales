@@ -11,82 +11,96 @@
 	@property company type=relpicker reltype=RELTYPE_COMPANY
 	@caption Ettev&otilde;te
 
-@groupinfo relorg caption="Kliendid" focus=cs_n submit=no
-@default group=relorg
+@groupinfo relorg caption="Kliendid"
 
-	@property customer_category type=hidden store=no
+	@groupinfo customers caption="Kliendid" focus=cs_n submit=no parent=relorg
+	@default group=customers
+	
+		@property customer_category type=hidden store=no
+	
+		@property my_customers_toolbar type=toolbar no_caption=1 store=no
+		@caption Kliendivaate tegevused
+	
+		@layout my_cust_bot type=hbox width=20%:80%
+			@layout tree_search_split type=vbox parent=my_cust_bot
+					
+				@layout customers_filter_customer_category type=vbox parent=tree_search_split closeable=1 area_caption=Kliendikategooria
+	
+					@property customers_filter_customer_category type=yui-chooser indented=true multiple=true store=no no_caption=true parent=customers_filter_customer_category
+					
+				@layout customers_filter_customer_manager type=vbox parent=tree_search_split closeable=1 area_caption=Osapooled
+	
+					@property customers_filter_customer_manager type=yui-chooser indented=true multiple=true store=no captionside=top parent=customers_filter_customer_manager
+					@caption Kliendihaldur
+	
+				@layout customers_filter_state type=vbox parent=tree_search_split area_caption=Staatus closeable=1
+	
+					@property customers_filter_state type=yui-chooser multiple=true store=no no_caption=true parent=customers_filter_state
+	
+				@layout customers_tree_areas type=vbox parent=tree_search_split closeable=1 area_caption=Piirkonnad
+					@property customer_areas_tree type=treeview no_caption=1 parent=customers_tree_areas
+					@caption Kliendikategooriad Piirkondade puu
+	
+				@layout vbox_customers_left type=vbox parent=tree_search_split closeable=1 area_caption=Otsing
+					@layout vbox_customers_left_top type=vbox parent=vbox_customers_left
+	
+						@property cs_n type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
+						@caption Nimi
+	
+						@property customer_search_reg type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
+						@caption Reg nr.
+	
+						@property customer_search_address type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
+						@caption Aadress
+	
+			@property cts_comment type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
+			@caption Kommentaar
+	
+			@property cts_phone type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
+			@caption Telefon
+	
+			@property cts_lead_source type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
+			@caption Soovitaja
+	
+			@property cts_contact type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
+			@caption Kontaktisik
+	
+			@property cts_salesman type=select parent=vbox_customers_left_top store=no captionside=top
+			@caption M&uuml;&uuml;giesindaja
+	
+			@property cts_cat type=objpicker parent=vbox_customers_left_top store=no options_callback=crm_customer_view::get_category_options captionside=top clid=CL_CRM_CATEGORY size=30
+			@caption Kliendigrupp
+	
+			@property cts_calls type=textbox parent=vbox_customers_left_top store=no captionside=top size=30
+			@comment Positiivne t&auml;isarv. V&otilde;imalik kasutada v&otilde;rdlusoperaatoreid suurem kui ( &gt; ), v&auml;iksem kui ( &lt; ) ning '='. Kui operaatorit pole numbri ees, arvatakse vaikimisi operaatoriks v&otilde;rdus ( = )
+			@caption Tehtud k&otilde;nesid
+	
+			@layout vbox_customers_left_search_btn type=hbox parent=vbox_customers_left
 
-	@property my_customers_toolbar type=toolbar no_caption=1 store=no
-	@caption Kliendivaate tegevused
+				@property cs_sbt type=submit size=15 store=no parent=vbox_customers_left_search_btn no_caption=1
+				@caption Otsi
+	
+			@layout list_container type=vbox parent=my_cust_bot
+				@layout category_list_container type=vbox parent=list_container closeable=1 area_caption="Kategooriad" no_padding=1 default_state=closed
+					@property customer_categories_table type=table store=no no_caption=1 parent=category_list_container
+					@caption Kliendikategooriad
+	
+				@layout customer_list_container type=vbox parent=list_container area_caption="Kliendid" closeable=1 no_padding=1
+					@property my_customers_table type=table store=no no_caption=1 parent=customer_list_container
+					@caption Kliendid
 
-	@layout my_cust_bot type=hbox width=20%:80%
-		@layout tree_search_split type=vbox parent=my_cust_bot
-				
-			@layout customers_filter_customer_category type=vbox parent=tree_search_split closeable=1 area_caption=Kliendikategooria
-
-				@property customers_filter_customer_category type=yui-chooser indented=true multiple=true store=no no_caption=true parent=customers_filter_customer_category
-				
-			@layout customers_filter_customer_manager type=vbox parent=tree_search_split closeable=1 area_caption=Osapooled
-
-				@property customers_filter_customer_manager type=yui-chooser indented=true multiple=true store=no captionside=top parent=customers_filter_customer_manager
-				@caption Kliendihaldur
-
-			@layout customers_filter_state type=vbox parent=tree_search_split area_caption=Staatus closeable=1
-
-				@property customers_filter_state type=yui-chooser multiple=true store=no no_caption=true parent=customers_filter_state
-
-			@layout customers_tree_areas type=vbox parent=tree_search_split closeable=1 area_caption=Piirkonnad
-				@property customer_areas_tree type=treeview no_caption=1 parent=customers_tree_areas
-				@caption Kliendikategooriad Piirkondade puu
-
-			@layout vbox_customers_left type=vbox parent=tree_search_split closeable=1 area_caption=Otsing
-				@layout vbox_customers_left_top type=vbox parent=vbox_customers_left
-
-					@property cs_n type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
-					@caption Nimi
-
-					@property customer_search_reg type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
-					@caption Reg nr.
-
-					@property customer_search_address type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
-					@caption Aadress
-
-		@property cts_comment type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
-		@caption Kommentaar
-
-		@property cts_phone type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
-		@caption Telefon
-
-		@property cts_lead_source type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
-		@caption Soovitaja
-
-		@property cts_contact type=textbox parent=vbox_customers_left_top store=no size=30 captionside=top
-		@caption Kontaktisik
-
-		@property cts_salesman type=select parent=vbox_customers_left_top store=no captionside=top
-		@caption M&uuml;&uuml;giesindaja
-
-		@property cts_cat type=objpicker parent=vbox_customers_left_top store=no options_callback=crm_customer_view::get_category_options captionside=top clid=CL_CRM_CATEGORY size=30
-		@caption Kliendigrupp
-
-		@property cts_calls type=textbox parent=vbox_customers_left_top store=no captionside=top size=30
-		@comment Positiivne t&auml;isarv. V&otilde;imalik kasutada v&otilde;rdlusoperaatoreid suurem kui ( &gt; ), v&auml;iksem kui ( &lt; ) ning '='. Kui operaatorit pole numbri ees, arvatakse vaikimisi operaatoriks v&otilde;rdus ( = )
-		@caption Tehtud k&otilde;nesid
-
-
-				@layout vbox_customers_left_search_btn type=hbox parent=vbox_customers_left
-
-					@property cs_sbt type=submit size=15 store=no parent=vbox_customers_left_search_btn no_caption=1
-					@caption Otsi
-
-		@layout list_container type=vbox parent=my_cust_bot
-			@layout category_list_container type=vbox parent=list_container closeable=1 area_caption="Kategooriad" no_padding=1 default_state=closed
-				@property customer_categories_table type=table store=no no_caption=1 parent=category_list_container
-				@caption Kliendikategooriad
-
-			@layout customer_list_container type=vbox parent=list_container area_caption="Kliendid" closeable=1 no_padding=1
-				@property my_customers_table type=table store=no no_caption=1 parent=customer_list_container
-				@caption Kliendid
+	@groupinfo categories caption="Kliendikategooriad" focus=cs_n submit=no parent=relorg
+	@default group=categories
+	
+		@property categories_toolbar type=toolbar no_caption=1 store=no
+		
+		@layout categories_split type=hbox width=20%:80%
+		
+			@layout categories_tree type=vbox parent=categories_split closeable=1 area_caption=Kliendikategooria
+			
+				@property categories_tree type=treeview parent=categories_tree store=no no_caption=1
+			
+			@property categories_table type=table parent=categories_split store=no no_caption=1
 
 @groupinfo configuration caption=Seaded
 
@@ -126,6 +140,7 @@ class crm_customer_view extends class_base
 {
 	const CUTCOPIED_COLOUR = "silver";
 	const REQVAR_CATEGORY = "customers_filter_customer_category"; // request parameter name for customer category
+	const CUSTOMER_CATEGORY = "customer_category";
 	
 	private $filter_customer_category = null;
 	private $filter_state = null;
@@ -133,31 +148,34 @@ class crm_customer_view extends class_base
 	
 	public function callback_on_load($arr)
 	{
-		$filters = array("state", "customer_category", "customer_manager");
-		foreach ($filters as $filter)
+		if ("customers" === $this->use_group)
 		{
-			$filter = "filter_{$filter}";
-			if (automatweb::$request->arg_isset("customers_{$filter}"))
+			$filters = array("state", "customer_category", "customer_manager");
+			foreach ($filters as $filter)
 			{
-				$filter_value = (array)automatweb::$request->arg("customers_{$filter}");
-			}
-			elseif (isset($arr["request"]["id"]) and object_loader::can("", $arr["request"]["id"]))
-			{
-				$view = obj($arr["request"]["id"], null, crm_customer_view_obj::CLID);
-				$filter_value = safe_array($view->default_filter("customers_{$filter}"));
-			}
-			foreach($filter_value as $key => $value)
-			{
-				if ((int)$value === 0)
+				$filter = "filter_{$filter}";
+				if (automatweb::$request->arg_isset("customers_{$filter}"))
 				{
-					unset($filter_value[$key]);
+					$filter_value = (array)automatweb::$request->arg("customers_{$filter}");
 				}
-				else
+				elseif (isset($arr["request"]["id"]) and object_loader::can("", $arr["request"]["id"]))
 				{
-					$filter_value[$key] = (int)$value;
+					$view = obj($arr["request"]["id"], null, crm_customer_view_obj::CLID);
+					$filter_value = safe_array($view->default_filter("customers_{$filter}"));
 				}
+				foreach($filter_value as $key => $value)
+				{
+					if ((int)$value === 0)
+					{
+						unset($filter_value[$key]);
+					}
+					else
+					{
+						$filter_value[$key] = (int)$value;
+					}
+				}
+				$this->$filter = $filter_value;
 			}
-			$this->$filter = $filter_value;
 		}
 	}
 
@@ -521,7 +539,7 @@ class crm_customer_view extends class_base
 			$o = obj($arr["request"]["id"]);
 			if($o->prop("company"))
 			{
-				$default_grp = "relorg";
+				$default_grp = "customers";
 			}
 		}
 		return $default_grp;
@@ -544,7 +562,7 @@ class crm_customer_view extends class_base
 
 	function callback_mod_reforb(&$arr, $request)
 	{
-		if("relorg" === substr($this->use_group, 0, 6))
+		if("customers" === substr($this->use_group, 0, 6))
 		{
 			if (isset($request[self::REQVAR_CATEGORY])) $arr[self::REQVAR_CATEGORY] = $request[self::REQVAR_CATEGORY];
 			$arr["sbt_data_add_seller"] = 0;
@@ -581,6 +599,107 @@ class crm_customer_view extends class_base
 		}
 
 		return $r;
+	}
+	
+	public function _get_categories_toolbar(&$arr)
+	{
+		if (!object_loader::can("", $arr["obj_inst"]->prop("company")))
+		{
+			return self::PROP_IGNORE;
+		}
+		
+		$t = $arr["prop"]["vcl_inst"];
+		
+		$t->add_button(array(
+			"name" => "new",
+			"icon" => "add",
+			"tooltip" => t("Lisa kliendikategooria"),
+			"url" => $this->mk_my_orb("add_customer_category",array(
+				"id" => $arr["obj_inst"]->prop("company"),
+				"save_autoreturn" => "1",
+				"c" => automatweb::$request->arg_isset(self::CUSTOMER_CATEGORY) ? automatweb::$request->arg(self::CUSTOMER_CATEGORY) : 0,
+				"return_url" => get_ru()
+			), "crm_company")
+		));
+		
+		$t->add_delete_button();
+		
+		return self::PROP_OK;
+	}
+	
+	public function _get_categories_tree(&$arr)
+	{
+		if (!object_loader::can("", $arr["obj_inst"]->company))
+		{
+			return self::PROP_IGNORE;
+		}
+		
+		$t = $arr["prop"]["vcl_inst"];
+
+		$company = obj($arr["obj_inst"]->company, null, crm_company_obj::CLID);
+
+		$core = new core();
+		$url = new aw_uri($core->mk_my_orb($arr["request"]["action"], array(
+			"group" => $arr["request"]["group"],
+			"id" => $arr["request"]["id"],
+			"return_url" => ifset($arr,"request", "return_url"),
+		), $arr["request"]["class"]));
+
+		$url->set_arg(self::CUSTOMER_CATEGORY, $company->id());
+		$t->add_item(0, array(
+			"id" => $company->id(),
+			"name" => sprintf(t("%s kliendigrupid"), $company->get_title()),
+			"url" => $url->get(),
+			"iconurl" => icons::get_std_icon_url("folder"),
+		));
+
+		$categories = $company->get_customer_categories();
+		foreach ($categories->arr() as $category)
+		{
+			$category_id = $category->id();
+			$parent = $category->prop("parent_category") ? (int) $category->prop("parent_category") : $company->id();
+			$url->set_arg(self::CUSTOMER_CATEGORY, $category_id);
+			$t->add_item ($parent, array (
+				"name" => $category->name(),
+				"iconurl" => icons::get_std_icon_url("folder"),
+				"id" => $category_id,
+				"parent" => $parent,
+				"url" => $url->get()
+			));
+		}
+
+		$t->set_selected_item(automatweb::$request->arg_isset(self::CUSTOMER_CATEGORY) ? automatweb::$request->arg(self::CUSTOMER_CATEGORY) : $company->id());
+		
+		return self::PROP_OK;
+	}
+	
+	public function _get_categories_table(&$arr)
+	{
+		if (!object_loader::can("", $arr["obj_inst"]->company))
+		{
+			return self::PROP_IGNORE;
+		}
+
+		$company = obj($arr["obj_inst"]->company, null, crm_company_obj::CLID);
+		
+		$t = $arr["prop"]["vcl_inst"];
+		
+		$t->define_chooser();
+		$t->add_fields(array(
+			"name" => t("Nimi"),
+		));
+		
+		$categories = $company->get_customer_categories(automatweb::$request->arg_isset(self::CUSTOMER_CATEGORY) ? obj(automatweb::$request->arg(self::CUSTOMER_CATEGORY)) : $company);
+		
+		foreach ($categories->arr() as $category)
+		{
+			$t->define_data(array(
+				"oid" => $category->id(),
+				"name" => html::obj_change_url($category)
+			));
+		}
+		
+		return self::PROP_OK;
 	}
 
 	/** Adds customer. c or o must be defined.
