@@ -1,5 +1,78 @@
 <?xml version='1.0'?>
 <properties>
+      <property>
+            <name>owner</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>
+                  <num_0>CL_CRM_COMPANY</num_0>
+                  <num_1>CL_CRM_PERSON</num_1>
+            </clid>
+            <caption>Kliendisuhte omanik</caption>
+      </property>
+      <property>
+            <name>type</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <caption>Otsitakse</caption>
+      </property>
+      <property>
+            <name>root_category</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>Juurkliendikategooria</caption>
+            <comment>Selle kliendikategooria alamkategooriaid saab otsingus valida. Kui juurkliendikategooria on valimata, kuvatakse otsingus k&amp;amp;otilde;iki kliendikategooriaid.</comment>
+      </property>
+      <property>
+            <name>skill_manager</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SKILL_MANAGER</reltype>
+            <caption>P&amp;amp;auml;devuste haldur</caption>
+      </property>
+      <property>
+            <name>searchable_skills</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>P&amp;amp;auml;devused</caption>
+            <comment>Otsingus kuvatavad p&amp;amp;auml;devused (kuvatakse alamp&amp;amp;auml;devusi)</comment>
+      </property>
+      <property>
+            <name>skill_search_type</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <caption>P&amp;amp;auml;devuste otsingu t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>action_document</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DOCUMENT</reltype>
+            <caption>Otsingute kuvamise dokument</caption>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
@@ -13,5 +86,17 @@
                   <index>aw_oid</index>
             </aw_crm_customers_websearch>
       </tableinfo>
+      <reltypes>
+            <DOCUMENT>
+                  <clid>CL_DOCUMENT</clid>
+                  <value>1</value>
+                  <caption>Dokument</caption>
+            </DOCUMENT>
+            <SKILL_MANAGER>
+                  <clid>CL_PERSON_SKILL_MANAGER</clid>
+                  <value>2</value>
+                  <caption>P&amp;amp;auml;devuste haldur</caption>
+            </SKILL_MANAGER>
+      </reltypes>
 </properties>
 
