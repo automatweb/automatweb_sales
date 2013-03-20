@@ -5,11 +5,16 @@
 @tableinfo aw_crm_companies_webview master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_crm_companies_webview
-@default table=objects
-@default field=meta
-@default method=serialize
+@default table=objects field=meta method=serialize
 
 @default group=general
+
+@property act_as_search type=checkbox
+@caption Kuva otsingutulemusi
+
+@property companies_websearch type=relpicker reltype=RELTYPE_WEBSEARCH
+@caption Klientide otsing
+@comment Klientide otsingu objekt, mille tulemusi kuvatakse
 
 @property companies type=relpicker multiple=1 store=connect reltype=RELTYPE_COMPANY
 @caption Ettev&otilde;tted
@@ -29,6 +34,11 @@
 @property template type=select
 @caption Seotud organisatsioonide veebis kuvamise kujundusp&otilde;hi
 
+@property details_document type=relpicker reltype=RELTYPE_DOCUMENT
+@caption Detailvaate dokument
+@comment Ettev&otilde;tte detailvaate kuvamise dokument
+
+
 @groupinfo jrk caption="J&auml;rjesta"
 @default group=jrk
 
@@ -44,6 +54,12 @@
 
 @reltype COMPANY value=1 clid=CL_CRM_COMPANY
 @caption Ettev&otilde;te
+
+@reltype WEBSEARCH value=2 clid=CL_CRM_CUSTOMERS_WEBSEARCH
+@caption Klientide otsing
+
+@reltype DOCUMENT value=3 clid=CL_DOCUMENT
+@caption Dokument
 
 
 */
@@ -89,9 +105,17 @@ class crm_companies_webview extends class_base
 			case "template":
 			case "relation_status":
 				if(!$arr["obj_inst"]->get_companies()->count())
-			{
-				return PROP_IGNORE;
-			}
+				{
+					return PROP_IGNORE;
+				}
+				break;
+
+			case "companies_websearch":
+				if(!$arr["obj_inst"]->act_as_search)
+				{
+					return PROP_IGNORE;
+				}
+				break;
 		}
 
 		switch($prop["name"])
@@ -375,51 +399,47 @@ class crm_companies_webview extends class_base
 
 		foreach($customers as $customerid => $data)
 		{
-			if($data["show"] || $data["dont_show"]) //n2itab yksusi
+			if(!empty($data["show"]) || !empty($data["dont_show"])) //n2itab yksusi
 			{
 				continue;
 			}
-			if($active_customer == $customerid)
+
+			$data["active"] = $active_customer == $customerid ? "active" : "";
+
+			/*------------- avamisajad ------------*/
+
+			$oinst = new openhours();
+			$o_sub = "";
+			$company = obj($customerid);
+			foreach($company->connections_from(array("type" => "RELTYPE_OPENHOURS")) as $c)
 			{
-				$data["active"] = "active";
-			}
-			else $data["active"] = "";
-
-/*------------- avamisajad ------------*/
-
-		$oinst = new openhours();
-		$o_sub = "";
-		$company = obj($customerid);
-		foreach($company->connections_from(array("type" => "RELTYPE_OPENHOURS")) as $c)
-		{
-			$oh = $c->to();
-			$ohdata = $oh->meta('openhours');
-			$oh_vars = array(
-				"oh_name" => $oh->name(),
-			);
-			$this->vars($oh_vars);
-			
-			$oh_rows = "";
-
-			if($ohdata && is_array($ohdata) && sizeof($ohdata))
-			{
-				foreach($ohdata as $ohrow)
+				$oh = $c->to();
+				$ohdata = $oh->meta('openhours');
+				$this->vars(array(
+					"oh_name" => $oh->name(),
+				));
+				
+				$oh_rows = "";
+	
+				if(!empty($ohdata) && is_array($ohdata))
 				{
-					$ohrow["day_short"] = $oinst->days_short[$ohrow["day1"]];
-					$ohrow["day2_short"] = $oinst->days_short[$ohrow["day2"]];
-					$this->vars($ohrow);
-					$this->vars(array("HAS_DAY2" =>  $ohrow["day2"] ? $this->parse("HAS_DAY2"):""));
-					$oh_rows.= $this->parse("OPEN_HOURS_ROW");
+					foreach($ohdata as $ohrow)
+					{
+						$ohrow["day_short"] = $oinst->days_short[$ohrow["day1"]];
+						$ohrow["day2_short"] = $oinst->days_short[$ohrow["day2"]];
+						$this->vars($ohrow);
+						$this->vars(array("HAS_DAY2" => $ohrow["day2"] ? $this->parse("HAS_DAY2") : ""));
+						$oh_rows .= $this->parse("OPEN_HOURS_ROW");
+					}
 				}
+				$this->vars(array("OPEN_HOURS_ROW" => $oh_rows));
+				$o_sub .= $this->parse("OPEN_HOURS");
 			}
-			$this->vars(array("OPEN_HOURS_ROW" => $oh_rows));
-			$o_sub.= $this->parse("OPEN_HOURS");
-		}
-		$this->vars(array("OPEN_HOURS" => $o_sub));
+			$this->vars(array("OPEN_HOURS" => $o_sub));
 
 			$this->vars_safe($data);
-			$customer_list_sub.=$this->parse("CUSTOMER_LIST");
-			$customer_sub.=$this->parse("CUSTOMERS");
+			$customer_list_sub .= $this->parse("CUSTOMER_LIST");
+			$customer_sub .= $this->parse("CUSTOMERS");
 			$cnt++;
 		}
 

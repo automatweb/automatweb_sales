@@ -7,7 +7,7 @@ class crm_companies_webview_obj extends _int_object
 	public function get_companies()
 	{
 		$ret = new object_list();
-		foreach($this->connections_from(array("clid" => "CL_CRM_COMPANY")) as $c)
+		foreach($this->connections_from(array("type" => "RELTYPE_COMPANY")) as $c)
 		{
 			$ret->add($c->to());
 		}
@@ -59,54 +59,60 @@ class crm_companies_webview_obj extends _int_object
 
 	public function get_customers()
 	{
-		$filter = array(
-			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA
-		);
-		$companies = $this->get_companies()->ids();
-
-		switch($this->prop("relation_direction")){
-			case "1":
-				$filter["buyer"] = $companies;
-				break;
-			case "2":
-				$filter[] = new object_list_filter(array(
-					"logic" => "OR",
-					"conditions" => array(
-						new object_list_filter(array(
-							"conditions" => array(
-								"buyer" =>  $companies
-							)
-						)),
-						new object_list_filter(array(
-							"conditions" => array(
-								"seller" => $companies
-							)
-						))
-					)
-				));
-
-				break;
-			default:
-				$filter["seller"] = $companies;
-				break;
+		if ($this->prop("act_as_search"))
+		{		
+			$ol = object_loader::can("", $this->prop("companies_websearch")) ? obj($this->prop("companies_websearch"), null, crm_customers_websearch_obj::CLID)->get_customers() : new object_list();
 		}
-
-		if($this->prop("relation_status"))
+		else
 		{
-			$filter["sales_state"] = $this->prop("relation_status");
-		}
-		if($this->prop("customer_manager") && is_array($this->prop("customer_manager")) && sizeof($this->prop("customer_manager")))
-		{
-			$filter["client_manager"] = $this->prop("customer_manager");
-		}
+			$filter = array(
+				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA
+			);
+			$companies = $this->get_companies()->ids();
+	
+			switch($this->prop("relation_direction")){
+				case "1":
+					$filter["buyer"] = $companies;
+					break;
+				case "2":
+					$filter[] = new object_list_filter(array(
+						"logic" => "OR",
+						"conditions" => array(
+							new object_list_filter(array(
+								"conditions" => array(
+									"buyer" =>  $companies
+								)
+							)),
+							new object_list_filter(array(
+								"conditions" => array(
+									"seller" => $companies
+								)
+							))
+						)
+					));
+	
+					break;
+				default:
+					$filter["seller"] = $companies;
+					break;
+			}
+	
+			if($this->prop("relation_status"))
+			{
+				$filter["sales_state"] = $this->prop("relation_status");
+			}
+			if($this->prop("customer_manager") && is_array($this->prop("customer_manager")) && sizeof($this->prop("customer_manager")))
+			{
+				$filter["client_manager"] = $this->prop("customer_manager");
+			}
+	
+			if($this->prop("groups") && is_array($this->prop("groups")) && sizeof($this->prop("groups")))
+			{
+				$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $this->prop("groups");
+			}
 
-		if($this->prop("groups") && is_array($this->prop("groups")) && sizeof($this->prop("groups")))
-		{
-			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $this->prop("groups");
+			$ol = new object_list($filter);
 		}
-
-//var_dump($filter);
-		$ol = new object_list($filter);
 
 		$ret = array();
 		$orders = $this->meta("orders");
@@ -141,12 +147,14 @@ class crm_companies_webview_obj extends _int_object
 				break;
 			}
 			$cust_obj = obj($cust);
+			$address = $cust_obj->get_address();
 			$ret[$cust] = array(
 				"id" => $cust,
 				"co_id" => $cust,
 				"name" => $cust_obj->name(),
 				"company_name" => $cust_obj->name(),
 				"phone" => join("," , $cust_obj->get_phones()),
+				"email" => join("," , $cust_obj->get_email_addresses()->names()),
 				"leader" => $cust_obj->class_id() == CL_CRM_PERSON ? "" : $cust_obj->prop("firmajuht.name"),
 				"co_reg" => $cust_obj->class_id() == CL_CRM_PERSON ? "" : $cust_obj->prop("reg_nr"),
 				"co_tax" => $cust_obj->class_id() == CL_CRM_PERSON ? "" : $cust_obj->prop("tax_nr"),
@@ -164,7 +172,8 @@ class crm_companies_webview_obj extends _int_object
 				"address" => $cust_obj->get_address_string(),
 				"open_hours" => $this->get_oh($cust_obj),
 				"comment" => $o->comment(),
-				"logo" => ""
+				"logo" => "",
+				"detailed_view_url" => "",
 			);
 			$logoo = $cust_obj->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
 			if ($logoo)
@@ -173,7 +182,35 @@ class crm_companies_webview_obj extends _int_object
 				$ret[$cust]["logo"] = $img_i->make_img_tag_wl($logoo->id());
 			}
 
-			$ret[$cust]+= $this->get_address_vars($cust_obj);
+			$ret[$cust] += $this->get_address_vars($cust_obj);
+			
+	
+			// FIXME: $o->categories needs to be fixed (transition from "store=connect" is incomplete, and $o->categories is empty)
+//			$category_ids = array_intersect($o->categories, $this->prop("groups"));
+			// Temporary fix:
+			$category_ids = array();
+			foreach($o->connections_from(array("clid" => "CL_CRM_CATEGORY")) as $connection)
+			{
+				if (true || in_array($connection->prop("to"), $this->prop("groups")))
+				{
+					$category_ids[] = $connection->prop("to");
+				}
+			}
+			// End of temporary fix
+			foreach ($category_ids as $category_id)
+			{
+				if (object_loader::can("", $category_id))
+				{
+					$ret[$cust]["category_name"] = obj($category_id)->trans_get_val("name");
+				}
+			}
+
+			if (object_loader::can("", $this->prop("details_document")))
+			{
+				$url = new aw_uri(doc_display::get_doc_link(obj($this->prop("details_document"), null, doc_obj::CLID)));
+				$url->set_arg("company", $cust);
+				$ret[$cust]["details_view_url"] = $url->get();
+			}
 
 			if($show[$cust])
 			{
@@ -214,7 +251,14 @@ class crm_companies_webview_obj extends _int_object
 		{
 			$address = $o->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
 		}
-	//	var_dump($o->name()); var_dump($address);
+		
+		// FIXME: Load properties dynamically!!!
+		// Make sure no data get carried over from previous company
+		foreach(array("name", "comment", "administrative_structure", "country", "location_data", "street", "house", "apartment", "postal_code", "po_box", "details", "coord_x", "coord_y") as $key)
+		{
+			$ret["address_".$key] = null;
+		}
+
 		if($address)
 		{
 			foreach($address->properties() as $var => $val)

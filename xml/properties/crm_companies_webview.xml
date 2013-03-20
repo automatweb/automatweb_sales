@@ -1,6 +1,26 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>act_as_search</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>checkbox</type>
+            <caption>Kuva otsingutulemusi</caption>
+      </property>
+      <property>
+            <name>companies_websearch</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_WEBSEARCH</reltype>
+            <caption>Klientide otsing</caption>
+            <comment>Klientide otsingu objekt, mille tulemusi kuvatakse</comment>
+      </property>
+      <property>
             <name>companies</name>
             <table>objects</table>
             <field>meta</field>
@@ -60,6 +80,17 @@
             <caption>Seotud organisatsioonide veebis kuvamise kujundusp&amp;amp;otilde;hi</caption>
       </property>
       <property>
+            <name>details_document</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DOCUMENT</reltype>
+            <caption>Detailvaate dokument</caption>
+            <comment>Ettev&amp;amp;otilde;tte detailvaate kuvamise dokument</comment>
+      </property>
+      <property>
             <name>result_table</name>
             <table>objects</table>
             <field>meta</field>
@@ -115,6 +146,16 @@
                   <clid>CL_CRM_COMPANY</clid>
                   <caption>Ettev&amp;amp;otilde;te</caption>
             </COMPANY>
+            <WEBSEARCH>
+                  <value>2</value>
+                  <clid>CL_CRM_CUSTOMERS_WEBSEARCH</clid>
+                  <caption>Klientide otsing</caption>
+            </WEBSEARCH>
+            <DOCUMENT>
+                  <value>3</value>
+                  <clid>CL_DOCUMENT</clid>
+                  <caption>Dokument</caption>
+            </DOCUMENT>
       </reltypes>
 </properties>
 
