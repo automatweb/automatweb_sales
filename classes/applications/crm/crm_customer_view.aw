@@ -25,14 +25,15 @@
 			@layout customers_filter_customer_category type=vbox parent=tree_search_split closeable=1 area_caption=Kliendikategooria
 
 				@property customers_filter_customer_category type=yui-chooser indented=true multiple=true store=no no_caption=true parent=customers_filter_customer_category
+				
+			@layout customers_filter_customer_manager type=vbox parent=tree_search_split closeable=1 area_caption=Osapooled
+
+				@property customers_filter_customer_manager type=yui-chooser indented=true multiple=true store=no captionside=top parent=customers_filter_customer_manager
+				@caption Kliendihaldur
 
 			@layout customers_filter_state type=vbox parent=tree_search_split area_caption=Staatus closeable=1
 
 				@property customers_filter_state type=yui-chooser multiple=true store=no no_caption=true parent=customers_filter_state
-
-			@layout customers_tree_responsible type=vbox parent=tree_search_split closeable=1 area_caption=Osapooled
-				@property customer_responsible_tree type=treeview no_caption=1 parent=customers_tree_responsible
-				@caption Kliendikategooriad Vastutajate puu
 
 			@layout customers_tree_areas type=vbox parent=tree_search_split closeable=1 area_caption=Piirkonnad
 				@property customer_areas_tree type=treeview no_caption=1 parent=customers_tree_areas
@@ -101,6 +102,11 @@
 					@property configuration_customers_filter_state type=yui-chooser multiple=1 captionside=top parent=configuration_filter_states
 					@caption Staatus
 			
+				@layout configuration_customers_filter_customer_manager type=vbox parent=configuration_filter_left area_caption=Filtris&nbsp;valitud&nbsp;osapooled closeable=1
+				
+					@property configuration_customers_filter_customer_manager type=yui-chooser multiple=1 captionside=top parent=configuration_customers_filter_customer_manager
+					@caption Kliendihaldur
+			
 			@layout configuration_filter_right type=vbox parent=configuration_filter_split area_caption=Filtris&nbsp;kuvatavad&nbsp;kliendikategooriad closeable=1
 	
 				@property configuration_customers_filter_customer_category type=table store=no no_caption=true parent=configuration_filter_right
@@ -123,10 +129,11 @@ class crm_customer_view extends class_base
 	
 	private $filter_customer_category = null;
 	private $filter_state = null;
+	private $filter_customer_manager = null;
 	
 	public function callback_on_load($arr)
 	{
-		$filters = array("state", "customer_category");
+		$filters = array("state", "customer_category", "customer_manager");
 		foreach ($filters as $filter)
 		{
 			$filter = "filter_{$filter}";
@@ -137,7 +144,7 @@ class crm_customer_view extends class_base
 			elseif (isset($arr["request"]["id"]) and object_loader::can("", $arr["request"]["id"]))
 			{
 				$view = obj($arr["request"]["id"], null, crm_customer_view_obj::CLID);
-				$filter_value = $view->default_filter("customers_{$filter}");
+				$filter_value = safe_array($view->default_filter("customers_{$filter}"));
 			}
 			foreach($filter_value as $key => $value)
 			{
@@ -275,6 +282,14 @@ class crm_customer_view extends class_base
 		return PROP_OK;
 	}
 	
+	function _get_configuration_customers_filter_customer_manager(&$arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["options"] = $arr["obj_inst"]->get_customer_managers()->names();
+		
+		return self::PROP_OK;
+	}
+	
 	public function _get_customers_filter_customer_category(&$arr)
 	{
 		$customer_groups = $arr["obj_inst"]->get_customer_categories_for_filter()->names();
@@ -310,6 +325,17 @@ class crm_customer_view extends class_base
 		$prop = &$arr["prop"];
 		$prop["options"] = crm_company_customer_data_obj::sales_state_names();
 		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("customers_filter_state");
+		
+		$this->__set_filter_onchange_action($prop);
+		
+		return PROP_OK;
+	}
+	
+	function _get_customers_filter_customer_manager($arr)
+	{
+		$prop = &$arr["prop"];
+		$prop["options"] = $arr["obj_inst"]->get_customer_managers()->names();
+		$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->default_filter("customers_filter_customer_manager");
 		
 		$this->__set_filter_onchange_action($prop);
 		
@@ -1323,9 +1349,9 @@ class crm_customer_view extends class_base
 			{
 				$customer_relations_search->manager = $arr["request"]["pmgr"];
 			}
-			if (!empty($arr["request"]["cmgr"]))
+			if (!empty($this->filter_customer_manager))
 			{
-				$customer_relations_search->customer_manager = $arr["request"]["cmgr"];
+				$customer_relations_search->customer_manager = $this->filter_customer_manager;
 			}
 
 			if (!empty($arr["request"]["cts_phone"]))
@@ -2000,9 +2026,9 @@ faks: 6556 235
 	{
 		if ($cro->prop("{$party}.class_id") == crm_company_obj::CLID)
 		{
-			if (object_loader::can("", $cro->prop("buyer.ettevotlusvorm")))
+			if (object_loader::can("", $cro->prop("{$party}.ettevotlusvorm")))
 			{
-				$corpform = $cro->prop("buyer.ettevotlusvorm.shortname") ? $cro->prop("buyer.ettevotlusvorm.shortname") : $cro->prop("buyer.ettevotlusvorm.name");
+				$corpform = $cro->prop("{$party}.ettevotlusvorm.shortname") ? $cro->prop("{$party}.ettevotlusvorm.shortname") : $cro->prop("{$party}.ettevotlusvorm.name");
 				switch ($case)
 				{
 					case 1:
@@ -2048,7 +2074,7 @@ faks: 6556 235
 			}
 		}
 		
-		$formatted_name = $corpform." ".$cro->prop("buyer.name");
+		$formatted_name = $corpform." ".$cro->prop("{$party}.name");
 		return $ucfirst ? ucfirst($formatted_name) : $formatted_name;
 	}
 

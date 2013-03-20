@@ -114,7 +114,7 @@ class crm_customer_view_obj extends _int_object
 	
 	public function get_customer_categories_for_filter()
 	{
-		$configurations = $this->meta("configuration_customers_filter_customer_category");
+		$configurations = safe_array($this->meta("configuration_customers_filter_customer_category"));
 		
 		$use_in_filter = array();
 		$use_subcategories_in_filter = array();
@@ -146,6 +146,34 @@ class crm_customer_view_obj extends _int_object
 					"parent_category" => $use_subcategories_in_filter
 				),
 			))
+		));
+	}
+	
+	public function get_customer_managers()
+	{
+		if (!object_loader::can("", $this->prop("company")))
+		{
+			return new object_list();
+		}
+		
+		$ol = new object_data_list(array(
+				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"seller" => $this->prop("company")
+			),
+			array(
+				CL_CRM_COMPANY_CUSTOMER_DATA => array(new obj_sql_func(OBJ_SQL_UNIQUE, "client_manager", "client_manager"))
+			)
+		);
+		$ids = array(-1);
+		foreach($ol->arr() as $item)
+		{
+			if (object_loader::can("", $item["client_manager"]))
+			{
+				$ids[] = $item["client_manager"];
+			}
+		}
+		return new object_list(array(
+			"oid" => $ids
 		));
 	}
 	

@@ -44,6 +44,20 @@
             <parent>customers_filter_customer_category</parent>
       </property>
       <property>
+            <name>customers_filter_customer_manager</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>relorg</group>
+            <type>yui-chooser</type>
+            <indented>true</indented>
+            <multiple>true</multiple>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>customers_filter_customer_manager</parent>
+            <caption>Kliendihaldur</caption>
+      </property>
+      <property>
             <name>customers_filter_state</name>
             <table>objects</table>
             <method>serialize</method>
@@ -54,18 +68,6 @@
             <store>no</store>
             <no_caption>true</no_caption>
             <parent>customers_filter_state</parent>
-      </property>
-      <property>
-            <name>customer_responsible_tree</name>
-            <table>objects</table>
-            <method>serialize</method>
-            <field>meta</field>
-            <group>relorg</group>
-            <type>treeview</type>
-            <no_caption>1</no_caption>
-            <parent>customers_tree_responsible</parent>
-            <store>no</store>
-            <caption>Kliendikategooriad Vastutajate puu</caption>
       </property>
       <property>
             <name>customer_areas_tree</name>
@@ -261,6 +263,18 @@
             <caption>Staatus</caption>
       </property>
       <property>
+            <name>configuration_customers_filter_customer_manager</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>configuration_filter</group>
+            <type>yui-chooser</type>
+            <multiple>1</multiple>
+            <captionside>top</captionside>
+            <parent>configuration_customers_filter_customer_manager</parent>
+            <caption>Kliendihaldur</caption>
+      </property>
+      <property>
             <name>configuration_customers_filter_customer_category</name>
             <table>objects</table>
             <method>serialize</method>
@@ -339,6 +353,13 @@
                   <area_caption>Kliendikategooria</area_caption>
                   <group>relorg</group>
             </customers_filter_customer_category>
+            <customers_filter_customer_manager>
+                  <type>vbox</type>
+                  <parent>tree_search_split</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Osapooled</area_caption>
+                  <group>relorg</group>
+            </customers_filter_customer_manager>
             <customers_filter_state>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
@@ -346,13 +367,6 @@
                   <closeable>1</closeable>
                   <group>relorg</group>
             </customers_filter_state>
-            <customers_tree_responsible>
-                  <type>vbox</type>
-                  <parent>tree_search_split</parent>
-                  <closeable>1</closeable>
-                  <area_caption>Osapooled</area_caption>
-                  <group>relorg</group>
-            </customers_tree_responsible>
             <customers_tree_areas>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
@@ -421,6 +435,13 @@
                   <closeable>1</closeable>
                   <group>configuration_filter</group>
             </configuration_filter_states>
+            <configuration_customers_filter_customer_manager>
+                  <type>vbox</type>
+                  <parent>configuration_filter_left</parent>
+                  <area_caption>Filtris&amp;amp;nbsp;valitud&amp;amp;nbsp;osapooled</area_caption>
+                  <closeable>1</closeable>
+                  <group>configuration_filter</group>
+            </configuration_customers_filter_customer_manager>
             <configuration_filter_right>
                   <type>vbox</type>
                   <parent>configuration_filter_split</parent>
