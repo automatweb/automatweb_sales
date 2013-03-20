@@ -11,6 +11,15 @@
             <caption>Ettev&amp;amp;otilde;te</caption>
       </property>
       <property>
+            <name>customer_category</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>relorg</group>
+            <type>hidden</type>
+            <store>no</store>
+      </property>
+      <property>
             <name>my_customers_toolbar</name>
             <table>objects</table>
             <method>serialize</method>
@@ -22,26 +31,29 @@
             <caption>Kliendivaate tegevused</caption>
       </property>
       <property>
-            <name>tree_search_split_dummy</name>
+            <name>customers_filter_customer_category</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
             <group>relorg</group>
-            <type>hidden</type>
-            <no_caption>1</no_caption>
-            <parent>tree_search_split</parent>
+            <type>yui-chooser</type>
+            <indented>true</indented>
+            <multiple>true</multiple>
+            <store>no</store>
+            <no_caption>true</no_caption>
+            <parent>customers_filter_customer_category</parent>
       </property>
       <property>
-            <name>customer_listing_tree</name>
+            <name>customers_filter_state</name>
             <table>objects</table>
             <method>serialize</method>
             <field>meta</field>
             <group>relorg</group>
-            <type>treeview</type>
-            <no_caption>1</no_caption>
-            <parent>vvoc_customers_tree_left</parent>
+            <type>yui-chooser</type>
+            <multiple>true</multiple>
             <store>no</store>
-            <caption>Kliendikategooriad hierarhiliselt</caption>
+            <no_caption>true</no_caption>
+            <parent>customers_filter_state</parent>
       </property>
       <property>
             <name>customer_responsible_tree</name>
@@ -171,18 +183,6 @@
             <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja</caption>
       </property>
       <property>
-            <name>cts_status</name>
-            <table>objects</table>
-            <method>serialize</method>
-            <field>meta</field>
-            <group>relorg</group>
-            <type>select</type>
-            <parent>vbox_customers_left_top</parent>
-            <store>no</store>
-            <captionside>top</captionside>
-            <caption>Staatus</caption>
-      </property>
-      <property>
             <name>cts_cat</name>
             <table>objects</table>
             <method>serialize</method>
@@ -248,6 +248,39 @@
             <parent>customer_list_container</parent>
             <caption>Kliendid</caption>
       </property>
+      <property>
+            <name>configuration_customers_filter_state</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>configuration_filter</group>
+            <type>yui-chooser</type>
+            <multiple>1</multiple>
+            <captionside>top</captionside>
+            <parent>configuration_filter_states</parent>
+            <caption>Staatus</caption>
+      </property>
+      <property>
+            <name>configuration_customers_filter_customer_category</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>configuration_filter</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>true</no_caption>
+            <parent>configuration_filter_right</parent>
+      </property>
+      <property>
+            <name>configuration_customers_table</name>
+            <table>objects</table>
+            <method>serialize</method>
+            <field>meta</field>
+            <group>configuration_table</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>true</no_caption>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
@@ -260,6 +293,17 @@
                   <focus>cs_n</focus>
                   <submit>no</submit>
             </relorg>
+            <configuration>
+                  <caption>Seaded</caption>
+            </configuration>
+            <configuration_filter>
+                  <parent>configuration</parent>
+                  <caption>Filter</caption>
+            </configuration_filter>
+            <configuration_table>
+                  <parent>configuration</parent>
+                  <caption>Tabel</caption>
+            </configuration_table>
       </groupinfo>
       <tableinfo>
             <aw_crm_customer_view>
@@ -288,13 +332,20 @@
                   <group>relorg</group>
                   <area_caption></area_caption>
             </tree_search_split>
-            <vvoc_customers_tree_left>
+            <customers_filter_customer_category>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
                   <closeable>1</closeable>
-                  <area_caption>Kliendivalik</area_caption>
+                  <area_caption>Kliendikategooria</area_caption>
                   <group>relorg</group>
-            </vvoc_customers_tree_left>
+            </customers_filter_customer_category>
+            <customers_filter_state>
+                  <type>vbox</type>
+                  <parent>tree_search_split</parent>
+                  <area_caption>Staatus</area_caption>
+                  <closeable>1</closeable>
+                  <group>relorg</group>
+            </customers_filter_state>
             <customers_tree_responsible>
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
@@ -351,6 +402,32 @@
                   <no_padding>1</no_padding>
                   <group>relorg</group>
             </customer_list_container>
+            <configuration_filter_split>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>configuration_filter</group>
+                  <area_caption></area_caption>
+            </configuration_filter_split>
+            <configuration_filter_left>
+                  <type>vbox</type>
+                  <parent>configuration_filter_split</parent>
+                  <group>configuration_filter</group>
+                  <area_caption></area_caption>
+            </configuration_filter_left>
+            <configuration_filter_states>
+                  <type>vbox</type>
+                  <parent>configuration_filter_left</parent>
+                  <area_caption>Filtris&amp;amp;nbsp;valitud&amp;amp;nbsp;staatused</area_caption>
+                  <closeable>1</closeable>
+                  <group>configuration_filter</group>
+            </configuration_filter_states>
+            <configuration_filter_right>
+                  <type>vbox</type>
+                  <parent>configuration_filter_split</parent>
+                  <area_caption>Filtris&amp;amp;nbsp;kuvatavad&amp;amp;nbsp;kliendikategooriad</area_caption>
+                  <closeable>1</closeable>
+                  <group>configuration_filter</group>
+            </configuration_filter_right>
       </layout>
 </properties>
 
