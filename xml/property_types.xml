@@ -333,6 +333,7 @@
     
 		<yui-chooser>
 			<orient />
+			<indented />
 			<options />
 			<multiple />
 			<reltype />
