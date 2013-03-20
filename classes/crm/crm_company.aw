@@ -9901,7 +9901,7 @@ Bank accounts: yksteise all
 		));
 	}
 
-	function _init_oh_t(&$t,$pause)
+	function _init_oh_t($t, $pause = false)
 	{
 		$t->define_field(array(
 			"name" => "name",
