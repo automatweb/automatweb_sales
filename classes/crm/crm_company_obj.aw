@@ -2720,7 +2720,18 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 				}
 				elseif ($parent->is_a(crm_company_obj::CLID))
 				{
-					$filter["parent_category"] = new obj_predicate_compare(OBJ_COMP_LESS, 1);
+					$filter[] = new object_list_filter(array(
+						"logic" => "OR",
+						"conditions" => array(
+							"parent_category" => new obj_predicate_compare(obj_predicate_compare::IS_NULL),
+							new object_list_filter(array(
+								"logic" => "AND",
+								"conditions" => array(
+									"parent_category" => 0,
+								)
+							)),
+						)
+					));
 				}
 				else
 				{
