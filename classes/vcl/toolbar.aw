@@ -8,7 +8,8 @@ class toolbar extends aw_template
 	private $custom_data = "";
 	private $imgbase = "";
 	private $menu_inited = false;
-
+	
+	public $cache_items = true;
 	public $button_target = "";
 	public $align = "left";
 
@@ -237,19 +238,27 @@ class toolbar extends aw_template
 	function build_menus()
 	{
 		static $init_done = false;
+		$items = "";
 		foreach($this->menus as $parent => $menudata)
 		{
-			if (false == $init_done)
+			if (false === $init_done)
 			{
 				$this->custom_data .= $this->parse("MENU_HEADER");
 				$init_done = true;
 			};
-			$cdata = '<div id="'.$parent.'" class="menu" onmouseover="menuMouseover(event)">'."\n${menudata}</div>\n";
+			$items .= '<div id="'.$parent.'" class="menu" onmouseover="menuMouseover(event)">'."\n${menudata}</div>\n";
+		}
+		if ($items !== "" && $this->cache_items)
+		{
 			// we add the toolbar html before </body> only in admin
 			// actually the only toolbar that needs this is the aw object toolbar
 			// because there's just too many elements for browser to handle.
 			$cache = new cache();
-			$cache->file_set("aw_toolbars_".aw_global_get("uid"), $cache->file_get("aw_toolbars_".aw_global_get("uid")).$cdata );
+			$cache->file_set("aw_toolbars_".aw_global_get("uid"), $cache->file_get("aw_toolbars_".aw_global_get("uid")).$items);
+		}
+		else
+		{
+			$this->custom_data .= $items;
 		}
 	}
 

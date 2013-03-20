@@ -613,7 +613,7 @@ class htmlclient extends aw_template
 	function put_content($args)
 	{
 		$tpl_vars = array(
-			//"value" => $args["value"],
+			"name" => $args["name"],
 			"cell_id" => isset($args["name"]) ? $args['name']."_cell" : "_cell",
 			"value" => $this->draw_element($args),
 			"webform_content" => !empty($args["style"]["prop"]) ? "st".$args["style"]["prop"] : "",
@@ -1116,62 +1116,7 @@ class htmlclient extends aw_template
 		switch($args["type"])
 		{
 			case "yui-chooser":
-				$options = isset($arr["options"]) ? new aw_array($arr["options"]) : new aw_array();
-
-				$retval = "";
-				foreach($options->get() as $key => $val)
-				{
-					$caption = $val;
-					$name = $arr["name"] . "[" . $key . "]";
-					$retval .= html::button(array(
-						"name" => str_replace(array("[", "]"), "_", $name),
-						"value" => $caption,
-						"disabled" => ifset($arr, "disabled", $key),
-						// TODO: Throw exception if "multiple != true" and more than one option selected.
-						"class" => !empty($arr["value"][$key]) ? "yui3-button yui3-button-selected" : "yui3-button",
-						"post_append_text" => html::checkbox(array(
-							"name" => $arr["name"] . "[" . $key . "]",
-							"checked" => !empty($arr["value"][$key]),
-							"value" => $key,
-							"style" => "display: none",
-						))
-					));
-					if (isset($arr["orient"]) and $arr["orient"] === "vertical")
-					{
-						$retval .= html::linebreak();
-					}
-				}
-				
-				$retval = html::div(array(
-					"id" => "{$arr["name"]}-chooser-group",
-					"content" => $retval
-				));
-				
-				$chooser_type = !empty($arr["multiple"]) ? "checkbox" : "radio";
-				// TODO: Would be nice to validate JS here.
-				$onclick = isset($arr["onclick"]) ? $arr["onclick"] : "";
-				$retval .= <<<SCRIPT
-					<script type="text/javascript">
-						YUI().use('button-group', function(Y) {
-							Y.one('body').addClass('yui3-skin-sam');
-								var buttonGroupCB = new Y.ButtonGroup({
-								srcNode: '#{$arr["name"]}-chooser-group',
-								type: '{$chooser_type}',
-								after: {
-									'selectionChange': function(e){
-										buttonGroupCB.getButtons().each(function(option) {
-											Y.one('#' + option.get('name')).set('checked', false);
-										});
-										Y.Array.each(buttonGroupCB.getSelectedButtons(), function(option) {
-											Y.one('#' + option.get('name')).set('checked', true);
-										});
-										{$onclick}
-									}
-								}
-							}).render();
-						});
-					</script>
-SCRIPT;
+				throw new awex_htmlclient("yui-chooser should be handled by vcl/yui_chooser!"); 
 				break;
 
 			case "chooser":

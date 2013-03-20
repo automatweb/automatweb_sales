@@ -12,14 +12,17 @@ var get_property_data = $.gpnv_as_obj();
 		if(typeof props != "object") {
 			props = [props];
 		}
+		
+		var in_progress_count = 0;
 
 		for(var i = 0; i < props.length; i++) {
 			property = props[i];
 			(function(prop) {
-				$("div[name='"+prop+"']").each(function(){
+				$("div[name='"+prop+"'],td[data-property-name='"+prop+"']").each(function(){
 					var div = $(this);
 					if(typeof no_ajax_loader == "undefined" || no_ajax_loader != true)
 					{
+						in_progress_count++;
 						$.please_wait_window.show({
 							"target": div
 						});
@@ -32,7 +35,7 @@ var get_property_data = $.gpnv_as_obj();
 						data: $.extend({view_property: prop}, get_property_data),
 						success: function(html){
 							div.html(html);
-							if(typeof no_ajax_loader == "undefined" || no_ajax_loader != true)
+							if(--in_progress_count == 0 && (typeof no_ajax_loader == "undefined" || no_ajax_loader != true))
 							{
 								$.please_wait_window.hide();
 							}

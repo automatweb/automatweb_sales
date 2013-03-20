@@ -54,7 +54,7 @@
 
 	<!-- SUB: CONTENT -->
 	<tr>
-	    <td colspan="2" id="sitecontent">{VAR:value}</td>
+	    <td colspan="2" id="sitecontent" data-property-name="{VAR:name}">{VAR:value}</td>
 	</tr>
 	<!-- END SUB: CONTENT -->
 
