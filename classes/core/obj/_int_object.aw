@@ -212,7 +212,7 @@ class _int_object
 			$conn_id = $c->find($finder);
 			if (count($conn_id) < 1)
 			{
-				if($param["errors"] === false)
+				if(isset($param["errors"]) && $param["errors"] === false)
 				{
 					return false;
 				}

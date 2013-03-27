@@ -314,7 +314,7 @@ class object_list extends _int_obj_container_base implements Iterator
 	**/
 	function in_list($param)
 	{
-		$object_id = ($object instanceof object) ? $param->id() : $param;
+		$object_id = ($param instanceof object) ? $param->id() : $param;
 		return isset($this->list[$object_id]);
 	}
 
