@@ -7,6 +7,15 @@ class ml_member_obj extends _int_object
 	const TYPE_GENERIC = 0;
 	const TYPE_INVOICE = 1;
 	const TYPE_PROJECT_MANAGEMENT = 2;
+	
+	public static function get_contact_type_names()
+	{
+		return array(
+			self::TYPE_GENERIC => t("&Uuml;ldkontakt"),
+			self::TYPE_INVOICE => t("E-mail arvete saatmiseks"),
+			self::TYPE_PROJECT_MANAGEMENT => t("Projektijuhtimise kontakt"),
+		);
+	}
 
 	function prop($name)
 	{
@@ -242,5 +251,21 @@ class ml_member_obj extends _int_object
 		}
 		// If there ain't any e-mail addresses with the same mail property, create new one (or change the current one).
 		return parent::save();
+	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->name(),
+			"mail" => $this->prop("mail"),
+			"contact_type" => (int)$this->prop("contact_type"),
+		);
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
 	}
 }

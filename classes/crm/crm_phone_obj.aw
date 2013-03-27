@@ -306,4 +306,19 @@ class crm_phone_obj extends _int_object
 			return parent::save();
 		}
 	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->prop("name"),
+			"type" => $this->prop("type"),
+		);
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
+	}
 }

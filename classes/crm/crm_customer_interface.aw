@@ -28,8 +28,15 @@ interface crm_customer_interface
 	**/
 	public function get_address();
 
-	/** Returns customer's all phone numbers as array
+	/** Returns all addresses as an object list
+		@attrib api=1
+		@returns object_list(CL_ADDRESS)
+	**/
+	public function get_addresses();
+
+	/** Returns customer's all phone number objects in an object_list
 		@attrib api=1 params=pos
+		@returns object_list(CL_CRM_PHONE)
 	**/
 	public function get_phones();
 	
@@ -41,6 +48,16 @@ interface crm_customer_interface
 			throws awex_obj_state_new
 	**/
 	public function get_phone_number($type = null);
+	
+	/**
+		@attrib api=1 params=pos
+		@param type type=int required
+			The phone number to be added
+		@returns CL_CRM_PHONE
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function add_phone_number($number);
 
 	/**
 		@attrib api=1 params=pos
@@ -58,4 +75,14 @@ interface crm_customer_interface
 			throws awex_obj_state_new
 	**/
 	public function get_email_address();
+	
+	/**
+		@attrib api=1 params=pos
+		@param type type=int required
+			The e-mail address to be added. Must be a valid e-mail address.
+		@returns CL_ML_MEMBER
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function add_email_address($address);
 }

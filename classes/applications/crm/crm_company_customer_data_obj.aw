@@ -317,6 +317,22 @@ class crm_company_customer_data_obj extends _int_object
 
 		$r = parent::save($check_state);
 	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$data = array(
+			"id" => $this->id(),
+			"seller" => $this->prop("seller"),
+			"buyer" => $this->prop("buyer"),
+			"categories" => $this->prop("categories"),
+		);
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
+	}
 }
 
 /** Generic customer relation error **/

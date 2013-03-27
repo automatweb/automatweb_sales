@@ -3411,19 +3411,59 @@ END;
 			The OID of the customer
 		@param clid optional type=class_id default=CL_CRM_COMPANY
 			The class ID of the customer object to be created, only used if id not given
+		@param type optional type=int default=crm_company_obj::CUSTOMER_TYPE_BUYER
+			Relation type (seller or buyer). One of crm_company_obj::CUSTOMER_TYPE_... constant values
 		@param name required type=string
 			The name of the customer to be created
-		@param gender optional type=int
-			The gender of the customer to be created. Only used if clid = CL_CRM_PERSON
-		@param birthday optional type=int
-			The birthday of the customer to be created, given as a UNIX timestamp. Only used if clid = CL_CRM_PERSON
+		@param data optional type=array
+			The data of the customer to be created
 	**/
 	public function create_customer($arr)
 	{
 		$company = obj($arr["company"], array(), crm_company_obj::CLID);
 		unset($arr["company"]);
 		$customer = $company->create_customer($arr);
-		return $customer->json();
+		
+		$data = $customer->json(false);
+		
+		// Include customer relation in JSON.
+		$customer_relation = $company->get_customer_relation(isset($arr["type"]) ? $arr["type"] : crm_company_obj::CUSTOMER_TYPE_BUYER, $customer);
+		if ($customer_relation !== null)
+		{
+			$data["customer_relation"] = $customer_relation->json(false);
+		}
+		
+		$data["emails"] = array();
+		foreach ($customer->get_email_addresses()->arr() as $email)
+		{
+			$data["emails"][] = $email->json(false);
+		}
+		
+		$data["phones"] = array();
+		foreach ($customer->get_phones()->arr() as $phone)
+		{
+			$data["phones"][] = $phone->json(false);
+		}
+		
+		if ($customer->is_a(crm_company_obj::CLID)) {
+			$data["employees"] = array();
+			foreach($customer->get_employees()->arr() as $employee)
+			{
+				$data["employees"][] = $employee->json(false);
+			}
+		}
+		
+		$data["addresses"] = array();
+		foreach($customer->get_addresses()->arr() as $address)
+		{
+			$data["addresses"][] = $address->json(false);
+		}
+		
+		$encoder = new json();
+		$json = $encoder->encode($data, aw_global_get("charset"));
+
+		automatweb::$result->set_data($json);
+		automatweb::$instance->http_exit();
 	}
 
 	/**

@@ -260,6 +260,58 @@ class address_object extends _int_object
 		$encoded_value = $encoding->prop ($param);
 		return $encoded_value;
 	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$city = $county = $vald = null;
+		$parent = obj($this->parent());
+		$grandparent = obj($parent->parent());
+		$greatgrandparent = obj($grandparent->parent());
+
+		if ($parent->is_a(CL_COUNTRY_CITY))
+		{
+			$city = $parent;
+		}
+		else
+		{
+			$vald = $parent;
+		}
+
+		if($greatgrandparent->is_a(CL_COUNTRY_ADMINISTRATIVE_UNIT))
+		{
+			$county = $greatgrandparent;
+		}
+		elseif($grandparent->is_a(CL_COUNTRY_ADMINISTRATIVE_UNIT))
+		{
+			$county = $grandparent;
+		}
+		elseif($parent->is_a(CL_COUNTRY_ADMINISTRATIVE_UNIT))
+		{
+			$county = $parent;
+		}
+
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->prop("name"),
+			"country" => array("id" => $this->prop("country"), "name" => $this->prop("country.name")),
+			"county" => $county !== null ? array("id" => $county->id, "name" => $county->name) : null,
+			"city" => $city !== null ? array("id" => $city->id, "name" => $city->name) : null,
+			"vald" => $vald !== null ? array("id" => $vald->id, "name" => $vald->name) : null,
+			"street" => $this->prop("street"),
+			"house" => $this->prop("house"),
+			"apartment" => $this->prop("apartment"),
+			"postal_code" => $this->prop("postal_code"),
+			"coord_x" => $this->prop("coord_x"),
+			"coord_y" => $this->prop("coord_y"),
+			"details" => $this->prop("details"),
+		);
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
+	}
 }
 
 /** Generic address error **/

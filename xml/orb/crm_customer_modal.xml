@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_customer_modal" folder="applications/crm" extends="aw_modal">
+		<action name="get_customer_data" all_args="1">
+			<function name="get_customer_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

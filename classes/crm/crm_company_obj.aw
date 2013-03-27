@@ -3,6 +3,7 @@
 class crm_company_obj extends _int_object implements crm_customer_interface, price_component_interface, crm_offer_row_interface
 {
 	const CLID = 129;
+
 	const CUSTOMER_TYPE_SELLER = 1;
 	const CUSTOMER_TYPE_BUYER = 2;
 
@@ -1265,6 +1266,26 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 		$email = $this->get_first_obj_by_reltype("RELTYPE_EMAIL");
 		return $email;
 	}
+	
+	/**
+		@attrib api=1 params=pos
+		@param type type=int required
+			The e-mail address to be added. Must be a valid e-mail address.
+		@returns CL_ML_MEMBER
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function add_email_address($address)
+	{
+		$this->require_state("saved");
+
+		if (!is_email($address))
+		{
+			throw new awex_obj_param("Not a valid e-mail address ({$address})");
+		}
+
+		return obj($this->add_mail($address), null, ml_member_obj::CLID);
+	}
 
 	public function set_default_email_address()
 	{
@@ -1352,6 +1373,21 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 
 		$this->connect(array("to" =>$mo->id(),  "type" => "RELTYPE_PHONE"));
 		return $mo->id();
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param type type=int required
+			The phone number to be added
+		@returns CL_CRM_PHONE
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function add_phone_number($number)
+	{
+		$this->require_state("saved");
+		
+		return obj($this->add_phone($number), null, crm_phone_obj::CLID);
 	}
 
 	public function change_phone($phone)
@@ -1686,8 +1722,9 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 		return $list->names();
 	}
 
-	/** Returns customer's all phone numbers as array
+	/** Returns customer's all phone number objects in an object_list
 		@attrib api=1 params=pos
+		@returns object_list(CL_CRM_PHONE)
 	**/
 	function get_phones()
 	{
@@ -1712,7 +1749,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 				)
 			))
 		));
-		return $list->names();
+		return $list;
 	}
 	
 	public function get_phone_number($type = null)
@@ -2289,13 +2326,13 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 			The OID of the customer
 		@param clid optional type=class_id default=CL_CRM_COMPANY
 			The class ID of the customer object to be created, only used if id not given
+		@param type optional type=int default=crm_company_obj::CUSTOMER_TYPE_BUYER
+			Relation type (seller or buyer). One of crm_company_obj::CUSTOMER_TYPE_... constant values
 		@param name required type=string
 			The name of the customer to be created
-		@param gender optional type=int
-			The gender of the customer to be created. Only used if clid = CL_CRM_PERSON
-		@param birthday optional type=int
-			The birthday of the customer to be created, given as a UNIX timestamp. Only used if clid = CL_CRM_PERSON
-		@qc date=20110813
+		@param data optional type=array
+			The data of the customer to be created
+		@qc date=20130323
 	**/
 	public function create_customer($arr)
 	{
@@ -2312,8 +2349,8 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 
 			$customer = obj(null, array(), $arr["clid"]);
 			$customer->set_parent($this->id());
-			$customer->set_name($arr["name"]);
 		}
+		$customer->set_name($arr["name"]);
 
 		switch ($customer->class_id())
 		{
@@ -2329,22 +2366,236 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 				}
 				$customer->set_prop("firstname", $firstname);
 				$customer->set_prop("lastname", $lastname);
-				// All accepted properties:
-				foreach (array("gender", "birthday") as $prop)
-				{
-					if (isset($arr[$prop]))
-					{
-						$customer->set_prop($prop, $arr[$prop]);
-					}
-				}
+				$this->__set_accepted_properties($customer, array("gender", "birthday"), $arr["data"]);
+				break;
+			
+			case crm_company_obj::CLID:
+				$this->__set_accepted_properties($customer, array("ettevotlusvorm", "tax_nr", "reg_nr"), $arr["data"]);
 				break;
 		}
-
 		$customer->save();
 
-		$this->get_customer_relation(self::CUSTOMER_TYPE_BUYER, $customer, true);
+		$customer_relation = $this->get_customer_relation(isset($arr["type"]) ? $arr["type"] : self::CUSTOMER_TYPE_BUYER, $customer, true);
+		if (!empty($arr["data"]["customer_relation"]))
+		{
+			// FIXME: Currently web might only send categories to be added. Avoid removing existing ones.
+			if (isset($arr["data"]["customer_relation"]["categories"]))
+			{
+				$arr["data"]["customer_relation"]["categories"] = array_unique(array_merge(safe_array($customer_relation->categories), (array)$arr["data"]["customer_relation"]["categories"]));
+			}
+			$this->__set_accepted_properties($customer_relation, array("categories"), $arr["data"]["customer_relation"]);
+			$customer_relation->save();
+		}
+
+		if (!empty($arr["data"]["emails"]) and is_array($arr["data"]["emails"]))
+		{
+			foreach($arr["data"]["emails"] as $email_data)
+			{
+				if (!is_email($email_data["mail"]))
+				{
+					continue;
+				}
+				if (isset($email_data["id"]) and object_loader::can("", $email_data["id"]))
+				{
+					$email = obj($email_data["id"], null, ml_member_obj::CLID);
+				}
+				else
+				{
+					$email = $customer->add_email_address($email_data["mail"]);
+				}
+				$this->__set_accepted_properties($email, array("name", "mail", "contact_type"), $email_data);
+				$email->save();
+			}
+		}
+
+		if (!empty($arr["data"]["phones"]) and is_array($arr["data"]["phones"]))
+		{
+			foreach($arr["data"]["phones"] as $phone_data)
+			{
+				if (isset($phone_data["id"]) and object_loader::can("", $phone_data["id"]))
+				{
+					$phone = obj($phone_data["id"], null, crm_phone_obj::CLID);
+				}
+				else
+				{
+					$phone = $customer->add_phone_number($phone_data["name"]);
+				}
+				$this->__set_accepted_properties($phone, array("name", "type"), $phone_data);
+				$phone->save();
+			}
+		}
+		
+		if ($customer->is_a(crm_company_obj::CLID) and !empty($arr["data"]["employees"]) and is_array($arr["data"]["employees"]))
+		{
+			foreach($arr["data"]["employees"] as $employee_data)
+			{
+				if (isset($employee_data["id"]) and object_loader::can("", $employee_data["id"]))
+				{
+					$employee = obj($employee_data["id"], null, crm_person_obj::CLID);
+				}
+				else
+				{
+					$work_relation = $customer->add_employee();
+					$employee = obj($work_relation->employee, null, crm_person_obj::CLID);
+				}
+				$employee_data["firstname"] = $employee_data["lastname"] = "";
+				if (strpos(" ", $employee_data["name"]) !== false)
+				{
+					list($employee_data["firstname"], $employee_data["lastname"]) = explode(" ", trim($employee_data["name"]), 2);
+				}
+				else
+				{
+					$employee_data["firstname"] = $employee_data["name"];
+				}
+				if (isset($employee_data["phone"])) { $employee_data["fake_phone"] = $employee_data["phone"]; }
+				if (isset($employee_data["email"])) { $employee_data["fake_email"] = $employee_data["email"]; }
+				$this->__set_accepted_properties($employee, array("firstname", "lastname", "gender", "fake_phone", "fake_email"), $employee_data);
+				if (isset($employee_data["skills"]))
+				{
+					$skills = new object_list(array(
+						"class_id" => CL_PERSON_HAS_SKILL,
+						"CL_PERSON_HAS_SKILL.RELTYPE_HAS_SKILL(CL_CRM_PERSON)" => $employee->id()
+					));
+					foreach ($skills->arr() as $skill)
+					{
+						if (is_array($employee_data["skills"]) && ($index = array_search($skill->skill, $employee_data["skills"])) !== false)
+						{
+							unset($employee_data["skills"][$index]);
+						}
+						else
+						{
+							$skill->delete();
+						}
+					}
+					foreach ($employee_data["skills"] as $skill)
+					{
+						$employee->add_skill($skill);
+					}
+				}
+				
+				$employee->save();
+			}
+		}
+		
+		if (!empty($arr["data"]["addresses"]) && is_array($arr["data"]["addresses"]))
+		{
+			foreach ($arr["data"]["addresses"] as $address_data)
+			{
+				$parent = null;
+				if(!empty($address_data["city"]) && object_loader::can("", $address_data["city"]))
+				{
+					$parent = $address_data["city"];
+				}
+				elseif(!empty($address_data["vald"]) && object_loader::can("", $address_data["vald"]))
+				{
+					$parent = $address_data["vald"];
+				}
+				elseif(!empty($address_data["county"]) && object_loader::can("", $address_data["county"]))
+				{
+					$parent = $address_data["county"];
+				}
+
+				if($parent !== null)
+				{
+					if (isset($address_data["id"]) and object_loader::can("", $address_data["id"]))
+					{
+						$address = obj($address_data["id"], null, address_object::CLID);
+						$address->set_parent($parent);
+					}
+					else
+					{
+						$address = $customer->create_address($parent);
+					}
+					$this->__set_accepted_properties($address, array("street", "house", "apartment", "postal_code", "coord_x", "coord_y", "details"), $address_data);
+					$address->save();
+					
+					if (!object_loader::can("", $customer->contact))
+					{
+						$customer->contact = $address->id;
+						$customer->save();
+					}
+				}
+			}
+		}
+		
+		if (!empty($arr["removed"]) && is_array($arr["removed"]))
+		{
+			foreach ($arr["removed"] as $removed_id)
+			{
+				if (!object_loader::can("", $removed_id))
+				{
+					continue;
+				}
+				
+				$removed = obj($removed_id);
+				
+				switch ($removed->class_id())
+				{
+					case crm_person_obj::CLID:
+						$work_relations = new object_list(array(
+							"class_id" => crm_person_work_relation_obj::CLID,
+							"employer" => $customer->id,
+							"employee" => $removed->id,
+							"state" => crm_person_work_relation_obj::STATE_ACTIVE,
+						));
+						foreach ($work_relations->arr() as $work_relation)
+						{
+							$work_relation->finish();
+						}
+						break;
+
+					case crm_phone_obj::CLID:
+						try
+						{
+							$customer->disconnect(array("from" => $removed->id, "type" => "RELTYPE_PHONE"));
+						}
+						catch (awex_obj_na $e)
+						{
+							// Already removed.
+						}
+						break;
+
+					case address_object::CLID:
+						try
+						{
+							$customer->disconnect(array("from" => $removed->id, "type" => "RELTYPE_ADDRESS_ALT"));
+						}
+						catch (awex_obj_na $e)
+						{
+							// Already removed.
+						}
+						break;
+
+					case ml_member_obj::CLID:
+						try
+						{
+							$customer->disconnect(array("from" => $removed->id, "type" => "RELTYPE_EMAIL"));
+						}
+						catch (awex_obj_na $e)
+						{
+							// Already removed.
+						}
+						break;
+				}
+			}
+		}
 
 		return $customer;
+	}
+	
+	private function __set_accepted_properties(object $object, $accepted_properties, $data)
+	{
+		foreach ($accepted_properties as $prop)
+		{
+			if ("name" === $prop && isset($data[$prop]))
+			{
+				$object->set_name($data[$prop]);
+			}
+			elseif (isset($data[$prop]))
+			{
+				$object->set_prop($prop, $data[$prop]);
+			}
+		}
 	}
 
 	/** Creates a new customer relation of given type.
@@ -2538,6 +2789,34 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 	public function get_address()
 	{
 		return $this->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
+	}
+	
+	public function create_address($parent)
+	{
+		$address = obj(null, null, address_object::CLID);
+		$address->set_parent($parent);
+		$address->save();
+
+		$this->connect(array(
+			"to" => $address->id(),
+			"type" => "RELTYPE_ADDRESS_ALT"
+		));
+		
+		return $address;
+	}
+	
+	/** Returns all addresses as an object list
+		@attrib api=1
+		@returns object_list(CL_ADDRESS)
+	**/
+	public function get_addresses()
+	{
+		$addresses = new object_list(array(
+			"class_id" => CL_ADDRESS,
+			"CL_ADDRESS.RELTYPE_ADDRESS_ALT(CL_CRM_COMPANY)" => $this->id(),
+		));
+		
+		return $addresses;
 	}
 
 	/** Returns default address as a string
@@ -2828,15 +3107,19 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 	/**	Returns the the object in JSON
 		@attrib api=1
 	**/
-	public function json()
+	public function json($encode = true)
 	{
 		$data = array(
 			"id" => $this->id(),
-			"name" => $this->get_title(),
+			"name" => $this->prop("name"),
+			"ettevotlusvorm" => $this->prop("ettevotlusvorm"),
+			"tax_nr" => $this->prop("tax_nr"),
+			"reg_nr" => $this->prop("reg_nr"),
+			"title" => $this->get_title(),
 		);
 
 		$json = new json();
-		return $json->encode($data, aw_global_get("charset"));
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
 	}
 }
 

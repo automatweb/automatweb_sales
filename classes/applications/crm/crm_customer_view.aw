@@ -1202,13 +1202,8 @@ class crm_customer_view extends class_base
 			$tb->add_menu_item(array(
 				"parent"=> "add_buyer_company",
 				"text" => sprintf(t("Kategooriasse '%s'"), $category_name),
-				"link" => $this->mk_my_orb("add_customer", array(
-					"id" => $arr["obj_inst"]->prop("company"),
-					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
-					"c" => crm_company_obj::CLID,
-					"s" => $category_id,
-					"return_url" => get_ru()
-				), "crm_company")
+				"link" => "javascript:void(0)",
+				"onclick" => "AW.UI.crm_customer_view.open_customer_modal('company', " . crm_company_obj::CUSTOMER_TYPE_BUYER . ", {$category_id})"
 			));
 		}
 		$tb->add_sub_menu(array(
@@ -1221,13 +1216,8 @@ class crm_customer_view extends class_base
 			$tb->add_menu_item(array(
 				"parent"=> "add_buyer_person",
 				"text" => sprintf(t("Kategooriasse '%s'"), $category_name),
-				"link" => $this->mk_my_orb("add_customer", array(
-					"id" => $arr["obj_inst"]->prop("company"),
-					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
-					"c" => CL_CRM_PERSON,
-					"s" => $category_id,
-					"return_url" => get_ru()
-				), "crm_company")
+				"link" => "javascript:void(0)",
+				"onclick" => "AW.UI.crm_customer_view.open_customer_modal('person', " . crm_company_obj::CUSTOMER_TYPE_BUYER . ", {$category_id})"
 			));
 		}
 
@@ -1267,13 +1257,8 @@ class crm_customer_view extends class_base
 			$tb->add_menu_item(array(
 				"parent"=> "add_seller_company",
 				"text" => sprintf(t("Kategooriasse '%s'"), $category_name),
-				"link" => $this->mk_my_orb("add_customer", array(
-					"id" => $arr["obj_inst"]->prop("company"),
-					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
-					"c" => crm_company_obj::CLID,
-					"s" => $category_id,
-					"return_url" => get_ru()
-				), "crm_company")
+				"link" => "javascript:void(0)",
+				"onclick" => "AW.UI.crm_customer_view.open_customer_modal('company', " . crm_company_obj::CUSTOMER_TYPE_SELLER . ", {$category_id})"
 			));
 		}
 		$tb->add_sub_menu(array(
@@ -1286,13 +1271,8 @@ class crm_customer_view extends class_base
 			$tb->add_menu_item(array(
 				"parent"=> "add_seller_person",
 				"text" => sprintf(t("Kategooriasse '%s'"), $category_name),
-				"link" => $this->mk_my_orb("add_customer", array(
-					"id" => $arr["obj_inst"]->prop("company"),
-					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
-					"c" => CL_CRM_PERSON,
-					"s" => $category_id,
-					"return_url" => get_ru()
-				), "crm_company")
+				"link" => "javascript:void(0)",
+				"onclick" => "AW.UI.crm_customer_view.open_customer_modal('person', " . crm_company_obj::CUSTOMER_TYPE_SELLER . ", {$category_id})"
 			));
 		}
 
@@ -1764,7 +1744,7 @@ class crm_customer_view extends class_base
 				# phone
 				if (($default_cfg or in_array("phone", $visible_fields)))
 				{
-					$phones = $o->get_phones();
+					$phones = $o->get_phones()->names();
 					$count = count($phones);
 					$i = 0;
 					foreach ($phones as $phone_nr)
@@ -1891,11 +1871,11 @@ class crm_customer_view extends class_base
 					"content" =>
 						icons::get_class_icon($o->class_id()) .
 						html::space() .
-						html::get_change_url(
-							$o->id(),
-							array("return_url" => get_ru()),
-							($o->name() ? $o->name() : t("[Nimetu]")) . $vorm
-						) .
+						html::href(array(
+							"url" => "javascript:void(0)",
+							"onclick" => "AW.UI.crm_customer_view.open_customer_modal(\"" . ($o->is_a(crm_person_obj::CLID) ? "person" : "company") . "\", \"seller\", [" . implode(",", $this->filter_customer_category) . "], " . $o->id() . ")",
+							"caption" => ($o->name() ? $o->name() : t("[Nimetu]")) . $vorm
+						)) .
 						html::linebreak() .
 						$short_name
 				));
@@ -2379,9 +2359,16 @@ faks: 6556 235
 		}
 	}
 	
-	function callback_generate_scripts()
+	function callback_generate_scripts($arr)
 	{
-		load_javascript("reload_properties_layouts.js");
-		load_javascript("applications/crm/crm_customer_view.js");
+		if ("customers" === $this->use_group) {
+			active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.min.css");
+			active_page_data::load_javascript("bootstrap/js/bootstrap.min.js");
+			active_page_data::load_javascript("knockout/knockout-2.2.0.js");
+			active_page_data::add_javascript("var initialize = setInterval(function(){if(typeof AW !== 'undefined'){ clearInterval(initialize); AW.UI.crm_customer_view.initialize_modals(" . $arr["obj_inst"]->prop("company") . "); }}, 100);", "bottom");
+		}
+
+		active_page_data::load_javascript("reload_properties_layouts.js");
+		active_page_data::load_javascript("applications/crm/crm_customer_view.js");
 	}
 }

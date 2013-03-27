@@ -153,7 +153,7 @@ class crm_companies_webview_obj extends _int_object
 				"co_id" => $cust,
 				"name" => $cust_obj->name(),
 				"company_name" => $cust_obj->name(),
-				"phone" => join("," , $cust_obj->get_phones()),
+				"phone" => join("," , $cust_obj->get_phones()->names()),
 				"email" => join("," , $cust_obj->get_email_addresses()->names()),
 				"leader" => $cust_obj->class_id() == CL_CRM_PERSON ? "" : $cust_obj->prop("firmajuht.name"),
 				"co_reg" => $cust_obj->class_id() == CL_CRM_PERSON ? "" : $cust_obj->prop("reg_nr"),

@@ -121,12 +121,7 @@ class ml_member extends class_base
 			"clid" => CL_ML_MEMBER,
 		));
 		$this->users = get_instance("users");
-		$this->types = array(
-			"" => "",
-			"0" => t("&Uuml;ldkontakt"),
-			"1" => t("E-mail arvete saatmiseks"),
-			"2" => t("Projektijuhtimise kontakt"),
-		);
+		$this->types = array_merge(array("" => ""), ml_member_obj::get_contact_type_names());
 	}
 
 	function get_property($arr)

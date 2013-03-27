@@ -421,8 +421,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 		}
 		$ol = new object_list($args);
 		$names = $ol->names();
-		$name = reset($names);
-		return $return_oid ? key($names) : $name;
+		$name = count($names) > 0 ? reset($names) : null;
+		return $return_oid ? (count($names) > 0 ? key($names) : null) : $name;
 	}
 
 	function find_work_contact()
@@ -707,6 +707,26 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 		$email = $this->get_first_obj_by_reltype("RELTYPE_EMAIL");
 		return $email;
 	}
+	
+	/**
+		@attrib api=1 params=pos
+		@param type type=int required
+			The e-mail address to be added. Must be a valid e-mail address.
+		@returns CL_ML_MEMBER
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function add_email_address($address)
+	{
+		$this->require_state("saved");
+
+		if (!is_email($address))
+		{
+			throw new awex_obj_param("Not a valid e-mail address ({$address})");
+		}
+
+		return $this->set_email($address);
+	}
 
 	function get_skills()
 	{
@@ -731,6 +751,30 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 			$ret[$o->id()] = $o->prop("skill.name");
 		}
 		return $ret;
+	}
+	
+	/**
+		@attrib api=1
+		@param skill type=oid
+	**/
+	function add_skill($skill)
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_PERSON_HAS_SKILL,
+			"CL_PERSON_HAS_SKILL.RELTYPE_HAS_SKILL(CL_CRM_PERSON)" => $this->id(),
+			"skill" => $skill,
+		));
+		if ($ol->count() === 0)
+		{
+			$has_skill = obj(null, null, CL_PERSON_HAS_SKILL);
+			$has_skill->set_parent($this->id());
+			$has_skill->set_prop("skill", $skill);
+			$has_skill->save();
+			$this->connect(array(
+				"type" => "RELTYPE_HAS_SKILL",
+				"to" => $has_skill->id,
+			));
+		}
 	}
 
 	function has_tasks()
@@ -1092,18 +1136,19 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 		return $img;
 	}
 
-	/** Returns customer's all phone numbers as array
+	/** Returns customer's all phone number objects in an object_list
 		@attrib api=1 params=pos
+		@returns object_list(CL_CRM_PHONE)
 	**/
 	function get_phones()
 	{
-		$ret = array();
-		$conns = $this->connections_from(array("type" => "RELTYPE_PHONE"));
-		foreach($conns as $conn)
-		{
-			$ret[]= $conn->prop("to.name");
-		}
-		return $ret;
+		$this->require_state("saved");
+
+		$list = new object_list(array(
+			"class_id" => CL_CRM_PHONE,
+			"CL_CRM_PHONE.RELTYPE_PHONE(CL_CRM_PERSON)" => $this->id(),
+		));
+		return $list;
 	}
 	
 	public function get_phone_number($type = null)
@@ -1168,6 +1213,21 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 			}
 		}
 		return "";
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param type type=int required
+			The phone number to be added
+		@returns CL_CRM_PHONE
+		@errors
+			throws awex_obj_state_new
+	**/
+	public function add_phone_number($number)
+	{
+		$this->require_state("saved");
+		
+		return $this->set_phone($number);
 	}
 
 	/** returns one e-mail address
@@ -2068,6 +2128,20 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 	{
 		return $this->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
 	}
+	
+	/** Returns all addresses as an object list
+		@attrib api=1
+		@returns object_list(CL_ADDRESS)
+	**/
+	public function get_addresses()
+	{
+		$addresses = new object_list(array(
+			"class_id" => CL_ADDRESS,
+			"CL_ADDRESS.RELTYPE_ADDRESS_ALT(CL_CRM_PERSON)" => $this->id(),
+		));
+		
+		return $addresses;
+	}
 
 	/** Returns default address as a string
 		@attrib api=1
@@ -2120,6 +2194,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 			"type" => "RELTYPE_PHONE",
 			"to" => $eo->id()
 		));
+		
+		return $eo;
 	}
 
 	/** Sets e-mail address for person
@@ -2147,6 +2223,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 			"type" => "RELTYPE_EMAIL",
 			"to" => $eo->id()
 		));
+		return $eo;
 	}
 
 	/** Returns all customer sell orders
@@ -2196,15 +2273,27 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 	/**	Returns the the object in JSON
 		@attrib api=1
 	**/
-	public function json()
+	public function json($encode = true)
 	{
+		$skills = new object_data_list(
+			array(
+				"class_id" => CL_PERSON_HAS_SKILL,
+				"CL_PERSON_HAS_SKILL.RELTYPE_HAS_SKILL(CL_CRM_PERSON)" => $this->id()
+			),
+			array(CL_PERSON_HAS_SKILL => array("skill"))
+		);
+		
 		$data = array(
 			"id" => $this->id(),
 			"name" => $this->name(),
+			"gender" => $this->prop("gender"),
+			"email" => $this->prop("fake_email"),
+			"phone" => $this->prop("fake_phone"),
 			"birthday" => $this->prop("birthday"),
+			"skills" => array_values($skills->get_element_from_all("skill")),
 		);
 
 		$json = new json();
-		return $json->encode($data, aw_global_get("charset"));
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
 	}
 }
