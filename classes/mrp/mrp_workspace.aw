@@ -7204,7 +7204,7 @@ class mrp_workspace extends class_base
 				$t->define_data(array(
 					"name" => html::get_change_url($cust->id(), array("return_url" => get_ru()), $cust->name()),
 					"address" => $cust->prop_str("contact"),
-					"phone" => join (" ," , $cust->get_phones()),
+					"phone" => join (" ," , $cust->get_phones()->names()),
 					"email" => $cust->get_mail(),
 					"oid" => $cust->id(),
 					"priority" => html::textbox(array("size" => 5 , "name" => "priority[".$cust->id()."]" , "value" => is_object($cust_rel) ? $cust_rel->prop("priority") : "0")),

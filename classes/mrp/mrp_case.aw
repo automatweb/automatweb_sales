@@ -3789,7 +3789,7 @@ function add_material(mid, jid)
 
 			if ($recipient->has_method("get_phones"))
 			{
-				$phones = implode(", ", $recipient->get_phones());
+				$phones = implode(", ", $recipient->get_phones()->names());
 			}
 		}
 

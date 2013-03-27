@@ -114,7 +114,6 @@ class crm_company_webview extends class_base
 		foreach($workers->arr() as $worker)
 		{
 			$worker_vars = array(
-			//	"worker_phone" => $worker->phones(),
 				"section_worker_name" => $worker->name(),
 				"section_worker_work_phone" => $worker->get_phone(null,null,"work"),
 				"section_worker_mobile_phone" => $worker->get_phone(null,null,"mobile"),
@@ -205,7 +204,7 @@ class crm_company_webview extends class_base
 		$vars["title"] = $company->get_title();
 		$vars["address"] = $company->get_address_string();
 		$vars["email"] = $company->get_mail();
-		$vars["phone"] = join(", " , $company->get_phones());
+		$vars["phone"] = join(", " , $company->get_phones()->names());
 
 		foreach($tabs as $key => $val)
 		{
@@ -1870,10 +1869,10 @@ class crm_company_webview extends class_base
 				"fake_url_broken_into_rows" => $fake_url_broken_into_rows,
 				"url_links" => join(", ", $url_links),
 				'fax' => join(", " , $o->get_faxes()),
-				'phones' => join(", " , $o->get_phones()),
+				'phones' => join(", " , $o->get_phones()->names()),
 			));
 
-			if(sizeof($o->get_phones()))
+			if(sizeof($o->get_phones()->names()))
 			{
 				$this->vars(array("PHONES_SUB" => $this->parse("PHONES_SUB")));
 			}

@@ -1370,7 +1370,7 @@ $x++;
 					}
 					if($target->class_id() == CL_CRM_COMPANY)
 					{
-						$addr[] = $target->name()." , ".join(", ",$target->get_phones()).", ".$o->prop("mail");
+						$addr[] = $target->name()." , ".join(", ",$target->get_phones()->names()).", ".$o->prop("mail");
 					}
 					else
 					{

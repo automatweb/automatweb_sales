@@ -3022,7 +3022,7 @@ class crm_bill_obj extends _int_object
 		if(object_loader::can("view" , $this->prop("customer")))
 		{
 			$customer_object = obj($this->prop("customer"));
-			return implode(", ", $customer_object->get_phones());
+			return implode(", ", $customer_object->get_phones()->names());
 		}
 	}
 

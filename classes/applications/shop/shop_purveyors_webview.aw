@@ -53,7 +53,7 @@ class shop_purveyors_webview extends class_base
 			$purveyor = $purveyors->begin();
 			do
 			{
-				$phones = $purveyor->get_phones();
+				$phones = $purveyor->get_phones()->names();
 				$emails = $purveyor->get_emails();
 
 				$this->vars(array(
@@ -83,7 +83,6 @@ class shop_purveyors_webview extends class_base
 
 	function parse_phones_template($phones)
 	{
-	//	$phones = $purveyor->get_phones();
 		if (empty($phones))
 		{
 			return "";
@@ -106,7 +105,6 @@ class shop_purveyors_webview extends class_base
 
 	function parse_emails_template($emails)
 	{
-	//	$emails = $purveyor->get_emails();
 		if (empty($emails))
 		{
 			return "";

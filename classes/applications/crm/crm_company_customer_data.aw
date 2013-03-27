@@ -369,7 +369,7 @@ class crm_company_customer_data extends class_base
 			$arr["prop"]["value"] = nl2br(sprintf(t('Nimi: %s
 Telefon(id): %s
 Aadress: %s
-			'), $customer->name(), implode(", ", $customer->get_phones()), $customer->get_address_string()));
+			'), $customer->name(), implode(", ", $customer->get_phones()->names()), $customer->get_address_string()));
 		}
 	}
 

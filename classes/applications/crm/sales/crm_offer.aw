@@ -554,7 +554,7 @@ class crm_offer extends class_base
 
 			if ($recipient->has_method("get_phones"))
 			{
-				$phones = implode(", ", $recipient->get_phones());
+				$phones = implode(", ", $recipient->get_phones()->names());
 			}
 		}
 

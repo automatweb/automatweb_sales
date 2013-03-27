@@ -2234,7 +2234,7 @@ class crm_company_cust_impl extends class_base
 				# phone
 				if (($default_cfg or in_array("phone", $visible_fields)))
 				{
-					$phones = $o->get_phones();
+					$phones = $o->get_phones()->names();
 					$count = count($phones);
 					$i = 0;
 					foreach ($phones as $phone_nr)

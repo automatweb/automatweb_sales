@@ -165,7 +165,7 @@ class crm_sales_calendar_view
 					$customer = $customer_relation->get_first_obj_by_reltype("RELTYPE_BUYER");
 					$location = is_oid($presentation->prop("presentation_location")) ? $presentation->prop("presentation_location.name") : $undefined_str;
 					$salesperson = is_oid($presentation->prop("customer_relation.salesman")) ? $presentation->prop("customer_relation.salesman.name") : $undefined_str;
-					$phones = implode(", ", $customer->get_phones());
+					$phones = implode(", ", $customer->get_phones()->names());
 					$tm_salesman = $cl_user->get_person_for_uid($presentation->createdby());
 					$tm_salesman = (is_object($tm_salesman) and $tm_salesman->is_saved()) ? $tm_salesman->name() : $presentation->createdby();
 
@@ -262,7 +262,7 @@ class crm_sales_calendar_view
 					$customer_relation = new object($task->prop("customer_relation"));
 					$customer = $customer_relation->get_first_obj_by_reltype("RELTYPE_BUYER");
 					$location = is_oid($task->prop("task_location")) ? $task->prop("task_location.name") : $undefined_str;
-					$phones = implode(", ", $customer->get_phones());
+					$phones = implode(", ", $customer->get_phones()->names());
 					$tm_salesman = $cl_user->get_person_for_uid($task->createdby());
 					$tm_salesman = (is_object($tm_salesman) and $tm_salesman->is_saved()) ? $tm_salesman->name() : $task->createdby();
 					$comment = sprintf($comment_format, $location, $phones, $tm_salesman, $task->comment());
