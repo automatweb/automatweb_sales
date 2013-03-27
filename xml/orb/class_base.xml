@@ -240,6 +240,7 @@
 			<function name="gt_change">
 				<arguments>
 					<required name="id" type="oid" />
+					<optional name="group" type="string" />
 					<optional name="return_url" type="string" />
 				</arguments>
 			</function>

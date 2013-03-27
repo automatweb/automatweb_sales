@@ -6575,11 +6575,15 @@ ENDSCRIPT;
 	/**
 	@attrib name=gt_change api=1 params=name
 		@param id required type=oid
+		@param group optional type=string
 		@param return_url optional type=string
 	**/
 	public function gt_change($arr)
 	{
-		return html::get_change_url($arr["id"] , array("return_url" => $arr["return_url"]));
+		return html::get_change_url($arr["id"] , array(
+			"group" => isset($arr["group"]) ? $arr["group"] : null,
+			"return_url" => $arr["return_url"]
+		));
 	}
 
 	public function change_link($id, $caption = null)
