@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aw_modal" folder="" extends="">
+		<action name="parse">
+			<function name="parse">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

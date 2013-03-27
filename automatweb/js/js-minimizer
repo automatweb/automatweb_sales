@@ -1,0 +1,74 @@
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/jquery-1.9.1.min.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/jquery-migrate-1.1.1.min.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_timer.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_aw_releditor.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_dump.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_formreset.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_aw_object_quickadd.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_tabs.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_gup.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_sup.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_bgiframe.min.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_dimensions.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_ajaxQueue.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_thickbox-compressed.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_autocomplete.min.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_hotkeys_0.0.3.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_shortcut_manager.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery-impromptu.1.5.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_init_session_modal.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery.selectboxes.min.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_aw_unload_handler.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_popup.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery.tooltip.min.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery.rightClick.js
+wget http://notar.dev.automatweb.com/automatweb/js/jquery/plugins/jquery_please_wait_window.js
+wget http://notar.dev.automatweb.com/automatweb/js/aw.js
+wget http://notar.dev.automatweb.com/automatweb/js/browserdetect.js
+wget http://notar.dev.automatweb.com/automatweb/js/cbobjects.js
+wget http://notar.dev.automatweb.com/automatweb/js/ajax.js
+wget http://notar.dev.automatweb.com/automatweb/js/CalendarPopupMin.js
+wget http://notar.dev.automatweb.com/automatweb/js/popup_menu.js
+wget http://notar.dev.automatweb.com/automatweb/js/BronCalendar.js
+wget http://notar.dev.automatweb.com/automatweb/js/url.js
+wget http://notar.dev.automatweb.com/automatweb/js/aw_help.js
+wget http://notar.dev.automatweb.com/automatweb/js/other.js
+wget http://notar.dev.automatweb.com/automatweb/js/defs.js
+
+java -jar yuicompressor-2.4.7.jar js/jquery-1.9.1.min.js > js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery-migrate-1.1.1.min.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_timer.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_aw_releditor.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_dump.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_formreset.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_aw_object_quickadd.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_tabs.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_gup.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_sup.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_bgiframe.min.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_dimensions.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_ajaxQueue.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_thickbox-compressed.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_autocomplete.min.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_hotkeys_0.0.3.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_shortcut_manager.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery-impromptu.1.5.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_init_session_modal.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery.selectboxes.min.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_aw_unload_handler.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_popup.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery.tooltip.min.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery.rightClick.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/jquery_please_wait_window.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/aw.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/browserdetect.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/cbobjects.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/ajax.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/CalendarPopupMin.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/popup_menu.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/BronCalendar.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/url.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/aw_help.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/other.js >> js-min.js && \
+java -jar yuicompressor-2.4.7.jar js/defs.js >> js-min.js
+

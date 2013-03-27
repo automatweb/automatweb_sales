@@ -1396,7 +1396,7 @@ td.awcbPropErr
 	float: right;
 	background-image: url(/automatweb/images/aw06/closer_bg.gif)
 }
-#vbox .pais .btn {
+#vbox .pais .button {
 	margin-top: 3px;
 	margin-left: 3px;
 }
@@ -1440,7 +1440,7 @@ td.awcbPropErr
 	float: right;
 	background-image: url();
 }
-#vbox_sub .pais .btn {
+#vbox_sub .pais .button {
 	margin-top: 3px;
 	margin-left: 3px;
 }
@@ -1974,4 +1974,58 @@ div.menu a.menuItem:hover, div.menu a.menuItem.menuItemHighlight {
 	background-repeat: no-repeat;
 	background-position: 4px 9px;
 	padding: 3px 1em;
+}
+
+/* Twitter Bootstrap Fixes */
+body {
+	line-height: normal;
+}
+#sisu table, #pais table {
+	max-width: none;
+	border-collapse: separate;
+}
+table.awmenuedittabletag {
+	border-spacing: 1px;
+}
+table#toimingud, #pais .top-left-menyy table {
+	border-spacing: 2px;
+}
+#sisu img, #pais img {
+	max-width: none;
+	vertical-align: baseline;
+}
+#sisu input {
+	margin: 2px;
+	line-height: normal;
+}
+#sisu input[type=text] {
+	line-height: normal;
+	width: auto;
+	height: auto;
+	padding: 1px;
+	border: 2px inset;
+	border-radius: 0;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+#sisu input.yui3-button {
+	font-family: 'Lucida Grande';
+	font-size: 11px;
+}
+form {
+	margin: auto;
+}
+.modal.fade.in {
+	top: 35px;
+}
+.modal {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+}
+.modal-body {
+	min-height: 450px;
+}
+.input-micro {
+	width: 20px;
 }

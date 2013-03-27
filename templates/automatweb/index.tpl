@@ -5,13 +5,14 @@
 	<title>{VAR:html_title} {VAR:title_action}</title>
 	<link rel="shortcut icon" href="{VAR:baseurl}automatweb/images/aw06/favicon.ico" />
 
-	<link href="{VAR:baseurl}automatweb/css/style.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href='http://yui.yahooapis.com/3.5.1/build/cssbutton/cssbutton.css'></link>
-
 	{VAR:css_styles_head}
 
+	<link href="{VAR:baseurl}automatweb/css/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href='http://yui.yahooapis.com/3.5.1/build/cssbutton/cssbutton.css'></link>
+
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/js-min.js"></script>
-  <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
+	<script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
+	
 	{VAR:javascript}
 	<script type="text/javascript">
 	xchanged = 0;
@@ -19,6 +20,17 @@
 	<!--[if lt IE 7]>
 	<link rel="stylesheet" type="text/css" href="{VAR:baseurl}automatweb/css/iefix.css" />
 	<![endif]-->
+	<style type="text/css">
+		#myTab > li {
+			float:none;
+			display:inline-block;
+			*display:inline; /* ie7 fix */
+			 zoom:1; /* hasLayout ie7 trigger */
+		}
+		#myTab {
+			text-align: center;
+		}
+	</style>
 </head>
 <body onload="check_generic_loader();" class=" nihilo ">
 
