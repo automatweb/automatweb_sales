@@ -197,14 +197,14 @@ class crm_db extends class_base
 		$this->org_tbl_fields = array(
 			"jrk" => t("Jrk"),
 			"org" => t("Organisatsioon"),
+			"annual_results" => t("Majandustulemused"),
 			"ettevotlusvorm" => t("Ettev&otilde;lusvorm"),
 			"address" => t("Aadress"),
 			"e_mail" => t("E-post"),
 			"url" => t("WWW"),
 			"phone" => t("Telefon"),
 			"org_leader" => t("Juht"),
-			"modified" => t("Muudetud"),
-			"created" => t("Loodud"),
+			"modified" => t("Muudetud/Loodud"),
 		);
 		$this->org_tbl_fields_add_args = array(
 			"jrk" => array("sorting_field" => "jrk_int"),
@@ -337,7 +337,7 @@ class crm_db extends class_base
 		$fields = is_array($arr["obj_inst"]->org_tbl_fields) ? $arr["obj_inst"]->org_tbl_fields : array_keys($this->org_tbl_fields);
 		foreach($fields as $field)
 		{
-			if (!isset($this->org_tbl_fields[$field]))
+			if (!isset($this->org_tbl_fields[$field]) || in_array($field, array("e_mail", "phone")))
 			{
 				continue;
 			}
@@ -350,6 +350,51 @@ class crm_db extends class_base
 			$add_args = !empty($this->org_tbl_fields_add_args[$field]) ? $this->org_tbl_fields_add_args[$field] : array();
 			$args = array_merge($args, $add_args);
 			$t->define_field($args);
+			if ($field == "annual_results")
+			{
+				$t->define_field(array(
+					"parent" => "annual_results",
+					"name" => "t2006",
+					"caption" => t("T-06"),
+					"sortable" => 1,
+					"numeric" => true,
+				));
+				$t->define_field(array(
+					"parent" => "annual_results",
+					"name" => "t2007",
+					"caption" => t("T-07"),
+					"sortable" => 1,
+					"numeric" => true,
+				));
+				$t->define_field(array(
+					"parent" => "annual_results",
+					"name" => "v2006",
+					"caption" => t("V-06"),
+					"sortable" => 1,
+					"numeric" => true,
+				));
+				$t->define_field(array(
+					"parent" => "annual_results",
+					"name" => "v2007",
+					"caption" => t("V-07"),
+					"sortable" => 1,
+					"numeric" => true,
+				));
+				$t->define_field(array(
+					"parent" => "annual_results",
+					"name" => "s2009",
+					"caption" => t("S-09"),
+					"sortable" => 1,
+					"numeric" => true,
+				));
+				$t->define_field(array(
+					"parent" => "annual_results",
+					"name" => "s2010",
+					"caption" => t("S-10"),
+					"sortable" => 1,
+					"numeric" => true,
+				));
+			}
 		}
 		$t->define_chooser(array(
 			"field" => "id",
@@ -359,6 +404,11 @@ class crm_db extends class_base
 
 	function _get_org_tbl($arr)
 	{
+		// FIXME!!! Temporary fix: really need to incorporate the JS history shit to reloading properties!
+		$url = new aw_uri(aw_global_get("REQUEST_URI"));
+		$url->set_arg("view_property", null);
+		aw_global_set("REQUEST_URI", $url->get());
+
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_company_table($arr);
 		$this->set_org_tbl_caption($arr);
@@ -386,8 +436,20 @@ class crm_db extends class_base
 			{
 				//	TODO: Fix customer_relation links! Those should be fetched in $this->get_companies_tbl_data().
 				$pm = $this->get_org_popupmenu(array("oid" => $company["oid"], "cd_oid" => null)); //$cd !== null ? $cd->id : null));
-				$row["org"] = $pm->get_menu(array(
-					"text" => parse_obj_name(!empty($company["ettevotlusvorm.shortname"]) ? "{$company["name"]} {$company["ettevotlusvorm.shortname"]}" : $company["name"]),
+//				$row["org"] = $pm->get_menu(array(
+//					"text" => parse_obj_name(!empty($company["ettevotlusvorm.shortname"]) ? "{$company["name"]} {$company["ettevotlusvorm.shortname"]}" : $company["name"]),
+//				));
+				$row["org"] = html::href(array(
+					"url" => $this->mk_my_orb("gt_change", array("id" => $company["oid"], "return_url" => get_ru())),
+					"caption" => parse_obj_name(!empty($company["ettevotlusvorm.shortname"]) ? "{$company["name"]} {$company["ettevotlusvorm.shortname"]}" : $company["name"]),
+				)).html::linebreak().html::href(array(
+					"url" => $this->mk_my_orb("gt_change", array("id" => $company["oid"], "group" => "owners", "return_url" => get_ru())),
+					"caption" => t("Omanikud"),
+					"style" => "color: #545454;",
+				))."&nbsp;|&nbsp;".html::href(array(
+					"url" => $this->mk_my_orb("gt_change", array("id" => $company["oid"], "group" => "stats_annual_reports", "return_url" => get_ru())),
+					"caption" => t("Majandustulemused"),
+					"style" => "color: #545454;",
 				));
 				$row["name"] = $company["name"];
 
@@ -418,14 +480,6 @@ class crm_db extends class_base
 			{
 				$row["org_leader"] = $this->change_link($company["firmajuht"], $company["firmajuht.name"]);
 			}
-			if (in_array("e_mail", $this->fields_in_use))
-			{
-				$row["e_mail"] = implode(", ", $company["e_mail"]);
-			}
-			if (in_array("phone", $this->fields_in_use))
-			{
-				$row["phone"] = implode(", ", $company["phone"]);
-			}
 			if (in_array("url", $this->fields_in_use))
 			{
 				$urls = array();
@@ -436,17 +490,44 @@ class crm_db extends class_base
 				}
 				$row["url"] = implode(",", $urls);
 			}
-			if (in_array("address", $this->fields_in_use))
+			if (in_array("address", $this->fields_in_use) || in_array("phone", $this->fields_in_use) || in_array("e_mail", $this->fields_in_use))
 			{
-				$row["address"] = implode(", ", $company["address"]);
+				$row["address"] = "";
+				if (in_array("address", $this->fields_in_use) and !empty($company["address"]))
+				{
+					$row["address"] .= implode(", ", $company["address"]);
+				}
+				if (!empty($company["e_mail"]) or !empty($company["phone"]))
+				{
+					$row["address"] .= html::linebreak();
+				}
+				if (in_array("e_mail", $this->fields_in_use) and !empty($company["e_mail"]))
+				{
+					$row["address"] .= implode(", ", $company["e_mail"]);
+				}
+				if (!empty($company["e_mail"]) and !empty($company["phone"]))
+				{
+					$row["address"] .= "&nbsp;|&nbsp;";
+				}
+				if (in_array("phone", $this->fields_in_use) and !empty($company["phone"]))
+				{
+					$row["address"] .= implode(", ", $company["phone"]);
+				}
 			}
 			if (in_array("modified", $this->fields_in_use))
 			{
-				$row["modified"] = date("Y.m.d H:i" , $company["modified"]);
+				$row["modified"] = date("Y.m.d H:i" , $company["modified"]).html::linebreak().date("Y.m.d H:i" , $company["created"]);
 			}
-			if (in_array("created", $this->fields_in_use))
+			if (in_array("annual_results", $this->fields_in_use))
 			{
-				$row["created"] = date("Y.m.d H:i" , $company["created"]);
+//				var_dump($company);
+//				die("Testing");
+				$row["t2006"] = isset($company["t2006"]) ? (int)$company["t2006"] : null;
+				$row["v2006"] = isset($company["v2006"]) ? (int)$company["v2006"] : null;
+				$row["t2007"] = isset($company["t2007"]) ? (int)$company["t2007"] : null;
+				$row["v2007"] = isset($company["v2007"]) ? (int)$company["v2007"] : null;
+				$row["s2009"] = isset($company["s2009"]) ? (int)$company["s2009"] : null;
+				$row["s2010"] = isset($company["s2010"]) ? (int)$company["s2010"] : null;
 			}
 
 			$t->define_data($row);
@@ -585,6 +666,38 @@ class crm_db extends class_base
 			}
 		}
 
+		if ($companies->count() > 0 && in_array("annual_results", $this->fields_in_use))
+		{
+			$odl = new object_data_list(array(
+				"class_id" => crm_company_annual_report_obj::CLID,
+				"company" => $companies->ids(),
+				"year" => array(2006, 2007, 2009, 2010),
+			), array(
+				crm_company_annual_report_obj::CLID => array("company", "year", "currency", "value_added_tax", "social_security_tax", "assets", "turnover", "profit", "employees", "turnover_per_employee"),
+			));
+			foreach ($odl->arr() as $annual_report)
+			{
+				if ($annual_report["year"] == "2006")
+				{
+					$data[$annual_report["company"]]["t2006"] = $annual_report["turnover"];
+					$data[$annual_report["company"]]["v2006"] = $annual_report["assets"];
+				}
+				elseif ($annual_report["year"] == "2007")
+				{
+					$data[$annual_report["company"]]["t2007"] = $annual_report["turnover"];
+					$data[$annual_report["company"]]["v2007"] = $annual_report["assets"];
+				}
+				elseif($annual_report["year"] == "2009")
+				{
+					$data[$annual_report["company"]]["s2009"] = $annual_report["social_security_tax"];
+				}
+				elseif($annual_report["year"] == "2010")
+				{
+					$data[$annual_report["company"]]["s2010"] = $annual_report["social_security_tax"];
+				}
+			}
+		}
+
 		return $data;
 	}
 
@@ -664,8 +777,18 @@ class crm_db extends class_base
 		$current_org = obj(user::get_current_company(), array(), crm_company_obj::CLID);
 		$tb->add_separator();
 
-		$customer_data_html_url = $this->mk_my_orb("get_customer_data_prompt", array());
-		$onclick = <<<SCRIPT
+		$tb->add_menu_button(array(
+			"name" => "create_customer_relation",
+			"tooltip" => t("Loo kliendisuhe"),
+			"img" => "chart_organisation_add.png",
+		));
+		
+		$current_person = obj(user::get_current_person(), array(), crm_person_obj::CLID);
+		
+		foreach($current_person->get_companies()->names() as $company_id => $company_name)
+		{
+			$customer_data_html_url = $this->mk_my_orb("get_customer_data_prompt", array("company" => $company_id));
+			$onclick = <<<SCRIPT
 $.please_wait_window.show();
 $.ajax({
 	url: '{$customer_data_html_url}',
@@ -684,12 +807,13 @@ $.ajax({
 	}
 });
 SCRIPT;
-		$tb->add_button(array(
-			"name" => "create_customer_data",
-			"tooltip" => t(sprintf("Loo kliendisuhe organisatsiooniga '%s'", $current_org->name())),
-			"url" => "javascript:void(0)",
-			"onclick" => $onclick,
-		));
+			$tb->add_menu_item(array(
+				"parent" => "create_customer_relation",
+				"text" => $company_name,
+				"url" => "javascript:void(0)",
+				"onclick" => $onclick
+			));
+		}
 
 		$conns = $arr["obj_inst"]->connections_from(array(
 			"class" => CL_CRM_SELECTION,
@@ -1190,9 +1314,6 @@ SCRIPT;
 		if (in_array("modified", $this->fields_in_use))
 		{
 			$props[] = "modified";
-		}
-		if (in_array("created", $this->fields_in_use))
-		{
 			$props[] = "created";
 		}
 
@@ -1232,14 +1353,22 @@ SCRIPT;
 		$pm->begin_menu($arr["oid"]);
 
 		$pm->add_item(array(
-			"text" => t("Muuda organisatsiooni"),
+			"text" => t("&Uuml;ldandmed"),
 			"link" => $this->mk_my_orb("gt_change", array("id" => $arr["oid"], "return_url" => get_ru()))
+		));
+		$pm->add_item(array(
+			"text" => t("Omanikud"),
+			"link" => $this->mk_my_orb("gt_change", array("id" => $arr["oid"], "group" => "owners", "return_url" => get_ru()))
+		));
+		$pm->add_item(array(
+			"text" => t("Majandusaasta aruanded"),
+			"link" => $this->mk_my_orb("gt_change", array("id" => $arr["oid"], "group" => "stats_annual_reports", "return_url" => get_ru()))
 		));
 
 		if (!empty($arr["cd_oid"]))
 		{
 			$pm->add_item(array(
-				"text" => t("Muuda kliendisuhet"),
+				"text" => t("Kliendisuhe"),
 			"link" => $this->mk_my_orb("gt_change", array("id" => $arr["cd_oid"], "return_url" => get_ru()))
 			));
 		}
@@ -1278,7 +1407,7 @@ SCRIPT;
 	**/
 	public function get_customer_data_prompt($arr)
 	{
-		$company = obj(user::get_current_company(), array(), crm_company_obj::CLID);
+		$company = obj(isset($arr["company"]) && object_loader::can("", $arr["company"]) ? $arr["company"] : user::get_current_company(), array(), crm_company_obj::CLID);
 
 		$client_manager_caption = t("Kliendihaldur");
 		$categories_caption = t("Kliendikategooria(d)");
@@ -1290,10 +1419,14 @@ SCRIPT;
 		));
 
 		$categories = $company->get_customer_categories(null, array(crm_category_obj::TYPE_GENERIC, crm_category_obj::TYPE_BUYER));
+		$hierarchy = $company->get_customer_categories_hierarchy();
+		$options = array();
+		$this->__form_categories_options($options, $categories->names(), $hierarchy);
 		$categories_input = html::select(array(
 			"name" => "categories",
 			"multiple" => true,
-			"options" => $categories->names(),
+			"size" => 20,
+			"options" => $options,
 		));
 
 		$html = html::div(array(
@@ -1305,6 +1438,18 @@ SCRIPT;
 		));
 
 		die($html);
+	}
+	
+	private function __form_categories_options(&$options, $names, $hierarchy, $level = 0)
+	{
+		foreach ($hierarchy as $id => $subhierarchy)
+		{
+			if (isset($names[$id]))
+			{
+				$options[$id] = str_repeat("&nbsp; &nbsp; ", $level).$names[$id];
+				$this->__form_categories_options($options, $names, $subhierarchy, $level +1);
+			}
+		}
 	}
 
 	public function callback_pre_edit($arr)
