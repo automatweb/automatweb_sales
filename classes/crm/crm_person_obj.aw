@@ -2286,6 +2286,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 		$data = array(
 			"id" => $this->id(),
 			"name" => $this->name(),
+			"firstname" => $this->prop("firstname"),
+			"lastname" => $this->prop("lastname"),
 			"gender" => $this->prop("gender"),
 			"email" => $this->prop("fake_email"),
 			"phone" => $this->prop("fake_phone"),

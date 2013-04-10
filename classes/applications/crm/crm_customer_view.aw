@@ -1653,6 +1653,7 @@ class crm_customer_view extends class_base
 
 			// get customer relation object
 			$cro_oid = 0;
+			$cro_obj = null;
 			if(sizeof($idx_cro_by_customer[$o->id()]) == 1)
 			{
 				$cro_obj = reset($idx_cro_by_customer[$o->id()]);
@@ -1873,7 +1874,7 @@ class crm_customer_view extends class_base
 						html::space() .
 						html::href(array(
 							"url" => "javascript:void(0)",
-							"onclick" => "AW.UI.crm_customer_view.open_customer_modal(\"" . ($o->is_a(crm_person_obj::CLID) ? "person" : "company") . "\", \"seller\", [" . implode(",", $this->filter_customer_category) . "], " . $o->id() . ")",
+							"onclick" => "AW.UI.crm_customer_view.open_customer_modal(\"" . ($o->is_a(crm_person_obj::CLID) ? "person" : "company") . "\", " . ($cro_obj !== null && $cro_obj->seller == $o->id ? crm_company_obj::CUSTOMER_TYPE_SELLER : crm_company_obj::CUSTOMER_TYPE_BUYER) . ", [" . implode(",", $this->filter_customer_category) . "], " . $o->id() . ")",
 							"caption" => ($o->name() ? $o->name() : t("[Nimetu]")) . $vorm
 						)) .
 						html::linebreak() .
@@ -2362,8 +2363,10 @@ faks: 6556 235
 	function callback_generate_scripts($arr)
 	{
 		if ("customers" === $this->use_group) {
+			active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.datepicker.css");
 			active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.min.css");
 			active_page_data::load_javascript("bootstrap/js/bootstrap.min.js");
+			active_page_data::load_javascript("bootstrap/js/bootstrap.datepicker.js");
 			active_page_data::load_javascript("knockout/knockout-2.2.0.js");
 			active_page_data::add_javascript("var initialize = setInterval(function(){if(typeof AW !== 'undefined'){ clearInterval(initialize); AW.UI.crm_customer_view.initialize_modals(" . $arr["obj_inst"]->prop("company") . "); }}, 100);", "bottom");
 		}

@@ -327,6 +327,8 @@ class crm_company_customer_data_obj extends _int_object
 			"id" => $this->id(),
 			"seller" => $this->prop("seller"),
 			"buyer" => $this->prop("buyer"),
+			"client_manager" => $this->prop("client_manager"),
+			"buyer_contact_person" => $this->prop("buyer_contact_person"),
 			"categories" => $this->prop("categories"),
 		);
 

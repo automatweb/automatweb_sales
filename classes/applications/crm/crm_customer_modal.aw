@@ -7,6 +7,12 @@ class crm_customer_modal extends aw_modal {
 	}
 	
 	protected function get_content_template() {
+		
+		$company = null;
+		if (object_loader::can("", automatweb::$request->arg("company"))) {
+			$company = obj(automatweb::$request->arg("company"), null, crm_company_obj::CLID);
+		}
+		
 		$template = new aw_php_template("crm_customer_modal", "content");
 		
 		// FIXME: skill_manager should be an actual object!
@@ -20,7 +26,9 @@ class crm_customer_modal extends aw_modal {
 			"phone_type_options" => crm_phone_obj::get_old_type_options(),
 			"country_options" => array(24613 => "Eesti"),
 			"gender_options" => crm_person_obj::gender_options(),
+			"address_type_options" => array(1 => t("&Uuml;ldaadress"), 2 => t("F&uuml;&uuml;siline aadress"), 3 => t("Arve aadress")),
 			"skills_options" => $skills_options,
+			"employees" => $company ? $company->get_employees() : new object_list(),
 		));
 		return $template;
 	}
@@ -73,18 +81,25 @@ class crm_customer_modal extends aw_modal {
 			$data["phones"][] = $phone->json(false);
 		}
 		
-		if ($customer->is_a(crm_company_obj::CLID)) {
+		if ($customer->is_a(crm_company_obj::CLID))
+		{
 			$data["employees"] = array();
 			foreach($customer->get_employees()->arr() as $employee)
 			{
 				$data["employees"][] = $employee->json(false);
+			}
+			
+			$data["sections"] = array();
+			foreach($customer->get_sections()->names() as $section_id => $section_name)
+			{
+				$data["sections"][] = array("id" => $section_id, "name" => $section_name);
 			}
 		}
 		
 		$data["addresses"] = array();
 		foreach($customer->get_addresses()->arr() as $address)
 		{
-			$data["addresses"][] = $address->json(false);
+			$data["addresses"][] = array_merge($address->json(false), array("type" => $address->meta("type"), "section" => $address->meta("section")));
 		}
 		
 		$encoder = new json();

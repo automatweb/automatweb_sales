@@ -3422,12 +3422,20 @@ END;
 	{
 		$company = obj($arr["company"], array(), crm_company_obj::CLID);
 		unset($arr["company"]);
+		if (isset($arr["data"]["customer_relation"]["buyer_contact_person"]["id"]) and is_oid($arr["data"]["customer_relation"]["buyer_contact_person"]["id"]))
+		{
+			$arr["data"]["customer_relation"]["buyer_contact_person"] = $arr["data"]["customer_relation"]["buyer_contact_person"]["id"];
+		}
+		if (isset($arr["data"]["customer_relation"]["client_manager"]["id"]) and is_oid($arr["data"]["customer_relation"]["client_manager"]["id"]))
+		{
+			$arr["data"]["client_manager"]["buyer_contact_person"] = $arr["data"]["customer_relation"]["client_manager"]["id"];
+		}
 		$customer = $company->create_customer($arr);
 		
 		$data = $customer->json(false);
 		
 		// Include customer relation in JSON.
-		$customer_relation = $company->get_customer_relation(isset($arr["type"]) ? $arr["type"] : crm_company_obj::CUSTOMER_TYPE_BUYER, $customer);
+		$customer_relation = $company->get_customer_relation(isset($arr["type"]) ? (int)$arr["type"] : crm_company_obj::CUSTOMER_TYPE_BUYER, $customer);
 		if ($customer_relation !== null)
 		{
 			$data["customer_relation"] = $customer_relation->json(false);
@@ -3445,18 +3453,25 @@ END;
 			$data["phones"][] = $phone->json(false);
 		}
 		
-		if ($customer->is_a(crm_company_obj::CLID)) {
+		if ($customer->is_a(crm_company_obj::CLID))
+		{
 			$data["employees"] = array();
 			foreach($customer->get_employees()->arr() as $employee)
 			{
 				$data["employees"][] = $employee->json(false);
+			}
+
+			$data["sections"] = array();
+			foreach($customer->get_sections()->names() as $section_id => $section_name)
+			{
+				$data["sections"][] = array("id" => $section_id, "name" => $section_name);
 			}
 		}
 		
 		$data["addresses"] = array();
 		foreach($customer->get_addresses()->arr() as $address)
 		{
-			$data["addresses"][] = $address->json(false);
+			$data["addresses"][] = array_merge($address->json(false), array("type" => $address->meta("type"), "section" => $address->meta("section")));
 		}
 		
 		$encoder = new json();

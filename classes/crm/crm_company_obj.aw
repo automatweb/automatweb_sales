@@ -2370,12 +2370,12 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 				break;
 			
 			case crm_company_obj::CLID:
-				$this->__set_accepted_properties($customer, array("ettevotlusvorm", "tax_nr", "reg_nr"), $arr["data"]);
+				$this->__set_accepted_properties($customer, array("short_name", "comment", "year_founded", "ettevotlusvorm", "tax_nr", "reg_nr"), $arr["data"]);
 				break;
 		}
 		$customer->save();
 
-		$customer_relation = $this->get_customer_relation(isset($arr["type"]) ? $arr["type"] : self::CUSTOMER_TYPE_BUYER, $customer, true);
+		$customer_relation = $this->get_customer_relation(isset($arr["type"]) ? (int)$arr["type"] : self::CUSTOMER_TYPE_BUYER, $customer, true);
 		if (!empty($arr["data"]["customer_relation"]))
 		{
 			// FIXME: Currently web might only send categories to be added. Avoid removing existing ones.
@@ -2383,7 +2383,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 			{
 				$arr["data"]["customer_relation"]["categories"] = array_unique(array_merge(safe_array($customer_relation->categories), (array)$arr["data"]["customer_relation"]["categories"]));
 			}
-			$this->__set_accepted_properties($customer_relation, array("categories"), $arr["data"]["customer_relation"]);
+			$this->__set_accepted_properties($customer_relation, array("categories", "client_manager", "buyer_contact_person"), $arr["data"]["customer_relation"]);
 			$customer_relation->save();
 		}
 
@@ -2437,15 +2437,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 				{
 					$work_relation = $customer->add_employee();
 					$employee = obj($work_relation->employee, null, crm_person_obj::CLID);
-				}
-				$employee_data["firstname"] = $employee_data["lastname"] = "";
-				if (strpos(" ", $employee_data["name"]) !== false)
-				{
-					list($employee_data["firstname"], $employee_data["lastname"]) = explode(" ", trim($employee_data["name"]), 2);
-				}
-				else
-				{
-					$employee_data["firstname"] = $employee_data["name"];
 				}
 				if (isset($employee_data["phone"])) { $employee_data["fake_phone"] = $employee_data["phone"]; }
 				if (isset($employee_data["email"])) { $employee_data["fake_email"] = $employee_data["email"]; }
@@ -2507,6 +2498,8 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 						$address = $customer->create_address($parent);
 					}
 					$this->__set_accepted_properties($address, array("street", "house", "apartment", "postal_code", "coord_x", "coord_y", "details"), $address_data);
+					$address->set_meta("type", isset($address_data["type"]) ? $address_data["type"] : null);
+					$address->set_meta("section", isset($address_data["section"]) ? $address_data["section"] : null);
 					$address->save();
 					
 					if (!object_loader::can("", $customer->contact))
@@ -3112,9 +3105,12 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 		$data = array(
 			"id" => $this->id(),
 			"name" => $this->prop("name"),
+			"comment" => $this->prop("comment"),
+			"short_name" => $this->prop("short_name"),
 			"ettevotlusvorm" => $this->prop("ettevotlusvorm"),
 			"tax_nr" => $this->prop("tax_nr"),
 			"reg_nr" => $this->prop("reg_nr"),
+			"year_founded" => $this->prop("year_founded"),
 			"title" => $this->get_title(),
 		);
 

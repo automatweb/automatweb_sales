@@ -10,7 +10,10 @@
 	</ul>
 </div>
 <div class="modal-toolbar" data-toolbar="contact-address" style="display: none; text-align: center">
-	<a href="javascript:void(0)" class="btn" onclick="$('#contact-address-edit').slideDown();" ><i class="icon-plus"></i> Lisa uus aadress</a>
+	<a href="javascript:void(0)" class="btn" onclick="$('#contact-address-edit').slideDown(200);" ><i class="icon-plus"></i> Lisa uus aadress</a>
+</div>
+<div class="modal-toolbar" data-toolbar="employees" style="display: none; text-align: center">
+	<a href="javascript:void(0)" class="btn" onclick="$('#employees-edit').slideDown(200);" ><i class="icon-plus"></i> Lisa uus t&ouml;&ouml;taja</a>
 </div>
 <script type="text/javascript">
 (function(){

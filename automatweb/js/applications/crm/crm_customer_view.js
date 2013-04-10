@@ -45,9 +45,9 @@ YUI().use("node", function(Y) {
 		
 		var vmAddress = function(_data) {
 			var self = this;
-			var properties = ["id", "street", "house", "apartment", "postal_code", "coord_x", "coord_y", "details"];
+			var properties = ["id", "street", "house", "apartment", "postal_code", "coord_x", "coord_y", "details", "section"];
 			vmCore.call(self, _data, properties);
-			var administrative_units = ["country", "county", "city", "vald", ];
+			var administrative_units = ["vald", "city", "county", "country"];
 			for (var i in administrative_units) {
 				if (_data && typeof _data[administrative_units[i]] === "object" && _data[administrative_units[i]] !== null) {
 					self[administrative_units[i]] = ko.observable(_data[administrative_units[i]].id);
@@ -57,22 +57,63 @@ YUI().use("node", function(Y) {
 					self[administrative_units[i] + "_caption"] = ko.observable();
 				}
 			}
+			self.name = ko.computed(function() {
+				var address = [];
+				if (self.street()) {
+					address.push(self.street() + " ");
+				}
+				if (self.house()){
+					address[0] += self.house();
+					if (self.apartment()) {
+						address[0] += "-" + self.apartment();
+					}
+				}
+				if (self.details()) {
+					address[0] += " (" + self.details() + ")";
+				}
+				for (var i in administrative_units) {
+					if (self[administrative_units[i] + "_caption"]()) {
+						address.push(self[administrative_units[i] + "_caption"]());
+					}
+				}
+				return address.join(", ");
+			});
+			self.types_caption = ko.computed(function() {
+				return null;
+			}, self);
+			self.section_caption = ko.computed(function() {
+				return null;
+			}, self);
 			self.country_caption = ko.computed(function() {
 				return "Eesti";//$("#contact-address-country option[value='" + self.country() + "']").html();
+			}, self);
+			self.type = ko.observableArray(_data && typeof _data.type !== "undefined" ? _data.type : []);
+			self.type_caption = ko.computed(function() {
+				var types = [];
+				$("#contact-address-type option").each(function() {
+					var option = $(this);
+					if ($.inArray(option.attr("value"), self.type()) !== -1) {
+						types.push(option.html());
+					}
+				});
+				return types	.join(", ");
 			}, self);
 		}
 		
 		var vmEmployee = function(_data) {
 			var self = this;
-			var properties = ["id", "name", "gender", "email", "phone"];
+			var properties = ["id", "firstname", "lastname", "gender", "email", "phone"];
 			vmCore.call(self, _data, properties);
+			self.name = ko.computed(function() {
+				return self.firstname() + " " + self.lastname();
+			}, self);
 			self.gender_caption = ko.computed(function() {
-				return $("#contact-employee-gender option[value='" + self.gender() + "']").html();
+				return $("#employee-gender option[value='" + self.gender() + "']").html();
 			}, self);
 			self.skills = ko.observableArray(_data && typeof _data.skills !== "undefined" ? _data.skills : []);
 			self.skills_caption = ko.computed(function() {
 				var skills = [];
-				$("#contact-employee-skills option").each(function() {
+				$("#employee-skills option").each(function() {
 					var option = $(this);
 					if ($.inArray(option.attr("value"), self.skills()) !== -1) {
 						skills.push(option.data("caption"));
@@ -84,7 +125,7 @@ YUI().use("node", function(Y) {
 		
 		var vmCustomerRelation = function(_data) {
 			var self = this;
-			var properties = ["id", "categories"];
+			var properties = ["id", "seller", "buyer", "client_manager", "categories"];
 			vmCore.call(self, _data, properties);
 		}
 		
@@ -92,6 +133,19 @@ YUI().use("node", function(Y) {
 			var self = this;
 			if (!_data) { _data = {}; }
 			vmCore.call(self, _data, properties);
+			
+			self.customer_relation = ko.observable(new vmCustomerRelation(typeof _data.customer_relation !== "undefined" ? _data.customer_relation : {}));
+			self.isBuyer = ko.computed(function() {
+				if (self.id()) {
+					if (self.customer_relation().buyer()) {
+						return self.customer_relation().buyer() == self.id();
+					}
+				}
+				return data.type == 2;
+			}, self);
+			self.isSeller = ko.computed(function() {
+				return !self.isBuyer();
+			}, self);
 
 			self.emails = ko.observableArray();
 			if (_data["emails"]) {
@@ -149,34 +203,6 @@ YUI().use("node", function(Y) {
 				self.phone_selected(new vmPhone());
 			}
 
-			self.employees = ko.observableArray();
-			if (_data["employees"]) {
-				for (var i in _data["employees"]) {
-					self.employees.push(new vmEmployee(_data["employees"][i]));
-				}
-			}
-			self.employee_selected = ko.observable(new vmEmployee());
-			self.saveEmployee = function(customerView, event) {
-				if (!event) { return; }
-				if (!self.employee_selected().id()) {
-					self.employee_selected().id("new");
-					self.employees.push(self.employee_selected());
-				}
-				self.resetEmployee();
-			}
-			self.editEmployee = function(employee, event) {
-				if (!event) { return; }
-				self.employee_selected(employee);
-			}
-			self.removeEmployee = function(employee, event) {
-				if (!event) { return; }
-				customerView.removed.push(employee.id());
-				self.employees.remove(employee)
-			}
-			self.resetEmployee = function(customerView, event) {
-				self.employee_selected(new vmEmployee());
-			}
-
 			self.addresses = ko.observableArray();
 			if (_data["addresses"]) {
 				for (var i in _data["addresses"]) {
@@ -206,20 +232,70 @@ YUI().use("node", function(Y) {
 				self.address_selected(new vmAddress());
 				$("#contact-address-edit").slideUp(200);
 			}
-
-			self.customer_relation = ko.observable(new vmCustomerRelation(typeof _data.customer_relation !== "undefined" ? _data.customer_relation : {}));
 		}
 		
 		var vmCustomerPerson = function(_data) {
 			var self = this;
-			var properties = ["id", "name"];
+			var properties = ["id", "firstname", "lastname"];
 			vmCustomer.call(this, _data, properties);
+			self.name = ko.computed(function() {
+				return self.firstname() + " " + self.lastname();
+			}, self);
 		};
 		
 		var vmCustomerCompany = function(_data) {
 			var self = this;
-			var properties = ["id", "name", "reg_nr", "ettevotlusvorm", "tax_nr"];
+			if (!_data) { _data = {}; }
+			var properties = ["id", "name", "short_name", "comment", "year_founded", "reg_nr", "ettevotlusvorm", "tax_nr", "sections"];
 			vmCustomer.call(this, _data, properties);
+			
+			var convertTimestampToDate = function(unix_timestamp) {
+				var date = new Date(unix_timestamp*1000);
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				self.year_founded_show((day < 10 ? "0" : "") + day + "." + (month < 10 ? "0" : "") + month + "." + date.getFullYear());
+			};
+			self.year_founded_show = ko.observable();
+//			self.year_founded.subscribe(convertTimestampToDate);
+			// Trigger the subscribed function.
+			convertTimestampToDate(self.year_founded());
+			self.year_founded_show.subscribe(function(date_string) {
+				var year = date_string.substring(6, 10);
+				var month = date_string.substring(3, 5) - 1;
+				var day = date_string.substring(0, 2);
+				var date = new Date(year, month, day);
+				self.year_founded(Date.parse(date)/1000);
+			});
+			
+			self.employees = ko.observableArray();
+			if (_data["employees"]) {
+				for (var i in _data["employees"]) {
+					self.employees.push(new vmEmployee(_data["employees"][i]));
+				}
+			}
+			self.employee_selected = ko.observable(new vmEmployee());
+			self.saveEmployee = function(customerView, event) {
+				if (!event) { return; }
+				if (!self.employee_selected().id()) {
+					self.employee_selected().id("new");
+					self.employees.push(self.employee_selected());
+				}
+				self.resetEmployee();
+			}
+			self.editEmployee = function(employee, event) {
+				if (!event) { return; }
+				self.employee_selected(employee);
+				$("#employees-edit").slideDown(200);
+			}
+			self.removeEmployee = function(employee, event) {
+				if (!event) { return; }
+				customerView.removed.push(employee.id());
+				self.employees.remove(employee)
+			}
+			self.resetEmployee = function(customerView, event) {
+				self.employee_selected(new vmEmployee());
+				$("#employees-edit").slideUp(200);
+			}
 		};
 		
 		var vmCustomerView = function() {
@@ -258,6 +334,7 @@ YUI().use("node", function(Y) {
 				
 				modal_preload = $.ajax({
 					url: "/automatweb/orb.aw?class=crm_customer_modal&action=parse",
+					data: { company: data.company },
 					success: function(html) {
 						modal_html.company = html;
 						modal_preloaded = true;
@@ -270,6 +347,7 @@ YUI().use("node", function(Y) {
 			},
 			open_customer_modal: function(customer_class, customer_type, category, customer_id) {
 				$.please_wait_window.show();
+				data.type = customer_type;
 				var customer_data = {};
 				var open_modal = function() {
 					on_modal_preload_complete(function() {
@@ -355,6 +433,7 @@ YUI().use("node", function(Y) {
 					data: {
 						company: data.company,
 						clid: data.clid,
+						type: data.type,
 						id: customerView.customer().id(),
 						name: customerView.customer().name(),
 						data: ko.toJS(customerView.customer),
