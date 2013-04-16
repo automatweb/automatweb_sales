@@ -20,17 +20,6 @@
 	<!--[if lt IE 7]>
 	<link rel="stylesheet" type="text/css" href="{VAR:baseurl}automatweb/css/iefix.css" />
 	<![endif]-->
-	<style type="text/css">
-		#myTab > li {
-			float:none;
-			display:inline-block;
-			*display:inline; /* ie7 fix */
-			 zoom:1; /* hasLayout ie7 trigger */
-		}
-		#myTab {
-			text-align: center;
-		}
-	</style>
 </head>
 <body onload="check_generic_loader();" class=" nihilo ">
 

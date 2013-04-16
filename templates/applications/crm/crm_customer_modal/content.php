@@ -1,14 +1,4 @@
-<style type="text/css">
-.modal-body {
-	padding-left: 0;
-	padding-right: 0;
-}
-.horizontal-padding-15 {
-	padding-left: 15px;
-	padding-right: 15px;
-}
-</style>
-<ul class="nav nav-tabs" id="myTab">
+<ul class="nav nav-tabs nav-center">
 	<li style="text-align: center" class="active"><a href="#general" data-toggle="tab"><img src="/automatweb/images/icons/32/1808.png" border="0"><br />&Uuml;ldandmed</a></li>
 	<li style="text-align: center"><a href="#contact" data-toggle="tab"><img src="/automatweb/images/icons/32/223.png" border="0"><br />Kontaktid</a></li>
 	<li style="text-align: center"><a href="#employees" data-toggle="tab"><img src="/automatweb/images/icons/32/1809.png" border="0"><br />T&ouml;&ouml;tajad</a></li>

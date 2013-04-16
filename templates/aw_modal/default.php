@@ -1,3 +1,23 @@
+<style type="text/css">
+.nav-center > li {
+	float: none;
+	display: inline-block;
+	text-align: center
+	*display: inline; /* ie7 fix */
+	zoom: 1; /* hasLayout ie7 trigger */
+}
+.nav-center {
+	text-align: center;
+}
+.modal-body {
+	padding-left: 0;
+	padding-right: 0;
+}
+.horizontal-padding-15 {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+</style>
 <div class="modal hide fade" style="display: none">
 	<div class="modal-header">
 	    <?php echo $header ?>
