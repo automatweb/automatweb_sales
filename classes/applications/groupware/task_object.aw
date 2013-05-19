@@ -103,7 +103,7 @@ class task_object extends _int_object
 
 		$r = parent::delete($full_delete);
 
-		if (is_oid($this->prop("hr_schedule_job")))
+		if ($this->is_property("hr_schedule_job") && is_oid($this->prop("hr_schedule_job")))
 		{
 			$job = new object($this->prop("hr_schedule_job"));
 			$job->delete($full_delete);
@@ -617,7 +617,10 @@ class task_object extends _int_object
 
 		for ($row = $rows->begin(); !$rows->end(); $row = $rows->next())
 		{
-			$participants->add($row->prop("impl"));
+			if (acl_base::can("", $row->prop("impl")))
+			{
+				$participants->add($row->prop("impl"));
+			}
 		}
 
 		return $participants;

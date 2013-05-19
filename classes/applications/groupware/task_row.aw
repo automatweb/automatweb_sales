@@ -187,12 +187,27 @@ class task_row extends class_base
 
 		switch($f)
 		{
-			case "aw_to_bill_date":
+			case "aw_content":
 				$this->db_add_col($t, array(
 					"name" => $f,
-					"type" => "int"
+					"type" => "text"
 				));
-				return true;
+			return true;
+		
+			case "aw_time_guess":
+			case "aw_time_real":
+			case "aw_time_to_cust":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "text"
+				));
+			return true;
+				
+			case "aw_bill_id":
+			case "aw_done":
+			case "aw_to_bill_date":
+			case "aw_date":
+			case "aw_on_bill":
 			case "aw_task_ord":
 			case "skill_used":
 			case "aw_task":

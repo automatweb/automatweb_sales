@@ -3281,17 +3281,7 @@ class task extends class_base
 
 	function add_participant(object $task, object $person)
 	{
-		$pl = get_instance(CL_PLANNER);
-		$person->connect(array(
-			"to" => $task->id(),
-			"reltype" => "RELTYPE_PERSON_TASK"
-		));
-
-		// also add to their calendar
-		if (($cal = $pl->get_calendar_for_person($person)))
-		{
-			$pl->add_event_to_calendar(obj($cal), $task);
-		}
+		$task->add_participant($person);
 	}
 
 	function _init_sel_res_t($t)
@@ -5058,27 +5048,10 @@ class task extends class_base
 		}
 
 		$task = obj($task);
-
-		$p = obj($part);
-		$types = 10;
-		if ($task->class_id() == CL_CRM_CALL)
+		foreach ((array)$part as $participant_id)
 		{
-			$types = 9;
-		}
-		if ($task->class_id() == CL_CRM_MEETING)
-		{
-			$types = 8;
-		}
-		$p->connect(array(
-			"to" => $task->id(),
-			"reltype" => $types
-		));
-
-		$pl = get_instance(CL_PLANNER);
-		// also add to their calendar
-		if (($cal = $pl->get_calendar_for_person($p)))
-		{
-			$pl->add_event_to_calendar(obj($cal), $task);
+			$participant = obj($participant_id);
+			$task->add_participant($participant);
 		}
 
 	//	$task->connect(array("to" => $part, "reltype" => 4));
