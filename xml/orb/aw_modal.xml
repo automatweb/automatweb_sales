@@ -7,5 +7,17 @@
 				</arguments>
 			</function>
 		</action>
+		<action name="get_data" all_args="1">
+			<function name="get_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="save" all_args="1">
+			<function name="save">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

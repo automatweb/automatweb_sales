@@ -93,7 +93,7 @@
 		<a href="javascript:void(0)" data-bind="click: customer().saveAddress" class="btn btn-primary" >Salvesta</a>
 	</div>
 </div>
-<div id="employees-edit" style="display: none; position: absolute; background: white; width: 500px; border: 1px solid #aaa; border-radius: 0 0 6px 6px; -webkit-border-radius: 0 0 6px 6px; top: 0; left: 300px; border-top: 0;">
+<div id="employees-edit" style="display: none; position: absolute; background: white; width: 700px; border: 1px solid #aaa; border-radius: 0 0 6px 6px; -webkit-border-radius: 0 0 6px 6px; top: 0; left: 200px; border-top: 0;">
 	<div class="modal-body" style="min-height: 300px; padding: 9px;">
 		<div class="form-horizontal">
 			<div class="control-group" style="margin-bottom: 10px">
@@ -133,7 +133,7 @@
 			<div class="control-group" style="margin-bottom: 10px">
 				<label class="control-label" for="employee-skills">Oskused</label>
 				<div class="controls form-inline">
-					<select id="employee-skills" data-bind="selectedOptions: customer().employee_selected().skills" multiple="multiple">
+					<select id="employee-skills" data-bind="selectedOptions: customer().employee_selected().skills" multiple="multiple" style="width: 450px;">
 						<?php foreach ($skills_options as $skills_option_value => $skills_option_caption) { ?>
 						<option value="<?php echo $skills_option_value ?>" data-caption="<?php echo trim(str_replace("&nbsp;", " ", $skills_option_caption)) ?>"><?php echo $skills_option_caption ?></option>
 						<?php } ?>

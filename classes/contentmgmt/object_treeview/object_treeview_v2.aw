@@ -421,7 +421,6 @@ class object_treeview_v2 extends class_base
 				break;
 
 			case "add_new_ds_type":
-				$arr["obj_inst"]->set_class_id(CL_OBJECT_TREEVIEW_V2);
 				$reli = $arr["obj_inst"]->get_relinfo();
 				$clids = $reli["RELTYPE_DATASOURCE"]["clid"];
 				$tps = array("" => "");
@@ -435,7 +434,6 @@ class object_treeview_v2 extends class_base
 
 			case "sel_copy_ds":
 			case "sel_connect_ds":
-				$arr["obj_inst"]->set_class_id(CL_OBJECT_TREEVIEW_V2);
 				$reli = $arr["obj_inst"]->get_relinfo();
 				$clids = $reli["RELTYPE_DATASOURCE"]["clid"];
 
@@ -764,7 +762,7 @@ class object_treeview_v2 extends class_base
 		}
 		else
 		{
-			$fld_str = $this->_draw_folders($ob, $ol, $fld, $oid, $ih_ob, $tree_type);
+			$fld_str = $this->_draw_folders($ob, $ol, $fld, /* FIXME! */ isset($oid) ? $oid : null, $ih_ob, $tree_type);
 		}
 
 		if (!empty($_GET["s"]) and is_object($search_i))
@@ -1731,11 +1729,24 @@ class object_treeview_v2 extends class_base
 			$ot = get_instance(CL_OBJECT_TYPE);
 			foreach($types as $c_o)
 			{
-				$tb->add_menu_item(array(
-					"parent" => "add",
-					"url" => $ot->get_add_url(array("id" => $c_o->id(), "parent" => $parent, "section" => $parent)),
-					"text" => $c_o->prop("name"),
-				));
+				// FIXME: Undo hard coding!
+				if ($c_o->type == link_fix::CLID || $c_o->type == doc_obj::CLID || $c_o->type == file_obj::CLID || $c_o->type == menu_obj::CLID)
+				{
+					$tb->add_menu_item(array(
+						"parent" => "add",
+						"onClick" => "AW.UI.object_treeview_v2.open_modal(" . $c_o->type. ", {$parent})",
+						"url" => "javascript:void(0)",
+						"text" => $c_o->prop("name"),
+					));
+				}
+				else
+				{
+					$tb->add_menu_item(array(
+						"parent" => "add",
+						"url" => $ot->get_add_url(array("id" => $c_o->id(), "parent" => $parent, "section" => $parent)),
+						"text" => $c_o->prop("name"),
+					));
+				}
 			}
 
 			$has_b = true;
@@ -1769,7 +1780,7 @@ class object_treeview_v2 extends class_base
 			$has_b = true;
 		}
 
-		if ($ob->prop("show_search_btn") and !$_GET["otv2srch"])
+		if ($ob->prop("show_search_btn") and empty($_GET["otv2srch"]))
 		{
 			$url = aw_url_change_var("otv2srch", "1");
 			$tb->add_button(array(
@@ -2050,17 +2061,25 @@ class object_treeview_v2 extends class_base
 		$cold["status"] = t("Staatus");
 		// sort
 		$this->__sby = $o->meta("sel_columns_ord");
-		uksort($cold, array(&$this, "__sby"));
+		uksort($cold, array($this, "__sby"));
 		return $cold;
 	}
 
 	function __sby($a, $b)
 	{
-		if ($this->__sby[$a] == $this->__sby[$b])
+		if (!isset($this->__sby[$a]) && !isset($this->__sby[$b]) || isset($this->__sby[$a]) && isset($this->__sby[$b]) && $this->__sby[$a] == $this->__sby[$b])
 		{
 			return 0;
 		}
-		return $this->__sby[$a] >  $this->__sby[$b] ? 1 : 0;
+		elseif (!isset($this->__sby[$b]))
+		{
+			return $this->__sby[$a] > 0 ? 1 : 0;
+		}
+		elseif (!isset($this->__sby[$a]))
+		{
+			return 0 > $this->__sby[$b] ? 1 : 0;
+		}
+		return $this->__sby[$a] > $this->__sby[$b] ? 1 : 0;
 	}
 
 	function get_folders_as_object_list($object, $level, $parent_o)

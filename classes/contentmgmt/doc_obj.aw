@@ -27,4 +27,28 @@ class doc_obj extends _int_object implements price_component_interface, crm_offe
 		}
 		return true;
 	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->prop("name"),
+			"comment" => $this->prop("comment"),
+			"status" => $this->prop("status"),
+			"title" => $this->prop("title"),
+			"lead" => $this->prop("lead"),
+			"content" => $this->prop("content"),
+			"show_title" => (bool)$this->prop("show_title"),
+			"showlead" => (bool)$this->prop("showlead"),
+			"show_modified" => (bool)$this->prop("show_modified"),
+			"esilehel" => (bool)$this->prop("esilehel"),
+			"title_clickable" => (bool)$this->prop("title_clickable"),
+		);
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
+	}
 }

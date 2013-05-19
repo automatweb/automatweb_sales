@@ -486,15 +486,14 @@ class otv_ds_obj extends class_base
 		// if the folder is specified in the url, then show that
 		// if use_meta_as_folders option is set, then ignore tv_sel here
 		$use_meta_as_folders = $ob->prop("use_meta_as_folders");
+		
+		$parent = $tv_sel;
 
 		if (!empty($GLOBALS["tv_sel"]) && empty($use_meta_as_folders))
 		{
 			$parent = $GLOBALS["tv_sel"];
 		}
-		else
-		// right. if the user has said, that no tree should be shown
-		// then get files in all selected folders
-		if (!$ob->meta('show_folders'))
+		elseif (!$parent && !$ob->meta('show_folders'))
 		{
 
 			$con = $ob->connections_from(array(
@@ -747,18 +746,32 @@ class otv_ds_obj extends class_base
 				$fi = get_instance(CL_FILE);
 				$url = $fi->get_url($t->id(),$t->trans_get_val("name"));
 
-				if ($fd["newwindow"])
+				if (!empty($fd["newwindow"]))
 				{
 					$target = "target=\"_blank\"";
 				}
-				$fileSizeBytes = number_format(file::get_file_size($t->prop('file')),2);
-				$fileSizeKBytes = number_format(file::get_file_size($t->prop('file'))/(1024),2);
-				$fileSizeMBytes = number_format(file::get_file_size($t->prop('file'))/(1024*1024),2);
+				
+				$filepath = $t->check_file_path($t->prop('file'));
+				
+				if (file_exists($filepath))
+				{
+					$fileSizeBytes = number_format(file::get_file_size($filepath),2);
+					$fileSizeKBytes = number_format(file::get_file_size($filepath)/(1024),2);
+					$fileSizeMBytes = number_format(file::get_file_size($filepath)/(1024*1024),2);
+				}
+				else
+				{
+					$fileSizeBytes = $fileSizeKBytes = $fileSizeMBytes = 0;
+				}
 			}
 			else
 			if ($clid == CL_MENU)
 			{
-				$url = aw_url_change_var("tv_sel", $t->id());
+				$url = aw_url_change_var(array(
+					// FIXME: Changing section should be configurable!
+					"section" => $t->id(),
+					"tv_sel" => $t->id(),
+				));
 			}
 			else
 			{
@@ -805,7 +818,14 @@ class otv_ds_obj extends class_base
 				"fileSizeBytes" => $fileSizeBytes,
 				"fileSizeKBytes" => $fileSizeKBytes,
 				"fileSizeMBytes" => $fileSizeMBytes,
-				"change" => html::href(array(
+				"change" => ($clid == link_fix::CLID || $clid == doc_obj::CLID || $clid == file_obj::CLID || $clid == menu_obj::CLID) ? html::href(array(
+					"url" => "javascript:void(0)",
+					"onclick" => "AW.UI.object_treeview_v2.open_modal(" . $clid. ", null, " . $t->id . ")",
+					"caption" => html::img(array(
+						"url" => aw_ini_get("baseurl")."/automatweb/images/icons/edit.gif",
+						"border" => 0
+					))//"Muuda"
+				)) : html::href(array(
 					"url" => $this->mk_my_orb("change", array("id" => $t->id(), "section" => aw_global_get("section")), $clid),
 					"caption" => html::img(array(
 						"url" => aw_ini_get("baseurl")."/automatweb/images/icons/edit.gif",
@@ -830,7 +850,7 @@ class otv_ds_obj extends class_base
 								}
 								else
 								{
-									$ret[$t->id()][$ff_n] = nl2br($t->trans_get_val_str($ff_n));
+									$ret[$t->id()][$ff_n] = $t->is_property($ff_n) ? nl2br($t->trans_get_val_str($ff_n)) : null;
 								}
 							}
 						}
@@ -953,7 +973,7 @@ foreach($images as $i)
 		{
 			return array(false, $ret);
 		}
-		return array(!empty($GLOBALS["tv_sel"]) ? $GLOBALS["tv_sel"] : $c->prop("to"), $ret);
+		return array(!empty($_GET["tv_sel"]) ? $_GET["tv_sel"] : $c->prop("to"), $ret);
 	}
 
 	function do_delete_objects($o, $arr)

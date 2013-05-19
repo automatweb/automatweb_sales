@@ -30,4 +30,22 @@ class link_fix extends _int_object
 		$this->url = $value;
 		return $this->set_prop("url", $value);
 	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->prop("name"),
+			"comment" => $this->prop("comment"),
+			"alt" => $this->prop("alt"),
+			"url" => $this->prop("url"),
+			"newwindow" => $this->prop("newwindow"),
+		);
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
+	}
 }

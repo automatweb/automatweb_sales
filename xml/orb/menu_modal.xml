@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="menu_modal" folder="" extends="aw_modal">
+	</class>
+</orb>
