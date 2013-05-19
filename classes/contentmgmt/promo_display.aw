@@ -314,11 +314,11 @@ class promo_display implements main_subtemplate_handler
 
 			if (!$o->prop("tpl_lead"))
 			{
-				$tpl_filename = $default_tpl_filename;
 				if (!$default_tpl_filename)
 				{
 					continue;
 				}
+				$tpl_filename = $default_tpl_filename;
 			}
 			else
 			{
@@ -482,11 +482,7 @@ class promo_display implements main_subtemplate_handler
 				);
 			}
 
-			$use_tpl = $templates[$o->meta("type")];
-			if (!$use_tpl)
-			{
-				$use_tpl = "LEFT_PROMO";
-			};
+			$use_tpl = !empty($templates[$o->meta("type")]) ? $templates[$o->meta("type")]: "LEFT_PROMO";
 
 			$inst->vars_safe(array(
 				$use_tpl."_image" => $image,
