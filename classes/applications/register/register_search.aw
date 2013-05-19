@@ -374,11 +374,6 @@ class register_search extends class_base
 		$t->sort_by();
 	}
 
-	function parse_alias($arr = array())
-	{
-		return $this->show(array("id" => $arr["alias"]["target"]));
-	}
-
 	////
 	// !shows the search
 	function show($arr)
@@ -617,7 +612,7 @@ class register_search extends class_base
 		$tmp = array();
 		foreach($props as $pn => $pd)
 		{
-			if (!$fdata[$pn]["searchable"])
+			if (empty($fdata[$pn]["searchable"]))
 			{
 				continue;
 			}
@@ -723,8 +718,8 @@ class register_search extends class_base
 
 	function __proptbl_srt($pa, $pb)
 	{
-		$a = $this->__tdata[$pa];
-		$b = $this->__tdata[$pb];
+		$a = isset($this->__tdata[$pa]) ? $this->__tdata[$pa] : array("jrk" => null);
+		$b = isset($this->__tdata[$pb]) ? $this->__tdata[$pb] : array("jrk" => null);
 
 		if ($a["jrk"] == $b["jrk"])
 		{
@@ -751,7 +746,7 @@ class register_search extends class_base
 		$np = 0;
 		foreach($props as $pn => $pd)
 		{
-			if ($tdata[$pn]["visible"])
+			if (!empty($tdata[$pn]["visible"]))
 			{
 				$np++;
 			}
@@ -759,12 +754,12 @@ class register_search extends class_base
 
 		foreach($props as $pn => $pd)
 		{
-			if ($tdata[$pn]["visible"])
+			if (!empty($tdata[$pn]["visible"]))
 			{
 				$fd = array(
 					"name" => $pn,
 					"caption" => $tdata[$pn]["caption"],
-					"sortable" => $tdata[$pn]["sortable"],
+					"sortable" => ifset($tdata, $pn, "sortable"),
 					"width" => ((int)(100 / $np))."%"
 				);
 				if ($f_props[$pn]["type"] === "date_select" || $pd["type"] === "datetime_select")
@@ -785,7 +780,7 @@ class register_search extends class_base
 				$t->define_field(array(
 					"name" => $pn,
 					"caption" => $tdata[$pn]["caption"],
-					"sortable" => $tdata[$pn]["sortable"],
+					"sortable" => ifset($tdata, $pn, "sortable"),
 					"align" => "center"
 				));
 			}
@@ -824,7 +819,7 @@ class register_search extends class_base
 			"status" => $o->prop("show_only_act") ? STAT_ACTIVE : array(STAT_ACTIVE, STAT_NOTACTIVE),
 		);
 
-		if (!$ign)
+		if (empty($ign))
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
@@ -947,7 +942,7 @@ class register_search extends class_base
 		$filter[] = new object_list_filter(array("non_filter_classes" => CL_REGISTER_DATA));
 		$tdata = $o->meta("tdata");
 
-		if ($_REQUEST["sortby"] != "")
+		if (!empty($_REQUEST["sortby"]))
 		{
 			$sp = $f_props[$_REQUEST["sortby"]];
 			if ($sp)
@@ -981,7 +976,7 @@ class register_search extends class_base
 			$ol_cnt = new object_list($filter);
 			if (($ppg = $o->prop("per_page")))
 			{
-				$filter["limit"] = ($request["ft_page"] * $ppg).",".$ppg;
+				$filter["limit"] = ((isset($request["ft_page"]) ? $request["ft_page"] : 0) * $ppg).",".$ppg;
 			}
 			$ret = new object_list($filter);
 		}
@@ -1091,14 +1086,14 @@ class register_search extends class_base
 				else
 				{
 					$data[$v["name"]] = $o->prop_str($v["name"]);
-					if ($tdata["__view_col"] == $v["name"])
+					if (isset($tdata["__view_col"]) && $tdata["__view_col"] == $v["name"])
 					{
 						$data[$v["name"]] = html::href(array(
 							"url" => $this->mk_my_orb("view", array("section" => aw_global_get("section"), "id" => $o->id()), $o->class_id()),
 							"caption" => $data[$v["name"]]
 						));
 					}
-					if ($tdata["__change_col"] == $v["name"] && $this->can("edit", $o->id()))
+					if (isset($tdata["__change_col"]) && $tdata["__change_col"] == $v["name"] && $this->can("edit", $o->id()))
 					{
 						$data[$v["name"]] = html::href(array(
 							"url" => $this->mk_my_orb("change", array("section" => aw_global_get("section"), "id" => $o->id()), $o->class_id()),
