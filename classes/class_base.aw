@@ -3254,7 +3254,7 @@ class class_base extends aw_template implements orb_public_interface
 			}
 
 			$name = isset($val["name"]) ? $val["name"] : "";
-			if (is_array($val) && $val["type"] !== "callback" && $val["type"] !== "submit")
+			if (is_array($val) && $val["type"] !== "callback" && $val["type"] !== "submit" && !isset($args["object_type_id"]))
 			{
 				$this->get_value($val);
 				// fuck me plenty
