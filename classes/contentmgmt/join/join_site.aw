@@ -367,9 +367,12 @@ class join_site extends class_base
 		{
 			$form_groups[$form_group_id] = $form_group["name"];
 			$form_subgroups[$form_group_id] = array(null => null);
-			foreach($form_group["subgroups"] as $form_subgroup_id => $form_subgroup)
+			if (isset($form_group["subgroups"]) && is_array($form_group["subgroups"]))
 			{
-				$form_subgroups[$form_group_id][$form_subgroup_id] = $form_subgroup["name"];
+				foreach($form_group["subgroups"] as $form_subgroup_id => $form_subgroup)
+				{
+					$form_subgroups[$form_group_id][$form_subgroup_id] = $form_subgroup["name"];
+				}
 			}
 		}
 		
@@ -788,9 +791,12 @@ class join_site extends class_base
 			));
 			$group_count++;
 			$SUBGROUP = $this->__parse_form_subgroup($o, $group_id, null, null);
-			foreach($group["subgroups"] as $subgroup_id => $subgroup)
+			if (isset($group["subgroups"]) && is_array($group["subgroups"]))
 			{
-				$SUBGROUP .= $this->__parse_form_subgroup($o, $group_id, $subgroup_id, $subgroup);
+				foreach($group["subgroups"] as $subgroup_id => $subgroup)
+				{
+					$SUBGROUP .= $this->__parse_form_subgroup($o, $group_id, $subgroup_id, $subgroup);
+				}
 			}
 			$this->vars(array(
 				"FORM.SUBMIT" => $group_count === count($groups) ? $this->parse("FORM.SUBMIT") : "",

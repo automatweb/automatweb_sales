@@ -184,18 +184,21 @@ class join_site_obj extends _int_object
 		uasort($groups, function($a, $b){ return $a["ord"] - $b["ord"]; });
 		foreach ($groups as $i => $group)
 		{
-			foreach($group["subgroups"] as $j => $subgroup)
+			if (isset($group["subgroups"]) && is_array($group["subgroups"]))
 			{
-				if (!empty($subgroup["translations"][AW_REQUEST_CT_LANG_ID]["name"]))
+				foreach($group["subgroups"] as $j => $subgroup)
 				{
-					$groups[$i]["subgroups"][$j]["name"] = $subgroup["translations"][AW_REQUEST_CT_LANG_ID]["name"];
+					if (!empty($subgroup["translations"][AW_REQUEST_CT_LANG_ID]["name"]))
+					{
+						$groups[$i]["subgroups"][$j]["name"] = $subgroup["translations"][AW_REQUEST_CT_LANG_ID]["name"];
+					}
+					if (!empty($subgroup["translations"][AW_REQUEST_CT_LANG_ID]["comment"]))
+					{
+						$groups[$i]["subgroups"][$j]["comment"] = $subgroup["translations"][AW_REQUEST_CT_LANG_ID]["comment"];
+					}
 				}
-				if (!empty($subgroup["translations"][AW_REQUEST_CT_LANG_ID]["comment"]))
-				{
-					$groups[$i]["subgroups"][$j]["comment"] = $subgroup["translations"][AW_REQUEST_CT_LANG_ID]["comment"];
-				}
+				uasort($groups[$i]["subgroups"], function($a, $b){ return $a["ord"] - $b["ord"]; });
 			}
-			uasort($groups[$i]["subgroups"], function($a, $b){ return $a["ord"] - $b["ord"]; });
 		}
 		return $groups;
 	}
