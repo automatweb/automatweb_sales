@@ -275,6 +275,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_FORUM_V2, on_connect_me
 		@property show type=callback callback=callback_gen_contents store=no no_caption=1
 		@caption Foorumi sisu
 
+		@property _alias type=hidden store=no
+
 	@groupinfo last_posts caption="Viimased postitused" submit=no parent=views
 	@default group=last_posts
 		@property last_posts type=table store=no no_caption=1
@@ -346,6 +348,8 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 	private $topic_id = 0;
 	private $style_donor_obj;
 	private $style_data = array();
+	
+	private $users;
 
 	function forum_v2()
 	{
@@ -387,6 +391,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			"comment" => t("Kommentaar"),
 		);
 
+		$this->users = new users();
 	}
 
 	function get_property($arr)
@@ -455,7 +460,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				}
 				else
 				{
-					$this->get_topic_selector(&$arr);
+					$this->get_topic_selector($arr);
 				};
 				break;
 
@@ -789,9 +794,9 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 	{
 		if ($arr["request"]["searchv"])
 		{
-			$rv["contents"] = array(
+			$rv["show2"] = array(
 				"type" => "text",
-				"name" => "contents",
+				"name" => "show2",
 				"value" => $this->search_results($arr),
 				"no_caption" => 1,
 			);
@@ -822,9 +827,9 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		}
 		elseif (is_oid($arr["request"]["folder"]))
 		{
-			$rv["contents"] = array(
+			$rv["show"] = array(
 				"type" => "text",
-				"name" => "contents",
+				"name" => "show",
 				"value" => $this->draw_folder($arr),
 				"no_caption" => 1,
 			);
@@ -833,9 +838,9 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		{
 			// default view, used when the user first views the forum
 			// shows all folders
-			$rv["contents"] = array(
+			$rv["show"] = array(
 				"type" => "text",
-				"name" => "contents",
+				"name" => "show",
 				"value" => $this->draw_all_folders($arr),
 				"no_caption" => 1,
 			);
@@ -958,7 +963,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			"forum_contents" => $c,
 			"search_url" => $this->mk_my_orb("search",array(
 				"id" => $args["obj_inst"]->id(),
-				"group" => $arr["group"],
+				"group" => ifset($args, "group"),
 				"section" => aw_global_get("section"),
 			)),
 		));
@@ -969,6 +974,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 	function _draw_one_level($arr)
 	{
+		$c = "";
 		if ($this->level == $this->depth)
 		{
 			$c .= $this->_draw_last_level(array(
@@ -1045,6 +1051,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		// ja iga alamtopicu jaoks on mul vaja teada, mitu
 		// teemat seal on.
 		$folder_counter = 0;
+		$c = "";
 		foreach ($sub_folder_list->arr() as $sub_folder_obj)
 		{
 			list(,$comment_count) = $this->get_comment_counts(array(
@@ -1294,7 +1301,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			$topics_list[$topic_oid] = array(
 				'name' => ( 1 == $topic->prop('locked') ) ? '[L] '.htmlspecialchars($topic->name()) : htmlspecialchars($topic->name()),
 				'author' => htmlspecialchars($topic->prop('author_name')),
-				'comment_count' => (int)$comment_counts[$topic_oid],
+				'comment_count' => (int)ifset($comment_counts, $topic_oid),
 				'last_date' => ( empty($last_comment['created']) ) ? $topic->created() : $last_comment['created'],
 				'last_createdby' => htmlspecialchars($last_comment['uname']),
 				'topic_id' => $topic_oid,
@@ -1376,7 +1383,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				// add_faq_url - it is the matter of template to actually show the link or not
 				$this->vars(array(
 					"add_faq_url" => $this->mk_my_orb("add_faq", array(
-						"topic" => $st_oid,
+						"topic" => /* WTF? THIS IS NEVER SET: $st_oid */ null,
 						"id" => $oid,
 						"section" => $section,
 					)),
@@ -1446,7 +1453,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			)),
 			"search_url" => $this->mk_my_orb("search",array(
 				"id" => $args["obj_inst"]->id(),
-				"group" => $arr["group"],
+				"group" => ifset($args, "group"),
 				"section" => aw_global_get("section"),
 			)),
 		));
@@ -1468,7 +1475,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 	function draw_topic($args = array())
 	{
-		$fld = $args["fld"];
+		$fld = ifset($args, "fld");
 		$this->read_template("topic.tpl");
 
 		if (!$this->can("view", $args["request"]["topic"]))
@@ -1874,7 +1881,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 			if(!empty($uid))
 			{
-				$uid_oid = users::get_oid_for_uid($uid);
+				$uid_oid = $this->users->get_oid_for_uid($uid);
 				$user_obj = new object($uid_oid);
 				$cl_users = get_instance(CL_USER);
 				$p_oid = $cl_users->get_person_for_user($user_obj);
@@ -1924,30 +1931,30 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				"a_email" => $this->parse("a_email".$add),
 			));
 
-			if ($_SESSION['forum_comment_error'])
+			if (!empty($_SESSION['forum_comment_error']))
 			{
 				$error_msg = "";
-				if ( $_SESSION['forum_comment_error']['verification_code'] )
+				if (!empty($_SESSION['forum_comment_error']['verification_code']))
 				{
 					$error_msg .= t('Sisestatud kontrollnumber on vale! <br />');
 				}
-				if ( $_SESSION['forum_comment_error']['name'] )
+				if (!empty($_SESSION['forum_comment_error']['name']))
 				{
 					$error_msg .= t('Pealkirja v&auml;li peab olema t&auml;idetud! <br />');
 				}
-				if ( $_SESSION['forum_comment_error']['author'] )
+				if (!empty($_SESSION['forum_comment_error']['author']))
 				{
 					$error_msg .= t('Nime v&auml;li peab olema t&auml;idetud! <br />');
 				}
-				if ( $_SESSION['forum_comment_error']['email'] )
+				if (!empty($_SESSION['forum_comment_error']['email']))
 				{
 					$error_msg .= t('E-mail ei ole korrektne! <br />');
 				}
-				if ( $_SESSION['forum_comment_error']['commtext'] )
+				if (!empty($_SESSION['forum_comment_error']['commtext']))
 				{
 					$error_msg .= t('Kommentaari v&auml;li peab olema t&auml;idetud!');
 				}
-				if ( $_SESSION['forum_comment_error']['ip_limit'] )
+				if (!empty($_SESSION['forum_comment_error']['ip_limit']))
 				{
 					$error_msg .= t('Anon&uuml;&uuml;mselt saab postitada ainult Eesti IP-lt');
 				}
@@ -1987,9 +1994,9 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			$rv .= $this->parse();
 		};
 
-		$retval["contents"] = array(
+		$retval["show"] = array(
 			"type" => "text",
-			"name" => "contents",
+			"name" => "show",
 			"value" => $rv,
 			"no_caption" => 1,
 		);
@@ -2001,6 +2008,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 	{
 		$ui = get_instance(CL_USER);
 		$pid = $ui->get_person_for_uid($uid);
+		$result = array();
 		if(is_oid($pid))
 		{
 			$p = obj($pid);
@@ -2141,7 +2149,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			foreach ($topic_list->arr() as $topic)
 			{
 				$parent = $topic->parent();
-				$topic_count[$parent]++;
+				$topic_count[$parent] = isset($topic_count[$parent]) ? $topic_count[$parent] + 1 : 1;
 				$tlist[$parent][] = $topic->id();
 			};
 		};
@@ -2211,7 +2219,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		}
 	}
 
-	function get_topic_selector($arr)
+	function get_topic_selector(&$arr)
 	{
 		$topic_folder = $arr["obj_inst"]->prop("topic_folder");
 		//$depth = $arr["obj_inst"]->prop("topic_folder");
@@ -2328,14 +2336,13 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 	// !this will be called if the object is put in a document by an alias and the document is being shown
 	// parameters
 	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($args)
+	function parse_alias($args = array())
 	{
 		extract($args);
 		$this->classconfig = array(
 			"hide_tabs" => 1,
 			"relationmgr" => false,
 		);
-		$this->inst->embedded = true;
 		$this->embedded = true;
 
 		// XXX: temporary workaround to make embedded forum work correctly
@@ -2343,17 +2350,16 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		$act = isset($req_args["action"]) ? $req_args["action"] : "change";
 		$group = isset($req_args["group"]) ? $req_args["group"] : "contents";
 
-
 		if (method_exists($this, $act))
 		{
 			$args = array(
 				"id" => $alias["target"],
 				"action" => $act,
 				"rel_id" => $args["alias"]["relobj_id"],
-				"folder" => $req_args["folder"],
-				"topic" => $req_args["topic"],
-				"page" => $req_args["page"],
-				"c" => $req_args["c"],
+				"folder" => ifset($req_args, "folder"),
+				"topic" => ifset($req_args, "topic"),
+				"page" => ifset($req_args, "page"),
+				"c" => ifset($req_args, "c"),
 				"cb_part" => 1,
 				"form_embedded" => 1,
 				"fxt" => 1,
@@ -2889,7 +2895,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		$uid = aw_global_get("uid");
 		if (!empty($uid))
 		{
-			$uid_oid = users::get_oid_for_uid($uid);
+			$uid_oid = $this->users->get_oid_for_uid($uid);
 			$user_obj = new object($uid_oid);
 			$props['author_email']['value'] = $user_obj->prop("email");
 
@@ -2978,7 +2984,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		$uid = aw_global_get('uid');
 		if(!empty($uid))
 		{
-			$uid_oid = users::get_oid_for_uid($uid);
+			$uid_oid = $this->users->get_oid_for_uid($uid);
 			$user_obj = new object($uid_oid);
 			$cl_users = get_instance(CL_USER);
 			$p_oid = $cl_users->get_person_for_user($user_obj);
@@ -3260,7 +3266,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 			if($obj_inst->prop("show_logged") != 1 && !empty($uid))
 			{
-				$uid_oid = users::get_oid_for_uid($uid);
+				$uid_oid = $this->users->get_oid_for_uid($uid);
 				$user_obj = new object($uid_oid);
 
 				$arr["pname"] = $user_obj->name();
@@ -3403,7 +3409,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
                 @comment
 
 	**/
-	function change($arr)
+	function change($arr = array())
 	{
 		if (!is_admin())
 		{
@@ -3489,7 +3495,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		else
 		if (!empty($arr['uid']))
 		{
-			$uid_oid = users::get_oid_for_uid($arr['uid']);
+			$uid_oid = $this->users->get_oid_for_uid($arr['uid']);
 			$user_inst = get_instance(CL_USER);
 			$user_groups = $user_inst->get_groups_for_user($arr['uid']);
 			if (!$user_groups)
