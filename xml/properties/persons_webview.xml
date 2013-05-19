@@ -8,7 +8,7 @@
             <method>serialize</method>
             <type>relpicker</type>
             <reltype>RELTYPE_COMPANY</reltype>
-            <caption>Ettev&amp;amp;otilde;te</caption>
+            <caption>Organisatsioon</caption>
       </property>
       <property>
             <name>departments</name>
@@ -16,10 +16,9 @@
             <group>general</group>
             <field>meta</field>
             <method>serialize</method>
-            <type>relpicker</type>
+            <type>select</type>
             <multiple>1</multiple>
-            <reltype>RELTYPE_DEPARTMENT</reltype>
-            <caption>Osakonnad</caption>
+            <caption>&amp;amp;Uuml;ksused</caption>
       </property>
       <property>
             <name>show_only_public_phones</name>

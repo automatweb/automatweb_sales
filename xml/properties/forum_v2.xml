@@ -709,6 +709,17 @@
             <caption>Foorumi sisu</caption>
       </property>
       <property>
+            <name>_alias</name>
+            <table>objects</table>
+            <group>contents</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>hidden</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <caption>Foorumi sisu</caption>
+      </property>
+      <property>
             <name>last_posts</name>
             <table>objects</table>
             <group>last_posts</group>
