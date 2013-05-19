@@ -441,7 +441,7 @@ class site_template_compiler extends aw_template
 
 	function compile_template_level($area, $adat, $level, $ldat)
 	{
-		if (!is_array($ldat["templates"]))
+		if (!isset($ldat["templates"]) || !is_array($ldat["templates"]))
 		{
 			return;
 		}
@@ -1758,7 +1758,7 @@ class site_template_compiler extends aw_template
 	function _g_op_check_no_subitems_sel($arr)
 	{
 		$ret = "";
-		$dat = $this->last_list_dat;
+		$dat = isset($this->last_list_dat) ? $this->last_list_dat : null;
 		$list_name = $dat["list_name"];
 		$content_name = $dat["content_name"];
 		if ($content_name == "")

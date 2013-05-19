@@ -1970,7 +1970,7 @@ class site_show extends aw_template
 		$this->vars(array(
 			"PRINTANDSEND" => $this->parse("PRINTANDSEND")
 		));
-		$this->vars(array(
+		$this->vars_safe(array(
 			"YAH_LINK" => $ya,
 			"YAH_LINK_END" => "",
 			"YAH_LINK_BEGIN" => "",
@@ -2492,16 +2492,11 @@ class site_show extends aw_template
 			$adt = $adt_o->trans_get_val("title");
 		}
 
-		$u = get_instance(CL_USER);
-		$tmp = $u->get_current_person();
-		if (is_oid($tmp))
-		{
-			$p = obj($tmp);
-		}
-		else
-		{
-			$p = obj();
-		}
+		$current_person_oid = user::get_current_person();
+		$p = object_loader::can("", $current_person_oid) ? obj($current_person_oid, null, crm_person_obj::CLID) : obj();
+
+		$current_company_oid = user::get_current_company();
+		$c = object_loader::can("", $current_company_oid) ? obj($current_company_oid, null, crm_company_obj::CLID) : obj();
 
 		$this->vars(array(
 			"ss" => gen_uniq_id(),		// bannerite jaox
@@ -2510,6 +2505,7 @@ class site_show extends aw_template
 			"link" => "",
 			"uid" => aw_global_get("uid"),
 			"user" => $p->name(),
+			"company" => $c->is_a(crm_company_obj::CLID) ? $c->get_title() : null,
 			"date" => $this->time2date(time(), 2),
 			"date2" => $this->time2date(time(), 8),
 			"date_timestamp" => time(),
