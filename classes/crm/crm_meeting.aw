@@ -511,7 +511,7 @@ class crm_meeting extends task
 				if ($arr["new"])
 				{
 					$data["value"] = ("end" === $data["name"]) ?  time() + 900 :  time();
-					if($day = $arr["request"]["date"])
+					if(isset($arr["request"]["date"]) && ($day = $arr["request"]["date"]))
 					{
 						$da = explode("-", $day);
 						$data["value"] = mktime(date('h', $data["value"]), date('i', $data["value"]), 0, $da[1], $da[0], $da[2]);

@@ -990,7 +990,7 @@ class admin_if extends class_base
 		{
 			// if document order is set from folder then use it
 			$menu_obj = obj($parent);
-			if ($menu_obj->prop("doc_ord_apply_to_admin")==1 && !isset($_GET["sort_order"])  )
+			if ($menu_obj->is_a(menu_obj::CLID) && $menu_obj->prop("doc_ord_apply_to_admin")==1 && !isset($_GET["sort_order"])  )
 			{
 				$a_sort_fields = new aw_array($menu_obj->meta("sort_fields"));
 				$a_sort_order = new aw_array($menu_obj->meta("sort_order"));
@@ -1834,7 +1834,7 @@ class admin_if extends class_base
 		}
 
 		$menu_obj = obj($parent);
-		if (!$menu_obj->prop("all_pers"))
+		if (!$menu_obj->is_a(menu_obj::CLID) || !$menu_obj->prop("all_pers"))
 		{
 			if (!empty($period))
 			{

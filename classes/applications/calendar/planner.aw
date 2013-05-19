@@ -2510,7 +2510,7 @@ class planner extends class_base
 				}
 			}
 		}
-		return $this->mk_my_orb("change", array("id" => $arr["id"], "group" => $arr["group"], "date" => $arr["date"]));
+		return $this->mk_my_orb("change", array("id" => $arr["id"], "group" => $arr["group"], "date" => ifset($arr, "date")));
 	}
 
 	/** returns a list of folders for a specified calendar, this is more efficient that returning a list of events

@@ -6649,6 +6649,7 @@ END;
 			return $cache[$co->id()][$add_empty][$important_only];
 		}
 
+		$employees = array();
 		if ($important_only)
 		{
 			// filter out my important persons

@@ -182,7 +182,7 @@ class alias_parser
 					foreach($claliases as $avalue => $adata)
 					{
 						$replacement = "";
-						if(acl_base::can("view", $adata["target"]))
+						if(isset($adata["target"]) && acl_base::can("view", $adata["target"]))
 						{
 							if (!empty($adata["val"][5]))
 							{ // embedded object property accessed in document content

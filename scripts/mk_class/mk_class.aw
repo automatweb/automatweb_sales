@@ -1,7 +1,7 @@
 <?php
 ob_implicit_flush(true);
 $basedir = str_replace("\\", "/", realpath("."));
-include($basedir . "/automatweb.aw");
+//include($basedir . "/../automatweb.aw");
 
 function _file_get_contents($name)
 {

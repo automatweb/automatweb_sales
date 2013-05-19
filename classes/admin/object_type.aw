@@ -357,8 +357,11 @@ class object_type extends class_base
 			$dat = array();
 			foreach($tmp as $pn => $pd)
 			{
-				$dat[$pn] = $ret[$pn];
-				$dat[$pn]["caption"] = $pd["caption"];
+				if (isset($ret[$pn]))
+				{
+					$dat[$pn] = $ret[$pn];
+					$dat[$pn]["caption"] = isset($pd["caption"]) ? $pd["caption"] : null;
+				}
 			}
 			$ret = $dat;
 		}

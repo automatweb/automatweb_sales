@@ -249,7 +249,7 @@ class calendar_view extends class_base
 		$cform_obj = new object($this->cfgform_id);
 		$use_output = $cform_obj->prop("use_output");
 
-		$prop_output = $arr["obj_inst"]->prop("use_output");
+		$prop_output = null;//$arr["obj_inst"]->prop("use_output");
 		if(is_oid($prop_output))
 		{
 			$use_output = $prop_output;
@@ -510,7 +510,7 @@ class calendar_view extends class_base
 		// alright .. this function needs to accept an object id from which to ask events
 		$range = $arr["range"];
 		$arr["cal_inst"]->vars_safe($this->vars);
-		if (is_oid($arr["oid"]))
+		if (isset($arr["oid"]) && is_oid($arr["oid"]))
 		{
 			$obj = new object($arr["oid"]);
 			$cal_inst = $arr["cal_inst"];
@@ -565,7 +565,7 @@ class calendar_view extends class_base
 					"first_image" => $first_image,
 					"project_media" => $project_media,
 					"status" => $arr["status"],
-					"show_active_trans" => $arr["show_active_trans"],
+					"show_active_trans" => isset($arr["show_active_trans"]) ? $arr["show_active_trans"] : null,
 				));
 				foreach($events as $event)
 				{
@@ -694,7 +694,7 @@ class calendar_view extends class_base
 			//	if(aw_global_get("uid") == "kix") {arr($events);}
 				uasort($events, array($this, "__sort_events_by_time"));
 			//	if(aw_global_get("uid") == "kix") {arr($events);arr($num);}
-				if (is_numeric($range["limit_events"]))
+				if (isset($range["limit_events"]) && is_numeric($range["limit_events"]))
 				{
 					$num = $range["limit_events"];
 					$count = count($events);
@@ -775,7 +775,7 @@ class calendar_view extends class_base
 	//!
 	function parse_alias($arr = array())
 	{
-		if ($arr["obj_inst"])
+		if (!empty($arr["obj_inst"]))
 		{
 			$this->obj_inst = $arr["obj_inst"];
 		}
@@ -814,7 +814,7 @@ class calendar_view extends class_base
 			"tpldir" => $tpldir,
 		));
 
-		if ($arr["event_template"])
+		if (!empty($arr["event_template"]))
 		{
 			$args["event_template"] = $arr["event_template"];
 		}
@@ -839,7 +839,7 @@ class calendar_view extends class_base
 			$args["show_days_with_events"] = 1;
 		}
 
-		if ($arr["skip_empty"])
+		if (!empty($arr["skip_empty"]))
 		{
 			$args["skip_empty"] = $arr["skip_empty"];
 		}
@@ -885,12 +885,12 @@ class calendar_view extends class_base
 		{
 			$viewtype = "week";
 		}
-		if ($arr["viewtype"])
+		if (!empty($arr["viewtype"]))
 		{
 			$viewtype = $arr["viewtype"];
 		}
 
-		if ($_GET["viewtype"])
+		if (!empty($_GET["viewtype"]))
 		{
 			$viewtype = $_GET["viewtype"];
 			if ($use2dir[$viewtype])
@@ -900,7 +900,7 @@ class calendar_view extends class_base
 		}
 
 		$text = "";
-		if (is_oid($_GET["event_id"]) && $this->can("view",$_GET["event_id"]))
+		if (isset($_GET["event_id"]) && $this->can("view", $_GET["event_id"]))
 		{
 			$o = obj($_GET["event_id"]);
 			$i = $o->instance();
@@ -1062,7 +1062,7 @@ class calendar_view extends class_base
 
 		$vcal->event_entry_classes = $this->event_entry_classes;
 		$vcal->event_sources = $sources;
-		if ($arr["start_from"])
+		if (!empty($arr["start_from"]))
 		{
 			// this is used by project to limit the year view to start from the current month
 			$range["start"] = $arr["start_from"];
@@ -1090,9 +1090,9 @@ class calendar_view extends class_base
 			//$arr["event_template"] = "groupitem.tpl";
 		}
 
-		$vcal->init_output(array("event_template" => $arr["event_template"]));
+		$vcal->init_output(array("event_template" => ifset($arr, "event_template")));
 		$exp_args["limit_events"] = $this->obj_inst->prop("num_next_events");
-		if ($arr["obj_inst"])
+		if (!empty($arr["obj_inst"]))
 		{
 			$exp_args["oid"] = $arr["obj_inst"]->id();
 		}
