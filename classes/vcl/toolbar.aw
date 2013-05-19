@@ -140,13 +140,22 @@ class toolbar extends aw_template
 			$arr["url"] = "javascript:submit_changeform('{$arr["action"]}');";
 		}
 
-		if (empty($arr["disabled"]))
+		if (is_admin())
 		{
-			$rv = "<a class=\"menuItem\" href=\"{$arr["url"]}\"{$id}{$onclick}>{$arr["text"]}</a>\n";
+			if (empty($arr["disabled"]))
+			{
+				$rv = "<a class=\"menuItem\" href=\"{$arr["url"]}\"{$id}{$onclick}>{$arr["text"]}</a>\n";
+			}
+			else
+			{
+				$rv = "<a class=\"menuItem\" href=\"\" title=\"{$arr["title"]}\"{$id} onclick=\"javascript:void(0);\" style=\"color:gray\">{$arr["text"]}</a>\n";
+			}
 		}
 		else
 		{
-			$rv = "<a class=\"menuItem\" href=\"\" title=\"{$arr["title"]}\"{$id} onclick=\"javascript:void(0);\" style=\"color:gray\">{$arr["text"]}</a>\n";
+			$this->read_template("js_popup_menu.tpl");
+			$this->vars($arr);
+			$rv = $this->parse("MENU_ITEM");
 		}
 
 		if (isset($this->menus[$arr["parent"]]))
@@ -496,6 +505,9 @@ class toolbar extends aw_template
 					{
 						$tpl = "menu_button_lod";
 					}
+					$this->vars(array(
+						"menu-items" => isset($this->menus[$val["name"]]) ? $this->menus[$val["name"]] : null
+					));
 
 					if ($side === "left")
 					{

@@ -381,7 +381,8 @@ class vcalendar extends aw_template
 
 		if (empty($arr["timestamp"]))
 		{
-			throw new awex_vcl_calendar_time("Timestamp for item is required.");
+			$arr["timestamp"] = time();
+//			throw new awex_vcl_calendar_time("Timestamp for item is required.");
 		}
 
 		// convert timestamp to day, since calendar is usually day based
@@ -704,7 +705,7 @@ class vcalendar extends aw_template
 					{
 						$this->add_overview_item(array(
 							"timestamp" => $tmp["timestamp"],
-							"url" => $tmp["url"],
+							"url" => isset($tmp["url"]) ? $tmp["url"] : null,
 							"event_oid" => $tmp["event_oid"]
 						));
 					}
@@ -850,7 +851,7 @@ class vcalendar extends aw_template
 
 		$prev = $next = "";
 
-		if($this->show_days_with_events && !empty($this->event_sources) && $this->fix_links == 1)
+		if($this->show_days_with_events && !empty($this->event_sources) && isset($this->fix_links) && $this->fix_links == 1)
 		{
 			if(!empty($this->first_event))
 			{
@@ -1107,7 +1108,7 @@ class vcalendar extends aw_template
 					continue;
 				}
 
-				$this->vars(array(
+				$this->vars_safe(array(
 					"EVENT" => $calendar_blocks[$block_id],
 					"daynum" => date("j",$reals),
 					"monthnum" => date("m",$reals),
@@ -1131,7 +1132,7 @@ class vcalendar extends aw_template
 			{
 				$mon1 = "";
 			}
-			$this->vars(array(
+			$this->vars_safe(array(
 				"DAY" => $rv,
 				"monthvar" => "{$d1}. {$mon1} - {$d2}. {$mon2}",
 			));
@@ -1155,7 +1156,7 @@ class vcalendar extends aw_template
 			$nd = $c_d."-".$c_m."-".sprintf("%04d", $i);
 			$year_opts[aw_url_change_var("date", $nd, $u)] = $i;
 		}
-		$this->vars(array(
+		$this->vars_safe(array(
 			"HEADER" => $header,
 			"WEEK" => $w,
 			"month_name" => aw_locale::get_lc_month($this->range["m"]),
@@ -1227,13 +1228,13 @@ class vcalendar extends aw_template
 			// XX: add optional skip_empty argument
 			if (!$this->skip_empty || $ev_count > 0)
 			{
-				$this->vars(array(
+				$this->vars_safe(array(
 					"DAY" => $this->parse("DAY"),
 				));
-				$this->vars(array(
+				$this->vars_safe(array(
 					"WEEK" => $this->parse("WEEK"),
 				));
-				$this->vars(array(
+				$this->vars_safe(array(
 					"HEADER" => $header,
 					"EVENT" => $et,
 					"FOOTER" => $footer,
@@ -1244,7 +1245,7 @@ class vcalendar extends aw_template
 		}
 
 		$this->last_event = $event;
-		$this->vars(array(
+		$this->vars_safe(array(
 			"MONTH" => $rv,
 		));
 
@@ -1323,7 +1324,7 @@ class vcalendar extends aw_template
 			$mn2 = $mn . " " . date("H:i",$reals);
 
 
-			$this->vars(array(
+			$this->vars_safe(array(
 				"DCHECK" => isset($dcheck) ? $dcheck : "",
 				"EVENT" => $events_for_day,
 				"monthnum" => date("m",$reals),
@@ -1346,7 +1347,7 @@ class vcalendar extends aw_template
 		}
 
 		$this->last_event = isset($event) ? $event : null;
-		$this->vars(array(
+		$this->vars_safe(array(
 			"DAY" => $rv,
 		));
 		return $this->parse();
@@ -1943,7 +1944,24 @@ class vcalendar extends aw_template
 			"section" => aw_global_get("section")
 		));
 		$this->event_counter++;
-
+		
+		if ($this->evt_tpl->is_template("PARTICIPANT"))
+		{
+			$PARTICIPANT = "";
+			// FIXME: This (data retrieval) should prolly be done somewhere that $etv is built.
+			foreach (obj($evt["id"])->get_participants()->names() as $participant_id => $participant_name)
+			{
+				$this->evt_tpl->vars(array(
+					"participant.id" => $participant_id,
+					"participant.name" => $participant_name,
+				));
+				$PARTICIPANT .= $this->evt_tpl->parse("PARTICIPANT");
+			}
+			
+			$this->evt_tpl->vars_safe(array(
+				'PARTICIPANT' => $PARTICIPANT,
+			));
+		}
 
 		if (!empty($evt["comment"]))
 		{
