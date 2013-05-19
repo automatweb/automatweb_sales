@@ -20,7 +20,6 @@ YUI().use("node", function(Y) {
 				});
 			},
 			update_date_filter: function(o) {
-				console.log(this, o);
 				var today = new Date();
 				var currentYear = today.getFullYear();
 				var currentMonth = today.getMonth();
