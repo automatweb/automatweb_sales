@@ -13,7 +13,7 @@
 @property company type=relpicker reltype=RELTYPE_COMPANY
 @caption Ettev&otilde;te
 
-@property departments type=relpicker multiple=1 reltype=RELTYPE_DEPARTMENT
+@property departments type=select multiple=1
 @caption Osakonnad
 
 //----------------------------------------------
@@ -178,14 +178,13 @@ class persons_webview extends class_base
 				);
 				break;
 			case "departments":
-				if(is_oid($arr["obj_inst"]->prop("company")) && $this->can("view" , $arr["obj_inst"]->prop("company")))
+				$company_id = $arr["obj_inst"]->prop("company");
+				if (object_loader::can("", $company_id))
 				{
-					$company = obj($arr["obj_inst"]->prop("company"));
-					$comp = new crm_company();
-					foreach($comp->get_all_org_sections($company) as $section_id)
+					$company = obj($company_id);
+					foreach($company->get_sections()->arr() as $section)
 					{
-						$section = obj($section_id);
-						$prop["options"][$section_id] = $section->trans_get_val("name");
+						$prop["options"][$section->id] = $section->trans_get_val("name");
 					}
 				}
 				break;
@@ -343,32 +342,32 @@ class persons_webview extends class_base
 				"name" => ($i + 1),
 				"template" => html::select(array(
 						"name" => "view[".$i."][template]",
-						"value" => $view[$i]["template"],
+						"value" => isset($view[$i]["template"]) ? $view[$i]["template"] : null,
 						"options" => $template_selection
 				)),
 				"department_levels" => html::textbox(array(
 						"name" => "view[".$i."][department_levels]",
-						"value" => $view[$i]["department_levels"],
+						"value" => isset($view[$i]["department_levels"]) ? $view[$i]["department_levels"] : null,
 						"size" => "10",
 				)),
 				"with_persons"  => html::checkbox(array(
 						"value" => 1,
-						"checked" => $view[$i]["with_persons"],
+						"checked" => !empty($view[$i]["with_persons"]),
 						"name" => "view[".$i."][with_persons]",
 				)),
 				"columns" => html::textbox(array(
 						"name" => "view[".$i."][columns]",
-						"value" => $view[$i]["columns"],
+						"value" => isset($view[$i]["columns"]) ? $view[$i]["columns"] : null,
 						"size" => "1",
 				)),
 				"rows_by" => html::checkbox(array(
 						"value" => 1,
-						"checked" => $view[$i]["rows_by"],
+						"checked" => !empty($view[$i]["rows_by"]),
 						"name" => "view[".$i."][rows_by]",
 				)),
 				"min_cols"  => html::textbox(array(
 						"name" => "view[".$i."][min_cols]",
-						"value" => $view[$i]["min_cols"],
+						"value" => isset($view[$i]["min_cols"]) ? $view[$i]["min_cols"] : null,
 						"size" => "1",
 				)),
 			));
@@ -756,12 +755,17 @@ class persons_webview extends class_base
 		{
 			if($this->is_template("DEPARTMENT"))
 			{
-
 				$this->jrks = array();
-				if(in_array((0) , $this->levels) && (sizeof($this->levels) > 0)) $sections = array_merge(array($company) , $this->get_sections(array("section" => $company , "jrk" => 0)));
-				else $sections = $this->get_sections(array("section" => $company , "jrk" => 0));
+				if(in_array((0) , $this->levels) && (sizeof($this->levels) > 0))
+				{
+					$sections = array_merge(array($company) , $this->get_sections(array("section" => $company , "jrk" => 0)));
+				}
+				else
+				{
+					$sections = $this->get_sections(array("section" => $company , "jrk" => 0));
+				}
 
-			foreach($sections as $section)
+				foreach($sections as $section)
 				{
 					$this->section = $section; // eks seda l2heb vast mujal ka vaja... ametinimetuses n2iteks
 					if(!(in_array($section->id(), $this->view_obj->prop("departments")))
@@ -787,6 +791,7 @@ class persons_webview extends class_base
 			if($this->view["with_persons"])
 			{
 				$workers = $this->get_workers($company);
+				arr($workers);
 				$this->parse_persons($workers);
 			}
 
@@ -904,14 +909,14 @@ class persons_webview extends class_base
 	{
 		extract($args);
 		$sections = array();
-		if($section->class_id() == CL_CRM_COMPANY)
+		if($section->is_a(crm_company_obj::CLID))
 		{
 			$section_list = $section->get_sections();
 		}
 		else
 		{
 			$section_list = new object_list($section->connections_from (array (
-			"type" => "RELTYPE_SECTION",
+				"type" => "RELTYPE_SECTION",
 			)));
 		}
 
@@ -1145,14 +1150,15 @@ class persons_webview extends class_base
 
 		$vars = array(
 			"name" => str_replace("¹" , "&#154;" , str_replace("©" , "&#138;" , $worker->name())),
-			"wage_doc" => $worker->prop("wage_doc"),
+/*			"wage_doc" => $worker->prop("wage_doc"),
 			"ta1" => $worker->prop("udef_ta1"),
 			"ta2" => $worker->prop("udef_ta2"),
 			"ta3" => $worker->prop("udef_ta3"),
 			"ta4" => $worker->prop("udef_ta4"),
 			"ta5" => $worker->prop("udef_ta5"),
-			"comment" => $worker->prop("comment"),
+*/			"comment" => $worker->prop("comment"),
 			"reception" => $worker->prop("work_hrs"),
+			"photo_url" => null,
 		);
 
 		//pilt
@@ -1204,7 +1210,7 @@ class persons_webview extends class_base
 			}
 		}
 
-		$phones = join(", ", $phone_array["phones"]);
+		$phones = isset($phone_array["phones"]) ? join(", ", $phone_array["phones"]) : null;
 
 		//url
 		$url = $url_obj = $urls = "";
@@ -1258,13 +1264,14 @@ class persons_webview extends class_base
 			$subject_field = $speciality_obj->prop("field");
 		}
 
-		//palk
+		$wage_doc_exist = "";
+/*		//palk
 		$wage_doc_exist = "";
 		if(is_oid($worker->prop("wage_doc")))
 		{
 			$wage_doc_exist = '<a href ='.$worker->prop("wage_doc").'> '. t("Palk").' </a>';
 		}
-
+*/
 		$url_params = array(
 			"id" => $this->view_obj->id(),
 			"section_o" => $worker->id(),
@@ -1399,14 +1406,14 @@ class persons_webview extends class_base
 			$vars["degree_subject"] = $degree->prop("subject");
 		}
 
-		//cv
+/*		//cv
 		if($worker->prop("cv_doc"))
 		{
 			$file_inst = new file();
 			$vars["cv_doc"] = $file_inst->get_url($worker->prop("cv_doc"), $worker->prop("cv_doc.name"));
 		}
 		$vars["cv_link"] = $worker->prop("cv_link");
-		$vars["photo"] = $photo;
+*/		$vars["photo"] = $photo;
 		$vars["phone"] = $phone;
 		$vars["phones"] = $phones;
 		$vars["contact"] = $contact;
