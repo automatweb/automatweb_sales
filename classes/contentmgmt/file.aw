@@ -1549,7 +1549,10 @@ class file extends class_base
 
 	// static
 	// useless. deprecate
-	function get_file_size($fn)	{ return filesize($fn);}
+	public static function get_file_size($fn)
+	{
+		return filesize($fn);
+	}
 
 
 	/** creates/updates a file object from the arguments
@@ -1963,5 +1966,53 @@ class file extends class_base
 			"oid" => $persons
 		));
 		return $ol->names();
+	}
+	
+	/**
+		@attrib name=upload params=name nologin=1
+	**/
+	public function handle_upload($arr)
+	{
+		$file = $_FILES["file"]["tmp_name"];
+		$file_name = $_FILES["file"]["name"];
+		$file_type = $_FILES["file"]["type"];
+		
+		$data = array();
+		
+		if (is_uploaded_file($file))
+		{
+			if (aw_ini_get("file.upload_virus_scan"))
+			{
+				if (($vir = $this->_do_virus_scan($file)))
+				{
+					$data["error"] = "Uploaditud failis on viirus $vir!";
+					return PROP_FATAL_ERROR;
+				}
+			}
+
+			$pathinfo = pathinfo($file_name);
+			if (empty($file_type))
+			{
+				$realtype = aw_mime_types::type_for_ext($pathinfo["extension"]);
+				$file_type = $realtype;
+			}
+
+			$final_name = $this->generate_file_path(array(
+				"type" => $file_type,
+				"file_name" => $file_name
+			));
+
+			move_uploaded_file($file, $final_name);
+			$data["file"] = $final_name;
+			$data["name"] = $file_name;
+			$data["type"] = $file_type;
+		} else {
+			$data["error"] = "Ootamatu viga!";
+		}
+		
+		$encoder = new json();
+		$json = $encoder->encode($data, aw_global_get("charset"));
+		automatweb::$result->set_data($json);
+		automatweb::$instance->http_exit();
 	}
 }

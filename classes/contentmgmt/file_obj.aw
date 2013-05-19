@@ -142,4 +142,27 @@ class file_obj extends _int_object
 
 		return parent::save();
 	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->prop("name"),
+			"comment" => $this->prop("comment"),
+			"status" => $this->prop("status"),
+			"alias" => $this->prop("alias"),
+			"file" => $this->prop("file"),
+			"type" => $this->prop("type"),
+			"file_url" => $this->prop("file_url"),
+			"newwindow" => (bool)$this->prop("newwindow"),
+			"show_framed" => (bool)$this->prop("show_framed"),
+			"show_icon" => (bool)$this->prop("show_icon"),
+		);
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
+	}
 }

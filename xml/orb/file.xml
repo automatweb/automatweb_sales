@@ -85,5 +85,12 @@
 			</function>
 		</action>
 
+		<action name="upload">
+			<function name="handle_upload" all_args="1" nologin="1">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>
