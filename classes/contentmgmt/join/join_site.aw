@@ -772,6 +772,9 @@ class join_site extends class_base
 	public function show($arr)
 	{
 		$o = obj($arr["id"], null, join_site_obj::CLID);
+		$this->vars(array(
+			"id" => $o->id,
+		));
 		
 		$this->read_template($o->get_template_name());
 		

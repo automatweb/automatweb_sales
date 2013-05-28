@@ -658,7 +658,7 @@ class join_site_obj extends _int_object
 			}
 			
 			$customer_relation = $buyer->find_customer_relation($seller, true);
-			$customer_relation->categories = isset($data["categories_".$customer_relation_rule->organisation]) ? $data["categories_".$customer_relation_rule->organisation] : $customer_relation_rule->customer_groups;
+			$customer_relation->categories = array_merge(isset($data["categories_".$customer_relation_rule->organisation]) ? (array)$data["categories_".$customer_relation_rule->organisation] : array(), (array)$customer_relation_rule->customer_groups);
 			$customer_relation->save();
 		}
 	}
