@@ -495,7 +495,21 @@ class shop_order_cart_obj extends _int_object
 				{
 					if (!in_array($key, array("id", "parent", "class_id")) and $row->is_property($key))
 					{
-						$row->set_prop($key, $value);
+						switch ($key) {
+							case "purveyance_company_section":
+							case "buyer_rep":
+								if (isset($value["id"]) and is_oid($value["id"])) {
+									$row->set_prop($key, $value["id"]);
+								}
+								break;
+							
+							case "planned_time":
+								$row->set_prop($key, timepicker::get_timestamp($value));
+								break;
+							
+							default:
+								$row->set_prop($key, $value);
+						}
 					}
 				}
 				/* Remove from the list of rows to deal with */
@@ -515,7 +529,21 @@ class shop_order_cart_obj extends _int_object
 			{
 				if (!in_array($key, array("id", "parent", "class_id")) and $row->is_property($key))
 				{
-					$row->set_prop($key, $value);
+					switch ($key) {
+						case "purveyance_company_section":
+						case "buyer_rep":
+							if (isset($value["id"]) and is_oid($value["id"])) {
+								$row->set_prop($key, $value["id"]);
+							}
+							break;
+						
+						case "planned_time":
+							$row->set_prop($key, timepicker::get_timestamp($value));
+							break;
+						
+						default:
+							$row->set_prop($key, $value);
+					}
 				}
 			}
 			$row->save();

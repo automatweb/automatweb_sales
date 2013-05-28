@@ -655,8 +655,9 @@ class shop_sell_order_obj extends _int_object
 							$purveyance_data[$purveyance->id()]["company"] = array(
 								"id" => $company->id(),
 								"name" => $company->get_title(),
-								"address" => $company->get_address_string(),							
+								"address" => $company->get_address_string(),
 								"section" => array(),
+								"sections" => array(),
 							);
 							
 							if (is_oid($section_id = $purveyance->prop("company_section")))
@@ -666,6 +667,14 @@ class shop_sell_order_obj extends _int_object
 									"id" => $section->id(),
 									"name" => $section->name(),
 //									"address" => $section->get_address_string(),
+								);
+							}
+							
+							foreach ($company->get_sections()->names() as $section_id => $section_name)
+							{
+								$purveyance_data[$purveyance->id()]["company"]["sections"][] = array(
+									"id" => $section_id,
+									"name" => $section_name,
 								);
 							}
 						}
