@@ -29,6 +29,9 @@
 				@property type type=select field=aw_type parent=general_left_top
 				@caption T&uuml;&uuml;p
 
+				@property vat type=checkbox field=aw_vat parent=general_left_top
+				@caption K&auml;ibemaks
+
 				@property category type=select field=aw_category parent=general_left_top
 				@caption Kategooria
 
@@ -520,6 +523,7 @@ class price_component extends class_base
 				));
 				return true;
 
+			case "aw_vat":
 			case "aw_is_ratio":
 				$this->db_add_col($t, array(
 					"name" => $f,

@@ -52,6 +52,15 @@
             <caption>T&amp;amp;uuml;&amp;amp;uuml;p</caption>
       </property>
       <property>
+            <name>vat</name>
+            <table>aw_price_component</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_vat</field>
+            <parent>general_left_top</parent>
+            <caption>K&amp;amp;auml;ibemaks</caption>
+      </property>
+      <property>
             <name>category</name>
             <table>aw_price_component</table>
             <group>general</group>

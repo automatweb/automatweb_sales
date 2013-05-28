@@ -104,6 +104,11 @@ class price_component_obj extends _int_object
 		return parent::set_prop("value", aw_math_calc::string2float($v));
 	}
 
+	public function awobj_get_vat()
+	{
+		return (bool)parent::prop("vat");
+	}
+
 	/**	Returns an array of applicable class IDs
 		@attrib api=1
 		@returns int[]

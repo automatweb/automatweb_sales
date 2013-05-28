@@ -515,6 +515,9 @@ class order_management_obj extends management_base_obj
 			$row->desc = $job->description;
 			$row->amt = $job->quantity;
 			$row->price = $job->price;
+			$row->has_tax = $job->vat > 0;
+			$row->tax = $job->vat;
+			$row->sum = $job->total;
 			$row->save();
 		}
 		

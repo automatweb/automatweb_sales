@@ -23,8 +23,8 @@
 					<td><?php echo $row->name?></td>
 					<td class="nowrap"><?php echo rtrim($row->quantity, ".0")?></td>
 					<td><?php echo number_format($row->price, 2, ".", " ")?></td>
-					<td><?php echo number_format($row->total, 2, ".", " ")?></td>
-					<?php /* FIXME: Katted and what not... */ if (false && $tax) {?><td><?php echo $row["tax_sum"]?></td><?php }?>
+					<td><?php echo number_format((double)$row->total, 2, ".", " ")?></td>
+					<?php if ($tax) {?><td><?php echo number_format($row->vat, 2, ".", " ")?></td><?php }?>
 				</tr>
 			<?php }?>
 			</tbody>

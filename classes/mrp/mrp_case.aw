@@ -3539,6 +3539,7 @@ function add_material(mid, jid)
 				"name" => $price_component->name,
 				"value" => isset($data[$price_component->id]["value"]) ? $data[$price_component->id]["value"] : $price_component->value,
 				"is_ratio" => (bool)$price_component->is_ratio,
+				"vat" => (bool)$price_component->vat,
 				"applied" => isset($data[$price_component->id]["applied"]) ? $data[$price_component->id]["applied"] : false,
 			);
 		}
@@ -4195,7 +4196,8 @@ function add_material(mid, jid)
 			}
 			elseif($buyer->is_a(crm_person_obj::CLID))
 			{
-				$buyer_signer_profession = implode(", ", $buyer_signer->get_profession_names()); // FIXME - Which company should we get profession names for?
+				// FIXME - Which company should we get profession names for?
+				$buyer_signer_profession = implode(", ", $buyer_signer->get_profession_names(obj(user::get_company_for_person($buyer_signer), null, crm_company_obj::CLID)));
 			}
 		}
 
@@ -4210,6 +4212,7 @@ function add_material(mid, jid)
 		
 		//FIXME!
 		$sum = $this_o->get_order_total();
+		$vat = $this_o->get_order_vat();
 		$discount = 0;//$this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX) - $this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX_WO_DISCOUNT);
 
 		try
@@ -4217,7 +4220,7 @@ function add_material(mid, jid)
 			// FIXME!
 			$currency = $this_o->get_currency();
 			$currency_code = $currency->prop("symbol");
-			$total_text = aw_locale::get_lc_money_text($sum, $currency, languages::get_code_for_id($lang_id));
+			$total_text = aw_locale::get_lc_money_text($sum + $vat, $currency, languages::get_code_for_id($lang_id));
 		}
 		catch (Exception $e)
 		{
@@ -4233,9 +4236,9 @@ function add_material(mid, jid)
 			"seller_signer_profession" => $seller_signer_profession,
 			"discount_pct" => "0",//$this_o->prop("disc"),
 			"discount" => number_format($discount, 2,".", " "),
-			"total_wo_tax" => number_format(/*$this_o->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX)*/ $sum, 2,".", " "),
-			"tax" => number_format(/*$this_o->get_bill_sum(crm_bill_obj::BILL_SUM_TAX)*/ 0, 2,".", " "),
-			"total" => number_format($sum, 2, ".", " "),
+			"total_wo_tax" => number_format($sum, 2,".", " "),
+			"tax" => $vat,
+			"total" => number_format($sum + $vat, 2, ".", " "),
 			"total_text" => $total_text,
 			"rows" => $rows
 		));
@@ -4289,7 +4292,7 @@ function add_material(mid, jid)
 		$vars = array();
 
 		$vars["{$type}_name"] = /* "buyer" === $type ? $this_o->get_customer_name() : */ $party->name();
-		$vars["{$type}_phone"] = $party->prop_str("fake_phone", true);
+		$vars["{$type}_phone"] = object_loader::can("", $party->prop("fake_phone")) ? $party->prop_str("fake_phone", true) : "";
 		$vars["{$type}_email"] = $party->prop("fake_email");
 		
 		if ($party->is_a(crm_company_obj::CLID))

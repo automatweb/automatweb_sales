@@ -23,6 +23,7 @@
 			this.unit = ko.observable({ id: row.unit.id, name: row.unit.name });
 			this.total = ko.computed(function(){
 				var total = this.price() * this.quantity();
+				var vat = 0;
 				for (var i in this.price_components()) {
 					if (!this.price_components()[i].applied()) {
 						continue;
@@ -31,13 +32,15 @@
 					 * const TYPE_UNIT = 2;
 					 * const TYPE_ROW = 3;
 					*/
-					if (this.price_components()[i].is_ratio()) {
+					if (this.price_components()[i].vat()) {
+						vat = this.price_components()[i].value();
+					} else if (this.price_components()[i].is_ratio()) {
 						total *= (100 + this.price_components()[i].value() * 1) / 100;
 					} else {
 						total += this.price_components()[i].value() * (this.price_components()[i].value() == 2 ? this.quantity() : 1);
 					}
 				}
-				return total;
+				return total * (100 + vat) / 100;
 			}, this);
 		}
 		function OrderViewModel (rows, units) {
@@ -139,7 +142,7 @@
 			},
 			add_component: function() {
 				var dataTable = $("#example").dataTable();
-				var new_component = { id: -dataTable.fnGetData().length, name: "Uus komponent", title: "", description: "", unit: { id: 0, name: "" } };
+				var new_component = { id: -dataTable.fnGetData().length, name: "Uus komponent", title: "", description: "", unit: { id: 0, name: "" }, price: 0, quantity: 0 };
 				viewModel.rows()[new_component.id] = new RowViewModel(new_component);
 				dataTable.fnAddData(new_component);
 				applyBindings();

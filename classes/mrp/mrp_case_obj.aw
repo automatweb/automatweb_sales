@@ -186,6 +186,17 @@ class mrp_case_obj extends _int_object implements price_component_interface, crm
 		
 		return (double)$total;
 	}
+	
+	public function get_order_vat()
+	{
+		$vat = 0;
+		foreach($this->get_job_list() as $job)
+		{
+			$vat += $job->vat;
+		}
+		
+		return (double)$vat;
+	}
 
 	public function awobj_get_project_priority()
 	{

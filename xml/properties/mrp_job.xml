@@ -13,6 +13,12 @@
             <field>aw_total</field>
       </property>
       <property>
+            <name>vat</name>
+            <type>hidden</type>
+            <table>mrp_job</table>
+            <field>aw_vat</field>
+      </property>
+      <property>
             <name>job_toolbar</name>
             <type>toolbar</type>
             <no_caption>1</no_caption>

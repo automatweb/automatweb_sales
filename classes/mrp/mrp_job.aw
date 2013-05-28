@@ -13,6 +13,7 @@
 
 @property price type=hidden table=mrp_job field=aw_price
 @property total type=hidden table=mrp_job field=aw_total
+@property vat type=hidden table=mrp_job field=aw_vat
 
 @property job_toolbar type=toolbar no_caption=1 store=no group=general,workflow
 
@@ -1297,6 +1298,7 @@ class mrp_job extends class_base
 			{
 				case "aw_price":
 				case "aw_total":
+				case "aw_vat":
 					$this->db_add_col($table, array(
 						"name" => $field,
 						"type" => "DECIMAL(19, 4)"

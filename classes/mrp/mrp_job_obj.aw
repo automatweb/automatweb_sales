@@ -288,16 +288,6 @@ class mrp_job_obj extends _int_object implements price_component_interface, crm_
 		}
 		return (double)$price;
 	}
-	
-	public function awobj_get_total()
-	{
-		$total = parent::prop("total");
-		
-		// FIXME: V]tta arvesse katteid!
-		$total = $this->awobj_get_price() * $this->prop("quantity");
-		
-		return (double)$total;
-	}
 
 	public function set_prop($k, $v)
 	{
@@ -324,6 +314,12 @@ class mrp_job_obj extends _int_object implements price_component_interface, crm_
 			$this->set_name ($project . " - " . $resource . " - " . $this->ord());
 			$this->change_name = false;
 		}
+		
+		// TEMPORARY - WHOLE PRICE THING NEEDS PROPER (RE)MAKE!
+		list($total, $vat) = $this->__calculate_total();
+		$this->set_prop("vat", $vat);
+		$this->set_prop("total", $total);
+		
 		$retval = parent::save($check_state);
 		$this->log_state_change();
 		return $retval;
@@ -2565,6 +2561,38 @@ class mrp_job_obj extends _int_object implements price_component_interface, crm_
 			"type" => price_component_obj::TYPE_ROW,
 			"application" => 760364,
 		));
+	}
+	
+	private function __calculate_total ()
+	{
+		$total_without_vat = $this->awobj_get_price() * $this->prop("quantity");
+		$vat = 0;
+		
+		$price_components = $this->meta("price_components");
+		foreach ($this->get_price_components()->arr() as $id => $price_component)
+		{
+			if (!isset($price_components[$id]) || $price_components[$id]["applied"] != "true") {
+				continue;
+			}
+			
+			/*
+			 * const TYPE_UNIT = 2;
+			 * const TYPE_ROW = 3;
+			*/
+			if ($price_components[$id]["is_ratio"] == "true") {
+				$increment = $total_without_vat * $price_components[$id]["value"] / 100;
+			} else {
+				$increment = $price_components[$id]["value"] * ($price_component->type == price_component_obj::TYPE_UNIT ? $this->prop("quantity") : 1);
+			}
+			
+			if ($price_component->prop("vat")) {
+				$vat = $price_component->value;
+			} else {
+				$total_without_vat += $increment;
+			}
+		}
+		
+		return array((double)$total_without_vat, (double)($total_without_vat * $vat / 100));
 	}
 }
 
