@@ -56,7 +56,7 @@ class objpicker extends core implements vcl_interface, orb_public_interface
 
 		if ("text" === $mode)
 		{
-			if (is_oid($args["object"]->prop($name)))
+			if ($args["object"]->is_property($name) and object_loader::can("", $args["object"]->prop($name)))
 			{
 				$o = new object($args["object"]->prop($name));
 				$value = $o->prop_xml("name");
