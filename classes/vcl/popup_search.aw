@@ -411,7 +411,9 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 		@attrib name=do_search
 
 		@param id optional
-		@param pn required
+		@param pn optional
+		@param pi optional
+			pn or pi is required
 		@param multiple optional
 		@param clid optional
 		@param fcb optional
@@ -536,7 +538,9 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 		$data = array(
 			"id" => isset($arr["id"]) ? $arr["id"] : "",
 			"pn" => isset($arr["pn"]) ? $arr["pn"] : "",
+			"pi" => isset($arr["pi"]) ? $arr["pi"] : "",
 			"npn" => isset($arr["npn"]) ? $arr["npn"] : "",
+			"npi" => isset($arr["npi"]) ? $arr["npi"] : "",
 			"multiple" => isset($arr["multiple"]) ? $arr["multiple"] : "",
 			"clid" => isset($arr["clid"]) ? $arr["clid"] : "",
 			self::REQVAR_FILTER_CALLBACK => isset($arr[self::REQVAR_FILTER_CALLBACK]) ? $arr[self::REQVAR_FILTER_CALLBACK] : "",
@@ -734,14 +738,16 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 
 			$ol = new object_list($filter);
 
-			$elname = $arr["pn"];
-			$elname_n = $arr["pn"];
-			$elname_l = $arr["pn"];
+			if (isset($arr["pn"])) {
+				$elname = $arr["pn"];
+				$elname_n = $arr["pn"];
+				$elname_l = $arr["pn"];
 
-			if (!empty($arr["multiple"]))
-			{
-				$elname .= "[]";
-				$elname_n .= "][]";
+				if (!empty($arr["multiple"]))
+				{
+					$elname .= "[]";
+					$elname_n .= "][]";
+				}
 			}
 
 			for($count and $o = $ol->begin(); !$ol->end(); $o = $ol->next())
@@ -755,7 +761,10 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 					"select_this" => html::href(array(
 						"url" => "javascript:void(0)",
 						"caption" => t("Vali see"),
-						"onclick" => "el=aw_get_el(\"{$elname}\",window.opener.document.changeform);if (!el) { el=aw_get_el(\"{$elname_n}\", window.opener.document.changeform);} if (!el) { el=aw_get_el(\"{$elname_l}\", window.opener.document.changeform);} if (el.options) {sz= el.options.length;el.options.length=sz+1;el.options[sz].value=".$o->id()."; el.options[sz].selected = 1;} else {el.value = ".$o->id().";} ".(!empty($arr["npn"])?("el=aw_get_el(\"{$arr["npn"]}\",window.opener.document.changeform);el.value=\"".str_replace('"', '\"', $o->name)."\";"):"").(!empty($arr["no_submit"])?"":"window.opener.document.changeform.submit();").(!empty($arr[self::REQVAR_JAVASCRIPT_CALLBACK])?("(function(){" . $arr[self::REQVAR_JAVASCRIPT_CALLBACK] . "})(); "):"")."window.close()"
+						"onclick" => (isset($arr["pi"]) ?
+							('window.opener.document.getElementById("' .$arr["pi"] . '").value = "' . $o->id() . '";' . (!empty($arr["npi"]) ? ('window.opener.document.getElementById("' . $arr["npi"] . '").value = "' . $o->name . '";') : "")) :
+							("el=aw_get_el(\"{$elname}\",window.opener.document.changeform);")."if (!el) { el=aw_get_el(\"{$elname_n}\", window.opener.document.changeform);} if (!el) { el=aw_get_el(\"{$elname_l}\", window.opener.document.changeform);} if (el.options) {sz= el.options.length;el.options.length=sz+1;el.options[sz].value=".$o->id()."; el.options[sz].selected = 1;} else {el.value = ".$o->id().";} ".(!empty($arr["npn"])?("el=aw_get_el(\"{$arr["npn"]}\",window.opener.document.changeform);el.value=\"".str_replace('"', '\"', $o->name)."\";"):"")
+						).(!empty($arr["no_submit"])?"":"window.opener.document.changeform.submit();").(!empty($arr[self::REQVAR_JAVASCRIPT_CALLBACK])?("(function(){" . $arr[self::REQVAR_JAVASCRIPT_CALLBACK] . "})(); "):"")."window.close()"
 					)),
 					"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
 				);
@@ -799,7 +808,8 @@ class popup_search extends aw_template implements vcl_interface, orb_public_inte
 			"reforb" => $this->mk_reforb("final_submit", array(
 				"id" => isset($arr["id"]) ? $arr["id"] : "",
 				"multiple" => isset($arr["multiple"]) ? $arr["multiple"] : "",
-				"pn" => $arr["pn"],
+				"pn" => isset($arr["pn"]) ? $arr["pn"] : "",
+				"pi" => isset($arr["pi"]) ? $arr["pi"] : "",
 				"clid" => !empty($arr["clid"]) ? $arr["clid"] : "0",
 				"no_submit" => ifset($arr, "no_submit"),
 				"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),

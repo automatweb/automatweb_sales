@@ -15,8 +15,10 @@
 			<function name="do_search">
 				<arguments>
 					<optional name="id" />
-					<required name="pn" />
+					<optional name="pn" />
+					<optional name="pi" />
 					<optional name="npn" />
+					<optional name="npi" />
 					<optional name="multiple" />
 					<optional name="clid" />
 					<optional name="fcb" />
