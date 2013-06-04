@@ -2594,6 +2594,49 @@ class mrp_job_obj extends _int_object implements price_component_interface, crm_
 		
 		return array((double)$total_without_vat, (double)($total_without_vat * $vat / 100));
 	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->name(),
+			"title" => $this->prop("title"),
+			"description" => $this->prop("description"),
+			"article" => array("id" => $this->prop("article"), "name" => $this->prop("article.name")),
+			"unit" => array("id" => (int)$this->prop("unit"), "name" => $this->prop("unit.name")),
+			"quantity" => (double)$this->prop("quantity"),
+			"price" => (double)$this->prop("price"),
+			// FIXME: Should prolly get these from order_management!
+			"price_components" => $this->__price_components_json($this->get_price_components()->arr()),
+		);
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
+	}
+	
+	private function __price_components_json($price_components)
+	{
+		$json = array();
+		
+		$data = $this->meta("price_components");
+		
+		foreach($price_components as $price_component)
+		{
+			$json[$price_component->id] = array(
+				"id" => $price_component->id,
+				"name" => $price_component->name,
+				"value" => (double)(isset($data[$price_component->id]["value"]) ? $data[$price_component->id]["value"] : $price_component->value),
+				"is_ratio" => (bool)$price_component->is_ratio,
+				"vat" => (bool)$price_component->vat,
+				"applied" => isset($data[$price_component->id]["applied"]) ? ($data[$price_component->id]["applied"] === "true") : false,
+			);
+		}
+		
+		return $json;
+	}
 }
 
 /** Generic job exception **/

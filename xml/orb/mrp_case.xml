@@ -130,5 +130,12 @@
 			</function>
 		</action>
 
+		<action name="preview" all_args="1">
+			<function name="preview">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

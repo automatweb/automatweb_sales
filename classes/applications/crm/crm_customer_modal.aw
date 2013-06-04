@@ -1,19 +1,26 @@
 <?php
 
 class crm_customer_modal extends aw_modal {
+
+	private static $default_class = "company";
+	
+	private $customer_class;
+	
+	private static function customer_class() {
+		return automatweb::$request->arg_isset("customer_class") ? automatweb::$request->arg("customer_class") : self::$default_class;
+	}
 	
 	protected function get_header_template() {
-		return new aw_php_template("crm_customer_modal", "header");
+		return new aw_php_template("crm_customer_modal", "header-".self::customer_class());
 	}
 	
 	protected function get_content_template() {
-		
 		$company = null;
 		if (object_loader::can("", automatweb::$request->arg("company"))) {
 			$company = obj(automatweb::$request->arg("company"), null, crm_company_obj::CLID);
 		}
 		
-		$template = new aw_php_template("crm_customer_modal", "content");
+		$template = new aw_php_template("crm_customer_modal", "content-".self::customer_class());
 		
 		// FIXME: skill_manager should be an actual object!
 		$skill_manager = new person_skill_manager_obj();
@@ -44,7 +51,7 @@ class crm_customer_modal extends aw_modal {
 	}
 	
 	protected function get_footer_template() {
-		return new aw_php_template("crm_customer_modal", "footer");
+		return new aw_php_template("crm_customer_modal", "footer-".self::customer_class());
 	}
 
 	/**

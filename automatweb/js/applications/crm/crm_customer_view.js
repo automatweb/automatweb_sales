@@ -234,13 +234,29 @@ YUI().use("node", function(Y) {
 			}
 		}
 		
+		var convertTimestampToDate = function(unix_timestamp) {
+			var date = new Date(unix_timestamp*1000);
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			return (day < 10 ? "0" : "") + day + "." + (month < 10 ? "0" : "") + month + "." + date.getFullYear();
+		};
+		
 		var vmCustomerPerson = function(_data) {
 			var self = this;
-			var properties = ["id", "firstname", "lastname"];
+			var properties = ["id", "firstname", "lastname", "personal_id", "birth_date"];
 			vmCustomer.call(this, _data, properties);
 			self.name = ko.computed(function() {
 				return self.firstname() + " " + self.lastname();
 			}, self);
+			self.birth_date_show = ko.observable();
+			self.birth_date_show(convertTimestampToDate(self.birth_date()));
+			self.birth_date_show.subscribe(function(date_string) {
+				var year = date_string.substring(6, 10);
+				var month = date_string.substring(3, 5) - 1;
+				var day = date_string.substring(0, 2);
+				var date = new Date(year, month, day);
+				self.birth_date(Date.parse(date)/1000);
+			});
 		};
 		
 		var vmCustomerCompany = function(_data) {
@@ -248,17 +264,8 @@ YUI().use("node", function(Y) {
 			if (!_data) { _data = {}; }
 			var properties = ["id", "name", "short_name", "comment", "year_founded", "reg_nr", "ettevotlusvorm", "tax_nr", "sections"];
 			vmCustomer.call(this, _data, properties);
-			
-			var convertTimestampToDate = function(unix_timestamp) {
-				var date = new Date(unix_timestamp*1000);
-				var day = date.getDate();
-				var month = date.getMonth() + 1;
-				self.year_founded_show((day < 10 ? "0" : "") + day + "." + (month < 10 ? "0" : "") + month + "." + date.getFullYear());
-			};
 			self.year_founded_show = ko.observable();
-//			self.year_founded.subscribe(convertTimestampToDate);
-			// Trigger the subscribed function.
-			convertTimestampToDate(self.year_founded());
+			self.year_founded_show(convertTimestampToDate(self.year_founded()));
 			self.year_founded_show.subscribe(function(date_string) {
 				var year = date_string.substring(6, 10);
 				var month = date_string.substring(3, 5) - 1;
@@ -332,16 +339,32 @@ YUI().use("node", function(Y) {
 			initialize_modals: function(company) {
 				data.company = company;
 				
-				modal_preload = $.ajax({
-					url: "/automatweb/orb.aw?class=crm_customer_modal&action=parse",
-					data: { company: data.company },
-					success: function(html) {
-						modal_html.company = html;
+				var modals_loaded = 0;
+				
+				function handle_modal_preloaded () {
+					if (++modals_loaded == 2) {
 						modal_preloaded = true;
 						for (var i in modal_preload_callbacks) {
 							modal_preload_callbacks[i].call(self);
 							delete modal_preload_callbacks[i];
 						}
+					}
+				}
+				
+				$.ajax({
+					url: "/automatweb/orb.aw?class=crm_customer_modal_company&action=parse",
+					data: { company: data.company },
+					success: function(html) {
+						modal_html.company = html;
+						handle_modal_preloaded();
+					}
+				});
+				$.ajax({
+					url: "/automatweb/orb.aw?class=crm_customer_modal_person&action=parse",
+					data: { company: data.company },
+					success: function(html) {
+						modal_html.person = html;
+						handle_modal_preloaded();
 					}
 				});
 			},
@@ -368,7 +391,7 @@ YUI().use("node", function(Y) {
 							customerView.customer().customer_relation().categories(category);
 							ko.applyBindings(customerView);
 
-							$(".modal").css("width", 1100).css("margin-left", -500).modal();
+							$(".modal").css("width", 1100).css("margin-left", -500).modal({ show: true });
 							/* $(".modal").draggable({
 								handle: ".modal-header"
 							}); */
@@ -440,7 +463,15 @@ YUI().use("node", function(Y) {
 						removed: ko.toJS(customerView.removed)
 					},
 					success: function(_data) {
-						customerView.customer(new vmCustomerCompany(_data));
+						switch (data.clid) {
+							case 145:
+								customerView.customer(new vmCustomerPerson(_data));
+								break;
+							
+							case 129:
+								customerView.customer(new vmCustomerCompany(_data));
+								break;
+						}
 					},
 					error: function() {
 						alert("Salvestamine ebaõnnestus!");

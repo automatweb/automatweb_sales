@@ -2356,7 +2356,12 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 		{
 			case crm_person_obj::CLID:
 				$firstname = $lastname = "";
-				if (strpos(" ", $arr["name"]) !== false)
+				if (!empty($arr["data"]["firstname"]) or !empty($arr["data"]["lastname"]))
+				{
+					$firstname = isset($arr["data"]["firstname"]) ? $arr["data"]["firstname"] : null;
+					$lastname = isset($arr["data"]["lastname"]) ? $arr["data"]["lastname"] : null;
+				}
+				elseif (strpos(" ", $arr["name"]) !== false)
 				{
 					list($firstname, $lastname) = explode(" ", $arr["name"]);
 				}
@@ -2366,7 +2371,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 				}
 				$customer->set_prop("firstname", $firstname);
 				$customer->set_prop("lastname", $lastname);
-				$this->__set_accepted_properties($customer, array("gender", "birthday"), $arr["data"]);
+				$this->__set_accepted_properties($customer, array("gender", "birth_date", "personal_id"), $arr["data"]);
 				break;
 			
 			case crm_company_obj::CLID:
@@ -2502,7 +2507,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 					$address->set_meta("section", isset($address_data["section"]) ? $address_data["section"] : null);
 					$address->save();
 					
-					if (!object_loader::can("", $customer->contact))
+					if ($customer->is_a(crm_company_obj::CLID) and !object_loader::can("", $customer->contact))
 					{
 						$customer->contact = $address->id;
 						$customer->save();

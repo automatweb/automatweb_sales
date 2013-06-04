@@ -353,7 +353,14 @@ class mrp_case_obj extends _int_object implements price_component_interface, crm
 	**/
 	public function get_job_list()
 	{
-		$ol = new object_list($this->connections_from(array ("type" => "RELTYPE_MRP_PROJECT_JOB", "class_id" => CL_MRP_JOB)));
+		if (!$this->is_saved()) {
+			return array();
+		}
+		$ol = new object_list(array(
+			"class_id" => mrp_job_obj::CLID,
+			"CL_MRP_JOB.RELTYPE_MRP_PROJECT_JOB(CL_MRP_CASE).id" => $this->id(),
+			new obj_predicate_sort(array("jrk" => obj_predicate_sort::ASC)),
+		));
 		return $ol->arr();
 	}
 
@@ -1579,6 +1586,30 @@ Parimat,
 			t("Tellimus tühistati"),
 			sprintf(t("Tühistaja: %s"), html::obj_change_url(get_current_person()))
 		);	
+	}
+
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json($encode = true)
+	{
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->prop("name"),
+			"comment" => $this->prop("comment"),
+			"customer" => $this->prop("customer"),
+			"seller" => $this->prop("seller"),
+			"rows" => array(),
+			// FIXME: Think of a way to get it into order_management.js without loading it here!
+			"availableUnits" => mrp_case::get_units(array("return" => true)),
+		);
+		
+		foreach($this->get_job_list() as $job) {
+			$data["rows"][] = $job->json(false);
+		}
+
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
 	}
 }
 

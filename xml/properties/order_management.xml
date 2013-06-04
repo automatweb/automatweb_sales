@@ -297,7 +297,7 @@
             <multiple>1</multiple>
             <captionside>top</captionside>
             <parent>configuration_filter_states</parent>
-            <caption>Tootmise staatus</caption>
+            <caption>Teostuse staatus</caption>
       </property>
       <property>
             <name>configuration_orders_filter_time_period</name>
@@ -466,7 +466,7 @@
             <orders_filter_state>
                   <type>vbox_sub</type>
                   <parent>orders_filter</parent>
-                  <area_caption>Tootmise&amp;amp;nbsp;staatus</area_caption>
+                  <area_caption>Teostuse&amp;amp;nbsp;staatus</area_caption>
                   <closeable>1</closeable>
                   <group>orders</group>
             </orders_filter_state>

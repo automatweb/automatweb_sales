@@ -53,7 +53,7 @@
 				
 					@property orders_filter_order_state type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_order_state
 			
-				@layout orders_filter_state type=vbox_sub parent=orders_filter area_caption=Tootmise&nbsp;staatus closeable=1
+				@layout orders_filter_state type=vbox_sub parent=orders_filter area_caption=Teostuse&nbsp;staatus closeable=1
 				
 					@property orders_filter_state type=yui-chooser multiple=true store=no no_caption=true parent=orders_filter_state
 			
@@ -119,7 +119,7 @@
 					@caption M&uuml;&uuml;gi staatus
 				
 					@property configuration_orders_filter_state type=yui-chooser multiple=1 captionside=top parent=configuration_filter_states
-					@caption Tootmise staatus
+					@caption Teostuse staatus
 			
 				@layout configuration_filter_time_period type=vbox_sub parent=configuration_filter_left area_caption=Tellimuste&nbsp;filtris&nbsp;valitud&nbsp;periood closeable=1
 				
@@ -551,7 +551,11 @@ class order_management extends management_base
 			$order_inst = new mrp_case();
 			$t->define_data(array(
 				"oid" => $order->id,
-				"name" => html::obj_change_url($order),
+				"name" => html::href(array(
+					"url" => "javascript:void(0)",
+					"onclick" => "AW.UI.order_management.open_order_modal({$order->id})",
+					"caption" => $order->name,
+				)) . " " . html::obj_change_url($order, "(muuda)"),
 				"customer_name" => $customer->is_saved() ? html::obj_change_url($customer, ($customer->is_a(crm_company_obj::CLID) ? $customer->get_title() : $customer->name())) : self::$not_available_string,
 				"customer_manager" => $customer_relation !== null && is_oid($customer_relation->client_manager) ? html::obj_change_url($customer_relation->client_manager()) : self::$not_available_string,
 				"customer_relation" => $customer_relation !== null ? html::obj_change_url($customer_relation, $customer_relation->id()) : self::$not_available_string,
@@ -864,10 +868,18 @@ class order_management extends management_base
 		}
 	}
 	
-	function callback_generate_scripts()
+	function callback_generate_scripts($arr)
 	{
-		load_javascript("reload_properties_layouts.js");
-		load_javascript("applications/order_management/order_management.js");
+		active_page_data::load_javascript("reload_properties_layouts.js");
+		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.datepicker.css");
+		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.min.css");
+		active_page_data::load_javascript("bootstrap/js/bootstrap.min.js");
+		active_page_data::load_javascript("bootstrap/js/bootstrap.datepicker.js");
+		active_page_data::load_javascript("knockout/knockout-2.2.0.js");
+		active_page_data::load_javascript("knockout/ko.custom.js");
+		active_page_data::load_javascript("jquery/plugins/jquery-ui-1.10.3.min.js");
+		active_page_data::load_javascript("applications/order_management/order_management.js");
+		active_page_data::add_javascript("var initialize = setInterval(function(){if(typeof AW !== 'undefined'){ clearInterval(initialize); AW.UI.order_management.initialize_modal(); }}, 100);", "bottom");
 	}
 
 	function do_db_upgrade($table, $field, $query, $error)

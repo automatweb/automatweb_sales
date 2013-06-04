@@ -265,7 +265,7 @@
             <parent>general_info_4</parent>
             <captionside>top</captionside>
             <field>state</field>
-            <caption>Tootmise staatus:</caption>
+            <caption>Teostuse staatus:</caption>
       </property>
       <property>
             <name>started</name>

@@ -2094,7 +2094,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 
 	public function save($check_state = false)
 	{
-		$this->set_name($this->prop("firstname") . " " . $this->prop("lastname") . (strlen($this->prop("previous_lastname")) < 1 ? "" : " (" . $this->prop("previous_lastname") . ")"));
+		$this->set_name(trim($this->prop("firstname") . " " . $this->prop("lastname") . (strlen($this->prop("previous_lastname")) < 1 ? "" : " (" . $this->prop("previous_lastname") . ")")));
 
 		$fakes = array(
 			"email", "phone", "skype", "mobile", "fax", "address_country", "address_country_relp", "address_county", "address_county_relp", "address_city", "address_city_relp", "address_postal_code", "address_address", "address_address2"
@@ -2291,7 +2291,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, pric
 			"gender" => $this->prop("gender"),
 			"email" => $this->prop("fake_email"),
 			"phone" => $this->prop("fake_phone"),
-			"birthday" => $this->prop("birthday"),
+			"personal_id" => $this->prop("personal_id"),
+			"birth_date" => $this->prop("birth_date"),
 			"skills" => array_values($skills->get_element_from_all("skill")),
 		);
 

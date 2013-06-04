@@ -1,0 +1,1 @@
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3><?php echo $title; ?></h3>

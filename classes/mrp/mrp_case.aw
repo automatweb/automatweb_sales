@@ -73,7 +73,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_
 		@caption Staatus:
 
 		@property state type=text table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
-		@caption Tootmise staatus:
+		@caption Teostuse staatus:
 
 		@property started type=text editonly=1 table=mrp_case group=grp_general,grp_case_data,grp_case_components,grp_case_workflow,grp_case_materials,grp_case_view,grp_case_schedule_gantt,grp_case_schedule_google,grp_case_comments,grp_case_log editonly=1 parent=general_info_4 captionside=top
 		@caption Alustatud:
@@ -2747,7 +2747,7 @@ HTML;
 					$area_caption[] = sprintf(t("numbriga \"%s\""), $arr["obj_inst"]->name);
 				}
 				$area_caption[] = sprintf(t("staatusega \"%s\""), $arr["obj_inst"]->get_order_state_names($arr["obj_inst"]->state));
-				$area_caption[] = sprintf(t("tootmise staatusega \"%s\""), $this->states[$arr["obj_inst"]->state]);
+				$area_caption[] = sprintf(t("teostuse staatusega \"%s\""), $this->states[$arr["obj_inst"]->state]);
 
 				$arr["area_caption"] = ucfirst(implode(" ", $area_caption));
 				break;
@@ -3594,7 +3594,7 @@ function add_material(mid, jid)
 	/**
 		@attrib name=get_units
 	**/
-	public function get_units($arr)
+	public static function get_units($arr)
 	{
 		$ol = new object_list(array(
 			"class_id" => unit_obj::CLID,
@@ -3608,7 +3608,10 @@ function add_material(mid, jid)
 				"name" => $name,
 			);
 		}
-		die(json_encode($units));
+		if (empty($arr["return"])) {
+			die(json_encode($units));
+		}
+		return $units;
 	}
 	
 	/**
