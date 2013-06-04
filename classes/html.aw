@@ -33,6 +33,8 @@ class html
 		If set, then onblur=$onblur.
 	@param empty_option type=mixed default=null
 		Add empty selection as first option to list. Value of this parameter will be set as the value of the empty selection
+	@param data optional type=array
+		data- fields
 
 	@returns string / html select
 
@@ -42,6 +44,7 @@ class html
 	{
 		$post_append_text = "";
 		extract($args);
+		$name = isset($name) ? $name : "";
 		$disabled = (!empty($disabled) ? ' disabled="disabled"' : "");
 		$sz = $mz = $onc = $cl = $w = $ts = "";
 
@@ -143,15 +146,19 @@ class html
 				$optstr .= "</optgroup>\n";
 			}
 		}
-		/*
-		if (!empty($post_append_text))
+		
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
 		{
-			$post_append_text = "";
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
 		}
-		*/
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
 
 		//
-		return "<select name=\"{$name}\" id=\"{$id}\"{$cl}{$sz}{$mz}{$onc}{$disabled}{$onblur}{$ti}{$style}>\n{$optstr}</select>{$post_append_text}\n";
+		return "<select name=\"{$name}\" id=\"{$id}\"{$cl}{$sz}{$mz}{$onc}{$disabled}{$onblur}{$ti}{$style}{$data}>\n{$optstr}</select>{$post_append_text}\n";
 	}
 
 	/** Returns empty option array (with one element) to be prepended to select element option arrays
@@ -248,6 +255,12 @@ class html
 
 	@param class optional type=string
 		textbox's css class
+		
+	@param data optional type=array
+		data- fields
+		
+	@param placeholder optional type=string
+		placeholder
 
 	@returns string / html textbox
 
@@ -257,6 +270,7 @@ class html
 	public static function textbox($args = array())
 	{
 		extract($args);
+		$name = isset($name) ? $name : "";
 		$disabled = (!empty($disabled) ? ' disabled="disabled"' : "");
 		$post_append_text = (!empty($post_append_text) ? $post_append_text : "");
 		$textsize = (!empty($textsize) ? " style=\"font-size: {$textsize};\"" : "");
@@ -277,6 +291,7 @@ class html
 		$onkeyup = isset($onkeyup) ? " onkeyup=\"{$onkeyup}\"" : '';
 		$style = isset($style) ? " style=\"{$style}\"":"";
 		$class = isset($class) ? " class=\"{$class}\"":"";
+		$placeholder = isset($placeholder) ? " placeholder=\"{$placeholder}\"":"";
 
 		if(!empty($autocomplete_class_id))
 		{
@@ -409,8 +424,18 @@ class html
 			$name .= "_awAutoCompleteTextbox";
 			$value = isset($content) ? $content : "";
 		}
+		
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
+		{
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
+		}
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
 
-		return "<input type=\"text\" id=\"{$id}\" name=\"{$name}\" size=\"{$size}\" value=\"{$value}\"{$maxlength}{$style}{$onkeypress}{$onkeyup}{$onload}{$onfocus}{$onblur}{$disabled}{$textsize}{$ti}{$ac_off}{$onchange}{$class} />{$post_append_text}\n{$value_elem}{$autocomplete}";
+		return "<input type=\"text\" id=\"{$id}\" name=\"{$name}\" size=\"{$size}\" value=\"{$value}\"{$maxlength}{$style}{$onkeypress}{$onkeyup}{$onload}{$onfocus}{$onblur}{$disabled}{$textsize}{$ti}{$ac_off}{$onchange}{$class}{$data}{$placeholder} />{$post_append_text}\n{$value_elem}{$autocomplete}";
 	}
 
 	/**
@@ -448,6 +473,8 @@ class html
 		if set, onkeyup=$onkeyup.
 	@param onchange type=string default=""
 		if set, onchange=$onchange.
+	@param placeholder type=string default=""
+		if set, placeholder=$placeholder.
 
 	@returns string / html textarea
 
@@ -464,6 +491,7 @@ class html
 			$onkeyup = "if(this.value.length>{$maxlength}){this.value=this.value.substr(0,{$maxlength});}".$onkeyup;
 		}
 
+		$name = isset($name) ? $name : "";
 		$cols = !empty($cols) ? $cols : 60;
 		$rows = !empty($rows) ? $rows : 40;
 		$value = isset($value) ? $value : "";
@@ -471,6 +499,17 @@ class html
 		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : "";
 		$onkeyup = isset($onkeyup) ? " onkeyup=\"{$onkeyup}\"" : "";
 		$onchange = !empty($onchange) ? " onchange=\"{$onchange}\"" : "";
+		$placeholder = !empty($placeholder) ? " placeholder=\"{$placeholder}\"" : "";
+		
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
+		{
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
+		}
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
 
 		if (strpos($value, "<") !== false)
 		{
@@ -562,7 +601,8 @@ ENDJAVASCRIPT
 				$args["resize_height"];
 			}
 			$disabled = (empty($disabled) ? "" : ' disabled="disabled"');
-			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onfocus}{$onblur}{$onchange}>{$value}</textarea>\n";
+			$class = empty($args["class"]) ? "" : " class=\"{$args["class"]}\"";
+			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onfocus}{$onblur}{$onchange}{$class}{$data}{$placeholder}>{$value}</textarea>\n";
 		}
 
 		return $retval;
@@ -1374,6 +1414,8 @@ ENDJAVASCRIPT
 	@param caption optional type=string
 		the text user can see
 	@param reload optional type=array
+	@param data optional type=array
+		data- fields
 
 	@returns string/html href
 
@@ -1421,8 +1463,18 @@ ENDJAVASCRIPT
 		// We use double quotes in HTML, so we need to escape those in the url.
 		// also since using xhtml, replace ampersands
 		$url = str_replace(array("&", "\""), array("&amp;", "\\\""), $url);
+		
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
+		{
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
+		}
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
 
-		return "<a href=\"{$url}\"{$target}{$title}{$onClick}{$onMouseOver}{$onMouseOut}{$ti}{$textsize}{$class}{$id}{$name}{$rel}{$style}>{$caption}</a>";
+		return "<a href=\"{$url}\"{$target}{$title}{$onClick}{$onMouseOver}{$onMouseOut}{$ti}{$textsize}{$class}{$id}{$name}{$rel}{$style}{$data}>{$caption}</a>";
 	}
 
 	/**Popup
@@ -1525,8 +1577,10 @@ ENDJAVASCRIPT
 		examples: "red", "#CCBBAA"
 	@param content optional type=string
 		html to insert between span tags
-	@param nowrap type=bool default=false
+	@param nowrap optional type=bool default=false
 		allow no white space wrapping if TRUE
+	@param data optional type=array
+		data- fields
 	@returns string/html
 
 	@comments
@@ -1543,7 +1597,16 @@ ENDJAVASCRIPT
 		$class = (!empty($class) ? ' class="' . $class . '"' : "");
 		$id = (!empty($id) ? " id=\"{$id}\"" : "");
 		$content = isset($content) ? $content : "";
-		return "<span{$class}{$style}{$id}>{$content}</span>";
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
+		{
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
+		}
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
+		return "<span{$class}{$style}{$id}{$data}>{$content}</span>";
 	}
 
 	/** Replaces white space characters with non breaking spaces
@@ -1603,6 +1666,7 @@ ENDJAVASCRIPT
 		div id
 	@param border optional type=string
 	@param padding optional type=string
+	@param data optional type=array
 
 
 	@returns string/html
@@ -1636,10 +1700,20 @@ ENDJAVASCRIPT
 			$style=" style=\" ".join(" " , $styles)."\"";
 		}
 
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
+		{
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
+		}
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
+
 		$class = (!empty($class) ? ' class="' . $class . '"' : "");
 		$id = !empty($id) ? " id=\"{$id}\"" : "";
 		$content = isset($content) ? $content : "";
-		return "<div{$class}{$style}{$id}>{$content}</div>";
+		return "<div{$class}{$style}{$id}{$data}>{$content}</div>";
 	}
 
 	/** Creates a horizontal rule element
@@ -1693,13 +1767,16 @@ ENDJAVASCRIPT
 	@attrib api=1 params=pos
 	@param content required type=string
 		html to insert between div tags
+	@param class optional type=string
+		HTML element's CSS class
 	@returns string/html
 	@comments
 		draws <i>$content</i>
 	**/
-	public static function italic($content)
+	public static function italic($content, $class = null)
 	{
-		return "<i>{$content}</i>";
+		$class = isset($class) ? " class=\"{$class}\"" : "";
+		return "<i{$class}>{$content}</i>";
 	}
 
 	/**
