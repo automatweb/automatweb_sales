@@ -1,120 +1,71 @@
 <?xml version='1.0'?>
 <xml>
 	<classinfo>
-		<syslog_type>
-		</syslog_type>
-		<maintainer>
-		</maintainer>
-		<relationmgr>
-		</relationmgr>
-		<no_status>
-		</no_status>
-		<no_comment>
-		</no_comment>
-		<prop_cb>
-		</prop_cb>
-		<trans>
-		</trans>
-		<confirm_save_data>
-		</confirm_save_data>
-		<r2>
-		</r2>
-		<layout>
-		</layout>
-		<no_caption>
-		</no_caption>
-		<no_name>
-		</no_name>
-		<allow_rte>
-		</allow_rte>
-		<hide_tabs>
-		</hide_tabs>
-		<versioned>
-		</versioned>
-		<status>
-		</status>
-		<display>
-		</display>
+		<syslog_type />
+		<maintainer />
+		<relationmgr />
+		<no_status />
+		<no_comment />
+		<prop_cb />
+		<trans />
+		<confirm_save_data />
+		<r2 />
+		<layout />
+		<no_caption />
+		<no_name />
+		<allow_rte />
+		<hide_tabs />
+		<versioned />
+		<status />
+		<display />
 	</classinfo>
 
 
 	<groupinfo>
-		<caption>
-		</caption>
-		<submit>
-		</submit>
-		<parent>
-		</parent>
-		<submit_method>
-		</submit_method>
-		<save>
-		</save>
-		<encoding>
-		</encoding>
-		<tabgroup>
-		</tabgroup>
-		<no_submit>
-		</no_submit>
-		<name>
-		</name>
-		<submit_action>
-		</submit_action>
-		<default>
-		</default>
-		<icon>
-		</icon>
-		<focus>
-		</focus>
-		<table>
-		</table>
-		<captionside>
-		</captionside>
-		<view>
-		</view>
-		<request_method>
-		</request_method>
+		<caption />
+		<submit />
+		<parent />
+		<submit_method />
+		<save />
+		<encoding />
+		<tabgroup />
+		<no_submit />
+		<name />
+		<submit_action />
+		<default />
+		<icon />
+		<focus />
+		<table />
+		<captionside />
+		<view />
+		<request_method />
 	</groupinfo>
 
 
 	<tableinfo>
-		<index>
-		</index>
-		<master_index>
-		</master_index>
-		<master_table>
-		</master_table>
+		<index />
+		<master_index />
+		<master_table />
 	</tableinfo>
 
 
 	<forminfo>
-		<onload>
-		</onload>
-		<onsubmit>
-		</onsubmit>
-		<method>
-		</method>
+		<onload />
+		<onsubmit />
+		<method />
 	</forminfo>
 
 
 	<layout>
-		<type>
-		</type>
-		<width>
-		</width>
-		<closeable>
-		</closeable>
-		<area_caption>
-		</area_caption>
-		<parent>
-		</parent>
-		<group>
-		</group>
-		<no_caption>
-		</no_caption>
-		<no_padding>
-		</no_padding>
-		<default_state>
-		</default_state>
+		<type />
+		<width />
+		<closeable />
+		<area_caption />
+		<parent />
+		<group />
+		<no_caption />
+		<no_padding />
+		<default_state />
 	</layout>
 
 
@@ -128,94 +79,58 @@
 
 	<property>
 		<global>
-			<group>
-			</group>
-			<ds>
-			</ds>
-			<field>
-			</field>
-			<method>
-			</method>
-			<table>
-			</table>
-			<store>
-			</store>
-			<no_caption>
-			</no_caption>
-			<parent>
-			</parent>
-			<datatype>
-			</datatype>
-			<default>
-			</default>
-			<type>
-			</type>
-			<editonly>
-			</editonly>
-			<newonly>
-			</newonly>
-			<form>
-			</form>
-			<prop_cb>
-			</prop_cb>
-			<warning>
-			</warning>
-			<search>
-			</search>
-			<trans>
-			</trans>
-			<submit>
-			</submit>
-			<view>
-			</view>
-			<captionside>
-			</captionside>
-			<view_element>
-			</view_element>
-			<caption>
-			</caption>
-			<rel>
-			</rel>
-			<draft>
-			</draft>
+			<group />
+			<ds />
+			<field />
+			<method />
+			<table />
+			<store />
+			<no_caption />
+			<parent />
+			<datatype />
+			<default />
+			<type />
+			<editonly />
+			<newonly />
+			<form />
+			<prop_cb />
+			<warning />
+			<search />
+			<trans />
+			<submit />
+			<view />
+			<captionside />
+			<view_element />
+			<caption />
+			<rel />
+			<draft />
 		</global>
 
 		<checkbox>
-			<ch_value>
-			</ch_value>
-			<user>
-			</user>
-			<display>
-			</display>
-			<size>
-			</size>
+			<ch_value />
+			<user />
+			<display />
+			<size />
 			<disabled />
 		</checkbox>
 
 		<toolbar>
-			<quicksearch>
-			</quicksearch>
-			<no_rte_button>
-			</no_rte_button>
+			<quicksearch />
+			<no_rte_button />
 		</toolbar>
 
 		<toolbar_standard_obj>
-			<quicksearch>
-			</quicksearch>
-			<no_rte_button>
-			</no_rte_button>
+			<quicksearch />
+			<no_rte_button />
 		</toolbar_standard_obj>
 
 		<toolbar_standard_app>
-			<quicksearch>
-			</quicksearch>
-			<no_rte_button>
-			</no_rte_button>
+			<quicksearch />
+			<no_rte_button />
 		</toolbar_standard_app>
 
 		<fileupload>
-			<reltype>
-			</reltype>
+			<reltype />
 		</fileupload>
 
 		<fileuploader>
@@ -226,17 +141,13 @@
 		</hidden>
 
 		<textbox>
-			<size>
-			</size>
-			<user>
-			</user>
-			<maxlength>
-			</maxlength>
-			<option_is_tuple>
-			</option_is_tuple>
-			<autocomplete_class_id>
-			</autocomplete_class_id>
+			<size />
+			<user />
+			<maxlength />
+			<option_is_tuple />
+			<autocomplete_class_id />
 			<disabled />
+			<placeholder />
 		</textbox>
 
 		<table>
@@ -321,6 +232,7 @@
 			<height />
 			<maxlength />
 			<disabled />
+			<placeholder />
 		</textarea>
 
 		<chooser>

@@ -120,7 +120,7 @@ class propcollector extends aw_template
 	**/
 	public function parse_class($name)
 	{
-		if (!class_index::is_extension_of($name, "class_base"))
+		if (!class_index::is_extension_of($name, "class_base") and !class_index::is_extension_of($name, "aw_modal"))
 		{
 			throw new awex_propcollector("Given class '" . $name . "' has no property generation option");
 		}
@@ -659,7 +659,7 @@ class propcollector extends aw_template
 		$this->currentclass = $cname;
 
 		if (
-			!class_index::is_extension_of($this->currentclass, "class_base") or // properties are generated for cb extensions only
+			(!class_index::is_extension_of($this->currentclass, "class_base") and !class_index::is_extension_of($this->currentclass, "aw_modal")) or // properties are generated for cb extensions only
 			"main" === $mode and !class_index::is_instantiable($cname) // main "end usable" class must not be abstract, parents though can be
 		)
 		{
