@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href='http://yui.yahooapis.com/3.5.1/build/cssbutton/cssbutton.css'></link>
 
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/js-min.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/AW.UI.js"></script>
 	<script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
 	
 	{VAR:javascript}

@@ -3,7 +3,7 @@ YUI().use("node", function(Y) {
 		window.AW = { UI: {} };
 	}
 	if (typeof(AW.UI) == "undefined") {
-		window.AW = {};
+		window.AW.UI = {};
 	}
 	AW.UI.crm_customer_view = (function() {
 		var self = this;
@@ -351,22 +351,8 @@ YUI().use("node", function(Y) {
 					}
 				}
 				
-				$.ajax({
-					url: "/automatweb/orb.aw?class=crm_customer_modal_company&action=parse",
-					data: { company: data.company },
-					success: function(html) {
-						modal_html.company = html;
-						handle_modal_preloaded();
-					}
-				});
-				$.ajax({
-					url: "/automatweb/orb.aw?class=crm_customer_modal_person&action=parse",
-					data: { company: data.company },
-					success: function(html) {
-						modal_html.person = html;
-						handle_modal_preloaded();
-					}
-				});
+				AW.UI.modal.load("crm_customer_modal_company", { company: data.company }, handle_modal_preloaded);
+				AW.UI.modal.load("crm_customer_modal_person", { company: data.company }, handle_modal_preloaded);
 			},
 			open_customer_modal: function(customer_class, customer_type, category, customer_id) {
 				$.please_wait_window.show();
@@ -377,55 +363,46 @@ YUI().use("node", function(Y) {
 						var administrative_unit_map = {};
 						var field;
 						$.please_wait_window.hide();
-						if (modal_html[customer_class] !== undefined) {
-							$(".modal").remove();
-							$("body").append(modal_html[customer_class]);
+						var modal = AW.UI.modal.open("crm_customer_modal_" + customer_class);
 
-							if (customer_class == "person") {
-								data.clid = 145;
-								customerView.customer(new vmCustomerPerson(customer_data));
-							} else {
-								data.clid = 129;
-								customerView.customer(new vmCustomerCompany(customer_data));
-							}
-							customerView.customer().customer_relation().categories(category);
-							ko.applyBindings(customerView);
-
-							$(".modal").css("width", 1100).css("margin-left", -500).modal({ show: true });
-							/* $(".modal").draggable({
-								handle: ".modal-header"
-							}); */
-							$('.modal input[data-provide=typeahead]').typeahead({
-								source: function(query, process) {
-									field = this.$element.data("address-field");
-									var input = {};
-									input[field] = query;
-									if (field == "city" || field == "vald") {
-										input.county = customerView.customer().address_selected().county_caption();
-									}
-									$.ajax({
-										url: "/automatweb/orb.aw?class=crm_company_cedit_impl",
-										data: { action: "ac_" + field, cedit_adr: [input] },
-										dataType: "json",
-										success: function (response) {
-											var options = [];
-											$.each(response.options, function(id, name) {
-												administrative_unit_map[name] = id;
-												options.push(name);
-											});
-											process(options);
-										}
-									});
-									return ["A"];
-								},
-								updater: function(item) {
-									customerView.customer().address_selected()[field](administrative_unit_map[item]);
-									return item;
-								}
-							});
+						if (customer_class == "person") {
+							data.clid = 145;
+							customerView.customer(new vmCustomerPerson(customer_data));
 						} else {
-							throw "Error: no HTML for crm_customer_modal of class '" + customer_class + "'.";
+							data.clid = 129;
+							customerView.customer(new vmCustomerCompany(customer_data));
 						}
+						customerView.customer().customer_relation().categories(category);
+						ko.applyBindings(customerView);
+						
+						modal.element.find('input[data-provide=typeahead]').typeahead({
+							source: function(query, process) {
+								field = this.$element.data("address-field");
+								var input = {};
+								input[field] = query;
+								if (field == "city" || field == "vald") {
+									input.county = customerView.customer().address_selected().county_caption();
+								}
+								$.ajax({
+									url: "/automatweb/orb.aw?class=crm_company_cedit_impl",
+									data: { action: "ac_" + field, cedit_adr: [input] },
+									dataType: "json",
+									success: function (response) {
+										var options = [];
+										$.each(response.options, function(id, name) {
+											administrative_unit_map[name] = id;
+											options.push(name);
+										});
+										process(options);
+									}
+								});
+								return ["A"];
+							},
+							updater: function(item) {
+								customerView.customer().address_selected()[field](administrative_unit_map[item]);
+								return item;
+							}
+						});
 					});
 				};
 				if (customer_id) {
@@ -448,7 +425,6 @@ YUI().use("node", function(Y) {
 				}
 			},
 			save_customer: function(post_save_callback) {
-				$.please_wait_window.show({ target: $(".modal") });
 				$.ajax({
 					url: "/automatweb/orb.aw?class=crm_company&action=create_customer",
 					type: "POST",
