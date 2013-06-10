@@ -871,15 +871,16 @@ class order_management extends management_base
 	function callback_generate_scripts($arr)
 	{
 		active_page_data::load_javascript("reload_properties_layouts.js");
-		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.datepicker.css");
 		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.min.css");
+		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.datepicker.css");
+		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.docs.css");
 		active_page_data::load_javascript("bootstrap/js/bootstrap.min.js");
 		active_page_data::load_javascript("bootstrap/js/bootstrap.datepicker.js");
 		active_page_data::load_javascript("knockout/knockout-2.2.0.js");
 		active_page_data::load_javascript("knockout/ko.custom.js");
 		active_page_data::load_javascript("jquery/plugins/jquery-ui-1.10.3.min.js");
 		active_page_data::load_javascript("applications/order_management/order_management.js");
-		active_page_data::add_javascript("var initialize = setInterval(function(){if(typeof AW !== 'undefined'){ clearInterval(initialize); AW.UI.order_management.initialize_modal(); }}, 100);", "bottom");
+		active_page_data::add_javascript("var initialize = setInterval(function(){if(typeof AW.UI.order_management !== 'undefined'){ clearInterval(initialize); AW.UI.order_management.initialize_modal(); }}, 100);", "bottom");
 	}
 
 	function do_db_upgrade($table, $field, $query, $error)

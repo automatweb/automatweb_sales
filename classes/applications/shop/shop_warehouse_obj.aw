@@ -136,14 +136,15 @@ class shop_warehouse_obj extends _int_object
 		$filter["class_id"] = CL_SHOP_PRODUCT;
 		$filter["CL_SHOP_PRODUCT.RELTYPE_WAREHOUSE"] = $this->id();
 
-		if(isset($arr["category"]))
+		if(!empty($arr["category"]))
 		{
-			if(is_oid($arr["category"]))
+			$arr["category"] = (array)$arr["category"];
+			if($arr["recursive"])
 			{
-				if($arr["recursive"])
-				{
+				$categories = array();
+				foreach ($arr["category"] as $category) {	
 					$ot = new object_tree(array(
-						"parent" => $arr["category"],
+						"parent" => $category,
 						"class_id" => CL_SHOP_PRODUCT_CATEGORY,
 						"sort_by" => "objects.jrk"
 					));
@@ -151,27 +152,39 @@ class shop_warehouse_obj extends _int_object
 					if(is_array($cat_ids) && sizeof($cat_ids))
 					{
 						$cat_ids[] = $arr["category"];
-						$arr["category"] = $cat_ids;
+						$categories = array_merge($categories, $cat_ids);
 					}
 				}
+				$arr["category"] = $categories;
+			}
+			if($arr["cat_condition"] == "and")
+			{
+				// FIXME!
 				$filter["CL_SHOP_PRODUCT.RELTYPE_CATEGORY"] = $arr["category"];
 			}
-			elseif(is_array($arr["category"]) && sizeof($arr["category"]))
+			else
 			{
-				if($arr["cat_condition"] == "and")
-				{
-					$filter["CL_SHOP_PRODUCT.RELTYPE_CATEGORY"] = $arr["category"];
-				}
-				else
-				{
-					$filter["CL_SHOP_PRODUCT.RELTYPE_CATEGORY"] = $arr["category"];
-				}
+				$filter["CL_SHOP_PRODUCT.RELTYPE_CATEGORY"] = $arr["category"];
 			}
 		}
 
-		if(isset($arr["name"]))
+		if(!empty($arr["name"]))
 		{
-			$filter["name"] = "%".$arr["name"]."%";
+			if (is_array($arr["name"])) {
+				$filter["name"] = array();
+				foreach ($arr["name"] as $name) {
+					if (strlen(trim($name)) > 0) {
+						$filter["name"][] = "%{$name}%";
+					}
+				}
+			} else {
+				$filter["name"] = "%".$arr["name"]."%";
+			}
+		}
+
+		if(!empty($arr["oid"]))
+		{
+			$filter["oid"] = $arr["oid"];
 		}
 
 		if(isset($arr["parent"]))
@@ -208,7 +221,9 @@ class shop_warehouse_obj extends _int_object
 	**/
 	public function search_products($arr = array())
 	{
-		$arr["cat_condition"] = "and";
+		if (!isset($arr["cat_condition"])) {
+			$arr["cat_condition"] = "and";
+		};
 		return $this->_get_products($arr);
 	}
 
@@ -755,10 +770,19 @@ class shop_warehouse_obj extends _int_object
 		));
 
 		return $cats;
-
+	}
+	
+	public function get_categories ($parents = null) {
+		if ($parents === null) {
+			return $this->get_root_categories();
+		}
+		return new object_list(array(
+			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
+			"parent" => $parents
+		));
 	}
   
-  public function get_categories_tree () {
+	public function get_categories_tree () {
 		$categories_folder = $this->get_conf("prod_cat_fld");
 
 		$categories_tree = new object_tree(array(
@@ -767,7 +791,7 @@ class shop_warehouse_obj extends _int_object
 		));
 
 		return $categories_tree;
-  }
+	}
 
 	public function get_packet_products($packets)
 	{

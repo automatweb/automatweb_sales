@@ -353,6 +353,7 @@ YUI().use("node", function(Y) {
 				
 				AW.UI.modal.load("crm_customer_modal_company", { company: data.company }, handle_modal_preloaded);
 				AW.UI.modal.load("crm_customer_modal_person", { company: data.company }, handle_modal_preloaded);
+				AW.UI.modal.load("modal_search", { company: data.company }, handle_modal_preloaded);
 			},
 			open_customer_modal: function(customer_class, customer_type, category, customer_id) {
 				$.please_wait_window.show();

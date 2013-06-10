@@ -3040,7 +3040,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 		}
 
 		$filter = array(
-			"class_id" => crm_company_customer_data_obj::$customer_class_ids,
+			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 			"CL_CRM_COMPANY_CUSTOMER_DATA.seller" => $this->id()
 		);
 
@@ -3048,14 +3048,13 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 		{
 			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $category->id();
 		}
-
-		$list = new object_data_list(array(
+		
+		$list = new object_data_list(
 			$filter,
 			array(
-				CL_CRM_PERSON => array("oid"),
-				CL_CRM_COMPANY => array("oid")
+				CL_CRM_COMPANY_CUSTOMER_DATA => array("buyer"),
 			)
-		));
+		);
 		return $list->arr();
 	}
 

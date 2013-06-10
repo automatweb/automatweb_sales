@@ -36,20 +36,26 @@ if (!function_exists("parse_modal_property")) {
 				
 			case "datepicker":
 			?>
-				<input type="text" id="<?php echo $property["id"]; ?>" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?> placeholder="<?php echo isset($property["placeholder"]) ? $property["placeholder"] : ""; ?>">
+				<input type="text" id="<?php echo $property["id"]; ?>" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?> placeholder="<?php echo isset($property["placeholder"]) ? $property["placeholder"] : ""; ?>" />
+			<?php
+				break;
+				
+			case "button":
+			?>
+				<button id="<?php echo $property["id"]; ?>" class="btn btn-primary" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?>><?php echo $property["button"]["caption"]; ?></button>
 			<?php
 				break;
 		}
 	}
 }
 ?>
-<div class="form-horizontal">
+<div <?php if (!empty($horizontal)) { echo 'class="form-horizontal"'; } ?>>
 	<?php foreach ($properties as $property) { ?>
 		<?php if ($property["type"] === "hidden" || $property["type"] === "table") { ?>
 			<?php echo parse_modal_property($property); ?>
 		<?php } else { ?>
 			<div class="control-group">
-				<label class="control-label" for="<?php echo $property["id"]; ?>"><?php echo $property["caption"]; ?></label>
+				<label class="control-label" for="<?php echo $property["id"]; ?>"><?php echo (isset($property["caption"]) ? $property["caption"] : ""); ?></label>
 				<div class="controls">
 					<?php echo parse_modal_property($property); ?>
 				</div>

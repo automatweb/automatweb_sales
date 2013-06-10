@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="modal_search" folder="" extends="aw_modal">
+		<action name="search">
+			<function name="search">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="children">
+			<function name="children">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

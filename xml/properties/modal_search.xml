@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>search_name</name>
+            <type>textbox</type>
+            <field>search_name</field>
+            <caption>Objekti nimi</caption>
+      </property>
+      <property>
+            <name>search_oid</name>
+            <type>textbox</type>
+            <field>search_oid</field>
+            <caption>Objekti ID</caption>
+      </property>
+      <property>
+            <name>search</name>
+            <type>button</type>
+            <field>search</field>
+      </property>
+      <property>
+            <name>search_results</name>
+            <type>table</type>
+            <store>no</store>
+            <field>search_results</field>
+            <caption>Leitud objektid</caption>
+      </property>
+      <classinfo>
+            <no_save>1</no_save>
+      </classinfo>
+</properties>
+

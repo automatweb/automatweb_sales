@@ -1,3 +1,80 @@
+<?php /* TEMPORARY */ if (!empty($table["hack"])) { ?>
+<style>
+.hack-col {
+	float: left;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 200px;
+	width: 236px;
+	border: 1px solid #e5e5e5;
+	border-right: 0;
+}
+.hack-col:first-child {
+	-webkit-border-radius: 6px 0 0 6px;
+	-moz-border-radius: 6px 0 0 6px;
+	border-radius: 6px 0 0 6px;
+}
+.hack-col:last-child {
+	-webkit-border-radius: 0 6px 6px 0;
+	-moz-border-radius: 0 6px 6px 0;
+	border-radius: 0 6px 6px 0;
+	border-right: 1px solid #e5e5e5;
+}
+.hack-col:only-child {
+	-webkit-border-radius: 6px 6px 6px 6px;
+	-moz-border-radius: 6px 6px 6px 6px;
+	border-radius: 6px 6px 6px 6px;
+	border-right: 1px solid #e5e5e5;
+}
+.bs-docs-sidenav {
+	width: 236px;
+	margin: 0;
+}
+.bs-docs-sidenav > li > a {
+	border-top: 0;
+	border-right: 0;
+	border-left: 0;
+}
+.bs-docs-sidenav > li:first-child > a, .bs-docs-sidenav > li:last-child > a {
+	-webkit-border-radius: 0 0 0 0;
+	-moz-border-radius: 0 0 0 0;
+	border-radius: 0 0 0 0;
+}
+</style>
+<div>
+	<div class="hack-col">
+		<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: levels()[0].loaded, foreach: levels()[0].items">
+			<li><a href="javascript:void(0)" data-bind="click: $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+		</ul>
+		<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: levels()[0].loading">
+			<div class="bar" style="width: 100%;"></div>
+		</div>
+	</div>
+	<div class="hack-col">
+		<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: levels()[1].loaded, foreach: levels()[1].items">
+			<li><a href="javascript:void(0)" data-bind="click: $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+		</ul>
+		<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: levels()[1].loading">
+			<div class="bar" style="width: 100%;"></div>
+		</div>
+	</div>
+	<div class="hack-col">
+		<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: !loading(), foreach: results">
+			<li data-bind="visible: !$root.isSelected($data)"><a href="javascript:void(0)" data-bind="click: $root.select"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+		</ul>
+		<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: loading">
+			<div class="bar" style="width: 100%;"></div>
+		</div>
+	</div>
+</div>
+<div class="span">
+	<div class="hack-col">
+		<ul class="nav nav-list bs-docs-sidenav" data-bind="foreach: selected">
+			<li><a href="javascript:void(0)" data-bind="click: $root.remove"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+		</ul>
+	</div>
+</div>
+<?php } else { ?>
 <?php
 if (!function_exists("parse_table_row")) {
 	function parse_table_row($row, $table, $content = true, $tag = "td") {
@@ -98,3 +175,4 @@ if (!function_exists("parse_table_row")) {
 })();
 </script>
 <?php } ?>
+<?php /* TEMPORARY */ } ?>

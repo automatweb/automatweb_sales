@@ -92,8 +92,11 @@ YUI().use("node", function(Y) {
 			}, self);
 			self.changeArticle = function(orderRow, event) {
 				if (!event) { return; }
-				var url = "/automatweb/orb.aw?class=popup_search&action=do_search&no_submit=1&pi=components_new&npi=components_new_name&in_popup=1&start_empty=1";
-				aw_popup_scroll(url + "&jcb=window.opener.AW.UI.order_management.add_article(" + orderRow.id() + ")", "Otsing", 800, 500);
+				AW.UI.modal_search.open("modal_search_shop", { defaultSource: 751743, onSelect: function (item) {
+					if (item) {
+						AW.UI.order_management.add_article(orderRow.id(), item);
+					}
+				} });
 			};
 		}
 		
@@ -192,40 +195,27 @@ YUI().use("node", function(Y) {
 				order_refresh_timeout = setTimeout(execute_refreshing_orders, 500);
 			},
 			initialize_modal: function() {
-				$.ajax({
-					url: "/automatweb/orb.aw?class=mrp_case_modal&action=parse",
-					success: function(html) {
-						modal_html = html;
-						modal_preloaded = true;
-						for (var i in modal_preload_callbacks) {
-							modal_preload_callbacks[i].call(self);
-							delete modal_preload_callbacks[i];
-						}
+				AW.UI.modal.load("mrp_case_modal", {}, function () {
+					modal_preloaded = true;
+					for (var i in modal_preload_callbacks) {
+						modal_preload_callbacks[i].call(self);
+						delete modal_preload_callbacks[i];
 					}
 				});
+				AW.UI.modal.load("modal_search_shop");
 			},
 			open_order_modal: function(order_id) {
 				$.please_wait_window.show();
 				var order_data = {};
 				var open_modal = function() {
 					on_modal_preload_complete(function() {
+						$.please_wait_window.hide();
 						var administrative_unit_map = {};
 						var field;
-						$.please_wait_window.hide();
-						if (modal_html !== false) {
-							$(".modal").remove();
-							$("body").append(modal_html);
-							view.order(new vmOrder(order_data));
-							ko.applyBindings(view);
-
-							$(".modal").css("width", 1100).css("margin-left", -500).modal({ show: true });
-							$(".modal").data("id", order_id);
-							/* $(".modal").draggable({
-								handle: ".modal-header"
-							}); */
-						} else {
-							throw "Error: no HTML for crm_customer_modal of class '" + customer_class + "'.";
-						}
+						var modal = AW.UI.modal.open("mrp_case_modal");
+						view.order(new vmOrder(order_data));
+						ko.applyBindings(view, modal.element[0]);
+						modal.element.data("id", order_id);
 					});
 				};
 				if (order_id) {
@@ -248,7 +238,6 @@ YUI().use("node", function(Y) {
 				}
 			},
 			save_order: function(post_save_callback) {
-				$.please_wait_window.show({ target: $(".modal") });
 				var order = ko.toJS(view.order);
 				var expanded = [];
 				$("#components_table tbody tr:not([data-expandable=true])").each(function (index, row) {
@@ -286,9 +275,9 @@ YUI().use("node", function(Y) {
 					}
 				});
 			},
-			add_article: function(id) {
-				var article_id = $("#components_new").val();
-				var article_name = $("#components_new_name").val();
+			add_article: function(id, item) {
+				var article_id = item ? item.id : $("#components_new").val();
+				var article_name = item ? item.name : $("#components_new_name").val();
 				var rows = view.order().rows();
 				for (var i in rows) {
 					if (rows[i].id() == id) {

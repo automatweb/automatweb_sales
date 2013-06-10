@@ -14,8 +14,11 @@ class aw_modal implements orb_public_interface {
 	protected $content_template;
 	protected $footer_template;
 	
-	protected $properties;
+	protected $classinfo;
+	protected $layoutinfo;
 	protected $groupinfo;
+	protected $groupless;
+	protected $properties;
 	
 	public function set_request(aw_request $request) {
 		$this->request = $request;
@@ -39,12 +42,16 @@ class aw_modal implements orb_public_interface {
 		$this->properties = $cfgu->load_class_properties(array(
 			"file" => get_class($this)
 		));
+		$this->classinfo = $cfgu->get_classinfo();
+		$this->layoutinfo = $cfgu->get_layoutinfo();
 		$this->groupinfo = $cfgu->get_groupinfo();
+		$this->groupless = array("id" => "groupless", "properties" => array(), "layouts" => array());
 		
 		foreach ($this->groupinfo as $group_id => $group_details) {
 			$this->groupinfo[$group_id]["id"] = $group_id;
 			$this->groupinfo[$group_id]["subgroups"] = array();
 			$this->groupinfo[$group_id]["properties"] = array();
+			$this->groupinfo[$group_id]["layouts"] = array();
 			
 			$group_callback = "_group_{$group_id}";
 			if (is_callable(array($this, $group_callback))) {
@@ -52,21 +59,47 @@ class aw_modal implements orb_public_interface {
 			}
 		}
 		
-		foreach ($this->properties as $property_id => $property_details) {
-			if (!isset($property_details["group"]) or !isset($this->groupinfo[$property_details["group"]])) {
-				continue;
-			}
+		foreach ($this->layoutinfo as $layout_id => $layout_details) {
+			$this->layoutinfo[$layout_id]["id"] = $layout_id;
+			$this->layoutinfo[$layout_id]["properties"] = array();
+			$this->layoutinfo[$layout_id]["sublayouts"] = array();
 			
+			$layout_callback = "_layout_{$layout_id}";
+			if (is_callable(array($this, $layout_callback))) {
+				$this->$layout_callback($this->layoutinfo[$layout_id]);
+			}
+		}
+		
+		foreach ($this->properties as $property_id => $property_details) {			
 			$property_details["id"] = $property_id;
 			$property_callback = "_get_{$property_id}";
 			if (is_callable(array($this, $property_callback))) {
 				$this->$property_callback($property_details);
 			}
 			
-			if ($property_details["type"] === "toolbar") {
+			if (isset($property_details["parent"]) and isset($this->layoutinfo[$property_details["parent"]])) {
+				$this->layoutinfo[$property_details["parent"]]["properties"][$property_id] = $property_details;
+			} elseif (!isset($property_details["group"]) or !isset($this->groupinfo[$property_details["group"]])) {
+				$this->groupless["properties"][$property_id] = $property_details;
+			} elseif ($property_details["type"] === "toolbar") {
 				$this->groupinfo[$property_details["group"]]["toolbar"] = $property_details;
 			} else {
 				$this->groupinfo[$property_details["group"]]["properties"][$property_id] = $property_details;
+			}
+		}
+		
+		foreach ($this->layoutinfo as $layout_id => $layout_details) {
+			if (isset($layout_details["parent"]) and isset($this->layoutinfo[$layout_details["parent"]])) {
+				$this->layoutinfo[$layout_details["parent"]]["sublayouts"][$layout_id] = $layout_details;
+				unset($this->layoutinfo[$layout_id]);
+			}
+		}
+		
+		foreach ($this->layoutinfo as $layout_id => $layout_details) {
+			if (isset($layout_details["group"]) and isset($this->groupinfo[$layout_details["group"]])) {
+				$this->groupinfo[$layout_details["group"]]["layouts"][$layout_id] = $layout_details;
+			} else {
+				$this->groupless["layouts"][$layout_id] = $layout_details;
 			}
 		}
 		
@@ -90,7 +123,9 @@ class aw_modal implements orb_public_interface {
 	private function parse_content() {
 		$this->content_template = new aw_php_template("aw_modal", "default-content");
 		$this->content_template->add_vars(array(
+			"classinfo" => $this->classinfo,
 			"groups" => $this->groupinfo,
+			"groupless" => $this->groupless,
 		));
 		if (is_callable(array($this, "get_popups_template"))) {
 			$this->content_template->bind($this->get_popups_template(), "popups");
@@ -103,6 +138,7 @@ class aw_modal implements orb_public_interface {
 		$this->footer_template = new aw_php_template("aw_modal", "default-footer");
 		$this->footer_template->add_vars(array(
 			"save_method" => $this->get_save_method(),
+			"classinfo" => $this->classinfo,
 			"groups" => $this->groupinfo,
 		));
 		
@@ -123,7 +159,7 @@ class aw_modal implements orb_public_interface {
 	}
 	
 	private static function parse_preloaded_group($group) {
-		return self::parse_properties($group["properties"]);
+		return self::parse_layouts($group["layouts"]).self::parse_properties($group["properties"]);
 	}
 	
 	private static function parse_on_demand_loaded_group($group) {
@@ -136,11 +172,22 @@ class aw_modal implements orb_public_interface {
 		return $template->render();
 	}
 	
-	private static function parse_properties($properties) {
+	public static function parse_properties($properties, $horizontal = true) {
 		$template = new aw_php_template("aw_modal", "default-properties");
 		
 		$template->add_vars(array(
+			"horizontal" => $horizontal,
 			"properties" => $properties,
+		));
+		
+		return $template->render();
+	}
+	
+	private static function parse_layouts($layouts) {
+		$template = new aw_php_template("aw_modal", "default-layouts");
+		
+		$template->add_vars(array(
+			"layouts" => $layouts,
 		));
 		
 		return $template->render();

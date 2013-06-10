@@ -767,13 +767,15 @@ ENDJAVASCRIPT
 	@param nbsp optional type=bool default=false
 		If set, the caption is separated from checbox with non-breaking spaces.
 	@param span optional type=bool
-  @param style optional type=string
+	@param style optional type=string
+	@param data optional type=array
 
 	@returns string/html checkbox
 	**/
 	public static function checkbox($args = array())
 	{
 		extract($args);
+		$name = isset($name) ? $name : '';
 		$post_append_text = (!empty($post_append_text) ? $post_append_text : "");
 		$checked = isset($checked) ? checked($checked) : '';
 		$disabled = (!empty($disabled) ? ' disabled="disabled"' : "");
@@ -822,29 +824,19 @@ ENDJAVASCRIPT
 
 		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : '';
     
-    $style = isset($style) ? " style=\"{$style}\"" : "";
-
-		//$tpl = get_instance("cfg/htmlclient");//ma ei tea, yle 1.5 sekundi v6idab m6nest vaatest selle v6lja kommenteerimisega n2iteks
-		//$tpl->read_template("default.tpl");
-		if(false and $tpl->is_template("CHECKBOX"))
+		$style = isset($style) ? " style=\"{$style}\"" : "";
+		
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
 		{
-			$tpl->vars(array(
-				"name" => $name,
-				"value" => $value,
-				"onblur" => $onblur,
-				"onclick" => $onc,
-				"checked" => $checked,
-				"disabled" => $disabled,
-				"caption" => $capt,
-				"post_append_text" => $post_append_text
-			));
-			$rv = $tpl->parse("CHECKBOX");
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
 		}
-		else
-		{
-			$rv = "$span<input class=\"checkbox\" type=\"checkbox\" id=\"{$id}\" name=\"{$name}\" value=\"{$value}\"{$onblur}{$title}{$onc}{$checked}{$disabled}{$style} />{$capt}{$span_}{$post_append_text}\n";
-		}
-		return $rv;
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
+		
+		return "$span<input class=\"checkbox\" type=\"checkbox\" id=\"{$id}\" name=\"{$name}\" value=\"{$value}\"{$onblur}{$title}{$onc}{$checked}{$disabled}{$style}{$data} />{$capt}{$span_}{$post_append_text}\n";;
 	}
 
 	/**Radiobutton
@@ -871,6 +863,8 @@ ENDJAVASCRIPT
 	public static function radiobutton($args = array())
 	{
 		extract($args);
+		$name = isset($name) ? $name : '';
+		$value = isset($value) ? $value : '';
 		$checked = isset($checked) ? checked($checked) : '';
 		$disabled = (!empty($disabled) ? ' disabled="disabled"' : "");
 		$onc = empty($onclick) ? "" : " onclick=\"{$onclick}\"";
@@ -889,27 +883,18 @@ ENDJAVASCRIPT
 		{
 			$id = $name."_".$value;
 		}
-
-		/*$tpl = get_instance("htmlclient");
-		$tpl->read_template("default.tpl");
-		if($tpl->is_template("RADIOBUTTON"))
+		
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
 		{
-			$tpl->vars(array(
-				"name" => $name,
-				"id" => $id,
-				"value" => $value,
-				"onclick" => $onc,
-				"checked" => $checked,
-				"disabled" => $disabled,
-				"caption" => $caption,
-			));
-			$rv = $tpl->parse("RADIOBUTTON");
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
 		}
-		else
-		{*/
-			$rv = "<input class=\"radiobutton\" type=\"radio\" name=\"{$name}\" id=\"{$id}\" value=\"{$value}\"{$onc}{$checked}{$disabled} />\n {$caption}";
-//		}
-		return $rv;
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
+
+		return "<input class=\"radiobutton\" type=\"radio\" name=\"{$name}\" id=\"{$id}\" value=\"{$value}\"{$onc}{$checked}{$disabled}{$data} />\n {$caption}";
 	}
 
 	/**Submit button
