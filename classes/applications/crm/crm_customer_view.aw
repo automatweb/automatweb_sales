@@ -2363,9 +2363,11 @@ faks: 6556 235
 	function callback_generate_scripts($arr)
 	{
 		if ("customers" === $this->use_group) {
-			active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.datepicker.css");
-			active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.min.css");
-			active_page_data::load_javascript("bootstrap/js/bootstrap.min.js");
+			if (!aw_template::bootstrap()) {
+				active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.datepicker.css");
+				active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.min.css");
+				active_page_data::load_javascript("bootstrap/js/bootstrap.min.js");
+			}
 			active_page_data::load_javascript("bootstrap/js/bootstrap.datepicker.js");
 			active_page_data::load_javascript("knockout/knockout-2.2.0.js");
 			active_page_data::load_javascript("knockout/ko.datepick.js");

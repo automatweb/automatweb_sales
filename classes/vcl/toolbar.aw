@@ -3,6 +3,7 @@
 class toolbar extends aw_template
 {
 	private $menus = array();
+	private $menu_items = array();
 	private $end_sep = array();
 	private $matrix = array();
 	private $custom_data = "";
@@ -166,6 +167,13 @@ class toolbar extends aw_template
 		{
 			$this->menus[$arr["parent"]] = $rv;
 		}
+
+		if (!isset($this->menu_items[$arr["parent"]]))
+		{
+			$this->menu_items[$arr["parent"]] = array();
+		}
+		$arr["html"] = $rv;
+		$this->menu_items[$arr["parent"]][] = $arr;
 	}
 
 	/**
@@ -187,6 +195,12 @@ class toolbar extends aw_template
 	public function add_menu_separator($arr)
 	{
 		$this->menus[$arr["parent"]] .= '<div class="menuItemSep"></div>'."\n";
+		
+		if (!isset($this->menu_items[$arr["parent"]]))
+		{
+			$this->menu_items[$arr["parent"]] = array();
+		}
+		$this->menu_items[$arr["parent"]][] = array_merge($arr, array("separator" => true));
 	}
 
 	/**
@@ -242,6 +256,13 @@ class toolbar extends aw_template
 		{
 			$this->menus[$arr["parent"]] = $rv;
 		}
+		
+		if (!isset($this->menu_items[$arr["parent"]]))
+		{
+			$this->menu_items[$arr["parent"]] = array();
+		}
+		$arr["html"] = html::href(array("caption" => $arr["text"]));
+		$this->menu_items[$arr["parent"]][] = $arr;
 	}
 
 	function build_menus()
@@ -265,7 +286,7 @@ class toolbar extends aw_template
 			$cache = new cache();
 			$cache->file_set("aw_toolbars_".aw_global_get("uid"), $cache->file_get("aw_toolbars_".aw_global_get("uid")).$items);
 		}
-		else
+		elseif (!aw_template::bootstrap())
 		{
 			$this->custom_data .= $items;
 		}
@@ -505,6 +526,12 @@ class toolbar extends aw_template
 					{
 						$tpl = "menu_button_lod";
 					}
+					if ($this->is_template("DROPDOWN"))
+					{
+						$this->vars(array(
+							"dropdown" => $this->__parse_dropdown($val["name"]),
+						));
+					}
 					$this->vars(array(
 						"menu-items" => isset($this->menus[$val["name"]]) ? $this->menus[$val["name"]] : null
 					));
@@ -565,6 +592,32 @@ class toolbar extends aw_template
 
 		$result .= $this->parse("real_end") . $this->custom_data;
 		return $result;
+	}
+	
+	// FIXME: There is significant overlap with similar code in js_popup_menu!
+	private function __parse_dropdown($menu_id)
+	{
+		if (empty($this->menu_items[$menu_id]))
+		{
+			return null;
+		}
+		
+		$ITEMS = "";
+		foreach ($this->menu_items[$menu_id] as $item)
+		{
+			$has_subdropdown = isset($item["name"]) && !empty($this->menu_items[$item["name"]]);
+			$this->vars(array(
+				"dropdown.item" => isset($item["html"]) ? $item["html"] : null,
+				"dropdown.item.class" => $has_subdropdown ? "dropdown-submenu" : (!empty($item["separator"]) ? "divider" : ""),
+				"subdropdown" => $has_subdropdown ? $this->__parse_dropdown($item["name"]) : "",
+			));
+			$ITEMS .= $this->parse("DROPDOWN.ITEM");
+		}
+		$this->vars(array(
+			"DROPDOWN.ITEM" => $ITEMS,
+		));
+		
+		return $this->parse("DROPDOWN");
 	}
 
 	private function __reset_matrix_vars()

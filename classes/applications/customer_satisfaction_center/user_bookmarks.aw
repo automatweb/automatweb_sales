@@ -492,7 +492,7 @@ class user_bookmarks extends class_base
 		$application_links = "";
 		$bmobj = $this->init_bm();
 		$app_menu = cache::file_get(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id());
-		if (!empty($app_menu))
+		if (false && !empty($app_menu))
 		{
 			return $app_menu;
 		}
@@ -699,8 +699,7 @@ arr($apps);*/
 					$gn = $v["group_text"];
 				}
 
-				$application_links.= '<div class="oneappmenu">'.$am->get_menu(
-					array("text" =>$ico. $gn.'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')).'</div>';
+				$application_links .= $this->__wrap_application_link($am->get_menu(array("text" =>$ico. $gn.(aw_template::bootstrap() ? "" : ('&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')))));
 			}
 			elseif(is_array($app) && sizeof($app) == 1)
 			{
@@ -749,19 +748,22 @@ arr($apps);*/
 						}
 					}
 
-					$application_links.= '<div class="oneappmenu">'.$am->get_menu(
-						array("text" => $ico.$a["name"].'&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')
-					).'</div>';
+					$application_links.= $this->__wrap_application_link($am->get_menu(array("text" => $ico.$a["name"].(aw_template::bootstrap() ? "" : ('&nbsp;<img class="nool" alt="#" src="'.aw_ini_get("baseurl").'/automatweb/images/aw06/ikoon_nool_alla.gif">')))));
+				}
+				elseif (aw_template::bootstrap())
+				{
+					$caption = $ico.(empty($a["name"]) ? $key : $a["name"]);
+					$application_links .= "<div class=\"btn-group\"><a href=\"{$a["url"]}\" class=\"btn btn-mini\"><span>{$caption}</span></a></div>";
 				}
 				else
 				{
-					$application_links.= '<div class="oneappmenu">
+					$application_links.= $this->__wrap_application_link('
 						<span style="height:15px;text-align: center; background-color: transparent; " id="menuBar">
 						<a id="href_user_applications_1134" title="" alt=""  href="'.$a["url"].'" class="menuButton">
 						<span>'.$ico.(empty($a["name"]) ? $key : $a["name"]).'</span>
 						</a>
-						</span></div>
-					';
+						</span>
+					');
 				}
 			}
 		}
@@ -769,6 +771,11 @@ arr($apps);*/
 		cache::file_set(self::CACHE_KEY_PREFIX_APP_MENU . $bmobj->id(), $application_links);
 
 		return $application_links;
+	}
+	
+	private function __wrap_application_link ($link)
+	{
+		return aw_template::bootstrap() ? $link : "<div class=\"oneappmenu\">{$link}</div>";
 	}
 
 	function _set_apps_table($arr)

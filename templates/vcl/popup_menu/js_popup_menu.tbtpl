@@ -1,0 +1,21 @@
+<div class="btn-group">
+	<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown" alt="{VAR:alt}" title="{VAR:alt}">
+		<!-- SUB: HAS_ICON -->
+			<img alt="{VAR:alt}" title="{VAR:alt}" border="0" src='{VAR:menu_icon}' />
+		<!-- END SUB: HAS_ICON -->
+		<!-- SUB: HAS_TEXT -->
+			{VAR:text}
+		<!-- END SUB: HAS_TEXT -->{VAR:text}
+		<b class="caret"></b>
+	</button>
+	<!-- SUB: DROPDOWN -->
+	<ul class="dropdown-menu">
+		<!-- SUB: DROPDOWN.ITEM -->
+		<li class="{VAR:dropdown.item.class}">
+			{VAR:dropdown.item}
+			{VAR:subdropdown}
+		</li>
+		<!-- END SUB: DROPDOWN.ITEM -->
+	</ul>
+	<!-- END SUB: DROPDOWN -->
+</div>

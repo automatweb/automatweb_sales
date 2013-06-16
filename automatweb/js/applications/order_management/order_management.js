@@ -44,6 +44,7 @@ YUI().use("node", function(Y) {
 		var order_filter;
 		var order_refresh_timeout;
 		function execute_refreshing_orders () {
+			console.log(order_filter);
 			reload_property("orders_table", order_filter);
 		}
 		

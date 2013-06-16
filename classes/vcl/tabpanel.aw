@@ -237,6 +237,15 @@ class tabpanel extends aw_template
 		$this->vars(array(
 			"uid" => aw_global_get("uid"),
 			"time" => $this->time2date(time()),
+			"current_class.icon" => class_base::get_current_class_icon(32),
+			"current_class.url" => "",
+			"current_class.name" => class_base::get_current_class_name(),
+			"current_object.url" => "",
+			"current_object.name" => class_base::get_current_object_name(),
+		));
+		$this->vars(array(
+			"CURRENT_CLASS" => $this->parse("CURRENT_CLASS"),
+			"CURRENT_OBJECT" => $this->parse("CURRENT_OBJECT"),
 		));
 		foreach($this->tabcount as $level => $val)
 		{

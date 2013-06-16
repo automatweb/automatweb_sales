@@ -115,6 +115,11 @@ class planner_model extends core
 			"date" => isset($date) ? $date : date("d-m-Y"),
 			"type" => $type,
 		));
+		
+		if (aw_template::bootstrap()) {
+			$di["start"] = $args["start"] = mktime(0, 0, 0, 1, 1, 2010);
+			$di["end"] = $args["end"] = mktime(0, 0, 0, 8, 1, 2013);
+		}
 
 		$start = $di["start"];
 		$end = $di["end"];

@@ -1,0 +1,99 @@
+<!-- SUB: DROPDOWN -->
+<ul class="dropdown-menu">
+	<!-- SUB: DROPDOWN.ITEM -->
+	<li class="{VAR:dropdown.item.class}">
+		{VAR:dropdown.item}
+		{VAR:subdropdown}
+	</li>
+	<!-- END SUB: DROPDOWN.ITEM -->
+</ul>
+<!-- END SUB: DROPDOWN -->
+
+<!-- SUB: start -->
+<div class="btn-toolbar aw-toolbar">
+	<div class="btn-group">
+		<!-- END SUB: start -->
+		
+		<!-- SUB: button -->
+		<!-- What is this? {VAR:surround_start} -->
+		<a href="{VAR:url}" onclick="{VAR:onclick}" class="btn"target="{VAR:target}" {VAR:href_id}><img style="button" src="{VAR:img_url}" border="0" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a>
+		<!-- What is this? {VAR:surround_end} -->
+		<!-- END SUB: button -->
+		
+		<!-- SUB: button_disabled -->
+		<div nowrap class="aw04toolbarbutton">
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td><span style="position: relative; width: 100%; height: 100%;"><img src="{VAR:img_url}" border="0" title="{VAR:tooltip}" alt="{VAR:tooltip}" /><span style="position: absolute;  top: 0px; left: 0px; background: transparent url('{VAR:imgbase}/disabled_background.gif'); width: 100%; height: 100%; font-size: 2px;">&nbsp;</span></span></td>
+				</tr>
+			</table>
+		</div>
+		<!-- END SUB: button_disabled -->
+
+		<!-- SUB: menu_button -->
+		<div class="btn dropdown dropdown-btn">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="{VAR:tooltip}" alt="{VAR:tooltip}"><img src="{VAR:img_url}" title="{VAR:tooltip}" alt="{VAR:tooltip}" border="0" /> <span class="caret"></span></a>
+			{VAR:dropdown}
+		</div>
+		<!-- END SUB: menu_button -->
+
+		<!-- SUB: menu_button_lod -->
+		<div id='tb_lod_{VAR:lod_name}' nowrap class="tb_but" valign="middle" onMouseOver="this.className='tb_but_ov'" onMouseOut="this.className='tb_but'" onMouseDown="this.className='tb_but_ov'" onMouseUp="this.className='tb_but'">
+			<table cellpadding=0 cellspacing=0>
+				<tr>
+					<td valign='bottom'>
+					<a href="javascript:void(0);" onclick="tb_tb_lod{VAR:tb_lod_num}()"><img src="{VAR:img_url}" border="0"  width="16" height="16" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a>
+					</td>
+					<td valign='bottom'>
+						<a href="javascript:void(0);" onclick="tb_tb_lod{VAR:tb_lod_num}()"><img src="{VAR:imgbase}/downarr.png" border="0"  width="7" height="4" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a></td>
+					</a>
+				</tr>
+			</table>
+		</div>
+		<script language=javascript>
+		function tb_tb_lod{VAR:tb_lod_num}()
+		{
+			el = document.getElementById("tb_lod_{VAR:lod_name}");
+			el.innerHTML=aw_get_url_contents("{VAR:load_on_demand_url}");
+			nhr=document.getElementById("href_{VAR:lod_name}");
+			if (document.createEvent) {evObj = document.createEvent("MouseEvents");evObj.initEvent( "click", true, true );nhr.dispatchEvent(evObj);}
+			else {
+				nhr.fireEvent("onclick");
+			}
+		}
+		</script>
+		<!-- END SUB: menu_button_lod -->
+
+		<!-- SUB: text_button -->
+		<a href="{VAR:url}" onclick="{VAR:onclick}" class="btn"target="{VAR:target}" {VAR:href_id}>{VAR:caption}</a>
+		<!-- END SUB: text_button -->
+
+		<!-- SUB: text_menu_button -->
+		<div class="btn dropdown dropdown-btn">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="{VAR:tooltip}" alt="{VAR:tooltip}">{VAR:caption} <span class="caret"></span></a>
+			{VAR:dropdown}
+		</div>
+		<!-- END SUB: text_menu_button -->
+
+		<!-- SUB: text_button_disabled -->
+		 <div class="aw04toolbarbutton"><span style="white-space: nowrap;">{VAR:tooltip}</span></div>
+		<!-- END SUB: text_button_disabled -->
+
+		<!-- SUB: separator -->
+		<div class="btn separator"></div>
+		<!-- END SUB: separator -->
+
+		<!-- SUB: cdata -->
+			 <div class="cdata">{VAR:data}</div>
+		<!-- END SUB: cdata -->
+		
+		<!-- SUB: right_side -->
+		<div class="pull-right">
+			{VAR:right_side_content}
+		</div>
+		<!-- END SUB: right_side -->
+
+		<!-- SUB: end -->		
+	</div>
+</div>
+<!-- END SUB: end -->

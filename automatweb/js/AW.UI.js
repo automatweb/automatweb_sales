@@ -6,6 +6,52 @@ if (typeof(AW.UI) == "undefined") {
 }
 $.extend(window.AW.UI, (function(){
 	return {
+		layout: (function(){
+			return {
+				toggle: function (event) {
+					var toggler = $(event.currentTarget);
+					var layout = toggler.parents(".layout:first");
+					var content = layout.find(".layout-content");
+					if (content.is(":visible")) {
+						content.hide();
+						toggler.html('<i class="icon-chevron-down"></i>');
+					} else {
+						content.show();
+						toggler.html('<i class="icon-chevron-up"></i>');
+					}
+				}
+			};
+		})(),
+		sublayout: (function(){
+			return {
+				toggle: function (event) {
+					var toggler = $(event.currentTarget);
+					var layout = toggler.parents(".sublayout:first");
+					var content = layout.find("li:not(.nav-header)");
+					if (content.is(":visible")) {
+						content.hide();
+						toggler.html('<i class="icon-chevron-down"></i>');
+					} else {
+						content.show();
+						toggler.html('<i class="icon-chevron-up"></i>');
+					}
+				}
+			};
+		})(),
+		table: (function(){
+			return {
+				chooser: (function(){
+					var selected = false;
+					return {
+						toggle: function (self) {
+							var choosers = $(self).parents("table:first").find("tbody td:first-child input[type='checkbox']");
+							selected = !selected;
+							choosers.attr("checked", selected);
+						}
+					}
+				})()
+			};
+		})(),
 		modal: (function(){
 			var templates = {};
 			var counter = 0;
@@ -231,6 +277,55 @@ $.extend(window.AW.UI, (function(){
 					});
 				}
 			};
+		})(),
+		calendar: (function(){
+			return {
+				initialize: function(id) {
+					if ($("#" + id).size() === 0) {
+						return;
+					}
+					$.ajax({
+						url: "/automatweb/orb.aw?class=planner&action=get_events",
+						data: { id: $("#" + id).data("calendar-id"), tbtpl: true },
+						dataType: "json",
+						success: function (events) {
+							for (var i in events) {
+								events[i].startDate = new Date(events[i].startDate*1000);
+								events[i].endDate = new Date(events[i].endDate*1000);
+							}
+							YUI().use('aui-scheduler', function(Y) {					  
+								var agendaView = new Y.SchedulerAgendaView();
+								var dayView = new Y.SchedulerDayView();
+								var eventRecorder = new Y.SchedulerEventRecorder();
+								var monthView = new Y.SchedulerMonthView();
+								var weekView = new Y.SchedulerWeekView();
+						  
+								var scheduler = new Y.Scheduler({
+									activeView: weekView,
+									boundingBox: "#" + id,
+									eventRecorder: eventRecorder,
+									items: events,
+									render: true,
+									views: [dayView, weekView, monthView, agendaView]
+								});
+								var addNewButton = $('<a href="#" class="btn" style="position: relative; margin-left: 50%; left: -350px;"><i class="icon-plus-sign"></i> Lisa uus s&uuml;ndmus</a>');
+								$("#" + id + " .aui-scheduler-base-controls").append(addNewButton);
+								AW.UI.modal.load("crm_meeting_modal");
+								addNewButton.on("click", function (event) {
+									event.preventDefault();
+									var modal = AW.UI.modal.open("crm_meeting_modal");
+								});
+							});
+						},
+						error: function (a,b,c) {
+							console.log("ERROR: ", a,b,c);
+						}
+					});
+				}
+			};
 		})()
 	};
 })());
+$("*").on("click", "[data-toggle='layout']", AW.UI.layout.toggle);
+$("*").on("click", "[data-toggle='sublayout']", AW.UI.sublayout.toggle);
+$(document).ready(function(){ AW.UI.calendar.initialize("myScheduler"); });

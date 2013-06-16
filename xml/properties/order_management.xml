@@ -433,7 +433,7 @@
       <layout>
             <orders_split>
                   <type>hbox</type>
-                  <width>26%74%</width>
+                  <width>26%:74%</width>
                   <group>orders</group>
                   <area_caption></area_caption>
             </orders_split>

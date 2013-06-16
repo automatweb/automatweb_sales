@@ -423,6 +423,9 @@ class planner extends class_base
 				break;
 
 			case "navtoolbar":
+				if (aw_template::bootstrap()) {
+					return PROP_IGNORE;
+				}
 				$this->gen_navtoolbar($arr);
 				break;
 
@@ -1435,6 +1438,11 @@ class planner extends class_base
 
 	function gen_calendar_contents($arr)
 	{
+		if (aw_template::bootstrap()) {
+			$arr["prop"]["type"] = "text";
+			$arr["prop"]["value"] = "<div id=\"myScheduler\" data-calendar-id=\"{$arr["obj_inst"]->id}\"></div>";
+			return;
+		}
 		$wds = safe_array($arr["obj_inst"]->prop("workdays"));
 		$full_weeks = false;
 		// if no workdays are defined, use all of them
@@ -1662,6 +1670,9 @@ class planner extends class_base
 		$rv = array();
 
 		enter_function("gen-tasklist-3");
+		if (!empty($arr["return_list"])) {
+			return $tasklist;
+		}
 		foreach($tasklist->names() as $task => $name)
 		{
 			$rv[] = array(
@@ -2946,5 +2957,34 @@ class planner extends class_base
 				}
 			}
 		}
+	}
+	
+	/**
+		@attrib name=get_events
+	**/
+	public function get_events($arr)
+	{
+		$events_data = $this->_init_event_source(array(
+			"id" => isset($arr["id"]) ? $arr["id"] : 0,
+			"type" => "month",
+			"flatlist" => 1,
+			"date" => date("d-m-Y"),
+		));
+		
+		$events = array();
+		
+		foreach ($events_data as $event_data) {
+			$events[] = array(
+				"content" => $event_data["name"],
+				"startDate" => $event_data["start"],
+				"endDate" => $event_data["end"],
+			);
+		}
+		
+		$json_encoder = new json();
+		$json = $json_encoder->encode($events);
+		
+		automatweb::$result->set_data($json);
+		automatweb::$instance->http_exit();
 	}
 }

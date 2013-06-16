@@ -121,28 +121,7 @@ if (empty($pf_url))
 	$pf_url = aw_global_get("REQUEST_URI");
 }
 
-$class_names = array(
-	"doc" => t("Dokument"),
-	"config" => t("Seaded")
-);
-
-
-$cur_class = "";
-if (!empty($_GET["class"]))
-{
-	try
-	{
-		$cur_class = aw_ini_get("class_lut.{$_GET["class"]}");
-		$cur_class = aw_ini_get("classes.{$cur_class}.name");
-	}
-	catch (Exception $e)
-	{
-		if (isset($class_names[$_GET["class"]]))
-		{
-			$cur_class = $class_names[$_GET["class"]];
-		}
-	}
-}
+$cur_class = class_base::get_current_class_name();
 
 try
 {
@@ -156,26 +135,7 @@ catch (aw_lock_exception $e)
 	$parent = 0;
 }
 
-
-
-//--------------suur ikoon -----------------------------
-$url = $GLOBALS["cfg"]["icons"]["server"]."48/";
-$dir = $GLOBALS["aw_dir"]."automatweb/images/icons/48/";
-if($clid)
-{
-	if(file_exists($dir.$clid.".png"))
-	{
-		$main_icon = $url.$clid.".png";
-	}
-	else
-	{
-		$main_icon = $url."default.png";
-	}
-}
-else
-{
-	$main_icon = $url."default.png";
-}
+$main_icon = class_base::get_current_class_icon(48);
 
 //--------------------
 

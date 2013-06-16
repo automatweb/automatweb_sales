@@ -39,7 +39,7 @@
 
 	@property orders_toolbar type=toolbar store=no no_caption=1
 
-	@layout orders_split type=hbox width=26%74%
+	@layout orders_split type=hbox width=26%:74%
 
 		@layout orders_left type=vbox parent=orders_split
 		
@@ -871,10 +871,13 @@ class order_management extends management_base
 	function callback_generate_scripts($arr)
 	{
 		active_page_data::load_javascript("reload_properties_layouts.js");
-		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.min.css");
-		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.datepicker.css");
-		active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.docs.css");
-		active_page_data::load_javascript("bootstrap/js/bootstrap.min.js");
+		if (!aw_template::bootstrap())
+		{
+			active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.min.css");
+			active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.datepicker.css");
+			active_page_data::load_stylesheet("js/bootstrap/css/bootstrap.docs.css");
+			active_page_data::load_javascript("bootstrap/js/bootstrap.min.js");
+		}
 		active_page_data::load_javascript("bootstrap/js/bootstrap.datepicker.js");
 		active_page_data::load_javascript("knockout/knockout-2.2.0.js");
 		active_page_data::load_javascript("knockout/ko.custom.js");

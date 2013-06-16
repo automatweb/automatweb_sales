@@ -681,6 +681,9 @@ class core extends db_connector
 	**/
 	public static function mk_my_orb($fun, $arr=array(), $cl_name = "", $force_admin = false, $use_orb = false, $sep = "&", $honor_r_orb = true)
 	{//TODO: viia orb-i
+		if (automatweb::$request->arg_isset("tbtpl")) {
+			$arr["tbtpl"] = automatweb::$request->arg("tbtpl");
+		}
 		// resolve to name
 		// kui on numeric, siis ma saan class_lut-ist teada tema nime
 		if (is_numeric($cl_name) and aw_ini_isset("classes.{$cl_name}.file"))

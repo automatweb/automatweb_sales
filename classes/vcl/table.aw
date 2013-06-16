@@ -96,6 +96,8 @@ class aw_table extends aw_template
 	protected $rgroupsortdat = array();
 	protected $vgrowspans = array();
 	protected $vgrouplastvals = array();
+	
+	protected $data_for_bootstrap = array();
 
 	function aw_table($data = array())
 	{
@@ -1327,6 +1329,10 @@ END;
 				$cols = 0;
 				$skip_for_colspan = 0;
 
+				$data_for_bootstrap = array();
+				if ($this->use_chooser) {
+					$data_for_bootstrap[$this->chooser_config["field"]] = isset($v[$this->chooser_config["field"]]) ? $v[$this->chooser_config["field"]] : "";
+				}
 				// ts&uuml;kkel &uuml;le rowdefsi, et andmed oleksid oiges j&auml;rjekorras
 				foreach($this->rowdefs as $k1 => $v1)
 				{
@@ -1553,7 +1559,10 @@ END;
 					$tbl .= str_replace("[__jrk_replace__]",$counter,$val);
 					$tbl .= "</td>\n";
 					$skip_for_colspan = $colspan;
+					
+					$data_for_bootstrap[$v1["name"]] = $val;
 				}
+				$this->data_for_bootstrap[] = $data_for_bootstrap;
 
 				// joonistame actionid
 				$actionridu = isset($this->actionrows) ? $this->actionrows : 1;
@@ -1656,6 +1665,22 @@ END;
 				"table_id" => $this->table_tag_id
 			));
 			$tbl .= $this->parse("hover_script");
+		}
+		
+		if (aw_template::bootstrap()) {
+			$table = new bootstrap_table();
+			
+			$table->set_id($this->id);
+			$table->set_caption($this->table_caption);
+			
+			if ($this->use_chooser) {
+				$table->set_chooser($this->chooser_config);
+			}
+			
+			$table->set_fields($this->rowdefs);
+			$table->set_content($this->data_for_bootstrap);
+			
+			return $table->render();
 		}
 
 		return $tbl;

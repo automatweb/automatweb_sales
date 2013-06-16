@@ -61,5 +61,12 @@
 			</function>
 		</action>
 
+		<action name="get_events" all_args="1">
+			<function name="get_events">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

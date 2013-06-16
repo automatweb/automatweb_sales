@@ -28,17 +28,18 @@ class yui_chooser extends aw_template
 		$onclick = isset($prop["onclick"]) ? $prop["onclick"] : "";
 		$this->html .= <<<SCRIPT
 			<script type="text/javascript">
-				YUI().use('button-group', function(Y) {
-					Y.one('body').addClass('yui3-skin-sam');
-						var buttonGroupCB = new Y.ButtonGroup({
+				YUI({ fetchCSS: false }).use('button-group', function(Y) {
+					var buttonGroupCB = new Y.ButtonGroup({
 						srcNode: '#{$prop["name"]}-chooser-group',
 						type: '{$chooser_type}',
 						after: {
 							'selectionChange': function(e){
 								buttonGroupCB.getButtons().each(function(option) {
 									Y.one('#' + option.get('name')).set('checked', false);
+									option.removeClass("btn-primary");
 								});
 								Y.Array.each(buttonGroupCB.getSelectedButtons(), function(option) {
+									option.addClass("btn-primary");
 									Y.one('#' + option.get('name')).set('checked', true);
 								});
 								{$onclick}
@@ -72,7 +73,7 @@ SCRIPT;
 				"value" => $caption,
 				"disabled" => !empty($this->disabled[$key]),
 				// TODO: Throw exception if "multiple != true" and more than one option selected.
-				"class" => !empty($this->value[$key]) ? "yui3-button yui3-button-selected" : "yui3-button",
+				"class" => !empty($this->value[$key]) ? "btn btn-mini btn-primary yui3-button-selected" : "btn btn-mini",
 				"post_append_text" => html::checkbox(array(
 					"name" => $this->name . "[" . $key . "]",
 					"checked" => !empty($this->value[$key]),

@@ -6707,6 +6707,67 @@ ENDSCRIPT;
 		$cfgu = new cfgutils();//!!!
 		$properties = $cfgu->load_class_properties(array("clid" => $this_clid));
 	}
+	
+	public static function get_current_class_icon ($size = 48)
+	{
+		static $icon;
+		if (!isset($icon))
+		{	
+			$clid = clid_for_name(automatweb::$request->arg("class"));
+			$url = "{$GLOBALS["cfg"]["icons"]["server"]}{$size}/";
+			$dir = "{$GLOBALS["aw_dir"]}automatweb/images/icons/{$size}/";
+			$icon = $url.($clid && file_exists($dir.$clid.".png") ? $clid : "default").".png";
+		}
+		
+		return $icon;
+	}
+	
+	public static function get_current_class_name ()
+	{
+		static $class_name;
+		if (!isset($class_name))
+		{
+			$class_names = array(
+				"doc" => t("Dokument"),
+				"config" => t("Seaded")
+			);
+			$class_name = "";
+			if (automatweb::$request->arg_isset("class"))
+			{
+				$class = automatweb::$request->arg("class");
+				try
+				{
+					$class_id = aw_ini_get("class_lut.{$class}");
+					$class_name = aw_ini_get("classes.{$class_id}.name");
+				}
+				catch (Exception $e)
+				{
+					if (isset($class_names[$class]))
+					{
+						$class_name = $class_names[$class];
+					}
+				}
+			}
+		}
+		
+		return $class_name;
+	}
+	
+	public static function get_current_object_name ()
+	{
+		static $name;
+		if (!isset($name))
+		{
+			$name = "";
+			if (automatweb::$request->arg_isset("id") and object_loader::can("", automatweb::$request->arg("id")))
+			{
+				$object = obj(automatweb::$request->arg("id"));
+				$name = $object->prop_xml("name");
+			}
+		}
+		
+		return $name;
+	}
 
 	public function __get($name)
 	{

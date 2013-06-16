@@ -21,7 +21,7 @@ class period_filter extends aw_template
 		$onclick = isset($arr["property"]["onclick"]) ? $arr["property"]["onclick"] : "";
 		$html .= <<<SCRIPT
 			<script type="text/javascript">
-				YUI().use('button-group', function(Y) {
+				YUI({ fetchCSS: false }).use('button-group', function(Y) {
 					Y.one('body').addClass('yui3-skin-sam');
 						var buttonGroupCB = new Y.ButtonGroup({
 						srcNode: '#{$arr["property"]["name"]}-chooser-group',
@@ -30,8 +30,10 @@ class period_filter extends aw_template
 							'selectionChange': function(e){
 								buttonGroupCB.getButtons().each(function(option) {
 									Y.one('#' + option.get('name')).set('checked', false);
+									option.removeClass("btn-primary");
 								});
 								Y.Array.each(buttonGroupCB.getSelectedButtons(), function(option) {
+									option.addClass("btn-primary");
 									Y.one('#' + option.get('name')).set('checked', true);
 								});
 								(function(){
@@ -67,7 +69,7 @@ SCRIPT;
 				"value" => $caption,
 				"disabled" => ifset($prop, "disabled", $key),
 				// TODO: Throw exception if "multiple != true" and more than one option selected.
-				"class" => $checked ? "yui3-button yui3-button-selected" : "yui3-button",
+				"class" => $checked ? "btn btn-mini btn-primary yui3-button-selected" : "btn btn-mini",
 				"post_append_text" => html::checkbox(array(
 					"name" => $prop["name"] . "[" . $key . "]",
 					"checked" => $checked,

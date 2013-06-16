@@ -32,9 +32,9 @@ class popup_menu extends aw_template
 	**/
 	function begin_menu($menu_id)
 	{
-		$this->items = array();
-		$this->menus = array();
 		$this->menu_id = $menu_id;
+		$this->items = array($menu_id => array());
+		$this->menus = array();
 	}
 
 	/** Adds new item to popup menu
@@ -131,7 +131,14 @@ class popup_menu extends aw_template
 		{
 			$this->menus[$arr["parent"]] = "";
 		}
-
+		
+		$arr["html"] = $rv;
+		if (!isset($this->items[$arr["parent"]]))
+		{
+			$this->items[$arr["parent"]] = array();
+		}
+		$this->items[$arr["parent"]][] = $arr;
+		
 		$this->menus[$arr["parent"]] .= $rv;
 	}
 
@@ -140,7 +147,6 @@ class popup_menu extends aw_template
 	**/
 	function add_separator($arr = array())
 	{
-		//$this->items[] = array("__is_sep" => 1);
 		if (empty($arr["parent"]))
 		{
 			$arr["parent"] = $this->menu_id;
@@ -150,6 +156,12 @@ class popup_menu extends aw_template
 		{
 			$this->menus[$arr["parent"]] = "";
 		}
+		
+		if (!isset($this->items[$arr["parent"]]))
+		{
+			$this->items[$arr["parent"]] = array();
+		}
+		$this->items[$arr["parent"]][] = array_merge($arr, array("separator" => true));
 
 		$this->menus[$arr["parent"]] .= '<div class="menuItemSep"></div>'."\n";
 	}
@@ -188,6 +200,17 @@ class popup_menu extends aw_template
 		{
 			$this->menus[$arr["parent"]] = $rv;
 		}
+		
+		if (!isset($this->items[$arr["name"]]))
+		{
+			$this->items[$arr["name"]] = array();
+		}
+		if (!isset($this->items[$arr["parent"]]))
+		{
+			$this->items[$arr["parent"]] = array();
+		}
+		$arr["html"] = html::href(array("caption" => $arr["text"]));
+		$this->items[$arr["parent"]][] = $arr;
 	}
 
 	/** Returns the HTML of the popup menu
@@ -264,6 +287,13 @@ class popup_menu extends aw_template
 				"IS_TOOLBAR" => $this->parse("IS_TOOLBAR")
 			));
 		}
+		
+		if (aw_template::bootstrap())
+		{
+			$this->vars(array(
+				"DROPDOWN" => $this->__parse_dropdown($this->menu_id),
+			));
+		}
 
 		if (is_array($param) && !empty($param["load_on_demand_url"]))
 		{
@@ -286,5 +316,25 @@ class popup_menu extends aw_template
 		}
 
 		return $this->parse();
+	}
+	
+	private function __parse_dropdown ($menu_id)
+	{
+		$ITEMS = "";
+		foreach ($this->items[$menu_id] as $item)
+		{
+			$has_subdropdown = isset($item["name"]) && !empty($this->items[$item["name"]]);
+			$this->vars(array(
+				"dropdown.item" => isset($item["html"]) ? $item["html"] : null,
+				"dropdown.item.class" => $has_subdropdown ? "dropdown-submenu" : (!empty($item["separator"]) ? "divider" : ""),
+				"subdropdown" => $has_subdropdown ? $this->__parse_dropdown($item["name"]) : "",
+			));
+			$ITEMS .= $this->parse("DROPDOWN.ITEM");
+		}
+		$this->vars(array(
+			"DROPDOWN.ITEM" => $ITEMS,
+		));
+		
+		return $this->parse("DROPDOWN");
 	}
 }

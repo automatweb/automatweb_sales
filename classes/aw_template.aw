@@ -315,6 +315,17 @@ class aw_template extends core
 	**/
 	function read_template($name, $silent = false)
 	{
+		$extension = pathinfo($name, PATHINFO_EXTENSION);
+		if (self::bootstrap() && $extension !== "tbtpl")
+		{
+			try {
+				$bootstrap_template = substr($name, 0, -1 * strlen($extension))."tbtpl";
+				$retval = $this->read_template($bootstrap_template, $silent);
+				return $retval;
+			} catch (Exception $e) {
+			}
+		}
+		
 		$this->template_filename = $this->template_dir . $name;
 		$retval = false;
 
@@ -340,6 +351,7 @@ class aw_template extends core
 		{
 			$e = new awex_tpl_not_found(sprintf("Template '%s' resolved to '%s' not found", $name, $this->template_filename));
 			$e->tpl = $this->template_filename;
+			throw $e;
 		}
 
 		return $retval;
@@ -1108,6 +1120,11 @@ class aw_template extends core
 	{
 		$tmp = isset($this->v2_name_map[$name]) ? $this->v2_name_map[$name] : "";
 		return isset($this->v2_templates[$tmp]) ? $this->v2_templates[$tmp] : "";
+	}
+	
+	public static function bootstrap()
+	{
+		return automatweb::$request->arg_isset("tbtpl") and automatweb::$request->arg("tbtpl");
 	}
 
 	public static function list_loaded_template_files()

@@ -290,7 +290,7 @@ class html
 		$onchange = !empty($onChange) ? " onchange=\"{$onChange}\"" : "";
 		$onkeyup = isset($onkeyup) ? " onkeyup=\"{$onkeyup}\"" : '';
 		$style = isset($style) ? " style=\"{$style}\"":"";
-		$class = isset($class) ? " class=\"{$class}\"":"";
+		$class = isset($class) ? " class=\"input-medium {$class}\"" : "class=\"input-medium\"";
 		$placeholder = isset($placeholder) ? " placeholder=\"{$placeholder}\"":"";
 
 		if(!empty($autocomplete_class_id))

@@ -179,7 +179,7 @@ class htmlclient extends aw_template
 
 		if(!empty($this->tpl_vars))
 		{
-			$this->vars($this->tpl_vars);
+			$this->vars_safe($this->tpl_vars);
 		}
 
 		$script = aw_global_get("SCRIPT_NAME");
@@ -490,7 +490,7 @@ class htmlclient extends aw_template
 
 		if (isset($this->tmp) && is_object($this->tmp))
 		{
-			$this->tmp->vars($tpl_vars);
+			$this->tmp->vars_safe($tpl_vars);
 			$rv = $this->tmp->parse($add2."LINE".$add);
 		}
 		else
@@ -1463,7 +1463,9 @@ class htmlclient extends aw_template
 				$cell_width = isset($cell_widths[$cell_nr]) ? " width='" . $cell_widths[$cell_nr] . "'" : "";
 				$this->vars_safe(array(
 					"item" => $layout_item,
-					"item_width" => $cell_width
+					"item_width" => $cell_width,
+					"item_width_css" => isset($cell_widths[$cell_nr]) ? " width: {$cell_widths[$cell_nr]}" : "",
+					"item_width_class" => self::__get_item_width_class($cell_widths, $cell_nr),
 				));
 				$content .= $this->parse("GRID_HBOX_ITEM");
 			}
@@ -1712,6 +1714,23 @@ class htmlclient extends aw_template
 		}
 
 		return $html;
+	}
+	
+	private function __get_item_width_class($widths, $index)
+	{
+		$classes = array();
+		$leftover = 12;
+		for ($i = 0; $i < count($widths) - 1; $i++)
+		{
+			// FIXME! Cannot handle fractions!
+			$class = round(0.24 * preg_replace("/[^0-9]/", "", $widths[$i])) / 2;
+			$leftover -= $class;
+			$classes[] = $class;
+		}
+		$classes[] = $leftover;
+		
+		$class = isset($classes[$index]) ? str_replace("-0", "", str_replace(".", "-", number_format($classes[$index], 1))) : "";
+		return "span{$class}";
 	}
 
 	function put_griditem($arr)
