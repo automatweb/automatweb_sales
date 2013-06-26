@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="bootstrap_table" folder="" extends="">
+		<action name="save_reordering">
+			<function name="save_reordering">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

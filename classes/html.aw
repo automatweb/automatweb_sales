@@ -2052,6 +2052,20 @@ ENDJAVASCRIPT;
 	{
 		return addcslashes ($string, "'\\");
 	}
+	
+	public static function ul($args)
+	{
+		$class = isset($args["class"]) ? "class=\"{$args["class"]}\"" : "";
+		$style = isset($args["style"]) ? "style=\"{$args["style"]}\"" : "";
+		$items = array();
+		if (isset($args["items"]) and is_array($args["items"])) {
+			foreach ($args["items"] as $item) {
+				$items[] = "<li>{$item}</li>";
+			}
+		}
+		$list_items = implode("\n\r", $items);
+		return "<ul {$class} {$style}>{$list_items}</ul>";
+	}
 }
 
 /* Generic html error condition */

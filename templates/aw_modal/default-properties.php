@@ -40,6 +40,17 @@ if (!function_exists("parse_modal_property")) {
 			<?php
 				break;
 				
+			case "datetimepicker":
+			?>
+				<div class="input-append" data-provide="datetimepicker">
+					<input data-format="dd/MM/yyyy hh:mm" type="text" id="<?php echo $property["id"]; ?>" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?> placeholder="<?php echo isset($property["placeholder"]) ? $property["placeholder"] : ""; ?>"></input>
+					<span class="add-on">
+						<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+					</span>
+				</div>
+			<?php
+				break;
+				
 			case "button":
 			?>
 				<button id="<?php echo $property["id"]; ?>" class="btn btn-primary" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?>><?php echo $property["button"]["caption"]; ?></button>

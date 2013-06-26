@@ -2,12 +2,14 @@
 <style>
 .hack-col {
 	float: left;
-	overflow-y: scroll;
-	overflow-x: hidden;
 	height: 200px;
 	width: 236px;
 	border: 1px solid #e5e5e5;
 	border-right: 0;
+}
+.hack-inner {
+	height: 200px;
+	width: 236px;
 }
 .hack-col:first-child {
 	-webkit-border-radius: 6px 0 0 6px;
@@ -42,36 +44,44 @@
 }
 </style>
 <div>
-	<div class="hack-col">
-		<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: levels()[0].loaded, foreach: levels()[0].items">
-			<li><a href="javascript:void(0)" data-bind="click: $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
-		</ul>
-		<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: levels()[0].loading">
-			<div class="bar" style="width: 100%;"></div>
+	<div class="hack-col antiscroll-wrap">
+		<div class="hack-inner antiscroll-inner">
+			<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: levels()[0].loaded, foreach: levels()[0].items">
+				<li><a href="javascript:void(0)" data-bind="click: $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+			</ul>
+			<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: levels()[0].loading">
+				<div class="bar" style="width: 100%;"></div>
+			</div>
 		</div>
 	</div>
-	<div class="hack-col">
-		<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: levels()[1].loaded, foreach: levels()[1].items">
-			<li><a href="javascript:void(0)" data-bind="click: $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
-		</ul>
-		<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: levels()[1].loading">
-			<div class="bar" style="width: 100%;"></div>
+	<div class="hack-col antiscroll-wrap">
+		<div class="hack-inner antiscroll-inner">
+			<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: levels()[1].loaded, foreach: levels()[1].items">
+				<li><a href="javascript:void(0)" data-bind="click: $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+			</ul>
+			<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: levels()[1].loading">
+				<div class="bar" style="width: 100%;"></div>
+			</div>
 		</div>
 	</div>
-	<div class="hack-col">
-		<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: !loading(), foreach: results">
-			<li data-bind="visible: !$root.isSelected($data)"><a href="javascript:void(0)" data-bind="click: $root.select"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
-		</ul>
-		<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: loading">
-			<div class="bar" style="width: 100%;"></div>
+	<div class="hack-col antiscroll-wrap">
+		<div class="hack-inner antiscroll-inner">
+			<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: !loading(), foreach: results">
+				<li data-bind="visible: !$root.isSelected($data)"><a href="javascript:void(0)" data-bind="click: $root.select"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+			</ul>
+			<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: loading">
+				<div class="bar" style="width: 100%;"></div>
+			</div>
 		</div>
 	</div>
 </div>
 <div class="span">
-	<div class="hack-col">
-		<ul class="nav nav-list bs-docs-sidenav" data-bind="foreach: selected">
-			<li><a href="javascript:void(0)" data-bind="click: $root.remove"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
-		</ul>
+	<div class="hack-col antiscroll-wrap">
+		<div class="hack-inner antiscroll-inner">
+			<ul class="nav nav-list bs-docs-sidenav" data-bind="foreach: selected">
+				<li><a href="javascript:void(0)" data-bind="click: $root.remove"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+			</ul>
+		</div>
 	</div>
 </div>
 <?php } else { ?>

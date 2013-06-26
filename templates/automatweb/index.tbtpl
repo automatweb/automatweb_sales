@@ -8,12 +8,20 @@
 	<link href="{VAR:baseurl}automatweb/js/alloyui/css/alloyui-bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="{VAR:baseurl}automatweb/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="{VAR:baseurl}automatweb/js/bootstrap/css/bootstrap.docs.css" rel="stylesheet" type="text/css" />
+	<link href="{VAR:baseurl}automatweb/js/bootstrap/css/bootstrap.datepicker.css" rel="stylesheet" type="text/css" />
+	<link href="{VAR:baseurl}automatweb/js/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+	<link href="{VAR:baseurl}automatweb/js/jquery/plugins/antiscroll/antiscroll.css" rel="stylesheet" type="text/css" />
 	<link href="{VAR:baseurl}automatweb/css/tbstyle.css" rel="stylesheet" type="text/css" />
 	{VAR:css_styles_head}
 
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/js-min.js"></script>
-	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/jquery-ui-1.10.3.min.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/bootstrap/js/bootstrap.datepicker.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/knockout/knockout-2.2.0.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/knockout/ko.custom.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/antiscroll/antiscroll.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/AW.UI.js"></script>
 	
 	<script src="http://cdn.alloyui.com/2.0.0pr5/aui/aui-min.js"></script>

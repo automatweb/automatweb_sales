@@ -105,15 +105,19 @@ class modal_search extends aw_modal {
 		}
 		
 		if (!empty($parents)) {
-			$filter[] = new obj_predicate_limit(1000);
-			$names = array();
+			$filter["parent"] = array();
 			while (!empty($parents)) {
-				$filter["parent"] = $parents;
-				$ol = new object_list($filter);
-				$names += $ol->names();
+				$filter["parent"] += $parents;
+				$ol = new object_list(array(
+					"class_id" => CL_MENU,
+					"parent" => $parents,
+				));
 				$parents = $ol->ids();
 			}
-		} elseif (count($filter) > 1) {
+		}
+		
+		if (count($filter) > 1) {
+			$filter["class_id"] = array(CL_CRM_DOCUMENT, doc_obj::CLID, CL_FILE);
 			$ol = new object_list($filter);
 		} else {
 			$ol = new object_list();
@@ -142,15 +146,27 @@ class modal_search extends aw_modal {
 	
 	protected function get_children($source, $parent) {
 		$filter = array();
-		if (is_array($parent) && count($parent) > 0) {
+		if (is_oid($parent) || is_array($parent) && count($parent) > 0) {
 			$filter["parent"] = $parent;
 		}
 		if (!empty($filter)) {
+			$filter["class_id"] = CL_MENU;
 			$filter[] = new obj_predicate_limit(100);
 			$ol = new object_list($filter);
 		} else {
 			$ol = new object_list();
 		}
 		return $ol;
+	}
+	
+	protected function get_right_footer_buttons() {
+		return array(
+			html::href(array(
+				"url" => "javascript:void(0)",
+				"data" => array("bind" => "click: onReady", "dismiss" => "modal"),
+				"class" => "btn btn-primary",
+				"caption" => t("Valmis"),
+			))
+		);
 	}
 }

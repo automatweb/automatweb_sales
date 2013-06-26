@@ -62,6 +62,7 @@
             <no_caption>1</no_caption>
             <store>no</store>
             <parent>o_bot_right</parent>
+            <reorderable>true</reorderable>
             <field>o_tbl</field>
       </property>
       <property>

@@ -98,6 +98,7 @@ class aw_table extends aw_template
 	protected $vgrouplastvals = array();
 	
 	protected $data_for_bootstrap = array();
+	protected $reorderable = false;
 
 	function aw_table($data = array())
 	{
@@ -1679,6 +1680,8 @@ END;
 			
 			$table->set_fields($this->rowdefs);
 			$table->set_content($this->data_for_bootstrap);
+	
+			$table->set_reorderable($this->reorderable);
 			
 			return $table->render();
 		}
@@ -3169,6 +3172,7 @@ class vcl_table extends aw_table
 
 	function init_vcl_property($arr)
 	{
+		$this->reorderable = !empty($arr["prop"]["reorderable"]);
 		// I need access to class information!
 		$pr = &$arr["property"];
 		$this->aw_table(array("prefix" => $pr["name"]));

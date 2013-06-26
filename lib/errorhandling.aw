@@ -84,6 +84,11 @@ class aw_errorhandler
 		{
 			/* No way of predetermining if string to be unserialized is valid for that */
 			return true;
+		} elseif (E_WARNING === $errno and "fsockopen()" === substr($errstr, 0, 11) and $errline === 39) {
+			/*
+				-kaarel 17.06.2013
+			*/
+			return true;
 		}
 
 		return false;

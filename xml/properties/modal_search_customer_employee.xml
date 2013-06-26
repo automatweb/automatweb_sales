@@ -1,0 +1,44 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>search_source</name>
+            <type>select</type>
+            <parent>search_filter</parent>
+            <field>search_source</field>
+            <caption>Organisatsioon</caption>
+      </property>
+      <property>
+            <name>search_oid</name>
+            <type>textbox</type>
+            <parent>search_filter</parent>
+            <field>search_oid</field>
+            <caption>Kliendi ID</caption>
+      </property>
+      <property>
+            <name>search_name</name>
+            <type>textbox</type>
+            <parent>search_filter</parent>
+            <field>search_name</field>
+            <caption>Kliendi nimi</caption>
+      </property>
+      <property>
+            <name>search</name>
+            <type>button</type>
+            <parent>search_filter</parent>
+            <field>search</field>
+      </property>
+      <property>
+            <name>search_results</name>
+            <type>table</type>
+            <store>no</store>
+            <field>search_results</field>
+      </property>
+      <layout>
+            <search_filter>
+                  <type>horizontal</type>
+                  <width>3:3:3:3</width>
+                  <area_caption></area_caption>
+            </search_filter>
+      </layout>
+</properties>
+

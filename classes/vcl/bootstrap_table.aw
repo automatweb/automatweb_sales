@@ -1,6 +1,6 @@
 <?php
 
-class bootstrap_table extends aw_template {
+class bootstrap_table extends aw_template implements orb_public_interface {
 	
 	private $id;
 	private $caption;
@@ -8,6 +8,8 @@ class bootstrap_table extends aw_template {
 	private $chooser;
 	private $fields;
 	private $content;
+	
+	private $reorderable = true;
 	
 	private $header_height = 1;
 	
@@ -26,6 +28,10 @@ class bootstrap_table extends aw_template {
 	
 	public function set_caption($caption) {
 		$this->caption = $caption;
+	}
+	
+	public function set_reorderable($reorderable) {
+		$this->reorderable = $reorderable;
 	}
 	
 	public function set_fields($fields) {
@@ -66,6 +72,19 @@ class bootstrap_table extends aw_template {
 			"BODY" => $this->render_body(),
 			"FOOTER" => $this->render_footer(),
 		));
+		if ($this->reorderable) {
+			$this->vars(array(
+				"on-reorderable-update" => core::mk_my_orb("save_reordering", null, "bootstrap_table"),
+			));
+			
+			$this->vars_safe(array(
+				"REORDERABLE" => $this->parse("REORDERABLE"),
+			));
+		} else {
+			$this->vars_safe(array(
+				"REORDERABLE" => "",
+			));
+		}
 		
 		return $this->parse();
 	}
@@ -163,7 +182,14 @@ class bootstrap_table extends aw_template {
 			
 			$FIELDS .= $this->parse("ROW.FIELD");
 		}
+		// FIXME: Bit of a hack for getting data-object-id
+		if (!empty($this->chooser) && $hack === 0 && isset($data[$this->chooser["field"]])) {
+			$object_id = $data[$this->chooser["field"]];
+		} else {
+			$object_id = null;
+		}
 		$this->vars(array(
+			"row.data" => "data-object-id=\"{$object_id}\"",
 			"ROW.FIELD" => $FIELDS,
 		));
 		
@@ -185,6 +211,26 @@ class bootstrap_table extends aw_template {
 	private function compose_class($field) {
 //		return !empty($field["align"]) ? "class=\"text-{$field["align"]}\"" : "";
 		return "";
+	}
+	
+	/**
+		@attrib name=save_reordering
+	**/
+	public static function save_reordering () {
+		$data = automatweb::$request->arg_isset("order") ? automatweb::$request->arg("order") : array();
+		usort($data, array("self", "__reordering_compare"));
+		foreach ($data as $item) {
+			if (object_loader::can("", $item["id"])) {
+				$o = obj($item["id"]);
+				$o->set_ord($item["index"] * 10);
+				$o->save();
+			}
+		}
+		exit;
+	}
+	
+	protected static function __reordering_compare ($a, $b) {
+		return $a["index"] - $b["index"];
 	}
 }
 

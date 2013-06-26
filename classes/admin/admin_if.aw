@@ -28,7 +28,7 @@
 
 		@layout o_bot_right type=vbox parent=o_bottom
 
-			@property o_tbl type=table no_caption=1 store=no parent=o_bot_right
+			@property o_tbl type=table no_caption=1 store=no parent=o_bot_right reorderable=true
 
 @default group=fu
 
@@ -702,17 +702,19 @@ class admin_if extends class_base
 			"chgbgcolor" => "cutcopied",
 			"caption" => t("Nimi")
 		));
-
-		$t->define_field(array(
-			"name" => "jrk",
-			"align" => "center",
-			"width" => 10,
-			"talign" => "center",
-			"chgbgcolor" => "cutcopied",
-			"caption" => t("Jrk"),
-			"numeric" => "yea",
-			"sortable" => 1
-		));
+		
+		if (!aw_template::bootstrap()) {
+			$t->define_field(array(
+				"name" => "jrk",
+				"align" => "center",
+				"width" => 10,
+				"talign" => "center",
+				"chgbgcolor" => "cutcopied",
+				"caption" => t("Jrk"),
+				"numeric" => "yea",
+				"sortable" => 1
+			));
+		}
 
 		$t->define_field(array(
 			"name" => "status",

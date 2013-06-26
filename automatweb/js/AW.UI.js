@@ -163,12 +163,14 @@ $.extend(window.AW.UI, (function(){
 							success: function(children){
 								self.levels()[level].items(children);
 								self.levels()[level].loading(false);
+								$(".antiscroll-wrap").antiscroll();
 							}
 						});
 					} else {
 						self.levels()[level].items([]);
 						self.levels()[level].loading(false);
 					}
+					$(".antiscroll-wrap").antiscroll();
 				}
 				var resultsLoader;
 				self.loadResults = function() {
@@ -189,8 +191,10 @@ $.extend(window.AW.UI, (function(){
 						success: function(results){
 							self.results(results);
 							self.loading(false);
+							$(".antiscroll-wrap").antiscroll();
 						}
 					});
+					$(".antiscroll-wrap").antiscroll();
 				}
 				
 				self.source = ko.observable(config.defaultSource);
@@ -204,11 +208,11 @@ $.extend(window.AW.UI, (function(){
 				self.results = ko.observableArray();
 				self.loading = ko.observable(false);
 				self.selected = ko.observableArray([]);
-				self.onSelect = ko.computed(function(){
+				self.onReady = function(){
 					if (config.onSelect) {
 						config.onSelect.call(null, config.multiple ? self.selected() : self.selected()[0]);
 					}
-				}, self);
+				};
 				self.select = function(item, event){
 					if (!config.multiple) {
 						self.selected([item]);
@@ -279,14 +283,128 @@ $.extend(window.AW.UI, (function(){
 			};
 		})(),
 		calendar: (function(){
+			var calendarID;
+			var map = {};
+			var eventDetails;
+			var scheduler;
+			
+			var convertTimestampToDate = function(unix_timestamp) {
+				var date = new Date(unix_timestamp*1000);
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+				return (day < 10 ? "0" : "") + day + "/" + (month < 10 ? "0" : "") + month + "/" + date.getFullYear() + " " + (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+			};
+			
+			var vmCore = function(_data, properties) {
+				var self = this;
+				if (!_data) { _data = {}; }
+				for (var i in properties) {
+					self[properties[i]] = typeof _data[properties[i]] !== "undefined" ? ko.observable(_data[properties[i]]) : ko.observable();
+				}
+			}
+			
+			var vmEvent = function (_data) {
+				var self = this;
+				if (_data && _data.startDate && !_data.start1) {
+					_data.start1 = _data.startDate;
+				}
+				if (_data && _data.endDate && !_data.end) {
+					_data.end = _data.endDate;
+				}
+				if (_data && _data.start1) {
+					_data.start1_show = convertTimestampToDate(_data.start1);
+				}
+				if (_data && _data.end) {
+					_data.end_show = convertTimestampToDate(_data.end);
+				}
+				var properties = ["id", "name", "start1_show", "end_show"];
+				vmCore.call(self, _data, properties);
+				
+				self.start1 = ko.computed(function(){
+					var d = self.start1_show().match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
+					if (!d) {
+						return null;
+					}
+					var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
+					return date.getTime()/1000;
+				}, self);
+				self.end = ko.computed(function(){
+					var d = self.end_show().match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
+					if (!d) {
+						return null;
+					}
+					var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
+					return date.getTime()/1000;
+				}, self);
+				
+				var addParticipants = function (items) {
+					for (var i in items) {
+						var found = false;
+						for (var j in self.participants()) {
+							if (self.participants()[j].id == items[i].id) {
+								found = true;
+								break;
+							}
+						}
+						if (!found) {
+							self.participants.push(items[i]);
+						}
+					}
+				};
+				
+				self.participants = ko.observableArray(_data && _data.participants ? _data.participants : []);
+				self.selectParticipantsFromColleagues = function () {
+					AW.UI.modal_search.open("modal_search_employee", { defaultSource: null, multiple: true, onSelect: addParticipants });
+				};
+				self.selectParticipantsFromClients = function () {
+					AW.UI.modal_search.open("modal_search_customer_employee", { defaultSource: null, multiple: true, onSelect: addParticipants });
+				};
+				self.removeParticipant = function (participant) {
+					self.participants.remove(participant);
+				}
+				
+				self.attachments = ko.observableArray();
+				self.selectAttachments = function () {
+					AW.UI.modal_search.open("modal_search", { rootParent: 751702, multiple: true, onSelect: function (items) {
+						for (var i in items) {
+							var found = false;
+							for (var j in self.attachments()) {
+								if (self.attachments()[j].id == items[i].id) {
+									found = true;
+									break;
+								}
+							}
+							if (!found) {
+								self.attachments.push(items[i]);
+							}
+						}
+					} });
+				};
+				self.removeAttachment = function (attachment) {
+					self.attachments.remove(function(item) { return item.id == attachments.id; });
+				}
+			};
+			vmEvent.prototype.toJSON = function() {
+				return {
+					id: this.id,
+					name: this.name,
+					start1: this.start1,
+					end: this.end,
+					participants: this.participants()
+				};
+			}
+
 			return {
 				initialize: function(id) {
 					if ($("#" + id).size() === 0) {
 						return;
 					}
+					calendarID = $("#" + id).data("calendar-id");
 					$.ajax({
 						url: "/automatweb/orb.aw?class=planner&action=get_events",
-						data: { id: $("#" + id).data("calendar-id"), tbtpl: true },
+						data: { id: calendarID, tbtpl: true },
 						dataType: "json",
 						success: function (events) {
 							for (var i in events) {
@@ -294,33 +412,187 @@ $.extend(window.AW.UI, (function(){
 								events[i].endDate = new Date(events[i].endDate*1000);
 							}
 							YUI().use('aui-scheduler', function(Y) {					  
-								var agendaView = new Y.SchedulerAgendaView();
-								var dayView = new Y.SchedulerDayView();
-								var eventRecorder = new Y.SchedulerEventRecorder();
+								var agendaView = new Y.SchedulerAgendaView({ string: { noEvents: 'Eelseisvad s&uuml;ndmused puuduvad' } });
+								var dayView = new Y.SchedulerDayView({ string: { allDay: 'Kogu p&auml;ev' } });
 								var monthView = new Y.SchedulerMonthView();
 								var weekView = new Y.SchedulerWeekView();
+								var eventRecorder = new Y.SchedulerEventRecorder({
+									strings: {
+										'delete': 'Kustuta',
+										'description-hint': 'e.g., Kohtumine kliendiga',
+										cancel: 'Loobu',
+										description: 'Kirjeldus',
+										edit: 'Muuda',
+										save: 'Salvesta',
+										when: 'Millal'
+									},
+									toolbar: {
+										children2: [
+											[
+												{
+													label: 'Detailvaade',
+													on: {
+														click: function () {
+															alert("Yeah!");
+														}
+													}
+												},
+											]
+										]
+									}
+								});
+								
+								function showModal (data) {
+									eventDetails = new vmEvent(data);
+									
+									var modal = AW.UI.modal.open("crm_meeting_modal");
+									
+									ko.applyBindings(eventDetails, modal.element[0]);
+								}
 						  
-								var scheduler = new Y.Scheduler({
+								scheduler = new Y.Scheduler({
 									activeView: weekView,
 									boundingBox: "#" + id,
 									eventRecorder: eventRecorder,
+									firstDayOfWeek: 1,
 									items: events,
 									render: true,
+									strings: {
+										agenda: 'Agenda',
+										day: 'P&auml;ev',
+										month: 'Kuu',
+										today: 'T&auml;na',
+										week: 'N&auml;dal',
+										year: 'Aasta'
+									},
 									views: [dayView, weekView, monthView, agendaView]
 								});
+								scheduler.on({
+									'scheduler-event:change': function(event) {
+										console && console.log(event.type);
+										var itemData = event.target._state.data;
+										AW.UI.calendar.saveEvent({
+											id: itemData.id.value || map[itemData.clientId.value] || null,
+											clientId: itemData.clientId.value,
+											name: itemData.content.value,
+											start1: itemData.startDate.value.getTime()/1000,
+											end: itemData.endDate.value.getTime()/1000
+										});
+									},
+									'scheduler-events:remove': function(event) {
+										console && console.log(event.type);
+										var item = scheduler.getEvents()[event.index]._state.data.id.value || null;
+										if (item) {
+											AW.UI.calendar.deleteEvent(item);
+										}
+									},
+									'scheduler-event-recorder:edit': function(event) {
+										return;
+										console && console.log(event.type);
+										var itemData = eventRecorder.getUpdatedSchedulerEvent()._state.data;
+										AW.UI.calendar.saveEvent({
+											id: itemData.id.value || map[itemData.clientId.value] || null,
+											clientId: itemData.clientId.value,
+											name: itemData.content.value,
+											start1: itemData.startDate.value.getTime()/1000,
+											end: itemData.endDate.value.getTime()/1000
+										});
+									},
+									'scheduler-base:click': function(event) {
+										console && console.log(event.type);
+										var toolbar = $(".aui-scheduler-event-recorder-overlay .yui3-widget-ft .aui-toolbar-content .aui-btn-group");
+										if (!toolbar.data("custom-processed")) {
+											var button = $('<button class="aui-btn">Detailid</button>');
+											toolbar.append(button);
+											button.click(function (event) {
+												event.preventDefault();
+												var eventData = (eventRecorder.get("event") || eventRecorder.clone())._state.data;
+												console && console.log(eventData);
+												showModal({
+													id: eventData.id.value || map[eventData.clientId.value] || null,
+													name: $(".aui-scheduler-event-recorder-overlay .aui-scheduler-event-recorder-overlay-content").val(),
+													start1: eventData.startDate.value.getTime()/1000,
+													end: eventData.endDate.value.getTime()/1000,
+													participants: eventData.participants ? eventData.participants.lazy.value : []
+												});
+												$(".aui-scheduler-event-recorder-overlay").addClass("yui3-overlay-hidden");
+											});
+											toolbar.data("custom-processed", true);
+										}										
+									},
+								});
+								
 								var addNewButton = $('<a href="#" class="btn" style="position: relative; margin-left: 50%; left: -350px;"><i class="icon-plus-sign"></i> Lisa uus s&uuml;ndmus</a>');
 								$("#" + id + " .aui-scheduler-base-controls").append(addNewButton);
-								AW.UI.modal.load("crm_meeting_modal");
+								
 								addNewButton.on("click", function (event) {
 									event.preventDefault();
-									var modal = AW.UI.modal.open("crm_meeting_modal");
+									showModal({ start1: new Date().getTime()/1000, end: new Date().getTime()/1000 + 3600 });
 								});
+								
+								$("body").on("submit", "form", function (event) {
+									event.preventDefault();
+									return false;
+								});
+								
+								AW.UI.scheduler = scheduler;
+								AW.UI.eventRecorder = eventRecorder;
 							});
 						},
 						error: function (a,b,c) {
-							console.log("ERROR: ", a,b,c);
+							console && console.log("ERROR: ", a,b,c);
 						}
 					});
+					
+					AW.UI.modal.load("crm_meeting_modal");
+					AW.UI.modal_search.load("modal_search");
+					AW.UI.modal_search.load("modal_search_employee");
+					AW.UI.modal_search.load("modal_search_customer_employee");
+				},
+				saveEvent: function (itemData, callback, updateUI) {
+					$.ajax({
+						url: "/automatweb/orb.aw?class=planner&action=save_event",
+						data: { id: calendarID, data: itemData },
+						dataType: "json",
+						success: function (data) {
+							map[itemData.clientId] = data.id;
+							var updated = false;
+							scheduler.eachEvent(function(event, index){
+								if (event._state.data.id.value == data.id) {
+									event.setContent(data.content);
+									updated = true;
+								}
+							});
+							if (updateUI && !updated) {
+								scheduler.addEvents([{
+									id: data.id,
+									content: data.content,
+									startDate: new Date(data.startDate*1000),
+									endDate: new Date(data.endDate*1000),
+									participants: data.participants
+								}]);
+								scheduler.syncEventsUI();
+							}
+							if (callback) {
+								eventDetails = new vmEvent(data);
+								callback();
+							}
+						}
+					});
+				},
+				deleteEvent: function (id) {
+					$.ajax({
+						url: "/automatweb/orb.aw?class=planner&action=delete_event",
+						data: { id: id }
+					});
+				},
+				saveEventDetails: function (callback) {
+					eventDetails.start1_show($("#start1_show").val());
+					eventDetails.end_show($("#end_show").val());
+					AW.UI.calendar.saveEvent(eventDetails.toJSON(), function () {
+						// Insert into calendar
+						callback();
+					}, false);
 				}
 			};
 		})()

@@ -137,12 +137,55 @@ class aw_modal implements orb_public_interface {
 	private function parse_footer() {
 		$this->footer_template = new aw_php_template("aw_modal", "default-footer");
 		$this->footer_template->add_vars(array(
+			"left_buttons" => $this->get_left_footer_buttons(),
+			"right_buttons" => $this->get_right_footer_buttons(),
 			"save_method" => $this->get_save_method(),
 			"classinfo" => $this->classinfo,
 			"groups" => $this->groupinfo,
 		));
 		
 		$this->template->bind($this->footer_template, "footer");
+	}
+	
+	protected function get_left_footer_buttons() {
+		return array(
+			html::href(array(
+				"url" => "javascript:void(0)",
+				"class" => "btn",
+				"data" => array("dismiss" => "modal"),
+				"caption" => t("Katkesta"),
+			)),
+		);
+	}
+	
+	protected function get_right_footer_buttons() {
+		return array(
+			html::div(array(
+				"id" => "modal-footer-save",
+				"class" => "btn-group",
+				"content" => html::href(array(
+					"url" => "javascript:void(0)",
+					"data" => array("click-action" => "save"),
+					"class" => "btn btn-primary",
+					"caption" => t("Salvesta"),
+				)).html::href(array(
+					"url" => "javascript:void(0)",
+					"class" => "btn btn-primary dropdown-toggle",
+					"data" => array("toggle" => "dropdown"),
+					"caption" => html::span(array("class" => "caret", "style" => "margin-left: -5px")),
+				)).html::ul(array(
+					"class" => "dropdown-menu",
+					"style" => "text-align: left",
+					"items" => array(
+						html::href(array(
+							"data" => array("click-action" => "save close"),
+							"url" => "javascript:void(0)",
+							"caption" => t("Salvesta ja sulge"),
+						)),
+					),
+				))
+			)),
+		);
 	}
 	
 	public static function parse_group($group) {

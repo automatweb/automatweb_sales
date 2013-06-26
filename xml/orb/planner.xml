@@ -68,5 +68,19 @@
 			</function>
 		</action>
 
+		<action name="save_event" all_args="1">
+			<function name="save_event">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_event" all_args="1">
+			<function name="delete_event">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

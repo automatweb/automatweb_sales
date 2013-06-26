@@ -2783,10 +2783,10 @@ class planner extends class_base
 
 	}
 
-	function add_event_to_calendar($calendar, $event)
+	public static function add_event_to_calendar($calendar, $event)
 	{
 		$evf = $calendar->prop("event_folder");
-		if (!$this->can("add", $evf))
+		if (!object_loader::can("add", $evf))
 		{
 			return false;
 		}
@@ -2975,9 +2975,11 @@ class planner extends class_base
 		
 		foreach ($events_data as $event_data) {
 			$events[] = array(
+				"id" => $event_data["id"],
 				"content" => $event_data["name"],
 				"startDate" => $event_data["start"],
 				"endDate" => $event_data["end"],
+				"participants" => !empty($event_data["parts"]) ? array_values($event_data["parts"]) : array(),
 			);
 		}
 		
@@ -2986,5 +2988,82 @@ class planner extends class_base
 		
 		automatweb::$result->set_data($json);
 		automatweb::$instance->http_exit();
+	}
+	
+	/**
+		@attrib name=save_event
+	**/
+	public function save_event ($arr) {
+		$planner = obj(automatweb::$request->arg("id"), null, CL_PLANNER);
+		$data = automatweb::$request->arg_isset("data") ? automatweb::$request->arg("data") : null;
+		if (!empty($data["id"]) and object_loader::can("", $data["id"])) {
+			$event = obj($data["id"]);
+		} else {
+			if (!isset($data["class_id"])) { $data["class_id"] = CL_CRM_MEETING; }
+			$event = obj(null, null, $data["class_id"]);
+			$event->set_parent($planner->prop("event_folder"));
+		}
+		
+		foreach ($data as $key => $value) {
+			switch ($key) {
+				case "name":
+					$event->set_name($value);
+					break;
+				
+				case "start1":
+				case "end":
+					$event->set_prop($key, $value);
+					break;
+			}
+		}
+		$event->save();
+		
+		if (!empty($data["participants"])) {
+			$event_instance = $event->instance();
+			foreach ($data["participants"] as $participant) {
+				if (object_loader::can("", $participant["id"])) {
+					$event_instance->add_participant($event, obj($participant["id"]));
+				}
+			}
+		}
+		
+		$participants = array();
+		foreach ($event->connections_to(array(
+			"type" => array(8,9,10),
+			"from.class_id" => CL_CRM_PERSON,
+		)) as $connection) {
+			$participants[] = array("id" => $connection->prop("from"), "name" => $connection->prop("from.name"));
+		}
+		
+		$json_encoder = new json();
+//		$json = $event->json();
+		$json = array(
+			"id" => $event->id,
+			"content" => $event->name,
+			"startDate" => $event->prop("start1"),
+			"endDate" => $event->prop("end"),
+			"participants" => $participants,
+		);
+		$json = $json_encoder->encode($json);
+		
+		automatweb::$result->set_data($json);
+		automatweb::$instance->http_exit();
+	}
+	
+	/**
+		@attrib name=delete_event
+	**/
+	public function delete_event ($arr) {
+		$id = automatweb::$request->arg_isset("id") ? automatweb::$request->arg("id") : null;
+		if (object_loader::can("delete", $id)) {
+			$objz = obj($id);
+			$orig = $objz->brother_of();
+			if(is_oid($orig) && $this->can("delete", $orig))
+			{
+				$orig = obj($orig);
+				$orig->delete();
+			}
+		}
+		die;
 	}
 }
