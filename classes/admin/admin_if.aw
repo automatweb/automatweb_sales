@@ -1,73 +1,75 @@
 <?php
+
 /*
-@classinfo no_comment=1 no_status=1 prop_cb=1
+  @classinfo no_comment=1 no_status=1 prop_cb=1
 
-@default table=objects
-@default group=o
+  @default table=objects
+  @default group=o
 
-	@property o_tb type=toolbar no_caption=1 store=no
+  @property o_tb type=toolbar no_caption=1 store=no
 
-	@layout o_bottom type=hbox width=20%:80%
+  @layout o_bottom type=hbox width=20%:80%
 
-		@layout o_bot_left type=vbox parent=o_bottom
+  @layout o_bot_left type=vbox parent=o_bottom
 
-			@layout o_tree_layout type=vbox parent=o_bot_left closeable=1 area_caption=Kataloogid
+  @layout o_tree_layout type=vbox parent=o_bot_left closeable=1 area_caption=Kataloogid
 
-				@property o_tree type=treeview no_caption=1 store=no parent=o_tree_layout
+  @property o_tree type=treeview no_caption=1 store=no parent=o_tree_layout
 
-			@layout o_search_layout type=vbox parent=o_bot_left closeable=1 area_caption=Otsing
+  @layout o_search_layout type=vbox parent=o_bot_left closeable=1 area_caption=Otsing
 
-				@property search_name type=textbox store=no parent=o_search_layout size=30  captionside=top
-				@caption Objekti nimi
+  @property search_name type=textbox store=no parent=o_search_layout size=30  captionside=top
+  @caption Objekti nimi
 
-				@property search_class type=select store=no parent=o_search_layout  captionside=top
-				@caption Objekti t&uuml;&uuml;p
+  @property search_class type=select store=no parent=o_search_layout  captionside=top
+  @caption Objekti t&uuml;&uuml;p
 
-				@property sbt type=submit size=15 store=no parent=o_search_layout no_caption=1
-				@caption Otsi objekte
+  @property sbt type=submit size=15 store=no parent=o_search_layout no_caption=1
+  @caption Otsi objekte
 
-		@layout o_bot_right type=vbox parent=o_bottom
+  @layout o_bot_right type=vbox parent=o_bottom
 
-			@property o_tbl type=table no_caption=1 store=no parent=o_bot_right reorderable=true
+  @property o_tbl type=table no_caption=1 store=no parent=o_bot_right reorderable=true
 
-@default group=fu
+  @default group=fu
 
-	@property info_text type=text store=no
-	@caption Info
+  @property info_text type=text store=no
+  @caption Info
 
-	@property zip_upload type=fileupload
-	@caption Laadi ZIP fail
+  @property zip_upload type=fileupload
+  @caption Laadi ZIP fail
 
-	@property uploader type=text store=no
-	@caption Lae faile
+  @property uploader type=text store=no
+  @caption Lae faile
 
-@default group=settings
+  @default group=settings
 
-	@property name type=textbox
-	@caption Nimi
+  @property name type=textbox
+  @caption Nimi
 
-	@property root_menus type=relpicker multiple=1 store=connect reltype=RELTYPE_ROOT_MENU
-	@caption Juurkataloogid
+  @property root_menus type=relpicker multiple=1 store=connect reltype=RELTYPE_ROOT_MENU
+  @caption Juurkataloogid
 
-	@property tree_settings type=relpicker reltype=RELTYPE_TREE_SETTINGS field=meta method=serialize
-	@caption Lisamise puu seaded
+  @property tree_settings type=relpicker reltype=RELTYPE_TREE_SETTINGS field=meta method=serialize
+  @caption Lisamise puu seaded
 
-@groupinfo o caption="Objektid" save=no submit=no
-@groupinfo fu caption="Failide &uuml;leslaadimine"
-@groupinfo settings caption="Seaded"
+  @groupinfo o caption="Objektid" save=no submit=no
+  @groupinfo fu caption="Failide &uuml;leslaadimine"
+  @groupinfo settings caption="Seaded"
 
-@reltype ROOT_MENU value=1 clid=CL_MENU
-@caption Juurkataloog
+  @reltype ROOT_MENU value=1 clid=CL_MENU
+  @caption Juurkataloog
 
-@reltype TREE_SETTINGS value=2 clid=CL_ADD_TREE_CONF
-@caption Lisamise puu seaded
+  @reltype TREE_SETTINGS value=2 clid=CL_ADD_TREE_CONF
+  @caption Lisamise puu seaded
 
 
 
-*/
+ */
 
 class admin_if extends class_base
 {
+
 	const NEW_MENU_CACHE_KEY = "aw_adminif_newbtn_menu_cache_";
 
 	var $use_parent;
@@ -77,9 +79,8 @@ class admin_if extends class_base
 	var $force_0_parent;
 	var $objects_table_caption;
 
-	/** this stores a list of {clid => class name } for each class that implements the admin if modifier interface **/
+	/** this stores a list of {clid => class name } for each class that implements the admin if modifier interface * */
 	private $modifiers_by_clid;
-
 	private $pm;
 	private $url_template;
 	private $url_template_reforb;
@@ -111,38 +112,38 @@ class admin_if extends class_base
 		// init get_popup_data stuff
 		$this->pm = new popup_menu();
 
-		$this->post_ru_append = "&return_url=".urlencode(get_ru());
+		$this->post_ru_append = "&return_url=" . urlencode(get_ru());
 		$this->change_url_template = str_replace("__", "%s", $this->mk_my_orb("change", array(
-			"id" => "__",
-			"parent" => "__",
-			"period" => "__"
-		), "__",true,true));
+					"id" => "__",
+					"parent" => "__",
+					"period" => "__"
+						), "__", true, true));
 
 
 		$this->if_cut_url_template = str_replace("__", "%s", $this->mk_my_orb("if_cut", array(
-			"reforb" => 1,
-			"id" => "__",
-			"parent" => "__",
-			"sel[__]" => "1",
-		), "admin_if",true,true));
+					"reforb" => 1,
+					"id" => "__",
+					"parent" => "__",
+					"sel[__]" => "1",
+						), "admin_if", true, true));
 
 
 		$this->if_copy_template = str_replace("__", "%s", $this->mk_my_orb("if_copy", array(
-			"reforb" => 1,
-			"id" => "__",
-			"parent" => "__",
-			"sel[__]" => "1",
-			"period" => "__"
-		), "admin_if",true,true));
+					"reforb" => 1,
+					"id" => "__",
+					"parent" => "__",
+					"sel[__]" => "1",
+					"period" => "__"
+						), "admin_if", true, true));
 
 		$this->if_delete_template = str_replace("__", "%s", $this->mk_my_orb("if_delete", array(
-			"ret_id" => "__",
-			"reforb" => 1,
-			"id" => "__",
-			"parent" => "__",
-			"sel[__]" => "1",
-			"period" => "__"
-		), "admin_if",true,true));
+					"ret_id" => "__",
+					"reforb" => 1,
+					"id" => "__",
+					"parent" => "__",
+					"sel[__]" => "1",
+					"period" => "__"
+						), "admin_if", true, true));
 	}
 
 	function get_property($arr)
@@ -150,22 +151,21 @@ class admin_if extends class_base
 		$prop = &$arr["prop"];
 
 		$retval = PROP_OK;
-		switch($prop["name"])
+		switch ($prop["name"])
 		{
 			//-- get_property --//
 			case 'search_class':
 				$odl = new object_data_list(
-					array(
-					),
-					array(
-						"" => array(new obj_sql_func(OBJ_SQL_UNIQUE, "clid", "class_id"))
-					)
+						array(
+						), array(
+					"" => array(new obj_sql_func(OBJ_SQL_UNIQUE, "clid", "class_id"))
+						)
 				);
 				$cls = array();
 				$cldata = aw_ini_get("classes");
-				foreach($odl->arr() as $od)
+				foreach ($odl->arr() as $od)
 				{
-					if(isset($cldata[$od["clid"]]["name"]))
+					if (isset($cldata[$od["clid"]]["name"]))
 					{
 						$cls[$od["clid"]] = aw_html_entity_decode($cldata[$od["clid"]]["name"]);
 					}
@@ -176,7 +176,7 @@ class admin_if extends class_base
 				$atc = new add_tree_conf();
 				$ccf = $atc->get_current_conf();
 
-				if($arr["obj_inst"]->prop("tree_settings"))
+				if ($arr["obj_inst"]->prop("tree_settings"))
 				{
 					$ccf = $arr["obj_inst"]->prop("tree_settings");
 				}
@@ -184,31 +184,29 @@ class admin_if extends class_base
 				if ($ccf)
 				{
 					$filt = $atc->get_usable_filter($ccf);
-					foreach($prop["options"] as $key => $val)
+					foreach ($prop["options"] as $key => $val)
 					{
-						if($key && empty($filt[$key]))
+						if ($key && empty($filt[$key]))
 						{
 							unset($prop["options"][$key]);
 						}
 					}
 				}
 
-				if(!empty($arr["request"]["search_class"]))
+				if (!empty($arr["request"]["search_class"]))
 				{
 					$prop["value"] = $arr["request"]["search_class"];
 				}
 				break;
 
 			case 'search_name':
-				if(!empty($arr["request"]["search_name"]))
+				if (!empty($arr["request"]["search_name"]))
 				{
 					$prop["value"] = $arr["request"]["search_name"];
 				}
 				break;
-
 		}
 	}
-
 
 	function _get_info_text($arr)
 	{
@@ -229,8 +227,10 @@ class admin_if extends class_base
 		{
 			$arr["parent"] = $request["parent"];
 		}
-		if(isset($request["search_name"])) $arr["search_name"] = $request["search_name"];
-		if(isset($request["search_class"])) $arr["search_class"] = $request["search_class"];
+		if (isset($request["search_name"]))
+			$arr["search_name"] = $request["search_name"];
+		if (isset($request["search_class"]))
+			$arr["search_class"] = $request["search_class"];
 	}
 
 	function callback_mod_retval(&$arr)
@@ -247,12 +247,12 @@ class admin_if extends class_base
 	{
 		if ($arr["name"] === "o_bot_right")
 		{
-			if(!empty($arr["request"]["parent"]) && acl_base::can("view", $arr["request"]["parent"]))
+			if (!empty($arr["request"]["parent"]) && acl_base::can("view", $arr["request"]["parent"]))
 			{
 				$parent = obj($arr["request"]["parent"]);
 				$arr["area_caption"] = sprintf(t("Objektid kaustas %s"), $parent->name());
 			}
-		//	$arr["area_caption"] = $this->objects_table_caption;
+			//	$arr["area_caption"] = $this->objects_table_caption;
 		}
 		return true;
 	}
@@ -272,7 +272,7 @@ class admin_if extends class_base
 				"icon" => "add"
 			));
 
-			$this->generate_new($tb, $parent, (isset($arr["request"]["period"]) ? $arr["request"]["period"] : null) , $arr["obj_inst"]);
+			$this->generate_new($tb, $parent, (isset($arr["request"]["period"]) ? $arr["request"]["period"] : null), $arr["obj_inst"]);
 		}
 
 		$tb->add_button(array(
@@ -338,7 +338,7 @@ class admin_if extends class_base
 				"title" => t("Impordi kaustu"),
 				"name" => "import_menus",
 				"tooltip" => t("Impordi kaustu"),
-				"link" => $this->mk_my_orb("import",array("parent" => $parent))
+				"link" => $this->mk_my_orb("import", array("parent" => $parent))
 			));
 
 			$tb->add_menu_item(array(
@@ -374,7 +374,7 @@ class admin_if extends class_base
 			{
 				$dbp = get_instance(CL_PERIOD);
 				$pd = $dbp->get($tmp);
-				$tb->add_cdata(sprintf(t("Valitud periood: %s"), $pd["name"]." ".(aw_global_get("act_per_id") == $tmp ? t("(A)") : "")));
+				$tb->add_cdata(sprintf(t("Valitud periood: %s"), $pd["name"] . " " . (aw_global_get("act_per_id") == $tmp ? t("(A)") : "")));
 			}
 		}
 	}
@@ -421,20 +421,21 @@ class admin_if extends class_base
 			"persist_state" => 1,
 			"root_name" => html::bold(t("AutomatWeb")),
 			"root_url" => aw_url_change_var("parent", $admrm, $this->curl),
-			"get_branch_func" => $this->mk_my_orb("gen_folders",array("selp" => $this->selp, "curl" => $this->curl, "period" => $this->period, "parent" => "0")),
+			"get_branch_func" => $this->mk_my_orb("gen_folders", array("selp" => $this->selp, "curl" => $this->curl, "period" => $this->period, "parent" => "0")),
 		));
 
-		if(is_array($rn) && isset($rn[0])) unset($rn[0]);
+		if (is_array($rn) && isset($rn[0]))
+			unset($rn[0]);
 
-		if(isset($arr["obj_inst"]) && $arr["obj_inst"]->prop("root_menus") && is_array($arr["obj_inst"]->prop("root_menus")) && sizeof($arr["obj_inst"]->prop("root_menus")))
+		if (isset($arr["obj_inst"]) && $arr["obj_inst"]->prop("root_menus") && is_array($arr["obj_inst"]->prop("root_menus")) && sizeof($arr["obj_inst"]->prop("root_menus")))
 		{
 			$rn = $arr["obj_inst"]->prop("root_menus");
 		}
 
 		$has_items = array();
-		if (is_array($rn) && count($rn) >1)
+		if (is_array($rn) && count($rn) > 1)
 		{
-			foreach($rn as $rn_i)
+			foreach ($rn as $rn_i)
 			{
 				if (isset($has_items[$rn_i]) && acl_base::can("view", $rn_i))
 				{
@@ -442,7 +443,7 @@ class admin_if extends class_base
 				}
 				$has_items[$rn_i] = 1;
 				$rn_o = obj($rn_i);
-				$tree->add_item(0,array(
+				$tree->add_item(0, array(
 					"id" => $rn_i,
 					"parent" => 0,
 					"name" => parse_obj_name($rn_o->trans_get_val("name")),
@@ -450,7 +451,7 @@ class admin_if extends class_base
 					"url" => aw_url_change_var("parent", $rn_o->id(), $this->curl)
 				));
 			}
-			$this->force_0_parent= true;
+			$this->force_0_parent = true;
 		}
 		else
 		{
@@ -467,19 +468,18 @@ class admin_if extends class_base
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-						"lang_id" => aw_global_get("lang_id"),
-						"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
+					"lang_id" => aw_global_get("lang_id"),
+					"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
 				)
-			)),
+					)),
 			"sort_by" => "objects.parent,objects.jrk,objects.created"
 		);
 		$ol = new object_data_list(
-			$filt,
-			$this->data_list_ot_flds
+				$filt, $this->data_list_ot_flds
 		);
 
 		$second_level_parents = array();
-		foreach($ol->arr() as $menu)
+		foreach ($ol->arr() as $menu)
 		{
 			if (isset($has_items[$menu["oid"]]))
 			{
@@ -505,13 +505,13 @@ class admin_if extends class_base
 				new object_list_filter(array(
 					"logic" => "OR",
 					"conditions" => array(
-							"lang_id" => aw_global_get("lang_id"),
-							"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
+						"lang_id" => aw_global_get("lang_id"),
+						"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
 					)
-				)),
+						)),
 				"sort_by" => "objects.parent,objects.jrk,objects.created"
-			), $this->data_list_ot_flds);
-			foreach($ol->arr() as $menu)
+					), $this->data_list_ot_flds);
+			foreach ($ol->arr() as $menu)
 			{
 				if (isset($has_items[$menu["oid"]]))
 				{
@@ -543,16 +543,16 @@ class admin_if extends class_base
 	}
 
 	/** Branch func for main tree
-		@attrib name=gen_folders
-		@param period optional
-		@param parent optional
-		@param curl optional
-		@param selp optional
-	**/
+	  @attrib name=gen_folders
+	  @param period optional
+	  @param parent optional
+	  @param curl optional
+	  @param selp optional
+	 * */
 	function gen_folders($arr)
 	{
 		$t = new treeview();
-		$this->use_parent = (int)$arr["parent"];
+		$this->use_parent = (int) $arr["parent"];
 		$this->_get_o_tree(array(
 			"prop" => array(
 				"vcl_inst" => $t
@@ -573,7 +573,7 @@ class admin_if extends class_base
 		$iconurl = "";
 		if ($m["class_id"] == CL_BROTHER)
 		{
-			$iconurl = icons::get_icon_url("brother","");
+			$iconurl = icons::get_icon_url("brother", "");
 		}
 		elseif ($adminf > 0)
 		{
@@ -586,7 +586,7 @@ class admin_if extends class_base
 		if ($adminf)
 		{
 			$prog = aw_ini_get("programs");
-			if(!empty($prog[$adminf]))
+			if (!empty($prog[$adminf]))
 			{
 				$m["url"] = $prog[$adminf]["url"];
 			}
@@ -620,12 +620,12 @@ class admin_if extends class_base
 		$hf = new object($ucfg->prop("home_folder"));
 		// add home folder
 		$rn = empty($this->use_parent) ? aw_ini_get("admin_rootmenu2") : $this->use_parent;
-		$this->tree->add_item(is_array($rn) ? reset($rn) : $rn,array(
+		$this->tree->add_item(is_array($rn) ? reset($rn) : $rn, array(
 			"id" => $hf->id(),
 			"parent" => $this->force_0_parent ? 0 : (is_array($rn) ? reset($rn) : $rn),
 			"name" => parse_obj_name($hf->trans_get_val("name")),
-			"iconurl" => icons::get_icon_url("homefolder",""),
-			"url" => aw_url_change_var("parent",$hf->id(), $this->curl),
+			"iconurl" => icons::get_icon_url("homefolder", ""),
+			"url" => aw_url_change_var("parent", $hf->id(), $this->curl),
 		));
 		$ol = new object_data_list(array(
 			"class_id" => array(CL_MENU, CL_BROTHER, CL_GROUP),
@@ -634,14 +634,14 @@ class admin_if extends class_base
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-						"lang_id" => aw_global_get("lang_id"),
-						"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
+					"lang_id" => aw_global_get("lang_id"),
+					"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
 				)
-			)),
+					)),
 			"site_id" => array(),
 			"sort_by" => "objects.parent,objects.jrk,objects.created"
-		), $this->data_list_ot_flds);
-		foreach($ol->arr() as $menu)
+				), $this->data_list_ot_flds);
+		foreach ($ol->arr() as $menu)
 		{
 			$rs = $this->resolve_item_new_arr($menu);
 			if ($rs !== false)
@@ -649,7 +649,6 @@ class admin_if extends class_base
 				$this->tree->add_item($rs["parent"], $rs);
 			}
 		}
-
 	}
 
 	private function mk_admin_tree_new()
@@ -663,7 +662,7 @@ class admin_if extends class_base
 			"status" => STAT_ACTIVE,
 			"CL_MENU.type" => MN_ADMIN1,
 			"sort_by" => "objects.parent,objects.jrk,objects.created"
-		), $tmp);
+				), $tmp);
 		$rn = empty($this->use_parent) ? aw_ini_get("admin_rootmenu2") : $this->use_parent;
 		$rn = is_array($rn) ? reset($rn) : $rn;
 		if ($this->force_0_parent)
@@ -672,7 +671,7 @@ class admin_if extends class_base
 		}
 		$tmp = $this->period;
 		$this->period = null;
-		foreach($ol->arr() as $menu)
+		foreach ($ol->arr() as $menu)
 		{
 			$rs = $this->resolve_item_new_arr($menu, $menu["admin_feature"]);
 			if ($rs !== false)
@@ -690,7 +689,7 @@ class admin_if extends class_base
 		$t->define_field(array(
 			"name" => "icon",
 			"align" => "center",
-			"chgbgcolor" => "cutcopied" ,
+			"chgbgcolor" => "cutcopied",
 			"width" => "22"
 		));
 
@@ -702,8 +701,9 @@ class admin_if extends class_base
 			"chgbgcolor" => "cutcopied",
 			"caption" => t("Nimi")
 		));
-		
-		if (!aw_template::bootstrap()) {
+
+		if (!aw_template::bootstrap())
+		{
 			$t->define_field(array(
 				"name" => "jrk",
 				"align" => "center",
@@ -811,7 +811,7 @@ class admin_if extends class_base
 
 	function _get_o_tbl($arr)
 	{
-		aw_global_set("date","");
+		aw_global_set("date", "");
 		$per_page = 100;
 		$period = !empty($arr["request"]["period"]) ? $arr["request"]["period"] : null;
 		$parent = $this->_resolve_tbl_parent($arr);
@@ -822,10 +822,9 @@ class admin_if extends class_base
 		$filt = $this->_get_object_list_filter($parent, $period, $arr);
 
 		$ob_cnt = new object_data_list(
-			$filt,
-			array(
-				"" => array(new obj_sql_func(OBJ_SQL_COUNT, "cnt", "*"))
-			)
+				$filt, array(
+			"" => array(new obj_sql_func(OBJ_SQL_COUNT, "cnt", "*"))
+				)
 		);
 		$tmp = $ob_cnt->arr();
 		$object_count = $tmp[0]["cnt"];
@@ -834,8 +833,7 @@ class admin_if extends class_base
 		$filt[] = new obj_predicate_limit($per_page, $ft_page * $per_page);
 
 		$ob = new object_data_list(
-			$filt,
-			$this->data_list_ot_flds
+				$filt, $this->data_list_ot_flds
 		);
 
 		$t = $arr["prop"]["vcl_inst"];
@@ -843,7 +841,7 @@ class admin_if extends class_base
 
 		$this->_init_admin_modifier_list();
 		$cnt = 0;
-		foreach($ob->arr() as $row_d)
+		foreach ($ob->arr() as $row_d)
 		{
 			$row = array(
 				"createdby" => $row_d["createdby"],
@@ -855,7 +853,7 @@ class admin_if extends class_base
 			$can_change = acl_base::can("edit", $row_d["oid"]);
 
 			$row["is_menu"] = 0;
-			if (in_array($row_d["class_id"],$containers))
+			if (in_array($row_d["class_id"], $containers))
 			{
 				$chlink = aw_url_change_var("parent", $row_d["oid"]);
 				$row["is_menu"] = 1;
@@ -873,9 +871,9 @@ class admin_if extends class_base
 			}
 
 			$row["name"] = html::href(array(
-				"url" => $chlink,
-				"title" => strip_tags($row_d["comment"]),
-				"caption" => parse_obj_name($this->_fake_trans_get_val_name($row_d))
+						"url" => $chlink,
+						"title" => strip_tags($row_d["comment"]),
+						"caption" => parse_obj_name($this->_fake_trans_get_val_name($row_d))
 			));
 
 			$row["cutcopied"] = isset($sel_objs[$row_d["oid"]]) ? "#E2E2DB" : "#FCFCF4";
@@ -886,9 +884,9 @@ class admin_if extends class_base
 			));
 			$title = sprintf(t("Objekti id on %s"), $row_d["oid"]);
 			$row["icon"] = html::img(array(
-				"url" => icons::get_icon_url($row_d["class_id"],$row_d["name"]),
-				"alt" => $title,
-				"title" => $title,
+						"url" => icons::get_icon_url($row_d["class_id"], $row_d["name"]),
+						"alt" => $title,
+						"title" => $title,
 			));
 
 			try
@@ -911,25 +909,25 @@ class admin_if extends class_base
 			if ($can_change)
 			{
 				$row["jrk"] = html::hidden(array(
-					"name" => "old[jrk][".$row_d["oid"]."]",
-					"value" => $row_d["ord"]
-				)).html::textbox(array(
-					"name" => "new[jrk][".$row_d["oid"]."]",
-					"value" => $row_d["ord"],
-					"class" => "formtext",
-					"size" => "3"
+							"name" => "old[jrk][" . $row_d["oid"] . "]",
+							"value" => $row_d["ord"]
+						)) . html::textbox(array(
+							"name" => "new[jrk][" . $row_d["oid"] . "]",
+							"value" => $row_d["ord"],
+							"class" => "formtext",
+							"size" => "3"
 				));
 				$row["status"] = html::hidden(array(
-					"name" =>  "old[status][".$row_d["oid"]."]",
-					"value" => $row_d["status"]
-				)).html::checkbox(array(
-					"name" => "new[status][".$row_d["oid"]."]",
-					"value" => "2",
-					"checked" => ($row_d["status"] == STAT_ACTIVE)
+							"name" => "old[status][" . $row_d["oid"] . "]",
+							"value" => $row_d["status"]
+						)) . html::checkbox(array(
+							"name" => "new[status][" . $row_d["oid"] . "]",
+							"value" => "2",
+							"checked" => ($row_d["status"] == STAT_ACTIVE)
 				));
 				$row["select"] = html::checkbox(array(
-					"name" => "sel[".$row_d["oid"]."]",
-					"value" => "1"
+							"name" => "sel[" . $row_d["oid"] . "]",
+							"value" => "1"
 				));
 			}
 			else
@@ -942,27 +940,26 @@ class admin_if extends class_base
 			$cnt++;
 			$t->define_data($row);
 		}
-	//	var_dump($parent);
-	//	$t->sort_by(array("field" => $_GET["sortby"], "sort_order" => $_GET["sort_order"]));
+		//	var_dump($parent);
+		//	$t->sort_by(array("field" => $_GET["sortby"], "sort_order" => $_GET["sort_order"]));
 		$this->_do_o_tbl_sorting($t, $parent);
-		if(!empty($_GET["search_name"]) || !empty($_GET["search_class"]))
+		if (!empty($_GET["search_name"]) || !empty($_GET["search_class"]))
 		{
-		//	$t->set_header("&nbsp;Leiti ".$cnt." objekti");
-			$this->objects_table_caption = "&nbsp;Leiti ".$cnt." objekti";
+			//	$t->set_header("&nbsp;Leiti ".$cnt." objekti");
+			$this->objects_table_caption = "&nbsp;Leiti " . $cnt . " objekti";
 		}
 		else
 		{
 			//$t->set_header("&nbsp;Objektid kaustas ".get_name($parent));
-			$this->objects_table_caption = "&nbsp;Objektid kaustas ".get_name($parent);
+			$this->objects_table_caption = "&nbsp;Objektid kaustas " . get_name($parent);
 		}
-
 	}
 
 	private function _do_o_tbl_sorting($t, $parent)
 	{
 		$sortby = empty($_GET["sortby"]) ? "hidden_jrk" : $_GET["sortby"];
 
-		if($sortby === "status")
+		if ($sortby === "status")
 		{
 			$sortby = "status_val";
 		}
@@ -981,7 +978,7 @@ class admin_if extends class_base
 		$t->set_default_sorder("desc");
 		$t->set_numeric_field("hidden_jrk");
 
-		if($sortby == "name")
+		if ($sortby == "name")
 		{
 			$t->sort_by(array(
 				"field" => array("is_menu", "name"),
@@ -992,21 +989,21 @@ class admin_if extends class_base
 		{
 			// if document order is set from folder then use it
 			$menu_obj = obj($parent);
-			if ($menu_obj->is_a(menu_obj::CLID) && $menu_obj->prop("doc_ord_apply_to_admin")==1 && !isset($_GET["sort_order"])  )
+			if ($menu_obj->is_a(menu_obj::CLID) && $menu_obj->prop("doc_ord_apply_to_admin") == 1 && !isset($_GET["sort_order"]))
 			{
 				$a_sort_fields = new aw_array($menu_obj->meta("sort_fields"));
 				$a_sort_order = new aw_array($menu_obj->meta("sort_order"));
 
 				$a_fields = array("is_menu");
-				foreach($a_sort_fields->get() as $key => $val)
+				foreach ($a_sort_fields->get() as $key => $val)
 				{
-					$a_field = split  ( "\.", $val);
+					$a_field = split("\.", $val);
 					$a_fields[] = $a_field[1];
 				}
 
 				$a_sorder = array("is_menu" => "desc");
-				$i=1;
-				foreach($a_sort_order->get() as $key => $val)
+				$i = 1;
+				foreach ($a_sort_order->get() as $key => $val)
 				{
 					$a_sorder[$a_fields[$i]] = strtolower($val);
 					$i++;
@@ -1021,7 +1018,7 @@ class admin_if extends class_base
 			{
 				$t->sort_by(array(
 					"field" => array("is_menu", $sortby, "name"),
-					"sorder" => array("is_menu" => "desc", $sortby => $_GET["sort_order"],"name" => "asc")
+					"sorder" => array("is_menu" => "desc", $sortby => $_GET["sort_order"], "name" => "asc")
 				));
 			}
 		}
@@ -1036,7 +1033,7 @@ class admin_if extends class_base
 		$clid = $obj["class_id"];
 		$period = $args["period"];
 
-		$this->pm->begin_menu("aif_".$obj["oid"]);
+		$this->pm->begin_menu("aif_" . $obj["oid"]);
 
 		$this->pm->add_item(array(
 			"text" => t("Ava"),
@@ -1049,29 +1046,30 @@ class admin_if extends class_base
 			if (acl_base::can("edit", $id))
 			{
 				$this->pm->add_item(array(
-					"link" => sprintf($this->change_url_template, $class, $id, $parent, $period).$this->post_ru_append,
+					"link" => sprintf($this->change_url_template, $class, $id, $parent, $period) . $this->post_ru_append,
 					"text" => t("Muuda")
 				));
 
 				$this->pm->add_item(array(
-					"link" => sprintf($this->if_cut_url_template, $id, $parent, $id).$this->post_ru_append,
+					"link" => sprintf($this->if_cut_url_template, $id, $parent, $id) . $this->post_ru_append,
 					"text" => t("L&otilde;ika")
 				));
 			}
 		}
 		catch (Exception $e)
 		{
+
 		}
 
 		$this->pm->add_item(array(
-			"link" => sprintf($this->if_copy_template, $id, $parent, $id, $period).$this->post_ru_append,
+			"link" => sprintf($this->if_copy_template, $id, $parent, $id, $period) . $this->post_ru_append,
 			"text" => t("Kopeeri")
 		));
 
 		if (acl_base::can("delete", $id))
 		{
 			$delurl = sprintf($this->if_delete_template, $_GET["id"], $id, $parent, $id, $period);
-			$delurl = "javascript:if(confirm('".t("Kustutada valitud objektid?")."')){window.location='$delurl';};";
+			$delurl = "javascript:if(confirm('" . t("Kustutada valitud objektid?") . "')){window.location='$delurl';};";
 
 			$this->pm->add_item(array(
 				"link" => $delurl,
@@ -1082,19 +1080,19 @@ class admin_if extends class_base
 		return $this->pm->get_menu();
 	}
 
-	private function generate_new($tb, $i_parent, $period,$fao)
+	private function generate_new($tb, $i_parent, $period, $fao)
 	{
 		$cache_key = self::NEW_MENU_CACHE_KEY . aw_global_get("uid");
 		$atc = new add_tree_conf();
 
 		// although fast enough allready .. caching makes it 3 times as fast
-		if(aw_ini_get("admin_if.cache_toolbar_new"))
+		if (aw_ini_get("admin_if.cache_toolbar_new"))
 		{
 			// $tree = cache::file_get($cache_key);
 			// $tree = unserialize($tree);
 		}
 
-		if(!isset($tree) or !is_array($tree))
+		if (!isset($tree) or !is_array($tree))
 		{
 			$tree = $atc->get_class_tree(array(
 				"az" => 1,
@@ -1104,14 +1102,14 @@ class admin_if extends class_base
 				"period" => "--pr--",
 				"conf_obj_id" => $fao->prop("tree_settings"),
 			));
-			cache::file_set($cache_key, serialize($tree));//XXX: tundub m6ttetu, get_class_tree v6iks ise cacheda kui ainult seda vaja cacheda
+			cache::file_set($cache_key, serialize($tree)); //XXX: tundub m6ttetu, get_class_tree v6iks ise cacheda kui ainult seda vaja cacheda
 		}
 
 		$new_url_template = str_replace("__", "%s", core::mk_my_orb("new", array("parent" => $i_parent), "__"));
 
-		foreach($tree as $item_id => $item_collection)
+		foreach ($tree as $item_id => $item_collection)
 		{
-			foreach($item_collection as $el_id => $el_data)
+			foreach ($item_collection as $el_id => $el_data)
 			{
 				$parnt = ($item_id === "root" ? "new" : $item_id);
 
@@ -1127,7 +1125,7 @@ class admin_if extends class_base
 				}
 				elseif (!empty($el_data["link"]))
 				{
-					$url =  str_replace(array("--pt--", "--pr--"), array($i_parent, $period), $el_data["link"]);
+					$url = str_replace(array("--pt--", "--pr--"), array($i_parent, $period), $el_data["link"]);
 
 					// docs menu has links ..
 					$tb->add_menu_item(array(
@@ -1157,16 +1155,16 @@ class admin_if extends class_base
 	}
 
 	/**
-		@attrib name=save_if
-	**/
+	  @attrib name=save_if
+	 * */
 	function save_if($arr)
 	{
 		extract($arr);
 		if (is_array($old))
 		{
-			foreach($old as $column => $coldat)
+			foreach ($old as $column => $coldat)
 			{
-				foreach($coldat as $oid => $oval)
+				foreach ($coldat as $oid => $oval)
 				{
 					$val = isset($new[$column][$oid]) ? $new[$column][$oid] : 0;
 					if ($column === "status" && $val == 0)
@@ -1181,34 +1179,34 @@ class admin_if extends class_base
 							$o = obj($oid);
 							if ($column === "jrk")
 							{
-								$o->set_ord((int)$val);
+								$o->set_ord((int) $val);
 							}
 							else
 							{
 								$o->set_prop($column, $val);
 							}
 
-							if($all_trans_status != 0 && $column === "status")
+							if ($all_trans_status != 0 && $column === "status")
 							{
 								$languages_in_use = languages::list_translate_targets();
-								if($languages_in_use->count())
+								if ($languages_in_use->count())
 								{
 									$lang_o = $languages_in_use->begin();
 
 									do
 									{
 										$lid = $lang_o->prop("aw_lang_id");
-										$o->set_meta("trans_".$lid."_status", ($val - 1));
+										$o->set_meta("trans_" . $lid . "_status", ($val - 1));
 									}
 									while ($lang_o = $languages_in_use->next());
 								}
 								$langs = aw_ini_get("languages");
 								/*
-								foreach($o->meta("translations") as $lid => $ldata)
-								{
-									$o->set_meta("trans_".$lid."_status", ($val - 1));
-								}
-								*/
+								  foreach($o->meta("translations") as $lid => $ldata)
+								  {
+								  $o->set_meta("trans_".$lid."_status", ($val - 1));
+								  }
+								 */
 							}
 							$o->save();
 						}
@@ -1220,8 +1218,8 @@ class admin_if extends class_base
 	}
 
 	/**
-		@attrib name=if_cut all_args=1
-	**/
+	  @attrib name=if_cut all_args=1
+	 * */
 	function if_cut($arr)
 	{
 		extract($arr);
@@ -1229,13 +1227,13 @@ class admin_if extends class_base
 		$cut_objects = array();
 		if (is_array($sel))
 		{
-			foreach($sel as $oid => $one)
+			foreach ($sel as $oid => $one)
 			{
 				$cut_objects[$oid] = $oid;
 			}
 		}
 
-		aw_session_set("cut_objects",$cut_objects);
+		aw_session_set("cut_objects", $cut_objects);
 
 		if (!empty($arr['return_url']))
 		{
@@ -1245,8 +1243,8 @@ class admin_if extends class_base
 	}
 
 	/**
-		@attrib name=if_copy all_args=1
-	**/
+	  @attrib name=if_copy all_args=1
+	 * */
 	function if_copy($arr)
 	{
 		extract($arr);
@@ -1261,20 +1259,20 @@ class admin_if extends class_base
 
 	/**
 
-		@attrib name=copy_feedback params=name default="0"
+	  @attrib name=copy_feedback params=name default="0"
 
-		@param parent optional
-		@param period optional
-		@param sel optional
-		@param return_url optional
-		@param login optional
+	  @param parent optional
+	  @param period optional
+	  @param sel optional
+	  @param return_url optional
+	  @param login optional
 
-		@returns
+	  @returns
 
 
-		@comment
+	  @comment
 
-	**/
+	 * */
 	function copy_feedback($arr)
 	{
 		extract($arr);
@@ -1292,7 +1290,7 @@ class admin_if extends class_base
 			"name" => "objects",
 			"type" => "text",
 			"caption" => "&nbsp;",
-			"value" => "<b>".t("Objektid")."</b>",
+			"value" => "<b>" . t("Objektid") . "</b>",
 		));
 		$hc->add_property(array(
 			"name" => "ser_type",
@@ -1309,7 +1307,7 @@ class admin_if extends class_base
 			"name" => "rels",
 			"type" => "text",
 			"caption" => "&nbsp;",
-			"value" => "<b>".t("Seosed")."</b>",
+			"value" => "<b>" . t("Seosed") . "</b>",
 		));
 		$hc->add_property(array(
 			"name" => "ser_rels",
@@ -1339,7 +1337,7 @@ class admin_if extends class_base
 		));
 
 		$props = $hc->get_result(array(
-			//"form_only" => 1,
+				//"form_only" => 1,
 		));
 
 		return $props;
@@ -1347,15 +1345,15 @@ class admin_if extends class_base
 
 	/**
 
-		@attrib name=submit_copy_feedback params=name default="0"
+	  @attrib name=submit_copy_feedback params=name default="0"
 
 
-		@returns
+	  @returns
 
 
-		@comment
+	  @comment
 
-	**/
+	 * */
 	function submit_copy_feedback($arr)
 	{
 		extract($arr);
@@ -1375,9 +1373,9 @@ class admin_if extends class_base
 				if (is_array($sel))
 				{
 					// ok, so how do I add objects to here?
-					foreach($sel as $oid => $one)
+					foreach ($sel as $oid => $one)
 					{
-						$r = $this->_search_mk_call(array("oid" => $oid, "encode" => 1),$login);
+						$r = $this->_search_mk_call(array("oid" => $oid, "encode" => 1), $login);
 						$r = base64_decode($r);
 						if ($r !== false)
 						{
@@ -1390,7 +1388,7 @@ class admin_if extends class_base
 						}
 					}
 				}
-				foreach($rels as $rel_id)
+				foreach ($rels as $rel_id)
 				{
 					$r = $this->_search_mk_call(array("oid" => $rel_id["to"], "encode" => 1), $login);
 					$r = base64_decode($r);
@@ -1402,7 +1400,7 @@ class admin_if extends class_base
 			}
 			else
 			{
-				foreach($sel as $oid => $one)
+				foreach ($sel as $oid => $one)
 				{
 					$o = obj($oid);
 					$copied_objects[$oid] = $o->get_xml($params);
@@ -1410,7 +1408,7 @@ class admin_if extends class_base
 			}
 		}
 		aw_session_set("copied_objects", $copied_objects);
-		return !empty($return_url) ? $return_url : self::get_link_for_obj($parent,$period);
+		return !empty($return_url) ? $return_url : self::get_link_for_obj($parent, $period);
 	}
 
 	function _search_mk_call($params, $login = null)
@@ -1425,13 +1423,13 @@ class admin_if extends class_base
 			$_parms["method"] = "xmlrpc";
 			$_parms["login_obj"] = $login;
 		}
-		$ret =  $this->do_orb_method_call($_parms);
+		$ret = $this->do_orb_method_call($_parms);
 		return $ret;
 	}
 
 	/** pastes the cut objects
-		@attrib name=if_paste params=name default="0" all_args=1
-	**/
+	  @attrib name=if_paste params=name default="0" all_args=1
+	 * */
 	function if_paste($arr)
 	{
 		if (!$arr["parent"])
@@ -1443,7 +1441,7 @@ class admin_if extends class_base
 			}
 		}
 
-		foreach(safe_array(aw_global_get("cut_objects")) as $oid)
+		foreach (safe_array(aw_global_get("cut_objects")) as $oid)
 		{
 			if ($oid != $arr["parent"])
 			{
@@ -1453,7 +1451,7 @@ class admin_if extends class_base
 		}
 		$_SESSION["cut_objects"] = false;
 
-		foreach(safe_array(aw_global_get("copied_objects")) as $oid => $xml)
+		foreach (safe_array(aw_global_get("copied_objects")) as $oid => $xml)
 		{
 			$o = new object();
 			$oid = $o->from_xml($xml, $arr["parent"]);
@@ -1468,8 +1466,8 @@ class admin_if extends class_base
 	}
 
 	/**
-		@attrib name=if_delete params=name default="0" all_args=1
-	**/
+	  @attrib name=if_delete params=name default="0" all_args=1
+	 * */
 	function if_delete($arr)
 	{
 		extract($arr);
@@ -1478,7 +1476,7 @@ class admin_if extends class_base
 			$ol = new object_list(array(
 				"oid" => array_keys($sel)
 			));
-			for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
+			for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 			{
 				if (acl_base::can("delete", $o->id()))
 				{
@@ -1493,25 +1491,25 @@ class admin_if extends class_base
 		}
 
 		return $this->mk_my_orb("change", array(
-			"id" => $arr["ret_id"],
-			"parent" => $arr["parent"],
-			"period" => $arr["period"],
-			"group" => "o"
+					"id" => $arr["ret_id"],
+					"parent" => $arr["parent"],
+					"period" => $arr["period"],
+					"group" => "o"
 		));
 	}
 
 	/**
-		@attrib name=redir
-		@param parent optional
-	**/
+	  @attrib name=redir
+	  @param parent optional
+	 * */
 	function redir($arr)
 	{
 		return html::get_change_url(self::find_admin_if_id(), array("group" => "o", "parent" => isset($arr["parent"]) ? $arr["parent"] : ""));
 	}
 
 	/** returns the admin if id
-		@attrib api=1
-	**/
+	  @attrib api=1
+	 * */
 	public static function find_admin_if_id()
 	{
 		if (!empty($_SESSION["cur_admin_if"]))
@@ -1550,10 +1548,10 @@ class admin_if extends class_base
 		{
 			return true;
 		}
-/*		if ($arr["id"] != "o")
-		{
-			return false;
-		}*/
+		/* 		if ($arr["id"] != "o")
+		  {
+		  return false;
+		  } */
 
 		if ($arr["id"] == "relationmgr")
 		{
@@ -1562,7 +1560,7 @@ class admin_if extends class_base
 		return true;
 	}
 
-	/** Used from admin_footer so that all texts are translatable. this can't be in admin_footer, cause only files under classes folder are translatable. **/
+	/** Used from admin_footer so that all texts are translatable. this can't be in admin_footer, cause only files under classes folder are translatable. * */
 	function insert_texts($t)
 	{
 		$t->vars(array(
@@ -1583,14 +1581,14 @@ class admin_if extends class_base
 			// unzip the damn thing
 			if (extension_loaded("zip"))
 			{
-				$folder = aw_ini_get("server.tmpdir")."/".gen_uniq_id();
+				$folder = aw_ini_get("server.tmpdir") . "/" . gen_uniq_id();
 				mkdir($folder, 0777);
 				$tn = $folder;
 				$zip = zip_open($zip);
 				while ($zip_entry = zip_read($zip))
 				{
 					zip_entry_open($zip, $zip_entry, "r");
-					$fn = $folder."/".zip_entry_name($zip_entry);
+					$fn = $folder . "/" . zip_entry_name($zip_entry);
 					$files[] = $fn;
 					$fc = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
 					$this->put_file(array(
@@ -1603,9 +1601,9 @@ class admin_if extends class_base
 			{
 				$zf = escapeshellarg($zip);
 				$zip = aw_ini_get("server.unzip_path");
-				$tn = aw_ini_get("server.tmpdir")."/".gen_uniq_id();
-				mkdir($tn,0777);
-				$cmd = $zip." -d {$tn} {$zf}";
+				$tn = aw_ini_get("server.tmpdir") . "/" . gen_uniq_id();
+				mkdir($tn, 0777);
+				$cmd = $zip . " -d {$tn} {$zf}";
 				$op = shell_exec($cmd);
 
 
@@ -1616,14 +1614,14 @@ class admin_if extends class_base
 					{
 						if (!($file === "." || $file === ".."))
 						{
-							$files[] = $tn."/".$file;
+							$files[] = $tn . "/" . $file;
 						}
 					}
 					closedir($dir);
 				}
 			}
 
-			foreach($files as $file)
+			foreach ($files as $file)
 			{
 				$fuc = new file_upload_config();
 				if (!$fuc->can_upload_file(array("folder" => $arr["request"]["parent"], "file_name" => $file, "file_size" => filesize($file))))
@@ -1645,7 +1643,7 @@ class admin_if extends class_base
 			}
 
 			rmdir($tn);
-			echo "<script language=\"javascript\">window.location='".$arr["request"]["post_ru"]."'</script>";
+			echo "<script language=\"javascript\">window.location='" . $arr["request"]["post_ru"] . "'</script>";
 		}
 	}
 
@@ -1660,15 +1658,15 @@ class admin_if extends class_base
 		$this->lc_load("menuedit", "lc_menuedit");
 		$this->vars(array(
 			"uploadurl" => urlencode($this->mk_my_orb("handle_upload", array("parent" => $arr["request"]["parent"]))),
-			"redir_to" =>  urlencode(get_ru()),
+			"redir_to" => urlencode(get_ru()),
 		));
 		$arr["prop"]["value"] = $this->parse();
 	}
 
 	/**
-		@attrib name=handle_upload
-		@param parent required
-	**/
+	  @attrib name=handle_upload
+	  @param parent required
+	 * */
 	function handle_upload($arr)
 	{
 		if (!$arr["parent"])
@@ -1697,7 +1695,7 @@ class admin_if extends class_base
 	private function _init_admin_modifier_list()
 	{
 		$this->modifiers_by_clid = array();
-		foreach(class_index::get_classes_by_interface("admin_if_plugin") as $class_name)
+		foreach (class_index::get_classes_by_interface("admin_if_plugin") as $class_name)
 		{
 			$this->modifiers_by_clid[clid_for_name($class_name)] = $class_name;
 		}
@@ -1797,18 +1795,18 @@ class admin_if extends class_base
 					"class_id" => array(CL_PERIOD, CL_USER, CL_GROUP, CL_MSGBOARD_TOPIC, CL_LANGUAGE),
 					"type" => MN_CLIENT
 				)
-			)),
+					)),
 			"class_id" => new obj_predicate_not(CL_RELATION),
 			"site_id" => array(),
 		);
 
-		if(!empty($arr["request"]["search_name"]))
+		if (!empty($arr["request"]["search_name"]))
 		{
 			$filter["parent"] = array();
-			$filter["name"] = $arr["request"]["search_name"]."%";
+			$filter["name"] = $arr["request"]["search_name"] . "%";
 		}
 
-		if(!empty($arr["request"]["search_class"]))
+		if (!empty($arr["request"]["search_class"]))
 		{
 			$filter["parent"] = array();
 			$filter["class_id"] = $arr["request"]["search_class"];
@@ -1816,7 +1814,7 @@ class admin_if extends class_base
 		else
 		{
 			$atc = new add_tree_conf();
-			if($arr["obj_inst"]->prop("tree_settings"))
+			if ($arr["obj_inst"]->prop("tree_settings"))
 			{
 				$ccf = $arr["obj_inst"]->prop("tree_settings");
 			}
@@ -1828,7 +1826,7 @@ class admin_if extends class_base
 			if ($ccf)
 			{
 				$filt = $atc->get_usable_filter($ccf);
-				if(sizeof($filt))
+				if (sizeof($filt))
 				{
 					$filter["class_id"] = $filt;
 				}
@@ -1850,7 +1848,7 @@ class admin_if extends class_base
 								"class_id" => CL_MENU,
 								"periodic" => 1
 							)
-						))
+								))
 					)
 				));
 			}
@@ -1867,13 +1865,13 @@ class admin_if extends class_base
 							"conditions" => array(
 								"period" => new obj_predicate_compare(OBJ_COMP_NULL),
 							)
-						)),
+								)),
 						new object_list_filter(array(
 							"logic" => "OR",
 							"conditions" => array(
 								"period" => new obj_predicate_compare(OBJ_COMP_LESS, 1)
 							)
-						)),
+								)),
 						"class_id" => CL_USER
 					)
 				));
@@ -1885,14 +1883,14 @@ class admin_if extends class_base
 			if ($_GET["sortby"] === "hidden_jrk")
 			{
 				$filter[] = new obj_predicate_sort(array(
-					"type" => "desc",	// this makes sure menus are first
+					"type" => "desc", // this makes sure menus are first
 					"jrk" => $_GET["sort_order"]
 				));
 			}
 			else
 			{
 				$filter[] = new obj_predicate_sort(array(
-					"type" => "desc",	// this makes sure menus are first
+					"type" => "desc", // this makes sure menus are first
 					$_GET["sortby"] => $_GET["sort_order"]
 				));
 			}
@@ -1901,28 +1899,28 @@ class admin_if extends class_base
 	}
 
 	/** Returns a link that displays objects under the given oid
-		@attrib api=1 params=pos
+	  @attrib api=1 params=pos
 
-		@param parent required type=oid
-			The object id to display objects under
+	  @param parent required type=oid
+	  The object id to display objects under
 
-		@param period optional type=int
-			The period to display
-	**/
+	  @param period optional type=int
+	  The period to display
+	 * */
 	static public function get_link_for_obj($parent, $period = null)
 	{
 		return html::get_change_url(self::find_admin_if_id(), array("group" => "o", "parent" => $parent, "period" => $period));
 	}
 
 	/** shows menus importing form
-		@attrib name=import params=name default="0"
+	  @attrib name=import params=name default="0"
 
-		@param parent required
-	**/
+	  @param parent required
+	 * */
 	function import($arr)
 	{
 		extract($arr);
-		$this->mk_path($parent,t("Impordi men&uuml;&uuml;sid"));
+		$this->mk_path($parent, t("Impordi men&uuml;&uuml;sid"));
 
 		$htmlc = new htmlclient();
 		$htmlc->start_output();
@@ -1965,19 +1963,19 @@ class admin_if extends class_base
 		));
 
 		return $tp->get_tabpanel(array(
-			"content" => $html
+					"content" => $html
 		));
 	}
 
 	/** does the actual menu importing bit
 
-		@attrib name=submit_import params=name default="0"
+	  @attrib name=submit_import params=name default="0"
 
-		@param parent required
+	  @param parent required
 
-		@returns
+	  @returns
 
-	**/
+	 * */
 	function submit_import($arr)
 	{
 		extract($arr);
@@ -1992,12 +1990,12 @@ class admin_if extends class_base
 			$f = fopen($fail, "r");
 			if ($f)
 			{
-				$d = fread($f,filesize($fail));
+				$d = fread($f, filesize($fail));
 				fclose($f);
 			}
 			else
 			{
-				return $this->mk_my_orb("import",array("parent" => $parent));
+				return $this->mk_my_orb("import", array("parent" => $parent));
 			};
 
 			$menus = unserialize($d);
@@ -2019,7 +2017,7 @@ class admin_if extends class_base
 		$mt = $p_o->prop("type");
 
 		reset($menus[$i_p]);
-		while (list(,$v) = each($menus[$i_p]))
+		while (list(, $v) = each($menus[$i_p]))
 		{
 			$db = $v["db"];
 
@@ -2045,7 +2043,7 @@ class admin_if extends class_base
 			$o->set_periodic($db["periodic"]);
 
 			$ps = $o->properties();
-			foreach($ps as $pn => $pv)
+			foreach ($ps as $pn => $pv)
 			{
 				if ($o->is_property($pn))
 				{
@@ -2055,11 +2053,11 @@ class admin_if extends class_base
 			$id = $o->save();
 
 			// tegime vanema menyy 2ra, teeme lapsed ka.
-			$this->req_import_menus($db["oid"],$menus,$id);
+			$this->req_import_menus($db["oid"], $menus, $id);
 		}
 	}
 
-	/** imports menus from text file. file format description is in the docs folder **/
+	/** imports menus from text file. file format description is in the docs folder * */
 	private function do_text_import($arr)
 	{
 		$fail = $_FILES["fail"]["tmp_name"];
@@ -2068,7 +2066,7 @@ class admin_if extends class_base
 			$c = file($fail);
 			$cnt = 0;
 			$levels = array("" => $parent); // here we keep the info about the numbering of the levels => menu id's
-			foreach($c as $row)
+			foreach ($c as $row)
 			{
 				if (substr($row, 0, 1) == "#")
 				{
@@ -2076,16 +2074,16 @@ class admin_if extends class_base
 				}
 				$cnt++;
 				// parse row and create menu.
-				if (!preg_match("/([0-9\.]+)(.*)\[(.*)\]/",$row,$mt))
+				if (!preg_match("/([0-9\.]+)(.*)\[(.*)\]/", $row, $mt))
 				{
-					if (!preg_match("/([0-9\.]+)(.*)/",$row,$mt))
+					if (!preg_match("/([0-9\.]+)(.*)/", $row, $mt))
 					{
-						die(sprintf(t("Menyyde importimisel tekkis viga real %s "),$cnt));
+						die(sprintf(t("Menyyde importimisel tekkis viga real %s "), $cnt));
 					}
 				}
 				// now parse the position in the structure from the numbers.
-				$pos = strrpos($mt[1],".");
-				$_pt = substr($mt[1],0,$pos);
+				$pos = strrpos($mt[1], ".");
+				$_pt = substr($mt[1], 0, $pos);
 				if ($_pt == "")
 				{
 					$_parent = $arr["parent"];
@@ -2097,7 +2095,7 @@ class admin_if extends class_base
 
 				if ($_pt != "" && !$_parent)
 				{
-					die(sprintf(t("Menyyde importimisel ei leidnud parent menyyd real %s "),$cnt));
+					die(sprintf(t("Menyyde importimisel ei leidnud parent menyyd real %s "), $cnt));
 				}
 				else
 				{
@@ -2107,44 +2105,43 @@ class admin_if extends class_base
 					if ($opts != "")
 					{
 						// whee. do a preg_match for every option.
-						$mopts["act"] = preg_match("/\+act/",$opts);
-						if (preg_match("/\+comment=\"(.*)\"/",$opts,$mmt))
+						$mopts["act"] = preg_match("/\+act/", $opts);
+						if (preg_match("/\+comment=\"(.*)\"/", $opts, $mmt))
 						{
 							$mopts["comment"] = $mmt[1];
 						}
-						if (preg_match("/\+alias=(.*)/",$opts,$mmt))
+						if (preg_match("/\+alias=(.*)/", $opts, $mmt))
 						{
 							$mopts["alias"] = $mmt[1];
 						}
-						$mopts["per"] = preg_match("/\+per/",$opts);
-						if (preg_match("/\+link=\"(.*)\"/",$opts,$mmt))
+						$mopts["per"] = preg_match("/\+per/", $opts);
+						if (preg_match("/\+link=\"(.*)\"/", $opts, $mmt))
 						{
 							$mopts["link"] = $mmt[1];
 						}
-						$mopts["click"] = preg_match("/\+click/",$opts);
-						$mopts["target"] = preg_match("/\+target/",$opts);
-						$mopts["mid"] = preg_match("/\+mid/",$opts);
-						$mopts["makdp"] = preg_match("/\+makdp/",$opts);
-						if (preg_match("/\+width=\"(.*)\"/",$opts,$mmt))
+						$mopts["click"] = preg_match("/\+click/", $opts);
+						$mopts["target"] = preg_match("/\+target/", $opts);
+						$mopts["mid"] = preg_match("/\+mid/", $opts);
+						$mopts["makdp"] = preg_match("/\+makdp/", $opts);
+						if (preg_match("/\+width=\"(.*)\"/", $opts, $mmt))
 						{
 							$mopts["width"] = $mmt[1];
 						}
-						$mopts["rp"] = preg_match("/\+rp/",$opts);
-						$mopts["lp"] = preg_match("/\+lp/",$opts);
-						if (preg_match("/\+fn=\"(.*)\"/",$opts,$mmt))
+						$mopts["rp"] = preg_match("/\+rp/", $opts);
+						$mopts["lp"] = preg_match("/\+lp/", $opts);
+						if (preg_match("/\+fn=\"(.*)\"/", $opts, $mmt))
 						{
 							$mopts["fn"] = $mmt[1];
 						}
-						if (preg_match_all("/\+prop=\"(.*)\"/U",$opts, $mmt))
+						if (preg_match_all("/\+prop=\"(.*)\"/U", $opts, $mmt))
 						{
 							$mopts["props"] = $mmt[1];
 						}
 
-						if (preg_match_all("/\+meta=\"(.*)\"/U",$opts, $mmt))
+						if (preg_match_all("/\+meta=\"(.*)\"/U", $opts, $mmt))
 						{
 							$mopts["metas"] = $mmt[1];
 						}
-
 					}
 
 					// now create the damn thing.
@@ -2155,9 +2152,9 @@ class admin_if extends class_base
 					$o->set_parent($_parent);
 					$o->set_name(trim($mt[2]));
 					$o->set_class_id(CL_MENU);
-					$o->set_status(STAT_ACTIVE /*($mopts["act"] ? 2 : 1)*/);
+					$o->set_status(STAT_ACTIVE /* ($mopts["act"] ? 2 : 1) */);
 					$o->set_alias($mopts["alias"]);
-					$o->set_ord(substr($mt[1],($pos > 0 ? $pos+1 : 0)));
+					$o->set_ord(substr($mt[1], ($pos > 0 ? $pos + 1 : 0)));
 
 					$o->set_prop("type", MN_CONTENT);
 					$o->set_prop("link", $mopts["link"]);
@@ -2169,21 +2166,21 @@ class admin_if extends class_base
 					$o->set_prop("right_pane", !$mopts["rp"]);
 					$o->set_prop("left_pane", !$mopts["lp"]);
 
-					foreach($mopts["props"] as $s_prop)
+					foreach ($mopts["props"] as $s_prop)
 					{
-						preg_match("/(.*)\|/",$s_prop,$a_match);
+						preg_match("/(.*)\|/", $s_prop, $a_match);
 						$s_prop_name = $a_match[1];
-						preg_match("/\|(.*)/",$s_prop,$a_match);
+						preg_match("/\|(.*)/", $s_prop, $a_match);
 						$s_prop_value = $a_match[1];
 
 						$o->set_prop($s_prop_name, $s_prop_value);
 					}
 
-					foreach($mopts["metas"] as $s_meta)
+					foreach ($mopts["metas"] as $s_meta)
 					{
-						preg_match("/(.*)\|/",$s_meta,$a_match);
+						preg_match("/(.*)\|/", $s_meta, $a_match);
 						$s_meta_name = $a_match[1];
-						preg_match("/\|(.*)/",$s_meta,$a_match);
+						preg_match("/\|(.*)/", $s_meta, $a_match);
 						$s_meta_value = $a_match[1];
 
 						$o->set_meta($s_meta_name, $s_meta_value);
@@ -2225,13 +2222,13 @@ class admin_if extends class_base
 
 		// leiame praegune +-3
 		$ar = array();
-		for ($i=$actrec-6; $i <= ($actrec+6); $i++)
+		for ($i = $actrec - 6; $i <= ($actrec + 6); $i++)
 		{
 			if (isset($pl[$i]))
 			{
 				if ($pl[$i]["id"] == $act_per_id)
 				{
-					$ar[$pl[$i]["id"]] = $pl[$i]["name"]." ".t("(A)");
+					$ar[$pl[$i]["id"]] = $pl[$i]["name"] . " " . t("(A)");
 				}
 				else
 				{
@@ -2240,13 +2237,13 @@ class admin_if extends class_base
 			}
 		}
 		$ar[0] = t("Mitteperioodilised");
-		foreach($ar as $id => $name)
+		foreach ($ar as $id => $name)
 		{
 			$tb->add_menu_item(array(
 				"parent" => "set_period",
 				"text" => $name,
 				"title" => $name,
-				"name" => "per".$id,
+				"name" => "per" . $id,
 				"tooltip" => $name,
 				"link" => aw_url_change_var("period", $id)
 			));
@@ -2285,7 +2282,7 @@ class admin_if extends class_base
 		}
 
 		if ((!empty($GLOBALS["cfg"]["user_interface"]["full_content_trans"]) || !empty($GLOBALS["cfg"]["user_interface"]["trans_classes"][$row_d["class_id"]])) &&
-			($cl = aw_global_get($GLOBALS["cfg"]["user_interface"]["full_content_trans"] ? "ct_lang_id" : "lang_id")) != $row_d["lang_id"])
+				($cl = aw_global_get($GLOBALS["cfg"]["user_interface"]["full_content_trans"] ? "ct_lang_id" : "lang_id")) != $row_d["lang_id"])
 		{
 			$trans = true;
 			$cur_lid = $cl;
@@ -2312,8 +2309,8 @@ class admin_if extends class_base
 	}
 
 	/**
-		@attrib name=install params=name
-	**/
+	  @attrib name=install params=name
+	 * */
 	public function install($arr)
 	{
 		$o = obj(null, array(), CL_ADMIN_IF);
@@ -2322,16 +2319,18 @@ class admin_if extends class_base
 		$url = core::mk_my_orb("change", array("id" => $o->id(), "group" => "o"), CL_ADMIN_IF);
 		aw_redirect($url);
 	}
+
 }
 
-/** Implement this interface in your class if you want to apply some special behaviour for your object type in the admin interface **/
+/** Implement this interface in your class if you want to apply some special behaviour for your object type in the admin interface * */
 interface admin_if_plugin
 {
-	/** This will be called for each object currently displayed in the admin interface table with the item data
-		@attrib api=1 params=pos
 
-		@param data required type=array
-			The row data for the object that you can modify
-	**/
+	/** This will be called for each object currently displayed in the admin interface table with the item data
+	  @attrib api=1 params=pos
+
+	  @param data required type=array
+	  The row data for the object that you can modify
+	 * */
 	function admin_if_modify_data(&$data);
 }
