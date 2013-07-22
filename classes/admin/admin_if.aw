@@ -441,16 +441,30 @@ class admin_if extends class_base
 				{
 					continue;
 				}
+
 				$has_items[$rn_i] = 1;
-				$rn_o = obj($rn_i);
-				$tree->add_item(0, array(
-					"id" => $rn_i,
-					"parent" => 0,
-					"name" => parse_obj_name($rn_o->trans_get_val("name")),
-					"iconurl" => icons::get_icon_url($rn_o),
-					"url" => aw_url_change_var("parent", $rn_o->id(), $this->curl)
-				));
+				try
+				{
+					$rn_o = obj($rn_i);
+					$tree->add_item(0, array(
+						"id" => $rn_i,
+						"parent" => 0,
+						"name" => parse_obj_name($rn_o->trans_get_val("name")),
+						"iconurl" => icons::get_icon_url($rn_o),
+						"url" => aw_url_change_var("parent", $rn_o->id(), $this->curl)
+					));
+				}
+				catch (awex_obj_acl $e)
+				{
+					$tree->add_item(0, array(
+						"id" => $rn_i,
+						"parent" => 0,
+						"name" => t("[{$rn_i}] - no access"),
+						"iconurl" => icons::get_std_icon_url('automatweb')
+					));
+				}
 			}
+
 			$this->force_0_parent = true;
 		}
 		else
