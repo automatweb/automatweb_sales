@@ -14,7 +14,11 @@
 
   @layout o_tree_layout type=vbox parent=o_bot_left closeable=1 area_caption=Kataloogid
 
+<<<<<<< HEAD
   @property o_tree type=treeview no_caption=1 store=no parent=o_tree_layout
+=======
+				@property o_tree type=treeview no_caption=1 store=no parent=o_tree_layout draggable=true
+>>>>>>> New UI developments.
 
   @layout o_search_layout type=vbox parent=o_bot_left closeable=1 area_caption=Otsing
 
@@ -2333,7 +2337,33 @@ class admin_if extends class_base
 		$url = core::mk_my_orb("change", array("id" => $o->id(), "group" => "o"), CL_ADMIN_IF);
 		aw_redirect($url);
 	}
+	
+	public function callback_generate_scripts () {
+		
+		active_page_data::load_javascript("admin/admin_if.js");
+		
+		return "";
+	}
 
+	/**
+		@attrib name=move
+	**/
+	public function move($arr)
+	{
+		$o = obj($arr["id"]);
+		$o->set_parent($arr["parent"]);
+		$o->save();
+	}
+	
+	/**
+		@attrib name=switch_template
+	**/
+	public function switch_template($arr)
+	{
+		$t = aw_session::get("new-admin-template");
+		aw_session::set("new-admin-template", $t == "Y" ? "N" : "Y");
+		return $_SERVER['HTTP_REFERER'];
+	}
 }
 
 /** Implement this interface in your class if you want to apply some special behaviour for your object type in the admin interface * */
