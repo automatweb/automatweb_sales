@@ -184,17 +184,6 @@ SCRIPT;
 		);
 	}
 	
-	protected function get_right_footer_buttons() {
-		return array(
-			html::href(array(
-				"url" => "javascript:void(0)",
-				"data" => array("bind" => "click: \$root.save"),
-				"class" => "btn btn-primary",
-				"caption" => t("Salvesta"),
-			))
-		);
-	}
-	
 	/**
 		@attrib name=save
 	**/

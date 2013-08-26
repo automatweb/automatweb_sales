@@ -42,7 +42,7 @@
 		if (typeof disabled === "undefined" || disabled === false) {
 			pre_save_callback();
 			<?php echo $save_method; ?>(function(){
-				AW.UI.modal.alert("Andmed salvestatud!", "alert-success");
+				AW.UI.modal.alert("Muudatused salvestatud!", "alert-success");
 				setTimeout(function () {
 					alert.fadeOut("slow");
 				}, 2500);

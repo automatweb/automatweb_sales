@@ -186,30 +186,17 @@ class aw_modal implements orb_public_interface {
 	
 	protected function get_right_footer_buttons() {
 		return array(
-			html::div(array(
-				"id" => "modal-footer-save",
-				"class" => "btn-group",
-				"content" => html::href(array(
-					"url" => "javascript:void(0)",
-					"data" => array("click-action" => "save"),
-					"class" => "btn btn-primary",
-					"caption" => t("Salvesta"),
-				)).html::href(array(
-					"url" => "javascript:void(0)",
-					"class" => "btn btn-primary dropdown-toggle",
-					"data" => array("toggle" => "dropdown"),
-					"caption" => html::span(array("class" => "caret", "style" => "margin-left: -5px")),
-				)).html::ul(array(
-					"class" => "dropdown-menu",
-					"style" => "text-align: left",
-					"items" => array(
-						html::href(array(
-							"data" => array("click-action" => "save close"),
-							"url" => "javascript:void(0)",
-							"caption" => t("Salvesta ja sulge"),
-						)),
-					),
-				))
+			html::href(array(
+				"url" => "javascript:void(0)",
+				"data" => array("click-action" => "save"),
+				"class" => "btn btn-primary",
+				"caption" => t("Salvesta"),
+			)),
+			html::href(array(
+				"url" => "javascript:void(0)",
+				"data" => array("click-action" => "save close"),
+				"class" => "btn btn-primary",
+				"caption" => t("Salvesta ja sulge"),
 			)),
 		);
 	}
