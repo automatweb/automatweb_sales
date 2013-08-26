@@ -16,16 +16,10 @@ class web_navigation_editor extends aw_modal {
 		
 <style type="text/css">
 ol.sortable, ol.sortable ol {
-	margin: 0 0 0 25px;
-	padding: 0;
 	list-style-type: none;
-}
-ol.sortable {
-	margin: 4em 0;
 }
 ol.sortable li {
 	margin: 5px 0 0 0;
-	padding: 0;
 }
 
 ol.sortable li div.sortable-item {
