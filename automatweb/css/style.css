@@ -2036,3 +2036,12 @@ form {
 	background-position: center;
 	background-image: url("../images/loadingAnimation.gif");
 }
+
+.fixed-centered-500-40 {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -20px 0 0 -250px;
+	width: 500px;
+	height: 20px;
+}

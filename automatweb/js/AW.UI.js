@@ -116,6 +116,14 @@ $.extend(window.AW.UI, (function(){
 							}
 						});
 					}
+				},
+				alert: function (msg, cssClass) {
+					var alert = $('<div class="alert ' + cssClass + ' fade in text-center fixed-centered-500-40" style="z-index: 999999;"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>' + msg + '</strong></div>');
+					$("body").append(alert);
+					alert.alert();
+					setTimeout(function() {
+						alert.alert('close');
+					}, 2500);
 				}
 			};
 		})(),
