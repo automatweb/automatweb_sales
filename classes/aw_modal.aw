@@ -24,7 +24,7 @@ class aw_modal implements orb_public_interface {
 		$this->request = $request;
 	}
 	
-	public function parse() {
+	public function render () {
 		$this->template = new aw_php_template("aw_modal", "default");
 		
 		$this->preprocess_property_definitions();
@@ -33,7 +33,11 @@ class aw_modal implements orb_public_interface {
 		$this->parse_content();
 		$this->parse_footer();
 		
-		automatweb::$result->set_data($this->template->render());
+		return $this->template->render();
+	}
+	
+	public function parse() {
+		automatweb::$result->set_data($this->render());
 		automatweb::$instance->http_exit();
 	}
 	
@@ -70,9 +74,27 @@ class aw_modal implements orb_public_interface {
 			}
 		}
 		
-		foreach ($this->properties as $property_id => $property_details) {			
+		foreach ($this->properties as $property_id => $property_details) {
 			$property_details["id"] = $property_id;
 			$property_callback = "_get_{$property_id}";
+			
+			switch ($property_details["type"]) {
+				case "textbox":
+				case "textarea":
+				case "datepicker":
+				case "datetimepicker":
+				case "hidden":
+					$property_details["data"] = array("bind" => sprintf("value: %s", $property_id));
+					if (isset($property_details["update"]) && $property_details["update"] === "instant") {
+						$property_details["data"]["bind"] .= ", valueUpdate: 'afterkeydown'";
+					}
+					break;
+				
+				case "checkbox":
+					$property_details["data"] = array("bind" => sprintf("checked: %s", $property_id));
+					break;
+			}
+			
 			if (is_callable(array($this, $property_callback))) {
 				$this->$property_callback($property_details);
 			}
@@ -145,6 +167,10 @@ class aw_modal implements orb_public_interface {
 		));
 		
 		$this->template->bind($this->footer_template, "footer");
+	}
+	
+	protected function get_save_method() {
+		return "(function(){})";
 	}
 	
 	protected function get_left_footer_buttons() {
@@ -279,13 +305,14 @@ class aw_modal implements orb_public_interface {
 		@param removed optional type=array
 		@returns JSON of the object.
 	**/
-	public function save($arr) {
+	public function save($arr = array()) {
 		if (!empty($arr["data"]["id"]) and object_loader::can("", $arr["data"]["id"])) {
 			$object = obj($arr["data"]["id"], null, (int)$arr["class_id"]);
 			unset($arr["data"]["id"]);
 		} elseif (is_class_id($arr["class_id"])) {
 			$object = obj(null, null, $arr["class_id"]);
 			$object->set_parent($arr["parent"]);
+			$object->save();
 			unset($arr["parent"]);
 		}
 		

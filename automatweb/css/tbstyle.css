@@ -76,7 +76,7 @@ img {
 }
 
 #tabs-level-1 .brand img {
-	margin: 2px 0 0 0;
+	margin: 4px 0 -2px 0;
 	font-size: 16px;
 }
 
@@ -96,14 +96,7 @@ img {
 }
 
 .btn-toolbar.aw-toolbar {
-	background-color: #f5f5f5;
-	*background-color: #e6e6e6;
-	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-	background-repeat: repeat-x;
+	background-image: none;
 	border: 1px solid #cccccc;
 	*border: 0;
 	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
@@ -145,8 +138,10 @@ img {
 	   -moz-border-radius: 0;
 			border-radius: 0;
 }
-.btn-toolbar.aw-toolbar a {
+.btn-toolbar.aw-toolbar .btn {
 	text-decoration: none;
+	background-color: inherit;
+	background-image: none;
 }
 .btn-toolbar.aw-toolbar .dropdown-menu {
 	text-align: left;
@@ -266,4 +261,16 @@ img {
 #ajaxLoader div
 {
 	font-size: 12px; font-weight:bold; margin: 0 auto; text-align: center; width: 220px;
+}
+
+.modal .modal-toolbar > div, .modal .modal-toolbar > a {
+	margin: 0 5px 0 0;
+}
+
+.modal .modal-toolbar > div:last-child, .modal .modal-toolbar > a:last-child {
+	margin: 0;
+}
+
+.modal.fade.in {
+	top: 10px;
 }

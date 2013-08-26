@@ -14,7 +14,7 @@ if (!function_exists("parse_modal_layout")) {
 					<?php } ?>
 					<?php foreach ($layout["properties"] as $property_id => $property) { ?>
 						<div class="span<?php echo $width[$child_counter++]; ?>">
-							<?php echo aw_modal::parse_properties(array($property_id => $property), false); ?>
+							<?php echo aw_modal::parse_properties(array($property_id => $property), ifset($layout, "captionside") === "left"); ?>
 						</div>
 					<?php } ?>
 				</div>

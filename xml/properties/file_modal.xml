@@ -1,0 +1,86 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>name</name>
+            <group>general</group>
+            <type>textbox</type>
+            <placeholder>Nimi</placeholder>
+            <update>instant</update>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>status</name>
+            <group>general</group>
+            <type>chooser</type>
+            <field>status</field>
+            <caption>Aktiivne</caption>
+      </property>
+      <property>
+            <name>file</name>
+            <group>general</group>
+            <type>fileupload</type>
+            <field>file</field>
+            <caption>Vali fail</caption>
+      </property>
+      <property>
+            <name>ord</name>
+            <group>general</group>
+            <type>textbox</type>
+            <field>ord</field>
+            <caption>J&amp;amp;auml;rjekord</caption>
+      </property>
+      <property>
+            <name>comment</name>
+            <group>general</group>
+            <type>textarea</type>
+            <field>comment</field>
+            <caption>Kommentaar</caption>
+      </property>
+      <property>
+            <name>alias</name>
+            <group>general</group>
+            <type>textbox</type>
+            <field>alias</field>
+            <caption>Alias</caption>
+      </property>
+      <property>
+            <name>file_url</name>
+            <group>general</group>
+            <type>textbox</type>
+            <field>file_url</field>
+            <caption>URL</caption>
+      </property>
+      <property>
+            <name>newwindow</name>
+            <group>settings</group>
+            <type>checkbox</type>
+            <field>newwindow</field>
+            <caption>Uues aknas</caption>
+      </property>
+      <property>
+            <name>show_framed</name>
+            <group>settings</group>
+            <type>checkbox</type>
+            <field>show_framed</field>
+            <caption>N&amp;amp;auml;ita raamis</caption>
+      </property>
+      <property>
+            <name>show_icon</name>
+            <group>settings</group>
+            <type>checkbox</type>
+            <field>show_icon</field>
+            <caption>N&amp;amp;auml;ita ikooni</caption>
+      </property>
+      <groupinfo>
+            <general>
+                  <caption>&amp;amp;Uuml;ldandmed</caption>
+                  <icon>/automatweb/images/icons/32/1808.png</icon>
+            </general>
+            <settings>
+                  <caption>Seadistused</caption>
+                  <icon>/automatweb/images/icons/32/289.png</icon>
+            </settings>
+      </groupinfo>
+</properties>
+

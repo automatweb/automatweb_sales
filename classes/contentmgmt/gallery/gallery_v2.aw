@@ -19,65 +19,68 @@
 @groupinfo preview caption=Eelvaade
 
 @default table=objects
-@default group=general
 @default field=meta
 @default method=serialize
 
-@property conf_id type=text size=3
-@caption Konfiguratsioon:
+@default group=general
 
-@property reinit_layout type=checkbox ch_value=1
-@caption Uuenda layout (kustutab k&otilde;ik pildid!)
-
-@property num_pages type=textbox size=3
-@caption Mitu lehte:
-
-@property rate_redir type=textbox
-@caption Suuna p&auml;rast h&auml;&auml;letamist
-
-@property pg_1_content type=text group=page_1 no_caption=1
-@property pg_2_content type=text group=page_2 no_caption=1
-@property pg_3_content type=text group=page_3 no_caption=1
-@property pg_4_content type=text group=page_4 no_caption=1
-@property pg_5_content type=text group=page_5 no_caption=1
-@property pg_6_content type=text group=page_6 no_caption=1
-@property pg_7_content type=text group=page_7 no_caption=1
-@property pg_8_content type=text group=page_8 no_caption=1
-@property pg_9_content type=text group=page_9 no_caption=1
-
-@property preview type=text group=preview no_caption=1
+	@property conf_id type=text size=3
+	@caption Konfiguratsioon:
+	
+	@property reinit_layout type=checkbox ch_value=1
+	@caption Uuenda layout (kustutab k&otilde;ik pildid!)
+	
+	@property num_pages type=textbox size=3
+	@caption Mitu lehte:
+	
+	@property rate_redir type=textbox
+	@caption Suuna p&auml;rast h&auml;&auml;letamist
+	
+	@property pg_1_content type=text group=page_1 no_caption=1
+	@property pg_2_content type=text group=page_2 no_caption=1
+	@property pg_3_content type=text group=page_3 no_caption=1
+	@property pg_4_content type=text group=page_4 no_caption=1
+	@property pg_5_content type=text group=page_5 no_caption=1
+	@property pg_6_content type=text group=page_6 no_caption=1
+	@property pg_7_content type=text group=page_7 no_caption=1
+	@property pg_8_content type=text group=page_8 no_caption=1
+	@property pg_9_content type=text group=page_9 no_caption=1
+	
+@default group=preview
+	
+	@property preview type=text no_caption=1
 
 @default group=import
 
-@property import_ftp type=checkbox ch_value=1
-@caption Impordi FTP serverist
-
-@property ftp_login type=relpicker reltype=RELTYPE_FTP_LOGIN
-@caption FTP Server
-
-@property ftp_folder type=textbox
-@caption FTP Serveri kataloog
-
-@property import_local type=checkbox ch_value=1 default=1
-@caption Impordi kataloogist
-
-@property local_folder type=textbox
-@caption Kataloog
-
-@property import_zip type=checkbox ch_value=1
-@caption Impordi ZIP failist
-
-@property zip_file type=fileupload store=no
-@caption Uploadi ZIP fail
-
-@property import_overwrite type=checkbox ch_value=1
-@caption Importimisel kirjuta olemasolevad pildid &uuml;le
-
-@property import_add_pages type=checkbox ch_value=1
-@caption Importimisel lisa vajadusel lehek&uuml;lgi
-
-@property do_import type=checkbox ch_value=1
-@caption Teosta import
+	@property import_ftp type=checkbox ch_value=1
+	@caption Impordi FTP serverist
+	
+	@property ftp_login type=relpicker reltype=RELTYPE_FTP_LOGIN
+	@caption FTP Server
+	
+	@property ftp_folder type=textbox
+	@caption FTP Serveri kataloog
+	
+	@property import_local type=checkbox ch_value=1 default=1
+	@caption Impordi kataloogist
+	
+	@property local_folder type=textbox
+	@caption Kataloog
+	
+	@property import_zip type=checkbox ch_value=1
+	@caption Impordi ZIP failist
+	
+	@property zip_file type=fileupload store=no
+	@caption Uploadi ZIP fail
+	
+	@property import_overwrite type=checkbox ch_value=1
+	@caption Importimisel kirjuta olemasolevad pildid &uuml;le
+	
+	@property import_add_pages type=checkbox ch_value=1
+	@caption Importimisel lisa vajadusel lehek&uuml;lgi
+	
+	@property do_import type=checkbox ch_value=1
+	@caption Teosta import
 
 @classinfo no_status=1
 

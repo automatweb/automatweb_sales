@@ -29,6 +29,15 @@
             <field>simultaneous_warning</field>
       </property>
       <property>
+            <name>status</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>status</type>
+            <default>0</default>
+            <field>status</field>
+            <caption>Aktiivne</caption>
+      </property>
+      <property>
             <name>title</name>
             <table>documents</table>
             <group>general</group>
@@ -37,6 +46,14 @@
             <trans>1</trans>
             <field>title</field>
             <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>document_status</name>
+            <table>documents</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_document_status</field>
+            <caption>Staatus</caption>
       </property>
       <property>
             <name>subtitle</name>
@@ -754,6 +771,42 @@
             <caption>Lisa fail</caption>
       </property>
       <property>
+            <name>task</name>
+            <table>aw_crm_document</table>
+            <group>parties</group>
+            <type>popup_search</type>
+            <clid>CL_TASK</clid>
+            <field>aw_task</field>
+            <caption>&amp;amp;Uuml;lesanne</caption>
+      </property>
+      <property>
+            <name>customer</name>
+            <table>aw_crm_document</table>
+            <group>parties</group>
+            <type>popup_search</type>
+            <clid>CL_CRM_COMPANY</clid>
+            <field>aw_customer</field>
+            <caption>Klient</caption>
+      </property>
+      <property>
+            <name>creator</name>
+            <table>aw_crm_document</table>
+            <group>parties</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CREATOR</reltype>
+            <field>aw_creator</field>
+            <caption>Koostaja</caption>
+      </property>
+      <property>
+            <name>reader</name>
+            <table>aw_crm_document</table>
+            <group>parties</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_READER</reltype>
+            <field>aw_reader</field>
+            <caption>Lugeja</caption>
+      </property>
+      <property>
             <name>show_to_country</name>
             <table>documents</table>
             <group>settings</group>
@@ -984,6 +1037,9 @@
             <r2>1</r2>
       </classinfo>
       <groupinfo>
+            <parties>
+                  <caption>Osapooled</caption>
+            </parties>
             <calendar>
                   <caption>Kalender</caption>
             </calendar>
@@ -1026,6 +1082,11 @@
                   <master_table>objects</master_table>
                   <master_index>brother_of</master_index>
             </planner>
+            <aw_crm_document>
+                  <index>aw_oid</index>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+            </aw_crm_document>
       </tableinfo>
       <reltypes>
             <TIMING>
@@ -1078,6 +1139,29 @@
                   <clid>CL_KEYWORD</clid>
                   <caption>V&amp;amp;otilde;tmes&amp;amp;otilde;na</caption>
             </KEYWORD>
+            <AUTHOR>
+                  <value>30</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Autor</caption>
+            </AUTHOR>
+            <EDITOR>
+                  <value>31</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Koostaja</caption>
+            </EDITOR>
+            <EVENT>
+                  <value>32</value>
+                  <clid>
+                        <num_0>CL_TASK</num_0>
+                        <num_1>CL_CRM_MEETING</num_1>
+                  </clid>
+                  <caption>S&amp;amp;uuml;ndmus</caption>
+            </EVENT>
+            <ORDER>
+                  <value>33</value>
+                  <clid>CL_MRP_CASE</clid>
+                  <caption>Tellimus</caption>
+            </ORDER>
       </reltypes>
 </properties>
 

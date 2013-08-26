@@ -1137,6 +1137,15 @@ class site_template_compiler extends aw_template
 		$ret .= $this->_gi()."\$tmp_vars_array = array(\n";
 		$this->brace_level++;
 
+		$ret .= $this->_gi()."\"id\" => ".$o_name."->id,\n";
+		$ret .= $this->_gi()."\"parent\" => ".$o_name."->parent,\n";
+		$ret .= $this->_gi()."\"comment\" => ".$o_name."->comment,\n";
+		$ret .= $this->_gi()."\"alias\" => ".$o_name."->alias,\n";
+		$ret .= $this->_gi()."\"target_prop\" => ".$o_name."->target ? 1 : 0,\n";
+		$ret .= $this->_gi()."\"link_prop\" => ".$o_name."->link,\n";
+		$ret .= $this->_gi()."\"users_only\" => ".$o_name."->users_only ? 1 : 0,\n";
+		$ret .= $this->_gi()."\"ord\" => ".$o_name."->ord(),\n";
+		
 		if (aw_ini_get("user_interface.content_trans") == 1)
 		{
 			$ret .= $this->_gi()."\"text\" => ".$o_name."->trans_get_val(\"name\"),\n";

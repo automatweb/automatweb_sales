@@ -37,7 +37,7 @@ class modal_search_shop extends modal_search {
 		$property["data"] = array("bind" => "value: source");
 	}
 	
-	protected function get_children($source_id, $parent) {
+	protected function get_children($source_id, $parents, $level) {
 		if (!object_loader::can("", $source_id)) {
 			return new object_list();
 		}
@@ -46,7 +46,7 @@ class modal_search_shop extends modal_search {
 			return new object_list();
 		}
 		$warehouse = obj($source->warehouse, null, shop_warehouse_obj::CLID);
-		$parents = (array)$parent;
+		$parents = (array)$parents;
 		foreach ($parents as $id => $parent) {
 			if (!object_loader::can("", $parent)) {
 				unset($parents[$id]);
@@ -54,7 +54,13 @@ class modal_search_shop extends modal_search {
 		}
 		$ol = count($parents) > 0 ? $warehouse->get_categories($parents) : $warehouse->get_root_categories();
 		
-		return $ol;
+		$oids = automatweb::$request->arg_isset("oid") ? array_map('trim', explode(",", automatweb::$request->arg("oid"))) : array();
+		$names = automatweb::$request->arg_isset("name") ? explode(",", automatweb::$request->arg("name")) : array();
+		
+		return array(
+			$level => $ol,
+			2 => $this->get_items($source_id, $parents, $oids, $names),
+		);
 	}
 	
 	protected function get_items($source_id, $parents, $oids, $names) {

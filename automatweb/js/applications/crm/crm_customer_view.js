@@ -9,7 +9,6 @@ YUI().use("node", function(Y) {
 		var self = this;
 		var customer_filter;
 		var customer_refresh_timeout;
-		var modal_html = {};
 		var modal_preloaded = false;
 		var modal_preload_callbacks = [];
 		var data = {};

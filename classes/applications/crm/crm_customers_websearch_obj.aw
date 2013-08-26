@@ -74,7 +74,28 @@ class crm_customers_websearch_obj extends _int_object
 
 		if (automatweb::$request->arg_isset("name") && automatweb::$request->arg("name"))
 		{
-			$conditions["{that}.name"] = sprintf("%%%s%%", automatweb::$request->arg("name"));
+			$name = sprintf("%%%s%%", automatweb::$request->arg("name"));
+			
+			if ($this->prop("search_by_employee_name")) {
+				$work_relations = new object_data_list(
+					array(
+						"class_id" => crm_person_work_relation_obj::CLID,
+						"employee.name" => $name,
+					),
+					array(
+						crm_person_work_relation_obj::CLID => array("employer"),
+					)
+				);
+				$conditions[] = new object_list_filter(array(
+					"logic" => "OR",
+					"conditions" => array(
+						"CL_CRM_COMPANY_CUSTOMER_DATA.{that}.name" => $name,
+						"CL_CRM_COMPANY_CUSTOMER_DATA.{that}" => $work_relations->get_element_from_all("employer"),
+					),
+				));
+			} else {
+				$conditions["{that}.name"] = sprintf("%%%s%%", automatweb::$request->arg("name"));
+			}
 		}
 
 		if (automatweb::$request->arg_isset("skill") && automatweb::$request->arg("skill"))
@@ -134,6 +155,9 @@ class crm_customers_websearch_obj extends _int_object
 		$conditions = array();
 		foreach($__conditions as $key => $value)
 		{
+			if ($value instanceof object_list_filter) {
+				$value->filter["conditions"] = $this->__conditions($value->filter["conditions"], $type);
+			}
 			$conditions[str_replace(array("{this}", "{that}"), $type == self::TYPE_SELLER ? array("buyer", "seller") : array("seller", "buyer"), $key)] = $value;
 		}
 		return $conditions;

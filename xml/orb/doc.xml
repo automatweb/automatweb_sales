@@ -55,5 +55,12 @@
 			</function>
 		</action>
 
+		<action name="notify_participants">
+			<function name="notify_participants">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

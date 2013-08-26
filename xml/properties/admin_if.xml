@@ -17,6 +17,7 @@
             <no_caption>1</no_caption>
             <store>no</store>
             <parent>o_tree_layout</parent>
+            <draggable>true</draggable>
             <field>o_tree</field>
       </property>
       <property>

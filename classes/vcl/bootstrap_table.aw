@@ -74,7 +74,7 @@ class bootstrap_table extends aw_template implements orb_public_interface {
 		));
 		if ($this->reorderable) {
 			$this->vars(array(
-				"on-reorderable-update" => core::mk_my_orb("save_reordering", null, "bootstrap_table"),
+				"on-reorderable-update" => core::mk_my_orb("save_reordering", array(), "bootstrap_table"),
 			));
 			
 			$this->vars_safe(array(
@@ -233,5 +233,3 @@ class bootstrap_table extends aw_template implements orb_public_interface {
 		return $a["index"] - $b["index"];
 	}
 }
-
-?>

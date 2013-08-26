@@ -485,6 +485,10 @@ class site_show extends aw_template
 		{
 			$url = $this->get_cval("orb_err_mustlogin");
 		}
+		if ("/".$url == $_SERVER["REQUEST_URI"]) {
+			// Avoid infinite loop
+			return;
+		}
 		aw_session_set("request_uri_before_auth",aw_global_get("REQUEST_URI"));
 		header("Location: ".aw_ini_get("baseurl").$url);
 		exit;

@@ -40,7 +40,7 @@ class modal_search extends aw_modal {
 		$property["button"] = array(
 			"caption" => t("Filtreeri"),
 		);
-		$property["data"] = array("bind" => "click: loadResults");
+		$property["data"] = array("bind" => "click: \$root.loadLevel");
 	}
 	
 	protected function _get_search_results(&$property) {
@@ -117,7 +117,7 @@ class modal_search extends aw_modal {
 		}
 		
 		if (count($filter) > 1) {
-			$filter["class_id"] = array(CL_CRM_DOCUMENT, doc_obj::CLID, CL_FILE);
+			$filter["class_id"] = automatweb::$request->arg_isset("clid") ? automatweb::$request->arg("clid") : null;
 			$ol = new object_list($filter);
 		} else {
 			$ol = new object_list();
@@ -129,12 +129,36 @@ class modal_search extends aw_modal {
 	public function children() {
 		$source = automatweb::$request->arg_isset("source") ? automatweb::$request->arg("source") : null;
 		$parent = automatweb::$request->arg_isset("parent") ? automatweb::$request->arg("parent") : null;
+		$level = automatweb::$request->arg_isset("level") ? automatweb::$request->arg("level") : null;
 		
-		$ol = $this->get_children($source, $parent);
+		$ols = $this->get_children($source, $parent, $level);
 		
 		$results = array();
-		foreach ($ol->names() as $id => $name) {
-			$results[] = array("id" => $id, "name" => $name);
+		foreach ($ols as $level => $ol) {
+			$items = array();
+			
+			if ($ol instanceof object_list) {
+				foreach ($ol->names() as $id => $name) {
+					$items[] = array("id" => $id, "name" => $name, "level" => $level);
+				}
+			} elseif ($ol instanceof object_data_list) {
+				foreach ($ol->arr() as $data) {
+					$data["level"] = $level;
+					$items[] = $data;
+				}
+			} elseif (is_array($ol)) {
+				foreach ($ol as $data) {
+					$data["level"] = $level;
+					$items[] = $data;
+				}
+			} else {
+				// TODO: Throw ERROR!
+			}
+			
+			$results[] = array(
+				"level" => $level,
+				"items" => $items
+			);
 		}
 		
 		$json_encoder = new json();
@@ -144,7 +168,7 @@ class modal_search extends aw_modal {
 		automatweb::$instance->http_exit();
 	}
 	
-	protected function get_children($source, $parent) {
+	protected function get_children($source, $parent, $level) {
 		$filter = array();
 		if (is_oid($parent) || is_array($parent) && count($parent) > 0) {
 			$filter["parent"] = $parent;
@@ -156,7 +180,14 @@ class modal_search extends aw_modal {
 		} else {
 			$ol = new object_list();
 		}
-		return $ol;
+		
+		$oids = automatweb::$request->arg_isset("oid") ? array_map('trim', explode(",", automatweb::$request->arg("oid"))) : array();
+		$names = automatweb::$request->arg_isset("name") ? explode(",", automatweb::$request->arg("name")) : array();
+		
+		return array(
+			$level  => $ol,
+			2 => $this->get_items($source, (array)$parent, $oids, $names),
+		);
 	}
 	
 	protected function get_right_footer_buttons() {

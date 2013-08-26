@@ -4,15 +4,25 @@
             <name>name</name>
             <group>general</group>
             <type>textbox</type>
+            <update>instant</update>
             <field>name</field>
-            <caption>Nimi</caption>
+            <caption>Kohtumise teema</caption>
       </property>
       <property>
             <name>start1_show</name>
             <group>general</group>
             <type>datetimepicker</type>
+            <parent>timespan</parent>
             <field>start1_show</field>
             <caption>Algus</caption>
+      </property>
+      <property>
+            <name>end_show</name>
+            <group>general</group>
+            <type>datetimepicker</type>
+            <parent>timespan</parent>
+            <field>end_show</field>
+            <caption>L&amp;amp;otilde;pp</caption>
       </property>
       <property>
             <name>start1</name>
@@ -21,17 +31,27 @@
             <field>start1</field>
       </property>
       <property>
-            <name>end_show</name>
-            <group>general</group>
-            <type>datetimepicker</type>
-            <field>end_show</field>
-            <caption>L&amp;amp;otilde;pp</caption>
-      </property>
-      <property>
             <name>end</name>
             <group>general</group>
             <type>hidden</type>
             <field>end</field>
+      </property>
+      <property>
+            <name>comment</name>
+            <group>general</group>
+            <type>textarea</type>
+            <class>input-xxlarge</class>
+            <field>comment</field>
+            <caption>Kokkuv&amp;amp;otilde;te</caption>
+      </property>
+      <property>
+            <name>content</name>
+            <group>general</group>
+            <type>textarea</type>
+            <rows>15</rows>
+            <class>input-xxlarge</class>
+            <field>content</field>
+            <caption>Sisu</caption>
       </property>
       <property>
             <name>participants_toolbar</name>
@@ -77,5 +97,14 @@
                   <icon>/automatweb/images/icons/32/289.png</icon>
             </attachments>
       </groupinfo>
+      <layout>
+            <timespan>
+                  <type>horizontal</type>
+                  <captionside>left</captionside>
+                  <width>6:6</width>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </timespan>
+      </layout>
 </properties>
 

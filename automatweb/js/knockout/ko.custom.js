@@ -34,7 +34,6 @@ ko.bindingHandlers.datepick = {
         ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
             $(element).datepick("destroy");
         });
-
     },
     update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var value = ko.utils.unwrapObservable(valueAccessor());
@@ -99,5 +98,65 @@ ko.bindingHandlers.id = {
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
         $(element).attr('id', valueAccessor());
+    }
+};
+
+ko.bindingHandlers.chooser = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		var options = ko.utils.unwrapObservable(allBindingsAccessor().chooserOptions || {});
+		for (var i in options) {
+			(function (value, caption) {
+				var button = $('<button value="' + value + '" class="btn btn-mini" style="margin-right: 5px;">' + caption + '</button>');
+				button.on("click", function (event) {
+					$(this).siblings().removeClass("btn-primary");
+					$(this).addClass("btn-primary");
+					valueAccessor()(value);
+				});
+				$(element).append(button);
+			})(i, options[i]);
+		}
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		var value = ko.utils.unwrapObservable(valueAccessor());
+		$(element).children().removeClass("btn-primary");
+        $(element).children().each(function () {
+			if ($(this).val() == value) {
+				$(this).addClass("btn-primary");
+			}
+		});
+    }
+};
+
+ko.bindingHandlers.treeview = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		var options = ko.utils.unwrapObservable(allBindingsAccessor().treeviewOptions || {});
+		var id = "#" + element.id;
+		$.ajax({
+			url: options.io,
+			dataType: "json",
+			success: function (children) {	
+				YUI().use(
+					'aui-tree-view',
+					function(Y) {
+						// Create a TreeView Component
+						var tree = new Y.TreeView({
+							boundingBox: id,
+							children: children,
+						}).render();
+						console.log(tree);
+						$(id).on("click", "i.aui-icon-minus", function (event) {
+							var node_id = $(this).siblings("span").find("a").data("node-id");
+							$.cookie("alloyui-treeview-" + id + "-" + node_id, "true");
+						});
+						$(id).on("click", "i.aui-icon-plus", function (event) {
+							var node_id = $(this).siblings("span").find("a").data("node-id");
+							$.cookie("alloyui-treeview-" + id + "-" + node_id, $(this).siblings("i.aui-icon-refresh").size() > 0 ? "true" : null);
+						});
+					}
+				);
+			}
+		});
     }
 };

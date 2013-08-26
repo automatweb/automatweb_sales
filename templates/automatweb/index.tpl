@@ -24,6 +24,30 @@
 </head>
 <body onload="check_generic_loader();" class=" nihilo ">
 
+<style>
+.the-switch-template-button {
+	position: fixed;
+	top: 0;
+	left: -80px;
+	width: 80px;
+	border-right: 20px solid rgba(0, 0, 0, 0);
+	border-top: 20px solid rgb(255, 255, 255);
+	z-index: 99999;
+}
+.the-switch-template-button a {
+	position: relative;
+	top: -16.5px;
+	left: 10px;
+	z-index: 999999;
+}
+.the-switch-template-button:hover {
+	left: 0;
+}
+</style>
+<div class="the-switch-template-button">
+	<a href="/automatweb/orb.aw?class=admin_if&action=switch_template">UUS LIIDES</a>
+</div>
+
 <script type="text/javascript">
 
 // aw object quickadd. use ctrl+alt+u to use

@@ -72,7 +72,7 @@ $.extend(window.AW.UI, (function(){
 					}
 					cfg = cfg ? cfg : { width: 1100, height: 450 };
 					
-					var html = templates[modalClass].replace("{VAR:prefix}", counter);
+					var html = templates[modalClass].replace(/{VAR:prefix}/g, "modal-" + counter.toString() + "-");
 					var modalElement = $(html);
 					$("body").append(modalElement);
 					modalObject = new modal(modalElement);
@@ -103,7 +103,7 @@ $.extend(window.AW.UI, (function(){
 				},
 				load: function (modalClass, data, callback) {
 					if (templates[modalClass] !== undefined) {
-						callback.call();
+						callback && callback.call();
 					} else {
 						$.ajax({
 							url: "/automatweb/orb.aw?class=" + modalClass + "&action=parse",
@@ -111,7 +111,7 @@ $.extend(window.AW.UI, (function(){
 							success: function(html) {
 								templates[modalClass] = html;
 								if (callback) {
-									callback.call();
+									callback && callback.call();
 								}
 							}
 						});
@@ -128,23 +128,41 @@ $.extend(window.AW.UI, (function(){
 				height: 300,
 				defaultSource: null,
 				rootParent: null,
-				onSelect: null
+				onSelect: null,
+				levels: [{}, {}, {}],
+				clid: null
 			};
-			var vmSearchLevel = function() {
+			var vmSearchLevel = function (i) {
+				this.index = ko.observable(i);
 				this.items = ko.observableArray();
 				this.loading = ko.observable(false);
 				this.loaded = ko.computed(function(){
 					return !this.loading();
 				}, this);
+				this.caption = config.levels[i] && config.levels[i].caption ? config.levels[i].caption : "";
+				this.visible = ko.computed(function () {
+					return this.loading() || this.index() == 0 || this.index() == config.levels.length - 1 || this.items().length > 0;
+				}, this);
 			};
 			var vmSearch = function() {
 				var self = this;
 				
-				var parents = [[],[]];
+				// Note that the last "level" is not actually considered a level, as it is processed differently.
+				var numberOfLevels = config.levels.length - 1;
+				
+				var parents = [];
 				
 				var levelLoader;
-				function loadLevel(level) {
-					self.levels()[level].loading(true);
+				self.loadLevel = function (level, skip) {
+					if (level < 0) {
+						return;
+					}
+					if (level === undefined) {
+						level = config.levels.length - 1;
+					}
+					if (!skip) {
+						self.levels()[level].loading(true);
+					}
 					parents[level] = [];
 					for (var i = level + 1; i < self.levels().length; i++) {
 						self.levels()[i].loading(false);
@@ -158,76 +176,61 @@ $.extend(window.AW.UI, (function(){
 					if (level == 0 || parent && parent.length > 0) {
 						levelLoader = $.ajax({
 							url: "/automatweb/orb.aw",
-							data: { "class": config.searchClass, action: "children", source: self.source(), parent: parent },
+							data: {
+								"class": config.searchClass,
+								action: "children",
+								source: self.source(),
+								parent: parent,
+								name: self.name(),
+								oid: self.oid(),
+								level: level,
+								clid: config.clid
+							},
 							dataType: "json",
-							success: function(children){
-								self.levels()[level].items(children);
-								self.levels()[level].loading(false);
-								$(".antiscroll-wrap").antiscroll();
+							success: function(children) {
+								for (var i in children) {
+									if (skip && children[i].level == level) {
+										continue;
+									}
+									self.levels()[children[i].level].items(children[i].items);
+									self.levels()[children[i].level].loading(false);
+								}
+//								$(".antiscroll-wrap").antiscroll();
 							}
 						});
 					} else {
-						self.levels()[level].items([]);
-						self.levels()[level].loading(false);
+						self.loadLevel(level - 1, true);
+//						self.levels()[level].items([]);
+//						self.levels()[level].loading(false);
 					}
-					$(".antiscroll-wrap").antiscroll();
-				}
-				var resultsLoader;
-				self.loadResults = function() {
-					self.loading(true);
-					if (resultsLoader) {
-						resultsLoader.abort();
-					}
-					var parent;
-					for (var i = 0; i < parents.length; i++) {
-						if (parents[i].length > 0) {
-							parent = parents[i];
-						}
-					}
-					resultsLoader = $.ajax({
-						url: "/automatweb/orb.aw",
-						data: { "class": config.searchClass, action: "search", source: self.source(), parent: parent, name: self.name(), oid: self.oid() },
-						dataType: "json",
-						success: function(results){
-							self.results(results);
-							self.loading(false);
-							$(".antiscroll-wrap").antiscroll();
-						}
-					});
-					$(".antiscroll-wrap").antiscroll();
+//					$(".antiscroll-wrap").antiscroll();
 				}
 				
 				self.source = ko.observable(config.defaultSource);
 				self.source.subscribe(function(newValue) {
-					loadLevel(0);
-					self.loadResults();
+					self.loadLevel(0);
 				});
 				self.name = ko.observable();
 				self.oid = ko.observable();
-				self.levels = ko.observableArray([new vmSearchLevel(), new vmSearchLevel()]);
-				self.results = ko.observableArray();
-				self.loading = ko.observable(false);
+				
+				levels = [];
+				for (var i in config.levels) {
+					levels.push(new vmSearchLevel(i));
+				}
+				self.levels = ko.observableArray(levels);
+				
 				self.selected = ko.observableArray([]);
 				self.onReady = function(){
 					if (config.onSelect) {
 						config.onSelect.call(null, config.multiple ? self.selected() : self.selected()[0]);
 					}
 				};
-				self.select = function(item, event){
+				self.select = function (item, event) {
 					if (!config.multiple) {
 						self.selected([item]);
 					} else {
 						self.selected.push(item);
 					}
-/*					var li = $(event.currentTarget).parent();
-					if (li.hasClass("active")) {
-						li.removeClass("active");
-						self.selected([]);
-					} else {
-						li.addClass("active").siblings().removeClass("active");
-						self.selected.push(item);
-					}
-*/
 				};
 				self.isSelected = function(item){
 					var selected = self.selected();
@@ -243,7 +246,7 @@ $.extend(window.AW.UI, (function(){
 				};
 				self.toggle = function(item, event){
 					var li = $(event.currentTarget).parent();
-					var i = li.parent().parent().index();
+					var i = item.level !== undefined ? item.level : li.parent().parent().index();
 					if (li.hasClass("active")) {
 						li.removeClass("active");
 						for (var j in parents[i]) {
@@ -256,11 +259,19 @@ $.extend(window.AW.UI, (function(){
 						li.addClass("active");
 					}
 					if (i < self.levels().length - 1) {
-						loadLevel(i + 1);
+						self.loadLevel(i + 1);
 					}
-					self.loadResults();
 				};
-				loadLevel(0);
+				self.css = ko.computed(function (a, b, c) {
+					var numberOfLevelsVisible = 0;
+					$.each(self.levels(), function (index, level) {
+						if (level.visible()) {
+							numberOfLevelsVisible++;
+						}
+					});
+					return "hack-" + numberOfLevelsVisible;
+				}, self);
+				self.loadLevel(0);
 			};
 			return {
 				load: function (searchClass, callback) {
@@ -270,6 +281,25 @@ $.extend(window.AW.UI, (function(){
 					AW.UI.modal.load(searchClass, null, callback);
 				},
 				open: function (searchClass, custom_config) {
+					if (searchClass == "modal_search_employee") {
+						custom_config = custom_config || {};
+						custom_config.levels = [
+							{ caption: "Üksused" },
+							{ caption: "Alamüksused" },
+							{ caption: "Töötajad" }
+						];
+					} else if (searchClass == "modal_search_customer_employee") {
+						custom_config = custom_config || {};
+						custom_config.levels = [
+							{ caption: "Kategooriad" },
+							{ caption: "Alamkategooriad" },
+							{ caption: "Organisatsioonid" },
+							{ caption: "Üksused" },
+							{ caption: "Alamüksused" },
+							{ caption: "Töötajad" }
+						];
+						
+					}
 					if (custom_config) {
 						$.extend(config, custom_config);
 					}
@@ -305,21 +335,21 @@ $.extend(window.AW.UI, (function(){
 				}
 			}
 			
+			var vmParticipant = function (_data) {
+				var self = this;
+				var properties = ["id", "impl", "time_guess", "time_real", "time_to_cust", "billable"];
+				vmCore.call(self, _data, properties);
+			};
+			
 			var vmEvent = function (_data) {
 				var self = this;
-				if (_data && _data.startDate && !_data.start1) {
-					_data.start1 = _data.startDate;
-				}
-				if (_data && _data.endDate && !_data.end) {
-					_data.end = _data.endDate;
-				}
 				if (_data && _data.start1) {
 					_data.start1_show = convertTimestampToDate(_data.start1);
 				}
 				if (_data && _data.end) {
 					_data.end_show = convertTimestampToDate(_data.end);
 				}
-				var properties = ["id", "name", "start1_show", "end_show"];
+				var properties = ["id", "name", "start1_show", "end_show", "comment", "content"];
 				vmCore.call(self, _data, properties);
 				
 				self.start1 = ko.computed(function(){
@@ -343,18 +373,23 @@ $.extend(window.AW.UI, (function(){
 					for (var i in items) {
 						var found = false;
 						for (var j in self.participants()) {
-							if (self.participants()[j].id == items[i].id) {
+							if (self.participants()[j].impl().id == items[i].id) {
 								found = true;
 								break;
 							}
 						}
 						if (!found) {
-							self.participants.push(items[i]);
+							self.participants.push(new vmParticipant({ impl: items[i] }));
 						}
 					}
 				};
-				
-				self.participants = ko.observableArray(_data && _data.participants ? _data.participants : []);
+				participants = [];
+				if (_data && _data.participants) {
+					for (var i in _data.participants) {
+						participants.push(new vmParticipant(_data.participants[i]));
+					}
+				}
+				self.participants = ko.observableArray(participants);
 				self.selectParticipantsFromColleagues = function () {
 					AW.UI.modal_search.open("modal_search_employee", { defaultSource: null, multiple: true, onSelect: addParticipants });
 				};
@@ -388,11 +423,13 @@ $.extend(window.AW.UI, (function(){
 			};
 			vmEvent.prototype.toJSON = function() {
 				return {
-					id: this.id,
-					name: this.name,
-					start1: this.start1,
-					end: this.end,
-					participants: this.participants()
+					id: this.id(),
+					name: this.name(),
+					comment: this.comment(),
+					content: this.content(),
+					start1: this.start1(),
+					end: this.end(),
+					participants: ko.toJS(this.participants())
 				};
 			}
 
@@ -408,8 +445,10 @@ $.extend(window.AW.UI, (function(){
 						dataType: "json",
 						success: function (events) {
 							for (var i in events) {
-								events[i].startDate = new Date(events[i].startDate*1000);
-								events[i].endDate = new Date(events[i].endDate*1000);
+								events[i].startDate = new Date(events[i].start1*1000);
+								events[i].endDate = new Date(events[i].end*1000);
+								events[i].awContent = events[i].content;
+								events[i].content = events[i].name;
 							}
 							YUI().use('aui-scheduler', function(Y) {					  
 								var agendaView = new Y.SchedulerAgendaView({ string: { noEvents: 'Eelseisvad s&uuml;ndmused puuduvad' } });
@@ -469,7 +508,6 @@ $.extend(window.AW.UI, (function(){
 								});
 								scheduler.on({
 									'scheduler-event:change': function(event) {
-										console && console.log(event.type);
 										var itemData = event.target._state.data;
 										AW.UI.calendar.saveEvent({
 											id: itemData.id.value || map[itemData.clientId.value] || null,
@@ -480,26 +518,12 @@ $.extend(window.AW.UI, (function(){
 										});
 									},
 									'scheduler-events:remove': function(event) {
-										console && console.log(event.type);
 										var item = scheduler.getEvents()[event.index]._state.data.id.value || null;
 										if (item) {
 											AW.UI.calendar.deleteEvent(item);
 										}
 									},
-									'scheduler-event-recorder:edit': function(event) {
-										return;
-										console && console.log(event.type);
-										var itemData = eventRecorder.getUpdatedSchedulerEvent()._state.data;
-										AW.UI.calendar.saveEvent({
-											id: itemData.id.value || map[itemData.clientId.value] || null,
-											clientId: itemData.clientId.value,
-											name: itemData.content.value,
-											start1: itemData.startDate.value.getTime()/1000,
-											end: itemData.endDate.value.getTime()/1000
-										});
-									},
 									'scheduler-base:click': function(event) {
-										console && console.log(event.type);
 										var toolbar = $(".aui-scheduler-event-recorder-overlay .yui3-widget-ft .aui-toolbar-content .aui-btn-group");
 										if (!toolbar.data("custom-processed")) {
 											var button = $('<button class="aui-btn">Detailid</button>');
@@ -507,12 +531,13 @@ $.extend(window.AW.UI, (function(){
 											button.click(function (event) {
 												event.preventDefault();
 												var eventData = (eventRecorder.get("event") || eventRecorder.clone())._state.data;
-												console && console.log(eventData);
 												showModal({
 													id: eventData.id.value || map[eventData.clientId.value] || null,
 													name: $(".aui-scheduler-event-recorder-overlay .aui-scheduler-event-recorder-overlay-content").val(),
 													start1: eventData.startDate.value.getTime()/1000,
 													end: eventData.endDate.value.getTime()/1000,
+													comment: eventData.comment ? eventData.comment.lazy.value : "",
+													content: eventData.awContent ? eventData.awContent.lazy.value : "",
 													participants: eventData.participants ? eventData.participants.lazy.value : []
 												});
 												$(".aui-scheduler-event-recorder-overlay").addClass("yui3-overlay-hidden");
@@ -574,7 +599,7 @@ $.extend(window.AW.UI, (function(){
 								scheduler.syncEventsUI();
 							}
 							if (callback) {
-								eventDetails = new vmEvent(data);
+//								eventDetails = new vmEvent(data);
 								callback();
 							}
 						}

@@ -31,6 +31,9 @@
 	@property action_document type=relpicker reltype=RELTYPE_DOCUMENT
 	@caption Otsingute kuvamise dokument
 	
+	@property search_by_employee_name type=checkbox
+	@caption Otsi t&ouml;&ouml;taja nimest
+	
 @reltype DOCUMENT clid=CL_DOCUMENT value=1
 @caption Dokument
 

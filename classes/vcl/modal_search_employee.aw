@@ -34,12 +34,12 @@ class modal_search_employee extends modal_search {
 		$property["data"] = array("bind" => "value: source");
 	}
 	
-	protected function get_children($source_id, $parent) {
+	protected function get_children($source_id, $parents, $level) {
 		if (!object_loader::can("", $source_id)) {
 			return new object_list();
 		}
 		$source = obj($source_id, null, $this->source_class);
-		$parents = (array)$parent;
+		$parents = (array)$parents;
 		foreach ($parents as $id => $parent) {
 			if (!object_loader::can("", $parent)) {
 				unset($parents[$id]);
@@ -54,7 +54,13 @@ class modal_search_employee extends modal_search {
 			$ol = $source->get_sections($source);
 		}
 		
-		return $ol;
+		$oids = automatweb::$request->arg_isset("oid") ? array_map('trim', explode(",", automatweb::$request->arg("oid"))) : array();
+		$names = automatweb::$request->arg_isset("name") ? explode(",", automatweb::$request->arg("name")) : array();
+		
+		return array(
+			$level => $ol,
+			2 => $this->get_items($source_id, $parents, $oids, $names),
+		);
 	}
 	
 	protected function get_items($source_id, $parents, $oids, $names) {
@@ -77,10 +83,26 @@ class modal_search_employee extends modal_search {
 			$names[$i] = "%{$name}%";
 		}
 		
-		return count($employee_ids) > 0 ? new object_list(array(
+		$ol = count($employee_ids) > 0 ? new object_list(array(
 			"class_id" => crm_person_obj::CLID,
 			"oid" => $employee_ids,
 			"name" => $names,
 		)) : new object_list();
+		
+		$items = array();
+		foreach ($ol->arr() as $item) {
+			$items[] = array(
+				"id" => $item->id,
+				"name" => $item->name,
+				"phone" => $item->get_phone_number(),
+				"email" => $item->get_mail(),
+				"organisation" => array(
+					"id" => $source->id,
+					"name" => $source->name,
+				),
+			);
+		}
+		
+		return $items;
 	}
 }

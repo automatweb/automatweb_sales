@@ -79,6 +79,8 @@ features = array()
 	private $untitled_text = "[untitled]";
 
 	private $js_tree_data_source_url; //aw_uri object
+	
+	private $draggable;
 
 	//////////////TODO: m22rata skoop
 	var $auto_open_tmp;
@@ -120,6 +122,7 @@ features = array()
 			"persist_state" => 1,
 			"item_name_length" => isset($pr["item_name_length"]) ? $pr["item_name_length"] : null
 		));
+		$this->draggable = !empty($arr["property"]["draggable"]);
 		$pr["vcl_inst"] = $this;
 		return array($pr["name"] => $pr);
 	}
@@ -599,6 +602,24 @@ features = array()
 	**/
 	function finalize_tree($arr = array())
 	{
+		if (aw_template::bootstrap()) {
+			$treeview = new alloyui_treeview();
+			
+			$treeview->set_id($this->tree_id);
+			if ($this->has_root) {
+				$treeview->set_root(array(
+					"id" => $this->rootnode,
+					"name" => $this->tree_dat["root_name"],
+					"url" => $this->tree_dat["root_url"],
+				));
+			}
+			$treeview->set_items($this->itemdata);
+			$treeview->set_get_branch_func($this->get_branch_func);
+			$treeview->set_draggable($this->draggable);
+			
+			return automatweb::$request->arg("action") == "change" ? $treeview->render() : $treeview->json();
+		}
+		
 		if (!empty($arr["rootnode"]))
 		{
 			$this->rootnode = $arr["rootnode"];

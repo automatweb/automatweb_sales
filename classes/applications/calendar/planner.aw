@@ -2964,6 +2964,7 @@ class planner extends class_base
 	**/
 	public function get_events($arr)
 	{
+		$events = array();
 		$events_data = $this->_init_event_source(array(
 			"id" => isset($arr["id"]) ? $arr["id"] : 0,
 			"type" => "month",
@@ -2971,16 +2972,54 @@ class planner extends class_base
 			"date" => date("d-m-Y"),
 		));
 		
-		$events = array();
-		
-		foreach ($events_data as $event_data) {
-			$events[] = array(
-				"id" => $event_data["id"],
-				"content" => $event_data["name"],
-				"startDate" => $event_data["start"],
-				"endDate" => $event_data["end"],
-				"participants" => !empty($event_data["parts"]) ? array_values($event_data["parts"]) : array(),
+		if (is_array($events_data) and !empty($events_data)) {
+			
+			$event_ids = array();
+			foreach ($events_data as $event_data) {
+				$event_ids[] = $event_data["id"];
+			}
+			
+			$participations = new object_data_list(
+				array(
+					"class_id" =>  CL_TASK_ROW,
+					"primary" => 1,
+					"task" => $event_ids,
+				),
+				array(
+					CL_TASK_ROW => array("task", "impl", "impl.name", "on_bill", "time_guess", "time_real", "time_to_cust"),
+				)
 			);
+			
+			$participants = array();
+			foreach ($participations->arr() as $participation) {
+				if (!isset($participants[$participation["task"]])) {
+					$participants[$participation["task"]] = array();
+				}
+				$participants[$participation["task"]][] = array(
+					"id" => $participation["oid"],
+					"impl" => array(
+						"id" => $participation["impl"],
+						"name" => $participation["impl.name"],
+					),
+					"billable" => (bool)$participation["on_bill"],
+					"time_guess" => (double)$participation["time_guess"],
+					"time_real" => (double)$participation["time_real"],
+					"time_to_cust" => (double)$participation["time_to_cust"],
+				);
+			}
+			
+			foreach ($events_data as $event_data) {
+				$events[] = array(
+					"id" => $event_data["id"],
+					"name" => $event_data["name"],
+					"comment" => $event_data["comment"],
+					"content" => $event_data["content"],
+					"start1" => $event_data["start"],
+					"end" => $event_data["end"],
+//					"participants" => !empty($event_data["parts"]) ? array_values($event_data["parts"]) : array(),
+					"participants" => !empty($participants[$event_data["id"]]) ? $participants[$event_data["id"]] : array(),
+				);
+			}
 		}
 		
 		$json_encoder = new json();
@@ -2993,9 +3032,10 @@ class planner extends class_base
 	/**
 		@attrib name=save_event
 	**/
-	public function save_event ($arr) {
+	public function save_event () {
 		$planner = obj(automatweb::$request->arg("id"), null, CL_PLANNER);
 		$data = automatweb::$request->arg_isset("data") ? automatweb::$request->arg("data") : null;
+		
 		if (!empty($data["id"]) and object_loader::can("", $data["id"])) {
 			$event = obj($data["id"]);
 		} else {
@@ -3012,6 +3052,8 @@ class planner extends class_base
 				
 				case "start1":
 				case "end":
+				case "comment":
+				case "content":
 					$event->set_prop($key, $value);
 					break;
 			}
@@ -3019,29 +3061,51 @@ class planner extends class_base
 		$event->save();
 		
 		if (!empty($data["participants"])) {
-			$event_instance = $event->instance();
 			foreach ($data["participants"] as $participant) {
-				if (object_loader::can("", $participant["id"])) {
-					$event_instance->add_participant($event, obj($participant["id"]));
-				}
+				$event->set_participant_data(array(
+					"person" => $participant["impl"]["id"],
+					"on_bill" => $participant["billable"] === "true",
+					"time_guess" => $participant["time_guess"],
+					"time_real" => $participant["time_real"],
+					"time_to_cust" => $participant["time_to_cust"],
+				));
 			}
 		}
 		
 		$participants = array();
-		foreach ($event->connections_to(array(
-			"type" => array(8,9,10),
-			"from.class_id" => CL_CRM_PERSON,
-		)) as $connection) {
-			$participants[] = array("id" => $connection->prop("from"), "name" => $connection->prop("from.name"));
+		$participations = new object_data_list(
+			array(
+				"class_id" =>  CL_TASK_ROW,
+				"primary" => 1,
+				"task" => $event->id,
+			),
+			array(
+				CL_TASK_ROW => array("task", "impl", "impl.name", "on_bill", "time_guess", "time_real", "time_to_cust"),
+			)
+		);
+		foreach ($participations->arr() as $participation) {
+			$participants[] = array(
+				"id" => $participation["oid"],
+				"impl" => array(
+					"id" => $participation["impl"],
+					"name" => $participation["impl.name"],
+				),
+				"billable" => (bool)$participation["on_bill"],
+				"time_guess" => (double)$participation["time_guess"],
+				"time_real" => (double)$participation["time_real"],
+				"time_to_cust" => (double)$participation["time_to_cust"],
+			);
 		}
 		
 		$json_encoder = new json();
 //		$json = $event->json();
 		$json = array(
 			"id" => $event->id,
-			"content" => $event->name,
-			"startDate" => $event->prop("start1"),
-			"endDate" => $event->prop("end"),
+			"name" => $event->name,
+			"comment" => $event->comment,
+			"content" => $event->content,
+			"start1" => $event->prop("start1"),
+			"end" => $event->prop("end"),
 			"participants" => $participants,
 		);
 		$json = $json_encoder->encode($json);

@@ -73,6 +73,15 @@
             <reltype>RELTYPE_DOCUMENT</reltype>
             <caption>Otsingute kuvamise dokument</caption>
       </property>
+      <property>
+            <name>search_by_employee_name</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>checkbox</type>
+            <caption>Otsi t&amp;amp;ouml;&amp;amp;ouml;taja nimest</caption>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>

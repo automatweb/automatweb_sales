@@ -15,7 +15,9 @@
 	{VAR:css_styles_head}
 
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/js-min.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/reload_properties_layouts.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/jquery-ui-1.10.3.min.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/jquery.cookie.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/bootstrap/js/bootstrap.datepicker.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
@@ -35,6 +37,32 @@
 	<![endif]-->
 </head>
 <body onload="check_generic_loader();">
+	
+<style>
+.the-switch-template-button {
+	position: fixed;
+	top: 0;
+	left: -80px;
+	width: 80px;
+	border-right: 20px solid rgba(0, 0, 0, 0);
+	border-top: 20px solid rgb(246, 246, 246);
+	z-index: 99999;
+}
+.the-switch-template-button a {
+	position: relative;
+	top: -22px;
+	left: 10px;
+	z-index: 999999;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.the-switch-template-button:hover {
+	left: 0;
+}
+</style>
+<div class="the-switch-template-button">
+	<a href="/automatweb/orb.aw?class=admin_if&action=switch_template">VANA LIIDES</a>
+</div>
 	
 	<div class="aw-container">
 

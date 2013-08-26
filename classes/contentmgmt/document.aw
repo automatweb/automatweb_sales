@@ -3238,6 +3238,14 @@ class document extends aw_template implements orb_public_interface
 				));
 				$this->resque_from_meta($table, $field);
 				return true;
+			
+			case "aw_document_status":
+				$this->db_add_col($table, array(
+					"name" => $field,
+					"type" => "int",
+					"default" => doc_obj::STATUS_PUBLISHED,
+				));
+				return true;
 
 			case "user1":
 			case "user2":

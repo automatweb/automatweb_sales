@@ -350,7 +350,7 @@ class crm_company_workers_manager extends class_base
 		}
 		if ($arr["name"] === "employees_list_container")
 		{
-			if(acl_base::can("view" ,$_GET["es_c"]))
+			if(automatweb::$request->arg_isset("es_c") && acl_base::can("view", automatweb::$request->arg("es_c")))
 			{
 				$o = obj($_GET["es_c"]);
 				switch($o->class_id())

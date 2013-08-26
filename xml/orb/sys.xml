@@ -1,56 +1,56 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="sys" folder="" extends="aw_template">
-		<action name="gen_db_struct" login="root">
+		<action name="gen_db_struct">
 			<function name="gen_db_struct">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="show_table_sizes" login="root">
+		<action name="show_table_sizes">
 			<function name="show_table_sizes">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="gen_create_tbl" login="root">
+		<action name="gen_create_tbl">
 			<function name="gen_create_tbl">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="dbsync" login="root">
+		<action name="dbsync">
 			<function name="db_compare_choose_donor">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="db_compare_dbs" login="root">
+		<action name="db_compare_dbs">
 			<function name="_db_compare_dbs">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="submit_compare_db" login="root">
+		<action name="submit_compare_db">
 			<function name="submit_compare_db">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="check_indexes" login="root">
+		<action name="check_indexes">
 			<function name="do_check_indexes">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="has_objects" login="root">
+		<action name="has_objects">
 			<function name="has_objects">
 				<arguments>
 					<required name="clid" type="int" />
@@ -58,21 +58,21 @@
 			</function>
 		</action>
 
-		<action name="last_mod" login="root">
+		<action name="last_mod">
 			<function name="last_mod">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="perf" login="root">
+		<action name="perf">
 			<function name="perf">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="test_object_types" login="root">
+		<action name="test_object_types">
 			<function name="test_object_types">
 				<arguments>
 					<required name="parent" acl="view;add" />
@@ -80,35 +80,35 @@
 			</function>
 		</action>
 
-		<action name="test_sites" login="root">
+		<action name="test_sites">
 			<function name="test_sites">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="do_dump" login="root">
+		<action name="do_dump">
 			<function name="db_dump">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="site_gzip" login="root">
+		<action name="site_gzip">
 			<function name="site_gzip">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="do_test_dump" login="root">
+		<action name="do_test_dump">
 			<function name="do_test_dump">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="make_prop" login="root">
+		<action name="make_prop">
 			<function name="make_property_definitions">
 				<arguments>
 					<optional name="classes" type="string" />
@@ -116,35 +116,35 @@
 			</function>
 		</action>
 
-		<action name="make_orb" login="root">
+		<action name="make_orb">
 			<function name="make_orb_definitions">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="make_msg" login="root">
+		<action name="make_msg">
 			<function name="make_message_maps">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="make_ini" login="root">
+		<action name="make_ini">
 			<function name="make_ini_file">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="make_trans" login="root">
+		<action name="make_trans">
 			<function name="make_translations">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="list_untrans" login="root">
+		<action name="list_untrans">
 			<function name="list_missing_translations">
 				<arguments>
 					<optional name="lang" />
@@ -153,35 +153,35 @@
 			</function>
 		</action>
 
-		<action name="make_class" login="root">
+		<action name="make_class">
 			<function name="make_class">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="save_class" login="root">
+		<action name="save_class">
 			<function name="save_class">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="consolidate_template_logs" login="root">
+		<action name="consolidate_template_logs">
 			<function name="consolidate_template_logs">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="prop_stats" login="root">
+		<action name="prop_stats">
 			<function name="prop_stats">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="clid_stats" login="root">
+		<action name="clid_stats">
 			<function name="clid_stats">
 				<arguments>
 				</arguments>

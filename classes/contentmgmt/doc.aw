@@ -7,6 +7,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
 @tableinfo documents index=docid master_table=objects master_index=brother_of
 @tableinfo planner index=id master_table=objects master_index=brother_of
+@tableinfo aw_crm_document index=aw_oid master_index=brother_of master_table=objects
 
 @default table=documents
 @default group=general
@@ -17,11 +18,14 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@property brother_warning type=text store=no no_caption=1
 	@property simultaneous_warning type=text store=no no_caption=1
 
-	@property status type=status default=0
+	@property status type=status default=0 table=objects
 	@caption Aktiivne
 
 	@property title type=textbox size=60 trans=1
 	@caption Pealkiri
+
+	@property document_status type=select field=aw_document_status
+	@caption Staatus
 
 	@property subtitle type=textbox size=60 trans=1
 	@caption Alapealkiri
@@ -241,6 +245,20 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
 	@property associated_file type=fileupload store=no
 	@caption Lisa fail
+	
+@default group=parties
+
+	@property task type=popup_search clid=CL_TASK table=aw_crm_document field=aw_task
+	@caption &Uuml;lesanne
+
+	@property customer type=popup_search clid=CL_CRM_COMPANY table=aw_crm_document field=aw_customer
+	@caption Klient
+
+	@property creator type=relpicker reltype=RELTYPE_CREATOR table=aw_crm_document field=aw_creator
+	@caption Koostaja
+
+	@property reader type=relpicker reltype=RELTYPE_READER table=aw_crm_document field=aw_reader
+	@caption Lugeja
 
 @default group=settings
 
@@ -329,6 +347,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@caption &Otilde;igused
 
 
+@groupinfo parties caption=Osapooled
 @groupinfo calendar caption=Kalender
 @groupinfo settings caption=Seadistused icon=archive.gif
 @groupinfo comments caption=Kommentaarid submit=no
@@ -338,8 +357,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 @groupinfo transl caption=T&otilde;lgi
 @groupinfo relationmgr caption=Seostehaldur submit=no
 @groupinfo acl caption=&Otilde;igused
-
-
 
 @reltype TIMING value=20 clid=CL_TIMING
 @caption Aeg
@@ -368,9 +385,21 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 @reltype KEYWORD value=28 clid=CL_KEYWORD
 @caption V&otilde;tmes&otilde;na
 
+@reltype AUTHOR value=30 clid=CL_CRM_PERSON
+@caption Autor
+
+@reltype EDITOR value=31 clid=CL_CRM_PERSON
+@caption Koostaja
+
+@reltype EVENT value=32 clid=CL_TASK,CL_CRM_MEETING
+@caption S&uuml;ndmus
+
+@reltype ORDER value=33 clid=CL_MRP_CASE
+@caption Tellimus
+
 */
 
-class doc extends class_base
+class doc extends crm_document_base
 {
 	protected $_save_versions;
 	protected $_preview;
@@ -411,6 +440,11 @@ class doc extends class_base
 
 		switch($data["name"])
 		{
+			case "document_status":
+				var_dump($arr["obj_inst"]->prop("document_status"));
+				$data["options"] = doc_obj::get_document_status_names();
+				break;
+
 			case "brother_warning":
 				if ($arr["obj_inst"]->is_brother())
 				{
@@ -1789,5 +1823,31 @@ function awDocUnloadHandler()
 }
 EOF;
 		return $rv;
+	}
+	
+	/**
+		@attrib name=notify_participants
+	**/
+	function notify_participants ($arr)
+	{
+		$participants = automatweb::$request->arg_isset("participants") ? automatweb::$request->arg("participants") : array();
+		$document = obj(automatweb::$request->arg("id"), null, doc_obj::CLID);
+		$person = obj(user::get_current_person(), null, crm_person_obj::CLID);
+		foreach ($participants as $participant)
+		{
+			if (isset($participant["email"]) and is_email($participant["email"]))
+			{
+				$participant["email"] = "kaareln@gmail.com";
+				$subject = sprintf(t("Teade dokumendi '%s' muudatustest"), $document->name);
+				$message = sprintf(t("Tere %s,
+
+%s muutis dokumenti '%s'. Muudatustega saab tutvuda aadressil %s.
+
+%s
+"), $participant["name"], $person->name, $document->name, html::get_change_url($document), aw_locale::get_lc_date($document->modified, aw_locale::DATETIME_LONG_FULLYEAR));
+				send_mail($participant["email"], $subject, $message, "From: ".aw_ini_get("users.mail_from"));
+			}
+		}
+		die("OK");
 	}
 }

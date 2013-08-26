@@ -3032,7 +3032,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 			Array of object id-s
 		@errors
 	**/
-	public function get_customer_ids(object $category = null)
+	public function get_customer_ids(object $category = null, $recursive = false)
 	{
 		if ($category and !$category->is_a(CL_CRM_CATEGORY))
 		{
@@ -3046,7 +3046,12 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 
 		if ($category)
 		{
-			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $category->id();
+			$category_id = $category->id();
+			if ($recursive) {
+				$category_hierarchy = $this->get_customer_categories_hierarchy($category);
+				$category_id = array_merge(array($category->id), self::__flatten_hierarchy($category_hierarchy));
+			}
+			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $category_id;
 		}
 		
 		$list = new object_data_list(
@@ -3056,6 +3061,16 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 			)
 		);
 		return $list->arr();
+	}
+	
+	private static function __flatten_hierarchy ($hierarchy) {
+		$flat = array();
+		$children = array();
+		foreach ($hierarchy as $node => $subhierarchy) {
+			$flat[] = $node;
+			$flat = array_merge($flat, self::__flatten_hierarchy($subhierarchy));
+		}
+		return $flat;
 	}
 
 	/**

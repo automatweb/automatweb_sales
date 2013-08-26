@@ -1,5 +1,9 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="document_modal" folder="contentmgmt" extends="aw_modal">
+		<action name="get_parents_tree_items">
+			<function name="get_parents_tree_items">
+			</function>
+		</action>
 	</class>
 </orb>

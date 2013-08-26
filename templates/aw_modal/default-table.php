@@ -1,15 +1,41 @@
 <?php /* TEMPORARY */ if (!empty($table["hack"])) { ?>
 <style>
+.hack-wrap {
+	width: 705px;
+/*	display: inline-block; */
+}
+.hack-2 {
+	width: 350.5px;
+	display: inline-block;
+}
+.hack-3 {
+	width: 233px;
+	display: inline-block;
+}
+.hack-4 {
+	width: 174.25px;
+	display: inline-block;
+}
+.hack-5 {
+	width: 139px;
+	display: inline-block;
+}
+.hack-6 {
+	width: 115.5px;
+	display: inline-block;
+}
+.hack-wrap h5 {
+	display: inline-block;
+}
 .hack-col {
 	float: left;
 	height: 200px;
-	width: 236px;
 	border: 1px solid #e5e5e5;
 	border-right: 0;
 }
 .hack-inner {
 	height: 200px;
-	width: 236px;
+	width: 100%;
 }
 .hack-col:first-child {
 	-webkit-border-radius: 6px 0 0 6px;
@@ -22,14 +48,19 @@
 	border-radius: 0 6px 6px 0;
 	border-right: 1px solid #e5e5e5;
 }
+/* This causes jQuery to crash - WTF?!
 .hack-col:only-child {
+	width: 235px;
 	-webkit-border-radius: 6px 6px 6px 6px;
 	-moz-border-radius: 6px 6px 6px 6px;
 	border-radius: 6px 6px 6px 6px;
 	border-right: 1px solid #e5e5e5;
 }
+*/
+.hack-selected {
+	float: right;
+}
 .bs-docs-sidenav {
-	width: 236px;
 	margin: 0;
 }
 .bs-docs-sidenav > li > a {
@@ -43,27 +74,35 @@
 	border-radius: 0 0 0 0;
 }
 </style>
-<div>
-	<div class="hack-col antiscroll-wrap">
+<div class="hack-selected">
+	<h5>Valitud objektid</h5>
+	<div>
+		<div class="hack-col antiscroll-wrap">
+			<div class="hack-inner antiscroll-inner">
+				<ul class="nav nav-list bs-docs-sidenav hack-3" data-bind="foreach: selected">
+					<li><a href="javascript:void(0)" data-bind="click: $root.remove"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="hack-wrap" data-bind="foreach: levels">
+	<div class="pull-left" data-bind="css: $root.css, visible: visible" style="margin: 0 1px">
+		<h5 data-bind="text: caption"></h5>
+	</div>
+</div>
+<div class="hack-wrap" data-bind="foreach: levels">
+	<div class="hack-col antiscroll-wrap" data-bind="css: $root.css, visible: visible">
 		<div class="hack-inner antiscroll-inner">
-			<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: levels()[0].loaded, foreach: levels()[0].items">
-				<li><a href="javascript:void(0)" data-bind="click: $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
+			<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: loaded, foreach: items, css: $root.css">
+				<li data-bind="visible: !$root.isSelected($data)"><a href="javascript:void(0)" data-bind="click: $parent.index() == $root.levels().length - 1 ? $root.select : $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
 			</ul>
-			<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: levels()[0].loading">
+			<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: loading">
 				<div class="bar" style="width: 100%;"></div>
 			</div>
 		</div>
 	</div>
-	<div class="hack-col antiscroll-wrap">
-		<div class="hack-inner antiscroll-inner">
-			<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: levels()[1].loaded, foreach: levels()[1].items">
-				<li><a href="javascript:void(0)" data-bind="click: $root.toggle"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
-			</ul>
-			<div class="progress progress-striped active" style="width: 50%; margin: auto; margin-top: 90px;" data-bind="visible: levels()[1].loading">
-				<div class="bar" style="width: 100%;"></div>
-			</div>
-		</div>
-	</div>
+	<!--
 	<div class="hack-col antiscroll-wrap">
 		<div class="hack-inner antiscroll-inner">
 			<ul class="nav nav-list bs-docs-sidenav" data-bind="visible: !loading(), foreach: results">
@@ -74,15 +113,7 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="span">
-	<div class="hack-col antiscroll-wrap">
-		<div class="hack-inner antiscroll-inner">
-			<ul class="nav nav-list bs-docs-sidenav" data-bind="foreach: selected">
-				<li><a href="javascript:void(0)" data-bind="click: $root.remove"><i class="icon-chevron-right"></i> <span data-bind="text: name ? name : '(nimetu)'"></span></a></li>
-			</ul>
-		</div>
-	</div>
+	-->
 </div>
 <?php } else { ?>
 <?php
@@ -110,7 +141,7 @@ if (!function_exists("parse_table_row")) {
 }
 ?>
 <h4><?php echo $table["caption"]; ?></h4>
-<table id="<?php echo $table["id"]; ?>" class="table table-hover table-condensed">
+<table id="{VAR:prefix}<?php echo $table["id"]; ?>" class="table table-hover table-condensed">
 	<thead>
 		<tr>
 			<?php parse_table_row($table["header"]["fields"], $table, false, "th"); ?>
@@ -142,7 +173,7 @@ if (!function_exists("parse_table_row")) {
 	var selected_expandables = [];
 	var visible_expandables = $([]);
 	$("#<?php echo $table["id"]; ?> tbody").sortable({
-		handle: 'td:first',
+		handle: "<?php echo isset($table["reorderable-handle"]) ? $table["reorderable-handle"] : "td:first"; ?>",
 		axis: "y",
 		cancel: "[data-expandable=true]",
 		helper: function(e, tr) {
@@ -163,6 +194,7 @@ if (!function_exists("parse_table_row")) {
 		},
 		start: function (event, ui) {
 			visible_expandables = $(ui.item.siblings("[data-expandable=true]:visible")).hide();
+			<?php echo isset($table["reorderable-start"]) ? "{$table["reorderable-start"]}(event, ui)" : ""; ?>
 		},
 		update: function (event, ui) {
 			while (true) {
@@ -180,6 +212,7 @@ if (!function_exists("parse_table_row")) {
 			}
 			selected_expandables = [];
 			visible_expandables.show();
+			<?php echo isset($table["reorderable-update"]) ? "{$table["reorderable-update"]}(event, ui)" : "";?>
 		},
 	}).disableSelection();
 })();

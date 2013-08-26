@@ -73,7 +73,7 @@ class crm_document_base extends class_base
 					}
 				}
 				$prop["options"] = array("" => "") + $ol->names();
-				if (!isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
+				if (isset($prop["value"]) && !isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
 				{
 					$tmp = obj($prop["value"]);
 					$prop["options"][$tmp->id()] = $tmp->name();
@@ -99,7 +99,7 @@ class crm_document_base extends class_base
 					$ol = new object_list(array("oid" => $i->get_my_customers()));
 				}
 				$prop["options"] = array("" => "") + $ol->names();
-				if (!isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
+				if (isset($prop["value"]) && !isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
 				{
 					$tmp = obj($prop["value"]);
 					$prop["options"][$tmp->id()] = $tmp->name();
@@ -142,7 +142,7 @@ class crm_document_base extends class_base
 						$prop["options"] = array("" => "");
 					}
 				}
-				if (!isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
+				if (isset($prop["value"]) && !isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
 				{
 					$tmp = obj($prop["value"]);
 					$prop["options"][$tmp->id()] = $tmp->name();
@@ -337,7 +337,7 @@ class crm_document_base extends class_base
 					$pred_num[] = $predo->prop("ord");
 				}
 			}
-			if (count($pred_num) == 0 && $prev_idx != "")
+			if (count($pred_num) == 0 && isset($prev_idx) && $prev_idx != "")
 			{
 				$pred_num[] = $prev_idx;
 			}

@@ -104,6 +104,7 @@
 			<caption />
 			<rel />
 			<draft />
+			<update />
 		</global>
 
 		<checkbox>
@@ -151,6 +152,7 @@
 		</textbox>
 
 		<table>
+			<reorderable />
 		</table>
 
 		<relpicker>
@@ -233,6 +235,7 @@
 			<maxlength />
 			<disabled />
 			<placeholder />
+			<class />
 		</textarea>
 
 		<chooser>
@@ -286,6 +289,7 @@
 		</classificator>
 
 		<treeview>
+			<draggable />
 		</treeview>
 
 		<date_select>
@@ -334,6 +338,9 @@
 			<add_empty>
 			</add_empty>
 		</datetime_select>
+
+		<datetimepicker>
+		</datetimepicker>
 
 		<calendar_selector>
 		</calendar_selector>

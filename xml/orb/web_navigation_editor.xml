@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="web_navigation_editor" folder="" extends="aw_template">
+		<action name="save" all_args="1">
+			<function name="save">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>
