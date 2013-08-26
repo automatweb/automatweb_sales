@@ -35,12 +35,16 @@ class yui_chooser extends aw_template
 						after: {
 							'selectionChange': function(e){
 								buttonGroupCB.getButtons().each(function(option) {
-									Y.one('#' + option.get('name')).set('checked', false);
-									option.removeClass("btn-primary");
+									if (option.get('type') === 'button') {
+										Y.one('#' + option.get('name')).set('checked', false);
+										option.removeClass("btn-primary");
+									}
 								});
 								Y.Array.each(buttonGroupCB.getSelectedButtons(), function(option) {
-									option.addClass("btn-primary");
-									Y.one('#' + option.get('name')).set('checked', true);
+									if (option.get('type') === 'button') {
+										option.addClass("btn-primary");
+										Y.one('#' + option.get('name')).set('checked', true);
+									}
 								});
 								{$onclick}
 							}
