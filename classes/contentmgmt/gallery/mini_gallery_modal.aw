@@ -23,7 +23,7 @@
 
 */
 
-class gallery_modal extends aw_modal {
+class mini_gallery_modal extends aw_modal {
 	
 	protected function get_title() {
 		$name = html::span(array("data" => array("bind" => "text: name() ? name : 'UUS'")));

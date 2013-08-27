@@ -10,7 +10,8 @@ YUI().use("node", function(Y) {
 			file: 41,
 			image: 6,
 			extlink: 21,
-			document: 7
+			document: 7,
+			mini_gallery: 318
 		};
 	}
 	AW.UI.admin_if = (function() {
@@ -199,6 +200,11 @@ YUI().use("node", function(Y) {
 				var self = this;
 				var properties = ["id", "parent", "name", "status", "file", "ord", "comment", "alias", "file_url", "newwindow", "show_framed", "show_icon"];
 				vmCore.call(self, data, properties);
+			},
+			mini_gallery: function (data) {
+				var self = this;
+				var properties = ["id", "parent", "folder"];
+				vmCore.call(self, data, properties);
 			}
 		};
 		
@@ -237,25 +243,37 @@ YUI().use("node", function(Y) {
 					return false;
 				}
 				
+				AW.UI.modal.load("mini_gallery_modal");
 				AW.UI.modal.load("document_modal");
 				AW.UI.modal_search.load("modal_search_employee");
 				$("body").on("click", "a", function (event) {
 					var a = $(this),
 						href = a.attr("href");
-					if (getQueryVariable(href, "class") == "doc" && getQueryVariable(href, "action") == "change") {
-						event.preventDefault();
-						AW.UI.admin_if.open_modal({
-							modal: "document_modal",
-							model: "doc",
-							id: getQueryVariable(href, "id")
-						});
-					} else if (getQueryVariable(href, "class") == "doc" && getQueryVariable(href, "action") == "new") {
-						event.preventDefault();
-						AW.UI.admin_if.open_modal({
-							modal: "document_modal",
-							model: "doc",
-							parent: getQueryVariable(href, "parent")
-						});
+					if (["change", "new"].indexOf(getQueryVariable(href, "action")) != -1) {
+						var match = true;
+						switch (getQueryVariable(href, "class")) {
+							case "doc":
+								AW.UI.admin_if.open_modal({
+									modal: "document_modal",
+									model: "doc",
+									id: getQueryVariable(href, "id")
+								});
+								break;
+								
+							case "mini_gallery":
+								AW.UI.admin_if.open_modal({
+									modal: "mini_gallery_modal",
+									model: "mini_gallery",
+									id: getQueryVariable(href, "id")
+								});
+								break;
+								
+							default:
+								match = false;
+						}
+						if (match) {
+							event.preventDefault();
+						}
 					}
 				});
 			},
