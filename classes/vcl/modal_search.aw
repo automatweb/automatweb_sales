@@ -172,6 +172,8 @@ class modal_search extends aw_modal {
 		$filter = array();
 		if (is_oid($parent) || is_array($parent) && count($parent) > 0) {
 			$filter["parent"] = $parent;
+		} else {
+			$filter["parent"] = aw_ini_get('site_rootmenu');
 		}
 		if (!empty($filter)) {
 			$filter["class_id"] = CL_MENU;
