@@ -19,5 +19,17 @@
 				</arguments>
 			</function>
 		</action>
+		<action name="load_group" all_args="1">
+			<function name="load_group">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="reload_data" all_args="1">
+			<function name="reload_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

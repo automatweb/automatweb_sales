@@ -221,8 +221,14 @@ class aw_modal implements orb_public_interface {
 	private static function parse_on_demand_loaded_group($group) {
 		$template = new aw_php_template("aw_modal", "default-on-demand-group");
 		
+		if (!isset($group["on_demand_url"])) {
+			$group["on_demand_url"] = core::mk_my_orb("load_group", array("group" => $group["id"]));
+		}
+		
 		$template->add_vars(array(
 			"group" => $group,
+			"layouts" =>  self::parse_layouts($group["layouts"]),
+			"properties" => self::parse_properties($group["properties"]),
 		));
 		
 		return $template->render();
@@ -289,47 +295,78 @@ class aw_modal implements orb_public_interface {
 		@param class_id required type=clid
 		@param parent required type=oid
 		@param data required type=array
-		@param removed optional type=array
+		@param deleted optional type=array
 		@returns JSON of the object.
 	**/
 	public function save($arr = array()) {
-		if (!empty($arr["data"]["id"]) and object_loader::can("", $arr["data"]["id"])) {
-			$object = obj($arr["data"]["id"], null, (int)$arr["class_id"]);
-			unset($arr["data"]["id"]);
-		} elseif (is_class_id($arr["class_id"])) {
-			$object = obj(null, null, $arr["class_id"]);
-			$object->set_parent($arr["parent"]);
-			$object->save();
-			unset($arr["parent"]);
+		if (!empty($arr["deleted"]) && is_array($arr["deleted"])) {
+			$this->__delete($arr["deleted"]);
 		}
 		
-		if (isset($arr["data"]) && is_array($arr["data"])) {	
-			foreach ($arr["data"] as $key => $value) {		
-				switch ($key) {
-					case "ord":
-						$object->set_ord($value);
-						break;
-					
-					case "name":
-						$object->set_name($value);
-						break;
-					
-					case "status":
-						$object->set_status($value);
-						break;
-					
-					default:
-						$this->set_property($object, $key, $value);
-				}
-			}
-		}
-		
-		$object->save();
+		$object = $this->_save($arr["parent"], is_class_id($arr["class_id"]) ? (int)$arr["class_id"] : null, isset($arr["data"]) ? $arr["data"] : null);
 		
 		$json = $object->json();
 		
 		automatweb::$result->set_data($json);
 		automatweb::$instance->http_exit();
+	}
+	
+	private function __delete($items) {
+		foreach ($items as $item) {
+			if (object_loader::can("", $item["id"])) {
+				$object = obj($item["id"]);
+				$object->delete();
+			}
+		}
+	}
+	
+	protected function _save($parent, $class_id, $data) {
+		if (!empty($data["id"]) and object_loader::can("", $data["id"])) {
+			$object = obj($data["id"], array(), $class_id);
+			if (object_loader::can("", $parent)) {
+				$object->set_parent($parent);
+			}
+		} else {
+			$object = obj(null, array(), $class_id);
+			$object->set_parent($parent);
+			$object->save();
+		}
+		
+		if (isset($data["id"])) {
+			unset($data["id"]);
+		}
+		if (isset($data["parent"])) {
+			unset($data["parent"]);
+		}
+		
+		if (is_array($data)) {
+			$this->set_properties($object, $data);
+		}
+		
+		$object->save();
+		
+		return $object;
+	}
+	
+	private function set_properties ($object, $data) {
+		foreach ($data as $key => $value) {		
+			switch ($key) {
+				case "ord":
+					$object->set_ord($value);
+					break;
+				
+				case "name":
+					$object->set_name($value);
+					break;
+				
+				case "status":
+					$object->set_status($value);
+					break;
+				
+				default:
+					$this->set_property($object, $key, $value);
+			}
+		}
 	}
 	
 	protected function set_property($object, $key, $value) {
@@ -341,6 +378,42 @@ class aw_modal implements orb_public_interface {
 				$value = $value["id"];
 			}
 			$object->set_prop($key, $value);
+		}
+	}
+	
+	/**
+		@attrib name=load_group
+	**/
+	public function load_group ($arr) {
+		arr($arr);
+		exit;
+	}
+	
+	/**
+		@attrib name=reload_data
+	**/
+	public function reload_data ($arr) {
+		$object = obj(is_oid($arr["data"]["id"]) ? $arr["data"]["id"] : null, array(), (int)$arr["data"]["class_id"]);
+		$this->set_properties($object, $arr["data"]);
+		
+		$data = array();
+		foreach ($arr["properties"] as $property) {
+			$data[$property] = $this->_reload_property($object, $property);
+		}
+		
+		$json_encoder = new json();
+		$json = $json_encoder->encode($data);
+		
+		automatweb::$result->set_data($json);
+		automatweb::$instance->http_exit();
+	}
+	
+	protected function _reload_property($object, $property) {
+		$callback = "_reload_{$property}";
+		if (is_callable(array($this, $callback))) {
+			return $this->$callback($object);
+		} else {
+			return $object->is_property($property) ? $object->prop($property) : null;
 		}
 	}
 }
