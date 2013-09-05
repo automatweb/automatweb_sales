@@ -139,6 +139,8 @@ if (!function_exists("parse_table_row")) {
 		}
 	}
 }
+
+if (is_array($table)) {
 ?>
 <h4><?php echo $table["caption"]; ?></h4>
 <table id="{VAR:prefix}<?php echo $table["id"]; ?>" class="table table-hover table-condensed">
@@ -172,7 +174,7 @@ if (!function_exists("parse_table_row")) {
 (function(){
 	var selected_expandables = [];
 	var visible_expandables = $([]);
-	$("#<?php echo $table["id"]; ?> tbody").sortable({
+	$("#{VAR:prefix}<?php echo $table["id"]; ?> tbody").sortable({
 		handle: "<?php echo isset($table["reorderable-handle"]) ? $table["reorderable-handle"] : "td:first"; ?>",
 		axis: "y",
 		cancel: "[data-expandable=true]",
@@ -212,10 +214,13 @@ if (!function_exists("parse_table_row")) {
 			}
 			selected_expandables = [];
 			visible_expandables.show();
-			<?php echo isset($table["reorderable-update"]) ? "{$table["reorderable-update"]}(event, ui)" : "";?>
+			<?php echo isset($table["reorderable-update"]) ? "{$table["reorderable-update"]}(event, ui)" : ""; ?>
 		},
 	}).disableSelection();
 })();
 </script>
-<?php } ?>
+<?php
+	}
+}
+?>
 <?php /* TEMPORARY */ } ?>
