@@ -37,6 +37,9 @@
 	@property addwidth type=textbox size=5 field=meta method=serialize default=0
 	@caption Pildi aknale lisatav laius
 
+	@property view_mode type=chooser field=meta method=serialize default=0
+	@caption Kuvamise viis
+
 @default group=import
 
 	@property zip_file type=fileupload store=no
@@ -111,6 +114,10 @@ class mini_gallery extends class_base
 
 			case "mg_table":
 				$this->_mg_table($arr);
+				break;
+			
+			case "view_mode":
+				$prop["options"] = mini_gallery_obj::get_view_mode_names();
 				break;
 		};
 		return $retval;
@@ -242,6 +249,10 @@ class mini_gallery extends class_base
 		$this->read_template("show.tpl");
 
 		lc_site_load("mini_gallery", $this);
+		
+		$this->vars(array(
+			"comment" => nl2br($ob->comment),
+		));
 
 		$s_id = $ob->prop("style");
 		$use_style = null;
@@ -410,6 +421,11 @@ class mini_gallery extends class_base
 
 		$this->vars(array(
 			"ROW" => $str
+		));
+		
+		$this->vars(array(
+			"SLIDESHOW" => $ob->view_mode === mini_gallery_obj::VIEW_MODE_SLIDESHOW ? $this->parse("SLIDESHOW") : "",
+			"THUMBNAILS" => $ob->view_mode === mini_gallery_obj::VIEW_MODE_THUMBNAILS ? $this->parse("THUMBNAILS") : ""
 		));
 
 		return $this->parse();

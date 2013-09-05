@@ -94,6 +94,16 @@
             <caption>Pildi aknale lisatav laius</caption>
       </property>
       <property>
+            <name>view_mode</name>
+            <table>objects</table>
+            <group>settings</group>
+            <type>chooser</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <default>0</default>
+            <caption>Kuvamise viis</caption>
+      </property>
+      <property>
             <name>zip_file</name>
             <table>objects</table>
             <group>import</group>
@@ -143,7 +153,6 @@
             <syslog_type>ST_MINI_GALLERY</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <import>
