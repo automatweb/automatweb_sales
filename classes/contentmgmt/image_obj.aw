@@ -339,5 +339,21 @@ class image_obj extends _int_object
 		$tmp = aw_ini_get("site_basedir")."/files/".substr($tmp, $slp)."/".basename($path);
 		return $tmp;
 	}
+	
+	/**	Returns the the object in JSON
+		@attrib api=1
+	**/
+	public function json ($encode = true) {
+		$data = array(
+			"id" => $this->id(),
+			"name" => $this->prop("name"),
+			"ord" => $this->ord(),
+			"comment" => $this->prop("comment"),
+			"parent" => $this->prop("parent"),
+			"url" => $this->get_url(),
+		);
 
+		$json = new json();
+		return $encode ? $json->encode($data, aw_global_get("charset")) : $data;
+	}
 }
