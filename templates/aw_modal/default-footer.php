@@ -1,7 +1,7 @@
-<div class="pull-left">
+<div class="pull-left" id="{VAR:prefix}modal-footer-left">
 	<?php echo implode("", $left_buttons); ?>
 </div>
-<div class="pull-right">
+<div class="pull-right" id="{VAR:prefix}modal-footer-right">
 	<?php echo implode("", $right_buttons); ?>
 </div>
 <?php foreach ($groups as $group) {
@@ -36,16 +36,13 @@
 		$(".modal-footer a, .modal-footer button").removeAttr('disabled');
 	}
 
-	$("#modal-footer-save [data-click-action~='save']").click(function(){
+	$("#{VAR:prefix}modal-footer-left [data-click-action~='save'], #{VAR:prefix}modal-footer-right [data-click-action~='save']").click(function(){
 		var disabled = $(this).attr("disabled");
 		var close = $(this).is("[data-click-action~='close']");
 		if (typeof disabled === "undefined" || disabled === false) {
 			pre_save_callback();
 			<?php echo $save_method; ?>(function(){
 				AW.UI.modal.alert("Muudatused salvestatud!", "alert-success");
-				setTimeout(function () {
-					alert.fadeOut("slow");
-				}, 2500);
 				post_save_callback();
 				if (close) {
 					$(".modal").modal("hide");
