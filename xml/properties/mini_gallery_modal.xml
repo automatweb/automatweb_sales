@@ -8,17 +8,46 @@
             <caption>Nimi</caption>
       </property>
       <property>
-            <name>folders_table</name>
+            <name>comment</name>
             <group>details</group>
+            <type>textarea</type>
+            <field>comment</field>
+            <caption>Tutvustus</caption>
+      </property>
+      <property>
+            <name>view_mode</name>
+            <group>details</group>
+            <type>chooser</type>
+            <field>view_mode</field>
+            <caption>Kuvamise viis</caption>
+      </property>
+      <property>
+            <name>folders_toolbar</name>
+            <group>folders</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <field>folders_toolbar</field>
+      </property>
+      <property>
+            <name>folders_table</name>
+            <group>folders</group>
             <type>table</type>
             <store>no</store>
             <field>folders_table</field>
             <caption>Piltide kataloogid</caption>
       </property>
       <property>
+            <name>images_toolbar</name>
+            <group>management</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <field>images_toolbar</field>
+      </property>
+      <property>
             <name>images_table</name>
             <group>management</group>
             <type>table</type>
+            <reorderable>true</reorderable>
             <store>no</store>
             <field>images_table</field>
             <caption>Pildid</caption>
@@ -33,6 +62,11 @@
                   <icon>home</icon>
                   <parent>general</parent>
             </details>
+            <folders>
+                  <caption>Piltide kataloogid</caption>
+                  <icon>folder-close</icon>
+                  <parent>general</parent>
+            </folders>
             <settings>
                   <caption>Seaded</caption>
                   <icon>wrench</icon>
@@ -41,6 +75,7 @@
             <management>
                   <caption>Haldus</caption>
                   <icon>/automatweb/images/icons/32/289.png</icon>
+                  <load>on_demand</load>
             </management>
       </groupinfo>
 </properties>

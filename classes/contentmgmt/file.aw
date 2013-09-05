@@ -1973,10 +1973,35 @@ class file extends class_base
 	**/
 	public function handle_upload($arr)
 	{
-		$file = $_FILES["file"]["tmp_name"];
-		$file_name = $_FILES["file"]["name"];
-		$file_type = $_FILES["file"]["type"];
+		$data = array();
+		foreach ($_FILES as $file_data)
+		{			
+			$file = (array)$file_data["tmp_name"];
+			$file_name = (array)$file_data["name"];
+			$file_type = (array)$file_data["type"];
+			for ($i = 0; $i < count($file); $i++)
+			{
+				$data[] = $this->__handle_single_upload($file[$i], $file_name[$i], $file_type[$i]);
+			}
+		}
 		
+		if (count($data) === 1)
+		{
+			$data = reset($data);
+		}
+		if (empty($data))
+		{
+			$data = array("error" => "Ootamatu viga!");
+		}
+		
+		$encoder = new json();
+		$json = $encoder->encode($data, aw_global_get("charset"));
+		automatweb::$result->set_data($json);
+		automatweb::$instance->http_exit();
+	}
+	
+	private function __handle_single_upload($file, $file_name, $file_type)
+	{
 		$data = array();
 		
 		if (is_uploaded_file($file))
@@ -2006,13 +2031,8 @@ class file extends class_base
 			$data["file"] = $final_name;
 			$data["name"] = $file_name;
 			$data["type"] = $file_type;
-		} else {
-			$data["error"] = "Ootamatu viga!";
 		}
 		
-		$encoder = new json();
-		$json = $encoder->encode($data, aw_global_get("charset"));
-		automatweb::$result->set_data($json);
-		automatweb::$instance->http_exit();
+		return $data;
 	}
 }

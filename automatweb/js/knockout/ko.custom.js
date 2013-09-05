@@ -160,3 +160,41 @@ ko.bindingHandlers.treeview = {
 		});
     }
 };
+
+ko.bindingHandlers.fileupload = {
+	init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		var options = valueAccessor();
+		var $element = $(element).append("<input type='file' name='files[]' multiple>");
+		$element.fileupload({
+			url: options.url,
+			dataType: 'json',
+			maxFileSize: options.maxFileSize ? options.maxFileSize : 5000000,
+			autoUpload: true,
+			acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+			add: function (e, data) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					options.addHandler && options.addHandler({ name: data.files[0].name, url: e.target.result });
+				}
+				reader.readAsDataURL(data.files[0]);
+		//		uploadButton.clone(true).data(data).click();
+			},
+			done: function (e, data) {
+				return;
+				$.each(data.result.files, function (index, file) {
+					console.log(index, file);
+				});
+			},
+			progressall: function (e, data) {
+				return;
+				var progress = parseInt(data.loaded / data.total * 100, 10);
+				$('#progress .progress-bar').css(
+					'width',
+					progress + '%'
+				);
+			}
+		}).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+	},
+	update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+	}
+};

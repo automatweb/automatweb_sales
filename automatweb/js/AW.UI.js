@@ -124,6 +124,16 @@ $.extend(window.AW.UI, (function(){
 					setTimeout(function() {
 						alert.alert('close');
 					}, 2500);
+				},
+				load_group: function (object, event) {
+					var target = $(event.currentTarget),
+						loader = object[target.data("loader")],
+						tab = $(target.attr("href"));
+					tab.addClass("modal-tab-loading").children().hide();
+					var loaded = loader.call(object, {
+						error: (function () { alert("Vaate uuendamine ebaõnnestus!"); }),
+						complete: (function () { tab.removeClass("modal-tab-loading").children().show(); })
+					});
 				}
 			};
 		})(),

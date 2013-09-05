@@ -11,6 +11,7 @@
 	<link href="{VAR:baseurl}automatweb/js/bootstrap/css/bootstrap.datepicker.css" rel="stylesheet" type="text/css" />
 	<link href="{VAR:baseurl}automatweb/js/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 	<link href="{VAR:baseurl}automatweb/js/jquery/plugins/antiscroll/antiscroll.css" rel="stylesheet" type="text/css" />
+	<link href="{VAR:baseurl}automatweb/js/jquery/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" type="text/css" />
 	<link href="{VAR:baseurl}automatweb/css/tbstyle.css" rel="stylesheet" type="text/css" />
 	{VAR:css_styles_head}
 
@@ -24,6 +25,11 @@
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/knockout/knockout-2.2.0.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/knockout/ko.custom.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/antiscroll/antiscroll.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/jquery-file-upload/js/jquery.fileupload.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/jquery-file-upload/js/jquery.fileupload-process.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/jquery-file-upload/js/jquery.fileupload-image.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/AW.UI.js"></script>
 	
 	<script src="http://cdn.alloyui.com/2.0.0pr5/aui/aui-min.js"></script>
