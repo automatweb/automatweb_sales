@@ -728,6 +728,8 @@ ENDJAVASCRIPT
 		if set, fileupload is disabled
 	@param value optional type=string
 		if set, then all that stuff appears last row before the file upload
+	@param multiple optional type=bool
+		if set, multifile upload is enabled
 	@returns strng/html fileupload
 	**/
 	public static function fileupload($args = array())
@@ -735,12 +737,15 @@ ENDJAVASCRIPT
 		extract($args);
 		$textsize = isset($textsize) && $textsize ? " style=\"font-size: {$textsize};\"" : "";
 		$disabled = (!empty($disabled) ? ' disabled="disabled"' : "");
+		$multiple = (!empty($multiple) ? " multiple" : "");
+		$id = !empty($id) ? " id=\"{$id}\"" : " id=\"{$name}\"";
+		$name = " name=\"{$name}\"";
 		$rv = "";
 		if (!empty($value))
 		{
 			$rv = $value . "<br />";
 		}
-		return $rv . "<input type=\"file\" id=\"{$name}\" name=\"{$name}\"{$disabled}{$textsize} />\n";
+		return $rv . "<input type=\"file\" {$id}{$name}{$disabled}{$textsize}{$multiple} />\n";
 	}
 
 	/**Checkbox
@@ -1334,6 +1339,8 @@ ENDJAVASCRIPT
 		CSS style
 	@param id type=string default=NULL
 		Image element DOM id
+	@param data optional type=array
+		data- fields
 
 	@returns string
 		HTML image
@@ -1365,8 +1372,17 @@ ENDJAVASCRIPT
 		$id = empty($args["id"]) ? "" : " id=\"{$args["id"]}\"";
 		$style= empty($args["style"]) ? "" : " style=\"{$args["style"]}\"";
 		$xhtml_slash = (aw_ini_get("content.doctype") === "xhtml") ? " /" : "";
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
+		{
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
+		}
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
 
-		$image_element = "<img src=\"{$src}\"{$width}{$height}{$border}{$alt}{$title}{$class}{$id}{$style}{$xhtml_slash}>";
+		$image_element = "<img src=\"{$src}\"{$width}{$height}{$border}{$alt}{$title}{$class}{$id}{$style}{$xhtml_slash}{$data}>";
 
 		return $image_element;
 	}
