@@ -4,7 +4,7 @@ if (!function_exists("parse_modal_property")) {
 		switch ($property["type"]) {
 			case "text":
 			?>
-				<div id="{VAR:prefix}<?php echo $property["id"]; ?>" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?> />
+				<div id="{VAR:prefix}<?php echo $property["id"]; ?>" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?>>
 					<?php echo ifset($property, "value"); ?>
 				</div>
 			<?php
@@ -17,7 +17,7 @@ if (!function_exists("parse_modal_property")) {
 				break;
 
 			case "table":
-				echo aw_modal::parse_table($property["table"]);
+				echo aw_modal::parse_table(isset($property["table"]) ? $property["table"] : null);
 				break;
 			
 			case "checkbox":
