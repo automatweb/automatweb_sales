@@ -1,0 +1,49 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>name</name>
+            <group>general</group>
+            <type>textbox</type>
+            <placeholder>Nimi</placeholder>
+            <update>instant</update>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>comment</name>
+            <group>general</group>
+            <type>textarea</type>
+            <placeholder>Kommentaar</placeholder>
+            <field>comment</field>
+            <caption>Kommentaar</caption>
+      </property>
+      <property>
+            <name>status</name>
+            <group>general</group>
+            <type>chooser</type>
+            <field>status</field>
+            <caption>Aktiivne</caption>
+      </property>
+      <property>
+            <name>status_recursive</name>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>status_recursive</field>
+            <caption>Aktiveeri/deaktiveeri ka alamkaustad</caption>
+      </property>
+      <property>
+            <name>alias</name>
+            <group>general</group>
+            <type>textbox</type>
+            <placeholder>Alias</placeholder>
+            <field>alias</field>
+            <caption>Alias</caption>
+      </property>
+      <groupinfo>
+            <general>
+                  <caption>&amp;amp;Uuml;ldandmed</caption>
+                  <icon>/automatweb/images/icons/32/1808.png</icon>
+            </general>
+      </groupinfo>
+</properties>
+

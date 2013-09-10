@@ -360,7 +360,9 @@ class aw_modal implements orb_public_interface {
 					break;
 				
 				case "status":
-					$object->set_status($value);
+					if ($value == object::STAT_ACTIVE || $value == object::STAT_NOTACTIVE) {
+						$object->set_status($value);
+					}
 					break;
 				
 				default:
