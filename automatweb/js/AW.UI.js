@@ -114,6 +114,28 @@ $.extend(window.AW.UI, (function(){
 		})(),
 		table: (function(){
 			return {
+				// FIXME: Make it such that could use data-expandable="true" or smth...
+				toggleExpandable: function(expander) {
+					var a = $(expander),
+						i = a.children("i"),
+						up = i.hasClass('icon-chevron-up');
+					i.removeClass('icon-chevron-down icon-chevron-up');
+					
+					var target = $([]);
+					var row = a.parent().parent().next();
+					while(row.data("expandable")) {
+						target = target.add(row);
+						row = row.next();
+					}
+					
+					if (up) {
+						i.addClass('icon-chevron-down');
+						target.hide();
+					} else {
+						i.addClass('icon-chevron-up');
+						target.show();
+					}
+				},
 				chooser: (function(){
 					var selected = false;
 					return {
