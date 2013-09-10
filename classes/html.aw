@@ -2080,7 +2080,16 @@ ENDJAVASCRIPT;
 			}
 		}
 		$list_items = implode("\n\r", $items);
-		return "<ul {$class} {$style}>{$list_items}</ul>";
+		$data_fields = array();
+		if (isset($args["data"]) and is_array($args["data"]))
+		{
+			foreach($args["data"] as $data_key => $data_value)
+			{
+				$data_fields[] = "data-{$data_key}=\"{$data_value}\"";
+			}
+		}
+		$data = !empty($data_fields) ? " ".implode(" ", $data_fields) : "";
+		return "<ul {$class} {$style} {$data}>{$list_items}</ul>";
 	}
 }
 
