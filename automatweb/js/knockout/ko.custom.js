@@ -176,7 +176,11 @@ ko.bindingHandlers.fileupload = {
 				$.each(data.files, function (i, file) {
 					var reader = new FileReader();
 					reader.onload = function (e) {
-						mapping[file.name] = options.addHandler({ name: file.name, url: e.target.result, inProgress: true, size: file.size, created: AW.util.time() });
+						var fileData = { name: file.name, url: e.target.result, inProgress: true, size: file.size, created: AW.util.time() };
+						if (options.properties) {
+							fileData = $.extend(fileData, options.properties);
+						}
+						mapping[file.name] = options.addHandler(fileData);
 					}
 					reader.readAsDataURL(file);
 				});
