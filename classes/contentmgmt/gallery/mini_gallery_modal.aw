@@ -166,9 +166,10 @@ class mini_gallery_modal extends aw_modal {
 				"expandable" => true,
 				"expandable_rows" => array(
 					array(
-						"name" => html::textbox(array(
+						"name" => html::textarea(array(
 							"data" => array("bind" => "value: comment"),
 							"placeholder" => t("Allkiri"),
+							"rows" => 3,
 						)),
 						"parent" => html::textbox(array(
 							"data" => array("bind" => "value: author"),
