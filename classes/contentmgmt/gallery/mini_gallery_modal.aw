@@ -102,10 +102,26 @@ class mini_gallery_modal extends aw_modal {
 	
 	protected function _get_images_toolbar(&$property) {
 		$property["buttons"] = array(
-			html::span(array(
-				"class" => "btn fileinput-button",
-				"data" => array("bind" => "fileupload: { url: '/automatweb/orb.aw?class=file&action=upload', addHandler: addImage}"),
-				"content" => html::italic("", "icon-plus")." ".html::span(array("content" => "Lisa pilte"))
+			html::div(array(
+				"class" => "btn-group dropup",
+				"content" => html::href(array(
+					"url" => "javascript:void(0)",
+					"class" => "btn dropdown-toggle",
+					"data" => array("toggle" => "dropdown"),
+					"caption" => html::italic("", "icon-plus")." ".t("Lisa pilte kausta")." ".html::span(array("class" => "caret")),
+				)).html::ul(array(
+					"class" => "dropdown-menu",
+					"style" => "text-align: left",
+					"data" => array("bind" => "foreach: folder"),
+					"items" => array(
+						html::href(array(
+							"class" => "fileinput-button",
+							"data" => array("bind" => "fileupload: { url: '/automatweb/orb.aw?class=file&action=upload', addHandler: \$root.addImage, properties: { parent: id } }"),
+							"caption" => html::span(array("data" => array("bind" => "text: name"))),
+							"url" => "javascript:void(0)"
+						)),
+					),
+				)),
 			)),
 		);
 	}
