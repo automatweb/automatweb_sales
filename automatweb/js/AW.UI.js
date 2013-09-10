@@ -4,6 +4,80 @@ if (typeof(AW) == "undefined") {
 if (typeof(AW.UI) == "undefined") {
 	window.AW.UI = {};
 }
+
+$.extend(window.AW, (function(){
+	// FIXME: Does not work!
+	function toJS (object) {
+		if (object.toJS) { return object.toJS() }
+		var JS = {};
+		for (var i in object) {
+			if ($.isArray(object[i])) {
+				JS[i] = toJS(object[i]);
+			} else if (object[i].toJS) {
+				JS[i] = object[i].toJS();
+			} else if (ko.toJS) {
+				JS[i] = ko.toJS(object[i]);
+			} else {
+				JS[i] = object[i];
+			}
+		}
+		return JS;
+	}
+	
+	return {
+		toJS: toJS,
+		util: (function () {
+			return {
+				isNumeric: function (n) {
+					return !isNaN(parseFloat(n)) && isFinite(n);
+				},
+				dictSize: function(o) {
+					var size = 0;
+					for (var key in o) {
+						if (o.hasOwnProperty(key)) size++;
+					}
+					return size;
+				},
+				time: function () {
+					return new Date().getTime() / 1000;
+				},
+				formatTimestamp: function (timestamp) {
+					function _0 (i) {
+						return i < 10 ? "0" + i : i;
+					}
+					var date = new Date(timestamp * 1000),
+						year = date.getFullYear(),
+						month = date.getMonth() + 1,
+						day = date.getDate(),
+						hour = date.getHours(),
+						minute = date.getMinutes(),
+						second = date.getSeconds();
+					// 27.12.2013 23:59
+					return _0(day) + "." + _0(month) + "." + year + " " + _0(hour) + ":" + _0(minute);
+				},
+				formatFileSize: function (bytes) {
+					if (!AW.util.isNumeric(bytes)) {
+						return bytes;
+					} else {
+						bytes = parseFloat(bytes);
+					}
+					var kB = 1024,
+						MB = 1024 * kB,
+						GB = 1024 * MB;
+					if (bytes < 1000) {
+						return bytes + " B";
+					} else if (bytes < 1000 * kB) {
+						return (bytes / kB).toFixed(2) + " kB";
+					} else if (bytes < 1000 * MB) {
+						return (bytes / MB).toFixed(2) + " MB";
+					} else {
+						return (bytes / GB).toFixed(2) + " GB";
+					}
+				}
+			}
+		})()
+	};
+})());
 $.extend(window.AW.UI, (function(){
 	return {
 		layout: (function(){
@@ -55,27 +129,62 @@ $.extend(window.AW.UI, (function(){
 		modal: (function(){
 			var templates = {};
 			var counter = 0;
-			var modal = function (_element) {
-				self = this;
-				self.element = _element.filter(".modal");
-				self.element.on("hidden", function () {
+			var modal = function (_element, cfg) {
+				this.element = _element.filter(".modal");
+				this.element.on("hidden", function () {
 					_element.remove();
 				});
-				self.close = function() {
-					self.element.modal("hide");
+				this.close = (function(self){
+					return function() {
+						self.element.modal("hide");
+					};
+				})(this);
+				// Enabling callbacks
+				var callbacks = { save: [] };
+				this.on = function (eventType, callback) {
+					if (callbacks[eventType]) {
+						callbacks[eventType].push(callback);
+					}
 				};
+				// Set up on save
+				(function(self){
+					self.element.on("click", ".modal-footer [data-click-action~='save']", function () {
+						var saveMethod = cfg.save ? cfg.save : eval(self.element.find("input[name=save_method]").val());
+						var disabled = $(this).attr("disabled");
+						var close = $(this).is("[data-click-action~='close']");
+						if (typeof disabled === "undefined" || disabled === false) {
+							self.element.find(".modal-footer a, .modal-footer button").attr('disabled', 'disabled');
+							saveMethod(function (data) {
+								AW.UI.modal.alert("Muudatused salvestatud!", "alert-success");
+								self.element.find(".modal-footer a, .modal-footer button").removeAttr('disabled');
+								for (var i in callbacks.save) {
+									callbacks.save[i](data);
+								}
+								if (close) {
+									self.close();
+								}
+							});
+						}
+					});
+				})(this);
+				this.element.on("shown", 'a[data-toggle="tab"]', function (e) {
+					var target = $(e.target).attr("href").substring(1);
+					$(".modal-footer .modal-toolbar").hide();
+					$(".modal-footer .modal-toolbar[data-toolbar='" + target + "']").show();
+				});
 			};
 			return {
 				open: function (modalClass, cfg) {
+					var defaultCfg = { width: 1100, height: 450 };
 					if (templates[modalClass] === undefined) {
 						throw "ERROR: No template for modal of class '" + modalClass + "' is loaded!";
 					}
-					cfg = cfg ? cfg : { width: 1100, height: 450 };
+					cfg = cfg ? $.extend(defaultCfg, cfg) : defaultCfg;
 					
 					var html = templates[modalClass].replace(/{VAR:prefix}/g, "modal-" + counter.toString() + "-");
 					var modalElement = $(html);
 					$("body").append(modalElement);
-					modalObject = new modal(modalElement);
+					modalObject = new modal(modalElement, cfg);
 					var id = "AW-UI-modal-" + counter;
 					modalObject.element.attr("id", id);
 					modalObject.element.css("width", cfg.width).css("margin-left", -1 * cfg.width / 2);

@@ -1685,7 +1685,6 @@ ENDJAVASCRIPT
 			"padding" => "padding",
 		);
 
-		$style = "";
 		$styles = array();
 		foreach($args as $key => $val)
 		{
@@ -1696,9 +1695,10 @@ ENDJAVASCRIPT
 			}
 		}
 
-		if(sizeof($styles))
+		if(sizeof($styles) || isset($style))
 		{
-			$style=" style=\" ".join(" " , $styles)."\"";
+			$style = isset($style) ? $style : "";
+			$style = " style=\"{$style} ".join(" " , $styles)."\"";
 		}
 
 		$data_fields = array();

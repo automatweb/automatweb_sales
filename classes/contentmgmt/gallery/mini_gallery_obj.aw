@@ -31,6 +31,10 @@ class mini_gallery_obj extends _int_object
 		foreach ($folders_ol->names() as $id => $name) {
 			$folders[] = array("id" => $id, "name" => $name);
 		}
+		$images = array();
+		foreach ($this->get_images()->arr() as $image) {
+			$images[] = $image->json(false);
+		}
 		
 		$data = array(
 			"id" => $this->id(),
@@ -38,6 +42,7 @@ class mini_gallery_obj extends _int_object
 			"comment" => $this->prop("comment"),
 			"parent" => $this->prop("parent"),
 			"folder" => $folders,
+			"images" => $images,
 			"view_mode" => $this->awobj_get_view_mode(),
 		);
 

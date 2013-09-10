@@ -17,6 +17,10 @@ YUI().use("node", function(Y) {
 	}
 	AW.UI.admin_if = (function() {
 		var self = this;
+		var newIdCount = 0;
+		var newId = function () {
+			return "new-" + newIdCount++;
+		};
 		
 		var vmCore = function(data, properties) {
 			var self = this;
@@ -25,12 +29,26 @@ YUI().use("node", function(Y) {
 			for (var i in properties) {
 				self[properties[i]] = typeof data[properties[i]] !== "undefined" ? ko.observable(data[properties[i]]) : ko.observable();
 			}
+			self.id = ko.observable(data && data.id ? data.id : newId());
+			self.load = function (newData) {
+				for (var i in newData) {
+					if (self[i]) {
+						self[i](newData[i]);
+					}
+				}
+			};
 			self.reload = function (keys, callbacks) {
 				if (!$.isArray(keys)) keys = [keys];
+				var data = self.toJS();
+				for (var i in keys) {
+					if (data[keys[i]]) {
+						delete data[keys[i]];
+					}
+				}
 				$.ajax({
 					url: "/automatweb/orb.aw",
 					method: "POST",
-					data: { "class": self.class ? self.class : "aw_modal", "action": "reload_data", "properties": keys, data: self.toJS() },
+					data: { "class": self.class ? self.class : "aw_modal", "action": "reload_data", "properties": keys, data: data },
 					dataType: "json",
 					success: function (data) {
 						for (var i in keys) {
@@ -59,7 +77,47 @@ YUI().use("node", function(Y) {
 				}
 				return data;
 			};
+			self.canSave = function () {
+				return true;
+			};
 		}
+			
+		var getSaveMethod = function (object) {
+			return (function (post_save_callback) {
+				function trySave () {
+					if (object.canSave()) {
+						$.ajax({
+							url: "/automatweb/orb.aw",
+							type: "POST",
+							dataType: "json",
+							data: {
+								"class": object.class,
+								"action": "save",
+								"class_id": object.class_id,
+								"parent": object.parent,
+								"deleted": object.deleted ? ko.toJS(object.deleted) : null,
+								"data": object.toJS ? object.toJS() : ko.toJS(object)
+							},
+							success: function(data) {
+								object.load(data);
+								post_save_callback(data);
+							},
+							error: function() {
+								alert("Andmete salvestamine eba›nnestus!");
+								post_save_callback();
+							},
+							complete: function() {
+		//						$.please_wait_window.hide();
+								reload_property(["o_tbl"]);
+							}
+						});
+					} else {
+						setTimeout(trySave, 100);
+					}
+				}
+				trySave();
+			});
+		};
 		
 		var viewModels = {
 			doc: function (data) {
@@ -188,22 +246,22 @@ YUI().use("node", function(Y) {
 				self.attachments = ko.observableArray(processAttachments(data && data.attachments ? data.attachments : []));
 				self.createAttachmentFile = function (document, event) {
 					if (typeof document == "undefined") { return; }
-					var modal = AW.UI.modal.open("file_modal");
-					ko.applyBindings(new viewModels.file, modal.element[0]);
+					var model = new viewModels.file(),
+						modal = AW.UI.modal.open("file_modal", { save: getSaveMethod(model) });
+					ko.applyBindings(model, modal.element[0]);
 				};
 				self.createAttachmentImage = function (document, event) {
-					if (typeof document == "undefined") { return; }
 //					AW.UI.modal.open("file_modal");
 				};
 				self.createAttachmentLink = function (document, event) {
-					if (typeof document == "undefined") { return; }
-					var modal = AW.UI.modal.open("link_modal");
-					ko.applyBindings(new viewModels.link, modal.element[0]);
+					var model = new viewModels.link(),
+						modal = AW.UI.modal.open("link_modal", { save: getSaveMethod(model) });
+					ko.applyBindings(model, modal.element[0]);
 				};
 				self.createAttachmentDocument = function (document, event) {
-					if (typeof document == "undefined") { return; }
-					var modal = AW.UI.modal.open("document_modal");
-					ko.applyBindings(new viewModels.doc, modal.element[0]);
+					var model = new viewModels.doc(),
+						modal = AW.UI.modal.open("document_modal", { save: getSaveMethod(model) });
+					ko.applyBindings(model, modal.element[0]);
 				};
 				function addAttachments (items) {
 					for (var i in items) {
@@ -255,10 +313,14 @@ YUI().use("node", function(Y) {
 			},
 			image: function (data) {
 				var self = this;
-				var properties = ["ord", "comment", "url"];
+				var properties = ["ord", "comment", "file", "size", "created"];
 				vmCore.call(self, data, properties);
 				self.class = "image_modal";
 				self.class_id = AW.CLID.image;
+				self.inProgress = ko.observable(data && data.inProgress ? data.inProgress : false);
+				self.url = ko.observable(data && data.url ? data.url : '');
+				self.progress = ko.observable(0);
+				self.jqXHR = null;
 			},
 			mini_gallery: function (data) {
 				var self = this;
@@ -289,10 +351,12 @@ YUI().use("node", function(Y) {
 					} });
 				};
 				self.createFolder = function (gallery, event) {
-					alert("Implementeerimata!");
-					return;
-					var modal = AW.UI.modal.open("menu_modal");
-					ko.applyBindings(new viewModels.menu, modal.element[0]);
+					var model = new viewModels.menu({ parent: self.parent() }),
+						modal = AW.UI.modal.open("menu_modal", { save: getSaveMethod(model) });
+					modal.on("save", function (data) {
+						self.folder.push(data);
+					});
+					ko.applyBindings(model, modal.element[0]);
 				};
 				
 				self.imagesData = ko.observableArray();
@@ -313,7 +377,7 @@ YUI().use("node", function(Y) {
 						// FIXME: MIGHT FAIL IF MORE THAN ONE MINI_GALLERY_MODAL OPEN!!!
 						image.ord($("table[id$='images_table'] tr[data-id*='" + image.id() + "']").index() * 100);
 					});
-					return ko.toJS(self.images());
+					return $.map(self.images(), function (image) { return image.toJS() } );
 				};
 				self.images(data && data.images ? data.images : []);
 				
@@ -321,18 +385,41 @@ YUI().use("node", function(Y) {
 					self.reload("images", callbacks);
 				}
 				self.addImage = function (imageData) {
-					self.imagesData.push(new viewModels.image(imageData));
+					var image = new viewModels.image(imageData);
+					self.imagesData.push(image);
+					return image;
 				};
 				self.removeImage = function (image) {
-					self.images.remove(image);
+					self.imagesData.remove(image);
+					if (image.jqXHR) {
+						image.jqXHR.abort();
+						image.jqXHR = null;
+					}
+					// FIXME: Must be a better way for avoiding uploading data for removed new image files
+					image.url = null;
 					self.deleted.push(image);
 				}
-//				AW.UI.modal.load("menu_modal");
+				
+				self.canSave = function () {
+					var canSave = true;
+					$.each(self.images(), function (i, image) {
+						if (image.jqXHR) {
+							canSave = false;
+						}
+					});
+					return canSave;
+				};
+				
+				AW.UI.modal.load("menu_modal");
+			},
+			menu: function (data) {
+				var self = this;
+				var properties = ["status", "alias", "ord", "comment", "status_recursive"];
+				vmCore.call(self, data, properties);
+				self.class = "menu_modal";
+				self.class_id = AW.CLID.menu;
 			}
 		};
-		
-		var model,
-			modal;
 		
 		return {
 			open_modal: function (arr) {
@@ -343,15 +430,15 @@ YUI().use("node", function(Y) {
 						dataType: "json",
 						data: { oid: arr.id },
 						success: function(data) {
-							model = new viewModels[arr.model](data);
-							modal = AW.UI.modal.open(arr.modal);
+							var model = new viewModels[arr.model](data),
+								modal = AW.UI.modal.open(arr.modal, { save: getSaveMethod(model) });
 							ko.applyBindings(model, modal.element[0]);
 							$.please_wait_window.hide();
 						},
 					});
 				} else {
-					model = new viewModels[arr.model]({ parent: arr.parent });
-					modal = AW.UI.modal.open(arr.modal);
+					var model = new viewModels[arr.model]({ parent: arr.parent }),
+						modal = AW.UI.modal.open(arr.modal, { save: getSaveMethod(model) });
 					ko.applyBindings(model, modal.element[0]);
 				}
 			},
@@ -397,33 +484,6 @@ YUI().use("node", function(Y) {
 						if (match) {
 							event.preventDefault();
 						}
-					}
-				});
-			},
-			save: function (post_save_callback) {
-				$.ajax({
-					url: "/automatweb/orb.aw",
-					type: "POST",
-					dataType: "json",
-					data: {
-						"class": model.class,
-						"action": "save",
-						"class_id": model.class_id,
-						"parent": model.parent,
-						"deleted": model.deleted ? ko.toJS(model.deleted) : null,
-						"data": model.toJS ? model.toJS() : ko.toJS(model)
-					},
-					success: function(data) {
-						model.id(data.id);
-//						customerView.file(new vmFile(_data));
-					},
-					error: function() {
-						alert("Andmete salvestamine eba›nnestus!");
-					},
-					complete: function() {
-//						$.please_wait_window.hide();
-						post_save_callback();
-						reload_property(["o_tbl"]);
 					}
 				});
 			}

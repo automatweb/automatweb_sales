@@ -40,7 +40,7 @@ class modal_search extends aw_modal {
 		$property["button"] = array(
 			"caption" => t("Filtreeri"),
 		);
-		$property["data"] = array("bind" => "click: \$root.loadLevel");
+		$property["data"] = array("bind" => "click: (function(){ \$root.loadLevel(); })");
 	}
 	
 	protected function _get_search_results(&$property) {

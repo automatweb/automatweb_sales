@@ -145,7 +145,6 @@ ko.bindingHandlers.treeview = {
 							boundingBox: id,
 							children: children,
 						}).render();
-						console.log(tree);
 						$(id).on("click", "i.aui-icon-minus", function (event) {
 							var node_id = $(this).siblings("span").find("a").data("node-id");
 							$.cookie("alloyui-treeview-" + id + "-" + node_id, "true");
@@ -165,6 +164,8 @@ ko.bindingHandlers.fileupload = {
 	init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 		var options = valueAccessor();
 		var $element = $(element).append("<input type='file' name='files[]' multiple>");
+		var mapping = {};
+		var doneCount = 0;
 		$element.fileupload({
 			url: options.url,
 			dataType: 'json',
@@ -172,26 +173,34 @@ ko.bindingHandlers.fileupload = {
 			autoUpload: true,
 			acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
 			add: function (e, data) {
-				var reader = new FileReader();
-				reader.onload = function (e) {
-					options.addHandler && options.addHandler({ name: data.files[0].name, url: e.target.result });
-				}
-				reader.readAsDataURL(data.files[0]);
-		//		uploadButton.clone(true).data(data).click();
-			},
-			done: function (e, data) {
-				return;
-				$.each(data.result.files, function (index, file) {
-					console.log(index, file);
+				$.each(data.files, function (i, file) {
+					var reader = new FileReader();
+					reader.onload = function (e) {
+						mapping[file.name] = options.addHandler({ name: file.name, url: e.target.result, inProgress: true, size: file.size, created: AW.util.time() });
+					}
+					reader.readAsDataURL(file);
+				});
+				data.process().done(function () {
+					var x = data.submit();
 				});
 			},
-			progressall: function (e, data) {
-				return;
+			progress: function (e, data) {
 				var progress = parseInt(data.loaded / data.total * 100, 10);
-				$('#progress .progress-bar').css(
-					'width',
-					progress + '%'
-				);
+				mapping[data.files[0].name].progress(progress);
+				mapping[data.files[0].name].jqXHR = data;
+			},
+			done: function (e, data) {
+				$.each(data.files, function (index, file) {
+					mapping[file.name].file(data.result.files[file.name].file);
+					mapping[file.name].inProgress(false);
+					mapping[file.name].jqXHR = false;
+					delete mapping[file.name];
+					doneCount++;
+				});
+				if (AW.util.dictSize(mapping) === 0) {
+					AW.UI.modal.alert(doneCount + " pilt" + (doneCount === 1 ? "" : "i") + " edukalt üles laetud!", "alert-success");
+					doneCount = 0;
+				}
 			}
 		}).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
 	},

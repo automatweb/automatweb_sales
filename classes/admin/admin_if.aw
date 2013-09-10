@@ -2361,7 +2361,7 @@ class admin_if extends class_base
 	public function switch_template($arr)
 	{
 		$t = aw_session::get("new-admin-template");
-		aw_session::set("new-admin-template", $t == "Y" ? "N" : "Y");
+		aw_session::set("new-admin-template", $t === "N" ? "Y" : "N");
 		return $_SERVER['HTTP_REFERER'];
 	}
 }

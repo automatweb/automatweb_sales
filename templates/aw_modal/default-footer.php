@@ -1,7 +1,7 @@
-<div class="pull-left" id="{VAR:prefix}modal-footer-left">
+<div class="modal-footer-left pull-left" id="{VAR:prefix}modal-footer-left">
 	<?php echo implode("", $left_buttons); ?>
 </div>
-<div class="pull-right" id="{VAR:prefix}modal-footer-right">
+<div class="modal-footer-right pull-right" id="{VAR:prefix}modal-footer-right">
 	<?php echo implode("", $right_buttons); ?>
 </div>
 <?php foreach ($groups as $group) {
@@ -27,33 +27,4 @@
 	<?php
 	}
 } ?>
-<script type="text/javascript">
-(function(){
-	function pre_save_callback() {
-		$(".modal-footer a, .modal-footer button").attr('disabled', 'disabled');
-	}
-	function post_save_callback() {
-		$(".modal-footer a, .modal-footer button").removeAttr('disabled');
-	}
-
-	$("#{VAR:prefix}modal-footer-left [data-click-action~='save'], #{VAR:prefix}modal-footer-right [data-click-action~='save']").click(function(){
-		var disabled = $(this).attr("disabled");
-		var close = $(this).is("[data-click-action~='close']");
-		if (typeof disabled === "undefined" || disabled === false) {
-			pre_save_callback();
-			<?php echo $save_method; ?>(function(){
-				AW.UI.modal.alert("Muudatused salvestatud!", "alert-success");
-				post_save_callback();
-				if (close) {
-					$(".modal").modal("hide");
-				}
-			});
-		}
-	});
-	$('a[data-toggle="tab"]').on('shown', function (e) {
-		var target = $(e.target).attr("href").substring(1);
-		$(".modal-footer .modal-toolbar").hide();
-		$(".modal-footer .modal-toolbar[data-toolbar='" + target + "']").show();
-	});
-})();
-</script>
+<input type="hidden" name="save_method" value="<?php echo $save_method; ?>" />

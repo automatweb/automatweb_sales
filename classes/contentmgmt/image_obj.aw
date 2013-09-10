@@ -121,11 +121,12 @@ class image_obj extends _int_object
 	**/
 	public function get_size()
 	{
-		enter_function("image::get_size");
-		$idata = $this->get_image_data();
-		$size = @getimagesize($idata["file"]);
-		exit_function("image::get_size");
-		return $size;
+		return getimagesize($this->prop("file"));
+	}
+	
+	public function get_filesize()
+	{
+		return filesize($this->prop("file"));
 	}
 
 	/**
@@ -350,6 +351,9 @@ class image_obj extends _int_object
 			"ord" => $this->ord(),
 			"comment" => $this->prop("comment"),
 			"parent" => $this->prop("parent"),
+			"file" => $this->prop("file"),
+			"size" => $this->get_filesize(),
+			"created" => $this->created(),
 			"url" => $this->get_url(),
 		);
 

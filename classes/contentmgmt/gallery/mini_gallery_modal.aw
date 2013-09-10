@@ -117,12 +117,14 @@ class mini_gallery_modal extends aw_modal {
 			"caption" => t("Pildid"),
 			"reorderable" => true,
 //			"reorderable-update" => "AW.UI.",
-			"fields" => array("thumbnail", "name", "parent", "actions"),
+			"fields" => array("thumbnail", "name", "parent", "size", "created", "actions"),
 			"header" => array(
 				"fields" => array(
 					"thumbnail" => "",
 					"name" => t("Nimi"),
 					"parent" => t("Kaust"),
+					"size" => t("Faili suurus"),
+					"created" => t("Lisatud"),
 					"actions" => t("Valikud"),
 				)
 			),
@@ -133,14 +135,28 @@ class mini_gallery_modal extends aw_modal {
 					"thumbnail" => html::img(array(
 						"src" => "dummy-src",
 						"data" => array("bind" => "attr: { 'src': url }"),
-						"style" => "max-height: 50px; max-width: 80px;",
+						"style" => "max-height: 60px; max-width: 80px;",
 					)),
 					"name" => html::textbox(array(
 						"data" => array("bind" => "value: name")
+					)).html::linebreak().html::div(array(
+						"data" => array("bind" => "visible: inProgress"),
+						"class" => "progress progress-striped active",
+						"style" => "width: 164px; margin-top: 5px;",
+						"content" => html::div(array(
+							"class" => "bar",
+							"data" => array("bind" => "style: { 'width': progress() + '%' }"),
+						)),
 					)),
 					"parent" => html::select(array(
 						"data" => array("bind" => "options: \$parent.folder, optionsText: 'name', optionsValue: 'id', value: parent")
 					)),
+					"size" => array(
+						"data" => array("bind" => "text: AW.util.formatFileSize(size())")
+					),
+					"created" => array(
+						"data" => array("bind" => "text: AW.util.formatTimestamp(created())")
+					),
 					"actions" => html::href(array(
 						"url" => "javascript:void(0)",
 						"data" => array("bind" => "click: \$root.removeImage"),
@@ -157,6 +173,16 @@ class mini_gallery_modal extends aw_modal {
 			$images[] = $image->json(false);
 		}
 		return $images;
+	}
+	
+	protected function _set_folder ($gallery, $folders) {
+		$folder_ids = array();
+		if (is_array($folders)) {	
+			foreach ($folders as $folder_data) {
+				$folder_ids[] = $folder_data["id"];
+			}
+		}
+		$gallery->set_prop("folder", $folder_ids);
 	}
 	
 	protected function _set_images ($gallery, $images) {

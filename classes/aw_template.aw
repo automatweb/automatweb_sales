@@ -1124,7 +1124,7 @@ class aw_template extends core
 	
 	public static function bootstrap()
 	{
-		return aw_session::get("new-admin-template") === "Y";
+		return aw_session::get("new-admin-template") !== "N";
 //		return automatweb::$request->arg_isset("tbtpl") and automatweb::$request->arg("tbtpl");
 	}
 

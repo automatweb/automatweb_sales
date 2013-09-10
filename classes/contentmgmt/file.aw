@@ -1974,24 +1974,18 @@ class file extends class_base
 	public function handle_upload($arr)
 	{
 		$data = array();
-		foreach ($_FILES as $file_data)
-		{			
+		foreach ($_FILES as $key => $file_data)
+		{
+			$files = array();
+			
 			$file = (array)$file_data["tmp_name"];
 			$file_name = (array)$file_data["name"];
 			$file_type = (array)$file_data["type"];
 			for ($i = 0; $i < count($file); $i++)
 			{
-				$data[] = $this->__handle_single_upload($file[$i], $file_name[$i], $file_type[$i]);
+				$files[$file_name[$i]] = $this->__handle_single_upload($file[$i], $file_name[$i], $file_type[$i]);
 			}
-		}
-		
-		if (count($data) === 1)
-		{
-			$data = reset($data);
-		}
-		if (empty($data))
-		{
-			$data = array("error" => "Ootamatu viga!");
+			$data[$key] = $files;
 		}
 		
 		$encoder = new json();
@@ -2023,14 +2017,16 @@ class file extends class_base
 			}
 
 			$final_name = $this->generate_file_path(array(
-				"type" => $file_type,
-				"file_name" => $file_name
+				"type" => aw_mime_types::ext_for_type($file_type),
+//				"file_name" => $file_name
 			));
 
 			move_uploaded_file($file, $final_name);
 			$data["file"] = $final_name;
 			$data["name"] = $file_name;
 			$data["type"] = $file_type;
+		} else {
+			$data = array("error" => "Ootamatu viga!");
 		}
 		
 		return $data;
