@@ -355,6 +355,7 @@ class image_obj extends _int_object
 			"size" => $this->get_filesize(),
 			"created" => $this->created(),
 			"url" => $this->get_url(),
+			"author" => $this->prop("author"),
 		);
 
 		$json = new json();
