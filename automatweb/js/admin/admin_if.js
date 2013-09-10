@@ -313,7 +313,7 @@ YUI().use("node", function(Y) {
 			},
 			image: function (data) {
 				var self = this;
-				var properties = ["ord", "comment", "file", "size", "created"];
+				var properties = ["ord", "comment", "file", "size", "created", "author"];
 				vmCore.call(self, data, properties);
 				self.class = "image_modal";
 				self.class_id = AW.CLID.image;

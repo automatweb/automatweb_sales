@@ -162,7 +162,20 @@ class mini_gallery_modal extends aw_modal {
 						"data" => array("bind" => "click: \$root.removeImage"),
 						"caption" => html::italic("", "icon-remove"),
 					)),
-				)
+				),
+				"expandable" => true,
+				"expandable_rows" => array(
+					array(
+						"name" => html::textbox(array(
+							"data" => array("bind" => "value: comment"),
+							"placeholder" => t("Allkiri"),
+						)),
+						"parent" => html::textbox(array(
+							"data" => array("bind" => "value: author"),
+							"placeholder" => t("Autor"),
+						)),
+					),
+				),
 			),
 		);
 	}
