@@ -242,6 +242,7 @@ class image extends class_base
 			{
 				$o = obj($id);
 				$row["name"] = $o->trans_get_val("name");
+				$row["parent.name"] = $o->trans_get_val("parent.name");
 				$row["comment"] = $o->trans_get_val("comment");
 				$row["link"] = $o->trans_get_val("link");
 				$row["meta"]["author"] = $o->trans_get_val("author");
@@ -482,7 +483,7 @@ class image extends class_base
 				"width" => $i_size[0],
 				"height" => $i_size[1],
 				"imgref" => $idata["url"],
-				"imgcaption" => $idata["comment"],
+				"imgcaption" => str_replace("\n", "||", $idata["comment"]),
 				"align" => isset($align[$matches[4]]) ? $align[$matches[4]] : null,
 				"alignstr" => $alstr[$matches[4]],
 				"plink" => str_replace("&", "&amp;", $idata["link"]),
@@ -497,6 +498,7 @@ class image extends class_base
 				"bi_show_link" => $bi_show_link,
 				"bi_link" => $bi_link,
 				"author" => $idata["meta"]["author"],
+				"parent_name" => $idata["parent.name"],
 				"docid" => isset($args["oid"]) ? (is_object($args["oid"]) ? $args["oid"]->id() : $args["oid"]) : null,
 				"doc_link" => empty($args["oid"]) ? "" : $d->get_doc_link(obj($args["oid"])),
 				"image_id" => $idata["oid"],
