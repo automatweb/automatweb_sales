@@ -311,9 +311,9 @@ class object_treeview_v2 extends class_base
 				}
 
 				$prop["options"] = array(
-					TREE_DHTML => t("DHTML"),
-					TREE_TABLE => t("Tabel"),
-					TREE_COMBINED => t("Kombineeritud")
+					"TREE_DHTML" => t("DHTML"),
+					"TREE_TABLE" => t("Tabel"),
+					"TREE_COMBINED" => t("Kombineeritud")
 				);
 				// if tree_type isn't set, TREE_DHTML will be used
 				// eh, i definitely need a better solution to handle existing objects
@@ -322,7 +322,7 @@ class object_treeview_v2 extends class_base
 
 				if (empty($prop['value']))
 				{
-					$prop['value'] = TREE_DHTML;
+					$prop['value'] = "TREE_DHTML";
 				}
 
 				break;
@@ -635,7 +635,7 @@ class object_treeview_v2 extends class_base
 		$tree_type = $ob->prop("tree_type");
 		if (empty($tree_type))
 		{
-			$tree_type = TREE_DHTML;
+			$tree_type ="TREE_DHTML";
 		}
 
 		$fld = $d_inst->get_folders($d_o, $tree_type);
@@ -1622,7 +1622,7 @@ class object_treeview_v2 extends class_base
 	//	$tree_type = $ob->prop("tree_type");
 		if (empty($tree_type))
 		{
-			$tree_type = TREE_DHTML;
+			$tree_type = "TREE_DHTML";
 		}
 
 		// if #table anchor should be added to url
@@ -1672,36 +1672,29 @@ class object_treeview_v2 extends class_base
 				return $table->draw();
 
 			case "TREE_DHTML":
-				
-				// use treeview widget
-				$tv = get_instance("vcl/treeview");
-				$tv->start_tree(array(
-					"tree_id" => "folders_tree",
-					"root_name" => "",
-					"root_url" => "",
-					"root_icon" => "",
-					"type" => TREE_DHTML, //$ob->meta('tree_type'),
-					"persist_state" => true,
-				));
-
-				// now, insert all folders defined
+				$items = array();
 				foreach($folders as $fld)
 				{
-					$tv->add_item($fld["parent"], array(
+					$items[$fld["id"]] = array(
 						"id" => $fld["id"],
+						"parent" => $fld["parent"],
 						"name" => $fld["name"],
 						"url" => aw_ini_get("baseurl")."/".$oid."?tv_sel=".$fld['id'].$anchor,
 						"icon" => $fld["icon"],
 						"comment" => $fld["comment"],
 						"data" => array(
-							"changed" => $this->time2date($fld["modified"], 2)
+							"changed" => $this->time2date(ifset($fld, "modified"), 2)
 						)
-					));
+					);
 				}
-
-				$tv->set_selected_item($_GET["tv_sel"]);
-				$pms = array();
-				return $tv->finalize_tree($pms);
+				$treeview = new alloyui_treeview();
+			
+				$treeview->set_id("folders_tree");
+				$treeview->set_items($items);
+				// FIXME: Make draggability configurable!
+				$treeview->set_draggable(true);
+				
+				return $treeview->render();
 		}
 	}
 
@@ -2219,7 +2212,7 @@ class object_treeview_v2 extends class_base
 				"is_date" => html::checkbox(array(
 					"name" => "itemsorts[$idx][is_date]",
 					"value" => 1,
-					"checked" => ($sd["is_date"] == 1)
+					"checked" => !empty($sd["is_date"])
 				))
 			));
 			$maxi = max($maxi, $idx);

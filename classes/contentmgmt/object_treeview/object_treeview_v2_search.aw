@@ -124,7 +124,7 @@ class object_treeview_v2_search extends class_base
 		$arr["post_ru"] = post_ru();
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
@@ -135,7 +135,7 @@ class object_treeview_v2_search extends class_base
 		$show_table = isset($arr["show_table"]) ? (bool) $arr["show_table"] : true;
 		$show_form = isset($arr["show_form"]) ? (bool) $arr["show_form"] : true;
 		$ob = new object($arr["id"]);
-		$request = array("s" => $GLOBALS["s"]);
+		$request = array("s" => automatweb::$request->arg("s"));
 
 		if ($show_form)
 		{
