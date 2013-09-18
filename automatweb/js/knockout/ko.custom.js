@@ -1,3 +1,9 @@
+ko.computed = (function (computed) {
+	return function (b, c, d) {
+		if (typeof b === "function") b = { read: b, write: function () {} }
+		return computed(b, c, d);
+	};
+})(ko.computed);
 ko.bindingHandlers.datepick = {
 	init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var options = allBindingsAccessor().datepickOptions || {};
@@ -133,30 +139,37 @@ ko.bindingHandlers.treeview = {
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 		var options = ko.utils.unwrapObservable(allBindingsAccessor().treeviewOptions || {});
 		var id = "#" + element.id;
-		$.ajax({
-			url: options.io,
-			dataType: "json",
-			success: function (children) {	
-				YUI().use(
-					'aui-tree-view',
-					function(Y) {
-						// Create a TreeView Component
-						var tree = new Y.TreeView({
-							boundingBox: id,
-							children: children,
-						}).render();
-						$(id).on("click", "i.aui-icon-minus", function (event) {
-							var node_id = $(this).siblings("span").find("a").data("node-id");
-							$.cookie("alloyui-treeview-" + id + "-" + node_id, "true");
-						});
-						$(id).on("click", "i.aui-icon-plus", function (event) {
-							var node_id = $(this).siblings("span").find("a").data("node-id");
-							$.cookie("alloyui-treeview-" + id + "-" + node_id, $(this).siblings("i.aui-icon-refresh").size() > 0 ? "true" : null);
-						});
-					}
-				);
-			}
-		});
+		function createTreeview (children) {
+			YUI().use(
+				'aui-tree-view',
+				function(Y) {
+					var treeType = Boolean(options.draggable) ? Y.TreeViewDD : Y.TreeView;
+					var tree = new treeType({
+						boundingBox: id,
+						children: children
+					}).render();
+					$(id).on("click", "i.aui-icon-minus", function (event) {
+						var node_id = $(this).siblings("span").find("a").data("node-id");
+						$.cookie("alloyui-treeview-" + id + "-" + node_id, "true");
+					});
+					$(id).on("click", "i.aui-icon-plus", function (event) {
+						var node_id = $(this).siblings("span").find("a").data("node-id");
+						$.cookie("alloyui-treeview-" + id + "-" + node_id, $(this).siblings("i.aui-icon-refresh").size() > 0 ? "true" : null);
+					});
+				}
+			);
+		}
+		if (options.io) {
+			$.ajax({
+				url: options.io,
+				dataType: "json",
+				success: function (children) {
+					createTreeview(children);
+				}
+			});
+		} else {
+			createTreeview(ko.unwrap(valueAccessor()));
+		}
     }
 };
 

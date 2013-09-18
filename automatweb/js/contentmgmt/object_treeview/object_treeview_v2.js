@@ -6,58 +6,11 @@
 		window.AW = {};
 	}
 	AW.UI.object_treeview_v2 = (function() {
-		var self = this;
-		var customer_filter;
-		var customer_refresh_timeout;
-		var modal_html = {};
-		var modal_preloaded = false;
-		var modal_preload_callbacks = [];
-		var data = {};
-		
-		var vmCore = function(_data, properties) {
-			var self = this;
-			if (!_data) { _data = {}; }
-			for (var i in properties) {
-				self[properties[i]] = typeof _data[properties[i]] !== "undefined" ? ko.observable(_data[properties[i]]) : ko.observable();
-			}
-		}
-		
-		var vmMenu = function(_data) {
-			var self = this;
-			var properties = ["id", "name", "comment", "alias", "ord", "status", "status_recursive"];
-			vmCore.call(self, _data, properties);
-		}
-		
-		var vmLink = function(_data) {
-			var self = this;
-			var properties = ["id", "name", "comment", "alt", "url", "newwindow"];
-			vmCore.call(self, _data, properties);
-		}
-		
-		var vmFile = function(_data) {
-			var self = this;
-			var properties = ["id", "name", "status", "comment", "alias", "file", "file_url", "ord", "type"];
-			vmCore.call(self, _data, properties);
-		}
-		
-		var vmDocument = function(_data) {
-			var self = this;
-			var properties = ["id", "title", "status", "lead", "content", "show_title", "showlead", "show_modified", "esilehel", "title_clickable"];
-			vmCore.call(self, _data, properties);
-			self.name = ko.computed(function(){
-				return self.title();
-			}, self);
-		}
-		
-		var vmCustomerView = function() {
-			var self = this;
-			self.menu = ko.observable(new vmMenu());
-			self.link = ko.observable(new vmLink());
-			self.document = ko.observable(new vmDocument());
-			self.file = ko.observable(new vmFile());
-		};
-		
-		var customerView = new vmCustomerView();
+		var self = this,
+			customer_filter,
+			customer_refresh_timeout,
+			data = {},
+			model;
 		
 		function on_modal_preload_complete (callback) {
 			if (modal_preloaded) {
@@ -83,116 +36,37 @@
 				customer_refresh_timeout = setTimeout(execute_refreshing_customers, 500);
 			},
 			initialize_modals: function() {
-				var modal_preload = [];
-				modal_preload.push($.ajax({
-					url: "/automatweb/orb.aw?class=link_modal&action=parse",
-					success: function(html) {
-						modal_html[21] = html;
-					}
-				}));
-				modal_preload.push($.ajax({
-					url: "/automatweb/orb.aw?class=menu_modal&action=parse",
-					success: function(html) {
-						modal_html[1] = html;
-					}
-				}));
-				modal_preload.push($.ajax({
-					url: "/automatweb/orb.aw?class=document_modal&action=parse",
-					success: function(html) {
-						modal_html[7] = html;
-					}
-				}));
-				modal_preload.push($.ajax({
-					url: "/automatweb/orb.aw?class=file_modal&action=parse",
-					success: function(html) {
-						modal_html[41] = html;
-					}
-				}));
-				var waitForComplete = setInterval(function () {
-					var inProgress = 0;
-					for (var i in modal_preload) {
-						if (modal_preload[i].readyState !== 4) {
-							inProgress++;
-						}
-					}
-					modal_preloaded = inProgress == 0;
-					if (modal_preloaded) {
-						clearInterval(waitForComplete);
-						for (var i in modal_preload_callbacks) {
-							modal_preload_callbacks[i].call(self);
-							delete modal_preload_callbacks[i];
-						}
-					}
-				}, 100);
+				AW.UI.modal.load("link_modal");
+				AW.UI.modal.load("menu_modal");
+				AW.UI.modal.load("document_modal");
+				AW.UI.modal.load("file_modal");
 			},
 			open_modal: function(class_id, parent, oid) {
-				data.parent = parent;
-				data.class_id = class_id;
+				var viewModel;
 				switch (class_id) {
 					case 7:
 						data.key = "document";
-						data.save_url = "/automatweb/orb.aw?class=document_modal&action=save";
 						break;
 					
 					case 21:
 						data.key = "link";
-						data.save_url = "/automatweb/orb.aw?class=link_modal&action=save";
 						break;
 					
 					case 1:
 						data.key = "menu";
-						data.save_url = "/automatweb/orb.aw?class=menu_modal&action=save";
 						break;
 					
 					case 41:
 						data.key = "file";
-						data.save_url = "/automatweb/orb.aw?class=file_modal&action=save";
 						break;
 					
 					default:
 						data.key = null;
-						data.save_url = null;
 				}
 //				$.please_wait_window.show();
-				var object_data = {};
+				var object_data = { parent: parent, status: 2 };
 				var open_modal = function() {
-					on_modal_preload_complete(function() {
-//						$.please_wait_window.hide();
-						if (modal_html[class_id] !== undefined) {
-							$(".modal").remove();
-							$("body").append(modal_html[class_id]);
-							
-							customerView.link(new vmLink(object_data));
-							customerView.menu(new vmMenu(object_data));
-							customerView.document(new vmDocument(object_data));
-							customerView.file(new vmFile(object_data));
-							ko.applyBindings(customerView);
-
-							$(".modal").css("width", 1100).css("margin-left", -500).modal();
-							/* $(".modal").draggable({
-								handle: ".modal-header"
-							}); */
-							
-							$(".modal .modal-footer [data-click-action~='save']").each(function() {
-								var btn = $(this);
-								btn.click(function(){
-									var disabled = btn.attr("disabled");
-									var close = btn.is("[data-click-action~='close']");
-									if (typeof disabled === "undefined" || disabled === false) {
-										$(".modal-footer a, .modal-footer button").attr('disabled', 'disabled');
-										AW.UI.object_treeview_v2.save_object(function() {
-											$(".modal-footer a, .modal-footer button").removeAttr('disabled');
-											if (close) {
-												$(".modal").modal("hide");
-											}
-										});
-									}
-								});
-							});
-						} else {
-							throw "Error: no HTML for class '" + class_id + "'.";
-						}
-					});
+					AW.UI.modal.open(new AW.viewModel[data.key](object_data))
 				};
 				if (oid) {
 					var customer_data_loaded = false;
@@ -227,50 +101,6 @@
 				} else {
 					open_modal();
 				}
-			},
-			save_object: function(post_save_callback) {
-				function processData(_data) {
-					for (var i in _data) {
-						if (typeof _data[i] == "object") {
-							_data[i] = processData(_data[i]);
-						} else if (typeof _data[i] == "boolean") {
-							_data[i] = _data[i] ? 1 : 0;
-						}
-					}
-					return _data;
-				}
-//				$.please_wait_window.show({ target: $(".modal") });
-				if (!data.key || !data.save_url) {
-					alert("Andmete salvestamine ebaõnnestus!");
-					throw "Error: no data.key or data.save_url set.";
-				}
-				var _data = ko.toJS(customerView[data.key]);
-				_data.status = 2;
-				$.ajax({
-					url: data.save_url,
-					type: "POST",
-					dataType: "json",
-					data: {
-						class_id: data.class_id,
-						parent: data.parent,
-						data: processData(_data),
-						removed: ko.toJS(customerView.removed)
-					},
-					success: function(_data) {
-						customerView.link(new vmLink(_data));
-						customerView.menu(new vmMenu(_data));
-						customerView.document(new vmDocument(_data));
-						customerView.file(new vmFile(_data));
-					},
-					error: function() {
-						alert("Andmete salvestamine ebaõnnestus!");
-					},
-					complete: function() {
-//						$.please_wait_window.hide();
-						post_save_callback();
-						execute_refreshing_customers();
-					}
-				});
 			}
 		};
 	})();

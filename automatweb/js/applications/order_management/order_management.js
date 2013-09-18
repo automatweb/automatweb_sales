@@ -48,89 +48,6 @@ YUI().use("node", function(Y) {
 			reload_property("orders_table", order_filter);
 		}
 		
-		var vmCore = function(_data, properties) {
-			var self = this;
-			if (!_data) { _data = {}; }
-			for (var i in properties) {
-				self[properties[i]] = typeof _data[properties[i]] !== "undefined" ? ko.observable(_data[properties[i]]) : ko.observable();
-			}
-		}
-		
-		var vmPriceComponent = function(_data) {
-			var self = this;
-			var properties = ["id", "name", "value", "is_ratio", "vat", "applied"];
-			vmCore.call(self, _data, properties);
-		}
-		
-		var vmOrderRow = function(_data) {
-			var self = this;
-			var properties = ["id", "name", "title", "article", "article_name", "description", "price", "quantity", "unit"];
-			vmCore.call(self, _data, properties);
-			this.price_components = ko.observable({});
-			for (var key in _data.price_components) {
-				this.price_components()[key] = new vmPriceComponent(_data.price_components[key]);
-			}
-			self.total = ko.computed(function(){
-				var total = this.price() * this.quantity();
-				var vat = 0;
-				for (var i in this.price_components()) {
-					if (!this.price_components()[i].applied()) {
-						continue;
-					}
-					/*
-					 * const TYPE_UNIT = 2;
-					 * const TYPE_ROW = 3;
-					*/
-					if (this.price_components()[i].vat()) {
-						vat = this.price_components()[i].value() * 1;
-					} else if (this.price_components()[i].is_ratio()) {
-						total *= (100 + this.price_components()[i].value() * 1) / 100;
-					} else {
-						total += this.price_components()[i].value() * (this.price_components()[i].value() == 2 ? this.quantity() : 1);
-					}
-				}
-				return total * (100 + vat) / 100;
-			}, self);
-			self.changeArticle = function(orderRow, event) {
-				if (!event) { return; }
-				AW.UI.modal_search.open("modal_search_shop", { defaultSource: 751743, onSelect: function (item) {
-					if (item) {
-						AW.UI.order_management.add_article(orderRow.id(), item);
-					}
-				} });
-			};
-		}
-		
-		var vmOrder = function(_data) {
-			var self = this;
-			var properties = ["id", "name", "comment", "seller", "customer", "total"];
-			vmCore.call(self, _data, properties);
-			self.availableUnits = ko.observableArray();
-			if (_data && _data.availableUnits) {
-				for (var i in _data.availableUnits) {
-					self.availableUnits.push(_data.availableUnits[i]);
-				}
-			}
-			self.rows = ko.observableArray();
-			if (_data && _data.rows) {
-				for (var i in _data.rows) {
-					for (var j in self.availableUnits()) {
-						if (_data.rows[i].unit && _data.rows[i].unit.id == self.availableUnits()[j].id) {
-							_data.rows[i].unit = self.availableUnits()[j];
-						}
-					}
-					self.rows.push(new vmOrderRow(_data.rows[i]));
-				}
-			}
-			self.total = ko.computed(function(){
-				var total = 0;
-				for (var i in this.rows()) {
-					total += this.rows()[i].total();
-				}
-				return total;
-			}, self);
-		}
-		
 		function on_modal_preload_complete (callback) {
 			if (modal_preloaded) {
 				callback.call(self);
@@ -140,7 +57,7 @@ YUI().use("node", function(Y) {
 		
 		var vmView = function() {
 			var self = this;
-			self.order = ko.observable(new vmOrder());
+			self.order = ko.observable(new AW.viewModel.order());
 			self.removed = ko.observableArray();
 		};
 		
@@ -211,12 +128,8 @@ YUI().use("node", function(Y) {
 				var open_modal = function() {
 					on_modal_preload_complete(function() {
 						$.please_wait_window.hide();
-						var administrative_unit_map = {};
-						var field;
-						var modal = AW.UI.modal.open("mrp_case_modal");
-						view.order(new vmOrder(order_data));
-						ko.applyBindings(view, modal.element[0]);
-						modal.element.data("id", order_id);
+						view.order(new AW.viewModel.order(order_data));
+						AW.UI.modal.open(view).element.data("id", order_id);
 					});
 				};
 				if (order_id) {
@@ -262,7 +175,7 @@ YUI().use("node", function(Y) {
 						removed: ko.toJS(view.removed)
 					},
 					success: function(_data) {
-						view.order(new vmOrder(_data));
+						view.order(new AW.viewModel.order(_data));
 						for (var i in expanded) {
 							$("tr[data-id=" + expanded[i] + "] .expander").click();
 						}

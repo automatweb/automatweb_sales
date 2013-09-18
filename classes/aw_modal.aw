@@ -161,16 +161,11 @@ class aw_modal implements orb_public_interface {
 		$this->footer_template->add_vars(array(
 			"left_buttons" => $this->get_left_footer_buttons(),
 			"right_buttons" => $this->get_right_footer_buttons(),
-			"save_method" => $this->get_save_method(),
 			"classinfo" => $this->classinfo,
 			"groups" => $this->groupinfo,
 		));
 		
 		$this->template->bind($this->footer_template, "footer");
-	}
-	
-	protected function get_save_method() {
-		return "(function(){})";
 	}
 	
 	protected function get_left_footer_buttons() {

@@ -27,4 +27,3 @@
 	<?php
 	}
 } ?>
-<input type="hidden" name="save_method" value="<?php echo $save_method; ?>" />
