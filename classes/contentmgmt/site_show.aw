@@ -3094,6 +3094,7 @@ class site_show extends aw_template
 		$this->exec_subtemplate_handlers($arr);
 		$this->make_banners();
 		$this->make_final_vars();
+		$this->inject_navigation_editor();
 
 		$rv = $this->parse();
 
@@ -3448,5 +3449,75 @@ class site_show extends aw_template
 		}
 
 		return $ordby;
+	}
+	
+	private function inject_navigation_editor ()
+	{
+		$mdefs = aw_ini_get("menuedit.menu_defs");
+		if (aw_ini_get("menuedit.lang_defs") == 1)
+		{
+			$mdefs = $mdefs[AW_REQUEST_CT_LANG_ID];
+		}
+		$ids = array(-1);
+		$navigation = array();
+		foreach ($mdefs as $parent => $name)
+		{
+			$ids[] = $parent;
+			$object_tree = new object_tree(array(
+				"parent" => $parent,
+				"class_id" => array(CL_MENU), //, CL_BROTHER),		
+				"sort_by" => /* $parent_obj->prop("sort_by_name") ? "objects.name" :*/ "objects.jrk, objects.created",
+				"site_id" => aw_ini_get("site_id"),
+			));
+			$ids = array_merge($ids, $object_tree->ids());
+			$navigation[$parent] = $object_tree->ids_hierarchy();
+		}
+		$data = new object_data_list(
+			array(
+				"oid" => $ids,
+			),
+			// FIXME: Cache result of make_menu_link somehow?
+			// FIXME: users_only is in META!
+			array(CL_MENU => array("oid", "name", "parent", "status", "jrk", "comment", "alias", "link", "target", "users_only"/*, "url"*/))
+		);
+		$data = $data->arr();
+		
+		$tree = array();
+		foreach ($navigation as $parent => $children)
+		{
+			$tree[] = $this->build_navigation_node($data, $parent, $children);
+		}
+		
+		$json_encoder = new json();
+		$json = $json_encoder->encode($tree);
+		
+		$this->vars(array(
+			"navigation.json" => $json
+		));
+	}
+	
+	// FIXME: Move into another class, and do not pass massive arrays around!
+	private function build_navigation_node (&$data, $id, $children)
+	{
+		$child_nodes = array();
+		foreach ($children as $child => $grandchildren)
+		{
+			$child_nodes[] = $this->build_navigation_node($data, $child, $grandchildren);
+		}
+		return array(
+			"id" => (int)$id,
+			"ord" => (int)$data[$id]["jrk"],
+			"name" => $data[$id]["name"],
+			"comment" => $data[$id]["comment"],
+			"alias" => $data[$id]["alias"],
+			"link" => $data[$id]["link"],
+			"target" => $data[$id]["target"],
+			"users_only" => (boolean)$data[$id]["users_only"],
+			"url" => "http://intra.notar.dev.automatweb.com/{$id}",
+			"parent" => (int)$data[$id]["parent"],
+			"active" => false,
+			"meta" => array(),
+			"children" => $child_nodes,
+		);
 	}
 }
