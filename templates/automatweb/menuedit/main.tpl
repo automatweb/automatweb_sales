@@ -1,49 +1,4 @@
 <?php if (users::is_logged_in()) {
-class main_tpl_submenu_hack {
-	private static $knockouts = array();
-	
-	public static function add_knockout ($parent, $id, $name, $url, $comment, $link, $alias, $target, $users_only, $no_menus, $ord, $active = false, $meta = array()) {
-		if ($id == aw_session::get("aw_portal_id")) {
-			$meta["innernav"] = true;
-		}
-		self::$knockouts[$id] = array(
-			"id" => $id,
-			"ord" => $ord,
-			"name" => $name,
-			"comment" => $comment,
-			"alias" => $alias,
-			"link" => $link,
-			"target" => (bool)$target,
-			"users_only" => (bool)$users_only,
-			"no_menus" => (bool)$no_menus,
-			"url" => $url,
-			"parent" => $parent,
-			"active" => $active,
-			"meta" => $meta
-		);
-	}
-	
-	public static function get_knockout () {
-		foreach (array_keys(self::$knockouts) as $id) {
-			if (isset(self::$knockouts[$id])) {
-				self::$knockouts[$id]["children"] = self::grab_children($id);
-			}
-		}
-		return self::$knockouts;
-	}
-	
-	private static function grab_children ($parent) {
-		$children = array();
-		foreach (self::$knockouts as $id => $data) {
-			if ($parent === $data["parent"]) {
-				unset(self::$knockouts[$id]);
-				$data["children"] = self::grab_children($id);
-				$children[] = $data;
-			}
-		}
-		return $children;
-	}
-}
 ?>
 <a href="#" class="btn nav-edit"><i class="icon-pencil"></i></a>
 <?php
@@ -64,96 +19,6 @@ echo preg_replace("/{VAR\:prefix}/", "", $editor->render());
 						<!-- ko if: meta.portal -->
 							<li role="presentation"><a role="menuitem" tabindex="-1" data-bind="text: name, attr: { href: url }"></a></li>
 						<!-- /ko -->
-						<!-- SUB: MENU_VASAK_L1_ITEM -->
-						<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, false, array("portal" => true)); ?>
-						<?php function menu{VAR:section}(){ ?>
-							<!-- SUB: MENU_VASAK_L2_ITEM_SEL -->
-							<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true, array("sidenav" => true)); ?>
-							<!-- SUB: HAS_SUBITEMS_VASAK_L2_SEL -->
-									<!-- SUB: MENU_VASAK_L3_ITEM -->
-									<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-										<!-- SUB: MENU_VASAK_L4_ITEM -->
-										<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-										<!-- END SUB: MENU_VASAK_L4_ITEM -->
-										<!-- SUB: MENU_VASAK_L4_ITEM_SEL -->
-										<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- SUB: MENU_VASAK_L5_ITEM -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM -->
-											<!-- SUB: MENU_VASAK_L5_ITEM_SEL -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM_SEL -->
-										<!-- END SUB: MENU_VASAK_L4_ITEM_SEL -->
-									<!-- END SUB: MENU_VASAK_L3_ITEM -->
-									<!-- SUB: MENU_VASAK_L3_ITEM_SEL -->
-									<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-										<!-- SUB: MENU_VASAK_L4_ITEM -->
-										<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-										<!-- END SUB: MENU_VASAK_L4_ITEM -->
-										<!-- SUB: MENU_VASAK_L4_ITEM_SEL -->
-										<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- SUB: MENU_VASAK_L5_ITEM -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM -->
-											<!-- SUB: MENU_VASAK_L5_ITEM_SEL -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM_SEL -->
-										<!-- END SUB: MENU_VASAK_L4_ITEM_SEL -->
-									<!-- END SUB: MENU_VASAK_L3_ITEM_SEL -->
-							<!-- END SUB: HAS_SUBITEMS_VASAK_L2_SEL -->
-							<!-- END SUB: MENU_VASAK_L2_ITEM_SEL -->
-							<!-- SUB: MENU_VASAK_L2_ITEM -->
-							<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-							<?php $active = false; ?>
-							<?php $has_subitems = false; ?>
-							<!-- SUB: HAS_SUBITEMS_VASAK_L2_SEL -->
-							<?php $has_subitems = true; ?>
-									<!-- SUB: MENU_VASAK_L3_ITEM -->
-									<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-										<!-- SUB: MENU_VASAK_L4_ITEM -->
-										<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-											<!-- SUB: MENU_VASAK_L5_ITEM -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM -->
-											<!-- SUB: MENU_VASAK_L5_ITEM_SEL -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM_SEL -->
-										<!-- END SUB: MENU_VASAK_L4_ITEM -->
-										<!-- SUB: MENU_VASAK_L4_ITEM_SEL -->
-										<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- SUB: MENU_VASAK_L5_ITEM -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM -->
-											<!-- SUB: MENU_VASAK_L5_ITEM_SEL -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM_SEL -->
-										<!-- END SUB: MENU_VASAK_L4_ITEM_SEL -->
-									<!-- END SUB: MENU_VASAK_L3_ITEM -->
-									<!-- SUB: MENU_VASAK_L3_ITEM_SEL -->
-									<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-										<!-- SUB: MENU_VASAK_L4_ITEM -->
-										<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-											<!-- SUB: MENU_VASAK_L5_ITEM -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM -->
-											<!-- SUB: MENU_VASAK_L5_ITEM_SEL -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM_SEL -->
-										<!-- END SUB: MENU_VASAK_L4_ITEM -->
-										<!-- SUB: MENU_VASAK_L4_ITEM_SEL -->
-										<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- SUB: MENU_VASAK_L5_ITEM -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM -->
-											<!-- SUB: MENU_VASAK_L5_ITEM_SEL -->
-											<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-											<!-- END SUB: MENU_VASAK_L5_ITEM_SEL -->
-										<!-- END SUB: MENU_VASAK_L4_ITEM_SEL -->
-									<!-- END SUB: MENU_VASAK_L3_ITEM_SEL -->
-							<!-- END SUB: HAS_SUBITEMS_VASAK_L2_SEL -->
-							<!-- END SUB: MENU_VASAK_L2_ITEM -->
-						<?php } ?>
-						<!-- END SUB: MENU_VASAK_L1_ITEM -->
 					</ul>
 					<a class="dropdown-toggle" id="portals" role="button" data-toggle="dropdown" href="#"><span data-bind="text: portalName"><?php echo aw_session::get("aw_portal_name"); ?></span> <b class="caret"></b></a>
 				</li>
@@ -174,30 +39,6 @@ echo preg_replace("/{VAR\:prefix}/", "", $editor->render());
 						<!-- /ko -->
 					<!-- /ko -->
 				<!-- /ko -->
-				<!-- SUB: MENU_PAREM_L1_ITEM_SEL -->
-				<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true, array("sidenav" => true)); ?>
-				<!-- SUB: HAS_SUBITEMS_PAREM_L1 -->
-						<!-- SUB: MENU_PAREM_L2_ITEM -->
-						<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-						<!-- END SUB: MENU_PAREM_L2_ITEM -->
-						<!-- SUB: MENU_PAREM_L2_ITEM_SEL -->
-						<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-						<!-- END SUB: MENU_PAREM_L2_ITEM_SEL -->
-				<!-- END SUB: HAS_SUBITEMS_PAREM_L1 -->
-				<!-- END SUB: MENU_PAREM_L1_ITEM_SEL -->
-				<!-- SUB: MENU_PAREM_L1_ITEM -->
-				<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-				<?php $has_subitems = false; ?>
-				<!-- SUB: HAS_SUBITEMS_PAREM_L1 -->
-				<?php $has_subitems = true; ?>
-						<!-- SUB: MENU_PAREM_L2_ITEM -->
-						<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}); ?>
-						<!-- END SUB: MENU_PAREM_L2_ITEM -->
-						<!-- SUB: MENU_PAREM_L2_ITEM_SEL -->
-						<?php main_tpl_submenu_hack::add_knockout({VAR:parent}, {VAR:id}, "{VAR:text}", "{VAR:link}", "{VAR:comment}", "{VAR:link_prop}", "{VAR:alias}", {VAR:target_prop}, {VAR:users_only}, {VAR:no_menus}, {VAR:ord}, true); ?>
-						<!-- END SUB: MENU_PAREM_L2_ITEM_SEL -->
-				<!-- END SUB: HAS_SUBITEMS_PAREM_L1 -->
-				<!-- END SUB: MENU_PAREM_L1_ITEM -->
 			</ul>
 		</div>
 	</div>
@@ -351,8 +192,7 @@ function end_spann4($span) {
 </footer>
 
 <script type="text/javascript">
-	var aw_navigation_folders = <?php echo json_encode(main_tpl_submenu_hack::get_knockout()); ?>;
-	var aw_navigation_folders_new = {VAR:navigation.json};
+	var aw_navigation_folders = {VAR:navigation.json};
 	var aw_portal_id = <?php echo aw_session::get("aw_portal_id"); ?>;
 </script>
 <?php } else { ?>
