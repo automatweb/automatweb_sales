@@ -3470,7 +3470,7 @@ class site_show extends aw_template
 				"site_id" => aw_ini_get("site_id"),
 			));
 			$ids = array_merge($ids, $object_tree->ids());
-			$navigation[$parent] = $object_tree->ids_hierarchy();
+			$navigation[$name] = array($parent, $object_tree->ids_hierarchy());
 		}
 		$data = new object_data_list(
 			array(
@@ -3478,14 +3478,14 @@ class site_show extends aw_template
 			),
 			// FIXME: Cache result of make_menu_link somehow?
 			// FIXME: users_only is in META!
-			array(CL_MENU => array("oid", "name", "parent", "status", "jrk", "comment", "alias", "link", "target", "users_only"/*, "url"*/))
+			array(CL_MENU => array("oid", "name", "parent", "status", "jrk", "comment", "alias", "link", "target", "users_only", "submenus_from_obj"/*, "url"*/))
 		);
 		$data = $data->arr();
 		
 		$tree = array();
-		foreach ($navigation as $parent => $children)
+		foreach ($navigation as $name => $parent_children_tuple)
 		{
-			$tree[] = $this->build_navigation_node($data, $parent, $children);
+			$tree[$name] = $this->build_navigation_node($data, $parent_children_tuple[0], $parent_children_tuple[1]);
 		}
 		
 		$json_encoder = new json();
@@ -3502,22 +3502,42 @@ class site_show extends aw_template
 		$child_nodes = array();
 		foreach ($children as $child => $grandchildren)
 		{
+			// FIXME: Refactor to reduce noise (hide details)!
+			if ($data[$id]["submenus_from_obj"] && !$data[$child]["submenus_from_obj"])
+			{
+				$data[$child]["submenus_from_obj"] = $data[$id]["submenus_from_obj"];
+			}
 			$child_nodes[] = $this->build_navigation_node($data, $child, $grandchildren);
 		}
 		return array(
 			"id" => (int)$id,
 			"ord" => (int)$data[$id]["jrk"],
+			"status" => (int)$data[$id]["status"],
 			"name" => $data[$id]["name"],
 			"comment" => $data[$id]["comment"],
 			"alias" => $data[$id]["alias"],
 			"link" => $data[$id]["link"],
 			"target" => $data[$id]["target"],
 			"users_only" => (boolean)$data[$id]["users_only"],
-			"url" => "http://intra.notar.dev.automatweb.com/{$id}",
+			"url" => $this->make_menu_link_for_navigation_node($data[$id]),
 			"parent" => (int)$data[$id]["parent"],
-			"active" => false,
-			"meta" => array(),
+			"active" => in_array($id, $this->path_ids),
+			"submenus_from_obj" => $data[$id]["submenus_from_obj"],
 			"children" => $child_nodes,
 		);
+	}
+	
+	private function make_menu_link_for_navigation_node ($data)
+	{
+		if (object_loader::can("", $data["submenus_from_obj"]))
+		{
+			$o = obj($data["submenus_from_obj"]);
+			$i = $o->instance();
+			if (is_callable(array($i, "make_menu_link_with_data"))) {
+				return $i->make_menu_link_with_data($data, $o);
+			}
+		}
+		
+		return $data["link"] ? $data["link"] : aw_ini_get("baseurl").$data["oid"];
 	}
 }

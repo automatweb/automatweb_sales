@@ -2136,11 +2136,24 @@ class object_treeview_v2 extends class_base
 	{
 		if ($ref)
 		{
-			$link = $this->mk_my_orb("show", array("id" => $ref->id(), "tv_sel" => $sect_obj->id(), "section" => $sect_obj->id()));;
+			$link = $this->mk_my_orb("show", array("id" => $ref->id(), "tv_sel" => $sect_obj->id(), "section" => $sect_obj->id()));
 		}
 		else
 		{
-			$link = $this->mk_my_orb("show", array("id" => $this->tree_ob->id(), "tv_sel" => $sect_obj->id(), "section" => $sect_obj->id()));;
+			$link = $this->mk_my_orb("show", array("id" => $this->tree_ob->id(), "tv_sel" => $sect_obj->id(), "section" => $sect_obj->id()));
+		}
+		return $link;
+	}
+	
+	function make_menu_link_with_data($data, $ref = NULL)
+	{
+		if ($ref)
+		{
+			$link = $this->mk_my_orb("show", array("id" => $ref->id(), "tv_sel" => $data["oid"], "section" => $data["oid"]));
+		}
+		else
+		{
+			$link = $this->mk_my_orb("show", array("id" => $this->tree_ob->id(), "tv_sel" => $data["oid"], "section" => $data["oid"]));
 		}
 		return $link;
 	}

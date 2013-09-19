@@ -95,7 +95,6 @@ class site_template_compiler extends aw_template
 	{
 		$this->tpl_init($path, true);
 		$this->no_use_ma_cache = $no_cache;
-		//echo "compiling \$this->read_template($tpl,true)<br>";
 		$success = $this->read_template($tpl);
 
 		if (!$success)
@@ -1144,6 +1143,7 @@ class site_template_compiler extends aw_template
 		$ret .= $this->_gi()."\"target_prop\" => ".$o_name."->target ? 1 : 0,\n";
 		$ret .= $this->_gi()."\"link_prop\" => ".$o_name."->link,\n";
 		$ret .= $this->_gi()."\"users_only\" => ".$o_name."->users_only ? 1 : 0,\n";
+		$ret .= $this->_gi()."\"no_menus\" => ".$o_name."->no_menus ? 1 : 0,\n";
 		$ret .= $this->_gi()."\"ord\" => ".$o_name."->ord(),\n";
 		
 		if (aw_ini_get("user_interface.content_trans") == 1)
@@ -1155,6 +1155,7 @@ class site_template_compiler extends aw_template
 			$ret .= $this->_gi()."\"text\" => ".$o_name."->name(),\n";
 		}
 
+		$ret .= $this->_gi()."\"fun_name\" => ".$fun_name." . get_class({$inst_name}),\n";
 		$ret .= $this->_gi()."\"link\" => ".$inst_name."->".$fun_name."($o_name),\n";
 		$ret .= $this->_gi()."\"target\" => (".$o_name."->prop(\"target\") ? \"target=\\\"_blank\\\"\" : \"\"),\n";
 		$ret .= $this->_gi()."\"section\" => ".$o_name."->".$this->id_func."(),\n";
