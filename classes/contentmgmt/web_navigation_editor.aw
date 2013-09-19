@@ -12,6 +12,7 @@ class web_navigation_editor extends aw_modal {
 	}
 	
 	protected function _get_editor(&$property) {
+		$statusOptions = str_replace("\"", "'", json_encode(object::get_status_names()));
 		$property["value"] = <<<SCRIPT
 		
 <style type="text/css">
@@ -50,6 +51,7 @@ ol.sortable .placeholder {
 			<i class="icon-move"></i>
 			<a href="#" onclick="if ($(this).children('i').hasClass('icon-chevron-down')) { $(this).siblings('div').slideDown(); $(this).children('i').removeClass('icon-chevron-down').addClass('icon-chevron-up'); } else { $(this).siblings('div').slideUp(); $(this).children('i').removeClass('icon-chevron-up').addClass('icon-chevron-down') }"><i class="icon-chevron-down"></i></a>
 			<input type="text" data-bind="value: name, valueUpdate:'afterkeydown'" class="input-large" />
+			<span data-bind="chooser: status, chooserOptions: {$statusOptions}"></span>
 			<span class="pull-right">
 				<a data-bind="click: remove" title="Kustuta" class="btn"><i class="icon-trash"></i></a>
 				<a data-bind="click: newSibling" title="Lisa naaberkaust" class="btn"><i class="icon-plus"></i></a>
@@ -74,7 +76,9 @@ ol.sortable .placeholder {
     </li>
 </script>
 <ol class="sortable">
-    <!-- ko template: { name: 'editor-nested-sortable', foreach: children } -->
+    <!-- ko foreach: menus -->
+		<!-- ko template: { name: 'editor-nested-sortable', foreach: \$parent[\$data]().children } -->
+		<!-- /ko -->
 	<!-- /ko -->
 </ol>
 

@@ -12,8 +12,8 @@
 				</td>
 				<td><a href="#" data-bind="click: $parent.removeChild"><i class="icon-trash"></i></a></td>
 			</tr>
-			<!-- ko template: { name: 'formElementNodeTemplate', foreach: children } -->
-			<!-- /ko -->
+			<!-- k o template: { name: 'formElementNodeTemplate', foreach: folders } -->
+			<!-- /k o -->
 		</script>
 		<table id="navigation-editor-table" class="table">
 			<thead>
@@ -30,8 +30,8 @@
 					</td>
 					<td><a href="#" data-bind="click: $parent.removeFolder"><i class="icon-trash"></a></td>
 				</tr>
-				<!-- ko template: { name: 'formElementNodeTemplate', foreach: children } -->
-				<!-- /ko -->
+				<!-- k o template: { name: 'formElementNodeTemplate', foreach: children } -->
+				<!-- /k o -->
 			</tbody>
 		</table>
 		<script type="text/javascript" src="{VAR:baseurl}js/jquery/jquery-sortable-min.js"></script>
