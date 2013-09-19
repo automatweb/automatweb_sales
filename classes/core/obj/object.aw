@@ -36,6 +36,14 @@ class object
 
 	private static $instance_count = 0;
 	private $instance_number;
+	
+	public static function get_status_names ()
+	{
+		return array(
+			self::STAT_ACTIVE => t("Aktiivne"),
+			self::STAT_NOTACTIVE => t("Deaktiivne")
+		);
+	}
 
 	/** object class constructor
 		@attrib api=1 params=pos
