@@ -87,7 +87,7 @@ YUI().use("node", function(Y) {
 					9: { from: new Date(currentYear, 0, 1), to: new Date(currentYear, 11, 31) },
 					10: { from: new Date(currentYear - 1, 0, 1), to: new Date(currentYear - 1, 11, 31) }
 				};
-				var time_period = Y.one("#orders_filter_time_period input[type=checkbox]:checked").get("value");
+				var time_period = $("[name='orders_filter_time_period'] input[type=checkbox]:checked").val();
 				// TODO: To be replaced by YUI code once we replace datepicker with YUI datepicker!
 				if (time_periods[time_period]) {
 					$("input[name='orders_filter_search_date_from[date]']").datepick("setDate", time_periods[time_period].from);

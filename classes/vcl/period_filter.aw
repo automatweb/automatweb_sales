@@ -29,12 +29,12 @@ class period_filter extends aw_template
 						after: {
 							'selectionChange': function(e){
 								buttonGroupCB.getButtons().each(function(option) {
-									Y.one('#' + option.get('name')).set('checked', false);
+									Y.one('#' + option.get('name').replace("[", "_").replace("]", "_")).set('checked', false);
 									option.removeClass("btn-primary");
 								});
 								Y.Array.each(buttonGroupCB.getSelectedButtons(), function(option) {
 									option.addClass("btn-primary");
-									Y.one('#' + option.get('name')).set('checked', true);
+									Y.one('#' + option.get('name').replace("[", "_").replace("]", "_")).set('checked', true);
 								});
 								(function(){
 									{$onclick}
