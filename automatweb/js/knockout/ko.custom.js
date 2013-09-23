@@ -148,6 +148,7 @@ ko.bindingHandlers.treeview = {
 						boundingBox: id,
 						children: children
 					}).render();
+					return;
 					$(id).on("click", "i.aui-icon-minus", function (event) {
 						var node_id = $(this).siblings("span").find("a").data("node-id");
 						$.cookie("alloyui-treeview-" + id + "-" + node_id, "true");
@@ -168,7 +169,22 @@ ko.bindingHandlers.treeview = {
 				}
 			});
 		} else {
-			createTreeview(ko.unwrap(valueAccessor()));
+			// FIXME: Get rid of this! Something super strange is happening if ko.unwrap(valueAccessor()) is used directly.
+			// The following error occurs: "An attempt was made to use an object that is not, or is no longer, usable."
+			function deepCopy (old) {
+				var _new = [];
+				for (var i in old) {
+					_new.push({
+						id: old[i].id,
+						label: old[i].label,
+						children: deepCopy(old[i].children),
+						expanded: Boolean(old[i].expanded)
+					});
+				}
+				return _new;
+			}
+			var children = deepCopy(ko.unwrap(valueAccessor()));
+			createTreeview(children);
 		}
     }
 };

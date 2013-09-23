@@ -51,12 +51,12 @@ ol.sortable .placeholder {
 			<i class="icon-move"></i>
 			<a href="#" onclick="if ($(this).children('i').hasClass('icon-chevron-down')) { $(this).siblings('div').slideDown(); $(this).children('i').removeClass('icon-chevron-down').addClass('icon-chevron-up'); } else { $(this).siblings('div').slideUp(); $(this).children('i').removeClass('icon-chevron-up').addClass('icon-chevron-down') }"><i class="icon-chevron-down"></i></a>
 			<input type="text" data-bind="value: name, valueUpdate:'afterkeydown'" class="input-large" />
-			<span data-bind="chooser: status, chooserOptions: {$statusOptions}"></span>
 			<span class="pull-right">
 				<a data-bind="click: remove" title="Kustuta" class="btn"><i class="icon-trash"></i></a>
 				<a data-bind="click: newSibling" title="Lisa naaberkaust" class="btn"><i class="icon-plus"></i></a>
 				<a data-bind="click: newChild" title="Lisa alamkaust" class="btn"><i class="icon-plus-sign"></i></a>
 			</span>
+			<span class="pull-right" style="margin-top: 4px;" data-bind="chooser: status, chooserOptions: {$statusOptions}"></span>
 			<div style="display: none; margin-top: 5px;" class="row-fluid">
 				<div class="span6" style="padding-left: 36px">
 					<input type="text" class="input-large" data-bind="value: alias" placeholder="Alias" style="margin-bottom: 5px" />
@@ -233,7 +233,9 @@ SCRIPT;
 			}
 		}
 		$folder->set_ord($data["ord"]);
-		$folder->set_status(object::STAT_ACTIVE);
+		if ($data["ord"] == object::STAT_ACTIVE || $data["ord"] == object::STAT_NOTACTIVE) {
+			$folder->set_status($data["ord"]);
+		}
 		return $folder->save();
 	}
 }
