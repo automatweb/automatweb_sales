@@ -1695,6 +1695,7 @@ ENDJAVASCRIPT
 			}
 		}
 
+		$style = "";
 		if(sizeof($styles) || isset($style))
 		{
 			$style = isset($style) ? $style : "";
