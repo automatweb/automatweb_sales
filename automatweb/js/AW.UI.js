@@ -1386,7 +1386,17 @@ $.extend(window.AW.UI, (function(){
 								});
 								
 								function showModal (data) {
-									eventDetails = new AW.viewModel.crm_meeting(data);
+									eventDetails = new AW.viewModel.crm_meeting(data, {
+										save: function (callback) {
+											eventDetails.start1_show($("#start1_show").val());
+											eventDetails.end_show($("#end_show").val());
+											AW.UI.calendar.saveEvent(eventDetails.toJSON(), function () {
+												// Insert into calendar
+												callback && callback.success && callback.success();
+												callback && callback.complete && callback.complete();
+											}, false);
+										}
+									});
 									AW.UI.modal.open(eventDetails);
 								}
 						  
@@ -1511,14 +1521,6 @@ $.extend(window.AW.UI, (function(){
 						url: "/automatweb/orb.aw?class=planner&action=delete_event",
 						data: { id: id }
 					});
-				},
-				saveEventDetails: function (callback) {
-					eventDetails.start1_show($("#start1_show").val());
-					eventDetails.end_show($("#end_show").val());
-					AW.UI.calendar.saveEvent(eventDetails.toJSON(), function () {
-						// Insert into calendar
-						callback();
-					}, false);
 				}
 			};
 		})()
