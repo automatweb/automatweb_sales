@@ -31,7 +31,8 @@ $.extend(window.AW, (function(){
 			image: 6,
 			extlink: 21,
 			document: 7,
-			mini_gallery: 318
+			mini_gallery: 318,
+			crm_meeting: 224
 		},
 		toJS: toJS,
 		util: (function () {
@@ -310,16 +311,16 @@ $.extend(window.AW, (function(){
 					self.attachments = ko.observableArray(processAttachments(data && data.attachments ? data.attachments : []));
 					self.createAttachmentFile = function (document, event) {
 						if (typeof document == "undefined") { return; }
-						AW.UI.modal.open(new viewModels.file());
+						AW.UI.modal.open(new AW.viewModel.file());
 					};
 					self.createAttachmentImage = function (document, event) {
-						AW.UI.modal.open(new viewModels.image());
+						AW.UI.modal.open(new AW.viewModel.image());
 					};
 					self.createAttachmentLink = function (document, event) {
-						AW.UI.modal.open(new viewModels.link());
+						AW.UI.modal.open(new AW.viewModel.link());
 					};
 					self.createAttachmentDocument = function (document, event) {
-						AW.UI.modal.open(new viewModels.doc());
+						AW.UI.modal.open(new AW.viewModel.document());
 					};
 					function addAttachments (items) {
 						for (var i in items) {
@@ -409,7 +410,7 @@ $.extend(window.AW, (function(){
 						} });
 					};
 					self.createFolder = function (gallery, event) {
-						AW.UI.modal.open(new viewModels.menu({ parent: self.parent() })).on("save", function (data) {
+						AW.UI.modal.open(new AW.viewModel.menu({ parent: self.parent() })).on("save", function (data) {
 							self.folder.push(data);
 						});
 					};
@@ -422,7 +423,7 @@ $.extend(window.AW, (function(){
 						write: function (images) {
 							self.imagesData.removeAll();
 							$.each(images, function (i, imageData) {
-								self.imagesData.push(new viewModels.image(imageData));
+								self.imagesData.push(new AW.viewModel.image(imageData));
 							});
 						},
 						owner: self
@@ -440,7 +441,7 @@ $.extend(window.AW, (function(){
 						self.reload("images", callbacks);
 					}
 					self.addImage = function (imageData) {
-						var image = new viewModels.image(imageData);
+						var image = new AW.viewModel.image(imageData);
 						self.imagesData.push(image);
 						return image;
 					};
@@ -836,6 +837,106 @@ $.extend(window.AW, (function(){
 						}
 						return total;
 					}, self);
+				},
+				crm_meeting: function (_data) {
+					var vmParticipant = function (_data) {
+						var self = this;
+						var properties = ["id", "impl", "time_guess", "time_real", "time_to_cust", "billable"];
+						vmCore.call(self, _data, properties);
+					};
+					
+					var self = this;
+					if (_data && _data.start1) {
+						_data.start1_show = AW.util.convertTimestampToDate(_data.start1);
+					}
+					if (_data && _data.end) {
+						_data.end_show = AW.util.convertTimestampToDate(_data.end);
+					}
+					var properties = ["start1_show", "end_show", "content"];
+					vmCore.call(self, _data, properties);
+					self.class = "crm_meeting_modal";
+					self.class_id = AW.CLID.crm_meeting;
+					
+					self.start1 = ko.computed(function(){
+						var d = self.start1_show().match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
+						if (!d) {
+							return null;
+						}
+						var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
+						return date.getTime()/1000;
+					}, self);
+					self.end = ko.computed(function(){
+						var d = self.end_show().match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
+						if (!d) {
+							return null;
+						}
+						var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
+						return date.getTime()/1000;
+					}, self);
+					
+					var addParticipants = function (items) {
+						for (var i in items) {
+							var found = false;
+							for (var j in self.participants()) {
+								if (self.participants()[j].impl().id == items[i].id) {
+									found = true;
+									break;
+								}
+							}
+							if (!found) {
+								self.participants.push(new vmParticipant({ impl: items[i] }));
+							}
+						}
+					};
+					participants = [];
+					if (_data && _data.participants) {
+						for (var i in _data.participants) {
+							participants.push(new vmParticipant(_data.participants[i]));
+						}
+					}
+					self.participants = ko.observableArray(participants);
+					self.selectParticipantsFromColleagues = function () {
+						AW.UI.modal_search.open("modal_search_employee", { defaultSource: null, multiple: true, onSelect: addParticipants });
+					};
+					self.selectParticipantsFromClients = function () {
+						AW.UI.modal_search.open("modal_search_customer_employee", { defaultSource: null, multiple: true, onSelect: addParticipants });
+					};
+					self.removeParticipant = function (participant) {
+						self.participants.remove(participant);
+					}
+					
+					self.attachments = ko.observableArray();
+					self.selectAttachments = function () {
+						AW.UI.modal_search.open("modal_search", { rootParent: 751702, multiple: true, onSelect: function (items) {
+							for (var i in items) {
+								var found = false;
+								for (var j in self.attachments()) {
+									if (self.attachments()[j].id == items[i].id) {
+										found = true;
+										break;
+									}
+								}
+								if (!found) {
+									self.attachments.push(items[i]);
+								}
+							}
+						} });
+					};
+					self.removeAttachment = function (attachment) {
+						self.attachments.remove(function(item) { return item.id == attachments.id; });
+					}
+					
+					self.toJSON = function() {
+						return {
+							id: this.id(),
+							name: this.name(),
+							comment: this.comment(),
+							content: this.content(),
+							start1: this.start1(),
+							end: this.end(),
+							participants: ko.toJS(this.participants())
+						};
+					}
 				}
 			};
 		})()
@@ -1236,104 +1337,6 @@ $.extend(window.AW.UI, (function(){
 			var eventDetails;
 			var scheduler;
 			
-			var vmParticipant = function (_data) {
-				var self = this;
-				var properties = ["id", "impl", "time_guess", "time_real", "time_to_cust", "billable"];
-				vmCore.call(self, _data, properties);
-			};
-			
-			var vmEvent = function (_data) {
-				var self = this;
-				if (_data && _data.start1) {
-					_data.start1_show = AW.util.convertTimestampToDate(_data.start1);
-				}
-				if (_data && _data.end) {
-					_data.end_show = AW.util.convertTimestampToDate(_data.end);
-				}
-				var properties = ["start1_show", "end_show", "content"];
-				vmCore.call(self, _data, properties);
-				
-				self.start1 = ko.computed(function(){
-					var d = self.start1_show().match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
-					if (!d) {
-						return null;
-					}
-					var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
-					return date.getTime()/1000;
-				}, self);
-				self.end = ko.computed(function(){
-					var d = self.end_show().match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
-					if (!d) {
-						return null;
-					}
-					var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
-					return date.getTime()/1000;
-				}, self);
-				
-				var addParticipants = function (items) {
-					for (var i in items) {
-						var found = false;
-						for (var j in self.participants()) {
-							if (self.participants()[j].impl().id == items[i].id) {
-								found = true;
-								break;
-							}
-						}
-						if (!found) {
-							self.participants.push(new vmParticipant({ impl: items[i] }));
-						}
-					}
-				};
-				participants = [];
-				if (_data && _data.participants) {
-					for (var i in _data.participants) {
-						participants.push(new vmParticipant(_data.participants[i]));
-					}
-				}
-				self.participants = ko.observableArray(participants);
-				self.selectParticipantsFromColleagues = function () {
-					AW.UI.modal_search.open("modal_search_employee", { defaultSource: null, multiple: true, onSelect: addParticipants });
-				};
-				self.selectParticipantsFromClients = function () {
-					AW.UI.modal_search.open("modal_search_customer_employee", { defaultSource: null, multiple: true, onSelect: addParticipants });
-				};
-				self.removeParticipant = function (participant) {
-					self.participants.remove(participant);
-				}
-				
-				self.attachments = ko.observableArray();
-				self.selectAttachments = function () {
-					AW.UI.modal_search.open("modal_search", { rootParent: 751702, multiple: true, onSelect: function (items) {
-						for (var i in items) {
-							var found = false;
-							for (var j in self.attachments()) {
-								if (self.attachments()[j].id == items[i].id) {
-									found = true;
-									break;
-								}
-							}
-							if (!found) {
-								self.attachments.push(items[i]);
-							}
-						}
-					} });
-				};
-				self.removeAttachment = function (attachment) {
-					self.attachments.remove(function(item) { return item.id == attachments.id; });
-				}
-			};
-			vmEvent.prototype.toJSON = function() {
-				return {
-					id: this.id(),
-					name: this.name(),
-					comment: this.comment(),
-					content: this.content(),
-					start1: this.start1(),
-					end: this.end(),
-					participants: ko.toJS(this.participants())
-				};
-			}
-
 			return {
 				initialize: function(id) {
 					if ($("#" + id).size() === 0) {
@@ -1383,7 +1386,7 @@ $.extend(window.AW.UI, (function(){
 								});
 								
 								function showModal (data) {
-									eventDetails = new vmEvent(data);
+									eventDetails = new AW.viewModel.crm_meeting(data);
 									AW.UI.modal.open(eventDetails);
 								}
 						  
