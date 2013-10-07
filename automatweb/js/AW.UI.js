@@ -928,13 +928,13 @@ $.extend(window.AW, (function(){
 					
 					self.toJSON = function() {
 						return {
-							id: this.id(),
-							name: this.name(),
-							comment: this.comment(),
-							content: this.content(),
-							start1: this.start1(),
-							end: this.end(),
-							participants: ko.toJS(this.participants())
+							id: self.id(),
+							name: self.name(),
+							comment: self.comment(),
+							content: self.content(),
+							start1: self.start1(),
+							end: self.end(),
+							participants: ko.toJS(self.participants())
 						};
 					}
 				}
@@ -1386,10 +1386,12 @@ $.extend(window.AW.UI, (function(){
 								});
 								
 								function showModal (data) {
-									eventDetails = new AW.viewModel.crm_meeting(data, {
+									eventDetails = new AW.viewModel.crm_meeting(data);
+									AW.UI.modal.open(eventDetails, {
 										save: function (callback) {
-											eventDetails.start1_show($("#start1_show").val());
-											eventDetails.end_show($("#end_show").val());
+											// FIXME: Horrible hack, must remove!
+											eventDetails.start1_show($("#modal-0-start1_show").val());
+											eventDetails.end_show($("#modal-0-end_show").val());
 											AW.UI.calendar.saveEvent(eventDetails.toJSON(), function () {
 												// Insert into calendar
 												callback && callback.success && callback.success();
@@ -1397,7 +1399,6 @@ $.extend(window.AW.UI, (function(){
 											}, false);
 										}
 									});
-									AW.UI.modal.open(eventDetails);
 								}
 						  
 								scheduler = new Y.Scheduler({
