@@ -3010,12 +3010,12 @@ class planner extends class_base
 			
 			foreach ($events_data as $event_data) {
 				$events[] = array(
-					"id" => $event_data["id"],
-					"name" => $event_data["name"],
-					"comment" => $event_data["comment"],
-					"content" => $event_data["content"],
-					"start1" => $event_data["start"],
-					"end" => $event_data["end"],
+					"id" => ifset($event_data, "id"),
+					"name" => ifset($event_data, "name"),
+					"comment" => ifset($event_data, "comment"),
+					"content" => ifset($event_data, "content"),
+					"start1" => ifset($event_data, "start"),
+					"end" => ifset($event_data, "end"),
 //					"participants" => !empty($event_data["parts"]) ? array_values($event_data["parts"]) : array(),
 					"participants" => !empty($participants[$event_data["id"]]) ? $participants[$event_data["id"]] : array(),
 				);
