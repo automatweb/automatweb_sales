@@ -56,7 +56,8 @@ $.extend(window.AW, (function(){
 					var month = date.getMonth() + 1;
 					return (day < 10 ? "0" : "") + day + "." + (month < 10 ? "0" : "") + month + "." + date.getFullYear();
 				},
-				formatTimestamp: function (timestamp) {
+				formatTimestamp: function (timestamp, dateDelimiter) {
+					dateDelimiter = dateDelimiter || ".";
 					function _0 (i) {
 						return i < 10 ? "0" + i : i;
 					}
@@ -67,8 +68,7 @@ $.extend(window.AW, (function(){
 						hour = date.getHours(),
 						minute = date.getMinutes(),
 						second = date.getSeconds();
-					// 27.12.2013 23:59
-					return _0(day) + "." + _0(month) + "." + year + " " + _0(hour) + ":" + _0(minute);
+					return _0(day) + dateDelimiter + _0(month) + dateDelimiter + year + " " + _0(hour) + ":" + _0(minute);
 				},
 				formatFileSize: function (bytes) {
 					if (!AW.util.isNumeric(bytes)) {
@@ -846,33 +846,10 @@ $.extend(window.AW, (function(){
 					};
 					
 					var self = this;
-					if (_data && _data.start1) {
-						_data.start1_show = AW.util.convertTimestampToDate(_data.start1);
-					}
-					if (_data && _data.end) {
-						_data.end_show = AW.util.convertTimestampToDate(_data.end);
-					}
-					var properties = ["start1_show", "end_show", "content"];
+					var properties = ["start1", "end", "content"];
 					vmCore.call(self, _data, properties);
 					self.class = "crm_meeting_modal";
 					self.class_id = AW.CLID.crm_meeting;
-					
-					self.start1 = ko.computed(function(){
-						var d = self.start1_show().match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
-						if (!d) {
-							return null;
-						}
-						var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
-						return date.getTime()/1000;
-					}, self);
-					self.end = ko.computed(function(){
-						var d = self.end_show().match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
-						if (!d) {
-							return null;
-						}
-						var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
-						return date.getTime()/1000;
-					}, self);
 					
 					var addParticipants = function (items) {
 						for (var i in items) {
@@ -888,7 +865,7 @@ $.extend(window.AW, (function(){
 							}
 						}
 					};
-					participants = [];
+					var participants = [];
 					if (_data && _data.participants) {
 						for (var i in _data.participants) {
 							participants.push(new vmParticipant(_data.participants[i]));
@@ -926,7 +903,11 @@ $.extend(window.AW, (function(){
 						self.attachments.remove(function(item) { return item.id == attachments.id; });
 					}
 					
-					self.toJSON = function() {
+					self.toJS = function() {
+						var participants = [];
+						$.each(self.participants(), function (i, participant) {
+							participants.push(participant.toJS());
+						});
 						return {
 							id: self.id(),
 							name: self.name(),
@@ -934,7 +915,7 @@ $.extend(window.AW, (function(){
 							content: self.content(),
 							start1: self.start1(),
 							end: self.end(),
-							participants: ko.toJS(self.participants())
+							participants: participants
 						};
 					}
 				}
@@ -1389,11 +1370,8 @@ $.extend(window.AW.UI, (function(){
 									eventDetails = new AW.viewModel.crm_meeting(data);
 									AW.UI.modal.open(eventDetails, {
 										save: function (callback) {
-											// FIXME: Horrible hack, must remove!
-											eventDetails.start1_show($("#modal-0-start1_show").val());
-											eventDetails.end_show($("#modal-0-end_show").val());
-											AW.UI.calendar.saveEvent(eventDetails.toJSON(), function () {
-												// Insert into calendar
+											var data = eventDetails.toJS();
+											AW.UI.calendar.saveEvent(data, function () {
 												callback && callback.success && callback.success();
 												callback && callback.complete && callback.complete();
 											}, false);
@@ -1489,6 +1467,7 @@ $.extend(window.AW.UI, (function(){
 				saveEvent: function (itemData, callback, updateUI) {
 					$.ajax({
 						url: "/automatweb/orb.aw?class=planner&action=save_event",
+						type: "POST",
 						data: { id: calendarID, data: itemData },
 						dataType: "json",
 						success: function (data) {

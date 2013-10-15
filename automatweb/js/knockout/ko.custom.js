@@ -57,6 +57,38 @@ ko.bindingHandlers.datepick = {
     }
 };
 
+ko.bindingHandlers.datetimepicker = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        var value = ko.utils.unwrapObservable(valueAccessor()),
+			$element = $(element),
+			$input = $('<input data-format="dd/MM/yyyy hh:mm" type="text"></input>');
+		$element.append($input);
+		$element.append('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
+		$element.addClass("input-append").attr("data-provide", "datetimepicker");
+		
+		$input.val(AW.util.formatTimestamp(value, "/"));
+		// FIXME: Surely, there must be a more elegant way for doing this?
+		var oldVal = $input.val()
+		setInterval(function () {
+			var newVal = $input.val();
+			if (oldVal !== newVal) {
+				var d = newVal.match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
+				if (d) {
+					var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
+					valueAccessor()(date.getTime()/1000);
+				}
+				console.log(viewModel.toJS());
+				oldVal = newVal;
+			}
+		}, 100);
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        var value = ko.utils.unwrapObservable(valueAccessor()),
+			$input = $(element).find("input");
+        $input.val(AW.util.formatTimestamp(value, "/"));
+    }
+};
+
 ko.bindingHandlers.priceComponents = {
 	init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 		(function($) {

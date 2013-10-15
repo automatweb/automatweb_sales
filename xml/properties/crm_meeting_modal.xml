@@ -9,32 +9,20 @@
             <caption>Kohtumise teema</caption>
       </property>
       <property>
-            <name>start1_show</name>
-            <group>general</group>
-            <type>datetimepicker</type>
-            <parent>timespan</parent>
-            <field>start1_show</field>
-            <caption>Algus</caption>
-      </property>
-      <property>
-            <name>end_show</name>
-            <group>general</group>
-            <type>datetimepicker</type>
-            <parent>timespan</parent>
-            <field>end_show</field>
-            <caption>L&amp;amp;otilde;pp</caption>
-      </property>
-      <property>
             <name>start1</name>
             <group>general</group>
-            <type>hidden</type>
+            <type>datetimepicker</type>
+            <parent>timespan</parent>
             <field>start1</field>
+            <caption>Algus</caption>
       </property>
       <property>
             <name>end</name>
             <group>general</group>
-            <type>hidden</type>
+            <type>datetimepicker</type>
+            <parent>timespan</parent>
             <field>end</field>
+            <caption>L&amp;amp;otilde;pp</caption>
       </property>
       <property>
             <name>comment</name>

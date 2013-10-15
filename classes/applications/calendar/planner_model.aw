@@ -118,7 +118,7 @@ class planner_model extends core
 		
 		if (aw_template::bootstrap()) {
 			$di["start"] = $args["start"] = mktime(0, 0, 0, 1, 1, 2010);
-			$di["end"] = $args["end"] = mktime(0, 0, 0, 8, 1, 2013);
+			$di["end"] = $args["end"] = mktime(0, 0, 0, 8, 1, 2020);
 		}
 
 		$start = $di["start"];

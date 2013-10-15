@@ -9,14 +9,11 @@
 	
 	@layout timespan type=horizontal captionside=left width=6:6
 
-		@property start1_show type=datetimepicker parent=timespan
+		@property start1 type=datetimepicker parent=timespan
 		@caption Algus
 
-		@property end_show type=datetimepicker parent=timespan
+		@property end type=datetimepicker parent=timespan
 		@caption L&otilde;pp
-		
-	@property start1 type=hidden
-	@property end type=hidden
 
 	@property comment type=textarea class=input-xxlarge
 	@caption Kokkuv&otilde;te
@@ -57,24 +54,12 @@ class crm_meeting_modal extends aw_modal {
 		$property["data"] = array("bind" => "value: name, valueUpdate: 'afterkeydown'");
 	}
 	
-	protected function _get_start1_show(&$property) {
-		$property["data"] = array(
-			"bind" => "value: start1_show",
-		);
-	}
-	
 	protected function _get_start1(&$property) {
-		$property["data"] = array("bind" => "value: start1");
-	}
-	
-	protected function _get_end_show(&$property) {
-		$property["data"] = array(
-			"bind" => "value: end_show",
-		);
+		$property["data"] = array("bind" => "datetimepicker: start1");
 	}
 	
 	protected function _get_end(&$property) {
-		$property["data"] = array("bind" => "value: end");
+		$property["data"] = array("bind" => "datetimepicker: end");
 	}
 	
 	protected function _get_comment(&$property) {
