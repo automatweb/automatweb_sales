@@ -1476,6 +1476,8 @@ $.extend(window.AW.UI, (function(){
 							scheduler.eachEvent(function(event, index){
 								if (event._state.data.id.value == data.id) {
 									event.setContent(data.content);
+									// FIXME: This is a hack, should be handled differently!
+									event._state.data.participants.lazy.value = data.participants;
 									updated = true;
 								}
 							});
