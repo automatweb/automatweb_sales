@@ -1752,7 +1752,7 @@ class object_treeview_v2 extends class_base
 				"name" => "del",
 				"tooltip" => t("Kustuta"),
 				"url" => "#",
-				"onClick" => "document.objlist.subact.value='delete';document.objlist.submit()",
+				"onClick" => "document.objlist.subact.value='delete';document.objlist.submit();",
 				"img" => "delete.gif",
 				"class" => "menuButton",
 				"confirm" => t("Oled kindel et tahad objekte kustutada?")
@@ -1771,6 +1771,35 @@ class object_treeview_v2 extends class_base
 				"img" => "save.gif"
 			));
 			$has_b = true;
+		}
+		
+		$tb->add_button(array(
+			"name" => "copy",
+			"tooltip" => t("Kopeeri"),
+			"url" => "javascript:void(0)",
+			"onClick" => "document.objlist.subact.value='copy';document.objlist.submit()",
+			"img" => "copy.gif",
+			"class" => "menuButton",
+		));
+		
+		$tb->add_button(array(
+			"name" => "cut",
+			"tooltip" => t("L&otilde;ika"),
+			"url" => "javascript:void(0)",
+			"onClick" => "document.objlist.subact.value='cut';document.objlist.submit()",
+			"img" => "cut.gif",
+			"class" => "menuButton",
+		));
+		
+		if (aw_global_get("object_treeview_v2::copy") or aw_global_get("object_treeview_v2::cut")) {
+			$tb->add_button(array(
+				"name" => "paste",
+				"tooltip" => t("Kleebi"),
+				"url" => "javascript:void(0)",
+				"onClick" => "document.objlist.subact.value='paste';document.objlist.submit()",
+				"img" => "paste.gif",
+				"class" => "menuButton",
+			));
 		}
 
 		if ($ob->prop("show_search_btn") and empty($_GET["otv2srch"]))
@@ -2545,14 +2574,60 @@ class object_treeview_v2 extends class_base
 		$d_o = obj($ih_ob->prop("ds"));
 		$d_inst = $d_o->instance();
 
-		if ($subact == "delete")
+		if (!empty($sel))
+		{	
+			if ($subact == "delete")
+			{
+				$tt = array();
+				$awa = new aw_array($sel);
+				$farr = $awa->get();
+	
+				// get datasource
+				$d_inst->do_delete_objects($d_o, $farr);
+			}
+			elseif ($subact == "copy")
+			{
+				aw_session_set("object_treeview_v2::copy", $sel);
+				aw_session_del("object_treeview_v2::cut");
+			}
+			elseif ($subact == "cut")
+			{
+				aw_session_del("object_treeview_v2::copy");
+				aw_session_set("object_treeview_v2::cut", $sel);
+			}
+		}
+		
+		if ($subact == "paste")
 		{
-			$tt = array();
-			$awa = new aw_array($sel);
-			$farr = $awa->get();
-
-			// get datasource
-			$d_inst->do_delete_objects($d_o, $farr);
+			$parent = $tv_sel;
+			$copied_objects = aw_global_get("object_treeview_v2::copy");
+			if (is_array($copied_objects))
+			{
+				foreach ($copied_objects as $copied_object)
+				{
+					if (object_loader::can("", $copied_object))
+					{
+						$o = obj(obj($copied_object)->save_new());
+						$o->set_parent($parent);
+						$o->save();
+					}
+				}
+			}
+			$cut_objects = aw_global_get("object_treeview_v2::cut");
+			if (is_array($cut_objects))
+			{	
+				foreach ($cut_objects as $cut_object)
+				{
+					if (object_loader::can("", $cut_object))
+					{
+						$o = obj($cut_object);
+						$o->set_parent($parent);
+						$o->save();
+					}
+				}
+			}
+			aw_session_del("object_treeview_v2::copy");
+			aw_session_del("object_treeview_v2::cut");
 		}
 
 		// if has editable columns, save them
