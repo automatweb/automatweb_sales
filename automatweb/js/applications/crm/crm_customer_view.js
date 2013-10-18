@@ -82,7 +82,7 @@ YUI().use("node", function(Y) {
 						}
 						customerView.customer().customer_relation().categories(category);
 						
-						AW.UI.modal.open(customerView).element.find('input[data-provide=typeahead]').typeahead({
+						AW.UI.modal.open(customerView.customer()).element.find('input[data-provide=typeahead]').typeahead({
 							source: function(query, process) {
 								field = this.$element.data("address-field");
 								var input = {};

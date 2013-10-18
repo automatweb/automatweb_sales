@@ -59,8 +59,8 @@
 class crm_customer_modal_person extends crm_customer_modal {
 
 	protected function get_title() {
-		$name = html::span(array("data" => array("bind" => "text: customer().name() ? customer().name : '".t("UUS")."'")));
-		$type = html::span(array("data" => array("bind" => "text: customer().isBuyer() ? '".t("OSTJA")."' : '".t("M&Uuml;&Uuml;JA")."'")));
+		$name = html::span(array("data" => array("bind" => "text: name() ? name : '".t("UUS")."'")));
+		$type = html::span(array("data" => array("bind" => "text: isBuyer() ? '".t("OSTJA")."' : '".t("M&Uuml;&Uuml;JA")."'")));
 		return $name . "&nbsp;|&nbsp;" . $type . "&nbsp;".t("ISIK");
 	}
 	
@@ -74,32 +74,32 @@ class crm_customer_modal_person extends crm_customer_modal {
 	
 	protected function _get_customer_firstname(&$property) {
 		$property["data"] = array(
-			"bind" => "value: customer().firstname, valueUpdate: 'afterkeydown'"
+			"bind" => "value: firstname, valueUpdate: 'afterkeydown'"
 		);
 	}
 	
 	protected function _get_customer_lastname(&$property) {
 		$property["data"] = array(
-			"bind" => "value: customer().lastname, valueUpdate: 'afterkeydown'"
+			"bind" => "value: lastname, valueUpdate: 'afterkeydown'"
 		);
 	}
 	
 	protected function _get_customer_gender(&$property) {
 		$property["data"] = array(
-			"bind" => "value: customer().gender"
+			"bind" => "value: gender"
 		);
 		$property["options"] = crm_person_obj::gender_options();
 	}
 
 	protected function _get_customer_personal_id(&$property) {
 		$property["data"] = array(
-			"bind" => "value: customer().personal_id"
+			"bind" => "value: personal_id"
 		);
 	}
 
 	protected function _get_customer_birth_date_show(&$property) {
 		$property["data"] = array(
-			"bind" => "value: customer().birth_date_show",
+			"bind" => "value: birth_date_show",
 			"provide" => "datepicker",
 			"data-date-format" => "dd.mm.yyyy",
 		);
@@ -107,7 +107,7 @@ class crm_customer_modal_person extends crm_customer_modal {
 
 	protected function _get_customer_birth_date(&$property) {
 		$property["data"] = array(
-			"bind" => "value: customer().birth_date"
+			"bind" => "value: birth_date"
 		);
 	}
 	
@@ -125,36 +125,36 @@ class crm_customer_modal_person extends crm_customer_modal {
 				)
 			),
 			"content" => array(
-				"data" => array("bind" => "foreach: customer().emails"),
+				"data" => array("bind" => "foreach: emails"),
 				"fields" => array(
 					"e-mail" => array("data" => array("bind" => "text: mail")),
 					"type" => array("data" => array("bind" => "text: contact_type_caption")),
 					"actions" => html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: \$root.customer().editEmail"),
+						"data" => array("bind" => "click: \$root.editEmail"),
 						"caption" => html::italic("", "icon-pencil"),
 					))." &nbsp; ".html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: \$root.customer().removeEmail"),
+						"data" => array("bind" => "click: \$root.removeEmail"),
 						"caption" => html::italic("", "icon-remove"),
 					)),
 				)
 			),
 			"footer" => array(
 				"fields" => array(
-					"e-mail" => html::textbox(array("data" => array("bind" => "value: customer().email_selected().mail"))),
+					"e-mail" => html::textbox(array("data" => array("bind" => "value: email_selected().mail"))),
 					"type" => html::select(array(
 						"id" => "contact-email-contact_type",
-						"data" => array("bind" => "value: customer().email_selected().contact_type"),
+						"data" => array("bind" => "value: email_selected().contact_type"),
 						"options" => ml_member_obj::get_contact_type_names(),
 					)),
 					"actions" => html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: customer().saveEmail"),
+						"data" => array("bind" => "click: saveEmail"),
 						"caption" => html::italic("", "icon-ok"),
 					))." &nbsp; ".html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: customer().resetEmail"),
+						"data" => array("bind" => "click: resetEmail"),
 						"caption" => html::italic("", "icon-remove"),
 					)),
 				)
@@ -176,36 +176,36 @@ class crm_customer_modal_person extends crm_customer_modal {
 				)
 			),
 			"content" => array(
-				"data" => array("bind" => "foreach: customer().phones"),
+				"data" => array("bind" => "foreach: phones"),
 				"fields" => array(
 					"phone" => array("data" => array("bind" => "text: name")),
 					"type" => array("data" => array("bind" => "text: type_caption")),
 					"actions" => html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: \$root.customer().editPhone"),
+						"data" => array("bind" => "click: \$root.editPhone"),
 						"caption" => html::italic("", "icon-pencil"),
 					))." &nbsp; ".html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: \$root.customer().removePhone"),
+						"data" => array("bind" => "click: \$root.removePhone"),
 						"caption" => html::italic("", "icon-remove"),
 					)),
 				)
 			),
 			"footer" => array(
 				"fields" => array(
-					"phone" => html::textbox(array("data" => array("bind" => "value: customer().phone_selected().name"))),
+					"phone" => html::textbox(array("data" => array("bind" => "value: phone_selected().name"))),
 					"type" => html::select(array(
 						"id" => "contact-phone-type",
-						"data" => array("bind" => "value: customer().phone_selected().type"),
+						"data" => array("bind" => "value: phone_selected().type"),
 						"options" => crm_phone_obj::get_old_type_options(),
 					)),
 					"actions" => html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: customer().savePhone"),
+						"data" => array("bind" => "click: savePhone"),
 						"caption" => html::italic("", "icon-ok"),
 					))." &nbsp; ".html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: customer().resetPhone"),
+						"data" => array("bind" => "click: resetPhone"),
 						"caption" => html::italic("", "icon-remove"),
 					)),
 				)
@@ -229,7 +229,7 @@ class crm_customer_modal_person extends crm_customer_modal {
 				)
 			),
 			"content" => array(
-				"data" => array("bind" => "foreach: customer().addresses"),
+				"data" => array("bind" => "foreach: addresses"),
 				"fields" => array(
 					"address" => array("data" => array("bind" => "text: name")),
 					"types" => array("data" => array("bind" => "text: type_caption")),
@@ -237,11 +237,11 @@ class crm_customer_modal_person extends crm_customer_modal {
 					"section" => array("data" => array("bind" => "text: (section() ? section()[0].name : '')")),
 					"actions" => html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: \$root.customer().editAddress"),
+						"data" => array("bind" => "click: \$root.editAddress"),
 						"caption" => html::italic("", "icon-pencil"),
 					))." &nbsp; ".html::href(array(
 						"url" => "javascript:void(0)",
-						"data" => array("bind" => "click: \$root.customer().removeAddress"),
+						"data" => array("bind" => "click: \$root.removeAddress"),
 						"caption" => html::italic("", "icon-remove"),
 					)),
 				)

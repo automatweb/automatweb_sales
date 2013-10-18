@@ -604,7 +604,7 @@ $.extend(window.AW, (function(){
 								return self.customer_relation().buyer() == self.id();
 							}
 						}
-						return data.type == 2;
+						return _data.type == 2;
 					}, self);
 					self.isSeller = ko.computed(function() {
 						return !self.isBuyer();
@@ -701,6 +701,8 @@ $.extend(window.AW, (function(){
 					var self = this;
 					var properties = ["firstname", "lastname", "personal_id", "birth_date"];
 					AW.viewModel.customer.call(this, _data, properties);
+					self.class = "crm_customer_modal_person";
+//					self.class_id = AW.CLID.___;
 					self.name = ko.computed(function() {
 						return self.firstname() + " " + self.lastname();
 					}, self);
@@ -720,6 +722,8 @@ $.extend(window.AW, (function(){
 					if (!_data) { _data = {}; }
 					var properties = ["short_name", "comment", "year_founded", "reg_nr", "ettevotlusvorm", "tax_nr", "sections"];
 					AW.viewModel.customer.call(this, _data, properties);
+					self.class = "crm_customer_modal_company";
+//					self.class_id = AW.CLID.___;
 					self.year_founded_show = ko.observable();
 					self.year_founded_show(AW.util.convertTimestampToDate(self.year_founded()));
 					self.year_founded_show.subscribe(function(date_string) {
