@@ -81,8 +81,6 @@ class promo_display implements main_subtemplate_handler
 
 		foreach($list as $o)
 		{
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>"; }
-
 			if ($o->lang_id() !== AW_REQUEST_CT_LANG_ID && !$o->prop("content_all_langs") && !$o->prop("trans_all_langs"))
 			{
 				continue;
@@ -106,8 +104,6 @@ class promo_display implements main_subtemplate_handler
 					}
 				}
 			}
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])){ echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>"; }
 
 			$doc->doc_count = 0;
 
@@ -144,8 +140,6 @@ class promo_display implements main_subtemplate_handler
 				}
 			}
 
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>"; }
-
 			// do ignore menus
 			$ign_subs = $o->meta("section_no_include_submenus");
 
@@ -169,28 +163,20 @@ class promo_display implements main_subtemplate_handler
 				}
 			}
 
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>"; }
-
 			if ($found == false)
 			{
 				$show_promo = false;
 			}
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "promo = ".$o->id()." show = ".dbg::dump($show_promo)." <br>"; }
 
 			if ($o->meta("not_in_search") == 1 && $_GET["class"] == "site_search_content")
 			{
 				$show_promo = false;
 			}
 
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>"; }
-
 			if (aw_ini_get("user_interface.hide_untranslated") && !$o->prop_is_translated("name"))
 			{
 				$show_promo = false;
 			}
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>"; }
 
 			$so = obj(aw_global_get("section"));
 			if ($o->meta("not_in_doc_view") == 1 && (($so->class_id() == CL_DOCUMENT || $_GET["docid"]) || (is_oid($inst->get_default_document_list()))))
@@ -200,8 +186,6 @@ class promo_display implements main_subtemplate_handler
 
 			// this line decides, whether we should show this promo box here or not.
 			// now, how do I figure out whether the promo box is actually in my path?
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>"; }
 
 			if ($show_promo)
 			{
@@ -274,20 +258,12 @@ class promo_display implements main_subtemplate_handler
 			else
 			{
 				// get_default_document prefetches docs by itself so no need to do list here
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { $_GET["INTENSE_DUKE"] = 1; obj_set_opt("no_cache", 1); }
-
 				$docid = $inst->get_default_document(array(
 					"obj" => $o,
 					"all_langs" => true,
 					"dsdi_cache" => !isset($dsdi_list_by_promo[$o->id()]) ? array() : $dsdi_list_by_promo[$o->id()]
 				));
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])){ $_GET["INTENSE_DUKE"] = 0; echo "version1 <br>"; }
-
 			}
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "3promo = ".$o->id()." show = ".dbg::dump($docid)." <br>"; }
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($docid)." <br>"; }
 
 			if (!$docid)
 			{
@@ -305,8 +281,6 @@ class promo_display implements main_subtemplate_handler
 				}
 				$docid = array($docid);
 			}
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "showing promo ".$o->name()." (".$o->id().")  type = ".$o->meta("type")." docs = ".join(", ", $docid)."<br>"; }
 
 			$d_cnt = 0;
 			$d_total = count($docid);
@@ -333,15 +307,11 @@ class promo_display implements main_subtemplate_handler
 
 			foreach($docid as $d)
 			{
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc $d <br>"; }
-
 				$do = obj($d);
 				if (aw_ini_get("user_interface.hide_untranslated") && !$do->prop_is_translated("content"))
 				{
 					continue;
 				}
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc2 $d <br>"; }
 
 				$add_2 = false;
 				if (($d_cnt % 2)  == 1)
@@ -378,8 +348,6 @@ class promo_display implements main_subtemplate_handler
 					"vars" => array("doc_ord_num" => $d_cnt+1),
 					"not_last_in_list" => (($d_cnt+1) < $d_total)
 				));
-
-///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc $d cont = ".htmlentities($cont)." <br>"; }
 
 				$pr_c .= $cont;
 				// X marks the spot
