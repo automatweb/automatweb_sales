@@ -192,13 +192,15 @@ SCRIPT;
 		@attrib name=save
 	**/
 	public function save ($arr = array()) {
-		$this->__handle_folders(automatweb::$request->arg("data"));
-		$this->__remove_folders(automatweb::$request->arg("deleted"));
+		$data = automatweb::$request->arg_isset("data") ? json_decode(automatweb::$request->arg("data"), true) : array();
+		$deleted = automatweb::$request->arg_isset("deleted") ? json_decode(automatweb::$request->arg("deleted"), true) : array();
+		$this->__handle_folders($data);
+		$this->__remove_folders($deleted);
 		exit;
 	}
 	
 	private function __remove_folders ($folders) {
-		foreach ($folders as $folder) {	
+		foreach ($folders as $folder) {
 			if (object_loader::can("", $folder["id"])) {
 				$folder = obj($folder["id"]);
 				$folder->delete();
