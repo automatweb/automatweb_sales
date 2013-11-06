@@ -747,7 +747,7 @@ class site_search_content extends class_base
 
 		$key_opt = "";
 		$key_opt_row = "";
-		if($cid->prop("keywords_in_row"))
+		if($cid->is_property("keywords_in_row") and $cid->prop("keywords_in_row"))
 		{
 			$in_row = $cid->prop("keywords_in_row");
 			$kw_cnt = 0;
@@ -1007,8 +1007,8 @@ class site_search_content extends class_base
 			$lim = " LIMIT ".((int)$arr["opts"]["limit"]);
 		}
 
-		$content_s = $this->_get_sstring($str, $opts["str"], "content",true,$arr["s_seatch_word_part"]);
-		$content_s2 = $this->_get_sstring($str2, $opts["str"], "content",true,$arr["s_seatch_word_part"]);
+		$content_s = $this->_get_sstring($str, $opts["str"], "content",true,ifset($arr, "s_seatch_word_part"));
+		$content_s2 = $this->_get_sstring($str2, $opts["str"], "content",true,ifset($arr, "s_seatch_word_part"));
 		if ($content_s == "" && $title_s == "" && $sections == "" && $lang_id == "" && $date_s == "" && $site_id == "")
 		{
 			return array();
@@ -1118,7 +1118,7 @@ class site_search_content extends class_base
 		}
 
 		$kw_limiter = "";
-		if ($this->can("view", $arr["obj"]->prop("search_only_kws")) || (is_array($arr["obj"]->prop("search_only_kws")) && count($arr["obj"]->prop("search_only_kws"))))
+		if ($arr["obj"]->is_property("search_only_kws") && ($this->can("view", $arr["obj"]->prop("search_only_kws")) || is_array($arr["obj"]->prop("search_only_kws")) && count($arr["obj"]->prop("search_only_kws"))))
 		{
 			$c = new connection();
 			$cs = $c->find(array(
@@ -1388,10 +1388,10 @@ class site_search_content extends class_base
 			));
 		}
 
-		if (1 == $obj->prop("search_live"))
+		if ($obj->prop("search_live"))
 		{
 			$go = obj($group);
-			$opts["search_notactive"] = $go->prop("search_notactive");
+			$opts["search_notactive"] = $go->is_property("search_notactive") ? $go->prop("search_notactive") : null;
 
 			$ret = $this->merge_result_sets($ret, $this->fetch_live_search_results(array(
 				"menus" => $ms,
@@ -1913,7 +1913,7 @@ class site_search_content extends class_base
 	**/
 	function do_search($arr)
 	{
-		if (!is_oid($arr["id"]))
+		if (isset($arr["id"]) && !is_oid($arr["id"]))
 		{
 			// see if we got a default
 			$ol = new object_list(array(
@@ -1926,7 +1926,7 @@ class site_search_content extends class_base
 				$arr["id"] = $o->id();
 			}
 		}
-		error::view_check($arr["id"]);
+		error::view_check(ifset($arr, "id"));
 		extract($this->set_defaults($arr));
 		$o = obj($id);
 
