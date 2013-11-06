@@ -193,7 +193,7 @@ SCRIPT;
 	**/
 	public function save ($arr = array()) {
 		$data = automatweb::$request->arg_isset("data") ? json_decode(automatweb::$request->arg("data"), true) : array();
-		$deleted = automatweb::$request->arg_isset("deleted") ? json_decode(automatweb::$request->arg("deleted"), true) : array();
+		$deleted = automatweb::$request->arg_isset("removed") ? json_decode(automatweb::$request->arg("removed"), true) : array();
 		$this->__handle_folders($data);
 		$this->__remove_folders($deleted);
 		exit;
