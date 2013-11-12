@@ -58,7 +58,7 @@ class alloyui_treeview extends aw_template implements orb_public_interface {
 				"id" => $this->root["id"],
 				"label" => html::href(array("url" => $this->root["url"], "caption" => $this->root["name"], "data" => array("node-id" => $this->root["id"]))),
 				"children" => $this->__get_children($this->root["id"], false),
-				"expanded" => !empty($_COOKIE["alloyui-treeview-{$this->id}-{$this->root["id"]}"]),
+				"expanded" => true,
 				"leaf" => false,
 			);
 		} elseif ($parent !== null) {

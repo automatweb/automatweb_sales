@@ -302,6 +302,13 @@ class person_skill_manager extends class_base
 			"branch" => 1,
 			"tree_id" => "offers_tree_".$arr["parent"],
 //			"persist_state" => 1,
+			"get_branch_func" => $this->mk_my_orb("skills_tree_leaf",array(
+				"clid" => CL_PERSON_HAS_SKILL,
+				"group" => $arr["group"],
+				"oid" => $arr["oid"],
+				"set_retu" => $arr["set_retu"],
+				"parent" => " ",
+			)),
 		));
 
 		$ol = new object_list(array(
@@ -328,16 +335,17 @@ class person_skill_manager extends class_base
 
 		foreach($ol->arr() as $o)
 		{
-			$tree->add_item(0, array(
+			$tree->add_item($o->parent(), array(
 				"id" => $o->id(),
 				"name" => $o->name(),
-				"url" => aw_url_change_var("skill" , $o->id(),$set_retu),
+				"url" => aw_url_change_var("skill" , $o->id(), $set_retu),
 			));
 			if(!empty($parents[ $o->id()]))
 			{
 				$tree->add_item($o->id(), array(
 					"id" => $o->id()."t",
 					"name" => "t",
+					"url" => "t"
 				));
 			}
 		}

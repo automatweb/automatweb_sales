@@ -502,6 +502,7 @@ features = array()
 		{
 			$item["id"] = uniqid("aw_treeview_item_");
 		}
+		$item["parent"] = $parent;
 
 		$this->itemdata[$item["id"]] = $item;
 		$this->items[$parent][] = &$this->itemdata[$item["id"]];
