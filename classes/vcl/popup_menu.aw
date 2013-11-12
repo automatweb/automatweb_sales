@@ -36,6 +36,17 @@ class popup_menu extends aw_template
 		$this->items = array($menu_id => array());
 		$this->menus = array();
 	}
+	
+	/**
+		@attrib name=set_class params=pos api=1
+		
+		@param class required type=string
+			CSS class to be attached to the dropdown DOM element
+	**/
+	function set_class($class)
+	{
+		$this->dropdown_class = $class;
+	}
 
 	/** Adds new item to popup menu
 
@@ -332,6 +343,7 @@ class popup_menu extends aw_template
 			$ITEMS .= $this->parse("DROPDOWN.ITEM");
 		}
 		$this->vars(array(
+			"dropdown-class" => isset($this->dropdown_class) ? $this->dropdown_class : "",
 			"DROPDOWN.ITEM" => $ITEMS,
 		));
 		

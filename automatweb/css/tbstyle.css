@@ -143,8 +143,13 @@ img {
 	background-color: inherit;
 	background-image: none;
 }
-.btn-toolbar.aw-toolbar .dropdown-menu {
+.dropdown-menu {
 	text-align: left;
+}
+
+.dropdown-menu-left {
+	left: auto;
+	right: 0;
 }
 
 #application-links {

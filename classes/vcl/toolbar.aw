@@ -614,6 +614,7 @@ class toolbar extends aw_template
 			$ITEMS .= $this->parse("DROPDOWN.ITEM");
 		}
 		$this->vars(array(
+//			"dropdown-class" => true ? "dropdown-menu-left" : "",
 			"DROPDOWN.ITEM" => $ITEMS,
 		));
 		

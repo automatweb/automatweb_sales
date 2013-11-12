@@ -1052,6 +1052,8 @@ class admin_if extends class_base
 		$period = $args["period"];
 
 		$this->pm->begin_menu("aif_" . $obj["oid"]);
+		// TODO: Left/right should be a property of the menu.
+		$this->pm->set_class("dropdown-menu-left");
 
 		$this->pm->add_item(array(
 			"text" => t("Ava"),

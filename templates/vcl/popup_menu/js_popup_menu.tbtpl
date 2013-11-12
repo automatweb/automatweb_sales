@@ -9,7 +9,7 @@
 		<b class="caret"></b>
 	</button>
 	<!-- SUB: DROPDOWN -->
-	<ul class="dropdown-menu">
+	<ul class="dropdown-menu {VAR:dropdown-class}">
 		<!-- SUB: DROPDOWN.ITEM -->
 		<li class="{VAR:dropdown.item.class}">
 			{VAR:dropdown.item}
