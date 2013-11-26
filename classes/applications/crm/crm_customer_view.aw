@@ -1815,6 +1815,8 @@ class crm_customer_view extends class_base
 			if ($default_cfg or in_array("pop", $visible_fields))
 			{
 				$pm = new popup_menu();
+				// TODO: Left/right should be a property of the menu.
+				$pm->set_class("dropdown-menu-left");
 				$pm->begin_menu("org".$o->id());
 				$pm->add_item(array(
 					"text" => t("Vaata klienti"),
