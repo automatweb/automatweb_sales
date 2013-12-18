@@ -2502,7 +2502,7 @@ class site_show extends aw_template
 		$current_company_oid = user::get_current_company();
 		$c = object_loader::can("", $current_company_oid) ? obj($current_company_oid, null, crm_company_obj::CLID) : obj();
 
-		$this->vars(array(
+		$this->vars_safe(array(
 			"ss" => gen_uniq_id(),		// bannerite jaox
 			"ss2" => gen_uniq_id(),
 			"ss3" => gen_uniq_id(),
