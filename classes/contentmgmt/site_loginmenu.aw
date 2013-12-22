@@ -24,7 +24,7 @@ class site_loginmenu extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_MENU,
 			"parent" => $login_menu_id,
-			"lang_id" => array(),
+			"lang_id" => AW_REQUEST_CT_LANG_ID,
 		));
 		$tmp_L1 = "";
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
@@ -33,7 +33,7 @@ class site_loginmenu extends class_base
 				"class_id" => CL_MENU,
 				"parent" => $o->id(),
 				"status" => 2,
-				"lang_id" => array(),
+				"lang_id" => AW_REQUEST_CT_LANG_ID,
 			));
 
 			$tmp_L2 = "";
