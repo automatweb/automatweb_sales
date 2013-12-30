@@ -3414,40 +3414,59 @@ $GLOBALS["TRANS"][51920]["seletuskiri"] = "n&otilde;uded";
 			$vars["{$type}_logo"] = $logo ? image::make_img_tag($logo->instance()->get_url_by_id($logo->id()), $party->name(), array(), array("svg_img_tag" => $pdf)) : $party->name();
 	
 			// address
-			$vars["{$type}_country"] = $party->prop_xml("contact.riik.name");
-			$vars["{$type}_county"] = $party->prop_xml("contact.maakond.name");
-			$vars["{$type}_city"] = $party->prop_xml("contact.linn.name");
-			$vars["{$type}_index"] = $party->prop_xml("contact.postiindeks");
-			$vars["{$type}_street"] = $party->prop_xml("contact.aadress");
-	
-			// compacted address string
-			$vars["{$type}_address"] = array();
-			if ($vars["{$type}_street"])
+			$address = obj($party->prop("contact"));
+			if ($address->is_a(crm_address_obj::CLID))
 			{
-				$vars["{$type}_address"][] = $vars["{$type}_street"];
+				$vars["{$type}_country"] = $party->prop_xml("contact.riik.name");
+				$vars["{$type}_county"] = $party->prop_xml("contact.maakond.name");
+				$vars["{$type}_city"] = $party->prop_xml("contact.linn.name");
+				$vars["{$type}_index"] = $party->prop_xml("contact.postiindeks");
+				$vars["{$type}_street"] = $party->prop_xml("contact.aadress");
+
+				// compacted address string
+				$vars["{$type}_address"] = array();
+				if ($vars["{$type}_street"])
+				{
+					$vars["{$type}_address"][] = $vars["{$type}_street"];
+				}
+		
+				if ($vars["{$type}_index"])
+				{
+					$vars["{$type}_address"][] = $vars["{$type}_index"];
+				}
+		
+				if ($vars["{$type}_city"])
+				{
+					$vars["{$type}_address"][] = $vars["{$type}_city"];
+				}
+		
+				if ($vars["{$type}_county"])
+				{
+					$vars["{$type}_address"][] = $vars["{$type}_county"];
+				}
+		
+				if ($vars["{$type}_country"])
+				{
+					$vars["{$type}_address"][] = $vars["{$type}_country"];
+				}
+
+				$vars["{$type}_address"] = implode(", ", $vars["{$type}_address"]);
 			}
-	
-			if ($vars["{$type}_index"])
+			else
 			{
-				$vars["{$type}_address"][] = $vars["{$type}_index"];
+				$address_data = $address->json(false);
+				$vars["{$type}_country"] = $party->prop_xml("contact.country.name");
+				$vars["{$type}_county"] = $address_data['county']['name'];
+				$vars["{$type}_city"] = $address_data['city']['name'];
+				$vars["{$type}_index"] = $party->prop_xml("contact.postal_code");
+				$vars["{$type}_street"] = trim(preg_replace('/ +/', ' ',
+					$party->prop_xml("contact.street") . ' ' .
+					$party->prop_xml("contact.house") . ' ' .
+					$party->prop_xml("contact.apartment") . ' ' .
+					$party->prop_xml("contact.details")
+				));
+				$vars["{$type}_address"] = $party->prop_xml("contact.name");
 			}
-	
-			if ($vars["{$type}_city"])
-			{
-				$vars["{$type}_address"][] = $vars["{$type}_city"];
-			}
-	
-			if ($vars["{$type}_county"])
-			{
-				$vars["{$type}_address"][] = $vars["{$type}_county"];
-			}
-	
-			if ($vars["{$type}_country"])
-			{
-				$vars["{$type}_address"][] = $vars["{$type}_country"];
-			}
-	
-			$vars["{$type}_address"] = implode(", ", $vars["{$type}_address"]);
 		}
 
 		// bank accounts
