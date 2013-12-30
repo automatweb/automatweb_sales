@@ -467,46 +467,35 @@ function load_config ($files = array(), $cache_file = "")
 		// and write to cache if file is specified
 		if ($cache_file)
 		{
-			if (!is_dir(dirname($cache_file)))
+			$cache_file_dir = dirname($cache_file);
+			if (!is_dir($cache_file_dir))
 			{
-				mkdir(dirname($cache_file), 0660);
-			}
-
-			if (!is_writable(dirname($cache_file)))
-			{
-				$success = chmod($cache_file, 0770);
-				if (!$success)
+				mkdir($cache_file_dir, 0755, true);
+				if (!is_dir($cache_file_dir))
 				{
-					throw new awex_cfg_file("Mode change failed for cache file directory.");
-				}
-
-				if (!is_writable(dirname($cache_file)))
-				{
-					chmod($cache_file, 0777);
-				}
-
-				if (!is_writable(dirname($cache_file)))
-				{
-					throw new awex_cfg_file("No permissions for cache file directory.");
+					throw new awex_cfg_file("Failed to create cache file directory.");
 				}
 			}
-
-			if (file_exists($cache_file) and !is_writable($cache_file))
+			else
 			{
-				$success = chmod($cache_file, 0660);
-				if (!$success)
+				if (!is_writable($cache_file_dir))
 				{
-					throw new awex_cfg_file("Mode change failed for cache file.");
-				}
+					chmod($cache_file_dir, 0755);
 
-				if (!is_writable($cache_file))
-				{
-					chmod($cache_file, 0666);
+					if (!is_writable($cache_file_dir))
+					{
+						throw new awex_cfg_file("No permissions for cache file directory.");
+					}
 				}
-
-				if (!is_writable($cache_file))
+				
+				if (file_exists($cache_file) and !is_writable($cache_file))
 				{
-					throw new awex_cfg_file("No permissions for cache file.");
+					chmod($cache_file, 0644);
+
+					if (!is_writable($cache_file))
+					{
+						throw new awex_cfg_file("No permissions for cache file.");
+					}
 				}
 			}
 
