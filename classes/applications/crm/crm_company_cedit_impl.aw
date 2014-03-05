@@ -1389,32 +1389,32 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 			}
 
 
-				$city = $county = $vald = "";
-				$parent = obj($obj->parent());
-				$parent2 = obj($parent->parent());
-				$parent3 = obj($parent2->parent());
+			$city = $county = $vald = "";
+			$parent = obj($obj->parent());
+			$parent2 = obj($parent->parent());
+			$parent3 = obj($parent2->parent());
 
-				if($parent->class_id() == CL_COUNTRY_CITY)
-				{
-					$city = $parent->name();
-				}
-				else
-				{
-					$vald = $parent->name();
-				}
+			if($parent->class_id() == CL_COUNTRY_CITY)
+			{
+				$city = $parent->name();
+			}
+			else
+			{
+				$vald = $parent->name();
+			}
 
-				if($parent3->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
-				{
-					$county = $parent3->name();
-				}
-				elseif($parent2->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
-				{
-					$county = $parent2->name();
-				}
-				elseif($parent->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
-				{
-					$county = $parent->name();
-				}
+			if($parent3->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
+			{
+				$county = $parent3->name();
+			}
+			elseif($parent2->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
+			{
+				$county = $parent2->name();
+			}
+			elseif($parent->class_id() == CL_COUNTRY_ADMINISTRATIVE_UNIT)
+			{
+				$county = $parent->name();
+			}
 
 
 			if (isset($arr["request"]["cedit_tbl_edit_a"]) and $arr["request"]["cedit_tbl_edit_a"] == $obj->id())
@@ -1469,64 +1469,64 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 						"caption" => t("Muuda"),
 						"url" => $ch_url,
 					)),
-				"country" => html::select(array(
-					"options" => $cl,
-					"name" => "cedit_adr[".$obj->id()."][country]",
-					"value" => $obj->prop("country")
-				)),
-				"change" => "",
-				"city" => html::textbox(array(
-					"name" => "cedit_adr[".$obj->id()."][city]",
-					"value" => $city,
-					"size" => 15,
-					"autocomplete_source" => $as->mk_my_orb("ac_city"),
-					"autocomplete_params" => array("cedit_adr[".$obj->id()."][city]","cedit_adr[".$obj->id()."][county]")
-				)),
-				"county" => html::textbox(array(
-					"name" => "cedit_adr[".$obj->id()."][county]",
-					"value" => $county,
-					"size" => 15,
-					"autocomplete_source" => $as->mk_my_orb("ac_county"),
-					"autocomplete_params" => array("cedit_adr[".$obj->id()."][county]")
-				)),
-				"vald" => html::textbox(array(
-					"name" => "cedit_adr[".$obj->id()."][vald]",
-					"value" => $vald,
-					"size" => 15,
-					"autocomplete_source" => $as->mk_my_orb("ac_vald"),
-					"autocomplete_params" => array("cedit_adr[".$obj->id()."][vald]","cedit_adr[".$obj->id()."][county]")
-				)),
-//				"location" => $location,
-				"street" => html::textbox(array(
-					"name" => "cedit_adr[".$obj->id()."][street]",
-					"value" => "",
-					"size" => 15,
-					"value" => $obj->prop("street")
-				)),
-				"house" => html::textbox(array(
-					"name" => "cedit_adr[".$obj->id()."][house]",
-					"value" => "",
-					"size" => 15,
-					"value" => $obj->prop("house")
-				)),
-				"apartment" => html::textbox(array(
-					"name" => "cedit_adr[".$obj->id()."][apartment]",
-					"value" => "",
-					"size" => 5,
-					"value" => $obj->prop("apartment")
-				)),
-				"postal_code" => html::textbox(array(
-					"name" => "cedit_adr[".$obj->id()."][postal_code]",
-					"value" => "",
-					"size" => 5,
-					"value" => $obj->prop("postal_code")
-				)),
-				"po_box" => html::textbox(array(
-					"name" => "cedit_adr[".$obj->id()."][po_box]",
-					"value" => "",
-					"size" => 5,
-					"value" => $obj->prop("po_box")
-				)),
+					"country" => html::select(array(
+						"options" => $cl,
+						"name" => "cedit_adr[".$obj->id()."][country]",
+						"value" => $obj->prop("country")
+					)),
+					//"change" => "",
+					"city" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][city]",
+						"value" => $city,
+						"size" => 15,
+						"autocomplete_source" => $as->mk_my_orb("ac_city"),
+						"autocomplete_params" => array("cedit_adr[".$obj->id()."][city]","cedit_adr[".$obj->id()."][county]")
+					)),
+					"county" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][county]",
+						"value" => $county,
+						"size" => 15,
+						"autocomplete_source" => $as->mk_my_orb("ac_county"),
+						"autocomplete_params" => array("cedit_adr[".$obj->id()."][county]")
+					)),
+					"vald" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][vald]",
+						"value" => $vald,
+						"size" => 15,
+						"autocomplete_source" => $as->mk_my_orb("ac_vald"),
+						"autocomplete_params" => array("cedit_adr[".$obj->id()."][vald]","cedit_adr[".$obj->id()."][county]")
+					)),
+	//				"location" => $location,
+					"street" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][street]",
+						"value" => "",
+						"size" => 15,
+						"value" => $obj->prop("street")
+					)),
+					"house" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][house]",
+						"value" => "",
+						"size" => 15,
+						"value" => $obj->prop("house")
+					)),
+					"apartment" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][apartment]",
+						"value" => "",
+						"size" => 5,
+						"value" => $obj->prop("apartment")
+					)),
+					"postal_code" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][postal_code]",
+						"value" => "",
+						"size" => 5,
+						"value" => $obj->prop("postal_code")
+					)),
+					"po_box" => html::textbox(array(
+						"name" => "cedit_adr[".$obj->id()."][po_box]",
+						"value" => "",
+						"size" => 5,
+						"value" => $obj->prop("po_box")
+					)),
 
 
 				));
@@ -1604,6 +1604,7 @@ class crm_company_cedit_impl extends core implements orb_public_interface
 					"caption" => t("Konverdi uude süsteemi"),
 					"url" => $ch_url,
 				)),*/
+				"change" => html::obj_change_url($obj->id(), t("Muuda")),
 				"color" => "grey"
 			));
 		}
