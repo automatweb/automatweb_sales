@@ -61,31 +61,53 @@ ko.bindingHandlers.datetimepicker = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
 			$element = $(element),
-			$input = $('<input data-format="dd/MM/yyyy hh:mm" type="text"></input>');
-		$element.append($input);
-		$element.append('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
-		$element.addClass("input-append").attr("data-provide", "datetimepicker");
+			$date_div = $('<div class="input-append"></div>'),
+			$time_div = $('<div class="input-append"></div>'),
+			$date_input = $('<input data-format="dd/MM/yyyy" class="input-small" type="text"></input>'),
+			$time_input = $('<input data-format="hh:mm" class="input-small" type="text"></input>');
+			
+		$date_div.append($date_input);
+		$date_div.append('<span class="add-on" style="margin-right: 5px;"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
 		
-		$input.val(AW.util.formatTimestamp(value, "/"));
+		$time_div.append($time_input);
+		$time_div.append('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
+		
+		$element.append($date_div);
+		$element.append($time_div);
+		
+		$date_div.datetimepicker({
+			pickTime: false
+		});
+		$time_div.datetimepicker({
+			pickDate: false,
+			pickSeconds: false
+		});
+		
+		var datetime = AW.util.formatTimestamp(value, "/");
+        $date_div.datetimepicker('setValue', datetime.substr(0, 10));
+        $time_div.datetimepicker('setValue', datetime.substr(11, 5));
+		
 		// FIXME: Surely, there must be a more elegant way for doing this?
-		var oldVal = $input.val()
+		var oldVal = $date_input.val() + $time_input.val();
 		setInterval(function () {
-			var newVal = $input.val();
+			var newVal = $date_input.val() + $time_input.val();
 			if (oldVal !== newVal) {
-				var d = newVal.match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
+				var d = newVal.match(/^(\d{2})\/(\d{2})\/(\d{4})(\d{2}):(\d{2})$/);
 				if (d) {
 					var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
 					valueAccessor()(date.getTime()/1000);
 				}
-				console.log(viewModel.toJS());
 				oldVal = newVal;
 			}
 		}, 100);
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
-			$input = $(element).find("input");
-        $input.val(AW.util.formatTimestamp(value, "/"));
+			$date_div = $(element).find("input[data-format='dd/MM/yyyy']").parent(),
+			$time_div = $(element).find("input[data-format='hh:mm']").parent();
+		var datetime = AW.util.formatTimestamp(value, "/");
+        $date_div.datetimepicker('setValue', datetime.substr(0, 10));
+        $time_div.datetimepicker('setValue', datetime.substr(11, 5));
     }
 };
 
