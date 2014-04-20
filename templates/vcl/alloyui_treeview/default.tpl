@@ -6,6 +6,37 @@ YUI().use(
 	function(Y) {
 		// Create an array object for the tree root and child nodes
 		var children = {VAR:json};
+<!-- SUB: HACK_FROM_JS_TREE -->
+		var jsTreeUrl = "{VAR:js_tree_url}";
+		function getChildrenFor(id, depth) {
+			var _children = [];
+			$.ajax({
+				url: jsTreeUrl + "&node=" + id,
+				dataType: "JSON",
+				async: false,
+				success: function(data) {
+					for (i in data) {
+						var node = { id: data[i].attr.id,
+									 label: "<a href=\"" + data[i].attr.url + "\" data-node-id=\"" + data[i].attr.id + "\">" + data[i].data.title + "<\/a>",
+									 // type: "io",
+									 io: jsTreeUrl + "&node=" + data[i].attr.id,
+									 // TODO: load expandedness from cookie!
+									 expanded: false,
+									 leaf: false,
+									 children: depth > 0 ? getChildrenFor(data[i].attr.id, depth - 1) : [] };
+						_children.push(node);
+					}
+					
+				},
+				error: function (error) {
+					alert("Puu laadimine eba›nnestus!");
+				}
+			});
+			return _children;
+		}
+		children = getChildrenFor("", 3);
+		
+<!-- END SUB: HACK_FROM_JS_TREE -->
 		var inProgress = {};
 		var XHRs = {};
 

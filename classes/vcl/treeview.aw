@@ -607,7 +607,9 @@ features = array()
 			$treeview = new alloyui_treeview();
 			
 			$treeview->set_id($this->tree_id);
-			if ($this->has_root) {
+			if (self::TYPE_JS === $this->tree_type) {
+				$treeview->create_from_js_tree($this->js_tree_data_source_url);
+			} elseif ($this->has_root) {
 				$treeview->set_root(array(
 					"id" => $this->rootnode,
 					"name" => $this->tree_dat["root_name"],
@@ -615,7 +617,7 @@ features = array()
 				));
 			}
 			$treeview->set_items($this->itemdata);
-			$treeview->set_get_branch_func($this->get_branch_func);
+			$treeview->set_get_branch_func($this->js_tree_data_source_url);
 			$treeview->set_draggable($this->draggable);
 			
 			return automatweb::$request->arg("action") == "change" ? $treeview->render() : $treeview->json();

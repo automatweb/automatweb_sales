@@ -1,51 +1,44 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>openhours</name>
-            <table>objects</table>
+            <name>days</name>
+            <table>aw_openhours</table>
             <group>general</group>
             <type>text</type>
-            <form>
-                  <num_0>add</num_0>
-                  <num_1>edit</num_1>
-                  <num_2>emb</num_2>
-            </form>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Avamisajad</caption>
-            <comment>Rea kustutamiseks vali molemale paevale &amp;quot;Valimata&amp;quot;</comment>
+            <field>aw_days</field>
+            <caption>P&amp;amp;auml;evad</caption>
       </property>
       <property>
-            <name>apply_group</name>
-            <table>objects</table>
+            <name>open</name>
+            <table>aw_openhours</table>
             <group>general</group>
-            <type>relpicker</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <reltype>RELTYPE_GROUP</reltype>
-            <multiple>1</multiple>
-            <store>connect</store>
-            <caption>Kehtib gruppidele</caption>
+            <type>text</type>
+            <field>aw_open</field>
+            <caption>Avamisaeg</caption>
       </property>
       <property>
-            <name>date_from</name>
-            <table>objects</table>
+            <name>close</name>
+            <table>aw_openhours</table>
             <group>general</group>
-            <type>date_select</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <default>-1</default>
-            <caption>Kehtib alates</caption>
+            <type>text</type>
+            <field>aw_close</field>
+            <caption>Sulgemisaeg</caption>
       </property>
       <property>
-            <name>date_to</name>
-            <table>objects</table>
+            <name>valid_from</name>
+            <table>aw_openhours</table>
             <group>general</group>
-            <type>date_select</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <default>-1</default>
-            <caption>Kehtib kuni</caption>
+            <type>text</type>
+            <field>aw_valid_from</field>
+            <caption>Kehtiv alates</caption>
+      </property>
+      <property>
+            <name>valid_to</name>
+            <table>aw_openhours</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_valid_to</field>
+            <caption>Kehtiv kuni</caption>
       </property>
       <classinfo>
             <syslog_type>ST_OPENHOURS</syslog_type>
@@ -55,12 +48,12 @@
             <prop_cb>1</prop_cb>
             <maintainer>markop</maintainer>
       </classinfo>
-      <reltypes>
-            <GROUP>
-                  <value>1</value>
-                  <clid>CL_GROUP</clid>
-                  <caption>Kehtib kasutajagrupile</caption>
-            </GROUP>
-      </reltypes>
+      <tableinfo>
+            <aw_openhours>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_openhours>
+      </tableinfo>
 </properties>
 

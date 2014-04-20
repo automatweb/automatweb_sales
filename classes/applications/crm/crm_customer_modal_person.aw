@@ -101,7 +101,7 @@ class crm_customer_modal_person extends crm_customer_modal {
 		$property["data"] = array(
 			"bind" => "value: birth_date_show",
 			"provide" => "datepicker",
-			"data-date-format" => "dd.mm.yyyy",
+			"date-format" => "dd.mm.yyyy",
 		);
 	}
 

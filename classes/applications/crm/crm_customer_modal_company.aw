@@ -63,7 +63,16 @@
 		@property contact_address_table type=table
 		@caption Aadressid
 	
+	@groupinfo contact_opening_hours caption="Lahtiolekuajad" parent=contact icon="time"
+	@default group=contact_opening_hours
+	
+		@property contact_opening_hours_toolbar type=toolbar
+	
+		@property contact_opening_hours_table type=table
+		@caption Lahtiolekuajad
+	
 @groupinfo employees caption="T&ouml;&ouml;tajad" icon="/automatweb/images/icons/32/1809.png"
+@default group=employees
 
 	@property employees_toolbar type=toolbar
 
@@ -118,7 +127,7 @@ class crm_customer_modal_company extends crm_customer_modal {
 		$property["data"] = array(
 			"bind" => "value: year_founded_show",
 			"provide" => "datepicker",
-			"data-date-format" => "dd.mm.yyyy",
+			"date-format" => "dd.mm.yyyy",
 		);
 	}
 	
@@ -268,6 +277,44 @@ class crm_customer_modal_company extends crm_customer_modal {
 		);
 	}
 	
+	protected function _get_contact_opening_hours_table(&$property) {
+		// FIXME: Make a separate class for knockout-tb table!
+		$property["table"] = array(
+			"id" => "contact_opening_hours_table",
+			"caption" => t("Lahtiolekuajad"),
+			"fields" => array("days", "open", "close", "valid_from", "valid_to", "actions"),
+			"header" => array(
+				"fields" => array(
+					"days" => t("P&auml;evad"),
+					"open" => t("Avamisaeg"),
+					"close" => t("Sulgemisaeg"),
+					"valid_from" => t("Kehtib alates"),
+					"valid_to" => t("Kehtib kuni"),
+					"actions" => t("Valikud")
+				)
+			),
+			"content" => array(
+				"data" => array("bind" => "foreach: opening_hours"),
+				"fields" => array(
+					"days" => array("data" => array("bind" => "text: days")),
+					"open" => array("data" => array("bind" => "text: open")),
+					"close" => array("data" => array("bind" => "text: close")),
+					"valid_from" => array("data" => array("bind" => "text: AW.util.formatTimestamp(valid_from(), null, true)")),
+					"valid_to" => array("data" => array("bind" => "text: AW.util.formatTimestamp(valid_to(), null, true)")),
+					"actions" => html::href(array(
+						"url" => "javascript:void(0)",
+						"data" => array("bind" => "click: \$root.editOpeningHours"),
+						"caption" => html::italic("", "icon-pencil"),
+					))." &nbsp; ".html::href(array(
+						"url" => "javascript:void(0)",
+						"data" => array("bind" => "click: \$root.removeOpeningHours"),
+						"caption" => html::italic("", "icon-remove"),
+					)),
+				)
+			),
+		);
+	}
+	
 	protected function _get_employees_table(&$property) {
 		// FIXME: Make a separate class for knockout-tb table!
 		$property["table"] = array(
@@ -306,6 +353,18 @@ class crm_customer_modal_company extends crm_customer_modal {
 		);
 	}
 	
+	protected function _get_contact_opening_hours_toolbar(&$property) {
+		// FIXME: Make a separate class for new toolbar!
+		$property["buttons"] = array(
+			html::href(array(
+				"url" => "javascript:void(0)",
+				"class" => "btn",
+				"onclick" => '$("#contact-opening-hours-edit").slideDown(200);',
+				"caption" => html::italic("", "icon-plus")." ".t("Lisa uus lahtiolekuaeg"),
+			)),
+		);
+	}
+	
 	protected function _get_contact_address_toolbar(&$property) {
 		// FIXME: Make a separate class for new toolbar!
 		$property["buttons"] = array(
@@ -328,5 +387,22 @@ class crm_customer_modal_company extends crm_customer_modal {
 				"caption" => html::italic("", "icon-plus")." ".t("Lisa uus t&ouml;&ouml;taja"),
 			)),
 		);
+	}
+	
+	protected function _set_opening_hours($object, $opening_hours) {
+		foreach ($opening_hours as $data) {
+			if (!empty($data["id"]) and object_loader::can("", $data["id"])) {
+				$o = obj($data["id"], array(), CL_OPENHOURS);
+			} else {
+				$o = obj(null, array(), openhours_obj::CLID);
+				$o->set_parent($object->id);
+			}
+			$o->set_prop("days", $data["days"]);
+			$o->set_prop("open", $data["open"]);
+			$o->set_prop("close", $data["close"]);
+			$o->set_prop("valid_from", ifset($data, "valid_from"));
+			$o->set_prop("valid_to", ifset($data, "valid_to"));
+			$o->save();
+		}
 	}
 }

@@ -102,15 +102,30 @@
             <caption>Aadressid</caption>
       </property>
       <property>
+            <name>contact_opening_hours_toolbar</name>
+            <group>contact_opening_hours</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <field>contact_opening_hours_toolbar</field>
+      </property>
+      <property>
+            <name>contact_opening_hours_table</name>
+            <group>contact_opening_hours</group>
+            <type>table</type>
+            <store>no</store>
+            <field>contact_opening_hours_table</field>
+            <caption>Lahtiolekuajad</caption>
+      </property>
+      <property>
             <name>employees_toolbar</name>
-            <group>contact_address</group>
+            <group>employees</group>
             <type>toolbar</type>
             <store>no</store>
             <field>employees_toolbar</field>
       </property>
       <property>
             <name>employees_table</name>
-            <group>contact_address</group>
+            <group>employees</group>
             <type>table</type>
             <store>no</store>
             <field>employees_table</field>
@@ -165,6 +180,11 @@
                   <parent>contact</parent>
                   <icon>map-marker</icon>
             </contact_address>
+            <contact_opening_hours>
+                  <caption>Lahtiolekuajad</caption>
+                  <parent>contact</parent>
+                  <icon>time</icon>
+            </contact_opening_hours>
             <employees>
                   <caption>T&amp;amp;ouml;&amp;amp;ouml;tajad</caption>
                   <icon>/automatweb/images/icons/32/1809.png</icon>

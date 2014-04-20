@@ -6,6 +6,7 @@ class alloyui_treeview extends aw_template implements orb_public_interface {
 	private $root;
 	private $items;
 	private $draggable = false;
+	private $from_js_tree;
 	
 	public function __construct() {
 		$this->init("vcl/alloyui_treeview");
@@ -31,14 +32,20 @@ class alloyui_treeview extends aw_template implements orb_public_interface {
 		$this->get_branch_func = $get_branch_func;
 	}
 	
+	public function create_from_js_tree($from_js_tree) {
+		$this->from_js_tree = $from_js_tree;
+	}
+	
 	public function render() {
 		$this->read_template("default.tpl");
 		
 		$this->vars_safe(array(
 			"id" => $this->id,
-			"json" => $this->__get_children()
+			"json" => $this->__get_children(),
+			"js_tree_url" => !empty($this->from_js_tree) ? $this->from_js_tree : ""
 		));
 		$this->vars_safe(array(
+			"HACK_FROM_JS_TREE" => !empty($this->from_js_tree) ? $this->parse("HACK_FROM_JS_TREE") : "",
 			"DRAGGABLE" => $this->draggable ? $this->parse("DRAGGABLE") : "",
 			"NON-DRAGGABLE" => $this->draggable ? "" : $this->parse("NON-DRAGGABLE")
 		));
@@ -54,19 +61,20 @@ class alloyui_treeview extends aw_template implements orb_public_interface {
 		$items = array();
 		
 		if ($parent === null && isset($this->root)) {
-			$items[] = array(
+			$root = array(
 				"id" => $this->root["id"],
 				"label" => html::href(array("url" => $this->root["url"], "caption" => $this->root["name"], "data" => array("node-id" => $this->root["id"]))),
-				"children" => $this->__get_children($this->root["id"], false),
 				"expanded" => true,
 				"leaf" => false,
+				"children" => $this->__get_children($this->root["id"], false),
 			);
+			$items[] = $root;
 		} elseif ($parent !== null) {
 			foreach ($this->items as $item) {
 				if (isset($item["parent"]) && $item["parent"] == $parent) {
 					$itemdata = array(
 						"id" => $item["id"],
-						"label" => html::href(array("url" => $item["url"], "caption" => $item["name"], "data" => array("node-id" => $item["id"]))),
+						"label" => html::href(array("url" => ifset($item, "url"), "caption" => $item["name"], "data" => array("node-id" => $item["id"]))),
 						"expanded" => !empty($_COOKIE["alloyui-treeview-{$this->id}-{$item["id"]}"]),
 						"leaf" => false,
 					);

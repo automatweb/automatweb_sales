@@ -85,6 +85,37 @@
 		<a href="javascript:void(0)" data-bind="click: saveAddress" class="btn btn-primary" >Salvesta</a>
 	</div>
 </div>
+<div id="contact-opening-hours-edit" style="display: none; position: absolute; background: white; width: 500px; border: 1px solid #aaa; border-radius: 0 0 6px 6px; -webkit-border-radius: 0 0 6px 6px; top: 0; left: 300px; border-top: 0;">
+	<div class="modal-body" style="min-height: 300px; padding: 9px;">
+		<div class="form-horizontal">
+			<div class="control-group" style="margin-bottom: 10px">
+				<label class="control-label" for="contact-opening-hours-days">P&auml;evad</label>
+				<div class="controls" data-bind="chooser: opening_hours_selected().days, chooserSettings: { options: { 'E': 'E', 'T': 'T', 'K': 'K', 'N': 'N', 'R': 'R', 'L': 'L', 'P': 'P' }, multiple: true } ">
+				</div>
+			</div>
+			<div class="control-group" style="margin-bottom: 10px">
+				<label class="control-label" for="contact-opening-hours-open">Avamisaeg</label>
+				<div class="controls" id="contact-opening-hours-open" data-bind="datetimepicker: opening_hours_selected().open, datetimepickerOptions: { pickDate: false }"></div>
+			</div>
+			<div class="control-group" style="margin-bottom: 10px">
+				<label class="control-label" for="contact-opening-hours-close">Sulgemisaeg</label>
+				<div class="controls" id="contact-opening-hours-close" data-bind="datetimepicker: opening_hours_selected().close, datetimepickerOptions: { pickDate: false }"></div>
+			</div>
+			<div class="control-group" style="margin-bottom: 10px">
+				<label class="control-label" for="contact-opening-hours-valid_from">Kehtib alates</label>
+				<div id="contact-opening-hours-valid_from" class="controls" data-bind="datetimepicker: opening_hours_selected().valid_from, datetimepickerOptions: { pickTime: false }"></div>
+			</div>
+			<div class="control-group" style="margin-bottom: 10px">
+				<label class="control-label" for="contact-opening-hours-valid_to">Kehtib kuni</label>
+				<div id="contact-opening-hours-valid_to" class="controls" data-bind="datetimepicker: opening_hours_selected().valid_to, datetimepickerOptions: { pickTime: false }"></div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="javascript:void(0)" data-bind="click: resetOpeningHours" class="btn" style="float: left;">Katkesta</a>
+		<a href="javascript:void(0)" data-bind="click: saveOpeningHours" class="btn btn-primary" >Salvesta</a>
+	</div>
+</div>
 <div id="employees-edit" style="display: none; position: absolute; background: white; width: 700px; border: 1px solid #aaa; border-radius: 0 0 6px 6px; -webkit-border-radius: 0 0 6px 6px; top: 0; left: 200px; border-top: 0;">
 	<div class="modal-body" style="min-height: 300px; padding: 9px;">
 		<div class="form-horizontal">

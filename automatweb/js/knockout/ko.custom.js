@@ -60,42 +60,58 @@ ko.bindingHandlers.datepick = {
 ko.bindingHandlers.datetimepicker = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
+			options = allBindingsAccessor().datetimepickerOptions || {},
 			$element = $(element),
 			$date_div = $('<div class="input-append"></div>'),
 			$time_div = $('<div class="input-append"></div>'),
 			$date_input = $('<input data-format="dd/MM/yyyy" class="input-small" type="text"></input>'),
 			$time_input = $('<input data-format="hh:mm" class="input-small" type="text"></input>');
-			
-		$date_div.append($date_input);
-		$date_div.append('<span class="add-on" style="margin-right: 5px;"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
 		
-		$time_div.append($time_input);
-		$time_div.append('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
+		if (options.pickDate != false) {
+			$date_div.append($date_input);
+			$date_div.append('<span class="add-on" style="margin-right: 5px;"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
+			$element.append($date_div);
+			$date_div.datetimepicker({
+				pickTime: false
+			});
+		}
 		
-		$element.append($date_div);
-		$element.append($time_div);
-		
-		$date_div.datetimepicker({
-			pickTime: false
-		});
-		$time_div.datetimepicker({
-			pickDate: false,
-			pickSeconds: false
-		});
-		
-		var datetime = AW.util.formatTimestamp(value, "/");
-        $date_div.datetimepicker('setValue', datetime.substr(0, 10));
-        $time_div.datetimepicker('setValue', datetime.substr(11, 5));
+		if (options.pickTime != false) {
+			$time_div.append($time_input);
+			$time_div.append('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
+			$element.append($time_div);
+			$time_div.datetimepicker({
+				pickDate: false,
+				pickSeconds: false
+			});
+		}
+	
+		if (value) {
+			var datetime = AW.util.formatTimestamp(value, "/");
+			options.pickDate != false && $date_div.datetimepicker('setValue', datetime.substr(0, 10));
+			options.pickTime != false && $time_div.datetimepicker('setValue', datetime.substr(11, 5));
+		}
 		
 		// FIXME: Surely, there must be a more elegant way for doing this?
 		var oldVal = $date_input.val() + $time_input.val();
 		setInterval(function () {
 			var newVal = $date_input.val() + $time_input.val();
 			if (oldVal !== newVal) {
-				var d = newVal.match(/^(\d{2})\/(\d{2})\/(\d{4})(\d{2}):(\d{2})$/);
-				if (d) {
-					var date = new Date(d[3], d[2] - 1, d[1], d[4], d[5]);
-					valueAccessor()(date.getTime()/1000);
+				if (options.pickDate == false) {
+					valueAccessor()(newVal);
+				} else {
+					if (options.pickTime == false) {
+						var d = newVal.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+						var date = d ? new Date(d[3], d[2] - 1, d[1]) : null;
+					} else {
+						var d = newVal.match(/^(\d{2})\/(\d{2})\/(\d{4})(\d{2}):(\d{2})$/);
+						var date = d ? new Date(d[3], d[2] - 1, d[1], d[4], d[5]) : null;
+					}
+					if (date) {
+						valueAccessor()(date.getTime()/1000);
+					} else {
+						valueAccessor()(null);
+					}
 				}
 				oldVal = newVal;
 			}
@@ -103,11 +119,15 @@ ko.bindingHandlers.datetimepicker = {
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
+			options = allBindingsAccessor().datetimepickerOptions || { pickDate: true, pickTime: true },
 			$date_div = $(element).find("input[data-format='dd/MM/yyyy']").parent(),
 			$time_div = $(element).find("input[data-format='hh:mm']").parent();
-		var datetime = AW.util.formatTimestamp(value, "/");
-        $date_div.datetimepicker('setValue', datetime.substr(0, 10));
-        $time_div.datetimepicker('setValue', datetime.substr(11, 5));
+		if (value) {
+			var datetime = AW.util.formatTimestamp(value, "/");
+			options.pickDate != false && $date_div.datetimepicker('setValue', datetime.substr(0, 10));
+			// TODO: Handle the case where there is no date!
+			options.pickTime != false && $time_div.datetimepicker('setValue', datetime.substr(11, 5));
+		}
     }
 };
 
@@ -163,24 +183,33 @@ ko.bindingHandlers.id = {
 
 ko.bindingHandlers.chooser = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-		var options = ko.utils.unwrapObservable(allBindingsAccessor().chooserOptions || {});
+		var settings = ko.utils.unwrapObservable(allBindingsAccessor().chooserSettings || {});
+		var options = ko.utils.unwrapObservable(settings.options || allBindingsAccessor().chooserOptions || {});
 		for (var i in options) {
 			(function (value, caption) {
 				var button = $('<button value="' + value + '" class="btn btn-mini" style="margin-right: 5px;">' + caption + '</button>');
 				button.on("click", function (event) {
-					$(this).siblings().removeClass("btn-primary");
-					$(this).addClass("btn-primary");
-					valueAccessor()(value);
+					if (settings.multiple) {
+						$(this).toggleClass("btn-primary");
+						var values = (valueAccessor()() || []).filter(function(_) { return _ != value; });
+						if ($(this).hasClass("btn-primary")) { values.push(value); }
+						valueAccessor()(values);
+					} else {
+						$(this).siblings().removeClass("btn-primary");
+						$(this).addClass("btn-primary");
+						valueAccessor()(value);
+					}
 				});
 				$(element).append(button);
 			})(i, options[i]);
 		}
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		var settings = ko.utils.unwrapObservable(allBindingsAccessor().chooserSettings || {});
 		var value = ko.utils.unwrapObservable(valueAccessor());
 		$(element).children().removeClass("btn-primary");
         $(element).children().each(function () {
-			if ($(this).val() == value) {
+			if (settings.multiple && $.inArray($(this).val(), value) != -1 || $(this).val() == value) {
 				$(this).addClass("btn-primary");
 			}
 		});

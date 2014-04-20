@@ -12,8 +12,8 @@
 		<action name="start_tree">
 			<function name="start_tree">
 				<arguments>
-					<[optional|required] name="root_name" type="string" />
-					<[optional|required] name="root_url" type="string" />
+					<optional name="root_name" type="string" />
+					<optional name="root_url" type="string" />
 					<optional name="root_icon" type="string" />
 					<optional name="has_root" type="bool" default="false" />
 					<optional name="tree_id" type="string" default="false" />

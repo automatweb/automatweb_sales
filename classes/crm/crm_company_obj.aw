@@ -3115,6 +3115,13 @@ class crm_company_obj extends _int_object implements crm_customer_interface, pri
 		}
 		return $company_forms;
 	}
+	
+	public function get_opening_hours() {
+		return new object_list(array(
+			"class_id" => openhours_obj::CLID,
+			"parent" => $this->id(),
+		));
+	}
 
 	/**	Returns the the object in JSON
 		@attrib api=1

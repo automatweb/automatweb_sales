@@ -2372,7 +2372,7 @@ faks: 6556 235
 			}
 			active_page_data::load_javascript("bootstrap/js/bootstrap.datepicker.js");
 			active_page_data::load_javascript("knockout/knockout-2.2.0.js");
-			active_page_data::load_javascript("knockout/ko.datepick.js");
+			active_page_data::load_javascript("knockout/ko.custom.js");
 			active_page_data::add_javascript("var initialize = setInterval(function(){if(typeof AW.UI.crm_customer_view !== 'undefined'){ clearInterval(initialize); AW.UI.crm_customer_view.initialize_modals(" . $arr["obj_inst"]->prop("company") . "); }}, 100);", "bottom");
 		}
 

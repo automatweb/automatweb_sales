@@ -104,6 +104,7 @@ class aw_modal implements orb_public_interface {
 			} elseif (!isset($property_details["group"]) or !isset($this->groupinfo[$property_details["group"]])) {
 				$this->groupless["properties"][$property_id] = $property_details;
 			} elseif ($property_details["type"] === "toolbar") {
+				$property_details = $property_details + array("buttons" => array());
 				$this->groupinfo[$property_details["group"]]["toolbar"] = $property_details;
 			} else {
 				$this->groupinfo[$property_details["group"]]["properties"][$property_id] = $property_details;
@@ -298,7 +299,7 @@ class aw_modal implements orb_public_interface {
 			$this->__delete($arr["deleted"]);
 		}
 		
-		$object = $this->_save($arr["parent"], is_class_id($arr["class_id"]) ? (int)$arr["class_id"] : null, isset($arr["data"]) ? $arr["data"] : null);
+		$object = $this->_save(ifset($arr, "parent"), is_class_id($arr["class_id"]) ? (int)$arr["class_id"] : null, isset($arr["data"]) ? $arr["data"] : null);
 		
 		$json = $object->json();
 		

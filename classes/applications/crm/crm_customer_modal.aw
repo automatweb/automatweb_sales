@@ -101,6 +101,12 @@ class crm_customer_modal extends aw_modal {
 			{
 				$data["sections"][] = array("id" => $section_id, "name" => $section_name);
 			}
+		
+			$data["opening_hours"] = array();
+			foreach($customer->get_opening_hours() as $openhours)
+			{
+				$data["opening_hours"][] = $openhours->json(false);
+			}
 		}
 		
 		$data["addresses"] = array();

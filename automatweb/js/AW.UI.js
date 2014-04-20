@@ -32,7 +32,8 @@ $.extend(window.AW, (function(){
 			extlink: 21,
 			document: 7,
 			mini_gallery: 318,
-			crm_meeting: 224
+			crm_meeting: 224,
+			openhours: 1014
 		},
 		toJS: toJS,
 		util: (function () {
@@ -56,7 +57,7 @@ $.extend(window.AW, (function(){
 					var month = date.getMonth() + 1;
 					return (day < 10 ? "0" : "") + day + "." + (month < 10 ? "0" : "") + month + "." + date.getFullYear();
 				},
-				formatTimestamp: function (timestamp, dateDelimiter) {
+				formatTimestamp: function (timestamp, dateDelimiter, hideTime) {
 					dateDelimiter = dateDelimiter || ".";
 					function _0 (i) {
 						return i < 10 ? "0" + i : i;
@@ -68,7 +69,7 @@ $.extend(window.AW, (function(){
 						hour = date.getHours(),
 						minute = date.getMinutes(),
 						second = date.getSeconds();
-					return _0(day) + dateDelimiter + _0(month) + dateDelimiter + year + " " + _0(hour) + ":" + _0(minute);
+					return _0(day) + dateDelimiter + _0(month) + dateDelimiter + year + (hideTime ? "" : " " + _0(hour) + ":" + _0(minute));
 				},
 				formatFileSize: function (bytes) {
 					if (!AW.util.isNumeric(bytes)) {
@@ -555,8 +556,15 @@ $.extend(window.AW, (function(){
 								types.push(option.html());
 							}
 						});
-						return types	.join(", ");
+						return types.join(", ");
 					}, self);
+				},
+				openhours: function(_data) {
+					var self = this;
+					var properties = ["days", "open", "close", "valid_from", "valid_to"];
+					vmCore.call(self, _data, properties);
+//					self.class = "XXX_modal";
+					self.class_id = AW.CLID.openhours;
 				},
 				employee: function(_data) {
 					var self = this;
@@ -619,8 +627,7 @@ $.extend(window.AW, (function(){
 					self.email_selected = ko.observable(new AW.viewModel.email());
 					self.saveEmail = function(customerView, event) {
 						if (!event) { return; }
-						if (!self.email_selected().id()) {
-							self.email_selected().id("new");
+						if ($.inArray(self.email_selected(), self.emails()) < 0) {
 							self.emails.push(self.email_selected());
 						}
 						self.resetEmail();
@@ -631,6 +638,7 @@ $.extend(window.AW, (function(){
 					}
 					self.removeEmail = function(email, event) {
 						if (!event) { return; }
+						// TODO: Uncaught ReferenceError: customerView is not defined
 						customerView.removed.push(email.id());
 						self.emails.remove(email)
 					}
@@ -647,8 +655,7 @@ $.extend(window.AW, (function(){
 					self.phone_selected = ko.observable(new AW.viewModel.phone());
 					self.savePhone = function(customerView, event) {
 						if (!event) { return; }
-						if (!self.phone_selected().id()) {
-							self.phone_selected().id("new");
+						if ($.inArray(self.phone_selected(), self.phones()) < 0) {
 							self.phones.push(self.phone_selected());
 						}
 						self.resetPhone();
@@ -659,6 +666,7 @@ $.extend(window.AW, (function(){
 					}
 					self.removePhone = function(phone, event) {
 						if (!event) { return; }
+						// TODO: Uncaught ReferenceError: customerView is not defined
 						customerView.removed.push(phone.id());
 						self.phones.remove(phone)
 					}
@@ -675,8 +683,7 @@ $.extend(window.AW, (function(){
 					self.address_selected = ko.observable(new AW.viewModel.address());
 					self.saveAddress = function(customerView, event) {
 						if (!event) { return; }
-						if (!self.address_selected().id()) {
-							self.address_selected().id("new");
+						if ($.inArray(self.address_selected(), self.addresses()) < 0) {
 							self.addresses.push(self.address_selected());
 						}
 						self.resetAddress();
@@ -688,6 +695,7 @@ $.extend(window.AW, (function(){
 					}
 					self.removeAddress = function(address, event) {
 						if (!event) { return; }
+						// TODO: Uncaught ReferenceError: customerView is not defined
 						customerView.removed.push(address.id());
 						self.addresses.remove(address)
 					}
@@ -720,7 +728,7 @@ $.extend(window.AW, (function(){
 				customer_company: function(_data) {
 					var self = this;
 					if (!_data) { _data = {}; }
-					var properties = ["short_name", "comment", "year_founded", "reg_nr", "ettevotlusvorm", "tax_nr", "sections"];
+					var properties = ["short_name", "comment", "year_founded", "reg_nr", "ettevotlusvorm", "tax_nr", "sections", "opening_hours", "employees"];
 					AW.viewModel.customer.call(this, _data, properties);
 					self.class = "crm_customer_modal_company";
 //					self.class_id = AW.CLID.___;
@@ -743,8 +751,7 @@ $.extend(window.AW, (function(){
 					self.employee_selected = ko.observable(new AW.viewModel.employee());
 					self.saveEmployee = function(customerView, event) {
 						if (!event) { return; }
-						if (!self.employee_selected().id()) {
-							self.employee_selected().id("new");
+						if ($.inArray(self.employee_selected(), self.employees()) < 0) {
 							self.employees.push(self.employee_selected());
 						}
 						self.resetEmployee();
@@ -756,12 +763,42 @@ $.extend(window.AW, (function(){
 					}
 					self.removeEmployee = function(employee, event) {
 						if (!event) { return; }
+						// TODO: Uncaught ReferenceError: customerView is not defined
 						customerView.removed.push(employee.id());
 						self.employees.remove(employee)
 					}
 					self.resetEmployee = function(customerView, event) {
 						self.employee_selected(new AW.viewModel.employee());
 						$("#employees-edit").slideUp(200);
+					}
+					self.opening_hours = ko.observableArray();
+					if (_data["opening_hours"]) {
+						for (var i in _data["opening_hours"]) {
+							self.opening_hours.push(new AW.viewModel.openhours(_data["opening_hours"][i]));
+						}
+					}
+					self.opening_hours_selected = ko.observable(new AW.viewModel.openhours());
+					self.saveOpeningHours = function(customerView, event) {
+						if (!event) { return; }
+						if ($.inArray(self.opening_hours_selected(), self.opening_hours()) < 0) {
+							self.opening_hours.push(self.opening_hours_selected());
+						}
+						self.resetOpeningHours();
+					}
+					self.editOpeningHours = function(opening_hours, event) {
+						if (!event) { return; }
+						self.opening_hours_selected(opening_hours);
+						$("#contact-opening-hours-edit").slideDown(200);
+					}
+					self.removeOpeningHours = function(opening_hours, event) {
+						if (!event) { return; }
+						// TODO: Uncaught ReferenceError: customerView is not defined
+						customerView.removed.push(opening_hours.id());
+						self.opening_hours.remove(opening_hours)
+					}
+					self.resetOpeningHours = function(customerView, event) {
+						self.opening_hours_selected(new AW.viewModel.openhours());
+						$("#contact-opening-hours-edit").slideUp(200);
 					}
 				},
 				price_component: function(_data) {
