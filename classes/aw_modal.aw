@@ -309,7 +309,7 @@ class aw_modal implements orb_public_interface {
 	
 	private function __delete($items) {
 		foreach ($items as $item) {
-			if (object_loader::can("", $item["id"])) {
+			if (is_array($item) && object_loader::can("", $item["id"])) {
 				$object = obj($item["id"]);
 				$object->delete();
 			}

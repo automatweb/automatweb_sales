@@ -97,6 +97,7 @@ $.extend(window.AW, (function(){
 			var newId = function () {
 				return "new-" + newIdCount++;
 			};
+			var __globalDeleted = ko.observableArray();
 			var vmCore = function(data, properties) {
 				var self = this;
 				if (!data) { data = {}; }
@@ -104,6 +105,7 @@ $.extend(window.AW, (function(){
 				for (var i in properties) {
 					self[properties[i]] = typeof data[properties[i]] !== "undefined" ? ko.observable(data[properties[i]]) : ko.observable();
 				}
+				self.deleted = __globalDeleted;
 				self.id = ko.observable(data && data.id ? data.id : newId());
 				self.load = function (newData) {
 					for (var i in newData) {
@@ -158,6 +160,13 @@ $.extend(window.AW, (function(){
 						}
 						return data;
 					}
+					function processDeleted(deleted) {
+						var processed = [];
+						for (var i in deleted) {
+							processed.push({ id: ko.toJS(deleted[i].id()) });
+						}
+						return processed;
+					}
 					$.ajax({
 						url: "/orb.aw",
 						type: "POST",
@@ -168,7 +177,7 @@ $.extend(window.AW, (function(){
 							class_id: self.class_id,
 							parent: self.parent(),
 							data: processData(self.toJS()),
-							removed: self.removed ? ko.toJS(self.removed()) : null
+							deleted: self.deleted ? processDeleted(self.deleted()) : null
 						},
 						success: function(data) {
 							self.load(data);
@@ -390,7 +399,6 @@ $.extend(window.AW, (function(){
 					vmCore.call(self, data, properties);
 					self.class = "mini_gallery_modal";
 					self.class_id = AW.CLID.mini_gallery;
-					self.deleted = ko.observableArray();
 					
 					self.folder = ko.observableArray(data && data.folder ? data.folder : []);
 					self.removeFolder = function (folder) {
@@ -640,8 +648,7 @@ $.extend(window.AW, (function(){
 					}
 					self.removeEmail = function(email, event) {
 						if (!event) { return; }
-						// TODO: Uncaught ReferenceError: customerView is not defined
-						customerView.removed.push(email.id());
+						self.deleted.push(email);
 						self.emails.remove(email)
 					}
 					self.resetEmail = function(customerView, event) {
@@ -668,8 +675,7 @@ $.extend(window.AW, (function(){
 					}
 					self.removePhone = function(phone, event) {
 						if (!event) { return; }
-						// TODO: Uncaught ReferenceError: customerView is not defined
-						customerView.removed.push(phone.id());
+						self.deleted.push(phone);
 						self.phones.remove(phone)
 					}
 					self.resetPhone = function(customerView, event) {
@@ -697,8 +703,7 @@ $.extend(window.AW, (function(){
 					}
 					self.removeAddress = function(address, event) {
 						if (!event) { return; }
-						// TODO: Uncaught ReferenceError: customerView is not defined
-						customerView.removed.push(address.id());
+						self.deleted.push(address);
 						self.addresses.remove(address)
 					}
 					self.resetAddress = function(customerView, event) {
@@ -765,8 +770,7 @@ $.extend(window.AW, (function(){
 					}
 					self.removeEmployee = function(employee, event) {
 						if (!event) { return; }
-						// TODO: Uncaught ReferenceError: customerView is not defined
-						customerView.removed.push(employee.id());
+						self.deleted.push(employee);
 						self.employees.remove(employee)
 					}
 					self.resetEmployee = function(customerView, event) {
@@ -794,8 +798,7 @@ $.extend(window.AW, (function(){
 					}
 					self.removeOpeningHours = function(opening_hours, event) {
 						if (!event) { return; }
-						// TODO: Uncaught ReferenceError: customerView is not defined
-						customerView.removed.push(opening_hours.id());
+						self.deleted.push(opening_hours);
 						self.opening_hours.remove(opening_hours)
 					}
 					self.resetOpeningHours = function(customerView, event) {

@@ -390,19 +390,21 @@ class crm_customer_modal_company extends crm_customer_modal {
 	}
 	
 	protected function _set_opening_hours($object, $opening_hours) {
-		foreach ($opening_hours as $data) {
-			if (!empty($data["id"]) and object_loader::can("", $data["id"])) {
-				$o = obj($data["id"], array(), CL_OPENHOURS);
-			} else {
-				$o = obj(null, array(), openhours_obj::CLID);
-				$o->set_parent($object->id);
+		if (is_array($opening_hours)) {
+			foreach ($opening_hours as $data) {
+				if (!empty($data["id"]) and object_loader::can("", $data["id"])) {
+					$o = obj($data["id"], array(), CL_OPENHOURS);
+				} else {
+					$o = obj(null, array(), openhours_obj::CLID);
+					$o->set_parent($object->id);
+				}
+				$o->set_prop("days", $data["days"]);
+				$o->set_prop("open", $data["open"]);
+				$o->set_prop("close", $data["close"]);
+				$o->set_prop("valid_from", ifset($data, "valid_from"));
+				$o->set_prop("valid_to", ifset($data, "valid_to"));
+				$o->save();
 			}
-			$o->set_prop("days", $data["days"]);
-			$o->set_prop("open", $data["open"]);
-			$o->set_prop("close", $data["close"]);
-			$o->set_prop("valid_from", ifset($data, "valid_from"));
-			$o->set_prop("valid_to", ifset($data, "valid_to"));
-			$o->save();
 		}
 	}
 }
