@@ -148,7 +148,9 @@ $.extend(window.AW, (function(){
 				self.save = function (callbacks) {
 					function processData(data) {
 						for (var i in data) {
-							if (typeof data[i] == "object") {
+							if (typeof data[i] == "function") {
+								delete data[i];
+							} else if (typeof data[i] == "object") {
 								data[i] = processData(data[i]);
 							} else if (typeof data[i] == "boolean") {
 								data[i] = data[i] ? 1 : 0;
