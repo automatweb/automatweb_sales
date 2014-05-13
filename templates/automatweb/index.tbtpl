@@ -30,6 +30,7 @@
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/AW.UI.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/fullcalendar/lib/moment.min.js"></script>
 	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/fullcalendar/fullcalendar/fullcalendar.js"></script>
+	<script type="text/javascript" src="{VAR:baseurl}automatweb/js/jquery/plugins/fullcalendar/fullcalendar/lang/et.js"></script>
 	
 	<script src="http://cdn.alloyui.com/2.0.0pr5/aui/aui-min.js"></script>
 	
