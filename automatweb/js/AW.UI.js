@@ -1376,129 +1376,51 @@ $.extend(window.AW.UI, (function(){
 						dataType: "json",
 						success: function (events) {
 							for (var i in events) {
-								events[i].startDate = new Date(events[i].start1*1000);
-								events[i].endDate = new Date(events[i].end*1000);
+								events[i].start = new Date(events[i].start1*1000);
+								events[i].end = new Date(events[i].end*1000);
 								events[i].awContent = events[i].content;
-								events[i].content = events[i].name;
+								events[i].title = events[i].name;
+								console.log(events[i]);
 							}
-							YUI().use('aui-scheduler', function(Y) {					  
-								var agendaView = new Y.SchedulerAgendaView({ string: { noEvents: 'Eelseisvad s&uuml;ndmused puuduvad' } });
-								var dayView = new Y.SchedulerDayView({ string: { allDay: 'Kogu p&auml;ev' } });
-								var monthView = new Y.SchedulerMonthView();
-								var weekView = new Y.SchedulerWeekView();
-								var eventRecorder = new Y.SchedulerEventRecorder({
-									strings: {
-										'delete': 'Kustuta',
-										'description-hint': 'e.g., Kohtumine kliendiga',
-										cancel: 'Loobu',
-										description: 'Kirjeldus',
-										edit: 'Muuda',
-										save: 'Salvesta',
-										when: 'Millal'
-									},
-									toolbar: {
-										children2: [
-											[
-												{
-													label: 'Detailvaade',
-													on: {
-														click: function () {
-															alert("Yeah!");
-														}
-													}
-												},
-											]
-										]
-									}
-								});
-								
-								function showModal (data) {
-									eventDetails = new AW.viewModel.crm_meeting(data);
-									AW.UI.modal.open(eventDetails, {
-										save: function (callback) {
-											var data = eventDetails.toJS();
-											AW.UI.calendar.saveEvent(data, function () {
-												callback && callback.success && callback.success();
-												callback && callback.complete && callback.complete();
-											}, false);
-										}
-									});
-								}
-						  
-								scheduler = new Y.Scheduler({
-									activeView: weekView,
-									boundingBox: "#" + id,
-									eventRecorder: eventRecorder,
-									firstDayOfWeek: 1,
-									items: events,
-									render: true,
-									strings: {
-										agenda: 'Agenda',
-										day: 'P&auml;ev',
-										month: 'Kuu',
-										today: 'T&auml;na',
-										week: 'N&auml;dal',
-										year: 'Aasta'
-									},
-									views: [dayView, weekView, monthView, agendaView]
-								});
-								scheduler.on({
-									'scheduler-event:change': function(event) {
-										var itemData = event.target._state.data;
-										AW.UI.calendar.saveEvent({
-											id: itemData.id.value || map[itemData.clientId.value] || null,
-											clientId: itemData.clientId.value,
-											name: itemData.content.value,
-											start1: itemData.startDate.value.getTime()/1000,
-											end: itemData.endDate.value.getTime()/1000
-										});
-									},
-									'scheduler-events:remove': function(event) {
-										var item = scheduler.getEvents()[event.index]._state.data.id.value || null;
-										if (item) {
-											AW.UI.calendar.deleteEvent(item);
-										}
-									},
-									'scheduler-base:click': function(event) {
-										var toolbar = $(".aui-scheduler-event-recorder-overlay .yui3-widget-ft .aui-toolbar-content .aui-btn-group");
-										if (!toolbar.data("custom-processed")) {
-											var button = $('<button class="aui-btn">Detailid</button>');
-											toolbar.append(button);
-											button.click(function (event) {
-												event.preventDefault();
-												var eventData = (eventRecorder.get("event") || eventRecorder.clone())._state.data;
-												showModal({
-													id: eventData.id.value || map[eventData.clientId.value] || null,
-													name: $(".aui-scheduler-event-recorder-overlay .aui-scheduler-event-recorder-overlay-content").val(),
-													start1: eventData.startDate.value.getTime()/1000,
-													end: eventData.endDate.value.getTime()/1000,
-													comment: eventData.comment ? eventData.comment.lazy.value : "",
-													content: eventData.awContent ? eventData.awContent.lazy.value : "",
-													participants: eventData.participants ? eventData.participants.lazy.value : []
-												});
-												$(".aui-scheduler-event-recorder-overlay").addClass("yui3-overlay-hidden");
-											});
-											toolbar.data("custom-processed", true);
-										}										
-									},
-								});
-								
-								var addNewButton = $('<a href="#" class="btn" style="position: relative; margin-left: 50%; left: -350px;"><i class="icon-plus-sign"></i> Lisa uus s&uuml;ndmus</a>');
-								$("#" + id + " .aui-scheduler-base-controls").append(addNewButton);
-								
-								addNewButton.on("click", function (event) {
-									event.preventDefault();
-									showModal({ start1: new Date().getTime()/1000, end: new Date().getTime()/1000 + 3600 });
-								});
-								
-								$("body").on("submit", "form", function (event) {
-									event.preventDefault();
-									return false;
-								});
-								
-								AW.UI.scheduler = scheduler;
-								AW.UI.eventRecorder = eventRecorder;
+							var fullCalendar = $("#" + id).fullCalendar({
+								header: {
+									left: 'today, prev, next, title',
+									center: '',
+									right: ', agendaDay, agendaWeek, month'
+								},
+								buttonText: {
+									month: 'Kuu',
+									week: 'Nädal',
+									day: 'Päev'
+								},
+								lang: 'et',
+								firstDay: 1,
+								defaultView: 'agendaWeek',
+								selectable: true,
+								selectHelper: true,
+								select: function (start, end, jsEvent, view) {
+									console.log(start, end, jsEvent, view);
+								},
+								editable: true,
+								events: events
 							});
+							// Hack buttons to look like Twitter Bootstrap buttons
+							var fc_header_right = $("#" + id).find(".fc-header-right");
+							fc_header_right.find(".fc-header-space, .fc-button").remove();
+							var buttons = $('<div class="btn-group"></div>');
+							var day = $('<button type="button" class="btn">Päev</button>').on('click', function () { fullCalendar.fullCalendar( 'changeView', 'agendaDay' ); });
+							var week = $('<button type="button" class="btn">Nädal</button>').on('click', function () { fullCalendar.fullCalendar( 'changeView', 'agendaWeek' ); });
+							var month = $('<button type="button" class="btn">Kuu</button>').on('click', function () { fullCalendar.fullCalendar( 'changeView', 'month' ); });
+							fc_header_right.append(buttons.append(day).append(week).append(month));
+							
+							var fc_header_left = $("#" + id).find(".fc-header-left");
+							fc_header_left.find(".fc-header-space, .fc-button").remove();
+							var today = $('<button type="button" class="btn">Täna</button>').on('click', function () { fullCalendar.fullCalendar( 'today' ); });
+							var prevNext = $('<div class="btn-group"></div>');
+							var prev = $('<button type="button" class="btn"><i class="icon-circle-arrow-left"></i> Eelmine</button>').on('click', function () { fullCalendar.fullCalendar( 'prev' ); });
+							var next = $('<button type="button" class="btn">Järgmine <i class="icon-circle-arrow-right"></i></button>').on('click', function () { fullCalendar.fullCalendar( 'next' ); });
+							fc_header_left.prepend(prevNext.append(prev).append(next));
+							fc_header_left.prepend(today);
 						},
 						error: function (a,b,c) {
 							console && console.log("ERROR: ", a,b,c);

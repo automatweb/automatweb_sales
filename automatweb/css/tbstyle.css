@@ -295,3 +295,15 @@ img {
 	width: 500px;
 	height: 20px;
 }
+
+.fc-header {
+	margin: 5px 0;
+}
+.fc-header-left > .btn, .fc-header-left > .btn-group {
+	margin-right: 5px;
+}
+.fc-header .fc-header-title h2 {
+	font-size: 14px;
+	line-height: 20px;
+	margin: 5px 0;
+}
