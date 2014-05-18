@@ -1049,19 +1049,27 @@ $.extend(window.AW.UI, (function(){
 					_element.remove();
 				});
 				ko.applyBindings(this.model, this.element[0]);
-				this.close = (function(self){
-					return function() {
-						self.element.modal("hide");
-					};
-				})(this);
 				// Enabling callbacks
-				var callbacks = { save: [] };
+				var callbacks = { save: [], close: [] };
 				this.on = function (eventType, callback) {
 					if (callbacks[eventType]) {
 						callbacks[eventType].push(callback);
 					}
 				};
+				this.close = (function(self){
+					return function() {
+						for (var i in callbacks.close) {
+							callbacks.close[i]();
+						}
+						self.element.modal("hide");
+					};
+				})(this);
 				// Set up on save
+				(function(self){
+					self.element.on('click', '[data-dismiss=modal]', function () {
+						self.close();
+					});
+				})(this);
 				(function(self){
 					self.element.on("click", ".modal-footer [data-click-action~='save']", function () {
 						var saveMethod = cfg.save ? cfg.save : self.model.save;
@@ -1362,7 +1370,7 @@ $.extend(window.AW.UI, (function(){
 			var calendarID;
 			var map = {};
 			var eventDetails;
-			var scheduler;
+			var fullCalendar;
 			
 			return {
 				initialize: function(id) {
@@ -1370,19 +1378,29 @@ $.extend(window.AW.UI, (function(){
 						return;
 					}
 					calendarID = $("#" + id).data("calendar-id");
+					function showModal (data) {
+						eventDetails = new AW.viewModel.crm_meeting(data);
+						var modal = AW.UI.modal.open(eventDetails, {
+							save: function (callback) {
+								var data = eventDetails.toJS();
+								AW.UI.calendar.saveEvent(data, function () {
+									callback && callback.success && callback.success();
+									callback && callback.complete && callback.complete();
+								}, false);
+							}
+						}).on('close', function () { fullCalendar.fullCalendar('unselect'); });
+					}
 					$.ajax({
 						url: "/automatweb/orb.aw?class=planner&action=get_events",
 						data: { id: calendarID, tbtpl: true },
 						dataType: "json",
 						success: function (events) {
 							for (var i in events) {
-								events[i].start = new Date(events[i].start1*1000);
-								events[i].end = new Date(events[i].end*1000);
-								events[i].awContent = events[i].content;
+								events[i].start = $.fullCalendar.moment(1000 * events[i].start1);
+								events[i].end = $.fullCalendar.moment(1000 * events[i].end);
 								events[i].title = events[i].name;
-								console.log(events[i]);
 							}
-							var fullCalendar = $("#" + id).fullCalendar({
+							fullCalendar = $("#" + id).fullCalendar({
 								header: {
 									left: 'today, prev, next, title',
 									center: '',
@@ -1397,11 +1415,54 @@ $.extend(window.AW.UI, (function(){
 								firstDay: 1,
 								defaultView: 'agendaWeek',
 								selectable: true,
+								unselectAuto: false,
 								selectHelper: true,
 								select: function (start, end, jsEvent, view) {
-									console.log(start, end, jsEvent, view);
+									showModal({
+										id: null,
+										name: '',
+										start1: start.format('X'),
+										end: end.format('X'),
+										comment: "",
+										content: "",
+										participants: []
+									});
 								},
 								editable: true,
+								eventClick: function (event, jsEvent, view) {
+									showModal({
+										id: event.id,
+										name: event.name,
+										start1: event.start.format('X'),
+										end: event.end.format('X'),
+										comment: event.comment,
+										content: event.content,
+										participants: event.participants
+									});
+								},
+								eventDrop: function (event, revertFunc, jsEvent, ui, view) {
+									AW.UI.calendar.saveEvent({
+										comment: event.comment,
+										content: event.content,
+										end: event.end.format('X'),
+										id: event.id,
+										name: event.name,
+										participants: event.participants,
+										start1: event.start.format('X') });
+								},
+								eventResize: function (event, revertFunc, jsEvent, ui, view) {
+									AW.UI.calendar.saveEvent({
+										comment: event.comment,
+										content: event.content,
+										end: event.end.format('X'),
+										id: event.id,
+										name: event.name,
+										participants: event.participants,
+										start1: event.start.format('X') });
+								},
+								minTime: '08:00:00',
+								maxTime: '18:00:00',
+								timezone: 'local',
 								events: events
 							});
 							// Hack buttons to look like Twitter Bootstrap buttons
@@ -1441,26 +1502,28 @@ $.extend(window.AW.UI, (function(){
 						success: function (data) {
 							map[itemData.clientId] = data.id;
 							var updated = false;
-							scheduler.eachEvent(function(event, index){
-								if (event._state.data.id.value == data.id) {
-									event.setContent(data.content);
-									// FIXME: This is a hack, should be handled differently!
-									event._state.data.participants.lazy.value = data.participants;
-									updated = true;
-								}
+							$.each(fullCalendar.fullCalendar('clientEvents', data.id), function (i, event) {
+								event.start = $.fullCalendar.moment(1000 * data.start1);
+								event.end = $.fullCalendar.moment(1000 * data.end);
+								event.title = data.name;
+								event.name = data.name;
+								event.comment = data.comment;
+								event.content = data.content;
+								event.participants = data.participants;
+								
+								fullCalendar.fullCalendar('updateEvent', event);
+								
+								updated = true;
 							});
-							if (updateUI && !updated) {
-								scheduler.addEvents([{
-									id: data.id,
-									content: data.content,
-									startDate: new Date(data.startDate*1000),
-									endDate: new Date(data.endDate*1000),
-									participants: data.participants
-								}]);
-								scheduler.syncEventsUI();
+							if (!updated) {
+								var event = data;
+								event.start = $.fullCalendar.moment(1000 * data.start1);
+								event.end = $.fullCalendar.moment(1000 * data.end);
+								event.title = data.name;
+								
+								fullCalendar.fullCalendar('addEventSource', [event]);
 							}
 							if (callback) {
-//								eventDetails = new vmEvent(data);
 								callback();
 							}
 						}
