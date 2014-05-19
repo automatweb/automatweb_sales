@@ -19,6 +19,12 @@
 				</arguments>
 			</function>
 		</action>
+		<action name="delete" all_args="1">
+			<function name="delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
 		<action name="load_group" all_args="1">
 			<function name="load_group">
 				<arguments>

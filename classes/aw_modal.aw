@@ -177,6 +177,12 @@ class aw_modal implements orb_public_interface {
 				"data" => array("dismiss" => "modal"),
 				"caption" => t("Katkesta"),
 			)),
+			html::href(array(
+				"url" => "javascript:void(0)",
+				"class" => "btn btn-danger",
+				"data" => array("click-action" => "delete close"),
+				"caption" => t("Kustuta"),
+			)),
 		);
 	}
 	
@@ -304,6 +310,19 @@ class aw_modal implements orb_public_interface {
 		$json = $object->json();
 		
 		automatweb::$result->set_data($json);
+		automatweb::$instance->http_exit();
+	}
+	
+	/**
+		@attrib api=1
+		@param id required type=oid
+	**/
+	public function delete($arr = array()) {
+		if (!empty($arr["id"]) && object_loader::can("", $arr["id"])) {
+			$object = obj($arr["id"]);
+			$object->delete();
+		}
+		
 		automatweb::$instance->http_exit();
 	}
 	

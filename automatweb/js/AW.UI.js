@@ -192,6 +192,28 @@ $.extend(window.AW, (function(){
 						}
 					});
 				};
+				self.delete = function (callbacks) {
+					$.ajax({
+						url: "/orb.aw",
+						type: "POST",
+						dataType: "json",
+						data: {
+							class: self.class,
+							action: "delete",
+							id: self.id()
+						},
+						success: function (data) {
+							if (callbacks && callbacks.success) callbacks.success(data);
+						},
+						error: function() {
+							alert("Andmete salvestamine ebaõnnestus!");
+							if (callbacks && callbacks.error) callbacks.error();
+						},
+						complete: function() {
+							if (callbacks && callbacks.complete) callbacks.complete();
+						}
+					});
+				}
 			}
 			
 			return {
@@ -1043,6 +1065,7 @@ $.extend(window.AW.UI, (function(){
 			var templates = {};
 			var counter = 0;
 			var modal = function (_model, _element, cfg) {
+				var self = this;
 				this.model = _model;
 				this.element = _element.filter(".modal");
 				this.element.on("hidden", function () {
@@ -1050,11 +1073,12 @@ $.extend(window.AW.UI, (function(){
 				});
 				ko.applyBindings(this.model, this.element[0]);
 				// Enabling callbacks
-				var callbacks = { save: [], close: [] };
+				var callbacks = { save: [], close: [], delete: [] };
 				this.on = function (eventType, callback) {
 					if (callbacks[eventType]) {
 						callbacks[eventType].push(callback);
 					}
+					return self;
 				};
 				this.close = (function(self){
 					return function() {
@@ -1064,12 +1088,12 @@ $.extend(window.AW.UI, (function(){
 						self.element.modal("hide");
 					};
 				})(this);
-				// Set up on save
 				(function(self){
 					self.element.on('click', '[data-dismiss=modal]', function () {
 						self.close();
 					});
 				})(this);
+				// Set up on save
 				(function(self){
 					self.element.on("click", ".modal-footer [data-click-action~='save']", function () {
 						var saveMethod = cfg.save ? cfg.save : self.model.save;
@@ -1085,6 +1109,31 @@ $.extend(window.AW.UI, (function(){
 									self.element.find(".modal-footer a, .modal-footer button").removeAttr('disabled');
 									for (var i in callbacks.save) {
 										callbacks.save[i](data);
+									}
+									if (close) {
+										self.close();
+									}
+								}
+							});
+						}
+					});
+				})(this);
+				// Set up on delete
+				(function(self){
+					self.element.on("click", ".modal-footer [data-click-action~='delete']", function () {
+						var deleteMethod = cfg.delete ? cfg.delete : self.model.delete;
+						var disabled = $(this).attr("disabled");
+						var close = $(this).is("[data-click-action~='close']");
+						if (typeof disabled === "undefined" || disabled === false) {
+							self.element.find(".modal-footer a, .modal-footer button").attr('disabled', 'disabled');
+							deleteMethod({
+								success: function (data) {
+									AW.UI.modal.alert("Objekt kustutatud!", "alert-success");
+								},
+								complete: function () {
+									self.element.find(".modal-footer a, .modal-footer button").removeAttr('disabled');
+									for (var i in callbacks.delete) {
+										callbacks.delete[i](self.model.id());
 									}
 									if (close) {
 										self.close();
@@ -1388,7 +1437,8 @@ $.extend(window.AW.UI, (function(){
 									callback && callback.complete && callback.complete();
 								}, false);
 							}
-						}).on('close', function () { fullCalendar.fullCalendar('unselect'); });
+						}).on('close', function () { fullCalendar.fullCalendar('unselect'); })
+						  .on('delete', function (id) { fullCalendar.fullCalendar('removeEvents', id); });
 					}
 					$.ajax({
 						url: "/automatweb/orb.aw?class=planner&action=get_events",
