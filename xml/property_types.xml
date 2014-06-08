@@ -149,6 +149,7 @@
 			<autocomplete_class_id />
 			<disabled />
 			<placeholder />
+			<class />
 		</textbox>
 
 		<table>

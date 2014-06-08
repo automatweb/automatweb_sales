@@ -5,6 +5,7 @@
             <group>general</group>
             <type>textbox</type>
             <update>instant</update>
+            <class>input-xxlarge</class>
             <field>name</field>
             <caption>Kohtumise teema</caption>
       </property>

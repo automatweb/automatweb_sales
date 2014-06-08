@@ -28,7 +28,7 @@ if (!function_exists("parse_modal_property")) {
 				
 			case "textbox":
 			?>
-				<input type="text" id="{VAR:prefix}<?php echo $property["id"]; ?>" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?> placeholder="<?php echo isset($property["placeholder"]) ? $property["placeholder"] : ""; ?>" />
+				<input type="text" id="{VAR:prefix}<?php echo $property["id"]; ?>" <?php echo aw_modal::implode_data_fields(ifset($property, "data")); ?> placeholder="<?php echo isset($property["placeholder"]) ? $property["placeholder"] : ""; ?>" <?php echo isset($property["class"]) ? "class=\"{$property["class"]}\"" : ""; ?>" />
 			<?php
 				break;
 			

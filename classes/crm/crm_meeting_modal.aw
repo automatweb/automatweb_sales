@@ -4,7 +4,7 @@
 @groupinfo general caption="&Uuml;ldandmed" icon="/automatweb/images/icons/32/1808.png"
 @default group=general
 
-	@property name type=textbox update=instant
+	@property name type=textbox update=instant class=input-xxlarge
 	@caption Kohtumise teema
 	
 	@layout timespan type=horizontal captionside=left width=6:6
