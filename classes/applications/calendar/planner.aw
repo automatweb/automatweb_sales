@@ -32,10 +32,10 @@ EMIT_MESSAGE(MSG_MEETING_DELETE_PARTICIPANTS);
 
 @default group=time_settings
 
-	@property day_start type=time_select rel=1
+	@property day_start type=timepicker
 	@caption P&auml;ev algab
 
-	@property day_end type=time_select rel=1
+	@property day_end type=timepicker
 	@caption P&auml;ev l&otilde;peb
 
 	@property minute_step type=select
@@ -231,16 +231,6 @@ class planner extends class_base
 
 	// list all clids, that should be shown by default
 	private $default_entry_classes = array(CL_TASK, CL_CRM_CALL, CL_CRM_MEETING, CL_RESERVATION);
-
-	private $default_day_start = array(
-		"hour" => 9,
-		"minute" => 0
-	);
-
-	private $default_day_end = array(
-		"hour" => 17,
-		"minute" => 0
-	);
 
 	function planner($args = array())
 	{
@@ -1439,8 +1429,10 @@ class planner extends class_base
 	function gen_calendar_contents($arr)
 	{
 		if (aw_template::bootstrap()) {
+			$day_start = timepicker::get_time($arr["obj_inst"]->day_start);
+			$day_end = timepicker::get_time($arr["obj_inst"]->day_end);
 			$arr["prop"]["type"] = "text";
-			$arr["prop"]["value"] = "<div id=\"myScheduler\" data-calendar-id=\"{$arr["obj_inst"]->id}\"></div>";
+			$arr["prop"]["value"] = "<div id=\"myScheduler\" data-calendar-id=\"{$arr["obj_inst"]->id}\" data-calendar-day-start=\"{$day_start}\" data-calendar-day-end=\"{$day_end}\"></div>";
 			return;
 		}
 		$wds = safe_array($arr["obj_inst"]->prop("workdays"));
@@ -1704,16 +1696,6 @@ class planner extends class_base
 		$day_start = $arr["obj_inst"]->prop("day_start");
 		$day_end = $arr["obj_inst"]->prop("day_end");
 
-		if (!is_array($day_start))
-		{
-			$day_start = $this->default_day_start;
-		};
-
-		if (!is_array($day_end))
-		{
-			$day_end = $this->default_day_end;
-		};
-
 		$real_day_start = ($day_start["hour"] * 3600) + ($day_start["minute"] * 60);
 		$real_day_end = ($day_end["hour"] * 3600) + ($day_end["minute"] * 60);
 
@@ -1842,16 +1824,6 @@ class planner extends class_base
 		$obj = new object($arr["id"]);
 		$day_start = $obj->prop("day_start");
 		$day_end = $obj->prop("day_end");
-
-		if (!is_array($day_start))
-		{
-			$day_start = $this->default_day_start;
-		};
-
-		if (!is_array($day_end))
-		{
-			$day_end = $this->default_day_end;
-		};
 
 		$span = $this->span_length;
 

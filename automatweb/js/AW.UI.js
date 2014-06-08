@@ -1422,11 +1422,11 @@ $.extend(window.AW.UI, (function(){
 			var fullCalendar;
 			
 			return {
-				initialize: function(id) {
-					if ($("#" + id).size() === 0) {
+				initialize: function($el) {
+					if ($el.size() === 0) {
 						return;
 					}
-					calendarID = $("#" + id).data("calendar-id");
+					calendarID = $el.data("calendar-id");
 					function showModal (data) {
 						eventDetails = new AW.viewModel.crm_meeting(data);
 						var modal = AW.UI.modal.open(eventDetails, {
@@ -1450,7 +1450,7 @@ $.extend(window.AW.UI, (function(){
 								events[i].end = $.fullCalendar.moment(1000 * events[i].end);
 								events[i].title = events[i].name;
 							}
-							fullCalendar = $("#" + id).fullCalendar({
+							fullCalendar = $el.fullCalendar({
 								header: {
 									left: 'today, prev, next, title',
 									center: '',
@@ -1510,13 +1510,13 @@ $.extend(window.AW.UI, (function(){
 										participants: event.participants,
 										start1: event.start.format('X') });
 								},
-								minTime: '08:00:00',
-								maxTime: '18:00:00',
+								minTime: $el.data("calendar-day-start"),
+								maxTime: $el.data("calendar-end-start"),
 								timezone: 'local',
 								events: events
 							});
 							// Hack buttons to look like Twitter Bootstrap buttons
-							var fc_header_right = $("#" + id).find(".fc-header-right");
+							var fc_header_right = $el.find(".fc-header-right");
 							fc_header_right.find(".fc-header-space, .fc-button").remove();
 							var buttons = $('<div class="btn-group"></div>');
 							var day = $('<button type="button" class="btn">Päev</button>').on('click', function () { fullCalendar.fullCalendar( 'changeView', 'agendaDay' ); });
@@ -1524,7 +1524,7 @@ $.extend(window.AW.UI, (function(){
 							var month = $('<button type="button" class="btn">Kuu</button>').on('click', function () { fullCalendar.fullCalendar( 'changeView', 'month' ); });
 							fc_header_right.append(buttons.append(day).append(week).append(month));
 							
-							var fc_header_left = $("#" + id).find(".fc-header-left");
+							var fc_header_left = $el.find(".fc-header-left");
 							fc_header_left.find(".fc-header-space, .fc-button").remove();
 							var today = $('<button type="button" class="btn">Täna</button>').on('click', function () { fullCalendar.fullCalendar( 'today' ); });
 							var prevNext = $('<div class="btn-group"></div>');
@@ -1591,4 +1591,4 @@ $.extend(window.AW.UI, (function(){
 })());
 $("*").on("click", "[data-toggle='layout']", AW.UI.layout.toggle);
 $("*").on("click", "[data-toggle='sublayout']", AW.UI.sublayout.toggle);
-$(document).ready(function(){ AW.UI.calendar.initialize("myScheduler"); });
+$(document).ready(function(){ $("[data-calendar-id]").each(function (i, el) { AW.UI.calendar.initialize($(el)); }); } );

@@ -66,7 +66,7 @@ ko.bindingHandlers.datetimepicker = {
 			$time_div = $('<div class="input-append"></div>'),
 			$date_input = $('<input data-format="dd/MM/yyyy" class="input-small" type="text"></input>'),
 			$time_input = $('<input data-format="hh:mm" class="input-small" type="text"></input>');
-		
+			
 		if (options.pickDate != false) {
 			$date_div.append($date_input);
 			$date_div.append('<span class="add-on" style="margin-right: 5px;"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>');
@@ -123,10 +123,20 @@ ko.bindingHandlers.datetimepicker = {
 			$date_div = $(element).find("input[data-format='dd/MM/yyyy']").parent(),
 			$time_div = $(element).find("input[data-format='hh:mm']").parent();
 		if (value) {
-			var datetime = AW.util.formatTimestamp(value, "/");
-			options.pickDate != false && $date_div.datetimepicker('setValue', datetime.substr(0, 10));
-			// TODO: Handle the case where there is no date!
-			options.pickTime != false && $time_div.datetimepicker('setValue', datetime.substr(11, 5));
+			if (isNaN(value)) {
+			options.pickTime != $time_div.datetimepicker('setValue', value);
+			} else {
+				var datetime = AW.util.formatTimestamp(value, "/");
+				options.pickDate != false && $date_div.datetimepicker('setValue', datetime.substr(0, 10));
+				options.pickTime != false && $time_div.datetimepicker('setValue', datetime.substr(11, 5));
+			}
+		} else {
+			options.pickDate != false && $date_div.datetimepicker('setValue', null);
+			if (options.pickTime != false) {
+				console.log("Huh?");
+				$time_div.val('');
+				$time_div.change();
+			}
 		}
     }
 };

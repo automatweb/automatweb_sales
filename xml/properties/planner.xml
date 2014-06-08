@@ -55,8 +55,7 @@
             <group>time_settings</group>
             <field>meta</field>
             <method>serialize</method>
-            <type>time_select</type>
-            <rel>1</rel>
+            <type>timepicker</type>
             <caption>P&amp;amp;auml;ev algab</caption>
       </property>
       <property>
@@ -65,8 +64,7 @@
             <group>time_settings</group>
             <field>meta</field>
             <method>serialize</method>
-            <type>time_select</type>
-            <rel>1</rel>
+            <type>timepicker</type>
             <caption>P&amp;amp;auml;ev l&amp;amp;otilde;peb</caption>
       </property>
       <property>
