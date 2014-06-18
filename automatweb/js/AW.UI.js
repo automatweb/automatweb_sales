@@ -1417,7 +1417,6 @@ $.extend(window.AW.UI, (function(){
 		})(),
 		calendar: (function(){
 			var calendarID;
-			var map = {};
 			var eventDetails;
 			var fullCalendar;
 			
@@ -1550,7 +1549,6 @@ $.extend(window.AW.UI, (function(){
 						data: { id: calendarID, data: itemData },
 						dataType: "json",
 						success: function (data) {
-							map[itemData.clientId] = data.id;
 							var updated = false;
 							$.each(fullCalendar.fullCalendar('clientEvents', data.id), function (i, event) {
 								event.start = $.fullCalendar.moment(1000 * data.start1);
