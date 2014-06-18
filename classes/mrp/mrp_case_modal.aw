@@ -24,9 +24,9 @@
 	@property components_table type=table
 	@caption Tellimuse sisu
 
-	@property components_new type=hidden
+	#property components_new type=hidden
 	
-	@property components_new_name type=hidden
+	#property components_new_name type=hidden
 
 @groupinfo preview caption="Eelvaade" icon="/automatweb/images/icons/32/1009.png" load=on_demand
 @default group=preview
@@ -81,7 +81,7 @@
 class mrp_case_modal extends aw_modal {
 	
 	protected function get_title() {
-		$name = html::span(array("data" => array("bind" => "text: order().name() ? order().name : 'UUS'")));
+		$name = html::span(array("data" => array("bind" => "text: name() ? name : 'UUS'")));
 		return $name . "&nbsp;|&nbsp;TELLIMUS";
 	}
 	
@@ -90,19 +90,19 @@ class mrp_case_modal extends aw_modal {
 	}
 	
 	protected function _get_seller(&$property) {
-		$property["data"] = array("bind" => "value: order().seller");
+		$property["data"] = array("bind" => "value: seller");
 	}
 	
 	protected function _get_customer(&$property) {
-		$property["data"] = array("bind" => "value: order().customer");
+		$property["data"] = array("bind" => "value: customer");
 	}
 	
 	protected function _get_name(&$property) {
-		$property["data"] = array("bind" => "value: order().name, valueUpdate: 'afterkeydown'");
+		$property["data"] = array("bind" => "value: name, valueUpdate: 'afterkeydown'");
 	}
 	
 	protected function _get_comment(&$property) {
-		$property["data"] = array("bind" => "value: order().comment, valueUpdate: 'afterkeydown'");
+		$property["data"] = array("bind" => "value: comment, valueUpdate: 'afterkeydown'");
 	}
 	
 	protected function _get_components_table(&$property) {
@@ -123,7 +123,7 @@ class mrp_case_modal extends aw_modal {
 				)
 			),
 			"content" => array(
-				"data" => array("bind" => "foreach: order().rows"),
+				"data" => array("bind" => "foreach: rows"),
 				"data-row" => array("bind" => "attr: { 'data-id': id }"),
 				"fields" => array(
 					"details" => array("data" => array("bind" => "text: name")),
@@ -173,7 +173,7 @@ class mrp_case_modal extends aw_modal {
 							"placeholder" => t("Kogus"),
 						)),
 						"unit" => html::select(array(
-							"data" => array("bind" => "options: \$root.order().availableUnits, optionsText: 'name', value: unit"),
+							"data" => array("bind" => "options: \$root.availableUnits, optionsText: 'name', value: unit"),
 							"class" => "input-mini",
 						)),
 						"price" => html::textbox(array(
@@ -197,7 +197,7 @@ class mrp_case_modal extends aw_modal {
 					"details" => html::bold(t("SUMMA:")),
 					"total" => array(
 						"align" => "right",
-						"value" => html::span(array("data" => array("bind" => "text: order().total().toFixed(2)"))),
+						"value" => html::span(array("data" => array("bind" => "text: total().toFixed(2)"))),
 					),
 				)
 			),

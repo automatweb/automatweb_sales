@@ -33,6 +33,7 @@ $.extend(window.AW, (function(){
 			document: 7,
 			mini_gallery: 318,
 			crm_meeting: 224,
+			mrp_case: 828,
 			openhours: 1014
 		},
 		toJS: toJS,
@@ -843,7 +844,7 @@ $.extend(window.AW, (function(){
 //					self.class_id = AW.CLID.___;
 					this.price_components = ko.observable({});
 					for (var key in _data.price_components) {
-						this.price_components()[key] = new AW.viewModel.price_pomponent(_data.price_components[key]);
+						this.price_components()[key] = new AW.viewModel.price_component(_data.price_components[key]);
 					}
 					self.total = ko.computed(function(){
 						var total = this.price() * this.quantity();
@@ -879,8 +880,8 @@ $.extend(window.AW, (function(){
 					var self = this;
 					var properties = ["seller", "customer", "total"];
 					vmCore.call(self, _data, properties);
-//					self.class = "XXX_modal";
-//					self.class_id = AW.CLID.___;
+					self.class = "mrp_case_modal";
+					self.class_id = AW.CLID.mrp_case;
 					self.availableUnits = ko.observableArray();
 					if (_data && _data.availableUnits) {
 						for (var i in _data.availableUnits) {
@@ -1151,6 +1152,7 @@ $.extend(window.AW.UI, (function(){
 			};
 			return {
 				open: function (viewModel, cfg) {
+					console.log(viewModel);
 					var defaultCfg = { width: 1100, height: 450 };
 					if (templates[viewModel.class] === undefined) {
 						throw "ERROR: No template for modal of class '" + viewModel.class + "' is loaded!";

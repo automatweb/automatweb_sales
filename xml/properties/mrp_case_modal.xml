@@ -36,18 +36,6 @@
             <field>components_table</field>
             <caption>Tellimuse sisu</caption>
       </property>
-      <property>
-            <name>components_new</name>
-            <group>components</group>
-            <type>hidden</type>
-            <field>components_new</field>
-      </property>
-      <property>
-            <name>components_new_name</name>
-            <group>components</group>
-            <type>hidden</type>
-            <field>components_new_name</field>
-      </property>
       <groupinfo>
             <general>
                   <caption>&amp;amp;Uuml;ldandmed</caption>

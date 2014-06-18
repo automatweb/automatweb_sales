@@ -55,13 +55,7 @@ YUI().use("node", function(Y) {
 			modal_preload_callbacks.push(callback);
 		}
 		
-		var vmView = function() {
-			var self = this;
-			self.order = ko.observable(new AW.viewModel.order());
-			self.removed = ko.observableArray();
-		};
-		
-		var view = new vmView();
+		var view;
 	
 		return {
 			reset_search: function() {
@@ -124,11 +118,10 @@ YUI().use("node", function(Y) {
 			},
 			open_order_modal: function(order_id) {
 				$.please_wait_window.show();
-				var order_data = {};
-				var open_modal = function() {
+				var open_modal = function (order_data) {
 					on_modal_preload_complete(function() {
 						$.please_wait_window.hide();
-						view.order(new AW.viewModel.order(order_data));
+						view = new AW.viewModel.order(order_data);
 						AW.UI.modal.open(view).element.data("id", order_id);
 					});
 				};
@@ -138,9 +131,8 @@ YUI().use("node", function(Y) {
 						url: "/automatweb/orb.aw?class=mrp_case_modal&action=get_data",
 						dataType: "json",
 						data: { oid: order_id },
-						success: function(_data) {
-							order_data = _data;
-							open_modal();
+						success: function(data) {
+							open_modal(data);
 						},
 						error: function() {
 							$.please_wait_window.hide();
@@ -148,11 +140,11 @@ YUI().use("node", function(Y) {
 						}
 					});
 				} else {
-					open_modal();
+					open_modal({});
 				}
 			},
 			save_order: function(post_save_callback) {
-				var order = ko.toJS(view.order);
+				var order = ko.toJS(view);
 				var expanded = [];
 				$("#components_table tbody tr:not([data-expandable=true])").each(function (index, row) {
 					row = $(row);
@@ -172,10 +164,10 @@ YUI().use("node", function(Y) {
 					data: {
 						class_id: 828,
 						data: order,
-						removed: ko.toJS(view.removed)
+						removed: ko.toJS(view.deleted)
 					},
 					success: function(_data) {
-						view.order(new AW.viewModel.order(_data));
+						view.load(_data);
 						for (var i in expanded) {
 							$("tr[data-id=" + expanded[i] + "] .expander").click();
 						}
@@ -192,7 +184,7 @@ YUI().use("node", function(Y) {
 			add_article: function(id, item) {
 				var article_id = item ? item.id : $("#components_new").val();
 				var article_name = item ? item.name : $("#components_new_name").val();
-				var rows = view.order().rows();
+				var rows = view.rows();
 				for (var i in rows) {
 					if (rows[i].id() == id) {
 						rows[i].article({ id: article_id, name: article_name });
