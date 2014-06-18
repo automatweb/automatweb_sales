@@ -1431,10 +1431,11 @@ $.extend(window.AW.UI, (function(){
 						var modal = AW.UI.modal.open(eventDetails, {
 							save: function (callback) {
 								var data = eventDetails.toJS();
-								AW.UI.calendar.saveEvent(data, function () {
+								AW.UI.calendar.saveEvent(data, function (data) {
+									eventDetails.load(data);
 									callback && callback.success && callback.success();
 									callback && callback.complete && callback.complete();
-								}, false);
+								});
 							}
 						}).on('close', function () { fullCalendar.fullCalendar('unselect'); })
 						  .on('delete', function (id) { fullCalendar.fullCalendar('removeEvents', id); });
@@ -1542,7 +1543,8 @@ $.extend(window.AW.UI, (function(){
 					AW.UI.modal_search.load("modal_search_employee");
 					AW.UI.modal_search.load("modal_search_customer_employee");
 				},
-				saveEvent: function (itemData, callback, updateUI) {
+				saveEvent: function (itemData, callback) {
+					console.log("itemData", itemData);
 					$.ajax({
 						url: "/automatweb/orb.aw?class=planner&action=save_event",
 						type: "POST",
@@ -1550,7 +1552,9 @@ $.extend(window.AW.UI, (function(){
 						dataType: "json",
 						success: function (data) {
 							var updated = false;
-							$.each(fullCalendar.fullCalendar('clientEvents', data.id), function (i, event) {
+							$.each(fullCalendar.fullCalendar('clientEvents', itemData.id), function (i, event) {
+								console.log("event", event);
+								event.id = data.id;
 								event.start = $.fullCalendar.moment(1000 * data.start1);
 								event.end = $.fullCalendar.moment(1000 * data.end);
 								event.title = data.name;
@@ -1564,15 +1568,16 @@ $.extend(window.AW.UI, (function(){
 								updated = true;
 							});
 							if (!updated) {
-								var event = data;
+								var event = jQuery.extend({}, data);
 								event.start = $.fullCalendar.moment(1000 * data.start1);
 								event.end = $.fullCalendar.moment(1000 * data.end);
 								event.title = data.name;
-								
+									
 								fullCalendar.fullCalendar('addEventSource', [event]);
 							}
 							if (callback) {
-								callback();
+								console.log("callback", data);
+								callback(data);
 							}
 						}
 					});
