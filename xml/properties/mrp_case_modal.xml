@@ -29,6 +29,13 @@
             <caption>Ostja</caption>
       </property>
       <property>
+            <name>components_toolbar</name>
+            <group>components</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <field>components_toolbar</field>
+      </property>
+      <property>
             <name>components_table</name>
             <group>components</group>
             <type>table</type>

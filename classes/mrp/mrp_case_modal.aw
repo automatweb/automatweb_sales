@@ -21,6 +21,8 @@
 @groupinfo components caption="Komponendid" icon="/automatweb/images/icons/32/289.png"
 @default group=components
 
+	@property components_toolbar type=toolbar
+
 	@property components_table type=table
 	@caption Tellimuse sisu
 
@@ -85,10 +87,6 @@ class mrp_case_modal extends aw_modal {
 		return $name . "&nbsp;|&nbsp;TELLIMUS";
 	}
 	
-	protected function get_save_method() {
-		return "AW.UI.order_management.save_order";
-	}
-	
 	protected function _get_seller(&$property) {
 		$property["data"] = array("bind" => "value: seller");
 	}
@@ -103,6 +101,18 @@ class mrp_case_modal extends aw_modal {
 	
 	protected function _get_comment(&$property) {
 		$property["data"] = array("bind" => "value: comment, valueUpdate: 'afterkeydown'");
+	}
+	
+	protected function _get_components_toolbar(&$property) {
+		// FIXME: Make a separate class for new toolbar!
+		$property["buttons"] = array(
+			html::href(array(
+				"url" => "javascript:void(0)",
+				"class" => "btn",
+				"data" => array("bind" => "click: addRow"),
+				"caption" => html::italic("", "icon-plus")." ".t("Lisa komponent"),
+			)),
+		);
 	}
 	
 	protected function _get_components_table(&$property) {
@@ -130,8 +140,8 @@ class mrp_case_modal extends aw_modal {
 					"article" => array("data" => array("bind" => "text: article().name")),
 					"quantity" => array("align" => "right", "data" => array("bind" => "text: quantity")),
 					"unit" => array("data" => array("bind" => "text: unit() ? unit().name : ''")),
-					"price" => array("align" => "right", "data" => array("bind" => "text: price().toFixed(2)")),
-					"total" => array("align" => "right", "data" => array("bind" => "text: total().toFixed(2)")),
+					"price" => array("align" => "right", "data" => array("bind" => "text: price() ? price().toFixed(2) : ''")),
+					"total" => array("align" => "right", "data" => array("bind" => "text: total() ? total().toFixed(2) : ''")),
 				),
 				"expandable" => true,
 				"expandable_rows" => array(
@@ -211,13 +221,15 @@ class mrp_case_modal extends aw_modal {
 	protected function _set_rows($order, $rows) {
 		foreach ($rows as $row)
 		{
-			$job = obj($row["id"], mrp_job_obj::CLID);
+			$job = object_loader::can("", $row["id"]) ? obj($row["id"], array(), mrp_job_obj::CLID) : $order->add_job();
+			
 			unset($row["id"]);
 			foreach ($row as $key => $value) {
 				if ($key === "price_components") {
 					$job->set_meta("price_components", $value);
 				} elseif ($key === "article" || $key === "unit") {
 					$value = isset($value["id"]) ? $value["id"] : null;
+					$job->set_prop($key, $value);
 				} elseif ($key === "ord") {
 					$job->set_ord($value);
 				} elseif ($key === "name") {

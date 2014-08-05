@@ -142,44 +142,6 @@ YUI().use("node", function(Y) {
 					open_modal({});
 				}
 			},
-			save_order: function(post_save_callback) {
-				var order = ko.toJS(view);
-				var expanded = [];
-				$("#components_table tbody tr:not([data-expandable=true])").each(function (index, row) {
-					row = $(row);
-					for (var i in order.rows) {
-						if (order.rows[i].id == row.data("id")) {		
-							order.rows[i].ord = row.index();
-						}
-					}
-					if (row.next().is(":visible")) {
-						expanded.push(row.data("id"));
-					}
-				});
-				$.ajax({
-					url: "/automatweb/orb.aw?class=mrp_case_modal&action=save",
-					type: "POST",
-					dataType: "json",
-					data: {
-						class_id: 828,
-						data: order,
-						removed: ko.toJS(view.deleted)
-					},
-					success: function(_data) {
-						view.load(_data);
-						for (var i in expanded) {
-							$("tr[data-id=" + expanded[i] + "] .expander").click();
-						}
-					},
-					error: function() {
-						alert("Salvestamine ebaõnnestus!");
-					},
-					complete: function() {
-						$.please_wait_window.hide();
-						post_save_callback();
-					}
-				});
-			},
 			add_article: function(id, item) {
 				var article_id = item ? item.id : $("#components_new").val();
 				var article_name = item ? item.name : $("#components_new_name").val();

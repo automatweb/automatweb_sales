@@ -110,7 +110,8 @@ $.extend(window.AW, (function(){
 				self.id = ko.observable(data && data.id ? data.id : newId());
 				self.load = function (newData) {
 					for (var i in newData) {
-						if (self[i]) self[i](newData[i]);
+						if (self["__load_" + i]) self["__load_" + i](newData[i]);
+						else if (self[i]) self[i](newData[i]);
 					}
 				};
 				self.reload = function (keys, callbacks) {
@@ -126,7 +127,8 @@ $.extend(window.AW, (function(){
 						dataType: "json",
 						success: function (data) {
 							for (var i in keys) {
-								if (self[keys[i]]) self[keys[i]](data[keys[i]]);
+								if (self["__load_" + keys[i]]) self["__load_" + keys[i]](data[keys[i]]);
+								else if (self[keys[i]]) self[keys[i]](data[keys[i]]);
 							}
 							if (callbacks && callbacks.success) callbacks.success.call();
 						},
@@ -838,16 +840,18 @@ $.extend(window.AW, (function(){
 				},
 				order_row: function(_data) {
 					var self = this;
-					var properties = ["title", "article", "article_name", "description", "price", "quantity", "unit"];
+					var properties = ["title", "article", "description", "price", "quantity", "unit"];
 					vmCore.call(self, _data, properties);
 //					self.class = "XXX_modal";
 //					self.class_id = AW.CLID.___;
 					this.price_components = ko.observable({});
-					for (var key in _data.price_components) {
-						this.price_components()[key] = new AW.viewModel.price_component(_data.price_components[key]);
+					if (_data && _data.price_components) {
+						for (var key in _data.price_components) {
+							this.price_components()[key] = new AW.viewModel.price_component(_data.price_components[key]);
+						}
 					}
 					self.total = ko.computed(function(){
-						var total = this.price() * this.quantity();
+						var total = (this.price() || 0) * (this.quantity() || 0);
 						var vat = 0;
 						for (var i in this.price_components()) {
 							if (!this.price_components()[i].applied()) {
@@ -871,6 +875,7 @@ $.extend(window.AW, (function(){
 						if (!event) { return; }
 						AW.UI.modal_search.open("modal_search_shop", { defaultSource: 751743, onSelect: function (item) {
 							if (item) {
+								// FIXME: Bring AW.UI.order_management.add_article into AW.UI ?
 								AW.UI.order_management.add_article(orderRow.id(), item);
 							}
 						} });
@@ -878,7 +883,7 @@ $.extend(window.AW, (function(){
 				},
 				order: function(_data) {
 					var self = this;
-					var properties = ["seller", "customer", "total"];
+					var properties = ["seller", "customer", "rows", "total"];
 					vmCore.call(self, _data, properties);
 					self.class = "mrp_case_modal";
 					self.class_id = AW.CLID.mrp_case;
@@ -889,19 +894,31 @@ $.extend(window.AW, (function(){
 						}
 					}
 					self.rows = ko.observableArray();
-					if (_data && _data.rows) {
-						for (var i in _data.rows) {
+					self.__load_rows = function (rows) {
+						self.rows.removeAll();
+						for (var i in rows) {
 							for (var j in self.availableUnits()) {
-								if (_data.rows[i].unit && _data.rows[i].unit.id == self.availableUnits()[j].id) {
-									_data.rows[i].unit = self.availableUnits()[j];
+								if (rows[i].unit && rows[i].unit.id == self.availableUnits()[j].id) {
+									rows[i].unit = self.availableUnits()[j];
 								}
 							}
-							self.rows.push(new AW.viewModel.order_row(_data.rows[i]));
+							self.rows.push(new AW.viewModel.order_row(rows[i]));
 						}
-					}
+					};
+					if (_data && _data.rows) self.__load_rows(_data.rows);
+					self.addRow = function(order, event) {
+						if (!event) { return; }
+						AW.UI.modal_search.open("modal_search_shop", { defaultSource: 751743, onSelect: function (item) {
+							if (item) {
+								console.log(item);
+								self.rows.push(new AW.viewModel.order_row({ name: item.name, article: item, quantity: 1 }));
+							}
+						} });
+					};
 					self.total = ko.computed(function(){
 						var total = 0;
 						for (var i in this.rows()) {
+							console.log(this.rows()[i]);
 							total += this.rows()[i].total();
 						}
 						return total;
