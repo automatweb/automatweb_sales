@@ -908,11 +908,8 @@ $.extend(window.AW, (function(){
 					if (_data && _data.rows) self.__load_rows(_data.rows);
 					self.addRow = function(order, event) {
 						if (!event) { return; }
-						AW.UI.modal_search.open("modal_search_shop", { defaultSource: 751743, onSelect: function (item) {
-							if (item) {
-								console.log(item);
-								self.rows.push(new AW.viewModel.order_row({ name: item.name, article: item, quantity: 1 }));
-							}
+						AW.UI.modal_search.open("modal_search_shop", { multiple:true, defaultSource: 751743, onSelect: function (items) {
+							$.map(items, function (item) { self.rows.push(new AW.viewModel.order_row({ name: item.name, article: item, quantity: 1 })); });
 						} });
 					};
 					self.total = ko.computed(function(){
