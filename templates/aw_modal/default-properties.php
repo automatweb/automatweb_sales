@@ -95,7 +95,7 @@ if (!function_exists("parse_modal_property")) {
 	}
 }
 ?>
-<div <?php if (!empty($horizontal)) { echo 'class="form-horizontal"'; } ?> data-dummy="jj">
+<div <?php if (!empty($horizontal)) { echo 'class="form-horizontal"'; } ?>>
 	<?php foreach ($properties as $property) { ?>
 		<?php if ($property["type"] === "hidden" || $property["type"] === "table" || !empty($property["no_caption"])) { ?>
 			<?php echo parse_modal_property($property); ?>
