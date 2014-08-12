@@ -7,7 +7,7 @@
 	@property name type=textbox update=instant class=input-xxlarge
 	@caption Kohtumise teema
 	
-	@layout timespan type=horizontal captionside=left width=6:6
+	@layout timespan type=horizontal captionside=left width=425px:425px
 
 		@property start1 type=datetimepicker parent=timespan
 		@caption Algus
@@ -59,6 +59,7 @@ class crm_meeting_modal extends aw_modal {
 	}
 	
 	protected function _get_end(&$property) {
+		$property["styles"] = array("label" => "width: 40px", "controls" => "margin-left: 60px");
 		$property["data"] = array("bind" => "datetimepicker: end");
 	}
 	

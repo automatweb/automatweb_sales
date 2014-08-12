@@ -98,14 +98,14 @@ if (!function_exists("parse_modal_property")) {
 <div <?php if (!empty($horizontal)) { echo 'class="form-horizontal"'; } ?>>
 	<?php foreach ($properties as $property) { ?>
 		<?php if ($property["type"] === "hidden" || $property["type"] === "table" || !empty($property["no_caption"])) { ?>
-			<?php echo parse_modal_property($property); ?>
+			<?php parse_modal_property($property); ?>
 		<?php } else { ?>
 			<div class="control-group">
 				<?php if ($property["type"] !== "checkbox") { ?>
-					<label class="control-label" for="<?php echo $property["id"]; ?>"><?php echo (isset($property["caption"]) ? $property["caption"] : ""); ?></label>
+					<label class="control-label" for="<?php echo $property["id"]; ?>"  <?php echo (isset($property["styles"]["label"]) ? "style=\"{$property["styles"]["label"]}\"" : ""); ?>><?php echo (isset($property["caption"]) ? $property["caption"] : ""); ?></label>
 				<?php } ?>
-				<div class="controls">
-					<?php echo parse_modal_property($property); ?>
+				<div class="controls" <?php echo (isset($property["styles"]["controls"]) ? "style=\"{$property["styles"]["controls"]}\"" : ""); ?>>
+					<?php parse_modal_property($property); ?>
 				</div>
 			</div>
 		<?php } ?>

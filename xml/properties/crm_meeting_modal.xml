@@ -90,7 +90,7 @@
             <timespan>
                   <type>horizontal</type>
                   <captionside>left</captionside>
-                  <width>6:6</width>
+                  <width>425px:425px</width>
                   <group>general</group>
                   <area_caption></area_caption>
             </timespan>

@@ -65,7 +65,7 @@ ko.bindingHandlers.datetimepicker = {
 			$date_div = $('<div class="input-append"></div>'),
 			$time_div = $('<div class="input-append"></div>'),
 			$date_input = $('<input data-format="dd/MM/yyyy" class="input-small" type="text"></input>'),
-			$time_input = $('<input data-format="hh:mm" class="input-small" type="text"></input>');
+			$time_input = $('<input data-format="hh:mm" class="input-mini" type="text"></input>');
 			
 		if (options.pickDate != false) {
 			$date_div.append($date_input);
