@@ -18,14 +18,18 @@
 	padding-right: 15px;
 }
 </style>
-<div class="modal hide fade" style="display: none">
-	<div class="modal-header">
-	    <?php echo $header ?>
-	</div>
-	<div class="modal-body">
-		<?php echo $content ?>
-	</div>
-	<div class="modal-footer">
-		<?php echo $footer ?>
+<div class="modal fade" style="display: none">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<?php echo $header ?>
+			</div>
+			<div class="modal-body">
+				<?php echo $content ?>
+			</div>
+			<div class="modal-footer">
+				<?php echo $footer ?>
+			</div>
+		</div>
 	</div>
 </div>

@@ -12,6 +12,59 @@ class web_navigation_editor extends aw_modal {
 	}
 	
 	protected function _get_editor(&$property) {
+		$property["value"] = <<<SCRIPT
+		
+<div id="fancytree"></div>
+
+<link href="/js/jquery/fancytree-2.3.0/skin-bootstrap/ui.fancytree.min.css" rel="stylesheet" type="text/css">
+<script src="/js/jquery/fancytree-2.3.0/jquery.fancytree-all.js" type="text/javascript"></script>
+  
+<script type="text/javascript">
+$(document).ready(function(){
+	function treeFrom(folders) {
+		var tree = [];
+		folders.map(function(folder) {
+			var item = { title: folder.name, key: folder.id };
+			if (folder.children && folder.children.length) {
+				item.folder = true;
+				item.children = treeFrom(folder.children);
+			}
+			tree.push(item);
+		});
+		return tree;
+	}
+
+	$("#fancytree").fancytree({
+	  extensions: ["glyph"],
+	  source: treeFrom(aw_navigation_folders.PORTALS.children.concat(aw_navigation_folders.PAREM.children)),
+	  debugLevel: 2,
+	  glyph: {
+        map: {
+          doc: "glyphicon glyphicon-file",
+          docOpen: "glyphicon glyphicon-file",
+          checkbox: "glyphicon glyphicon-unchecked",
+          checkboxSelected: "glyphicon glyphicon-check",
+          checkboxUnknown: "glyphicon glyphicon-share",
+          error: "glyphicon glyphicon-warning-sign",
+          expanderClosed: "glyphicon glyphicon-plus-sign",
+          expanderLazy: "glyphicon glyphicon-plus-sign",
+          // expanderLazy: "glyphicon glyphicon-expand",
+          expanderOpen: "glyphicon glyphicon-minus-sign",
+          // expanderOpen: "glyphicon glyphicon-collapse-down",
+          folder: "glyphicon glyphicon-folder-close",
+          folderOpen: "glyphicon glyphicon-folder-open",
+          loading: "glyphicon glyphicon-refresh"
+          // loading: "icon-spinner icon-spin"
+        }
+      }
+	});
+});
+</script>
+		
+SCRIPT;
+	}
+	
+	protected function _get_editor_old(&$property) {
 		$statusOptions = str_replace("\"", "'", json_encode(object::get_status_names()));
 		$property["value"] = <<<SCRIPT
 		
@@ -33,7 +86,7 @@ ol.sortable li div.sortable-item {
 	margin: 0;
 }
 
-ol.sortable li div i.icon-move {
+ol.sortable li div span.glyphicon-move {
 	cursor: move;
 }
 ol.sortable .placeholder {
@@ -48,13 +101,13 @@ ol.sortable .placeholder {
 <script id="editor-nested-sortable" type="text/html">
 	<li data-bind="attr: { 'data-id': id }">
         <div class="sortable-item">
-			<i class="icon-move"></i>
-			<a href="#" onclick="if ($(this).children('i').hasClass('icon-chevron-down')) { $(this).siblings('div').slideDown(); $(this).children('i').removeClass('icon-chevron-down').addClass('icon-chevron-up'); } else { $(this).siblings('div').slideUp(); $(this).children('i').removeClass('icon-chevron-up').addClass('icon-chevron-down') }"><i class="icon-chevron-down"></i></a>
+			<span class="glyphicon glyphicon-move"></span>
+			<a href="#" onclick="if ($(this).children('i').hasClass('glyphicon-chevron-down')) { $(this).siblings('div').slideDown(); $(this).children('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up'); } else { $(this).siblings('div').slideUp(); $(this).children('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down') }"><span class="glyphicon glyphicon-chevron-down"></span></a>
 			<input type="text" data-bind="value: name, valueUpdate:'afterkeydown'" class="input-large" />
 			<span class="pull-right">
-				<a data-bind="click: remove" title="Kustuta" class="btn"><i class="icon-trash"></i></a>
-				<a data-bind="click: newSibling" title="Lisa naaberkaust" class="btn"><i class="icon-plus"></i></a>
-				<a data-bind="click: newChild" title="Lisa alamkaust" class="btn"><i class="icon-plus-sign"></i></a>
+				<a data-bind="click: remove" title="Kustuta" class="btn"><span class="glyphicon glyphicon-trash"></span></a>
+				<a data-bind="click: newSibling" title="Lisa naaberkaust" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
+				<a data-bind="click: newChild" title="Lisa alamkaust" class="btn"><span class="glyphicon glyphicon-plus-sign"></span></a>
 			</span>
 			<span class="pull-right" style="margin-top: 4px;" data-bind="chooser: status, chooserOptions: {$statusOptions}"></span>
 			<div style="display: none; margin-top: 5px;" class="row-fluid">

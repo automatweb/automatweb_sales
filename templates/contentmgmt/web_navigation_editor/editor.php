@@ -1,4 +1,4 @@
-<div class="modal hide fade" id="nav-editor">
+<div class="modal fade" id="nav-editor">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3>Kaustade nimekirja muutmine</h3>
